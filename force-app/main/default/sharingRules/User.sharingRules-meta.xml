@@ -22,7 +22,7 @@
             <roleAndSubordinates>PartnerInfo_National_RNP_Manager</roleAndSubordinates>
         </sharedTo>
         <sharedFrom>
-            <allInternalUsers/>
+            <allInternalUsers></allInternalUsers>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

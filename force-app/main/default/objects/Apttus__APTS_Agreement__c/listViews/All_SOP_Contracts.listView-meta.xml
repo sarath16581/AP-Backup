@@ -22,4 +22,5 @@
         <value>Apttus__APTS_Agreement__c.APT_SecurePay_Online_Payments</value>
     </filters>
     <label>All SOP Contracts</label>
+    <language>en_US</language>
 </ListView>

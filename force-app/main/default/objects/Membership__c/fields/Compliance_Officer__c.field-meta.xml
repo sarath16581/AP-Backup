@@ -2,7 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Compliance_Officer__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>The owner for the AUSTRAC/Western Union registraion</description>
+    <description>The owner for the AUSTRAC/Western Union registration
+This field is related to contact record of contact type Compliance Officer</description>
     <externalId>false</externalId>
     <label>Compliance Officer</label>
     <lookupFilter>

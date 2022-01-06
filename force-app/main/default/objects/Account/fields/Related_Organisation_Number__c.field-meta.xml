@@ -8,7 +8,6 @@
     <relationshipLabel>Related Organisation</relationshipLabel>
     <relationshipName>Organisations</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

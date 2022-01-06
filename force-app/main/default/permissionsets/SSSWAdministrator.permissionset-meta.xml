@@ -118,6 +118,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.HeldToOpenOn__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Internal_Milestones_Violated__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -624,6 +629,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>SSSWRouting__c.Queue_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>SSSWRouting__c.RuleRequiresArticleAttributes__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -13,7 +13,6 @@ HYPERLINK(&quot;https://&quot; &amp; MID( $Api.Enterprise_Server_URL_320, FIND(&
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Launch</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

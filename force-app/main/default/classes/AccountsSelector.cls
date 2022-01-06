@@ -90,9 +90,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Account.LEGACY_ID__c + ' in :accountNumbers')).endConditions();
 		return new Map<Id, Account>((List<Account>)Database.query(qb.toSoqlString()));
 	}
-
-	//  SELECT id ,name ,AccountNumber FROM Account WHERE (Name like '%1%' AND IsPersonAccount = false) ORDER BY Name LIMIT 10000
-			
+	
 	/**
      * @description Run a simple query to get records based on 
      */

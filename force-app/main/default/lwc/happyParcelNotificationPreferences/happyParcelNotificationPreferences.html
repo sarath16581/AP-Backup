@@ -50,9 +50,10 @@
 											<span class="slds-form-element__label slds-m-bottom_none slds-p-right_none"
 										        data-searchid={pref.searchString}>{pref.searchString}</span>
 												<template if:true={pref.foundByAPCN}>
-													<lightning-icon icon-name="utility:info" size="xx-small"
+													<!--<lightning-icon icon-name="utility:info" size="xx-small"
 													                title={higherHelpText} class="slds-m-horizontal_xx-small"
-													                style="position:relative;top:-1px;"></lightning-icon>
+													                style="position:relative;top:-1px;"></lightning-icon> -->
+														<lightning-helptext class="slds-m-horizontal_xx-small" content={pref.helpText}></lightning-helptext>
 												</template>
 											</td>
 											<td>
@@ -92,9 +93,10 @@
 											<span class="slds-form-element__label slds-m-bottom_none slds-p-right_none"
 										        data-searchid={pref.searchString}>{pref.searchString}</span>
 												<template if:true={pref.foundByAPCN}>
-													<lightning-icon icon-name="utility:info" size="xx-small"
+												<!--	<lightning-icon icon-name="utility:info" size="xx-small"
 													                title={lowerHelpText} class="slds-m-horizontal_xx-small"
-													                style="position:relative;top:-1px;"></lightning-icon>
+													                style="position:relative;top:-1px;"></lightning-icon> -->
+													<lightning-helptext class="slds-m-horizontal_xx-small" content={pref.helpText}></lightning-helptext>
 												</template>
 											</td>
 											<td>

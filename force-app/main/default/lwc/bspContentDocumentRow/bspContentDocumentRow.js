@@ -1,11 +1,3 @@
-/*
-* @author       : Jansi Rani. jansi.rani@auspost.com.au
-* @date         : 05/10/2020
-* @description  : Component for display a Content Document (File).
---------------------------------------- History --------------------------------------------------
-05.10.2020    Jansi Rani   Created
-25-11-2020    avula.jansirani@auspost.com.au       removed console.log lines
-*/
 import { LightningElement, api } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
 import retrieveBspCommunityURL from '@salesforce/apex/bspBaseUplift.retrieveCommunityURL';
@@ -33,7 +25,8 @@ export default class BspContentDocumentRow extends LightningElement {
             xhr.open('GET', url, true);
             xhr.responseType = 'blob';
             xhr.onload = function () {
-                 saveAs(xhr.response, 'report.zip');
+                console.log(xhr.response);
+                saveAs(xhr.response, 'report.zip');
             };
             xhr.send();
         }
@@ -44,7 +37,7 @@ export default class BspContentDocumentRow extends LightningElement {
         try {
             this.communityURL = await retrieveBspCommunityURL();
         } catch (er) {
-            //console.error(er)
+            console.error(er)
         }
     }
 

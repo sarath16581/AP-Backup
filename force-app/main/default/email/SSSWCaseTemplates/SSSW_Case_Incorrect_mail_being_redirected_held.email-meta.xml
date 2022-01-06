@@ -27,7 +27,7 @@ Date Issue Occured: {!Case.DateofIncident__c}
 Old Address: {!Case.Address1__c}
 New Address: {!Case.Address2__c}
 Thank you,
-Customer Sales &amp; Service
+Customer Services
 {!Case.EmailThreadID__c}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>

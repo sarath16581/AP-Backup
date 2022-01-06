@@ -5,7 +5,6 @@
     <label>Courier Business Account</label>
     <length>50</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

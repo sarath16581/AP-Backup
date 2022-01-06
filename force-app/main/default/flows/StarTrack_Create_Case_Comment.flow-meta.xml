@@ -49,7 +49,7 @@
         <inputAssignments>
             <field>Comment__c</field>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>

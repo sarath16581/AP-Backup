@@ -8,10 +8,10 @@
         <target>lightningCommunity__Page</target>
         <target>lightningCommunity__Default</target>
         <target>lightning__HomePage</target>
-    </targets>
+	</targets>
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
-            <property name="recordId" type="String"/>
+            <property name="recordId" type="String" ></property>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

@@ -6,7 +6,6 @@ It is used to display in the R2T Legal Agreement Courier Services template</desc
     <externalId>false</externalId>
     <label>Local Pickup Delivery Lodgement Points</label>
     <length>1000</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

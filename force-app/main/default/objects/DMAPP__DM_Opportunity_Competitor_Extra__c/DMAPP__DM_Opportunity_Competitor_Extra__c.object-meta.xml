@@ -164,7 +164,7 @@ This object is responsible for storing extra competitor information for each com
         <type>Text</type>
     </nameField>
     <pluralLabel>Opportunity Competitor Extras</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

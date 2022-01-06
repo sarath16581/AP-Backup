@@ -145,9 +145,6 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Apttus_QPConfig__Dimension1Value__c</fields>
-        <fields>Apttus_QPConfig__Dimension3Value__c</fields>
-        <fields>Apttus_QPConfig__AdjustmentAmount__c</fields>
-        <fields>Apttus_QPConfig__PriceOverride__c</fields>
         <relatedList>Apttus_QPConfig__ProposalUsagePriceTier__c.Apttus_QPConfig__LineItemId__c</relatedList>
     </relatedLists>
     <relatedLists>

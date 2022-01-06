@@ -5,6 +5,6 @@
     <label>SSSW Chat - Consumer International</label>
     <queue>SSSW_Chat_Consumer_International</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

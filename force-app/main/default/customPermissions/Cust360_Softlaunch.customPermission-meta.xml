@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Allow the Soft Launch users to access Customer 360 during the Soft Launch time period</description>
-    <isLicensed>false</isLicensed>
-    <label>Cust360 Softlaunch</label>
-</CustomPermission>

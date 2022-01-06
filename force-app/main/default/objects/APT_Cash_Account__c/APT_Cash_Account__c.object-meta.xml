@@ -152,7 +152,7 @@
     <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Cash Account Request</label>
     <nameField>
         <displayFormat>CashAccount{0000000}</displayFormat>
@@ -160,7 +160,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Cash Account Requests</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

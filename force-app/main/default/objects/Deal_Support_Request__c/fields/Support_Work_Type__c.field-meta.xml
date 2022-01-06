@@ -329,6 +329,11 @@
                 <label>Contract - IMP</label>
             </value>
             <value>
+                <fullName>Deal Processing</fullName>
+                <default>false</default>
+                <label>Contract Administration</label>
+            </value>
+            <value>
                 <fullName>Contract List</fullName>
                 <default>false</default>
                 <label>Contract List</label>
@@ -449,6 +454,11 @@
                 <label>Customised report</label>
             </value>
             <value>
+                <fullName>Renewals Management</fullName>
+                <default>false</default>
+                <label>Customised/Tailored</label>
+            </value>
+            <value>
                 <fullName>Damaged</fullName>
                 <default>false</default>
                 <label>Damaged</label>
@@ -467,16 +477,6 @@
                 <fullName>Date</fullName>
                 <default>false</default>
                 <label>Date</label>
-            </value>
-            <value>
-                <fullName>Deal Enablement Support</fullName>
-                <default>false</default>
-                <label>Express Onboarding</label>
-            </value>
-            <value>
-                <fullName>Deal Processing</fullName>
-                <default>false</default>
-                <label>Contract Administration</label>
             </value>
             <value>
                 <fullName>Decipha</fullName>
@@ -617,6 +617,11 @@
                 <fullName>Express AP</fullName>
                 <default>false</default>
                 <label>Express AP</label>
+            </value>
+            <value>
+                <fullName>Deal Enablement Support</fullName>
+                <default>false</default>
+                <label>Express Onboarding</label>
             </value>
             <value>
                 <fullName>Express StarTrack</fullName>
@@ -1262,11 +1267,6 @@
                 <fullName>Renewal</fullName>
                 <default>false</default>
                 <label>Renewal</label>
-            </value>
-            <value>
-                <fullName>Renewals Management</fullName>
-                <default>false</default>
-                <label>Customised/Tailored</label>
             </value>
             <value>
                 <fullName>Report Request</fullName>

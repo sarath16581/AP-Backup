@@ -113,11 +113,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>At_Risk_Business__c.Number_of_Meetings_in_Last_Quarter__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>At_Risk_Business__c.Number_of_Service_Issues_Current_FY__c</field>
         <readable>true</readable>
     </fieldPermissions>

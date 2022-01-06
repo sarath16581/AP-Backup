@@ -16,6 +16,6 @@
     </filters>
     <label>Qualified Leads</label>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

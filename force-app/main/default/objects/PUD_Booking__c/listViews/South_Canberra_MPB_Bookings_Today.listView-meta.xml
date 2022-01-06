@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>South_Canberra_MPB_Bookings_Today</fullName>
+    <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
     <columns>NAME</columns>
     <columns>Location__c</columns>
     <columns>Street__c</columns>
@@ -19,7 +20,7 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>greaterOrEqual</operation>
+        <operation>lessOrEqual</operation>
         <value>TODAY</value>
     </filters>
     <filters>
@@ -27,6 +28,15 @@
         <operation>startsWith</operation>
         <value>FYSHWICK</value>
     </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>2600,2603,2604,2605,2607,2609,2610,2611,2620,2900,2901,2902,2903</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>2904,2905,2906,2606,2619</value>
+    </filters>
     <label>South Canberra - MPB Bookings Today</label>
-    <language>en_US</language>
 </ListView>

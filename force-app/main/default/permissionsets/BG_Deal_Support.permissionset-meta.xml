@@ -7,17 +7,7 @@
     <description>Permission to for users who will be actioning Deal Support Requests in relation to Sales activities.</description>
     <fieldPermissions>
         <editable>false</editable>
-        <field>APT_Credit_Assessment__c.L2C_Assessment_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>APT_Credit_Assessment__c.Sales_Team_Segment__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>APT_Credit_Assessment__c.Total_Proposed_Credit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -821,6 +811,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Hidden_Automated_DSR__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Hidden_Bid_Quality_Score__c</field>
         <readable>true</readable>
@@ -1387,6 +1382,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Deal_Support_Request__c.Sales_Team_DEC__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Deal_Support_Request__c.Sales_Team_DG__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1468,6 +1468,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Sub_Accounts__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Submitted_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

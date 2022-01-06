@@ -18,14 +18,9 @@
         <value>stap</value>
     </filters>
     <filters>
-        <field>RECORDTYPE</field>
-        <operation>notEqual</operation>
-        <value>PUD_Booking__c.Other</value>
-    </filters>
-    <filters>
         <field>Effective_Date__c</field>
         <operation>equals</operation>
-        <value>TOMORROW</value>
+        <value>10/29/2021</value>
     </filters>
     <label>Staplyton Bookings - TOMORROW</label>
 </ListView>

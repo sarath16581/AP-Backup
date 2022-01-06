@@ -11,6 +11,6 @@
     <label>Product Queue</label>
     <queue>APT_Product_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

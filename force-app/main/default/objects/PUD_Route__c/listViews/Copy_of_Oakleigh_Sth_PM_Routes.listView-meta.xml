@@ -13,7 +13,7 @@
     <filters>
         <field>NAME</field>
         <operation>startsWith</operation>
-        <value>OS2,P,OS327,OS323,OS354,OS347</value>
+        <value>OS2,P,OS327,OS354,OS347</value>
     </filters>
     <label>Oakleigh Sth FT Routes</label>
     <sharedTo>

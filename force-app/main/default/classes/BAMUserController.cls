@@ -657,12 +657,12 @@ public with sharing class BAMUserController {
                 for (Id baId: removedBillingAccounts) {
                     BAMLinkedEntity__c updatedLinkedEntity = linkedEntityMapByConRoleAndBillingAccId.get(conRoleId + '_' + baId);
 
-                    // only mark a record as pending delete if it isn't already.
-                    if(!updatedLinkedEntity.Pending_Delete__c) {
-                        updatedLinkedEntity.Pending_Delete__c = true;
-                        updatedLinkedEntities.add(updatedLinkedEntity);
-                        appState.put('hasAccessChanges', true);
-                    }
+	                // only mark a record as pending delete if it isn't already.
+	                if(!updatedLinkedEntity.Pending_Delete__c) {
+		                updatedLinkedEntity.Pending_Delete__c = true;
+		                updatedLinkedEntities.add(updatedLinkedEntity);
+		                appState.put('hasAccessChanges', true);
+	                }
                 }
 
                 // records that exist in both initial state and target state (ui and database)
@@ -694,8 +694,8 @@ public with sharing class BAMUserController {
             }
             if (hasPendingRequest && changesMade) { // changes were made to app with pending external request, throw exceptoin to revert changes
                 System.debug(appState.get('Name'));
-                System.debug(updatedLinkedEntities);
-                System.debug(addedLinkedEntites);
+	            System.debug(updatedLinkedEntities);
+	            System.debug(addedLinkedEntites);
                 throw new BAMUserException('One or more of the Applications you have made changes to already have pending changes. Please refresh the page');
             }
         }
@@ -763,7 +763,7 @@ public with sharing class BAMUserController {
         }
         return (Id) createdUserId;
     }
-
+	
     //REQ2279110 added filter criteria to remove Peoplesoft accounts
     private static List<Billing_Account__c> getBillingAccountsByOrgId(Id accountId) {
         List<Billing_Account__c> billingAccounts = [
@@ -772,7 +772,7 @@ public with sharing class BAMUserController {
                 WHERE Organisation__c = :accountId
                 AND SAP_marked_for_deletion__c = false
                 AND Type__c NOT IN:INVALID_BILLING_ACCOUNT_TYPES
-                AND Source_System__c !='PeopleSoft'
+            	AND Source_System__c !='PeopleSoft'
                 ORDER BY Name
         ];
 

@@ -62,20 +62,9 @@
     <tabs>standard-Dashboard</tabs>
     <tabs>Network__c</tabs>
     <tabs>Facility_User__c</tabs>
-    <tabs>APT_Sub_Account__c</tabs>
-    <tabs>et4ae5__Configuration__c</tabs>
-    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
-    <tabs>et4ae5__Business_Unit__c</tabs>
-    <tabs>SAM_Admin1</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>SS_SE_Delivery_Tracker_UtilityBar</utilityBar>
     <workspaceConfig>
-        <mappings>
-            <tab>APT_Sub_Account__c</tab>
-        </mappings>
-        <mappings>
-            <tab>Apttus_Config2__ConfigSettings__c</tab>
-        </mappings>
         <mappings>
             <tab>Billing_Account__c</tab>
         </mappings>
@@ -93,15 +82,6 @@
         </mappings>
         <mappings>
             <tab>Network__c</tab>
-        </mappings>
-        <mappings>
-            <tab>SAM_Admin1</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Business_Unit__c</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Configuration__c</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

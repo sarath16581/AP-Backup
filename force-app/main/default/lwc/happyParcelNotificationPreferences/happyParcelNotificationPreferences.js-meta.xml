@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>47.0</apiVersion>
-    <description>Notification preferences based on Reciever APCN or Email or Contact number</description>
+    <apiVersion>52.0</apiVersion>
+    <description>Notification preferences based on Receiver APCN or Email or Contact number</description>
     <isExposed>false</isExposed>
     <masterLabel>Happy Parcel Notification Preferences</masterLabel>
 </LightningComponentBundle>

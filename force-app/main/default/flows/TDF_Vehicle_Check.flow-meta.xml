@@ -1025,42 +1025,42 @@
             <assignToReference>sobWorkOrder.Truck_Barcode_Front__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>sobWorkOrder.Truck_Barcode_Rear__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>sobWorkOrder.Trailer_A_Barcode_Front__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>sobWorkOrder.Trailer_A_Barcode_Rear__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>sobWorkOrder.Trailer_B_Barcode_Front__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>sobWorkOrder.Trailer_B_Barcode_Rear__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1347,28 +1347,28 @@
             <assignToReference>sobWorkOrder.Truck_Check_Status__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>sobWorkOrder.A_Trailer_Check_Status__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>sobWorkOrder.B_Trailer_Check_Status__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>varVehicleStatus</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1686,14 +1686,14 @@
             <assignToReference>sobWorkOrder.Trailer_Reg_No_A__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>sobWorkOrder.Trailer_Reg_No_B__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -2255,7 +2255,7 @@ Return Passed with Issue check status to calling flow</description>
             <assignToReference>sobWorkOrder.WO_No_Fault_repair__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -3130,7 +3130,7 @@ Return Passed with Issue check status to calling flow</description>
                 <leftValueReference>fldBarcode_A_Truck</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -3155,7 +3155,7 @@ Return Passed with Issue check status to calling flow</description>
                 <leftValueReference>fldBarcode_A_TrailerA</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -3180,7 +3180,7 @@ Return Passed with Issue check status to calling flow</description>
                 <leftValueReference>fldBarcode_A_TrailerB</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -5597,7 +5597,7 @@ Please indicate below which vehicle is unsafe, then report to the supervisor to 
             <name>fldAdditional_ItemsAT</name>
             <dataType>String</dataType>
             <defaultValue>
-                <stringValue/>
+                <stringValue></stringValue>
             </defaultValue>
             <fieldText>Additional Items</fieldText>
             <fieldType>InputField</fieldType>
@@ -6203,7 +6203,7 @@ Please indicate below which vehicle is unsafe, then report to the supervisor to 
             <name>fldAdditional_ItemsR</name>
             <dataType>String</dataType>
             <defaultValue>
-                <stringValue/>
+                <stringValue></stringValue>
             </defaultValue>
             <fieldText>Additional Items</fieldText>
             <fieldType>InputField</fieldType>
@@ -6716,7 +6716,7 @@ Please report to the supervisor to log a defect and be allocated a new vehicle (
             <name>fldAdditional_ItemsP</name>
             <dataType>String</dataType>
             <defaultValue>
-                <stringValue/>
+                <stringValue></stringValue>
             </defaultValue>
             <fieldText>Additional Items</fieldText>
             <fieldType>InputField</fieldType>
@@ -7243,7 +7243,7 @@ Please report to your supervisor to be allocated a new vehicle.</fieldText>
             <name>fldAdditional_ItemsBT</name>
             <dataType>String</dataType>
             <defaultValue>
-                <stringValue/>
+                <stringValue></stringValue>
             </defaultValue>
             <fieldText>Additional Items</fieldText>
             <fieldType>InputField</fieldType>

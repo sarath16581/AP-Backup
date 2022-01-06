@@ -5,6 +5,6 @@
     <label>StarTrack Depot Created - Inv &amp; Priority</label>
     <queue>StarTrack_Depot_Created_Inv_Priority</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

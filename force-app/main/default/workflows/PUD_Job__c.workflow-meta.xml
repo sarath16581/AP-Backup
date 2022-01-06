@@ -36,8 +36,6 @@
         <fields>Dwell_Time_Planned__c</fields>
         <fields>Earliest_Start_Time_Text__c</fields>
         <fields>Express_Bags__c</fields>
-        <fields>Geo__Latitude__s</fields>
-        <fields>Geo__Longitude__s</fields>
         <fields>Hazards__c</fields>
         <fields>Id</fields>
         <fields>Job_Instructions__c</fields>
@@ -45,8 +43,6 @@
         <fields>Large_Letter_Tubs__c</fields>
         <fields>Latest_End_Time_Text__c</fields>
         <fields>Location_DPID__c</fields>
-        <fields>Location_Frontage_Geo__Latitude__s</fields>
-        <fields>Location_Frontage_Geo__Longitude__s</fields>
         <fields>Location_Side_Of_Street_Code__c</fields>
         <fields>Location__c</fields>
         <fields>Name</fields>

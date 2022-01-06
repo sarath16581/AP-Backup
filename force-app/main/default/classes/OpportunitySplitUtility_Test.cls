@@ -229,7 +229,7 @@ public with sharing class OpportunitySplitUtility_Test {
         User uRecord = ApplicationTestDataFactory.getUsers(1, true)[0];
         uRecord.UserRole = new UserRole(Id=uRole.Id, RollupDescription = 'TestRole');
         //Updated unwritable field on User
-	    uRecord = (User)ApplicationTestDataFactory.setUnwritableFields(uRecord, new Map<String, Object>{'Current_Owner_Role__c' => 'TestRole'});
+        uRecord = (User)ApplicationTestDataFactory.setUnwritableFields(uRecord, new Map<String, Object>{'Current_Owner_Role__c' => 'TestRole'});
         Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
         opportunityRecord.ownerId = uRecord.Id ;
         
@@ -319,7 +319,7 @@ public with sharing class OpportunitySplitUtility_Test {
         List<User> uRecord = ApplicationTestDataFactory.getUsers(2, true);        
         uRecord[1].UserRole = new UserRole(Id=uRole.Id, RollupDescription = 'TestRole');
         //Updated unwritable field on User
-	    uRecord[1] = (User)ApplicationTestDataFactory.setUnwritableFields(uRecord[1], new Map<String, Object>{'Current_Owner_Role__c' => 'TestRole'});
+        uRecord[1] = (User)ApplicationTestDataFactory.setUnwritableFields(uRecord[1], new Map<String, Object>{'Current_Owner_Role__c' => 'TestRole'});
         Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
         opportunityRecord.stageName = '	Closed/Won';
         OpportunitySplit existingOpportunitySplitRecord = ApplicationTestDataFactory.getOpportunitySplits(1, opportunityRecord.Id, uRecord[0].Id, ApplicationTestDataFactory.directContributionOverlayType,null , true)[0];

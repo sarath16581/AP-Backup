@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Selected Lodgement Point</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>

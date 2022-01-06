@@ -8,7 +8,6 @@
     <relationshipLabel>Operational Schedules (Mover’s Kit Customer Contact)</relationshipLabel>
     <relationshipName>Operational_Schedules9</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

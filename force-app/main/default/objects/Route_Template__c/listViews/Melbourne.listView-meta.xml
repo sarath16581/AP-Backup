@@ -18,5 +18,10 @@
         <operation>equals</operation>
         <value>Active</value>
     </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+        <value>ADHOC</value>
+    </filters>
     <label>MTF - Active</label>
 </ListView>

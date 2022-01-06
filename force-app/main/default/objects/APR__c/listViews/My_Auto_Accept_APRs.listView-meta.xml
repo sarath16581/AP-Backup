@@ -31,6 +31,11 @@
         <operation>equals</operation>
         <value>2021</value>
     </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>APR__c.StarTrack</value>
+    </filters>
     <label>My Auto Accept (2021)</label>
     <language>en_US</language>
 </ListView>

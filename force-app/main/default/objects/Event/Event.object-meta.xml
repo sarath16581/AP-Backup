@@ -156,6 +156,6 @@
     </actionOverrides>
     <compactLayoutAssignment>Mobile_Event_Compact_Layout</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

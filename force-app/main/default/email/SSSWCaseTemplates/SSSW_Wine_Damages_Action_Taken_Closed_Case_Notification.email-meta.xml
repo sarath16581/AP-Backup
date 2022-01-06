@@ -22,7 +22,11 @@ Damages reported by the Delivery Network:
 On behalf of Australia Post please accept our apologies for the inconvenience this matter has caused to you and to your customer. Should you have any queries in relation to the above, please contact us quoting above reference number.
  
 Regards,
-{!Case.Originating_Network__c}</textOnly>
+{!Case.Originating_Network__c}
+
+Nothing in this email is intended to exclude or limit any rights or remedies that you may have under the Australian Consumer Law.&lt;br&gt;
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

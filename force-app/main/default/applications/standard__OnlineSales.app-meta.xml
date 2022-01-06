@@ -6,6 +6,5 @@
     <label>Online Sales</label>
     <navType>Standard</navType>
     <tabs>standard-OnlineSalesHome</tabs>
-    <tabs>SAM_Admin1</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

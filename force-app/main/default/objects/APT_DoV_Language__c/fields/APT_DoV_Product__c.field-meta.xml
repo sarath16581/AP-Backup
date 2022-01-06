@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>DoV Product</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -140,6 +139,10 @@
         <valueSettings>
             <controllingFieldValue>Fixed Term</controllingFieldValue>
             <valueName>Post Billpay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>SecurePay Online Payments</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

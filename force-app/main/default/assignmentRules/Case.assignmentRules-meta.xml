@@ -131,7 +131,7 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>andrew.vanderputten@auspost.com.au</assignedTo>
+            <assignedTo>talib.raza@auspost.com.au</assignedTo>
             <assignedToType>User</assignedToType>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
@@ -226,6 +226,25 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
+            <assignedTo>Non_Warehouse_Discrepancies</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Retail Fulfilment &amp; Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Type</field>
+                <operation>equals</operation>
+                <value>Order Discrepancy</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Problem_Type_Retail__c</field>
+                <operation>equals</operation>
+                <value>Damaged In Transit</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>WH_System_Support</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>
@@ -246,7 +265,21 @@
             <criteriaItems>
                 <field>Case.Warehouse__c</field>
                 <operation>equals</operation>
-                <value>0550 - NT,0450 - Townsville,0200 - NSW,0300 - Sprintpak,0350 - Altona,0600 - WA,0990 - Sai Cheng,0380 - Mickleham</value>
+                <value>0200 - NSW,0300 - Sprintpak,0350 - Altona,0600 - WA,0990 - Sai Cheng,0380 - Mickleham,0550 - NT,0450 - Townsville</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Retail_Product_Support</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Retail Fulfilment &amp; Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Type</field>
+                <operation>equals</operation>
+                <value>Product Information</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -346,49 +379,6 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>Warehouse_Processing_Mickleham_0380</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Retail Fulfilment &amp; Support</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Type</field>
-                <operation>contains</operation>
-                <value>Order Discrepancy,Order Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Problem_Type_Retail__c</field>
-                <operation>contains</operation>
-                <value>Damaged In Transit,Multiple Discrepancies,Order Status,Oversupply - Return,Shortfall - Send Stock,Vendor Shortfall,Wrong Product - Return,Undelivered Parcel,Incorrectly Delivered Parcel,Oversupply - Invoice,Wrong Product - Invoice,Shortfall - I</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Warehouse__c</field>
-                <operation>equals</operation>
-                <value>0380 - Mickleham</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Non_Warehouse_Discrepancies</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Retail Fulfilment &amp; Support</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Type</field>
-                <operation>equals</operation>
-                <value>Order Discrepancy</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Problem_Type_Retail__c</field>
-                <operation>equals</operation>
-                <value>Damaged In Transit</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
             <assignedTo>WH_System_Support</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>
@@ -405,20 +395,6 @@
                 <field>Case.Problem_Type_Retail__c</field>
                 <operation>equals</operation>
                 <value>Change/Update</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Retail_Product_Support</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Retail Fulfilment &amp; Support</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Type</field>
-                <operation>equals</operation>
-                <value>Product Information</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -494,7 +470,6 @@
         <ruleEntry>
             <assignedTo>Warehouse_Processing_NT_0550</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND 2</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -504,6 +479,36 @@
                 <field>Case.Warehouse__c</field>
                 <operation>equals</operation>
                 <value>0550 - NT</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Warehouse_Processing_VIC_Mickleham</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <booleanFilter>(1 AND 2 AND 3 AND 5) OR 4</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Retail Fulfilment &amp; Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Type</field>
+                <operation>contains</operation>
+                <value>Order Discrepancy,Order Enquiry</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Problem_Type_Retail__c</field>
+                <operation>contains</operation>
+                <value>Damaged In Transit,Multiple Discrepancies,Order Status,Oversupply - Return,Shortfall - Send Stock,Vendor Shortfall,Wrong Product - Return,Undelivered Parcel,Incorrectly Delivered Parcel,Oversupply - Invoice,Wrong Product - Invoice</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Problem_Type_Retail__c</field>
+                <operation>contains</operation>
+                <value>Shortfall - Issue Credit</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Warehouse__c</field>
+                <operation>equals</operation>
+                <value>0380 - Mickleham</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -611,7 +616,7 @@
         <ruleEntry>
             <assignedTo>BSC_DHL_Air</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>AND(  	OR(	StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_DHL_Air__c,   		StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_DHL_Road__c,  		StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.DHL3__c, 		StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.DHL4__c, 		StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.DHL5__c, 		SuppliedEmail = &apos;dsc.au.customer_service@dhl.com&apos;), Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
+            <formula>AND( OR( StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_DHL_Air__c, StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_DHL_Road__c, StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.DHL3__c, StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.DHL4__c, StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.DHL5__c, SuppliedEmail = &apos;dsc.au.customer_service@dhl.com&apos;), Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_DHL_ColdChain</assignedTo>
@@ -1014,7 +1019,7 @@
                 <value>pegasusprintgroup.com.au</value>
             </criteriaItems>
             <criteriaItems>
-                <field>Case.SuppliedEmail</field>
+                <field>Case.SuppliedName</field>
                 <operation>contains</operation>
                 <value>alloys.com.au</value>
             </criteriaItems>
@@ -2398,6 +2403,21 @@
             <formula>StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.Startrackdamages__c</formula>
         </ruleEntry>
         <ruleEntry>
+            <assignedTo>Priority_Investigations_Senders</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <booleanFilter>1 AND (2)</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Delivery Enquiry</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>dksh.com</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>BSC_Unassigned_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
@@ -2419,21 +2439,6 @@
             <criteriaItems>
                 <field>Case.Calc_Case_Consignment__c</field>
                 <operation>equals</operation>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Priority_Investigations_Senders</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2)</booleanFilter>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>dksh.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>

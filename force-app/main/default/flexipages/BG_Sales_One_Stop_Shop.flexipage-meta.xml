@@ -5,15 +5,15 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>dashboardId</name>
-                    <value>About_Wave_for_Sales</value>
+                    <value>BG_I_Sales_Team_Reporting_One_Stop_Shop</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableNotifications</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableSubscriptions</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>height</name>
@@ -37,11 +37,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showSharing</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showTitle</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
             </componentInstance>

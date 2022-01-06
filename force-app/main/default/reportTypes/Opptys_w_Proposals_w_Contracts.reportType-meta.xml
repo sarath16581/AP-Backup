@@ -1096,6 +1096,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Business_Development_Driver__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Start_of_CFY__c</field>
             <table>Opportunity</table>
         </columns>
@@ -3966,18 +3971,5 @@
             <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.Apttus_QPComply__Agreements__r</table>
         </columns>
         <masterLabel>Contracts</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_WFV_Count_Police_and_Visa_Check__c</field>
-            <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.Apttus_QPComply__Agreements__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_APPC_Count__c</field>
-            <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.Apttus_QPComply__Agreements__r</table>
-        </columns>
-        <masterLabel>Apttus Contracts</masterLabel>
     </sections>
 </ReportType>

@@ -7,7 +7,6 @@
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Evaluates to True if there is Extension Pending Approval, or one that requires approval. There can be one extension at a time in status &apos;Approval Required&apos; or &apos;Pending Approval&apos;</inlineHelpText>
     <label>Is Extension Pending Approval</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

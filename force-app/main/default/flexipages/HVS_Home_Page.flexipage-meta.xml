@@ -18,6 +18,11 @@
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
             </componentInstance>
         </itemInstances>
+        <mode>Replace</mode>
+        <name>top</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentName>home:topDealsContainer</componentName>
@@ -52,6 +57,11 @@
                 <componentName>flexipage:filterListCard</componentName>
             </componentInstance>
         </itemInstances>
+        <mode>Replace</mode>
+        <name>bottomLeft</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentName>home:assistant</componentName>
@@ -62,6 +72,11 @@
                 <componentName>home:recentRecordContainer</componentName>
             </componentInstance>
         </itemInstances>
+        <mode>Replace</mode>
+        <name>bottomRight</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -181,7 +196,7 @@
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
                         <operator>CONTAINS</operator>
-                        <rightValue>sales manager</rightValue>
+                        <rightValue>Sales Manager</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
@@ -196,7 +211,7 @@
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
                         <operator>CONTAINS</operator>
-                        <rightValue>state manager</rightValue>
+                        <rightValue>State Manager</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -237,64 +252,14 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>dashboardId</name>
-                    <value>Customer_360_Portfolio_View_With_Side_Panels</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>enableNotifications</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>enableSubscriptions</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>height</name>
-                    <value>3000</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>hideOnError</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>openLinksInNewWindow</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>openLocation</name>
-                    <value>OPEN_IN_STUDIO</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showHeader</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showSharing</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showTitle</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>wave:waveDashboard</componentName>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!$Permission.CustomPermission.C360_Portfolio_AlphaBeta}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <name>main</name>
+        <mode>Replace</mode>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>HVS Home Page</masterLabel>
+    <parentFlexiPage>home__hvsDesktopDefault</parentFlexiPage>
     <template>
-        <name>runtime_commerce_oci:homeTemplateOneRegion</name>
+        <name>home:desktopTemplate</name>
     </template>
     <type>HomePage</type>
 </FlexiPage>

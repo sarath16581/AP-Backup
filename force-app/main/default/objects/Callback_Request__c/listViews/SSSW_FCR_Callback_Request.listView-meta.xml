@@ -5,6 +5,6 @@
     <label>SSSW Callback Reminder FCR</label>
     <queue>SSSW_FCR</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -5,6 +5,6 @@
     <label>Australia Post Credit Disputes Queue</label>
     <queue>Australia_Post_Credit_Disputes_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

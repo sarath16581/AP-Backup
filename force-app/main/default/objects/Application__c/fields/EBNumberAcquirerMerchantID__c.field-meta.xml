@@ -5,7 +5,6 @@
     <label>EB Number / Acquirer Merchant ID</label>
     <length>15</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

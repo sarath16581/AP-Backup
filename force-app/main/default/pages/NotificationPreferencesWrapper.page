@@ -3,7 +3,10 @@
  -->
 
 <apex:page id="NotificationPreferencesWrapper" standardController="Account" extensions="NotificationPreferencesController" >
-	
+	<script>
+   //To make lightning-helptext work without building a custom component/applying css
+   	document.body.className += ' slds-scope';
+	</script>
 	<div id="wrapper" style="overflow:auto;height:200px">
 		<c:LightningWrapper lightningApp="c:NotificationPreferencesWrapperApp" lightningComponent="c:happyParcelNotificationPreferences" componentAttributes="{!attributes}"/>
 	</div>

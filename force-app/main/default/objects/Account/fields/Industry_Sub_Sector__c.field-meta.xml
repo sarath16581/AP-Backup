@@ -13,11 +13,6 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
-                <fullName>3PL</fullName>
-                <default>false</default>
-                <label>3PL</label>
-            </value>
-            <value>
                 <fullName>A Agriculture, Forestry and Fishing</fullName>
                 <default>false</default>
                 <label>A Agriculture, Forestry and Fishing</label>
@@ -53,11 +48,6 @@
                 <label>Care Services</label>
             </value>
             <value>
-                <fullName>Carrier with assets in Australia</fullName>
-                <default>false</default>
-                <label>Carrier with assets in Australia</label>
-            </value>
-            <value>
                 <fullName>C Manufacturing</fullName>
                 <default>false</default>
                 <label>C Manufacturing</label>
@@ -76,11 +66,6 @@
                 <fullName>Delivery Services</fullName>
                 <default>false</default>
                 <label>Delivery Services</label>
-            </value>
-            <value>
-                <fullName>Domestic Broker</fullName>
-                <default>false</default>
-                <label>Domestic Broker</label>
             </value>
             <value>
                 <fullName>E Construction</fullName>
@@ -166,11 +151,6 @@
                 <fullName>Insurance</fullName>
                 <default>false</default>
                 <label>Insurance</label>
-            </value>
-            <value>
-                <fullName>International Aggregator</fullName>
-                <default>false</default>
-                <label>International Aggregator</label>
             </value>
             <value>
                 <fullName>I Transport, Postal and Warehousing</fullName>
@@ -334,53 +314,6 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>Agriculture, Forestry and Fishing</controllingFieldValue>
-            <valueName>Agriculture</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Agriculture, Forestry and Fishing</controllingFieldValue>
-            <controllingFieldValue>Wholesale</controllingFieldValue>
-            <controllingFieldValue>Retail Trade</controllingFieldValue>
-            <controllingFieldValue>Manufacturing</controllingFieldValue>
-            <valueName>Food &amp; Produce</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Health Care and Social Assistance</controllingFieldValue>
-            <valueName>Care Services</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Health Care and Social Assistance</controllingFieldValue>
-            <valueName>Medical</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>3PL</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>Carrier with assets in Australia</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>Delivery Services</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>Domestic Broker</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>International Aggregator</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>Road, Rail Water &amp; Sea Transportation</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>Warehouse</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Mining</controllingFieldValue>
             <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Manufacturing</controllingFieldValue>
@@ -392,17 +325,17 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Professional and Administrative Services</controllingFieldValue>
-            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Retail Trade</controllingFieldValue>
+            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Manufacturing</controllingFieldValue>
             <valueName>Automotive</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Professional and Administrative Services</controllingFieldValue>
-            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Retail Trade</controllingFieldValue>
-            <controllingFieldValue>Construction Services</controllingFieldValue>
+            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Manufacturing</controllingFieldValue>
+            <controllingFieldValue>Construction Services</controllingFieldValue>
             <valueName>Construction &amp; Trades</valueName>
         </valueSettings>
         <valueSettings>
@@ -411,24 +344,24 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Professional and Administrative Services</controllingFieldValue>
-            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Retail Trade</controllingFieldValue>
+            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Manufacturing</controllingFieldValue>
             <valueName>Fashion Apparel &amp; Accessories</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Professional and Administrative Services</controllingFieldValue>
-            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Retail Trade</controllingFieldValue>
+            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Manufacturing</controllingFieldValue>
             <valueName>Health, Beauty &amp; Wellbeing</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Professional and Administrative Services</controllingFieldValue>
-            <controllingFieldValue>Wholesale</controllingFieldValue>
-            <controllingFieldValue>Retail Trade</controllingFieldValue>
-            <controllingFieldValue>Manufacturing</controllingFieldValue>
             <controllingFieldValue>Recreation and Entertainment</controllingFieldValue>
+            <controllingFieldValue>Retail Trade</controllingFieldValue>
+            <controllingFieldValue>Wholesale</controllingFieldValue>
+            <controllingFieldValue>Manufacturing</controllingFieldValue>
             <valueName>Hobbies &amp; Recreational</valueName>
         </valueSettings>
         <valueSettings>
@@ -438,8 +371,8 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Professional and Administrative Services</controllingFieldValue>
-            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Retail Trade</controllingFieldValue>
+            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Manufacturing</controllingFieldValue>
             <valueName>Homeware &amp; Furniture</valueName>
         </valueSettings>
@@ -480,9 +413,9 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Professional and Administrative Services</controllingFieldValue>
-            <controllingFieldValue>Wholesale</controllingFieldValue>
             <controllingFieldValue>Retail Trade</controllingFieldValue>
             <controllingFieldValue>Telecommunications and Media</controllingFieldValue>
+            <controllingFieldValue>Wholesale</controllingFieldValue>
             <valueName>Technology &amp; Appliances</valueName>
         </valueSettings>
         <valueSettings>
@@ -491,9 +424,48 @@
             <valueName>Vet &amp; Animal Products</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Wholesale</controllingFieldValue>
+            <controllingFieldValue>Recreation and Entertainment</controllingFieldValue>
+            <valueName>Accommodation &amp; Food</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Recreation and Entertainment</controllingFieldValue>
+            <valueName>Entertainment</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Retail Trade</controllingFieldValue>
+            <controllingFieldValue>Wholesale</controllingFieldValue>
+            <controllingFieldValue>Manufacturing</controllingFieldValue>
+            <controllingFieldValue>Agriculture, Forestry and Fishing</controllingFieldValue>
+            <valueName>Food &amp; Produce</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Trade</controllingFieldValue>
+            <controllingFieldValue>Wholesale</controllingFieldValue>
             <valueName>Office &amp; Stationery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Trade</controllingFieldValue>
+            <valueName>Other Retail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail Trade</controllingFieldValue>
+            <valueName>Variety stores</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Telecommunications and Media</controllingFieldValue>
+            <valueName>Telecommunications</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
+            <valueName>Delivery Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
+            <valueName>Road, Rail Water &amp; Sea Transportation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
+            <valueName>Warehouse</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Wholesale</controllingFieldValue>
@@ -509,36 +481,16 @@
             <valueName>Wood &amp; Textiles</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Retail Trade</controllingFieldValue>
-            <valueName>Other Retail</valueName>
+            <controllingFieldValue>Communications</controllingFieldValue>
+            <valueName>J Information Media and Telecommunications</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Retail Trade</controllingFieldValue>
-            <valueName>Variety stores</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Government and Community</controllingFieldValue>
-            <valueName>Education</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Government and Community</controllingFieldValue>
-            <valueName>Government</valueName>
+            <controllingFieldValue>Communications</controllingFieldValue>
+            <valueName>R Arts and Recreation Services</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Manufacturing</controllingFieldValue>
             <valueName>Wood Products</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Recreation and Entertainment</controllingFieldValue>
-            <valueName>Accommodation &amp; Food</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Recreation and Entertainment</controllingFieldValue>
-            <valueName>Entertainment</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Telecommunications and Media</controllingFieldValue>
-            <valueName>Telecommunications</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Utilities</controllingFieldValue>
@@ -549,12 +501,97 @@
             <valueName>Electricity, Gas &amp; Water</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Federal Government</controllingFieldValue>
+            <controllingFieldValue>State Government</controllingFieldValue>
+            <valueName>O Public Administration and Safety</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>State Government</controllingFieldValue>
+            <valueName>P Education and Training</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial &amp; Professional Services</controllingFieldValue>
+            <valueName>K Financial and Insurance Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial &amp; Professional Services</controllingFieldValue>
+            <valueName>L Rental, Hiring and Real Estate Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial &amp; Professional Services</controllingFieldValue>
+            <valueName>M Professional, Scientific and Technical Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial &amp; Professional Services</controllingFieldValue>
+            <valueName>N Administrative and Support Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial &amp; Professional Services</controllingFieldValue>
+            <valueName>S Other Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Distribution &amp; Industrial</controllingFieldValue>
+            <valueName>A Agriculture, Forestry and Fishing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Distribution &amp; Industrial</controllingFieldValue>
+            <valueName>B Mining</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Distribution &amp; Industrial</controllingFieldValue>
+            <valueName>C Manufacturing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Distribution &amp; Industrial</controllingFieldValue>
+            <valueName>E Construction</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Distribution &amp; Industrial</controllingFieldValue>
+            <valueName>F Wholesale Trade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Distribution &amp; Industrial</controllingFieldValue>
+            <valueName>G Retail Trade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Distribution &amp; Industrial</controllingFieldValue>
+            <valueName>H Accommodation and Food Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Distribution &amp; Industrial</controllingFieldValue>
+            <valueName>I Transport, Postal and Warehousing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agriculture, Forestry and Fishing</controllingFieldValue>
+            <valueName>Agriculture</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Financial and Insurance Services</controllingFieldValue>
             <valueName>Finance</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Financial and Insurance Services</controllingFieldValue>
             <valueName>Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government and Community</controllingFieldValue>
+            <valueName>Education</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government and Community</controllingFieldValue>
+            <valueName>Government</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health Care and Social Assistance</controllingFieldValue>
+            <valueName>Care Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health Care and Social Assistance</controllingFieldValue>
+            <valueName>Medical</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health</controllingFieldValue>
+            <valueName>Q Health Care and Social Assistance</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

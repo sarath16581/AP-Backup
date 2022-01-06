@@ -88,7 +88,6 @@ global class APT_ViewratecardBatch implements Database.Batchable<sObject>, Datab
         
         createConsolidatedUsagePriceTiers();
         
-        
         return Database.getQueryLocator([SELECT Id,APT_Rate_Card_Key__c,APT_Product_Name__c,Name,APT_Band__c, Apttus_Config2__PrimaryLineNumber__c, Apttus_Config2__ProductId__r.Name, Apttus_Config2__ProductId__r.ProductCode, APT_International_PCMS_or_CSP__c, APT_New__c, Apttus_Config2__ProductId__r.APT_Product_type__c FROM Apttus_Config2__LineItem__c WHERE Apttus_Config2__LineType__c <> :APT_Constants.LABEL_LINE_TYPE_OPTION 
                                             And Apttus_Config2__ConfigurationId__c =: configId  
                                             AND APT_Contracted_Line_Item__c = true]);

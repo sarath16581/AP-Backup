@@ -5,6 +5,6 @@
     <label>SSSW Chat - Consumer H&amp;S Specialist Queu</label>
     <queue>SSSW_Chat_Consumer_H_S_Specialist_Queu</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -10,7 +10,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Acknowledge Feedback</fullName>
                 <default>false</default>
@@ -317,6 +317,11 @@
                 <label>Resign</label>
             </value>
             <value>
+                <fullName>Resolved - Booked</fullName>
+                <default>false</default>
+                <label>Resolved - Booked</label>
+            </value>
+            <value>
                 <fullName>Resolved by Investigation</fullName>
                 <default>false</default>
                 <label>Resolved by Investigation</label>
@@ -382,6 +387,11 @@
                 <label>Resolved - Investigation Completed</label>
             </value>
             <value>
+                <fullName>Resolved - Label Resend</fullName>
+                <default>false</default>
+                <label>Resolved - Label Resend</label>
+            </value>
+            <value>
                 <fullName>Resolved - LDC</fullName>
                 <default>false</default>
                 <label>Resolved - LDC</label>
@@ -405,6 +415,16 @@
                 <fullName>Resolved  - Rebooked</fullName>
                 <default>false</default>
                 <label>Resolved  - Rebooked</label>
+            </value>
+            <value>
+                <fullName>Resolved - Rebooked (Futile)</fullName>
+                <default>false</default>
+                <label>Resolved - Rebooked (Futile)</label>
+            </value>
+            <value>
+                <fullName>Resolved - Rebooked (Missed)</fullName>
+                <default>false</default>
+                <label>Resolved - Rebooked (Missed)</label>
             </value>
             <value>
                 <fullName>Resolved - Redirected</fullName>

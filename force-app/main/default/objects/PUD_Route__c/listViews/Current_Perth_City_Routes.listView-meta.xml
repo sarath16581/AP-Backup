@@ -8,12 +8,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>Perth City</value>
-    </filters>
-    <filters>
-        <field>NAME</field>
-        <operation>startsWith</operation>
-        <value>PERPC</value>
+        <value>perth city</value>
     </filters>
     <label>Current Perth City Routes</label>
 </ListView>

@@ -17,7 +17,6 @@ private class bspEnquiryUplift_Test {
     private static String PARCEL = 'Parcel';
     private static String LETTER = 'Letter';
     private static String PARCEL_DOMESTIC = 'Parcel Domestic';
-
     @testSetup
     static void testSetup() {
 
@@ -165,7 +164,7 @@ private class bspEnquiryUplift_Test {
                 ReceiverCity__c = 'MELBOURNE', ReceiverState__c = 'VIC', ReceiverPostcode__c = '3000',
                 ReceiverCountry__c = 'AU'
         ));
-        consignList.add(new Article__c(
+         consignList.add(new Article__c(
                 ArticleID__c = ARTICLE_NAME2, ArticleLodgementDate__c = System.today() + 10,
                 Billing_Account__c = testBillingAccList[1].Id, ExpectedDeliveryDate__c = System.today() + 10,
                 Name = ARTICLE_NAME2, ProductCategory__c = 'Parcel Domestic', RecordTypeId = artRecTypeId,
@@ -368,7 +367,7 @@ private class bspEnquiryUplift_Test {
             Test.stopTest();
         }
     }
-    @IsTest
+@IsTest
     public static void testCreateEnquiryDomesticPremiumExpress()
     {
         User commUser = setupCommunityUser();
@@ -392,7 +391,7 @@ private class bspEnquiryUplift_Test {
             
         }
     }
-
+    
     @IsTest
     public static void testCreateDuplicateEnquiry()
     {

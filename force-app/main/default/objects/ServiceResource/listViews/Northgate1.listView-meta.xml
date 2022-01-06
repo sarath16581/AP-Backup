@@ -9,10 +9,5 @@
     <columns>LastModifiedDate</columns>
     <columns>Location</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>IsActive</field>
-        <operation>equals</operation>
-        <value>1</value>
-    </filters>
     <label>Northgate</label>
 </ListView>

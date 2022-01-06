@@ -9,8 +9,8 @@ History:
 31.07.2012    Richard Enojas(Salesforce.com)    Updated test scenarios based on changes in Phase 2. Moved to separate class.
 15.08.2012    Richard Enojas(Salesforce.com)    Set Opportunity Type to New/Existing Customer upon creation. 
 06.02.3013    Richard Clarke (Post)             Extend to copy attachments across as was done previously with tasks
-07.01.2014    Louis Wang (Bluewolf)             Removed concept of Partner / Individual, such that standard Account-Contact is reestablished
-                                                Added new scenario such that BA is always mandatory. Conversion will stop if BA is not available.  
+07.01.2014    Louis Wang (Bluewolf)				Removed concept of Partner / Individual, such that standard Account-Contact is reestablished
+												Added new scenario such that BA is always mandatory. Conversion will stop if BA is not available.  
 11.04.2019    Ronnie Yang(Soda)                 Prioritise using duplicate rules to find matching contacts/orgs when applicable
 30.09.2021    Seth Heang                        Uplift SF API Version to 52
 **************************************************/
@@ -103,7 +103,7 @@ public class LeadConvertExCon {
                 Set<Id> accountIds = new Set<Id>();
                 List<DuplicateRule> activeRules = [SELECT Id FROM DuplicateRule Where SobjectType = 'Account' AND (SobjectSubtype = '' OR SobjectSubType = 'None') AND IsActive = true];
                 System.debug('##Active Account Duplicate Rules Found: ' + activeRules);
-                
+				
                 //If there're duplicate rules available for accounts then include results found via duplciate rules
                 if(!activeRules.isEmpty()){
                     for (Datacloud.FindDuplicatesResult findDupeResult : Datacloud.FindDuplicates.findDuplicates(new List<Account>{a})){
@@ -225,7 +225,7 @@ public class LeadConvertExCon {
         List<Task> leadTasks = [SELECT WhatId, AccountId FROM Task WHERE WhoId=:LeadId];
         List<Event> leadEvents = [SELECT WhatId, AccountId FROM Event WHERE WhoId=:LeadId];
         List<Attachment> leadAttachments = [SELECT Id, Body, BodyLength, ContentType, Description, Name, IsPrivate FROM Attachment WHERE ParentId=:LeadId and IsDeleted=false];
-        List<Note> leadNotes = [Select Title, ParentId, OwnerId, Body From Note WHERE ParentId=:LeadId and IsDeleted=false];
+		List<Note> leadNotes = [Select Title, ParentId, OwnerId, Body From Note WHERE ParentId=:LeadId and IsDeleted=false];
 
         //validate Lead
         if (!withCompany){
@@ -257,7 +257,7 @@ public class LeadConvertExCon {
         // Contains Conveyancer Onboarding recordtype of Lead Object
         Id conOnboarding = null;
         try{
-            conOnboarding = Schema.SObjectType.Lead.getRecordTypeInfosByName().get('Conveyancer Onboarding').getRecordTypeId();
+        	conOnboarding = Schema.SObjectType.Lead.getRecordTypeInfosByName().get('Conveyancer Onboarding').getRecordTypeId();
         }catch(Exception e){
             system.debug('Recordtype Exception:' + e);
         }
@@ -307,33 +307,32 @@ public class LeadConvertExCon {
             }
         }
 
-        if(!createOrg && !createInd && contactId != null && BAcctId != null)
-        {
-            system.debug('xxx BAcctId / contactId / contact_AccountId = ' + BAcctId + ' / ' + contactId + ' / ' + contact_AccountId);
-            // check if selected Contact already link to the selected Organisation
-            if(contact_AccountId != BAcctId)
-            {
+		if(!createOrg && !createInd && contactId != null && BAcctId != null)
+		{
+			system.debug('xxx BAcctId / contactId / contact_AccountId = ' + BAcctId + ' / ' + contactId + ' / ' + contact_AccountId);
+			// check if selected Contact already link to the selected Organisation
+			if(contact_AccountId != BAcctId)
+			{
                 ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.ERROR, 'The selected Contact does not belong to the selected Organisation. Please review the Contact record and try again.');
                 ApexPages.addMessage(myMsg);
                 system.debug('xxx myMsg = ' + myMsg);
-                return null;                
-            }
-        }
-        else if(createOrg && !createInd && contactId != null)
-        {
+                return null;				
+			}
+		}
+		else if(createOrg && !createInd && contactId != null)
+		{
                 ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.ERROR, 'The selected Contact cannot be linked to a new Organisation through Lead Conversion. ');
                 ApexPages.addMessage(myMsg);
-                system.debug('xxx myMsg2 = ' + myMsg);
-                return null;            
-        }
+				system.debug('xxx myMsg2 = ' + myMsg);
+                return null;			
+		}
         system.debug('xxx createInd / createOrg / withCompany = ' + createInd + ' / ' + createOrg + ' / ' + withCompany);
         
         //scenario 1: new Contact and new BA        
         if (createInd && createOrg && withCompany){
-			
+
                 //create BA and Contact
                 finalAccId = convertLead(LeadId, contactId, BAcctId, donotcreateOpp, OppName, sendEmail, 'create', 'create');
-            	
                 if (finalAccId!=null){
                     Lead convertedLead = [SELECT ConvertedContactId, ConvertedOpportunityId FROM Lead WHERE Id=:LeadId limit 1];
                     finalConId = convertedLead.ConvertedContactId;
@@ -352,8 +351,8 @@ public class LeadConvertExCon {
 
 /*        
         //scenario 2: existing Contact and new BA
-        //              will never reach this scenario, as validation should already fired.
-        //              the code is left here in case this behavior need to retain as per business decision.
+		//				will never reach this scenario, as validation should already fired.
+		//				the code is left here in case this behavior need to retain as per business decision.
         else if (!createInd && createOrg && withCompany){
             
                 //create BA and update Contact
@@ -375,10 +374,9 @@ public class LeadConvertExCon {
   */      
         //scenario 3: new Contact and existing BA
         else if (createInd && !createOrg && withCompany){
-			
+
                 //update BA and create Contact
                 finalAccId = convertLead(LeadId, contactId, BAcctId, donotcreateOpp, OppName, sendEmail, 'merge', 'create');
-            
                 if (finalAccId!=null){
                     // Updated by Adrian Recio, added product update
                     Lead convertedLead = [SELECT ConvertedContactId, ConvertedOpportunityId, Product__c FROM Lead WHERE Id=:LeadId limit 1];
@@ -394,15 +392,13 @@ public class LeadConvertExCon {
                         update newOpp;
                     }
                 }
-            
         }
         
         //scenario 4: existing Contact and existing BA
         else if (!createInd && !createOrg && withCompany){
-			
+
                 //update BA and update Contact
                 finalAccId = convertLead(LeadId, contactId, BAcctId, donotcreateOpp, OppName, sendEmail, 'merge', 'merge');
-            
                 if (finalAccId!=null){
                     // Updated by Adrian Recio, added product update
                     Lead convertedLead = [SELECT ConvertedContactId, ConvertedOpportunityId, Product__c FROM Lead WHERE Id=:LeadId limit 1];
@@ -418,7 +414,6 @@ public class LeadConvertExCon {
                         update newOpp;
                     }
                 }
-            
         }
         
         //scenario 5: new Contact only
@@ -461,8 +456,8 @@ public class LeadConvertExCon {
                 Note note = new Note();
                 note.Title = myNote.Title;
                 note.ParentId = finalAccId;
-                note.OwnerId = myNote.OwnerId;
-                note.Body = myNote.Body;
+				note.OwnerId = myNote.OwnerId;
+				note.Body = myNote.Body;
                 if (newOppId!=null) note.ParentId = newOppId;
                 NotesToInsert.add(note);  
             }            
@@ -501,8 +496,8 @@ public class LeadConvertExCon {
         }
     }
 
-    // LW 07.01.2014 - removed public Lead cloneLead(id leadId)
-    //                  as no longer required to use (no more Person Account for Lead Conversion!)
+	// LW 07.01.2014 - removed public Lead cloneLead(id leadId)
+	//					as no longer required to use (no more Person Account for Lead Conversion!)
     
     public Id convertLead (Id LeadId, Id contactId, Id BAcctId, Boolean donotcreateOpp, String OppName, Boolean sendEmail, String accountAction, String contactAction){
         
@@ -515,22 +510,22 @@ public class LeadConvertExCon {
         //set account
         if (accountAction == 'merge'){
             if (BAcctId!=null) lc.setAccountId(BAcctId);  
-            system.debug('xxx BAcctId = ' + BAcctId);
+			system.debug('xxx BAcctId = ' + BAcctId);
         }
         //else if both null, don't incl setAccountId
         
         //set contact
         if(contactAction == 'merge'){
-            if(contactId!=null) lc.setContactId(contactId);
-            system.debug('xxx contactId = ' + contactId);
+        	if(contactId!=null) lc.setContactId(contactId);
+        	system.debug('xxx contactId = ' + contactId);
         }
-        system.debug('xxx lc.getAccountId() = ' + lc.getAccountId());
-        system.debug('xxx lc.getContactId() = ' + lc.getContactId());
+		system.debug('xxx lc.getAccountId() = ' + lc.getAccountId());
+		system.debug('xxx lc.getContactId() = ' + lc.getContactId());
     
         //opportunity   
         if (!donotcreateOpp && OppName!=null) lc.setOpportunityName(OppName);
-        system.debug('xxx donotcreatOpp = ' + donotcreateOpp);
-        system.debug('xxx OppName = ' + OppName);
+		system.debug('xxx donotcreatOpp = ' + donotcreateOpp);
+		system.debug('xxx OppName = ' + OppName);
     
         LeadStatus convertStatus = [Select Id, MasterLabel from LeadStatus where IsConverted=true limit 1];
         lc.setConvertedStatus(convertStatus.MasterLabel);
@@ -561,5 +556,5 @@ public class LeadConvertExCon {
     }
     
     // LW 07.01.2014 - due to structural change above, the original "commented out" Test Class below is no longer valid / relevant.
-    //                  They are deleted to avoid future confusion. 
+    //					They are deleted to avoid future confusion. 
 }

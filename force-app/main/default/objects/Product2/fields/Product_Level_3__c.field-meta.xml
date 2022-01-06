@@ -8,7 +8,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>AaE L3</fullName>
                 <default>false</default>
@@ -28,21 +28,6 @@
                 <fullName>AP Global Solutions L3</fullName>
                 <default>false</default>
                 <label>AP Global Solutions L3</label>
-            </value>
-            <value>
-                <fullName>AP Other Parcel Fees</fullName>
-                <default>false</default>
-                <label>AP Other Parcel Fees</label>
-            </value>
-            <value>
-                <fullName>AP Premium Express</fullName>
-                <default>false</default>
-                <label>AP Premium Express</label>
-            </value>
-            <value>
-                <fullName>AP Standard</fullName>
-                <default>false</default>
-                <label>AP Standard</label>
             </value>
             <value>
                 <fullName>Boxes &amp; Bags</fullName>
@@ -438,6 +423,21 @@
                 <fullName>Unaddressed Mail</fullName>
                 <default>false</default>
                 <label>Unaddressed Mail</label>
+            </value>
+            <value>
+                <fullName>AP Standard</fullName>
+                <default>false</default>
+                <label>AP Standard</label>
+            </value>
+            <value>
+                <fullName>AP Premium Express</fullName>
+                <default>false</default>
+                <label>AP Premium Express</label>
+            </value>
+            <value>
+                <fullName>AP Other Parcel Fees</fullName>
+                <default>false</default>
+                <label>AP Other Parcel Fees</label>
             </value>
         </valueSetDefinition>
     </valueSet>

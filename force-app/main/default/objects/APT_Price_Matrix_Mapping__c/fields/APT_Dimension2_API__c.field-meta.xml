@@ -5,7 +5,6 @@
     <label>Dimension2_API</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

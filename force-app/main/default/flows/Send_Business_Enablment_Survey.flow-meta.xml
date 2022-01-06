@@ -27,7 +27,7 @@
     <label>Send Business Enablment Survey</label>
     <processType>AutoLaunchedFlow</processType>
     <startElementReference>Wait_12_Hours</startElementReference>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <description>CaseID passed in by process builder</description>
         <name>varCaseID</name>

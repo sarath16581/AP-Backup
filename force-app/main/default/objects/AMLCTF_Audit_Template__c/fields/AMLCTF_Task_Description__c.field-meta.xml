@@ -6,7 +6,6 @@
     <inlineHelpText>Task Description (per Audit Report) for the Tasks in an Audit Task Template, maps to Task object&apos;s Sub Type field.  Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Task Description</label>
     <length>131072</length>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>10</visibleLines>

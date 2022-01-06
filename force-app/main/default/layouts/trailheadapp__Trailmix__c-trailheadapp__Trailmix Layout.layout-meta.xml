@@ -94,6 +94,11 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
+            <actionName>trailheadapp__Trailmix__c.trailheadapp__Assign_Multiple_Users</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>trailheadapp__Trailmix__c.trailheadapp__Unassign_Multiple_Users</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>1</sortOrder>
@@ -157,11 +162,6 @@
             <actionName>ChangeRecordType</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>13</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>trailheadapp__Trailmix__c.trailheadapp__Assign_Multiple_Users</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>0</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>

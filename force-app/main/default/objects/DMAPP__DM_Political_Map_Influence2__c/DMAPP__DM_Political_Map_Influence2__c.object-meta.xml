@@ -164,7 +164,7 @@ This object is responsible for storing influence relationships between contacts 
         <type>Text</type>
     </nameField>
     <pluralLabel>Relationship Map Influences</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

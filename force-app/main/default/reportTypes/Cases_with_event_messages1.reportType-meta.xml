@@ -3845,11 +3845,6 @@
             <field>UserSurveyDateSent__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
@@ -4376,16 +4371,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Safe_Drop_GUID__c</field>
-            <table>Case.Event_Messages__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Outside_Delivery_Radius__c</field>
-            <table>Case.Event_Messages__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Geo_Precision__c</field>
             <table>Case.Event_Messages__r</table>
         </columns>
         <masterLabel>Event Messages</masterLabel>

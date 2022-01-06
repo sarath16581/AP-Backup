@@ -240,7 +240,7 @@
     </alerts>
     <alerts>
         <fullName>Carded_Case_Notification_LMN_VIC_TAS</fullName>
-        <ccEmails>haraprasad.sahoo@auspost.com.au</ccEmails>
+        <ccEmails>DLLMNEMNVICTAS@auspost.com.au</ccEmails>
         <description>Carded_Case_Notification_LMN_VIC_TAS</description>
         <protected>false</protected>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
@@ -267,7 +267,7 @@
     </alerts>
     <alerts>
         <fullName>Carded_Case_Notification_Parcel_QLD</fullName>
-        <ccEmails>DLPUDEMNQLD@auspost.com.au</ccEmails>
+        <ccEmails>naveen.rajanna@auspost.com.au</ccEmails>
         <description>Carded_Case_Notification_Parcel_QLD</description>
         <protected>false</protected>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
@@ -285,7 +285,7 @@
     </alerts>
     <alerts>
         <fullName>Carded_Case_Notification_Parcel_VIC_TAS</fullName>
-        <ccEmails>haras.123@gmail.com</ccEmails>
+        <ccEmails>DLPUDEMNVICTAS@auspost.com.au</ccEmails>
         <description>Carded_Case_Notification_Parcel_VIC_TAS</description>
         <protected>false</protected>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
@@ -577,7 +577,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Awaiting_Collection</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Awaiting Collection</description>
         <protected>false</protected>
         <recipients>
@@ -590,7 +590,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Email_Delivered</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Email Delivered</description>
         <protected>false</protected>
         <recipients>
@@ -615,7 +615,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Email_on_within_EDD_case_created_Web_Portal</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Email on within EDD case created (Web/Portal)</description>
         <protected>false</protected>
         <recipients>
@@ -628,7 +628,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Email_on_within_EDD_plus_business_days_case_created_Web_Portal</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Email on within EDD plus business days case created (Web/Portal)</description>
         <protected>false</protected>
         <recipients>
@@ -641,7 +641,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_New_Case_Notification_for_Delivery_Issue_automatic_network_assignment</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW New Case Notification for Delivery Issue automatic network assignment</description>
         <protected>false</protected>
         <recipients>
@@ -654,7 +654,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_New_Case_Notification_for_Transfer_to_PO</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW New Case Notification for Transfer to PO</description>
         <protected>false</protected>
         <recipients>
@@ -667,7 +667,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_New_Public_Case_Comment</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - New Public Case Comment</description>
         <protected>false</protected>
         <recipients>
@@ -680,7 +680,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Onboard_with_Driver</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Onboard with Driver</description>
         <protected>false</protected>
         <recipients>
@@ -693,7 +693,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Onboard_with_driver_international</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Onboard with driver international</description>
         <protected>false</protected>
         <recipients>
@@ -706,7 +706,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Send_Customer_Closure_Email_for_BSP_Bulk_Upload</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send Customer Closure Email for BSP Bulk Upload</description>
         <protected>false</protected>
         <recipients>
@@ -719,7 +719,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Send_Customer_Escalation_Closure</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send Customer Escalation Closure</description>
         <protected>false</protected>
         <recipients>
@@ -732,7 +732,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Send_a_Email_when_a_new_Case_has_been_created</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send a Email when a new Case has been created,</description>
         <protected>false</protected>
         <recipients>
@@ -745,7 +745,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Send_a_Email_when_a_new_Case_has_been_created_Web_Portal</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send a Email when a new Case has been created Web/Portal</description>
         <protected>false</protected>
         <recipients>
@@ -758,7 +758,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Send_a_Email_when_a_new_Email_to_Case_has_been_created</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send a Email when a new Email to Case has been created</description>
         <protected>false</protected>
         <recipients>
@@ -771,7 +771,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Snap_It_1st_Reminder_for_Ref_ID_to_Customer</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW (Snap It) - 1st Reminder for Ref ID to Customer</description>
         <protected>false</protected>
         <recipients>
@@ -784,7 +784,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Snap_It_2nd_Reminder_for_Ref_ID_to_Customer</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW (Snap It) - 2nd Reminder for Ref ID to Customer</description>
         <protected>false</protected>
         <recipients>
@@ -797,7 +797,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Snap_It_3rd_Reminder_for_Ref_ID_to_Customer</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW (Snap It) - 3rd Reminder for Ref ID to Customer</description>
         <protected>false</protected>
         <recipients>
@@ -810,7 +810,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Snap_It_4th_Closure_for_Ref_ID_to_Customer</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW (Snap It) - 4th Closure for Ref ID to Customer</description>
         <protected>false</protected>
         <recipients>
@@ -823,7 +823,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Snap_It_Send_Customer_Closure_Email</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW (Snap It) - Send Customer Closure Email</description>
         <protected>false</protected>
         <recipients>
@@ -836,7 +836,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Snap_It_Send_Customer_Closure_Email_Employee</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW (Snap It) - Send Customer Closure Email - Employee</description>
         <protected>false</protected>
         <recipients>
@@ -849,7 +849,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Snap_It_Send_a_Email_when_a_new_Case_has_been_created_to_Employee</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW (Snap It) - Send a Email when a new Case has been created to Employee</description>
         <protected>false</protected>
         <recipients>
@@ -862,7 +862,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Snap_It_Send_a_Email_when_a_new_Case_has_been_created_to_customer</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW (Snap It) - Send a Email when a new Case has been created to customer</description>
         <protected>false</protected>
         <recipients>
@@ -875,7 +875,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_eParcel_Article_Damage_Action_Taken</fullName>
-        <ccEmails>customerservice@p-2kcsizhr2c9ierymhvbw8ga2mnchmls2yv333wlrv1rm5x218v.0w-tsyeaa.cs75.case.sandbox.salesforce.com</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW eParcel Article Damage Action Taken</description>
         <protected>false</protected>
         <recipients>
@@ -909,7 +909,7 @@
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>michelle.axiak@auspost.com.au</recipient>
+            <recipient>reed.feely@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -920,7 +920,7 @@
         <description>Sales Implementation Request</description>
         <protected>false</protected>
         <recipients>
-            <recipient>michelle.axiak@auspost.com.au</recipient>
+            <recipient>reed.feely@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -954,7 +954,7 @@
         <description>Sales Implementation Request - Reminder</description>
         <protected>false</protected>
         <recipients>
-            <recipient>michelle.axiak@auspost.com.au</recipient>
+            <recipient>reed.feely@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -1010,7 +1010,7 @@
     </alerts>
     <alerts>
         <fullName>Send_an_Email_to_the_Customer_if_they_are_sending_an_Email_to_a_Case_that_has_be</fullName>
-        <ccEmails>customerservice@auspost.com.au.ptest</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send an Email to the Customer if they are sending an Email to a Case that has been Closed.</description>
         <protected>false</protected>
         <recipients>
@@ -5813,7 +5813,7 @@ History
         <active>true</active>
         <description>This will fire the Queue Allocation if a System Update is received for: Tracking Update.
 Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging to SSSWNonRoutingEventCodes__c can set the SystemUpdate__c on the case record</description>
-        <formula>AND(ISPICKVAL(SystemUpdate__c ,&apos;Tracking Update&apos;), OR(CONTAINS(Case_RecordType_Name__c, &apos;SSSW&apos;),(Case_RecordType_Name__c = &apos;Social Record Type&apos;)), NOT(IsCR__c), NOT(IsHLC__c), IsBlank(ParentId), OR(ISCHANGED(SystemUpdate__c), ISCHANGED(IsCR__c), ISCHANGED(IsHLC__c), ISCHANGED(ParentId)), NOT( ISPICKVAL( Status ,&apos;Awating Customer Response&apos; ) ), IF(ISBLANK(HeldToOpenOn__c),TRUE,NOT(CONTAINS($Setup.SSSWNonRoutingEventCodes__c.Codes__c, Article_Event_Codes__c ))))</formula>
+        <formula>AND(ISPICKVAL(SystemUpdate__c ,&apos;Tracking Update&apos;), OR(CONTAINS(Case_RecordType_Name__c, &apos;SSSW&apos;),(Case_RecordType_Name__c = &apos;Social Record Type&apos;)),  NOT(IsCR__c), NOT(IsHLC__c), IsBlank(ParentId), OR(ISCHANGED(SystemUpdate__c), ISCHANGED(IsCR__c), ISCHANGED(IsHLC__c), ISCHANGED(ParentId)),NOT( ISPICKVAL( Status ,&apos;Awating Customer Response&apos;)),IF(ISBLANK(HeldToOpenOn__c),TRUE,NOT(CONTAINS($Setup.SSSWNonRoutingEventCodes__c.Codes__c, Article_Event_Codes__c ))))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -6180,7 +6180,7 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <description>Captures Cases where Owner&apos;s User Profile is &apos;SSSW - Service Agent&apos; or Owner Queue is &apos;SSSWNetworkQueue&apos;</description>
+        <description>Captures Cases where Owner&apos;s User Profile is &apos;SSSW - Service Agent&apos; or Owner Queue is &apos;SSSWNetworkQueue&apos; or case was held within EDD</description>
         <formula>OR(Owner:User.ProfileId == &apos;00e90000001eeTk&apos;, OwnerId ==  $Setup.QM__c.NetworkQueueId__c,NOT(ISBLANK( HeldToOpenOn__c )))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -6807,7 +6807,7 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>StarTrack_RecordType__c &amp;&amp;   ISPICKVAL(Case_Update__c, &apos;Waiting on Investigator&apos;)  &amp;&amp;   OwnerId =  $Setup.StarTrack_Settings__c.SWMYTempQueue__c &amp;&amp; (OR ( ISPICKVAL(Call_Purpose__c, &apos;Depot Created&apos;), ISPICKVAL(Call_Purpose__c, &apos;Card Left&apos;) , ISPICKVAL(Call_Purpose__c, &apos;Card left no attempt&apos;) )) &amp;&amp; (NOT( OR( ISPICKVAL(Enquiry_Type__c , &apos;Depot Collection&apos;), ISPICKVAL(Enquiry_Type__c , &apos;Check Address&apos;) )))</formula>
+        <formula>StarTrack_RecordType__c &amp;&amp;  ISPICKVAL(Case_Update__c, &apos;Waiting on Investigator&apos;)  &amp;&amp;  OwnerId =  $Setup.StarTrack_Settings__c.SWMYTempQueue__c</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -6817,17 +6817,13 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>StarTrack_RecordType__c &amp;&amp;  ISPICKVAL(Status , &apos;Waiting on operations&apos;) &amp;&amp;  OwnerId &lt;&gt; $Setup.StarTrack_Settings__c.SWMYTempQueue__c &amp;&amp;
- (OR ( ISPICKVAL(Call_Purpose__c, &apos;Depot Created&apos;), ISPICKVAL(Call_Purpose__c, &apos;Card Left&apos;) , ISPICKVAL(Call_Purpose__c, &apos;Card left no attempt&apos;) )) &amp;&amp; 
-(NOT(ISPICKVAL(Enquiry_Type__c , &apos;Depot Collection&apos;))) &amp;&amp; 
-(NOT (ISPICKVAL (Case_Update__c ,&apos;Waiting on Investigator &apos;)))
-&amp;&amp; Delivery_Collection_Date__c &lt;&gt; NULL</formula>
+        <formula>StarTrack_RecordType__c &amp;&amp; ISPICKVAL(Call_Purpose__c , &apos;Depot Created&apos;) &amp;&amp; ISPICKVAL(Status , &apos;Waiting on operations&apos;) &amp;&amp;  OwnerId &lt;&gt; $Setup.StarTrack_Settings__c.SWMYTempQueue__c</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Transfer Unresolved Case to SWMY After Sometime_1day</fullName>
         <active>true</active>
-        <formula>StarTrack_RecordType__c &amp;&amp;  (NOT( ISPICKVAL(Case_Update__c, &apos;Waiting on Investigator&apos;) || IsClosed)) &amp;&amp;  OwnerId =  $Setup.StarTrack_Settings__c.SWMYTempQueue__c &amp;&amp; (OR( ISPICKVAL(Enquiry_Type__c , &apos;Redirection&apos;), ISPICKVAL(Enquiry_Type__c , &apos;Redelivery&apos;) )) &amp;&amp; (OR( ISPICKVAL(Call_Purpose__c, &apos;Card Left&apos;) , ISPICKVAL(Call_Purpose__c, &apos;Card left no attempt&apos;) ))</formula>
+        <formula>StarTrack_RecordType__c &amp;&amp;  (NOT( ISPICKVAL(Case_Update__c, &apos;Waiting on Investigator&apos;) || IsClosed)) &amp;&amp;  OwnerId =  $Setup.StarTrack_Settings__c.SWMYTempQueue__c</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>

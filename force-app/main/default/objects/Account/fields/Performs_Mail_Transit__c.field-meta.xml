@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Does this site transit mail?</inlineHelpText>
     <label>Performs Mail Transit</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

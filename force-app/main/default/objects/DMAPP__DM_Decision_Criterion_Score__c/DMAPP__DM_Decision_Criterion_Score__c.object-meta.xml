@@ -164,7 +164,7 @@ This is a new object which will hold the decision criterion score. It supersedes
         <type>Text</type>
     </nameField>
     <pluralLabel>Decision Criteria Score</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

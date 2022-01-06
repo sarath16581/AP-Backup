@@ -155,14 +155,14 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>DocuSign Callout Transient</label>
     <nameField>
         <label>DocuSign Callout Transient Name</label>
         <type>Text</type>
     </nameField>
     <pluralLabel>DocuSign Callout Transients</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

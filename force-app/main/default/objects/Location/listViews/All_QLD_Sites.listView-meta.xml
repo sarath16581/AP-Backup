@@ -19,10 +19,5 @@
         <operation>contains</operation>
         <value>QLD</value>
     </filters>
-    <filters>
-        <field>Node_Type__c</field>
-        <operation>equals</operation>
-        <value>Customer</value>
-    </filters>
     <label>All QLD Sites</label>
 </ListView>

@@ -16,11 +16,14 @@
     <groups>SSSW BO Admin</groups>
     <label>AP CCC Admin</label>
     <loginAccess>false</loginAccess>
-    <permissionSets>SSSW - CTI Overflow Experience</permissionSets>
     <permissionSets>SSSW Omni Supervisor PermSet</permissionSets>
     <permissionSets>SSSW Allow Quick Text</permissionSets>
     <permissionSets>SSSW Callback Reminder Manager</permissionSets>
     <permissionSets>SSSW Callback Reminder</permissionSets>
+    <permissionSets>Knowledge Management Manager Article Permisssions</permissionSets>
+    <permissionSets>Knowledge Management Recovery Team</permissionSets>
+    <permissionSets>Knowledge Management Specialist Skills</permissionSets>
+    <permissionSets>SSSW - CTI Overflow Experience</permissionSets>
     <permissionSets>Chatter Moderator</permissionSets>
     <permissionSets>SSSW Knowledge Management</permissionSets>
     <permissionSets>SSSW Team Lead/Manager</permissionSets>

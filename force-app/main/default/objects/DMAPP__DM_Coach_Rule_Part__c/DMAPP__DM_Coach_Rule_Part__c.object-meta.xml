@@ -164,7 +164,7 @@ This object is responsible for the maintenance of the Coach Rule sub-parts or cl
         <type>Text</type>
     </nameField>
     <pluralLabel>Coach Rule Parts</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

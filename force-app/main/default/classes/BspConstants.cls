@@ -16,8 +16,8 @@
  * 2019-06-01 - saiswetha.pingali - modified
  * 2020-04-18 - Nathan Franklin - Added additional properties to determine context of user and access to bsp
  * 2020-08-07   Jansi - added new value for status picklist PICKLIST_VALUE_DEFAULT_All_STATUS
- * 2021-10-13   prerna.rahangdale@auspost.com.au PARMSIm Dev fix.
- */
+ * 2021-10-13   prerna.rahangdale@auspost.com.au PARMSIm Dev fix. 
+*/
 public class BspConstants{
     public static final String MPB_COMMUNITY_PROFILE_NAME = 'Mypost Business Help & Support Community User';
     public static final String BSP_COMMUNITY_PROFILE_NAME = 'BSP Community User';
@@ -240,14 +240,14 @@ public class BspConstants{
     public static final String ERROR_NO_RESULTS_TRACKING_DETAILS = 'No-Results-Tracking-Id';
     public static final String ERROR_CREATE_ENQUIRY_INVALID_TRACKING_ENQUIRY_COMBO = 'Create-Enquiry-Combo-Invalid';
     public static final String ERROR_CREATE_ENQUIRY_NOT_AUTHORISED = 'Create-Enquiry-Not-Authorised';
-    
+
+    public static final String BSP_COMMUNITY_URL_PREFIX = 'bsp';
     public static final String BSP_PREMIUM_RETURN_EXPRESS = 'Returns Premium Express';
     public static final String BSP_PREMIUM_EXPRESS_RETURN_SIGNATURE = 'Returns Premium Express + Signature';
     public static final String BSP_PREMIUM_EXPRESS_SIGNATURE= 'Premium Express + Signature';
     public static final String BSP_PREMIUM_EXPRESS_PARCEL = 'Premium Express';
 
-       
-     /**
+    /**
      * @description A special custom permission that is set on users with the profile BSP Community User or users with the permission set 'BSP_Community_Access' to determine whether a user can access BSP or not
      * Using a custom permission to check access allows us to catch both permission set and profile scenarios
      */

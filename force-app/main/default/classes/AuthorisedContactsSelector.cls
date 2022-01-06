@@ -10,29 +10,29 @@
  */
 public virtual inherited sharing class AuthorisedContactsSelector extends ApplicationSelector {
 
-	public static AuthorisedContactsSelector newInstance() {
-		return (AuthorisedContactsSelector)Application.Selectors.newInstance(AuthorisedContactsSelector.class);
-	}
+    public static AuthorisedContactsSelector newInstance() {
+        return (AuthorisedContactsSelector)Application.Selectors.newInstance(AuthorisedContactsSelector.class);
+    }
 
-	public virtual override SObjectType getSObjectType() {
-		return AuthorisedContacts__c.getSObjectType();
-	}
+    public virtual override SObjectType getSObjectType() {
+        return AuthorisedContacts__c.getSObjectType();
+    }
 
-	public virtual override Set<SObjectField> getSObjectFieldList() {
-		return new Set<SObjectField> {
-			AuthorisedContacts__c.Id, AuthorisedContacts__c.Initial_Contact__c, AuthorisedContacts__c.Contact_Email__c, AuthorisedContacts__c.Contact_Mobile_Number__c,
+    public virtual override Set<SObjectField> getSObjectFieldList() {
+        return new Set<SObjectField> {
+            AuthorisedContacts__c.Id, AuthorisedContacts__c.Initial_Contact__c, AuthorisedContacts__c.Contact_Email__c, AuthorisedContacts__c.Contact_Mobile_Number__c,
             AuthorisedContacts__c.Contact_Phone_Number__c, AuthorisedContacts__c.First_Name__c, AuthorisedContacts__c.Last_Name__c, AuthorisedContacts__c.Contact_Type__c, 
             AuthorisedContacts__c.Notification_Required__c, AuthorisedContacts__c.Pref_Method_of_Contact__c 
-		};
-	}
+        };
+    }
 
-	public virtual override QueryBuilder newQueryBuilder() {
-		return newQueryBuilder(new Set<Object>());
-	}
+    public virtual override QueryBuilder newQueryBuilder() {
+        return newQueryBuilder(new Set<Object>());
+    }
 
-	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
-		return builder;
-	}
+    public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+        QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+        return builder;
+    }
 
 }

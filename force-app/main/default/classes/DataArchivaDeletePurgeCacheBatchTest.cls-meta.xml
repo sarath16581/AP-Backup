@@ -3,7 +3,7 @@
     <apiVersion>52.0</apiVersion>
     <packageVersions>
         <majorNumber>4</majorNumber>
-        <minorNumber>3</minorNumber>
+        <minorNumber>1</minorNumber>
         <namespace>CEPARC</namespace>
     </packageVersions>
     <status>Active</status>

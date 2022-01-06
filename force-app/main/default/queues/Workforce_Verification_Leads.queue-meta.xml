@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>kahl.hughes@auspost.com.au</email>
     <name>Workforce Verification Leads</name>
+    <queueMembers>
+        <users>
+            <user>andrew.vanderputten@auspost.com.au</user>
+            <user>kahl.hughes@auspost.com.au</user>
+            <user>leah.lausberg@auspost.com.au</user>
+            <user>marra.saly@auspost.com.au</user>
+        </users>
+    </queueMembers>
     <queueSobject>
         <sobjectType>Lead</sobjectType>
     </queueSobject>

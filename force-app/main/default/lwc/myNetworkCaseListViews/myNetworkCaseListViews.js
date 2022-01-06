@@ -3,7 +3,6 @@
  * @date         : 23/03/2020
  * @description  : Component that has custom list view and search filters
  * --------------------------------------- History --------------------------------------------------
- * 17/03/2021         Hara Sahoo                  Updates - REQ2363142 - Added Critical to case priority
  **/
 /* eslint-disable no-console */
 import { LightningElement, track, wire, api } from "lwc";
@@ -18,7 +17,6 @@ export default class CaseListViews extends LightningElement {
   @track listViewsArray = [];
   @track listEnquirySubType;
   @track listProductCategory;
-  @track listPriorityValues;
   @track selectEnquirySubType = "--Select--";
   @track selectedIsPrinted = "--Select--";
   @track listIsPrinted = [];
@@ -43,7 +41,6 @@ export default class CaseListViews extends LightningElement {
     if (data) {
       this.listEnquirySubType = [{ label: "--Select--", value: "--Select--" }];
       this.listProductCategory = [{ label: "--Select--", value: "--Select--" }];
-      this.listPriorityValues = [{ label: "--Select--", value: "--Select--" }];
       for (let i = 0; i < data.length; i++) {
         if(data[i].FieldName__c === 'EnquirySubType'){
           let dataVar = { label: data[i].MasterLabel, value: data[i].MasterLabel };
@@ -51,9 +48,6 @@ export default class CaseListViews extends LightningElement {
         }else if(data[i].FieldName__c === 'ProductCategory'){
           let dataVar = { label: data[i].MasterLabel, value: data[i].MasterLabel };
           this.listProductCategory.push(dataVar);
-        }else if(data[i].FieldName__c === 'Priority'){
-          let dataVar = { label: data[i].MasterLabel, value: data[i].MasterLabel };
-          this.listPriorityValues.push(dataVar);
         }
       }
       this.loadingFlag = false;
@@ -64,12 +58,12 @@ export default class CaseListViews extends LightningElement {
   }
   @wire(getObjectInfo, { objectApiName: CASE_OBJECT })
   objectInfo;
-/* Commented out the below code as case priority is not sourced from custom metadata similar to ProductCategory and EnquirySubType */
-  /*@wire(getPicklistValues, {
+
+  @wire(getPicklistValues, {
     recordTypeId: "$objectInfo.data.defaultRecordTypeId",
     fieldApiName: PRIORITY_FIELD
-  })*/
-  /*priorityPickListValuesSet({ error, data }) {
+  })
+  priorityPickListValuesSet({ error, data }) {
     if (data) {
       this.priorityPickListValues = [
         { label: "--Select--", value: "--Select--" },
@@ -80,7 +74,7 @@ export default class CaseListViews extends LightningElement {
       this.error = error;
       this.loadingFlag = false;
     }
-  }*/
+  }
   connectedCallback() {
     this.listViewsArray = [
       { label: "All Cases", value: "All_Cases" },

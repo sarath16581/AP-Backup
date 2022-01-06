@@ -1,7 +1,7 @@
 <aura:component implements="forceCommunity:availableForAllPageTypes" extends="c:SS_uiWizard" access="global" description="Wizard navigation unique to Delivery Issues">
     
     <aura:attribute name="name" type="String" default="DeliveryIssues" />
-    
+    <aura:attribute name="incorrectDeliveryAddressText" type="String" default="" access="global"/>
     <aura:attribute name="pageMap" type="Map"
                     default="
                              {
@@ -55,7 +55,7 @@
                                             'safe-drop',
                                             'extra-cover'
                                         ],
-                                        'header': 'Thanks, we’ve received the details about your delivery issue',
+                                        'header': 'Thanks, we’ve received the feedback about your delivery issue',
                                         'isUrgent': 'false'
                                     }
                                 }

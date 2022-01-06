@@ -6,7 +6,6 @@
     <columns>CASES.SUBJECT</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
-    <columns>IsNewForRouting__c</columns>
     <columns>PriorityNumber__c</columns>
     <columns>SLATargetDate__c</columns>
     <columns>CASES.CREATED_DATE</columns>
@@ -23,6 +22,7 @@
         <value>0</value>
     </filters>
     <label>SSSW Business Inbound</label>
+    <language>en_US</language>
     <queue>SSSW_Business_Inbound</queue>
     <sharedTo>
         <group>SSSWAgents</group>

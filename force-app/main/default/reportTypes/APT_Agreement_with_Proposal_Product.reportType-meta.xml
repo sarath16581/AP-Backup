@@ -91,11 +91,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Add_Products_Test__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>APT_Tier_Adjustment_Type__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
@@ -4371,13 +4366,5 @@
             <table>Apttus_Proposal__Proposal__c.Apttus_QPComply__Agreements__r.Apttus__AgreementLineItems__r</table>
         </columns>
         <masterLabel>Contract Line Items</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_APPC_Count__c</field>
-            <table>Apttus_Proposal__Proposal__c.Apttus_QPComply__Agreements__r</table>
-        </columns>
-        <masterLabel>Apttus Contracts</masterLabel>
     </sections>
 </ReportType>

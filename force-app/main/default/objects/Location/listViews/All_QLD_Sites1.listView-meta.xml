@@ -3,7 +3,7 @@
     <fullName>All_QLD_Sites1</fullName>
     <columns>Name</columns>
     <columns>LocationType</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>State__c</field>
         <operation>equals</operation>

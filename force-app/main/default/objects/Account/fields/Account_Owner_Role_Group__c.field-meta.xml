@@ -13,7 +13,6 @@ IF(CONTAINS(Owner.UserRole.RollupDescription, &quot;Parcel Key Accounts&quot;), 
     <inlineHelpText>Not for end user visibility</inlineHelpText>
     <label>Account Owner Role Group</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

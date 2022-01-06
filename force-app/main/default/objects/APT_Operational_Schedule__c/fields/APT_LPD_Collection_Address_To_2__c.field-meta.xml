@@ -6,7 +6,6 @@ This is used for &apos;Local Pickup and Delivery Services&apos; product only.</d
     <externalId>false</externalId>
     <label>To Address</label>
     <length>1000</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

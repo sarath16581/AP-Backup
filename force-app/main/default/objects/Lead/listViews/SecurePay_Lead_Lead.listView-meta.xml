@@ -5,6 +5,6 @@
     <label>SecurePay Lead</label>
     <queue>SecurePay_Lead</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

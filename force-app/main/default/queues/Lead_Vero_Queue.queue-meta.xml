@@ -4,9 +4,8 @@
     <name>Lead Vero Queue</name>
     <queueMembers>
         <users>
-            <user>divya.leadvero@auspost.com.au</user>
             <user>karthickbgleadverifier@auspost.com.prod</user>
-            <user>yojanabgleadverifier@auspost.com</user>
+            <user>yojanabgleadverifier@auspost.com.prod</user>
         </users>
     </queueMembers>
     <queueSobject>

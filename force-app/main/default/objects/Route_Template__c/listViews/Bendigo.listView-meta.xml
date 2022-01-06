@@ -10,9 +10,14 @@
     <columns>UPDATEDBY_USER</columns>
     <filterScope>Everything</filterScope>
     <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Draft,Active</value>
+    </filters>
+    <filters>
         <field>Service_Territory__c</field>
         <operation>equals</operation>
-        <value>Bendigo</value>
+        <value>bendigo</value>
     </filters>
     <label>Bendigo</label>
 </ListView>

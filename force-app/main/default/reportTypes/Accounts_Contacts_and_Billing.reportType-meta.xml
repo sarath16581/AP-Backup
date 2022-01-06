@@ -3595,11 +3595,6 @@
             <field>Primary_Sales_Contact__c</field>
             <table>Account.Billing_Accounts__r.Contacts__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>isPrefDiffAsFirst__c</field>
-            <table>Account.Billing_Accounts__r.Contacts__r</table>
-        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
 </ReportType>

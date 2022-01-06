@@ -24,8 +24,8 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>greaterOrEqual</operation>
-        <value>TOMORROW</value>
+        <operation>lessOrEqual</operation>
+        <value>TODAY</value>
     </filters>
     <label>Bayswater MPB - TOMORROW</label>
     <sharedTo>

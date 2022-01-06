@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All1</fullName>
-    <columns>NAME</columns>
-    <columns>APT_Attribute_Name__c</columns>
-    <columns>APT_Attribute_Value__c</columns>
-    <columns>Apt_Product__c</columns>
-    <columns>APT_Is_Presto_App__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
-    <language>en_US</language>
 </ListView>

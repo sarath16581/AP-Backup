@@ -2,6 +2,9 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
+    <excludeButtons>DataDotComAccountInsights</excludeButtons>
+    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -567,9 +570,9 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Account.New_Deal_Support_Request</actionName>
+            <actionName>Account.New_BG_Opportunity</actionName>
             <actionType>QuickAction</actionType>
-            <sortOrder>8</sortOrder>
+            <sortOrder>0</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Create_Sales_Task</actionName>
@@ -607,9 +610,9 @@
             <sortOrder>7</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Account.New_BG_Opportunity</actionName>
+            <actionName>Account.New_Deal_Support_Request</actionName>
             <actionType>QuickAction</actionType>
-            <sortOrder>0</sortOrder>
+            <sortOrder>8</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>
@@ -668,10 +671,10 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Scale__c</fields>
+        <fields>Status__c</fields>
         <fields>Product_1__c</fields>
         <fields>Risk_Type__c</fields>
         <fields>Reason__c</fields>
-        <fields>Status__c</fields>
         <fields>Threat_Risk__c</fields>
         <fields>Value_of_Business_at_Risk__c</fields>
         <fields>Key_Sales_Owner__c</fields>
@@ -857,11 +860,11 @@
         <fields>NAME</fields>
         <fields>LEGACY_ID__c</fields>
         <fields>Type__c</fields>
+        <fields>Customer_Name__c</fields>
         <fields>Credit_Limit_Formula__c</fields>
         <fields>PAYER_ACCOUNT_ID__c</fields>
         <fields>Credit_Person__c</fields>
         <fields>Credit_Person_Code__c</fields>
-        <fields>Credit_Status_Image__c</fields>
         <fields>SAP_marked_for_deletion__c</fields>
         <fields>Is_Intermediary_Account_StarTrack__c</fields>
         <relatedList>Billing_Account__c.Organisation__c</relatedList>

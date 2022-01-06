@@ -205,7 +205,7 @@ ISPICKVAL({!myVariable_current.Status}, &apos;Closed&apos;) &amp;&amp;
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -280,7 +280,7 @@ ISPICKVAL({!myVariable_current.Status}, &apos;Closed&apos;) &amp;&amp;
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>

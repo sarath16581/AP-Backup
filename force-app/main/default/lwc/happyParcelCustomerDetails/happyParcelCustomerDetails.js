@@ -196,7 +196,7 @@ export default class HappyParcelCustomerDetails extends HappyParcelBase {
     }
 
 	get waiting() {
-		return this.loading || this.loadingNotificationPreferences; // || !this.details || Object.entries(this.details).length === 0;
+		return this.loading;
 	}
 
 	get iconClass() {

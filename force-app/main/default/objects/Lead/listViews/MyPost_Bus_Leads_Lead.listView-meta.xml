@@ -5,6 +5,6 @@
     <label>MyPost Bus Leads</label>
     <queue>MyPost_Bus_Leads</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

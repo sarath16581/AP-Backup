@@ -20,6 +20,7 @@ global without sharing class OPCRevenuesRollUpBatchable implements Database.Batc
         setErrorMessage = new set<String>();
         // Retrieve the WHERE Condition from the Custom Setting(BatchJobSettings)
         lastModifiedDateCondition = BatchJobSettings__c.getInstance().OPC_Last_Modified_Date_Condition__c;
+        System.debug('***lastModifiedDateCondition=> ' + lastModifiedDateCondition);
         queryString = 'SELECT id, Jan_Schedule_Amount__c, Feb_Schedule_Amount__c,' 
                             +  ' Mar_Schedule_Amount__c, Apr_Schedule_Amount__c,'
                             +  ' May_Schedule_Amount__c, Jun_Schedule_Amount__c, '

@@ -164,7 +164,7 @@ This object is responsible for the maintenance of the eLearning questions. These
         <type>Text</type>
     </nameField>
     <pluralLabel>Test Questions</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

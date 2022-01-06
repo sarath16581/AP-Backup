@@ -123,5 +123,5 @@
     <externalName>LeaseHeaders</externalName>
     <label>LeaseHeaders</label>
     <pluralLabel>LeaseHeaders</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
 </CustomObject>

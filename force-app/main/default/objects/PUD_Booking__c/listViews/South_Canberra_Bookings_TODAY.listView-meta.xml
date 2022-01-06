@@ -14,7 +14,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>FYSHWICK</value>
+        <value>SOUTH CANBERRA</value>
     </filters>
     <filters>
         <field>Effective_Date__c</field>

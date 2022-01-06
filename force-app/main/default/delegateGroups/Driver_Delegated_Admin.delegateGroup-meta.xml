@@ -4,7 +4,7 @@
     <label>Driver Delegated Admin</label>
     <loginAccess>true</loginAccess>
     <permissionSets>FSL Mobile License</permissionSets>
-    <permissionSets>Field Service Agent Permissions</permissionSets>
+    <permissionSets>FSL Agent Permissions</permissionSets>
     <permissionSets>FSL Scheduling License</permissionSets>
     <profiles>TDF Driver</profiles>
 </DelegateGroup>

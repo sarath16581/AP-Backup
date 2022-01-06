@@ -8,7 +8,6 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 --------------------------------------------------
 2020-08-02    Jansi Rani. avula.jansirani@auspost.com.au  Initial Code for community uplift project.
 2020-10-29    Ankur Gandhi. ankur.gandhi@auspost.com.au Adding the enquiry type filter for AP and ST enquiries.
-2020-11-26    Jansi Rani. avula.jansirani@auspost.com.au  Removed System.debug lines
 13/10/2021    prerna.rahangdale@auspost.com.au PARSIM Premium Express for creating Case out conditions on the products.
 **************************************************/
 public without sharing class bspEnquiryUplift {
@@ -126,6 +125,8 @@ public without sharing class bspEnquiryUplift {
     @AuraEnabled(cacheable=true) 
     public static SerchResultsWrapper retrieveDisplayCaseList(EnquiryFilter enquiryFilter) {
 
+        System.debug('Enquiry Filter >>>> ' +  enquiryFilter);
+            
         isReqFromDownload = false;
 
         setFilterParams(enquiryFilter);
@@ -159,7 +160,8 @@ public without sharing class bspEnquiryUplift {
      * */
     private static void setFilterParams(EnquiryFilter ef){
 
-       
+        System.debug('EnquiryFilter >>> ' + ef);
+        
         if(!String.isBlank(ef.pageNumber)){
             dynamicPageNumber = Integer.valueOf(ef.pageNumber);
         }
@@ -429,8 +431,7 @@ public without sharing class bspEnquiryUplift {
                 }
             }
         }
-
-        Set<SObjectField> articleFields = new Set<SObjectField>{
+         Set<SObjectField> articleFields = new Set<SObjectField>{
                 Article__c.TrackingID__c, Article__c.ProductCategory__c, Article__c.SubProduct__c
         };
         Map<Id, Article__c>  articles = ArticlesSelector.newInstance(1,articleFields).selectByTracking(new Set<String>{enq.ReferenceID__c},true);
@@ -455,9 +456,8 @@ public without sharing class bspEnquiryUplift {
                     }
                 }
             }
-
         }
-        
+
 
         // this should be passed in
         //enq.DescriptionOfContents__c = descofcontents;
@@ -534,6 +534,7 @@ public without sharing class bspEnquiryUplift {
         } catch(Exception ex) {
             enqWrapper.status = STATUS_ERROR;
             enqWrapper.message = ex.getMessage();
+            System.debug('Exception >>> ' + ex);
             System.debug('xxx Exception caught - insert enq '+ex.getMessage()+' at line '+ex.getstacktraceString());
             Database.rollback(sp);
         }
@@ -647,6 +648,7 @@ public without sharing class bspEnquiryUplift {
                     'Related_Billing_Account__r.LEGACY_ID__c','LastModifiedDate','Enquiry_Status__c' 
             };
 
+			System.debug('searchText===' + searchText  + '>>');
             if(String.isNotEmpty(searchText)) {
                     
                 String queryToGetCount = 'Find \'' + String.escapeSingleQuotes(searchText) + '\' ' +
@@ -667,7 +669,7 @@ public without sharing class bspEnquiryUplift {
                 
                 query= query+')'; 
 
-                //System.debug('Query >>>> ' + query);
+                System.debug('Query >>>> ' + query);
 
                 try {
                     searchedCaseMap.putAll((List<Case>)Search.query(query)[0]);
@@ -684,7 +686,7 @@ public without sharing class bspEnquiryUplift {
                     query = query+' LIMIT ' + dynamicPageSize + ' OFFSET ' + dynamicPageSize*(dynamicPageNumber-1); 
         
                 
-               // System.debug('Query >>>> ' + query);
+                System.debug('Query >>>> ' + query);
                 List<Case> retrievedCases = (List<Case>)Database.query(query);
                 
                 string recordCountsQuery = 'Select count() from Case '+ queryWhere; 
@@ -703,6 +705,8 @@ public without sharing class bspEnquiryUplift {
             }
 
         }
+
+        System.debug('SearchedCaseList >>>>> ' + searchedCaseList);
 
         allCaseSearchRecords = putListToContainer(searchedCaseList); 
         // below mapping is to provide more readability to the code, and
@@ -733,6 +737,14 @@ public without sharing class bspEnquiryUplift {
     private static string getSearchEnquiriesWhereClause(Map<String, Set<Id>> mappedEntities, String billingAccountSelected){
         // query all the ST cases based on the roles and access of the logged in user
         // always run this query since there may be instances where cases have been raised by the current logged in user outside of what their accessible billing account scope is
+        System.debug('DOING STARTRACK ENQUIRY');
+        System.debug('>> stRecordTypes: ' + stRecordTypes);
+        System.debug('>> excludecaseTypeslist: ' + bspBaseUplift.excludecaseTypeslist);
+        System.debug('>> excludecasePurposelist: ' + bspBaseUplift.excludecasePurposelist);
+        System.debug('>> loginAccountId: ' + bspBaseUplift.loginAccountId);
+        System.debug('>> loginContactId: ' + bspBaseUplift.loginContactId);
+        System.debug('>> loginUserId: ' + bspBaseUplift.loginUserId);
+        System.debug('>> apRecordTypes:' + apRecordTypes);
         /* 
         // Changed code to combine ST and AP Queries into 1 query.
         */
@@ -740,11 +752,13 @@ public without sharing class bspEnquiryUplift {
         String roleWhere = '';
         if(mappedEntities.get('Super Admin') != null) {
             superAdminEntities = mappedEntities.get('Super Admin');
+            System.debug('superAdminEntities >>>> ' + superAdminEntities);
             roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( AccountId in :superAdminEntities ) ';
         }
 
         if(mappedEntities.get('Admin') != null) {
             adminEntities = mappedEntities.get('Admin');
+            System.debug('adminEntities >>>> ' + adminEntities);
             roleWhere += (String.isNotEmpty(roleWhere) ? ' OR ' : '') + ' ( (Related_Billing_Account__c != null And Related_Billing_Account__c IN :adminEntities) ' +
                     ' Or (Contact.BillingAccount__c != null And Contact.BillingAccount__c In :adminEntities) ) ';
         }
@@ -781,7 +795,7 @@ public without sharing class bspEnquiryUplift {
         queryWhere += generateFilterCriteria();
         queryWhere = (String.isNotEmpty(queryWhere) ? ' WHERE ' : '') + queryWhere;
 
-        //System.debug('queryWhere >>' + queryWhere);
+        System.debug('queryWhere >>' + queryWhere);
         return queryWhere;
     }
 
@@ -994,7 +1008,7 @@ public without sharing class bspEnquiryUplift {
      * When checking for accessible billing account we search in order of the prefix'd account numbers just incase of collision's with non-prefixed billing account numbers
      */
     public static Id getBillingAccountFromMap(String billingAcctNo) {
-
+        //System.debug('accessibleBillingAccNumbers >>'+bspBaseUplift.accessibleBillingAccNumbers);
         Id billAcct = null;
         if (bspBaseUplift.accessibleBillingAccNumbers.get('P' + billingAcctNo) != null) {
             billAcct = bspBaseUplift.accessibleBillingAccNumbers.get('P' + billingAcctNo);
@@ -1144,14 +1158,17 @@ public without sharing class bspEnquiryUplift {
             // if consignment number provided is valid but is not found or multiple consignment found,
             // provide error message and ask if user wants to proceed creating case
             if (articleNotFound(searchedConsignment)) {
+                system.debug('ARTICLE NOT FOUND ' );
                 stWrapper.confirmCreation = true;//confirmCreation = true;
                 stWrapper.notFound = true;//notFound = true;
                 stWrapper.errorMessage = errors.get(BspConstants.CREATE_ENQ_MSG_CON_NOT_FOUND).Message__c.replace(BspConstants.MSG_KEY_CON_NUM, stInfo.consignmentNumber.escapeHtml4());
             } else if (isMultipleConsignment(searchedConsignment)) {
+                system.debug('MULTIPLE CONSIGNMENTS ' );
                 stWrapper.confirmCreation = true;//confirmCreation = true;
                 stWrapper.duplicate = true;//duplicate = true;
                 stWrapper.errorMessage =errors.get(BspConstants.CREATE_ENQ_MSG_MULT_CON).Message__c.replace(BspConstants.MSG_KEY_CON_NUM, stInfo.consignmentNumber.escapeHtml4());
             } else {
+                System.debug('SINGLE CONSIGNMENTS ');
                 //if single consignment found
                 // reselect the data out to include the billing account record to verify whether it's accessible to the current user
                 List<Article__c> artList = [SELECT Id, Name, Billing_Account__c, Billing_Account__r.LEGACY_ID__c, Billing_Account__r.Id,
@@ -1160,11 +1177,13 @@ public without sharing class bspEnquiryUplift {
                 //validate if user is authorized on consignment's billing account
                 // proceed creation if valid, return error if not
                 if (isSingleConsignment(searchedConsignment) && !artList.isEmpty() && bspBaseUplift.isArticleAccessible(artList[0])) {
+                    system.debug('AUTHOIZED ' );
                     //[Jansi: added 10-09-2020] Get latest Consignment Event
                     stWrapper.expectedDeliveryDate= artList[0].ExpectedDeliveryDate_Str__c;
                     stWrapper.latestEvent = getLatestEvent(artList[0].Id); //isArticleAccessible
 
                     if(retrieveConCases(artList[0])){
+                        System.debug('MULTIPLE OPEN CASES ' );
                         stWrapper.article=artList[0];
                         stWrapper.multipleCaseError=multipleCaseError;
                         stWrapper.lastKey=lastKey;
@@ -1172,9 +1191,11 @@ public without sharing class bspEnquiryUplift {
                         stWrapper.caseNumbersStrList = new List<String>(caseNumbers.keySet());
                     } 
                     else{
+                        System.debug('NO OPEN CASES ' );
                         stWrapper.article = artList[0];
                     }                   
                 } else {
+                    system.debug('NOT AUTHOIZED ' );
                     stWrapper.errorMessage = errors.get(BspConstants.CREATE_ENQ_MSG_NOT_AUTH).Message__c.replace(BspConstants.MSG_KEY_CON_NUM, stInfo.consignmentNumber.escapeHtml4());
                     stWrapper.notAllowedToCreateEnquiry = true;
                 }

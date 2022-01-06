@@ -5,6 +5,6 @@
     <label>TSA Outbound Leads</label>
     <queue>TSA_Outbound_Leads</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

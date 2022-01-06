@@ -869,6 +869,16 @@
                 <default>false</default>
                 <label>Cash Entry Error</label>
             </value>
+            <value>
+                <fullName>Technical Issue</fullName>
+                <default>false</default>
+                <label>Technical Issue</label>
+            </value>
+            <value>
+                <fullName>Spoils</fullName>
+                <default>false</default>
+                <label>Spoils</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Post Office Accounting</controllingFieldValue>
@@ -953,6 +963,103 @@
         <valueSettings>
             <controllingFieldValue>UPMS</controllingFieldValue>
             <valueName>Dispute charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Cheque Extraction</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Document Retrieval</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <valueName>Duplicate Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <valueName>Incorrect Amount Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Incorrect Amount Processed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>Invoice</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Outstanding Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Payment Blocked</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <valueName>Petty Cash Register/Deregister custodian query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <valueName>Petty Cash Report Discrepancy of amount received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <valueName>Reissue Petty Cash Money Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <valueName>Remittance Advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <valueName>Vendor Changes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <valueName>Wrong Vendor Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRC</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>APMS</controllingFieldValue>
+            <controllingFieldValue>Armaguard</controllingFieldValue>
+            <controllingFieldValue>Manual Post Office (Non-EPOS)</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <controllingFieldValue>BCard</controllingFieldValue>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <controllingFieldValue>Money Order</controllingFieldValue>
+            <controllingFieldValue>Western Union</controllingFieldValue>
+            <controllingFieldValue>ATO</controllingFieldValue>
+            <valueName>All Other Queries</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Access Maintenance</controllingFieldValue>
@@ -1154,103 +1261,6 @@
         <valueSettings>
             <controllingFieldValue>Billed</controllingFieldValue>
             <valueName>Error notifications</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>Payment</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Cheque Extraction</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable</controllingFieldValue>
-            <controllingFieldValue>Payment</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Document Retrieval</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Duplicate Payment</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Incorrect Amount Paid</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Banking</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Incorrect Amount Processed</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>Invoice</controllingFieldValue>
-            <controllingFieldValue>Payment</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Outstanding Payment</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable</controllingFieldValue>
-            <controllingFieldValue>Payment</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Payment Blocked</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Petty Cash Register/Deregister custodian query</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Petty Cash Report Discrepancy of amount received</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Reissue Petty Cash Money Order</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Remittance Advice</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Vendor Changes</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <valueName>Wrong Vendor Paid</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
-            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
-            <controllingFieldValue>APMS</controllingFieldValue>
-            <controllingFieldValue>Armaguard</controllingFieldValue>
-            <controllingFieldValue>Manual Post Office (Non-EPOS)</controllingFieldValue>
-            <controllingFieldValue>Banking</controllingFieldValue>
-            <controllingFieldValue>BCard</controllingFieldValue>
-            <controllingFieldValue>Cheques</controllingFieldValue>
-            <controllingFieldValue>Money Order</controllingFieldValue>
-            <controllingFieldValue>Western Union</controllingFieldValue>
-            <controllingFieldValue>SCR</controllingFieldValue>
-            <controllingFieldValue>ATO</controllingFieldValue>
-            <valueName>All Other Queries</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>APMS</controllingFieldValue>
@@ -1559,6 +1569,14 @@
         <valueSettings>
             <controllingFieldValue>MMM</controllingFieldValue>
             <valueName>New Application</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MMM</controllingFieldValue>
+            <valueName>Technical Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MMM</controllingFieldValue>
+            <valueName>Spoils</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

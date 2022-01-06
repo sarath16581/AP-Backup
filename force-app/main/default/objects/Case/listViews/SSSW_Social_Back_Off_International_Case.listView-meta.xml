@@ -5,6 +5,6 @@
     <label>SSSW Social Back Off International</label>
     <queue>SSSW_Social_Back_Off_International</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -12,72 +12,7 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Owner</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>Name</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Description</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DeveloperName</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>NamespacePrefix</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ReportTypeEnumOrId</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastRunDate</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>BooleanFilter</field>
-            <table>Report</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CustomEntity</field>
             <table>Report</table>
         </columns>
         <columns>
@@ -87,7 +22,72 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CustomEntity</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Description</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastRunDate</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>LookupField</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>NamespacePrefix</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ReportTypeEnumOrId</field>
+            <table>Report</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>DeveloperName</field>
             <table>Report</table>
         </columns>
         <masterLabel>Reports</masterLabel>
@@ -95,107 +95,7 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Dashboard</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ComponentType</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DashboardColumn</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>SortOrder</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Header</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Footer</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Metric</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Title</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>SortBy</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>NumberRows</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>GaugeMin</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Gauge0Max</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Gauge1Max</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Gauge2Max</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LegendPosition</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Units</field>
+            <field>IsAutoselectColsFromRpt</field>
             <table>Report.DashboardComponents</table>
         </columns>
         <columns>
@@ -205,27 +105,42 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>ChartRangeMin</field>
-            <table>Report.DashboardComponents</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>ChartRangeMax</field>
             <table>Report.DashboardComponents</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DrillUrl</field>
+            <field>ChartRangeMin</field>
             <table>Report.DashboardComponents</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Height</field>
+            <field>ComponentType</field>
             <table>Report.DashboardComponents</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>IsAutoselectColsFromRpt</field>
+            <field>CreatedBy</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Dashboard</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>DashboardColumn</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
             <table>Report.DashboardComponents</table>
         </columns>
         <columns>
@@ -241,6 +156,96 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Summary4Decimals</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Units</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>DrillUrl</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Footer</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Header</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Height</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Gauge1Max</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LegendPosition</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Gauge0Max</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Gauge2Max</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>NumberRows</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Metric</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>GaugeMin</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>SortBy</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>SortOrder</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Title</field>
+            <table>Report.DashboardComponents</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Dashboard.Id</field>
             <table>Report.DashboardComponents</table>
         </columns>
         <masterLabel>Dashboard Components</masterLabel>

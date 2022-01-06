@@ -26,7 +26,7 @@
         <operation>notEqual</operation>
         <value>PUD_Booking__c.Other</value>
     </filters>
-    <label>Tuggerah Bookings - YESTERDAY</label>
+    <label>Central Coast Vans Bookings - YESTERDAY</label>
     <sharedTo>
         <group>TUGGERAH_VAN_OPS</group>
     </sharedTo>

@@ -5,7 +5,6 @@
     <label>Contract Sold To Billing Account</label>
     <length>50</length>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -5,7 +5,6 @@
     <formula>ANZSIC_Code__r.Code_Description__c</formula>
     <label>ANZSIC Code Description</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

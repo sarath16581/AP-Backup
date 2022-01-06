@@ -8,7 +8,6 @@
     <relationshipLabel>APR Contacts</relationshipLabel>
     <relationshipName>APR_Contacts</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

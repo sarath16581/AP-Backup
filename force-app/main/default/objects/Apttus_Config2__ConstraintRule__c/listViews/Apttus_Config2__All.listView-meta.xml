@@ -5,10 +5,10 @@
     <columns>Apttus_Config2__Active__c</columns>
     <columns>Apttus_Config2__Description__c</columns>
     <columns>Apttus_Config2__ConditionAssociation__c</columns>
-    <columns>UPDATEDBY_USER</columns>
     <columns>LAST_UPDATE</columns>
     <columns>APTS_Ext_ID__c</columns>
     <columns>OWNER.ALIAS</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
+    <language>en_US</language>
 </ListView>

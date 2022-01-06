@@ -36,6 +36,10 @@
                 <behavior>Readonly</behavior>
                 <field>APT_eSignature_ApprovalStatusCheck__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Generate_Docs__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -49,6 +53,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Apttus_CMDSign__RecallESignatureRequest__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>APT_Create_Generate_Contracts__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -501,13 +509,15 @@
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>NewCase</excludeButtons>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CREATEDBY_USER.ALIAS</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
-        <relatedList>Case.APT_Contract__c</relatedList>
+        <excludeButtons>New</excludeButtons>
+        <fields>NAME</fields>
+        <fields>Work_Type__c</fields>
+        <fields>Description__c</fields>
+        <fields>OWNER.ALIAS</fields>
+        <fields>Date_Time_Opened__c</fields>
+        <fields>Stage__c</fields>
+        <fields>Status__c</fields>
+        <relatedList>Deal_Support_Request__c.APT_Contract__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>

@@ -84,12 +84,18 @@
                     <value>Account_Physical</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>altRecordId</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>cardTitle</name>
                     <value>Billing Address</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>cardTitle2</name>
                     <value>Physical Address</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>cardTitle3</name>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>noRefreshAfterSave</name>
@@ -101,7 +107,7 @@
                 </componentInstanceProperties>
                 <componentName>addressLookupRecordWrapper</componentName>
                 <visibilityRule>
-                    <booleanFilter>4 OR (3 AND (1 OR 2)) OR 5</booleanFilter>
+                    <booleanFilter>4 OR (3 AND (1 OR 2 OR (6 AND 7))) OR 5</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Role_Type_Roll_Up__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -127,6 +133,16 @@
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
                     </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Owner.Username}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>holding.user@auspost.com.au</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Role_Type_Roll_Up__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer</rightValue>
+                    </criteria>
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
@@ -142,7 +158,7 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4 AND (NOT (5 AND 6 AND 3))</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Role_Type_Roll_Up__c}</leftValue>
                         <operator>NE</operator>
@@ -162,6 +178,16 @@
                         <leftValue>{!Record.Owner.IsCurrentUser__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>false</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Owner.Username}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>holding.user@auspost.com.au</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Role_Type_Roll_Up__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

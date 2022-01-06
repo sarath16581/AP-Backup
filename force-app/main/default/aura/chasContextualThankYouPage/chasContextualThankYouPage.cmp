@@ -2,7 +2,6 @@
   * @changeLog :
   * @date         : 12/03/2021 - Created - Hara Sahoo
   * @date         : 20/07/2021 - Added - Hara Sahoo : Content change to indicate that EDD was estimated
-  * @date         : 08/11/2021 - Modified - Phap Mai: set no EDD as baseline variation
 -->
 <aura:component extends="c:SS_uiWizardPage" description="Header including the unique Case Number" controller="ChasApexController">
     <aura:attribute name="tiles" type="List" default="['digital-id', 'safe-drop', 'my-post', 'extra-cover', 'po-boxes']" />
@@ -90,9 +89,6 @@
                             </aura:if>
                         </div>
                     </div>
-                    <!-- DDS-8370 -->
-                    <!-- set default page to be no EDD variation therefore this block will not normally be reached -->
-                    <!-- we still leave this uncommneted as a last line of defense in case metadata setting having issue and unretrievable -->
                     <aura:set attribute="else">
                         <c:ChasThankYouHeader caseNumber='{!v.wizardData.caseNumber }' header="{! v.header }" isUrgent="{! v.isUrgent }" 
                                                                 caseCreationStatus='{! v.wizardData.caseCreationStatus }' 

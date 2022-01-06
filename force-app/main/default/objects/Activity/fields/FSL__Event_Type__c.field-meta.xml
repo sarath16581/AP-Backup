@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Event Type</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>

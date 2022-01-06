@@ -9,20 +9,7 @@
     <columns>State__c</columns>
     <columns>Site_Instruction_Notes__c</columns>
     <columns>SiteInstructions__c</columns>
+    <columns>FleetNumber__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>ConstructionStartDate</field>
-        <operation>equals</operation>
-    </filters>
-    <filters>
-        <field>State__c</field>
-        <operation>equals</operation>
-        <value>WA</value>
-    </filters>
-    <filters>
-        <field>LocationType</field>
-        <operation>equals</operation>
-        <value>Site</value>
-    </filters>
     <label>All WA Sites</label>
 </ListView>

@@ -142,7 +142,7 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>true</enableFeeds>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <searchLayouts>
         <customTabListAdditionalFields>ParentRecord</customTabListAdditionalFields>
         <customTabListAdditionalFields>ParentRecordType</customTabListAdditionalFields>

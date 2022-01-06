@@ -164,7 +164,7 @@ Normalised Object for assessment plan</description>
         <type>Text</type>
     </nameField>
     <pluralLabel>Customer Pain Points</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

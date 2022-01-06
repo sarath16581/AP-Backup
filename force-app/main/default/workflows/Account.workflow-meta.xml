@@ -69,26 +69,10 @@
         <template>Partner_Info_Templates/Partner_Info_Licence_Reminders</template>
     </alerts>
     <alerts>
-        <fullName>Email_alert_on_Ceased_Facilities</fullName>
-        <ccEmails>andrew.marcato@gmail.com</ccEmails>
-        <description>Email alert on Ceased Facilities</description>
-        <protected>false</protected>
-        <recipients>
-            <recipient>andrew.marcato@auspost.com.au</recipient>
-            <type>user</type>
-        </recipients>
-        <senderType>CurrentUser</senderType>
-        <template>unfiled$public/CommunityChgEmailVerOldTemplate</template>
-    </alerts>
-    <alerts>
         <fullName>Email_for_Active_Licence_Record</fullName>
-        <ccEmails>andrew.marcato@auspost.com.au, surender.miryala2@auspost.com.au</ccEmails>
+        <ccEmails>LBPTier1@auspost.com.au</ccEmails>
         <description>Email for Active Licence Record</description>
         <protected>false</protected>
-        <recipients>
-            <recipient>andrew.marcato@auspost.com.au</recipient>
-            <type>user</type>
-        </recipients>
         <senderType>DefaultWorkflowUser</senderType>
         <template>License_Management_Templates/LBP_Active_Licence</template>
     </alerts>
@@ -151,17 +135,6 @@
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Email_Templates/Partner_Info_Second_Reminder_Alert</template>
-    </alerts>
-    <alerts>
-        <fullName>Partner_Info_test_email</fullName>
-        <description>Partner Info - test email</description>
-        <protected>false</protected>
-        <recipients>
-            <recipient>paul.stamer@auspost.com.au</recipient>
-            <type>user</type>
-        </recipients>
-        <senderType>CurrentUser</senderType>
-        <template>Partner_Info_Templates/Partner_Info_Cease_Licence_Email_For_LBP_related_Networks</template>
     </alerts>
     <fieldUpdates>
         <fullName>AgreeMgt_Licence_SetLT_CMA</fullName>
@@ -869,17 +842,6 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>LBP Ceased Assignment</fullName>
-        <actions>
-            <name>Email_alert_on_Ceased_Facilities</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>Designed to alert the LBP admin team where a Facility is Ceased</description>
-        <formula>RecordType.Name = &quot;Licence&quot; &amp;&amp;    ISPICKVAL( Licence_Type__c , &quot;LPO&quot;) &amp;&amp;   ISPICKVAL( Licence_Status__c , &quot;Ceased&quot;) &amp;&amp;    OR(  ISPICKVAL( Facility__r.Network_Facility__r.LBP_Retail_relationship_type_network__c  , &quot;Tier 1&quot;),  ISPICKVAL( Facility__r.Network_Facility__r.LBP_Retail_relationship_type_network__c  , &quot;Tier 2&quot;))</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
         <fullName>MpbHsp Set Account Service SLA</fullName>
         <actions>
             <name>Set_Service_SLA_to_MyPost_Business</name>
@@ -1017,25 +979,6 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
             <timeLength>18</timeLength>
             <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>Partner Info Cease Licence Email</fullName>
-        <actions>
-            <name>Partner_Info_test_email</name>
-            <type>Alert</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Account.Related_Networks_LBP_Relationship_Type__c</field>
-            <operation>equals</operation>
-            <value>Tier 1,Tier 2</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Account.Licence_Status__c</field>
-            <operation>equals</operation>
-            <value>Ceased</value>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>Partner Info Is a Facility Update</fullName>

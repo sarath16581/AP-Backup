@@ -272,6 +272,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>ActionCadenceState</field>
+            <table>Lead</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>FirstCallDateTime</field>
             <table>Lead</table>
         </columns>
@@ -972,17 +977,17 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Assigned_to_lead_vero__c</field>
-            <table>Lead</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Assigned_to_Sales_Manager__c</field>
             <table>Lead</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Lead_Re_Opened__c</field>
+            <field>Assigned_to_lead_vero__c</field>
+            <table>Lead</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>First_Activity_of_Sales__c</field>
             <table>Lead</table>
         </columns>
         <columns>
@@ -992,7 +997,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>First_Activity_of_Sales__c</field>
+            <field>Lead_Re_Opened__c</field>
             <table>Lead</table>
         </columns>
         <columns>

@@ -58,9 +58,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
     @track expectedDeliveryDate = '';
     @track searchResult;
 
-    IsConsignmentDeliverd = false;
-    prevConsignmentNumber;
-
 
     /**
      * Initialize the lwc, waits for the page url to be available first. This is to avoid order of execution
@@ -76,12 +73,14 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
         this.setFormTitle();
         this.showSpinner = true;
         //this.tempCase.ReferenceID__c = this.currentPageReference.state.trackingId;
-        this.trackingId = this.currentPageReference.state.trackingId;  
+        this.trackingId = this.currentPageReference.state.trackingId;
 
         // get picklist value data
         initMissingItemFormApex({
             //trackingId: this.tempCase.ReferenceID__c
         }).then(result =>{
+            //console.log(result);
+
             this.currentUser = result["currentUser"];
             this.articleTypes = result["articleTypes"];
             this.serviceTypes = result["serviceTypes"];
@@ -96,7 +95,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
             // do search if prepopulated
             if(this.trackingId)
             {
-                this.doSearch(false);
+                this.doSearch();
             }
             else
             {
@@ -118,16 +117,16 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
      * Search using consignment Id, called either on init, or from onClickSearchTracking (or enter key)
      * @returns {Promise<void>}
      */
-    async doSearch(reqFromSubmit)
+    async doSearch()
     {
-        if (!reqFromSubmit){
-            // clear previous search
-            this.clearPreviousDetails();
-        }
+        // clear previous search
+        this.clearPreviousDetails();
 
         //await searchAPAsync({searchString: this.tempCase.ReferenceID__c})
         await search({consignNumber: this.trackingId})
             .then(result=>{
+                //console.debug(result);
+
                 if(result == null || result == undefined)
                 {
                     // if a result is returned, parse it and display
@@ -141,24 +140,22 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
                 }
                 else
                 {
-                    //console.log(JSON.stringify(result));
-                    this.IsConsignmentDeliverd = result.isConsignmentDelivered;
-                    this.prevConsignmentNumber = result.consignmentNumber;
                     if('errorMessages' in result && result.errorMessages.length > 0)
                     {
                         this.errorMessage = result.errorMessages.join(', ');
                     }
-                    if (!reqFromSubmit) {
-                        this.searchResult = result;
-                        this.trackingIdForDeliveryStatusCmp = this.trackingId;
-                        this.parseLatestEvent();
-
-                        if (this.searchResult.singleCon)
-                            this.parseArticleDetails(this.searchResult.singleCon);
-                    }
+                    
+                    this.searchResult = result;
+                    this.trackingIdForDeliveryStatusCmp = this.trackingId;
+                    this.parseLatestEvent();
+                    //console.debug(result.singleCon);
+                    if(this.searchResult.singleCon)
+                        this.parseArticleDetails(this.searchResult.singleCon);
                 }
             })
             .catch(error => {
+                //console.error('bspFormMissingItem: error occurred');
+                //console.error(error);
                 this.errorMessage = this.errorOnSearch;
             });
 
@@ -174,6 +171,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
     {
         if(event.keyCode == 13)
         {
+            //console.log(event);
             this.onClickSearchTracking(event);
         }
     }
@@ -199,7 +197,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
             return;
         }
 
-        this.doSearch(false);
+        this.doSearch();
     }
 
     /**
@@ -251,8 +249,6 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
         receiverAddressCmp.lastName = '';
         receiverAddressCmp.businessName = '';
         receiverAddressCmp.address = null;
-        this.IsConsignmentDeliverd = false;
-        this.prevConsignmentNumber = null;
     }
 
     /**
@@ -300,7 +296,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
 
         // sender Details
         let senderAddressCmp = this.getSenderAddressCmp();
-  
+        //console.debug('exists:' + 'SenderAddress__c' in this.article);
+
         if('SenderAddress__c' in this.article) {
             senderAddressCmp.address = this.parseAddressAsObject(true);
         }
@@ -432,6 +429,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
                 this.consignmentWithMultipleArticles = false;
             }
         }
+
+        //console.log(this.latestEvent);
     }
 
     handleFocusOut(event) {
@@ -451,7 +450,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
         switch(field)
         {
             case 'trackingNumber':
-                this.trackingId = event.detail.value.trim();  //trim() Added by Jansi
+                this.trackingId = event.detail.value;
                 //this.tempCase.ReferenceID__c = event.detail.value;
                 break;
             case 'lodgementDate':
@@ -479,15 +478,19 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
                 //this.tempCase.Description_of_contents__c = event.detail.value;
                 break;
             default:
-                 break;
+                console.error('unhandled field change:' + field);
+                break;
         }
+
+        //console.debug(JSON.stringify(this.tempCase));
     }
 
     onUploadFinished(event)
     {
         //this.uploadedFiles = event.detail.files;
         this.uploadedFiles = event.detail;
-      }
+        //console.debug(JSON.stringify(this.uploadedFiles));
+    }
 
     onDeleteUpload(event)
     {
@@ -495,9 +498,13 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
         let fileId = event.target.dataset.id;
         deleteAttachment({fileId:fileId})
             .then(result => {
+                //console.log('file:' + fileId + ' removed');
+
                 this.removeFromUploadedByFileId(fileId);
                 this.showSpinner = false;
             }).catch(error => {
+            console.error('error occured');
+            console.error(error);
             this.showSpinner = false;
         });
     }
@@ -524,42 +531,11 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
      * On Submit request
      * @param event
      */
-   async onSubmitRequest(event) {
-
-        this.errorMessage = '';
+    onSubmitRequest(event) {
         this.showSpinner = true;
-      
-       //[BGICS-391] 03-12-2020 added below if block
-       if (this.enquiryType == 'Missing Item' || this.enquiryType =='delivery') {
-           if (!checkAllValidity(this.template.querySelectorAll('[data-id="trackingNumber"]'))) {
-               this.errorMessage = 'Please enter a tracking number';
-               this.submitClicked = true;
-               this.showSpinner = false;
-               return;
-           }
-
-           if (!this.prevConsignmentNumber || (this.prevConsignmentNumber.trim() != this.trackingId.trim()))
-               await this.doSearch(true);
-       }
-
         this.submitClicked = true;
-       //[BGICS-391] 03-12-2020 added below if block
-       if (this.enquiryType == 'Missing Item') {
-           if (this.IsConsignmentDeliverd) {
-               this.showSpinner = false;
-               this.errorMessage = 'As scans indicate that this item has been delivered, please raise a Delivery Issue enquiry.';
-               return;
-           }
-       }
+        this.errorMessage = '';
 
-       if (this.enquiryType == 'delivery') {
-        if (!this.IsConsignmentDeliverd) {
-            this.showSpinner = false;
-            this.errorMessage = 'As this item is yet to receive a delivered scan, please raise a Late or Missing Item enquiry.';
-            return;
-        }
-    }
-  
         const inputComponents = this.template.querySelectorAll('lightning-input, lightning-textarea, lightning-combobox');
         const addressCmp = this.template.querySelectorAll('[data-validate="doAddressValidate"]');
         const allValid = checkAllValidity(inputComponents) & checkAllValidity(addressCmp, false);
@@ -584,9 +560,13 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
         // get the address stuff
         this.getAddressesFromInput();
 
+        // debug what we're sending
+        //console.debug(JSON.stringify(this.tempCase));
+
         createEnquiryAusPost({enq: this.tempCase,
             uploadedFiles: this.uploadedFiles}
         ).then(result =>{
+            //console.debug(result);
             if(result.status == 'error')
             {
                 this.errorMessage = result.message;
@@ -599,6 +579,8 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
             this.showSpinner = false;
         })
             .catch(error => {
+                console.error('error occured');
+                console.error(error);
                 this.showSpinner = false;
         });
 
@@ -669,6 +651,7 @@ export default class bspFormAPEnquiry extends NavigationMixin(LightningElement) 
     }
 
     debugLog(sLog) {
+        //console.debug(sLog);
         this.logs.push(sLog);
     }
 }

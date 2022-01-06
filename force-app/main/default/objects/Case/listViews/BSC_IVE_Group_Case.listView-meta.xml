@@ -5,6 +5,6 @@
     <label>BSC - IVE Group</label>
     <queue>BSC_IVE_Group</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

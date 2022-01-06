@@ -5,6 +5,6 @@
     <label>R2T International Product Team</label>
     <queue>R2T_International_Product_Team</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -5,9 +5,10 @@
  * @group Domain
  * @domain Case
  * @changelog
-  * Madhusudhan - 7th June 2021, Added StarTrackSupportCasesDomain - PBRP
+ * Madhusudhan - 7th June 2021, Added StarTrackSupportCasesDomain - PBRP
  * Madhusudhan - 23rd June 2021, Added SObjectTypes(Task,CaseMilestone,AuthorisedContacts__c) in getUnitOfWorkSObjectTypes - PBRP
  */
+
 public inherited sharing class CaseTriggerHandler2 extends ApplicationDomainTriggerHandler {
 
     public override SObjectType getSObjectType() {
@@ -18,7 +19,7 @@ public inherited sharing class CaseTriggerHandler2 extends ApplicationDomainTrig
         return new List<Type>{
             MyCustomerCasesDomain.class,
             //Added by madhusudhan | PBRP
-            StarTrackSupportCasesDomain.class
+           StarTrackSupportCasesDomain.class
         };
     }
 

@@ -221,10 +221,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>APT_ConfigurationTriggerHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>APT_ConfigurationTrigger_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -298,6 +294,18 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_DeleteSAPRatesBatch_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_DisplayActionCallBackClass</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_DisplayActionCallBackTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_DoVLanguageTriggerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -457,6 +465,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_PricingAdjustmentController_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_PricingApprovalHelpController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -478,6 +490,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_PricingUtility_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ProcessApprovedConfigurationBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ProcessApprvdConfigBatch_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -518,6 +538,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_ProposalTriggerHandler_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ProposalTriggerHelper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ProposalTriggerHelper_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -593,6 +621,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_SaveConfigController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_SaveConfigControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_SchemaCommondatamodeService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -626,6 +662,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_StarTrackApprovalHeaderFooterImage</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_StarTrackApprvlHeaderFooterImg_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -2877,11 +2917,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>APT_Credit_Assessment__c.APT_Applicant_1_Address_Line_2__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>APT_Credit_Assessment__c.APT_Applicant_1_Business_Premises__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4176,7 +4211,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>APT_Lodgement_Zone__c.APT_Locality__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6093,11 +6128,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Approval__Approval_Process__c.Apttus_Approval__Object_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus_Approval__Approval_Request__c.APT_UserType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8506,6 +8536,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Guidance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Help_Text_International__c</field>
         <readable>true</readable>
@@ -10133,6 +10168,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_DocuApi__DocuSignDefaultRecipient2__c.APT_Count_of_User_Records__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_DocuApi__DocuSignDefaultRecipient2__c.APT_Docusign_Recipient_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -15857,6 +15897,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.DOV_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Is_Superseded_Opportunity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Opportunity_SubType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>OpportunityLineItem.APT_Is_Apttus_Opportunity_Line_item__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -15873,6 +15928,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.APTS_Ext_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.APT_Additional_Information_Text__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -15928,11 +15988,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.APT_Contract_Pricing__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Product2.APT_Contracting_Entity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -16731,10 +16786,6 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>APT_AddProducts_Page</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>APT_AmendRenew</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -16848,10 +16899,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_RedirectToAllProductPage</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>APT_RedirectToFavorites</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

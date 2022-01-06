@@ -2593,11 +2593,6 @@
             <field>CCUYourReference__c</field>
             <table>Network__c.Cases__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Network__c.Cases__r</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

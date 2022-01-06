@@ -147,8 +147,8 @@ public with sharing class APT_AmendRenewController {
             // Adding a None Constant Value to the Select Option
             reasons.add(new SelectOption(APT_Constants.SELECT_OPTION_NONE,APT_Constants.SELECT_OPTION_NONE));
             
-            //Fetching the Values from the Custom Setting to get the Values from the DOV increase reason and DOV increase/decrease
-            //reason and populate them them based on the selection of Revenue type
+            /* Fetching the Values from the Custom Setting to get the Values from the DOV increase reason and DOV increase/decrease
+               reason and populate them them based on the selection of Revenue type 
             Map<String , APT_R2T_Renew_DoV_Properties__c> maptR2TRenewDoVProperties = APT_R2T_Renew_DoV_Properties__c.getall();
             List<String> dovReasons = new List<String>();
             // Adding all the values to the List

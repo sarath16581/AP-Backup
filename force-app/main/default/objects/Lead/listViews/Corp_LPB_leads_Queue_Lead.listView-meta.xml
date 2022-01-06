@@ -5,6 +5,6 @@
     <label>Corp LPB leads Queue</label>
     <queue>Corp_LPB_leads_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

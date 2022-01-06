@@ -6,6 +6,5 @@
     <inlineHelpText>Use to store any errors from the TIBCO sms web service</inlineHelpText>
     <label>SMS Error</label>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <type>TextArea</type>
 </CustomField>

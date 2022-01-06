@@ -47,6 +47,6 @@
     <label>Open PSRs - International</label>
     <language>en_US</language>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

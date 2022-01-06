@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sunshine_Van_Ops_Bookings_Today</fullName>
+    <columns>RECORDTYPE</columns>
+    <columns>Booking_Type__c</columns>
+    <columns>NAME</columns>
+    <columns>Location__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Route_Lookup__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Effective_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Effective_Date__c</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PUD_Booking__c.AP_Adhoc_Pickup</value>
+    </filters>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>derrimut</value>
+    </filters>
+    <label>Sunshine Van Ops Bookings - Today</label>
+</ListView>

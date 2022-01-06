@@ -160,7 +160,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Customer Decision Milestones</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <startsWith>Vowel</startsWith>
     <visibility>Public</visibility>

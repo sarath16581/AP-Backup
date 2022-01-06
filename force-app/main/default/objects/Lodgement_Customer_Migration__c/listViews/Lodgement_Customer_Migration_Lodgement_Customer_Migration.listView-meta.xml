@@ -5,6 +5,6 @@
     <label>Lodgement Customer Migration</label>
     <queue>Lodgement_Customer_Migration</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

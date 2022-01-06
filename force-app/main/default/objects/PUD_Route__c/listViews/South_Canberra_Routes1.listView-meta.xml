@@ -7,8 +7,8 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
-        <operation>contains</operation>
-        <value>FYSHWICK</value>
+        <operation>startsWith</operation>
+        <value>SOUTH CANBERRA</value>
     </filters>
     <label>South Canberra Routes</label>
 </ListView>

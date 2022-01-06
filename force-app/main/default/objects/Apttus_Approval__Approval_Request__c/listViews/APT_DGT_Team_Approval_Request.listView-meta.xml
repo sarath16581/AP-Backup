@@ -5,6 +5,6 @@
     <label>DGT Team</label>
     <queue>APT_DGT_Team</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>OID_ID__c</fullName>
-    <description>OID_ID field stores the &apos;C Number&apos; from SAP for Contacts. This number is used by Java API to query Salesforce for customer hierarchy during LaunchPad&apos;s login process. The OID_ID value will be used by LaunchPad during their sign-on and step-up processes. As this field is used by Single Sign On for Consumer/Customer records, editing values is highly restricted.</description>
     <externalId>true</externalId>
-    <inlineHelpText>This field stores the &apos;C Number&apos; from SAP for Contacts</inlineHelpText>
     <label>OID ID</label>
     <length>100</length>
     <required>false</required>

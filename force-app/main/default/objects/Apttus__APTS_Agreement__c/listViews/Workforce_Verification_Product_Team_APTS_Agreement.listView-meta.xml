@@ -5,6 +5,6 @@
     <label>Workforce Verification Product Team</label>
     <queue>Workforce_Verification_Product_Team</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

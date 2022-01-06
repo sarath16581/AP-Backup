@@ -7,10 +7,6 @@
         <publicGroups>
             <publicGroup>Community_Agents</publicGroup>
         </publicGroups>
-        <users>
-            <user>erik.hermansen@auspost.com.au</user>
-            <user>lanz.laurencio@auspost.com.au</user>
-        </users>
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>

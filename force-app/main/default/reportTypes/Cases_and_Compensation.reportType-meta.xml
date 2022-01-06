@@ -1526,11 +1526,6 @@
             <field>Contact.BillingAccount__c.Type__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
@@ -1634,6 +1629,16 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>ExtraCoverPostage__c</field>
+            <table>Case.Compensation__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>HasExtraCover__c</field>
+            <table>Case.Compensation__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>LastActivityDate</field>
             <table>Case.Compensation__r</table>
         </columns>
@@ -1670,6 +1675,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Proof_of_Value__c</field>
+            <table>Case.Compensation__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProofOfValueThreshold__c</field>
             <table>Case.Compensation__r</table>
         </columns>
         <columns>
@@ -1812,11 +1822,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Fulfillment_Ordered_Date__c</field>
-            <table>Case.Compensation__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Tracking_Number__c</field>
             <table>Case.Compensation__r</table>
         </columns>
         <masterLabel>Compensation</masterLabel>

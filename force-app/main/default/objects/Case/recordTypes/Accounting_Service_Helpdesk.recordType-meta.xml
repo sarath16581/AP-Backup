@@ -599,6 +599,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Parcel Domestic</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Parcel Post</fullName>
             <default>false</default>
         </values>
@@ -3922,6 +3926,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Spoils</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Status of application</fullName>
             <default>false</default>
         </values>
@@ -3943,6 +3951,10 @@
         </values>
         <values>
             <fullName>System Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical Issue</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4627,7 +4639,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>SCR</fullName>
+            <fullName>SRC</fullName>
             <default>false</default>
         </values>
         <values>

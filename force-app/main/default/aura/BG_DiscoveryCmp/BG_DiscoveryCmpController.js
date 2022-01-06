@@ -5,7 +5,6 @@
         }
         if(cmp.get('v.qualificationRecordId') != null && cmp.get('v.initialLoad')){
             var qualificationRecordId = cmp.get('v.qualificationRecordId');
-            console.log('discoveryQuestion>>',cmp.get('v.discoveryCategoryQuestions'));
             cmp.set('v.discoveryCategoryQuestionsWithRelatedChild', cmp.get('v.discoveryCategoryQuestions'));
             helper.fetchExistingQualificationData(cmp);
         }
@@ -127,15 +126,12 @@
 
     },
     handleRelatedQuestionEvent : function(cmp, evt, helper){
-        console.log('Inside handle related question event');
         var ParentQuestionUniqueKey = evt.getParam('ParentQuestionUniqueKey');
         var relatedQuestionsVar = evt.getParam('relatedQuestions');
         var relatedResponseIds = evt.getParam('relatedResponseIds');
         var questionsVar = [];
         var originalQuestionsMap = new Map();
         var relatedQuestionsMap = new Map();
-        console.log('relatedQuestionsVar',relatedQuestionsVar);
-        console.log('relatedResponseIds',relatedResponseIds);
         cmp.get('v.discoveryCategoryQuestions').forEach(elementVar =>{
             originalQuestionsMap.set(elementVar.uniqueKey, elementVar);
         })
@@ -175,8 +171,6 @@
                 
             }
         }
-        console.log('questionsVar>>>>',questionsVar);
-        
         if(questionsVar.length >0){
             cmp.set('v.discoveryCategoryQuestions', questionsVar);
         }

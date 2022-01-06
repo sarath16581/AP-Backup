@@ -4,6 +4,5 @@
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Bulk Close?</label>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

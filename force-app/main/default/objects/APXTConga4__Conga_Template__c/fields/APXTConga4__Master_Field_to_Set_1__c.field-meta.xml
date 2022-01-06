@@ -21,7 +21,6 @@ Stage__c=In Progress</inlineHelpText>
     <label>Master Field to Set 1</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

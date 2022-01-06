@@ -7,7 +7,7 @@
     <summaryFilterItems>
         <field>DMAPP__DM_Milestone_Opportunity_Answer__c.DMAPP__Milestone_Question_Option__c</field>
         <operation>notEqual</operation>
-        <value/>
+        <value></value>
     </summaryFilterItems>
     <summaryForeignKey>DMAPP__DM_Milestone_Opportunity_Answer__c.DMAPP__Dealmaker_Opportunity__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>

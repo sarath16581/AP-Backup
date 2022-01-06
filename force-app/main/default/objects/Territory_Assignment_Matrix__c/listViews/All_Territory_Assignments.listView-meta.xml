@@ -11,10 +11,6 @@
     <columns>High_Threshold_amount__c</columns>
     <columns>Suburb__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>Post_Code__c</field>
-        <operation>equals</operation>
-        <value>2148</value>
-    </filters>
     <label>All Territory Assignments</label>
+    <language>en_US</language>
 </ListView>

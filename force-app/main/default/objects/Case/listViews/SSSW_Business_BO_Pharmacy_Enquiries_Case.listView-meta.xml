@@ -18,6 +18,6 @@
     <language>en_US</language>
     <queue>SSSW_Business_BO_Pharmacy_Enquiries</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

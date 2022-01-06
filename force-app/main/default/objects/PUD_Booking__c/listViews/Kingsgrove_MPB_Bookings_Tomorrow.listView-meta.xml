@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Kingsgrove_MPB_Bookings_Tomorrow</fullName>
+    <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
     <columns>NAME</columns>
     <columns>Location__c</columns>
     <columns>Street__c</columns>
@@ -18,9 +19,19 @@
         <value>PUD_Booking__c.MPB_Pickup</value>
     </filters>
     <filters>
-        <field>Effective_Date__c</field>
+        <field>CREATED_DATE</field>
         <operation>greaterOrEqual</operation>
         <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>2190,2191,2192,2193,2194,2195,2196,2200,2205,2206,2207,2208</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>2209,2210,2216,2217,2218,2219,2220,2221,2222,2223,2231</value>
     </filters>
     <filters>
         <field>Depot__c</field>

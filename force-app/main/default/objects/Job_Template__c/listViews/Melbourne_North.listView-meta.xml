@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Melbourne_North</fullName>
+    <columns>NAME</columns>
+    <columns>Duty_Template_Status__c</columns>
+    <columns>Day_Start_Time__c</columns>
+    <columns>Duration__c</columns>
+    <columns>Route_Template__c</columns>
+    <columns>Location__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Duty_Template_Name__c</field>
+        <operation>notContain</operation>
+        <value>ADHOC</value>
+    </filters>
+    <filters>
+        <field>Duty_Template_Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>Location__c</field>
+        <operation>equals</operation>
+        <value>Melbourne North PDC</value>
+    </filters>
+    <label>Melbourne North</label>
+</ListView>

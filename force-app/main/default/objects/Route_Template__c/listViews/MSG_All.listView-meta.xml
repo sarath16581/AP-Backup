@@ -16,7 +16,7 @@
     </filters>
     <filters>
         <field>NAME</field>
-        <operation>contains</operation>
+        <operation>notContain</operation>
         <value>adhoc</value>
     </filters>
     <filters>

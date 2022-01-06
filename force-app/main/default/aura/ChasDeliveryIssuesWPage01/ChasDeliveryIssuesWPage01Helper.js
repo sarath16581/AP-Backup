@@ -91,6 +91,7 @@
                 isEligibleForMyNetworkAssignment = true;
             }
         }
+        
         cmp.set("v.wizardData.isEligibleForNetworkAssignmentDeliveryIssue",isEligibleForMyNetworkAssignment);
     },
     validateOptionalTrackingNumber : function(cmp, showError) {

@@ -31,23 +31,11 @@
                 <behavior>Edit</behavior>
                 <field>ExpectedDeliveryDate__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>CaptureID_receiveronly__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>CaptureID_anyoneataddress__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Consignment__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Consignment_Summary_Status__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

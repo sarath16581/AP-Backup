@@ -53,7 +53,7 @@ public with sharing class APT_TestUtils {
         oppty.AccountId = accountId;
         oppty.Offering_Type__c = APT_Constants.OPPORTUNITY_OFFERING_TYPE_PRODUCT;
         //oppty.StageName = APT_Constants.OPPORTUNITY_STAGE_PROPOSE;
-        oppty.StageName = APT_Constants.OPPORTUNITY_STAGE_IDENTIFY;
+       	oppty.StageName = APT_Constants.OPPORTUNITY_STAGE_IDENTIFY;
         oppty.CloseDate = date.Today().addDays(365);
         
         return oppty;
@@ -271,7 +271,7 @@ public with sharing class APT_TestUtils {
         Apttus_Proposal__Proposal__c quote = new Apttus_Proposal__Proposal__c(Apttus_Proposal__Proposal_Name__c = quoteName,
         Apttus_Proposal__Opportunity__c = optyId,
         Apttus_Proposal__Account__c = accId,
-        Apttus_Proposal__Primary_Contact__c = contactId,                               
+		Apttus_Proposal__Primary_Contact__c = contactId,                               
         RecordTypeId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get(recordTypeName).getRecordTypeId(),
         Apttus_QPConfig__PriceListId__c = priceList);
         

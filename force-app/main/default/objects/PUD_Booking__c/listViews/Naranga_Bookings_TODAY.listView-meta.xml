@@ -19,13 +19,13 @@
     </filters>
     <filters>
         <field>RECORDTYPE</field>
-        <operation>notEqual</operation>
-        <value>PUD_Booking__c.Other</value>
+        <operation>equals</operation>
+        <value>PUD_Booking__c.AP_Adhoc_Pickup,PUD_Booking__c.Other,PUD_Booking__c.AP_Permanent_Pickup</value>
     </filters>
     <filters>
         <field>Effective_Date__c</field>
         <operation>equals</operation>
-        <value>TODAY</value>
+        <value>YESTERDAY</value>
     </filters>
     <label>Naranga Bookings - TODAY</label>
 </ListView>

@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>For Conga Mail Merge Label Templates Only.  This setting indicates to use ReportData (or QueryData) as the data source for Labels</inlineHelpText>
     <label>Label Template: Use Detail Data</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

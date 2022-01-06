@@ -315,7 +315,7 @@ public with sharing class APT_ViewRatecardBatchExecute {
             //APOST-2023
             
             //STP-5598/REQ2519238
-            proposal.APT_pricing_fields_changed__c = false;	
+            proposal.APT_pricing_fields_changed__c = false;		
             
             update proposal;
             

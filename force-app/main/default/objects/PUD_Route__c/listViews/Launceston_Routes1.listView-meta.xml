@@ -11,5 +11,5 @@
         <value>Lau</value>
     </filters>
     <label>Launceston Routes</label>
-    <sharedTo/>
+    <sharedTo></sharedTo>
 </ListView>

@@ -5,6 +5,6 @@
     <label>BSC - Techtronics</label>
     <queue>BSC_Techtronics</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

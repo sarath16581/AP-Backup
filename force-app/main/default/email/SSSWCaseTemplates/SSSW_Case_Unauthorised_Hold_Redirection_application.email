@@ -89,7 +89,7 @@
   </div>
  
 	<div class="footer">
-		<div class="red bold">Thank you,<br/>Customer Sales & Service</div>
+		<div class="red bold">Thank you,<br/>Customer Services</div>
 <span style="color:#FFFFFF;">{!Case.EmailThreadID__c}</span>
   </div>
 </div>

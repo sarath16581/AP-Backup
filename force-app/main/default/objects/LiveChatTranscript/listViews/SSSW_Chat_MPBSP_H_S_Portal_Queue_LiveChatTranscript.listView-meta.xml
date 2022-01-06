@@ -5,6 +5,6 @@
     <label>SSSW Chat - MPBSP H&amp;S Portal Queue</label>
     <queue>SSSW_Chat_MPBSP_H_S_Portal_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -561,9 +561,6 @@ public with sharing class ActivityUtil {
             else if(thisTask.Status.equals(StarTrack_Constants.TASK_STATUS_FINISHED)){
                 thisTask.Finished_Date__c = Datetime.now();
             }
-            else if(thisTask.Status.equals(StarTrack_Constants.TASK_STATUS_FINISHED_RESOLVED)){
-                thisTask.Finished_Date__c = Datetime.now();
-            }
         }
 
         for(Task thisTask : taskList){

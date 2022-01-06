@@ -282,13 +282,6 @@
         <value>Cash Accounts</value>
     </labels>
     <labels>
-        <fullName>APT_Catalog_Action_Favorites</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Catalog Action - Favorites</shortDescription>
-        <value>My Favourites</value>
-    </labels>
-    <labels>
         <fullName>APT_Category</fullName>
         <categories>Custom Label</categories>
         <language>en_US</language>
@@ -607,7 +600,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APT_EmailServiceAddress</shortDescription>
-        <value>approvalreplyservice@27s8tarfmwfuxjw0irvru9f3gwkh8ilbq74gn3thmb48eiw9my.0w-tsyeaa.cs75.apex.sandbox.salesforce.com</value>
+        <value>approvalreplyservice@j-6tcktgyadynesdr84ku9cnl83po3iu80owkfs0xke85w6e5tu.0p-1xrseay.cs74.apex.sandbox.salesforce.com</value>
     </labels>
     <labels>
         <fullName>APT_Enter_Billing_Account_Details</fullName>
@@ -1260,7 +1253,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Pricing Fields Changed Error</shortDescription>
-        <value>Minimum monthly spend and/or Primary pickup location has been changed. To generate the correct pricing reflecting the change(s), you need to go back to shopping cart and re-checkout by clicking “Add” button on proposal record page</value>
+        <value>Minimum monthly spend and/or Primary pickup location has been changed. To generate the correct pricing reflecting the change(s), you need to go back to shopping cart and re-checkout by clicking “Add” button on proposal record page.</value>
     </labels>
     <labels>
         <fullName>APT_Processing</fullName>
@@ -2111,21 +2104,21 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_ApLogo</shortDescription>
-        <value>https://auspost--lbp--c.documentforce.com/servlet/servlet.ImageServer?id=0150l000000gEdZ&amp;oid=00D0l0000001vu0</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000GVHDk&amp;oid=00D0p0000001xRS</value>
     </labels>
     <labels>
         <fullName>CHAS_ApLogoWithText</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_ApLogoWithText</shortDescription>
-        <value>https://auspost--ptest--c.documentforce.com/servlet/servlet.ImageServer?id=0150w00000084h1&amp;oid=00D0w0000000tsy</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkb&amp;oid=00D0p0000001xRS</value>
     </labels>
     <labels>
         <fullName>CHAS_CommunityUrl</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_CommunityUrl</shortDescription>
-        <value>https://ptest-auspostbusiness.cs75.force.com/HelpAndSupport</value>
+        <value>https://helpandsupport.auspost.com.au</value>
     </labels>
     <labels>
         <fullName>CHAS_CompensationSitePath</fullName>
@@ -2139,28 +2132,28 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_FB_Icon</shortDescription>
-        <value>https://auspost--lbp--c.documentforce.com/servlet/servlet.ImageServer?id=0150l000000gEde&amp;oid=00D0l0000001vu0</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=01590000007Zasx&amp;oid=00D0p0000001xRS</value>
     </labels>
     <labels>
         <fullName>CHAS_Insta_Icon</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_Insta_Icon</shortDescription>
-        <value>https://auspost--lbp--c.documentforce.com/servlet/servlet.ImageServer?id=0150l000000gDRy&amp;oid=00D0l0000001vu0</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4t&amp;oid=00D0p0000001xRS</value>
     </labels>
     <labels>
         <fullName>CHAS_LockIcon</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_LockIcon</shortDescription>
-        <value>https://auspost--ptest--c.documentforce.com/servlet/servlet.ImageServer?id=0150w00000084h2&amp;oid=00D0w0000000tsy</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkc&amp;oid=00D0p0000001xRS</value>
     </labels>
     <labels>
         <fullName>CHAS_TraditionalCustodians</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_TraditionalCustodians</shortDescription>
-        <value>https://auspost--lbp--c.documentforce.com/servlet/servlet.ImageServer?id=0150l000000gDRj&amp;oid=00D0l0000001vu0</value>
+        <value>src=&quot;https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4u&amp;oid=00D0p0000001xRS</value>
     </labels>
     <labels>
         <fullName>CHATTER_POST_ACCESS_MSG</fullName>
@@ -3774,6 +3767,22 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>Only Direct Contribution is allowed in the Overlay Type under this Split</value>
     </labels>
     <labels>
+        <fullName>DSR_Credit_MGMT_Credit_Limit_Increase_Email</fullName>
+        <categories>Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Deal Support Request Credit Management Credit Limit Increase Email</shortDescription>
+        <value>creditlimitincreases@auspost.com.au</value>
+    </labels>
+    <labels>
+        <fullName>DSR_Credit_MGMT_New_Credit_Account_Email</fullName>
+        <categories>Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Deal Support Request Credit Management New Credit Account Email</shortDescription>
+        <value>newcreditaccount@auspost.com.au</value>
+    </labels>
+    <labels>
         <fullName>DUPE_CASE_ERR_MSG</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -4038,12 +4047,36 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>Confirm email address before opting out.</value>
     </labels>
     <labels>
+        <fullName>HappyParcelNotificationPreferencesAPCNEmailOptedOutHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Notification Preferences APCN Email Opted Out Help Text</shortDescription>
+        <value>Confirm email address before opting in.</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelNotificationPreferencesAPCNHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Notification Preferences APCN Help Text</shortDescription>
+        <value>Confirm correct phone number before opting out</value>
+    </labels>
+    <labels>
         <fullName>HappyParcelNotificationPreferencesAPCNPhoneHelpText</fullName>
         <categories>Happy Parcel</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Happy Parcel Notification Preferences APCN Phone Help Text</shortDescription>
         <value>Confirm phone number before opting out.</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelNotificationPreferencesAPCNPhoneOptedOutHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Notification Preferences APCN Phone Opted Out Help Text</shortDescription>
+        <value>Confirm phone number before opting in.</value>
     </labels>
     <labels>
         <fullName>HappyParcelNotificationPreferencesBlueBoxText</fullName>
@@ -6614,14 +6647,6 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>Label for reminder to fill out T2</shortDescription>
         <value>The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the cessation of use of any Aust. Post Vehicle.</value>
-    </labels>
-    <labels>
-        <fullName>TDF_CustomLabel_Tollways</fullName>
-        <categories>TDF</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Label for drivers to get approval prior to using Tollways</shortDescription>
-        <value>*** Drivers are not to use new Tollways including East Link without prior approval of your supervisor ***</value>
     </labels>
     <labels>
         <fullName>TDF_Custom_Work_Direct_Gantt_Colour</fullName>

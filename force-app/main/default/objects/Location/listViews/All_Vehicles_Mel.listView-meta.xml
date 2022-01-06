@@ -22,13 +22,18 @@
     </filters>
     <filters>
         <field>Service_Territory__c</field>
-        <operation>equals</operation>
-        <value>Melbourne,Melb Semi Group</value>
+        <operation>contains</operation>
+        <value>Melb</value>
     </filters>
     <filters>
         <field>Status__c</field>
         <operation>notContain</operation>
         <value>Decommsioned</value>
+    </filters>
+    <filters>
+        <field>Hire_Vehicle__c</field>
+        <operation>equals</operation>
+        <value>1</value>
     </filters>
     <label>All Vehicles MTF</label>
 </ListView>

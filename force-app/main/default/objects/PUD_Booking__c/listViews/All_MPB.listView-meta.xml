@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All_MPB</fullName>
+    <booleanFilter>1 AND 2 AND 3</booleanFilter>
     <columns>NAME</columns>
     <columns>RECORDTYPE</columns>
     <columns>Location__c</columns>
@@ -18,15 +19,14 @@
         <value>PUD_Booking__c.MPB_Pickup</value>
     </filters>
     <filters>
-        <field>Post_Code__c</field>
-        <operation>equals</operation>
-        <value>4017,4018,4035,4037,4500,4501,4502,4503,4504,4505,4506,4507,4508,4509,4510,4511,4512,4514,4516,4517,4520,4521</value>
-    </filters>
-    <filters>
-        <field>Effective_Date__c</field>
+        <field>Date__c</field>
         <operation>equals</operation>
         <value>YESTERDAY,TODAY,TOMORROW</value>
     </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>equals</operation>
+        <value>4017,4018,4019,4020,4021,4022,4034,4035,4037,4500,4501,4502,4503,4504,4505,4506,4507,4508,4509,4510,4511,4512,4516,4517,4521</value>
+    </filters>
     <label>Narangba MPB Today</label>
-    <language>en_US</language>
 </ListView>

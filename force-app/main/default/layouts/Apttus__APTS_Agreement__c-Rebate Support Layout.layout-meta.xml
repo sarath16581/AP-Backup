@@ -36,6 +36,10 @@
                 <behavior>Readonly</behavior>
                 <field>APT_eSignature_ApprovalStatusCheck__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Apttus__FF_Regenerate_Agreement__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -49,10 +53,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Apttus_CMDSign__RecallESignatureRequest__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Apttus__FF_Regenerate_Agreement__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -534,7 +534,6 @@
         <fields>Apttus_DocuApi__UserId__c</fields>
         <fields>Apttus_DocuApi__SigningOrder__c</fields>
         <fields>Apttus_DocuApi__RecipientType__c</fields>
-        <fields>APT_Docusign_Recipient_Type__c</fields>
         <relatedList>Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_CMDSign__AgreementId__c</relatedList>
         <sortField>Apttus_DocuApi__SigningOrder__c</sortField>
         <sortOrder>Asc</sortOrder>
@@ -550,16 +549,6 @@
         <fields>Stage__c</fields>
         <fields>Status__c</fields>
         <relatedList>Deal_Support_Request__c.APT_Contract__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>NewCase</excludeButtons>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CREATEDBY_USER.ALIAS</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
-        <relatedList>Case.APT_Contract__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>

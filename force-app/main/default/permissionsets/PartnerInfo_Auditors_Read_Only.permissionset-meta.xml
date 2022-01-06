@@ -3273,16 +3273,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Network__c.LBP_Retail_relationship_network__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Network__c.LBP_Retail_relationship_type_network__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Network__c.LEEP_Meeting_Attendance__c</field>
         <readable>true</readable>
     </fieldPermissions>

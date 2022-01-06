@@ -7,7 +7,6 @@ IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;Green&quot;))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Business at Risk</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

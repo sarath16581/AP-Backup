@@ -16,7 +16,13 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
     <label>SSSW Awaiting Customer</label>
+    <language>en_US</language>
     <queue>SSSWAwaitingCustomer</queue>
     <sharedTo>
         <group>SSSWAgents</group>

@@ -5,6 +5,5 @@
     <externalId>false</externalId>
     <label>Waiting for Operations Date</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <type>DateTime</type>
 </CustomField>

@@ -6,6 +6,5 @@
     <errorConditionFormula>AND(RecordType.DeveloperName =&quot;Deal_Enablement_Centre&quot;,
 ISPICKVAL(Status__c,&quot;Submitted&quot;),
 OR(ISBLANK(TEXT(Status__c)),ISBLANK(Product__c),ISBLANK(Organisation__c),ISBLANK(TEXT( Work_Type__c )),ISBLANK(TEXT( Support_Work_Type__c))))</errorConditionFormula>
-    <errorDisplayField>Hidden_Automated_DSR__c</errorDisplayField>
     <errorMessage>Request cannot be submitted to the support team as all the mandatory fields have not been updated. Please edit the request and complete all the mandatory fields and then submit request to Support Team</errorMessage>
 </ValidationRule>

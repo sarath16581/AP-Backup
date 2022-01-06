@@ -1861,16 +1861,6 @@
             <field>Operational_Schedule__c.APT_Minimum_Monthly_Revenue__c</field>
             <table>Apttus__APTS_Agreement__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_WFV_Count_Police_and_Visa_Check__c</field>
-            <table>Apttus__APTS_Agreement__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_APPC_Count__c</field>
-            <table>Apttus__APTS_Agreement__c</table>
-        </columns>
         <masterLabel>Apttus Contracts</masterLabel>
     </sections>
 </ReportType>

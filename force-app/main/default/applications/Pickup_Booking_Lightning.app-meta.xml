@@ -38,10 +38,5 @@
     <tabs>PUD_Job__c</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
-    <tabs>APT_Sub_Account__c</tabs>
-    <tabs>et4ae5__Configuration__c</tabs>
-    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
-    <tabs>et4ae5__Business_Unit__c</tabs>
-    <tabs>SAM_Admin1</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

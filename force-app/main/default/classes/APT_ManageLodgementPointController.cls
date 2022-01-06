@@ -326,7 +326,7 @@ public with sharing class APT_ManageLodgementPointController {
                   count++;
               }
           }
-          if(count==mapLodgement.size() && (lineItem.Apttus_Config2__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD || lineItem.Apttus_Config2__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS))
+          if(count==mapLodgement.size() && (lineItem.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) || lineItem.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS)))
 			{
  				haserrorMessages = true;
  				ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Entered Post Code is out side Lodgement Zone'));
@@ -345,28 +345,28 @@ public with sharing class APT_ManageLodgementPointController {
             //string postCodeEnd = String.valueof(lineItem.Apttus_Config2__AttributeValueId__r.APT_Lodgement_Zone__r.APT_Post_Code_End__c);
             
                 //STP-4984 Krishna Velani updated query string formation for new logic
-             	Integer count2=0;
+             	Integer countPostCodes=0;
 
         for(string startPC: mapLodgement.keySet())
         {
             string endPC=mapLodgement.get(startPC);
-            count2 += 1;
+            countPostCodes += 1;
 
             if(string.isNotBlank(startPC) && string.isNotBlank(endPC))
             {
-                if(mapLodgement.size() > 1 && count2 == 1)
+                if(mapLodgement.size() > 1 && countPostCodes == 1)
                 {
                     queryStr = queryStr +' AND ((Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                     countStr = countStr +' AND ((Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                 }
 
-                else if(count2 > 1 && count2 < mapLodgement.size())
+                else if(countPostCodes > 1 && countPostCodes < mapLodgement.size())
                 {
                     queryStr = queryStr +' OR (Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                     countStr = countStr +' OR (Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                 }
 
-                else if(count2 == mapLodgement.size() && count2 != 1)
+                else if(countPostCodes == mapLodgement.size() && countPostCodes != 1)
                 {
                     queryStr = queryStr +' OR (Post_Code__c >=:startPC AND Post_Code__c <=:endPC))';
                     countStr = countStr +' OR (Post_Code__c >=:startPC AND Post_Code__c <=:endPC))';
@@ -377,7 +377,7 @@ public with sharing class APT_ManageLodgementPointController {
                     queryStr = queryStr +' AND (Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                     countStr = countStr +' AND (Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                 }
-                System.debug('count2:'+ count2);
+                System.debug('countPostCodes:'+ countPostCodes);
                 System.debug('Query String:'+ queryStr);
                 System.debug('MapSize:'+ mapLodgement.size());
 

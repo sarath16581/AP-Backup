@@ -44,16 +44,22 @@
                 <label>New Business NSW/ACT</label>
             </value>
             <value>
+                <fullName>New Business QLD/WA/SA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>New Business QLD/WA/SA</label>
+            </value>
+            <value>
                 <fullName>New Business VIC/TAS</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>New Business VIC/TAS</label>
             </value>
             <value>
-                <fullName>Sales Specialist NSW/ACT/WA/SA - Sales Manager</fullName>
+                <fullName>Sales Specialists NSW/ACT</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
-                <label>Sales Specialist NSW/ACT/WA/SA - Sales Manager</label>
+                <label>Sales Specialists NSW/ACT</label>
             </value>
             <value>
                 <fullName>Sales Specialists QLD/WA/SA</fullName>

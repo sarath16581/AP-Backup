@@ -4,7 +4,6 @@
     <description>Previous name was &quot;Original FY - Target&quot; (MW0003520).</description>
     <externalId>false</externalId>
     <label>Planned FY revenue</label>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>Budget_and_Revenue__c.Total_Original_Budget__c</summarizedField>
     <summaryFilterItems>
         <field>Budget_and_Revenue__c.Current_Year__c</field>

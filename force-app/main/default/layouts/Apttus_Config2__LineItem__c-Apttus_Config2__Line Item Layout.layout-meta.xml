@@ -725,7 +725,6 @@
         <fields>Apttus_Config2__AdjustmentAmount__c</fields>
         <fields>Apttus_Config2__AdjustmentType__c</fields>
         <fields>Apttus_Config2__UsageRate__c</fields>
-        <fields>Apttus_Config2__PriceMatrixId__c</fields>
         <relatedList>Apttus_Config2__UsagePriceTier__c.Apttus_Config2__LineItemId__c</relatedList>
         <sortField>Apttus_Config2__Sequence__c</sortField>
         <sortOrder>Asc</sortOrder>

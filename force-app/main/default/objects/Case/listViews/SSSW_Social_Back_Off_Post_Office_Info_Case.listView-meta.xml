@@ -5,6 +5,6 @@
     <label>SSSW Social Back Off Post Office Info</label>
     <queue>SSSW_Social_Back_Off_Post_Office_Info</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

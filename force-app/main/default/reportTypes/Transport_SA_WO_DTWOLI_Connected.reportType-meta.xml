@@ -306,6 +306,11 @@ Transport Report Type with Service Appointment, Work Order and Deliver To Work O
             <field>Location.Node_Type__c</field>
             <table>ServiceAppointment.Work_Orders__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Location.Name</field>
+            <table>ServiceAppointment.Work_Orders__r</table>
+        </columns>
         <masterLabel>Work Orders (Primary SA)</masterLabel>
     </sections>
     <sections>
@@ -357,6 +362,11 @@ Transport Report Type with Service Appointment, Work Order and Deliver To Work O
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Location.Name</field>
+            <table>ServiceAppointment.Work_Orders__r.Deliver_To_Work_Order_Line_Items__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <displayNameOverride>Collect Scheduled Start</displayNameOverride>
             <field>Collect_From_Work_Order__c.Primary_SA__c.SchedStartTime</field>
             <table>ServiceAppointment.Work_Orders__r.Deliver_To_Work_Order_Line_Items__r</table>
@@ -365,6 +375,11 @@ Transport Report Type with Service Appointment, Work Order and Deliver To Work O
             <checkedByDefault>false</checkedByDefault>
             <displayNameOverride>Collect Actual Start</displayNameOverride>
             <field>Collect_From_Work_Order__c.Primary_SA__c.ActualStartTime</field>
+            <table>ServiceAppointment.Work_Orders__r.Deliver_To_Work_Order_Line_Items__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Location</field>
             <table>ServiceAppointment.Work_Orders__r.Deliver_To_Work_Order_Line_Items__r</table>
         </columns>
         <masterLabel>Deliver To Work Order Line Items</masterLabel>

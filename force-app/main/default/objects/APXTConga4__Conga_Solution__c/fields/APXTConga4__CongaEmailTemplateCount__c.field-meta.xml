@@ -4,7 +4,6 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Conga Email Template Count</label>
-    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>APXTConga4__Conga_Solution_Email_Template__c.APXTConga4__Conga_Solution__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackTrending>false</trackTrending>

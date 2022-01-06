@@ -5,6 +5,6 @@
     <label>SMB POC</label>
     <queue>SMB_POC</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

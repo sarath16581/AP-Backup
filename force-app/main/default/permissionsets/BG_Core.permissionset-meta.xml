@@ -84,21 +84,7 @@
         <enabled>true</enabled>
         <name>BG_Core</name>
     </customPermissions>
-    <customPermissions>
-        <enabled>true</enabled>
-        <name>C360_Portfolio_Admin</name>
-    </customPermissions>
     <description>Provides permissions common to all B&amp;G Sales users, regardless of job role.</description>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>APR__c.Walk_in_Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>APR__c.Walk_out_Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>APT_Charge_Account__c.Billing_Account__c</field>
@@ -306,11 +292,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Apttus_Proposal__Proposal__c.System_Context_Bypass_Validation__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Authorization_Rule__c.Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -347,11 +328,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Billing_Account__c.Is_Intermediary_Account_StarTrack__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Billing_Account__c.Sub_Account_Credit_Representative_Email__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2642,15 +2618,6 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>BG Core</label>
     <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>APR__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
@@ -2793,10 +2760,6 @@
         <apexPage>SubAcctReqFormCmpfromCreditAssesment</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
-    <recordTypeVisibilities>
-        <recordType>APR__c.StarTrack</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Contact.Sales_Contact</recordType>
         <visible>true</visible>

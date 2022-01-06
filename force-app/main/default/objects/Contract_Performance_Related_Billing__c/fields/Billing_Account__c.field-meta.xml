@@ -10,7 +10,7 @@
         <filterItems>
             <field>$Source.Related_Account__c</field>
             <operation>notEqual</operation>
-            <value/>
+            <value></value>
         </filterItems>
         <filterItems>
             <field>$Source.Related_Account__c</field>
@@ -20,7 +20,7 @@
         <filterItems>
             <field>$Source.Related_Account__c</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>

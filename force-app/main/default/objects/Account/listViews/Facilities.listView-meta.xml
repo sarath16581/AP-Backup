@@ -17,6 +17,6 @@
     </filters>
     <label>Facilities</label>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

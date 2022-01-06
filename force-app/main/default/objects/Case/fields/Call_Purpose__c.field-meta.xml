@@ -232,9 +232,9 @@
                 <label>Card left - No Attempt Made</label>
             </value>
             <value>
-                <fullName>Westpac bookings</fullName>
+                <fullName>Westpac Bookings</fullName>
                 <default>false</default>
-                <label>Westpac bookings</label>
+                <label>Westpac Bookings</label>
             </value>
         </valueSetDefinition>
     </valueSet>

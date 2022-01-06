@@ -13,7 +13,6 @@
                 })
                 cmp.set(resultsSetAttribute, actualQuestionWithoutChild);
                 cmp.set('v.discoveryCategoryQuestionsWithRelatedChild', questions);
-                console.log('RelatedQuestion',cmp.get('v.discoveryCategoryQuestionsWithRelatedChild'));
             }
             else if (response.getState() == "INCOMPLETE") {
                 console.log("Response Incomplete");
@@ -38,7 +37,6 @@
         action.setCallback(this, function(response) {
             if (response.getState() == "SUCCESS") {
                 qualificationRecordList = response.getReturnValue();  
-                console.log('qualificationRecordList>>>',qualificationRecordList);
                 this.setExstingAnswerToQuestionV1(cmp, qualificationRecordList);           
             }
             else if (response.getState() == "INCOMPLETE") {
@@ -65,7 +63,6 @@
             }
         })
         var finalQuestionList = [];
-        console.log('RelatedQuestion1',cmp.get('v.discoveryCategoryQuestionsWithRelatedChild'));
         cmp.get("v.discoveryCategoryQuestionsWithRelatedChild").forEach(questionVar =>{
             var keyVar = questionVar.uniqueKey;
             if(qualificationMap.has(keyVar)){

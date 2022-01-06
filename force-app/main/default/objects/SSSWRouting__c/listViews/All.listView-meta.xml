@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>OBJECT_ID</columns>
+    <columns>CaseRecordTypeId__c</columns>
+    <columns>CaseType__c</columns>
+    <columns>CustomerQueueType__c</columns>
+    <columns>Customer_Type__c</columns>
+    <columns>DefaultCaseDetails__c</columns>
+    <columns>EnquirySubType__c</columns>
+    <columns>AutoEscalate__c</columns>
+    <columns>CaseKey__c</columns>
+    <columns>ProductCategory__c</columns>
+    <columns>ProductSubCategory__c</columns>
+    <columns>Queue_Name__c</columns>
+    <columns>Network__c</columns>
+    <columns>Origin__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

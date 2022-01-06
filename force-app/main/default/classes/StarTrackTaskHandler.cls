@@ -6,6 +6,7 @@ History
 September 1, 2016 - Jen Karen Tan - Created
 October 02, 2017 - Angelo Rivera - Added Methods for Minor Work MWT0004521
 August 13, 2021 - Steve Judd - Changed method updateTasksRelatedCaseRecord for MW0004540
+October 7, 2021 - Steve Judd - Updated pending status logic to fix bug for authorised contacts in updateTasksRelatedCaseRecord
 ------------------------------------------------------------*/
 public without sharing class StarTrackTaskHandler{
 

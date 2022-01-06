@@ -1,11 +1,3 @@
-/*
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 21/08/2020
-  * @description  : Component for display AP & ST delivery status(Latest Event of a consignment if exists).
---------------------------------------- History ------------------------------------------------------------
-11.09.2020    Jansi Rani   Created
-25-11-2020    avula.jansirani@auspost.com.au       commented console.log lines
-*/
 import { LightningElement, api } from 'lwc';
 import retrieveBspCommunityURL from '@salesforce/apex/bspBaseUplift.retrieveCommunityURL';
 import { convertToFormattedDateStr } from 'c/bspCommonJS';
@@ -28,7 +20,7 @@ export default class BspDeliveryStatus extends LightningElement {
         try {
             this.communityURL = await retrieveBspCommunityURL();
         } catch (er) {
-            //console.error(er)
+            console.error(er)
         }
     }
 

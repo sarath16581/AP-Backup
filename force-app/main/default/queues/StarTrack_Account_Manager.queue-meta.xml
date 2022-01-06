@@ -8,9 +8,8 @@
             <publicGroup>StarTrack_Account_Manager</publicGroup>
         </publicGroups>
         <users>
-            <user>divya.accmgr@auspost.com.au</user>
             <user>karthickaccmger@auspost.com.prod</user>
-            <user>yojanaaccmger@auspost.com.au</user>
+            <user>yojanaaccmger@auspost.com.prod</user>
         </users>
     </queueMembers>
     <queueSobject>

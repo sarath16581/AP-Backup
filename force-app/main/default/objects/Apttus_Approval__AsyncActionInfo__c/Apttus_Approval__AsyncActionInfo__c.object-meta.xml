@@ -163,7 +163,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Async Actions Info</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

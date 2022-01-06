@@ -5,6 +5,5 @@
     <description>StarTrack: Capture Bulk tasking information</description>
     <externalId>false</externalId>
     <label>Is Bulk Task?</label>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

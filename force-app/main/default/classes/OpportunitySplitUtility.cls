@@ -9,7 +9,7 @@
  * 2021-02-22 - arjun.singh@auspost.com.au - Modified to update Direct Contribution details on closed opportunity owner change
  * 2021-02-24 - dheeraj.mandavilli@auspost.com.au - Added method to Populate "Split Member Role at Opportunity Closure" Field when
  *                                                  when a split member is added on a Closed Opportunity.
-*/
+ */
 public with sharing class OpportunitySplitUtility {
     public static  Boolean RUN_TRIGGER_INSERT = false;
     public static final String DIRECT_CONTRIBUTION = 'Direct Contribution';
@@ -95,7 +95,6 @@ public with sharing class OpportunitySplitUtility {
                 Set<Id> splitIdsFromTrigger = new Set<Id>();
                 for(OpportunitySplit oppSplit : OpportunitySplits){                
                     String splitTypeId = String.valueOf(oppSplit.SplitTypeId) ; 
-
                         if(opportunityMap.get(oppSplit.OpportunityId).isClosed && !BG_SALES_OPERATION_PERMISSIONSET_ASSIGNED.get(userInfo.getUserID())){
                             //The adding or editing of opportunity splits will be locked when the opportunity is closed 
                             oppSplit.addError(Label.CLOSED_OPPORTUNITY_MSG);
@@ -169,9 +168,7 @@ public with sharing class OpportunitySplitUtility {
         for(String overlayVar: LABEL.OVERLAY_SPECIFIC_VALIDATION.split(';')){
             overlaySet.add(overlayVar);
         } 
-        System.debug('overlaySet>>>>>'+overlaySet);
-        System.debug('splitsWithOpportunityMap>>>>>'+splitsWithOpportunityMap);
-        System.debug('oppWithExistingSplitsMap>>>>>'+oppWithExistingSplitsMap);
+
         for(Id oppId : splitsWithOpportunityMap.keySet()){
             Map<String,List<OpportunitySplit>> splitMapTemp = splitsWithOpportunityMap.get(oppId);     
             for(String overLayType : splitMapTemp.keySet()){
@@ -190,7 +187,6 @@ public with sharing class OpportunitySplitUtility {
                 for(OpportunitySplit oSplit: splitMapTemp.get(overLayType)){
                     percentValue += oSplit.SplitPercentage ;
                 }
-                System.debug('percentValue>>>>'+percentValue);
                 if(overlaySet.contains(overLayType) && percentValue != 100){
                     //The Total Percent for each Overlay Type must be 100%
                     for(OpportunitySplit sRecord : splitWithOpportunityMap.get(oppId)){
@@ -250,7 +246,6 @@ public with sharing class OpportunitySplitUtility {
                     }
                 }
             }
-            System.debug('splitListToProcess>>>>'+splitListToProcess);
             if(!splitListToProcess.isEmpty()){
                 Set<Id> userIdSet = new Set<Id>();
                 Map<Id,Map<Id,OpportunitySplit>> opportunityWithSplits = new Map<Id,Map<Id,OpportunitySplit>>();
@@ -267,7 +262,6 @@ public with sharing class OpportunitySplitUtility {
                         opportunityWithSplits.put(oSplit.OpportunityId, splitMapTemp);
                     }
                 }
-                System.debug('opportunityWithSplits>>>>'+opportunityWithSplits);
                 if(!opportunityWithSplits.isEmpty()){
                     Map<Id, OpportunityTeamMember> opportunityTeamMembers = OpportunityTeamMembersSelector.newInstance().selectByOpportunityAndUsers(opportunityWithSplits.keySet(), userIdSet);                
                     for(OpportunityTeamMember oppTeam :opportunityTeamMembers.values()){
@@ -287,7 +281,6 @@ public with sharing class OpportunitySplitUtility {
                             }
                         }
                     }
-                    System.debug('teamMemberList>>>>>'+teamMemberList);
                     if(!teamMemberList.isEmpty()){
                        // ApplicationDatabase.getInstance().dmlUpdate(teamMemberList);  
                         OpportunitySplitRoleUpdate.updateTeamMemberRoleInSystemContext(teamMemberList);              

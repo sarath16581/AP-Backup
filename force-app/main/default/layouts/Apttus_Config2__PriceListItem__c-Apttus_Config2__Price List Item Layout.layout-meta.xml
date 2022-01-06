@@ -59,14 +59,6 @@
                 <behavior>Edit</behavior>
                 <field>Apttus_Config2__Active__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_Band_Range_Max__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_Price_Point__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

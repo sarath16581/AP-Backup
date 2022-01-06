@@ -5,6 +5,6 @@
     <label>Post Billpay Product Group</label>
     <queue>APT_PostbillPay_Sales_Specialist</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

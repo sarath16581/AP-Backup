@@ -4,6 +4,8 @@
     <columns>NAME</columns>
     <columns>CREATED_DATE</columns>
     <columns>Depot__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>

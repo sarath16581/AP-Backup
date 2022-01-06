@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warehouse_Processing_VIC_Mickleham_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Warehouse Processing - VIC Mickleham</label>
+    <queue>Warehouse_Processing_VIC_Mickleham</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

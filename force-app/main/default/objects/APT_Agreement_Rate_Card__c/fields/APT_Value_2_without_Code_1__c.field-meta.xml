@@ -5,7 +5,6 @@
     <formula>IF( OR(AND(CONTAINS(APT_Value_1__c , &apos;1&apos;),CONTAINS( APT_Agreement_Line_Item__r.APT_Price_Structure__c , &apos;Z30&apos;)),AND(CONTAINS(APT_Value_1__c , &apos;0&apos;),CONTAINS( APT_Agreement_Line_Item__r.APT_Price_Structure__c , &apos;Z40&apos;))),&apos;&apos;, IF(OR(CONTAINS(APT_Value_2__c , &apos;Norfolk Is&apos;),CONTAINS(APT_Value_2__c , &apos;Christmas &amp; Cocos Is&apos;),CONTAINS(APT_Value_2__c , &apos;Aust Antarctic Territory&apos;)),APT_Value_2__c+&quot;*&quot;, APT_Value_2__c))</formula>
     <label>Value 2 without Code 1</label>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -127,10 +127,6 @@
                 <field>Work_Centre_Code__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Has_Closure_SLA_been_exceeded__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Invoice_Number__c</field>
             </layoutItems>

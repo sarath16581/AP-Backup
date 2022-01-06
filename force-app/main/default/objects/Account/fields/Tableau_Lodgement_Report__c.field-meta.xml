@@ -5,7 +5,6 @@
     <formula>IF(ISBLANK(LEGACY_ID__c), &quot;No ID for this Organisation&quot;, IF(ISBLANK($Setup.Lodgement_Report_Settings__c.Report_URL__c), &apos;Report URL not configured.&apos;,HYPERLINK($Setup.Lodgement_Report_Settings__c.Report_URL__c + LEGACY_ID__c , &quot;Lodgement Report for &quot; + Name)))</formula>
     <label>Lodgement Report</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

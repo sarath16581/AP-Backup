@@ -3,6 +3,6 @@
     <fullName>S_LastModifiedDate__c</fullName>
     <externalId>false</externalId>
     <label>Last Modified Date</label>
-    <required>false</required>
+    <required>true</required>
     <type>DateTime</type>
 </CustomField>

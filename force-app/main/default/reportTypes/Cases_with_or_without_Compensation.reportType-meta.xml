@@ -3805,11 +3805,6 @@
             <field>UserSurveyDateSent__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
@@ -3891,6 +3886,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Delegation_Limit__c</field>
+            <table>Case.Compensation__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ExtraCoverPostage__c</field>
+            <table>Case.Compensation__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>HasExtraCover__c</field>
             <table>Case.Compensation__r</table>
         </columns>
         <columns>
@@ -4130,6 +4135,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>ProofOfValueThreshold__c</field>
+            <table>Case.Compensation__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>State_Of_Origin__c</field>
             <table>Case.Compensation__r</table>
         </columns>
@@ -4176,11 +4186,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ManagerLevel3__c</field>
-            <table>Case.Compensation__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Tracking_Number__c</field>
             <table>Case.Compensation__r</table>
         </columns>
         <masterLabel>Compensation</masterLabel>

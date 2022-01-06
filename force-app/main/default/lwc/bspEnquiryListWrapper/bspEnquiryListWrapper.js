@@ -38,9 +38,10 @@ export default class BspEnquiryListWrapper extends LightningElement {
         if (data) {
             this.userBillingAccountScope = data;
             this.enquiryTypeFilterOption = data;
-        } /*else {
+            console.log(this.userBillingAccountScope);
+        } else {
             console.log(error);
-        }*/
+        }
     }
 
     //Get the default org options and default pagination options from custom settings
@@ -53,9 +54,9 @@ export default class BspEnquiryListWrapper extends LightningElement {
             this.defaultOrg = data.DEFAULT_ORG_OPTION_VALUE;
             this.defaultPageSize = data.DEFAULT_PAGE_OPTION_VALUE;
             this.pageSizeFilterOption = data.DEFAULT_PAGE_OPTION_VALUE;
-        }/* else {
+        } else {
             console.log(error);
-        }*/
+        }
     }
 
     get orgPicklistOptions() {
@@ -87,6 +88,7 @@ export default class BspEnquiryListWrapper extends LightningElement {
     }
 
     handleChange(event) {
+        console.log('Handle Change Event Fired >>> ' + event.target.value);
         this.template.querySelector("c-bsp-enquiries-list").handleResetPagination();
         const field = event.target.dataset.id;
         if (field === 'search') {

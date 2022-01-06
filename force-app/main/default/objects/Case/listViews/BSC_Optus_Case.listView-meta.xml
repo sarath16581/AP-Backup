@@ -4,6 +4,7 @@
     <columns>CASES.CREATED_DATE</columns>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>Case_Weight__c</columns>
+    <columns>CASES.SUBJECT</columns>
     <columns>CASES.STATUS</columns>
     <columns>Priority_icon__c</columns>
     <columns>Origin__c</columns>

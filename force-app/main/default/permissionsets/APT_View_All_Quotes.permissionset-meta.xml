@@ -157,14 +157,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>APT_CheckOutProposalController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>APT_CheckOutProposalControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>APT_CompanyBusinessContHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -338,6 +330,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_MergeDocBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_OpptyProductListController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_OpptyProductListController_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -576,11 +576,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>APT_Domestic_Price_Data__c.APT_Base_Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>APT_Domestic_Price_Data__c.APT_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -866,10 +861,6 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>APT_AddProducts_Page</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>APT_AmendRenew</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -883,10 +874,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_CashAccountAssessment</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>APT_CheckOut_RedirectToOpportunity</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -966,14 +953,6 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>APT_RedirectToAllProductPage</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>APT_RedirectToFavorites</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>APT_RequestNewAccount</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -1003,6 +982,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>Apt_CreditAssessment</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>OppProductList</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <recordTypeVisibilities>

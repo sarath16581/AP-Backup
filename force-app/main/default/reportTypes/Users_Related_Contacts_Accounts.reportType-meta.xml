@@ -1586,11 +1586,6 @@
             <field>BillingAccount__c.Id</field>
             <table>User.Contacts__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>isPrefDiffAsFirst__c</field>
-            <table>User.Contacts__r</table>
-        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>

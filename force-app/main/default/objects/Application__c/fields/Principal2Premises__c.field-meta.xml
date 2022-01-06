@@ -6,7 +6,6 @@
     <inlineHelpText>Is this address</inlineHelpText>
     <label>Premises</label>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

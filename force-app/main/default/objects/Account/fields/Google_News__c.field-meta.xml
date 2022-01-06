@@ -10,7 +10,6 @@
     <inlineHelpText>This formula creates a link to a Google news search site using the Account Name.</inlineHelpText>
     <label>Google News</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

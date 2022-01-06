@@ -3,14 +3,13 @@
     <fullName>Address_Capture_Details__c</fullName>
     <externalId>false</externalId>
     <formula>&apos;Address: &apos; &amp; BR() &amp;
-Case_Address_Line__c &amp; BR() &amp;
-Case_Address_Suburb__c &amp; BR() &amp;
-Case_Address_State__c &amp; BR() &amp;
-Case_Address_Postcode__c</formula>
+    Case_Address_Line__c &amp; BR() &amp;
+    Case_Address_Suburb__c &amp; BR() &amp;
+    Case_Address_State__c &amp; BR() &amp;
+    Case_Address_Postcode__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Address Capture Details</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

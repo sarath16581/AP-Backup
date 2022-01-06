@@ -5,27 +5,42 @@
     <name>SSSW MyPost Business Inbound</name>
     <queueMembers>
         <users>
-            <user>aditya.chakranarayan@auspost.com.au</user>
+            <user>adam.mccabe@auspost.com.au</user>
+            <user>alyshia.maugham@auspost.com.au</user>
+            <user>andreas.bianchi2@auspost.com.au</user>
+            <user>annette.vanwyk@auspost.com.au</user>
+            <user>ansa.kamal@auspost.com.au</user>
+            <user>antonio.meneses@auspost.com.au</user>
+            <user>ashley.evans@auspost.com.au</user>
+            <user>asri.titasey@auspost.com.au</user>
+            <user>belinda.osullivan@auspost.com.au</user>
             <user>benjamin.robinson@auspost.com.au</user>
             <user>cayl.mccarron@auspost.com.au</user>
+            <user>chris.duck@auspost.com.au</user>
+            <user>christal.aiono@auspost.com.au</user>
             <user>christopher.christensen@auspost.com.au</user>
+            <user>corinne.walsh2@auspost.com.au</user>
             <user>darian.law2@auspost.com.au</user>
+            <user>deborah.felton@auspost.com.au</user>
+            <user>ebrahim.khoee@auspost.com.au</user>
+            <user>gaurangkumar.dalwadi@auspost.com.au</user>
+            <user>itulagi.tamate@auspost.com.au</user>
+            <user>jonathan.gollagher@auspost.com.au</user>
+            <user>jorjie.krause@auspost.com.au</user>
+            <user>joseph.wilson@auspost.com.au</user>
+            <user>juliana.moravski@auspost.com.au</user>
+            <user>justin.owen4@auspost.com.au</user>
             <user>kaveri.sharma@auspost.com.au</user>
-            <user>keira.geraghty@auspost.com.au</user>
-            <user>kristian.banfield@auspost.com.au</user>
-            <user>kristy.clancy@auspost.com.au</user>
+            <user>lisa.matsios@auspost.com.au</user>
             <user>mary.cunningham@auspost.com.au</user>
-            <user>matthew.middleton@auspost.com.au</user>
             <user>mercedes.carter@auspost.com.au</user>
             <user>morgan.blomfield@auspost.com.au</user>
-            <user>nisa.buzetzky2@auspost.com.au</user>
-            <user>nisha.roy@auspost.com.au</user>
+            <user>nawal.chowdhury@auspost.com.au</user>
             <user>sandeep.jaswal@auspost.com.au</user>
             <user>sean.rowbottom@auspost.com.au</user>
-            <user>taron.knight3@auspost.com.au</user>
             <user>teagan.skelton@auspost.com.au</user>
-            <user>tracey.kirrane@auspost.com.au</user>
-            <user>uinise.taufa2@auspost.com.au</user>
+            <user>thea.durand@auspost.com.au</user>
+            <user>tim.vanyoung@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueSobject>

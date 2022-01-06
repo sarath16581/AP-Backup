@@ -165,7 +165,7 @@
     </nameField>
     <pluralLabel>Compensation</pluralLabel>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

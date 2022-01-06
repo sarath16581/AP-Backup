@@ -5,7 +5,6 @@
     <description>This field is used to store the Direct Debit T&amp;C Acceptance from BCA Online application.</description>
     <externalId>false</externalId>
     <label>Direct Debit TC Acceptance</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

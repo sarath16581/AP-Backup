@@ -674,13 +674,12 @@
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>LEGACY_ID__c</fields>
-        <fields>Type__c</fields>
+        <fields>Customer_Name__c</fields>
+        <fields>Customer_Name_2__c</fields>
         <fields>Credit_Limit_Formula__c</fields>
         <fields>PAYER_ACCOUNT_ID__c</fields>
         <fields>Credit_Person__c</fields>
         <fields>Credit_Person_Code__c</fields>
-        <fields>Credit_Status_Image__c</fields>
-        <fields>SAP_marked_for_deletion__c</fields>
         <fields>Is_Intermediary_Account_StarTrack__c</fields>
         <relatedList>Billing_Account__c.Organisation__c</relatedList>
     </relatedLists>

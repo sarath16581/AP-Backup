@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
     <columns>NAME</columns>
     <columns>RECORDTYPE</columns>
     <columns>Location__c</columns>
@@ -18,15 +19,29 @@
         <value>PUD_Booking__c.MPB_Pickup</value>
     </filters>
     <filters>
+        <field>Effective_Date__c</field>
+        <operation>lessOrEqual</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
         <field>Post_Code__c</field>
-        <operation>equals</operation>
+        <operation>contains</operation>
         <value>4518,4519,4520,4521,4522,4523,4524,4525,4526,4527,4528,4529,4530</value>
     </filters>
     <filters>
         <field>Post_Code__c</field>
-        <operation>equals</operation>
-        <value>4531,4532,4533,4534,4535,4536,4537,4538,4539,4540,4541,4542,4543,4544,4545,4546,4547,4548,4549,4550,4551,4552,4553,4554,4555,4556,4557,4558,4559,4560,4561,4562,4563,4564,4565,4566,4567,4568,4569,4570,4571,4572,4573,4574,4575</value>
+        <operation>contains</operation>
+        <value>4531,4532,4533,4534,4535,4536,4537,4538,4539,4540,4541,4542,4543,4544,4545,4546</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>4517</value>
+    </filters>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Nambour</value>
     </filters>
     <label>Nambour MPB Bookings Today</label>
-    <language>en_US</language>
 </ListView>

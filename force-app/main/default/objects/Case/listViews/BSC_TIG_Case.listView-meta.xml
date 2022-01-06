@@ -5,6 +5,6 @@
     <label>BSC - TIG</label>
     <queue>BSC_TIG</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -164,7 +164,7 @@ This object is responsible for the association of Plan Questions to Quicklinks a
         <type>Text</type>
     </nameField>
     <pluralLabel>AM Question Quicklinks</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

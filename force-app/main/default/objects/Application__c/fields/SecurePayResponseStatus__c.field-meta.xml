@@ -5,7 +5,6 @@
     <label>{delete}SecurePay Response Status</label>
     <length>1</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -5,6 +5,8 @@
 --------------------------------------- History --------------------------------------------------
 23.03.2020    Hara Sahoo    Created
 01.05.2020    Hara Sahoo    Modified Added FeedItem Type 'TextPost'
+03.03.2021    Naseer Abbasi Filtered feed items where Created by a My Network user
+
 */
 public without sharing class myNetworkGetChatterFeeds {
     @AuraEnabled(cacheable=true)
@@ -28,13 +30,12 @@ public without sharing class myNetworkGetChatterFeeds {
             //Get the FeedItem Map and the CreatedBy UserId Map
             if(string.isNotBlank(communityId) || test.isRunningTest()) {
                 Id myNetworkProfileId = [SELECT Id FROM Profile WHERE Name = 'MyNetwork Portal'].Id;
-                for(FeedItem feed :[Select Id, body, InsertedById, InsertedBy.Name, InsertedBy.ProfileId, ParentId, Title, CreatedDate, Type, Parent.Name FROM FeedItem WHERE ParentId = :recordId 
+                for(FeedItem feed :[Select Id, body, InsertedById,InsertedBy.Name, InsertedBy.ProfileId, ParentId, Title, CreatedDate, Type, Parent.Name FROM FeedItem WHERE ParentId = :recordId 
                                     AND Type ='TextPost']) {
                     feedList.add(feed);
                     insertedUserId.add(feed.InsertedById);                
                 }
                 for( FeedItem feeds : feedList) {
-                    // showing feeditems posted by myNetwork users only
                     if(feeds.InsertedBy.ProfileId == myNetworkProfileId) {
                         commentText=feeds.Body;
                         string dateString = stp_chatterFeedItemController.dateTimeFormatted(feeds.CreatedDate);
@@ -54,7 +55,7 @@ public without sharing class myNetworkGetChatterFeeds {
             return null;
         }
     }
-    @AuraEnabled	
+    @AuraEnabled  
     //Post chatter feed
     public static void postNotification(String recordId, String messageBody){
         try{

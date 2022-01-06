@@ -46,6 +46,9 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <platformActionList>
+        <actionListContext>Record</actionListContext>
+    </platformActionList>
     <relatedLists>
         <fields>Query</fields>
         <relatedList>KavSearchPromotionRuleRelatedList</relatedList>

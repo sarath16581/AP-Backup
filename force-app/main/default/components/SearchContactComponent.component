@@ -262,7 +262,7 @@
                         txtEmail.val().trim(),
                         txtFirstName.val().trim(),
                         txtLastName.val().trim(),
-                    	txtPreferredName.val().trim(),
+                        txtPreferredName.val().trim(),
                         txtPhone.val().trim(),
                         txtAccountNo.val().trim(),
                         txtAccountName.val().trim(),
@@ -791,7 +791,7 @@
                     <apex:inputcheckbox value="{!ckbExcludePhoneFromSearch}" style="float:right;vertical-align:middle;" id="txtExcludePhoneFromSearch" tabindex="31"
                                         onkeydown="searchContactHideMessage();"><span style="float:left;vertical-align:middle;"> Tick to ignore the Phone Number from Search:</span></apex:inputcheckbox>
                 </apex:pageBlockSectionItem>
-                <!-- Adding Preferred Name changes -->                 
+                 <!-- Adding Preferred Name changes -->                 
                 <apex:pageBlockSectionItem >                    
                     <apex:outputLabel value="Preferred Name" for="txtPreferredName" />                    
                     <apex:inputText value="{!strPreferredName}" id="txtPreferredName"                                    
@@ -896,7 +896,7 @@
                                     txtAccountNo.val(),
                                     txtFirstName.val(),
                                     txtLastName.val(),
-                                	txtPreferredName.val(),
+                                    txtPreferredName.val(),
                                     fullAddress,
                                     txtEmail.val(),
                                     txtPhone.val(),

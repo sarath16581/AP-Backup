@@ -360,7 +360,7 @@
             </processMetadataValues>
             <field>Case_Owner_Email__c</field>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </inputAssignments>
         <object>Credit_Approval__c</object>

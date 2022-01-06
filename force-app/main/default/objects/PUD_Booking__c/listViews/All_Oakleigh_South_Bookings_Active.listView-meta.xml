@@ -17,5 +17,15 @@
         <operation>startsWith</operation>
         <value>oak</value>
     </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>Route_Lookup__c</field>
+        <operation>notContain</operation>
+        <value>OS</value>
+    </filters>
     <label>Oakleigh South - All Active</label>
 </ListView>

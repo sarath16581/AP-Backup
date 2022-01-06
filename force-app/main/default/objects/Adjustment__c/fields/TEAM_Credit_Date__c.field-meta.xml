@@ -39,7 +39,6 @@ TEXT(MONTH(DATEVALUE(CreatedDate))) ,
 TEXT(YEAR(DATEVALUE(CreatedDate)))</formula>
     <label>TEAM Credit Date</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

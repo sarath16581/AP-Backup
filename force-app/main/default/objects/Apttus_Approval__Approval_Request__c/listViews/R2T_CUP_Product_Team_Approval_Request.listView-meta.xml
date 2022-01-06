@@ -5,6 +5,6 @@
     <label>R2T CUP Product Team</label>
     <queue>R2T_CUP_Product_Team</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

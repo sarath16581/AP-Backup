@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <available>true</available>
+    <description>This template is to notify user in case of generated/presented proposal is re-configured</description>
     <encodingKey>ISO-8859-1</encodingKey>
     <letterhead>APT_R2T_Quote_LetterHead</letterhead>
     <name>Proposal Checkout Email Template</name>
@@ -12,9 +13,9 @@ Regarding: {!Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Name__c} {!A
 
 This is a system-generated email to let you know that your proposal has been reset to ‘draft’, due to a checkout of the shopping cart after the proposal was generated.
 
-To proceed, please regenerate your proposal document before continuing with the proposal and agreement processes. This will avoid any future errors.
+To proceed, if you have not done so already, please regenerate your proposal document before continuing with the proposal and agreement processes. This will avoid any future errors.
 
-Further help &amp; support is available through the &apos;Guidance For Success&apos; on the proposal screen.</textOnly>
+Further help &amp; support is available through the &apos;Guidance For Success&apos; on the proposal screen</textOnly>
     <type>html</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

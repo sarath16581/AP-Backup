@@ -144,7 +144,6 @@ recursive.ng-scope.summary-opt-group {
     max-height: 67% !important;
 }
 
-/*CI-52 changes for increasing APPC Attributes help text width*/
 .tooltip .tooltiptext {
 	width: 37rem !important;
 	word-break: break-word !important;

@@ -17,6 +17,6 @@
     </filters>
     <label>My Organisations</label>
     <sharedTo>
-        <allPartnerUsers/>
+        <allPartnerUsers></allPartnerUsers>
     </sharedTo>
 </ListView>

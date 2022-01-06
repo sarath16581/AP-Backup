@@ -27,6 +27,11 @@
                 <label>Addendum/DOV</label>
             </value>
             <value>
+                <fullName>Add Contract Rates</fullName>
+                <default>false</default>
+                <label>Add Contract Rates</label>
+            </value>
+            <value>
                 <fullName>Add lodgement point</fullName>
                 <default>false</default>
                 <label>Add lodgement point</label>

@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Flag to indicate if this is the Primary Agreement for the Licence Type</inlineHelpText>
     <label>Primary Agreement</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

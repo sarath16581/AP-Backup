@@ -2,9 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Option_Name_Without_Tier__c</fullName>
     <externalId>false</externalId>
-    <formula>IF(ISPICKVAL( Apttus_CMConfig__LineType__c,&quot;Option&quot;) &amp;&amp; CONTAINS( Apttus_CMConfig__OptionId__r.Name , &apos;Express Road&apos;),
-&quot;Road Express&quot; ,IF(ISPICKVAL(Apttus_CMConfig__LineType__c,&quot;Option&quot;) &amp;&amp;  CONTAINS(Apttus_CMConfig__OptionId__r.Name, &apos;Tier&apos;),  
-LEFT(Apttus_CMConfig__OptionId__r.Name, LEN(Apttus_CMConfig__OptionId__r.Name)-7) , null))</formula>
+    <formula>IF(ISPICKVAL(Apttus_CMConfig__LineType__c,&quot;Option&quot;) &amp;&amp; CONTAINS(Apttus_CMConfig__OptionId__r.Name, &apos;Tier&apos;),
+LEFT(Apttus_CMConfig__OptionId__r.Name, LEN(Apttus_CMConfig__OptionId__r.Name)-7) , null)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Option Name Without Tier</label>
     <required>false</required>

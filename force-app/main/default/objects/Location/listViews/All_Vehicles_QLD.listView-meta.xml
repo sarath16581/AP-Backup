@@ -26,5 +26,10 @@
         <operation>equals</operation>
         <value>Vehicle</value>
     </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Available</value>
+    </filters>
     <label>All QLD Vehicles</label>
 </ListView>

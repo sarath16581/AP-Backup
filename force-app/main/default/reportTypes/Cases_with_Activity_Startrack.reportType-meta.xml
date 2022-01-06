@@ -310,12 +310,4 @@
         </columns>
         <masterLabel>Task/Activity Info</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Case</table>
-        </columns>
-        <masterLabel>Cases</masterLabel>
-    </sections>
 </ReportType>

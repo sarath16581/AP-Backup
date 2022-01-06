@@ -5,6 +5,6 @@
     <label>Symbiosis Leads</label>
     <queue>Symbiosis_Leads</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

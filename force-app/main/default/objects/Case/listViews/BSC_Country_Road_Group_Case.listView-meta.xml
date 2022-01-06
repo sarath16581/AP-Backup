@@ -5,6 +5,6 @@
     <label>BSC - Country Road Group</label>
     <queue>BSC_Country_Road_Group</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

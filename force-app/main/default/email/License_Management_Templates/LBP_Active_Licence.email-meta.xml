@@ -15,7 +15,6 @@ Can you please review the following Licence record and navigate to the associate
 
 Licence Name: {!Account.Name}
 Facility Name: {!Account.Facility__c}
-Network Facility: {!Account.Network_Facility__c}
 
 Kind Regards,
 

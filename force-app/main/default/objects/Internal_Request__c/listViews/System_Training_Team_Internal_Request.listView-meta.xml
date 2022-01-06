@@ -5,6 +5,6 @@
     <label>System Training Team</label>
     <queue>System_Training_Team</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

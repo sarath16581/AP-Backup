@@ -18,9 +18,19 @@
         <value>TODAY</value>
     </filters>
     <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PUD_Booking__c.AP_Adhoc_Pickup</value>
+    </filters>
+    <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>Port M</value>
+        <value>derrimut</value>
+    </filters>
+    <filters>
+        <field>Route_Lookup__c</field>
+        <operation>contains</operation>
+        <value>MC,MH</value>
     </filters>
     <label>Port Melbourne Bookings - Today</label>
 </ListView>

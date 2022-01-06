@@ -76,7 +76,7 @@ public class chasSafeDropControllerTest {
     
     
     /**
-*	Scenario: Api call to Safe Drop is made and returns a successful response.
+*   Scenario: Api call to Safe Drop is made and returns a successful response.
 */
     @IsTest
     public static void testRetrieveSafeDropImageSuccessResponse() {

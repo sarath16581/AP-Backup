@@ -14,7 +14,12 @@
     <filters>
         <field>Service_Territory__c</field>
         <operation>equals</operation>
-        <value>Underwood</value>
+        <value>Underwood,Redbank</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_MONTH</value>
     </filters>
     <label>Underwood Vehicle Faults</label>
 </ListView>

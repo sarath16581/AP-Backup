@@ -164,7 +164,7 @@ This object is responsible for storing user activity on a given eLearning Module
         <type>Text</type>
     </nameField>
     <pluralLabel>Module Users</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

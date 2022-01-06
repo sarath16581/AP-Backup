@@ -5,6 +5,5 @@
     <description>StarTrack checkbox that will determine if run dock and depot area calculation is permitted.</description>
     <externalId>false</externalId>
     <label>Manage Delivery Flag</label>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

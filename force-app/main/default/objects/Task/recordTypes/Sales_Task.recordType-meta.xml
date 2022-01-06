@@ -40,7 +40,7 @@
         </values>
         <values>
             <fullName>Sales</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Service</fullName>

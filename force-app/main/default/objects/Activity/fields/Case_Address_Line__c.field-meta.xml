@@ -6,7 +6,6 @@
     <label>Case Address Line</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

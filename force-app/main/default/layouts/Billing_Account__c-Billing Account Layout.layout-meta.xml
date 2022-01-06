@@ -116,10 +116,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Sub_Account_Credit_Representative_Email__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>Credit_Person_Code__c</field>
             </layoutItems>
             <layoutItems>

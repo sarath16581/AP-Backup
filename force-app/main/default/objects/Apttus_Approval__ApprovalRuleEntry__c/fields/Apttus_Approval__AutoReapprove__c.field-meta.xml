@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether auto re-approval is enabled for the step or entry. This indicator is maintained by the system.</inlineHelpText>
     <label>Auto Reapprove</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

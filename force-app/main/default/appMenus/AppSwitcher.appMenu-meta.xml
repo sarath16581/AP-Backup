@@ -341,23 +341,7 @@
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
-        <name>DDC Consumer Community</name>
-        <type>Network</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>Australia Post Business Support Portal</name>
-        <type>Network</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>Australia Post Community</name>
-        <type>Network</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>myNetwork</name>
-        <type>Network</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>RetailBusinessCustomers</name>
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
@@ -721,6 +705,14 @@
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
+        <name>standard__Optimizer</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>Australia Post Business Apps</name>
+        <type>Network</type>
+    </appMenuItems>
+    <appMenuItems>
         <name>Apttus_Base2__Configurator</name>
         <type>CustomApplication</type>
     </appMenuItems>
@@ -733,19 +725,19 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Australia Post Business Apps</name>
+        <name>DDC Consumer Community</name>
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
-        <name>icatp__Signature_Slayer</name>
-        <type>CustomApplication</type>
+        <name>Australia Post Business Support Portal</name>
+        <type>Network</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Heroku_Article_Export</name>
-        <type>ConnectedApp</type>
+        <name>Australia Post Community</name>
+        <type>Network</type>
     </appMenuItems>
     <appMenuItems>
-        <name>kfsell__KF_Sell_Admin</name>
-        <type>CustomApplication</type>
+        <name>RetailBusinessCustomers</name>
+        <type>Network</type>
     </appMenuItems>
 </AppMenu>

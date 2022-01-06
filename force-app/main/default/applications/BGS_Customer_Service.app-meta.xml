@@ -29,789 +29,6 @@
     <navType>Console</navType>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>APGL Support</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>BG Base</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Business Enablement</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales Read Only</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Credit Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Customer Team</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Enterprise Onboarding</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Hub Users</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Legal Team</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Lodgement Customer Migration</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Marketing</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>MarketingProfile</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Marketing Super Users</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>My Portal Network</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Product Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Retail Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Sales 3rd Party</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Contracts CME</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Finance</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations Super User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>SecurePay SuperUser</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Solution Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>SSSW - Service Agent</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>StarTrack Support</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
-        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
-        <type>Flexipage</type>
-        <profile>Pricing Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Apttus_Contract_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
-        <type>Flexipage</type>
-        <profile>Hub Users</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Apttus_Contract_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
-        <type>Flexipage</type>
-        <profile>Legal Team</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Apttus_Contract_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
-        <type>Flexipage</type>
-        <profile>Pricing Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Apttus_Contract_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
-        <type>Flexipage</type>
-        <profile>Product Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Apttus_Contract_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
-        <type>Flexipage</type>
-        <profile>Retail Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Apttus_Contract_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
-        <type>Flexipage</type>
-        <profile>Sales 3rd Party</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Apttus_Contract_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Apttus_Contract_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations Super User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>BG Base</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales Read Only</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Apttus_Contract_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
-        <type>Flexipage</type>
-        <profile>Credit Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Credit Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Hub Users</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Legal Team</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Pricing Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Product Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Retail Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Sales 3rd Party</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations Super User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>SecurePay SuperUser</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Post_Billpay_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
-        <type>Flexipage</type>
-        <profile>Solution Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>BG Base</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales Read Only</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Credit Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Hub Users</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Legal Team</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Pricing Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Product Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Retail Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Sales 3rd Party</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations Super User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>SecurePay SuperUser</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Proposal_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
-        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
-        <type>Flexipage</type>
-        <profile>Solution Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>BG Base</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales Read Only</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Credit Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Hub Users</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Legal Team</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Pricing Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Product Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Retail Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Sales 3rd Party</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Operations Super User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>SecurePay SuperUser</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Community_Update_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
-        <type>Flexipage</type>
-        <profile>Solution Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>LOI_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
-        <type>Flexipage</type>
-        <profile>BG Base</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>LOI_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
-        <type>Flexipage</type>
-        <profile>Business Enablement</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>LOI_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>LOI_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
-        <type>Flexipage</type>
-        <profile>Coverage Sales Read Only</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>LOI_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
-        <type>Flexipage</type>
-        <profile>Credit Management</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>LOI_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
-        <type>Flexipage</type>
-        <profile>Customer Team</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>LOI_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
-        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
-        <type>Flexipage</type>
-        <profile>Enterprise Onboarding</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
         <content>LOI_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
@@ -1967,6 +1184,789 @@
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>APGL Support</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>BG Base</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Business Enablement</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales Read Only</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Credit Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Customer Team</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Enterprise Onboarding</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Hub Users</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Legal Team</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Lodgement Customer Migration</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Marketing Super Users</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Marketing</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>MarketingProfile</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>My Portal Network</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Pricing Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Product Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Retail Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Sales 3rd Party</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Contracts CME</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Finance</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations Super User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>SecurePay SuperUser</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Solution Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>SSSW - Service Agent</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>StarTrack Support</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <type>Flexipage</type>
+        <profile>Hub Users</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <type>Flexipage</type>
+        <profile>Legal Team</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <type>Flexipage</type>
+        <profile>Pricing Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <type>Flexipage</type>
+        <profile>Product Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <type>Flexipage</type>
+        <profile>Retail Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <type>Flexipage</type>
+        <profile>Sales 3rd Party</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations Super User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>BG Base</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales Read Only</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <type>Flexipage</type>
+        <profile>Credit Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Credit Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Hub Users</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Legal Team</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Pricing Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Product Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Retail Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Sales 3rd Party</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations Super User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>SecurePay SuperUser</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Post_Billpay_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <type>Flexipage</type>
+        <profile>Solution Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>BG Base</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales Read Only</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Credit Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Hub Users</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Legal Team</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Pricing Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Product Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Retail Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Sales 3rd Party</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations Super User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>SecurePay SuperUser</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Proposal_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus_Proposal__Proposal__c</pageOrSobjectType>
+        <recordType>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal</recordType>
+        <type>Flexipage</type>
+        <profile>Solution Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>BG Base</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales Read Only</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Credit Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Hub Users</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Legal Team</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Pricing Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Product Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Retail Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Sales 3rd Party</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Operations Super User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>SecurePay SuperUser</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Community_Update_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <type>Flexipage</type>
+        <profile>Solution Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>LOI_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
+        <type>Flexipage</type>
+        <profile>BG Base</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>LOI_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
+        <type>Flexipage</type>
+        <profile>Business Enablement</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>LOI_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>LOI_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
+        <type>Flexipage</type>
+        <profile>Coverage Sales Read Only</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>LOI_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
+        <type>Flexipage</type>
+        <profile>Credit Management</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>LOI_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
+        <type>Flexipage</type>
+        <profile>Customer Team</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>LOI_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
+        <type>Flexipage</type>
+        <profile>Enterprise Onboarding</profile>
+    </profileActionOverrides>
     <setupExperience>service</setupExperience>
     <tabs>standard-home</tabs>
     <tabs>standard-Case</tabs>
@@ -1981,20 +1981,9 @@
     <tabs>standard-LightningQuickText</tabs>
     <tabs>Network__c</tabs>
     <tabs>Article__c</tabs>
-    <tabs>APT_Sub_Account__c</tabs>
-    <tabs>et4ae5__Configuration__c</tabs>
-    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
-    <tabs>et4ae5__Business_Unit__c</tabs>
-    <tabs>SAM_Admin1</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>BGS_Customer_Service_UtilityBar</utilityBar>
     <workspaceConfig>
-        <mappings>
-            <tab>APT_Sub_Account__c</tab>
-        </mappings>
-        <mappings>
-            <tab>Apttus_Config2__ConfigSettings__c</tab>
-        </mappings>
         <mappings>
             <tab>Article__c</tab>
         </mappings>
@@ -2008,16 +1997,7 @@
             <tab>Network__c</tab>
         </mappings>
         <mappings>
-            <tab>SAM_Admin1</tab>
-        </mappings>
-        <mappings>
             <tab>SAP_EM</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Business_Unit__c</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Configuration__c</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

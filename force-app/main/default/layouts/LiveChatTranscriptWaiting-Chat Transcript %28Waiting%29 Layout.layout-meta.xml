@@ -3,14 +3,12 @@
     <customConsoleComponents>
         <primaryTabComponents>
             <containers>
-                <height>25</height>
                 <isContainerAutoSizeEnabled>true</isContainerAutoSizeEnabled>
                 <region>Right</region>
                 <sidebarComponents>
                     <componentType>Lookup</componentType>
                     <createAction>NewAccount</createAction>
                     <enableLinking>true</enableLinking>
-                    <height>100</height>
                     <lookup>Account</lookup>
                     <unit>Percentage</unit>
                 </sidebarComponents>
@@ -18,7 +16,6 @@
                     <componentType>Lookup</componentType>
                     <createAction>NewCase</createAction>
                     <enableLinking>true</enableLinking>
-                    <height>100</height>
                     <lookup>Case</lookup>
                     <unit>Percentage</unit>
                 </sidebarComponents>
@@ -26,7 +23,6 @@
                     <componentType>Lookup</componentType>
                     <createAction>NewContact</createAction>
                     <enableLinking>true</enableLinking>
-                    <height>100</height>
                     <lookup>Contact</lookup>
                     <unit>Percentage</unit>
                 </sidebarComponents>
@@ -34,7 +30,6 @@
                     <componentType>Lookup</componentType>
                     <createAction>NewLead</createAction>
                     <enableLinking>true</enableLinking>
-                    <height>100</height>
                     <lookup>Lead</lookup>
                     <unit>Percentage</unit>
                 </sidebarComponents>
@@ -184,10 +179,4 @@
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
-    <summaryLayout>
-        <masterLabel>00h2v00000iw8DN</masterLabel>
-        <sizeX>4</sizeX>
-        <sizeY>0</sizeY>
-        <summaryLayoutStyle>Default</summaryLayoutStyle>
-    </summaryLayout>
 </Layout>

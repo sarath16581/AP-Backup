@@ -51,7 +51,7 @@ export default class CreateSTBillingAccount extends LightningElement {
                 let emptyFields = result.emptyAttributesList;
                 emptyFields.forEach(fieldName =>{
                     this.fieldList.push(fieldName);
-                })
+            })
                 this.billingAccount  = result.billingAccountAttributesDetails ;
                 this.tradingName = result.tradingName;
                 this.legalEntityName = result.legalEntityName;

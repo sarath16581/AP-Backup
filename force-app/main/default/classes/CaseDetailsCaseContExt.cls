@@ -886,7 +886,6 @@ global class CaseDetailsCaseContExt  {
         string productCategory = myCase.ProductCategory__c;
         String productSubCategory = myCase.ProductSubCategory__c;
         id recordTypeId = myCase.RecordTypeId;
-        System.debug('---query:'+query);
         myCase = database.query(query);
         if(maintainValues) {
             myCase.recordTypeId = recordTypeId;

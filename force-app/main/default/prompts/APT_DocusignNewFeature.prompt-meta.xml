@@ -4,7 +4,7 @@
     <promptVersions>
         <actionButtonLabel>Click here for more info!</actionButtonLabel>
         <actionButtonLink>https://auspost.sharepoint.com/:b:/s/SPBG/Sales-support-site/EV5ZfoxsK7dNgjr9fM1K9voB8HqkD-rYBhhUVihnigyfEQ?e=9kEdhV</actionButtonLink>
-        <body>&lt;p&gt;When sending an Agreement for signature, you can add a personal message to the customer in the ‘Notes’ field.​&lt;/p&gt;</body>
+        <body>&lt;p&gt;&lt;span style=&quot;color: rgb(62, 62, 60);&quot;&gt;When sending an Agreement for signature, you can add a personal message to the customer in the ‘Notes’ field.​&lt;/span&gt;&lt;/p&gt;</body>
         <customApplication>BG_Sales</customApplication>
         <delayDays>1</delayDays>
         <description>DocuSign feature to display till 24th April&apos;21</description>
@@ -16,7 +16,7 @@
         <publishedDate>2021-03-25</publishedDate>
         <shouldDisplayActionButton>true</shouldDisplayActionButton>
         <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
-        <startDate>2021-03-22</startDate>
+        <startDate>2021-03-26</startDate>
         <targetPageKey1>Apttus__APTS_Agreement__c</targetPageKey1>
         <targetPageKey2>view</targetPageKey2>
         <targetPageType>standard__recordPage</targetPageType>

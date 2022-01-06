@@ -827,9 +827,6 @@
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedEmailMessageList</relatedList>
-    </relatedLists>
-    <relatedLists>
         <fields>MILESTONETYPE.MILESTONE</fields>
         <fields>CASEMILESTONE.START_DATE</fields>
         <fields>CASEMILESTONE.TARGET_DATE</fields>

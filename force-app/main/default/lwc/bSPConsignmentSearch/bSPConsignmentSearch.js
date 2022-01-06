@@ -1,11 +1,3 @@
-/*
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 26/08/2020
-  * @description  : Component for consignment search component.
---------------------------------------- History --------------------------------------------------
-26.08.2020    Jansi Rani   Created
-25-11-2020    avula.jansirani@auspost.com.au       removed console.log lines
-*/
 import { LightningElement, api, track, wire } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
 import { checkAllValidity, valueMissingErrorMsg, topGenericErrorMessage } from 'c/bspCommonJS';
@@ -40,9 +32,11 @@ export default class BSPConsignmentSearch extends NavigationMixin(LightningEleme
             if (this.consignmentSearchResultsWrapper.errorMessages.length > 0) {
                 this.errorMessages = this.consignmentSearchResultsWrapper.errorMessages;
             }
+            console.log(JSON.stringify(result));
             this.isLoading = false;
 
         }).catch(error => {
+           //console.log(JSON.stringify(error));
             //this.errorMessages.push(error.body.message);
 
             // 2020/10/01 - catching IO exceptions here

@@ -4,18 +4,12 @@
     <externalId>false</externalId>
     <label>Default Business Sub Category</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <controllingField>Default_Business_Category__c</controllingField>
         <valueSetDefinition>
             <sorted>true</sorted>
-            <value>
-                <fullName>3PL</fullName>
-                <default>false</default>
-                <label>3PL</label>
-            </value>
             <value>
                 <fullName>Accommodation</fullName>
                 <default>false</default>
@@ -97,11 +91,6 @@
                 <label>Cafes, Restaurants &amp; Takeaway Food Services</label>
             </value>
             <value>
-                <fullName>Carrier with assets in Australia</fullName>
-                <default>false</default>
-                <label>Carrier with assets in Australia</label>
-            </value>
-            <value>
                 <fullName>Cars, Motorbikes &amp; Trailers</fullName>
                 <default>false</default>
                 <label>Cars, Motorbikes &amp; Trailers</label>
@@ -170,11 +159,6 @@
                 <fullName>Department Stores</fullName>
                 <default>false</default>
                 <label>Department Stores</label>
-            </value>
-            <value>
-                <fullName>Domestic Broker</fullName>
-                <default>false</default>
-                <label>Domestic Broker</label>
             </value>
             <value>
                 <fullName>Electrical Appliances</fullName>
@@ -270,11 +254,6 @@
                 <fullName>Insurance</fullName>
                 <default>false</default>
                 <label>Insurance</label>
-            </value>
-            <value>
-                <fullName>International Aggregator</fullName>
-                <default>false</default>
-                <label>International Aggregator</label>
             </value>
             <value>
                 <fullName>Internet &amp; Data Services</fullName>
@@ -548,6 +527,14 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Machinery &amp; Equipment</controllingFieldValue>
+            <valueName>Equipment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Machinery &amp; Equipment</controllingFieldValue>
+            <valueName>Machinery</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Media</controllingFieldValue>
             <valueName>Entertainment</valueName>
         </valueSettings>
@@ -562,34 +549,6 @@
         <valueSettings>
             <controllingFieldValue>Media</controllingFieldValue>
             <valueName>Online Broadcasting</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>International Aggregator</controllingFieldValue>
-            <controllingFieldValue>Carrier with assets in Australia</controllingFieldValue>
-            <controllingFieldValue>Domestic Broker</controllingFieldValue>
-            <controllingFieldValue>3PL</controllingFieldValue>
-            <valueName>3PL</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>International Aggregator</controllingFieldValue>
-            <controllingFieldValue>Carrier with assets in Australia</controllingFieldValue>
-            <controllingFieldValue>Domestic Broker</controllingFieldValue>
-            <controllingFieldValue>3PL</controllingFieldValue>
-            <valueName>Carrier with assets in Australia</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>International Aggregator</controllingFieldValue>
-            <controllingFieldValue>Carrier with assets in Australia</controllingFieldValue>
-            <controllingFieldValue>Domestic Broker</controllingFieldValue>
-            <controllingFieldValue>3PL</controllingFieldValue>
-            <valueName>Domestic Broker</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>International Aggregator</controllingFieldValue>
-            <controllingFieldValue>Carrier with assets in Australia</controllingFieldValue>
-            <controllingFieldValue>Domestic Broker</controllingFieldValue>
-            <controllingFieldValue>3PL</controllingFieldValue>
-            <valueName>International Aggregator</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Medical</controllingFieldValue>
@@ -658,6 +617,10 @@
         <valueSettings>
             <controllingFieldValue>Professional &amp; Administrative</controllingFieldValue>
             <valueName>Personal Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Employment</controllingFieldValue>
+            <valueName>Private Employment</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Public Services</controllingFieldValue>
@@ -856,14 +819,6 @@
             <valueName>Real Estate</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Wood &amp; Textiles</controllingFieldValue>
-            <valueName>Wood</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Wood &amp; Textiles</controllingFieldValue>
-            <valueName>Wool, Leather, Clothing</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Homeware &amp; Furniture</controllingFieldValue>
             <valueName>Electrical Appliances</valueName>
         </valueSettings>
@@ -874,14 +829,6 @@
         <valueSettings>
             <controllingFieldValue>Homeware &amp; Furniture</controllingFieldValue>
             <valueName>Homeware</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Insurance</controllingFieldValue>
-            <valueName>Insurance</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Insurance</controllingFieldValue>
-            <valueName>Superannuation</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Accommodation &amp; Food</controllingFieldValue>
@@ -932,6 +879,14 @@
             <valueName>Minerals &amp; Materials</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Delivery Services</controllingFieldValue>
+            <valueName>Courier Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Services</controllingFieldValue>
+            <valueName>Postal Services</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Education</controllingFieldValue>
             <valueName>Higher Education</valueName>
         </valueSettings>
@@ -956,20 +911,24 @@
             <valueName>Water Supply</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Employment</controllingFieldValue>
-            <valueName>Private Employment</valueName>
+            <controllingFieldValue>Wood &amp; Textiles</controllingFieldValue>
+            <valueName>Wood</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Wood &amp; Textiles</controllingFieldValue>
+            <valueName>Wool, Leather, Clothing</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Wood Products</controllingFieldValue>
             <valueName>Paper</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Delivery Services</controllingFieldValue>
-            <valueName>Courier Services</valueName>
+            <controllingFieldValue>Insurance</controllingFieldValue>
+            <valueName>Insurance</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Delivery Services</controllingFieldValue>
-            <valueName>Postal Services</valueName>
+            <controllingFieldValue>Insurance</controllingFieldValue>
+            <valueName>Superannuation</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Legal &amp; Accounting</controllingFieldValue>
@@ -978,14 +937,6 @@
         <valueSettings>
             <controllingFieldValue>Legal &amp; Accounting</controllingFieldValue>
             <valueName>Legal Services</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Machinery &amp; Equipment</controllingFieldValue>
-            <valueName>Equipment</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Machinery &amp; Equipment</controllingFieldValue>
-            <valueName>Machinery</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

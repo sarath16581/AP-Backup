@@ -3,7 +3,6 @@
   * @date         : 19/10/2015
   * @description  : Controller class for listing product holdings in tabular format
   * @assumption   : NA
-  * 2021 Mar 16 madhuri.awasthi@auspost.com.au INC1758530 Date format of Activation and Next Allocation date changed
   */  
 public with sharing class ContactProductHoldingTableCompController {
 

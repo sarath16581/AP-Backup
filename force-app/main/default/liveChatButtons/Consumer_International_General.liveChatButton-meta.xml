@@ -16,7 +16,7 @@ Hello, my name is {!User_FirstName}. I’m catching up on your conversation now.
     <optionsHasRerouteDeclinedRequest>false</optionsHasRerouteDeclinedRequest>
     <optionsIsAutoAccept>false</optionsIsAutoAccept>
     <optionsIsInviteAutoRemove>false</optionsIsInviteAutoRemove>
-    <perAgentQueueLength>3</perAgentQueueLength>
+    <perAgentQueueLength>1</perAgentQueueLength>
     <routingType xsi:nil="true"/>
     <site>ConsumerLiveChat</site>
     <type>Standard</type>

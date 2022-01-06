@@ -5,6 +5,6 @@
     <label>R2T Rebate Approvers</label>
     <queue>R2T_Rebate_Approvers</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

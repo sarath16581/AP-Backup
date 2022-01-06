@@ -5,6 +5,6 @@
     <label>StarTrack Investigations General</label>
     <queue>StarTrack_Investigations_General</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

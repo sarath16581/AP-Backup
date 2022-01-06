@@ -9576,7 +9576,7 @@ IF({!myVariable_current.Operational_Schedule__r.APT_Parcel__c} , &apos;Parcel;&a
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>

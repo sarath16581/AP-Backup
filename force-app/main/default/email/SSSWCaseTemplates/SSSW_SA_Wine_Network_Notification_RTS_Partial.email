@@ -11,8 +11,7 @@
 		line-height: 30px;
 		text-align: left;
 		display: inline;
-		padding-left: 20px;
-	}
+		padding-left: 20px;c	}
 	h3 {
 		font-family: Arial,Helvetica,sans-serif;
 		font-size: 14px;
@@ -82,7 +81,7 @@ Thank you for reporting the damaged parcel {!Case.ReferenceID__c} to the eParcel
 Regards,
 <br/>
 <br/>
-<span class="red bold">Australia Post Customer Contact Centre</span><br/>
+<span class="red bold">Australia Post Customer Services</span><br/>
 <br/>
 <br/>
 <b>FOR YOUR CONVENIENCE FOLD OR CUT HERE AND TAPE TO DAMAGED CARTON</b>

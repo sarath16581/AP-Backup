@@ -68,7 +68,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.Number_of_Sites__c</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </milestoneCriteriaFilterItems>
         <milestoneName>CP Assess Complexity</milestoneName>
         <minutesToComplete>60</minutesToComplete>

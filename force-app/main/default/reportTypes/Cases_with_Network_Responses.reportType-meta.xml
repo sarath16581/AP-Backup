@@ -452,6 +452,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Automated_Network_Assignment__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Auto_Email_Response_sent__c</field>
             <table>Case</table>
         </columns>
@@ -948,6 +953,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Compensation_Paid__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Complaint__c</field>
             <table>Case</table>
         </columns>
         <columns>
@@ -2452,6 +2462,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Originating_Network__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Originating_OPC__c</field>
             <table>Case</table>
         </columns>
@@ -3287,6 +3302,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Sent_To_Network_Date__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Service_Now_Ticket_Number__c</field>
             <table>Case</table>
         </columns>
@@ -3852,7 +3872,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
+            <field>Network__c.State__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Network__c.Business_Unit__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>
@@ -3989,5 +4014,18 @@
             <table>Case.Network_Responses1__r</table>
         </columns>
         <masterLabel>Network Responses (Related Case)</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Acting_Network__c.Business_Unit__c</field>
+            <table>Case.Network_Responses1__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Acting_Network__c.State__c</field>
+            <table>Case.Network_Responses1__r</table>
+        </columns>
+        <masterLabel>Network Response</masterLabel>
     </sections>
 </ReportType>

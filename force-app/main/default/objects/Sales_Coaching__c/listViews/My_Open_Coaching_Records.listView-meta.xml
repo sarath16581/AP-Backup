@@ -14,5 +14,5 @@
     </filters>
     <label>My Open Coaching Records</label>
     <language>en_US</language>
-    <sharedTo/>
+    <sharedTo></sharedTo>
 </ListView>

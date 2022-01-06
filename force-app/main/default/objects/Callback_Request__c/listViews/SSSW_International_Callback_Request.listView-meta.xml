@@ -5,6 +5,6 @@
     <label>SSSW Callback Reminder International</label>
     <queue>SSSW_International</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

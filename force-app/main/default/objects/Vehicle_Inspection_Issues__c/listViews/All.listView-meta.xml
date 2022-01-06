@@ -10,6 +10,13 @@
     <columns>CREATEDBY_USER</columns>
     <columns>CREATED_DATE</columns>
     <columns>Fleet_Number__c</columns>
+    <columns>Service_Territory__c</columns>
+    <columns>State__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>contains</operation>
+        <value>Melb,Dandenong</value>
+    </filters>
     <label>All</label>
 </ListView>

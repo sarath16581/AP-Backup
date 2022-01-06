@@ -4,14 +4,6 @@
     <category>cases</category>
     <deployed>true</deployed>
     <description>FAQ&apos;s with Chatter</description>
-    <join>
-        <join>
-            <outerJoin>true</outerJoin>
-            <relationship>Comments</relationship>
-        </join>
-        <outerJoin>false</outerJoin>
-        <relationship>FeedItems</relationship>
-    </join>
     <label>FAQ&apos;s with Chatter</label>
     <sections>
         <columns>
@@ -77,134 +69,9 @@
         <masterLabel>FAQs</masterLabel>
     </sections>
     <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Type</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CommentCount</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LikeCount</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ClientOauthLink</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Visibility</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Title</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Body</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LinkUrl</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>IsRichText</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DerivedFeedItem</field>
-            <table>FAQ__ka.FeedItems</table>
-        </columns>
         <masterLabel>Feed: FAQ</masterLabel>
     </sections>
     <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Revision</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastEditDate</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CommentBody</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ClientOauthLink</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CommentType</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>IsBest</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>InsertedBy</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OriginNetwork</field>
-            <table>FAQ__ka.FeedItems.Comments</table>
-        </columns>
         <masterLabel>Comments</masterLabel>
     </sections>
 </ReportType>

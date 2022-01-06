@@ -3,14 +3,6 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW WFM Queue 5</name>
-    <queueMembers>
-        <users>
-            <user>ben.kloppenborg@auspost.com.au</user>
-            <user>carlo.alora@auspost.com.au</user>
-            <user>shakira.mccoll@auspost.com.au</user>
-            <user>silvia.cordova@auspost.com.au</user>
-        </users>
-    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

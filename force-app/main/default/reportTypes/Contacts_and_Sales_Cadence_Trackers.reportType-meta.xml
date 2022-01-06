@@ -242,6 +242,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>ActionCadenceState</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>CreatedDate</field>
             <table>Contact</table>
         </columns>
@@ -853,11 +858,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Pref_Method_of_Contact__c</field>
-            <table>Contact</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>isPrefDiffAsFirst__c</field>
             <table>Contact</table>
         </columns>
         <columns>

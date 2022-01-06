@@ -28,7 +28,7 @@
 								</a>
 								<div aura:id="mobileLogin" class="mobile-login">
 									<aura:if isTrue="{! v.loggedInUserName != 'Log in' }">
-										<a class="mobile-login-links login" data-url="https://ptest.npe.auspost.com.au/account-management/#/personal" onclick="{!c.gotoUrl}">
+										<a class="mobile-login-links login" data-url="https://auspost.com.au/account-management/#/personal" onclick="{!c.gotoUrl}">
 											<span>Manage Account</span>
 										</a>
 										<a class="mobile-login-links login" onclick="{!c.logout}">
@@ -37,7 +37,7 @@
 									</aura:if>
 									<ul>
 										<li><span class="mobile-login-links"><strong>Accounts</strong></span></li>
-										<li><a class="mobile-login-links" data-url="https://ptest.npe.auspost.com.au/mypost/auth/#/login" onclick="{!c.gotoUrl}">
+										<li><a class="mobile-login-links" data-url="https://auspost.com.au/mypost/auth/#/login" onclick="{!c.gotoUrl}">
 											<span>MyPost</span>
 										</a></li>
 										<li><a class="mobile-login-links" data-url="https://auspost.com.au/mypost-business/login" onclick="{!c.gotoUrl}">
@@ -117,7 +117,7 @@
 										<div class="desktop-products">
 					   						<ul>
 												<li><span class="desktop-login-links"><strong>Accounts</strong></span></li>
-												<li><a class="desktop-login-links" data-url="https://ptest.npe.auspost.com.au/mypost/auth/#/login" onclick="{!c.gotoUrl}">
+												<li><a class="desktop-login-links" data-url="https://auspost.com.au/mypost/auth/#/login" onclick="{!c.gotoUrl}">
 													<span>MyPost</span>
 												</a></li>
 												<li><a class="desktop-login-links" data-url="https://auspost.com.au/mypost-business/login" onclick="{!c.gotoUrl}">

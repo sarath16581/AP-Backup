@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Template Type</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

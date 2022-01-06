@@ -9,7 +9,6 @@
     <relationshipLabel>Conga Templates</relationshipLabel>
     <relationshipName>Conga_Templates</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

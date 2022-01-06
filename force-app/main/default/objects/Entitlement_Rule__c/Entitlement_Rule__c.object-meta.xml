@@ -165,7 +165,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Entitlement Rules</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

@@ -16,5 +16,6 @@ OR(
 ISNULL(Confirmed_Rate__c)
 )
 )</errorConditionFormula>
+    <errorDisplayField>Approval_Status__c</errorDisplayField>
     <errorMessage>Confirmed Rate is required</errorMessage>
 </ValidationRule>

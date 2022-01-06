@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>X3D35</fullName>
-    <columns>NAME</columns>
     <columns>APT_Charge_Code__c</columns>
     <columns>APT_Display_Order_Sequence__c</columns>
     <columns>APT_Price_Value__c</columns>

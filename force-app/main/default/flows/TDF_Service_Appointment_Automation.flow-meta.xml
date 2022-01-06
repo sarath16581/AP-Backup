@@ -997,7 +997,7 @@ NOT(ISBLANK(TEXT({!myVariable_current.Work_Order__r.Location.Node_Type__c})))
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1078,7 +1078,7 @@ NOT(ISBLANK(TEXT({!myVariable_current.Work_Order__r.Location.Node_Type__c})))
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1159,7 +1159,7 @@ NOT(ISBLANK(TEXT({!myVariable_current.Work_Order__r.Location.Node_Type__c})))
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1240,7 +1240,7 @@ NOT(ISBLANK(TEXT({!myVariable_current.Work_Order__r.Location.Node_Type__c})))
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1507,7 +1507,7 @@ NOT(ISBLANK(TEXT({!myVariable_current.Work_Order__r.Location.Node_Type__c})))
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1518,7 +1518,7 @@ NOT(ISBLANK(TEXT({!myVariable_current.Work_Order__r.Location.Node_Type__c})))
             </processMetadataValues>
             <field>FSL__GanttColor__c</field>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </inputAssignments>
         <object>ServiceAppointment</object>
@@ -1588,7 +1588,7 @@ NOT(ISBLANK(TEXT({!myVariable_current.Work_Order__r.Location.Node_Type__c})))
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -1696,7 +1696,7 @@ NOT(ISBLANK(TEXT({!myVariable_current.Work_Order__r.Location.Node_Type__c})))
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>

@@ -157,7 +157,7 @@ This object is responsible for the set of Assessment questions within Smart Oppo
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>Read</externalSharingModel>
     <label>Assessment Criterion</label>
     <nameField>
         <label>Assessment Criterion Name</label>

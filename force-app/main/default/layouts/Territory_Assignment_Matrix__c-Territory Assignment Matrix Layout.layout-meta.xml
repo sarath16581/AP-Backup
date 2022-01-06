@@ -29,7 +29,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>LocalAreaMarket__c</field>
+                <field>LocalAreaMarketGlobal__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

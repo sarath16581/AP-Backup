@@ -157,14 +157,14 @@ This object is responsible for the maintenance of the eLearning candidate answer
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Test Question Answer</label>
     <nameField>
         <label>Test Question Answer Name</label>
         <type>Text</type>
     </nameField>
     <pluralLabel>Test Question Answers</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

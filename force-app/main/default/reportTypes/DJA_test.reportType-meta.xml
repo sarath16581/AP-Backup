@@ -451,16 +451,6 @@
             <field>TrackingID__c</field>
             <table>Article__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaptureID_anyoneataddress__c</field>
-            <table>Article__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaptureID_receiveronly__c</field>
-            <table>Article__c</table>
-        </columns>
         <masterLabel>Articles</masterLabel>
     </sections>
 </ReportType>

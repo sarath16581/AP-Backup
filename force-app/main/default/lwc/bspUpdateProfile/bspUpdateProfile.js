@@ -66,7 +66,8 @@ export default class BspUpdateProfile extends NavigationMixin(LightningElement) 
             this.isLoading = false;
 
         } else if (error) {
-             this.isLoading = false;
+            console.log('error' + error);
+            this.isLoading = false;
         }
     }
 

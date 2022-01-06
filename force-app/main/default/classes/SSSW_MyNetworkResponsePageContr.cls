@@ -289,10 +289,8 @@ public class SSSW_MyNetworkResponsePageContr {
 
                     system.debug(caseCond);
                      
-                // if(relatedCse.ResolutionCode__c!='MyNetwork Resolution'){
-                 
-                //loop through the custom setting for getting template against each selections only for product category                            
- 
+                //loop through the custom setting for getting template against each selections only for product category 
+                            
                  for(PON_Update_EmailTemplates__c mp: ponCS){
                        //check if case condition matches the custom setting value
                         if(caseCond.equalsIgnoreCase(mp.CaseCondition__c)) {
@@ -300,8 +298,8 @@ public class SSSW_MyNetworkResponsePageContr {
                             system.debug(templateName);
                             doNotShowEmail = false;
                         }
-                      }
-                   // }        
+                 }
+                            
                     if(!String.isBlank(templateName)) { // if valid template exists, continue for automation email
                         // retreival of the valid template
                         template  = [Select Id, Body,HTMLValue, Subject from EmailTemplate where DeveloperName = :templateName limit 1];

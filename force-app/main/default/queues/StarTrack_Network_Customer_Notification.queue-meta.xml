@@ -4,11 +4,9 @@
     <email>noreply@startrack.com.au</email>
     <name>StarTrack Network Customer Notification</name>
     <queueMembers>
-        <users>
-            <user>nikola.peters@startrack.com.au</user>
-            <user>steve.judd6@auspost.com.au</user>
-            <user>vince.cassar@auspost.com.au</user>
-        </users>
+        <publicGroups>
+            <publicGroup>StarTrack_Network_Customer_Notification</publicGroup>
+        </publicGroups>
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>

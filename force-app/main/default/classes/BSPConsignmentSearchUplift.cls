@@ -9,9 +9,6 @@
  *  Continuation + callouts need a Continuation.State to preserve context (context is lost when using static)
  *  Continuation + callouts need a wrapper method with NO arguments for Test Coverage. Test.InvokeContinuation only
  *  allows for a continuation method with no arguments.
- * --------------------------- History:---------------------------------------------------
-   2020-11-26    Jansi Rani. avula.jansirani@auspost.com.au  Removed System.debug lines
-   2020-12-03    Jansi Rani. avula.jansirani@auspost.com.au  Added Article/Consignment delivery scan check(isConsignmentDelivered)
  */
 public without sharing class BSPConsignmentSearchUplift {
 
@@ -67,8 +64,6 @@ public without sharing class BSPConsignmentSearchUplift {
 
     //varible to get values from DeliveredScanTypes custom metadata for the event codes of delivered scans
     public static String emScanTypes {get;set;}
-    //03-12-2020
-    public static Boolean isConsignmentDelivered {get; set;}
 
     // Stores a list of StarTrack product id's that may be surfaced from SAP EM
     // This is used to indicate that the consignment should be searched using the ST .net search
@@ -104,7 +99,6 @@ public without sharing class BSPConsignmentSearchUplift {
         autoClickAPButton = false;
         destination = '';
         redirectAddress = new AddressExtension();
-        isConsignmentDelivered = false;
         //query on the DeliveredScanTypes custom metadata type to get all the event types of type delivered
         /*for (DeliveredScanTypes__mdt dST : [Select Id,label, DeveloperName FROM DeliveredScanTypes__mdt]) {
             emScanTypes += dST.label + ';';
@@ -142,13 +136,16 @@ public without sharing class BSPConsignmentSearchUplift {
      */
     @AuraEnabled(continuation=true)
     public static Object search(String consignNumber) {
+        System.debug('search----START ---');
         consignmentNumber = consignNumber;
         singleCon = new Article__c();        
 
         //[Jansi: added]
         if((bspBaseUplift.hasAPBillingAccounts || bspBaseUplift.canSearchAllConsignments)) {
+            System.debug('Search AP..');
             return searchAPAsync();  
         } else if((bspBaseUplift.hasSTBillingAccounts || bspBaseUplift.canSearchAllConsignments)) {
+            System.debug('Search ST..');
             return searchSTAsync(BspConstants.CON_SEARCH_TYPE_CONSIGNMENT, consignmentNumber);
         }
         
@@ -201,7 +198,7 @@ public without sharing class BSPConsignmentSearchUplift {
         if(isConsignmentAuthenticated == false && csr.singleCon != null){
             setUnAuthenticatedValues(csr);
         }
-        csr.isConsignmentDelivered = isConsignmentDelivered;
+        
         return csr;
     }
 
@@ -306,7 +303,6 @@ public without sharing class BSPConsignmentSearchUplift {
         @AuraEnabled  public Boolean authToRecallRedirect {get;set;}
         @AuraEnabled  public String selectedEventArticle {get; set;}
         @AuraEnabled  public List<Proof_of_Delivery__c> relatedPODs {get; set;}
-        @AuraEnabled  public Boolean isConsignmentDelivered {get; set;}
 
     }
     
@@ -317,6 +313,7 @@ public without sharing class BSPConsignmentSearchUplift {
     ------------------------------------------------------------*/
     @AuraEnabled(continuation=true)
     public static Continuation searchAPAsync() {
+        System.debug('searchAPAsync>>>>>>>>');
         // set the current search type
         selectedConsignmentSearchType = BspConstants.CONSEARCH_TYPE_AUPOST;
         
@@ -365,7 +362,9 @@ public without sharing class BSPConsignmentSearchUplift {
      */
     @AuraEnabled(Continuation=true)
     public static Object processAPSearchResult(Object state) {
-    //[Jansi] Added below to get from stateInfo
+        System.debug('>>>>>>>>>>>>>>>>>>>> processAPSearchResul >>>>>>>>>>>>>>>>>>>> tstate:' + state);
+        
+        //[Jansi] Added below to get from stateInfo
         StateInfo stInfo = (StateInfo)state;
         trackResults = stInfo.response;
         consignmentNumber = stInfo.consignmentNumber;
@@ -383,6 +382,8 @@ public without sharing class BSPConsignmentSearchUplift {
         showConDetail = false;
         recallInProgress = false;
         
+        System.debug(trackResults);
+        
         //Validate if the response result description is a SUCCESS.
         // Checks if the item is found in SAP-EM
         if(BspConstants.SUCCESS.equals(trackResults.getValue().TrackingResult[0].ResultDescription)) {
@@ -393,6 +394,8 @@ public without sharing class BSPConsignmentSearchUplift {
                 (trackResults.getValue().TrackingResult[0].ConsignmentDetails != null && !trackResults.getValue().TrackingResult[0].ConsignmentDetails.ConsignmentEnvelope.ArticleEnvelope.isEmpty() ? 
                 trackResults.getValue().TrackingResult[0].ConsignmentDetails.ConsignmentEnvelope.ArticleEnvelope[0].Article : null);
                 
+            System.debug('>>>>>>>>>>>>>>>>>>>> article: '+ article);
+
             // this check confirms if the article is actually a StarTrack consignment even though it's been surfaced in SAP-EM
             // if thats the case we proceed to the ST search and surface the correct ST specific details from .net
             if(article != null && startrackProdIDs.containsKey(article.ProductID)) {
@@ -437,12 +440,14 @@ public without sharing class BSPConsignmentSearchUplift {
                     WHERE ArticleID__c = :apConsignmentId
                 ];
 
-             
+                System.debug('>>>>>>>>>>>>>>>>>>>> singleCon: '+singleCon);
+                
                 //Search for child event messages associated to the consignment.
                 searchLocalEventMessages();
                 
                 // check if the user is allowed to raise cases against the billing account linked to this consignment
                 if (bspBaseUplift.isArticleAccessible(singleCon)) {
+                    System.debug('>>>>>>>>>>>>>>>>>>>> isArticleAccessible = true');
                     // ensure the UI will be rendered view the 'authenticated' view
                     isConsignmentAuthenticated = true;
                     
@@ -466,6 +471,7 @@ public without sharing class BSPConsignmentSearchUplift {
                         recallInProgress = true;
                     }
                 } else {
+                    System.debug('>>>>>>>>>>>>>>>>>>>> isArticleAccessible = flase');
                     isConsignmentAuthenticated = false;
                     showCreateCaseButton = false;
                     
@@ -476,9 +482,11 @@ public without sharing class BSPConsignmentSearchUplift {
                 }
                 
             } else if(bspBaseUplift.hasSTBillingAccounts || bspBaseUplift.canSearchAllConsignments) {
+                System.debug('>>>>>>>>>>>>>>>>>>>> since there were no search results found and the user also has access to startrack billing accounts, we proceed onto the next ST');
                 // since there were no search results found and the user also has access to startrack billing accounts, we proceed onto the next ST .net search
                 proceedWithSTConSearch = true;
             } else {
+                System.debug('>>>>>>>>>>>>>>>>>>>> ERROR_NO_RESULTS 11');
                 // nothing was found in the search result and the user doesn't have access to ST billing accounts
                 //ApexPages.addMessage(new ApexPages.message(ApexPages.severity.Error, bspBaseUplift.getErrorMessage(BspConstants.ERROR_NO_RESULTS))); //Display an error when there's no consignment found.
                 errorMessages.add(bspBaseUplift.getErrorMessage(BspConstants.ERROR_NO_RESULTS));
@@ -497,6 +505,7 @@ public without sharing class BSPConsignmentSearchUplift {
         
         // if there were no consignment/article found or the consignment/article found points to a ST product then we need to proceed to search ST .net
         if(proceedWithSTConSearch) {
+            System.debug('>>>>>>>>>>>>>>>>>>>> processAPSearchResult: Could not find any results, proceeding with ST search.');
             // proceed with the next search into ST .net.
             // this is the result of no valid article being found in SAP-EM and where the user hass access to both AP and ST billing accounts
             return searchSTAsync(BspConstants.CON_SEARCH_TYPE_CONSIGNMENT, consignmentNumber);
@@ -508,8 +517,10 @@ public without sharing class BSPConsignmentSearchUplift {
 
 
     public static void saveAPConsignmentResponse(TIBCOSearchResult searchResult){
+        System.debug('saveAPConsignmentResponse');
         try{
             if(foundArticle(searchResult)){
+                System.debug('foundArticle');
                 TIBCODataTranslator translator = new TIBCODataTranslator(searchResult.trackResults);
                 translator.save(true, false, true, false);
             }
@@ -545,6 +556,8 @@ public without sharing class BSPConsignmentSearchUplift {
      */
     @AuraEnabled(continuation=true)
     public static Continuation searchSTAsync(String searchType, String searchSubject) {
+
+        System.debug('>> searchSTAsync:start ' + searchType + ', ' + searchSubject);
 
         // set the current search type
         selectedConsignmentSearchType = BspConstants.CONSEARCH_TYPE_STARTRACK;
@@ -594,7 +607,10 @@ public without sharing class BSPConsignmentSearchUplift {
         
         //process callout response
         StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrapper = StarTrackConsignmentSearchUtil.processResponse(emsAsyncResponse.getValue(), false);
- 
+        System.debug('>> emsAsyncResponse: ' + emsAsyncResponse.getValue());
+        System.debug('>> processSTSearchResult: ' + conWrapper);
+
+         
         articleMap = new Map<String, Article__c>();
         showConDetail = false;
         showConList = false;
@@ -607,6 +623,9 @@ public without sharing class BSPConsignmentSearchUplift {
                 articleMap.put(art.ArticleID__c, art);
             }
         }
+        System.debug('>> articleMap.values().size(): ' + articleMap.values().size());
+        System.debug('>> articleMap: ' + articleMap);
+        System.debug('Is Multiple Consignment >>> ' + bspEnquiryUplift.isMultipleConsignment(conWrapper));
         // checks how many consignments were returned. in ST world consignments can be reused so if there are multiple results returned we need to prompt the user to select the correct one
         if (articleMap.values().size() == 1 && conWrapper.isConsignmentSaved) {
             // only a single consignment was found
@@ -684,7 +703,7 @@ public without sharing class BSPConsignmentSearchUplift {
     }
 
     public static void searchLocalEventMessages(){
-
+        System.debug('>>>>>>>>>>>>>>>>>>>> START searchLocalEventMessages');
         labelEvents = new List<EventMessage__c>(); //List of latest event message of each article.
         articleEvents = new List<EventMessage__c>(); //List of all event messages of a particular article.
 
@@ -705,13 +724,15 @@ public without sharing class BSPConsignmentSearchUplift {
             childConsignments = [
                 SELECT Id, Consignment__c, Name, Consignment__r.Last_Update_Received__c, SubProduct__c, ArticleLodgementDate__c, ExpectedDeliveryDate__c,
                     (SELECT Id, ActualDateTime_Timestamp__c, ActualDateTime__c, WorkCentreText__c, Depot_Name__c, Facility__r.Name, EventDescription__c,
-                    ExternalDescription__c, UserName__c, Article__r.Name, Depot_Code__c, Status__c, StatusText__c, EventType__c FROM Event_Messages__r
+                    ExternalDescription__c, UserName__c, Article__r.Name, Depot_Code__c, Status__c, StatusText__c FROM Event_Messages__r
                     WHERE ShowtoExternals__c = true ORDER BY ActualDateTime__c DESC)
                 FROM Article__c 
                 WHERE Consignment__c = :singleCon.Id
             ];
         }
         
+        System.debug('>>>>>>>>>>>>>>>>>>>> Child Consignments: ' + childConsignments);
+
         consignmentEvents = [
             SELECT Id, ActualDateTime_Timestamp__c, ActualDateTime__c,Safe_Drop_GUID__c, WorkCentreText__c, Depot_Name__c, Facility__r.Name,
                 EventDescription__c, ExternalDescription__c, UserName__c, Article__r.Name, Depot_Code__c, Status__c, StatusText__c,
@@ -721,11 +742,9 @@ public without sharing class BSPConsignmentSearchUplift {
             ORDER BY ActualDateTime__c DESC
         ];
         
+        System.debug('>>>>>>>>>>>>>>>>>>>> Consignment Events: ' + consignmentEvents);
         if(!childConsignments.isEmpty()){
             Integer articleLastEvent;
-            Set<String> deliveredEventCodes = getDeliveredEventCodes();
-            Boolean isAllConsignmentArticlesAreDelivered = false;
-            Integer count = 0;
             for(Article__c childCon : childConsignments){
                 if(childCon.Event_Messages__r.size() > 0){
                     articleLastEvent = childCon.Event_Messages__r.size()-1;
@@ -740,11 +759,6 @@ public without sharing class BSPConsignmentSearchUplift {
                     } else{
                         articleEventIds.add(childCon.Event_Messages__r[0].Id);
                     }*/
-
-                    if(isAllConsignmentArticlesAreDelivered || count == 0){
-                        isAllConsignmentArticlesAreDelivered = IsArticleDelivered(childCon.Event_Messages__r, deliveredEventCodes);
-                        count = 1;
-                    }
                 }
                 if(!setConsignmentFieldsFromArticle) {
                     if(String.isBlank(APConsignmentSubProduct))
@@ -759,7 +773,7 @@ public without sharing class BSPConsignmentSearchUplift {
                     setConsignmentFieldsFromArticle = true;
                 }
             }
-            isConsignmentDelivered = isAllConsignmentArticlesAreDelivered;
+
             if(!articleEventIds.isEmpty()){
                 //Retrieve the event messages and their attachments.
                 for(EventMessage__c eventMessage : [
@@ -785,11 +799,7 @@ public without sharing class BSPConsignmentSearchUplift {
                 }
             }
         }
-        //03-12-2020
-        if(!consignmentEvents.isEmpty()){
-             //-- check if Article is delivered
-           isConsignmentDelivered = IsArticleDelivered(consignmentEvents, getDeliveredEventCodes());
-        }
+        System.debug('searchLocalEventMessages -- END');
     }
 
     //Get all the event messages related to the selected article.
@@ -1011,51 +1021,7 @@ public without sharing class BSPConsignmentSearchUplift {
         WHERE Id = :articleId];
     }
 
-    /**
-     * Added by Jansi on 02-12-2020
-     * Get 'Delivered' Event codes from Metadata
-     * 
-     * */
-    private static Set<String> getDeliveredEventCodes(){
-        Set<String> deliveredEventCodesSet = new Set<String>();
-        for(EventMessageTypeMapping__mdt evType: [Select MasterLabel From EventMessageTypeMapping__mdt Where Category__c IN ('Delivered')]){
-            deliveredEventCodesSet.add(evType.MasterLabel.toLowerCase().trim());
-        }
-        //System.debug('@@@@@@ @@@@@@ deliveredEventCodesSet='+ deliveredEventCodesSet);
-        return deliveredEventCodesSet;
-    }
 
-     /**
-     * Added by Jansi on 02-12-2020
-     * check if event is delivered
-     * 
-     * */
-    private static Boolean isEventDelivered(EventMessage__c evnt, Set<String> deliveredEventCodes){
-        if(deliveredEventCodes.contains(evnt.EventType__c.toLowerCase().trim())){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     * Added by Jansi on 03-12-2020
-     * check if Article is delivered(if any of the Artcle event type is delivered then assume as delivered)
-     * 
-     * */
-    private static Boolean IsArticleDelivered(List<EventMessage__c> evnts,Set<String> deliveredEventCodes){
-        //System.debug('@@@@@@ @@@@@@ getDeliveredEventCodes1='+ deliveredEventCodes);
-        //System.debug('@@@@@@ @@@@@@ evnts='+ evnts);
-        Boolean isArticleDelivered = false;
-        for(EventMessage__c evnt : evnts){
-            if(isEventDelivered(evnt, deliveredEventCodes)){
-                isArticleDelivered = true;
-                break;
-            }
-        }
-        //System.debug('@@@@@@ @@@@@@ isArticleDelivered='+ isArticleDelivered);
-        return isArticleDelivered;
-    }
 
     // VF Remoting methods used for Recall/Redirect functionality
     /**

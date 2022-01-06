@@ -157,14 +157,14 @@ This object is responsible for the maintenance of the Coach Rules. These can be 
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>Read</externalSharingModel>
     <label>Coach Rule</label>
     <nameField>
         <label>Coach Rule Name</label>
         <type>Text</type>
     </nameField>
     <pluralLabel>Coach Rules</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

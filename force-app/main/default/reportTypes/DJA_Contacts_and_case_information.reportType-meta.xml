@@ -495,11 +495,6 @@
             <field>UMCSID__c</field>
             <table>Contact</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>isPrefDiffAsFirst__c</field>
-            <table>Contact</table>
-        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -509,13 +504,5 @@
             <table>Contact.Cases</table>
         </columns>
         <masterLabel>case fields</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Contact.Cases</table>
-        </columns>
-        <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

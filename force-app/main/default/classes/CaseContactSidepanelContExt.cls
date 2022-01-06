@@ -257,7 +257,7 @@ public with sharing class CaseContactSidepanelContExt {
                 if (caseContact.LastName != null) {
                     newPersonAccount.LastName = caseContact.LastName.trim();
                 }
-                if (caseContact.Preferred_Name__c != null) {
+                 if (caseContact.Preferred_Name__c != null) {
                     newPersonAccount.Preferred_Name__pc = caseContact.Preferred_Name__c.trim();
                 }
                 //Populating either mobile or home phone based on the starting digits

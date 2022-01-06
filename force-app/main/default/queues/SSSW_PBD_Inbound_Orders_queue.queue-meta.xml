@@ -5,18 +5,11 @@
     <name>SSSW PBD Inbound Orders queue</name>
     <queueMembers>
         <users>
-            <user>amanda.owens@auspost.com.au</user>
             <user>amy.czapp@auspost.com.au</user>
             <user>ashley.hodson@auspost.com.au</user>
             <user>belinda.davison@auspost.com.au</user>
-            <user>danielle.iiga@auspost.com.au</user>
-            <user>elia.amaya@auspost.com.au</user>
-            <user>harlee.snow@auspost.com.au</user>
-            <user>helen.martin@auspost.com.au</user>
             <user>irene.morton@auspost.com.au</user>
-            <user>kija.reed@auspost.com.au</user>
             <user>maryanne.dickenson@auspost.com.au</user>
-            <user>melanie.cortez@auspost.com.au</user>
             <user>rebecca.azzopardi@auspost.com.au</user>
             <user>simon.fenton@auspost.com.au</user>
             <user>tanya.rasmussen@auspost.com.au</user>

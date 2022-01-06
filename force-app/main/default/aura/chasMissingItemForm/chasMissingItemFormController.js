@@ -11,11 +11,11 @@
         var safeDropPayLoad = cmp.get("v.wizardData.safeDropPayload");
         if(!$A.util.isEmpty(safeDropPayLoad) || !$A.util.isUndefined(safeDropPayLoad))
         {
-            //helper.pushAnalytics(cmp,'item details:confirm:prefill safe drop');
+            helper.pushAnalytics(cmp,'item details:confirm:prefill safe drop');
         }
         else
         {
-            //helper.pushAnalytics(cmp,'item details:confirm:prefill');
+            helper.pushAnalytics(cmp,'item details:confirm:prefill');
         }
         
         

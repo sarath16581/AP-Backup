@@ -18,7 +18,7 @@
         <value>St Leo</value>
     </filters>
     <filters>
-        <field>Effective_Date__c</field>
+        <field>CREATED_DATE</field>
         <operation>equals</operation>
         <value>YESTERDAY</value>
     </filters>

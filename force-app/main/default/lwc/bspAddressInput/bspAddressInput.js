@@ -1,9 +1,5 @@
 /**
  * Created by vcheng on 14/08/2020.
- * 
- --------------------------------------- History --------------------------------------------------
- 25-11-2020    removd console.logs
-
  */
 
 import {LightningElement, track, api} from 'lwc';
@@ -60,15 +56,19 @@ export default class BspAddressInput extends LightningElement {
     }
     set address(value)
     {
+        //console.log('bspAddressInput set address');
+        //console.debug(JSON.stringify(value));
         let addressSearch = this.template.querySelector('c-bsp-address-search');
         addressSearch.setAddress(value);
     }
 
     @api reportValidity() {
+        console.log('in address input report validity');
         const inputComponents = this.template.querySelectorAll('lightning-input'); //".address-input"
         reportAllValidity(inputComponents);
 
         const addressComps = this.template.querySelectorAll('c-bsp-address-search');
+        //console.log(inputComponents.length + ', ' + addressComps.length);
         reportAllValidity(addressComps);
     }
 
@@ -85,6 +85,7 @@ export default class BspAddressInput extends LightningElement {
     }
 
     @api checkValidity() {
+        console.log('in address input check validity');
         const inputComponents = this.template.querySelectorAll('lightning-input'); //".address-input"
 
         const addressComps = this.template.querySelectorAll('c-bsp-address-search');

@@ -165,7 +165,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Qualification Template Responses</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

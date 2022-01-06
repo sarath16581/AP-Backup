@@ -14,16 +14,9 @@
         <operation>equals</operation>
         <value>Case.Supply_Chain_Optimisation</value>
     </filters>
-    <filters>
-        <field>CASES.STATUS</field>
-        <operation>notEqual</operation>
-        <value>Closed</value>
-    </filters>
     <label>Service Partner Cases</label>
     <language>en_US</language>
     <sharedTo>
-        <role>Service_Business_South_Service_Partner</role>
-        <roleAndSubordinatesInternal>Service_Business_North_Service_Partner</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Service_Business_Service_Manager</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

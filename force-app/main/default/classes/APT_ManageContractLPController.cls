@@ -400,7 +400,7 @@ public with sharing class APT_ManageContractLPController {
                   count++;
               	}
          	 }
-         	if(count==mapLodgement.size() && (aLISelected.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD || aLISelected.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS)){
+         	if(count==mapLodgement.size() && (aLISelected.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) || aLISelected.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS))){
         		haserrorMessages = true;
          		ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.Info, APT_Constants.MSG_POSTCODE_OUTSIDE_ZONE));
          		return null;
@@ -413,27 +413,27 @@ public with sharing class APT_ManageContractLPController {
         
         	// STP-4984 Krishna Velani: reframed the query formation to iterate through entire range and append related Post codes
             if(source.equalsIgnoreCase(APT_Constants.PRODSPECIFIC) && aLP.APT_Lodgement_Zone__c !=null){   
-                Integer count2=0;
+                Integer countPostCodes=0;
                 for(string startPC: mapLodgement.keySet())
       			  {
           	  		string endPC=mapLodgement.get(startPC);
-           	 		count2 += 1;
+           	 		countPostCodes += 1;
 
             		if(string.isNotBlank(startPC) && string.isNotBlank(endPC))
             		{
-               		 if(mapLodgement.size() > 1 && count2 == 1)
+               		 if(mapLodgement.size() > 1 && countPostCodes == 1)
                		 {
                    	 queryStr = queryStr +' AND ((Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                    	 countQryStr = countQryStr +' AND ((Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                		 }
 
-               		 else if(count2 > 1 && count2 < mapLodgement.size())
+               		 else if(countPostCodes > 1 && countPostCodes < mapLodgement.size())
                 	{
                     queryStr = queryStr +' OR (Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                     countQryStr = countQryStr +' OR (Post_Code__c >=:startPC AND Post_Code__c <=:endPC)';
                 	}
 
-               		 else if(count2 == mapLodgement.size() && count2 != 1)
+               		 else if(countPostCodes == mapLodgement.size() && countPostCodes != 1)
                		 {
                     queryStr = queryStr +' OR (Post_Code__c >=:startPC AND Post_Code__c <=:endPC))';
                     countQryStr = countQryStr +' OR (Post_Code__c >=:startPC AND Post_Code__c <=:endPC))';
@@ -444,7 +444,7 @@ public with sharing class APT_ManageContractLPController {
                     queryStr = queryStr + APT_Constants.AND_PC_STRING;
                     countQryStr = countQryStr + APT_Constants.AND_PC_STRING;
                 	}
-                System.debug('count2:'+ count2);
+                System.debug('countPostCodes:'+ countPostCodes);
                 System.debug('Query String:'+ queryStr);
 
             }

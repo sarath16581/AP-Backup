@@ -13,6 +13,7 @@
     <columns>Work_Type__c</columns>
     <columns>APT_Contract_Type__c</columns>
     <columns>Product__c</columns>
+    <columns>Priority__c</columns>
     <columns>Date_Time_Opened__c</columns>
     <columns>Sales_Team_DEC__c</columns>
     <filterScope>Everything</filterScope>

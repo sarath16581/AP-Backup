@@ -5,6 +5,6 @@
     <label>Scoot (Consumer) - Obsolete Queue</label>
     <queue>Scoot_Consumer_Obsolete_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

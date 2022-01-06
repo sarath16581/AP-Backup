@@ -5,8 +5,8 @@
     <columns>Application__c</columns>
     <columns>ClassName__c</columns>
     <columns>MethodName__c</columns>
-    <columns>ExceptionType__c</columns>
     <columns>ExceptionDetails__c</columns>
+    <columns>ExceptionType__c</columns>
     <columns>ExceptionLogTimestamp__c</columns>
     <filterScope>Everything</filterScope>
     <filters>

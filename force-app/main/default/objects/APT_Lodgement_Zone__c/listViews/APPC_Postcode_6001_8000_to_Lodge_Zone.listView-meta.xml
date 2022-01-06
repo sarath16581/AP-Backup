@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APPC_Postcode_6001_8000_to_Lodge_Zone</fullName>
+    <columns>APT_Postcode__c</columns>
+    <columns>NAME</columns>
+    <columns>APT_Locality__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>APT_Zone_Structure__c</field>
+        <operation>equals</operation>
+        <value>APPC</value>
+    </filters>
+    <filters>
+        <field>APT_Post_Code_Start__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>6001</value>
+    </filters>
+    <filters>
+        <field>APT_Post_Code_End__c</field>
+        <operation>lessOrEqual</operation>
+        <value>8000</value>
+    </filters>
+    <label>APPC Postcode (6001-8000) to Lodge Zone</label>
+</ListView>

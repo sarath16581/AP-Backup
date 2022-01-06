@@ -155,7 +155,7 @@ This custom object relates to Organisation Object with lookups to relative field
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Campaign Feedback</label>
     <nameField>
         <displayFormat>ATL-{00000}</displayFormat>
@@ -163,7 +163,7 @@ This custom object relates to Organisation Object with lookups to relative field
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Campaign Feedback</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

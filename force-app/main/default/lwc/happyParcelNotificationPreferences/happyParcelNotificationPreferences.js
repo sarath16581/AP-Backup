@@ -24,8 +24,8 @@ export default class HappyParcelNotificationPreferences extends LightningElement
 	@track messageType;
 	@track showToastBar = false;
 	//Help Text for APCN values
-	@track higherHelpText;
-	@track lowerHelpText;
+	//@track higherHelpText;
+	//@track lowerHelpText;
 	blueBoxText = CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESBLUEBOXTEXT;
 
 	connectedCallback() {
@@ -43,17 +43,17 @@ export default class HappyParcelNotificationPreferences extends LightningElement
 		    var tempPhonePrefs = [];
 	        result.preferences.forEach((item) => {
 	            if(item.email){
-	                tempEmailPrefs = [...tempEmailPrefs, {searchString: item.email,optedIn: !item.optedOut, foundByAPCN: item.foundByAPCN}];
+	                tempEmailPrefs = [...tempEmailPrefs, {searchString: item.email,optedIn: !item.optedOut, foundByAPCN: item.foundByAPCN, helpText: item.optedOut ? CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNEMAILOPTEDOUTHELPTEXT : CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNEMAILHELPTEXT}];
 	            }else{
-	                tempPhonePrefs = [...tempPhonePrefs, {searchString: item.mobile,optedIn: !item.optedOut, foundByAPCN: item.foundByAPCN}];
+	                tempPhonePrefs = [...tempPhonePrefs, {searchString: item.mobile,optedIn: !item.optedOut, foundByAPCN: item.foundByAPCN, helpText: item.optedOut ? CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNPHONEOPTEDOUTHELPTEXT : CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNPHONEHELPTEXT}];
 	            }
 	        });
 	        //Decide which table to be displayed first.
             this.higherPrefsString = tempPhonePrefs.length >= tempEmailPrefs.length ? 'Phone' : 'Email';
-            this.higherHelpText = this.higherPrefsString === 'Phone' ? CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNPHONEHELPTEXT : CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNEMAILHELPTEXT;
+           // this.higherHelpText = this.higherPrefsString === 'Phone' ? CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNPHONEHELPTEXT : CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNEMAILHELPTEXT;
             this.higherPrefs = tempPhonePrefs.length >= tempEmailPrefs.length ? [...tempPhonePrefs] : [...tempEmailPrefs];
             this.lowerPrefsString = tempPhonePrefs.length < tempEmailPrefs.length ? 'Phone' : 'Email';
-            this.lowerHelpText = this.lowerPrefsString === 'Phone' ? CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNPHONEHELPTEXT : CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNEMAILHELPTEXT;
+          //  this.lowerHelpText = this.lowerPrefsString === 'Phone' ? CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNPHONEHELPTEXT : CONSTANTS.LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNEMAILHELPTEXT;
             this.lowerPrefs =   tempPhonePrefs.length < tempEmailPrefs.length ? [...tempPhonePrefs] : [...tempEmailPrefs];
 
 		}

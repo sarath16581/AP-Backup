@@ -178,7 +178,7 @@
             <openNewVFPageSubtab>true</openNewVFPageSubtab>
             <pageNamesToOpen>SSSWSearch</pageNamesToOpen>
             <pageNamesToOpen>LiveChatBotTranscript</pageNamesToOpen>
-            <showKnowledgeArticles>true</showKnowledgeArticles>
+            <showKnowledgeArticles>false</showKnowledgeArticles>
         </liveAgentConfig>
         <whitelistedDomains>auspost.com.au</whitelistedDomains>
         <whitelistedDomains> www.google.com.au</whitelistedDomains>
@@ -265,11 +265,6 @@
     <tabs>APT_Charge_Code__c</tabs>
     <tabs>Callback_Request__c</tabs>
     <tabs>standard-OmniSupervisor</tabs>
-    <tabs>APT_Sub_Account__c</tabs>
-    <tabs>et4ae5__Configuration__c</tabs>
-    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
-    <tabs>et4ae5__Business_Unit__c</tabs>
-    <tabs>SAM_Admin1</tabs>
     <workspaceConfig>
         <mappings>
             <tab>APR_Contact__c</tab>
@@ -281,13 +276,7 @@
             <tab>APT_Charge_Code__c</tab>
         </mappings>
         <mappings>
-            <tab>APT_Sub_Account__c</tab>
-        </mappings>
-        <mappings>
             <tab>Analytic_Snapshot__c</tab>
-        </mappings>
-        <mappings>
-            <tab>Apttus_Config2__ConfigSettings__c</tab>
         </mappings>
         <mappings>
             <tab>Bulk_Upload_General</tab>
@@ -329,9 +318,6 @@
             <tab>QuickReference__c</tab>
         </mappings>
         <mappings>
-            <tab>SAM_Admin1</tab>
-        </mappings>
-        <mappings>
             <tab>SSSWRouting__c</tab>
         </mappings>
         <mappings>
@@ -342,12 +328,6 @@
         </mappings>
         <mappings>
             <tab>SpamEmail__c</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Business_Unit__c</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Configuration__c</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

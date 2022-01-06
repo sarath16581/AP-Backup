@@ -12,18 +12,18 @@
         <namespace>Apttus_CQApprov</namespace>
     </packageVersions>
     <packageVersions>
-        <majorNumber>12</majorNumber>
-        <minorNumber>1839</minorNumber>
+        <majorNumber>9</majorNumber>
+        <minorNumber>1093</minorNumber>
         <namespace>Apttus_Config2</namespace>
     </packageVersions>
     <packageVersions>
-        <majorNumber>10</majorNumber>
-        <minorNumber>227</minorNumber>
+        <majorNumber>8</majorNumber>
+        <minorNumber>109</minorNumber>
         <namespace>Apttus_Proposal</namespace>
     </packageVersions>
     <packageVersions>
-        <majorNumber>12</majorNumber>
-        <minorNumber>344</minorNumber>
+        <majorNumber>9</majorNumber>
+        <minorNumber>182</minorNumber>
         <namespace>Apttus_QPConfig</namespace>
     </packageVersions>
     <status>Active</status>

@@ -46,6 +46,26 @@
             <field>Parent</field>
             <table>Case</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>EnquirySubType__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProductCategory__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ProductSubCategory__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Source__c</field>
+            <table>Case</table>
+        </columns>
         <masterLabel>Child Case Information </masterLabel>
     </sections>
     <sections>
@@ -90,11 +110,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Owner.Alias</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>

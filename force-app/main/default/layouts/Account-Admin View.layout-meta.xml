@@ -3,8 +3,7 @@
     <customButtons>MassUpload</customButtons>
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
-    <excludeButtons>DataDotComAccountInsights</excludeButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -745,10 +744,10 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Scale__c</fields>
+        <fields>Status__c</fields>
         <fields>Product_1__c</fields>
         <fields>Risk_Type__c</fields>
         <fields>Reason__c</fields>
-        <fields>Status__c</fields>
         <fields>Threat_Risk__c</fields>
         <fields>Value_of_Business_at_Risk__c</fields>
         <fields>Key_Sales_Owner__c</fields>
@@ -764,11 +763,6 @@
         <fields>mh_Managers_Review_Date__c</fields>
         <fields>CREATEDBY_USER</fields>
         <relatedList>Field_of_Play__c.Account__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>kfsell__FOP_Name__c</fields>
-        <relatedList>kfsell__Gold_Sheet__c.kfsell__Account__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>ASSET.NAME</fields>
@@ -915,6 +909,7 @@
         <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Billing_Account__c</fields>
         <fields>Financial_Year_Total_Revenue_Amount__c</fields>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunities_I_am_Engaged_In1_Update</fullName>
-    <columns>Opp_Hygiene_Rating__c</columns>
+    <columns>Score_Stars_del__c</columns>
     <columns>ACCOUNT.NAME</columns>
     <columns>OPPORTUNITY.NAME</columns>
     <columns>Opportunity_Number__c</columns>
@@ -18,6 +18,6 @@
     <label>Opportunities I am Engaged In</label>
     <language>en_US</language>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

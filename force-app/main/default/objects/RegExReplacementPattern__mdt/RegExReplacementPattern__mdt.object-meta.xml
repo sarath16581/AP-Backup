@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Stores a list of reg ex patterns and their associated replacements for generic use throughout the application. These should always be &apos;typed&apos; using a &apos;Type&apos; picklist value to ensure they are all contextual</description>
-    <label>RegEx Replacement Pattern</label>
-    <pluralLabel>RegEx Replacement Patterns</pluralLabel>
-    <visibility>Public</visibility>
-</CustomObject>

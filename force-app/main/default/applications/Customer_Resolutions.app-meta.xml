@@ -201,20 +201,9 @@
     <tabs>Credit_Approval__c</tabs>
     <tabs>Adjustment__c</tabs>
     <tabs>Bulk_Upload_Credit_Dispute_Claims</tabs>
-    <tabs>APT_Sub_Account__c</tabs>
-    <tabs>et4ae5__Configuration__c</tabs>
-    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
-    <tabs>et4ae5__Business_Unit__c</tabs>
-    <tabs>SAM_Admin1</tabs>
     <workspaceConfig>
         <mappings>
-            <tab>APT_Sub_Account__c</tab>
-        </mappings>
-        <mappings>
             <tab>Adjustment__c</tab>
-        </mappings>
-        <mappings>
-            <tab>Apttus_Config2__ConfigSettings__c</tab>
         </mappings>
         <mappings>
             <fieldName>Case__c</fieldName>
@@ -230,16 +219,7 @@
             <tab>Network__c</tab>
         </mappings>
         <mappings>
-            <tab>SAM_Admin1</tab>
-        </mappings>
-        <mappings>
             <tab>Un_Identified_Freight__c</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Business_Unit__c</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Configuration__c</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

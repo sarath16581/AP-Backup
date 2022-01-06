@@ -5,6 +5,6 @@
     <label>Legal Queue</label>
     <queue>APT_Legal_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

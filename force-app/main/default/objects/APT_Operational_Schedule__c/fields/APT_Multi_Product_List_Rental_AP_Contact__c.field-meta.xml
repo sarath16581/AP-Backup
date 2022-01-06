@@ -7,7 +7,6 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Operational_Schedules5</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

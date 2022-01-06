@@ -5,6 +5,6 @@
     <label>Retail Supply Chain</label>
     <queue>Retail_Supply_Chain</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

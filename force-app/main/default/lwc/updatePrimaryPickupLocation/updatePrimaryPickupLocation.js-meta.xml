@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    
     <apiVersion>48.0</apiVersion>
-    
     <description>Update Primary Pickup Location</description>
-    
     <isExposed>true</isExposed>
-    
     <masterLabel>Update Primary Pickup Location</masterLabel>
-    
 </LightningComponentBundle>

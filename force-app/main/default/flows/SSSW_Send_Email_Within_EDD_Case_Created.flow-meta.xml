@@ -161,8 +161,8 @@
         </rules>
     </decisions>
     <description>After Update trigger flow on Case.
-        To:
-        - Send Case created Email when HeldToOpenOn__c is updated</description>
+To:
+- Send Case created Email when HeldToOpenOn__c is updated</description>
     <interviewLabel>SSSW Send Email - Within EDD Case Created {!$Flow.CurrentDateTime}</interviewLabel>
     <label>SSSW Send Email - Within EDD Case Created</label>
     <processMetadataValues>
@@ -202,5 +202,5 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Obsolete</status>
 </Flow>

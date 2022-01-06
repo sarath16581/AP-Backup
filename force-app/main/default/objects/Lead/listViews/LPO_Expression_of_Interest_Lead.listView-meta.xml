@@ -5,6 +5,6 @@
     <label>LPO Expression of Interest</label>
     <queue>LPO_Expression_of_Interest</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

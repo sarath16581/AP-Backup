@@ -86,10 +86,6 @@
         <ccEmails>DLdigitalidsalesforceleads@auspost.com.au</ccEmails>
         <description>New Opportunity - Digital ID</description>
         <protected>false</protected>
-        <recipients>
-            <recipient>margo.stephen@auspost.com.au</recipient>
-            <type>user</type>
-        </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Email_Templates/New_Opportunity_Digital_ID</template>

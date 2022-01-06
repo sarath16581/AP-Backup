@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>50.0</apiVersion>
+    <apiVersion>49.0</apiVersion>
     <decisions>
         <processMetadataValues>
             <name>index</name>
@@ -29,7 +29,7 @@
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
             </connector>
-            <label>All Leads</label>
+            <label>Check if Lead owner or Status is changed</label>
         </rules>
     </decisions>
     <decisions>
@@ -125,10 +125,10 @@
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>[Lead].Owner:User.Current_Owner_Role__c </stringValue>
+                <stringValue>[Lead].Owner:User.Current_Owner_Role__c</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_2_myRule_1_A1_8018784838</name>
+        <name>formula_2_myRule_1_A1_0997294689</name>
         <dataType>String</dataType>
         <expression>{!myVariable_current.Owner:User.Current_Owner_Role__c}</expression>
     </formulas>
@@ -136,14 +136,14 @@
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>ISCHANGED([Lead].Status)  || ISNEW() || ISCHANGED([Lead].OwnerId )</stringValue>
+                <stringValue>ISCHANGED([Lead].Status) || ISNEW() || ISCHANGED([Lead].OwnerId)</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_1</name>
         <dataType>Boolean</dataType>
-        <expression>ISCHANGED({!myVariable_current.Status})  || ISNEW() || ISCHANGED({!myVariable_current.OwnerId} )</expression>
+        <expression>ISCHANGED({!myVariable_current.Status}) || ISNEW() || ISCHANGED({!myVariable_current.OwnerId})</expression>
     </formulas>
-    <interviewLabel>Update_Lead_Id_in_Opportunity_for_Converted_Leads-7_InterviewLabel</interviewLabel>
+    <interviewLabel>Update_Lead_Id_in_Opportunity_for_Converted_Leads-2_InterviewLabel</interviewLabel>
     <label>Update Lead Id in Opportunity for Converted Leads</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -196,7 +196,7 @@
             <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_1_A1</name>
-        <label>Update closing lead Role Owner</label>
+        <label>Update closing lead owner role</label>
         <locationX>100</locationX>
         <locationY>200</locationY>
         <connector>
@@ -238,7 +238,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -249,7 +249,7 @@
             </processMetadataValues>
             <field>Closing_Lead_Owner_Role__c</field>
             <value>
-                <elementReference>formula_2_myRule_1_A1_8018784838</elementReference>
+                <elementReference>formula_2_myRule_1_A1_0997294689</elementReference>
             </value>
         </inputAssignments>
         <object>Lead</object>
@@ -319,7 +319,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -336,7 +336,7 @@
         <object>Opportunity</object>
     </recordUpdates>
     <startElementReference>myDecision</startElementReference>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

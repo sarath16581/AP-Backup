@@ -31,7 +31,7 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
                 Task.Id, Task.Subject, Task.Description, Task.ActivityDate, Task.OwnerId, Task.WhatId,
-                Task.WhoId, Task.Status, Task.Category__c, Task.Type, Task.IsClosed,  Task.Priority
+                Task.WhoId, Task.Status, Task.Category__c, Task.Type, Task.IsClosed, Task.Priority
         };
     }
      /**
@@ -92,8 +92,8 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Task.Id + ' in :ids')).endConditions();
         return new Map<Id, Task>((List<Task>)Database.query(qb.toSoqlString()));
     }
-    
-     /**
+   
+   /**
      * @description Run a simple query to get records based on what Ids | PBRP
      */
     public Map<Id, Task> selectByWhatId(Set<Id> whatIds) {

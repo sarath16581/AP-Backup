@@ -6,7 +6,7 @@ Otherwise, the field displays a green flag if the duration is not exceeded.</des
     <externalId>false</externalId>
     <formula>IF(ISBLANK(KPI_SLA__c), &apos;&apos;, 
 IF(
-AND(KPI_SLA__c &gt; 1,
+AND(KPI_SLA__c &gt; 48,
 NOT(ISPICKVAL(Stage__c, &apos;Completed&apos;)),
 NOT(ISPICKVAL(Stage__c, &apos;Closed&apos;))),
 IMAGE(&quot;/img/samples/flag_red.gif&quot;,&quot;Red Flag&quot;),

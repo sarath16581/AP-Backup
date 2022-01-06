@@ -8,7 +8,6 @@
     <columns>City__c</columns>
     <columns>Post_Code__c</columns>
     <columns>AlternateAddress__c</columns>
-    <columns>Site_Instruction_Notes__c</columns>
     <columns>State__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
@@ -19,11 +18,7 @@
     <filters>
         <field>State__c</field>
         <operation>contains</operation>
-        <value>vic</value>
-    </filters>
-    <filters>
-        <field>Expiry_Date__c</field>
-        <operation>equals</operation>
+        <value>Vic</value>
     </filters>
     <label>All VIC Sites</label>
 </ListView>

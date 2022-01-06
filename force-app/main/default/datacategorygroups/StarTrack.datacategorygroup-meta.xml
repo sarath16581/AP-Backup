@@ -30,10 +30,6 @@
             <label>Controlled Returns</label>
             <name>Controlled_Returns</name>
         </dataCategory>
-        <dataCategory>
-            <label>Credit</label>
-            <name>Credit</name>
-        </dataCategory>
         <label>All</label>
         <name>All</name>
     </dataCategory>

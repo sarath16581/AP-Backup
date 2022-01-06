@@ -10,7 +10,7 @@
 
 Hi All,
 
-Please note that the Final Shortage process is underway for consignment:
+Please note that the Final Shortage process is underway for consignment: {!Case.ArticleTest__c},Please respond with approval to close as a Final Shortage, or an update on the freight&apos;s location within the next 5 business days
 
 Consignment number:  {!Case.ArticleTest__c}  
 Number of items:  {!Case.Number_of_Items__c}

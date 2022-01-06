@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Process Comments</label>
     <length>2048</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

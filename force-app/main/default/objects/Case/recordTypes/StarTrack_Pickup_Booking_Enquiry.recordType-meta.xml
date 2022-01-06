@@ -408,6 +408,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Parcel Domestic</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Parcel Post</fullName>
             <default>false</default>
         </values>
@@ -536,7 +540,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Westpac bookings</fullName>
+            <fullName>Westpac Bookings</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3356,11 +3360,27 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Resolved - Booked</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Resolved - Cancelled</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Resolved - ETA Provided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolved - Label Resend</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolved - Rebooked %28Futile%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolved - Rebooked %28Missed%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>

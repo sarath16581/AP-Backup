@@ -170,7 +170,7 @@ IF({!myVariable_current.Product2.Is_Exception_Product__c} == True, True, False)
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -206,7 +206,7 @@ IF({!myVariable_current.Product2.Is_Exception_Product__c} == True, True, False)
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>

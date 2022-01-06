@@ -3203,11 +3203,6 @@
             <field>APT_Automated_Case__c</field>
             <table>Account.Cases</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Account.Cases</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

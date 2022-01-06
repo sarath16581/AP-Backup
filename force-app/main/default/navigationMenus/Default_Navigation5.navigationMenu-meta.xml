@@ -42,7 +42,7 @@
         <label>Happy Parcels</label>
         <position>6</position>
         <publiclyAvailable>false</publiclyAvailable>
-        <target>/mynetwork-happy-parcel-wrapper</target>
+        <target>/mynetwork-happy-parcels-wrapper</target>
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>

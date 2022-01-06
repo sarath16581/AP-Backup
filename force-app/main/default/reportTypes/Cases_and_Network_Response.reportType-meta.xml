@@ -227,6 +227,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Message_to_Networks__c</field>
+            <table>Case.Network_Responses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Secondary_Contact__c</field>
             <table>Case</table>
         </columns>
@@ -3792,7 +3797,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
+            <field>Network__c.State__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>

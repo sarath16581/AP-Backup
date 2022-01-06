@@ -853,11 +853,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>isPrefDiffAsFirst__c</field>
-            <table>Contact</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Primary_Sales_Contact__c</field>
             <table>Contact</table>
         </columns>

@@ -6,7 +6,6 @@
     <inlineHelpText>Normal Stock Order Period</inlineHelpText>
     <label>Stock Order Frequency</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

@@ -15,6 +15,6 @@
     <language>en_US</language>
     <queue>TSA_Leads_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

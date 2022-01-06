@@ -6,7 +6,6 @@
     <description>Indicator to prevent subsequent rules from processing</description>
     <externalId>false</externalId>
     <label>Stop Processing More Rules</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

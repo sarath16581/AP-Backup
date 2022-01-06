@@ -163,7 +163,7 @@
     </nameField>
     <pluralLabel>Faxes</pluralLabel>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

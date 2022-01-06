@@ -18,6 +18,6 @@
     <label>My Community Cases</label>
     <language>en_US</language>
     <sharedTo>
-        <allCustomerPortalUsers/>
+        <allCustomerPortalUsers></allCustomerPortalUsers>
     </sharedTo>
 </ListView>

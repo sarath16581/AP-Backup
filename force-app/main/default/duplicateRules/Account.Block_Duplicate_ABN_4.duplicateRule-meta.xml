@@ -7,16 +7,16 @@
     <duplicateRuleFilter>
         <booleanFilter xsi:nil="true"/>
         <duplicateRuleFilterItems>
-            <field>RecordType</field>
+            <field>IsPersonAccount</field>
             <operation>equals</operation>
-            <value>Organisation</value>
+            <value>false</value>
             <sortOrder>1</sortOrder>
             <table>Account</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
-            <field>IsPersonAccount</field>
+            <field>RecordType</field>
             <operation>equals</operation>
-            <value>false</value>
+            <value>Organisation</value>
             <sortOrder>2</sortOrder>
             <table>Account</table>
         </duplicateRuleFilterItems>
@@ -30,7 +30,7 @@
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
         <matchRuleSObjectType>Account</matchRuleSObjectType>
-        <matchingRule>Partner_Info_Duplicate_ABN</matchingRule>
+        <matchingRule>Account_ABN_and_ACN_Matching_Rule</matchingRule>
         <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
     <isActive>true</isActive>

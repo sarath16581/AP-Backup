@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>DSR_Customer_onboarding</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Share Customer onboarding record type DSR with all users with Role- Custoemr Data Team</description>
+        <description>Share Customer onboarding record type DSR with all users with Role- Customer Data Team</description>
         <label>DSR Customer onboarding</label>
         <sharedTo>
             <role>CustomerDataManagementTeam</role>

@@ -7,7 +7,6 @@
     <label>Mail Conveyance Frequency per Week</label>
     <length>100</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

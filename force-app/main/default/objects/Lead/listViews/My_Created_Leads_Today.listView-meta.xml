@@ -24,6 +24,6 @@
     </filters>
     <label>My Created Leads Today</label>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

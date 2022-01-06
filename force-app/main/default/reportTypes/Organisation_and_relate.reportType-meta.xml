@@ -1066,16 +1066,6 @@
             <field>APT_Zone_9Digital_Dispersion__c</field>
             <table>Apttus__AgreementLineItem__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_WFV_Police_and_Visa_Check__c</field>
-            <table>Apttus__AgreementLineItem__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_WFV_Working_with_Children_Check__c</field>
-            <table>Apttus__AgreementLineItem__c</table>
-        </columns>
         <masterLabel>Agreement Line Items</masterLabel>
     </sections>
     <sections>

@@ -5,7 +5,6 @@
     <label>Number of Employees</label>
     <length>55</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

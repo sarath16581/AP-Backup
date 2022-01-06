@@ -17,7 +17,6 @@
         <value>Invalid</value>
     </filters>
     <label>Australia Post Credit Disputes Queue</label>
-    <language>en_US</language>
     <queue>Australia_Post_Credit_Disputes_Queue</queue>
     <sharedTo>
         <group>APG_Credit_Management</group>

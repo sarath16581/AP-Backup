@@ -10,7 +10,6 @@
  * 2020-08-02 - Nathan Franklin - Added return results for database methods and the ability to do allOrNothing
  * 2020-08-16 - arjun.singh@auspost.com.au - Added methods for  rollback and savepoint
  * 2020-10-18 - Nathan Franklin - Increased API Version to 49
- * 2021-03-01 - Nathan Franklin - Added upsert method (for ids)
  */
 public inherited sharing class ApplicationDatabase {
 
@@ -44,20 +43,6 @@ public inherited sharing class ApplicationDatabase {
 	 */
 	public List<Database.SaveResult> dmlUpdate(List<SObject> objList, Boolean allOrNothing) {
 		return Database.update(objList, allOrNothing);
-	}
-
-	/**
-	 * Note: return value to enable stubbed mocks, always true, or else an exception is thrown
-	 */
-	public List<Database.UpsertResult> dmlUpsert(List<SObject> objList) {
-		return dmlUpsert(objList, true);
-	}
-
-	/**
-	 * Note: return value to enable stubbed mocks, always true, or else an exception is thrown
-	 */
-	public List<Database.UpsertResult> dmlUpsert(List<SObject> objList, Boolean allOrNothing) {
-		return Database.upsert(objList, allOrNothing);
 	}
 
 	/**

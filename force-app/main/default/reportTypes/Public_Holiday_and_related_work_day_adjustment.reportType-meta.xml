@@ -872,6 +872,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>mh_Green_Sheet_Created_Date__c</field>
+            <table>Public_Holiday__c.Work_Day_Adjustments__r.Activities__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>GroupEventType</field>
             <table>Public_Holiday__c.Work_Day_Adjustments__r.Activities__r</table>
         </columns>
@@ -948,6 +953,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedDate</field>
+            <table>Public_Holiday__c.Work_Day_Adjustments__r.Activities__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>mh_Last_Updated_Green_Sheet__c</field>
             <table>Public_Holiday__c.Work_Day_Adjustments__r.Activities__r</table>
         </columns>
         <columns>

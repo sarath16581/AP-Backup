@@ -111,17 +111,6 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>Update_Stage_to_Rejected</fullName>
-        <description>Update Stage to Rejected</description>
-        <field>Stage__c</field>
-        <literalValue>Rejected</literalValue>
-        <name>Update Stage to Rejected</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Update_Stage_to_Submitted</fullName>
         <description>Update Stage to Submitted</description>
         <field>Stage__c</field>

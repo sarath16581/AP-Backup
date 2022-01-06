@@ -11,6 +11,11 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>0 - 99K</fullName>
+                <default>false</default>
+                <label>0 - 99K</label>
+            </value>
+            <value>
                 <fullName>100K - 174K</fullName>
                 <default>false</default>
                 <label>100K - 174K</label>

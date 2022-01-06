@@ -17,5 +17,5 @@
         <value>Identify,Qualify,Propose,Negotiate</value>
     </filters>
     <label>My Opportunities - Open, All</label>
-    <sharedTo/>
+    <sharedTo></sharedTo>
 </ListView>

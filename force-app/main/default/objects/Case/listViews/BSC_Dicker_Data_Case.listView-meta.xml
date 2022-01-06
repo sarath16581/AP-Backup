@@ -5,6 +5,6 @@
     <label>BSC - Dicker Data</label>
     <queue>BSC_Dicker_Data</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

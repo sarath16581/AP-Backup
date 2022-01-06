@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Sub Account Request Status Description</label>
     <length>1200</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

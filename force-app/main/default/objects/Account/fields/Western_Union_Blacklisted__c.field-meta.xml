@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates where an organisation has been blacklisted by Western Union or the Workforce Integrity team</inlineHelpText>
     <label>Western Union Blacklisted</label>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

@@ -8,15 +8,5 @@
     <columns>Post_Code__c</columns>
     <columns>State__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>PUD_Booking_Location__c.AP_Network</value>
-    </filters>
-    <filters>
-        <field>NAME</field>
-        <operation>startsWith</operation>
-        <value>cant</value>
-    </filters>
     <label>All Network Booking Locations</label>
 </ListView>

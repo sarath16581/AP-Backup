@@ -18,6 +18,5 @@
     <relationshipLabel>Activities</relationshipLabel>
     <relationshipName>Activities</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Lookup</type>
 </CustomField>

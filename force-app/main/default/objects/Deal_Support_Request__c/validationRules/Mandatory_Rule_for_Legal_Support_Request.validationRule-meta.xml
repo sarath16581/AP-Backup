@@ -6,6 +6,5 @@
     <errorConditionFormula>AND(RecordType.DeveloperName =&quot;Legal_Support_Request&quot;,
 ISPICKVAL(Status__c,&quot;Submitted&quot;),
 OR(ISBLANK(TEXT(Status__c)),ISBLANK(By_when_is_this_work_required__c),ISBLANK(TEXT( What_legal_help_do_you_need__c)),ISBLANK( Specific_Terms_and_Clauses__c),ISBLANK( Related_Contract_Tender__c),ISBLANK(TEXT(Documents_Attached__c)),ISBLANK(Contract_start_date__c),ISBLANK(Tender_Due_Date__c),ISBLANK(TEXT(Initial_Contract_Term__c)),ISBLANK(TEXT(Contract_Term_Extension__c)),ISBLANK(TEXT(Contract_Decision_Form__c)),ISBLANK(Description_of_Goods__c),ISBLANK(Previous_Legal_Involvement__c),ISBLANK( Third_Party_Involvement__c),ISBLANK( Product_Manager_s__c),ISBLANK(Product__c),ISBLANK( Business_Consultation__c )))</errorConditionFormula>
-    <errorDisplayField>Hidden_Automated_DSR__c</errorDisplayField>
     <errorMessage>Request cannot be submitted to the support team as all the mandatory fields have not been updated. Please edit the request and complete all the mandatory fields and then submit request to Support Team</errorMessage>
 </ValidationRule>

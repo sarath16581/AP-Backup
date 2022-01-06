@@ -5,6 +5,6 @@
     <label>2P Collection Points FY22 082021</label>
     <queue>X2P_Collection_Points_FY22_082021</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

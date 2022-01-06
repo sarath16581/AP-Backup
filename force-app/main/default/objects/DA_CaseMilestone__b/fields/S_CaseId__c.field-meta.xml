@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <label>Case ID</label>
     <referenceTo>Case</referenceTo>
-    <relationshipName>Case1612775130799</relationshipName>
+    <relationshipName>Case1616718867109</relationshipName>
     <required>false</required>
     <type>Lookup</type>
 </CustomField>

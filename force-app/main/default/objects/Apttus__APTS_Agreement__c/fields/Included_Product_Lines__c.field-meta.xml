@@ -147,11 +147,6 @@
                 <default>false</default>
                 <label>Undefined</label>
             </value>
-            <value>
-                <fullName>APGL International Commercial Outbound</fullName>
-                <default>false</default>
-                <label>APGL International Commercial Outbound</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>6</visibleLines>

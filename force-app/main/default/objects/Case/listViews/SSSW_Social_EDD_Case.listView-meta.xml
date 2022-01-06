@@ -5,6 +5,6 @@
     <label>SSSW Social EDD</label>
     <queue>SSSW_Social_EDD</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

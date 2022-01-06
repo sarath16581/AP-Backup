@@ -3,7 +3,7 @@
     <matchingRules>
         <fullName>Account_ABN_and_ACN_Matching_Rule</fullName>
         <booleanFilter>1 OR 2</booleanFilter>
-        <description>Matching accounts that have the same ABN or ACN.</description>
+        <description>Matching accounts that have the same ABN or ACN</description>
         <label>Account ABN and ACN Matching Rule</label>
         <matchingRuleItems>
             <blankValueBehavior>NullNotAllowed</blankValueBehavior>
@@ -66,13 +66,16 @@ A Judd 10/03/20 Changed filter logic to OR, and added Registered Business Name</
     </matchingRules>
     <matchingRules>
         <fullName>Partner_Info_Duplicate_ABN</fullName>
-        <description>Partner Info - Used to detect duplicate ABNs for LIPOMS Legal Entities.</description>
+        <description>Partner Info - Used to detect duplicate ABNs for LIPOMS Legal Entities.
+
+28/01/2021 - Is replaced by &quot;Account ABN and ACN Matching Rule&quot; in 
+&quot;Block Duplicate ABN 1&quot;, &quot;Block Duplicate ABN 2&quot;, &quot;Block Duplicate ABN 3&quot; duplicate rules.</description>
         <label>Partner Info Duplicate ABN</label>
         <matchingRuleItems>
             <blankValueBehavior>NullNotAllowed</blankValueBehavior>
             <fieldName>ABN__c</fieldName>
             <matchingMethod>Exact</matchingMethod>
         </matchingRuleItems>
-        <ruleStatus>Active</ruleStatus>
+        <ruleStatus>Inactive</ruleStatus>
     </matchingRules>
 </MatchingRules>

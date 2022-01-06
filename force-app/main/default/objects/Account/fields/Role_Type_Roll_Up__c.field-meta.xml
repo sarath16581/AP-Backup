@@ -22,7 +22,6 @@ Updated by DLai 26/02/2016 - include Partner where record created by profile con
 )</formula>
     <label>Role</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

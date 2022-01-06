@@ -23,15 +23,14 @@
     <filters>
         <field>OWNER_NAME</field>
         <operation>equals</operation>
-        <value>Rodney Jackson,Uma Govindan,Nadia Skinner,Dean Purves,Frank Fallace,Shereen McPhie,Jonathan Yap</value>
+        <value>Uma Govindan,Nadia Skinner,Dean Purves,Frank Fallace,Poonam Faraz,Sujata Shrestha,Fahad Saeed,Neil Valmeo</value>
     </filters>
     <filters>
         <field>OWNER_NAME</field>
         <operation>equals</operation>
-        <value>Roger Pio,Nancy Patsiouris,Abdul Rehman,luisa de campo,Asha Nand</value>
+        <value>Roger Pio,Nancy Patsiouris,Asha Nand</value>
     </filters>
     <label>BGS Enterprise Team</label>
-    <language>en_US</language>
     <sharedTo>
         <group>SalesOpsSupport</group>
         <group>Sales_Ops_Delivery</group>

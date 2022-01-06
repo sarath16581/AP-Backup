@@ -7,11 +7,11 @@
  17.05.2012  SH (Cloud Sherpas)     Created
  22.09.2016  Davey Yu (Accenture)	Updated: MPB Known Account Management populate organisation legacy id for known
  03.02.2021  SaiSwetha Pingali      INC1727549 - Moved the logic to update accounts from PopulateLegacyIdOnAccount to a inner class without sharing as guest users doesn't have access to accounts.
- */
+*/
 public with sharing class RoleTriggerManager {
 
 	public static void PopulateLegacyIdOnAccount(List<Organisation_Role__c> orgRole){
-		
+        
 		Set<Id> accId = new Set<Id>();
 		AccessAccountData qAcc = new AccessAccountData();
 		Map<String,String> orgMap = new Map<String,String>();
@@ -27,8 +27,8 @@ public with sharing class RoleTriggerManager {
 				}
 				// END OF UPDATE DY 22.09.2016 MPB - Include role type of know to set the legacy id
 			}
-			if(accId!=null){//validate that accId is not empty
-				// spingali - Soql and DML is handled in a inner class without sharing as guest user doesn't have access to the account record.
+			if(accId!=null){
+                // spingali - Soql and DML is handled in a inner class without sharing as guest user doesn't have access to the account record.
 				qAcc.UpdateAccounts(accId,orgMap);
 			}
 		}
@@ -36,8 +36,8 @@ public with sharing class RoleTriggerManager {
 				System.debug(e.getMessage());
 		}
 	}
-
-	/* spingali - added a new inner class as guest users doesn't have access to Accounts */
+    
+    /* spingali - added a new inner class as guest users doesn't have access to Accounts */
 	public without sharing class AccessAccountData
 	{
 		public void UpdateAccounts(Set<Id> AccountIds,Map<String,String> OrgMap){

@@ -3,7 +3,6 @@
     <fullName>Sales_Manager_Review_Exception</fullName>
     <active>true</active>
     <businessProcess>Internal</businessProcess>
-    <description>Testing the special characters こんにちは1!@#$%^&amp;*(){}[]/</description>
     <label>Sales Manager Review Exception</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>

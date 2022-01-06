@@ -19,6 +19,6 @@
     <label>CSQ National Managers</label>
     <queue>CSQ_National_Managers</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

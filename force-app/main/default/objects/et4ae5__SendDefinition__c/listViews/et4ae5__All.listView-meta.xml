@@ -25,6 +25,6 @@
         <operation>contains</operation>
         <value>NL</value>
     </filters>
-    <label>ORIA</label>
+    <label>BUS_SB_OTHER</label>
     <language>en_US</language>
 </ListView>

@@ -22,7 +22,7 @@
             <role>Enterprise_Onboarding_Team</role>
         </sharedTo>
         <sharedFrom>
-            <allInternalUsers/>
+            <allInternalUsers></allInternalUsers>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -45,7 +45,7 @@
             <group>AusPostSuperUsers</group>
         </sharedTo>
         <sharedFrom>
-            <allInternalUsers/>
+            <allInternalUsers></allInternalUsers>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

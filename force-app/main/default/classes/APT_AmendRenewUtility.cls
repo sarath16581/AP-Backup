@@ -21,9 +21,6 @@ Last Modified Date - 27th Oct, 2016 | 1310 : Copy Content Documents | Feed Item
 Last Modified By - Adrian Recio
 Last Modified Date - 12th Dec, 2017 | Updated to flush values in opportunity cloning
 
-Last Modified By - Seth Heang
-Last Modified Date - 09-Mar-2021 | STP-2793 - Decommission "Business_Development_Driver__c" field
-
 Last Modified By - Madhuri Awasthi
 Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract Inactive when for the old version contarcts
 */
@@ -49,7 +46,7 @@ public without sharing class APT_AmendRenewUtility {
         
             Opportunity clonedOpportunity = originalOpportunity.clone(false, true);
             // Added by Adrian Recio, 5/12/2017, Code added to flush unwanted values from opportunity cloning
-            // clonedOpportunity.Business_Development_Driver__c = null; //(lookup user field) - Decommission this field as part of STP-2793
+            clonedOpportunity.Business_Development_Driver__c = null; //(lookup user field)
             clonedOpportunity.Supply_Chain_Optimisation_Driver__c = null; //(lookup user field)
             clonedOpportunity.Strategic_Account_Executive_Driver__c = null; //(lookup user field)
                 
@@ -1195,9 +1192,9 @@ public without sharing class APT_AmendRenewUtility {
                         clonedSAPContract.APT_SAP_Contract_Number__c = clonedSAPContract.APT_SAP_Contract_Number__c.subString(0, iIndex);
                         // Then version old sap contract if not
                     }else{
-                  		sapContract.APT_SAP_Contract_Number__c += APT_Constants.SEPERATOR_DOT + versionNumber;
+                        sapContract.APT_SAP_Contract_Number__c += APT_Constants.SEPERATOR_DOT + versionNumber;
                         //Adding the status to Inactive
-                        sapContract.SAP_Contract_Status__c = 'Inactive';  
+                        sapContract.SAP_Contract_Status__c = 'Inactive'; 
                     }
                 }
                 

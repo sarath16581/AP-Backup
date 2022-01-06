@@ -3,6 +3,14 @@
     <fullName>Bundall_Transport_Hub_MPB_Booking_Today</fullName>
     <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
     <columns>NAME</columns>
+    <columns>Booking_Type__c</columns>
+    <columns>City__c</columns>
+    <columns>Customer_Name__c</columns>
+    <columns>Date__c</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>Expiry_Date__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Depot__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
@@ -11,7 +19,7 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>greaterOrEqual</operation>
+        <operation>lessOrEqual</operation>
         <value>TODAY</value>
     </filters>
     <filters>
@@ -25,5 +33,4 @@
         <value>4225,4226,4227,4228,4270,4272,4275</value>
     </filters>
     <label>Bundall Transport Hub MPB Booking Today</label>
-    <language>en_US</language>
 </ListView>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Tuggerah_MPB_Bookings_Today</fullName>
+    <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
     <columns>NAME</columns>
     <columns>Location__c</columns>
     <columns>Street__c</columns>
@@ -23,12 +24,16 @@
         <value>TODAY</value>
     </filters>
     <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>2250,2251,2252,2256,2257,2258,2259,2260,2261,2262,2263</value>
+    </filters>
+    <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
         <value>Tug</value>
     </filters>
-    <label>Tuggerah - MPB Bookings Today</label>
-    <language>en_US</language>
+    <label>Central Coast Vans - MPB Bookings Today</label>
     <sharedTo>
         <group>TUGGERAH_VAN_OPS</group>
     </sharedTo>

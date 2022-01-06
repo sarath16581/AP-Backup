@@ -5,6 +5,6 @@
     <label>SSSW Social Media Business</label>
     <queue>SSSW_Social_Media_Business</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

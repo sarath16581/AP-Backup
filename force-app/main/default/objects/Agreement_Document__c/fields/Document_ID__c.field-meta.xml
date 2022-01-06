@@ -16,7 +16,6 @@
     <referenceTo>APXTConga4__Conga_Template__c</referenceTo>
     <relationshipName>Agreement_Documents</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

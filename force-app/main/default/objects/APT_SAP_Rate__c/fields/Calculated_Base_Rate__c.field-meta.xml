@@ -14,7 +14,6 @@
     <precision>18</precision>
     <required>false</required>
     <scale>5</scale>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Currency</type>
 </CustomField>

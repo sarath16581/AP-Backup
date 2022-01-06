@@ -10,9 +10,14 @@
     <columns>Location</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>IsActive</field>
+        <field>ResourceType</field>
         <operation>equals</operation>
-        <value>1</value>
+        <value>C</value>
+    </filters>
+    <filters>
+        <field>Location</field>
+        <operation>contains</operation>
+        <value>Redbank</value>
     </filters>
     <label>All Service Resources</label>
 </ListView>

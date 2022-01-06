@@ -13,7 +13,7 @@ Please navigate to the Location screen to create a Location and set it&apos;s ad
         <filterItems>
             <field>PUD_Booking_Location__c.Street__c</field>
             <operation>notEqual</operation>
-            <value/>
+            <value></value>
         </filterItems>
         <infoMessage>Only Booking Locations with an address are available for selection. 
 

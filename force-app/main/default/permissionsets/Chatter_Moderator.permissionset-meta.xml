@@ -17,7 +17,7 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
-        <name>ModerateNetworkMessages</name>
+        <name>ModerateNetworkFeeds</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

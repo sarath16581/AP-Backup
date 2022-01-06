@@ -269,10 +269,10 @@ public with sharing class bspEnquiryDetailUplift extends bspBaseUplift {
                                   WHERE IsPublished = true
                                   AND ParentId = : enq.Id];
         
-       /* System.debug([SELECT Id, HtmlBody, TextBody, CreatedDate, CreatedById,
+        System.debug([SELECT Id, HtmlBody, TextBody, CreatedDate, CreatedById,
                       Subject, FromAddress, ToAddress, CcAddress, FromName
                       FROM EmailMessage
-                      WHERE ParentId = : enq.Id]);*/
+                      WHERE ParentId = : enq.Id]);
         
         // only display EmailMessage if it has keyword matched in its FromAddress or ToAddress
         List<SObject> emailMessages = [SELECT Id, HtmlBody, TextBody, CreatedDate, CreatedById,

@@ -26,7 +26,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.ParentId</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>3000</minutesToComplete>
@@ -45,7 +45,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.ParentId</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>6000</minutesToComplete>
@@ -70,7 +70,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.ParentId</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>36000</minutesToComplete>
@@ -97,7 +97,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.ParentId</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>1200</minutesToComplete>
@@ -124,7 +124,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.CaseNumber</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>1800</minutesToComplete>
@@ -139,7 +139,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.ParentId</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>3000</minutesToComplete>
@@ -166,7 +166,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.ParentId</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>6000</minutesToComplete>
@@ -291,6 +291,10 @@
         <milestoneName>Network Tier 1</milestoneName>
         <minutesCustomClass>CalculateMilestoneTime</minutesCustomClass>
         <timeTriggers>
+            <timeLength>3</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
             <actions>
                 <name>SSSW_Case_Milestone_Violation_to_TRUE</name>
                 <type>FieldUpdate</type>
@@ -304,10 +308,6 @@
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>1</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <timeLength>3</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>

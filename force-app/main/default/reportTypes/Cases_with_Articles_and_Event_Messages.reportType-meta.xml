@@ -3299,11 +3299,6 @@
             <field>Work_Activity__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
@@ -4082,16 +4077,6 @@
             <field>Network__c.Name</field>
             <table>Case.Articles__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaptureID_anyoneataddress__c</field>
-            <table>Case.Articles__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaptureID_receiveronly__c</field>
-            <table>Case.Articles__r</table>
-        </columns>
         <masterLabel>Articles</masterLabel>
     </sections>
     <sections>
@@ -4667,6 +4652,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Article__c</field>
+            <table>Case.Articles__r.Event_Messages__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>StatusText__c</field>
             <table>Case.Articles__r.Event_Messages__r</table>
         </columns>
@@ -4713,16 +4703,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Facility__c.Name</field>
-            <table>Case.Articles__r.Event_Messages__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Outside_Delivery_Radius__c</field>
-            <table>Case.Articles__r.Event_Messages__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Geo_Precision__c</field>
             <table>Case.Articles__r.Event_Messages__r</table>
         </columns>
         <masterLabel>Event Messages</masterLabel>

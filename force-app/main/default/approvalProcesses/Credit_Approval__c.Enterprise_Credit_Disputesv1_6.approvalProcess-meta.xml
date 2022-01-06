@@ -377,7 +377,7 @@
         </action>
     </initialSubmissionActions>
     <label>Enterprise Credit Disputesv1.6</label>
-    <processOrder>4</processOrder>
+    <processOrder>1</processOrder>
     <recallActions>
         <action>
             <name>Blank_Current_Approver</name>

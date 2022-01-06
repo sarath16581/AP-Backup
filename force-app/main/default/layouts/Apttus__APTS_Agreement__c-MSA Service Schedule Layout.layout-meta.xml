@@ -18,10 +18,6 @@
                 <behavior>Readonly</behavior>
                 <field>APT_Compile_and_Send_for_eSignatures__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_DOV_Language__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -35,10 +31,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Apttus_CMDSign__RecallESignatureRequest__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Apttus_CMDSign__CheckESignatureStatus__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -80,6 +72,14 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Apttus__Total_Contract_Value__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Ratecards_Created__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Is_Create_Contract_Batch_Job_Running__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

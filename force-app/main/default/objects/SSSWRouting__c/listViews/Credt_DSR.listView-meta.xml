@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credt_DSR</fullName>
+    <columns>NAME</columns>
+    <columns>Credit_Person_Code__c</columns>
+    <columns>Credit_Representative_Email__c</columns>
+    <columns>DSR_Queue_Name__c</columns>
+    <columns>Credit_DSR_Routing__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>SSSWRouting__c.Credit_DSR_Routing</value>
+    </filters>
+    <label>Credt DSR</label>
+</ListView>

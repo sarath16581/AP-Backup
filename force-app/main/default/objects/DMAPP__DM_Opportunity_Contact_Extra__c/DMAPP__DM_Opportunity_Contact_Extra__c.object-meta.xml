@@ -162,7 +162,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>DM Opportunity Contact Extras</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

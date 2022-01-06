@@ -132,7 +132,7 @@
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
                         <operator>CONTAINS</operator>
-                        <rightValue>sales manager</rightValue>
+                        <rightValue>Sales Manager</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
@@ -147,7 +147,7 @@
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
                         <operator>CONTAINS</operator>
-                        <rightValue>state manager</rightValue>
+                        <rightValue>State Manager</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

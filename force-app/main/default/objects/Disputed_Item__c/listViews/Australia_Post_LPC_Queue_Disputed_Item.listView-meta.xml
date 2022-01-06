@@ -5,6 +5,6 @@
     <label>Australia Post LPC Queue</label>
     <queue>Australia_Post_LPC_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

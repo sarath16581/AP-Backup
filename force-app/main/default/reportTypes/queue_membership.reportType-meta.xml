@@ -1035,12 +1035,4 @@
         </columns>
         <masterLabel>Memberships (Owner)</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Compliance_Officer__c</field>
-            <table>User.Membership__c$OwnerId</table>
-        </columns>
-        <masterLabel>Memberships</masterLabel>
-    </sections>
 </ReportType>

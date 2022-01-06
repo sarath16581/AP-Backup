@@ -11,7 +11,7 @@
     <summaryFilterItems>
         <field>Salesforce_Licence__c.User__c</field>
         <operation>notEqual</operation>
-        <value/>
+        <value></value>
     </summaryFilterItems>
     <summaryForeignKey>Salesforce_Licence__c.Licence_Orders__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>

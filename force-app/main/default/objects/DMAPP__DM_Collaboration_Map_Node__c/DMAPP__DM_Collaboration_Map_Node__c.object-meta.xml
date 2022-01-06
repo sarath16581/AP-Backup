@@ -164,7 +164,7 @@ This object is responsible for storing parts of the Insight Maps associated with
         <type>Text</type>
     </nameField>
     <pluralLabel>Insight Map Nodes</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <startsWith>Vowel</startsWith>
     <visibility>Public</visibility>

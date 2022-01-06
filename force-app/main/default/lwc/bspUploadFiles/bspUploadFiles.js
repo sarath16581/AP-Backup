@@ -27,10 +27,12 @@ export default class BspUploadFiles extends LightningElement {
             this.isLoading = true;
             insertFiles({ parentId: this.recordId, uploadedFiles: this.currentFiles })
                 .then(result => {
+                    console.log('successfully inserted attachments');
                     this.isLoading = false;
                     this.fireEventWithAttachments(result);
                 }).catch(error => {
-                     this.isLoading = false;
+                    console.error(error);
+                    this.isLoading = false;
                     this.removecurrentFiles();  // error while inserting attchment so...removing fom list
                 });
         } 
@@ -53,11 +55,14 @@ export default class BspUploadFiles extends LightningElement {
         let fileId = event.target.dataset.id;
         deleteAttachment({ fileId: fileId })
             .then(result => {
+                console.log('file:' + fileId + ' removed');
                 this.removeFromUploadedByFileId(fileId);
                 this.isLoading = false;
                 //fire an event
                 this.fireEventWithFiles();
             }).catch(error => {
+                console.error('error occured');
+                console.error(error);
                 this.isLoading = false;
             });
     }

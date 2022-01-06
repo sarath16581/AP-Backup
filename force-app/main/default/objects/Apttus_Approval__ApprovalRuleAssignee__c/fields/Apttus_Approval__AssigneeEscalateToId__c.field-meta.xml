@@ -8,7 +8,6 @@
     <label>Assignee Escalate To Id</label>
     <length>25</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

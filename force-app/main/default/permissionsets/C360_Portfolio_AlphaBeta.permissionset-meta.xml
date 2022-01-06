@@ -7,8 +7,4 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>C360_Portfolio_AlphaBeta</label>
     <license>Salesforce</license>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>UseAnyApiClient</name>
-    </userPermissions>
 </PermissionSet>

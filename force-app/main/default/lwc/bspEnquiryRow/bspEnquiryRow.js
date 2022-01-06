@@ -16,7 +16,7 @@ export default class BspEnquiryRow extends NavigationMixin(LightningElement) {
             });
             
         } catch (er) {
-            //console.error(er)
+            console.error(er)
         }
     }
 
@@ -74,9 +74,5 @@ export default class BspEnquiryRow extends NavigationMixin(LightningElement) {
 
     get enquiryDetailHyperLink(){
         return (this.navigate) ? this.navigate.enquiryDetailURL + '?enquiryNumber=' + this.caseWrapper.caseObj.CaseNumber : '';
-    }
-
-    get subject(){
-        return this.caseWrapper.caseObj.Subject == 'RTS Request' ? 'Recall Request' : this.caseWrapper.caseObj.Subject;
     }
 }

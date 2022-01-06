@@ -157,14 +157,14 @@ This object is responsible for the association of Coach Rules to Quicklinks. The
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>Read</externalSharingModel>
     <label>Coach Quicklink</label>
     <nameField>
         <label>Coach Quicklink Name</label>
         <type>Text</type>
     </nameField>
     <pluralLabel>Coach Quicklinks</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

@@ -5,6 +5,6 @@
     <label>SSSW Chat - General Queue</label>
     <queue>SSSW_Chat_General_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

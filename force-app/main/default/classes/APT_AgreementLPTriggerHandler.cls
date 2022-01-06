@@ -541,7 +541,6 @@ public with sharing class APT_AgreementLPTriggerHandler {
     public static String validateDuplicateAccounts(List<APT_Agreement_Lodgement_Point__c> listNewAgreementLP) {
         try
         {
-            system.debug('listNewAgreementLP>>>'+listNewAgreementLP);
             Set<ID> setAgreementID = new Set<ID>();
             for(APT_Agreement_Lodgement_Point__c AgrLPObj : listNewAgreementLP)
             {
@@ -551,23 +550,15 @@ public with sharing class APT_AgreementLPTriggerHandler {
             Set<String> setLPIdToChargeAccountCombination = new Set<String>();
             Set<String> setLPIdToSubAccountCombination = new Set<String>();
             Map<ID, List<APT_Agreement_Lodgement_Point__c>> mapAgreementIDTolistLP = new Map<ID, List<APT_Agreement_Lodgement_Point__c>>();
-        
             
-            for(APT_Agreement_Lodgement_Point__c AgrLPObj : [select ID, APT_Billing_Account__c, APT_Charge_Account__c,APT_Sub_Account__c, APT_Agreement__c, APT_Product__c
-                                                             from APT_Agreement_Lodgement_Point__c where ID NOT IN :listNewAgreementLP and APT_Status__c = 'Active' 
-                                                             and APT_Agreement__c IN: setAgreementID and APT_Billing_Account_Flag__c = True and 
-                                                             (APT_Agreement_Line_Item__r.Apttus__ProductId__r.ProductCode = :APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS 
-                                                              OR APT_Agreement_Line_Item__r.Apttus__ProductId__r.ProductCode = :APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD)])
+            for(APT_Agreement_Lodgement_Point__c AgrLPObj : [select ID, APT_Billing_Account__c, APT_Charge_Account__c,APT_Sub_Account__c, APT_Agreement__c, APT_Product__c from APT_Agreement_Lodgement_Point__c where ID NOT IN :listNewAgreementLP and APT_Status__c = 'Active' and APT_Agreement__c IN: setAgreementID and APT_Billing_Account_Flag__c = True and (APT_Agreement_Line_Item__r.Apttus__ProductId__r.ProductCode = :APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS  OR APT_Agreement_Line_Item__r.Apttus__ProductId__r.ProductCode = :APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD)])
             {
-                system.debug('AgrLPObj>>> '+ AgrLPObj);
                 if(mapAgreementIDTolistLP.containsKey(AgrLPObj.APT_Agreement__c))
                 {
-                    system.debug('If condition>>'+AgrLPObj.APT_Agreement__c);
                     mapAgreementIDTolistLP.get(AgrLPObj.APT_Agreement__c).add(AgrLPObj);
                 }
                 else
                 {
-                     system.debug('else condition>>'+AgrLPObj.APT_Agreement__c);
                     mapAgreementIDTolistLP.put(AgrLPObj.APT_Agreement__c, new List<APT_Agreement_Lodgement_Point__c>{AgrLPObj});
                 }
             }
@@ -578,25 +569,11 @@ public with sharing class APT_AgreementLPTriggerHandler {
                     setLPIdToBillingAccountCombination.add(AgrLPObj.APT_Product__c + '' + AgrLPObj.APT_Billing_Account__c);
                     setLPIdToChargeAccountCombination.add(AgrLPObj.APT_Product__c + '' + AgrLPObj.APT_Charge_Account__c);
                     setLPIdToSubAccountCombination.add(AgrLPObj.APT_Product__c + '' + AgrLPObj.APT_Sub_Account__c);
-                    system.debug('11'+(AgrLPObj.APT_Product__c + '' + AgrLPObj.APT_Billing_Account__c));
-                    system.debug('12'+(AgrLPObj.APT_Product__c + '' + AgrLPObj.APT_Charge_Account__c));
-                    system.debug('13'+(AgrLPObj.APT_Product__c + '' + AgrLPObj.APT_Sub_Account__c));
-
                 }
                 for(APT_Agreement_Lodgement_Point__c AgrLPObj : listNewAgreementLP)
                 {
-                    if((AgrLPObj.APT_Billing_Account__c != null && setLPIdToBillingAccountCombination.contains(AgrLPObj.APT_Product__c + '' + AgrLPObj.APT_Billing_Account__c))
-                       || (AgrLPObj.APT_Charge_Account__c != null && setLPIdToChargeAccountCombination.contains(AgrLPObj.APT_Product__c + '' +AgrLPObj.APT_Charge_Account__c)) 
-                       || (AgrLPObj.APT_Charge_Account__c != null && setLPIdToSubAccountCombination.contains(AgrLPObj.APT_Product__c + '' +AgrLPObj.APT_Sub_Account__c))
-                      	)
+                    if((AgrLPObj.APT_Billing_Account__c != null && setLPIdToBillingAccountCombination.contains(AgrLPObj.APT_Product__c + '' + AgrLPObj.APT_Billing_Account__c)) || (AgrLPObj.APT_Charge_Account__c != null && setLPIdToChargeAccountCombination.contains(AgrLPObj.APT_Product__c + '' +AgrLPObj.APT_Charge_Account__c)) || (AgrLPObj.APT_Charge_Account__c != null && setLPIdToSubAccountCombination.contains(AgrLPObj.APT_Product__c + '' +AgrLPObj.APT_Sub_Account__c)))
                     {
-                        system.debug('AgrLPObj.APT_Billing_Account_Flag__c'+AgrLPObj.APT_Billing_Account_Flag__c);
-                        system.debug('AgrLPObj.APT_Status__c>>'+AgrLPObj.APT_Status__c);
-                        system.debug('AgrLPObj.APT_Billing_Account__c>>'+AgrLPObj.APT_Billing_Account__c);
-                        system.debug('AgrLPObj.APT_Product__c>>'+AgrLPObj.APT_Product__c);
-                        system.debug('AgrLPObj.APT_Charge_Account__c>>'+AgrLPObj.APT_Charge_Account__c);
-                        system.debug('AgrLPObj.APT_Sub_Account__c>>'+AgrLPObj.APT_Sub_Account__c);
-                       
                         return 'Account already associated to other Lodgement Point record';
                     }
                 }

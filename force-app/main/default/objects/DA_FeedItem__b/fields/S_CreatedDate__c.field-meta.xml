@@ -3,6 +3,6 @@
     <fullName>S_CreatedDate__c</fullName>
     <externalId>false</externalId>
     <label>Created Date</label>
-    <required>true</required>
+    <required>false</required>
     <type>DateTime</type>
 </CustomField>

@@ -167,7 +167,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Enquiry Mappings</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

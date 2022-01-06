@@ -157,7 +157,7 @@ This object is responsible for storing some global settings used by Dealmaker in
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>Read</externalSharingModel>
     <label>Altify Settings</label>
     <nameField>
         <label>DM Setting Name</label>

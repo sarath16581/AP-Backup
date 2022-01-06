@@ -5,6 +5,6 @@
     <label>SSSW Callback Reminder Consumer</label>
     <queue>SSSW_Consumer</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

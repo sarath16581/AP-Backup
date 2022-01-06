@@ -26,6 +26,21 @@
         <operation>equals</operation>
         <value>True</value>
     </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>Record_Maintainer__c</field>
+        <operation>equals</operation>
+        <value>Account Manager,Unmanaged</value>
+    </filters>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Account.Business_Account</value>
+    </filters>
     <label>All Contacts In My Portfolio</label>
     <language>en_US</language>
     <sharedTo>

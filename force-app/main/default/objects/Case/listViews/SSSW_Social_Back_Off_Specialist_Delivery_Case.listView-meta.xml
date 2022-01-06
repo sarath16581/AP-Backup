@@ -5,6 +5,6 @@
     <label>SSSW Social Back Off Specialist Delivery</label>
     <queue>SSSW_Social_Back_Off_Specialist_Delivery</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

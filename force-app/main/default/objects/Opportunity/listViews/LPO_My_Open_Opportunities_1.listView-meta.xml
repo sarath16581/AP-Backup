@@ -17,6 +17,6 @@
     <label>My Open Opportunities</label>
     <language>en_US</language>
     <sharedTo>
-        <allPartnerUsers/>
+        <allPartnerUsers></allPartnerUsers>
     </sharedTo>
 </ListView>

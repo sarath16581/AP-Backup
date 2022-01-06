@@ -157,14 +157,14 @@ This object stores information about Quicklinks user activity on the various dea
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Dealmaker Quicklinks Usage</label>
     <nameField>
         <label>Dealmaker Quicklinks Usage Name</label>
         <type>Text</type>
     </nameField>
     <pluralLabel>Dealmaker Quicklinks Usage</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

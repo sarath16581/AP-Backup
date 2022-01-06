@@ -4,19 +4,20 @@
     <promptVersions>
         <actionButtonLabel>Click here for more info!</actionButtonLabel>
         <actionButtonLink>https://auspost.sharepoint.com/:b:/s/SPBG/Sales-support-site/EXKFjj3q28NBsic9zorMgZMBbVsKsjIlepnwYLN_4hLgyA?e=IFINQf</actionButtonLink>
-        <body>&lt;p&gt;New functionality has just been introduced to make raising Credit Management Requests and engaging with the Credit Management Team quick, simple and consistent with other Deal Support Requests (DSRs).&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;To raise a Credit Management Request, simply click the button titled ‘New Credit Management Request’ above to be guided through the pre-populated form.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Once you have completed the form you can keep track of the status of your Request in the ‘My DSRs’ view.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;All correspondence to the Credit Management Team relating to Credit Management Requests should be made via the Salesforce Credit Management Request workflow.&lt;/p&gt;</body>
+        <body>&lt;p&gt;New functionality has just been introduced to make raising Credit Management Requests and engaging with the Credit Management Team quick, simple and consistent with other Deal Support Requests (DSRs).&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;To raise a Credit Management Request, simply click the button titled ‘New Credit Management Request’ above to be guided through the pre-populated form.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Once you have completed and submitted the form, you can keep track of the status of the request in the ‘My DSRs’ view.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;All correspondence to the Credit Management Team relating to Credit Management Requests should be made via the Salesforce Credit Management Request workflow.&lt;/p&gt;</body>
         <customApplication>BG_Sales</customApplication>
         <delayDays>1</delayDays>
+        <description>CSR in app guidance</description>
         <displayType>DockedComposer</displayType>
         <endDate>2021-02-26</endDate>
-        <header>Raising a Credit Management Request</header>
+        <header>Raising Credit Management Requests?</header>
         <isPublished>true</isPublished>
         <masterLabel>BGSALES_CSR_Guidance</masterLabel>
-        <publishedDate>2021-01-20</publishedDate>
+        <publishedDate>2021-01-28</publishedDate>
         <shouldDisplayActionButton>true</shouldDisplayActionButton>
         <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
         <startDate>2021-01-29</startDate>
-        <targetPageKey1>Billing_Account__c_hd</targetPageKey1>
+        <targetPageKey1>Billing_Account__c</targetPageKey1>
         <targetPageKey2>view</targetPageKey2>
         <targetPageType>standard__recordPage</targetPageType>
         <timesToDisplay>3</timesToDisplay>

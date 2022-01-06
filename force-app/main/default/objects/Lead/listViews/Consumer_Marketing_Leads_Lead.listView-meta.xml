@@ -5,6 +5,6 @@
     <label>Consumer Marketing Leads</label>
     <queue>Consumer_Marketing_Leads</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

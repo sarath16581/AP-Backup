@@ -13,10 +13,10 @@
         <header>New feature!</header>
         <isPublished>true</isPublished>
         <masterLabel>StarTrack Pricing Adjustment</masterLabel>
-        <publishedDate>2021-07-05</publishedDate>
+        <publishedDate>2021-07-10</publishedDate>
         <shouldDisplayActionButton>true</shouldDisplayActionButton>
         <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
-        <startDate>2021-07-05</startDate>
+        <startDate>2021-07-12</startDate>
         <targetPageKey1>Apttus_Proposal__Proposal__c</targetPageKey1>
         <targetPageKey2>view</targetPageKey2>
         <targetPageType>standard__recordPage</targetPageType>

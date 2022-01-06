@@ -7,7 +7,7 @@
     <summaryFilterItems>
         <field>trailheadapp__User_Badge__c.trailheadapp__Finished_Date__c</field>
         <operation>notEqual</operation>
-        <value/>
+        <value></value>
     </summaryFilterItems>
     <summaryForeignKey>trailheadapp__User_Badge__c.trailheadapp__Badge__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>

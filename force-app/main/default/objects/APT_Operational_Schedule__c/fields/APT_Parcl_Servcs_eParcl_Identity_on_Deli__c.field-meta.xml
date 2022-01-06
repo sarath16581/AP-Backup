@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Parcel Services eParcel Identity on Delivery Service</inlineHelpText>
     <label>PS eParcel Identity on Delivery Service</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

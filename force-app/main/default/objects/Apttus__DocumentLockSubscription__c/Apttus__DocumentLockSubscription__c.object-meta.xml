@@ -161,7 +161,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Document Lock Subscriptions</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

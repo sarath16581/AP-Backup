@@ -63,40 +63,40 @@ public with sharing class OPCRevenuesRollUpBatchable_Test {
         // test the calculated revenue month by month of the financial year
         if(system.now().month() == 7){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 14000, 'Total Schedule Revenue to Date of $14000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 8){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 16000, 'Total Schedule Revenue to Date of $16000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 9){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 18000, 'Total Schedule Revenue to Date of $18000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 10){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 20000, 'Total Schedule Revenue to Date of $20000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 11){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 22000, 'Total Schedule Revenue to Date of $22000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 12){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 24000, 'Total Schedule Revenue to Date of $24000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 1){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 26000, 'Total Schedule Revenue to Date of $26000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 2){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 28000, 'Total Schedule Revenue to Date of $28000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 3){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 30000, 'Total Schedule Revenue to Date of $30000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 4){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 32000, 'Total Schedule Revenue to Date of $32000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 5){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 34000, 'Total Schedule Revenue to Date of $34000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }else if(system.now().month() == 6){
             System.assertEquals(opp[0].Total_Schedule_Revenue_to_Date__c, 36000, 'Total Schedule Revenue to Date of $36000 is expected');
-            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(2), 'Opportunity Traded Revenue % is not correctly calculated');
+            System.assertEquals(opp[0].Opportunity_Traded_Revenue_pc__c, ((opp[0].Opportunity_Traded_Revenue__c/opp[0].Total_Schedule_Revenue_to_Date__c)*100).setScale(0), 'Opportunity Traded Revenue % is not correctly calculated');
         }
         System.assertEquals(opp[0].Opportunity_Traded_Revenue__c, 36000, 'Opportunity Traded Revenue of $36000 is expected');
     }

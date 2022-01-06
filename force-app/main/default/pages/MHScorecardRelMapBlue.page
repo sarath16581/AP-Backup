@@ -35,7 +35,7 @@
     <div id="mm_bluesheet_disabled" style="float:left;width:100%;text-align:center;display:none;">
         <div style="color:#54698D;">Save CRM item for MHI applet links to become available.</div>
     </div>
-    <apex:iframe id="mm_bluesheet" width="100%" height="420" src="https://www.saleswebserver.net/sfdc/MillerHeiman6/dashboard.aspx?ShowBlue=Y&SessionID={!$Api.Session_ID}&EndPoint=https://auspost--ptest.my.salesforce.com/services/Soap/u/24.0/}&ID={!Opportunity.Id}&ReturnURL={!IF(ISBLANK(opportunity.id), '', URLFOR($Action.Opportunity.View, opportunity.id))}"/>
+    <apex:iframe id="mm_bluesheet" width="100%" height="420" src="https://www.saleswebserver.net/sfdc/MillerHeiman6/dashboard.aspx?ShowBlue=Y&SessionID={!$Api.Session_ID}&EndPoint=https://auspost.my.salesforce.com/services/Soap/u/24.0/}&ID={!Opportunity.Id}&ReturnURL={!IF(ISBLANK(opportunity.id), '', URLFOR($Action.Opportunity.View, opportunity.id))}"/>
 
 <script type="text/JavaScript">        
     if (!getReturnURL()) 

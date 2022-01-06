@@ -161,7 +161,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>AM Plan Revenue Targets</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

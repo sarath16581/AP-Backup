@@ -1956,6 +1956,16 @@ TDF Enhance 7.10.20 Added new fields</description>
             <field>Created_Date_Time__c</field>
             <table>ServiceResource.Service_Appointments_By_Primary__r.Work_Orders__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Duty_Board__c.Status__c</field>
+            <table>ServiceResource.Service_Appointments_By_Primary__r.Work_Orders__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Duty_Board__c.Default_Vehicle__c.Status__c</field>
+            <table>ServiceResource.Service_Appointments_By_Primary__r.Work_Orders__r</table>
+        </columns>
         <masterLabel>Work Orders (Primary SA)</masterLabel>
     </sections>
     <sections>

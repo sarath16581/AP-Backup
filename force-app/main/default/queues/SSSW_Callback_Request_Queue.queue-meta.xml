@@ -5,7 +5,6 @@
     <queueMembers>
         <users>
             <user>bettina.nepata@auspost.com.au</user>
-            <user>darryl.forday@auspost.com.au</user>
         </users>
     </queueMembers>
     <queueRoutingConfig>Callback_Request_Routing_Configuration</queueRoutingConfig>

@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Where are your customer&apos;s buying?</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

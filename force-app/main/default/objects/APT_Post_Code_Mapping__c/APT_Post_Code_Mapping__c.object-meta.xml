@@ -160,7 +160,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Post Code Mapping</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

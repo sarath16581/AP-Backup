@@ -5,6 +5,6 @@
     <label>StarTrack LPC Queue</label>
     <queue>StarTrack_LPC_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

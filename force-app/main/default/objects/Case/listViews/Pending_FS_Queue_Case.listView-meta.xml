@@ -5,6 +5,6 @@
     <label>Pending FS Queue</label>
     <queue>Pending_FS_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

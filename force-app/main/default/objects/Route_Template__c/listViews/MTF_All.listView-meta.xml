@@ -14,5 +14,10 @@
         <operation>equals</operation>
         <value>Melbourne</value>
     </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>mter</value>
+    </filters>
     <label>MTF - All</label>
 </ListView>

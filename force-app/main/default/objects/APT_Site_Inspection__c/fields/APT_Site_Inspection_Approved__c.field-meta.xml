@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Site Inspection Approved?</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

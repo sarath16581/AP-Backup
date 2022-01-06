@@ -3,7 +3,6 @@
     <autoGreeting>All Australia Post employees have the right to be treated with courtesy and respect. Lack of such conduct may lead to termination of your interaction.
 
 Hi {!LiveAgent_VisitorName}, how can I help you today?</autoGreeting>
-    <chatPage>bspLiveChatWindowUplift</chatPage>
     <customAgentName>{!User_FirstName}</customAgentName>
     <deployments/>
     <enableQueue>true</enableQueue>

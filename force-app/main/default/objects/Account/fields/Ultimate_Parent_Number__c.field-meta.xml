@@ -17,7 +17,6 @@ right(AccountNumber,8))))))))))</formula>
     <inlineHelpText>Top account&apos;s customer number</inlineHelpText>
     <label>Top Level Parent Organisation No.</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

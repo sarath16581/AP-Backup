@@ -172,41 +172,6 @@
         </listPlacement>
         <listRefreshMethod>refreshList</listRefreshMethod>
         <whitelistedDomains>www.salesforce.com</whitelistedDomains>
-        <whitelistedDomains>auspost.com.au</whitelistedDomains>
-        <whitelistedDomains> www.google.com.au</whitelistedDomains>
-        <whitelistedDomains> www.dhl.com.au</whitelistedDomains>
-        <whitelistedDomains> www.fedex.com</whitelistedDomains>
-        <whitelistedDomains> www.ups.com</whitelistedDomains>
-        <whitelistedDomains> maps.googleapis.com</whitelistedDomains>
-        <whitelistedDomains> code.jquery.com</whitelistedDomains>
-        <whitelistedDomains> ajax.googleapis.com</whitelistedDomains>
-        <whitelistedDomains> c.ap1.visual.force.com</whitelistedDomains>
-        <whitelistedDomains> ap1.salesforce.com</whitelistedDomains>
-        <whitelistedDomains> localhost</whitelistedDomains>
-        <whitelistedDomains> 127.0.0.1</whitelistedDomains>
-        <whitelistedDomains> auspost.custhelp.com</whitelistedDomains>
-        <whitelistedDomains> netposx</whitelistedDomains>
-        <whitelistedDomains> clwsapcapp03</whitelistedDomains>
-        <whitelistedDomains> netposadmin</whitelistedDomains>
-        <whitelistedDomains> globaltracktrace.ptc.post</whitelistedDomains>
-        <whitelistedDomains> mrs</whitelistedDomains>
-        <whitelistedDomains> cs.ipc.be</whitelistedDomains>
-        <whitelistedDomains> sttrackandtrace.startrack.com.au</whitelistedDomains>
-        <whitelistedDomains> datawarehouse</whitelistedDomains>
-        <whitelistedDomains> postapps</whitelistedDomains>
-        <whitelistedDomains> gcss.ipc.be</whitelistedDomains>
-        <whitelistedDomains> solutions-admin.corp.auspost.local</whitelistedDomains>
-        <whitelistedDomains> apex</whitelistedDomains>
-        <whitelistedDomains> hxaix23.hq.auspost.com.au:50000</whitelistedDomains>
-        <whitelistedDomains> hxaix08.hq.auspost.com.au:8000</whitelistedDomains>
-        <whitelistedDomains> nwebapp1</whitelistedDomains>
-        <whitelistedDomains> umcs.corp.auspost.local</whitelistedDomains>
-        <whitelistedDomains> auspost.niceondemand.com</whitelistedDomains>
-        <whitelistedDomains> nswamc</whitelistedDomains>
-        <whitelistedDomains> c.ap15.visual.force.com</whitelistedDomains>
-        <whitelistedDomains> ap15.salesforce.com</whitelistedDomains>
-        <whitelistedDomains>verint-ap.engagepowered.com.au</whitelistedDomains>
-        <whitelistedDomains>psweb.starnet.local</whitelistedDomains>
     </consoleConfig>
     <defaultLandingTab>standard-home</defaultLandingTab>
     <description>Default Service Cloud console for all StarTrack Service and Support users</description>
@@ -227,8 +192,8 @@
         <saveUserSessions>true</saveUserSessions>
     </preferences>
     <tabs>standard-Case</tabs>
-    <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
+    <tabs>standard-home</tabs>
     <tabs>standard-Lead</tabs>
     <tabs>Article__c</tabs>
     <tabs>Network__c</tabs>
@@ -243,20 +208,9 @@
     <tabs>APT_Charge_Code__c</tabs>
     <tabs>Job_Assignment__c</tabs>
     <tabs>Job__c</tabs>
-    <tabs>APT_Sub_Account__c</tabs>
-    <tabs>et4ae5__Configuration__c</tabs>
-    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
-    <tabs>et4ae5__Business_Unit__c</tabs>
-    <tabs>SAM_Admin1</tabs>
     <workspaceConfig>
         <mappings>
             <tab>APT_Charge_Code__c</tab>
-        </mappings>
-        <mappings>
-            <tab>APT_Sub_Account__c</tab>
-        </mappings>
-        <mappings>
-            <tab>Apttus_Config2__ConfigSettings__c</tab>
         </mappings>
         <mappings>
             <fieldName>Case__c</fieldName>
@@ -275,16 +229,7 @@
             <tab>Network__c</tab>
         </mappings>
         <mappings>
-            <tab>SAM_Admin1</tab>
-        </mappings>
-        <mappings>
             <tab>Un_Identified_Freight__c</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Business_Unit__c</tab>
-        </mappings>
-        <mappings>
-            <tab>et4ae5__Configuration__c</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

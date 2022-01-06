@@ -42,7 +42,7 @@ trigger APT_ProposalTrigger on Apttus_Proposal__Proposal__c (before insert, afte
                     proposal.addError(result1);
                 }               
             }
-             // Added by Mansi Shah
+            // Added by Mansi Shah
             APT_ProposalTriggerHandler.onBeforeInsert(trigger.new);
             // Complete By Mansi Shah
         } 
@@ -55,7 +55,7 @@ trigger APT_ProposalTrigger on Apttus_Proposal__Proposal__c (before insert, afte
                     proposal.addError(result);
                 }               
             }
-         
+             
         }
         //CR - KG Rounding
 

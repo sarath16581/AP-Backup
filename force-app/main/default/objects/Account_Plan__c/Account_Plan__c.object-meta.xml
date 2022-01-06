@@ -163,7 +163,7 @@ KH 15/9 - Shell account plan to allow for base tracking and reporting.</descript
         <type>Text</type>
     </nameField>
     <pluralLabel>Account Plans</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <startsWith>Vowel</startsWith>
     <visibility>Public</visibility>

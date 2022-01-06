@@ -3,8 +3,7 @@
  * @date 13/08/2020
  * @description Address Search component
  * --------------------------------------- History --------------------------------------------------
-    13/08/2020		ankur.gandhi@auspost.com.au	         Initial updation to lightning uplift
-    25-11-2020      avula.jansirani@auspost.com.au       removd console.logs
+	13/08/2020		ankur.gandhi@auspost.com.au	 Initial updation to lightning uplift
 */
 
 import { LightningElement, track, api, wire } from 'lwc'
@@ -180,7 +179,7 @@ export default class BspAddressSearch extends LightningElement {
             this.fireChangeHandlers()
         } catch (error) {
             //  eslint-disable-next-line no-console
-            //console.log(JSON.parse(JSON.stringify(error)))
+            console.log(JSON.parse(JSON.stringify(error)))
         } finally {
             this.isSearchingAddressDetails = false
             this.closeSearchResultsList();
@@ -228,7 +227,7 @@ export default class BspAddressSearch extends LightningElement {
             this.searchResults = tempSearchResults.slice(0,5);
         } catch (error) {
             //  eslint-disable-next-line no-console
-            //console.log(JSON.parse(JSON.stringify(error)))
+            console.log(JSON.parse(JSON.stringify(error)))
         } finally {
             this.isLoading = false
         }
@@ -267,6 +266,7 @@ export default class BspAddressSearch extends LightningElement {
             // // empty the state
             const key1 = 'state';
              
+             console.log(this.address);
              if (value.toLowerCase() == 'australia') {
                  this.defaultStates = [
                      { label: 'Select a state', value: '' },
@@ -353,6 +353,7 @@ export default class BspAddressSearch extends LightningElement {
         if (inputCmp != undefined && inputCmp.length > 0) {
             //inputCmp[0].innerHtml = this.searchAddressTerm;
             //inputCmp[0].value = this.searchAddressTerm;
+            console.log('inside if condition ' + inputCmp.length);
             checkCustomValidity(inputCmp[0]);
         }
     }
@@ -370,6 +371,10 @@ export default class BspAddressSearch extends LightningElement {
     }
     @api validateTheAddress(){
         var isValid = true;
+        console.log('validateTheAddress');
+        console.log(this.isAddressTyped);
+        console.log(JSON.stringify(this.address));
+        console.log(this.address.state);
 
         if(this.address.countryName && this.address.countryName.toLowerCase() == 'australia' && !this.address.state){   //-- assume state should not be empty for both manual and selecetd address  
             this.searchAddressTerm =null;

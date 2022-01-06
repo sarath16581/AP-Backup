@@ -629,11 +629,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>APT_My_Approvals</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>3</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Edit</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>0</sortOrder>
@@ -647,6 +642,11 @@
             <actionName>APT_Preview_Submit_Approvals</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>APT_My_Approvals</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>3</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
@@ -691,14 +691,15 @@
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>NewCase</excludeButtons>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CREATEDBY_USER.ALIAS</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
-        <fields>CASES.STATUS</fields>
-        <relatedList>Case.APT_Contract__c</relatedList>
+        <excludeButtons>New</excludeButtons>
+        <fields>NAME</fields>
+        <fields>Work_Type__c</fields>
+        <fields>Description__c</fields>
+        <fields>OWNER.ALIAS</fields>
+        <fields>Date_Time_Opened__c</fields>
+        <fields>Stage__c</fields>
+        <fields>Status__c</fields>
+        <relatedList>Deal_Support_Request__c.APT_Contract__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>

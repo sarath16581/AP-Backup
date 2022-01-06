@@ -384,8 +384,8 @@ public with sharing class APT_AgreementTriggerHandler{
 
             //create a map to query case under related proposal to copy approved entities, approved ABN and payment terms from
             //the latest case
-            system.debug('proposalIds '+proposalIds.size());
-            system.debug('proposalIds '+proposalIds);
+            //system.debug('proposalIds '+proposalIds.size());
+            //system.debug('proposalIds '+proposalIds);
             Map<Id,Case> proposalToCaseMap = new Map<Id,Case>();
             if(!proposalIds.isEmpty()){ ////28062019- added to fix selective query issue
                 for(Case cs :[SELECT Id, Proposal__c, APT_Approved_ABN__c,
@@ -406,9 +406,7 @@ public with sharing class APT_AgreementTriggerHandler{
             }
             for(Apttus__APTS_Agreement__c agrmnt : listAgrmnt){
                 proposalIDSet.add(agrmnt.Apttus_QPComply__RelatedProposalId__c);
-                if(rt_map.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_MSA_SERVICE_SCHEDULE) 
-                   && (agrmnt.APT_Contract_Type__c.equalsIgnoreCase(APT_Constants.CONTRACT_TYPE_NEW_CONTRACT))
-                  ){
+                if(rt_map.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_MSA_SERVICE_SCHEDULE) && (agrmnt.APT_Contract_Type__c.equalsIgnoreCase(APT_Constants.CONTRACT_TYPE_NEW_CONTRACT))){
                     opSchedule = new APT_Operational_Schedule__c();
                     opSchedule.APT_Contract__c=agrmnt.Id;
                     opSchedule.APT_Minimum_Monthly_Revenue__c = proposalsWithLineItemsMap.get(agrmnt.Apttus_QPComply__RelatedProposalId__c)?.APT_minimum_monthly_spend__c;
@@ -418,15 +416,12 @@ public with sharing class APT_AgreementTriggerHandler{
                             system.debug('prop details 1 '+propLineItem);
                             if(propLineItem.Apttus_Proposal__Product__r.APT_Product_type__c != null){
                                 String productType = propLineItem.Apttus_Proposal__Product__r.APT_Product_type__c;
-                                system.debug('productType*** '+productType);
                                 //If Product Type = Startrack, ensure relevant checkboxes are set on the Operational schedule.
                                 if(productType.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_STARTRACK_PRODUCT_TYPE)){
                                     opSchedule.APT_Startrack__c = true;
                                     // set the operational schedule record type to star track
                                     opSchedule.RecordTypeId = opSchedRecTypeMap.values()?.get(0)?.Id;
-                                     system.debug('opSchedule.RecordTypeId*** '+opSchedule.RecordTypeId);
                                     string productName = propLineItem.Apttus_Proposal__Product__r.Name;
-                                    system.debug('productName*** '+productName);
                                     if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_EXPRESS_ROAD_PRODUCT)) {
                                         opSchedule.APT_Express_Road__c = true;                                           
                                     }   

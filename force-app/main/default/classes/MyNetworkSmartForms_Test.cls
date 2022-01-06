@@ -80,9 +80,9 @@ public class MyNetworkSmartForms_Test {
         returnCases = MyNetworkSmartForms.createCase (lostArticle );
         Test.stopTest();
     }
-   
-   @IsTest  
-   public static void createCase_mailRedirect(){
+    
+    @IsTest 
+    public static void createCase_mailRedirect(){
         String mailRedirectHold   = '[{"formId":"mailRedirectHold","facilityId":"","facilityName":"facilityName","productSubCategory":"Mail redirection",   "productCategory":"Domestic Letters",   "custRefNo":"yes",   "custRefID":"zsdfsdf",   "caseLocality":"Domestic",   "contactId":"",   "FirstName":"Sammy",   "LastName":"K",   "Name":"Sammy K",   "MobilePhone":"0435814728",   "Email":"sameed.khan@gmail.com",   "IsPersonAccount":false,   "AccountId":"001p000000kmU2sAAE",   "Account":{      "Name":"Australia Post",      "Id":"001p000000kmU2sAAE"   },   "title":"Sammy K | Australia Post",   "subtitle":"Sammy K  ·  0435814728  ·  sameed.khan@gmail.com",   "customerAddress":{      "overflow":false,      "truncated":false,      "verified":true,      "addressLine1":"111 Bourke Rd",      "addressLine2":"addressLine2",      "city":"Clayton South",      "state":"VIC",      "postcode":"3169",      "dpid":"82911061",      "countrycode":"AU"   },   "customerAddressSearchTerm":"111 Bourke Road, CLAYTON SOUTH  VIC  3169",   "addresseeName":"PARTIAL ALLOWED",   "addresseeEmail":"sita.yarram@auspost.com.au",   "senderAddress":{      "overflow":false,      "truncated":false,      "verified":true,      "addressLine1":"10-12 Queen St",      "addressLine2":"",      "city":"Arncliffe",      "state":"NSW",      "postcode":"2205",      "dpid":"53690394",      "countrycode":"AU"   },   "senderAddressSearchTerm":"10-12 Queen Street, ARNCLIFFE  NSW  2205",   "addresseeAddress":{      "overflow":false,      "truncated":false,      "verified":true,      "addressLine1":"121 Kingston Av",      "addressLine2":"",      "city":"Melrose Park",      "state":"SA",      "postcode":"5039",      "dpid":"73970724",      "countrycode":"AU"   },   "addresseeAddressSearchTerm":"121 Kingston Avenue, MELROSE PARK  SA  5039",   "redirectComments":"Notes to assist with enquiry"}]';
         List<MyNetworkSmartFormsWrapper> caseWrapperList = (List<MyNetworkSmartFormsWrapper>) System.JSON.deserialize(mailRedirectHold, List<MyNetworkSmartFormsWrapper>.class);
         caseWrapperList[0].articleId = [SELECT Id, ArticleID__c, CID__c FROM Article__c WHERE CID__c  = 'TEST_RKP_ART_NUMBER' LIMIT 1].ArticleID__c;

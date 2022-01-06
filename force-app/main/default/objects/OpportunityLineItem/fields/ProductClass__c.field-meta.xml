@@ -3,12 +3,11 @@
     <fullName>ProductClass__c</fullName>
     <businessStatus>Active</businessStatus>
     <externalId>false</externalId>
-    <formula>TRIM(LEFT(Opportunity.Account.Name,50))  &amp;  
-TRIM(LEFT(Opportunity.Name,40)) &amp;
-(PricebookEntry.Product2.Name) &amp; TEXT(Classification__c) &amp;  text(Contract_Start_Date__c) &amp; text(Contract_End_Date__c)</formula>
+    <formula>TRIM(LEFT(Opportunity.Account.Name,50)) &amp;
+TRIM(LEFT(Opportunity.Name,40)) &amp; (PricebookEntry.Product2.Name) &amp; TEXT(Classification__c) &amp;  text(Contract_Start_Date__c) &amp; text(Contract_End_Date__c)</formula>
     <label>ProductClass</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

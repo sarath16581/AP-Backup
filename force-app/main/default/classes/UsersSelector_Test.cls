@@ -9,7 +9,6 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-04-30 - Dheeraj Mandavilli - Updated - Removed Mockdatabase stubbing logic.
- * 2020-03-20 - Nathan Franklin - Added tests for selectByProfileId
  */
 @IsTest
 public with sharing class UsersSelector_Test {
@@ -140,13 +139,6 @@ public with sharing class UsersSelector_Test {
 
         results = selector.selectByContactId(new Set<Id>{users[0].ContactId},new Set<Object>{UsersSelector.Options.WITH_CONTACT});
         System.assertEquals(1, results.size(), 'Expected 1 result');
-		System.assertNotEquals(null, results.values()[0].Contact, 'Expected Contact object but got null');
-
-		results = selector.selectByProfileId(new Set<Id>{users[0].ProfileId});
-		System.assertEquals(2, results.size(), 'Expected 1 result');
-
-		results = selector.selectByProfileId(new Set<Id>{users[0].ProfileId},new Set<Object>{UsersSelector.Options.WITH_CONTACT});
-		System.assertEquals(2, results.size(), 'Expected 1 result');
 		System.assertNotEquals(null, results.values()[0].Contact, 'Expected Contact object but got null');
         
 		Test.stopTest();

@@ -14,7 +14,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>St Leo</value>
+        <value>Macquarie Park</value>
     </filters>
     <filters>
         <field>Effective_Date__c</field>
@@ -26,7 +26,7 @@
         <operation>notEqual</operation>
         <value>PUD_Booking__c.Other</value>
     </filters>
-    <label>St Leonards Bookings - TODAY</label>
+    <label>Macquarie Park  Bookings - TODAY</label>
     <sharedTo>
         <group>ST_LEONARDS_VAN_OPS</group>
     </sharedTo>

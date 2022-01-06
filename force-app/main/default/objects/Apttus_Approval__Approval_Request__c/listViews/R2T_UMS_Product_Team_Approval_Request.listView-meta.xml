@@ -5,6 +5,6 @@
     <label>R2T UMS Product Team</label>
     <queue>R2T_UMS_Product_Team</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

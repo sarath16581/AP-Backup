@@ -153,14 +153,14 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>DM Dated Forecast Report</label>
     <nameField>
         <label>DM Dated Forecast Report Name</label>
         <type>Text</type>
     </nameField>
     <pluralLabel>DM Dated Forecast Reports</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

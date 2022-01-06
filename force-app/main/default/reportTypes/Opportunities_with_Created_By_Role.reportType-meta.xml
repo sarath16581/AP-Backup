@@ -253,6 +253,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Business_Development_Driver__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Business_Lifecycle__c</field>
             <table>Opportunity</table>
         </columns>

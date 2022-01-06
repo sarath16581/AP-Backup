@@ -879,7 +879,7 @@ TDF Enhance 19.8.20 Set radio options as required</description>
         <inputAssignments>
             <field>FSL__GanttColor__c</field>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </inputAssignments>
         <object>ServiceAppointment</object>

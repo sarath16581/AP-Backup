@@ -9,77 +9,77 @@
 
 @IsTest
 private class AuthorisedContactsSelector_Test {
-	/**
-	 * Test:
-	 *  Ensures that the selectors QueryBuilder is generating the correct output
-	 */
-	@IsTest
-	private static void testEnsureQueryBuilderProducesCorrectString() {
-		// =====================================
-		// Data Preparation
-		// =====================================
-		// None!
+  /**
+   * Test:
+   *  Ensures that the selectors QueryBuilder is generating the correct output
+   */
+  @IsTest
+  private static void testEnsureQueryBuilderProducesCorrectString() {
+    // =====================================
+    // Data Preparation
+    // =====================================
+    // None!
 
-		// =====================================
-		// Stubbing
-		// =====================================
-		// None!
+    // =====================================
+    // Stubbing
+    // =====================================
+    // None!
 
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
+    // =====================================
+    // Testing
+    // =====================================
+    Test.startTest();
 
-		AuthorisedContactsSelector selector = AuthorisedContactsSelector.newInstance();
-		QueryBuilder qb = selector.newQueryBuilder();
-		String soql = qb.toSoqlString();
+    AuthorisedContactsSelector selector = AuthorisedContactsSelector.newInstance();
+    QueryBuilder qb = selector.newQueryBuilder();
+    String soql = qb.toSoqlString();
 
-		System.assertEquals(
-			true,
-			Pattern.compile('(?ism)\\bfrom AuthorisedContacts__c\\b').matcher(soql).find(),
-			'Resulting query does not select from CaseMilestone: ' + soql
-		);
+    System.assertEquals(
+      true,
+      Pattern.compile('(?ism)\\bfrom AuthorisedContacts__c\\b').matcher(soql).find(),
+      'Resulting query does not select from CaseMilestone: ' + soql
+    );
 
-		Test.stopTest();
-	}
+    Test.stopTest();
+  }
 
-	/**
-	 * Executes a query to ensure it returns expected results with actual inserted data
-	 */
-	@IsTest
-	private static void testSelectorIntegration() {
-		// =====================================
-		// Data Preparation
-		// =====================================
+  /**
+   * Executes a query to ensure it returns expected results with actual inserted data
+   */
+  @IsTest
+  private static void testSelectorIntegration() {
+    // =====================================
+    // Data Preparation
+    // =====================================
 
-		// create a case to assign to the authorised contact
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackDeliveryEnquiryRecordType;
+    // create a case to assign to the authorised contact
+    List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+    cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackDeliveryEnquiryRecordType;
 
-		// =====================================
-		// Testing
-		// =====================================
+    // =====================================
+    // Testing
+    // =====================================
 
-		test.startTest();
+    test.startTest();
 
-		insert cases;
+    insert cases;
 
-		// create an authorised contact and assign the case
-		AuthorisedContacts__c authCon = new AuthorisedContacts__c();
-		authCon.First_Name__c = 'Test';
-		authCon.Last_Name__c = 'AuthorisedContact';
-		authCon.Initial_Contact__c = true;
-		authCon.Case__c = cases[0].Id;
+    // create an authorised contact and assign the case
+    AuthorisedContacts__c authCon = new AuthorisedContacts__c();
+    authCon.First_Name__c = 'Test';
+    authCon.Last_Name__c = 'AuthorisedContact';
+    authCon.Initial_Contact__c = true;
+    authCon.Case__c = cases[0].Id;
 
-		insert authCon;
+    insert authCon;
 
-		Map<Id, Case> casesContacts = CasesSelector.newInstance()
-			.selectById(new Set<Id>{ cases[0].Id }, new Set<Object>{ CasesSelector.Options.WITH_CHILDINITIALCONTACT });
-		List<AuthorisedContacts__c> authContactList = casesContacts.get(cases[0].Id).Authorised_Contacts__r;
+    Map<Id, Case> casesContacts = CasesSelector.newInstance()
+      .selectById(new Set<Id>{ cases[0].Id }, new Set<Object>{ CasesSelector.Options.WITH_CHILDINITIALCONTACT });
+    List<AuthorisedContacts__c> authContactList = casesContacts.get(cases[0].Id).Authorised_Contacts__r;
 
-		test.stopTest();
+    test.stopTest();
 
-		// ensure the query is producing correct result
-		System.assertEquals(1, authContactList.size(), 'Expected result size of 1');
-	}
+    // ensure the query is producing correct result
+    System.assertEquals(1, authContactList.size(), 'Expected result size of 1');
+  }
 }

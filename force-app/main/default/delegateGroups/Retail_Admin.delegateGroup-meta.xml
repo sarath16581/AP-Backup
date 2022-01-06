@@ -15,4 +15,5 @@
     <roles>PartnerInfo National RNP Manager</roles>
     <roles>PartnerInfo Network Manager</roles>
     <roles>PartnerInfo State Admin Manager</roles>
+    <roles>PartnerInfo State RNP Manager</roles>
 </DelegateGroup>

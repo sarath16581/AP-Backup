@@ -2,7 +2,7 @@
 
 9 Sept 2015 - christopher.henschke@auspost.com.au: added subscriberID into ExactTargetEmail class to allow for the use of ExactTarget Preference Centre for unsubscribe
 28-Feb-2017	- Angelo.Rivera@auspost.com.au : Updated sendAnEmail and sendMultipleEmail method and added contactID parameter 
-												that will be passed to sendSingleMail method as the subscriberID   
+												that will be passed to sendSingleMail method as the subscriberID 
 11 Feb 2021    madhuri.awasthi@auspost.com.au       INC1729620 Changing Record query from Name to developerName for Default Task
 */
 

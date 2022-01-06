@@ -164,7 +164,7 @@ This object is responsible for the maintenance of the eLearning Curricula. These
         <type>Text</type>
     </nameField>
     <pluralLabel>Curricula</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

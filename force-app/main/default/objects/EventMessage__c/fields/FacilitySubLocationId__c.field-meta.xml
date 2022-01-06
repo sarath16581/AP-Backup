@@ -3,7 +3,6 @@
     <fullName>FacilitySubLocationId__c</fullName>
     <description>Facility Location Id where the loose Load is aggregated.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Location within parcel facility</inlineHelpText>
     <label>Facility Sub Location ID</label>
     <length>20</length>
     <required>false</required>

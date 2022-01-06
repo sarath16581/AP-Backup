@@ -5,6 +5,6 @@
     <label>Industry Report</label>
     <queue>Industry_Report</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

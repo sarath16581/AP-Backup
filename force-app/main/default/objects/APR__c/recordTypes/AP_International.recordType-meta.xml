@@ -175,9 +175,5 @@
             <fullName>Parcel Post Open Ended APR</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>StarTrack APR</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
 </RecordType>

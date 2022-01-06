@@ -26,7 +26,6 @@
         }        
         
         var feedItems = getFeedItemBody();
-
                
     sforce.console.setCustomConsoleComponentButtonText(feedItems, scrollButtonText);
     

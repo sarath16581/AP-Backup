@@ -28,6 +28,11 @@
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
+        <field>Group_COO__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>EGM_Sales__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

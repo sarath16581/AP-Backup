@@ -5,6 +5,6 @@
     <label>SSSW Callback Reminder Digital</label>
     <queue>SSSW_Digital</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

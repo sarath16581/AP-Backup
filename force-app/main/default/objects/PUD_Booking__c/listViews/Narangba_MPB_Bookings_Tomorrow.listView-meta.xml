@@ -19,7 +19,7 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>equals</operation>
+        <operation>lessOrEqual</operation>
         <value>TOMORROW</value>
     </filters>
     <filters>

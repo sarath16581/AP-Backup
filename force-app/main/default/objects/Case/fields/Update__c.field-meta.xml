@@ -2,14 +2,14 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Update__c</fullName>
     <externalId>false</externalId>
-    <formula>IMAGE( 
-CASE(Case_Update__c, 
-&apos;New Comment&apos;, &apos;/resource/StarTrackCaseIcons/New_Comment.png&apos;, 
-&apos;New Email Received&apos;, &apos;/resource/StarTrackCaseIcons/Customer_Responded.png&apos;, 
+    <formula>IMAGE(
+CASE(Case_Update__c,
+&apos;New Comment&apos;, &apos;/resource/StarTrackCaseIcons/New_Comment.png&apos;,
+&apos;New Email Received&apos;, &apos;/resource/StarTrackCaseIcons/Customer_Responded.png&apos;,
 &apos;Operations Responded&apos;, &apos;/resource/StarTrackCaseIcons/Task_Finished.png&apos;,
-&apos;Waiting on Investigator&apos;, &apos;/resource/StarTrackCaseIcons/Task_Finished.png&apos;, 
+&apos;Waiting on Investigator&apos;, &apos;/resource/StarTrackCaseIcons/Task_Finished.png&apos;,
 &apos;Customer Responded&apos;, &apos;/resource/StarTrackCaseIcons/Customer_Responded.png&apos;,
-&apos;/resource/StarTrackCaseIcons/Blank.png&apos;),&apos;&apos; 
+&apos;/resource/StarTrackCaseIcons/Blank.png&apos;),&apos;&apos;
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Update</label>

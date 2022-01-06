@@ -14,6 +14,6 @@
     <filterScope>Everything</filterScope>
     <label>Org_Account_Hierarchy</label>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

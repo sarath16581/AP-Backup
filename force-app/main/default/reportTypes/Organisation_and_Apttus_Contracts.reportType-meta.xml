@@ -4352,17 +4352,4 @@
         </columns>
         <masterLabel>SAP Contracts</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_WFV_Count_Police_and_Visa_Check__c</field>
-            <table>Account.Apttus__R00N50000001Xl0UEAS__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_APPC_Count__c</field>
-            <table>Account.Apttus__R00N50000001Xl0UEAS__r</table>
-        </columns>
-        <masterLabel>Apttus Contracts</masterLabel>
-    </sections>
 </ReportType>

@@ -161,7 +161,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Product Attribute Rule Actions</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

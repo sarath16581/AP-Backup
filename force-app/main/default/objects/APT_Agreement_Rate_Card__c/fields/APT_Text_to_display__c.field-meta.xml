@@ -5,7 +5,6 @@
     <formula>IF( APT_Value_1__c = &quot;OTC&quot; ,&quot;Post Billpay &quot;, IF( APT_Value_1__c = &quot;Phone&quot; ,&quot;Post Billpay by &quot;,IF( APT_Value_1__c = &quot;Internet&quot; ,&quot;Post Billpay on the &quot;,IF( APT_Value_1__c = &quot;Scan and Pay&quot; ,&quot;Post Billpay &quot;,Null))))</formula>
     <label>Text to display</label>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

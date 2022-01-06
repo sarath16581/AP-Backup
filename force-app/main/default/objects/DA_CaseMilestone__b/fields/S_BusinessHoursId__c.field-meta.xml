@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <label>Business Hours ID</label>
     <referenceTo>BusinessHours</referenceTo>
-    <relationshipName>BusinessHours1612775130813</relationshipName>
+    <relationshipName>BusinessHours1616718867115</relationshipName>
     <required>false</required>
     <type>Lookup</type>
 </CustomField>

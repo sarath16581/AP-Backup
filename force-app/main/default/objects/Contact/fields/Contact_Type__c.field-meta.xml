@@ -22,14 +22,14 @@
                 <label>Other</label>
             </value>
             <value>
-                <fullName>Compliance Officer</fullName>
-                <default>false</default>
-                <label>Compliance Officer</label>
-            </value>
-            <value>
                 <fullName>Licensee</fullName>
                 <default>false</default>
                 <label>Licensee</label>
+            </value>
+            <value>
+                <fullName>Compliance Officer</fullName>
+                <default>false</default>
+                <label>Compliance Officer</label>
             </value>
         </valueSetDefinition>
     </valueSet>

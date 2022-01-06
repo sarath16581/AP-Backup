@@ -5,6 +5,6 @@
     <label>Secure Pay Queue</label>
     <queue>Secure_Pay_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

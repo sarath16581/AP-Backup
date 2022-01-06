@@ -11,7 +11,7 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>greaterOrEqual</operation>
+        <operation>lessOrEqual</operation>
         <value>TODAY</value>
     </filters>
     <filters>
@@ -40,7 +40,6 @@
         <value>3759,3760,3761,3762</value>
     </filters>
     <label>Melbourne North Van MPB Bookings Today</label>
-    <language>en_US</language>
     <sharedTo>
         <group>MELB_NORTH_VAN_OPERATIONS</group>
     </sharedTo>

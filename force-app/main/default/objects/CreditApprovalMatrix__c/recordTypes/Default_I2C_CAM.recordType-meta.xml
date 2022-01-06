@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Default_I2C_CAM</fullName>
     <active>true</active>
-    <description>Use this to create an Invoice to Cash Credit Approval Matrix!!</description>
+    <description>Use this to create an Invoice to Cash Credit Approval Matrix</description>
     <label>Default I2C CAM</label>
     <picklistValues>
         <picklist>Approver1Role__c</picklist>

@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Parcel Services Receipted Delivery Service</inlineHelpText>
     <label>PS Receipted Delivery Service</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

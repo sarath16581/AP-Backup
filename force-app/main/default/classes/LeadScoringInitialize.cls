@@ -27,6 +27,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 *
  * @changelog
  * 2021-08-11 - Seth Heang - Uplift API version to 52
+ * 2021-08-19 - Seth Heang - When run, the batch job returns with 'Too Many DML statements: 151' errors.
+ * 							 It's not fixed because upon discussion with the business, we do not use this batch job's functionality as part of the lead scoring feature.
+ * 						     Though it was bundled as part of the 'Lead Scoring' unmanaged package, it was never tested during the initial delivery of the feature in 2020 as it wasn't in scope of the requirement.
+ * 							 Therefore, it's now awaiting decommission in the future or until a future project is raised that would require this batchjob functionality.
 */
 global class LeadScoringInitialize implements Database.Batchable<sObject>{
 

@@ -8,6 +8,5 @@
 Case_Reopen_Date__c  &lt;=  NOW()
 &amp;&amp;
 ISBLANK(PRIORVALUE(Case_Reopen_Date__c))</errorConditionFormula>
-    <errorDisplayField>Subscribe__c</errorDisplayField>
     <errorMessage>The Reopen date cannot be in the past</errorMessage>
 </ValidationRule>

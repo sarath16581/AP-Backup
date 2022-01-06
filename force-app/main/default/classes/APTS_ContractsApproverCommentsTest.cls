@@ -38,7 +38,7 @@ public class APTS_ContractsApproverCommentsTest {
         aptContract.Apttus__Status_Category__c = 'Request';
         aptContract.Apttus__Status__c = 'Request';
         aptContract.Included_Product_Lines__c = 'eParcels Domestic;'+APT_Constants.PRODUCT_CODE_PRINT_POST;
-        insert aptContract; 
+        insert aptContract;
 
 		
 		Apttus_Approval__Approval_Request__c approvalReq = new Apttus_Approval__Approval_Request__c();
@@ -46,8 +46,6 @@ public class APTS_ContractsApproverCommentsTest {
         //approvalReq.Apttus_Approval__ChildObjectId__c = bundleLine.Id;
 		approvalReq.Apttus_Approval__Object_Id__c = aptContract.ID;
 		approvalReq.Apttus_Approval__Initial_Submitter__c = UserInfo.getUserId();
-        approvalReq.Apttus_Approval__Object_Type__c = 'Apttus__APTS_Agreement__c';
-        
         insert approvalReq;
         
         approvalReq.Apttus_Approval__Approval_Status__c = 'Rejected';
@@ -117,8 +115,6 @@ public class APTS_ContractsApproverCommentsTest {
         //approvalReq.Apttus_Approval__ChildObjectId__c = bundleLine.Id;
 		approvalReq.Apttus_Approval__Object_Id__c = aptContract.ID;
 		approvalReq.Apttus_Approval__Initial_Submitter__c = UserInfo.getUserId();
-        approvalReq.Apttus_Approval__Object_Type__c = 'Apttus__APTS_Agreement__c';
-        
         insert approvalReq;
         
         approvalReq.Apttus_Approval__Approval_Status__c = 'Rejected';
@@ -273,8 +269,6 @@ public class APTS_ContractsApproverCommentsTest {
 	    approvalReq.Apttus_Approval__Approver_Comments__c = 'Approved Discount - 89';
         approvalReq.Apttus_Approval__StepLabel__c = 'Dangerous Goods';
         approvalReq.Apttus_QPApprov__ProposalId__c = proposal.Id;
-        approvalReq.Apttus_Approval__Object_Type__c = 'Apttus__APTS_Agreement__c';
-        
         insert approvalReq;
         
         Apttus_Config2__PriceListItem__c priceListItem = APT_TestUtils.createPriceListItem(priceList.id,product.id,'','');

@@ -6,6 +6,5 @@
     <errorConditionFormula>AND(RecordType.DeveloperName =&quot;E_G_Sales_Implementation_Request&quot;,
 ISPICKVAL(Status__c,&quot;Submitted&quot;),
 OR(ISBLANK(TEXT(Status__c)),ISBLANK( GoLive_Date__c),ISBLANK( Description__c), ISBLANK( Product_Solution_Specialist_EG__c)))</errorConditionFormula>
-    <errorDisplayField>Hidden_Automated_DSR__c</errorDisplayField>
     <errorMessage>Request cannot be submitted to the support team as all the mandatory fields have not been updated. Please edit the request and complete all the mandatory fields and then submit request to Support Team</errorMessage>
 </ValidationRule>

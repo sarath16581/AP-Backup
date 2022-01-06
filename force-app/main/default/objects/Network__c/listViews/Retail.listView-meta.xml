@@ -5,7 +5,6 @@
     <columns>RECORDTYPE</columns>
     <columns>ORG_UNIT_ADDR_1__c</columns>
     <columns>ORG_UNIT_ADDR_2__c</columns>
-    <columns>State__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
@@ -13,7 +12,6 @@
         <value>Network__c.Retail_2</value>
     </filters>
     <label>Retail</label>
-    <language>en_US</language>
     <sharedTo>
         <group>AllUsers</group>
         <group>All_Users_Ex_Retail_Merchandise</group>

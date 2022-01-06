@@ -63,18 +63,6 @@
             <valueName>Submitted for Approval</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>Business Lost</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>Business Retained</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>Business Migrated</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Work In Progress</controllingFieldValue>
             <valueName>Approved by SM</valueName>
         </valueSettings>
@@ -85,6 +73,18 @@
         <valueSettings>
             <controllingFieldValue>Work In Progress</controllingFieldValue>
             <valueName>Escalated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Business Lost</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Business Retained</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Business Migrated</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

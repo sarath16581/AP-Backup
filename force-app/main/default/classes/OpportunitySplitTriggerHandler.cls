@@ -28,27 +28,21 @@ public with sharing class OpportunitySplitTriggerHandler {
 
     private static void beforeHandler(){
          if(Trigger.isInsert){
-                System.debug('Trigger.new>>>'+Trigger.new);
                 opportunitySplitUtil.populateOpportunityOwnerRole(Trigger.new);
-                opportunitySplitUtil.populateSplitMemberRoleAtOpportunityClosure(Trigger.new);
+             	opportunitySplitUtil.populateSplitMemberRoleAtOpportunityClosure(Trigger.new);
          }
     }
     private static void afterHandler(){
         if(Trigger.isInsert){
-                System.debug('Calling>>>Insert');
-                System.debug('Trigger.new>>>'+Trigger.new);
                 opportunitySplitUtil.opportunitySplitValidations(Trigger.new, null);
                 opportunitySplitUtil.updateTeamMemberRole(Trigger.new, null); 
                 opportunitySplitUtil.createOpportunitySplitHistory(Trigger.new);             
         }else if(Trigger.isUpdate){
-                System.debug('Calling>>>Update');
-                System.debug('Trigger.new>>>'+Trigger.new);
                 opportunitySplitUtil.opportunitySplitValidations(Trigger.new, (Map<Id,OpportunitySplit>)Trigger.oldMap);
                 opportunitySplitUtil.updateTeamMemberRole(Trigger.new, (Map<Id,OpportunitySplit>)Trigger.oldMap);                
                 opportunitySplitUtil.createOpportunitySplitHistory(Trigger.new);
                 
          }else if(Trigger.isDelete){
-            System.debug('Calling>>>Delete');
             opportunitySplitUtil.createOpportunitySplitHistoryOnDelete(Trigger.old);
         }
     }

@@ -12,5 +12,5 @@
         <value>Identity</value>
     </filters>
     <label>Identity and Government Services</label>
-    <sharedTo/>
+    <sharedTo></sharedTo>
 </ListView>

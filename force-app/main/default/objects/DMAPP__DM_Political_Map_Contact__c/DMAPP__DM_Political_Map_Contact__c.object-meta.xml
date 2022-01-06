@@ -165,7 +165,7 @@ This object contains an entry for each node on the Relationship Map associated w
         <type>Text</type>
     </nameField>
     <pluralLabel>Relationship Map Contacts</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

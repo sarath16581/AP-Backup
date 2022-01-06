@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Alexandria_MPB_Bookings_Today</fullName>
+    <booleanFilter>1 AND 2 AND ( 3 OR 4 OR 5 OR 6 OR 7)</booleanFilter>
     <columns>NAME</columns>
     <columns>Location__c</columns>
     <columns>Street__c</columns>
@@ -19,13 +20,33 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>greaterOrEqual</operation>
+        <operation>lessThan</operation>
         <value>TODAY</value>
     </filters>
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
         <value>Alex</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>2000,2001,2002,2004,2006,2007,2008,2009,2010,2011,2012,2015,2016</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2039,2040,2041</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>2042,2043,2044,2048,2049,2050,2203,2204</value>
     </filters>
     <label>Alexandria - MPB Bookings Today</label>
     <language>en_US</language>

@@ -14,7 +14,7 @@
                 <leftValueReference>varCaseComment</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -85,7 +85,7 @@
         <inputAssignments>
             <field>Add_Caller_Comment__c</field>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </inputAssignments>
         <object>Case</object>

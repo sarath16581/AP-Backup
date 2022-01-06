@@ -37,8 +37,7 @@
     <!-- Guest login attributes-->
     <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
     <aura:handler name="chasmyPostLogin" event="c:ChasMyPostLogin" action="{!c.displaymyPostLoginForm}"/>
-    <!--<aura:handler name='change' value='{!v.authUserData.isAuthenticated}' action='{!c.onChange}' />-->
-    <aura:attribute name="authenticatedURL" type="String"/>
+    <aura:attribute name="authenticatedURL" type="String" default=''/>
                     
     <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
     <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onchange}"/>

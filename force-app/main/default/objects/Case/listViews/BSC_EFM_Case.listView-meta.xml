@@ -5,6 +5,6 @@
     <label>BSC - EFM</label>
     <queue>BSC_EFM</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

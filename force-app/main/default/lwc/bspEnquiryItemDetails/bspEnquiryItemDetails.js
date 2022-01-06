@@ -17,7 +17,7 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
             });
             
         } catch (er) {
-            //console.error(er)
+            console.error(er)
         }
     }
 

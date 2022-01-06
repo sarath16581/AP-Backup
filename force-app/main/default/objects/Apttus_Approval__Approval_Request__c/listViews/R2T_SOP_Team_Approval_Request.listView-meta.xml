@@ -5,6 +5,6 @@
     <label>R2T SOP Team</label>
     <queue>R2T_SOP_Team</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

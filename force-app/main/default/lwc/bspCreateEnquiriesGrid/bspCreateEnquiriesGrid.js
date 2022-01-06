@@ -3,8 +3,7 @@
  * @date 24/07/2020
  * @description common js methods for BSP community
  * --------------------------------------- History --------------------------------------------------
-    24/07/2020		avula.jansirani@crmit.com		Initial updation to lightning uplift
-    25-11-2020    avula.jansirani@auspost.com.au       removed console.log lines
+	24/07/2020		avula.jansirani@crmit.com		Initial updation to lightning uplift
 */
 
 import { LightningElement ,wire, api} from 'lwc';
@@ -22,7 +21,9 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
         error,
         data
     }) {
-         if (data) {
+        console.log('allConstants');
+        console.log(JSON.stringify(data));
+        if (data) {
             this.userBillingAccountScope = data;
         } else {
             // this.error = error;
@@ -30,6 +31,7 @@ export default class BspCreateEnquiriesGrid extends NavigationMixin(LightningEle
     }
 
     get isVisibleApCreateEnqiries() {
+        console.log('billing account scope:' + this.userBillingAccountScope);
         if (this.userBillingAccountScope == 'ALL' || this.userBillingAccountScope == 'AP')
             return true;
         else

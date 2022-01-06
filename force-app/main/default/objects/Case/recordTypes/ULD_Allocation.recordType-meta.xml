@@ -328,6 +328,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Parcel Domestic</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Parcel Post</fullName>
             <default>false</default>
         </values>

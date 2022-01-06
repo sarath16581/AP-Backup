@@ -123,6 +123,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>FormulaModifiedAfterRollupCalculation__c</field>
+            <table>StatusTracking__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>OwnerId__c</field>
             <table>StatusTracking__c</table>
         </columns>
@@ -133,7 +138,27 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Business_hour_duration__c</field>
+            <table>StatusTracking__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Start_Date_Hour__c</field>
+            <table>StatusTracking__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Previous_Owner_Id__c</field>
+            <table>StatusTracking__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Previous_Owner_Name__c</field>
+            <table>StatusTracking__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Previous_Owner__c</field>
             <table>StatusTracking__c</table>
         </columns>
         <columns>
@@ -169,6 +194,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>SubsequentStatusValue__c</field>
+            <table>StatusTracking__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Case_Contact_Id__c</field>
             <table>StatusTracking__c</table>
         </columns>
         <columns>

@@ -1,37 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <LightningComponentBundle xmlns="urn:metadata.tooling.soap.sforce.com" fqn="opportunityClosure">
-    
     <apiVersion>47.0</apiVersion>
-    
     <isExposed>true</isExposed>
-    
     <masterLabel>Opportunity Closure </masterLabel>
-    
     <description> This is a demo component for Opportunity Closure </description>
-    
     <targets>
-        
         <target>lightning__RecordPage</target>
-        
         <target>lightning__AppPage</target>
-        
         <target>lightning__HomePage</target>
-        
     </targets>
-    
     <targetConfigs>
-        
         <targetConfig targets="lightning__RecordPage">
-            
             <objects>
-                
                 <object>Opportunity</object>
-                
             </objects>
-            
         </targetConfig>
-        
     </targetConfigs>
-    
 </LightningComponentBundle>

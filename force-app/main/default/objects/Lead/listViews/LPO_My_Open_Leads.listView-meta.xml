@@ -18,6 +18,6 @@
     <label>My Open Leads</label>
     <language>en_US</language>
     <sharedTo>
-        <allPartnerUsers/>
+        <allPartnerUsers></allPartnerUsers>
     </sharedTo>
 </ListView>

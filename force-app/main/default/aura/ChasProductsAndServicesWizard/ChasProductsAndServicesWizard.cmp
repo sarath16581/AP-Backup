@@ -9,7 +9,7 @@
                              ,'name': 'c:ChasProductsAndServicesWPage01'
                              ,'next': 'ChasContactDetailsPage'
                              ,'step': '1'
-                             ,'currentStepName': 'Enquiry details'
+                             ,'currentStepName': 'enquiry details'
                              ,'stage': 'start'
                              ,'attributes':
                              {'authenticatedURL': '/products-and-services-authenticated'

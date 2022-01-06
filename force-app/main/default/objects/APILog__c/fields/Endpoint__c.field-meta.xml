@@ -7,7 +7,6 @@
     <label>Endpoint</label>
     <length>150</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

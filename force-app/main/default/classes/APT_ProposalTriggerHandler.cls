@@ -1144,7 +1144,7 @@ public without sharing class APT_ProposalTriggerHandler {
         }
     }*/
     
-     /**
+    /**
     * @description : This method will be called from BeforeInsert Trigger
     * @author Mansi Shah | 06-10-2021 
     * @param  listOfNewProposals

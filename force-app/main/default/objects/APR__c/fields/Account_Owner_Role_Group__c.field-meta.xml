@@ -9,7 +9,6 @@ Legal_Entity_Name_LookUp__r.Account_Owner_Role_Group__c
 )</formula>
     <label>Account Owner Role Group</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

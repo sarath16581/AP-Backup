@@ -137,10 +137,6 @@
         <ccEmails>DLdigitalidsalesforceleads@auspost.com.au</ccEmails>
         <description>New Lead - Digital ID - Product Interest</description>
         <protected>false</protected>
-        <recipients>
-            <recipient>margo.stephen@auspost.com.au</recipient>
-            <type>user</type>
-        </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Email_Templates/New_Lead_The_Digital_iD_Product</template>
@@ -269,28 +265,6 @@
         <name>BAU Lead Nurture queue</name>
         <notifyAssignee>true</notifyAssignee>
         <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Change_Lead_status_to_Qualified</fullName>
-        <description>Change Lead status to Qualified</description>
-        <field>Status</field>
-        <literalValue>Qualified</literalValue>
-        <name>Change Lead status to Qualified</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Closing_Lead_Owner_Role</fullName>
-        <description>Captures the current role of the lead owner at the time of creation and every time the status is updated.</description>
-        <field>Closing_Lead_Owner_Role__c</field>
-        <formula>Owner:User.UserRole.Name</formula>
-        <name>Closing Lead Owner Role</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
         <protected>false</protected>
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
@@ -622,7 +596,7 @@
             <operation>equals</operation>
             <value>Disqualified</value>
         </criteriaItems>
-        <description>When the lead status is changed to Disqualified by the lead verification team ( Profile	SSSW - Service Agent), this WF is to update the lead owner as Closed Leads</description>
+        <description>When the lead status is changed to Disqualified by the lead verification team ( Profile SSSW - Service Agent), this WF is to update the lead owner as Closed Leads</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -924,13 +898,6 @@
         </criteriaItems>
         <description>This Updates the lead owner to MPB Seeker Leads when MyPost Business is included on Product Interested</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Lead%3A Update Closing Lead Owner Role</fullName>
-        <active>false</active>
-        <description>When a lead is created and everytime the status is changed, capture the lead owner role.</description>
-        <formula>ISNEW() ||  ISCHANGED( Status )</formula>
-        <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Lead%3AMarketing form opt in</fullName>

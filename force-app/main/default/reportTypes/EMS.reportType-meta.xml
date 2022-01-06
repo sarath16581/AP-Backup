@@ -581,16 +581,6 @@
             <field>Article__c.Case__c.Origin</field>
             <table>EventMessage__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Outside_Delivery_Radius__c</field>
-            <table>EventMessage__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Geo_Precision__c</field>
-            <table>EventMessage__c</table>
-        </columns>
         <masterLabel>Event Messages</masterLabel>
     </sections>
 </ReportType>

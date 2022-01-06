@@ -142,7 +142,7 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <searchLayouts>
         <customTabListAdditionalFields>MaintenancePlanTitle</customTabListAdditionalFields>
         <customTabListAdditionalFields>WorkType</customTabListAdditionalFields>

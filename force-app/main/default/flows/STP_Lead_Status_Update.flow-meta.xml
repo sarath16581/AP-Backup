@@ -258,7 +258,7 @@ NOT(LEFT({!myVariable_current.OwnerId} ,3) = &quot;00G&quot;)
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -294,7 +294,7 @@ NOT(LEFT({!myVariable_current.OwnerId} ,3) = &quot;00G&quot;)
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -375,7 +375,7 @@ NOT(LEFT({!myVariable_current.OwnerId} ,3) = &quot;00G&quot;)
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>

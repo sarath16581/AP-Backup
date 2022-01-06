@@ -79,6 +79,7 @@ export default class bspFormGeneral extends NavigationMixin(LightningElement) {
         
         // initialise
         this.tempCase.CCUEnquiryType__c = 'General Enquiry';
+        console.debug(JSON.stringify(this.tempCase));
 
         const inputComponents = this.template.querySelectorAll('[data-validate="doValidate"]');
         const allValid = checkAllValidity(inputComponents);
@@ -90,6 +91,7 @@ export default class bspFormGeneral extends NavigationMixin(LightningElement) {
                 enq: this.tempCase,
                 uploadedFiles: this.uploadedFiles
             }).then(result => {
+                console.debug(result);
                 if(result.status == 'error')
                 {
                     this.errorMessage = result.message;
@@ -102,6 +104,8 @@ export default class bspFormGeneral extends NavigationMixin(LightningElement) {
                 this.showSpinner = false;
             })
             .catch(error => {
+                console.error('error occured');
+                console.error(error);
                 this.showSpinner = false;
                 this.disableSubmit = false;
             });

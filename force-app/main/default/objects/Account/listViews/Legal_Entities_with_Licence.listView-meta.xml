@@ -16,6 +16,6 @@
     </filters>
     <label>Legal Entities with Licence</label>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

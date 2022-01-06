@@ -1254,6 +1254,11 @@
             <field>Winning_Master_Record__c</field>
             <table>Campaign.ContactCampaignMembers</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Exclude_from_Research_Contact__c</field>
+            <table>Campaign.ContactCampaignMembers</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
 </ReportType>

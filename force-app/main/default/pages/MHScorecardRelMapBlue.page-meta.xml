@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>26.0</apiVersion>
-    <availableInTouch>true</availableInTouch>
+    <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <description>Miller Heiman V6.0 - Funnel Scorecard,  Relationship Map, and Blue Sheet VFP</description>
     <label>MH Scorecard-RelMap-BlueSheetv6</label>

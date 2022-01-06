@@ -9,7 +9,6 @@
     <relationshipLabel>SAP Contracts</relationshipLabel>
     <relationshipName>SAP_Contracts</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

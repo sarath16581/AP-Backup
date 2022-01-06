@@ -3,7 +3,7 @@
     <baseObject>Opportunity</baseObject>
     <category>opportunities</category>
     <deployed>true</deployed>
-    <description>Opportunities with Sales Support Requests - to enable reporting for legacy opportunities and the sales support requests that belong to them</description>
+    <description>Opportunities with Sales Support Requests - to enable reporting for legacy opportunities and the sales support requests that belong to them.</description>
     <join>
         <outerJoin>false</outerJoin>
         <relationship>Solution_Qualifications__r</relationship>
@@ -1127,7 +1127,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Billing_address__c</field>
+            <field>Business_Development_Driver__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -1292,17 +1292,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Primary_Pick_Up_Location__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>BusinessCustomerType__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CNA_Complete_Date__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -1472,26 +1462,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CNA_Duration__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CNA_Start_Date__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CNA_Status__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Customer_requires_proposal_document__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Deal_Desk_DSR_Exist__c</field>
             <table>Opportunity</table>
         </columns>
@@ -1607,7 +1577,42 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Tigs__c</field>
+            <field>Primary_Pick_Up_Location__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Billing_address__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CNA_Complete_Date__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CNA_Duration__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CNA_Start_Date__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CNA_Status__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Customer_requires_proposal_document__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Registered_Business_Name__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -1633,11 +1638,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Type_of_billing_account_required__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Registered_Business_Name__c</field>
             <table>Opportunity</table>
         </columns>
         <masterLabel>Opportunities</masterLabel>

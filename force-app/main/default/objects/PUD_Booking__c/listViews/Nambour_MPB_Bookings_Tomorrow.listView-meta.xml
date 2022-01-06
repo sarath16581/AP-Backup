@@ -19,13 +19,23 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>greaterOrEqual</operation>
+        <operation>lessOrEqual</operation>
         <value>TOMORROW</value>
     </filters>
     <filters>
-        <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>nam</value>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>4518,4519,4520,4521,4522,4523,4524,4525,4526,4527,4528,4529,4530</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>4531,4532,4533,4534,4535,4536,4537,4538,4539,4540,4541,4542,4543,4544,4545,4546</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>4517</value>
     </filters>
     <label>Nambour - MPB Bookings Tomorrow</label>
     <sharedTo>

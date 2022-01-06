@@ -11,7 +11,7 @@
     <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onChange}"/>
     <aura:handler name='change' value='{!v.authUserData.isAuthenticated}' action='{!c.onChange}' />
     <aura:attribute name="displaySection" type="String" default=""/>
-    <aura:handler name="init" value="{!this}" action="{!c.init}"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
     <!-- Is not authenticated -->
     <aura:if isTrue="{!v.authUserData.isUserAuthenticated != true}">
         <!--Go back button-->
@@ -19,17 +19,17 @@
             <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
             <lightning:button label="BACK" variant="base" onclick="{!c.goBack}" class="goBack"/>
         </div>
-       
         <div class="outer-box">
             <h2 class="chas-header">Contact details</h2>
-            <div style="padding-top:32px">
             <c:ChasBspDeflection borderStyle="info-box-left-bar bottom-gap">
                 <p>
                     Got a MyPost account? <lightning:button aura:id="button" variant="base" label="Log in now" onclick="{!c.navigateToLoginMyPost}"/> to pre-fill your contact details.
                 </p>
             </c:ChasBspDeflection>
+            <div style="margin-top:32px">
+                
             </div>
-                        
+            
             <!-- Input fields........-->
             <div class="form-input-container">
                 <c:ChasInput type='text' aura:id='chasInput' name='ChasGivenName' required='false' label='Given name' value='{! v.wizardData.givenName }' />
@@ -69,7 +69,6 @@
             <c:ChasForm customStyle="left-padding">
                 <div class="outer-box">
                     <c:ChasFieldset label="Contact details">
-                        <hr/>
                         <div class="chas-output">
                             <p>{!v.authUserData.userContactFirstName + ' ' + v.authUserData.userContactLastName}</p>
                             <p>{!v.authUserData.userContactEmail}</p>

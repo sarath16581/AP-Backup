@@ -164,7 +164,7 @@ This object is responsible for storing a given user&apos;s response to a particu
         <type>Text</type>
     </nameField>
     <pluralLabel>Test Question Responses</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

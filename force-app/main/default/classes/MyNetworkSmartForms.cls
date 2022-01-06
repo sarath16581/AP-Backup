@@ -106,6 +106,7 @@ public with sharing class MyNetworkSmartForms {
                     oCase.ReferenceID__c= caseWrapper.custRefID;
                     //oCase.CRN__c= caseWrapper.custRefID;
                 }
+                
                 // Update Value of contents
                 if(!String.isBlank(caseWrapper.valueOfContents)){
                     oCase.ValueofContents__c= Decimal.valueOf(caseWrapper.valueOfContents);
@@ -191,6 +192,7 @@ public with sharing class MyNetworkSmartForms {
                                                 'Damaged: '+caseWrapper.totalBottlesDamaged+', '+
                                                 'Labels: '+caseWrapper.noOfLabelsDamaged+', '+
                                                 'Tops: '+caseWrapper.noOfCapsDamaged;
+                        //REQ2525818
                         if(!String.isBlank(caseWrapper.custRefID) && caseWrapper.formId.equalsIgnoreCase('eParcel')){
                             oCase.eParcelDamages__c += '\n\n'+ 'Sender Reference: '+ caseWrapper.custRefID;
                         }

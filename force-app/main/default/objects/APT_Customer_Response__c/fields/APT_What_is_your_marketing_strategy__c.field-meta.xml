@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>What is your marketing strategy?</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

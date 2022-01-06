@@ -3,7 +3,6 @@
     <fullName>Completed_Change_Request__c</fullName>
     <externalId>false</externalId>
     <label>Completed Change Request</label>
-    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Segmentation_Change_Request__c.Approval_Status__c</field>
         <operation>equals</operation>

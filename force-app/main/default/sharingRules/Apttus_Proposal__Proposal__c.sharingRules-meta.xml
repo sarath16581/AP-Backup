@@ -8,7 +8,7 @@
             <roleAndSubordinatesInternal>FBU_Pricing</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <allInternalUsers/>
+            <allInternalUsers></allInternalUsers>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -19,7 +19,7 @@
             <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <allInternalUsers/>
+            <allInternalUsers></allInternalUsers>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -30,7 +30,7 @@
             <roleAndSubordinatesInternal>SalesOperations</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <allInternalUsers/>
+            <allInternalUsers></allInternalUsers>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -42,7 +42,7 @@
             <group>ACIC_Request_Case_Team</group>
         </sharedTo>
         <sharedFrom>
-            <allInternalUsers/>
+            <allInternalUsers></allInternalUsers>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

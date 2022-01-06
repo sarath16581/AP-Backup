@@ -10,14 +10,14 @@
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
     <filters>
-        <field>CASES.STATUS</field>
-        <operation>notEqual</operation>
-        <value>Closed,Closed - Expired,Closed - Customer Viewed,Closed - Pending</value>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
     </filters>
     <label>SSSW Extra Cover</label>
     <language>en_US</language>
     <queue>SSSW_Extra_Cover</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

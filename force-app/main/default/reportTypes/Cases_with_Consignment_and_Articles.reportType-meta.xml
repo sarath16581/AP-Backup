@@ -2738,11 +2738,6 @@
             <field>CCUYourReference__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
@@ -2951,16 +2946,6 @@
             <field>Cubic_Weight__c</field>
             <table>Case.Articles__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaptureID_anyoneataddress__c</field>
-            <table>Case.Articles__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaptureID_receiveronly__c</field>
-            <table>Case.Articles__r</table>
-        </columns>
         <masterLabel>Articles</masterLabel>
     </sections>
     <sections>
@@ -3053,6 +3038,16 @@
             <checkedByDefault>false</checkedByDefault>
             <field>Bookin__c</field>
             <table>Case.Articles__r.Articles__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Event_Completion_Time__c</field>
+            <table>Case.Articles__r.Articles__r.Event_Messages__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Event_Completion_Time_TimeStamp__c</field>
+            <table>Case.Articles__r.Articles__r.Event_Messages__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -3640,18 +3635,5 @@
             <table>Case.Articles__r.Articles__r.Event_Messages__r</table>
         </columns>
         <masterLabel>Articles</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Outside_Delivery_Radius__c</field>
-            <table>Case.Articles__r.Articles__r.Event_Messages__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Geo_Precision__c</field>
-            <table>Case.Articles__r.Articles__r.Event_Messages__r</table>
-        </columns>
-        <masterLabel>Event Messages</masterLabel>
     </sections>
 </ReportType>

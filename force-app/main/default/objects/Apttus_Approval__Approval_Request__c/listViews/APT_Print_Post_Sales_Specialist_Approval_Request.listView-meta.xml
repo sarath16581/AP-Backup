@@ -5,6 +5,6 @@
     <label>Print Post Sales Specialist</label>
     <queue>APT_Print_Post_Sales_Specialist</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

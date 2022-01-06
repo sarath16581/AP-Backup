@@ -7,7 +7,6 @@
     <label>Reference Id</label>
     <length>18</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

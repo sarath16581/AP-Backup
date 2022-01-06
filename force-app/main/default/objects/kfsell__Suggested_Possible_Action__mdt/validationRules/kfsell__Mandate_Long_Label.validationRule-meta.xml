@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>kfsell__Mandate_Long_Label</fullName>
-    <active>true</active>
-    <description>Making the Long Label field Mandatory</description>
-    <errorConditionFormula>ISBLANK(kfsell__Long_Label__c)</errorConditionFormula>
-    <errorDisplayField>kfsell__Long_Label__c</errorDisplayField>
-    <errorMessage>Please enter a value in this field.</errorMessage>
-</ValidationRule>

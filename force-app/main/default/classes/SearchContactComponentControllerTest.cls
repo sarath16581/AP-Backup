@@ -9,7 +9,7 @@
   *     15/11/2019 - snigdha.sahu@auspost.com.au - Added coverage for validation rule
   *     15/11/2019 - seth.p.heang@accenture.com - Added coverage for Contact Block Duplicate Rule
   *     20/07/2020 - Swati.Mogadala@auspost.com.au -Add EmailNotAvailable checkbox for Contacts and person accounts(REQ2065161)
-  * 	20/05/2021 - Madhuri.awasthi@auspost.com.au - Add PreferredName field for Contact and person accounts(REQ2476162)
+  *     20/05/2021 - Madhuri.awasthi@auspost.com.au - Add PreferredName field for Contact and person accounts(REQ2476162)
   */
 
 
@@ -194,7 +194,7 @@ public with sharing class SearchContactComponentControllerTest {
         List<SearchContactComponentController.ContactListDisplay> result = SearchContactComponentController.addCustomer( strAccountName, strAccountNumber,
                 strFirstName,
                 strLastName,
-                strPreferredName,                                                                                                        
+                strPreferredName,                                                                                                       
                 strAddress,
                 strEmail,
                 strPhone,
@@ -223,9 +223,9 @@ public with sharing class SearchContactComponentControllerTest {
         List<SearchContactComponentController.ContactListDisplay> accResult = SearchContactComponentController.addCustomer(strAccountName, strAccountNumber,
                 strFirstName,
                 strLastName,
+                strPreferredName,                                                                                                          
                 strAddress,
                 strEmail,
-                strPreferredName,                                                                                                           
                 strPhone,
                 strSocialKeys,
                 strCustomerType,
@@ -386,7 +386,7 @@ public with sharing class SearchContactComponentControllerTest {
              strEmail,
              strFirstName,
              strLastName,
-             strPreferredName,
+             strPreferredName,                                                                                                              
              strPhone,
              strAccountNumber,
              strAccountName,

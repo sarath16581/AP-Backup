@@ -3648,7 +3648,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>EventMessage__c.TruckId__c</field>
         <readable>true</readable>
     </fieldPermissions>

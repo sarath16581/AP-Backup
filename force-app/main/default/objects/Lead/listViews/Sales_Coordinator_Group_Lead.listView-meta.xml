@@ -5,6 +5,6 @@
     <label>Sales Coordinator Group</label>
     <queue>Sales_Coordinator_Group</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -5,7 +5,7 @@
     <alertText>We found some other organisations with similar names. Use one of these?</alertText>
     <description>Warn users when similar account names with existing accounts are detected</description>
     <duplicateRuleFilter>
-        <booleanFilter>4 AND 9 AND (2 OR 3 OR 1 OR 5 OR 6 OR 7 OR 8)</booleanFilter>
+        <booleanFilter>4 AND 9 AND (2 OR 3 OR 1 OR 5 OR 6 OR 7 OR 8 OR 10)</booleanFilter>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
@@ -51,7 +51,7 @@
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
-            <value>BG Base</value>
+            <value>Enterprise Onboarding</value>
             <sortOrder>7</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
@@ -68,6 +68,13 @@
             <value>false</value>
             <sortOrder>9</sortOrder>
             <table>Account</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>BG Base</value>
+            <sortOrder>10</sortOrder>
+            <table>User</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>

@@ -10,7 +10,6 @@ For Non LPO Licences; select a value in this field, set Assignment Effective To 
 For LPO Licences; Cease via a Partner Info Change record.</inlineHelpText>
     <label>Termination Reason</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

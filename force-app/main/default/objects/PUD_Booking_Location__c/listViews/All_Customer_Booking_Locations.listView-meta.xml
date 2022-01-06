@@ -5,16 +5,11 @@
     <columns>Street__c</columns>
     <columns>City__c</columns>
     <columns>Post_Code__c</columns>
-    <columns>State__c</columns>
-    <columns>LEGACY_ID__c</columns>
     <columns>Route__c</columns>
-    <columns>Contact_Name__c</columns>
-    <columns>Contact_Phone_Number__c</columns>
+    <columns>Customer__c</columns>
+    <columns>State__c</columns>
+    <columns>Site_Instructions__c</columns>
+    <columns>Geolocation__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>Route__c</field>
-        <operation>startsWith</operation>
-        <value>SG</value>
-    </filters>
     <label>All Customer Booking Locations</label>
 </ListView>

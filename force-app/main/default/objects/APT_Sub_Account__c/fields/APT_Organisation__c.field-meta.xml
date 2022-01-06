@@ -7,7 +7,6 @@
     <referenceTo>Account</referenceTo>
     <relationshipName>Sub_Accounts</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -160,7 +160,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Account Relationship Maps</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <startsWith>Vowel</startsWith>
     <visibility>Public</visibility>

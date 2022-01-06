@@ -13,6 +13,13 @@
 						<template if:true={details.companyName}>
 							{details.companyName}<br/>
 						</template>
+						<template if:true={loadingNotificationPreferences}>
+							<div class="slds-p-around_medium slds-is-relative slds-align_absolute-center">
+								<lightning-spinner variant="brand" size="small"
+												   alternative-text="Loading search results..."></lightning-spinner>
+							</div>
+						</template>
+						<template if:false={loadingNotificationPreferences}>
 						<template if:true={details.name}>
 							{details.name}
 							<template if:false={contact}>
@@ -72,6 +79,7 @@
 								</p>
 								<!--<a href={contactUrl} target="_workspaceTab" class="slds-text-link">{contact.Name}</a>-->
 							</div>
+						</template>
 						</template>
 					</div>
 					<div class="slds-text-body_regular">

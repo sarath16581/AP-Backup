@@ -162,7 +162,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Price Waterfall Components</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

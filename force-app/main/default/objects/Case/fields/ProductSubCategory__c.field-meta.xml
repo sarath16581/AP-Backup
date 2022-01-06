@@ -888,9 +888,9 @@
                 <label>Accounts Receivable</label>
             </value>
             <value>
-                <fullName>SCR</fullName>
+                <fullName>SRC</fullName>
                 <default>false</default>
-                <label>SCR</label>
+                <label>SRC</label>
             </value>
             <value>
                 <fullName>Reply Paid</fullName>
@@ -1050,6 +1050,10 @@
         <valueSettings>
             <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
             <valueName>Accounts Receivable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>SRC</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>eParcel</controllingFieldValue>

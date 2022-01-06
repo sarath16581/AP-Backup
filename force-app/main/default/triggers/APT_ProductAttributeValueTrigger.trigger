@@ -6,7 +6,6 @@ Last Modified By -
 Last Modified Date - 
 Mathew Jose - 29/05/2021 - Added afterUpdateEvent method as part of STP-5812 (Shopping Cart Performance)
 Mathew Jose - 29/05/2021 - Updated beforeInsert method call as part of STP-5812 (Shopping Cart Performance)
- * 2021/09/15 - Sautul Mehta - CI-4 - To add the selected lodgement zone change for APPC product.
 **/
 trigger APT_ProductAttributeValueTrigger on Apttus_Config2__ProductAttributeValue__c (before insert,before update, after update) {
     
@@ -14,9 +13,8 @@ trigger APT_ProductAttributeValueTrigger on Apttus_Config2__ProductAttributeValu
     //before insert and update both
     //APT_ProductAttributeValueTriggerHandler.bandInfo(trigger.new);
     
-     
-    System.debug('Trigger called: SM');
-       
+    
+    
     if(trigger.isBefore && trigger.isInsert) {
         /*String result = APT_ProductAttributeValueTriggerHandler.beforeInsertEvent(trigger.new);
         if(result != APT_Constants.SUCCESS_LABEL){

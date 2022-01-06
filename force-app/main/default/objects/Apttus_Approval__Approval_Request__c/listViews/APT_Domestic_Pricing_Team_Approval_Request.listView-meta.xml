@@ -5,6 +5,6 @@
     <label>Domestic Pricing Team</label>
     <queue>APT_Domestic_Pricing_Team</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

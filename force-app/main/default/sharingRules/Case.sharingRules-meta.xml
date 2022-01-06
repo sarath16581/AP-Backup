@@ -682,6 +682,7 @@
     <sharingCriteriaRules>
         <fullName>VOC_Incident_Read_Write_Managers</fullName>
         <accessLevel>Edit</accessLevel>
+        <description>StarTrack Managers within group has Read/Write access to VOC Enquiry &amp; Incident</description>
         <label>VOC Incident Read/Write Managers</label>
         <sharedTo>
             <group>StarTrack_VOC_Manager_Team</group>

@@ -6,5 +6,9 @@
     <columns>CREATED_DATE</columns>
     <columns>NAME</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>FSL__Service_Territory__c</field>
+        <operation>contains</operation>
+    </filters>
     <label>All</label>
 </ListView>

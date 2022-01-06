@@ -6,6 +6,5 @@
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Expected Delivery Date</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Date</type>
 </CustomField>

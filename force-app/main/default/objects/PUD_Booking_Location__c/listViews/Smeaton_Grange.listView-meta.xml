@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Smeaton_Grange</fullName>
+    <columns>Post_Code__c</columns>
     <columns>NAME</columns>
-    <columns>Route__c</columns>
     <columns>Address_Text__c</columns>
-    <columns>Billing_Account_Number_FX__c</columns>
-    <columns>Contact_Name__c</columns>
-    <columns>Contact_Phone_Number__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Route__c</field>

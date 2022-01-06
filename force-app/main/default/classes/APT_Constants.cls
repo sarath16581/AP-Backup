@@ -182,7 +182,7 @@ public with sharing class APT_Constants {
   public static final String AIRLET_INTERNATIONAL_PRODUCT = 'AIRLET';
   public static final String AIRPCL_INTERNATIONAL_PRODUCT = 'AIRMAIL_LETTERS';
   //Added by spingali for INC1758955 - Airmail letters checkbox issue.
-  public static final String AIRMAIL_INTERNATIONAL_PRODUCT = 'AIRMAIL_LETTERS';
+  //public static final String AIRMAIL_INTERNATIONAL_PRODUCT = 'AIRMAIL_LETTERS';
   public static final String AIRPTI_INTERNATIONAL_PRODUCT = 'AIRPTI';
   public static final String AIRRPI_INTERNATIONAL_PRODUCT = 'AIRRPI';
   public static final String AIRSMPCL_INTERNATIONAL_PRODUCT = 'AIRSMPCL';
@@ -1465,6 +1465,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
    public static final String SAP_CONTRACT_OBJECT = 'APT_SAP_Contracts__c';
    public static final String FROM_SAP_CONTRACT_OBJECT = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId';
    public static final String FROM_WHERE_SAP_CONTRACT_STATUS = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId and SAP_Contract_Status__c != \'Inactive\' ';
+ 
    
    public static final String ADMIN_LARGE_CART_THRESHOLD = 'APTS_LargeCartThreshold';
    public static final String PRICE_STRUCTURE_WINE_Z30 = 'WINE {Z30}';

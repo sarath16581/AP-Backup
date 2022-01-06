@@ -27,6 +27,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
+        <description>Customer Integration Application Profile user to Edit Mailing address on Contact .</description>
         <label>Customer Integration Team</label>
         <sharedTo>
             <role>Customer_Integration_Application</role>
@@ -198,25 +199,6 @@
         <label>Share Organisations to LBPs</label>
         <sharedTo>
             <roleAndSubordinates>PartnerInfo_National_RNP_Manager</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Organisation</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Sharing_Orgs_to_BMS_Inside_Sales</fullName>
-        <accessLevel>Edit</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Edit</contactAccessLevel>
-            <opportunityAccessLevel>None</opportunityAccessLevel>
-        </accountSettings>
-        <description>Sharing Orgs to BMS Inside Sales (orgs only)</description>
-        <label>Sharing Orgs to BMS Inside Sales</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>Inside_Sales_BMS</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

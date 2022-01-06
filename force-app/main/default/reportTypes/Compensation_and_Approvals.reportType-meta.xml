@@ -410,11 +410,6 @@
             <field>Privacy_Check__c</field>
             <table>Compensation__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Tracking_Number__c</field>
-            <table>Compensation__c</table>
-        </columns>
         <masterLabel>Compensation</masterLabel>
     </sections>
     <sections>
@@ -625,6 +620,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>mh_Green_Sheet_Created_Date__c</field>
+            <table>Compensation__c.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>CTIInteractionID__c</field>
             <table>Compensation__c.Activities</table>
         </columns>
@@ -696,6 +696,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ServiceType__c</field>
+            <table>Compensation__c.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>mh_Last_Updated_Green_Sheet__c</field>
             <table>Compensation__c.Activities</table>
         </columns>
         <columns>

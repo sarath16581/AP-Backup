@@ -37,28 +37,6 @@
         <template>BCA_Credit_Assessment/BCA_Credit_Account_Rejected</template>
     </alerts>
     <fieldUpdates>
-        <fullName>AusPost_Round_up_to_11</fullName>
-        <description>The Aus Post Proposed for New Account and StarTrack Proposed for New Account fields are rounded up to $11 when a value less than $11 is entered</description>
-        <field>Aus_Post_Proposed_for_New_Account__c</field>
-        <formula>11</formula>
-        <name>AusPost Round up to 11</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>StarTrack_Round_up_to_11</fullName>
-        <description>The StarTrack Proposed for New Account ​field is rounded up to $11 when a value less than $11 is entered</description>
-        <field>StarTrack_Proposed_for_New_Account__c</field>
-        <formula>11</formula>
-        <name>StarTrack Round up to 11</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Update_Manual_Assessment_Date_and_Time</fullName>
         <field>L2C_Manual_Assessment_Start_Time__c</field>
         <formula>NOW()</formula>
@@ -68,21 +46,6 @@
         <protected>false</protected>
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
-    <rules>
-        <fullName>AusPost Round up to 11</fullName>
-        <actions>
-            <name>AusPost_Round_up_to_11</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>APT_Credit_Assessment__c.Aus_Post_Proposed_for_New_Account__c</field>
-            <operation>lessThan</operation>
-            <value>11</value>
-        </criteriaItems>
-        <description>The Aus Post Proposed for New Account field is rounded up to $11 when a value less than $11 is entered - REQ2596623</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
     <rules>
         <fullName>BCA Approved</fullName>
         <actions>
@@ -133,32 +96,6 @@
         </criteriaItems>
         <description>When a Credit Assessment is Rejected</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Referred Credit Assessment</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>APT_Credit_Assessment__c.APT_Credit_Assessment_Status__c</field>
-            <operation>equals</operation>
-            <value>Referred</value>
-        </criteriaItems>
-        <description>Send email on credit assessment referred</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>StarTrack Round up to 11</fullName>
-        <actions>
-            <name>StarTrack_Round_up_to_11</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>APT_Credit_Assessment__c.StarTrack_Proposed_for_New_Account__c</field>
-            <operation>lessThan</operation>
-            <value>11</value>
-        </criteriaItems>
-        <description>The StarTrack Proposed for New Account ​field is rounded up to $11 when a value less than $11 is entered - REQ2596623</description>
-        <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Update Manual Assessment Date and Time</fullName>

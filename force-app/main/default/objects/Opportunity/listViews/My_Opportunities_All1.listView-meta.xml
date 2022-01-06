@@ -11,5 +11,5 @@
     <columns>Opp_Hygiene_Rating__c</columns>
     <filterScope>Mine</filterScope>
     <label>My Opportunities - All</label>
-    <sharedTo/>
+    <sharedTo></sharedTo>
 </ListView>

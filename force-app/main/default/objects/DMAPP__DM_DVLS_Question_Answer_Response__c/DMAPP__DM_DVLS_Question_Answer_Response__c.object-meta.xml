@@ -157,14 +157,14 @@ This object is responsible for storing a given user&apos;s selection or non-sele
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Test Question Answer Response</label>
     <nameField>
         <label>eLearning Test Question Answer Response</label>
         <type>Text</type>
     </nameField>
     <pluralLabel>Test Question Answer Responses</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

@@ -135,7 +135,7 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
                                         Apttus__ProductId__r.Name,Apttus__ProductId__r.ProductCode, Apttus__AgreementId__r.Included_Product_Lines__c, 
                                         Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c,
                                         Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Transit_cover__c,
-                                        Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c
+                                        Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c                                        
                                         from Apttus__AgreementLineItem__c 
                                         where Apttus__AgreementId__c =: agreementID 
                                         and Apttus_CMConfig__OptionId__c = null
@@ -182,15 +182,23 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
                             Decimal umsMinQuantity = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c;
                                         
                             dos.APT_UMS_Minimum_Quantity__c = umsMinQuantity;
-                        }else {
+                        } else {
                             
                         }
+                        
                     }
                     
                     if(null != dos.ID && String.IsNotBlank(dos.ID)){
                         update dos;
                     }
                 }
+                
+                
+                
+                
+                
+                
+                
             }
             
         } catch (System.Exception ex) {            
@@ -204,4 +212,6 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
     public static final String VOLUME_THERESHOLD_500K = '500K - 999K';
     public static final String VOLUME_THERESHOLD_1M = '1M - 2.5M';
     public static final String VOLUME_THERESHOLD_2M = 'Above 2.5M';
+    
+
 }

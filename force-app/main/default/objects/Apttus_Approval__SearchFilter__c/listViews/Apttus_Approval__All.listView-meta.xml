@@ -3,12 +3,6 @@
     <fullName>Apttus_Approval__All</fullName>
     <columns>NAME</columns>
     <columns>Apttus_Approval__BusinessObject__c</columns>
-    <columns>Apttus_Approval__UseType__c</columns>
-    <columns>Apttus_Approval__Sequence__c</columns>
-    <columns>Apttus_Approval__CriteriaFieldNames__c</columns>
-    <columns>UPDATEDBY_USER</columns>
-    <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
-    <language>en_US</language>
 </ListView>

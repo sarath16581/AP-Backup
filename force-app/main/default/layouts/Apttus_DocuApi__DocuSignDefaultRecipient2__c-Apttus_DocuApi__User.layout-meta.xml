@@ -31,10 +31,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Apttus_CMDSign__AgreementId__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Apttus_DocuApi__Note__c</field>
             </layoutItems>
         </layoutColumns>

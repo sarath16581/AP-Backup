@@ -5,6 +5,5 @@
     <externalId>false</externalId>
     <label>Operations Outcome</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <type>TextArea</type>
 </CustomField>

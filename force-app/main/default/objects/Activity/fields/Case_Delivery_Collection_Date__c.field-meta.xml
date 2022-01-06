@@ -5,6 +5,5 @@
     <externalId>false</externalId>
     <label>Case Delivery/Collection Date</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Date</type>
 </CustomField>

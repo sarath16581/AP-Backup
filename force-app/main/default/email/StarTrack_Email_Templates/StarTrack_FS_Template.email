@@ -56,7 +56,7 @@
 								<td style="padding:0 0 0px; font:12px/13px Arial, Helvetica, sans-serif; color:#807370;">
                                                                   <p>Hi All,</p> 
 <p>
-Please note that the Final Shortage process is underway for consignment:
+Please note that the Final Shortage process is underway for consignment: {!Case.ArticleTest__c},Please respond with approval to close as a Final Shortage, or an update on the freight's location within the next 5 business days
 </p>
 
 <table style="font:12px/13px Arial, Helvetica, sans-serif; color:#807370;border-spacing:0px 15px">

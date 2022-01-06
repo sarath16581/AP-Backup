@@ -1527,16 +1527,6 @@
                 <label>Investigation|Domestic Parcels|Secure Accept and Collect</label>
             </value>
             <value>
-                <fullName>Feedback|Domestic Parcels|Standard Parcel</fullName>
-                <default>false</default>
-                <label>Feedback|Domestic Parcels|Standard Parcel</label>
-            </value>
-            <value>
-                <fullName>Feedback|Domestic Parcels|Premium Express Parcel</fullName>
-                <default>false</default>
-                <label>Feedback|Domestic Parcels|Premium Express Parcel</label>
-            </value>
-            <value>
                 <fullName>General Enquiry|Domestic Parcels|Standard Parcel</fullName>
                 <default>false</default>
                 <label>General Enquiry|Domestic Parcels|Standard Parcel</label>
@@ -1545,6 +1535,16 @@
                 <fullName>General Enquiry|Domestic Parcels|Premium Express Parcel</fullName>
                 <default>false</default>
                 <label>General Enquiry|Domestic Parcels|Premium Express Parcel</label>
+            </value>
+            <value>
+                <fullName>Feedback|Domestic Parcels|Standard Parcel</fullName>
+                <default>false</default>
+                <label>Feedback|Domestic Parcels|Standard Parcel</label>
+            </value>
+            <value>
+                <fullName>Feedback|Domestic Parcels|Premium Express Parcel</fullName>
+                <default>false</default>
+                <label>Feedback|Domestic Parcels|Premium Express Parcel</label>
             </value>
             <value>
                 <fullName>Investigation|Domestic Parcels|Standard Parcel</fullName>

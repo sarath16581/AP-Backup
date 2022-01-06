@@ -14,7 +14,6 @@
     <columns>Contract_Type__c</columns>
     <columns>Permission_Type__c</columns>
     <columns>Permission_ID__c</columns>
-    <columns>APT_Rate_Type__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
     <language>en_US</language>

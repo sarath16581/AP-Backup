@@ -5,6 +5,6 @@
     <label>StarTrack Credit Claims Queue</label>
     <queue>StarTrack_Credit_Claims_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

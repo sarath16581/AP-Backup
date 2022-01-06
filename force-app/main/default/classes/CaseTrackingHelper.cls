@@ -117,7 +117,7 @@ public with sharing class CaseTrackingHelper{
                     // create status tracking records for the case
                     List<StatusTracking__c> trackingRecords = createStatusTracking(casesTobeTracked,ownerMap,fieldMap,pervOwnerMap,true);
                     if(!trackingRecords.isEmpty()){     // verify if trackingRecords got values before DML
-                    /* Added by Neha Mehta for incident INC1708377 start */
+                     /* Added by Neha Mehta for incident INC1708377 start */
                         CaseTrackingHelper.CaseTrackingUpdate statusTrackingUpdate=new CaseTrackingHelper.CaseTrackingUpdate();
                         statusTrackingUpdate.insertStatusTrackingStatus(trackingRecords);//to create Status Tracking record when cases are created by Guest Users.
                         //Database.insert(trackingRecords,false);
@@ -202,7 +202,7 @@ public with sharing class CaseTrackingHelper{
                     }
                     
                     if(!trackingRecords.isEmpty()){ // verify if trackingRecords got values before DML
-                        /* Added by Neha Mehta for incident INC1708377 start */
+                     /* Added by Neha Mehta for incident INC1708377 start */
                         CaseTrackingHelper.CaseTrackingUpdate statusTrackingUpdate=new CaseTrackingHelper.CaseTrackingUpdate();
                         statusTrackingUpdate.upsertStatusTrackingStatus(trackingRecords);// guest users can’t have more than read access.With this change new tracking & update old tracking records can be created.
                         //Database.upsert(trackingRecords,false); // creates new tracking & updates old tracking records
@@ -537,7 +537,8 @@ public with sharing class CaseTrackingHelper{
                                                     SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
         }
     }
-    /**
+    
+     /**
       * @description       This inner class is created to update Status Tracking related list, when cases are created by Guest users.
       *                     As due to critical update “Secure Object Permissions for Guest Users”
       *                     guest users can’t have more than read access.
@@ -566,6 +567,5 @@ public with sharing class CaseTrackingHelper{
                                                     SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
             }
         }
-    }    
-        
+    } 
 }

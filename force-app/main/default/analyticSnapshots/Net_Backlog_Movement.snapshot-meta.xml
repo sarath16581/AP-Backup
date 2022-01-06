@@ -12,7 +12,7 @@
         <targetField>Analytic_Snapshot__c.Count__c</targetField>
     </mappings>
     <name>Net Backlog Movement</name>
-    <runningUser>stephanie.stolk@auspost.com.au</runningUser>
+    <runningUser>stephanie.stolk@auspost.com.au.invalid</runningUser>
     <sourceReport>Customer_Service_Archive/Net_Backlog_Movement</sourceReport>
     <targetObject>Analytic_Snapshot__c</targetObject>
 </AnalyticSnapshot>

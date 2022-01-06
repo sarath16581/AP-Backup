@@ -4,7 +4,9 @@
     <columns>FULL_NAME</columns>
     <columns>LEAD.COMPANY</columns>
     <columns>LEAD.STATE</columns>
+    <columns>LEAD.ZIP</columns>
     <columns>LEAD.EMAIL</columns>
+    <columns>Opportunity_Initial_Estimate__c</columns>
     <columns>LEAD.STATUS</columns>
     <columns>Contact_A__c</columns>
     <columns>LEAD.CREATED_DATE</columns>
@@ -12,6 +14,7 @@
     <columns>LEAD.LAST_ACTIVITY</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <columns>LEAD.UNREAD</columns>
+    <columns>Campaign_Name__c</columns>
     <filterScope>Mine</filterScope>
     <filters>
         <field>LEAD.STATUS</field>
@@ -21,7 +24,7 @@
     <label>My Open Leads</label>
     <language>en_US</language>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
         <group>Hub_Users</group>
         <group>InsideMarketing422681</group>
         <group>Sales</group>

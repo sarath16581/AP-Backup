@@ -177,8 +177,8 @@
         <searchResultsAdditionalFields>Customer_Name__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ABN__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ACN__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Credit_Person_Code__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>SAP_marked_for_deletion__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

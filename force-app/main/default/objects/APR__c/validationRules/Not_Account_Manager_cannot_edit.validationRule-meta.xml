@@ -9,5 +9,6 @@ $Permission.APR_Admin &lt;&gt; TRUE,
 $Profile.Name &lt;&gt; &apos;System Administrator&apos;,
 Legal_Entity_Name_LookUp__r.Owner.Id &lt;&gt; $User.Id 
 )</errorConditionFormula>
+    <errorDisplayField>Approval_Status__c</errorDisplayField>
     <errorMessage>You cannot edit an APR where you are not the Account Manager for the Organisation</errorMessage>
 </ValidationRule>

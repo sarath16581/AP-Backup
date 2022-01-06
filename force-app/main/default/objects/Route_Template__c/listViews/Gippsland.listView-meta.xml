@@ -15,9 +15,9 @@
         <value>Gippsland</value>
     </filters>
     <filters>
-        <field>First_Job_Start_Time_Number__c</field>
-        <operation>greaterOrEqual</operation>
-        <value>12</value>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Draft,Active</value>
     </filters>
     <label>Gippsland</label>
 </ListView>

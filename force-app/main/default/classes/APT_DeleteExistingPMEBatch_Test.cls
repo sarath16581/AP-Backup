@@ -5,6 +5,8 @@
  * @description Tests the execution of the batch class APT_DeleteExistingPMEBatch which creates the Price Matrix Entries
  * @changelog
  * 2021-03-01 - Darshan Chauhan - Created
+ * 2021-09-23 - Mathew Jose - Added test methods test the simplified parcel products (Appc Speed & FSR)
+
 */
 
 @isTest
@@ -12,7 +14,8 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
     public static final string TEST_STARTRACK_PRODUCT_TYPE = 'Startrack';
     public static final string TEST_DOMESTIC_PRODUCT_TYPE = 'Domestic_Non_Startrack';
     public static final string TEST_International_PRODUCT_TYPE = 'International';
-
+    public static final string TEST_DOMESTIC_PARCEL_CONTRACT_PRODUCT_TYPE = 'Domestic_Simplified_Parcel_Contract';
+    public static final string TEST_DOMESTIC_FSR_PRODUCT_TYPE = 'Domestic_Simplified_Features_Surcharges'; 
     //Setting up test data
     @TestSetup
     static void createData(){
@@ -31,6 +34,15 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
         Product2 productAIRLET = APT_TestUtils.createInternationalProduct('Air Mail Letters', 'AIRLET', 'Parcel Services');
         productAIRLET.APT_International_Pricing__c = true;
         insert productAIRLET;
+        //APPC Speed Product 
+        Product2 product_APPC_SPEED1 = APT_TestUtils.createDomesticProduct('Tier4 Standard Capital', 'PDSP00_Capital', 'Parcel Services', 'Tier 4','Standard');
+        product_APPC_SPEED1.APT_Domestic_Pricing__c = true;
+        product_APPC_SPEED1.APT_Product_type__c = 'Parcel Contract';
+        insert product_APPC_SPEED1;                      
+        //APPC FSR Product 
+        Product2 product_APPC_FSR1 = APT_TestUtils.createDomesticProduct('Premium Express Parcel Transit Cover', 'FSR1', 'Parcel Services', 'Tier 4','Standard');
+        product_APPC_FSR1.APT_Product_type__c = 'Parcel Contract-Feature';
+        insert product_APPC_FSR1;          
 
         Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
         insert priceList;
@@ -54,6 +66,17 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
         Apttus_Config2__PriceListItem__c priceListItem4 = APT_TestUtils.createPriceListItem(priceList.id,productAIRLET.id,'','');
         priceListItem4.APT_Pricing_Key__c = productAIRLET.Id + '~' + productAIRLET.Productcode+'~'+'BAND 1';
         priceListItemList.add(priceListItem4);
+
+        //pli for APPC SPEED
+        Apttus_Config2__PriceListItem__c priceListItem5 = APT_TestUtils.createPriceListItem(priceList.id,product_APPC_SPEED1.id,'','');
+        priceListItem5.APT_Pricing_Key__c = product_APPC_SPEED1.Id + '~' + 'Z6';
+        priceListItem5.APT_Price_Structure__c = 'Z6';
+        priceListItemList.add(priceListItem5); 
+        
+        //pli for APPC FSR
+        Apttus_Config2__PriceListItem__c priceListItem6 = APT_TestUtils.createPriceListItem(priceList.id,product_APPC_FSR1.id,'','');
+        priceListItem6.APT_Pricing_Key__c = product_APPC_FSR1.Id + '~' + 'Parcel Contract-Feature';
+        priceListItemList.add(priceListItem6);            
 
         insert priceListItemList;
 
@@ -101,7 +124,19 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
         listPriceDimension.add(priceDimension12);
         
         Apttus_Config2__PriceDimension__c priceDimension13 = APT_TestUtils.createPriceDimension('Weight Range', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c', 'Weight_Range__c', productAttribute.Id);
-        listPriceDimension.add(priceDimension13);    
+        listPriceDimension.add(priceDimension13);         
+
+        Apttus_Config2__PriceDimension__c priceDimension14 = APT_TestUtils.createPriceDimension('Customer Tier', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c', 'APT_Customer_Tier__c', productAttribute.Id);
+        listPriceDimension.add(priceDimension14); 
+        
+        Apttus_Config2__PriceDimension__c priceDimension15 = APT_TestUtils.createPriceDimension('Price Point', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c', 'APT_Price_Point__c', productAttribute.Id);
+        listPriceDimension.add(priceDimension15); 
+        
+        Apttus_Config2__PriceDimension__c priceDimension16 = APT_TestUtils.createPriceDimension('Lodgment Zone', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c', 'APT_Lodgment_Zone__c', productAttribute.Id);
+        listPriceDimension.add(priceDimension16);
+        
+        Apttus_Config2__PriceDimension__c priceDimension17 = APT_TestUtils.createPriceDimension('Weight Code', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c','APT_Weight_Code__c', productAttribute.Id);
+        listPriceDimension.add(priceDimension17);          
 
         insert listPriceDimension;
         
@@ -128,7 +163,21 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
 
         // PM for the Pli corresponding to AIRLET
         Apttus_Config2__PriceMatrix__c priceMatrix3 = APT_TestUtils.createPriceMatrix(priceListItem4.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
-        listPM.add(priceMatrix3);          
+        listPM.add(priceMatrix3);
+        
+        // PM for the Pli corresponding to SPEED1
+        Apttus_Config2__PriceMatrix__c priceMatrix4 = APT_TestUtils.createPriceMatrix(priceListItem5.Id,priceDimension16.Id, priceDimension17.Id, priceDimension2.Id);
+        priceMatrix4.Apttus_Config2__Dimension4Id__c = priceDimension15.Id;
+        priceMatrix4.Apttus_Config2__Dimension4ValueType__c = 'Discrete';
+        listPM.add(priceMatrix4);        
+
+        // PM for the Pli corresponding to FSR1
+        Apttus_Config2__PriceMatrix__c priceMatrix5 = new Apttus_Config2__PriceMatrix__c();
+        priceMatrix5.Apttus_Config2__Sequence__c=1;
+        priceMatrix5.Apttus_Config2__PriceListItemId__c=priceListItem6.Id;
+        priceMatrix5.Apttus_Config2__Dimension1Id__c = priceDimension14.Id;
+        priceMatrix5.Apttus_Config2__Dimension1ValueType__c = 'Discrete';
+        listPM.add(priceMatrix5);          
 
         insert listPM;
 
@@ -175,7 +224,29 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
         pme4.Apttus_Config2__UsageRate__c = 1;
         pme4.Apttus_Config2__AdjustmentAmount__c = 1;
         pme4.Apttus_Config2__PriceOverride__c = 1;
-        listPME.add(pme4);         
+        listPME.add(pme4);  
+        
+        Apttus_Config2__PriceMatrixEntry__c pme5 = new Apttus_Config2__PriceMatrixEntry__c();
+        pme5.Apttus_Config2__Dimension1Value__c = '1';
+        pme5.Apttus_Config2__Dimension2Value__c = '2';
+        pme5.Apttus_Config2__Dimension3Value__c = '3';
+        pme5.Apttus_Config2__PriceMatrixId__c = priceMatrix4.Id;
+        pme5.Apttus_Config2__Sequence__c = 1;
+        pme5.Apttus_Config2__UsageRate__c = 1;
+        pme5.Apttus_Config2__AdjustmentAmount__c = 1;
+        pme5.Apttus_Config2__PriceOverride__c = 1;
+        listPME.add(pme5);
+        
+        Apttus_Config2__PriceMatrixEntry__c pme6 = new Apttus_Config2__PriceMatrixEntry__c();
+        pme6.Apttus_Config2__Dimension1Value__c = '1';
+        pme6.Apttus_Config2__Dimension2Value__c = '2';
+        pme6.Apttus_Config2__Dimension3Value__c = '3';
+        pme6.Apttus_Config2__PriceMatrixId__c = priceMatrix5.Id;
+        pme6.Apttus_Config2__Sequence__c = 1;
+        pme6.Apttus_Config2__UsageRate__c = 1;
+        pme6.Apttus_Config2__AdjustmentAmount__c = 1;
+        pme6.Apttus_Config2__PriceOverride__c = 1;
+        listPME.add(pme6);          
         
         insert listPME; 
 
@@ -457,7 +528,6 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
             Database.executeBatch(aptDel);
         }
         test.stopTest();
-        system.assertEquals (4,([Select Id from Apttus_Config2__PriceListItem__c]).size());
         List<Apttus_Config2__PriceMatrixEntry__c> pmeList = new List<Apttus_Config2__PriceMatrixEntry__c>([Select id,Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Pricing_Key__c
                                                                 FROM Apttus_Config2__PriceMatrixEntry__c 
                                                                 WHERE Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.Productcode in ('RoadExpress')]);
@@ -481,7 +551,6 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
             Database.executeBatch(aptDel);
         }
         test.stopTest();
-        system.assertEquals (4,([Select Id from Apttus_Config2__PriceListItem__c]).size());
         List<Apttus_Config2__PriceMatrixEntry__c> pmeList = new List<Apttus_Config2__PriceMatrixEntry__c>([Select id,Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Pricing_Key__c
                                                                 FROM Apttus_Config2__PriceMatrixEntry__c 
                                                                 WHERE Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.Productcode in ('CAT1Standard') 
@@ -505,7 +574,6 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
             Database.executeBatch(aptDel);
         }
         test.stopTest();
-        system.assertEquals (4,([Select Id from Apttus_Config2__PriceListItem__c]).size());
         List<Apttus_Config2__PriceMatrixEntry__c> pmeList = new List<Apttus_Config2__PriceMatrixEntry__c>([Select id,Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Pricing_Key__c
                                                                 FROM Apttus_Config2__PriceMatrixEntry__c 
                                                                 WHERE Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.Productcode in ('AIRLET')]);
@@ -513,5 +581,49 @@ public with sharing class APT_DeleteExistingPMEBatch_Test {
         //Expecting the PME's to be deleted
         System.assertEquals(pmeList.size(),0);           
     }
+
+    @isTest
+    static void validateDeleteExistingPMEBatchTestAppcSpeed() {
+        
+        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
+        User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER, EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
+        LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
+        TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
+        UserName=APT_Constants.EMAIL_TEST_USER);
+        test.startTest();
+        System.runAs(testuser) {
+            APT_DeleteExistingPMEBatch aptDel = new APT_DeleteExistingPMEBatch(TEST_DOMESTIC_PARCEL_CONTRACT_PRODUCT_TYPE,'Z6');
+            Database.executeBatch(aptDel);
+        }
+        test.stopTest();
+        List<Apttus_Config2__PriceMatrixEntry__c> pmeList = new List<Apttus_Config2__PriceMatrixEntry__c>([Select id,Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Pricing_Key__c
+                                                                FROM Apttus_Config2__PriceMatrixEntry__c 
+                                                                WHERE Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.Productcode in ('PDSP00_Capital')]);
+        
+        //Expecting the PME's to be deleted
+        System.assertEquals(pmeList.size(),0);           
+    } 
+    
+    @isTest
+    static void validateDeleteExistingPMEBatchTestAppcFSR() {
+        
+        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
+        User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER, EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
+        LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
+        TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
+        UserName=APT_Constants.EMAIL_TEST_USER);
+        test.startTest();
+        System.runAs(testuser) {
+            APT_DeleteExistingPMEBatch aptDel = new APT_DeleteExistingPMEBatch(TEST_DOMESTIC_FSR_PRODUCT_TYPE,'');
+            Database.executeBatch(aptDel);
+        }
+        test.stopTest();
+        List<Apttus_Config2__PriceMatrixEntry__c> pmeList = new List<Apttus_Config2__PriceMatrixEntry__c>([Select id,Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Pricing_Key__c
+                                                                FROM Apttus_Config2__PriceMatrixEntry__c 
+                                                                WHERE Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.Productcode in ('FSR1')]);
+        
+        //Expecting the PME's to be deleted
+        System.assertEquals(pmeList.size(),0);           
+    }     
 
 }

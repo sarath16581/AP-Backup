@@ -2703,11 +2703,6 @@
             <field>Last_Confirmation_email_date__c</field>
             <table>Account.Memberships__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Compliance_Officer__c</field>
-            <table>Account.Memberships__r</table>
-        </columns>
         <masterLabel>Memberships</masterLabel>
     </sections>
 </ReportType>

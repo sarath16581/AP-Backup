@@ -239,6 +239,7 @@ export default class BspEnquiriesList extends LightningElement {
             document.body.appendChild(downloadElement);
             downloadElement.click();
         }).catch(error => {
+            console.log('error=' + error);
             this.setLoadingStatus(false);
             this.setError(error);
         });

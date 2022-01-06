@@ -47,8 +47,8 @@
                     <td style="padding:0 0 0px; font:12px/13px Arial, Helvetica, sans-serif; color:#807370;">
                       <p>Hi {!workflow_Email__c.Contact_First_Name__c}, <br>
                         <br> Thank you for contacting StarTrack regarding consignment {!workflow_Email__c.Consignment_Number__c}. <br>
-                        <br> Your freight is now ready for collection from: <br>
-                        <br> {!workflow_Email__c.Network_Name__c} <br> {!workflow_Email__c.Depot_Address__c} <br>
+                        <br> Your freight is now ready for collection from our StarTrack Depot at: <br>
+                        <br> {!workflow_Email__c.Depot_Address__c} <br>
                         <br>
                         <b>Special instructions:</b>
                         <br> {!workflow_Email__c.Special_Instructions__c} <br>

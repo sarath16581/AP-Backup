@@ -5,6 +5,6 @@
     <label>Warehouse Processing – Townsville (0450)</label>
     <queue>Warehouse_Processing_Townsville_0450</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

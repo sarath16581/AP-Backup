@@ -1,4 +1,10 @@
-<!-- 2021-08-30 naveen.rajanna@auspost.com.au RELEASE UPDATES Enable Aura Component Access Fix -->
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-06-2021
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 <aura:component access="global">
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:attribute name="topic" type="Topic" access="public"/>

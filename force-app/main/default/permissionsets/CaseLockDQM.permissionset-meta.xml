@@ -7,5 +7,4 @@
     <description>Case Edit Access for DQM Record type</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>CaseLockDQM</label>
-    <license>Salesforce</license>
 </PermissionSet>

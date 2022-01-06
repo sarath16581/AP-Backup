@@ -43,10 +43,6 @@
                 <behavior>Edit</behavior>
                 <field>Is_Selling_Product__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Lodgement_zone__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

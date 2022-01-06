@@ -166,7 +166,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Audit Action Statements</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

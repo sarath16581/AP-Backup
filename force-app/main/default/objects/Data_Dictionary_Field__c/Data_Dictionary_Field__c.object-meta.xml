@@ -166,7 +166,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Data Dictionary Fields</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

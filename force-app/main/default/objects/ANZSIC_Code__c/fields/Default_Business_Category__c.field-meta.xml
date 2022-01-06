@@ -4,18 +4,12 @@
     <externalId>false</externalId>
     <label>Default Business Category</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <controllingField>Default_Industry__c</controllingField>
         <valueSetDefinition>
             <sorted>true</sorted>
-            <value>
-                <fullName>3PL</fullName>
-                <default>false</default>
-                <label>3PL</label>
-            </value>
             <value>
                 <fullName>Accommodation &amp; Food</fullName>
                 <default>false</default>
@@ -42,11 +36,6 @@
                 <label>Care Services</label>
             </value>
             <value>
-                <fullName>Carrier with assets in Australia</fullName>
-                <default>false</default>
-                <label>Carrier with assets in Australia</label>
-            </value>
-            <value>
                 <fullName>Construction &amp; Trades</fullName>
                 <default>false</default>
                 <label>Construction &amp; Trades</label>
@@ -55,11 +44,6 @@
                 <fullName>Delivery Services</fullName>
                 <default>false</default>
                 <label>Delivery Services</label>
-            </value>
-            <value>
-                <fullName>Domestic Broker</fullName>
-                <default>false</default>
-                <label>Domestic Broker</label>
             </value>
             <value>
                 <fullName>Education</fullName>
@@ -125,11 +109,6 @@
                 <fullName>Insurance</fullName>
                 <default>false</default>
                 <label>Insurance</label>
-            </value>
-            <value>
-                <fullName>International Aggregator</fullName>
-                <default>false</default>
-                <label>International Aggregator</label>
             </value>
             <value>
                 <fullName>Legal &amp; Accounting</fullName>
@@ -261,23 +240,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>3PL</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>Carrier with assets in Australia</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
             <valueName>Delivery Services</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>Domestic Broker</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
-            <valueName>International Aggregator</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>

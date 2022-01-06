@@ -27,7 +27,7 @@
     <filters>
         <field>APT_Price_Structure__c</field>
         <operation>equals</operation>
-        <value>BANDED {Z40}</value>
+        <value>BASE+PER_KG {Z40}</value>
     </filters>
     <filters>
         <field>APT_Lodgement_Zone_Code__c</field>
@@ -35,4 +35,5 @@
         <value>W0</value>
     </filters>
     <label>CAT2 Base Per KG Z40 N1 S</label>
+    <language>en_US</language>
 </ListView>

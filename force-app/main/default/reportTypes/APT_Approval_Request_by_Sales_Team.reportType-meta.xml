@@ -95,11 +95,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Add_Products_Test__c</field>
-            <table>Apttus_Proposal__Proposal__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>APT_Tier_Adjustment_Type__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
@@ -3016,21 +3011,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>APTS_Test_Lodgment_Zone__c</field>
-            <table>Apttus_Proposal__Proposal__c.Apttus_QPConfig__Configurations__r.Apttus_Config2__LineItems__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APTS_Test_Price_Structure__c</field>
-            <table>Apttus_Proposal__Proposal__c.Apttus_QPConfig__Configurations__r.Apttus_Config2__LineItems__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Test_View_Rate_Card__c</field>
-            <table>Apttus_Proposal__Proposal__c.Apttus_QPConfig__Configurations__r.Apttus_Config2__LineItems__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>APT_Tier__c</field>
             <table>Apttus_Proposal__Proposal__c.Apttus_QPConfig__Configurations__r.Apttus_Config2__LineItems__r</table>
         </columns>
@@ -3818,13 +3798,5 @@
             <table>Apttus_Proposal__Proposal__c.Apttus_QPConfig__Configurations__r.Apttus_Config2__LineItems__r.Apttus_CQApprov__Approval_Requests__r</table>
         </columns>
         <masterLabel>Approval Requests</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Adjustment_Type__c</field>
-            <table>Apttus_Proposal__Proposal__c.Apttus_QPConfig__Configurations__r</table>
-        </columns>
-        <masterLabel>Product Configurations</masterLabel>
     </sections>
 </ReportType>

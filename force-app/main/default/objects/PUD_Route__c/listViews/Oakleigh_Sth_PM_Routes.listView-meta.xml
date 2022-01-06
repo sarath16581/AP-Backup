@@ -13,7 +13,7 @@
     <filters>
         <field>NAME</field>
         <operation>startsWith</operation>
-        <value>OS3</value>
+        <value>OS3,PM TO</value>
     </filters>
     <label>Oakleigh Sth PM Routes</label>
     <sharedTo>

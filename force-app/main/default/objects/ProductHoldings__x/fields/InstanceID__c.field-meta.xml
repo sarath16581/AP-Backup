@@ -8,7 +8,7 @@
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>InstanceID</label>
-    <length>128</length>
+    <length>35</length>
     <required>false</required>
     <type>Text</type>
     <unique>false</unique>

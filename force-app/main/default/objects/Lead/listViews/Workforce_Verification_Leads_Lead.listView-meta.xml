@@ -5,6 +5,6 @@
     <label>Workforce Verification Leads</label>
     <queue>Workforce_Verification_Leads</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

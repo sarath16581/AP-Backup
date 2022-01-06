@@ -151,7 +151,7 @@ OR( {!myVariable_current.RecordType.DeveloperName} = &apos;Security_Express&apos
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>

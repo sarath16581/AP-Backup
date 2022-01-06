@@ -3,7 +3,7 @@
     <fullName>Credit_assessment_details_not_Updateable</fullName>
     <active>false</active>
     <description>You cannot update Credit Assessment Details</description>
-    <errorConditionFormula>($Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;Credit Management&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;Mypost Business Help &amp; Support Community User&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;Enterprise Onboarding&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;BG Base&quot;) 
+    <errorConditionFormula>($Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;Credit Management&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;Mypost Business Help &amp; Support Community User&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;Enterprise Onboarding&quot;) 
 &amp;&amp;  (ISCHANGED( APT_Credit_Assessment_Status__c ) ||  ISCHANGED( APT_Credit_Amount_Required__c ) || ISCHANGED(APT_Legal_Entity_Name__c) || ISCHANGED(APT_Business_Type__c) || ISCHANGED(APT_Assessment_Type__c) || ISCHANGED(APT_ABN__c) || ISCHANGED(APT_Proposal__c) || ISCHANGED(APT_ACN__c) ||  ISCHANGED(APT_Business_Name__c) ||  ISCHANGED(APT_Organisation_Name__c) || ISCHANGED(APT_Existing_Customer_Flag__c) || ISCHANGED(APT_ABR_Report__c) || ISCHANGED(APT_Australia_Post_Arrears__c) || ISCHANGED(APT_ASIC_Report__c) || ISCHANGED(APT_Comments__c) || ISCHANGED(APT_Charge_Account__c) || ISCHANGED(APT_Entity_Type__c) || ISCHANGED(APT_Account_Type__c) || ISCHANGED(APT_Business_History_Age__c))</errorConditionFormula>
     <errorMessage>You cannot update Credit Assessment as it is already Submitted.</errorMessage>
 </ValidationRule>

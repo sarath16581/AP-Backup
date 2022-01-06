@@ -157,14 +157,14 @@ This object is responsible for the maintenance of the Quicklinks to be used by A
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>Read</externalSharingModel>
     <label>Quicklink</label>
     <nameField>
         <label>Quicklink Name</label>
         <type>Text</type>
     </nameField>
     <pluralLabel>Quicklinks</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

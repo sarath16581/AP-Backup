@@ -3,7 +3,7 @@
 * Help and support : this class is used to set the reopen date when a case is created within EDD timeframes.
 * History :
 * --------------------------------------------------
-* 2021-06-15 hara.sahoo@auspost.com.au Created
+* 2019-08-30 hara.sahoo@auspost.com.au Created
 * 2021-07-08 hara.sahoo@auspost.com.au Modified : Added explicit case owner assignment to Awaiting reopen queue
 **/
 public without sharing class ChasSetCaseWithinEDDOnHold implements Queueable {
@@ -11,7 +11,6 @@ public without sharing class ChasSetCaseWithinEDDOnHold implements Queueable {
     private DateTime reopenDate = null;
     List<Group> reopenQ = [SELECT Id, Name FROM Group WHERE developerName =: SSSWConstants.QUEUE_NAME_REOPEN_Q];
     Id queueId = reopenQ[0].Id;
-    
     public ChasSetCaseWithinEDDOnHold(Case newCase)
     {
         caseId = newCase.Id;
@@ -35,7 +34,6 @@ public without sharing class ChasSetCaseWithinEDDOnHold implements Queueable {
                     updateCase.OwnerId=queueId;
                     updateCase.Case_Reopen_Date__c = reopenDate;
                     updateCase.HeldToOpenOn__c = reopenDate;
-                    
                     Database.update(updateCase);
                 }
             }

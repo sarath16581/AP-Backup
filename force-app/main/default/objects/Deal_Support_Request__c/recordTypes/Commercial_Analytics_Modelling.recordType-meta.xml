@@ -265,6 +265,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>New Email Address</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>New Legal Entity Name</fullName>
             <default>false</default>
         </values>
@@ -1209,6 +1213,10 @@
         <picklist>Pay_Account_Type__c</picklist>
         <values>
             <fullName>Billing Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack Account</fullName>
             <default>false</default>
         </values>
         <values>

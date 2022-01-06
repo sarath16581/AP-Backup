@@ -19,7 +19,7 @@ const topGenericErrorMessage = 'Please enter the required information.';
 
 //-- The file accepted formats
 //-- REQ2370764- Added png as a format
-const acceptedFileFormats = '.jpg, .pdf,.doc,.docx,.jpeg,.png';//' ['.jpg', '.pdf','.doc','.docx','.jpeg',.png', ];
+const acceptedFileFormats = '.jpg, .pdf,.doc,.docx,.jpeg,.png';//' ['.jpg', '.pdf','.doc','.docx','.jpeg','.png', ];
 
 //-- The toast message
 const showToastMessage = (title, message, variant = 'info', mode = 'dismissable') => {

@@ -25,8 +25,7 @@
             cmp.set('v.wizardData.selectedlateOrMissingRadio', null);
             cmp.set('v.wizardData.selectedlateOrMissingRadioName', null);
         }
-    },
-    
+    }
 
     // checkAllValid: function(cmp, showError) { 
     //     // Must use single '&' so that it runs through all functions.

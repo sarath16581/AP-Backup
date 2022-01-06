@@ -45,6 +45,10 @@
                 <behavior>Readonly</behavior>
                 <field>APT_Make_Primary__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Document_Generation_in_Progress__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -375,28 +379,6 @@
         <fields>Apttus_Proposal__Quantity__c</fields>
         <fields>Apttus_QPConfig__DerivedFromId__c</fields>
         <relatedList>Apttus_Proposal__Proposal_Line_Item__c.Apttus_Proposal__Proposal__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>NewCase</excludeButtons>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CREATEDBY_USER.ALIAS</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
-        <relatedList>Case.Proposal__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>New</excludeButtons>
-        <fields>NAME</fields>
-        <fields>APT_ABN__c</fields>
-        <fields>APT_ACN__c</fields>
-        <fields>CREATED_DATE</fields>
-        <fields>LAST_UPDATE</fields>
-        <relatedList>APT_Cash_Account__c.APT_Proposal__c</relatedList>
-        <sortField>LAST_UPDATE</sortField>
-        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>

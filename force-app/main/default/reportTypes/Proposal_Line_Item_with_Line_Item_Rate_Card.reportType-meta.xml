@@ -1105,6 +1105,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>APT_Display_Percentage__c</field>
+            <table>Apttus_Proposal__Proposal_Line_Item__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>APT_Value_1__c</field>
             <table>Apttus_Proposal__Proposal_Line_Item__c.Line_Item_Rate_Cards__r</table>
         </columns>

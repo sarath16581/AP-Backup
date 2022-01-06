@@ -11,9 +11,6 @@
     <columns>Case_Action__c</columns>
     <columns>SMS_Template__c</columns>
     <columns>Email_Template__c</columns>
-    <columns>Task_Action__c</columns>
-    <columns>Task_RecordType__c</columns>
-    <columns>Task_Status__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
@@ -21,5 +18,4 @@
         <value>StarTrack_Automation_Rule__c.StarTrack_Notification_Automation</value>
     </filters>
     <label>All Notification Automation Rule</label>
-    <language>en_US</language>
 </ListView>

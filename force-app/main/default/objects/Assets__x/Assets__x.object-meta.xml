@@ -123,5 +123,5 @@
     <externalName>Assets</externalName>
     <label>Assets</label>
     <pluralLabel>Assets</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
 </CustomObject>

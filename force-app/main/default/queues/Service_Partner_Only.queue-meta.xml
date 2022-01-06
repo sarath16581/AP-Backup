@@ -2,6 +2,16 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <name>Service Partner Only</name>
+    <queueMembers>
+        <roleAndSubordinatesInternal>
+            <roleAndSubordinateInternal>Service_Business_Head_of_Service</roleAndSubordinateInternal>
+            <roleAndSubordinateInternal>Service_Business_Service_Manager</roleAndSubordinateInternal>
+            <roleAndSubordinateInternal>Service_Business_North_Service_Manager</roleAndSubordinateInternal>
+            <roleAndSubordinateInternal>Service_Business_North_Service_Partner</roleAndSubordinateInternal>
+            <roleAndSubordinateInternal>Service_Business_South_Service_Manager</roleAndSubordinateInternal>
+            <roleAndSubordinateInternal>Service_Business_South_Service_Partner</roleAndSubordinateInternal>
+        </roleAndSubordinatesInternal>
+    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

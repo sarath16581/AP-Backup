@@ -5,7 +5,6 @@
     <inlineHelpText>This will be actioned if the customer has already signed for rates in the relevant lodgement zone. Otherwise, you will be notified that the Deal Support Request has been transferred so that a DoV can be performed.</inlineHelpText>
     <label>Add Contract Rates?</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

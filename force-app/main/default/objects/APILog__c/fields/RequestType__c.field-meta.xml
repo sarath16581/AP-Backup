@@ -6,7 +6,6 @@
     <inlineHelpText>Request type for incoming requests</inlineHelpText>
     <label>Request Type</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

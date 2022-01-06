@@ -5,7 +5,6 @@
     <label>SecurePay Merchant ID</label>
     <length>5</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

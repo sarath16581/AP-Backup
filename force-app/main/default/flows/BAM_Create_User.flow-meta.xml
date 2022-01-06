@@ -25,7 +25,7 @@
             <assignToReference>varError</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </assignmentItems>
     </assignments>
@@ -240,7 +240,7 @@
         <isInput>false</isInput>
         <isOutput>true</isOutput>
         <value>
-            <stringValue/>
+            <stringValue></stringValue>
         </value>
     </variables>
     <variables>

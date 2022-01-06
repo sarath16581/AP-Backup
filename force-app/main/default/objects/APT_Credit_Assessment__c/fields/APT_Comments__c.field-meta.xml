@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Error Message</label>
     <length>131072</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

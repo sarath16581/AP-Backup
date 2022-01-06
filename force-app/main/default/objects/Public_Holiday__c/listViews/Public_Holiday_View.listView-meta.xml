@@ -19,5 +19,5 @@
     <filterScope>Everything</filterScope>
     <label>Public Holiday View</label>
     <language>en_US</language>
-    <sharedTo/>
+    <sharedTo></sharedTo>
 </ListView>

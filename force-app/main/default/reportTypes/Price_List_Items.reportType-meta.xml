@@ -864,17 +864,4 @@
         </columns>
         <masterLabel>Entries</masterLabel>
     </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Band_Range_Max__c</field>
-            <table>Apttus_Config2__PriceList__c.Apttus_Config2__Items__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Price_Point__c</field>
-            <table>Apttus_Config2__PriceList__c.Apttus_Config2__Items__r</table>
-        </columns>
-        <masterLabel>Price List Items</masterLabel>
-    </sections>
 </ReportType>

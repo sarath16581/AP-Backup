@@ -41,7 +41,7 @@ December 1, 2015 - Patrick James Franco - Added toggle relationship between chec
                 if(caseRec.Enquiry_Type__c == 'Short - No Scan' || caseRec.Enquiry_Type__c == 'Short - Scanned' || caseRec.Enquiry_Type__c == 'Incorrect Delivery'){
                     if(caseRec.Value_of_Goods__c == null){
                         var errorMessage = "{!$Setup.StarTrack_Settings__c.Value_of_Goods_is_null__c}";
-                        alert(errorMessage);     
+                        alert(errorMessage);
                     } else{
                         var caseObj = new sforce.SObject("Case");
                         caseObj.Id = '{!caseRecord.Id}';

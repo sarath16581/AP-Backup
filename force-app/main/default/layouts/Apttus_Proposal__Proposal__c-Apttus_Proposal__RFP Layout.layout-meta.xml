@@ -281,10 +281,6 @@
                 <behavior>Edit</behavior>
                 <field>APT_International_CO__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Add_Products_Test__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -2,77 +2,77 @@
 <DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <actionOnInsert>Block</actionOnInsert>
     <actionOnUpdate>Block</actionOnUpdate>
-    <alertText>There is another record with this ABN. Please check the ABN or use the existing record. If you require further assistance, please contact the Data Quality Management team.</alertText>
+    <alertText>There is another record with this ABN/ACN. Please check the ABN/ACN or use the existing record. If you require further assistance, please contact the Data Quality Management team.</alertText>
     <description>Verifies that LIPOMS Legal Entity with similar ABN does not already exist.</description>
     <duplicateRuleFilter>
-        <booleanFilter>(1 OR 2 OR 3 OR 5 OR 7 OR 8 OR 9 OR 10) AND 4 AND 6</booleanFilter>
+        <booleanFilter>(1 OR 2 OR 4 OR 6 OR 7 OR 8 OR 9 OR 10) AND 3 AND 5</booleanFilter>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
-            <value>Coverage Sales</value>
+            <value>Sales 3rd Party</value>
             <sortOrder>1</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
-            <value>Sales 3rd Party</value>
-            <sortOrder>2</sortOrder>
-            <table>User</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
             <value>PartnerInfo Read Only</value>
-            <sortOrder>3</sortOrder>
+            <sortOrder>2</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>RecordType</field>
             <operation>equals</operation>
             <value>Organisation</value>
-            <sortOrder>4</sortOrder>
+            <sortOrder>3</sortOrder>
             <table>Account</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
             <value>Enterprise Onboarding</value>
-            <sortOrder>5</sortOrder>
+            <sortOrder>4</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>false</value>
-            <sortOrder>6</sortOrder>
+            <sortOrder>5</sortOrder>
             <table>Account</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
             <value>Retail Operations</value>
-            <sortOrder>7</sortOrder>
+            <sortOrder>6</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
             <value>StarTrack Support</value>
-            <sortOrder>8</sortOrder>
+            <sortOrder>7</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
             <value>SSSW - Service Agent</value>
-            <sortOrder>9</sortOrder>
+            <sortOrder>8</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
             <value>BG Base</value>
+            <sortOrder>9</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>Coverage Sales</value>
             <sortOrder>10</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>

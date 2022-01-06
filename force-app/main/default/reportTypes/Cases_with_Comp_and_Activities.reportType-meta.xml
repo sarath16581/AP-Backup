@@ -3854,11 +3854,6 @@
             <field>UserSurveyDateSent__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
@@ -4227,11 +4222,6 @@
             <field>ManagerLevel3__c</field>
             <table>Case.Compensation__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Tracking_Number__c</field>
-            <table>Case.Compensation__r</table>
-        </columns>
         <masterLabel>Compensation</masterLabel>
     </sections>
     <sections>
@@ -4437,6 +4427,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>mh_Green_Sheet_Created_Date__c</field>
+            <table>Case.Compensation__r.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>CTIInteractionID__c</field>
             <table>Case.Compensation__r.Activities</table>
         </columns>
@@ -4508,6 +4503,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ServiceType__c</field>
+            <table>Case.Compensation__r.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>mh_Last_Updated_Green_Sheet__c</field>
             <table>Case.Compensation__r.Activities</table>
         </columns>
         <columns>

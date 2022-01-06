@@ -18,6 +18,6 @@
     <language>en_US</language>
     <queue>SSSW_WFM_Queue_10</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

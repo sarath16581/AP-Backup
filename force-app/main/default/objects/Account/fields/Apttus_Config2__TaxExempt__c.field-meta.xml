@@ -7,7 +7,6 @@
     <inlineHelpText>The tax exempt indicator for the account</inlineHelpText>
     <label>Tax Exempt ?</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

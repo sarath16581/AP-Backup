@@ -123,5 +123,5 @@
     <externalName>Addresses</externalName>
     <label>Addresses</label>
     <pluralLabel>Addresses</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
 </CustomObject>

@@ -440,16 +440,6 @@
             <field>Delivered__c</field>
             <table>Article__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaptureID_anyoneataddress__c</field>
-            <table>Article__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaptureID_receiveronly__c</field>
-            <table>Article__c</table>
-        </columns>
         <masterLabel>Articles</masterLabel>
     </sections>
     <sections>
@@ -666,16 +656,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Status__c</field>
-            <table>Article__c.Event_Messages__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Outside_Delivery_Radius__c</field>
-            <table>Article__c.Event_Messages__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Geo_Precision__c</field>
             <table>Article__c.Event_Messages__r</table>
         </columns>
         <masterLabel>Event Messages</masterLabel>

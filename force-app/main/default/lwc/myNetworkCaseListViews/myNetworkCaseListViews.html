@@ -5,7 +5,6 @@
 --------------------------------------- History --------------------------------------------------
 23.03.2020    Arjun Singh    Created
 14.05.2020    Arjun Singh   Updated to include multi postCode Search feature
-17.03.2021    Hara Sahoo    Updated the case priority list
 -->
 <template>
     <div class="slds-p-around_small">
@@ -47,9 +46,9 @@
 
                             <lightning-layout-item size="2"></lightning-layout-item>
                             <lightning-layout-item size="4">
-                                <template if:true={listPriorityValues}>
+                                <template if:true={priorityPickListValues}>
                                     <lightning-combobox name="Priority" label="Priority" value={selectedPriorityValue}
-                                        options={listPriorityValues} onchange={handleFieldChange}
+                                        options={priorityPickListValues} onchange={handleFieldChange}
                                         variant="label-inline">
                                     </lightning-combobox>
                                 </template>

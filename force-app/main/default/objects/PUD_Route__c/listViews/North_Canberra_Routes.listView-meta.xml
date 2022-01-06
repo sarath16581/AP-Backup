@@ -7,7 +7,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>MITCHELL</value>
+        <value>North Canberra</value>
     </filters>
     <label>North Canberra Routes</label>
 </ListView>

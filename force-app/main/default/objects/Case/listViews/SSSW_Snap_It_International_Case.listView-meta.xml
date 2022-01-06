@@ -21,6 +21,6 @@
     <language>en_US</language>
     <queue>SSSW_Snap_It_International</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

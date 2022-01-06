@@ -318,7 +318,7 @@ AND(ISPICKVAL({!myVariable_current.Status__c}, &apos;Trans-Shipment Depot 2 - Co
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -354,7 +354,7 @@ AND(ISPICKVAL({!myVariable_current.Status__c}, &apos;Trans-Shipment Depot 2 - Co
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -469,7 +469,7 @@ AND(ISPICKVAL({!myVariable_current.Status__c}, &apos;Trans-Shipment Depot 2 - Co
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -505,7 +505,7 @@ AND(ISPICKVAL({!myVariable_current.Status__c}, &apos;Trans-Shipment Depot 2 - Co
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -620,7 +620,7 @@ AND(ISPICKVAL({!myVariable_current.Status__c}, &apos;Trans-Shipment Depot 2 - Co
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -656,7 +656,7 @@ AND(ISPICKVAL({!myVariable_current.Status__c}, &apos;Trans-Shipment Depot 2 - Co
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -771,7 +771,7 @@ AND(ISPICKVAL({!myVariable_current.Status__c}, &apos;Trans-Shipment Depot 2 - Co
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -807,7 +807,7 @@ AND(ISPICKVAL({!myVariable_current.Status__c}, &apos;Trans-Shipment Depot 2 - Co
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>

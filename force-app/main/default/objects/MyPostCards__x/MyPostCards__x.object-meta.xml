@@ -123,5 +123,5 @@
     <externalName>MyPostCards</externalName>
     <label>MyPostCards</label>
     <pluralLabel>MyPostCards</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
 </CustomObject>

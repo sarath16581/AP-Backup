@@ -152,7 +152,7 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Charge Account Request</label>
     <nameField>
         <displayFormat>ChargeAccount{0000000}</displayFormat>
@@ -160,7 +160,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Charge Account Requests</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

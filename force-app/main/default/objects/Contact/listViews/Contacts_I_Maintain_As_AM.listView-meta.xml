@@ -32,6 +32,11 @@
         <operation>equals</operation>
         <value>Account Manager</value>
     </filters>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Account.Business_Account</value>
+    </filters>
     <label>Contacts I Maintain In My Portfolio</label>
     <language>en_US</language>
 </ListView>

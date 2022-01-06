@@ -164,7 +164,7 @@ This object is responsible for storing answers to the Assessment module specific
         <type>Text</type>
     </nameField>
     <pluralLabel>Assessment Criterion Answers</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

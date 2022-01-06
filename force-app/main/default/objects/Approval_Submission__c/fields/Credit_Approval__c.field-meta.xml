@@ -7,7 +7,6 @@
     <referenceTo>Credit_Approval__c</referenceTo>
     <relationshipName>Approval_Submissions</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

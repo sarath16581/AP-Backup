@@ -26,7 +26,7 @@
                                                     Improved test coverage.
  28.03.2017    AusPost (Sushant)                    Commented line with details provided in the comments -> insert testEvent1; 
  02.06.2020    MC (Salesforce)                      Added 'Disqualified_Lead_Reason__c' for myUnitTest7
- 30.09.2021    seth.heang@auspost.com.au            Uplift SF API Version to 52 and fix test data to bypass validation rule
+ 30.09.2021    seth.heang@auspost.com.au	        Uplift SF API Version to 52 and fix test data to bypass validation rule
  */
 @isTest
 public class LeadConvertExConTest {
@@ -132,7 +132,7 @@ public class LeadConvertExConTest {
             Status='Not Verified',
             MobilePhone='0400123456',
         	Customer_Type__c='Existing Customer',
-        	ABN__c='50110219460');            
+        	ABN__c='50110219460');           
         insert testLead2;
         
         test.StartTest();    
@@ -317,7 +317,7 @@ public class LeadConvertExConTest {
             Status='Not Verified',
             MobilePhone='0400123456',
         	Customer_Type__c='Existing Customer',
-        	ABN__c='50110219460');          
+        	ABN__c='50110219460');         
         insert testLead4;
         
         test.StartTest();    
@@ -404,7 +404,7 @@ public class LeadConvertExConTest {
             Parcels_per_week__c='1-9',
             Status = 'Not Verified',
             MobilePhone='0400123456',
-        	ABN__c='50110219460');          
+        	ABN__c='50110219460');           
         insert testLead8;
         
         test.StartTest();
@@ -483,7 +483,7 @@ public class LeadConvertExConTest {
             Parcels_per_week__c='1-9',            
             Status = 'Not Verified',
             MobilePhone='0400123456',
-        	ABN__c='50110219460');          
+        	ABN__c='50110219460');         
         insert testLead10;
         
         test.StartTest();

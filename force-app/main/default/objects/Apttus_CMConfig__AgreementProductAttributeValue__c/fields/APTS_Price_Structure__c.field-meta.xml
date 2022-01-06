@@ -40,11 +40,6 @@
                 <default>false</default>
                 <label>BASE+PER_KG {Z40}</label>
             </value>
-            <value>
-                <fullName>Z6</fullName>
-                <default>false</default>
-                <label>Z6</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

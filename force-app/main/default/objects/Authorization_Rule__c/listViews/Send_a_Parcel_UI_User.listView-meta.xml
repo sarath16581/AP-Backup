@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_a_Parcel_UI_User</fullName>
+    <columns>NAME</columns>
+    <columns>AccessRole__c</columns>
+    <columns>Billing_Account__c</columns>
+    <columns>Billing_Account_Number__c</columns>
+    <columns>Contact__c</columns>
+    <columns>Account__c</columns>
+    <columns>Status__c</columns>
+    <columns>RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>AccessRole__c</field>
+        <operation>equals</operation>
+        <value>Send a Parcel UI User</value>
+    </filters>
+    <filters>
+        <field>CREATEDBY_USER</field>
+        <operation>contains</operation>
+        <value>MyPost Integration</value>
+    </filters>
+    <label>Send a Parcel UI User</label>
+    <language>en_US</language>
+</ListView>

@@ -94,10 +94,9 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
   
   global void finish(Database.BatchableContext BC) {
     if(!rowValues.isEmpty()) {
-    System.debug('rowValues____'+rowValues);
       //get the library
       ContentWorkspace compensationWS = [Select Id, Name from ContentWorkspace where Name = 'Compensation' limit 1];
-           System.debug('compensationWS _____'+compensationWS);
+           
           if(compensationWS != null) {
         try {
           //get the current batch Id
@@ -123,10 +122,9 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
                 //create new content version
                 ContentVersion doc = new ContentVersion(title = documentName,PathOnClient=documentName+'.csv', VersionData = Blob.valueOf(outputFile));
                 insert doc;
-                System.debug('Document____'+doc);
           //query Contect version to get the content document id.
                 ContentVersion testContent = [SELECT id, ContentDocumentId FROM ContentVersion where Id = :doc.Id];
-                System.debug('testContent____'+testContent);
+                
                 //create Contentworkspace to link the document to the library
                 ContentWorkspaceDoc contentlink=new ContentWorkspaceDoc();
                 contentlink.ContentDocumentId  = testContent.ContentDocumentId;

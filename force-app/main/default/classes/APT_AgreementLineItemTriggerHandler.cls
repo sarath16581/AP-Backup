@@ -452,7 +452,6 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     
                     mapOS.put(os.Id, os);
                 }
-                                                                                              
                 
                 //min collection value
                 if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_MIN_COLLECTION_VALUE) 

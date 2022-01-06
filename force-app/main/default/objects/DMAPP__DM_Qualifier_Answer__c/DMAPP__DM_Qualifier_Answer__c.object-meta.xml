@@ -164,7 +164,7 @@ This object is responsible for storing answers to individual Qualifiers associat
         <type>Text</type>
     </nameField>
     <pluralLabel>Qualifier Answers</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

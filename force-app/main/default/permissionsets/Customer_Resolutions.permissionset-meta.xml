@@ -4578,6 +4578,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Disputed_Item__c.SupportingDocumentDownloadURL__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Disputed_Item__c.SupportingDocumentWebURL__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Disputed_Item__c.TEAMReasonCode__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -6,6 +6,6 @@
     <inlineHelpText>A reminder date for reminding/updating the article</inlineHelpText>
     <label>Time To Remind</label>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Date</type>
 </CustomField>

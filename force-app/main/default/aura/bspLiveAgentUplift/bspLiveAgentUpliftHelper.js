@@ -58,7 +58,7 @@
         component.set("v.isLiveAgentOnline",false);
         var chatBtn    = data.chatButtontId;
         liveagent.addButtonEventHandler(chatBtn, function(e) {
-            //console.log(component.get("v.isLiveAgentOnline"));
+            console.log(component.get("v.isLiveAgentOnline"));
             if (e == liveagent.BUTTON_EVENT.BUTTON_AVAILABLE) {
                 component.set("v.isLiveAgentOnline",true);
             } else if (e == liveagent.BUTTON_EVENT.BUTTON_UNAVAILABLE) {

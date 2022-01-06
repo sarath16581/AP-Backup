@@ -39,6 +39,6 @@ A Judd 10/03/20 Added mobile, phone and Lead Status match
             <fieldName>Disqualified_Lead_Reason__c</fieldName>
             <matchingMethod>Exact</matchingMethod>
         </matchingRuleItems>
-        <ruleStatus>Active</ruleStatus>
+        <ruleStatus>ActivationFailed</ruleStatus>
     </matchingRules>
 </MatchingRules>

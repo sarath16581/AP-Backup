@@ -279,20 +279,6 @@
                 <value>salesforce integration</value>
             </criteriaItems>
         </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Customer_Needs_Leads_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Lead.Qualification_Completed__c</field>
-                <operation>equals</operation>
-                <value>True</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Lead.Opportunity_Initial_Estimate__c</field>
-                <operation>greaterThan</operation>
-                <value>100000</value>
-            </criteriaItems>
-        </ruleEntry>
     </assignmentRule>
     <assignmentRule>
         <fullName>BG Lead Assignments</fullName>

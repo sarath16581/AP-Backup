@@ -8,7 +8,6 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Accounts</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

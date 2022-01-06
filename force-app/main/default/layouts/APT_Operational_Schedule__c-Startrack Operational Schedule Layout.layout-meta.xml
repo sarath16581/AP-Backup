@@ -70,7 +70,7 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Courier/Local Pickup and Delivery Services</label>
+        <label>Couier/Local Pickup and Delivery Services</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>

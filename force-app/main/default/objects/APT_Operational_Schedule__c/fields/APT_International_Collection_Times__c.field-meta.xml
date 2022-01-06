@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>International Collection Times</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>

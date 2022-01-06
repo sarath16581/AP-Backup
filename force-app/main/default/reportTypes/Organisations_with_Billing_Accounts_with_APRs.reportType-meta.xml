@@ -1737,6 +1737,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Owner</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Type__c</field>
             <table>Account.Billing_Accounts__r.APRs__r</table>
         </columns>
@@ -1753,6 +1758,51 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>PriceTargetExcluded__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APR_Cohort__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Customer_Revenue__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Delegation_Allowance__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Draft_rate_used__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Customer_Number__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Legal_Entity_Name__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Legal_Entity_Name_LookUp__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Record_Locked__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RecordType</field>
             <table>Account.Billing_Accounts__r.APRs__r</table>
         </columns>
         <masterLabel>APRs</masterLabel>

@@ -14,7 +14,7 @@
 				<a data-url="https://auspost.com.au/about-us/about-our-site/accessibility" onclick="{! c.onclick }">Accessibility</a>
 			</div>
 			<div class="section-two">
-				<a data-url="https://ptest.npe.auspost.com.au/help-and-support" onclick="{! c.onclick }"><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_help_support.svg' }" alt="" width="22" height="22" class="slds-m-right_x-small" />Help &amp; support</a>
+				<a data-url="https://auspost.com.au/help-and-support" onclick="{! c.onclick }"><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_help_support.svg' }" alt="" width="22" height="22" class="slds-m-right_x-small" />Help &amp; support</a>
 			</div>
 		</div>
 	</div>

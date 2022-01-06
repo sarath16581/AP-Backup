@@ -98,7 +98,7 @@
      */
     pageVariation: function(component)
     {
-        let mtdGroup = 'noEDD';     // DDS-8370: set default thankyou page to be no EDD variation
+        let mtdGroup = '';
         let isDeliveredScan = !$A.util.isEmpty(component.get('v.wizardData.latestDeliveredScanWcid'));
         let isSafeDrop = component.get('v.wizardData.hasCustomerSeenSafeDrop') === 'true'? true : false;
         let isPastEddPlusBusinessDays = component.get('v.wizardData.isEnquiryDatePastEDDPlusBusinessdays');
@@ -133,12 +133,6 @@
         
         // article contains essential pharma items
         containsPharma == 'Yes' && (mtdGroup = 'nextStepsContainsPharma');
-
-        // DDS-8370: set metadata group to no EDD again if its empty, just in case above processing having issue
-        if (!mtdGroup)
-        {
-            mtdGroup = 'noEDD';
-        }
         
         // set header accordingly 
         component.set('v.header', header);

@@ -42,7 +42,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -172,7 +172,7 @@
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
             </connector>
-            <label>Is WFV</label>
+            <label>IS WFV</label>
         </rules>
     </decisions>
     <decisions>
@@ -361,7 +361,7 @@
         <dataType>Boolean</dataType>
         <expression>ISPICKVAL({!myVariable_current.Status}, &apos;Qualified&apos;)  &amp;&amp; NOT(ISPICKVAL(PRIORVALUE({!myVariable_current.Status}), &apos;Qualified&apos;)) &amp;&amp; {!$Permission.BG_Core} &amp;&amp; NOT({!$Permission.BG_Sales}) &amp;&amp; NOT(ISPICKVAL({!myVariable_current.Product__c}, &apos;MyPost Business&apos;))</expression>
     </formulas>
-    <interviewLabel>Lead_Owner_Assignment-10_InterviewLabel</interviewLabel>
+    <interviewLabel>Lead_Owner_Assignment-5_InterviewLabel</interviewLabel>
     <label>Lead Owner Assignment</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -470,7 +470,7 @@
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <stringValue>00G0w000002ZDS5EAO</stringValue>
+                <stringValue>00G2v000005W6pbEAC</stringValue>
             </value>
         </inputAssignments>
         <object>Lead</object>
@@ -582,7 +582,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -705,7 +705,7 @@
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>

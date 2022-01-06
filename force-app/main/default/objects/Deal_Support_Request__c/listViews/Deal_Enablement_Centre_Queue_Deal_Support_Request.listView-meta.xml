@@ -27,7 +27,7 @@
     <filters>
         <field>Work_Type__c</field>
         <operation>equals</operation>
-        <value>Addendum/DOV,Agreement Renewal,Copy of Contract,New Agreement,New Proposal,Other</value>
+        <value>Addendum/DOV,Agreement Renewal,New Agreement,New Proposal,Other</value>
     </filters>
     <filters>
         <field>Pending_Information_Reason__c</field>

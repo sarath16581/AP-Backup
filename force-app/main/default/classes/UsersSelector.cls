@@ -1,16 +1,15 @@
 /**
- * @author Nathan Franklin
- * @date 2020-04-10
- * @group Selector
- * @tag Selector
- * @tag User SObject
- * @domain Core
- * @description A very simple selector class that sits in the base domain
- * @changelog
- * 2020-04-10 - Nathan Franklin - Created
- * 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId,selectbyUserName and selectByContactId Methods
- * 2021-03-02 - Alvin Zhou - Updated - selectActiveuserByProfileName and add the Current_Owner_Role__c to the related list
- * 2021-03-04 - Nathan Franklin - Added selectByProfileId
+* @author Nathan Franklin
+* @date 2020-04-10
+* @group Selector
+* @tag Selector
+* @tag User SObject
+* @domain Core
+* @description A very simple selector class that sits in the base domain
+* @changelog
+* 2020-04-10 - Nathan Franklin - Created
+* 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId,selectbyUserName and selectByContactId Methods
+* 2021-03-02 - Alvin Zhou - Updated - selectActiveuserByProfileName and add the Current_Owner_Role__c to the related list
 */
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
 
@@ -53,21 +52,6 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	}
 
 	/**
-	 * @description Run a simple query to get records based on Profile Id's
-	 */
-	public Map<Id, User> selectByProfileId(Set<Id> profileIds) {
-		return selectByProfileId(profileIds, new Set<Object>());
-	}
-
-	/**
-	 * @description Run a simple query to get records based on Id's
-	 */
-	public Map<Id, User> selectByProfileId(Set<Id> profileIds, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.ProfileId + ' in :profileIds')).endConditions();
-		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
-	}
-
-	/**
 	 * @description Run a simple query to get records based on usernames
 	 */
 	public Map<Id, User> selectByUsername(Set<String> usernames) {
@@ -75,16 +59,16 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	}
 
 	/**
-     * @description Run a simple query to get active users based on Id, profile Name
-     */
-    public Map<Id, User> selectActiveuserByProfileName(Set<Id> contactIds, String profileName, Set<Object> selectorOptions ) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(
-            new QueryBuilder.SimpleCondition('ContactId in :contactIds')).add(
-            new QueryBuilder.SimpleCondition('Profile.Name = :profileName')).add(
-            new QueryBuilder.SimpleCondition('IsActive = true')).endConditions();
-        return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
-    }
-
+	 * @description Run a simple query to get active users based on Id, profile Name
+	 */
+	public Map<Id, User> selectActiveuserByProfileName(Set<Id> contactIds, String profileName, Set<Object> selectorOptions ) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(
+			new QueryBuilder.SimpleCondition('ContactId in :contactIds')).add(
+			new QueryBuilder.SimpleCondition('Profile.Name = :profileName')).add(
+			new QueryBuilder.SimpleCondition('IsActive = true')).endConditions();
+		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
+	}
+	
 	/**
 	 * @description Run a simple query to get records based on usernames
 	 */

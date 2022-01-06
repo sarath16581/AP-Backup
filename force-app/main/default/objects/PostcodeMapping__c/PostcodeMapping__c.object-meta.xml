@@ -162,9 +162,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Postcode Mappings</pluralLabel>
-    <searchLayouts>
-        <searchFilterFields>Postcode__c</searchFilterFields>
-    </searchLayouts>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

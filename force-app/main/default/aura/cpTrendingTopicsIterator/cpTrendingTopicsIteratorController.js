@@ -2,7 +2,6 @@
 	doInit : function(component, event, helper) {
         var trendingTopicObject = component.get("v.TrendingTopic");
         component.set('v.routeInput', {recordId: trendingTopicObject.topicId});
-    }
 },
 	redirectToDetailPage : function(component, event, helper) {
         var trendingTopicObject = component.get("v.TrendingTopic");

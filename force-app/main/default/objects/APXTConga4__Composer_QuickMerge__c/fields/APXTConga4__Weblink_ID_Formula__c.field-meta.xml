@@ -6,7 +6,6 @@
     <formula>LEFT(APXTConga4__Weblink_ID__c, 15)</formula>
     <label>Button ID</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

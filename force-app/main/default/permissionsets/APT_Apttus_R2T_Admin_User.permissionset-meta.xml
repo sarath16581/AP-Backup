@@ -177,10 +177,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>APT_ConfigurationTriggerHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>APT_ConfigurationTrigger_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -242,6 +238,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_DisplayActionCallBackTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_DoVLanguageTriggerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -385,7 +385,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_PLICriteriaModel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_PostCodeZoneTypesBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_PricingAdjustmentController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_PricingAdjustmentController_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -418,6 +430,22 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_PricingUtility_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ProcessApprovedConfigurationBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ProcessApprvdConfigBatch_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ProductAttributeCallback</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ProductAttributeCallbackTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -457,6 +485,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_ProposalTriggerHelper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_ProposalTriggerHelper_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_ProposalTrigger_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -493,6 +529,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_SaveConfigController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_SaveConfigControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_SchemaCommondatamodeService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -514,6 +558,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_ServicePartyCustomerService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_StarTrackApprovalHeaderFooterImage</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APT_StarTrackApprvlHeaderFooterImg_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -915,37 +967,32 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Code_with_1__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Code_without_1__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>APT_Agreement_Rate_Card__c.APT_Is_PBP_Gross_Settled__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Size__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Text_to_display__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_10_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_10_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -955,12 +1002,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_11_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_11_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -970,7 +1017,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_12_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -980,7 +1027,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_13_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -990,7 +1037,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_14_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1000,7 +1047,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_15_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1090,12 +1137,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_2_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_2_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1105,12 +1152,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_2_with_Code_1__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_2_without_Code_1__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1125,12 +1172,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_3_Currency_3_Decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_3_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1140,12 +1187,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_4_Currency_3_Decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_4_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1155,12 +1202,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_5_Currency_3_Decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_5_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1170,12 +1217,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_6_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_6_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1185,12 +1232,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_7_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_7_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1200,12 +1247,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_8_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_8_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1215,12 +1262,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_9_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Value_9_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1230,12 +1277,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Volume_Threshold__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Agreement_Rate_Card__c.APT_Weight__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3115,12 +3162,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Code_with_1__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Code_without_1__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3135,17 +3182,17 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Size__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_10_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_10_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3155,12 +3202,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_11_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_11_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3170,12 +3217,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_12_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_12_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3185,12 +3232,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_13_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_13_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3200,12 +3247,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_14_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_14_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3215,7 +3262,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_15_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3305,12 +3352,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_2_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_2_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3320,12 +3367,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_2_with_Code_1__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_2_without_Code_1__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3340,12 +3387,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_3_Currency_3_Decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_3_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3355,12 +3402,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_4_Currency_3_Decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_4_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3370,12 +3417,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_5_Currency_3_Decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_5_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3385,12 +3432,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_6_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_6_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3400,12 +3447,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_7_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_7_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3415,12 +3462,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_8_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_8_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3430,12 +3477,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_9_Currency_3_decimal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Value_9_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3445,12 +3492,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Volume_Threshold__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Line_Item_Rate_Card__c.APT_Weight__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4290,7 +4337,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>APT_Pricing_Data__c.Order_By_Pricing_Value_6__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4377,11 +4424,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Quote_Rate_Card__c.APT_Is_Header__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>APT_Quote_Rate_Card__c.APT_Unique_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5080,11 +5122,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus_Approval__Approval_Request__c.APT_UserType__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Approval__FormulaField__c.APTS_Ext_ID__c</field>
         <readable>true</readable>
@@ -5466,6 +5503,26 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__FavoriteConfiguration__c.Apttus_Config2__ConfigurationId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__FavoriteConfiguration__c.Apttus_Config2__Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__FavoriteConfiguration__c.Apttus_Config2__LastUsedDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__FavoriteConfiguration__c.Apttus_Config2__Scope__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__FeatureSet__c.APTS_Ext_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5537,6 +5594,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Config2__LineItem__c.APT_Approval_Required2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__LineItem__c.APT_Approval_Required_ST__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5875,6 +5937,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__LineItem__c.APT_StarTrack_Proposal__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__LineItem__c.APT_State__c</field>
         <readable>true</readable>
@@ -5882,6 +5949,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__LineItem__c.APT_Sub_Classification__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__LineItem__c.APT_Tier_Adjustment_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6976,6 +7048,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Approved_Tier_After_Adjustment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Average_Chargeable_Weight_Kg__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7222,6 +7299,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Geographical_Area__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Guidance__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7502,6 +7584,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Subsequent_Parcel_Discount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Tier_Adjustment_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Tier_Approved__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7817,6 +7909,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductConfiguration__c.APT_Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__ProductConfiguration__c.APT_Proposal_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8560,22 +8657,27 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
+        <field>Apttus_DocuApi__DocuSignDefaultRecipient2__c.APT_Docusign_Recipient_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Administrative_fee__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Airmail_Rates_Over_2KG_Per_Item_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Airmail_Rates_Over_2KG_Per_KG_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Airmail_Rates_Up_To_2KG_Per_Item_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8585,12 +8687,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Bundle_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Bundle_Product_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8605,7 +8707,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Charge_Type_Checked__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8620,7 +8722,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Collection_Fee__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8635,72 +8737,72 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Cubic_Factor__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Customer_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Day_of_Delivery__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Digital__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Display_Net_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Express_Courier_Over_2KG_Per_Item_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Express_Courier_Over_2KG_Per_Item_UK__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Express_Courier_Over_2KG_Per_KG_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Express_Courier_Over_2KG_Per_KG_UK__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Express_Courier_Up_To_2KG_Per_Itm_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Express_Courier_Up_To_2KG_Per_Itm_UK__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Express_Courier_Up_To_2KG_Per_KG_UK__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_From_Address__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_From_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8710,37 +8812,37 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_International_Letters_Flag__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Item_Weight_Kg__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Lodgement_Zone_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Lodgement_Zone_Display__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Lodgement_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Min_Quantity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Min_Transit_Cover_Amount_Per_Article__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8765,12 +8867,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Non_Digital__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Option_Group__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8780,7 +8882,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Option_Product_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8795,12 +8897,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Price_Structure_Without_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Price_Structure__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8810,7 +8912,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Product_Charges__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8820,12 +8922,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Product_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Product_and_Price_Structure__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8840,7 +8942,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Revenue_Commitment__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8855,12 +8957,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Sales_Unit_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Service_Type_Print_Post__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8880,12 +8982,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_To_Address__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_To_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8895,12 +8997,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Transit_Cover_Max_Value__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Transit_Cover_Perc__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8910,7 +9012,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Volume_Thresholds__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8925,7 +9027,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8935,12 +9037,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.Apttus_Proposal__Ext_Net_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.Apttus_Proposal__Ext_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8965,7 +9067,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.Apttus_Proposal__Unit_Net_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9500,12 +9602,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.Launch_Rate_Card__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.Non_contracted__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9515,7 +9617,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.Proposal_Product_name_del__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9610,6 +9712,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Conversation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.APT_CreateCommunityUpdateContract__c</field>
         <readable>true</readable>
@@ -9692,6 +9799,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Cubic_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Customer_Background__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9781,6 +9893,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Intermediary__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_International_Max_Weight__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9812,6 +9929,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Minimum_Monthly_Spend__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Name_of_Intermediary_s_Client__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9872,6 +9994,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Present__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Pricing_Request_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10000,6 +10127,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Tier_Adjustment_Justification__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Tier_Adjustment_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Total_Physical_Weight_Kg1__c</field>
         <readable>true</readable>
@@ -10047,6 +10184,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Zone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_competitor__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10422,6 +10564,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.Quote_Name_Format__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.STE_Pricing_Tier__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -12760,22 +12907,22 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Administrative_fee__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Airmail_Rates_Over_2KG_Per_Item_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Airmail_Rates_Over_2KG_Per_KG_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Airmail_Rates_Up_To_2KG_Per_Item_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12800,12 +12947,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Collection_Fee__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Contract_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12815,7 +12962,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Cubic_Factor__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12825,7 +12972,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Date_of_Generation_Rate_Card__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12840,7 +12987,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Digital__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12850,37 +12997,37 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Express_Courier_Over_2KG_Per_Item_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Express_Courier_Over_2KG_Per_Item_UK__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Express_Courier_Over_2KG_Per_KG_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Express_Courier_Over_2KG_Per_KG_UK__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Express_Courier_Up_To_2KG_Per_Itm_NZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Express_Courier_Up_To_2KG_Per_Itm_UK__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_From_Address__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12895,12 +13042,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_International_Letter_Flag__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Item_Weight_Kg__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12920,17 +13067,17 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Mark_All_Agreement_Line_Items_as_Old__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Min_Quantity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Min_Transit_Cover_Amount_Per_Article__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12945,7 +13092,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Net_Price_Template__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12955,7 +13102,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Non_Digital__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12970,7 +13117,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Option_Product_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12995,17 +13142,17 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Prod_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Product_Charges__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Product_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -13015,12 +13162,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Revenue_Commitment__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Service_Type_Print_Post__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -13030,7 +13177,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_To_Address__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -13040,17 +13187,17 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Transit_Cover_Max_Value__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Transit_Cover_Perc__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Volume_Thresholds__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -13896,6 +14043,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product2.APT_Additional_Information_Text__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.APT_Annual_Spend_Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -13947,11 +14099,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.APT_Consolidated_Usage_Price_Tiers__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Product2.APT_Contracting_Entity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14146,12 +14293,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product2.APT_Profile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.APT_Ratecards_Available__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.APT_Sales_Unit_Price__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.APT_Search_Keyword__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14623,6 +14780,15 @@
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Apttus_Config2__FavoriteConfiguration__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
@@ -14756,10 +14922,6 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>APT_AddProducts_Page</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>APT_AmendRenew</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -14861,10 +15023,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_RedirectToAllProductPage</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>APT_RedirectToFavorites</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

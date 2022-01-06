@@ -2,7 +2,6 @@
 	doInit : function(component, event, helper) {
         var knowledgeArticleObject = component.get("v.Article");
         component.set('v.routeInput', {recordId: knowledgeArticleObject.Id});
-    }
 },
     
 	redirectToDetailPage : function(component, event, helper) {

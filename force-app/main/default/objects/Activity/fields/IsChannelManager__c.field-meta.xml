@@ -5,6 +5,5 @@
     <externalId>false</externalId>
     <formula>(CreatedBy.Manager.ManagerId = $User.Id)</formula>
     <label>Is Senior Manager</label>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

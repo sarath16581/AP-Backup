@@ -5,7 +5,6 @@
     <label>Per Kg Manually Adjusted Flag</label>
     <length>5</length>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -10,7 +10,7 @@
  * @changelog
  * 2019-01-30 - gdevasurendra@auspost.com.au - Capability to update Primary Billing Account (REQ2044525)
  * 2020-05-24 - Nathan Franklin - Fixed a few small bugs where pending deletes = true were preventing subsequent selection
- * 2021-01-11 - Swati Mogadala - REQ2279110 Filter out Peoplesoft accounts from list of billing accounts
+ * * 2021-01-11 - Swati Mogadala - REQ2279110 Filter out Peoplesoft accounts from list of billing accounts 
  */
 public without sharing class BAMOnboardContactController {
 
@@ -109,8 +109,8 @@ public without sharing class BAMOnboardContactController {
         //System.debug('!@#$ allApplications = ' + allApplications);
         return allApplications;
     }
-    
-    //REQ2279110 added filter criteria to remove Peoplesoft accounts
+	
+    //REQ2279110 added filter criteria to remove Peoplesoft accounts 
     private static List<Billing_Account__c> loadBillingAccounts(Id accountId)
     {
         List<Billing_Account__c> output = new List<Billing_Account__c>();
@@ -120,7 +120,7 @@ public without sharing class BAMOnboardContactController {
                                                     WHERE Organisation__c = :accountId
                                                     AND SAP_marked_for_deletion__c = false
                                                     AND Type__c NOT IN:INVALID_BILLING_ACCOUNT_TYPES
-                                                    AND Source_System__c !='PeopleSoft'
+                                                 	AND Source_System__c !='PeopleSoft'
                                                     ORDER BY Name]) {
             output.add(billingAccount);
         }

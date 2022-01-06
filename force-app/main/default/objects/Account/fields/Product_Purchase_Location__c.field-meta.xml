@@ -6,7 +6,6 @@
     <inlineHelpText>Name and address of product purchase location</inlineHelpText>
     <label>Product Purchase Location</label>
     <length>256</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>

@@ -157,7 +157,7 @@ This object is responsible for the maintenance of the Qualifiers used by Sales P
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>Read</externalSharingModel>
     <label>Sales Process Qualifier</label>
     <nameField>
         <label>Qualifier Shortname</label>

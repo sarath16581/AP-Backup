@@ -482,10 +482,6 @@
                 <name>ray.steer@startrack.com.au</name>
                 <type>user</type>
             </approver>
-            <approver>
-                <name>state_service_lead_exp_mel_01@auspost.com.au</name>
-                <type>user</type>
-            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
@@ -1144,10 +1140,6 @@
             </approver>
             <approver>
                 <name>owen.graham@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>state_service_lead_prem_nsw_act_01@auspost.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

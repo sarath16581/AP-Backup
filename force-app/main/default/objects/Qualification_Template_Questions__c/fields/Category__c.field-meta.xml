@@ -53,11 +53,6 @@
                 <label>International Parcels</label>
             </value>
             <value>
-                <fullName>Operational Details</fullName>
-                <default>false</default>
-                <label>Operational Details</label>
-            </value>
-            <value>
                 <fullName>Payment Services</fullName>
                 <default>false</default>
                 <label>Payment Services</label>

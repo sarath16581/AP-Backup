@@ -5,6 +5,6 @@
     <label>Community Update Sales Specialist</label>
     <queue>APT_Community_Update_Sales_Specialist</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

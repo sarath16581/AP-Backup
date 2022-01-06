@@ -147,6 +147,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>CHASEnquiryType__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Address2Postcode__c</field>
             <table>Case</table>
         </columns>
@@ -2168,11 +2173,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CreatedBy.Manager__c</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HeldToOpenOn__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>

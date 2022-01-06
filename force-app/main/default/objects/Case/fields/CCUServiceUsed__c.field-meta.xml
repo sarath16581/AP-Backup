@@ -10,7 +10,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Australia Post Global Logistics</fullName>
                 <default>false</default>
@@ -82,11 +82,6 @@
                 <label>Other</label>
             </value>
             <value>
-                <fullName>Parcel Domestic</fullName>
-                <default>false</default>
-                <label>Parcel Domestic</label>
-            </value>
-            <value>
                 <fullName>Parcel Post</fullName>
                 <default>false</default>
                 <label>Parcel Post</label>
@@ -100,11 +95,6 @@
                 <fullName>Parcel Post XL</fullName>
                 <default>false</default>
                 <label>Parcel Post XL</label>
-            </value>
-            <value>
-                <fullName>Premium Express Parcel</fullName>
-                <default>false</default>
-                <label>Premium Express Parcel</label>
             </value>
             <value>
                 <fullName>Receipted Delivery</fullName>
@@ -122,11 +112,6 @@
                 <label>Registered Post International</label>
             </value>
             <value>
-                <fullName>Standard Parcel</fullName>
-                <default>false</default>
-                <label>Standard Parcel</label>
-            </value>
-            <value>
                 <fullName>StarTrack (Next Flight Premium &amp; Express)</fullName>
                 <default>false</default>
                 <label>StarTrack (Next Flight Premium &amp; Express)</label>
@@ -135,6 +120,21 @@
                 <fullName>StarTrack Courier</fullName>
                 <default>false</default>
                 <label>StarTrack Courier</label>
+            </value>
+            <value>
+                <fullName>Parcel Domestic</fullName>
+                <default>false</default>
+                <label>Parcel Domestic</label>
+            </value>
+            <value>
+                <fullName>Standard Parcel</fullName>
+                <default>false</default>
+                <label>Standard Parcel</label>
+            </value>
+            <value>
+                <fullName>Premium Express Parcel</fullName>
+                <default>false</default>
+                <label>Premium Express Parcel</label>
             </value>
         </valueSetDefinition>
     </valueSet>

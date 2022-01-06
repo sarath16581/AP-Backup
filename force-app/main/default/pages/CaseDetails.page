@@ -19,6 +19,8 @@
         2018-10-22 disha.kariya@auspost.com.au Moved showErrorDialog() inside form tag to display error message when agent is part of the queue when reassigning.
         2020-05-22 dheeraj.mandavilli@auspost.com.au Invoking the checkduplicates and generatetatchments from seperate action functions.
         2020-06-19 dheeraj.mandavilli@auspost.com.au Removed generateattatchments method from Case details page and kept in Faxtrigger
+	2021-06-28 talib.raza@auspost.com.au Swap position of cancel and clone button
+	2021-09-09 - seth.heang@auspost.com.au - Uplift SF API version to 52
     -->
     <apex:page standardController="Case" extensions="CaseDetailsCaseContExt,TIBCOArticleComponentCont"
                id="pageId" standardStylesheets="true" action="{!initializePage}" >

@@ -1,11 +1,5 @@
 /*
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 01/09/2020
-  * @description  : Component for consignment details.
---------------------------------------- History --------------------------------------------------
-01.09.2020    Jansi Rani                         Created
-25-11-2020    avula.jansirani@auspost.com.au       removd console.log lines
-14-05-2020    madhuri.awasthi@auspost.com.au        REQ2481513 - Adding new Label and values for redirect
+14.05.2021    Madhuri Awasthi - REQ2481513 BSP redirect/recalll field name changes
 */
 import { LightningElement, api, track} from 'lwc';
 import {checkAllValidity, checkCustomValidity, topGenericErrorMessage, valueMissingErrorMsg, replaceAddressString} from "c/bspCommonJS";
@@ -65,6 +59,7 @@ export default class BspAPConsignmentDetails extends NavigationMixin(LightningEl
     set singleCon(value) {
         this.singleConsignment = value;
         this.articleId = this.singleConsignment.Id;
+        //console.log('single consignment = ' + JSON.stringify(this.singleConsignment));
     }
 
     get isExternalTrackingURLPresent(){
@@ -72,6 +67,7 @@ export default class BspAPConsignmentDetails extends NavigationMixin(LightningEl
     }
 
     get recallDescription(){
+        //console.log('Recall : ' + this.recallInProgress);
         if(this.recallInProgress)
         {
             this.recallOrRedirectButtonDisabled = true;
@@ -84,6 +80,7 @@ export default class BspAPConsignmentDetails extends NavigationMixin(LightningEl
     }
 
     get redirectDescription(){
+        //console.log('redirect : ' + this.recallInProgress);
         if(this.recallInProgress)
         {
             this.recallOrRedirectButtonDisabled = true;
@@ -126,8 +123,8 @@ export default class BspAPConsignmentDetails extends NavigationMixin(LightningEl
         this.createdCase = null;
         this.recallRedirectCreated = false;
         this.recallRedirectError = '';
-        //this.recallRedirectName = this.singleConsignment.SenderName__c;
-        //this.recallRedirectCompany = this.singleConsignment.SenderCompany__c;
+       // this.recallRedirectName = this.singleConsignment.SenderName__c;
+       // this.recallRedirectCompany = this.singleConsignment.SenderCompany__c;
 
         if(this.recallOrRedirect == buttonRedirect)
         {
@@ -214,6 +211,7 @@ export default class BspAPConsignmentDetails extends NavigationMixin(LightningEl
         // form validation
         const inputComponents = this.template.querySelectorAll('[data-validate="recallRedirect"]');
         const addressCmp = this.template.querySelectorAll('[data-validate="doAddressValidate"]');
+        //console.log('input check ' + checkAllValidity(addressCmp, false));
         const allValid = checkAllValidity(inputComponents) & checkAllValidity(addressCmp, false);
 
         this.recallRedirectError = '';
@@ -230,6 +228,7 @@ export default class BspAPConsignmentDetails extends NavigationMixin(LightningEl
 
         const addressSearch = this.getAddressComp();
         let addressObj = addressSearch.address;
+        console.log(JSON.stringify(addressObj));
 
         // pass the correct format to apex
         let redirectDetails = {
@@ -243,17 +242,24 @@ export default class BspAPConsignmentDetails extends NavigationMixin(LightningEl
             Country:addressObj.countryCode
         };
 
+        console.log('sending to apex');
+        console.log(redirectDetails);
+
         submitRedirect({
             articleId: this.articleId,
             isRecall: boolRecall,
             redirectDetails: redirectDetails
         }).then(result =>{
+            console.log('on submitRedirect return')
+            console.log(JSON.stringify(result));
+
+
             // success
             this.showRecallRedirectSpinner = false;
             this.recallRedirectCreated = true;
             this.createdCase = result.Enquiry;
         }).catch(error => {
-            //console.error(error);
+            console.error(error);
             this.showRecallRedirectSpinner = false;
             this.recallRedirectError = error.body.message;
             
@@ -265,6 +271,7 @@ export default class BspAPConsignmentDetails extends NavigationMixin(LightningEl
     {
         if(this.submitCallback)
         {
+            console.log('submit callback');
             this.submitCallback();
         }
     }

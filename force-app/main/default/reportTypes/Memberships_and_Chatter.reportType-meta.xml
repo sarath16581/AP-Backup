@@ -334,11 +334,6 @@
             <field>Days_until_expiry__c</field>
             <table>Membership__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Compliance_Officer__c</field>
-            <table>Membership__c</table>
-        </columns>
         <masterLabel>Memberships</masterLabel>
     </sections>
     <sections>

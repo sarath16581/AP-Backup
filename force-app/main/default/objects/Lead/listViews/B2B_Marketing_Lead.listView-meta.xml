@@ -5,6 +5,6 @@
     <label>B2B Marketing</label>
     <queue>B2B_Marketing</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

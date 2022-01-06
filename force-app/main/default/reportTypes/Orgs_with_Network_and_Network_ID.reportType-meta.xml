@@ -1470,6 +1470,16 @@
             <field>WWC_WA__c</field>
             <table>Network__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LBP_Retail_relationship_network__c</field>
+            <table>Network__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LBP_Retail_relationship_type_network__c</field>
+            <table>Network__c</table>
+        </columns>
         <masterLabel>Network</masterLabel>
     </sections>
     <sections>
@@ -1487,6 +1497,11 @@
             <checkedByDefault>false</checkedByDefault>
             <field>Variance_Revenue_to_Last_Year__c</field>
             <table>Network__c.Assigned_Network__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Parent_Network__c.LBP_Retail_relationship_type_network__c</field>
+            <table>Network__c</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -1542,6 +1557,11 @@
             <checkedByDefault>false</checkedByDefault>
             <field>Account_Manager_Email__c</field>
             <table>Network__c.Assigned_Network__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Parent_Network__c.LBP_Retail_relationship_network__c</field>
+            <table>Network__c</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>

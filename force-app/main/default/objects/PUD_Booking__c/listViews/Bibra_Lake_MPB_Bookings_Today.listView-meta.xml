@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bibra_Lake_MPB_Bookings_Today</fullName>
+    <booleanFilter>1 AND 2 AND (3 OR 4 OR 5 OR 6)</booleanFilter>
     <columns>NAME</columns>
-    <columns>Location__c</columns>
+    <columns>Customer__c</columns>
     <columns>Street__c</columns>
     <columns>City__c</columns>
     <columns>Route_Lookup__c</columns>
@@ -19,16 +20,30 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>greaterOrEqual</operation>
+        <operation>equals</operation>
         <value>TODAY</value>
     </filters>
     <filters>
-        <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>bib</value>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6011,6012,6112,6147,6148,6149,6150,6153,6154,6156,6157,6158,6159</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6160,6162,6163,6164,6165,6166,6953,6954,6955,6956,6957,6958,6959</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6960,6961,6963,6964,6965,6966,6967,6968,6969,6970</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6167,6168,6169,6170,6171,6176,6180,6181,6182,6209,6210</value>
     </filters>
     <label>Bibra Lake - MPB Bookings Today</label>
-    <language>en_US</language>
     <sharedTo>
         <group>BIBRA_LAKE_VANS</group>
     </sharedTo>

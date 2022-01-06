@@ -8,7 +8,6 @@
     <relationshipLabel>Agreement Lodgement Point</relationshipLabel>
     <relationshipName>Agreement_Lodgement_Point</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

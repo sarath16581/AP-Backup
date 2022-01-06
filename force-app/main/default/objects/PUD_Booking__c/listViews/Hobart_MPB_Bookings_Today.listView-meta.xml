@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Hobart_MPB_Bookings_Today</fullName>
+    <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
     <columns>NAME</columns>
     <columns>Location__c</columns>
     <columns>Street__c</columns>
@@ -26,6 +27,11 @@
         <field>Depot__c</field>
         <operation>startsWith</operation>
         <value>Hob</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>7000,7004,7005,7007,7008,7009,7010,7011,7015,7016,7018,7019,7020</value>
     </filters>
     <label>Hobart - MPB Bookings Today</label>
     <language>en_US</language>

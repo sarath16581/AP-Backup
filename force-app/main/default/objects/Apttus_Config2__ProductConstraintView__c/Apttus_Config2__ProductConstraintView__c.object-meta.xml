@@ -155,7 +155,7 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Product Constraint View</label>
     <nameField>
         <displayFormat>PC-{00000000}</displayFormat>
@@ -163,7 +163,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Product Constraint Views</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

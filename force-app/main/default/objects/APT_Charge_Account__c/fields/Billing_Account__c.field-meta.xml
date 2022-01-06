@@ -9,7 +9,6 @@
     <relationshipLabel>Charge Account Requests</relationshipLabel>
     <relationshipName>Charge_Account_Requests</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

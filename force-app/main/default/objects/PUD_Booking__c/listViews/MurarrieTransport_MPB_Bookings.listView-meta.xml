@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MurarrieTransport_MPB_Bookings</fullName>
-    <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
     <columns>NAME</columns>
+    <columns>Booking_Type__c</columns>
+    <columns>Customer_Name__c</columns>
+    <columns>Customer_Post_Code__c</columns>
+    <columns>Customer_Street__c</columns>
+    <columns>Date__c</columns>
+    <columns>Depot__c</columns>
+    <columns>Booking_Location_Route__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
@@ -11,7 +17,7 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>greaterOrEqual</operation>
+        <operation>lessOrEqual</operation>
         <value>TODAY</value>
     </filters>
     <filters>
@@ -27,10 +33,19 @@
     <filters>
         <field>Post_Code__c</field>
         <operation>contains</operation>
-        <value>4178,4179,4183,4184</value>
+        <value>4178,4179,4183,4184,4109</value>
     </filters>
-    <label>MurarrieTransport MPB Bookings</label>
-    <language>en_US</language>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Murarrie</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>lessOrEqual</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>MurarrieTransport MPB Bookings Today</label>
     <sharedTo>
         <group>MURARRIE_PUD_TRANSPORT</group>
     </sharedTo>

@@ -21,8 +21,8 @@
     </filters>
     <filters>
         <field>Roster_Reference__c</field>
-        <operation>startsWith</operation>
-        <value>Wk51</value>
+        <operation>equals</operation>
+        <value>Wk50</value>
     </filters>
     <label>Future Assignments - Roster XX</label>
 </ListView>

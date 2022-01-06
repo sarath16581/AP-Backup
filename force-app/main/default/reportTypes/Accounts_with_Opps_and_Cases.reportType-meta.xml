@@ -3379,6 +3379,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Business_Development_Driver__c</field>
+            <table>Account.Opportunities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Start_of_CFY__c</field>
             <table>Account.Opportunities</table>
         </columns>

@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>What are your current pain points?</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

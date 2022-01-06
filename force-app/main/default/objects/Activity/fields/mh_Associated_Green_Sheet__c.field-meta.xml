@@ -5,6 +5,5 @@
     <description>SAM Integration</description>
     <externalId>false</externalId>
     <label>Associated Green Sheet</label>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <type>Checkbox</type>
 </CustomField>

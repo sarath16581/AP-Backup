@@ -7,7 +7,6 @@ new field required to replace accountnumber as we cant change the data type of a
     <label>Party Number</label>
     <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

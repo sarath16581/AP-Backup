@@ -27,6 +27,6 @@
     </filters>
     <label>My Team&apos;s Leads</label>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

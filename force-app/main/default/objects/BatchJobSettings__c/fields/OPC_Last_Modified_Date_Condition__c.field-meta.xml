@@ -4,7 +4,7 @@
     <description>The field is used in the WHERE Clause of the SOQL in OPCRevenuesRollUpBatchable Job</description>
     <externalId>false</externalId>
     <label>OPC Last Modified Date Condition</label>
-    <length>150</length>
+    <length>100</length>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Text</type>

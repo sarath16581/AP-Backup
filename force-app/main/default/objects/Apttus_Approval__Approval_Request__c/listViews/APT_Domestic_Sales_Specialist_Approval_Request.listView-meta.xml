@@ -5,6 +5,6 @@
     <label>Domestic Sales Specialist</label>
     <queue>APT_Domestic_Sales_Specialist</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

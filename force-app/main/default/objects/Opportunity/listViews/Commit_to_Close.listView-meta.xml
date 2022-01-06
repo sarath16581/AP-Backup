@@ -28,6 +28,6 @@
     </filters>
     <label>Commit to Close</label>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -27,12 +27,12 @@
         <filterItems>
             <field>Account_Plan__c.End_Date__c</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </filterItems>
         <filterItems>
             <field>Account_Plan__c.Start_Date__c</field>
             <operation>equals</operation>
-            <value/>
+            <value></value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>

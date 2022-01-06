@@ -3,12 +3,12 @@
     <groups>All Users</groups>
     <label>Planner Delegated Admin</label>
     <loginAccess>true</loginAccess>
-    <permissionSets>Field Service Dispatcher Permissions</permissionSets>
+    <permissionSets>FSL Dispatcher Permissions</permissionSets>
     <permissionSets>FSL Dispatcher License</permissionSets>
     <permissionSets>FSL Admin License</permissionSets>
-    <permissionSets>Field Service Resource Permissions</permissionSets>
+    <permissionSets>FSL Resource Permissions</permissionSets>
     <permissionSets>FSL Resource License</permissionSets>
-    <permissionSets>Field Service Admin Permissions</permissionSets>
+    <permissionSets>FSL Admin Permissions</permissionSets>
     <profiles>TDF Planner</profiles>
     <profiles>TDF Driver</profiles>
     <roles>Accounting Services</roles>

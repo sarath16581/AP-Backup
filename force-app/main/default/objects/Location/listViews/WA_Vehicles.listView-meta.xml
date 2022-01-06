@@ -26,5 +26,10 @@
         <operation>equals</operation>
         <value>WA Transport</value>
     </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notContain</operation>
+        <value>Decommissioned</value>
+    </filters>
     <label>WA Vehicles</label>
 </ListView>

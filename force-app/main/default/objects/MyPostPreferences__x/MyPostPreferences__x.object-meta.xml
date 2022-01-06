@@ -123,5 +123,5 @@
     <externalName>MyDeliveryPreferences</externalName>
     <label>MyPost Preferences</label>
     <pluralLabel>MyPost Preferences</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
 </CustomObject>

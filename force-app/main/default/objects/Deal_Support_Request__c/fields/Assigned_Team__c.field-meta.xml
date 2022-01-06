@@ -69,14 +69,14 @@ The field is used to add Queue Name for Credit Management Request DSR.</descript
                 <label>Unassigned Credit Management Requests</label>
             </value>
             <value>
-                <fullName>Intermediaries</fullName>
-                <default>false</default>
-                <label>Intermediaries</label>
-            </value>
-            <value>
                 <fullName>Credit Risk Team</fullName>
                 <default>false</default>
                 <label>Credit Risk Team</label>
+            </value>
+            <value>
+                <fullName>Intermediaries</fullName>
+                <default>false</default>
+                <label>Intermediaries</label>
             </value>
         </valueSetDefinition>
     </valueSet>

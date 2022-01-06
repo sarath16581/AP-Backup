@@ -30,7 +30,7 @@ History
 04.07.2019  Disha Kariya                        Added State Admin Email on Licence when created in updateNetworkManager.
 10.03.2020  Swati Mogadala                       Added debug log as per Salesforce teams requestREQ2120103
 04.08.2020  Swati Mogadala                      Used RecordTypesSelector.newInstance().selectByName() to get recordtypes for Account object using names
-02.12.2020 SaiSwetha Pingali                    Fix for guest user access issues to avoid duplicate Holding Role references being created after the activation of CRUD "Secure Guest users Sharing settings and record access"
+25.01.2020  SaiSwetha Pingali                   Fix for guest user access issues to avoid duplicate Holding Role references being created after the activation of CRUD "Secure Guest users Sharing settings and record access"
 03.02.2021  SaiSwetha Pingali                  INC1727549 - Moved the logic to create customer role to a inner class without sharing as guest users doesn't have access to accounts.
 22.02.2021  L. Serafico (Mav3rik)               Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
 ------------------------------------------------------------**/ 
@@ -151,13 +151,13 @@ public with sharing class AccountTriggerUtility {
         }
     }
     
+    /*spingali - Moved this class to an inner class without sharing 'AccessHoldingRoleandUser' to give access to guest users .
      /**
       * @description       method called for creating org role for filtered accounts
       * @param             NA
       * @return            NA
       * @throws            NA
-      */
-      /*spingali - Moved this class to inner class without sharing to give access to guest users .
+      
        public void createCustomerRole (List<Id> OrgIds){
         //List<Account> OrgList = [SELECT Id FROM Account WHERE Id in : OrgIds];
         List<Organisation_Role__c> OrgRoleList = new List<Organisation_Role__c>();
@@ -176,8 +176,9 @@ public with sharing class AccountTriggerUtility {
                                                     AccountTriggerUtility.class.getName(), SSSWConstants.METH_UPDATEHLC, 
                                                     SSSWConstants.ACCOUNT_TRIGGER, LoggingLevel.ERROR);
         }
-    } */
+    }
     
+    */
     
      /**
       * @description    method to populate account root id.

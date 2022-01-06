@@ -202,11 +202,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Exclude_from_Research_Contact__c</field>
-            <table>Account.Contacts</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Depot_Collection__c</field>
             <table>Account</table>
         </columns>
@@ -964,6 +959,11 @@
             <checkedByDefault>false</checkedByDefault>
             <field>mh_FOP_View_1_Yr__c</field>
             <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Exclude_from_Research_Contact__c</field>
+            <table>Account.Contacts</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -3196,11 +3196,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedBy.Manager__c</field>
-            <table>Account.Contacts</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>isPrefDiffAsFirst__c</field>
             <table>Account.Contacts</table>
         </columns>
         <masterLabel>Contacts</masterLabel>

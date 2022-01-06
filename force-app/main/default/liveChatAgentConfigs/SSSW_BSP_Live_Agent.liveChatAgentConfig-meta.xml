@@ -7,7 +7,6 @@
         </profiles>
         <users>
             <user>danielle.larson@auspost.com.au</user>
-            <user>prerna.rahangdale@auspost.com.au</user>
         </users>
     </assignments>
     <autoGreeting>Hello {!LiveAgent_VisitorName}, 

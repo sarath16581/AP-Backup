@@ -9,7 +9,7 @@
         <filterItems>
             <field>Network__c.SSSE_Email__c</field>
             <operation>notEqual</operation>
-            <value/>
+            <value></value>
         </filterItems>
         <infoMessage>Only SSSE depots are listed</infoMessage>
         <isOptional>false</isOptional>

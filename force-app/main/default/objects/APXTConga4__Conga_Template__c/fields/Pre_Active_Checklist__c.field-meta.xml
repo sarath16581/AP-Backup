@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Pre Active Checklist</label>
     <length>1000</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>8</visibleLines>

@@ -83,16 +83,8 @@ $User.Manager__c &lt;&gt; $Setup.APRs__c.Parcel_eCommerce_Sales_Manager__c</form
         <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>anita.ralevski@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>edward.hunter@auspost.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>ruby.chng@startrack.com.au</name>
-                <type>user</type>
+                <name>APR_Approvers</name>
+                <type>queue</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>

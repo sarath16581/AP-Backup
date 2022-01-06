@@ -5,7 +5,6 @@
     <inlineHelpText>The status of the MHS, this is to be updated by the Account Manager responsible for the MHS negotiation.</inlineHelpText>
     <label>MHS Status</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

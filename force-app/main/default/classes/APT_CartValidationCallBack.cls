@@ -426,45 +426,45 @@ global with sharing class APT_CartValidationCallBack implements Apttus_Config2.C
             
             //Begin Added by Naresh for Winback  STP-6324  
 
-            if(String.isNotBlank(lstProposal[0].Is_Startrack_Proposal__c) && (lstProposal[0].Is_Startrack_Proposal__c).equalsIgnoreCase('Yes') ){
-                set<Id> productId = new set<Id>();
-                if(String.isNotBlank(lstProposal[0].APT_Tier_Adjustment_Type__c) ){
-                    List<Id> cardtProdId = new List<Id>();
-                    List<AggregateResult> revenueBillingAccList = new List<AggregateResult>();
-                    if(prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c != null){
-                        //Adding Customer__r.Sales_Segment__c to check the sales team
-                        revenueBillingAccList = [select Customer__r.Sales_Segment__c,MAX(APT_Last_Rev_Realized__c) LastRev,Product__c product from Revenue_by_Billing_Account__c
-                                                        WHERE Customer__c =: prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c GROUP BY Customer__r.Sales_Segment__c,Product__c];
-
-                        if(!revenueBillingAccList.isEmpty() && revenueBillingAccList.size() > 0){
-                            //logic for checkign cart products
-                                List<Apttus_Config2__LineItem__c> allLineItemswb = [SELECT Id, Apttus_Config2__ProductId__c, APT_StarTrack_Proposal__c, APT_Approval_Required_ST__c, 
-                                                                                  Apttus_CQApprov__Approval_Status__c, Apttus_Config2__LineType__c
-                                                                                  FROM Apttus_Config2__LineItem__c WHERE Apttus_Config2__ConfigurationId__c =: configurationId];
-                            
-                            for(Apttus_Config2__LineItem__c lineItem : allLineItemswb){
-                                productId.add(lineItem.Apttus_Config2__ProductId__c);
-                            }
-                            for(AggregateResult rba : revenueBillingAccList ){                                                     
-                                if(productId.contains(String.valueOf(rba.get('product')))){
-                                    if(rba.get('Sales_Segment__c') == 'Intermediaries' || rba.get('Sales_Segment__c') == 'Intermediaries - Not Active'){
-                                      result.isSuccess =  true;   
-                                    }  
-                                    else {
-                                        Date revRealizedDate = (Date)rba.get('LastRev');
-                                        system.debug('days between ** '+revRealizedDate.daysBetween(system.today()));
-                                        if(revRealizedDate.daysBetween(system.today()) < 365){
-                                            result.Messages.add(new ApexPages.Message(ApexPages.Severity.ERROR, 'This opportunity is not for New Business/Cross Sell/Winback, to request standard pricing delegation, contact pricing support team via Deal Support Request (DSR)'));
-                                            result.isSuccess =  false;
-                                        }
-                                    }
-                                }    
-                            }
-                        }
-                    }
-                }
-            }
-
+               if(String.isNotBlank(lstProposal[0].Is_Startrack_Proposal__c) && (lstProposal[0].Is_Startrack_Proposal__c).equalsIgnoreCase('Yes') ){
+                   set<Id> productId = new set<Id>();
+                   if(String.isNotBlank(lstProposal[0].APT_Tier_Adjustment_Type__c) ){
+                       List<Id> cardtProdId = new List<Id>();
+                       List<AggregateResult> revenueBillingAccList = new List<AggregateResult>();
+                       if(prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c != null){
+                           //Adding Customer__r.Sales_Segment__c to check the sales team
+                           revenueBillingAccList = [select Customer__r.Sales_Segment__c,MAX(APT_Last_Rev_Realized__c) LastRev,Product__c product from Revenue_by_Billing_Account__c
+                                                    WHERE Customer__c =: prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c GROUP BY Customer__r.Sales_Segment__c,Product__c];
+                           
+                           if(!revenueBillingAccList.isEmpty() && revenueBillingAccList.size() > 0){
+                               //logic for checkign cart products
+                               List<Apttus_Config2__LineItem__c> allLineItemswb = [SELECT Id, Apttus_Config2__ProductId__c, APT_StarTrack_Proposal__c, APT_Approval_Required_ST__c, 
+                                                                                   Apttus_CQApprov__Approval_Status__c, Apttus_Config2__LineType__c
+                                                                                   FROM Apttus_Config2__LineItem__c WHERE Apttus_Config2__ConfigurationId__c =: configurationId];
+                               
+                               for(Apttus_Config2__LineItem__c lineItem : allLineItemswb){
+                                   productId.add(lineItem.Apttus_Config2__ProductId__c);
+                               }
+                               for(AggregateResult rba : revenueBillingAccList ){
+                                   if(productId.contains(String.valueOf(rba.get('product')))){                                      
+                                       if(rba.get('Sales_Segment__c') == 'Intermediaries' || rba.get('Sales_Segment__c') == 'Intermediaries - Not Active'){
+                                           result.isSuccess =  true;      
+                                       }  
+                                       else {
+                                           Date revRealizedDate = (Date)rba.get('LastRev');
+                                           system.debug('days between ** '+revRealizedDate.daysBetween(system.today()));
+                                           if(revRealizedDate.daysBetween(system.today()) < 365){
+                                               result.Messages.add(new ApexPages.Message(ApexPages.Severity.ERROR, 'This opportunity is not for New Business/Cross Sell/Winback, to request standard pricing delegation, contact pricing support team via Deal Support Request (DSR)'));
+                                               result.isSuccess =  false;
+                                           }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+               
             //End Added by Naresh for Winback  STP-6324  
 
 

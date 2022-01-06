@@ -1356,11 +1356,6 @@
             <field>Verified_Name__c</field>
             <table>Billing_Account__c.Contacts__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>isPrefDiffAsFirst__c</field>
-            <table>Billing_Account__c.Contacts__r</table>
-        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>

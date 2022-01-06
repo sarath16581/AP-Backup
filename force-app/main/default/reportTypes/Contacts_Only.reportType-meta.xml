@@ -593,7 +593,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>isPrefDiffAsFirst__c</field>
+            <field>Record_Maintainer__c</field>
             <table>Contact</table>
         </columns>
         <masterLabel>Contacts</masterLabel>

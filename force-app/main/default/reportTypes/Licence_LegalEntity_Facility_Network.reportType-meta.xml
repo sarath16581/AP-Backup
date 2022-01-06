@@ -1468,6 +1468,16 @@
             <field>Facility__c.Network_Facility__c.BusBankChq__c</field>
             <table>Account</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Network_Facility__c.LBP_Retail_relationship_type_network__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Network_Facility__c.LBP_Retail_relationship_network__c</field>
+            <table>Account</table>
+        </columns>
         <masterLabel>Network</masterLabel>
     </sections>
     <sections>
@@ -1679,5 +1689,18 @@
             <table>Account</table>
         </columns>
         <masterLabel>Nominated Partner Contact</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Facility__c.Network_Facility__c.LBP_Retail_relationship_network__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Facility__c.Network_Facility__c.LBP_Retail_relationship_type_network__c</field>
+            <table>Account</table>
+        </columns>
+        <masterLabel>Accounts</masterLabel>
     </sections>
 </ReportType>

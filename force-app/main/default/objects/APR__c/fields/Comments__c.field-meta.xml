@@ -6,7 +6,6 @@
     <inlineHelpText>Additional commentary to help support the value that has been selected in the Status and Sub-Status fields.</inlineHelpText>
     <label>Comments</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>

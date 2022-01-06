@@ -210,11 +210,6 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>Apttus_Approval__Approval_Request_History__c.Apttus_CQApprov__CartId__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Apttus_Config2__ConstraintRuleId__c</fields>
         <relatedList>Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__ConfigurationId__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
@@ -223,7 +218,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h9000000iElIf</masterLabel>
+        <masterLabel>00hO0000000IHqn</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

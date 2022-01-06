@@ -7,8 +7,11 @@
     <columns>Route__c</columns>
     <columns>Street__c</columns>
     <columns>City__c</columns>
+    <columns>Customer__c</columns>
     <columns>Post_Code__c</columns>
     <columns>State__c</columns>
+    <columns>Geo__Latitude__s</columns>
+    <columns>Geo__Longitude__s</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>State__c</field>

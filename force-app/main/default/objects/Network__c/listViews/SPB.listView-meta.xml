@@ -8,9 +8,9 @@
     <columns>Post_Code__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>ORG_UNIT_ADDR_1__c</field>
+        <field>RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Fiona</value>
+        <value>Network__c.Street_Posting_Box_6</value>
     </filters>
     <label>SPB</label>
     <sharedTo>

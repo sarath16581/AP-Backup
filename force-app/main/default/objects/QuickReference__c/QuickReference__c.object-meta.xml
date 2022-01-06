@@ -162,7 +162,7 @@
     </nameField>
     <pluralLabel>Quick References</pluralLabel>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

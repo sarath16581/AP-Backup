@@ -19,6 +19,6 @@
     <label>Workforce Integrity team</label>
     <queue>Workforce_Integrity_team</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

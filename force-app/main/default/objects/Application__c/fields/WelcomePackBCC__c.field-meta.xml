@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Welcome Pack BCC</label>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Email</type>

@@ -5,6 +5,6 @@
     <label>SSSW Do not Use  CB Request Closed</label>
     <queue>SSSW_Callback_Request_Closed_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

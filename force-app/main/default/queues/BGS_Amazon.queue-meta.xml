@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
     <email>vernon.keogh@auspost.com.au</email>
     <name>BGS Amazon</name>
     <queueMembers>
         <users>
-            <user>asha.nand@auspost.com.au</user>
-            <user>dean.purves@auspost.com.au</user>
-            <user>fahad.saeed@auspost.com.au</user>
-            <user>frank.fallace@auspost.com.au</user>
-            <user>nadia.skinner@auspost.com.au</user>
-            <user>nancy.patsiouris@auspost.com.au</user>
-            <user>neil.valmeo@auspost.com.au</user>
-            <user>roger.pio@auspost.com.au</user>
-            <user>uma.govindan@auspost.com.au</user>
             <user>vernon.keogh@auspost.com.au</user>
         </users>
     </queueMembers>

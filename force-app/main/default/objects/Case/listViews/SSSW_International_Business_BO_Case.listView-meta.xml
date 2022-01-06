@@ -5,6 +5,6 @@
     <label>SSSW International Business BO</label>
     <queue>SSSW_International_Business_BO</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

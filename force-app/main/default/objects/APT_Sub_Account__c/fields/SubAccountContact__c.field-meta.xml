@@ -10,7 +10,7 @@
         <filterItems>
             <field>Contact.Email</field>
             <operation>notEqual</operation>
-            <value/>
+            <value></value>
         </filterItems>
         <filterItems>
             <field>Contact.Status__c</field>
@@ -23,7 +23,6 @@
     <relationshipLabel>Sub Account Requests</relationshipLabel>
     <relationshipName>Sub_Account_Requests</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

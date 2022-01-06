@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Welcome Pack Sent Time</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>

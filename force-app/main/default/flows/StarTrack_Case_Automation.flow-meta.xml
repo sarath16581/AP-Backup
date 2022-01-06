@@ -44,7 +44,7 @@
             <processMetadataValues>
                 <name>objectType</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -3001,7 +3001,7 @@ IF(ISBLANK({!myVariable_current.Recent_Caller_Email__c}), IF(ISBLANK({!myVariabl
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -4159,7 +4159,7 @@ IF(ISBLANK({!myVariable_current.Recent_Caller_Email__c}), IF(ISBLANK({!myVariabl
             <field>Pickup_Booking_Reference__c</field>
             <operator>NotEqualTo</operator>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </filters>
         <inputAssignments>

@@ -277,6 +277,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>PersonActionCadenceState</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Organisation_Alternate_Name__c</field>
             <table>Account</table>
         </columns>
@@ -2547,7 +2552,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Related_Networks_LBP_Relationship_Type__c</field>
+            <field>APT_Ready_For_APPC_Migration__c</field>
             <table>Account</table>
         </columns>
         <masterLabel>Organisations</masterLabel>
@@ -2776,6 +2781,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>DoNotCall</field>
+            <table>Account.Contacts</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ActionCadenceState</field>
             <table>Account.Contacts</table>
         </columns>
         <columns>
@@ -3391,11 +3401,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Pref_Method_of_Contact__c</field>
-            <table>Account.Contacts</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>isPrefDiffAsFirst__c</field>
             <table>Account.Contacts</table>
         </columns>
         <columns>

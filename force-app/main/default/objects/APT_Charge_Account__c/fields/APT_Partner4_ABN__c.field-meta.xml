@@ -5,7 +5,6 @@
     <label>Partner4 ABN</label>
     <length>11</length>
     <required>false</required>
-    <securityClassification>PUBLIC</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -35,7 +35,7 @@
         });
         
         action.setCallback(this, function(response) {
-            var state = response.getState();debugger
+            var state = response.getState();
             if (state === "SUCCESS") {
                 var returnObj =  JSON.parse(response.getReturnValue());
                 cmp.set("v.wizardData.correctDeliveryAddress", returnObj[0].singleLine);
@@ -122,7 +122,7 @@
         var baseUrl = window.location.href;
         if(baseUrl.includes("trackingId"))
         {
-            window.location.href = window.location.href + '#';debugger
+            window.location.href = window.location.href + '#';
         }
         //cmp.set("v.wizardData.correctDeliveryAddress",null);
         helper.gotoPrevPage(cmp);
@@ -251,7 +251,7 @@
         );
         cmp.set("v.didItHelp", true);
         //push analytics for 'helpsupport-form-navigate' for self-help
-        //helper.pushAnalytics(cmp,'item details:safe drop:it helped');
+        helper.pushAnalytics(cmp,'item details:safe drop:it helped');
     },
     giveFeedback : function(cmp,event,helper) {
         window.open("https://survey.auspost.com.au/cgi-bin/qwebcorporate.dll?idx=AENCHY&n_Trigger=self-serve",'_blank');

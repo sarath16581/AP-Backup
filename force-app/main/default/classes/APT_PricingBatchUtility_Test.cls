@@ -5,6 +5,7 @@
  * @description Test class consisting of methods to test the helper methods in the APT_PricingBatchUtility class.
  * @changelog
  * 2021-03-01 - Darshan Chauhan - Created
+ * 2021-09-23 - Mathew Jose - Added test methods test the simplified parcel products (Appc Speed & FSR)
 */
 
 @isTest
@@ -12,6 +13,8 @@ public with sharing class APT_PricingBatchUtility_Test {
     public static final string TEST_STARTRACK_PRODUCT_TYPE = 'Startrack';
     public static final string TEST_DOMESTIC_PRODUCT_TYPE = 'Domestic_Non_Startrack';
     public static final string TEST_International_PRODUCT_TYPE = 'International';
+    public static final string TEST_DOMESTIC_PARCEL_CONTRACT_PRODUCT_TYPE = 'Domestic_Simplified_Parcel_Contract';
+    public static final string TEST_DOMESTIC_FSR_PRODUCT_TYPE = 'Domestic_Simplified_Features_Surcharges';    
 
     @TestSetup
     static void createData(){
@@ -34,7 +37,19 @@ public with sharing class APT_PricingBatchUtility_Test {
         //International product 2 (new product)
         Product2 productAIRLET1 = APT_TestUtils.createInternationalProduct('Air Mail Letters1', 'AIRLET1', 'Parcel Services');
         productAIRLET1.APT_International_Pricing__c = true;
-        insert productAIRLET1;        
+        insert productAIRLET1; 
+
+        //APPC Speed Product 
+        Product2 product_APPC_SPEED1 = APT_TestUtils.createDomesticProduct('Tier4 Standard Capital', 'PDSP00_Capital', 'Parcel Services', 'Tier 4','Standard');
+        product_APPC_SPEED1.APT_Domestic_Pricing__c = true;
+        product_APPC_SPEED1.APT_Product_type__c = 'Parcel Contract';
+        insert product_APPC_SPEED1;
+                
+        
+        //APPC FSR Product 
+        Product2 product_APPC_FSR1 = APT_TestUtils.createDomesticProduct('Premium Express Parcel Transit Cover', 'FSR1', 'Parcel Services', 'Tier 4','Standard');
+        product_APPC_FSR1.APT_Product_type__c = 'Parcel Contract-Feature';
+        insert product_APPC_FSR1;   
 
         Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
         insert priceList;
@@ -68,7 +83,17 @@ public with sharing class APT_PricingBatchUtility_Test {
         //pli for AIRLET1
         Apttus_Config2__PriceListItem__c priceListItem6 = APT_TestUtils.createPriceListItem(priceList.id,productAIRLET1.id,'','');
         priceListItem6.APT_Pricing_Key__c = productAIRLET1.Id + '~' + productAIRLET1.Productcode+'~'+'BAND 1';
-        priceListItemList.add(priceListItem6);        
+        priceListItemList.add(priceListItem6);
+        
+        //pli for APPC SPEED
+        Apttus_Config2__PriceListItem__c priceListItem7 = APT_TestUtils.createPriceListItem(priceList.id,product_APPC_SPEED1.id,'','');
+        priceListItem7.APT_Pricing_Key__c = product_APPC_SPEED1.Id + '~' + 'Z6';
+        priceListItemList.add(priceListItem7); 
+        
+        //pli for APPC FSR
+        Apttus_Config2__PriceListItem__c priceListItem8 = APT_TestUtils.createPriceListItem(priceList.id,product_APPC_FSR1.id,'','');
+        priceListItem8.APT_Pricing_Key__c = product_APPC_FSR1.Id + '~' + 'Parcel Contract-Feature';
+        priceListItemList.add(priceListItem8);            
                
         insert priceListItemList;
 
@@ -116,7 +141,19 @@ public with sharing class APT_PricingBatchUtility_Test {
         listPriceDimension.add(priceDimension12);
         
         Apttus_Config2__PriceDimension__c priceDimension13 = APT_TestUtils.createPriceDimension('Weight Range', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c', 'Weight_Range__c', productAttribute.Id);
-        listPriceDimension.add(priceDimension13);    
+        listPriceDimension.add(priceDimension13); 
+        
+        Apttus_Config2__PriceDimension__c priceDimension14 = APT_TestUtils.createPriceDimension('Customer Tier', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c', 'APT_Customer_Tier__c', productAttribute.Id);
+        listPriceDimension.add(priceDimension14); 
+        
+        Apttus_Config2__PriceDimension__c priceDimension15 = APT_TestUtils.createPriceDimension('Price Point', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c', 'APT_Price_Point__c', productAttribute.Id);
+        listPriceDimension.add(priceDimension15); 
+        
+        Apttus_Config2__PriceDimension__c priceDimension16 = APT_TestUtils.createPriceDimension('Lodgment Zone', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c', 'APT_Lodgment_Zone__c', productAttribute.Id);
+        listPriceDimension.add(priceDimension16);
+        
+        Apttus_Config2__PriceDimension__c priceDimension17 = APT_TestUtils.createPriceDimension('Weight Code', 'Product Attribute', 'Apttus_Config2__ProductAttributeValue__c','APT_Weight_Code__c', productAttribute.Id);
+        listPriceDimension.add(priceDimension17);           
 
         insert listPriceDimension;
         
@@ -151,8 +188,21 @@ public with sharing class APT_PricingBatchUtility_Test {
 
         // PM for the Pli corresponding to AIRLET
         Apttus_Config2__PriceMatrix__c priceMatrix4 = APT_TestUtils.createPriceMatrix(priceListItem5.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
-        listPM.add(priceMatrix4);          
+        listPM.add(priceMatrix4);
+        
+        // PM for the Pli corresponding to SPEED1
+        Apttus_Config2__PriceMatrix__c priceMatrix5 = APT_TestUtils.createPriceMatrix(priceListItem7.Id,priceDimension16.Id, priceDimension17.Id, priceDimension2.Id);
+        priceMatrix5.Apttus_Config2__Dimension4Id__c = priceDimension15.Id;
+        priceMatrix5.Apttus_Config2__Dimension4ValueType__c = 'Discrete';
+        listPM.add(priceMatrix5);        
 
+        // PM for the Pli corresponding to FSR1
+        Apttus_Config2__PriceMatrix__c priceMatrix6 = new Apttus_Config2__PriceMatrix__c();
+        priceMatrix6.Apttus_Config2__Sequence__c=1;
+        priceMatrix6.Apttus_Config2__PriceListItemId__c=priceListItem8.Id;
+        priceMatrix6.Apttus_Config2__Dimension1Id__c = priceDimension14.Id;
+        priceMatrix6.Apttus_Config2__Dimension1ValueType__c = 'Discrete';
+        listPM.add(priceMatrix6);        
         insert listPM;
 
         APT_R2T_System_Properties__c syp = new APT_R2T_System_Properties__c();
@@ -207,6 +257,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         pdMapping.APT_Product__c = productCAT1STD.Id;
         pdmList.add(pdMapping);
 
+        //pdm NXF
         APT_Pricing_Data_Mapping__c pdMapping1 = new APT_Pricing_Data_Mapping__c();
         pdMapping1.APT_Pricing_Value_Name_1__c = 'Outbound - Inbound';
         pdMapping1.APT_Pricing_Value_Name_2__c = 'Pickup Zone Code';
@@ -223,6 +274,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         pdMapping1.APT_Product__c = productNXF.Id;
         pdmList.add(pdMapping1);
 
+        //PDM AIRLET
         APT_Pricing_Data_Mapping__c pdMapping2 = new APT_Pricing_Data_Mapping__c();
         pdMapping2.APT_Pricing_Value_Name_1__c = 'Band';
         pdMapping2.APT_Pricing_Value_Name_2__c = 'Band Range Max';
@@ -239,6 +291,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         pdMapping2.APT_Product__c = productAIRLET.Id;
         pdmList.add(pdMapping2);
 
+        //PDM AIRLET
         APT_Pricing_Data_Mapping__c pdMapping4 = new APT_Pricing_Data_Mapping__c();
         pdMapping4.APT_Pricing_Value_Name_1__c = 'Band';
         pdMapping4.APT_Pricing_Value_Name_2__c = 'Band Range Max';
@@ -255,6 +308,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         pdMapping4.APT_Product__c = productAIRLET1.Id;
         pdmList.add(pdMapping4);        
 
+        //PDM EXP
         APT_Pricing_Data_Mapping__c pdMapping3 = new APT_Pricing_Data_Mapping__c();
         pdMapping3.APT_Pricing_Value_Name_1__c = 'Outbound - Inbound';
         pdMapping3.APT_Pricing_Value_Name_2__c = 'Pickup Zone Code';
@@ -270,6 +324,26 @@ public with sharing class APT_PricingBatchUtility_Test {
         pdMapping3.APT_Pricing_Value_Name_12__c = 'Zone Type';
         pdMapping3.APT_Product__c = productEXP.Id;
         pdmList.add(pdMapping3);
+
+        //PDM SPEED1
+        APT_Pricing_Data_Mapping__c pdMapping5 = new APT_Pricing_Data_Mapping__c();
+        pdMapping5.APT_Pricing_Value_Name_1__c = 'Price Structure';
+        pdMapping5.APT_Pricing_Value_Name_2__c = 'Lodgment Zone';
+        pdMapping5.APT_Pricing_Value_Name_3__c = 'Weight Code';
+        pdMapping5.APT_Pricing_Value_Name_4__c = 'Weight Range Code Description';
+        pdMapping5.APT_Pricing_Value_Name_5__c = 'Base Rate';
+        pdMapping5.APT_Pricing_Value_Name_6__c = 'Per Kg Rate';
+        pdMapping5.APT_Pricing_Value_Name_7__c = 'Price Point';
+        pdMapping5.APT_Product__c = product_APPC_SPEED1.Id;
+        pdmList.add(pdMapping5);
+        
+        //PDM FSR1
+        APT_Pricing_Data_Mapping__c pdMapping6 = new APT_Pricing_Data_Mapping__c();
+        pdMapping6.APT_Pricing_Value_Name_1__c = 'Product Type';
+        pdMapping6.APT_Pricing_Value_Name_2__c = 'Customer Tier';
+        pdMapping6.APT_Pricing_Value_Name_3__c = 'Amount';
+        pdMapping5.APT_Product__c = product_APPC_FSR1.Id;
+        pdmList.add(pdMapping6);         
 
         insert pdmList;
 
@@ -377,6 +451,28 @@ public with sharing class APT_PricingBatchUtility_Test {
         pricData5.APT_Pricing_Value_10__c = 'Zone6';
         pricData5.APT_Pricing_Data_Mapping__c = pdMapping4.Id;
         pdList.add(pricData5);
+
+        //Pricing data for SPEED 1
+        APT_Pricing_Data__c pricData6 = new APT_Pricing_Data__c();
+        pricData6.APT_Product__c = product_APPC_SPEED1.Id;
+        pricData6.APT_Pricing_Value_1__c = 'Z6';
+        pricData6.APT_Pricing_Value_2__c = 'Capital_Interstate_Capital';
+        pricData6.APT_Pricing_Value_3__c = '3';
+        pricData6.APT_Pricing_Value_4__c = '1.001kg to 3kg';
+        pricData6.APT_Pricing_Value_5__c = '9.28';
+        pricData6.APT_Pricing_Value_6__c = '';
+        pricData6.APT_Pricing_Value_7__c = 'CAISCAL_BRSP00S006CA';
+        pricData6.APT_Pricing_Data_Mapping__c = pdMapping5.Id;
+        pdList.add(pricData6); 
+        
+        //Pricing data for FSR 1
+        APT_Pricing_Data__c pricData7 = new APT_Pricing_Data__c();
+        pricData7.APT_Product__c = product_APPC_FSR1.Id;
+        pricData7.APT_Pricing_Value_1__c = 'Parcel Contract-Feature';
+        pricData7.APT_Pricing_Value_2__c = 'TIER 4';
+        pricData7.APT_Pricing_Value_3__c = '100';
+        pricData7.APT_Pricing_Data_Mapping__c = pdMapping6.Id;
+        pdList.add(pricData7);          
 
         insert pdList; 
 		
@@ -493,7 +589,38 @@ public with sharing class APT_PricingBatchUtility_Test {
         prmapping4.APT_Dimension5_Type__c = '';
         prmapping4.APT_Dimension6_Type__c = '';
         prmapping4.APT_Product__c = productCAT1STD.Id;
-        insert prmapping4;          
+        insert prmapping4; 
+        
+         //price matrix mapping SPEED
+         APT_Price_Matrix_Mapping__c prmapping5 = new APT_Price_Matrix_Mapping__c();
+         prmapping5.APT_Dimension1__c = 'Lodgment Zone';
+         prmapping5.APT_Dimension2__c = 'Weight Code';
+         prmapping5.APT_Dimension3__c = 'Domestic Price Type';
+         prmapping5.APT_Dimension4__c = 'Price Point';
+         prmapping5.APT_Dimension5__c = '';
+         prmapping5.APT_Dimension6__c = '';
+         prmapping5.APT_Dimension1_API__c = 'APT_Lodgment_Zone__c';
+         prmapping5.APT_Dimension2_API__c = 'APT_Weight_Code__c';
+         prmapping5.APT_Dimension3_API__c = 'APT_Domestic_Price_Type__c';
+         prmapping5.APT_Dimension4_API__c = 'APT_Price_Point__c';
+         prmapping5.APT_Dimension5_API__c = '';
+         prmapping5.APT_Dimension6_API__c = '';
+         prmapping5.APT_Dimension1_Type__c = 'Discrete';
+         prmapping5.APT_Dimension2_Type__c = 'Range';
+         prmapping5.APT_Dimension3_Type__c = 'Discrete';
+         prmapping5.APT_Dimension4_Type__c = 'Discrete';
+         prmapping5.APT_Dimension5_Type__c = '';
+         prmapping5.APT_Dimension6_Type__c = '';
+         prmapping5.APT_Product__c = product_APPC_SPEED1.Id;
+         insert prmapping5; 
+         
+         //price matrix mapping FSR
+         APT_Price_Matrix_Mapping__c prmapping6 = new APT_Price_Matrix_Mapping__c();
+         prmapping6.APT_Dimension1__c = 'Customer Tier';
+         prmapping6.APT_Dimension1_API__c = 'APT_Customer_Tier__c';
+         prmapping6.APT_Dimension1_Type__c = 'Discrete';
+         prmapping6.APT_Product__c = product_APPC_FSR1.Id;
+         insert prmapping6;           
         
         
     }
@@ -522,11 +649,10 @@ public with sharing class APT_PricingBatchUtility_Test {
                              	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_9__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_10__c, 
                              	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_11__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_12__c
             				FROM APT_Pricing_Data__c];
-            system.debug('priceDataList>>DC>>'+priceDataList);
             test.startTest();
             pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(priceDataList);
 			test.stopTest();
-			System.assertEquals(pricingDataWithMapping.size(), 6);        			            
+			System.assertEquals(pricingDataWithMapping.size(), 8);        			            
         }
     }
     /**
@@ -593,7 +719,6 @@ public with sharing class APT_PricingBatchUtility_Test {
                              	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_11__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_12__c
             				FROM APT_Pricing_Data__c
                             WHERE APT_Product__r.ProductCode = 'RoadExpress'];
-            system.debug('priceDataList>>DC>>'+priceDataList);
             test.startTest();
             pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(priceDataList);            
             LisT<Apttus_Config2__PriceListItem__c> listPriceListItem = new List<Apttus_Config2__PriceListItem__c>( 
@@ -604,8 +729,7 @@ public with sharing class APT_PricingBatchUtility_Test {
                                             						FROM Apttus_Config2__PriceListItem__c
                                                                     Where Apttus_Config2__ProductId__r.ProductCode = 'RoadExpress']);
             
-            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem )
-            {
+            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem ){
                 mapExistingKeyToPli.put(pli.APT_Zone_Combination__c, pli);
             }
             for(APT_Pricing_Data__c pData : priceDataList){
@@ -665,7 +789,6 @@ public with sharing class APT_PricingBatchUtility_Test {
                              	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_11__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_12__c
             				FROM APT_Pricing_Data__c
                             WHERE APT_Product__r.ProductCode = 'NextFlightTier1'];
-            system.debug('priceDataList>>DC>>'+priceDataList);
             test.startTest();
             pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(priceDataList);            
             LisT<Apttus_Config2__PriceListItem__c> listPriceListItem = new List<Apttus_Config2__PriceListItem__c>( 
@@ -724,7 +847,6 @@ public with sharing class APT_PricingBatchUtility_Test {
                              	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_11__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_12__c
             				FROM APT_Pricing_Data__c
                             WHERE APT_Product__r.ProductCode = 'CAT1Standard'];
-            system.debug('priceDataList>>DC>>'+priceDataList);
             test.startTest();
             pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(priceDataList);            
             LisT<Apttus_Config2__PriceListItem__c> listPriceListItem = new List<Apttus_Config2__PriceListItem__c>( 
@@ -735,8 +857,7 @@ public with sharing class APT_PricingBatchUtility_Test {
                                             						FROM Apttus_Config2__PriceListItem__c
                                                                     Where Apttus_Config2__ProductId__r.ProductCode = 'CAT1Standard']);
             
-            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem )
-            {
+            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem ){
                 mapExistingKeyToPli.put(pli.APT_Pricing_Key__c, pli);
             }
 
@@ -752,7 +873,111 @@ public with sharing class APT_PricingBatchUtility_Test {
         }
     } 
 
+
+    @isTest static void createPliForDomesticAPPCSpeedTest() {
+        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
+        User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER, EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
+        LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
+        TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
+        UserName=APT_Constants.EMAIL_TEST_USER);        
+ 		System.runAs(testuser) {
+            Map<string,Apttus_Config2__PriceListItem__c> pliMapToUpsert = new Map<string,Apttus_Config2__PriceListItem__c>();
+            Map<String, Apttus_Config2__PriceListItem__c> mapExistingKeyToPli = new map<String, Apttus_Config2__PriceListItem__c>();
+            List<APT_Pricing_Data__c> priceDataList = new List<APT_Pricing_Data__c>();
+            Map<String, Set<APT_Pricing_Data__c>> pricingKeyToDataMap = new Map<String, Set<APT_Pricing_Data__c>>();
+            Map<String,Map<String,String>> pricingDataWithMapping = new Map<String,Map<String,String>>();
+            priceDataList = [SELECT Id, APT_Product__c, APT_Product__r.APT_Network_Type__c,  APT_Product__r.ProductCode,
+                             	APT_Pricing_Value_1__c , 
+                            	APT_Pricing_Value_2__c, APT_Pricing_Value_3__c, APT_Pricing_Value_4__c, 
+            					APT_Pricing_Value_5__c, APT_Pricing_Value_6__c, 
+                             	APT_Pricing_Value_7__c, APT_Pricing_Value_8__c,APT_Pricing_Value_9__c, APT_Pricing_Value_10__c, 
+            					APT_Pricing_Value_11__c, APT_Pricing_Value_12__c, 
+                             	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_1__c , APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_2__c, 
+            					APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_3__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_4__c, 
+            					APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_5__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_6__c, 
+                             	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_7__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_8__c,
+                             	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_9__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_10__c, 
+                             	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_11__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_12__c
+            				FROM APT_Pricing_Data__c
+                            WHERE APT_Product__r.ProductCode = 'PDSP00_Capital'];
+            test.startTest();
+            pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(priceDataList);            
+            LisT<Apttus_Config2__PriceListItem__c> listPriceListItem = new List<Apttus_Config2__PriceListItem__c>( 
+                													[SELECT Id, Apttus_Config2__ProductId__c, 
+                                                						Apttus_Config2__ProductId__r.ProductCode,
+                                                						APT_Pricing_Key__c, APT_Zone_Type__c, 
+                                                						APT_Zone_Combination__c
+                                            						FROM Apttus_Config2__PriceListItem__c
+                                                                    Where Apttus_Config2__ProductId__r.ProductCode = 'PDSP00_Capital']);
+            
+            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem ){
+                mapExistingKeyToPli.put(pli.APT_Pricing_Key__c, pli);
+            }
+
+            set<APT_Pricing_Data__c> pricingDataSet = new set<APT_Pricing_Data__c> (priceDataList);
+            
+            //For domestic products (not ST) pricing key is productId~Price Structure~Lodgement zone code
+            String pricingKey = priceDataList[0].APT_Product__c+'~'+'Z6';
+            pricingKeyToDataMap.put(pricingKey,pricingDataSet);
+            Apttus_Pricing_Data_Config__mdt pricingConfigMdt = Apttus_Pricing_Data_Config__mdt.getInstance(TEST_DOMESTIC_PARCEL_CONTRACT_PRODUCT_TYPE);
+            pliMapToUpsert = APT_PricingBatchUtility.createPliForDomesticExcludingST(mapExistingKeyToPli, pricingKeyToDataMap, pricingConfigMdt, pricingDataWithMapping);
+			test.stopTest();
+			System.assertEquals(pliMapToUpsert.size(),1);        			            
+        }
+    }    
+ 
     
+    @isTest static void createPliForDomesticAPPCFSRTest() {
+        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
+        User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER, EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
+        LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
+        TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
+        UserName=APT_Constants.EMAIL_TEST_USER);        
+ 		System.runAs(testuser) {
+            Map<string,Apttus_Config2__PriceListItem__c> pliMapToUpsert = new Map<string,Apttus_Config2__PriceListItem__c>();
+            Map<String, Apttus_Config2__PriceListItem__c> mapExistingKeyToPli = new map<String, Apttus_Config2__PriceListItem__c>();
+            List<APT_Pricing_Data__c> priceDataList = new List<APT_Pricing_Data__c>();
+            Map<String, Set<APT_Pricing_Data__c>> pricingKeyToDataMap = new Map<String, Set<APT_Pricing_Data__c>>();
+            Map<String,Map<String,String>> pricingDataWithMapping = new Map<String,Map<String,String>>();
+            priceDataList = [SELECT Id, APT_Product__c, APT_Product__r.APT_Network_Type__c,  APT_Product__r.ProductCode,
+                             	APT_Pricing_Value_1__c , 
+                            	APT_Pricing_Value_2__c, APT_Pricing_Value_3__c, APT_Pricing_Value_4__c, 
+            					APT_Pricing_Value_5__c, APT_Pricing_Value_6__c, 
+                             	APT_Pricing_Value_7__c, APT_Pricing_Value_8__c,APT_Pricing_Value_9__c, APT_Pricing_Value_10__c, 
+            					APT_Pricing_Value_11__c, APT_Pricing_Value_12__c, 
+                             	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_1__c , APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_2__c, 
+            					APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_3__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_4__c, 
+            					APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_5__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_6__c, 
+                             	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_7__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_8__c,
+                             	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_9__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_10__c, 
+                             	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_11__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_12__c
+            				FROM APT_Pricing_Data__c
+                            WHERE APT_Product__r.ProductCode = 'FSR1'];
+            test.startTest();
+            pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(priceDataList);            
+            LisT<Apttus_Config2__PriceListItem__c> listPriceListItem = new List<Apttus_Config2__PriceListItem__c>( 
+                													[SELECT Id, Apttus_Config2__ProductId__c, 
+                                                						Apttus_Config2__ProductId__r.ProductCode,
+                                                						APT_Pricing_Key__c, APT_Zone_Type__c, 
+                                                						APT_Zone_Combination__c
+                                            						FROM Apttus_Config2__PriceListItem__c
+                                                                    Where Apttus_Config2__ProductId__r.ProductCode = 'FSR1']);
+            
+            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem ){
+                mapExistingKeyToPli.put(pli.APT_Pricing_Key__c, pli);
+            }
+
+            set<APT_Pricing_Data__c> pricingDataSet = new set<APT_Pricing_Data__c> (priceDataList);
+            
+            //For domestic FSR products pricing key is productId~Product type
+            String pricingKey = priceDataList[0].APT_Product__c+'~'+'Parcel Contract-Feature';
+            pricingKeyToDataMap.put(pricingKey,pricingDataSet);
+            Apttus_Pricing_Data_Config__mdt pricingConfigMdt = Apttus_Pricing_Data_Config__mdt.getInstance(TEST_DOMESTIC_PARCEL_CONTRACT_PRODUCT_TYPE);
+            pliMapToUpsert = APT_PricingBatchUtility.createPliForDomesticFSR(mapExistingKeyToPli, pricingKeyToDataMap, pricingConfigMdt, pricingDataWithMapping);
+			test.stopTest();
+			System.assertEquals(pliMapToUpsert.size(),1);        			            
+        }
+    }       
 
     /**
      * This method will test used to identify and return the pli's to be created or updated for international products.
@@ -784,7 +1009,6 @@ public with sharing class APT_PricingBatchUtility_Test {
                              	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_11__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_12__c
             				FROM APT_Pricing_Data__c
                             WHERE APT_Product__r.APT_International_Pricing__c = true];
-            system.debug('priceDataList>>DC>>'+priceDataList);
             test.startTest();
             pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(priceDataList);            
             LisT<Apttus_Config2__PriceListItem__c> listPriceListItem = new List<Apttus_Config2__PriceListItem__c>( 
@@ -795,8 +1019,7 @@ public with sharing class APT_PricingBatchUtility_Test {
                                             						FROM Apttus_Config2__PriceListItem__c
                                                                     Where Apttus_Config2__ProductId__r.APT_International_Pricing__c = true]);
             
-            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem )
-            {
+            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem ){
                 mapExistingKeyToPli.put(pli.APT_Pricing_Key__c, pli);
             }
             for(APT_Pricing_Data__c pData : priceDataList){
@@ -839,7 +1062,6 @@ public with sharing class APT_PricingBatchUtility_Test {
                              	APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_11__c, APT_Pricing_Data_Mapping__r.APT_Pricing_Value_Name_12__c
             				FROM APT_Pricing_Data__c
                             WHERE APT_Product__r.ProductCode = 'AIRLET'];
-            system.debug('priceDataList>>DC>>'+priceDataList);
             test.startTest();
             pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(priceDataList);            
             LisT<Apttus_Config2__PriceListItem__c> listPriceListItem = new List<Apttus_Config2__PriceListItem__c>( 
@@ -850,8 +1072,7 @@ public with sharing class APT_PricingBatchUtility_Test {
                                             						FROM Apttus_Config2__PriceListItem__c
                                                                     Where Apttus_Config2__ProductId__r.ProductCode = 'AIRLET']);
             
-            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem )
-            {
+            for(Apttus_Config2__PriceListItem__c pli : listPriceListItem ){
                 mapExistingKeyToPli.put(pli.APT_Pricing_Key__c, pli);
             }
 
@@ -941,18 +1162,15 @@ public with sharing class APT_PricingBatchUtility_Test {
                                                                             APT_Zone_Combination__c
                                                                             FROM Apttus_Config2__PriceListItem__c]);
         Set<Id> setPriceListItemId = new Set<Id>();
-        for(Apttus_Config2__PriceListItem__c pli: listPriceListItem)
-        {
+        for(Apttus_Config2__PriceListItem__c pli: listPriceListItem){
             setPriceListItemId.add(pli.Id);
         }
-        system.debug('execute setPriceListItemId: ' + setPriceListItemId);
         Map<String, Apttus_Config2__PriceMatrix__c> mapExistingPriceMatrix = new Map<String, Apttus_Config2__PriceMatrix__c>();
         List<Apttus_Config2__PriceMatrix__c> priceMatrixList = new List<Apttus_Config2__PriceMatrix__c>([SELECT Id, Apttus_Config2__PriceListItemId__c, 
                                                                                                         Apttus_Config2__PriceListItemId__r.APT_Pricing_Key__c 
                                                                                                         FROM Apttus_Config2__PriceMatrix__c 
                                                                                                         WHERE Apttus_Config2__PriceListItemId__c IN :setPriceListItemId]);
-        for(Apttus_Config2__PriceMatrix__c pm : priceMatrixList) 
-        {
+        for(Apttus_Config2__PriceMatrix__c pm : priceMatrixList) {
             mapExistingPriceMatrix.put(pm.Apttus_Config2__PriceListItemId__c, pm);
         }
 
@@ -960,7 +1178,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         Map<Id, Product2> productMap = new Map<Id, Product2>(products);
 
         List<Apttus_Config2__PriceMatrix__c>pmList = APT_PricingBatchUtility.createPriceMatrixGeneric(listPriceListItem, mapExistingPriceMatrix, productMap);
-        System.AssertEquals(pmList.size(),6);
+        System.AssertEquals(pmList.size(),8);
     }
     
     @isTest static void getSTZoneGroupMappingTest(){
@@ -974,8 +1192,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         
             List<String> listNationalRateNetworkTypes = new List<String>(nationalRateNetworkTypes.Split(','));
             Set<String> setNationalRateNetworkTypes = new Set<String>();
-            for(String nationalRateNetworkType: listNationalRateNetworkTypes)
-            {
+            for(String nationalRateNetworkType: listNationalRateNetworkTypes){
                 setNationalRateNetworkTypes.add(nationalRateNetworkType.trim());
             }
             APT_PricingBatchUtility.getSTZoneGroupMapping(setNationalRateNetworkTypes);
@@ -1009,7 +1226,6 @@ public with sharing class APT_PricingBatchUtility_Test {
         pricingDataWithMapping = APT_PricingBatchUtility.getPricingDataAttributesWithValues(pricingDataList);
         for(String pricingDataId : pricingDataWithMapping.keySet()){    
             Map<String,String> pricingMap = pricingDataWithMapping.get(pricingDataId);            
-            system.debug('pricingMap 12>>'+pricingMap);
             pricingDataSet.add(pricingMap);                    
             pricingKeyToDataMap1.put(pricingKey, pricingDataSet);
         }
@@ -1017,8 +1233,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         Apttus_Pricing_Data_Config__mdt pricingConfigMdt = Apttus_Pricing_Data_Config__mdt.getInstance(TEST_DOMESTIC_PRODUCT_TYPE);
         for(Apttus_Price_Types__mdt priceType : [SELECT MasterLabel, Price_Type__c 
                                                     FROM Apttus_Price_Types__mdt 
-                                                    WHERE Apttus_Pricing_Data_Config__c =: pricingConfigMdt.Id])
-        {
+                                                    WHERE Apttus_Pricing_Data_Config__c =: pricingConfigMdt.Id]){
             priceTypeValues.put(priceType.MasterLabel, priceType.Price_Type__c);
         }
         List<Apttus_Config2__PriceMatrix__c> listPriceMatrix = new List<Apttus_Config2__PriceMatrix__c>([SELECT Id, Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__c,
@@ -1067,7 +1282,6 @@ public with sharing class APT_PricingBatchUtility_Test {
             }else if(pData.APT_Pricing_Value_2__c == 'A10'){
                 pricingKey += pData.APT_Product__c+ '~' + 'A10';                 
             }             
-            system.debug('pricingMap 12>>'+pricingMap);
             pricingDataSet.add(pricingMap);                    
             pricingKeyToDataMap.put(pricingKey, pricingDataSet);
         }
@@ -1075,8 +1289,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         Apttus_Pricing_Data_Config__mdt pricingConfigMdt = Apttus_Pricing_Data_Config__mdt.getInstance(TEST_STARTRACK_PRODUCT_TYPE);
         for(Apttus_Price_Types__mdt priceType : [SELECT MasterLabel, Price_Type__c 
                                                     FROM Apttus_Price_Types__mdt 
-                                                    WHERE Apttus_Pricing_Data_Config__c =: pricingConfigMdt.Id])
-        {
+                                                    WHERE Apttus_Pricing_Data_Config__c =: pricingConfigMdt.Id]){
             priceTypeValues.put(priceType.MasterLabel, priceType.Price_Type__c);
         }
         List<Apttus_Config2__PriceMatrix__c> listPriceMatrix = new List<Apttus_Config2__PriceMatrix__c>([SELECT Id, Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__c,
@@ -1087,7 +1300,6 @@ public with sharing class APT_PricingBatchUtility_Test {
                 Apttus_Config2__PriceListItemId__r.APT_Zones__c
                 FROM Apttus_Config2__PriceMatrix__c]);
         List<Apttus_Config2__PriceMatrixEntry__c> pmeList = APT_PricingBatchUtility.createPriceMatrixEntryGeneric(listPriceMatrix, pricingKeyToDataMap, priceTypeValues, TEST_STARTRACK_PRODUCT_TYPE );
-        System.debug('pme Lisr::'+pmeList);
         System.AssertEquals(pmeList.size(),6);
     }
 
@@ -1120,7 +1332,6 @@ public with sharing class APT_PricingBatchUtility_Test {
             APT_Pricing_Data__c pData =  pricingDataMap.get(pricingDataId);
             String pricingKey = ''; 
             pricingKey += pData.APT_Product__c+ '~' + pData.APT_Product__r.ProductCode+'~'+pData.APT_Pricing_Value_1__c;             
-            system.debug('pricingMap 12>>'+pricingMap);
             pricingDataSet.add(pricingMap);                    
             pricingKeyToDataMap.put(pricingKey, pricingDataSet);
         }
@@ -1128,8 +1339,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         Apttus_Pricing_Data_Config__mdt pricingConfigMdt = Apttus_Pricing_Data_Config__mdt.getInstance(TEST_International_PRODUCT_TYPE);
         for(Apttus_Price_Types__mdt priceType : [SELECT MasterLabel, Price_Type__c 
                                                     FROM Apttus_Price_Types__mdt 
-                                                    WHERE Apttus_Pricing_Data_Config__c =: pricingConfigMdt.Id])
-        {
+                                                    WHERE Apttus_Pricing_Data_Config__c =: pricingConfigMdt.Id]){
             priceTypeValues.put(priceType.MasterLabel, priceType.Price_Type__c);
         }
         List<Apttus_Config2__PriceMatrix__c> listPriceMatrix = new List<Apttus_Config2__PriceMatrix__c>([SELECT Id, Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__c,
@@ -1140,7 +1350,6 @@ public with sharing class APT_PricingBatchUtility_Test {
                 Apttus_Config2__PriceListItemId__r.APT_Zones__c
                 FROM Apttus_Config2__PriceMatrix__c]);
         List<Apttus_Config2__PriceMatrixEntry__c> pmeList = APT_PricingBatchUtility.createPriceMatrixEntryGeneric(listPriceMatrix, pricingKeyToDataMap, priceTypeValues, TEST_International_PRODUCT_TYPE );
-        System.debug('pme Lisr::'+pmeList);
         System.AssertEquals(pmeList.size(),2);
     }    
 

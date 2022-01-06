@@ -5,6 +5,6 @@
     <label>SSSW Social Back Off Standard</label>
     <queue>SSSW_Social_Back_Off_Standard</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

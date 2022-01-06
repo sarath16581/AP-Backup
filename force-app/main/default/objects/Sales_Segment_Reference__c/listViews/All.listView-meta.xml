@@ -4,9 +4,6 @@
     <columns>Sales_Director__c</columns>
     <columns>OBJECT_ID</columns>
     <columns>Sales_Segment__c</columns>
-    <columns>Sales_Team_Owner_Type__c</columns>
-    <columns>OWNER.FIRST_NAME</columns>
-    <columns>OWNER.LAST_NAME</columns>
     <columns>NAME</columns>
     <columns>UPDATEDBY_USER</columns>
     <columns>LAST_UPDATE</columns>

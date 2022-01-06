@@ -117,6 +117,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Lodgement_Customer_Migration__c.Action_Plan__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Lodgement_Customer_Migration__c.Additional_Drivers_Against_Migration__c</field>
         <readable>true</readable>
     </fieldPermissions>

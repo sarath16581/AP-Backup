@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Integration_Users_Active</fullName>
+    <booleanFilter>(1 or 2) and 3 and 4</booleanFilter>
+    <columns>FULL_NAME</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>CORE.USERS.USERNAME</columns>
+    <columns>CORE.USERS.LAST_LOGIN</columns>
+    <columns>CORE.USER_ROLE.NAME</columns>
+    <columns>CORE.USERS.ACTIVE</columns>
+    <columns>CORE.PROFILE.NAME</columns>
+    <columns>MANAGER</columns>
+    <columns>CORE.USERS.EMAIL</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>FULL_NAME</field>
+        <operation>contains</operation>
+        <value>Integration</value>
+    </filters>
+    <filters>
+        <field>CORE.PROFILE.NAME</field>
+        <operation>contains</operation>
+        <value>Integration</value>
+    </filters>
+    <filters>
+        <field>CORE.USERS.ACTIVE</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>CORE.PROFILE.NAME</field>
+        <operation>notEqual</operation>
+        <value>Customer Integration Application</value>
+    </filters>
+    <label>All Integration Users</label>
+    <language>en_US</language>
+</ListView>

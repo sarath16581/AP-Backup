@@ -5,6 +5,6 @@
     <label>BSC - Ingram Micro</label>
     <queue>BSC_Ingram_Micro</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

@@ -16,7 +16,6 @@ public without sharing class bspRegistrationUplift
     --------------------------------------------------
     2020-07-13	  avula.jansirani@auspost.com.au		Initial updation to lightning uplift(modified "bspRegistration.apxc" class code in this class to work align with LWC )
     2020-04-11    ankur.gandhi@auspost.com.au           Adding without sharing due to critical update for @AuraEnabled methods access
-    2020-11-26    avula.jansirani@auspost.com.au        Removed System.debug lines
     **************************************************/
 
     public static Contact c {get; set;}
@@ -117,7 +116,7 @@ public without sharing class bspRegistrationUplift
                                  AND Email = : c.Email
                                  AND IsPersonAccount = false
                                  ORDER BY CreatedDate];
-
+                system.debug('checkContacts='+checkContacts);
                 if(checkContacts.size()>0) {
                     // if the Contact already exists, throw error
                     string msgString = 'You already have an existing account with Australia Post related to a different Billing Account. Please contact Australia Post to update your details.';
@@ -152,6 +151,7 @@ public without sharing class bspRegistrationUplift
         c.accountId = a.Organisation__r.Id;
         // fetch info from component variable
         c.MailingStreet = mailingAddress.line1.split(',',2)[0];
+        system.debug('c.mailingStreet:'+c.MailingStreet+mailingAddress.dpid);
         c.MailingStreet2__c = mailingAddress.line2;
         c.MailingCity = mailingAddress.city;
         c.MailingState = mailingAddress.state;

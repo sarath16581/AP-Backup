@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Malaga_MPB_Bookings_Today</fullName>
+    <booleanFilter>1 AND 2 AND (3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10)</booleanFilter>
     <columns>NAME</columns>
     <columns>Location__c</columns>
     <columns>Street__c</columns>
@@ -26,6 +27,41 @@
         <field>Depot__c</field>
         <operation>startsWith</operation>
         <value>mal</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6006,6007,6008,6010,6014,6015,6016,6017,6018,6019,6020,6021,6022</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6023,6024,6025,6026,6027,6028,6029,6030,6031,6032,6033,6034</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6035,6036,6037,6038,6050,6051,6052,6053,6054,6055,6059,6060</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6061,6062,6064,6065,6066,6067,6068,6069,6077,6078,6079,6090,6803</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6809,6817,6820,6827,6830,6900,6905,6906,6907,6913,6914,6915,6916</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6917,6918,6919,6920,6921,6922,6923,6924,6937,6938,6939,6940,6941</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>6944,6945,6946,6947,6951,6952</value>
     </filters>
     <label>Malaga - MPB Bookings Today</label>
     <language>en_US</language>

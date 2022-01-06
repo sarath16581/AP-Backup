@@ -1058,16 +1058,6 @@
             <field>Status__c</field>
             <table>Network__c.Event_Messages__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Outside_Delivery_Radius__c</field>
-            <table>Network__c.Event_Messages__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Geo_Precision__c</field>
-            <table>Network__c.Event_Messages__r</table>
-        </columns>
         <masterLabel>Event Messages</masterLabel>
     </sections>
 </ReportType>

@@ -5,7 +5,6 @@
     <description>When checked an email will inform the approver&apos;s manager of the escalation.</description>
     <externalId>false</externalId>
     <label>Notify Manager</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

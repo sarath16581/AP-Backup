@@ -11,7 +11,7 @@
     <valueSet>
         <controllingField>Call_Purpose__c</controllingField>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>2nd Follow up</fullName>
                 <default>false</default>
@@ -1006,6 +1006,18 @@
             <valueName>Unaddressed</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Westpac Bookings</controllingFieldValue>
+            <valueName>Next Flight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Westpac Bookings</controllingFieldValue>
+            <valueName>Premium</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Westpac Bookings</controllingFieldValue>
+            <valueName>STC</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Pick up</controllingFieldValue>
             <controllingFieldValue>Request update</controllingFieldValue>
             <controllingFieldValue>System</controllingFieldValue>
@@ -1064,18 +1076,6 @@
             <controllingFieldValue>Late Delivery</controllingFieldValue>
             <controllingFieldValue>Delivery in Progress</controllingFieldValue>
             <valueName>Next Flight Upgrade</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Westpac bookings</controllingFieldValue>
-            <valueName>Next Flight</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Westpac bookings</controllingFieldValue>
-            <valueName>Premium</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Westpac bookings</controllingFieldValue>
-            <valueName>STC</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>POD</controllingFieldValue>

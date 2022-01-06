@@ -5,6 +5,6 @@
     <label>Startrack Key Account</label>
     <queue>Startrack_Key_Account</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

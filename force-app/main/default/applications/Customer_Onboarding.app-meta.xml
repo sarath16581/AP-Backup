@@ -21,11 +21,6 @@
     <tabs>standard-home</tabs>
     <tabs>standard-Case</tabs>
     <tabs>standard-report</tabs>
-    <tabs>APT_Sub_Account__c</tabs>
-    <tabs>et4ae5__Configuration__c</tabs>
-    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
-    <tabs>et4ae5__Business_Unit__c</tabs>
-    <tabs>SAM_Admin1</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Customer_Onboarding_UtilityBar</utilityBar>
 </CustomApplication>

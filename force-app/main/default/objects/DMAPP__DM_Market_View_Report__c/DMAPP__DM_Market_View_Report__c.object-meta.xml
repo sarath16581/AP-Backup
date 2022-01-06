@@ -162,7 +162,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Market Views</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

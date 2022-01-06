@@ -37,7 +37,7 @@
         <description>Business Sales Implementation DSR Request submit Notification</description>
         <protected>false</protected>
         <recipients>
-            <recipient>christine.evans@startrack.com.au</recipient>
+            <recipient>darren.minns@startrack.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
@@ -211,7 +211,7 @@
         <description>E&amp;G Sales Implementation DSR Request submit Notification</description>
         <protected>false</protected>
         <recipients>
-            <recipient>michelle.axiak@auspost.com.au</recipient>
+            <recipient>reed.feely@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>

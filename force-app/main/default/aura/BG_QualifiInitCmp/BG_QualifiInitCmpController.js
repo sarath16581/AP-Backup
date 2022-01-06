@@ -1,6 +1,5 @@
 ({
     doInit : function(cmp, event, helper) {
-        console.log('reach BG_QualifiInitCmp');
         if(cmp.get('v.qualificationRecordId')){
             cmp.set('v.qualificationRecordExists', true);
         }else{

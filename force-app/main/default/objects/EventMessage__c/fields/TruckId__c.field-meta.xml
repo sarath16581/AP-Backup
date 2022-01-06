@@ -3,7 +3,6 @@
     <fullName>TruckId__c</fullName>
     <description>Contains the LicensePlate Number of the Truck where the loose Load was aggregated.</description>
     <externalId>false</externalId>
-    <inlineHelpText>The transport reference value. May be truck registration or trailer number.</inlineHelpText>
     <label>Truck ID</label>
     <length>30</length>
     <required>false</required>

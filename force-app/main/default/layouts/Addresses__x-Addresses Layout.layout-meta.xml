@@ -11,10 +11,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>AddressCurrency__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>AddressNumber__c</field>
             </layoutItems>
             <layoutItems>
@@ -39,14 +35,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>IsPreferredBilling__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IsPreferredShipping__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>PostCode__c</field>
             </layoutItems>
             <layoutItems>
@@ -60,10 +48,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Street2__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Street3__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

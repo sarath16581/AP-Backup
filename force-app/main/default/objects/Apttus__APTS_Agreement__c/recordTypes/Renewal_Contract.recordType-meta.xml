@@ -390,6 +390,22 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>StarTrack - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>UMS - Add</fullName>
             <default>false</default>
         </values>
@@ -1180,10 +1196,6 @@
     </picklistValues>
     <picklistValues>
         <picklist>Included_Product_Lines__c</picklist>
-        <values>
-            <fullName>APGL International Commercial Outbound</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>BPA - REPLY%2BRETURNS</fullName>
             <default>false</default>

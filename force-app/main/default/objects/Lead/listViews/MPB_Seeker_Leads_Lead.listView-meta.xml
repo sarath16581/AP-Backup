@@ -5,6 +5,6 @@
     <label>MPB Seeker Leads</label>
     <queue>MPB_Seeker_Leads</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

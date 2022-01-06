@@ -164,7 +164,7 @@ This object is responsible for storing parts of the Insight Maps associated with
         <type>Text</type>
     </nameField>
     <pluralLabel>DM Insight Map Node Competitors</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

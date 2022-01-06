@@ -164,7 +164,7 @@ This object is responsible for the association of named users to Curricula. Thes
         <type>Text</type>
     </nameField>
     <pluralLabel>Curriculum Subscribers</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

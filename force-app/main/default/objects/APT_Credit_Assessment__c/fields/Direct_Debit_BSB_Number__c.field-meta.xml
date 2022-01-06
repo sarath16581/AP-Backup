@@ -8,7 +8,6 @@
     <maskChar>asterisk</maskChar>
     <maskType>all</maskType>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>EncryptedText</type>

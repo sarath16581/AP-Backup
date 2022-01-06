@@ -60,8 +60,6 @@ private class APT_CartApprovalsComponentCntlr_Test {
         Apttus_Approval__Approval_Request__c appReq = new Apttus_Approval__Approval_Request__c();
         appReq.Apttus_CQApprov__CartId__c = config.Id;
         appReq.Apttus_Approval__Approver_Comments__c = 'Reassigned with comments - Test \n Test';
-        appReq.Apttus_Approval__Object_Type__c = 'Apttus_Config2__ProductConfiguration__c';
-        appReq.Apttus_Approval__ChildObjectType__c = 'Apttus_Config2__LineItem__c';
         Insert appReq;
 
         objCls.approvalRequestSO = appReq;

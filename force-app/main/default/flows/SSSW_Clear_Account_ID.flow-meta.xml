@@ -19,7 +19,7 @@
         <inputAssignments>
             <field>AccountId</field>
             <value>
-                <stringValue/>
+                <stringValue></stringValue>
             </value>
         </inputAssignments>
         <object>Case</object>

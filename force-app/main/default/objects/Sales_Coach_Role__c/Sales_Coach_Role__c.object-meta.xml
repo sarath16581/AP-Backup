@@ -160,7 +160,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Sales Coach Roles</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

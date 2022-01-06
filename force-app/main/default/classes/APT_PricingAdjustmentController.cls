@@ -62,11 +62,11 @@ public with sharing class APT_PricingAdjustmentController {
                         if(prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c != null){
                             // revenueBillingAccList = [SELECT Id, Customer__c, Product__c from Revenue_by_Billing_Account__c 
                             //WHERE Customer__c =: prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c];
-                            
+                             
                             //Adding Customer__r.Sales_Segment__c to check the sales team
                             revenueBillingAccList = [select Customer__r.Sales_Segment__c,MAX(APT_Last_Rev_Realized__c) LastRev,Product__c product from Revenue_by_Billing_Account__c
-                                                     WHERE Customer__c =: prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c GROUP BY Customer__r.Sales_Segment__c,Product__c];
-                            
+                                                        WHERE Customer__c =: prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Account__c GROUP BY Customer__r.Sales_Segment__c,Product__c];
+    
                             if(!revenueBillingAccList.isEmpty() && revenueBillingAccList.size() > 0){
                                 //logic for checkign cart products
                                 List<Apttus_Config2__LineItem__c> allLineItems = [SELECT Id, Apttus_Config2__ProductId__c, APT_StarTrack_Proposal__c, APT_Approval_Required_ST__c, 
@@ -79,16 +79,16 @@ public with sharing class APT_PricingAdjustmentController {
                                 }                               
                                 for(AggregateResult rba : revenueBillingAccList ){
                                     system.debug('rba** '+rba);                                          
-                                    system.debug('Check Sales>>'+rba.get('Sales_Segment__c')); 
+                                    system.debug('Check Sales>>'+rba.get('Sales_Segment__c'));                            
                                     if(productId.contains(String.valueOf(rba.get('product')))){
-										 if(rba.get('Sales_Segment__c') == 'Intermediaries' || rba.get('Sales_Segment__c') == 'Intermediaries - Not Active'){
-                                        	 isError = false;
-                                         }  
+                                        if(rba.get('Sales_Segment__c') == 'Intermediaries' || rba.get('Sales_Segment__c') == 'Intermediaries - Not Active'){
+                                            isError = false;
+                                        }  
                                         else {
-                                        Date revRealizedDate = (Date)rba.get('LastRev');
-                                        system.debug('days between ** '+revRealizedDate.daysBetween(system.today()));
-                                        if(revRealizedDate.daysBetween(system.today()) < 365)
-                                            isError = true;
+                                            Date revRealizedDate = (Date)rba.get('LastRev');
+                                            system.debug('days between ** '+revRealizedDate.daysBetween(system.today()));
+                                            if(revRealizedDate.daysBetween(system.today()) < 365)
+                                                isError = true;
                                         }     
                                     }   
                                 }

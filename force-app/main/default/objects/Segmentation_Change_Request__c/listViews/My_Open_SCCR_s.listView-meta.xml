@@ -26,6 +26,6 @@
     <label>My Open SCCR&apos;s</label>
     <language>en_US</language>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

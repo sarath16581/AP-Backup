@@ -1,18 +1,18 @@
-/***
- * @description Common utility methods
- *
- * @author Stephen James Laylo
- * @date 2015-02-04
- * @group Integration
- * @changelog
- * 2017-10-02 - nathan.franklin - Added Caching
- * 2021-03-01 - nathan.franklin - Updated Caching
- */
+/******************************************************************************************
+    
+    Author:         Stephen James Laylo
+    Date Created:   04/02/2015
+    Description:    Common utility methods
+    
+    Change Log:
+    Date:          Author:                  Description:
+    04/02/2016     Stephen James Laylo      Created
+
+2017-10-02          nathan.franklin@auspost.com.au             Added Caching
+
+*******************************************************************************************/
 public class CommonUtils {
     @testVisible private static String STR_COMMON_UTILS_GLOBAL_DESCRIBE = 'COMMON_UTILS_GLOBAL_DESCRIBE';
-
-    private static Map<String, Schema.SObjectType> describeGlobalCache;
-
     /*****************************************************************************
     	Author: 		Stephen James Laylo
     	Description:	Returns sObject Type from Record Id
@@ -48,10 +48,6 @@ public class CommonUtils {
      * Retrieve global describe and store it in cache for faster access.
      */
     public static Map<String, Schema.SObjectType> getGlobalDescribe() {
-        if(describeGlobalCache != null) {
-            return describeGlobalCache;
-        }
-
         Map<String, Schema.SObjectType> gd = (Map<String, Schema.SObjectType>)CacheManager.get(STR_COMMON_UTILS_GLOBAL_DESCRIBE);
         if(gd != null) {
             return gd;
@@ -59,9 +55,6 @@ public class CommonUtils {
 
         gd = Schema.getGlobalDescribe();
         CacheManager.put(STR_COMMON_UTILS_GLOBAL_DESCRIBE, gd);
-
-        describeGlobalCache = gd;
-
         return gd;
     }
 

@@ -8,7 +8,6 @@
     <referenceTo>APXTConga4__Conga_Solution__c</referenceTo>
     <relationshipName>Composer_QuickMerge_Records</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

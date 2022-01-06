@@ -48,10 +48,6 @@
     <picklistValues>
         <picklist>Business_Sub_Category__c</picklist>
         <values>
-            <fullName>3PL</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Accommodation</fullName>
             <default>false</default>
         </values>
@@ -116,10 +112,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Carrier with assets in Australia</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Cars%2C Motorbikes %26 Trailers</fullName>
             <default>false</default>
         </values>
@@ -173,10 +165,6 @@
         </values>
         <values>
             <fullName>Department Stores</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Domestic Broker</fullName>
             <default>false</default>
         </values>
         <values>
@@ -253,10 +241,6 @@
         </values>
         <values>
             <fullName>Insurance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>International Aggregator</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1235,10 +1219,6 @@
     <picklistValues>
         <picklist>Industry_Sub_Sector__c</picklist>
         <values>
-            <fullName>3PL</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Accommodation %26 Food</fullName>
             <default>false</default>
         </values>
@@ -1259,19 +1239,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Carrier with assets in Australia</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Construction %26 Trades</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Delivery Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Domestic Broker</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1324,10 +1296,6 @@
         </values>
         <values>
             <fullName>Insurance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>International Aggregator</fullName>
             <default>false</default>
         </values>
         <values>

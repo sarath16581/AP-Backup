@@ -7,7 +7,6 @@
         <locationY>314</locationY>
         <actionName>assignTargetToSalesCadenceNotFound</actionName>
         <actionType xsi:nil="true"/>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>salesCadenceNameOrId</name>
             <value>
@@ -35,7 +34,6 @@
         <locationY>314</locationY>
         <actionName>changeSalesCadenceTargetAssigneeNotFound</actionName>
         <actionType xsi:nil="true"/>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>targetId</name>
             <value>
@@ -57,7 +55,6 @@
         <locationY>314</locationY>
         <actionName>pauseSalesCadenceTrackerNotFound</actionName>
         <actionType xsi:nil="true"/>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>targetId</name>
             <value>
@@ -73,7 +70,6 @@
         <locationY>314</locationY>
         <actionName>removeTargetFromSalesCadenceNotFound</actionName>
         <actionType xsi:nil="true"/>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>completionReasonCode</name>
             <value>
@@ -95,7 +91,6 @@
         <locationY>314</locationY>
         <actionName>resumeSalesCadenceTrackerNotFound</actionName>
         <actionType xsi:nil="true"/>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>targetId</name>
             <value>
@@ -104,7 +99,7 @@
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
-    <apiVersion>51.0</apiVersion>
+    <apiVersion>49.0</apiVersion>
     <decisions>
         <name>Cadence_Action</name>
         <label>Cadence Action</label>

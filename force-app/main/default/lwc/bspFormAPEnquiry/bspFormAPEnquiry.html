@@ -1,10 +1,5 @@
 <!--
  - Created by vcheng on 10/08/2020.
- --------------------------------------- History --------------------------------------------------
-19-11-2020    Jansi Rani   [JIRA :BGICS-400] Made 'Description of Parcel contents' form field as required
-19-11-2020    Jansi Rani   [JIRA :BGICS-405] Made  'Item Lodgement date' as non required
-25-11-2020    avula.jansirani@auspost.com.au       commented console.log lines in js file
-03-12-2020    avula.jansirani@auspost.com.au       BGICS-391 userstory implementation
  -->
 
 <!-- Bsp Form AP Enquiry -->
@@ -81,7 +76,7 @@
 
                             <!-- parcel lodgement date -->
                             <lightning-input label="Item Lodgement date" type="Date" data-id="lodgementDate"
-                                value={lodgementDate} onchange={onChangeField} 
+                                value={lodgementDate} onchange={onChangeField} onfocusout={handleFocusOut} required
                                 class="brand-form-input slds-p-bottom_x-large">
                             </lightning-input>
 
@@ -116,7 +111,7 @@
                                 type="text" value={descriptionOfContents} onchange={onChangeField}
                                 field-level-help="e.g. 1 pair of size 7 brown shoes, worth $100"
                                 placeholder="(e.g. 1 pair of size 7 brown shoes, worth $100)"
-                                class="brand-form-input slds-p-bottom_x-large" max-length="255" onfocusout={handleFocusOut} required>
+                                class="brand-form-input slds-p-bottom_x-large" max-length="255">
                             </lightning-textarea>
 
                             <!--  Files upload -->

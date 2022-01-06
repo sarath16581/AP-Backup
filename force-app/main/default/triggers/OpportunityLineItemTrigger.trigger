@@ -31,7 +31,7 @@ trigger OpportunityLineItemTrigger on OpportunityLineItem (before insert, before
             for (OpportunityLineItem oli : trigger.old){
                 if (oli.Opportunity_Stage__c == 'Closed Won')
                     delOppLineIds.add(oli.Id);
-                //For testing only    
+                 //For testing only    
                 if(Test.isRunningTest()){  
                        delOppLineIds.add(oli.Id);
                 }
@@ -61,7 +61,7 @@ trigger OpportunityLineItemTrigger on OpportunityLineItem (before insert, before
                 if (oli.Contract_Start_Date__c!=null && oli.Contract_End_Date__c!=null && oli.Opportunity_Stage__c=='Closed Won' && oli.Quantity!=null){
                     oliList.add(oli);
                 }
-                //For testing only    
+                 //For testing only    
                 if(Test.isRunningTest()){  
                       oliList.add(oli);
                 }
@@ -82,8 +82,8 @@ trigger OpportunityLineItemTrigger on OpportunityLineItem (before insert, before
                 // Description: Make revenue sched creation present on updated regardless if previously empty change for start and end date
                 // Date: 22/06/2017
                 /*if ((oli.Contract_Start_Date__c!=null && oli.Contract_End_Date__c!=null && oli.Opportunity_Stage__c=='Closed Won') && 
-                (trigger.oldMap.get(oli.Id).Contract_Start_Date__c==null || trigger.oldMap.get(oli.Id).Contract_End_Date__c==null)){
-				 #REQ2368013 Adding Quantity to the logic */
+                (trigger.oldMap.get(oli.Id).Contract_Start_Date__c==null || trigger.oldMap.get(oli.Id).Contract_End_Date__c==null)){ 
+				#REQ2368013 Adding Quantity to the logic */
                 if (oli.Contract_Start_Date__c!=null && oli.Contract_End_Date__c!=null && oli.Opportunity_Stage__c=='Closed Won' &&
                     (trigger.oldMap.get(oli.Id).Contract_Start_Date__c != oli.Contract_Start_Date__c || 
                      trigger.oldMap.get(oli.Id).Contract_End_Date__c != oli.Contract_End_Date__c ||

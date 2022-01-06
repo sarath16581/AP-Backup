@@ -8,7 +8,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>Port M</value>
+        <value>sun</value>
     </filters>
     <label>Port Melbourne Routes</label>
     <sharedTo>

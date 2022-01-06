@@ -10,5 +10,5 @@
         <value>EAST</value>
     </filters>
     <label>Eastern Creek Routes</label>
-    <sharedTo/>
+    <sharedTo></sharedTo>
 </ListView>

@@ -1,8 +1,7 @@
 ({
-	doInit : function(component, event, helper) {
-        var TopicObject = component.get("v.topic");
-        component.set('v.routeInput', {recordId: TopicObject.Id});
-    }
+        doInit : function(component, event, helper) {
+            var TopicObject = component.get("v.topic");
+            component.set('v.routeInput', {recordId: TopicObject.Id});
 },
 	redirectToDetailPage : function(component, event, helper) {
         

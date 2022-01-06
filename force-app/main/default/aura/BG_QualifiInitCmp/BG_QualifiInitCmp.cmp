@@ -13,16 +13,12 @@
     <aura:attribute name="errorMessage" type="String" default='Customer Needs can only be captured before the Opportunity is closed'/>
     <!-- Handler -->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-
-
-
     <div class="slds-text-align_center">
         <aura:if isTrue="{!v.qualificationRecordExists}">
             <c:researchIllustrationCmp/>
             <p>Click 'View' then 'Edit' to continue capturing the customer’s needs</p>
             <br/>
             <lightning:button aura:Id='view' onclick="{!c.viewQualification}" label="View" variant="brand" />
-            <!-- <lightning:button aura:Id='create' onclick="{!c.showDiscovery}" label="Start" variant="brand" /> -->
             <aura:set attribute="else">
                 <c:openRoadIllustrationCmp/>
                 <p>Click 'Start' to capture customer’s needs</p>

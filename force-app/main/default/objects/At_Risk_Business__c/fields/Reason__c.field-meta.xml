@@ -12,7 +12,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>3rd Party Channel shift</fullName>
                 <default>false</default>

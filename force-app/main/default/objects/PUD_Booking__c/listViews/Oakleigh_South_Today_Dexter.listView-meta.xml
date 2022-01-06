@@ -21,7 +21,7 @@
     <filters>
         <field>CREATED_DATE</field>
         <operation>greaterThan</operation>
-        <value>6/19/2020 12:00 AM</value>
+        <value>3/5/2021 12:00 AM</value>
     </filters>
     <label>Oakleigh South Today DD</label>
 </ListView>

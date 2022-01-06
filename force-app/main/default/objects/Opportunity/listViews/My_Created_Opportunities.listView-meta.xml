@@ -15,6 +15,6 @@
     </filters>
     <label>My Created Opportunities</label>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

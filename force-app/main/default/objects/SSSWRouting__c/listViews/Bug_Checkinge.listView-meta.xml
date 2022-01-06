@@ -11,21 +11,9 @@
     <columns>Network__c</columns>
     <columns>UPDATEDBY_USER</columns>
     <columns>DefaultCaseDetails__c</columns>
-    <columns>Queue_Name__c</columns>
     <columns>Queue_ID__c</columns>
     <columns>LAST_UPDATE</columns>
     <columns>AutoEscalate__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>CustomerQueueType__c</field>
-        <operation>contains</operation>
-        <value>SMB</value>
-    </filters>
-    <filters>
-        <field>UPDATEDBY_USER</field>
-        <operation>equals</operation>
-        <value>Leonid Kefalianos</value>
-    </filters>
     <label>Bug Checking EQUALS</label>
-    <language>en_US</language>
 </ListView>

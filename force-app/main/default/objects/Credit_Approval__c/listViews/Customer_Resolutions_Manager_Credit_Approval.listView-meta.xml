@@ -5,6 +5,6 @@
     <label>Customer Resolutions Manager</label>
     <queue>Customer_Resolutions_Manager</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

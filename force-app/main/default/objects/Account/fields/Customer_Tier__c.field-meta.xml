@@ -6,7 +6,6 @@
     <inlineHelpText>This field defines the customer tier like Tier1, Tier2...</inlineHelpText>
     <label>Customer Tier</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

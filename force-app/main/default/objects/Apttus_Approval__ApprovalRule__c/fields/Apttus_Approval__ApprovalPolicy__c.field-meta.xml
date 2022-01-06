@@ -7,7 +7,6 @@
     <inlineHelpText>The approval policy associated with the rule</inlineHelpText>
     <label>Approval Policy</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

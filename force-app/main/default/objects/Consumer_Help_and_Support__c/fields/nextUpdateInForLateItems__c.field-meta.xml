@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>nextUpdateInForLateItems__c</fullName>
-    <description>Most late items arrive within 15 days of the expected date</description>
+    <description>Most late items arrive within 5 days of the expected date</description>
     <externalId>false</externalId>
     <label>nextUpdateInForLateItems</label>
     <precision>5</precision>

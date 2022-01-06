@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>What are 3 objectives over next 12 mnths</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

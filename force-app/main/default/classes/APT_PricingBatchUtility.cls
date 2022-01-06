@@ -141,7 +141,7 @@ public with sharing class APT_PricingBatchUtility
             pli.Apttus_Config2__PriceType__c = defaultPliConfig.Price_Type__c;
             pli.Apttus_Config2__PriceMethod__c = defaultPliConfig.Price_Method__c;
             pli.Apttus_Config2__PriceUom__c = defaultPliConfig.Price_UOM__c;                    
-            pli.Apttus_Config2__Active__c = APT_Constants.BOOL_FALSE;
+            pli.Apttus_Config2__Active__c = APT_Constants.BOOL_TRUE;
             //Adding more fields from the PLI config metadata (Parcel Simplification)
             pli.Apttus_Config2__PriceIncludedInBundle__c = defaultPliConfig.Price_Included_In_Bundle__c;
             pli.Apttus_Config2__AllowManualAdjustment__c = defaultPliConfig.Allow_Manual_Adjustment__c;

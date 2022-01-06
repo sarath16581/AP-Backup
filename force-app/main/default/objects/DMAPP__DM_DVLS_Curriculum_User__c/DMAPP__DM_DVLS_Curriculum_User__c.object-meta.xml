@@ -164,7 +164,7 @@ This object is responsible for storing user activity on a given eLearning Curric
         <type>Text</type>
     </nameField>
     <pluralLabel>Curriculum Users</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

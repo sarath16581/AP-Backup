@@ -156,6 +156,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Child Care %26 Social Assistance Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Cleaning</fullName>
             <default>false</default>
         </values>
@@ -177,6 +181,10 @@
         </values>
         <values>
             <fullName>Cosmetics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Courier Services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -216,6 +224,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Federal Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Footwear</fullName>
             <default>false</default>
         </values>
@@ -237,6 +249,10 @@
         </values>
         <values>
             <fullName>Grain %26 Other Agriculture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grain Storage</fullName>
             <default>false</default>
         </values>
         <values>
@@ -276,6 +292,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Local Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Machinery</fullName>
             <default>false</default>
         </values>
@@ -300,6 +320,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Movie %26 Television</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Movie %26 Television Goods</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Music %26 Radio</fullName>
             <default>false</default>
         </values>
@@ -312,6 +340,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Nursery %26 Crops</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Online Broadcasting</fullName>
             <default>false</default>
         </values>
@@ -321,6 +353,10 @@
         </values>
         <values>
             <fullName>Other Telecommunications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Transport %26 Postal Services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -356,11 +392,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Postal Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Printing</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Private Employment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public %26 Regulatory Services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -393,6 +437,10 @@
         </values>
         <values>
             <fullName>Sport %26 Fitness</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State Government</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1655,14 +1703,6 @@
         <picklist>Sales_Specialist_Team__c</picklist>
         <values>
             <fullName>Sales Specialists Enterprise %26 Strategic</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales Specialists NSW%2FACT%2FWA%2FSA</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales Specialists QLD</fullName>
             <default>false</default>
         </values>
         <values>

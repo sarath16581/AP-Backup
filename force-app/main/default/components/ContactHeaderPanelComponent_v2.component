@@ -3,7 +3,7 @@
     2019-03-13 swati.mogadala@auspost.com.au edited css class stn to wrap Special Treatment notes when displayed REQ1727141
     2019-05-30 snigdha.sahu@auspost.com.au edited to make Special Treatment notes red in color REQ1810508
 	2020-04-19 snigdha.sahu@auspost.com.au Edited to change the header for REQ2160824
-    2021-05-12	Madhuri.awasthi@auspost.com.au : Add a preferred name field in contact areas of Salesforce (REQ2476162)
+	2021-05-12	Madhuri.awasthi@auspost.com.au : Add a preferred name field in contact areas of Salesforce (REQ2476162)
 -->
 <apex:component controller="ContactHeaderPanelComponentCont_v2">
     <apex:attribute name="recordId" description="the selected account/contact id" type="string" required="true" assignTo="{!recId}"/>

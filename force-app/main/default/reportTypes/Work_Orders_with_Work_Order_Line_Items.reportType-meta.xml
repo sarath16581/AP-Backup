@@ -1250,6 +1250,16 @@
             <field>PDC_Rigid_LSE_Warning_Devices__c</field>
             <table>WorkOrder</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Primary_SA__c.SchedStartTime</field>
+            <table>WorkOrder</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Primary_SA__c.ActualStartTime</field>
+            <table>WorkOrder</table>
+        </columns>
         <masterLabel>Work Orders</masterLabel>
     </sections>
     <sections>
@@ -1511,6 +1521,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Actual_Collect_Quantity__c</field>
+            <table>WorkOrder.WorkOrderLineItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Collect_From_Work_Order__c.Location</field>
             <table>WorkOrder.WorkOrderLineItems</table>
         </columns>
         <masterLabel>Work Order Line Items</masterLabel>

@@ -5,6 +5,5 @@
     <formula>IF(  Days_Since_Last_Acty__c  &gt;= 0, True, False)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Target Call Cycle Met?</label>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

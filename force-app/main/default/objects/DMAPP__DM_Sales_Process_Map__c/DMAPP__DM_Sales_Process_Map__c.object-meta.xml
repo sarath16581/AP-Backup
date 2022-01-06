@@ -164,7 +164,7 @@ This object is responsible for the mapping of Opportunity Types to the Playbook 
         <type>Text</type>
     </nameField>
     <pluralLabel>Sales Process Maps</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

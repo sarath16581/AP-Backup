@@ -5,6 +5,6 @@
     <label>BSC - Cora Group</label>
     <queue>BSC_Cora_Group</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <allInternalUsers></allInternalUsers>
     </sharedTo>
 </ListView>

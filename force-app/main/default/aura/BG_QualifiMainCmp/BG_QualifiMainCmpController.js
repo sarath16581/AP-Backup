@@ -1,7 +1,5 @@
 ({
     doInit : function(cmp, event, helper) {
-        console.log('Inside main component controller');
-        console.log('recordId>>>',cmp.get('v.recordId'));
         helper.loadInitCmp(cmp, event);
     },
     handleComponentEvent : function(cmp, event, helper) {

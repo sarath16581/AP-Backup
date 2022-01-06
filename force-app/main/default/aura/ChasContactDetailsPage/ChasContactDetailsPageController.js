@@ -14,11 +14,11 @@
         }
     },
     goForwardAsGuest: function (cmp, event, helper) {
-        var isValid = helper.checkAllValidForGuest(cmp, true);
-        if(isValid){
-            helper.gotoNextPage(cmp);
-        }
-    },
+       var isValid = helper.checkAllValidForGuest(cmp, true);
+       if(isValid){
+           helper.gotoNextPage(cmp);
+       }
+   },
     goBack: function (cmp, event, helper) {
         var hasCustomerSeenSafeDrop = cmp.get("v.wizardData.hasCustomerSeenSafeDrop");
         var correctDeliveryAddress = cmp.get("v.wizardData.correctDeliveryAddress");

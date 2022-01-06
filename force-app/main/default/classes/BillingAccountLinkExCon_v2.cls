@@ -20,7 +20,7 @@ History:
 25.05.2012    M. Isidro (Cloud Sherpas)         Added the date when the parent (Account) is changed for a particular Billing Account
 08.10.2012    Richard Enojas(Salesforce.com)    Changed reparenting logic based on Sub Account/QC241 requirements. Organisation__c is now 'reparentable'.   
 05.03.2020    Shashwat Nath (Accenture)         Fixed test class failure due to ABN duplicate check rule 
-13.08.2021    Seth Heang						Uplift API version to 52, and migrate testmethod into a new test class: BillingAccountLinkExCon_v2Test
+13.08.2021    Seth Heang			Uplift API version to 52, and migrate testmethod into a new test class: BillingAccountLinkExCon_v2Test
 **************************************************/
 public with sharing class BillingAccountLinkExCon_v2 {
     

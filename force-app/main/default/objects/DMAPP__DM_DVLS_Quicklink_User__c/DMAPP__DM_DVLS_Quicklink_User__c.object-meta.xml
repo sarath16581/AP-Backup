@@ -164,7 +164,7 @@ This object is responsible for storing user activity on individual information l
         <type>Text</type>
     </nameField>
     <pluralLabel>Quicklink Users</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

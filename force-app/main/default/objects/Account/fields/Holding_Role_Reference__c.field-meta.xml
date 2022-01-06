@@ -8,7 +8,6 @@
     <relationshipLabel>Holding Role</relationshipLabel>
     <relationshipName>Holding_Role</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Lookup</type>
