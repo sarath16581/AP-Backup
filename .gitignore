@@ -46,6 +46,8 @@ IlluminatedCloud/
 # pipeline retrieval
 src/
 
+package.xml
+
 # metadata specific
 force-app/main/default/staticresources/Cognition_StaticRes/css/Icon\r
 force-app/main/default/staticresources/Cognition_StaticRes/images/Icon\r
