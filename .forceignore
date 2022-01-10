@@ -10,3 +10,6 @@ package.xml
 
 # LWC Jest
 **/__tests__/**
+
+# BigObject Indexes which SFDX seems to have a problem with
+**/objects/**/indexes/*.index-meta.xml
