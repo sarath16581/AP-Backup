@@ -3,12 +3,19 @@ pipelines:
   pull-requests:
     feature/*:
       - step:
-          name: Code Analysis and Build
+          name: Code Analysis
           script:
             #grab a copy of the pipeline repository
             - apt-get update && apt-get install --no-install-recommends -y git
             - cd /tmp && mkdir pipelines && cd /tmp/pipelines && git clone https://$PIPELINE_REPO_USER:$PIPELINE_REPO_PASS@bitbucket.org/customersystemsteam/pipeline-tools-sfdx.git .
             - sh /tmp/pipelines/pipeline-orchestrator/feature.sh
+      - step:
+          trigger: manual
+          name: Package Build
+          script:
+            - apt-get update && apt-get install --no-install-recommends -y git
+            - cd /tmp && mkdir pipelines && cd /tmp/pipelines && git clone https://$PIPELINE_REPO_USER:$PIPELINE_REPO_PASS@bitbucket.org/customersystemsteam/pipeline-tools-sfdx.git .
+            - sh /tmp/pipelines/pipeline-orchestrator/feature-build.sh
           artifacts:
             - dist/**
   custom:
