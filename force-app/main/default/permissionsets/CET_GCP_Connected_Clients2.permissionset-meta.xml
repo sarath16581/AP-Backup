@@ -10998,16 +10998,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Event.mh_Green_Sheet_Created_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Event.mh_Last_Updated_Green_Sheet__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>FAQ__kav.AP_Website_URL__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -17699,16 +17689,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.mh_Associated_Green_Sheet__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Task.mh_Green_Sheet_Created_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Task.mh_Last_Updated_Green_Sheet__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

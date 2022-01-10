@@ -132,6 +132,16 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
+        <field>IsBundle</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
+        <field>IsBundleMember</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
         <field>FSL__IsFillInCandidate__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

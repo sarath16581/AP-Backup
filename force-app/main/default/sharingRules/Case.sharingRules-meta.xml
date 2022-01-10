@@ -13,6 +13,7 @@
             <operation>equals</operation>
             <value>ACIC Request</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>AMLCTF_Retail_Audit_Case_Sharing_Rule</fullName>
@@ -27,6 +28,7 @@
             <operation>equals</operation>
             <value>Scheduled Audit,Unannounced Audit,Retail Dispute Enquiry,Assurance Audit,Please Explain</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Business_Enablement_Cases</fullName>
@@ -41,6 +43,7 @@
             <operation>equals</operation>
             <value>Customer Analytics &amp; Reporting Request (CAR),Sales Coordinator</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Business_Sales_Implementation_Case</fullName>
@@ -55,6 +58,7 @@
             <operation>equals</operation>
             <value>Business Sales Implementation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>CIA_for_B_G_I</fullName>
@@ -69,6 +73,7 @@
             <operation>equals</operation>
             <value>Customer Integration Application</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Case_Sharing_Customer_Integration_Application</fullName>
@@ -82,6 +87,7 @@
             <operation>equals</operation>
             <value>Customer Integration Application</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Case_Sharing_Retail_Fulfilment_Support</fullName>
@@ -96,6 +102,7 @@
             <operation>equals</operation>
             <value>Retail Fulfilment &amp; Support</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Case_Sharing_Retail_Fulfilment_Support_External_user</fullName>
@@ -110,6 +117,7 @@
             <operation>equals</operation>
             <value>Retail Fulfilment &amp; Support</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Customer_Data_Team_Case</fullName>
@@ -124,6 +132,7 @@
             <operation>equals</operation>
             <value>Data Quality Management</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Customer_Onboarding_SecurePost</fullName>
@@ -142,6 +151,7 @@
             <operation>equals</operation>
             <value>01t2v000009FtAv</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>DeliveryEnquiry_AccountManagerSupport</fullName>
@@ -160,6 +170,7 @@
             <operation>equals</operation>
             <value>Account Manager Support</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Enterprise_Credit_Claim_Approvers_Read_Access</fullName>
@@ -173,6 +184,7 @@
             <operation>equals</operation>
             <value>Enterprise Credit Dispute Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Enterprise_Credit_Claim_Credit_Management_Read_Access</fullName>
@@ -186,6 +198,7 @@
             <operation>equals</operation>
             <value>Enterprise Credit Dispute Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Enterprise_Credit_Dispute_Claim_Read_Write</fullName>
@@ -199,6 +212,7 @@
             <operation>equals</operation>
             <value>Enterprise Credit Dispute Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Enterprise_Dispute_Case_Sharing</fullName>
@@ -213,6 +227,7 @@
             <operation>equals</operation>
             <value>Enterprise Credit Dispute Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Enterprise_Onboarding_read_only_CMDT_cases</fullName>
@@ -227,6 +242,7 @@
             <operation>equals</operation>
             <value>Data Quality Management</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Ex_Gratia_Credit_Dispute</fullName>
@@ -240,6 +256,7 @@
             <operation>equals</operation>
             <value>SSSW Service,SSSW Delivery,Credit Dispute Claim,Service Delivery,SSSW General Enquiry</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>LCM_Read_write_access</fullName>
@@ -253,6 +270,7 @@
             <operation>equals</operation>
             <value>Lodgement Customer Migrations</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Late_Payment_Charges</fullName>
@@ -276,6 +294,7 @@
             <operation>equals</operation>
             <value>Enterprise Credit Dispute Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Non_Compliance_Sharing_Rule</fullName>
@@ -290,6 +309,7 @@
             <operation>equals</operation>
             <value>Non-compliance Lodgement Issue</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Non_Compliance_Sharing_Rule2</fullName>
@@ -304,6 +324,7 @@
             <operation>equals</operation>
             <value>Non-compliance Lodgement Issue</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>OPC_Exception_Case_Sharing_Rule</fullName>
@@ -317,6 +338,7 @@
             <operation>equals</operation>
             <value>Sales Manager Review Exception</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>ReadOnly_Access_to_Non_Compliance_Cases</fullName>
@@ -331,6 +353,7 @@
             <operation>equals</operation>
             <value>Non-compliance Lodgement Issue</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>SSSE_Depot_Co_ordinator_Read_Access</fullName>
@@ -344,6 +367,7 @@
             <operation>equals</operation>
             <value>Security Express,Special Services</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>SSSW_Sharing</fullName>
@@ -358,6 +382,7 @@
             <operation>equals</operation>
             <value>SSSW Service,SSSW Fax,NCCC Direct Email,SSSW Delivery,SSSW General Enquiry,Social Record Type</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Sales_Implementation_Case</fullName>
@@ -372,6 +397,7 @@
             <operation>equals</operation>
             <value>E&amp;G Sales Implementation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Sales_Ops_Service_Read_Sharing</fullName>
@@ -385,6 +411,7 @@
             <operation>equals</operation>
             <value>SSSW Service,SSSW Fax,SSSW Delivery,Service Delivery,SSSW General Enquiry</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Secure_Post_Customer_Onboarding_with_Credit_Management</fullName>
@@ -404,6 +431,7 @@
             <operation>equals</operation>
             <value>01t2v000009FtAv</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Secure_Post_Customer_Onboarding_with_Deal_Enablement</fullName>
@@ -423,6 +451,7 @@
             <operation>equals</operation>
             <value>01t2v000009FtAv</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Service_Delivery_Read_Write_Sharing</fullName>
@@ -436,6 +465,7 @@
             <operation>equals</operation>
             <value>Service Delivery</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_ASH_With_Their_Public_Group</fullName>
@@ -450,6 +480,7 @@
             <operation>equals</operation>
             <value>Accounting Service Helpdesk</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_CTM_With_Their_Public_Group</fullName>
@@ -464,6 +495,7 @@
             <operation>equals</operation>
             <value>Card Transaction Monitoring</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_CreditBSI_Parent_Case_with_CDM</fullName>
@@ -477,6 +509,7 @@
             <operation>equals</operation>
             <value>Business Systems Integration</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Credit_Parent_Case_with_BSI</fullName>
@@ -490,6 +523,7 @@
             <operation>equals</operation>
             <value>Business Systems Integration</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Shipster_Read_write_access</fullName>
@@ -503,6 +537,7 @@
             <operation>equals</operation>
             <value>Shipster</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Account_Manager</fullName>
@@ -517,6 +552,7 @@
             <operation>equals</operation>
             <value>Delivery Enquiry,Sales Enquiry,General Enquiry,Pickup Booking Enquiry</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Credit_Case_Approvers_Access</fullName>
@@ -531,6 +567,7 @@
             <operation>equals</operation>
             <value>Credit Dispute Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Credit_Dispute_ReadOnly1</fullName>
@@ -544,6 +581,7 @@
             <operation>equals</operation>
             <value>Credit Dispute Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Credit_Dispute_Read_Write</fullName>
@@ -557,6 +595,7 @@
             <operation>equals</operation>
             <value>Credit Dispute Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Credit_Dispute_Read_Write1</fullName>
@@ -570,6 +609,7 @@
             <operation>equals</operation>
             <value>Credit Dispute Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Delivery_Enquiry_sharing</fullName>
@@ -589,6 +629,7 @@
             <operation>notEqual</operation>
             <value>Account Manager Support</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Transit_Warranty_Approvers_Access</fullName>
@@ -602,6 +643,7 @@
             <operation>equals</operation>
             <value>Transit Warranty Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Transit_Warranty_Read_Write</fullName>
@@ -616,6 +658,7 @@
             <operation>equals</operation>
             <value>Transit Warranty Claim</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_sharing</fullName>
@@ -630,6 +673,7 @@
             <operation>equals</operation>
             <value>Pickup Booking Enquiry,Sales Enquiry,General Enquiry</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Supply_Chain_Optimisation_Case</fullName>
@@ -644,6 +688,7 @@
             <operation>equals</operation>
             <value>Service Partner</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>ULD_Allocation_Case</fullName>
@@ -658,6 +703,7 @@
             <operation>equals</operation>
             <value>ULD Allocation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>VOC_Incident_Read_Only</fullName>
@@ -678,6 +724,7 @@
             <operation>equals</operation>
             <value>Voice of Customer Incident</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>VOC_Incident_Read_Write_Managers</fullName>
@@ -698,6 +745,7 @@
             <operation>equals</operation>
             <value>Voice of Customer Incident</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>View_all_business_Enablement_Cases</fullName>
@@ -712,6 +760,7 @@
             <operation>equals</operation>
             <value>Customer Analytics &amp; Reporting Request (CAR),Sales Coordinator</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>APGL_Support</fullName>

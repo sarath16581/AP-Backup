@@ -13,5 +13,6 @@
             <operation>equals</operation>
             <value>Same Day Partner,StarTrack Partner,Australia Post International Partner,MyPost Business Partner,Australia Post Domestic Partner,Global Logistics Partner</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
 </SharingRules>

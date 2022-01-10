@@ -10,8 +10,6 @@
     <columns>TASK.STATUS</columns>
     <columns>TASK.WHAT_NAME</columns>
     <columns>TASK.WHO_NAME</columns>
-    <columns>mh_Green_Sheet_Created_Date__c</columns>
-    <columns>mh_Last_Updated_Green_Sheet__c</columns>
     <filterScope>Mine</filterScope>
     <filters>
         <field>mh_Associated_Green_Sheet__c</field>

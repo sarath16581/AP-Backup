@@ -13,6 +13,7 @@
             <operation>notEqual</operation>
             <value>.</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Grant_Lead_Write_Acces_to_Internal_users</fullName>
@@ -27,6 +28,7 @@
             <operation>equals</operation>
             <value>BG_Standard</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Edit_Leads</fullName>
@@ -41,5 +43,6 @@
             <operation>equals</operation>
             <value>StarTrack Lead</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
 </SharingRules>

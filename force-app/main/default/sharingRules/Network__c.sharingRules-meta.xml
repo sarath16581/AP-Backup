@@ -12,6 +12,7 @@
             <operation>equals</operation>
             <value>Agent,Regional,Metro,Care Agent</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Partner_Info_RW</fullName>
@@ -26,6 +27,7 @@
             <operation>equals</operation>
             <value>Retail,Other,Lockers</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>SSSW_MyNetwork_Manager</fullName>
@@ -39,6 +41,7 @@
             <operation>equals</operation>
             <value>Retail,Delivery,Other</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Networks_to_LBP</fullName>
@@ -53,5 +56,6 @@
             <operation>equals</operation>
             <value>Retail</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
 </SharingRules>

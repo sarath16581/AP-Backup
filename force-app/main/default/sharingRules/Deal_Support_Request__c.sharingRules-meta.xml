@@ -13,6 +13,7 @@
             <operation>equals</operation>
             <value>Customer Onboarding</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_All_DSR_with_DEC_Public_Group</fullName>
@@ -27,6 +28,7 @@
             <operation>notEqual</operation>
             <value>Customer Onboarding</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Commercial_Analytics_Modelling</fullName>
@@ -41,6 +43,7 @@
             <operation>equals</operation>
             <value>Commercial Analytics &amp; Modelling</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Credit_DSR_Request_with_Credit_Management_Team</fullName>
@@ -55,6 +58,7 @@
             <operation>equals</operation>
             <value>Credit Management Request</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_DEC_DSR_with_Sales</fullName>
@@ -69,6 +73,7 @@
             <operation>equals</operation>
             <value>Customer Onboarding,Pricing Support Request - Domestic,Pricing Support Request - StarTrack,Pricing Support Request - International</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_DSR_with_Pricing_Team</fullName>
@@ -83,6 +88,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - StarTrack</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Domestic_PSR_with_Intl_Pricing_Team</fullName>
@@ -97,6 +103,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - Domestic</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Domestic_PSR_with_StarTrack_Pricing_Team</fullName>
@@ -111,6 +118,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - Domestic</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Domestic_PSR_with_Surcharge_Exemption_Team</fullName>
@@ -125,6 +133,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - Domestic</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_E_G_Sales_Impl_DSR_with_Customer_Impl_Channel_Product</fullName>
@@ -139,6 +148,7 @@
             <operation>equals</operation>
             <value>&quot;E&amp;G Sales,Customer Implementation Request&quot;</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_International_PSR_with_Domestic_PSR_team</fullName>
@@ -153,6 +163,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - International</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_International_PSR_with_StarTrack_PSR_team</fullName>
@@ -167,6 +178,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - International</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_International_PSR_with_Surcharge_Exemption_Team</fullName>
@@ -181,6 +193,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - International</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_StarTrack_PSR_with_Domestic_Pricing_Team</fullName>
@@ -195,6 +208,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - StarTrack</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_StarTrack_PSR_with_Intl_Pricing_Team</fullName>
@@ -209,6 +223,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - StarTrack</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_StarTrack_PSR_with_Surcharge_Exemption_Team</fullName>
@@ -223,6 +238,7 @@
             <operation>equals</operation>
             <value>Pricing Support Request - StarTrack</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Surcharge_Exemption_DSR_with_Domestic_PSR_Team</fullName>
@@ -237,6 +253,7 @@
             <operation>equals</operation>
             <value>Surcharge Exemption Request</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Surcharge_Exemption_DSR_with_International_PSR_Team</fullName>
@@ -251,6 +268,7 @@
             <operation>equals</operation>
             <value>Surcharge Exemption Request</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Surcharge_Exemption_DSR_with_StarTrack_PSR_Team</fullName>
@@ -265,6 +283,7 @@
             <operation>equals</operation>
             <value>Surcharge Exemption Request</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Deal_Enablement_Centre_Team</fullName>

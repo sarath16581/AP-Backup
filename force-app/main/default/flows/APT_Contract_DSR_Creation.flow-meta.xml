@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>52.0</apiVersion>
     <decisions>
         <name>isChangedDecision2_myRule_1_Apttus_Status_c</name>
         <label>isChangedDecision2_myRule_1_Apttus_Status_c</label>
@@ -82,7 +82,7 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_1</name>
-            <conditionLogic>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND (7 OR 8 OR 9)</conditionLogic>
+            <conditionLogic>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND (7 OR 8 OR 9 OR 10)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -362,6 +362,37 @@
                     <stringValue>Renewal Contract</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.APT_Contract_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DoV From ST Revision</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
             </connector>
@@ -382,7 +413,7 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_7</name>
-            <conditionLogic>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND (7 OR 8 OR 9)</conditionLogic>
+            <conditionLogic>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND (7 OR 8 OR 9 OR 10)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -662,6 +693,37 @@
                     <stringValue>Renewal Contract</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.APT_Contract_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DoV From ST Revision</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>myRule_7_A1</targetReference>
             </connector>
@@ -676,7 +738,7 @@
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_10_myRule_7_A1_6258996495</name>
+        <name>formula_10_myRule_7_A1_8233723854</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -695,7 +757,7 @@ ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_
 ))</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A1_7383312667</name>
+        <name>formula_3_myRule_1_A1_1959577829</name>
         <dataType>String</dataType>
         <expression>IF(
 ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account&quot;), 
@@ -731,7 +793,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_4_myRule_1_A1_0572855107</name>
+        <name>formula_4_myRule_1_A1_5160192875</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -759,7 +821,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_5_myRule_1_A1_2784840631</name>
+        <name>formula_5_myRule_1_A1_5528881614</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -787,7 +849,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_9_myRule_7_A1_4615560920</name>
+        <name>formula_9_myRule_7_A1_1743684507</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -808,7 +870,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
 ),
 &quot;Other&quot;, NULL)</expression>
     </formulas>
-    <interviewLabel>APT_Contract_DSR_Creation-3_InterviewLabel</interviewLabel>
+    <interviewLabel>APT_Contract_DSR_Creation-4_InterviewLabel</interviewLabel>
     <label>APT Contract DSR Creation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1092,7 +1154,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Description__c</field>
             <value>
-                <elementReference>formula_3_myRule_1_A1_7383312667</elementReference>
+                <elementReference>formula_3_myRule_1_A1_1959577829</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1314,7 +1376,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_4_myRule_1_A1_0572855107</elementReference>
+                <elementReference>formula_4_myRule_1_A1_5160192875</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1350,7 +1412,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_5_myRule_1_A1_2784840631</elementReference>
+                <elementReference>formula_5_myRule_1_A1_5528881614</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2014,7 +2076,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_9_myRule_7_A1_4615560920</elementReference>
+                <elementReference>formula_9_myRule_7_A1_1743684507</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2050,7 +2112,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_10_myRule_7_A1_6258996495</elementReference>
+                <elementReference>formula_10_myRule_7_A1_8233723854</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

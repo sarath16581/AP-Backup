@@ -139,6 +139,7 @@
         <customTabListAdditionalFields>ServiceContract</customTabListAdditionalFields>
         <customTabListAdditionalFields>ServiceTerritory</customTabListAdditionalFields>
         <customTabListAdditionalFields>IsActive</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Account</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>WorkPlanTemplate</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Description</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>WorkType</lookupDialogsAdditionalFields>
@@ -148,6 +149,7 @@
         <lookupDialogsAdditionalFields>ServiceContract</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ServiceTerritory</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>IsActive</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Account</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>WorkPlanTemplate</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Description</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>WorkType</lookupPhoneDialogsAdditionalFields>
@@ -157,6 +159,7 @@
         <lookupPhoneDialogsAdditionalFields>ServiceContract</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ServiceTerritory</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>IsActive</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Account</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>WorkPlanTemplate</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Description</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>WorkType</searchResultsAdditionalFields>
@@ -166,6 +169,7 @@
         <searchResultsAdditionalFields>ServiceContract</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ServiceTerritory</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsActive</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

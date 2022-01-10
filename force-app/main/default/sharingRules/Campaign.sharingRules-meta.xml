@@ -13,5 +13,6 @@
             <operation>notEqual</operation>
             <value>.</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
 </SharingRules>

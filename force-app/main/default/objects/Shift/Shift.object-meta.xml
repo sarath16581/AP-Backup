@@ -139,6 +139,8 @@
         <customTabListAdditionalFields>LastModifiedDate</customTabListAdditionalFields>
         <customTabListAdditionalFields>LastModifiedBy</customTabListAdditionalFields>
         <customTabListAdditionalFields>RecordsetFilterCriteria</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IsNonStandard</customTabListAdditionalFields>
+        <customTabListAdditionalFields>BackgroundColor</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>StartTime</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>EndTime</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Status</lookupDialogsAdditionalFields>
@@ -148,6 +150,8 @@
         <lookupDialogsAdditionalFields>LastModifiedDate</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>LastModifiedBy</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>RecordsetFilterCriteria</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>IsNonStandard</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>BackgroundColor</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>StartTime</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>EndTime</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Status</lookupPhoneDialogsAdditionalFields>
@@ -157,6 +161,8 @@
         <lookupPhoneDialogsAdditionalFields>LastModifiedDate</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>LastModifiedBy</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>RecordsetFilterCriteria</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>IsNonStandard</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>BackgroundColor</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>StartTime</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>EndTime</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Status</searchResultsAdditionalFields>
@@ -166,6 +172,8 @@
         <searchResultsAdditionalFields>LastModifiedDate</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>LastModifiedBy</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>RecordsetFilterCriteria</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IsNonStandard</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>BackgroundColor</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
 </CustomObject>

@@ -39,6 +39,7 @@
             <operation>equals</operation>
             <value>StarTrack pricing general enquiry</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Sharing_Rule_System_Training_Team</fullName>
@@ -52,5 +53,6 @@
             <operation>equals</operation>
             <value>System Training</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
 </SharingRules>

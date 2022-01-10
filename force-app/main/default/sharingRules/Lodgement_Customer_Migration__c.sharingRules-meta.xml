@@ -13,6 +13,7 @@
             <operation>notEqual</operation>
             <value>1</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Service_Partners_Sharing_Rule</fullName>
@@ -27,5 +28,6 @@
             <operation>notEqual</operation>
             <value>1</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
 </SharingRules>

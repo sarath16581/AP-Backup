@@ -25,6 +25,5 @@
     &amp;&amp;
     Not( ISPICKVAL( Status__c , &quot;Inactive&quot;) )</errorConditionFormula>
     <errorMessage>A contact must have a mailing address.
-    If you’re creating a new record, please ensure that the organisation has a billing address.
-    If you’re editing an existing record, please ensure that the contact has a mailing address.</errorMessage>
+ If you are changing the Status to &apos;Left Organisation&apos;, as the mailing address remains mandatory regardless of the Status, please ensure that the contact meets the minimum mailing address requirements</errorMessage>
 </ValidationRule>

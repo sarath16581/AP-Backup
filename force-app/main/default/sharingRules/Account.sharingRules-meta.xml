@@ -18,6 +18,7 @@
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Customer_Integration_Team</fullName>
@@ -37,6 +38,7 @@
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Dashcord_Sharing_Rule</fullName>
@@ -56,6 +58,7 @@
             <operation>notEqual</operation>
             <value>.</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>POMs_Sharing_Retail_Auditor_License_Record</fullName>
@@ -75,6 +78,7 @@
             <operation>equals</operation>
             <value>Licence,Licence PP,Facility,Licence CPA,Organisation,Licence CMA</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Partner_Info_RW</fullName>
@@ -94,6 +98,7 @@
             <operation>equals</operation>
             <value>Facility CPA,Facility CMA,Facility</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Restrict_Org_view_for_SalesPreso</fullName>
@@ -112,6 +117,7 @@
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Restrict_view_to_only_orgs_for_BMS</fullName>
@@ -131,6 +137,7 @@
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Restrict_view_to_only_orgs_for_Marketing_3rd_Party</fullName>
@@ -150,6 +157,7 @@
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Retail_Outlet_External_and_Merchandise</fullName>
@@ -169,6 +177,7 @@
             <operation>equals</operation>
             <value>Facility CPA,Facility CMA,Facility</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Secure_Post_Customer_Onboarding</fullName>
@@ -187,6 +196,7 @@
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Share_Organisations_to_LBPs</fullName>
@@ -205,6 +215,7 @@
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Account_Access</fullName>
@@ -223,6 +234,7 @@
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Workforce_Integrity_edit</fullName>
@@ -242,6 +254,7 @@
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Holding_User_Lead_Conversion</fullName>

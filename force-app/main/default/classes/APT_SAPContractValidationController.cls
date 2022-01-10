@@ -24,6 +24,9 @@ o   Then continue onto Process 4
 •   Scenario 4:
 o   System to clone all SAP Contract records from previous amended or renewed Apttus Contract over to new Apttus Contract
 o   System to rename all previous SAP Contract records with postfix of .old (doing this will ensure that there is only 1 unique SAP Contract number in Salesforce)
+
+o   24/12/2021 - REQ2703652 : Adding New Contract Type : DoV From ST Revision
+
 */
 
 public class APT_SAPContractValidationController {
@@ -88,8 +91,9 @@ public class APT_SAPContractValidationController {
             return null;
         }
         
+        // Adding REQ2703652 : Contract_Type__c == 'DoV From ST Revision'
         if(renewAgreeVar.APT_Contract_Type__c == 'Renewal Contract' || 
-           renewAgreeVar.APT_Contract_Type__c == 'DoV Contract'){
+           renewAgreeVar.APT_Contract_Type__c == 'DoV Contract' || renewAgreeVar.APT_Contract_Type__c == 'DoV From ST Revision'){
             Boolean failClone = false;
             // Clone and redirect to activation page
             if(replyVal=='No'){

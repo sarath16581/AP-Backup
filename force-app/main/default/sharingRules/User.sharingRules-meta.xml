@@ -12,6 +12,7 @@
             <operation>equals</operation>
             <value>Corporate</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Share_Internal_Users_to_LBP</fullName>

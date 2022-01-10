@@ -12,6 +12,7 @@
             <operation>notEqual</operation>
             <value>.</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>StarTrack_Account_Manager</fullName>
@@ -26,5 +27,6 @@
             <operation>equals</operation>
             <value>Consignment</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
 </SharingRules>

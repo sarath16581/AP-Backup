@@ -2431,11 +2431,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>mh_Last_Updated_Green_Sheet__c</field>
-            <table>Case.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Sub_Type__c</field>
             <table>Case.Activities</table>
         </columns>

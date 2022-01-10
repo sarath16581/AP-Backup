@@ -13,6 +13,7 @@
             <operation>equals</operation>
             <value>Lodgement Rules</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>LCM_Read_write_access</fullName>
@@ -27,6 +28,7 @@
             <operation>equals</operation>
             <value>Lodgement Rules</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Lodgement_Auth_Rules</fullName>
@@ -41,6 +43,7 @@
             <operation>equals</operation>
             <value>Lodgement Rules</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>MPB_Auth_Rules</fullName>
@@ -55,5 +58,6 @@
             <operation>equals</operation>
             <value>MPB Rules</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
 </SharingRules>

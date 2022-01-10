@@ -12,5 +12,6 @@
             <operation>contains</operation>
             <value>TM</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
 </SharingRules>
