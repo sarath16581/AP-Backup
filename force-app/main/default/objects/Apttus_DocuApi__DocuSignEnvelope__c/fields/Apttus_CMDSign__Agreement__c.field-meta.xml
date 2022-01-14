@@ -10,6 +10,7 @@
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipName>DocuSignEnvelopes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

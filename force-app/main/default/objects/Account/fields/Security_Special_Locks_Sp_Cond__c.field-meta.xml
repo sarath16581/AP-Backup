@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Is Licensee required to provide and maintain special locks on the premises?</inlineHelpText>
     <label>Security Special Locks Sp Cond</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

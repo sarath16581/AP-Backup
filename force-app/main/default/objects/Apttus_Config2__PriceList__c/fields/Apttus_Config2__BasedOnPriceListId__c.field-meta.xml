@@ -10,6 +10,7 @@
     <relationshipLabel>Derived Price Lists</relationshipLabel>
     <relationshipName>DerivedPriceLists</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -9,6 +9,7 @@ IF(APT_New__c==false,IF( AND(Apttus_Proposal__Proposal__r.RecordType.Name == &ap
 APT_Product_Name__c &amp; &apos; true&apos;,APT_Product_Name__c &amp; &apos; false&apos;),APT_Product_Name__c &amp; &apos; true&apos;))))</formula>
     <label>Product and Price Structure</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

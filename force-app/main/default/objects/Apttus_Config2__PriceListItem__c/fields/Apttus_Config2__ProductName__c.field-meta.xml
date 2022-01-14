@@ -9,6 +9,7 @@
     <inlineHelpText>The product name</inlineHelpText>
     <label>Product Name</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

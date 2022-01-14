@@ -7,6 +7,7 @@
     <inlineHelpText>A comma separated list of rebate agreement ids provided as input for the rebate calculation job</inlineHelpText>
     <label>Input Agreements</label>
     <length>500</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

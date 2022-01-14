@@ -5,6 +5,7 @@
     <formula>IF(Apttus_Config2__LineItemId__r.Apttus_Config2__AdjustmentAmount__c &gt; 0 , TRUE, IF(AND(Apttus_Config2__LineItemId__r.APT_PostBillPay_Gross_Settlement_fee__c = &apos;Yes&apos;, Apttus_Config2__LineItemId__r.APT_Rate_Card_Edited__c ), IF( AND(Apttus_Config2__UsageRate__c - 0.1 != Apttus_Config2__PriceOverride__c,Apttus_Config2__UsageRate__c != Apttus_Config2__PriceOverride__c) , TRUE, FALSE),IF(Apttus_Config2__UsageRate__c != Apttus_Config2__PriceOverride__c , TRUE, FALSE)))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Highlight changes</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

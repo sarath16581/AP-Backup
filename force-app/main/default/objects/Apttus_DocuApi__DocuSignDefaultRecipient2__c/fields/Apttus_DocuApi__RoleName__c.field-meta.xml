@@ -7,6 +7,7 @@
     <inlineHelpText>Role names are used to map the anchor tags within your documents to a recipient. Order of the role name determines which anchor tag set to map to.</inlineHelpText>
     <label>Role Name</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

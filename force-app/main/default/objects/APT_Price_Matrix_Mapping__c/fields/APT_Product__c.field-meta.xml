@@ -8,6 +8,7 @@
     <relationshipLabel>Price Matrix Mappings</relationshipLabel>
     <relationshipName>Price_Matrix_Mappings</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

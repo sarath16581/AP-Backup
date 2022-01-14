@@ -9,6 +9,7 @@
     <relationshipLabel>Entry Criteria</relationshipLabel>
     <relationshipName>Entry_Criteria</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

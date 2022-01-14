@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>If checked, DataArchiva will permanently delete the archiving records (hard delete) instead of soft delete.</inlineHelpText>
     <label>Enable Hard Delete?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

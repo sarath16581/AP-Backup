@@ -5,6 +5,7 @@
     <label>Billing Account No.</label>
     <length>40</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Text</type>
     <unique>false</unique>

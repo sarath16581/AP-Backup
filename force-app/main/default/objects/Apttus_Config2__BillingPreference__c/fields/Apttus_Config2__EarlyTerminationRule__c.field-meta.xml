@@ -7,6 +7,7 @@
     <inlineHelpText>Select an option to enable early termination charges. This is applicable only when the asset is terminated.</inlineHelpText>
     <label>Early Termination Rule</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

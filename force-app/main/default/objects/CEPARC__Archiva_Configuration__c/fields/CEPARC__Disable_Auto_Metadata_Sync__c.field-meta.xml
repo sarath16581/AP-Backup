@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>If checked, Auto meta data sync for new fields will be skipped for this object.</inlineHelpText>
     <label>Disable Auto Metadata Sync</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

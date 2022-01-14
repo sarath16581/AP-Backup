@@ -7,6 +7,7 @@
     <inlineHelpText>Upload URL of MS teams</inlineHelpText>
     <label>Upload URL</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

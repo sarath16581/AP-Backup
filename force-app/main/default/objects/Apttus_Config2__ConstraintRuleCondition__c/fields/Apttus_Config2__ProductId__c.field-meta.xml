@@ -10,6 +10,7 @@
     <relationshipLabel>Constraint Rule Conditions</relationshipLabel>
     <relationshipName>ConstraintRuleConditions</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

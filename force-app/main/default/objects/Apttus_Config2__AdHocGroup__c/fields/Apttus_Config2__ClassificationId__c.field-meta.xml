@@ -10,6 +10,7 @@
     <relationshipLabel>Totaling Groups</relationshipLabel>
     <relationshipName>TotalingGroups</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -35,6 +35,7 @@ OR(APT_Product_Name__c == &quot;eParcel&quot;, APT_Product_Name__c == &quot;ePar
 AND(Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.RecordType.Name ==&apos;Renewal Quote&apos;,APT_Product_Family__c=&apos;Postal Services&apos;,Apttus_Config2__ContractNumbers__c&lt;&gt;null)),TRUE, 
 FALSE)</formula>
     <label>Approval Required2?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

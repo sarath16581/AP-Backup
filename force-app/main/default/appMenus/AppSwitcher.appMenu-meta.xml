@@ -740,4 +740,12 @@
         <name>RetailBusinessCustomers</name>
         <type>Network</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>kfsell__KF_Sell_Admin</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>standard__DataManager</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

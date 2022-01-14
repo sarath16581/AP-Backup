@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This checkbox indicates whether the customer is a Integration partner or not.</inlineHelpText>
     <label>Is Platform Partner</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

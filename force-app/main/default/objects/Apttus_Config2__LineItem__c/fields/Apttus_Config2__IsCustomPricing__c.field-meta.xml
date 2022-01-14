@@ -6,6 +6,7 @@
     <description>Indicates whether custom pricing is in effect for the line item</description>
     <externalId>false</externalId>
     <label>Is Custom Pricing</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

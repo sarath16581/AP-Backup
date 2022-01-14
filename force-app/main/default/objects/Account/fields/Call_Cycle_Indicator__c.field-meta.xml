@@ -9,6 +9,7 @@ IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;green flag&quot;) ))</formu
     <inlineHelpText>Red/Amber/Green flag status based on when the next activity is due</inlineHelpText>
     <label>Coverage Indicator</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

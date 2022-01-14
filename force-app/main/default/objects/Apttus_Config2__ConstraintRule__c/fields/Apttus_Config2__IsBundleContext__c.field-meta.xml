@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>When checked all of the rule conditions will be evaluated within a bundle context.</inlineHelpText>
     <label>Is Bundle Context</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

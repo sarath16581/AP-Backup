@@ -7,6 +7,7 @@
     <inlineHelpText>The guidance type associated with the rule. This determines the types of dimension sets that may be associated with the rule</inlineHelpText>
     <label>Guidance Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

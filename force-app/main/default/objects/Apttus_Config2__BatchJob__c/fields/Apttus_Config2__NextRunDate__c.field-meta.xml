@@ -8,6 +8,7 @@
     <inlineHelpText>Indicates the date/time when the job would run next</inlineHelpText>
     <label>Next Run Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

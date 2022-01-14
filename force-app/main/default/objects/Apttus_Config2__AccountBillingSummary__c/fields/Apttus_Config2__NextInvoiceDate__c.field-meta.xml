@@ -7,6 +7,7 @@
     <inlineHelpText>The next invoice date for the account</inlineHelpText>
     <label>Next Invoice Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

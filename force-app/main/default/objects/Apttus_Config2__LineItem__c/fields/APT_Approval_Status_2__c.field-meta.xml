@@ -5,6 +5,7 @@
     <formula>IF( TEXT(Apttus_Config2__DerivedFromId__r.Apttus_CQApprov__Approval_Status__c) ==null,  TEXT(Apttus_CQApprov__Approval_Status__c) ,  TEXT(Apttus_Config2__DerivedFromId__r.Apttus_CQApprov__Approval_Status__c ))</formula>
     <label>Approval Status 2</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

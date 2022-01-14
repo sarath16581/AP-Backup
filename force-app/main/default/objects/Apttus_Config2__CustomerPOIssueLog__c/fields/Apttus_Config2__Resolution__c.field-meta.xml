@@ -7,6 +7,7 @@
     <inlineHelpText>Holds information about the final resolution of the issue</inlineHelpText>
     <label>Resolution</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

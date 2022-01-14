@@ -3,6 +3,7 @@
     <fullName>APT_Non_Contracted_Product_Count__c</fullName>
     <externalId>false</externalId>
     <label>Non Contracted Product Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Non_Contracted__c</field>
         <operation>equals</operation>

@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Where do you see the company in 5 years?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

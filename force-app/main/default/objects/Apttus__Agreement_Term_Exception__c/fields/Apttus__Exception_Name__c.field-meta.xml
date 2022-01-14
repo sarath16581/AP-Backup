@@ -10,6 +10,7 @@
     <relationshipLabel>Agreement Term Exceptions</relationshipLabel>
     <relationshipName>Master_Term_Exception</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

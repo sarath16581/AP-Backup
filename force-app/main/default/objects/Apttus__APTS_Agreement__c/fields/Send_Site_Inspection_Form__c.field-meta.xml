@@ -9,6 +9,7 @@ NOT( ISBLANK(APT_Site_Inspection__c ))),HYPERLINK(&quot;/apex/Apttus__SendEmail?
     <inlineHelpText>Send Email (for Site Inspection Form). After contract is sent for signatures, please send from local Outlook.</inlineHelpText>
     <label>Send Site Inspection Form</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

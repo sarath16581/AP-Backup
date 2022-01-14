@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Continue with policy approval even when a step is rejected.</inlineHelpText>
     <label>Continue Policy Approval on a Reject?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

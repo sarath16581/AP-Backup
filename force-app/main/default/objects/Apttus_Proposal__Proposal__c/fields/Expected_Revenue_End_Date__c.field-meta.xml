@@ -6,6 +6,7 @@
     <inlineHelpText>Please provide estimated revenue end date, this value will be populated across Opportunity Products</inlineHelpText>
     <label>Expected Revenue End Date</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>

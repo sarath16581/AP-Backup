@@ -14,7 +14,8 @@ History:
 /*******************************  History ************************************************
     Date                User                                        Comments
     5/9/2016          eric.shen@auspost.com.au             add methods to parse email body for snap it case
-   
+    Date                User                                        Comments
+    30/11/2021          ashapriya.gadi@auspost.com.au      Added a call to ServiceAdvisorEmailMessageTriggerHandler as part of SMWD-312 - MW0004779
     
 *******************************  History ************************************************/
 
@@ -53,7 +54,8 @@ trigger EmailMessageTrigger on EmailMessage (after insert,before insert, after u
                 // And cases are under customer centre
                 // Then create CaseActivity record for SLA Reporting
                 SLAReportingUtility.generateCaseActivity(trigger.new);
-
+                // SMWD-312 - MW0004779 - This will kick off the newly created ServiceAdvisorEmailMessageTriggerHandler.
+                new EmailMessageTriggerHandler().dispatch();
 
             }
         }

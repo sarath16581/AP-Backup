@@ -10,6 +10,7 @@
 , NOT(Apttus_Config2__AttributeValueId__r.APT_Non_Contracted_Rates_Printpost__c)  
 )</formula>
     <label>Contracted Line Item</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

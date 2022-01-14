@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Gold_Sheet__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Fields of Play / Gold Sheet</label>
+    <referenceTo>kfsell__Gold_Sheet__c</referenceTo>
+    <relationshipLabel>Revenue Targets(Gold Sheet)</relationshipLabel>
+    <relationshipName>GS_Revenue_Targets</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

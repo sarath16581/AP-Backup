@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Does this site process Postage Meter Items?</inlineHelpText>
     <label>Processes Postage Meter Items</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

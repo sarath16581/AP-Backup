@@ -7,6 +7,7 @@
     <inlineHelpText>The help text message for the target object field</inlineHelpText>
     <label>Message</label>
     <length>1024</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

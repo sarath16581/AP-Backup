@@ -4,6 +4,7 @@
     <description>Active primary Agreement Document count</description>
     <externalId>false</externalId>
     <label>Active Primary Document</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Agreement_Document__c.Status__c</field>
         <operation>equals</operation>

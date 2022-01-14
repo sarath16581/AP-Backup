@@ -9,6 +9,7 @@
     <relationshipLabel>Book-In Customers</relationshipLabel>
     <relationshipName>Book_In_Customers</relationshipName>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

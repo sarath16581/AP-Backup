@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicator to enable/disable notification to Delegate Approver</inlineHelpText>
     <label>Suppress Delegate Notification</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

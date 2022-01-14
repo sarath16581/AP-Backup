@@ -5,6 +5,7 @@
     <formula>ANZSIC_Code__r.ANZSIC_Division__c</formula>
     <label>ANZSIC Division</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

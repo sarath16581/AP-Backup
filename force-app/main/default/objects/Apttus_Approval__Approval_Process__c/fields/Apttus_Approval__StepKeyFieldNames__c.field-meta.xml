@@ -7,6 +7,7 @@
     <inlineHelpText>The API names of the fields which comprise the key for the child object.</inlineHelpText>
     <label>Step Key Field Names</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

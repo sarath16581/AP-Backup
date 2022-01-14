@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Instruct Merchant Portal whether to launch the application in a new window or keep the user in the same window.</inlineHelpText>
     <label>Launch Application In New Window</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

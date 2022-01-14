@@ -6,6 +6,7 @@
     <inlineHelpText>This field defines the customer zone 1,3,6 and 9</inlineHelpText>
     <label>Zone Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

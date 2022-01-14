@@ -6,6 +6,7 @@
     <description>Whether to check for options in the whole cart</description>
     <externalId>false</externalId>
     <label>Match In Cart Options</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

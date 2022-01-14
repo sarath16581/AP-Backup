@@ -11,6 +11,7 @@
     <relationshipLabel>Document Collate Infos</relationshipLabel>
     <relationshipName>Document_Collate_Infos</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

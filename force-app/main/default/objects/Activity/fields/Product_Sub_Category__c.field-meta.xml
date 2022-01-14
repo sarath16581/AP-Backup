@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Product Sub Category</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Picklist</type>
     <valueSet>
         <controllingField>Product_Category__c</controllingField>

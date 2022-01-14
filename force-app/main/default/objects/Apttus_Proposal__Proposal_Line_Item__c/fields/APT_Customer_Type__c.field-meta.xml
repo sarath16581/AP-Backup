@@ -6,6 +6,7 @@
 Apttus_QPConfig__AttributeValueId__r.APT_PostBillPay_Customer_Type__c*/</formula>
     <label>Customer  Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -11,6 +11,7 @@
     <relationshipLabel>Proposal Incentive Benefit Data (Criteria Product)</relationshipLabel>
     <relationshipName>QuoteIncentiveBenefitDataCriteriaProduct</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

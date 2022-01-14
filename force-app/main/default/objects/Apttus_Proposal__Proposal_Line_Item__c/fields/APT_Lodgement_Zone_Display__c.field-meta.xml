@@ -6,6 +6,7 @@
 /*Apttus_QPConfig__AttributeValueId__r.APT_Lodgement_Zone__r.APT_Lodgement_Zone__c  + &quot; [&quot; +  Apttus_QPConfig__AttributeValueId__r.APT_Lodgement_Zone__r.APT_Lodgement_Zone_Code__c  + &quot;]&quot;*/</formula>
     <label>Lodgement Zone Display</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

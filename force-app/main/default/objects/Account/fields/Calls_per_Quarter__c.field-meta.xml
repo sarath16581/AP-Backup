@@ -20,6 +20,7 @@ IF(AND(Total_Budget__c &gt;= 12000, Total_Budget__c &lt; 30000), IF(Call_Cycle_O
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Number</type>
     <unique>false</unique>

@@ -10,6 +10,7 @@
     <referenceTo>Product2</referenceTo>
     <relationshipName>QuoteFootnotes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

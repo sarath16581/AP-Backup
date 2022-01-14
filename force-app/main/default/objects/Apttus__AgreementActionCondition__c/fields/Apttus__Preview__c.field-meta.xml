@@ -6,6 +6,7 @@
     <formula>ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c, &quot;Request&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Preview</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

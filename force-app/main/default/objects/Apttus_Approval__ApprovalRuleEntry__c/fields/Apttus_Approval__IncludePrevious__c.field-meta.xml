@@ -6,6 +6,7 @@
     <description>Indicates whether the previous range should be included. Only applicable to Dimension rules.</description>
     <externalId>false</externalId>
     <label>Include Previous</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -8,6 +8,7 @@ System use only not to be used on Layout</description>
     <inlineHelpText>System use only not to be used on Layout</inlineHelpText>
     <label>Last Sync Completed Envelope Time</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

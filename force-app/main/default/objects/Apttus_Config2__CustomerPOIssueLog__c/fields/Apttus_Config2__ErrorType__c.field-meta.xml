@@ -7,6 +7,7 @@
     <inlineHelpText>The type of issue logged when validation fails. Error will mean that issue needs to be resolved before next process step</inlineHelpText>
     <label>Error Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

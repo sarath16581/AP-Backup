@@ -6,6 +6,7 @@
     <description>When any of the rule condition has criteria</description>
     <externalId>false</externalId>
     <label>Has Criteria In Condition</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Select this to filter the search result.</inlineHelpText>
     <label>Is Selected</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

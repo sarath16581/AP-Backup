@@ -44,9 +44,16 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2021-07-21 hara.sahoo@auspost.com.au Added case comments for items containing sentimental value
 * 2021-08-17 alex.volkov@auspost.com.au Switched direct to network and holding queue assignments from queueable to real-time
 * 2021-09-03 alex.volkov@auspost.com.au Added Sent To Network Date for Direct-To-Network assignments
+* 2021-11-02 phap.mai@auspost.com.au DDS-7977 - Added attributes to indicate if all articles are delivered/safe dropped and optimize case routing accordingly
+* 2021-11-04 phap.mai@auspost.com.au - Handled when network assigning failed to find network id or network group
+* 2021-12-03 edgarallan.castillo3@auspost.com.au Updated case comment creation to use list of comments
 */
 public with sharing class ChasApexController {
-    
+
+    public static ChasApexController newInstance() {
+        return (ChasApexController)Application.Utilities.newInstance(ChasApexController.class);
+    }
+
     @AuraEnabled
     public static String retrieveCommunityURL(){
         try {
@@ -167,7 +174,9 @@ public with sharing class ChasApexController {
             //-- Crating Case
             Database.SaveResult[] results = Database.insert(new SObject[] {toBeCreateCase });
             //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, commentBody);
+            List<CaseComment> comments = new List<CaseComment>();
+            comments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
+            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
             
         }catch(Exception ex){
             caseWrapper.caseStatus = 'ERROR';
@@ -186,7 +195,7 @@ public with sharing class ChasApexController {
         CaseWrapper caseWrapper = new CaseWrapper();
         caseWrapper.caseStatus = 'SUCCESS';
         
-        try{
+         try{
             
             String typeAndProduct = null;
             String  productSubCategory= null;
@@ -201,14 +210,15 @@ public with sharing class ChasApexController {
             // cases which are raised within EDD or EDD plus business days, plus dont have a delivered scan are eligible for hold
             String isEligibleForHold = '';
             // DDS-5273: article that contains pharma should not be held
-            if ('No'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')))
-                if(String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && (( !String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
-                       !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))){
-                       // avoid cases for which the case reopen date falls on the case creation date
-                       if(EDDPlusBusinessDays !=null && EDDPlusBusinessDays != System.today()){
-                        isEligibleForHold = 'true';
-                    }
-                    }
+             if ('No'.equalsIgnoreCase(wizardData.get('selectedRadio4Name'))) {
+                 if (String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
+                         !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))) {
+                     // avoid cases for which the case reopen date falls on the case creation date
+                     if (EDDPlusBusinessDays != null && EDDPlusBusinessDays != System.today()) {
+                         isEligibleForHold = 'true';
+                     }
+                 }
+             }
             // if the enquiry subtype is tracking the enquiry type should be set to general enquiry, and the record type has to be General Enquiry
             // exclude cases which are eligible for hold
             if (ChasConstants.ENQ_SUB_TYPE_TRACKING.equals(enquirySubType)) {
@@ -228,7 +238,7 @@ public with sharing class ChasApexController {
             
             //-- Getting all field details from WizardData
             String isEligibleForMyNetwork = wizardData.get('isEligibleForMyNetworkAssignment');
-            // if the case is elgible for my network , assign the type to INVESTIGATION and enquirySubType to Disputed delivery scan
+            // if the case is eligible for my network , assign the type to INVESTIGATION and enquirySubType to Disputed delivery scan
             if(isEligibleForMyNetwork == 'true')
             {
                 type = ChasConstants.INVESTIGATION;
@@ -707,8 +717,9 @@ public with sharing class ChasApexController {
             address2 += deliveryOrRecipientCountry == null ? '' : ' ' + deliveryOrRecipientCountry;
             
             address2 = address2.trim();
-            if(address2.length() < 255)
+            if (address2.length() < 255) {
                 toBeCreateCase.Address2__c = address2;
+             }
             else
             {
                 toBeCreateCase.Address2__c = address2.substring(0, 255);
@@ -717,41 +728,38 @@ public with sharing class ChasApexController {
             toBeCreateCase.Address3Country__c = senderCountry;
             toBeCreateCase.Address4Country__c = deliveryOrRecipientCountry;   // Added newly INC1222366
 
-            // Change made for rollout of Safe Drop feature on Missing Items form - Assign the isEligibleForMyNetwork to a checkbox field on the case detail layout.
-            // The flag denotes an evaluation of the network assignment, based on factors evaluated from the service and user interactions on the flow in a safedrop scenario.
-            // 19-08-2021: this flag will now be set only if the routing to network actually happens
-           /* if(isEligibleForMyNetwork == 'true')
-            {
-                toBeCreateCase.Automated_Network_Assignment__c = true;
-            } */
-
             String wcid = (String) wizardData.get('wcid');
 
-            // DDS-6266:
-            //      -- Set place holder value for HeldToOpenOn__c
-            //      -- This place holder value is a flag for WF to not send old email template for applicable cases
-            //      -- HeldToOpenOn__c will be replaced by the correct value when ChasSetCaseWithinEDDOnHold finish
-            //      -- A flow wil trigger on HeldToOpenOn__c updating to send new email template
-          /*  if(!String.isEmpty(isEligibleForHold) && 'true'.equalsIgnoreCase(isEligibleForHold))
-                toBeCreateCase.HeldToOpenOn__c = System.today(); */
+            // DDS-7977: consignment handling optimize
+            Boolean allArticlesSuccessed = wizardData.get('allArticlesSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesSuccessed')) : false;
+            Boolean allArticlesNotSuccessed = wizardData.get('allArticlesNotSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesNotSuccessed')) : true;
 
-            // certain cases can be auto allocated from H&S directly to MyNetwork
-            // this criteria is assessed here and if the criteria matches then the case is created and then updated to point to mynetwork
-            // 17-08-2021 Updated to assign directly on creation
-            if(!String.isEmpty(wcid) && !String.isEmpty(wizardData.get('isEligibleForMyNetworkAssignment')) && 'true'.equalsIgnoreCase(wizardData.get('isEligibleForMyNetworkAssignment'))) {
-                //ChasCaseAssignment caseAssignment = new ChasCaseAssignment(toBeCreateCase, wcid);
-                //Id jobId = System.enqueueJob(caseAssignment);
-                setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
+            // assign to my network only when articles are all successed or non-successed
+            if (allArticlesSuccessed || allArticlesNotSuccessed)
+            {
+                // certain cases can be auto allocated from H&S directly to MyNetwork
+                // this criteria is assessed here and if the criteria matches then the case is created and then updated to point to mynetwork
+                // 17-08-2021 Updated to assign directly on creation
+                if(!String.isEmpty(wcid) && !String.isEmpty(wizardData.get('isEligibleForMyNetworkAssignment')) && 'true'.equalsIgnoreCase(wizardData.get('isEligibleForMyNetworkAssignment')))
+                {
+                    setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
+                }
             }
+            else
+            {
+                // if articles having different statuses do not assign to network and follow current routing logic instead
+                // this else block will do nothing and just for commenting purpose
+            }
+            // DDS-7977: END
 
             //if eligible for hold, run the async process to update case details on case creation to put it ON HOLD and set a Reopen date
             // 17-08-2021 switched to direct routing
             if(!String.isEmpty(isEligibleForHold) && 'true'.equalsIgnoreCase(isEligibleForHold))
             {
-              //  System.enqueueJob(new ChasSetCaseWithinEDDOnHold(toBeCreateCase ));
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.HOLD, null);
             }
 
+            
 			Database.SaveResult[] results;
 			if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
 				SharingBypass lSharingBypass = new SharingBypass();
@@ -760,19 +768,23 @@ public with sharing class ChasApexController {
 			else {
 				results = Database.insert(new SObject[] {toBeCreateCase });
 			}
-            
-            
-            //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, commentBody);
+        List<CaseComment> vComments = new List<CaseComment>();
+        vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
+        checkNetworkAssigningResult(toBeCreateCase, vComments);
+      //-- Parse Case results and create Case Comment
+        caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+
+            // checkNetworkAssigningResult(toBeCreateCase);
             
             //            // 2019/09/30 start a queueable to assign the Network if the criteria matches
             //            String eddStatus = (String) wizardData.get('eddStatus');
             //            System.debug('ChasApexController eddStatus = ' + eddStatus + ', wcid = ' + wcid);
             //if( ChasCaseAssignment.VALID_STATUSES.indexOf(eddStatus) >= 0 && (wcid != null && wcid != '') && (String.isEmpty(wizardData.get('isReturnToSender')) || String.valueOf(wizardData.get('isReturnToSender')) == 'false')) {
             
-        }catch(Exception ex){
-            caseWrapper.caseStatus = 'ERROR';
-        }
+         } catch (Exception ex) {
+             System.debug('Error on case creation :: ' + ex.getMessage());
+             caseWrapper.caseStatus = 'ERROR';
+         }
         return caseWrapper;
     }
     
@@ -1059,9 +1071,11 @@ commentBody = commentBody  + 'False';
             System.debug('toBeCreateCase == '+toBeCreateCase);
             Database.SaveResult[] results = Database.insert(new SObject[] {toBeCreateCase });
             System.debug('results == '+results);
-            
+
+            List<CaseComment> vComments = new List<CaseComment>();
+            vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
             //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, commentBody);
+            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
             
         }catch(Exception ex){
             caseWrapper.caseStatus = 'ERROR';
@@ -1425,9 +1439,14 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
 				results = Database.insert(new SObject[] {toBeCreateCase });
 			}
             System.debug('results == '+results);
-            
+
+            List<CaseComment> vComments = new List<CaseComment>();
+            vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
+            checkNetworkAssigningResult(toBeCreateCase, vComments);
+
             //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, commentBody);
+            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+
             //-- Case routing based on the boolean isEligibleForMyNetworkAssignment
             // 17-08-2021 switched to direct routing
            /* if(isEligibleForMyNetworkAssignment == 'true')
@@ -1755,9 +1774,13 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
 			else {
 				results = Database.insert(new SObject[] {toBeCreateCase });
 			}
-            
+            List<CaseComment> comments = new List<CaseComment>();
+            comments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
+            checkNetworkAssigningResult(toBeCreateCase, comments);
+
             //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, commentBody);
+            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
+            // checkNetworkAssigningResult(toBeCreateCase);
             
             /*Case routing logic : Route the case to the myNetwork queue if:
 1. Parcel awaiting collection
@@ -1963,7 +1986,9 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
                         // DDS-5272: indicator for no EDD return
                         trackingNumDetailsWrapperObj.isNoEddReturned = true;
                     }
-
+                    // DDS-7977: pass attributes from tracking response to wrapper object
+                    trackingNumDetailsWrapperObj.allArticlesSuccessed = trackService.allArticlesSuccessed;
+                    trackingNumDetailsWrapperObj.allArticlesNotSuccessed = trackService.allArticlesNotSuccessed;
                     
                     return trackingNumDetailsWrapperObj;
                 }
@@ -2201,6 +2226,38 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
         }
     }
 
+    private static Boolean noNetworkIdFound = false;                // flag for no network ID found in setDirectRoutingValues
+    private static String unavailableOrgId;                         // org ID that is unavailable
+    private static Boolean noNetworkGroupFound = false;             // flag for no network group found in setDirectRoutingValues
+
+    /**
+     * check if there is any exception on network assigning and create corresponding case comment
+     * the comment will be private by default
+     * @author: phap.mai@auspost.com.au
+     * @param iCase: target case
+     */
+    private static void checkNetworkAssigningResult(Case iCase, List<CaseComment> comments)
+    {
+        // if target case is not an audience of network assignment quit early
+        if (iCase.Automated_Network_Assignment__c) {
+
+            // SharingBypass helper = new SharingBypass();
+
+            // create case comment if no network id found on network assigning
+            if (noNetworkIdFound) {
+
+                comments.add(new CaseComment(CommentBody = 'Unable to find network with requested org ID: ' + unavailableOrgId, IsPublished = false));
+                // helper.createCaseComment(iCase.Id, comment, false, true);
+            }
+
+            // create case comment if no network group found in network assigning
+            if (noNetworkGroupFound) {
+                comments.add(new CaseComment(CommentBody = 'Unable to find network with requested org ID: ' + unavailableOrgId, IsPublished = false));
+                // helper.createCaseComment(iCase.Id, comment, false, true);
+            }
+
+        }
+    }
     /**
      * @description Sets case owner, status and flags when routing rules need to be bypassed
      * @param pCase Case to route directly bypassing the routing engine
@@ -2208,8 +2265,6 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
      * @param pOrgId Organisation Id for network cases
      */
     private static void setDirectRoutingValues(Case pCase, final RoutingBypass pBypass, final String pOrgId){
-        pCase.ByPassRoutingRulesOnCreation__c = true;
-        pCase.AllocateToQueue__c = false;
         if (pBypass == RoutingBypass.NETWORK){
             pCase.Automated_Network_Assignment__c = true;
             SharingBypass vSharingBypass = new SharingBypass();
@@ -2221,9 +2276,21 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
                 if (!vGroups.isEmpty()) {
                     pCase.OwnerId = vGroups.values()[0].Id;
 	                pCase.Sent_To_Network_Date__c = System.now();
+                    pCase.ByPassRoutingRulesOnCreation__c = true;
+                    pCase.AllocateToQueue__c = false;
+                }
+                else
+                {
+                    // set the flag for case comment after case inserted
+                    noNetworkGroupFound = true;
                 }
                 //Need to explicitly add description from rules due to routing bypass
                 SSSW_Routing.populateCaseDescriptionFromDescriptionRules(new List<Case>{pCase}, null);
+            } else
+            {
+                // set the flag for case comment after case inserted
+                noNetworkIdFound = true;
+                unavailableOrgId = pOrgId;
             }
         }
         else if (pBypass == RoutingBypass.HOLD){
@@ -2234,6 +2301,8 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
                 pCase.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
                 pCase.Case_Reopen_Date__c = reopenDate;
                 pCase.HeldToOpenOn__c = reopenDate;
+                pCase.ByPassRoutingRulesOnCreation__c = true;
+                pCase.AllocateToQueue__c = false;
             }
         }
     }
@@ -2299,6 +2368,8 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
         @AuraEnabled public Date deliveredByDatePlusBusinessDays{get;set;}
         @AuraEnabled public Boolean isNoEddReturned {get; set;}
         @AuraEnabled public Boolean isEDDEstimated {get; set;}
+        @AuraEnabled public Boolean allArticlesSuccessed {get; set;}            // DDS-7977: flag for all articles are either delivered or safe dropped
+        @AuraEnabled public Boolean allArticlesNotSuccessed {get; set;}         // DDS-7977: flag for all articles are neither delivered or safe dropped
     }
     
     //-- User Information Wrapper Class

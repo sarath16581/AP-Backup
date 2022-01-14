@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Criteria Fields</label>
     <length>4096</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

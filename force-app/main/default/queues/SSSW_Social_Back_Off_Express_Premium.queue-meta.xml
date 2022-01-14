@@ -3,20 +3,6 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW Social Back Off Express &amp; Premium</name>
-    <queueMembers>
-        <users>
-            <user>casey.gavin@auspost.com.au</user>
-            <user>christine.creeney@auspost.com.au</user>
-            <user>hamish.cameron@auspost.com.au</user>
-            <user>johnny.stallmann@auspost.com.au</user>
-            <user>kiona.tapper@auspost.com.au</user>
-            <user>monica.borgman@auspost.com.au</user>
-            <user>nicole.grace@auspost.com.au</user>
-            <user>roslyn.ling@auspost.com.au</user>
-            <user>terrence.maxey@auspost.com.au</user>
-            <user>zoe-renae.sellin@auspost.com.au</user>
-        </users>
-    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

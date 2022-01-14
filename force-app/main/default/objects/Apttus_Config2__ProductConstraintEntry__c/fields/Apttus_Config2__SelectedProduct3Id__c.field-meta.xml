@@ -10,6 +10,7 @@
     <relationshipLabel>Product Constraint Entries (Selected Product 3)</relationshipLabel>
     <relationshipName>SelectedProductContraintEntries3</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

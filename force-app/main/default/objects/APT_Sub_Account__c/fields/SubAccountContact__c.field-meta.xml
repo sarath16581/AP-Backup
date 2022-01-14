@@ -23,6 +23,7 @@
     <relationshipLabel>Sub Account Requests</relationshipLabel>
     <relationshipName>Sub_Account_Requests</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

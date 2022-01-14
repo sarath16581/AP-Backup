@@ -9,6 +9,7 @@
     <relationshipLabel>Conga Solution Email Templates</relationshipLabel>
     <relationshipName>Conga_Solution_Email_Templates</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

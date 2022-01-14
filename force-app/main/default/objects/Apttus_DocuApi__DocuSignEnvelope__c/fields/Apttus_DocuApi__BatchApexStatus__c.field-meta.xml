@@ -7,6 +7,7 @@
     <inlineHelpText>This field to track Batch Apex currently running or not, it is only during first step of Envelope creation.</inlineHelpText>
     <label>Batch Apex Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

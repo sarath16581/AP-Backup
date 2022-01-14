@@ -9,6 +9,7 @@
     <referenceTo>Apttus_Config2__GuidedQuestion__c</referenceTo>
     <relationshipName>GuidedSearchRules5</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

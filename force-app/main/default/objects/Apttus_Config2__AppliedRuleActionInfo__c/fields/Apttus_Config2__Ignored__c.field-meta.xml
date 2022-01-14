@@ -6,6 +6,7 @@
     <description>Whether the user wants to ignore to rule action. Only warning type rule action can be ignored</description>
     <externalId>false</externalId>
     <label>Ignored</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

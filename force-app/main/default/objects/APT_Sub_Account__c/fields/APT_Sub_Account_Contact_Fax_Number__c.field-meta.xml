@@ -5,6 +5,7 @@
     <label>Sub Account Contact Fax Number</label>
     <length>15</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -8,6 +8,7 @@ IF(CONTAINS(Apttus_Config2__Dimension2Value__c , &quot;0.5&quot; ), &quot;up to 
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Weight Code and Price Type</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

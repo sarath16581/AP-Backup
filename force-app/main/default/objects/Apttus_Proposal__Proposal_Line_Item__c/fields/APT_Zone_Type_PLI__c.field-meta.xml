@@ -6,6 +6,7 @@
     <formula>Apttus_QPConfig__PriceListItemId__r.APT_Zone_Type__c</formula>
     <label>Zone Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

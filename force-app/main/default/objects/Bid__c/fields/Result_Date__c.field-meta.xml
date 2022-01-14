@@ -6,6 +6,7 @@
     <inlineHelpText>The date the result is expected or actually received.</inlineHelpText>
     <label>Result Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

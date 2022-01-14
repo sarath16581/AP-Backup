@@ -9,6 +9,7 @@
     <relationshipLabel>Step Groups</relationshipLabel>
     <relationshipName>Step_Group</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

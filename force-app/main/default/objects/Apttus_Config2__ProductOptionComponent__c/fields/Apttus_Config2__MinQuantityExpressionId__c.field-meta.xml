@@ -9,6 +9,7 @@
     <relationshipLabel>Product Option Components (Min Quantity Expression)</relationshipLabel>
     <relationshipName>ProductOptionComponents1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

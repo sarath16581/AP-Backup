@@ -10,6 +10,7 @@
     <relationshipLabel>Option Asset Line Item History</relationshipLabel>
     <relationshipName>AssetOptionLineItemHistory</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

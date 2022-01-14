@@ -5,6 +5,7 @@
     <formula>TEXT( Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_PrintPost_Service_Type__c )/*TEXT(Apttus_QPConfig__AttributeValueId__r.APT_PrintPost_Service_Type__c)*/</formula>
     <label>Service Type Print Post</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

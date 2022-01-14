@@ -5,6 +5,7 @@
     <formula>Apttus__Contract_End_Date__c  -  TODAY()  &lt;= 15</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Escalated To Manager?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

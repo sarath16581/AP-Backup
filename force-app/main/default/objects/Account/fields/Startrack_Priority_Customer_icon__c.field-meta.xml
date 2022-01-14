@@ -8,6 +8,7 @@ IF( StarTrack_Priority_Customer__c, &apos;/resource/StartrackPriorityCustIcon&ap
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Startrack Priority Customer icon</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

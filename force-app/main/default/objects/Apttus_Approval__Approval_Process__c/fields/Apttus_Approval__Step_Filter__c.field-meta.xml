@@ -9,6 +9,7 @@
     <relationshipLabel>Step Filters</relationshipLabel>
     <relationshipName>Step_Filter</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

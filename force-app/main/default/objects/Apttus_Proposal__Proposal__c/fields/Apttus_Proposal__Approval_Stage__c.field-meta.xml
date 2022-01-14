@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Approval Stage</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

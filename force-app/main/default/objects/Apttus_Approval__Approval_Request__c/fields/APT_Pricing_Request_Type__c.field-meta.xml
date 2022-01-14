@@ -6,6 +6,7 @@
     <formula>TEXT(Apttus_QPApprov__ProposalId__r.APT_Pricing_Request_Type__c)</formula>
     <label>Pricing Request Type</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

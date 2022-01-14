@@ -6,6 +6,7 @@
     <formula>IF(NOT(ISBLANK(TEXT(Redelivery__c))), TEXT(Redelivery__c), TEXT(Organisation__r.Redelivery__c))</formula>
     <label>Allows redelivery?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

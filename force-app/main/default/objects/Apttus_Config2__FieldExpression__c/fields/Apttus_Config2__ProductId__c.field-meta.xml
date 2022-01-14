@@ -9,6 +9,7 @@
     <relationshipLabel>Field Expressions (Product)</relationshipLabel>
     <relationshipName>Field_Expressions</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

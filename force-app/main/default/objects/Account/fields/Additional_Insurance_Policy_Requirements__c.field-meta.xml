@@ -6,6 +6,7 @@
     <inlineHelpText>Additional Insurance Policies Detail</inlineHelpText>
     <label>Additional Insurance Policy Requirements</label>
     <length>1000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>

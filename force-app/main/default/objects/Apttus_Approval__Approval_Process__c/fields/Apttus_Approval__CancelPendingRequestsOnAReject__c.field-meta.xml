@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Cancel all pending request on a single reject. This is deprecated and no longer used..</inlineHelpText>
     <label>Cancel Pending Requests (Deprecated)</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

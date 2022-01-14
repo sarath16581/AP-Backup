@@ -5,6 +5,7 @@
     <description>eParcel Lodgment for Estimated Revenue Calculation</description>
     <externalId>false</externalId>
     <label>eParcel Lodgment</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Does a Minimum Payment Allowance apply?</inlineHelpText>
     <label>Minimum Payment Allowance Sp Cond</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

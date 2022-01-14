@@ -21,6 +21,7 @@
     <relationshipLabel>Revenue Split Policy Entries (Recognized Revenue Account)</relationshipLabel>
     <relationshipName>RevenueSplitPolicyEntriesRR</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

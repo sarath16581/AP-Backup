@@ -3,6 +3,7 @@
     <fullName>Total_Intermediary_Account_for_StarTrack__c</fullName>
     <externalId>false</externalId>
     <label>Total Intermediary Account for StarTrack</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Billing_Account__c.Is_Intermediary_Account_StarTrack__c</field>
         <operation>equals</operation>

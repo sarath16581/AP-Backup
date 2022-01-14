@@ -31,6 +31,7 @@ IF( MONTH( Assignment_Effective_From_Date__c ) = 2,
     <inlineHelpText>Next annual review is due on this date.</inlineHelpText>
     <label>Licence Anniversary</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

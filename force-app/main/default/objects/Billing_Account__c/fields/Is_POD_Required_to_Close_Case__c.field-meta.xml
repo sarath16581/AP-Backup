@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This checkbox field will determine if the cases related to this billing account will check for POD before closing the case or not.</inlineHelpText>
     <label>Is POD Required to Close Case?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

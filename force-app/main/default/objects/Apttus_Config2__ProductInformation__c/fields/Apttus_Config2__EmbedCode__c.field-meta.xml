@@ -8,6 +8,7 @@
 &lt;iframe id=&quot;youtube&quot; style=&quot;display: none;&quot; title=&quot;YouTube video player&quot; width=&quot;640&quot; height=&quot;390&quot; src=&quot;http://www.youtube.com/embed/UZnP6prUWsU&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</inlineHelpText>
     <label>Embed Code</label>
     <length>4000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

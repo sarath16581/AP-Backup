@@ -11,6 +11,7 @@
     <relationshipLabel>Asset Usage Price Tiers</relationshipLabel>
     <relationshipName>AssetUsagePriceTiers</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

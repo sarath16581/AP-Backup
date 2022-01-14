@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Is Licensee required to maintain additional insurance?</inlineHelpText>
     <label>Additional Insurance Special Condition</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

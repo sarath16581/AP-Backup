@@ -6,6 +6,7 @@
     <description>Whether the target include or exclude products should be present in the shopping cart as options.</description>
     <externalId>false</externalId>
     <label>Is Target Option</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

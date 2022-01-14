@@ -27,6 +27,7 @@ NULL
     <inlineHelpText>If Approvals are required - all of them needs to be obtained for the button to be visible on the layout</inlineHelpText>
     <label>eSignature</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

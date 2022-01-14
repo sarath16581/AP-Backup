@@ -7,6 +7,7 @@
     <inlineHelpText>For example ((1 AND 2) OR (3 AND 4)) when there are four conditions added to the rule.</inlineHelpText>
     <label>Condition Association</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

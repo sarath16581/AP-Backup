@@ -20,6 +20,7 @@
 &amp;IF( ISBLANK( ABN__c) , &quot;ABN&quot;,&quot;&quot;))</formula>
     <label>Data Quality Description</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

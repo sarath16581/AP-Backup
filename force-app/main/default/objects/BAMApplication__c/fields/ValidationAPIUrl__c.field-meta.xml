@@ -6,6 +6,7 @@
     <inlineHelpText>API URL to consume to validate configurations put together in BAM</inlineHelpText>
     <label>Validation API Url</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Url</type>
 </CustomField>

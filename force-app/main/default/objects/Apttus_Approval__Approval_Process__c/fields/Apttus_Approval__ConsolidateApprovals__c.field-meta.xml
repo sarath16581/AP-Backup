@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Consolidate multiple approvals into a single approval. This takes effect only when consolidated notifications is also checked.</inlineHelpText>
     <label>Consolidate Approvals</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

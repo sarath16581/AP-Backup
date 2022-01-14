@@ -10,6 +10,7 @@
     <relationshipLabel>Price Rules (Dimension 4)</relationshipLabel>
     <relationshipName>PriceRules4</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

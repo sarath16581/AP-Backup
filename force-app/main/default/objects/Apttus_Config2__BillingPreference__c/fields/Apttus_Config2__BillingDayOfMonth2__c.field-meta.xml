@@ -7,6 +7,7 @@
     <inlineHelpText>The billing day of month. Specific Day of Month, End of Month, etc</inlineHelpText>
     <label>Billing Day Of Month</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

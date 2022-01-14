@@ -6,6 +6,7 @@
     <inlineHelpText>Security compliance status</inlineHelpText>
     <label>Security Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

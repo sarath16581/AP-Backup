@@ -5,6 +5,7 @@
     <description>International Letters for Estimated Revenue Calculation</description>
     <externalId>false</externalId>
     <label>International Letters</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

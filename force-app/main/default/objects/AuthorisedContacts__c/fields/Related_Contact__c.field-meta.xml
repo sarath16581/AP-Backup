@@ -8,6 +8,7 @@
     <relationshipLabel>Related Contacts (Related Contact)</relationshipLabel>
     <relationshipName>Related_Contacts</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

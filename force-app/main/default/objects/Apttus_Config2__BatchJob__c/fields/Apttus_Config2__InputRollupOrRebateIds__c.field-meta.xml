@@ -7,6 +7,7 @@
     <inlineHelpText>A comma separated list of rollup or rebate ids provided as input for the rollup/rebate calculation job</inlineHelpText>
     <label>Input Rollups Or Rebates</label>
     <length>500</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

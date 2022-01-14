@@ -6,6 +6,7 @@
     <description>When checked this means this backup/delegate is in effect.  A backup/delegate can be active, in effect, or both.  In order for requests to be actively assigned to the backup/delegate they must be active and in effect.</description>
     <externalId>false</externalId>
     <label>In Effect</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

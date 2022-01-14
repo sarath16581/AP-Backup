@@ -17,6 +17,7 @@ History:
 15-10-2020  suman.gunaganti@auspost.com.au  - Added validation for lead details
 27-10-2020  Mav3rik                         - Added LPOLeadWccController.updateWCC
 05-11-2020  suman.gunaganti@auspost.com.au  - Added HVS Sales cadence code
+12-01-2022  naveen.rajanna@auspost.com.au   - REQ2656153 Added check for whether Batch/Future invoked call before making future call
 **************************************************/
 
 trigger LeadTrigger on Lead (after delete, after undelete, before insert, before update, after insert, after update) {
@@ -109,7 +110,7 @@ trigger LeadTrigger on Lead (after delete, after undelete, before insert, before
             if (trigger.isAfter && trigger.isUpdate){
                 BG_LeadUtility.verifyLeadsforSalesCadence(trigger.new, trigger.oldMap);
             }
-            if (LeadScoring.leadScoringClassAlreadyCalled()==False && !leadIds.isEmpty()){
+            if (LeadScoring.leadScoringClassAlreadyCalled()==False && !leadIds.isEmpty() && !System.IsFuture() && !System.IsBatch()){ //REQ2656153
                 Integer limit1 = Limits.getLimitFutureCalls() - Limits.getFutureCalls();
                 if (limit1>0){//don't call the method if the limit is reached
                     LeadScoring.evaluateLeads(leadIds);    

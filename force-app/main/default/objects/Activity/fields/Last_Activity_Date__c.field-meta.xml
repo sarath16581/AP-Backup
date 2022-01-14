@@ -4,5 +4,6 @@
     <externalId>false</externalId>
     <label>Last Activity Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Date</type>
 </CustomField>

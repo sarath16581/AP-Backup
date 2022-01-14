@@ -17,11 +17,12 @@
  * 2021-06-22 - Snehil Jaiswal - Added the subquery for related initial authorised contact 
  * 2021-08-06 - Seth Heang - Added selectByReferenceIdOrderByCreatedDate
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+ * 2021-11-26 - Ashapriya Gadi - Added enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER and a condition for it in the newQueryBuilder
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
     public enum Options {
-        WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT
+        WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT,WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER
     }
 
     public static CasesSelector newInstance() {
@@ -212,8 +213,18 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
         if(selectorOptions.contains(Options.WITH_ARTICLE)) {
             builder.addRelatedFields(ArticlesSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE}), 'ArticleTest__r');
         }
-
-
+        if(selectorOptions.contains(Options.WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER)) {
+            //PREVENT RECURSION
+            Set<Object> clonedOptions = selectorOptions.clone();
+            clonedOptions.remove(Options.WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER);
+            //changing recordLimit from 1 to 0 to fetch all the emailmessages. This is to fix the issue : when an incoming email is assigned to a queue, the system is generating an outgoing email.
+            // The record for this outgoing email is created in emailmessage object even before the creation of the incoming email record.
+            // We are fetching the casewithemailmessages based on 'order by createddate asc limit 1'.
+            // This way, the query will return only the first record (ie the outgoing email ) but we want the next incoming record for the code to work and assign entitlement.
+            // This can be solved by adding where incoming=true or id in <emailmessageIdset> to the emailmessage subquery but Nathan asked to keep the selector class simple by not adding where conditions to the subquery.
+            // The other way around is to remove limit 1 in the subquery. That way, we will fetch all email messages and later check if the id and incoming match with that of emailmessageIdSet.
+            builder.addSubQuery(EmailMessagesSelector.newInstance(EmailMessage.CreatedDate, 'Asc', 0).newQueryBuilder(clonedOptions), 'EmailMessages');
+        }
         return builder;
     }
 

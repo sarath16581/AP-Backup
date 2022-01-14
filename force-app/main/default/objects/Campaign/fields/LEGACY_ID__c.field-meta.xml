@@ -6,6 +6,7 @@
     <label>Campaign Legacy Id</label>
     <length>40</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

@@ -6,6 +6,7 @@
     <description>Indicates whether the merged document is a draft</description>
     <externalId>false</externalId>
     <label>Is Draft</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

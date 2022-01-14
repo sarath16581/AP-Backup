@@ -5,6 +5,7 @@
     <inlineHelpText>Test Help Test for Category</inlineHelpText>
     <label>Category</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

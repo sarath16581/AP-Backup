@@ -6,6 +6,7 @@
     <inlineHelpText>In point form, articulate what we are doing to resolve the key customer issue and retain the at risk business</inlineHelpText>
     <label>Risk Mitigation Plan</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

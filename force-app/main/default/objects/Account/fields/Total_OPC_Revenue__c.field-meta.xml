@@ -3,6 +3,7 @@
     <fullName>Total_OPC_Revenue__c</fullName>
     <externalId>false</externalId>
     <label>Opportunity Revenue</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>Opp_Product_Classification__c.Total_Actual_Revenue__c</summarizedField>
     <summaryFilterItems>
         <field>Opp_Product_Classification__c.Current_Year__c</field>

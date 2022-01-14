@@ -12,6 +12,7 @@ HYPERLINK(&apos;javascript:document.domain = &quot;force.com&quot;; var popup; p
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Test View Rate Card</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -3,6 +3,7 @@
     <fullName>APT_Basic_Charge__c</fullName>
     <externalId>false</externalId>
     <label>Basic Charge</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>Apttus_Config2__UsagePriceTier__c.Apttus_Config2__TierEndValue__c</summarizedField>
     <summaryForeignKey>Apttus_Config2__UsagePriceTier__c.Apttus_Config2__LineItemId__c</summaryForeignKey>
     <summaryOperation>max</summaryOperation>

@@ -6,6 +6,7 @@
     <formula>Apttus_QPApprov__ProposalId__r.APT_Name_of_Intermediary_s_Client__c</formula>
     <label>Name of Intermediary&apos;s Client</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -6,6 +6,7 @@
     <displayFormat>PI-{0000000000}</displayFormat>
     <externalId>false</externalId>
     <label>Instance Number</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>AutoNumber</type>
 </CustomField>

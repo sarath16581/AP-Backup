@@ -9,6 +9,7 @@
     <inlineHelpText>Action to activate or deactivate the backup</inlineHelpText>
     <label>Backup/Delegate Action</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

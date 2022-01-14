@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Restrict_Inactivating_Default_Scorecard</fullName>
+    <active>true</active>
+    <description>KFS-127: validation to stop user from deactivating default  scorecard</description>
+    <errorConditionFormula>AND(NOT(kfsell__Is_Active__c),kfsell__Is_Default__c)</errorConditionFormula>
+    <errorMessage>Default scorecard cannot be deactivated</errorMessage>
+</ValidationRule>

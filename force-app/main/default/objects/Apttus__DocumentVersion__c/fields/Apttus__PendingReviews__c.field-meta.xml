@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Count of Review Cycles Pending.</inlineHelpText>
     <label>Pending Reviews</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Apttus__DocumentVersionDetail__c.Apttus__PendingReviews__c</summarizedField>
     <summaryForeignKey>Apttus__DocumentVersionDetail__c.Apttus__DocumentVersionId__c</summaryForeignKey>
     <summaryOperation>max</summaryOperation>

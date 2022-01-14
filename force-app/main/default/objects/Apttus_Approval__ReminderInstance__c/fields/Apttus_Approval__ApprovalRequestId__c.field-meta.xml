@@ -9,6 +9,7 @@
     <relationshipLabel>Reminder Instances</relationshipLabel>
     <relationshipName>Reminder_Instances</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

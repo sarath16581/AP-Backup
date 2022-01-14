@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>When checked options within the options group will be displayed as picklist items</inlineHelpText>
     <label>Is Picklist</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

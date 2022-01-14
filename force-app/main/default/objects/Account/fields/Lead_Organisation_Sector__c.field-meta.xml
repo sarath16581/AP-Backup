@@ -7,6 +7,7 @@ PV - I don&apos;t think this is needed</description>
     <label>Lead Party Sector</label>
     <length>50</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

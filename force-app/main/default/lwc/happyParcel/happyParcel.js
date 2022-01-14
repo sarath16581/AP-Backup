@@ -8,9 +8,10 @@
  * 2020-10-12 - Ranjeewa Silva - Added support for Direct to Network case creation in happy parcels.
  * 2021-06-15 - Ranjeewa Silva - Updated 'readOnly' property name as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.js_props_names.
  * 2021-10-15 - Nathan Franklin - Updated comments around supportsSafeDropAttachment which is now used for signatures too + uplift to v52 and conversion of tracking number to uppercase
+ * 2021-11-08 - Prerna Rahangdale - Added support to show the warning with a link to knowledge article for articles which have VODV checked.
  */
 import { LightningElement, track, api } from "lwc";
-import {getAnalyticsApiResponse, getTrackingApiResponse, getConfig, safeTrim, safeToUpper} from 'c/happyParcelService'
+import {getAnalyticsApiResponse, getTrackingApiResponse, getConfig, safeTrim, safeToUpper, CONSTANTS} from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
 
 export default class HappyParcelWrapper extends NavigationMixin(LightningElement) {
@@ -18,6 +19,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	_trackingId = '';
 
 	@api readOnly = false;
+
+	vodvKnowledgeId;
 
 	// if this is true then a this allows a 'calculate' button to be shown on the page where an EDD is not available from SAP.
 	// this is used only when the external wrapper supports an EDD wigit (i.e. Classic Lightning Console 'Customer Service')
@@ -49,6 +52,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	// article level tracked vars are in the happyParcelArticle component
 	@track consignmentSenderSelected;
 	@track consignmentReceiverSelected;
+	@track vodvWarning;
 
 	@track loadingTrackingApi = false;
 	@track loadingAnalyticsApi = false;
@@ -89,7 +93,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 	connectedCallback() {
 		// preload the config so all the components do not have to make individual apex calls because the config hasn't loaded
-		getConfig();
+		getConfig().then(result => {
+            this.vodvKnowledgeId = result.VODVKnowledgeId;
+        });
 
 		this.template.addEventListener('idclick', this.handleIdLinkClick);
 	}
@@ -125,9 +131,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// reset the retry error whenever we kick off a new analytics query
 		this.retryAnalytics = false;
 
-		// perform the actual callout to the api		
+		// perform the actual callout to the api
 		const result = await getAnalyticsApiResponse(currentTrackingId);
-		
+
 
 		// perform a check to ensure the current article id is the same article id that was passed into the async function
 		// it's possible that while the current search was in progress that another tracking id was passed into the mix (if the component is embedded into other workflows and receives a new tracking id by api)
@@ -222,7 +228,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					// 1. the search result returned was the same that was searched for (not a consignment)
 					// 2. another api query was completed (analytics api for example) and populated this structure
 					this.articles[articleIndex].trackingResult = item;
-
+                    if(item.article.VODV_Redirect__c) {
+                           this.vodvWarning = CONSTANTS.LABEL_HAPPYPARCELVODVWARNINGTEXT;
+                    }
 					// a consignment is rendered with a list selectable articles. this value stores whether the article checkbox has been clicked or not
 					if (this.isConsignment && !Object.keys(this.articles[articleIndex]).includes('articleSelected')) {
 						this.articles[articleIndex].articleSelected = false;
@@ -321,6 +329,10 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.broadcastSelectedArticles();
 	}
 
+	handleKnowledgeClick(){
+        this.dispatchEvent(new CustomEvent('idclick', { detail: { id: this.vodvKnowledgeId }, bubbles: true, composed: true} ));
+    }
+
 	triggerSearch() {
 		this.resetSearch();
 
@@ -363,6 +375,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.articles = [];
 		this.errors = [];
 		this.retryAnalytics = false;
+		this.vodvWarning = null;
 	}
 
 	getNewArticleContainer() {

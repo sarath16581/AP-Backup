@@ -7,6 +7,7 @@
     <inlineHelpText>The body of the footnote</inlineHelpText>
     <label>Footnote Body</label>
     <length>4000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>10</visibleLines>

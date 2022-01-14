@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Want parcels to be collected?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

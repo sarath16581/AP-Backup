@@ -7,6 +7,7 @@
     <inlineHelpText>User response for this input</inlineHelpText>
     <label>Response Value</label>
     <length>4000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

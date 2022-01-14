@@ -4,6 +4,7 @@
     <description>Count of &apos;Non Account Customer&apos; records in role related object</description>
     <externalId>false</externalId>
     <label>Non Account Customer Party Role Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Organisation_Role__c.Role_Type__c</field>
         <operation>equals</operation>

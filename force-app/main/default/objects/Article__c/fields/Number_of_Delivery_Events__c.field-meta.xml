@@ -4,6 +4,7 @@
     <description>StarTrack field used to count the number of &quot;delivery&quot; related scan events that have occured for a given consignment record</description>
     <externalId>false</externalId>
     <label>Number of Delivery Events</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>EventMessage__c.RecordTypeId</field>
         <operation>equals</operation>

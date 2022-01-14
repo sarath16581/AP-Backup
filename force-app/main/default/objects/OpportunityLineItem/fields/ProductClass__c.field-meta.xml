@@ -7,7 +7,7 @@
 TRIM(LEFT(Opportunity.Name,40)) &amp; (PricebookEntry.Product2.Name) &amp; TEXT(Classification__c) &amp;  text(Contract_Start_Date__c) &amp; text(Contract_End_Date__c)</formula>
     <label>ProductClass</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

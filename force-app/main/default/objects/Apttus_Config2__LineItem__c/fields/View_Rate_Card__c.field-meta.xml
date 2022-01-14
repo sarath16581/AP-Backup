@@ -18,6 +18,7 @@ NOT(ISPICKVAL(Apttus_Config2__LineType__c , &apos;Option&apos;)) &amp;&amp; Aptt
 ,HYPERLINK(&quot;/apex/c__APT_ViewRatecardAPI?parentRecordID=&quot;&amp;Id &amp;&quot;&amp;isPrestoMode=true&quot;,IMAGE(&quot;/resource/APT_RateCard_Cart&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_blank&quot;),null)</formula>
     <label>Rate Card</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

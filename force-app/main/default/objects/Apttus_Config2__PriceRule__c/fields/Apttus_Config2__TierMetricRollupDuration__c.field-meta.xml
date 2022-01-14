@@ -8,6 +8,7 @@
 2.	REBATE PAYOUT PERIOD:  Tier metric based on aggregated value over the entire rebate payout period as specified in rebate payout frequency</inlineHelpText>
     <label>Tier Metric Rollup Duration</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

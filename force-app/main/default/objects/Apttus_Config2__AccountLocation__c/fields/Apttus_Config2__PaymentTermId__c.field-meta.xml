@@ -11,6 +11,7 @@
     <relationshipLabel>Account Locations</relationshipLabel>
     <relationshipName>Locations</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

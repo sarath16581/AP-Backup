@@ -7,6 +7,7 @@
     <inlineHelpText>The charge type associated with the price rule</inlineHelpText>
     <label>Charge Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

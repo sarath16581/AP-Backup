@@ -6,6 +6,7 @@
     <description>Conditions are evaluated against products added as primary lines.</description>
     <externalId>false</externalId>
     <label>Match In Primary Lines</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

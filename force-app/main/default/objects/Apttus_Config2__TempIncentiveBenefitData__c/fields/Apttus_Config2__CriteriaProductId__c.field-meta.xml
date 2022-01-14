@@ -11,6 +11,7 @@
     <relationshipLabel>Temp Incentive Benefit Data (Criteria Product)</relationshipLabel>
     <relationshipName>TempIncentiveBenefitDataCriteriaProduct</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <inlineHelpText>Qualify the object that this condition applies to.  For example, an object qualifier of &quot;Agreement Owner&quot; means get the value of the &quot;Area__c&quot; field from the &quot;User&quot; specified by the agreement owner in the agreement related to the term exception approval.</inlineHelpText>
     <label>Object Qualifier</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

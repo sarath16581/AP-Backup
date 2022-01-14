@@ -8,6 +8,7 @@ IF( TODAY() - DATEVALUE(LastModifiedDate ) &gt;= 30 ,&apos;30 Days&apos;,&apos;N
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Inactive Days</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -6,6 +6,7 @@
     <inlineHelpText>The date the Agreement Document became Active.  Automatically set by the system when the Status becomes active.</inlineHelpText>
     <label>Active Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -11,6 +11,7 @@
     <relationshipLabel>Proposal Usage Price Tiers</relationshipLabel>
     <relationshipName>ProposalUsagePriceTiers</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

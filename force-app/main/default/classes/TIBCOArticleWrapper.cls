@@ -16,6 +16,7 @@
  * 2021-09-09	seth.heang@auspost.com.au	Uplift SF API version to 52
  * 2021-09-01 prerna.rahangdale@auspost.com.au Added parcel simplification captureId fields.
  * 2021-10-01 - Nathan Franklin - Refactor transient attributes from TIBCOArticleService
+ * 2021-11-07 - Prerna Rahangdale - Addev VODV_Redirect to the Article this comes in further references when the Event Messages are MRS hold.
  */
 public class TIBCOArticleWrapper {
 	/**
@@ -183,6 +184,13 @@ public class TIBCOArticleWrapper {
 					// TODO: What it is, What it does, Why it's there
 					proxyArticle.CaptureID_receiveronly__c = ('X'.equalsIgnoreCase(references.get('MATCH_ID')) ? true : false);
 					proxyArticle.CaptureID_anyoneataddress__c = ('X'.equalsIgnoreCase(references.get('CAPTURE_ID')) ? true : false);
+
+					//VODV Details
+					//When the Article is redirected or held, The VODV_REDIRECT further references gets the value
+					// The redirection address would be masked on customer facing portals, and agents would be warned to avoid sharing information to customers.
+					if('X'.equalsIgnoreCase(references.get('VODV_REDIRECT'))){
+						proxyArticle.VODV_Redirect__c = true;
+					}
 
 				}
 

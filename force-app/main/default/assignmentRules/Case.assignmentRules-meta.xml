@@ -666,6 +666,7 @@
         <ruleEntry>
             <assignedTo>BSC_Telstra</assignedTo>
             <assignedToType>Queue</assignedToType>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -675,6 +676,11 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>team.belong.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>likewize.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -1347,7 +1353,7 @@
         <ruleEntry>
             <assignedTo>BSC_Team_2</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1397,6 +1403,11 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>alloys.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>packsend.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -1755,11 +1766,6 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>packsend.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
                 <value>schneider-electric.com</value>
             </criteriaItems>
             <criteriaItems>
@@ -1806,6 +1812,11 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>se.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>cba.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>

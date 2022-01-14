@@ -6,6 +6,7 @@
     <description>Indicates whether the constraint rule has criteria in condition</description>
     <externalId>false</externalId>
     <label>Has Criteria In Condition</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

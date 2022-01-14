@@ -6,6 +6,7 @@
     <inlineHelpText>The date when a last valid contact/visit was made by the Account Manager</inlineHelpText>
     <label>Last Activity Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>

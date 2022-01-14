@@ -9,6 +9,7 @@
     <relationshipLabel>Applied Expression Infos</relationshipLabel>
     <relationshipName>AppliedExpressionInfos</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

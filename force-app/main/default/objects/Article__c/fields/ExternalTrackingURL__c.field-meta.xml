@@ -6,6 +6,7 @@
     <inlineHelpText>Last Mile Provider tracking URL</inlineHelpText>
     <label>External Tracking URL</label>
     <length>1000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

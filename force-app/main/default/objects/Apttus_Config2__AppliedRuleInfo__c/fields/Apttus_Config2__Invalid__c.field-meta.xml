@@ -6,6 +6,7 @@
     <description>Whether the rule is invalid.</description>
     <externalId>false</externalId>
     <label>Invalid</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

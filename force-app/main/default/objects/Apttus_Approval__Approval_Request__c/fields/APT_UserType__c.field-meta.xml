@@ -9,6 +9,7 @@ IF(AND(Apttus_Approval__Initial_Submitter__c &lt;&gt; Apttus_QPApprov__ProposalI
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>User Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

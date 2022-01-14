@@ -20,6 +20,7 @@
     <relationshipLabel>Child Cost Types</relationshipLabel>
     <relationshipName>CostTypes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

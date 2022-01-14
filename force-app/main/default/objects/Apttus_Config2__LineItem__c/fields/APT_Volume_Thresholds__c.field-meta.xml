@@ -6,6 +6,7 @@
 TEXT(Apttus_Config2__AttributeValueId__r.APT_Volume_Threshold_Post_BillPay__c),TEXT(Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c))</formula>
     <label>Volume Thresholds</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

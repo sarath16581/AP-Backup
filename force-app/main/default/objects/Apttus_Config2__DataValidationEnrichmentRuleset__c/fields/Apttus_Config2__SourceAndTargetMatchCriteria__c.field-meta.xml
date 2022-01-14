@@ -7,6 +7,7 @@
     <inlineHelpText>Criteria that will be used to match source and target data</inlineHelpText>
     <label>Source And Target Match Criteria</label>
     <length>2048</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

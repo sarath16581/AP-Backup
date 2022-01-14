@@ -6,6 +6,7 @@
     <inlineHelpText>Licence will be suspended on this date</inlineHelpText>
     <label>Suspend Start Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>

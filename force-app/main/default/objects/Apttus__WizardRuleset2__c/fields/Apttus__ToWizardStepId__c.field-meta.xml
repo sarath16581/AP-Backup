@@ -11,6 +11,7 @@
     <relationshipLabel>Step Rulesets (To)</relationshipLabel>
     <relationshipName>StepRulesetsTo</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -11,6 +11,7 @@
     <relationshipLabel>Asset Transaction History (From)</relationshipLabel>
     <relationshipName>AssetTransactionHistoryFrom</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

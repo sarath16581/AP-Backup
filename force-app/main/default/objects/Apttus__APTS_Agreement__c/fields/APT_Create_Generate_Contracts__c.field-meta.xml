@@ -22,6 +22,7 @@ NOT(ISPICKVAL(Apttus__Status_Category__c, &quot;Terminated&quot;))),
 HYPERLINK(&quot;/apex/APT_CreateContractValidation?id=&quot;&amp;Id, IMAGE(&quot;/resource/APT_Create_Green&quot;, &quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;), NULL)</formula>
     <label>Create Contracts</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

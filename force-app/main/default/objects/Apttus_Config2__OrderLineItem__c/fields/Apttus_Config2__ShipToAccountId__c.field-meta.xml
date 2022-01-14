@@ -11,6 +11,7 @@
     <relationshipLabel>Order Line Items (Ship To)</relationshipLabel>
     <relationshipName>OrderLineItemsShipTo</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

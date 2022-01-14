@@ -28,4 +28,5 @@ public with sharing class BGSConstants {
     // Add case constant for STP-2240/STP-2242
     public static final String AUSPOST_NOREPLY_EMAIL = 'noreply@auspost.com.au';
     public static final String CASE_RESOLUTION_CODE_CLOSED_DUPLICATE = 'Closed - Duplicate';
+    public static final String EMAILMESSAGE_TRIGGER = 'EmailMessageTrigger';
 }

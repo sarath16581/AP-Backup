@@ -627,6 +627,28 @@ public with sharing class ApplicationTestDataFactory {
             Qualification_Response_Detail__c.Question__c => question
         }, count), generateIds);
     }
+    //Added by Asha | MW0004779
+    public static List<Entitlement> getEntitlements(Integer count, Boolean generateIds,String entitlementName, Id slaId, Id accountId) {
+        return (List<Entitlement>)maybeGenerateIds(populateSObjects(Entitlement.SObjectType, new Map<SObjectField, Object> {
+                Entitlement.SlaProcessId => slaId,
+                Entitlement.AccountId => accountId,
+                Entitlement.Name => entitlementName,
+                Entitlement.StartDate => Date.Today(),
+                Entitlement.EndDate => Date.Today() + 365,
+                Entitlement.Type => 'Phone Support'
+        }, count), generateIds);
+    }
+    //Added by Asha | MW0004779
+    public static List<EmailMessage> getEmailMessages(Integer count, Boolean generateIds,Boolean isIncoming, String fromAddress, String toAddress, String subject, Id caseId) {
+        return (List<EmailMessage>)maybeGenerateIds(populateSObjects(EmailMessage.SObjectType, new Map<SObjectField, Object> {
+                EmailMessage.Incoming => isIncoming,
+                EmailMessage.ParentId => caseId,
+                EmailMessage.FromAddress => fromAddress,
+                EmailMessage.ToAddress => toAddress,
+                EmailMessage.Subject => subject,
+                EmailMessage.HTMLBody => 'Sample'
+        }, count), generateIds);
+    }
 
     public static void generateRecordIds(List<SObject> records) {
         for(SObject record : records) {
@@ -776,7 +798,17 @@ public with sharing class ApplicationTestDataFactory {
             return casestarTrackCreditDisputeRecordType;
         }
         private set;
-    } 
+    }
+    //Added by Asha | MW0004779
+    public static Id caseServiceDeliveryRecordType {
+        get {
+            if(caseServiceDeliveryRecordType == null) {
+                caseServiceDeliveryRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'Sales_Ops_Delivery'].Id;
+            }
+            return caseServiceDeliveryRecordType;
+        }
+        private set;
+    }
     public static Id accountRecordType {
         get {
             if(accountRecordType == null) {

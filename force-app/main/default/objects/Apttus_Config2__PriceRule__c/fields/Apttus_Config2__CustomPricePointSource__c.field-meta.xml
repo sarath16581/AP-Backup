@@ -8,6 +8,7 @@
     <label>Custom Price Point Source</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

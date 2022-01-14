@@ -7,6 +7,7 @@
     <inlineHelpText>DocuSign OAuth Data as JSON. I can be used with only Integrator Key from Apttus.</inlineHelpText>
     <label>OAuth Data</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>10</visibleLines>

@@ -7,6 +7,7 @@
 RIGHT(Apttus_QPConfig__PriceListItemId__r.APT_Zone_Description__c,(LEN(Apttus_QPConfig__PriceListItemId__r.APT_Zone_Description__c)-(FIND(&quot;,&quot;,Apttus_QPConfig__PriceListItemId__r.APT_Zone_Description__c)))),&quot;&quot;)</formula>
     <label>Pickup Zone 2</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

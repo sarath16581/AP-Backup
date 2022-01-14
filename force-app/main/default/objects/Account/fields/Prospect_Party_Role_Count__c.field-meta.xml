@@ -4,6 +4,7 @@
     <description>Phase 1 - Count number of prospect records in the party role</description>
     <externalId>false</externalId>
     <label>Prospect Party Role Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Organisation_Role__c.Role_Type__c</field>
         <operation>equals</operation>

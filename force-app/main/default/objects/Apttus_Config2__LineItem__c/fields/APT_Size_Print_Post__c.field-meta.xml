@@ -8,6 +8,7 @@ IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Size__c, &quot;Residue&q
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Size Print Post</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

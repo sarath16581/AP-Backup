@@ -10,6 +10,7 @@
     <relationshipLabel>Quotes/Proposals</relationshipLabel>
     <relationshipName>Proposals</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Admin_Score_Card__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Scorecard Template</label>
+    <referenceTo>kfsell__Admin_Score_Card__c</referenceTo>
+    <relationshipLabel>Admin Scorecard Criterias</relationshipLabel>
+    <relationshipName>Admin_Scorecard_Criterias</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

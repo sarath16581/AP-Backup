@@ -16,6 +16,7 @@ ISPICKVAL(Apttus__Status_Category__c , &quot;In Authoring&quot;) ,IMAGE(&quot;/r
 )) ) )))))))</formula>
     <label>Progress Bar</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

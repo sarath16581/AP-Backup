@@ -16,7 +16,8 @@
     09/07/2019          gunith.devasurendra@auspost.com.au          Set Network Email 1 to Case Network Escalation Email in Level 1 (INC1370890)
     28/01/2020          vcheng@salesforce.com                       MW0009344 update to assign and complete BGS Milestones, aligned with SSSW flow
     07/10/2021          naveen.rajanna@auspost.com.au               REQ2616056 Modified updateCaseStatusTracking to update only when there is a change and api version to 52
-*******************************  History ************************************************/
+    15/11/2021          ashapriya.gadi@auspost.com.au               SMWD-312 - MW0004779 - Assign the correct entitlement process and business hours record to the case
+ *******************************  History ************************************************/
 public with sharing class CaseMilestoneUtility{
        
     // variables
@@ -69,13 +70,20 @@ public with sharing class CaseMilestoneUtility{
             Set<Id> usrIds = new Set<Id>();
             List<Case> updateCaseEscalationList = new List<Case>();
             List<Case> bgsCases = new List<Case>();
+            // fetch Id of the System Support user from the Custom Setting
+            ConfigSetting__c configSetting = ConfigSetting__c.getInstance();
+            string systemSupportUserId = configSetting.AutomatedCaseUser__c;
+            //fetch the origin values from custom metadata Case_Entitlements__mdt
+            Case_Entitlements__mdt caseEntitlement = Case_Entitlements__mdt.getInstance('origins');
+            List<String> originList = new List<String>();
+            originList = caseEntitlement.Case_Origin__c.split(',');
             for(Case csRec : caseList){
 
                 // SSSW entitlement assignment
                 if(Utility.isValidRecordType(ssswRecTypes,csRec.RecordTypeId) && STD_ENTITLEMENT != null){  // verify if its SSSW recordtype
                     csRec.EntitlementId = STD_ENTITLEMENT;  // assign default entitlement to cases
                 }
-                else if(Utility.isValidRecordType(bgsRecTypes, csRec.RecordTypeId))
+                else if(Utility.isValidRecordType(bgsRecTypes, csRec.RecordTypeId) && (!originList.contains(csRec.Origin) || (originList.contains(csRec.Origin) && UserInfo.getUserId() != systemSupportUserId)))//only this condition modified for SMWD-312 - MW0004779
                 {
                     // 2020-01 MW0009344 BGS Cases
                     // Add a new BGS Case (created from Email to Case) to the bgsCases,
@@ -119,7 +127,6 @@ public with sharing class CaseMilestoneUtility{
      */
     private static void AssignBGSEntitlement(List<Case> bgsCases)
     {
-        System.debug('CaseMilestoneUtility::AssignBGSEntitlement:' + bgsCases);
         System.debug('CaseMilestoneUtility::AssignBGSEntitlement:' + bgsEntitlementsByName);
         // no entitlement records, EARLY OUT
         if(bgsEntitlementsByName == null || bgsEntitlementsByName.keySet().size() == 0)
@@ -147,8 +154,6 @@ public with sharing class CaseMilestoneUtility{
             // get the existing entitlement ID
             Id oldEntitlementId = csRec.EntitlementId;
             Id newEntitlementId = oldEntitlementId;
-
-            System.debug('CaseMilestoneUtility::AssignBGSEntitlement:contactid = ' + csRec.ContactId);
             // get the mailing state if it exists
             if(csRec.ContactId != null) {
                 Contact caseContact = contactByIds.get(csRec.ContactId);

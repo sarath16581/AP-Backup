@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether child cost types should be hidden in the price waterfall</inlineHelpText>
     <label>Hide Child Cost Types in Price Waterfall</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

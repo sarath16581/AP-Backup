@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>IF(NOT(ISBLANK(Post_Office_Assigned__c)) &amp;&amp; Post_Office_Assigned__r.Org_ID__c = $User.Network__c , TRUE, FALSE)</formula>
     <label>Current User Belongs to Assigned LPO</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

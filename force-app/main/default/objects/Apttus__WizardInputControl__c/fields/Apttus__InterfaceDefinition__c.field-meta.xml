@@ -7,6 +7,7 @@
     <inlineHelpText>The definition of the data type entered in by the designer.</inlineHelpText>
     <label>Interface Definition</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

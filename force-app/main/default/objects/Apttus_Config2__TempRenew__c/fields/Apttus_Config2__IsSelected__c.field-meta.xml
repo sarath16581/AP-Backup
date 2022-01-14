@@ -6,6 +6,7 @@
     <description>Keeps track of user selection of the asset item</description>
     <externalId>false</externalId>
     <label>Is Selected</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

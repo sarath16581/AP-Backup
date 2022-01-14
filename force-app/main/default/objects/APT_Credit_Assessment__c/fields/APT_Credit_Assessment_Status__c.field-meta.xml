@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Credit Assessment Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

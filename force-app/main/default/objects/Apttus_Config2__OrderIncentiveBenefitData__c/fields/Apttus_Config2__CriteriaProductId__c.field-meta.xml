@@ -11,6 +11,7 @@
     <relationshipLabel>Order Incentive Benefit Data (Criteria Product)</relationshipLabel>
     <relationshipName>OrderIncentiveBenefitDataCriteriaProduct</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

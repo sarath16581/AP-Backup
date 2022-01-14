@@ -8,6 +8,7 @@
     <referenceTo>Apttus_Config2__PriceListItem__c</referenceTo>
     <relationshipName>AssetLineItemHistory</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

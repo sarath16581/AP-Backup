@@ -6,6 +6,7 @@
     <description>Whether to match the product in asset record</description>
     <externalId>false</externalId>
     <label>Match In Asset</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

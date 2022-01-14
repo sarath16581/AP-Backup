@@ -20,6 +20,7 @@ IF(ISBLANK(  ABN__c ),0, 10)</formula>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Number</type>
     <unique>false</unique>

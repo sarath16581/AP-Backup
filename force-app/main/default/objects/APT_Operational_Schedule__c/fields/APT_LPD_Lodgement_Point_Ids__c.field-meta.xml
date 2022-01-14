@@ -6,6 +6,7 @@ It is used to catch Lodgement point name and display them in the R2T Legal Agree
     <externalId>false</externalId>
     <label>Local Pickup Delivery Lodgement PointIds</label>
     <length>1000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

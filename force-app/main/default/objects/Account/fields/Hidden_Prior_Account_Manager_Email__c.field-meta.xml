@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>{Hidden} Prior Account Manager Email</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Email</type>

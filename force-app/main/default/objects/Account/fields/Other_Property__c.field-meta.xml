@@ -6,6 +6,7 @@
     <inlineHelpText>List Other Technology Equipment / Property</inlineHelpText>
     <label>Other Property</label>
     <length>1000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>

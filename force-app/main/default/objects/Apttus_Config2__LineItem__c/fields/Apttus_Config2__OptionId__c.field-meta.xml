@@ -10,6 +10,7 @@
     <relationshipLabel>Option Line Items</relationshipLabel>
     <relationshipName>OptionLineItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

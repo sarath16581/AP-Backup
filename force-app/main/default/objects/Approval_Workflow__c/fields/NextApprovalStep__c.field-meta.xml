@@ -7,6 +7,7 @@
     <referenceTo>Approval_Workflow__c</referenceTo>
     <relationshipName>Approval_Workflow_Reporting1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

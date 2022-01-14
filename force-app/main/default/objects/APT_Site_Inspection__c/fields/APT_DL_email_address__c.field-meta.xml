@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>DL email address</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Email</type>
     <unique>false</unique>

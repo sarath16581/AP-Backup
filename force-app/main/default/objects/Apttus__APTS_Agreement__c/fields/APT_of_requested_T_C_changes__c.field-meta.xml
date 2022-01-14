@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Total number of selected Contract Term Exceptions</inlineHelpText>
     <label># Of Requested T&amp;C Changes</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Apttus__Agreement_Term_Exception__c.Apttus__Agreement__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

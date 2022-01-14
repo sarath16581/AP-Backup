@@ -5,6 +5,7 @@
     <inlineHelpText>Input comment on revenue performance which will provide information for bugdet in future.</inlineHelpText>
     <label>Revenue Comment</label>
     <length>32768</length>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Html</type>

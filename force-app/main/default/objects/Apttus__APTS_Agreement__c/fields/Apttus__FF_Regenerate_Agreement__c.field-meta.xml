@@ -9,6 +9,7 @@
     <inlineHelpText>Use to create product service schedules</inlineHelpText>
     <label>Regenerate</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

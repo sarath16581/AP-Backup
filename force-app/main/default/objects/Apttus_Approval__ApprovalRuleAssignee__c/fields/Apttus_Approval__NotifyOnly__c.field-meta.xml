@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Designates whether the assignee receives a notification only for the approval request (when set to true) or gets the request assigned to them and receives notification as well (false, which is the default).</inlineHelpText>
     <label>Notify Only</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

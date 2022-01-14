@@ -9,6 +9,7 @@
     <label>DefaultId</label>
     <length>30</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>true</unique>

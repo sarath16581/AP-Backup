@@ -7,6 +7,7 @@
     <inlineHelpText>The tax exempt status. Applicable only when tax exempt.</inlineHelpText>
     <label>Tax Exempt Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

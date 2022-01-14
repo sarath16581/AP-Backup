@@ -11,6 +11,7 @@
     <relationshipLabel>Template Clause Reference Versions (Clause Version)</relationshipLabel>
     <relationshipName>VersionedClauseVersions</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

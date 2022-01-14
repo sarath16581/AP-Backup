@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Renewal Terms</label>
     <length>32000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

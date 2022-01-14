@@ -6,6 +6,7 @@
     <inlineHelpText>Enter the operator for comparing the condition value with the value of the condition field name specified.</inlineHelpText>
     <label>Operator</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

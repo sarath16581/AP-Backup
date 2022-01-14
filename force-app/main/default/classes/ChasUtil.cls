@@ -3,15 +3,21 @@
  * 2020-08-10 hara.sahoo@auspost.com.au Added convertToDateWithTimezoneFormat - Change made for roll out of Safe Drop feature on Missing Items form
  * 2021-04-19 hara.sahoo@auspost.com.au Added date calculations for EDD tracking and related contextual thank you pages
  * 2021-08-25 alex.volkov@auspost.com.au Added "---Enquiry Details---" line to comments to distinguish from case comments submitted by the customer
+ * 2021-12-03 edgarallan.castillo3@auspost.com.au Updated case comment creation to use list of comments
+ * 2021-12-06 alex.volkov@auspost.com.au Added support for mocks
  * */
-public class ChasUtil {
+public without sharing class ChasUtil {
+
+    public static ChasUtil newInstance() {
+        return (ChasUtil)Application.Utilities.newInstance(ChasUtil.class);
+    }
 
     /**
      * get BusinessHours from the org setup
      * */
     public static BusinessHours  getBusinessHours()
     {
-        BusinessHours bHours = [SELECT Id FROM BusinessHours WHERE IsDefault = true] ;
+        BusinessHours bHours = [SELECT Id FROM BusinessHours WHERE IsDefault = TRUE] ;
         return bHours;
     }
 
@@ -20,9 +26,9 @@ public class ChasUtil {
         @param : date dateSent(EDD derived from consignment service) , integer maxDays(days configured as the latest date by which consignments shoulf arrive)
         @return : NA
     */
-    public static Date calculateNextBusinessDay(Date dateSent, integer maxDays){
-        Id bHours = getBusinessHours().Id;
-        datetime nextbusinessDayVar = BusinessHours.nextStartDate(bHours, dateSent);
+    public static Date calculateNextBusinessDay(Date dateSent, Integer maxDays){
+       // Id bHours = getBusinessHours().Id;
+       // datetime nextbusinessDayVar = BusinessHours.nextStartDate(bHours, dateSent);
         Datetime maxDeliveryDate =  addDays(dateSent,maxDays);
         return maxDeliveryDate.date();
     }
@@ -233,20 +239,20 @@ public class ChasUtil {
     /**
 * Create Casecomment from CaseId and commentBody
 * */
-    public static String createCaseComment(String caseId, String commentBody){
-        System.debug('--- createCaseComment --- START ---');
-        commentBody = '---Enquiry Details---' + '\n' + commentBody;
-        Flow.Interview.CreateCaseComment caseCommentFlow;
-        Map<String, Object> myMap = new Map<String, Object>();
-        myMap.put('InputCaseID',caseId);
-        myMap.put('InputCaseDescription', commentBody);
-        caseCommentFlow = new Flow.Interview.CreateCaseComment(myMap);
-        caseCommentFlow.start();
-        System.debug('*** Flow called - returning CaseNumber');
+    // public static String createCaseComment(String caseId, String commentBody){
+    //     System.debug('--- createCaseComment --- START ---');
+    //     commentBody = '---Enquiry Details---' + '\n' + commentBody;
+    //     Flow.Interview.CreateCaseComment caseCommentFlow;
+    //     Map<String, Object> myMap = new Map<String, Object>();
+    //     myMap.put('InputCaseID',caseId);
+    //     myMap.put('InputCaseDescription', commentBody);
+    //     caseCommentFlow = new Flow.Interview.CreateCaseComment(myMap);
+    //     caseCommentFlow.start();
+    //     System.debug('*** Flow called - returning CaseNumber');
 
-        System.debug('--- createCaseComment --- END ---');
-        return (String)(caseCommentFlow.getVariableValue('CaseNumber'));
-    }
+    //     System.debug('--- createCaseComment --- END ---');
+    //     return (String)(caseCommentFlow.getVariableValue('CaseNumber'));
+    // }
 
     /**
 * Create Casecomment from CaseId and commentBody
@@ -268,22 +274,24 @@ public class ChasUtil {
     /**
 * Create Parse Case inserted results and create case comment
 * */
-    public static ChasApexController.CaseWrapper parseInsertedCaseResultsAndCreateComment( Database.SaveResult[] results, ChasApexController.CaseWrapper caseWrapperObj, String commentBody){
+    public static ChasApexController.CaseWrapper parseInsertedCaseResultsAndCreateComment(Database.SaveResult[] results, ChasApexController.CaseWrapper caseWrapperObj, List<CaseComment> comments) {
         System.debug('--- parseInsertedCaseResults --- START ---');
-
+        Set<Id> vCaseIds = new Set<Id>();
         for (Integer i = 0; i < results.size(); i++) {
             if (results[i].isSuccess()) {
                 System.debug('Successfully created ID: '+ results[i].getId());
                 try{
-                    String objName = results[i].getId().getSObjectType().getDescribe().getName();
+                    Id lObjectId = Id.valueOf(results[i].getId());
+                    String objName = lObjectId.getSobjectType().getDescribe().getName();
                     System.debug('*** - objName = '+objName);
                     //-- Creating Case Comment for inserted Case
-                    if( objName.equalsIgnoreCase('Case')){
-                        caseWrapperObj.caseNumber = ChasUtil.createCaseComment(results[i].getId(),commentBody);
-                        System.debug('*** Flow called - CaseNumber:'+caseWrapperObj.caseNumber);
+                    if( objName.equalsIgnoreCase('Case')) {
+                        ChasUtil.createCaseComment(lObjectId, comments);
+                        vCaseIds.add(lObjectId);
+                        //System.debug('*** Flow called - CaseNumber:'+caseWrapperObj.caseNumber);
                     }
 
-                }catch(Exception ex){
+                }catch(Exception ex) {
                     System.debug('*** - Error while retrieving Case Number/Creating Case Comment ==='+ex);
                 }
 
@@ -295,7 +303,31 @@ public class ChasUtil {
             }
         }
 
+        caseWrapperObj.caseNumber = CasesSelector.newInstance().selectById(vCaseIds).get(new List<Id>(vCaseIds)[0]).CaseNumber;
+
         System.debug('--- parseInsertedCaseResults --- END ---');
         return caseWrapperObj;
+    }
+
+    /**
+     * create a case comment with publish option
+     * @author: edgarallan.castillo3@auspost.com.au
+     * @param caseId: target case Id
+     * @param commentBody: list of comments to create
+     */
+    public static void createCaseComment(Id caseId, List<CaseComment> comments)
+    {
+        for (CaseComment cc: comments) {
+            cc.CommentBody = '---Enquiry Details---' + '\n' + cc.CommentBody;
+            cc.ParentId = caseId;
+        }
+        try
+        {
+            ApplicationDatabase.getInstance().dmlInsert(comments);
+        }
+        catch (Exception e)
+        {
+            UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'CHAS', 'ChasApexController', 'createCaseComment', '', LoggingLevel.ERROR);
+        }
     }
 }

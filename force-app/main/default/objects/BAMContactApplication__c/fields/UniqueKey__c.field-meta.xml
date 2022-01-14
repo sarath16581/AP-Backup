@@ -10,6 +10,7 @@ Apex Class: ContactUtility.updateConAppUniqueKey on merge (since workflow is not
     <label>Unique Key</label>
     <length>40</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>true</unique>

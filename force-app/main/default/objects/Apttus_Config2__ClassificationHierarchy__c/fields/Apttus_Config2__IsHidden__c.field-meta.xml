@@ -6,6 +6,7 @@
     <description>Whether the category is hidden in the tab or carousal.</description>
     <externalId>false</externalId>
     <label>Is Hidden</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -8,6 +8,7 @@ The solution is flexible. Customers can now choose the notifications they want a
     <inlineHelpText>StarTrack has introduced SMS and email notifications to provide customers and receivers with complete visibility of their consignments in real time. 
 The solution is flexible. Customers can now choose the notifications they want and who to send them to</inlineHelpText>
     <label>Star Track Premium Notifications</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Is Licensee required to provide and maintain an additional time lock cash container?</inlineHelpText>
     <label>Security TimeLock Cash Container Sp Cond</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

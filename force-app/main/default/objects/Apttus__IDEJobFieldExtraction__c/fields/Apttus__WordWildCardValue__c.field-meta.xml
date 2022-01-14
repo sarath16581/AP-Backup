@@ -7,6 +7,7 @@
     <inlineHelpText>The word wild card value of the extracted data</inlineHelpText>
     <label>Word Wild Card Value</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

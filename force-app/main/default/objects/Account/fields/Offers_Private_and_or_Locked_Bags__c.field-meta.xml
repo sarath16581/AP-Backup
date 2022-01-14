@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Does this site offer Private or Locked Bags?</inlineHelpText>
     <label>Offers Private and/or Locked Bags</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

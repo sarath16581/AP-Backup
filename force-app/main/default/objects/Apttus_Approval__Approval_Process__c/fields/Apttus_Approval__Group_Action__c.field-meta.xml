@@ -9,6 +9,7 @@
     <relationshipLabel>Group Actions</relationshipLabel>
     <relationshipName>Group_Action</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <inlineHelpText>Description of the Application that will be exposed in BAM.</inlineHelpText>
     <label>Description</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Tick this box if you do not wish that the customer is contacted for research / interview</inlineHelpText>
     <label>Exclude from Research</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

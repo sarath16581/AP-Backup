@@ -3,6 +3,7 @@
     <fullName>Activate_Contract__c</fullName>
     <externalId>false</externalId>
     <label>Activate Contract</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Apttus__CycleTimeGroupData__c.Apttus__Duration_Business_Hours__c</summarizedField>
     <summaryFilterItems>
         <field>Apttus__CycleTimeGroupData__c.Apttus__From__c</field>

@@ -6,6 +6,7 @@
     <inlineHelpText>When is the Bids or Tender due to be lodged/presented</inlineHelpText>
     <label>Due Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

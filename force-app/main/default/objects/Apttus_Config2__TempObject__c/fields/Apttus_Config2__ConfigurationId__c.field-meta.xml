@@ -9,6 +9,7 @@
     <referenceTo>Apttus_Config2__ProductConfiguration__c</referenceTo>
     <relationshipName>TempObjects</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

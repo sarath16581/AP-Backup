@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This flag is true if this process definition is for an Adhoc approval process.</inlineHelpText>
     <label>Is Adhoc</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

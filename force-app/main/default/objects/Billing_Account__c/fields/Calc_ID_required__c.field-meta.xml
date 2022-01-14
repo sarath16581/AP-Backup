@@ -6,6 +6,7 @@
     <formula>IF(NOT(ISBLANK(TEXT(ID_required__c))), TEXT(ID_required__c), TEXT(Organisation__r.ID_required__c))</formula>
     <label>ID required upon delivery?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

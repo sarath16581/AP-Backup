@@ -5,5 +5,6 @@
     <externalId>false</externalId>
     <formula>CreatedById =  $User.Id</formula>
     <label>Is Creator Logged In</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

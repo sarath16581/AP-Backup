@@ -8,6 +8,7 @@
     <inlineHelpText>The name of the application</inlineHelpText>
     <label>Application Name</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

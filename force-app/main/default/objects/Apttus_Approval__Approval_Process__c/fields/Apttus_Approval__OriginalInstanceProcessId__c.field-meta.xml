@@ -11,6 +11,7 @@
     <relationshipLabel>Approval Processes (Original Instance Process)</relationshipLabel>
     <relationshipName>Original_Approval_Processes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

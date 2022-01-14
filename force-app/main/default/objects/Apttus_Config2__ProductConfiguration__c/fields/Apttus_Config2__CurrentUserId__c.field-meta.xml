@@ -10,6 +10,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Product_Configurations</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

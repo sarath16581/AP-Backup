@@ -4,6 +4,7 @@
     <description>Phase 1 - Count of customer records in the role related list</description>
     <externalId>false</externalId>
     <label>Customer Party Role Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Organisation_Role__c.Role_Type__c</field>
         <operation>equals</operation>

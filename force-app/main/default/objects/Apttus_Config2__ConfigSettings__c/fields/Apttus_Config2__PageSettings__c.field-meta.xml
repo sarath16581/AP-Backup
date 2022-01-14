@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Page Settings</label>
     <length>8000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

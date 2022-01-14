@@ -7,6 +7,7 @@
     <inlineHelpText>Filter criteria to get to the list of the data objects that needs to be validated / enriched</inlineHelpText>
     <label>Target Object Filter Criteria</label>
     <length>2048</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

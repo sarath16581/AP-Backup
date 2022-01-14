@@ -9,6 +9,7 @@
     <inlineHelpText>System internal use only. Make limited SOQL query find the current recipient status</inlineHelpText>
     <label>Envelope Recipient Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

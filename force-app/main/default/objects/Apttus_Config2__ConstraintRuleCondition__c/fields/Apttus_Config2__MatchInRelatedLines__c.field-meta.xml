@@ -6,6 +6,7 @@
     <description>Conditions are evaluated against services.</description>
     <externalId>false</externalId>
     <label>Match In Related Lines</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -8,6 +8,7 @@
     <relationshipLabel>Site Inspections</relationshipLabel>
     <relationshipName>Site_Inspections</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

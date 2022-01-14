@@ -5,6 +5,7 @@
     <description>Hotlist is used to distinguish delinquent customer prior to credit assessment process.</description>
     <externalId>false</externalId>
     <label>Hotlist</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Is Partner APLAC Member?</inlineHelpText>
     <label>APLAC Member</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

@@ -6,6 +6,7 @@
     <description>Indicates whether the line is an option rollup line</description>
     <externalId>false</externalId>
     <label>Is Option Rollup Line</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

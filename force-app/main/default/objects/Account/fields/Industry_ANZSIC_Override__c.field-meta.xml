@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>When ticked, the default mapping of Industry, Business Category and Business Subcategory to an ANZSIC code is ignored. This indicates that Marketing has manually overridden the Industry Segmentation for this Organisation</inlineHelpText>
     <label>Industry ANZSIC Override</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

@@ -5,5 +5,6 @@
     <description>SAM Integration Trigger Do not remove</description>
     <externalId>false</externalId>
     <label>MH Action</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

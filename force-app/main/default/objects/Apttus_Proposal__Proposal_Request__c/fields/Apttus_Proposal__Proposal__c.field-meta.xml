@@ -8,6 +8,7 @@
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>
     <relationshipName>R00N70000001yUfJEAU</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

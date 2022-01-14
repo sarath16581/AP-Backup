@@ -11,6 +11,7 @@
     <relationshipLabel>Agreements (Partner)</relationshipLabel>
     <relationshipName>AgreementsPartner</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

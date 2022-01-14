@@ -5,6 +5,7 @@
     <description>StarTrack: Flag to capture if customer is type Business Solutions</description>
     <externalId>false</externalId>
     <label>Business Solutions Customer</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

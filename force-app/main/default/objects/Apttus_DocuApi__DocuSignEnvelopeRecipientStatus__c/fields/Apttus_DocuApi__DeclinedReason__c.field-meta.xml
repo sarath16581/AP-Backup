@@ -7,6 +7,7 @@
     <inlineHelpText>eSignature decline reason</inlineHelpText>
     <label>Declined Reason</label>
     <length>500</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>2</visibleLines>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Triggering Primary Numbers</label>
     <length>2048</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

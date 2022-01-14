@@ -6,6 +6,7 @@
     <description>Keeps track of reaching the finalized stage</description>
     <externalId>false</externalId>
     <label>Was Finalized</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

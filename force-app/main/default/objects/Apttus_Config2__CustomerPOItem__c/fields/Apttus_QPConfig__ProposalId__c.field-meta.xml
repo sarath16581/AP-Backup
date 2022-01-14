@@ -11,6 +11,7 @@
     <relationshipLabel>Customer PO Items</relationshipLabel>
     <relationshipName>CustomerPOItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

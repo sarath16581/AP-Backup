@@ -6,6 +6,7 @@
     <inlineHelpText>When the Account Manager = Holding User, you must select a Holding Role</inlineHelpText>
     <label>Old Holding Role</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

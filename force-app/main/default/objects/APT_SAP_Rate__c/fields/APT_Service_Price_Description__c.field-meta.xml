@@ -5,6 +5,7 @@
     <label>Service Price Description</label>
     <length>100</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

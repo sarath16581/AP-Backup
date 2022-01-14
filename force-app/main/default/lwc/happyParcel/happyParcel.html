@@ -3,6 +3,7 @@
     2020-10-05 - Disha Kariya - Allow safe drop attachment for case creation
     2020-10-12 - Ranjeewa Silva - Added support for Direct to Network case creation.
     2021-06-15 - Ranjeewa Silva - Updated 'readOnly' property name as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.js_props_names.
+    2021-06-15 - Prerna Rahangdale - Added the warning to show for the VODV Articles.
 -->
 <template>
 	<article class={happyParcelCssClass}>
@@ -15,6 +16,12 @@
 			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
 				<span class="slds-assistive-text">error</span>
 				<h2>{error}</h2>
+			</div>
+		</template>
+		<template if:true={vodvWarning}>
+			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert" key={vodvWarning}>
+				<span class="slds-assistive-text">warning</span>
+				<h2>{vodvWarning}</h2><p><a class="slds-text-link" onclick={handleKnowledgeClick}>Refer Knowledge</a></p>
 			</div>
 		</template>
 		<template if:true={retryAnalytics}>

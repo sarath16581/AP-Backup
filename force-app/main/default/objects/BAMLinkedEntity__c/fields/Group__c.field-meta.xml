@@ -9,6 +9,7 @@
     <referenceTo>BAMGroup__c</referenceTo>
     <relationshipName>ContactApplicationRules</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

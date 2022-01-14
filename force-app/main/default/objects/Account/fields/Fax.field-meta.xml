@@ -3,6 +3,7 @@
     <fullName>Fax</fullName>
     <inlineHelpText>Facsimile number that may be used to contact an Organisation or Individual.
 Users can edit this field (regardless of whether the organisation is a Prospect or Customer) without having to raise a case to the Data Quality team.</inlineHelpText>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
 </CustomField>

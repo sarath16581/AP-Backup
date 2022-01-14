@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Calculates if community update product is added on quote, if yes it will have an effect on displaying &apos;Create CUP Contract&apos; button</inlineHelpText>
     <label>Community Update Included?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Apttus_Proposal__Proposal_Line_Item__c.Product_Name_Text__c</field>
         <operation>contains</operation>

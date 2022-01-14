@@ -8,6 +8,7 @@ IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight__c, &quot;Large &
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Weight for Print Post</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

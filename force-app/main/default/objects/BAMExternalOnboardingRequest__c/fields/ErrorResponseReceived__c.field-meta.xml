@@ -6,6 +6,7 @@
     <inlineHelpText>The date/time an error response was received.</inlineHelpText>
     <label>Error Response Received</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

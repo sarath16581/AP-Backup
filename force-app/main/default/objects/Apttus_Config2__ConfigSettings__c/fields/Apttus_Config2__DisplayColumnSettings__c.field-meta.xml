@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Display Column Settings</label>
     <length>50000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

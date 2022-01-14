@@ -6,6 +6,7 @@
     <description>Approval(s) required for this exception?  Will trigger approval processing.</description>
     <externalId>false</externalId>
     <label>Approval Required</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

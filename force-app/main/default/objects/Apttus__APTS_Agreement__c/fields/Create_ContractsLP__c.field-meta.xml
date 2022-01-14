@@ -6,6 +6,7 @@
     <inlineHelpText>You have to add Lodgement Points before generating contract documents. Please also check Operational Schedule details before generating DOS Form.</inlineHelpText>
     <label>Create Contracts (Single Document)</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

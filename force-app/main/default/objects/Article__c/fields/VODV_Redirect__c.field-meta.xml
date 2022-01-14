@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VODV_Redirect__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This flag comes in Article where there are MRS HELD Event Messages where the Article is redirected
+            for Victim of domestic violence , and when it is true the location of address becomes a sensitive
+            information to share and to be contacted to Manager.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If true the parcel is redirected and location information is sensitive for VODV.</inlineHelpText>
+    <label>VODV Redirect</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

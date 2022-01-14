@@ -7,6 +7,7 @@
     <inlineHelpText>Indicates which type of value will be used to calculate the time between billing periods.</inlineHelpText>
     <label>Offset Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

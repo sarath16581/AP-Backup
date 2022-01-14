@@ -6,6 +6,7 @@
     <label>ABN</label>
     <length>11</length>
     <required>false</required>
+    <securityClassification>PUBLIC</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -15,6 +15,7 @@
  * 2021-06-15 - Ranjeewa Silva - Updated to return specific event message field set when embedded in My Network
  * 2021-10-01 - Nathan Franklin - Updated logic for transient attributes. Now more structured and linked to each article/event
  * 2021-08-02 - Mathew Jose - Added new methods to retrievethe overflow field sets associated with the event messages table.
+ * 2021-08-02 - Prerna Rahangdale - Added a method to query the Knowledge article to show in warning when articles has VODV set to true.
 */
 public with sharing class HappyParcelController {
 
@@ -53,7 +54,8 @@ public with sharing class HappyParcelController {
 				'happyParcelStatusValues' => getHappyParcelStatusValues(),
 				'manifestAssessmentMappings' => getManifestAssessmentValues(),
 				'manifestAssessmentHappyThreshold' => 1000, // TODO, build into custom setting
-				'eventMessageAttachmentTypeDefinitions' => EventMessageUtil.getEventMessageAttachmentTypes()
+				'eventMessageAttachmentTypeDefinitions' => EventMessageUtil.getEventMessageAttachmentTypes(),
+				'VODVKnowledgeId' => queryVODVKnowledge()
 		};
 	}
 
@@ -240,6 +242,19 @@ public with sharing class HappyParcelController {
 		}
 	}
 
+	/**
+	 * Returns VODV Knowledge article to show in the warning when the VODV flag is set for Articles.
+	 */
+	private static Id queryVODVKnowledge(){
+
+		try {
+			AusPostSettings__c setting = AusPostSettings__c.getValues('VODVKnowledge');
+			Id knowledgeId = setting != null ? Id.valueOf(setting.Record_Id__c) :null;
+			return knowledgeId;
+		} catch(Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
 
 	/**
 	 * Returns a list of fields to be rendered in teh article details section of the UI

@@ -7,6 +7,7 @@
     <inlineHelpText>This is the point in time when the Account Billing Summary was fully calculated. This happens when one or more of the contributing Billing objects (Invoices, Schedules, etc.) have changed and the change is detected by the Account Billing Summary batch job</inlineHelpText>
     <label>Last Calculated</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <formula>if(Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_DoV_Category__c =&apos;Contract Review / Price Change&apos;,true,false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>For Price Change</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

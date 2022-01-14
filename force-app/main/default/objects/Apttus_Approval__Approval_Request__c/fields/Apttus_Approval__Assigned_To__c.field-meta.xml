@@ -8,6 +8,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>R00N70000001m4PKEAY</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

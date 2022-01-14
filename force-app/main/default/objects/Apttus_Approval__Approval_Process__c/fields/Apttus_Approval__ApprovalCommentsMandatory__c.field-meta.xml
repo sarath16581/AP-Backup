@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Set this flag to make approval comments mandatory for this process. When set, the user will be forced to enter comments when a request is approved.</inlineHelpText>
     <label>Approval Comments Mandatory</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

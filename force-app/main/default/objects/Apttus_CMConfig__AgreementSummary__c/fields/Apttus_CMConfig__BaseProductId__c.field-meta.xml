@@ -10,6 +10,7 @@
     <relationshipLabel>Agreement Summary (Base Product)</relationshipLabel>
     <relationshipName>BaseAgreementSummary</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

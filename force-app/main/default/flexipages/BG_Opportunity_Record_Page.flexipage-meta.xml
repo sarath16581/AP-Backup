@@ -735,6 +735,15 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>kfsell:bluesheetNavigate</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-903c912e-7855-43b3-ae49-0a146b9ca7ee</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
@@ -863,6 +872,19 @@
                 <componentInstanceProperties>
                     <name>title</name>
                     <value>Files</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-903c912e-7855-43b3-ae49-0a146b9ca7ee</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Blue Sheet</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
@@ -1062,6 +1084,21 @@
                         <rightValue>false</rightValue>
                     </criteria>
                 </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>kfsell:bestActionWidgetAuraWrapper</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>kfsell:kfLearnLink</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>kfsell:blueSheetProgressWidget</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>

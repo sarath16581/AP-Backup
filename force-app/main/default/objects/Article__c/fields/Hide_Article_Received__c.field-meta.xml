@@ -3,6 +3,7 @@
     <fullName>Hide_Article_Received__c</fullName>
     <externalId>false</externalId>
     <label>Hide Article Received</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>EventMessage__c.EventType__c</field>
         <operation>equals</operation>

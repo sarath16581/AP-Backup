@@ -8,6 +8,7 @@
     <label>Escalate To Id</label>
     <length>25</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

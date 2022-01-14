@@ -4,6 +4,7 @@
     <description>StarTrack - Number of PODs</description>
     <externalId>false</externalId>
     <label>Number of PODs</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Proof_of_Delivery__c.Consignment__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

@@ -8,6 +8,7 @@ if(INCLUDES( Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c , &q
 Null)))</formula>
     <label>Channel_PostBillPay</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

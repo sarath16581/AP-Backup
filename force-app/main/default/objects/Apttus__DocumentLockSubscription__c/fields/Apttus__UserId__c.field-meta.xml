@@ -10,6 +10,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Document_Lock_Subscriptions</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

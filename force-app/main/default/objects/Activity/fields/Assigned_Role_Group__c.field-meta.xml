@@ -27,6 +27,7 @@ IF( Owner:User.UserRole.RollupDescription  = &apos;Parcel Key Accounts North&apo
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Assigned Role Group</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

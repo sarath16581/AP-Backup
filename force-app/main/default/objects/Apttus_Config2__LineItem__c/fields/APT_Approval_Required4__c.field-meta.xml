@@ -25,6 +25,7 @@ IF (((ISPICKVAL(Apttus_Config2__AdjustmentType__c, &quot;Customised Pricing&quot
 , true, false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Approval Required4?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

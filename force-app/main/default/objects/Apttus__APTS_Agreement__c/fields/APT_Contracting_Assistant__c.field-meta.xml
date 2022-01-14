@@ -6,6 +6,7 @@
     <inlineHelpText>Contract Authority details</inlineHelpText>
     <label>Prepared by User</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

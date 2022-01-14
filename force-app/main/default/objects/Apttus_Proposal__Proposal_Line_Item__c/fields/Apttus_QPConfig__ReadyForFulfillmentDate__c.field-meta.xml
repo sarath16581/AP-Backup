@@ -7,6 +7,7 @@
     <inlineHelpText>The date the order item is ready for fulfillment. The order item is fulfilled on this date.</inlineHelpText>
     <label>Ready For Fulfillment Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

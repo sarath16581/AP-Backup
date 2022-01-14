@@ -3,6 +3,7 @@
     <fullName>LastScanEventEvMsgMax__c</fullName>
     <externalId>false</externalId>
     <label>Last Scan Event</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>EventMessage__c.ActualDateTime__c</summarizedField>
     <summaryForeignKey>EventMessage__c.Article__c</summaryForeignKey>
     <summaryOperation>max</summaryOperation>

@@ -7,6 +7,7 @@
     <inlineHelpText>The type of assignee the request will be escalated to if it is escalated.</inlineHelpText>
     <label>Escalate To Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

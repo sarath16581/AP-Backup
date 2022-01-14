@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Mail Service Payment will be payed where AP requires the Licencee to accept and sort mail outside normal business hours</inlineHelpText>
     <label>Mail Service Payment Special Condition</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

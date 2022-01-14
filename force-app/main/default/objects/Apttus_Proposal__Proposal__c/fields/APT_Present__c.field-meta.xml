@@ -5,6 +5,7 @@
     <formula>IF (AND(NOT(APT_Document_Generation_in_Progress__c),ISPICKVAL( Apttus_Proposal__Approval_Stage__c , &apos;Generated&apos; )), HYPERLINK(&quot;/apex/APT_ValidateProposal?source=Apttus_Proposal__ProposalPresent&amp;id=&quot;&amp;Id, IMAGE(&quot;/resource/Apttus_Proposal__Button_Present&quot;, &quot;Present&quot;),&quot;_self&quot;), NULL)</formula>
     <label>Present Proposal</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

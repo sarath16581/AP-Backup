@@ -7,6 +7,7 @@
     <inlineHelpText>The rollup end date</inlineHelpText>
     <label>Rollup End Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

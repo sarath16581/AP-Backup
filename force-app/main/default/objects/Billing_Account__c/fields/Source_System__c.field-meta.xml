@@ -6,6 +6,7 @@ TEAM</description>
     <externalId>false</externalId>
     <label>Source System</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

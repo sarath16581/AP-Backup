@@ -5,6 +5,7 @@
     <formula>IF (ISPICKVAL(Apttus__Status_Category__c, &quot;Request&quot;), HYPERLINK(&quot;/apex/Apttus__SelectTemplate?id=&quot;&amp;Id &amp; &quot;&amp;action=Generate_Agreement&amp;templateType=Agreement&quot;, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL)</formula>
     <label>Create Contracts (Single Document)</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

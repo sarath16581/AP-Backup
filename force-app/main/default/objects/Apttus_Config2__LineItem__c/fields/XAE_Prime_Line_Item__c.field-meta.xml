@@ -22,6 +22,7 @@
     <relationshipLabel>Line Items (XAE Prime Line Item)</relationshipLabel>
     <relationshipName>Line_Items</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

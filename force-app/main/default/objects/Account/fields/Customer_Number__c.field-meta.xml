@@ -4,6 +4,7 @@
     <description>djk 07/10/2011 rolls up customer number from Role object</description>
     <externalId>false</externalId>
     <label>Customer Number</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Organisation_Role__c.Customer_Number_Rollup__c</summarizedField>
     <summaryFilterItems>
         <field>Organisation_Role__c.Role_Type__c</field>

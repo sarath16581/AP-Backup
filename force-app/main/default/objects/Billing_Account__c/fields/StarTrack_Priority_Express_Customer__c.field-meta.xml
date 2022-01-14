@@ -5,6 +5,7 @@
     <description>StarTrack_Priority_Express_Customer</description>
     <externalId>false</externalId>
     <label>StarTrack Priority Express Customer</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -7,6 +7,7 @@
     <inlineHelpText>The date when the asset line item was cancelled</inlineHelpText>
     <label>Cancelled Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

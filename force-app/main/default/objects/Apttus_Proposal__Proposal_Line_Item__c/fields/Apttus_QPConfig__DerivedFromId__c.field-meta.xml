@@ -10,6 +10,7 @@
     <relationshipLabel>Derived Proposal Line Items</relationshipLabel>
     <relationshipName>DerivedProposalLineItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

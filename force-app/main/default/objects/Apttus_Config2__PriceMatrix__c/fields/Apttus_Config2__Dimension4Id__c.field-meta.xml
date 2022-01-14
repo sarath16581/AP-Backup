@@ -10,6 +10,7 @@
     <relationshipLabel>Price Matrices (Dimension 4)</relationshipLabel>
     <relationshipName>PriceMatrices4</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

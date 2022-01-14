@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>View Settings</label>
     <length>64768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

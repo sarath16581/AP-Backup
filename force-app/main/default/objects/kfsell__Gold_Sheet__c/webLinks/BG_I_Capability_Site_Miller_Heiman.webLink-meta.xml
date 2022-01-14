@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BG_I_Capability_Site_Miller_Heiman</fullName>
+    <availability>online</availability>
+    <description>BG&amp;I Capability Site - Miller Heiman</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>BG&amp;I Capability Site - Miller Heiman</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://apps.powerapps.com/play/bf610d2b-52ad-4a50-b3d9-7b164808c970?tenantId=5195231b-cd74-45a4-b576-9bc88ae35b48&amp;hidenavbar=true&amp;ProgramID=13</url>
+</WebLink>

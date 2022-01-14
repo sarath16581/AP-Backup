@@ -11,6 +11,7 @@
     <relationshipLabel>Asset Line Item History (Ship To)</relationshipLabel>
     <relationshipName>AssetLineItemHistoryShipTo</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

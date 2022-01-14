@@ -7,6 +7,7 @@
     <inlineHelpText>Enter a description for this step filter condition</inlineHelpText>
     <label>Step Filter Condition Description</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>e.g. Tradeshows</inlineHelpText>
     <label>Events</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

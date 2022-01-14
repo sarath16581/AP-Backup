@@ -15,6 +15,7 @@
  * 2021-03-02 - Ranjeewa Silva - Added tests for selectOpenCasesByCaseNumberOrReferenceId
  * 2021-08-09 - Seth Heang - Added selectByReferenceIdOrderByCreatedDate test coverage
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+ * 2021-11-26 - Ashapriya Gadi - Added test coverage for enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -92,6 +93,9 @@ public with sharing class CasesSelector_Test {
 		System.assertEquals(true, Pattern.compile('(?is)Owner\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
 		System.assertEquals(true, Pattern.compile('(?is)Contact\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Contact fields');
 
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)Select.*?\\(Select.*?\\bfrom EmailMessages\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select emailmessage fields');
 		//Testing field override
 		CasesSelector selectorNew = CasesSelector.newInstance(0, new Set<SObjectField>{Case.IssuePreviouslyReported__c});
 

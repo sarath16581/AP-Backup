@@ -14,6 +14,8 @@
 * 2020-10-25 haraprasad.sahoo@auspost.com.au Modified : Change made for delivery issue automation. Added hasDeliveredScanEvent and hasAttemptedDeliveryScanEvent
 * 2021-04-19 hara.sahoo@auspost.com.au Added date calculations for EDD tracking and related contextual thank you pages
 * 2021-09-01 hara.sahoo@auspost.com.au: Added isWithinEDD method which includes additional considerations for ranged EDD pattern
+* 2021-11-02 phap.mai@auspost.com.au: DDS-7977 - Added methods to determine if all articles are successed
+* 2021-12-06 alex.volkov@auspost.com.au: Added newInstance() method, minor refactoring
 */
 
 public without sharing class ChasTrackStatus {
@@ -45,6 +47,8 @@ public without sharing class ChasTrackStatus {
     public Date deliveredByDatePlusBusinessDays;
     public Date deliveredByDateToUntil;
     //public Boolean isWithinEDD;
+    public Boolean allArticlesSuccessed;                        // DDS-7977: flag for all articles are either delivered or safe dropped
+    public Boolean allArticlesNotSuccessed;                     // DDS-7977: flag for all articles are neither delivered or safe dropped
     
     /**
 * Initialise must be called as a part of using this class,
@@ -66,6 +70,34 @@ public without sharing class ChasTrackStatus {
             //-- take the first article in the response, the tracking id sent could be a consignment id or an article id
             else if(response.articles.size() > 0)
             {
+                // DDS-7977
+                // calculate the flag for consignment handling optimization
+                // this optimization should not be a show stopper
+                // log an exception record for audit purpose
+                try
+                {
+                    Map<String, Boolean> lArticleFlags = this.getArticlesSuccessFlags(response.articles);
+                    this.allArticlesSuccessed = lArticleFlags.get('allSuccess');
+                    this.allArticlesNotSuccessed = lArticleFlags.get('allFailure');
+                }
+                catch (Exception e)
+                {
+                    // set to this value so that the pre-optimization logic will apply
+                    this.allArticlesSuccessed = true;
+                    this.allArticlesNotSuccessed = true;
+
+                    // log exception record
+                    try
+                    {
+                        UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'CHAS_LOMI', 'ChasTrackStatus', 'ChasTrackStatus', '', LoggingLevel.ERROR);
+                    }
+                    catch (Exception loggingException)
+                    {
+                        // fail silent
+                    }
+                }
+                // DDS-7977: END
+                
                 article = response.articles[0];
                 this.articleId = article.Id;
                 this.destinationAddress = article.destinationAddress;
@@ -163,6 +195,7 @@ public without sharing class ChasTrackStatus {
                             // the date stored is bigger than
                             if (latestEvent == null || storedEventDatetime < Datetime.valueOf(relatedEvents[i].eventDateTime)) {
                                 // store the selected bigger latest dateTime to compare with the next value
+                                System.debug(relatedEvents[i]);
                                 storedEventDatetime = Datetime.valueOf(relatedEvents[i].eventDateTime.substring(0,19).replace('T',' '));
                                 latestEvent = relatedEvents[i];
                                 // update to the latest WCID if there is one
@@ -186,6 +219,135 @@ public without sharing class ChasTrackStatus {
             }
         }
     }
+
+    public static ChasTrackStatus newInstance() {
+        return (ChasTrackStatus)Application.Utilities.newInstance(ChasTrackStatus.class);
+    }
+
+    /**
+     * check if all articles are either delivered or safe dropped
+     * @author phap.mai@auspost.com.au
+     * @param articles: target articles
+     * @return true if target article(s) are safe dropped or delivered
+     */
+    private Map<String, Boolean> getArticlesSuccessFlags(List<ChasOneTrackResponse.Articles> articles)
+    {
+        Map<String, Boolean> vArticleSuccessMap = new Map<String, Boolean>();
+        vArticleSuccessMap.put('allSuccess', true);
+        vArticleSuccessMap.put('allFailed', true);
+        // if there is no article, conclude negative and quit early
+        if (articles == null || articles.size() == 0) {
+            return vArticleSuccessMap;
+        }
+        
+        for (ChasOneTrackResponse.Articles article : articles)
+        {
+            // if any of the articles having no event code, can conclude negative and quit early
+            if (article.trackingEvents == null || article.trackingEvents.items == null || article.trackingEvents.items.size() == 0)
+            {
+                vArticleSuccessMap.put('allSuccess', false);
+                return vArticleSuccessMap;
+            }
+            else
+            {
+                ChasOneTrackResponse.Items latestEvent = this.getLatestEvent(article.trackingEvents.items);
+
+                // if latest event is null, conclude negative and quit early
+                if (latestEvent == null || latestEvent.code == null || String.isEmpty(latestEvent.code))
+                {
+                    vArticleSuccessMap.put('allSuccess', false);
+                    return vArticleSuccessMap;
+                }
+
+                // if latest event is not safe dropped or delivered, at least 1 article isn't successful
+                if (!ChasConstants.EVENT_STATUS_DELIVERED_SAFE_DROP.contains(latestEvent.code) && !ChasConstants.EVENT_STATUS_DELIVERED.contains(latestEvent.code))
+                {
+                    vArticleSuccessMap.put('allSuccess', false);
+                }
+
+                // if latest event is safe dropped or delivered, at least 1 article is successful
+                if (ChasConstants.EVENT_STATUS_DELIVERED_SAFE_DROP.contains(latestEvent.code) || ChasConstants.EVENT_STATUS_DELIVERED.contains(latestEvent.code))
+                {
+                    vArticleSuccessMap.put('allFailed', false);
+                }
+            }
+            //if it's a partial delivery, return straight away
+            if (!vArticleSuccessMap.get('allSuccess') && !vArticleSuccessMap.get('allFailed')) {
+                return vArticleSuccessMap;
+            }
+        }
+        return vArticleSuccessMap;
+    }
+
+    /**
+     * check if all articles are neither delivered or safe dropped
+     * @author phap.mai@auspost.com.au
+     * @param articles: target articles
+     * @return true if target article(s) are not safe dropped and delivered
+     */
+ /*   private Boolean isArticlesNotSuccessed(List<ChasOneTrackResponse.Articles> articles)
+    {
+        // if there is no article, conclude positive and quit early
+        if (articles == null || articles.size() == 0) return true;
+        
+        for (ChasOneTrackResponse.Articles article : articles)
+        {
+            // if any of the articles having no event code, can conclude positive and quit early
+            if (article.trackingEvents == null || article.trackingEvents.items == null || article.trackingEvents.items.size() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                ChasOneTrackResponse.Items latestEvent = this.getLatestEvent(article.trackingEvents.items);
+
+                // if latest event is safe dropped or delivered, conclude negative and quit early
+                if (latestEvent != null && latestEvent.code != null && String.isNotEmpty(latestEvent.code))
+                {
+                    if (ChasConstants.EVENT_STATUS_DELIVERED_SAFE_DROP.contains(latestEvent.code) || ChasConstants.EVENT_STATUS_DELIVERED.contains(latestEvent.code))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    } */
+
+    /**
+     * get latest event by comparing event date time
+     * @author phap.mai@auspost.com.au
+     * @param events: target events
+     * @return latest event
+     */
+    private ChasOneTrackResponse.Items getLatestEvent(List<ChasOneTrackResponse.Items> events)
+    {
+        ChasOneTrackResponse.Items latestEvent;
+        Datetime latestEventDatetime;
+
+        for (ChasOneTrackResponse.Items event : events)
+        {
+            // skip event without code
+            if (event.code == null || String.isEmpty(event.code)) continue;
+
+            // skip non-relevant event
+            if (!ChasConstants.EVENT_STATUS_ALL.contains(event.code)) continue;
+
+            // skip duplicate case event
+            if (ChasConstants.EVENT_STATUS_CUSTOMER_ENQUIRY_LODGED.equals(event.code)) continue;
+
+            // compare and store latest event of this article
+            if (latestEventDatetime == null || latestEventDatetime < Datetime.valueOf(event.eventDateTime))
+            {
+                latestEvent = event;
+                latestEventDatetime = Datetime.valueOf(event.eventDateTime.substring(0,19).replace('T',' '));
+            }
+        }
+
+        return latestEvent;
+    }
+
     // awaiting at the collection point, the location has to be displaYed in the ui at this status
     public Boolean isAwaitingCollection {
         get {

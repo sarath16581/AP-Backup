@@ -10,6 +10,7 @@
     <relationshipLabel>Term Exception Approval Conditions (Deprecated)</relationshipLabel>
     <relationshipName>R00N70000002CqgvEAC</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

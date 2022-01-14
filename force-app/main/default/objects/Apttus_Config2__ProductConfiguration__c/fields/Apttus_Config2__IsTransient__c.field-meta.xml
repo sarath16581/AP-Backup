@@ -6,6 +6,7 @@
     <description>Indicates a transient configuration version that may get abandoned. A new configuration version is in transient state until the version is explicitly saved by the user.</description>
     <externalId>false</externalId>
     <label>Is Transient</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

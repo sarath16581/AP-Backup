@@ -6,6 +6,7 @@
     <description>Whether the rule action is pending user action.</description>
     <externalId>false</externalId>
     <label>Pending</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

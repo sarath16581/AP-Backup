@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Campaign Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>

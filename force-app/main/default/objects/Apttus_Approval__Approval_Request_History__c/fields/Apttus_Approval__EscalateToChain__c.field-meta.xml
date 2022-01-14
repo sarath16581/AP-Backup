@@ -7,6 +7,7 @@
     <inlineHelpText>The chain of user ids that this request will get escalated to in the event that it is escalated. This chain is determined when the request is initially submitted and is only applicable to dynamic escalation types.</inlineHelpText>
     <label>Escalate To Chain</label>
     <length>4096</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

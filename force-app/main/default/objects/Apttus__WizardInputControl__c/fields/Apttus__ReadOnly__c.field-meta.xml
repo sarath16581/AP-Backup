@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Specifies if an input control value can be edited by the runtime user</inlineHelpText>
     <label>Read Only</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

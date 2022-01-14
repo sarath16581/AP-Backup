@@ -7,6 +7,7 @@
     <inlineHelpText>Provides more information for the runtime wizard user to understand the intended use of the runtime Wizard.</inlineHelpText>
     <label>Description</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

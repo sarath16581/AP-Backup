@@ -4127,6 +4127,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>If article has signature on delivery, it will be shown here.</value>
     </labels>
     <labels>
+        <fullName>HappyParcelVODVWarningText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Victims of Domestic Violence Warning Text</shortDescription>
+        <value>Do not disclose tracking information to customer.</value>
+    </labels>
+    <labels>
         <fullName>HeaderText</fullName>
         <categories>Opty Reassign Page</categories>
         <language>en_US</language>

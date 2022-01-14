@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether billing schedules would be created for the order line item associated with the agreement line item when the agreement is executed.</inlineHelpText>
     <label>Auto Create Bill ?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

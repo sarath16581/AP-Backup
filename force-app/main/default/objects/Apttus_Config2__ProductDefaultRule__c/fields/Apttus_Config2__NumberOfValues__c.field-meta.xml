@@ -5,6 +5,7 @@
     <description>Indicates the number of values associated with the default rule</description>
     <externalId>false</externalId>
     <label>Number Of Values</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Apttus_Config2__ProductDefaultValue__c.Apttus_Config2__ProductDefaultRuleId__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackTrending>false</trackTrending>

@@ -3,11 +3,12 @@
     <fullName>Total_Credit_Amount__c</fullName>
     <externalId>false</externalId>
     <label>Total Credit Amount</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>Budget_and_Revenue__c.Total_Credit_Amount__c</summarizedField>
     <summaryFilterItems>
         <field>Budget_and_Revenue__c.Current_Year__c</field>
         <operation>equals</operation>
-        <value>true</value>
+        <value>True</value>
     </summaryFilterItems>
     <summaryForeignKey>Budget_and_Revenue__c.Organisation__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

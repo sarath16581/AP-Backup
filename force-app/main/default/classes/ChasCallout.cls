@@ -166,7 +166,8 @@ public with sharing class ChasCallout {
             httpRes = http.send(httpReq);
         }
         
-        //System.debug('Http Response=' + JSON.serialize(httpRes));
+        System.debug('Http Response=' + httpRes);
+        System.debug('Http Response=' + httpRes.getBody());
         return httpRes;
     }
     

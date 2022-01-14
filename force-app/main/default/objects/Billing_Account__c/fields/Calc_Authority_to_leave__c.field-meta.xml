@@ -6,6 +6,7 @@
     <formula>IF(NOT(ISBLANK(TEXT( Authority_to_leave__c ))), TEXT(Authority_to_leave__c),  TEXT(Organisation__r.Authority_to_leave__c))</formula>
     <label>Allows authority to leave?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

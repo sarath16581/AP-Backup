@@ -6,6 +6,7 @@
     <description>default view for each user</description>
     <externalId>false</externalId>
     <label>Is Default</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -7,6 +7,7 @@
     <inlineHelpText>Stores mapping of encryption fields.</inlineHelpText>
     <label>Encryption Field Mapping</label>
     <length>131072</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

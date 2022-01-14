@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Api_equal_to_Comptetition</fullName>
+    <columns>kfsell__Object_API_Name__c</columns>
+    <columns>NAME</columns>
+    <columns>kfsell__Opportunity_Name__c</columns>
+    <columns>kfsell__Account_Name__c</columns>
+    <columns>kfsell__Contact_Name__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>kfsell__Object_API_Name__c</field>
+        <operation>contains</operation>
+        <value>Competition</value>
+    </filters>
+    <label>Api equal to Competition</label>
+</ListView>

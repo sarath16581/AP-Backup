@@ -3,6 +3,7 @@
     <fullName>APT_No_Of_LP_Without_Billing_Account__c</fullName>
     <externalId>false</externalId>
     <label>No Of LP Without Billing Account</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>APT_Agreement_Lodgement_Point__c.APT_Billing_Account_Flag__c</field>
         <operation>equals</operation>

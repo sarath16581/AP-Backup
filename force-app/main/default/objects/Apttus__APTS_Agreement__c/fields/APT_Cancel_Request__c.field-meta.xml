@@ -14,6 +14,7 @@ NOT(ISPICKVAL(Apttus__Status__c,&quot;Cancelled Request&quot;))), HYPERLINK(&quo
     <inlineHelpText>Please select &apos;Cancellation Reason&apos; to enable this function. If &apos;Mark Opportunity as Lost&apos; is also selected, system will change Opportunity Stage accordingly.</inlineHelpText>
     <label>Cancel Contract Request</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

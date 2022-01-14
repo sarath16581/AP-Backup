@@ -7,6 +7,7 @@
     <inlineHelpText>The Review url received from KIRA</inlineHelpText>
     <label>Review URL</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

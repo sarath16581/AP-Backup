@@ -7,6 +7,7 @@
     <inlineHelpText>The product attribute columns</inlineHelpText>
     <label>Columns</label>
     <length>1024</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

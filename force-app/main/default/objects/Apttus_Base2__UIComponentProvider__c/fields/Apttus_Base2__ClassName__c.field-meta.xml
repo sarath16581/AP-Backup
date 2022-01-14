@@ -6,6 +6,7 @@
     <label>Provider Class Name</label>
     <length>40</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

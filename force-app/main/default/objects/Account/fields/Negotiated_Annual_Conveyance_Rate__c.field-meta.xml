@@ -5,6 +5,7 @@
     <label>Negotiated Annual Conveyance Rate</label>
     <length>10</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

@@ -7,6 +7,7 @@
     <inlineHelpText>The auto re-approval criteria for the step</inlineHelpText>
     <label>Step Auto Reapproval Criteria</label>
     <length>32000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>
