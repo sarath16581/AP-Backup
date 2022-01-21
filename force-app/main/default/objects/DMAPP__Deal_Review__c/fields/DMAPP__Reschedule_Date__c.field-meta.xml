@@ -7,6 +7,7 @@
     <inlineHelpText>Deprecated</inlineHelpText>
     <label>Reschedule Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>

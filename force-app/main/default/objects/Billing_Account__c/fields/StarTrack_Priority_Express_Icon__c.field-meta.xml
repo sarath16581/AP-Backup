@@ -9,6 +9,7 @@ IF(StarTrack_Priority_Express_Calculated__c , &apos;/resource/StartrackPriorityE
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>StarTrack Priority Express Icon</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

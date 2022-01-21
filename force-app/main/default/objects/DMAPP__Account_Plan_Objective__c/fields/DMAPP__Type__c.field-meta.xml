@@ -6,6 +6,7 @@
     <inlineHelpText>Using the drop down list, select what type of Objective you are adding.</inlineHelpText>
     <label>Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

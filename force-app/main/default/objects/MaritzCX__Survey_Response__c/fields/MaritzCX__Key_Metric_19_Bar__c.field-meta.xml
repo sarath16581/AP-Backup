@@ -46,6 +46,7 @@ SUBSTITUTE($Setup.MaritzCX__ALG_Metric__c.MaritzCX__Color1__c, &quot;_img&quot;,
 IF(ISBLANK( MaritzCX__Key_Metric_19__c ),&quot;&quot;,TEXT(MaritzCX__Key_Metric_19__c) + &quot; &quot; + $Label.maritzcx__out_of_range ))</formula>
     <label>Key Metric 19</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

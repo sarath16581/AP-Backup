@@ -14,6 +14,7 @@ TODAY())</formula>
     <inlineHelpText>Calculated anniversary date based on contract start date and end date. Value will always be the next anniversary future date between the start and end date.</inlineHelpText>
     <label>Anniversary Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

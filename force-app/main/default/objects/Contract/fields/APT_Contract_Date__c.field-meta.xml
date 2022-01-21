@@ -6,6 +6,7 @@
     <inlineHelpText>The Date the contract is signed by customer</inlineHelpText>
     <label>Contract Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

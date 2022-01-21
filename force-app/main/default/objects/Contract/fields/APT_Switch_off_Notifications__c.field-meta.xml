@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Stops any email notifications from this contract records (NOTE: Setting the flag back to false does not switch them back on)</inlineHelpText>
     <label>Switch Off Notifications</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

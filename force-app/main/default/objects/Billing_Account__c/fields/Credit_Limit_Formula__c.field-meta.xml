@@ -6,6 +6,7 @@
     <inlineHelpText>Credit limit of the organisation/account.</inlineHelpText>
     <label>Credit Limit</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

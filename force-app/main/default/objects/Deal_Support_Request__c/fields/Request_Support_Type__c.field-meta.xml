@@ -6,6 +6,7 @@
     <inlineHelpText>What type of support do you require for request?</inlineHelpText>
     <label>Request Support Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

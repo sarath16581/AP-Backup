@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether there are any tasks pending for the agreement</inlineHelpText>
     <label>Is Task Pending</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

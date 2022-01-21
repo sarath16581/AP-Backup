@@ -5,6 +5,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>All Services Mode</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

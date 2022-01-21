@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether revenue schedules would be created for the order associated with the agreement when the agreement is executed.</inlineHelpText>
     <label>Auto Create Revenue ?</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

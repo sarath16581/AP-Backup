@@ -6,6 +6,7 @@
     <inlineHelpText>If employer is rescreening employees, how often are they completing this?</inlineHelpText>
     <label>If rescreening - how often?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

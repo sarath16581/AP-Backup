@@ -5,6 +5,7 @@
     <description>Check where there is an approver required for this request</description>
     <externalId>false</externalId>
     <label>Approver Required</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

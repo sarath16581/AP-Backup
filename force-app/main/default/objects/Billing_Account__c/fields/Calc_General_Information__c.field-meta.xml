@@ -6,6 +6,7 @@
     <formula>IF(NOT(ISBLANK(General_information__c)), General_information__c,  Organisation__r.General_Information__c)</formula>
     <label>General Information</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

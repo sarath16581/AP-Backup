@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Termination Comments</label>
     <length>1024</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

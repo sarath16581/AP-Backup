@@ -6,6 +6,7 @@
     <inlineHelpText>Discussion has resulted in merchant uptake</inlineHelpText>
     <label>Merchant adoption of Campaign</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

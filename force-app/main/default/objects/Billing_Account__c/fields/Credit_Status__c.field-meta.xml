@@ -4,6 +4,7 @@
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Is Blocked</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Checkbox</type>
 </CustomField>

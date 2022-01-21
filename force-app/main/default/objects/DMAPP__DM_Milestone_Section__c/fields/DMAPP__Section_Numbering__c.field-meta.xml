@@ -7,6 +7,7 @@
     <inlineHelpText>This determines how the numbering for the questions in this section should be applied.  The options are continue numbering from previous section, restart numbering in this section or don&apos;t show any numbers for this section.</inlineHelpText>
     <label>Section Numbering</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

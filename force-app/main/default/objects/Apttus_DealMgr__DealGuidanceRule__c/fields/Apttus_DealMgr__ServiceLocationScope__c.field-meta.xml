@@ -7,6 +7,7 @@
     <inlineHelpText>One or more service locations associated with the rule</inlineHelpText>
     <label>Service Location Scope</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

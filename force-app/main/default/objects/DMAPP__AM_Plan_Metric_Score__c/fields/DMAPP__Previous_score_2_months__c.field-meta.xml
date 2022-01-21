@@ -10,6 +10,7 @@
     <relationshipLabel>AM Plan Metric Scores (Previous score - 2 months)</relationshipLabel>
     <relationshipName>AM_Plan_Metric_Scores</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

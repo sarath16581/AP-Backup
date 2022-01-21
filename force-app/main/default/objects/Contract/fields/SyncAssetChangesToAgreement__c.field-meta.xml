@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether asset changes are synchronized to open agreements</inlineHelpText>
     <label>Sync Asset Changes To Agreement</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

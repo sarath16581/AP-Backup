@@ -9,6 +9,7 @@ Please provide name of anyone specific from Legal that has been involved previou
     <referenceTo>User</referenceTo>
     <relationshipName>Contract_Assistance_Forms</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

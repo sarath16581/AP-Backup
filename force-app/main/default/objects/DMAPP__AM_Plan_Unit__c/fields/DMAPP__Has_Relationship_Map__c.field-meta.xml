@@ -6,6 +6,7 @@
     <formula>AND(DMAPP__Account_Political_Map__c &lt;&gt; null, DMAPP__Account_Political_Map__c &lt;&gt; &apos;&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Has Relationship Map</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

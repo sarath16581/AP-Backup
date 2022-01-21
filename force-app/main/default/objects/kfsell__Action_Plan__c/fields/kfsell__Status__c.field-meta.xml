@@ -14,7 +14,7 @@
             <sorted>false</sorted>
             <value>
                 <fullName>Not Started</fullName>
-                <default>false</default>
+                <default>true</default>
                 <label>Not Started</label>
             </value>
             <value>
@@ -33,19 +33,51 @@
                 <label>Waiting on someone else</label>
             </value>
             <value>
-                <fullName>Waiting for Someone Else</fullName>
-                <default>false</default>
-                <label>Waiting for Someone Else</label>
-            </value>
-            <value>
                 <fullName>Deferred</fullName>
                 <default>false</default>
                 <label>Deferred</label>
             </value>
             <value>
+                <fullName>Waiting for Operations</fullName>
+                <default>false</default>
+                <label>Waiting for Operations</label>
+            </value>
+            <value>
+                <fullName>Acknowledged</fullName>
+                <default>false</default>
+                <label>Acknowledged</label>
+            </value>
+            <value>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <label>Rejected</label>
+            </value>
+            <value>
+                <fullName>Finished</fullName>
+                <default>false</default>
+                <label>Finished</label>
+            </value>
+            <value>
+                <fullName>Attempted Contact</fullName>
+                <default>false</default>
+                <label>Attempted Contact</label>
+            </value>
+            <value>
+                <fullName>Finished - Case Resolved</fullName>
+                <default>false</default>
+                <label>Finished - Case Resolved</label>
+            </value>
+            <value>
                 <fullName>On Hold</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>On Hold</label>
+            </value>
+            <value>
+                <fullName>Waiting for Someone Else</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Waiting for Someone Else</label>
             </value>
         </valueSetDefinition>
     </valueSet>

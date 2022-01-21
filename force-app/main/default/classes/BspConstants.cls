@@ -16,7 +16,8 @@
  * 2019-06-01 - saiswetha.pingali - modified
  * 2020-04-18 - Nathan Franklin - Added additional properties to determine context of user and access to bsp
  * 2020-08-07   Jansi - added new value for status picklist PICKLIST_VALUE_DEFAULT_All_STATUS
- * 2021-10-13   prerna.rahangdale@auspost.com.au PARMSIm Dev fix. 
+ * 2021-10-13   prerna.rahangdale@auspost.com.au PARMSIm Dev fix.
+ * 2021-01-17 Added new case categories for MPB
 */
 public class BspConstants{
     public static final String MPB_COMMUNITY_PROFILE_NAME = 'Mypost Business Help & Support Community User';
@@ -46,10 +47,19 @@ public class BspConstants{
     public static final String ENQUIRY_TYPE_MAIL_REDIRECTION_HOLD = 'mail redirection/hold';
     public static final String ENQUIRY_TYPE_ADVICE_ON_SENDING_PARCELS = 'advice on sending parcels';
     public static final String ENQUIRY_TYPE_TECHNICAL_ENQUIRY= 'technical enquiry';
-    public static final String ENQUIRY_TYPE_OTHER_ENQUIRY = 'other enquiry';
-    public static final String ENQUIRY_TYPE_TRACKING_ENQUIRY = 'tracking enquiry';
-    public static final String ENQUIRY_TYPE_GROWING_GLOBAL = 'growing global';
-    public static final String ENQUIRY_TYPE_MISSING_ITEM = 'missing item';
+
+    // MPB ENQUIRY TYPES
+    public static final String ENQUIRY_TYPE_MPB_DEL_ENQ= 'delivery enquiry';
+    public static final String ENQUIRY_TYPE_MPB_LABEL_ENQ = 'label enquiry';
+    public static final String ENQUIRY_TYPE_MPB_PICKUP_ENQ = 'pickup enquiry';
+    public static final String ENQUIRY_TYPE_MPB_PRICING_ENQ = 'pricing enquiry';
+    public static final String ENQUIRY_TYPE_MPB_OTHER_ENQ = 'other enquiry';
+
+    public static final String ENQUIRY_TYPE_MPB_TECH_XHIST_ENQ= 'Transaction History Request';
+    public static final String ENQUIRY_TYPE_MPB_TECH_ERROR_ENQ= 'Error Codes';
+    public static final String ENQUIRY_TYPE_MPB_TECH_PLATINT_ENQ= 'Platform Partner Integration';
+    public static final String ENQUIRY_TYPE_MPB_TECH_SYSTEM_ENQ= 'System Outage';
+
 
     public static final String ENQUIRY_TYPE_DELIVERY_ISSUE_LBL = 'Delivery Enquiry';
     public static final String ENQUIRY_TYPE_PCKUP_BOOKING_LBL = 'Pickup Booking Enquiry';
@@ -106,6 +116,26 @@ public class BspConstants{
     public static final String SELECT_OPTION_TAS = 'TAS';
     public static final String SELECT_OPTION_VIC = 'VIC';
     public static final String SELECT_OPTION_WA = 'WA';
+
+    /** MPB Case Sub type Start**/
+    public static final String SELECT_OPTION_MPB_LABEL_ENQ_REFUND = 'Request a refund';
+    public static final String SELECT_OPTION_MPB_LABEL_ENQ_LABEL_SUPPORT = 'Label Support';
+
+    public static final String SELECT_OPTION_MPB_PICKUP_ENQ_PICKUP_FAILURE = 'PickUp Failure';
+    public static final String SELECT_OPTION_MPB_PICKUP_ENQ_GENERAL = 'General';
+    public static final String SELECT_OPTION_MPB_PICKUP_ENQ_CHANGE_REQUEST= 'Change Request';
+
+    public static final String SELECT_OPTION_MPB_DEL_ENQ_TRACKING = 'Tracking status';
+    public static final String SELECT_OPTION_MPB_DEL_ENQ_DISPUTE = 'Disputed Delivery';
+    public static final String SELECT_OPTION_MPB_DEL_ENQ_MISSING = 'Missing item';
+    public static final String SELECT_OPTION_MPB_DEL_ENQ_DAMAGED = 'Damaged item';
+    public static final String SELECT_OPTION_MPB_DEL_ENQ_RETURN = 'Return to Sender';
+
+    public static final String SELECT_OPTION_MPB_PRICING_ENQ_DISCOUNT = 'Band Discount Enquiry';
+    public static final String SELECT_OPTION_MPB_PRICING_ENQ_SEND_VOL = 'Sending Volume Enquiry';
+    public static final String SELECT_OPTION_MPB_PRICING_ENQ_DISPUTED = 'Disputed Payment';
+    public static final String SELECT_OPTION_MPB_PRICING_ENQ_MORE_INFO = 'More Information';
+    /** MPB Case Sub type End**/
 
     public static final String PICKLIST_VALUE_DEFAULT_PLEASE_SELECT = 'Please select';
     public static final String PICKLIST_VALUE_DEFAULT_ALL_STATUS = 'All Status';

@@ -6,6 +6,7 @@
     <inlineHelpText>What does the Customer sell and to whom? Briefly, 3 sentences that relate to this opportunity  i.e. Boxed paint trays to retail outlets nationally.</inlineHelpText>
     <label>Customer brief</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

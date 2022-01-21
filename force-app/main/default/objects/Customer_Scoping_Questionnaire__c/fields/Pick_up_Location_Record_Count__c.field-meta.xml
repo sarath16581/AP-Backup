@@ -3,6 +3,7 @@
     <fullName>Pick_up_Location_Record_Count__c</fullName>
     <externalId>false</externalId>
     <label>Pick up Location Record Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Pick_Up_Location__c.Pick_up_Location_Status__c</field>
         <operation>equals</operation>

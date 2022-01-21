@@ -6,6 +6,7 @@
     <inlineHelpText>The object containing the custom field that&apos;s used for the count.</inlineHelpText>
     <label>Count object</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

@@ -5,6 +5,7 @@
     <inlineHelpText>Identify whether this is standard or customised pricing.</inlineHelpText>
     <label>Pricing Category</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

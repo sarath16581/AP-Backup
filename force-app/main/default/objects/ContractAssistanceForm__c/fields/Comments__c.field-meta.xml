@@ -6,6 +6,7 @@
     <inlineHelpText>Provide any other relevant information, instructions or considerations.</inlineHelpText>
     <label>Comments</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

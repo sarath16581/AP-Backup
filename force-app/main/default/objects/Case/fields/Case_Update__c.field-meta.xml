@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Case Update</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

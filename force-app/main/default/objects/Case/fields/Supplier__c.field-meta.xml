@@ -12,6 +12,7 @@ IF(FIND(TEXT(ProductSubCategory__c),&quot;Other Domestic Parcel Products,Star Tr
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Supplier</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -7,6 +7,7 @@
     <formula>IF(DMAPP__Minimum_Due_Date_Of_Open_Actions__c &lt; TODAY(), True, False)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Any Overdue Actions</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

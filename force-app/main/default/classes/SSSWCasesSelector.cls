@@ -80,7 +80,7 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 				Case.FirstName2__c, Case.FirstName3__c, Case.FirstName4__c, Case.FirstName5__c, Case.FirstName6__c, Case.FirstName7__c, Case.Full_Name__c, Case.Initiated_By__c,
 				Case.Internal_Milestones_Violated__c, Case.Internal_Tier_Escalation_Email__c, Case.Investigation_Date__c, Case.Is_Complaint__c, Case.IsCR__c,
 				Case.IsHLC__c, Case.Issue_Resolution__c, Case.Last_Name__c, Case.LastName1__c, Case.LastName2__c, Case.LastName3__c, Case.LastName4__c, Case.LastName5__c,
-				Case.LastName6__c, Case.LastName7__c, Case.Lodgement_Network__c, Case.MPB_BSP_Enquiry_Type__c, Case.MPB_BSP_Tech_Enquiry_Type__c, Case.Network__c,
+				Case.LastName6__c, Case.LastName7__c, Case.Lodgement_Network__c, Case.MPB_BSP_Enquiry_Type__c,Case.MPB_BSP_Sub_Enquiry_Type__c, Case.Network__c,
 				Case.Network_Response__c, Case.NetworkComments__c, Case.NPSRequired__c, Case.NPSScheduledDate__c, Case.NPSTagDate__c, Case.Number_of_Cases__c,
 				Case.Originating_Network__c, Case.Permanent_Close__c, Case.PrimaryContactFirstName__c, Case.PrimaryContactLastName__c, Case.Product__c,
 				Case.ProductCategory__c, Case.ProductSubCategory__c, Case.Reason_Code__c, Case.Refer_to_Third_Party__c, Case.ReferenceID__c, Case.RelatedCase__c,

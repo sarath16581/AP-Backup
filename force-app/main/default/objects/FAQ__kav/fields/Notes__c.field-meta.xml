@@ -5,6 +5,5 @@
     <externalId>false</externalId>
     <label>Notes</label>
     <required>false</required>
-    <trackHistory>true</trackHistory>
     <type>TextArea</type>
 </CustomField>

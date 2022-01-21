@@ -19,6 +19,7 @@ Re-purposed for MyNetwork UI uplift project, to assign cases to self, on Case Li
     <referenceTo>User</referenceTo>
     <relationshipName>PONUser</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

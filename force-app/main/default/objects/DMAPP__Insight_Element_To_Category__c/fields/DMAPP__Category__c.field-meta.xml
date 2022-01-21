@@ -9,6 +9,7 @@
     <relationshipLabel>Insight Element To Categories</relationshipLabel>
     <relationshipName>Insight_Element_To_Categories1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

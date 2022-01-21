@@ -8,6 +8,7 @@
     <referenceTo>Opportunity</referenceTo>
     <relationshipName>DM_Decision_Criterions</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

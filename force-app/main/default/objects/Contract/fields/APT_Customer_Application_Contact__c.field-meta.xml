@@ -8,6 +8,7 @@
     <relationshipLabel>Contracts (Customer Application Contact)</relationshipLabel>
     <relationshipName>Contracts2</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

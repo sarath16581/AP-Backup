@@ -9,6 +9,7 @@
     <relationshipLabel>Polygons</relationshipLabel>
     <relationshipName>Polygons</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Tactical Coverage Badge</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

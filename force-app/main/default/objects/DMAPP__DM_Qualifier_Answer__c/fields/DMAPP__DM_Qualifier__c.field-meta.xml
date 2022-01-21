@@ -9,6 +9,7 @@
     <relationshipLabel>Qualifier Answers</relationshipLabel>
     <relationshipName>DM_Qualifier_Answers</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

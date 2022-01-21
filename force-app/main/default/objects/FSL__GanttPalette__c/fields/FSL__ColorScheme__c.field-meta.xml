@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Color Scheme</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

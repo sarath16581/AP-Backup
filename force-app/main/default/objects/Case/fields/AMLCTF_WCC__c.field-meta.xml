@@ -5,6 +5,7 @@
     <formula>Network__r.Org_ID__c</formula>
     <label>WCC</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

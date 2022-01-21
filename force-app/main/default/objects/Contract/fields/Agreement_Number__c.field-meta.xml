@@ -6,6 +6,7 @@
     <label>Agreement Number_Num (INTERNAL)</label>
     <length>8</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -9,6 +9,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>CAM_HeadOfFinance</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Entitlement Process Stage</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

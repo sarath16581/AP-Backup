@@ -9,6 +9,7 @@
     <relationshipLabel>DM Plan Question Quicklinks</relationshipLabel>
     <relationshipName>DM_Plan_Question_Quicklinks</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

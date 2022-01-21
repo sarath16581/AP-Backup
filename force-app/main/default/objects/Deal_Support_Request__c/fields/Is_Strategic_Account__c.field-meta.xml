@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>Organisation__r.Is_Strategic_Account__c</formula>
     <label>Is Strategic Account</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

@@ -6,6 +6,7 @@
     <inlineHelpText>Please ensure the timeframe reflects the period of the analytics being requested</inlineHelpText>
     <label>Time frame of data provided?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

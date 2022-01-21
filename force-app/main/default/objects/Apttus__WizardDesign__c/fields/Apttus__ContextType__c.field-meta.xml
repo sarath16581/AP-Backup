@@ -11,6 +11,7 @@ All means that any step can be used in the wizard design.
 Object means that only aligned (same object) steps can be used in the wizard design.</inlineHelpText>
     <label>Context Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates this article needs to be reviewed</inlineHelpText>
     <label>Needs Review</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

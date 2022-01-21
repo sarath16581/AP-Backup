@@ -6,6 +6,7 @@
     <inlineHelpText>Billing system for integrated account</inlineHelpText>
     <label>Billing System (more than one)</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

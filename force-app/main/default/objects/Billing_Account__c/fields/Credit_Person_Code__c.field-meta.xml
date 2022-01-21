@@ -6,6 +6,7 @@
     <label>Credit Person Code</label>
     <length>10</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

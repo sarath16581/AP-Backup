@@ -6,6 +6,7 @@
     <formula>IF(ISBLANK(Owner:User.Id), Owner:Queue.QueueName, Owner:User.FirstName &amp; &apos; &apos; &amp; Owner:User.LastName)</formula>
     <label>Owner Name</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

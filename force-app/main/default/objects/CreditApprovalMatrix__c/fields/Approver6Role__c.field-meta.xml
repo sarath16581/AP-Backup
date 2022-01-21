@@ -6,6 +6,7 @@
     <inlineHelpText>Role of the sixth approver for this credit approval record (e.g. &quot;Customer Resolutions Manager&quot;, &quot;CEO&quot;).</inlineHelpText>
     <label>Approver 6 Role</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

@@ -5,6 +5,7 @@
     <description>StarTrack capture dangerous goods information</description>
     <externalId>false</externalId>
     <label>Dangerous Goods</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

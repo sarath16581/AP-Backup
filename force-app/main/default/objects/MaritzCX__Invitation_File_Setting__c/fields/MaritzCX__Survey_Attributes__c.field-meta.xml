@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Survey Attributes</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

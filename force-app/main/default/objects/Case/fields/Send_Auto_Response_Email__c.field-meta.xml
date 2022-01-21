@@ -5,6 +5,7 @@
     <description>StarTrack service cloud project created field to handle logic to determine whether to send an Email for Delivery enquiries (filtering out Business Solutions enquiries)</description>
     <externalId>false</externalId>
     <label>Send Auto Response Email</label>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

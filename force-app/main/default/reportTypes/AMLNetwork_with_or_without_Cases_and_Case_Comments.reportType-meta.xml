@@ -1519,11 +1519,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>MPB_BSP_Tech_Enquiry_Type__c</field>
-            <table>Network__c.Cases__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Requested_For__c</field>
             <table>Network__c.Cases__r</table>
         </columns>

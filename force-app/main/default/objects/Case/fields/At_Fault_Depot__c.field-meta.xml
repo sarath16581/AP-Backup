@@ -9,6 +9,7 @@
     <relationshipLabel>Cases (At Fault Depot)</relationshipLabel>
     <relationshipName>Cases1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

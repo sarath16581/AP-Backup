@@ -9,6 +9,7 @@
     <relationshipLabel>Module Users</relationshipLabel>
     <relationshipName>DVLS_Module_User</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

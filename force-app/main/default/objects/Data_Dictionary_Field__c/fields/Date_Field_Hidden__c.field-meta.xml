@@ -5,6 +5,7 @@
     <inlineHelpText>This is the date that the field was hidden from all users in preparation for deprecation and removal.</inlineHelpText>
     <label>Date Field Hidden</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

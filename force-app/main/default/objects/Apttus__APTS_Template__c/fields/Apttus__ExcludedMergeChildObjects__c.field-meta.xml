@@ -7,6 +7,7 @@
     <inlineHelpText>Specifies the child objects to exclude for a given parent from the merge process. Only applicable when a child object has multiple parents.</inlineHelpText>
     <label>Excluded Merge Child Objects</label>
     <length>4000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

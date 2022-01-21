@@ -729,11 +729,13 @@ public with sharing class ChasApexController {
             toBeCreateCase.Address4Country__c = deliveryOrRecipientCountry;   // Added newly INC1222366
 
             String wcid = (String) wizardData.get('wcid');
-
+            system.debug('all success - wizard: '+ wizardData.get('allArticlesSuccessed'));
+            system.debug('all fail - wizard: '+ wizardData.get('allArticlesNotSuccessed'));
             // DDS-7977: consignment handling optimize
             Boolean allArticlesSuccessed = wizardData.get('allArticlesSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesSuccessed')) : false;
             Boolean allArticlesNotSuccessed = wizardData.get('allArticlesNotSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesNotSuccessed')) : true;
-
+            system.debug('all success - wizard: '+ allArticlesSuccessed);
+            system.debug('all fail - wizard: '+ allArticlesNotSuccessed);
             // assign to my network only when articles are all successed or non-successed
             if (allArticlesSuccessed || allArticlesNotSuccessed)
             {
@@ -2224,6 +2226,17 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
         {
             return Database.insert(pSObjects);
         }
+
+        /**
+        * @description Method generating a case comment with required visibility
+        * @param pBody comment body
+        * @param pPublicFlag public visibility flag
+        * @return CaseComment resulting case comment
+        */
+        public CaseComment generateCaseComment(String pBody, Boolean pPublicFlag)
+        {
+            return new CaseComment(CommentBody = pBody, IsPublished = pPublicFlag);
+        }
     }
 
     private static Boolean noNetworkIdFound = false;                // flag for no network ID found in setDirectRoutingValues
@@ -2241,21 +2254,18 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
         // if target case is not an audience of network assignment quit early
         if (iCase.Automated_Network_Assignment__c) {
 
-            // SharingBypass helper = new SharingBypass();
+            SharingBypass helper = new SharingBypass();
 
             // create case comment if no network id found on network assigning
             if (noNetworkIdFound) {
-
-                comments.add(new CaseComment(CommentBody = 'Unable to find network with requested org ID: ' + unavailableOrgId, IsPublished = false));
-                // helper.createCaseComment(iCase.Id, comment, false, true);
+                comments.add(helper.generateCaseComment('Unable to find network with requested org ID: ' + unavailableOrgId, false));
             }
 
             // create case comment if no network group found in network assigning
             if (noNetworkGroupFound) {
-                comments.add(new CaseComment(CommentBody = 'Unable to find network with requested org ID: ' + unavailableOrgId, IsPublished = false));
+                comments.add(helper.generateCaseComment('Unable to find network queue for the requested org ID: ' + unavailableOrgId, false));
                 // helper.createCaseComment(iCase.Id, comment, false, true);
             }
-
         }
     }
     /**

@@ -6,6 +6,7 @@
     <inlineHelpText>If this is an existing (or recent) customer, please attach existing or recent contract</inlineHelpText>
     <label>New or Existing Customer</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

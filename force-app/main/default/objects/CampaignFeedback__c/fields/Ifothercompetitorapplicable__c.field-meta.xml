@@ -6,6 +6,7 @@
     <inlineHelpText>Can customer reveal who they are using if applicable?</inlineHelpText>
     <label>If other competitor applicable</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

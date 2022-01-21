@@ -6,6 +6,7 @@
     <inlineHelpText>Case.Type. If you cannot find a Type, ask your System Administrator to add it for you.</inlineHelpText>
     <label>Case Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

@@ -5,6 +5,7 @@
     <formula>IF(Override_BSC__c, Business_Solution_Customer__c, Organisation__r.Business_Solutions_Customer__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>BSC</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

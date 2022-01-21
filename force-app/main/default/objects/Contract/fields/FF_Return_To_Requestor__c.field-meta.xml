@@ -8,6 +8,7 @@
     <inlineHelpText>Return the contract to the requestor</inlineHelpText>
     <label>Return To Requestor</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

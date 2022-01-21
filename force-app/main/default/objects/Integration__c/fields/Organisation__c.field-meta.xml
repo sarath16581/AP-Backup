@@ -16,6 +16,7 @@
     <referenceTo>Account</referenceTo>
     <relationshipName>Partner_Agreements</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

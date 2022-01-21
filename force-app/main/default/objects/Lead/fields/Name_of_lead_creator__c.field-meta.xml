@@ -5,6 +5,7 @@
     <label>Name of lead creator</label>
     <length>50</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

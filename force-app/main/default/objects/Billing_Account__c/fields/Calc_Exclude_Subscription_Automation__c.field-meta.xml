@@ -5,6 +5,7 @@
     <formula>IF(Override_Exclude_Subscription_Automation__c, Exclude_Subscription_Automation__c, Organisation__r.Exclude_Subscription_Automation__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Exclude Scanning Automation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

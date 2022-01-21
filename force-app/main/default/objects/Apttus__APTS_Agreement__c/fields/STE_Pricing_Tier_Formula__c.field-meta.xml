@@ -8,6 +8,7 @@
     <inlineHelpText>The StarTrack pricing tier that is being offered to the Customer.</inlineHelpText>
     <label>ST Pricing Tier</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

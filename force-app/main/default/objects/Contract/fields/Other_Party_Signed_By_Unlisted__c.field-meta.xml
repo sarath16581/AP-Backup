@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Other Party Signed By (Unlisted)</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>TextArea</type>
 </CustomField>

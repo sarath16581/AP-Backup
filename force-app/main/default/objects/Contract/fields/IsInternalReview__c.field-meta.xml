@@ -5,6 +5,7 @@
     <description>Indicates internal review was initiated</description>
     <externalId>false</externalId>
     <label>Is Internal Review</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

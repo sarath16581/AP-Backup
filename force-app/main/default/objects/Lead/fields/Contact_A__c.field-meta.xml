@@ -6,6 +6,7 @@
     <inlineHelpText>How many times the lead has tried to be contacted</inlineHelpText>
     <label>Contact Attempts</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

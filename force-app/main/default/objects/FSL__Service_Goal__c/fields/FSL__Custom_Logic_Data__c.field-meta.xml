@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Custom Logic Data</label>
     <length>120000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

@@ -5,6 +5,7 @@
     <formula>IF(NOT(ISBLANK(At_Fault_Depot__c)), TRUE, FALSE)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Calc Fault Depot</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

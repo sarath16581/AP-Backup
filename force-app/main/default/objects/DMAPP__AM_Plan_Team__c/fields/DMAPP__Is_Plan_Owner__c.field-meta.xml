@@ -6,6 +6,7 @@
     <formula>DMAPP__Account_Plan__r.OwnerId =  DMAPP__User__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Plan Owner</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

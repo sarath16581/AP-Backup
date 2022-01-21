@@ -11,6 +11,7 @@ MOD(VALUE(Name),4)==0,MOD(VALUE(Name),100)!=0
 
 ),true, false)</formula>
     <label>Is Leap Year Calc</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

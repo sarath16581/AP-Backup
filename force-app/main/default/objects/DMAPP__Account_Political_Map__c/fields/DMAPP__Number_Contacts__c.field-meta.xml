@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Number Contacts</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__Account_Political_Map_Contact__c.DMAPP__Completed__c</summarizedField>
     <summaryForeignKey>DMAPP__Account_Political_Map_Contact__c.DMAPP__Political_Map__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

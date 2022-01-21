@@ -8,6 +8,7 @@
  * 2021-08-25 - Ranjeewa Silva - Created.
  * 2021-10-11 - Ranjeewa Silva - Implemented special handling for receiving "Accepted" job action out of order.
  * 2021-11-11 - Ranjeewa Silva - Fixed an issue where cancellation confirmed timestamp was not getting populated.
+ * 2022-01-18 - Ranjeewa Silva - Populate dispatch event timestamp on job.
  */
 
 public inherited sharing class PUDJobDispatchEventHandler {
@@ -57,7 +58,13 @@ public inherited sharing class PUDJobDispatchEventHandler {
 		}
 
 		// retrieve all parent jobs
-		Map<Id, PUD_Job__c> jobs = new Map<Id, PUD_Job__c>(PUDJobsSelector.newInstance().selectById(parentJobIds));
+		Map<Id, PUD_Job__c> jobs = new Map<Id, PUD_Job__c>(PUDJobsSelector.newInstance(0, new Set<SObjectField>{
+				PUD_Job__c.Id, PUD_Job__c.Status__c, PUD_Job__c.Failure_Reason__c, PUD_Job__c.Driver_Comments__c,
+				PUD_Job__c.Schedule_Request_Timestamp__c, PUD_Job__c.Cancellation_Request_Timestamp__c,
+				PUD_Job__c.Schedule_Confirmed_Timestamp__c, PUD_Job__c.Last_Pushed_to_Dispatch_System__c,
+				PUD_Job__c.Cancellation_Confirmed_Timestamp__c, PUD_Job__c.Failed_Timestamp__c, PUD_Job__c.Accepted_Timestamp__c,
+				PUD_Job__c.Completed_Timestamp__c, PUD_Job__c.Cancelled_Timestamp__c
+		}).selectById(parentJobIds));
 
 		// process each event to determine the list of updatable jobs
 		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>();
@@ -67,13 +74,13 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				// we have a valid Job Id. need to get the current job details before processing this event.
 				// if same job has been previously updated in current batch, get the job from 'updatableJobs' map. otherwise
 				// use the job record returned by selector query.
-				PUD_Job__c currentJob = updatableJobs.containsKey(jobId) ? updatableJobs.get(jobId): jobs.get(jobId);
+				PUD_Job__c updatableJob = updatableJobs.containsKey(jobId) ? updatableJobs.get(jobId): jobs.get(jobId);
 
 				// process the event and update job if required.
-				PUD_Job__c updatableJob = processJobActionEvent(event, currentJob);
-				if (updatableJob != null) {
+				Boolean isUpdated = processJobActionEvent(event, updatableJob);
+				if (isUpdated && !updatableJobs.containsKey(jobId)) {
 					// job has been updated as a result of processing current event.
-					// make it the version to be updated for this job id. discard any previous versions.
+					// add job instance into 'updatableJobs' map if not already in it.
 					updatableJobs.put(updatableJob.Id, updatableJob);
 				}
 			}
@@ -86,14 +93,14 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	}
 
 	/**
-	 * Process the event and update relevant Job details and return the updatable Job.
+	 * Process the event and update relevant details on the Job record passed in.
 	 *
 	 * @param event the event to process
 	 * @param job parent Job related to this event
 	 *
-	 * @return updateable instance of the Job. returns null if nothing to update.
+	 * @return true if job has been updated as a result of processing the event. false otherwise.
 	 */
-	private PUD_Job__c processJobActionEvent(PUD_Job_Dispatch_Event__e event, PUD_Job__c job) {
+	private Boolean processJobActionEvent(PUD_Job_Dispatch_Event__e event, PUD_Job__c job) {
 
 		// check if the mapping is available for the status in the event.
 		if (jobDispatchStatusMappings.containsKey(event.Status__c)) {
@@ -108,35 +115,44 @@ public inherited sharing class PUDJobDispatchEventHandler {
 					|| (job.Status__c == PUDConstants.PUD_JOB_STATUS_NEW || job.Status__c == PUDConstants.PUD_JOB_STATUS_SCHEDULE)) {
 
 				// job status has to be updated
-				PUD_Job__c updatableJob = new PUD_Job__c(Id = job.Id);
-				updatableJob.Status__c = jobStatus;
+				job.Status__c = jobStatus;
 
-				if (mapping.Is_Scheduled_Confirmation__c) {
+				if (mapping.Is_Scheduled_Confirmation__c && job.Schedule_Confirmed_Timestamp__c == null) {
 					// event is considered a confirmation for a schedule request. populate Schedule_Confirmed_Timestamp__c
 					// to current time if not already populated.
 					// if Schedule_Confirmed_Timestamp__c is already populated, that means we have already received a schedule
 					// confirmation for this job.
-					updatableJob.Schedule_Confirmed_Timestamp__c = (job.Schedule_Confirmed_Timestamp__c != null ? job.Schedule_Confirmed_Timestamp__c : System.now());
+					job.Schedule_Confirmed_Timestamp__c = System.now();
 				}
 
-				if (updatableJob.Status__c == PUDConstants.PUD_JOB_STATUS_FAILED) {
+				if (job.Status__c == PUDConstants.PUD_JOB_STATUS_FAILED) {
 					// populate failure reason and comments for Failed jobs.
-					updatableJob.Failure_Reason__c = event.Reason__c;
-					updatableJob.Driver_Comments__c = event.Comments__c;
-				}
-
-				if (updatableJob.Status__c == PUDConstants.PUD_JOB_STATUS_CANCELLED) {
+					job.Failure_Reason__c = event.Reason__c;
+					job.Driver_Comments__c = event.Comments__c;
+					job.Failed_Timestamp__c = event.Event_Timestamp__c;
+				} else if (job.Status__c == PUDConstants.PUD_JOB_STATUS_CANCELLED) {
 					// event is confirmation for a cancel request
 					// if Cancellation_Confirmed_Timestamp__c is already populated, that means we had already received a cancellation
 					// confirmation for this job.
-					updatableJob.Cancellation_Confirmed_Timestamp__c = (job.Cancellation_Confirmed_Timestamp__c != null ? job.Cancellation_Confirmed_Timestamp__c : System.now());
+					job.Cancellation_Confirmed_Timestamp__c = (job.Cancellation_Confirmed_Timestamp__c != null ? job.Cancellation_Confirmed_Timestamp__c : System.now());
+					job.Cancelled_Timestamp__c = event.Event_Timestamp__c;
+				} else if (job.Status__c == PUDConstants.PUD_JOB_STATUS_ACCEPTED) {
+					job.Accepted_Timestamp__c = event.Event_Timestamp__c;
+				} else if (job.Status__c == PUDConstants.PUD_JOB_STATUS_COMPLETED) {
+					job.Completed_Timestamp__c = event.Event_Timestamp__c;
 				}
-				return updatableJob;
+
+				return true;
+			} else {
+				// 'Accepted' job action received out of order. No need to update status as a subsequent job action has
+				// already been processed - only update the event timestamp for the 'Accepted' event.
+				job.Accepted_Timestamp__c = event.Event_Timestamp__c;
+				return true;
 			}
 		}
 
-		// nothing to update. return null
-		return null;
+		// nothing to update. return false
+		return false;
 	}
 
 	/**

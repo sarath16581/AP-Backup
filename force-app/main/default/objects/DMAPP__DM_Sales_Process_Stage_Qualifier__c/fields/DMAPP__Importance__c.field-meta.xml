@@ -11,6 +11,7 @@ Note that the importance level provided will impact:
 - Stage (highest importance qualifiers must be completed to move the opp. to the next stage)</inlineHelpText>
     <label>Importance</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

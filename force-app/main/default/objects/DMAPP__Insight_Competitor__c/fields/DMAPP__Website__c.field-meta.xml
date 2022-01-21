@@ -6,6 +6,7 @@
     <inlineHelpText>Provide a link to the competitor&apos;s website.</inlineHelpText>
     <label>Website</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Url</type>
 </CustomField>

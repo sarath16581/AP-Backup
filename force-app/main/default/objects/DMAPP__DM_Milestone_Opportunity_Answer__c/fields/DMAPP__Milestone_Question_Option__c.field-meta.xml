@@ -9,6 +9,7 @@
     <relationshipLabel>Milestone Opportunity Answers</relationshipLabel>
     <relationshipName>Milestone_Opportunity_Answers</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -8,5 +8,6 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Ideas</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Lookup</type>
 </CustomField>

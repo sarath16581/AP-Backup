@@ -6,6 +6,7 @@
     <inlineHelpText>Enter the High Yield Question, as you would like it asked.</inlineHelpText>
     <label>Question Text</label>
     <length>2048</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

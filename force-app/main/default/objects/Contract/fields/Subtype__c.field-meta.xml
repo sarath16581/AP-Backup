@@ -6,6 +6,7 @@
     <inlineHelpText>Depending on selection in this field, appropriate set of templates will be visible upon clicking &apos;Generate&apos;/&apos;Regenerate&apos; button.</inlineHelpText>
     <label>Subtype</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

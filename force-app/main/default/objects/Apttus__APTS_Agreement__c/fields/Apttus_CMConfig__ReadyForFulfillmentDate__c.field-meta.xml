@@ -7,6 +7,7 @@
     <inlineHelpText>The date the order is ready for fulfillment. The order is fulfilled on this date.</inlineHelpText>
     <label>Ready For Fulfillment Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

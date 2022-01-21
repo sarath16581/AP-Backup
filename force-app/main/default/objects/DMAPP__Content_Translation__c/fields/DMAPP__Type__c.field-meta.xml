@@ -29,6 +29,7 @@ if (NOT ISBLANK(DMAPP__Plan_Type__c) , &apos;Plan Type&apos;,
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

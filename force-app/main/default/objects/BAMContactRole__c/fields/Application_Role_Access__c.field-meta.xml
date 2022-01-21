@@ -8,6 +8,7 @@ IF( ApplicationRole__r.ShowGroup__c, &quot;&apos;Group&apos;&quot;,&quot;&quot;)
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Application Role Access</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

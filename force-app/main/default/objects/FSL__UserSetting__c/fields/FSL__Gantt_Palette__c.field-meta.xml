@@ -9,6 +9,7 @@
     <relationshipLabel>User Settings</relationshipLabel>
     <relationshipName>User_Settings</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

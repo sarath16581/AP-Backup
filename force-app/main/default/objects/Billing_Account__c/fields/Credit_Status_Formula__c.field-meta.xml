@@ -6,6 +6,7 @@
     <inlineHelpText>If flag is red then credit is blocked, please contact Credit team. If the flag is green, customer credit status is good.</inlineHelpText>
     <label>Credit Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

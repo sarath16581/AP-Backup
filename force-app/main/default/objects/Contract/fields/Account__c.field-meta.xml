@@ -9,6 +9,7 @@
     <relationshipLabel>Contracts (Account)</relationshipLabel>
     <relationshipName>SFCon_R00N50000001Xl0UEAS</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

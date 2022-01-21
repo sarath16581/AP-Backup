@@ -5,6 +5,7 @@
     <formula>ArticleTest__r.Product_Group__c = &apos;Next Flight&apos;</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Consignment Next Flight</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

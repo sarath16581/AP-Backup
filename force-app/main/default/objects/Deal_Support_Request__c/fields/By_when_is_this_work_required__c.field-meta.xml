@@ -6,6 +6,7 @@
     <inlineHelpText>Bearing in mind that the legal team are working on numerous matters with competing priorities, please provide a realistic date by when this work is required?</inlineHelpText>
     <label>By when is this work required?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

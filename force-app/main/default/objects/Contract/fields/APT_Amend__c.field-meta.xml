@@ -9,6 +9,7 @@ IF (OR(AND( NOT(ISPICKVAL( Initiation_Type__c , &quot;Migrated Contract&quot;)),
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Amend</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

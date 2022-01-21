@@ -12,6 +12,7 @@ IF(Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Percent</type>
 </CustomField>

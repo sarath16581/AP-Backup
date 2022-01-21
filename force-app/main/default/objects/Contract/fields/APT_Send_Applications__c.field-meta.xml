@@ -6,6 +6,7 @@
     <inlineHelpText>Send Applications and Questionnaires after sending LOI for Signatures</inlineHelpText>
     <label>Send Applications</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

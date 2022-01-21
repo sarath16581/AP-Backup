@@ -6,6 +6,7 @@
     <inlineHelpText>Select the secondary product being offered (if any)</inlineHelpText>
     <label>Other Product</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

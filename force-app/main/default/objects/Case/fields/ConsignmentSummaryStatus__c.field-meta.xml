@@ -5,6 +5,7 @@
     <formula>ArticleTest__r.Consignment_Summary_Status__c</formula>
     <label>Consignment Summary Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

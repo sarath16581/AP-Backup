@@ -6,6 +6,7 @@
 Consignment Lodgement Date; Dispatch Postcode; Dispatch Suburb, Receiver Postcode, Receiver Suburb, StarTrack Service Code; # items; Cubic dimensions (m3); Dead weight (kg); Carton/Satchel/Pallet &amp;/or Dangerous Goods (Y/N)</inlineHelpText>
     <label>What customer data can you provide?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

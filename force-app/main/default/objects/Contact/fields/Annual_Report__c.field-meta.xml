@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Send this contact a new Australia Post Annual Report each year. Ensure all personal and mailing details are correct.</inlineHelpText>
     <label>Annual Report</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Checkbox</type>

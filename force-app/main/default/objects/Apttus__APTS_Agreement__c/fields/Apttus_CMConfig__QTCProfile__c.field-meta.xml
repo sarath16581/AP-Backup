@@ -7,6 +7,7 @@
     <inlineHelpText>“Regular” will process the agreement as a single entity. Select “Split” before clicking on Configure Products to allow the subdivision of the agreement into multiple smaller agreements for business/volume related reasons or multiple sold to accounts.</inlineHelpText>
     <label>QTC Profile</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

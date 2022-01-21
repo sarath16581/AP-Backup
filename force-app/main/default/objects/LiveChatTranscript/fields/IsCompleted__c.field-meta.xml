@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <formula>IF (ISPICKVAL(Status, &quot;completed&quot;),true,false)</formula>
     <label>Is Completed</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

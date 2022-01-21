@@ -8,6 +8,7 @@
     <precision>17</precision>
     <required>false</required>
     <scale>2</scale>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Currency</type>
 </CustomField>

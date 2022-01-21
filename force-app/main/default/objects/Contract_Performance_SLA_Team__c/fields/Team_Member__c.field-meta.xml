@@ -7,6 +7,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Contract_Performance_SLA_Teams</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

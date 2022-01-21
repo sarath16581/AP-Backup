@@ -6,6 +6,7 @@
     <inlineHelpText>An expression of dissatisfaction made to Australia Post, related to our products or services, or our complaints handling process itself, where a response or resolution is expected</inlineHelpText>
     <label>Complaint</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

@@ -6,6 +6,7 @@
     <label>PrintPost Volume Or Estimated Rev</label>
     <length>200</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

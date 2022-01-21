@@ -23,7 +23,7 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>SSSW - FAQ Articles.</description>
     <enableFeeds>false</enableFeeds>
-    <enableHistory>true</enableHistory>
+    <enableHistory>false</enableHistory>
     <label>FAQ</label>
     <pluralLabel>FAQs</pluralLabel>
 </CustomObject>

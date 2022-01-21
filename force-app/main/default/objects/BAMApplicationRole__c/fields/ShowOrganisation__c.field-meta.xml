@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Determines whether to show Organisation selector when Role is selected. Since BAM is always in the context of a single Org, this won&apos;t render an actual field, but it&apos;s an indicator to let BAM know to store the Organisation record on the Auth Rule record.</inlineHelpText>
     <label>Show Organisation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

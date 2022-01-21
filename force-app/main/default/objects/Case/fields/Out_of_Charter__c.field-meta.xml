@@ -8,6 +8,7 @@ IF(SLATargetDate__c &gt; now(),false,true),            /*compare SLA date to now
 If(ClosedDate&gt;SLATargetDate__c,true,false))))  /* or closed date is set compare to SLAtargetdate,set flag on if closed date&gt;the /*SLA*/</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Out of Charter</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

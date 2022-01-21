@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>SLA Target Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>DateTime</type>

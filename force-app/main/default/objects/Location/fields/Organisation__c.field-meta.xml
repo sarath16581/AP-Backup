@@ -8,6 +8,7 @@
     <relationshipLabel>Locations</relationshipLabel>
     <relationshipName>Locations</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

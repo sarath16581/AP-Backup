@@ -11,6 +11,7 @@ $Label.Approval_Escalation_Email_Template_Message_2 ,$Label.Approval_Escalation_
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Escalation Email Message 2 (DEPRECATED)</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

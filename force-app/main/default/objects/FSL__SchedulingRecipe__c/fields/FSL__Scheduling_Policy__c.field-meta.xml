@@ -9,6 +9,7 @@
     <relationshipLabel>Scheduling Recipes</relationshipLabel>
     <relationshipName>Scheduling_Recipes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

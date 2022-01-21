@@ -6,6 +6,7 @@
     <inlineHelpText>End Of Project Transition to BAU</inlineHelpText>
     <label>License/Product Use/Purpose</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

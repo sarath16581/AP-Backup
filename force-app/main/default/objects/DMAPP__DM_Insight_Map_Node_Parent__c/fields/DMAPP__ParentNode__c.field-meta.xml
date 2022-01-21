@@ -8,6 +8,7 @@
     <referenceTo>DMAPP__DM_Collaboration_Map_Node__c</referenceTo>
     <relationshipName>InsightMapChildren</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

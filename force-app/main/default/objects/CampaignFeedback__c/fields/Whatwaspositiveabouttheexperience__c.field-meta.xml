@@ -6,6 +6,7 @@
     <inlineHelpText>Factors that influenced customer to be satisfied or not with AP performance</inlineHelpText>
     <label>What was positive about the experience?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

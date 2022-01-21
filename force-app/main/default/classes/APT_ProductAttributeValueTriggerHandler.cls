@@ -22,7 +22,7 @@ Changes Made - Fix to set industry attribute only if the value is not blank at o
 Mathew Jose - 29/05/2021 - Added to beforeInsertEvent method to set the zone dispersions (STP-5812)
 Mathew Jose - 29/05/2021 - Added afterUpdateEvent method to set the Is Band Changed flag on lineItem (STP-5812)
 
-
+Naveen Rajanna - 18/01/2022 - REQ2649482 - Modified Minimum Quantity to be set to Category low and high if entered quantity exceeds category range
                 
 **/
 public with sharing class APT_ProductAttributeValueTriggerHandler {
@@ -287,17 +287,37 @@ public with sharing class APT_ProductAttributeValueTriggerHandler {
                 //set band
                 
                 //set min quantity based on category
-                if(pav.Category__c != null) {    //defect 1057
-                    if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT1) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 1000)) {
-                        pav.APT_Minimum_Quantity__c = 1000;
-                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT2) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 2000)) {
-                        pav.APT_Minimum_Quantity__c = 2000;
-                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT3) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 5000)) {
-                        pav.APT_Minimum_Quantity__c = 5000;
-                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT4) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 10000)) {
-                        pav.APT_Minimum_Quantity__c = 10000;
-                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT5) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 20000)) {
-                        pav.APT_Minimum_Quantity__c = 20000;
+                if(pav.Category__c != null) {    //defect 1057 //REQ2649482
+                    if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT1)) {
+                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
+                                                        || pav.APT_Minimum_Quantity__c == 1 
+                                                        || pav.APT_Minimum_Quantity__c < 1000) 
+                                                        ? 1000 
+                                                        : 1999;
+                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT2)) {
+                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
+                                                        || pav.APT_Minimum_Quantity__c == 1 
+                                                        || pav.APT_Minimum_Quantity__c < 2000) 
+                                                        ? 2000 
+                                                        : 4999;
+                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT3)) {
+                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
+                                                        || pav.APT_Minimum_Quantity__c == 1 
+                                                        || pav.APT_Minimum_Quantity__c < 5000) 
+                                                        ? 5000 
+                                                        : 9999;
+                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT4)) {
+                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
+                                                        || pav.APT_Minimum_Quantity__c == 1 
+                                                        || pav.APT_Minimum_Quantity__c < 10000) 
+                                                        ? 10000 
+                                                        : 19999;
+                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT5)) {
+                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
+                                                        || pav.APT_Minimum_Quantity__c == 1 
+                                                        || pav.APT_Minimum_Quantity__c < 20000) 
+                                                        ? 20000 
+                                                        : 49999;
                     } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT6) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 50000)) {
                         pav.APT_Minimum_Quantity__c = 50000;
                     } else { }

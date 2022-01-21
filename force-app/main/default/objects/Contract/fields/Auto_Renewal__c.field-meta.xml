@@ -5,6 +5,7 @@
     <description>Indicates whether the agreement has an auto renewal provision</description>
     <externalId>false</externalId>
     <label>Auto Renew</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

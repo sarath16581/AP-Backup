@@ -8,6 +8,7 @@
 This is displayed to the user in the content item pop-up display.</inlineHelpText>
     <label>Description</label>
     <length>1024</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

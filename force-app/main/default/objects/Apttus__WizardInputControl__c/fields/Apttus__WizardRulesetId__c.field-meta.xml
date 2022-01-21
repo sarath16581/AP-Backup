@@ -10,6 +10,7 @@
     <referenceTo>Apttus__WizardRuleset__c</referenceTo>
     <relationshipName>Wizard_Input_Controls1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

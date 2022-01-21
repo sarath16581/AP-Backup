@@ -6,6 +6,7 @@
     <formula>IF(NOT(ISBLANK(TEXT(RA_required__c))), TEXT(RA_required__c ), TEXT(Organisation__r.RA_required__c))</formula>
     <label>Is RA required?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

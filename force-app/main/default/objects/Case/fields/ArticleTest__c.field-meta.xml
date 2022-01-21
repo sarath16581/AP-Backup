@@ -8,6 +8,7 @@
     <relationshipLabel>Cases</relationshipLabel>
     <relationshipName>Cases</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Lookup</type>

@@ -6,6 +6,7 @@
     <inlineHelpText>Enter date Change Set is or to be deployed in production</inlineHelpText>
     <label>Deployment Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>

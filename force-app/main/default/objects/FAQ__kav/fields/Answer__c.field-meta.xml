@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Answer</label>
     <length>32768</length>
-    <trackHistory>true</trackHistory>
     <type>Html</type>
     <visibleLines>25</visibleLines>
 </CustomField>

@@ -9,6 +9,7 @@ ISPICKVAL(Apttus__Status_Category__c, &quot;In Authoring&quot;)), HYPERLINK(&quo
     <inlineHelpText>Merge multiple documents together into one single PDF file</inlineHelpText>
     <label>Merge Contract Documents</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

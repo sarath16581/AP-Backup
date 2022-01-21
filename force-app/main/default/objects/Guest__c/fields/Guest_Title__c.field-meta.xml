@@ -6,6 +6,7 @@
     <inlineHelpText>This information comes from Contact record.</inlineHelpText>
     <label>Guest Title</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

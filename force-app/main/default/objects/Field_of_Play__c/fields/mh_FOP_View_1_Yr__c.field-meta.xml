@@ -6,6 +6,7 @@
     <label>FOP View 1 Yr</label>
     <length>10</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

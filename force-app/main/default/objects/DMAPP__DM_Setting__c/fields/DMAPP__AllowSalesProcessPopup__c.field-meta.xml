@@ -6,6 +6,7 @@
     <description>Enable Playbook Sales Process to be selected/changed on the page</description>
     <externalId>false</externalId>
     <label>AllowSalesProcessPopup</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

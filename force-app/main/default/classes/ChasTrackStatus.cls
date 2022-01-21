@@ -78,7 +78,7 @@ public without sharing class ChasTrackStatus {
                 {
                     Map<String, Boolean> lArticleFlags = this.getArticlesSuccessFlags(response.articles);
                     this.allArticlesSuccessed = lArticleFlags.get('allSuccess');
-                    this.allArticlesNotSuccessed = lArticleFlags.get('allFailure');
+                    this.allArticlesNotSuccessed = lArticleFlags.get('allFailed');
                 }
                 catch (Exception e)
                 {

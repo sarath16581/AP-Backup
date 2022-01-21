@@ -5,6 +5,7 @@
     <inlineHelpText>Please include product specialist comments/recommendations if relevant</inlineHelpText>
     <label>Product Specialist Recommendations</label>
     <length>1000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

@@ -6,6 +6,7 @@
     <inlineHelpText>When the employer is paying for the background check, who is owning the background check process?</inlineHelpText>
     <label>When employer is paying, who completes?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

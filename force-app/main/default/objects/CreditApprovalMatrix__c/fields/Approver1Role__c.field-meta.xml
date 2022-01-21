@@ -6,6 +6,7 @@
     <inlineHelpText>Role of the first approver for this credit approval record. E.g. Customer Resolutions Manager</inlineHelpText>
     <label>Approver 1 Role</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

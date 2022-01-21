@@ -26,6 +26,8 @@ History:
 2021-08-12 - Ranjeewa Silva - Implemented changes to support dispatch system (MobileSTAR) integration.
 2021-09-29 - Ranjeewa Silva - Populate additional address details (frontage geocode and side of street) on jobs.
 2021-10-12 - Ranjeewa Silva - Added Start Time to the list of fields updateable on jobs in 'Schedule' and 'Accepted' status.
+2021-11-09 - Mathew Jose - Updated refreshjobs method to Cancel the current day's jobs in 'Schedule' and 'Accepted' statuses when a No Pickup is raised(Booking Exception).
+
 -------------------------
 */
 public with sharing class PUDUtility {
@@ -315,11 +317,17 @@ public with sharing class PUDUtility {
 			// IMPORTANT - Jobs are not allowed to be deleted (cancelled) through the parent booking after it has been sent to dispatch system.
 			// In this scenario, updates must be cancelled individually on the Job.
 			if(jobNew == null && jobsExistingMap.get(strBookingDateKey).Status__c == PUDConstants.PUD_JOB_STATUS_NEW){
-
 				// existing job is in 'New' status. delete the job as this is no longer needed.
 				PUD_Job__c jobExisting = new PUD_Job__c();
 				jobExisting = jobsExistingMap.get(strBookingDateKey);
-				jobDeleteList.add(jobExisting);
+				jobDeleteList.add(jobExisting);				
+			}else if(jobNew == null && (jobsExistingMap.get(strBookingDateKey).Status__c == PUDConstants.PUD_JOB_STATUS_SCHEDULE || jobsExistingMap.get(strBookingDateKey).Status__c == PUDConstants.PUD_JOB_STATUS_ACCEPTED)){
+				//If no new Job found for the same booking and date, provided the current job statuses are either in Accepted or Schedule.
+				//Update the existing Job status to 'Cancel' status. This is introduced as an enhancement to 'No Pickup' action on the booking record.
+				PUD_Job__c jobExisting = jobsExistingMap.get(strBookingDateKey);
+				//Change - Updating the Job status to 'Cancel' rather than deleting the job
+				jobExisting.Status__c = PUDConstants.PUD_JOB_STATUS_CANCEL;
+				jobUpdateList.add(jobExisting);				
 			}
 		}//end jobExisting loop
 

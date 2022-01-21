@@ -5,6 +5,7 @@
     <description>Indicates the record is the default setting should no matches be found when assigning to the workflow reporting table</description>
     <externalId>false</externalId>
     <label>Default Setting</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

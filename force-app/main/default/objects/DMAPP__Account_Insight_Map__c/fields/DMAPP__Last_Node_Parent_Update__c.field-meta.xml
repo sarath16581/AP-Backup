@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Last Node Parent Update</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__Account_Insight_Map_Node_Parent__c.LastModifiedDate</summarizedField>
     <summaryForeignKey>DMAPP__Account_Insight_Map_Node_Parent__c.DMAPP__Account_Insight_Map__c</summaryForeignKey>
     <summaryOperation>max</summaryOperation>

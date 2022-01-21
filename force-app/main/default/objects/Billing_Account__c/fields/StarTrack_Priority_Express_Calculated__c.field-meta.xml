@@ -5,6 +5,7 @@
     <formula>IF( Override_ST_Priority_Express__c , StarTrack_Priority_Express_Customer__c , Organisation__r.StarTrack_Priority_Express_Customer__c )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>StarTrack Priority Express Customer</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

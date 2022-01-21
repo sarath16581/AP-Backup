@@ -9,6 +9,7 @@
     <relationshipLabel>Test Question Answer Responses</relationshipLabel>
     <relationshipName>DM_DVLS_Question_Answer_Responses</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

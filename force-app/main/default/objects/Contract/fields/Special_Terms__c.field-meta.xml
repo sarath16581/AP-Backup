@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Special Terms</label>
     <length>32000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

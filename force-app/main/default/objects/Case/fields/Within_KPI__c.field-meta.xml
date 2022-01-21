@@ -17,6 +17,7 @@ IF(ISPICKVAL(Work_Type__c, &quot;User Support&quot;) &amp;&amp; Case_Age_In_Busi
 IF(ISPICKVAL(Work_Type__c, &quot;User Support&quot;) &amp;&amp; Case_Age_In_Business_Hours__c &lt;20, &quot;Target&quot;, &quot;Fail&quot;))))))))</formula>
     <label>Within KPI</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

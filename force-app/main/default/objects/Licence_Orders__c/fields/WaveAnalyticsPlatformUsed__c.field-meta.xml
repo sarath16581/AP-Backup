@@ -3,6 +3,7 @@
     <fullName>WaveAnalyticsPlatformUsed__c</fullName>
     <externalId>false</externalId>
     <label>WaveAnalyticsPlatformUsed</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Salesforce_Licence__c.WaveAnalyticsPlatform__c</summarizedField>
     <summaryForeignKey>Salesforce_Licence__c.Licence_Orders__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

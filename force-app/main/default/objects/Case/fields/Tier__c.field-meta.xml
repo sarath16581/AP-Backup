@@ -7,6 +7,7 @@ IF(RecordType.Name = &apos;Delivery Enquiry&apos; &amp;&amp; (TEXT(Value_of_Good
 IF(RecordType.Name = &apos;Delivery Enquiry&apos; &amp;&amp; (TEXT(Value_of_Goods__c) = &apos;$1500+ - $10k&apos;), &apos;3&apos;, &apos;&apos;)))</formula>
     <label>Security Tier</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

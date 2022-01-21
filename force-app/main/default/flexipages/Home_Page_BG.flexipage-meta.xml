@@ -44,6 +44,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
+                <identifier>wave_waveDashboard</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.C360_Portfolio_AlphaBeta}</leftValue>
@@ -60,11 +61,13 @@
         <itemInstances>
             <componentInstance>
                 <componentName>home:topDealsContainer</componentName>
+                <identifier>home_topDealsContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>home:recentRecordContainer</componentName>
+                <identifier>home_recentRecordContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -78,6 +81,7 @@
                     <value>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;User Support&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://auspostprod.service-now.com/cmsmyit/cmsmyit_order.do?sysparm_document_key=sc_cat_item_producer,8b83870a5c911100e271187d98a6b7d1&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;User Support Request&lt;/a&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText</identifier>
             </componentInstance>
         </itemInstances>
         <name>left</name>
@@ -87,11 +91,13 @@
         <itemInstances>
             <componentInstance>
                 <componentName>home:assistant</componentName>
+                <identifier>home_assistant</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_approval_process:pendingApprovalCard</componentName>
+                <identifier>runtime_approval_process_pendingApprovalCard</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -121,6 +127,7 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
                     <criteria>
@@ -178,6 +185,7 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard2</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
@@ -214,6 +222,7 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard3</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -256,6 +265,7 @@
                     <value>7</value>
                 </componentInstanceProperties>
                 <componentName>th_trailheadAssignments</componentName>
+                <identifier>th_trailheadAssignments</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.Show_Trailhead_Training}</leftValue>
@@ -268,11 +278,13 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:todayTaskContainer</componentName>
+                <identifier>runtime_sales_activities_todayTaskContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>home:eventContainer</componentName>
+                <identifier>home_eventContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>right</name>

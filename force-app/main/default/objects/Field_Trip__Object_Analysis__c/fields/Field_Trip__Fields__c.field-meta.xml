@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Fields</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Field_Trip__Field_Analysis__c.Field_Trip__Object_Analysis__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

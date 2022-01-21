@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Completed Review Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>DMAPP__Deal_Review__c.DMAPP__Is_Complete__c</field>
         <operation>equals</operation>

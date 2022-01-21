@@ -10,6 +10,7 @@
     <relationshipLabel>Insight Solution Opportunities</relationshipLabel>
     <relationshipName>Insight_Solution_Opportunities</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

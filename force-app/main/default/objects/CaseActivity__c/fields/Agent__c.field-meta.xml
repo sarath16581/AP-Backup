@@ -8,6 +8,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Case_Activities</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

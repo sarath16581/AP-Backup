@@ -12,6 +12,7 @@ IF(IsNewForRouting__c,&apos;true&apos;,&apos;false&apos;) &amp;
 TEXT(Origin)</formula>
     <label>Routing Key</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

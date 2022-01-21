@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates the number of clauses associated with the template</inlineHelpText>
     <label>Number Of Clauses</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Apttus__TemplateClauseReference__c.Apttus__TemplateId__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackTrending>false</trackTrending>

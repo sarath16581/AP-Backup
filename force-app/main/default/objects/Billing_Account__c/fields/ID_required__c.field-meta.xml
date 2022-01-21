@@ -6,6 +6,7 @@
     <inlineHelpText>Override Customer Account level restriction</inlineHelpText>
     <label>ID required upon delivery?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

@@ -9,6 +9,7 @@
     <relationshipLabel>MaritzCX Responses</relationshipLabel>
     <relationshipName>Allegiance_Survey_Responses</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <inlineHelpText>Short Description of the Application that will be exposed in BAM.</inlineHelpText>
     <label>Short Description</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

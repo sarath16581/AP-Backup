@@ -11,6 +11,7 @@
     <relationshipLabel>Quotes (Bill To)</relationshipLabel>
     <relationshipName>QuotesBillTo</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

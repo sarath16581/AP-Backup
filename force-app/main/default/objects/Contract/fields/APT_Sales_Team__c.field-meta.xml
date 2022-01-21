@@ -6,6 +6,7 @@
     <inlineHelpText>Sales Team of the Owner of the Record</inlineHelpText>
     <label>Sales Team</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>TextArea</type>
 </CustomField>

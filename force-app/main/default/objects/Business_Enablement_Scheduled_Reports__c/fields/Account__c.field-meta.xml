@@ -7,6 +7,7 @@
     <referenceTo>Account</referenceTo>
     <relationshipName>Business_Enablement_Scheduled_Reports</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

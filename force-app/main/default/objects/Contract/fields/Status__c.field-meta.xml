@@ -8,6 +8,7 @@ Cancelled Request, In Amendment, Being Amended, Superseded, Activated, Expired, 
     <externalId>false</externalId>
     <label>Contract Steps Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Please check this box if the email is not available for this contact.</inlineHelpText>
     <label>I requested an email address</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

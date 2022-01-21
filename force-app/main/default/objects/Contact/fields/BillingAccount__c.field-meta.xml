@@ -9,6 +9,7 @@
     <relationshipLabel>Contacts</relationshipLabel>
     <relationshipName>Contacts</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Lookup</type>

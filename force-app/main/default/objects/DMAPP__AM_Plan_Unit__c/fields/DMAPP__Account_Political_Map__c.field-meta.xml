@@ -8,6 +8,7 @@
     <referenceTo>DMAPP__Account_Political_Map__c</referenceTo>
     <relationshipName>Plan_Units</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

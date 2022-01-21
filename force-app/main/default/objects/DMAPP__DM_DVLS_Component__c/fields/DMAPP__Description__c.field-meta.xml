@@ -8,6 +8,7 @@
 This is displayed to the user on click of the &apos;i&apos; icon to the right of the component name in the eLearning player.</inlineHelpText>
     <label>Description</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Html</type>
     <visibleLines>25</visibleLines>

@@ -8,6 +8,7 @@
     <label>Day</label>
     <length>100</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

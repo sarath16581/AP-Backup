@@ -4,6 +4,7 @@
     <description>Rule ID</description>
     <externalId>false</externalId>
     <label>Rule_ID</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>AutoNumber</type>
 </CustomField>

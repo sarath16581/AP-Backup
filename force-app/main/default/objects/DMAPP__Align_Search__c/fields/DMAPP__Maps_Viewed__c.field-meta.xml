@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Maps Viewed</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>DMAPP__Align_Search_Usage__c.DMAPP__Type__c</field>
         <operation>equals</operation>

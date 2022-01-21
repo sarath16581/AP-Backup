@@ -6,6 +6,7 @@
     <label>Scorecard Batch Job Id</label>
     <length>16</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -10,6 +10,7 @@
     <relationshipLabel>Qualifier Process Stages</relationshipLabel>
     <relationshipName>DM_Sales_Process_Stage_Qualifiers</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

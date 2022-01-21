@@ -8,6 +8,7 @@ Leave this field empty if you don&apos;t want to create breaks.</inlineHelpText>
     <label>Break Start</label>
     <length>5</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

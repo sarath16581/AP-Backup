@@ -1249,11 +1249,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>MPB_BSP_Tech_Enquiry_Type__c</field>
-            <table>Contact.Cases</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Requested_For__c</field>
             <table>Contact.Cases</table>
         </columns>

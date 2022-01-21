@@ -8,6 +8,7 @@
     <relationshipLabel>Configuration updates</relationshipLabel>
     <relationshipName>Configuration_updates</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

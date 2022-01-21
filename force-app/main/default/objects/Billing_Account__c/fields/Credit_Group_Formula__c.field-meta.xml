@@ -5,6 +5,7 @@
     <formula>IF(ISBLANK(PAYER_ACCOUNT_ID__c ),  Credit_Group__c  ,&quot;NA&quot;)</formula>
     <label>Credit Group</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

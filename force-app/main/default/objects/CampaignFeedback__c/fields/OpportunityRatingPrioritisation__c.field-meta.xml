@@ -6,6 +6,7 @@
     <inlineHelpText>Priority rating is based on revenue opportunity of the Growth products, the propensity for the customer to be inclined to be interested in this product, and whether the customer has previously used the product.</inlineHelpText>
     <label>Opportunity Rating (Prioritisation)</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

@@ -7,6 +7,7 @@
     <inlineHelpText>Mapping used while restoring non writable fields.</inlineHelpText>
     <label>Restore Field Mapping</label>
     <length>131072</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

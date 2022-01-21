@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates a system initiated update.</inlineHelpText>
     <label>Is System Update</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

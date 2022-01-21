@@ -5,6 +5,7 @@
     <description>Used to manage duty boards that span across two calendar days (e.g. start before midnight, and end in next day). True indicates that the job occurs the day after the start day of the Duty Board.</description>
     <externalId>false</externalId>
     <label>Next Day Job</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

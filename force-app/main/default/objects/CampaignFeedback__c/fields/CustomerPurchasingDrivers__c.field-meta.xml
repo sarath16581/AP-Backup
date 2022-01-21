@@ -6,6 +6,7 @@
     <inlineHelpText>Not related to notifications, what is key decision making factor for your customer</inlineHelpText>
     <label>Customer Purchasing Drivers</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

@@ -7,6 +7,7 @@
     <label>Default Left Panel</label>
     <length>20</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

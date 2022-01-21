@@ -187,12 +187,11 @@
                                                 value="Close Case" action="{!close}" rerender="formId" oncomplete="showInfoDialog();RefreshPrimaryTabById();setActive(this, 'Close Case'); return false;"/>
                             &nbsp;
                             <apex:commandButton style="height:30px; width:17%" styleClass="btn detail" value="Cancel" rerender="formId" oncomplete="RefreshTab(); return false;"/>
+                            &nbsp;  
+                            <!-- Reassign button for manual routing -->
+                            <apex:commandButton style="height:30px; width:17%" action="{!assignCase}" onclick="setInactive(this, 'Reassigning...');" oncomplete="showErrorDialog();" styleClass="btn detail" value="Reassign" rerender="formId" disabled="{!isChildCase}"/>
                             &nbsp;
                             <apex:commandButton style="height:30px; width:17%" styleClass="btn detail" value="Clone" onclick="setInactive(this, 'Cloning...');openAClonedTab(this); return false;" oncomplete="return false;"/>
-
-                            &nbsp;         <!-- Reassign button for manual routing -->
-                            <apex:commandButton style="height:30px; width:17%" action="{!assignCase}" onclick="setInactive(this, 'Reassigning...');" oncomplete="showErrorDialog();" styleClass="btn detail" value="Reassign" rerender="formId" disabled="{!isChildCase}"/>
-
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@
     <inlineHelpText>Why is the merchant not considering selling on Amazon?</inlineHelpText>
     <label>If no, why?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

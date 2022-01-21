@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether the agreement was activated by an auto system operation</inlineHelpText>
     <label>Is Auto Activated</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

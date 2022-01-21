@@ -5,6 +5,7 @@
     <formula>Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_To_Address_Street__c  &amp; &apos; &apos; &amp;   Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_To_Address_City__c  &amp; &apos; &apos; &amp;    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_To_Instructions__c  &amp; &apos; &apos; &amp;    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_To_Contact_Name__c  &amp; &apos; &apos; &amp;    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_To_Contact_Number__c</formula>
     <label>To Address</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -6,6 +6,7 @@
     <inlineHelpText>What portion of the lost business can be recovered?</inlineHelpText>
     <label>Portion of recovery (if opp present)?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

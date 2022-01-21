@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates if APR was stopped in SAP or not. Flag is used for filtering of records in Reports</inlineHelpText>
     <label>APR Stopped In SAP</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

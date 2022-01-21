@@ -9,6 +9,7 @@
     <inlineHelpText>Review Status</inlineHelpText>
     <label>Review Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

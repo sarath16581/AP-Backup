@@ -6,6 +6,7 @@
     <formula>IF(NOT(ISBLANK(TEXT(Short_Delivery__c))), TEXT(Short_Delivery__c), TEXT(Organisation__r.Short_Delivery__c))</formula>
     <label>Allow short delivery?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

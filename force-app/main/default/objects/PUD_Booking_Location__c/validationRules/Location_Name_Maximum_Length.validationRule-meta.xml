@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Location_Name_Maximum_Length</fullName>
+    <active>true</active>
+    <description>Maximum length validation to support the 50 character limit imposed by SAP EM / MobileSTAR on location names. This is required until the length restriction is removed in MobileSTAR.</description>
+    <errorConditionFormula>(ISNEW() || ISCHANGED(Name)) &amp;&amp; LEN(Name) &gt; 50</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Location Name must be 50 characters or less.</errorMessage>
+</ValidationRule>

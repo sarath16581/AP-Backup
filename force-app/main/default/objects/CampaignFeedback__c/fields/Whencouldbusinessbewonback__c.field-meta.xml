@@ -6,6 +6,7 @@
     <inlineHelpText>When could the business by recovered by (if there is Opportunity to recover lost business)?</inlineHelpText>
     <label>When could business be won back?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

@@ -9,6 +9,7 @@ System knowledge</inlineHelpText>
     <label>BAU Q1 - System knowledge</label>
     <length>2</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

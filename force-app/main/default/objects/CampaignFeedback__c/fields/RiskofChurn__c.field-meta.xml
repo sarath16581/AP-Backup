@@ -6,6 +6,7 @@
     <inlineHelpText>If there is a risk of churn of product to competitor?</inlineHelpText>
     <label>Risk of Churn</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

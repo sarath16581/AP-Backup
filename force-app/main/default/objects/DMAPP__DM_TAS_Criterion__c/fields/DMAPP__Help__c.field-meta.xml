@@ -6,6 +6,7 @@
     <inlineHelpText>Tip/Hint text displayed to the user on clicking the &apos;i&apos; icon beside the assessment criterion. The same text is also displayed on the right of the &quot;add comments&quot; pop-up screen.</inlineHelpText>
     <label>Help</label>
     <length>1024</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Html</type>
     <visibleLines>10</visibleLines>

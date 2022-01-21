@@ -6,6 +6,7 @@
     <inlineHelpText>Are there any future signs or issues that will result in this customer migrating to a competitor?</inlineHelpText>
     <label>Risk of migration to competitor</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

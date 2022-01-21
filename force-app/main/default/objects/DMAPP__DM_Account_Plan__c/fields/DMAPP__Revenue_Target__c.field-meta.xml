@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Revenue Target</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>DMAPP__AM_Plan_Revenue_Target__c.DMAPP__Revenue_Target__c</summarizedField>
     <summaryForeignKey>DMAPP__AM_Plan_Revenue_Target__c.DMAPP__Account_Plan__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

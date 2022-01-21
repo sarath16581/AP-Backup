@@ -8,6 +8,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>DM_Opportunity_Contact_Extras</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

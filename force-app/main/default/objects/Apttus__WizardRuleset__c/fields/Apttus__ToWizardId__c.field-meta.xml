@@ -10,6 +10,7 @@
     <referenceTo>Apttus__Wizard__c</referenceTo>
     <relationshipName>WizardRulesets2</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

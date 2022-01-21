@@ -9,6 +9,7 @@
     <relationshipLabel>Value Map Opportunity Answers</relationshipLabel>
     <relationshipName>Value_Map_Opportunity_Answers</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

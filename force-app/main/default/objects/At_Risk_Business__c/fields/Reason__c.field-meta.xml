@@ -50,11 +50,6 @@
                 <label>Liquidated</label>
             </value>
             <value>
-                <fullName>MHS Overcharge Nov/Dec 2021</fullName>
-                <default>false</default>
-                <label>MHS Overcharge Nov/Dec 2021</label>
-            </value>
-            <value>
                 <fullName>Pricing - Annual Price Review</fullName>
                 <default>false</default>
                 <label>Pricing - Annual Price Review</label>

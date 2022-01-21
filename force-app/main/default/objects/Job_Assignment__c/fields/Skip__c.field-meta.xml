@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Only used for skipping trans-shipment job assignments</inlineHelpText>
     <label>Skip</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

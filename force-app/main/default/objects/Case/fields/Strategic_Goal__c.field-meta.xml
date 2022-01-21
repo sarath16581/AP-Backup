@@ -6,6 +6,7 @@
     <inlineHelpText>Link to the BOS Strategic Plan or SESD Strategic Plan</inlineHelpText>
     <label>Strategic Goal</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>

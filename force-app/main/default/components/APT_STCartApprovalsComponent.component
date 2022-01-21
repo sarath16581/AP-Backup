@@ -136,6 +136,11 @@
      <!--End Table -->
     <br/>
     <br/>
+    <!--Approver comments added -->
+    <b><apex:outputText value="Approver Comment: "></apex:outputText></b><br/>
+    <apex:outputText value="{!approvalRequestSO.Apttus_Approval__Approver_Comments__c}"></apex:outputText>
+    <br/>
+    <br/>
      <b><apex:outputText value="Approval Request Link: "></apex:outputText></b>
      <apex:outputLink value="{!approvalRequestURL}">{!approvalRequestSO.Name}</apex:outputLink>
     <br/>

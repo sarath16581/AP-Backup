@@ -7,6 +7,7 @@
     <inlineHelpText>Type of the content field when the ComponentType is Content (Object/Field)</inlineHelpText>
     <label>Content Field Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

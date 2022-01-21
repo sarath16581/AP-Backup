@@ -9,6 +9,7 @@
     <relationshipLabel>AM Actions</relationshipLabel>
     <relationshipName>AM_Actions</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

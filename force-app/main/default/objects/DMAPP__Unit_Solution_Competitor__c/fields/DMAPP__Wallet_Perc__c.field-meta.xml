@@ -25,6 +25,7 @@ IF (ISNULL(DMAPP__Unit_Solution__r.DMAPP__Wallet_Size__c),
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Percent</type>
 </CustomField>

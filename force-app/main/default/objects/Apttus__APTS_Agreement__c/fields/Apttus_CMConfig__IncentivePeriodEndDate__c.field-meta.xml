@@ -7,6 +7,7 @@
     <inlineHelpText>The period end date of the current window for incentive processing. The window is determined by the payout calculation frequency of the associated incentives.</inlineHelpText>
     <label>Incentive Period End Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

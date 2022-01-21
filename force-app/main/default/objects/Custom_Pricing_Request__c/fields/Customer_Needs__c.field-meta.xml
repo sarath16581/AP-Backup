@@ -5,6 +5,7 @@
     <inlineHelpText>What is the real need for customised pricing? Who are we competiting with? Do we have competition pricing info? If the need is flat rate pricing, please provide weight breaks?</inlineHelpText>
     <label>Customer Needs</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

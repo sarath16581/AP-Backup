@@ -8,6 +8,7 @@
  * 2021-08-26 - Ranjeewa Silva - Created.
  * 2021-10-11 - Ranjeewa Silva - Updated test case to cover receiving "Accepted" job action out of order.
  * 2021-11-11 - Ranjeewa Silva - Added more test to verify population of cancellation confirmation timestamp.
+ * 2022-01-18 - Ranjeewa Silva - Updated tests to verify population of dispatch event timestamps on Job record.
  */
 
 @IsTest
@@ -43,19 +44,19 @@ private class PUDJobDispatchEventHandler_Test {
 
 		List<PUD_Job_Dispatch_Event__e> events = new List<PUD_Job_Dispatch_Event__e>();
 		//'Accepted' event for jobs[0]. Confirming the job has been accepted by the driver.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[0].Id, Status__c='Accepted'));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[0].Id, Status__c='Accepted', Event_Timestamp__c = System.now().addHours(-2)));
 		//'Completed' event for jobs[1]. Confirming the job has been completed by the driver.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed'));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1)));
 		//'Completed' event for jobs[2]. Confirming the job has been completed by the driver.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Completed'));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1)));
 		//exception scenario - invalid status in event.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[3].Id, Status__c='invalid'));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[3].Id, Status__c='invalid', Event_Timestamp__c = System.now().addHours(-1)));
 		//exception scenario - invalid parent id in event.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c='invalid', Status__c='Accepted'));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c='invalid', Status__c='Accepted', Event_Timestamp__c = System.now().addHours(-1)));
 		//'Failed' event for jobs[4]. Confirming the driver was not able to complete the job.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[4].Id, Status__c='Failed', Reason__c='No Access', Comments__c='driver comments'));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[4].Id, Status__c='Failed', Reason__c='No Access', Comments__c='driver comments', Event_Timestamp__c = System.now().addHours(-1)));
 		//'Cancelled' event for jobs[5]. Confirming the job has been cancelled in dispatch system.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[5].Id, Status__c='Cancelled'));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[5].Id, Status__c='Cancelled', Event_Timestamp__c = System.now().addHours(-1)));
 
 		// =====================================
 		// Stubbing
@@ -89,27 +90,32 @@ private class PUDJobDispatchEventHandler_Test {
 		//jobs[0] is expected to be updated
 		System.assert(updatableJobs.containsKey(jobs[0].Id), 'Job status not updated on receiving \'Accepted\' action');
 		System.assertEquals(PUDConstants.PUD_JOB_STATUS_ACCEPTED, updatableJobs.get(jobs[0].Id).Status__c, 'Job status not updated on receiving \'Accepted\' action');
+		System.assertEquals(events[0].Event_Timestamp__c, updatableJobs.get(jobs[0].Id).Accepted_Timestamp__c, 'Accepted timestamp not updated on receiving \'Accepted\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[0].Id).Schedule_Confirmed_Timestamp__c, '\'Schedule Confirmed Timestamp\' not updated on receiving \'Accepted\' action');
 
 		//jobs[1] is expected to be updated
 		System.assert(updatableJobs.containsKey(jobs[1].Id), 'Job status not updated on receiving \'Completed\' action');
 		System.assertEquals(PUDConstants.PUD_JOB_STATUS_COMPLETED, updatableJobs.get(jobs[1].Id).Status__c, 'Job status not updated on receiving \'Completed\' action');
+		System.assertEquals(events[1].Event_Timestamp__c, updatableJobs.get(jobs[1].Id).Completed_Timestamp__c, 'Completed timestamp not updated on receiving \'Completed\' action');
 		System.assertEquals(jobs[1].Schedule_Confirmed_Timestamp__c, updatableJobs.get(jobs[1].Id).Schedule_Confirmed_Timestamp__c, '\'Schedule Confirmed Timestamp\' should not be updated on already confirmed job');
 
 		//jobs[2] is expected to be updated
 		System.assert(updatableJobs.containsKey(jobs[2].Id), 'Job status not updated on receiving \'Completed\' action');
 		System.assertEquals(PUDConstants.PUD_JOB_STATUS_COMPLETED, updatableJobs.get(jobs[2].Id).Status__c, 'Job status not updated on receiving \'Completed\' action');
+		System.assertEquals(events[2].Event_Timestamp__c, updatableJobs.get(jobs[2].Id).Completed_Timestamp__c, 'Completed timestamp not updated on receiving \'Completed\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[2].Id).Schedule_Confirmed_Timestamp__c, '\'Schedule Confirmed Timestamp\' not updated on receiving \'Completed\' action');
 
 		//jobs[4] is expected to be updated
 		System.assert(updatableJobs.containsKey(jobs[4].Id), 'Job status not updated on receiving \'Failed\' action');
 		System.assertEquals(PUDConstants.PUD_JOB_STATUS_FAILED, updatableJobs.get(jobs[4].Id).Status__c, 'Job status not updated on receiving \'Failed\' action');
+		System.assertEquals(events[5].Event_Timestamp__c, updatableJobs.get(jobs[4].Id).Failed_Timestamp__c, 'Failed timestamp not updated on receiving \'Failed\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[4].Id).Failure_Reason__c, 'Failure Reason not updated with the value received in \'Failed\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[4].Id).Driver_Comments__c, 'Driver Comments not updated with the value received in \'Failed\' action');
 
 		//jobs[5] is expected to be updated
 		System.assert(updatableJobs.containsKey(jobs[5].Id), 'Job status not updated on receiving \'Cancelled\' action');
 		System.assertEquals(PUDConstants.PUD_JOB_STATUS_CANCELLED, updatableJobs.get(jobs[5].Id).Status__c, 'Job status not updated on receiving \'Cancelled\' action');
+		System.assertEquals(events[6].Event_Timestamp__c, updatableJobs.get(jobs[5].Id).Cancelled_Timestamp__c, 'Cancelled timestamp not updated on receiving \'Cancelled\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[5].Id).Cancellation_Confirmed_Timestamp__c, '\'Cancellation Confirmed Timestamp\' should be updated on receiving \'Cancelled\' action');
 
 	}
@@ -138,11 +144,11 @@ private class PUDJobDispatchEventHandler_Test {
 		// exception scenario - receiving 'Accepted' event out of order for for jobs[0].
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[0].Id, Status__c='Accepted'));
 		// receive both 'Accepted' and 'Completed' events in the same batch for jobs[1].
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Accepted'));
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed'));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Accepted', Event_Timestamp__c=System.now().addHours(-3)));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed', Event_Timestamp__c=System.now().addHours(-1)));
 		// receive both 'Accepted' and 'Completed' events in the same batch for jobs[2]. Job Actions are received out of order (i.e. 'Completed' before 'Accepted')
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Completed'));
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Accepted'));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Completed', Event_Timestamp__c=System.now().addMinutes(-25)));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Accepted', Event_Timestamp__c=System.now().addMinutes(-28)));
 
 		// =====================================
 		// Stubbing
@@ -171,16 +177,20 @@ private class PUDJobDispatchEventHandler_Test {
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<PUD_Job__c>) updatableJobsCaptor.capture());
 
 		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>((List<PUD_Job__c>) updatableJobsCaptor.getValue());
-		System.assertEquals(2, updatableJobs.size(), 'Expected to update 2 job records from Dispatch System Job Action events.');
+		System.assertEquals(3, updatableJobs.size(), 'Expected to update 3 job records from Dispatch System Job Action events.');
 
-		//jobs[1] is expected to be updated
+		//jobs[1] is expected to be updated.
 		System.assert(updatableJobs.containsKey(jobs[1].Id), 'Job status not updated on receiving both \'Accepted\' and \'Completed\' actions in same batch');
 		System.assertEquals(PUDConstants.PUD_JOB_STATUS_COMPLETED, updatableJobs.get(jobs[1].Id).Status__c, 'Job status not updated on receiving \'Completed\' action');
+		System.assertEquals(events[1].Event_Timestamp__c, updatableJobs.get(jobs[1].Id).Accepted_Timestamp__c, 'Accepted timestamp not updated on receiving \'Accepted\' action');
+		System.assertEquals(events[2].Event_Timestamp__c, updatableJobs.get(jobs[1].Id).Completed_Timestamp__c, 'Completed timestamp not updated on receiving \'Completed\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[1].Id).Schedule_Confirmed_Timestamp__c, '\'Schedule Confirmed Timestamp\' not updated on receiving both \'Accepted\' and \'Completed\' actions in same batch');
 
-		//jobs[2] is expected to be updated
+		//jobs[2] is expected to be updated. 'Accepted' event received Out of order should still populate the accepted timestamp.
 		System.assert(updatableJobs.containsKey(jobs[2].Id), 'Job status not updated on receiving both \'Accepted\' and \'Completed\' actions out of order in same batch');
 		System.assertEquals(PUDConstants.PUD_JOB_STATUS_COMPLETED, updatableJobs.get(jobs[2].Id).Status__c, 'Job status not updated on receiving \'Completed\' action');
+		System.assertEquals(events[3].Event_Timestamp__c, updatableJobs.get(jobs[2].Id).Completed_Timestamp__c, 'Completed timestamp not updated on receiving \'Completed\' action');
+		System.assertEquals(events[4].Event_Timestamp__c, updatableJobs.get(jobs[2].Id).Accepted_Timestamp__c, 'Accepted timestamp not updated on receiving \'Accepted\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[2].Id).Schedule_Confirmed_Timestamp__c, '\'Schedule Confirmed Timestamp\' not updated on receiving both \'Accepted\' and \'Completed\' actions out of order in same batch');
 	}
 }

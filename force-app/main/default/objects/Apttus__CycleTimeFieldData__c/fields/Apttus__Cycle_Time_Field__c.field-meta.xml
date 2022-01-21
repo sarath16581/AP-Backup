@@ -10,6 +10,7 @@
     <relationshipLabel>Cycle Time Field Data</relationshipLabel>
     <relationshipName>Cycle_Time_Field_Data</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <inlineHelpText>Payable (as a percentage of the transaction value) for all approved payments made on an domestically issued card</inlineHelpText>
     <label>Domestic Merchant Service Fee</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

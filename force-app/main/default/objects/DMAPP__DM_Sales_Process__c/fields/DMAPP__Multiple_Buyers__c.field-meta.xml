@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Do you usually sell to a single individual or are there many people involved in the buying process? Select Multiple or Single buyer.</inlineHelpText>
     <label>Multiple Buyers</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

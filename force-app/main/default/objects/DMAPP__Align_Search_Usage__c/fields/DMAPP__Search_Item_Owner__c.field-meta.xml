@@ -6,6 +6,7 @@
     <formula>IF( ISBLANK( DMAPP__Insight_Smart_Business_Map__c ) ,  DMAPP__Smart_Element__r.Owner:User.FirstName + &apos; &apos; + DMAPP__Smart_Element__r.Owner:User.LastName,  DMAPP__Insight_Smart_Business_Map__r.Owner:User.FirstName + &apos; &apos; + DMAPP__Insight_Smart_Business_Map__r.Owner:User.LastName )</formula>
     <label>Search Item Owner</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

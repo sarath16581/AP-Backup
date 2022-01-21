@@ -6,6 +6,7 @@
     <inlineHelpText>Customer&apos;s opinion on how AP performed during the peak period</inlineHelpText>
     <label>Customer feedback on AP performance</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

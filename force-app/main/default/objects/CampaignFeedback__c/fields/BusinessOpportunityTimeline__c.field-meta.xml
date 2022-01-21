@@ -6,6 +6,7 @@
     <inlineHelpText>When do you think the new opportunity will realise?</inlineHelpText>
     <label>Business Opportunity Timeline</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

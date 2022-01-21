@@ -12,6 +12,7 @@
     <inlineHelpText>YTD billed revenue for the current month divided by the current financial year Target amount and displayed as a percentage. This will display the percentage of revenue achieved towards Target to date within the current financial year.</inlineHelpText>
     <label>YTD Planned vs Traded</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

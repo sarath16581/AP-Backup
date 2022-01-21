@@ -9,6 +9,7 @@
     <relationshipLabel>Network Box Price</relationshipLabel>
     <relationshipName>Facility_Box_Price</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

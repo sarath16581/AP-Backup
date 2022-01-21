@@ -6,6 +6,7 @@
     <description>First load gantt on today&apos;s date or last visited date</description>
     <externalId>false</externalId>
     <label>Load On Today</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

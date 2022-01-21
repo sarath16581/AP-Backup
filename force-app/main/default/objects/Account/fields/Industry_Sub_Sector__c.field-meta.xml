@@ -14,6 +14,11 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
+                <fullName>3PL</fullName>
+                <default>false</default>
+                <label>3PL</label>
+            </value>
+            <value>
                 <fullName>A Agriculture, Forestry and Fishing</fullName>
                 <default>false</default>
                 <label>A Agriculture, Forestry and Fishing</label>
@@ -49,6 +54,11 @@
                 <label>Care Services</label>
             </value>
             <value>
+                <fullName>Carrier with assets in Australia</fullName>
+                <default>false</default>
+                <label>Carrier with assets in Australia</label>
+            </value>
+            <value>
                 <fullName>C Manufacturing</fullName>
                 <default>false</default>
                 <label>C Manufacturing</label>
@@ -67,6 +77,11 @@
                 <fullName>Delivery Services</fullName>
                 <default>false</default>
                 <label>Delivery Services</label>
+            </value>
+            <value>
+                <fullName>Domestic Broker</fullName>
+                <default>false</default>
+                <label>Domestic Broker</label>
             </value>
             <value>
                 <fullName>E Construction</fullName>
@@ -152,6 +167,11 @@
                 <fullName>Insurance</fullName>
                 <default>false</default>
                 <label>Insurance</label>
+            </value>
+            <value>
+                <fullName>International Aggregator</fullName>
+                <default>false</default>
+                <label>International Aggregator</label>
             </value>
             <value>
                 <fullName>I Transport, Postal and Warehousing</fullName>
@@ -458,7 +478,23 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
+            <valueName>3PL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
+            <valueName>Carrier with assets in Australia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
             <valueName>Delivery Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
+            <valueName>Domestic Broker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>
+            <valueName>International Aggregator</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Transport, Logistics and Warehousing</controllingFieldValue>

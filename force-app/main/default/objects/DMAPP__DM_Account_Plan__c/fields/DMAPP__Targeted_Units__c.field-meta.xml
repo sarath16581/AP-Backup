@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Targeted Units</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>DMAPP__AM_Plan_Unit__c.DMAPP__Targeted__c</field>
         <operation>equals</operation>

@@ -7,6 +7,7 @@
     <inlineHelpText>Type of influence i.e. null/default or Conflict, which represents a Conflict between 2 contacts</inlineHelpText>
     <label>Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

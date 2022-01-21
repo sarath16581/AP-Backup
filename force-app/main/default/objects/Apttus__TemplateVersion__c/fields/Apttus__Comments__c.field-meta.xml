@@ -7,6 +7,7 @@
     <inlineHelpText>User comments for this version</inlineHelpText>
     <label>Comments</label>
     <length>4000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

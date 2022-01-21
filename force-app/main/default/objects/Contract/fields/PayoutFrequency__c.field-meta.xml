@@ -6,6 +6,7 @@
     <inlineHelpText>The incentive payout frequency</inlineHelpText>
     <label>Payout Frequency</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

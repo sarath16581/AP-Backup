@@ -32,6 +32,7 @@ TODO            ^^ Refactor code to remove without sharing....Nathan Franklin - 
 2019-09-04    gunith.devasurendra@auspost.com.au Remove check for Enterprise SLA type so that the Case would be always routed (INC1330896)
 2020-04-22 - Nathan Franklin - Commented out unused code
 2021-10-11 - Seth Heang - Uplift the SF API version to 52
+2021-11-29 - PRERNA RAHANGDALE  Added the new Enquiry types and Enquiry sub types for MPB enquires and update to SubmitPageMpbHsp method.
 **************************************************/
 public without sharing class bspEnquiry extends bspBase {
 
@@ -305,8 +306,61 @@ public without sharing class bspEnquiry extends bspBase {
     }
 
     public List<SelectOption> getTechMpbCaseType() {
-        return getPicklistValues(BspConstants.FIELD_API_NAME_TECH_ENQUIRY_TYPE, true, BspConstants.PICKLIST_VALUE_DEFAULT_PLEASE_SELECT);
+        List<SelectOption> options = new list<SelectOption>();
+        options.add(new SelectOption('',BspConstants.PICKLIST_VALUE_DEFAULT_PLEASE_SELECT));
+        options.add(new SelectOption(BspConstants.ENQUIRY_TYPE_MPB_TECH_XHIST_ENQ, BspConstants.ENQUIRY_TYPE_MPB_TECH_XHIST_ENQ));
+        options.add(new SelectOption(BspConstants.ENQUIRY_TYPE_MPB_TECH_ERROR_ENQ, BspConstants.ENQUIRY_TYPE_MPB_TECH_ERROR_ENQ));
+        options.add(new SelectOption(BspConstants.ENQUIRY_TYPE_MPB_TECH_PLATINT_ENQ, BspConstants.ENQUIRY_TYPE_MPB_TECH_PLATINT_ENQ));
+        options.add(new SelectOption(BspConstants.ENQUIRY_TYPE_MPB_TECH_SYSTEM_ENQ, BspConstants.ENQUIRY_TYPE_MPB_TECH_SYSTEM_ENQ));
+        return options;
     }
+
+    /** PB New Enquiry sub type picklist value START **/
+
+    public List<SelectOption> getMPBLabelSubEnqPicklist() {
+        List<SelectOption> options = new list<SelectOption>();
+        options.add(new SelectOption('',BspConstants.PICKLIST_VALUE_DEFAULT_PLEASE_SELECT));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_LABEL_ENQ_REFUND, BspConstants.SELECT_OPTION_MPB_LABEL_ENQ_REFUND));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_LABEL_ENQ_LABEL_SUPPORT, BspConstants.SELECT_OPTION_MPB_LABEL_ENQ_LABEL_SUPPORT));
+        return options;
+    }
+
+    public List<SelectOption> getMPBPickUpEnqPicklist() {
+        List<SelectOption> options = new list<SelectOption>();
+        options.add(new SelectOption('',BspConstants.PICKLIST_VALUE_DEFAULT_PLEASE_SELECT));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_PICKUP_ENQ_PICKUP_FAILURE, BspConstants.SELECT_OPTION_MPB_PICKUP_ENQ_PICKUP_FAILURE));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_PICKUP_ENQ_GENERAL, BspConstants.SELECT_OPTION_MPB_PICKUP_ENQ_GENERAL));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_PICKUP_ENQ_CHANGE_REQUEST, BspConstants.SELECT_OPTION_MPB_PICKUP_ENQ_CHANGE_REQUEST));
+
+        return options;
+    }
+
+    public List<SelectOption> getMPBPricEnqPicklist() {
+        List<SelectOption> options = new list<SelectOption>();
+        options.add(new SelectOption('',BspConstants.PICKLIST_VALUE_DEFAULT_PLEASE_SELECT));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_PRICING_ENQ_DISCOUNT, BspConstants.SELECT_OPTION_MPB_PRICING_ENQ_DISCOUNT));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_PRICING_ENQ_SEND_VOL, BspConstants.SELECT_OPTION_MPB_PRICING_ENQ_SEND_VOL));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_PRICING_ENQ_DISPUTED, BspConstants.SELECT_OPTION_MPB_PRICING_ENQ_DISPUTED));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_PRICING_ENQ_MORE_INFO, BspConstants.SELECT_OPTION_MPB_PRICING_ENQ_MORE_INFO));
+
+        return options;
+    }
+
+    public List<SelectOption> getMPBDelEnqPicklist() {
+        List<SelectOption> options = new list<SelectOption>();
+        options.add(new SelectOption('',BspConstants.PICKLIST_VALUE_DEFAULT_PLEASE_SELECT));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_DEL_ENQ_TRACKING, BspConstants.SELECT_OPTION_MPB_DEL_ENQ_TRACKING));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_DEL_ENQ_DISPUTE, BspConstants.SELECT_OPTION_MPB_DEL_ENQ_DISPUTE));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_DEL_ENQ_MISSING, BspConstants.SELECT_OPTION_MPB_DEL_ENQ_MISSING));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_DEL_ENQ_DAMAGED, BspConstants.SELECT_OPTION_MPB_DEL_ENQ_DAMAGED));
+        options.add(new SelectOption(BspConstants.SELECT_OPTION_MPB_DEL_ENQ_RETURN, BspConstants.SELECT_OPTION_MPB_DEL_ENQ_RETURN));
+        return options;
+    }
+
+
+    /** PB New Enquiry sub type picklist value END **/
+
+
     //
     // 2016-03-23 CLIEW / NM: END of New Methods for MyPost Business
     //
@@ -460,7 +514,7 @@ public without sharing class bspEnquiry extends bspBase {
     public PageReference refreshPage() {
         //hans 02/05/2019 embedded dropzone file upload
         //delete the created files when page is refreshed
-        convertFilesToAttachmentsAndDeleteFiles('', false);
+      convertFilesToAttachmentsAndDeleteFiles('', false);
         notFound = false;
         duplicate = false;
         confirmCreation = false;
@@ -496,7 +550,7 @@ public without sharing class bspEnquiry extends bspBase {
         }
 
         //Set header for page rendering and security for IE8
-        setPageHeaders();
+       setPageHeaders();
 
         //system.debug('xxx fromWhoRadio = ' + fromWhoRadio);
         return null;
@@ -961,9 +1015,17 @@ public without sharing class bspEnquiry extends bspBase {
         String generalRecordTypeId = configSetting.GeneralRecordTypeId__c;
         String deliveryRecordTypeId = configSetting.DeliveryRecordTypeId__c;
 
+        enq.CaseOriginator__c = 'Sender';
         String enqType = enq.MPB_BSP_Enquiry_Type__c.toLowerCase();
+        String enqSubType = enq.MPB_BSP_Sub_Enquiry_Type__c;
+        if(enqType == BspConstants.ENQUIRY_TYPE_MPB_OTHER_ENQ){
+            enqSubType = enq.MPB_BSP_Enquiry_Type__c;
+        }
 
-        if(enqType == BspConstants.ENQUIRY_TYPE_ADVICE_ON_SENDING_PARCELS || enqType == BspConstants.ENQUIRY_TYPE_TECHNICAL_ENQUIRY || enqType ==  BspConstants.ENQUIRY_TYPE_OTHER_ENQUIRY || enqType == BspConstants.ENQUIRY_TYPE_GROWING_GLOBAL) {
+        if(enqType == BspConstants.ENQUIRY_TYPE_MPB_PICKUP_ENQ || enqType == BspConstants.ENQUIRY_TYPE_MPB_LABEL_ENQ
+                || enqType ==  BspConstants.ENQUIRY_TYPE_MPB_PRICING_ENQ || enqType == BspConstants.ENQUIRY_TYPE_MPB_OTHER_ENQ
+                || enqType == BspConstants.ENQUIRY_TYPE_TECHNICAL_ENQUIRY || (BspConstants.ENQUIRY_TYPE_MPB_DEL_ENQ.equalsIgnoreCase(enqType) && enqSubType == BspConstants.SELECT_OPTION_MPB_DEL_ENQ_TRACKING)) {
+
             enq.RecordTypeId = generalRecordTypeId;
             // if enquiry type = general enquiry, then clear out the ServiceUsed default value
             enq.CCUServiceUsed__c = null;
@@ -972,11 +1034,10 @@ public without sharing class bspEnquiry extends bspBase {
         }
 
 
-        if (enqType == BspConstants.ENQUIRY_TYPE_ADVICE_ON_SENDING_PARCELS || enqType ==  BspConstants.ENQUIRY_TYPE_OTHER_ENQUIRY || enqType == BspConstants.ENQUIRY_TYPE_TRACKING_ENQUIRY || enqType == BspConstants.ENQUIRY_TYPE_GROWING_GLOBAL) {
             Map<String, MpbHsp_Mappings__c> mpbHspMappings = MpbHsp_Mappings__c.getAll();
             if (!mpbHspMappings.isEmpty()) {
 
-                MpbHsp_Mappings__c mpbHspMap = MpbHsp_Mappings__c.getInstance(enqType);
+                MpbHsp_Mappings__c mpbHspMap = MpbHsp_Mappings__c.getInstance(enqSubType);
                 if (mpbHspMap != null) {
                     enq.Type = mpbHspMap.Case_Type__c;
                     enq.EnquirySubType__c = mpbHspMap.Case_Enquiry_Sub_Type__c;
@@ -985,26 +1046,7 @@ public without sharing class bspEnquiry extends bspBase {
                 } else {
                     System.debug('submitPageMpbHsp() - No mapping exists in the custom setting for enqType=' + enqType);
                 }
-
             }
-        }
-        else if (enqType == BspConstants.ENQUIRY_TYPE_TECHNICAL_ENQUIRY) {
-            Map<String,MpbHsp_Tech_Enq_Sub_Map__c> mpbHspTechEnqSubMap = MpbHsp_Tech_Enq_Sub_Map__c.getAll();
-            if(!mpbHspTechEnqSubMap.isEmpty()) {
-                String techEnqType = enq.MPB_BSP_Tech_Enquiry_Type__c.toLowerCase();
-                MpbHsp_Tech_Enq_Sub_Map__c mpbSubMap = MpbHsp_Tech_Enq_Sub_Map__c.getInstance(techEnqType);
-                if (mpbSubMap != null) {
-                    enq.Type = mpbSubMap.Case_Type__c;
-                    enq.EnquirySubType__c = mpbSubMap.Case_Enquiry_Sub_Type__c;
-                    enq.ProductCategory__c = mpbSubMap.Case_Product_Category__c;
-                    enq.ProductSubCategory__c = mpbSubMap.Case_Product_Sub_Category__c;
-                } else {
-                    System.debug('submitPageMpbHsp() - No mapping exists in the custom setting for enqType=' + enqType);
-                }
-            }
-        } else if (enqType == null) {
-            System.debug('submitPageMpbHsp() - enqType is null');
-        }
 
         // These fields map to the Sender (from fields) on the page - we may not be using this.
         enq.BSP_Sender_Name__c = (enq.PrimaryContactFirstname__c != null ? enq.PrimaryContactFirstname__c + ' ' : '') + (enq.PrimaryContactLastName__c != null ? enq.PrimaryContactLastName__c : '');
@@ -1065,9 +1107,22 @@ public without sharing class bspEnquiry extends bspBase {
         }
 
         if(isDmlError == false && !dontSave) {
-            System.debug('xxx fileSizeLimit = ' + fileSizeLimit);
+            // Added a condition to make Attachment mandatory if Enquiry Type is delivery Enquiry and Sub Case type is not equal to Tracking Status
+            /* If(enqType == BspConstants.ENQUIRY_TYPE_MPB_DEL_ENQ &&
+                enqSubType == BspConstants.SELECT_OPTION_MPB_DEL_ENQ_MISSING && fileBody == null || fileBodyLength == 0){
+                String msgString = 'Please attach document is required for delivery enquiry of missing item type.';
+                ApexPages.Message msg = new ApexPages.Message(ApexPages.Severity.ERROR, msgString);
+                Apexpages.addmessage(msg);
+
+                // clear fileBody to blank to avoid viewstate error
+                fileBody = null;
+                fileBodyLength = 0;
+
+                isDmlError = true;
+                Database.rollback(sp);
+            } */
             if(fileBodyLength > 0) {
-                if((fileBodyLength/1048576) > fileSizeLimit) {
+                if ((fileBodyLength / 1048576) > fileSizeLimit) {
                     String msgString = 'This file exceeds the maximum size limit of ' + fileSizeLimitInteger + 'MB.';
                     ApexPages.Message msg = new ApexPages.Message(ApexPages.Severity.ERROR, msgString);
                     Apexpages.addmessage(msg);
@@ -1100,7 +1155,7 @@ public without sharing class bspEnquiry extends bspBase {
                         System.debug('xxx Exception caught - insert attachment');
                         Database.rollback(sp);
                     }
-                }
+                } // Added else to make attachment mandatory for Delivery Enquiry
             }
         }
 

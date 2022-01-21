@@ -9,6 +9,7 @@
     <relationshipLabel>Agreements (Operational contact)</relationshipLabel>
     <relationshipName>SFCon_Agreements1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

@@ -1292,6 +1292,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Lodgement_Fee_Loading__c</picklist>
+        <values>
+            <fullName>25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>50</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>MC_Business_Type__c</picklist>
         <values>
             <fullName>APRA Regulated Non-Public Offer Fund</fullName>
@@ -1718,6 +1729,17 @@
         </values>
         <values>
             <fullName>Utilities</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tray_Despatch_Loading__c</picklist>
+        <values>
+            <fullName>25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>50</fullName>
             <default>false</default>
         </values>
     </picklistValues>

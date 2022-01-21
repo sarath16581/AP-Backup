@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Non standard packaging</inlineHelpText>
     <label>Other</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

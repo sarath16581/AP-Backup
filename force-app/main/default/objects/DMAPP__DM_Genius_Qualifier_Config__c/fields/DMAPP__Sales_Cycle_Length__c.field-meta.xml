@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Sales Cycle Length</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>If set to True , on save New Results records will be created for the Due Date, if no records exist for that date</inlineHelpText>
     <label>Create New Result Records</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

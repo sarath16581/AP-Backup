@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Score Rollup</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__DM_DVLS_Question_Response__c.DMAPP__Is_Correct__c</summarizedField>
     <summaryForeignKey>DMAPP__DM_DVLS_Question_Response__c.DMAPP__Component_User__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

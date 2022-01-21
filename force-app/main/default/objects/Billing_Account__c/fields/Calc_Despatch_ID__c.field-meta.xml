@@ -6,6 +6,7 @@
     <formula>IF(NOT(ISBLANK(Despatch_ID__c)),Despatch_ID__c,  Organisation__r.Dispatch_ID__c)</formula>
     <label>Dispatch ID</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

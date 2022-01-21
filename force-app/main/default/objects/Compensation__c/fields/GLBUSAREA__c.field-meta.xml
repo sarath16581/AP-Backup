@@ -15,6 +15,7 @@ Changes the sender address of the case to state, then cnage state to number, eg 
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>GLBUSAREA</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

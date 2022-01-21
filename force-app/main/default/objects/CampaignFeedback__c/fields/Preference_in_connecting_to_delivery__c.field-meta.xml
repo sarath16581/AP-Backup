@@ -6,6 +6,7 @@
     <inlineHelpText>Customers preference in ordering stock into Amazon warehouse</inlineHelpText>
     <label>Preference in connecting to delivery?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

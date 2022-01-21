@@ -6,6 +6,7 @@
     <inlineHelpText>Which solution will the customer proceed with?</inlineHelpText>
     <label>What Solution Will Customer Migrate To?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

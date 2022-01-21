@@ -19,6 +19,7 @@ ISPICKVAL(Status__c,&quot;Signature Declined&quot;)
 HYPERLINK(&quot;/apex/APT_HelptotheSeller?id=&quot;&amp;Id &amp;&quot;&amp;text&quot; &amp; &quot;&amp;name=&quot;&amp;Name , IMAGE(&quot;/resource/Apttus_DocuApi__eSignature&quot;,&quot;Send For eSignatures&quot;), &quot;_self&quot;), NULL)</formula>
     <label>Send For eSignature</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

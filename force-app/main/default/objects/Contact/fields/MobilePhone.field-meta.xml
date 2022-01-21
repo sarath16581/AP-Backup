@@ -3,6 +3,7 @@
     <fullName>MobilePhone</fullName>
     <inlineHelpText>Number for contact&apos;s primary mobile phone 
 (sample format: 0444 111 111)</inlineHelpText>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
 </CustomField>

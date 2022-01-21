@@ -6,6 +6,7 @@
     <formula>IF(OwnerId  &lt;&gt; Account__r.OwnerId , false, true)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>OwnerEqualsAccountOwner</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

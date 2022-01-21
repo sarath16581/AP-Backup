@@ -8,6 +8,7 @@ to this specific issue or Business Systems Support Rep involved in its resolutio
 to this specific issue or Business Systems Support Rep involved in its resolution?</inlineHelpText>
     <label>BAU Q8 - Additional comments</label>
     <length>2000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Html</type>

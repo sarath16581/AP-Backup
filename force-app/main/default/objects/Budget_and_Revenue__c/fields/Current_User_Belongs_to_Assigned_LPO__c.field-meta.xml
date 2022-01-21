@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>Organisation__r.Current_User_Belongs_to_Assigned_LPO__c</formula>
     <label>Current User Belongs to Assigned LPO</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

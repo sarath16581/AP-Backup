@@ -7,6 +7,7 @@
     <inlineHelpText>The measurable metric(s) that will indicate you have achieved the Objective or the measurable results of achieving the Objective. For example, &quot;$5M in pipeline&quot;, or &quot;unlimited access to the SVP(include the names)&quot;, or &quot;$2M in revenue&quot;.</inlineHelpText>
     <label>Metric</label>
     <length>8192</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

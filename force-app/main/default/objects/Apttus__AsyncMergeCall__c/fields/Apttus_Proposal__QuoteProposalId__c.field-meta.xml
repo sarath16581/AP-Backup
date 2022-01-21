@@ -10,6 +10,7 @@
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>
     <relationshipName>AsyncMergeCalls</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

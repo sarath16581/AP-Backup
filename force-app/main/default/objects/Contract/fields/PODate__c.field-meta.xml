@@ -6,6 +6,7 @@
     <inlineHelpText>The purchase order date</inlineHelpText>
     <label>PO Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

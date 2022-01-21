@@ -7,6 +7,7 @@
     <inlineHelpText>DateTime to keep track of the last Successful Sync of Envelopes Recipient status System use only not to be used on Layout</inlineHelpText>
     <label>Last Recipient Status Sync Time</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

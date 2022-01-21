@@ -9,6 +9,7 @@
     <relationshipLabel>Genius Qualifiers Config</relationshipLabel>
     <relationshipName>Genius_Qualifiers_Config</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

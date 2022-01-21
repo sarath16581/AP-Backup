@@ -6,6 +6,7 @@
     <inlineHelpText>The date a new merchant portal invite was accepted. This will be the date on the CSSO - Fulfilled platform event date, or, if the user already has access to CSSO, then this will be the date of the first successful onboarding request.</inlineHelpText>
     <label>Merchant Portal Invite Accepted Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>DateTime</type>

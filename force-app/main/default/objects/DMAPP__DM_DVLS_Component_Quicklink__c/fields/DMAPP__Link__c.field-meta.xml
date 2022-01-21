@@ -11,6 +11,7 @@ Note that if this is a video file, you should not include the file extension (e.
 (3) .flv.</inlineHelpText>
     <label>Link</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Url</type>
 </CustomField>

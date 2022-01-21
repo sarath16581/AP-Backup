@@ -5,6 +5,7 @@
     <description>This field is used by the Any Overdue Actions formula field to determine whether there are any overdue actions.</description>
     <externalId>false</externalId>
     <label>Minimum Due Date Of Open Actions</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__AM_Action__c.DMAPP__Due_Date__c</summarizedField>
     <summaryFilterItems>
         <field>DMAPP__AM_Action__c.DMAPP__Open__c</field>

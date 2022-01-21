@@ -7,6 +7,7 @@ Location__r.Street__c  + BR() +
 Location__r.City__c</formula>
     <label>Location Details</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

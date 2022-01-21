@@ -5,6 +5,7 @@
     <formula>RecordType.Name</formula>
     <label>Record Type Name</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

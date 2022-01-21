@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Quicklink Complete Rollup</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__DM_DVLS_Quicklink_User__c.DMAPP__Is_Complete__c</summarizedField>
     <summaryFilterItems>
         <field>DMAPP__DM_DVLS_Quicklink_User__c.DMAPP__Is_Complete__c</field>

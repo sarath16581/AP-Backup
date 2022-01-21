@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>IF(ISPICKVAL(Status,&quot;New&quot;),True,False)</formula>
     <label>New</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

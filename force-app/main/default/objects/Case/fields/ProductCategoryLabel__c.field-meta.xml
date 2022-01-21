@@ -6,6 +6,7 @@
     <formula>TEXT(ProductCategory__c)&amp;&apos;, &apos;&amp; TEXT(ProductSubCategory__c)</formula>
     <label>Product Category Label</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

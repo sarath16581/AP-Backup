@@ -6,6 +6,7 @@
     <inlineHelpText>Merchant provision of receiver details</inlineHelpText>
     <label>Merchant agreed to provide email/mobile</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

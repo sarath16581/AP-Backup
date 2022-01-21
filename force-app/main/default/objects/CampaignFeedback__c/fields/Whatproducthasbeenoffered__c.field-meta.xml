@@ -6,6 +6,7 @@
     <inlineHelpText>Advise which product of the Bank@Post suite that you have offered your customer</inlineHelpText>
     <label>What product has been offered?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

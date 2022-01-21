@@ -6,6 +6,7 @@
     <inlineHelpText>Downtrade Notes</inlineHelpText>
     <label>Downtrade Notes</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

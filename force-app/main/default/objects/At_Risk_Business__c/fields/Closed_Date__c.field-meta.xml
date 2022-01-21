@@ -6,6 +6,7 @@
     <inlineHelpText>The date when the outcome of the Risk/Business Lost occured</inlineHelpText>
     <label>Closed Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

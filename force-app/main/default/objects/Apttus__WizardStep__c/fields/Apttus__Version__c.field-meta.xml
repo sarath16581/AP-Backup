@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Version number (counter) of step design. This identifies the step uniquely in the chronology of creation.</inlineHelpText>
     <label>Version</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>AutoNumber</type>

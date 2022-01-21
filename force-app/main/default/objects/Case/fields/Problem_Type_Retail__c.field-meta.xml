@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Problem Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
@@ -563,47 +564,6 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
-            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
-            <valueName>Damaged In Transit</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
-            <valueName>Multiple Discrepancies</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
-            <valueName>Oversupply - Return</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
-            <valueName>Shortfall - Send Stock</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
-            <valueName>Vendor Shortfall</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
-            <valueName>Wrong Product - Return</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
-            <valueName>Oversupply - Invoice</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
-            <valueName>Wrong Product - Invoice</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
-            <valueName>Shortfall - Issue Credit</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Standing Order Query - Philatelic</controllingFieldValue>
-            <valueName>Change/Update</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Account Enquiry</controllingFieldValue>
             <valueName>Access Code Reminder</valueName>
         </valueSettings>
@@ -711,23 +671,6 @@
             <valueName>Funds Forfeit</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>LPO</controllingFieldValue>
-            <controllingFieldValue>Load Funds</controllingFieldValue>
-            <valueName>Declined</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>LPO</controllingFieldValue>
-            <controllingFieldValue>Load Funds</controllingFieldValue>
-            <valueName>Information</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>LPO</controllingFieldValue>
-            <controllingFieldValue>Load Funds</controllingFieldValue>
-            <controllingFieldValue>Reissue Card</controllingFieldValue>
-            <controllingFieldValue>Replacement or Reissue Card</controllingFieldValue>
-            <valueName>Not Received</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Customer Portal Inquiry</controllingFieldValue>
             <valueName>Account Creation</valueName>
         </valueSettings>
@@ -778,6 +721,136 @@
             <valueName>System Triggers</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Pricing/Discounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Promotion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Stock Availability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Technical Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Order Status</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Undelivered Parcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Incorrectly Delivered Parcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Order not PGI&apos;d</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Return To Sender</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Damaged In Transit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Delayed Parcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Delivered to Wrong Address</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Missing Contents</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Missing In Transit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Poor Packing Quality</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Wrong Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Returns</controllingFieldValue>
+            <valueName>Damaged/Faulty</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Returns</controllingFieldValue>
+            <valueName>Outstanding Credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Returns</controllingFieldValue>
+            <valueName>Excess/Duplicate Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Multiple Discrepancies</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Oversupply - Return</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Shortfall - Send Stock</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Vendor Shortfall</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Wrong Product - Return</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Oversupply - Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Wrong Product - Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Shortfall - Issue Credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Standing Order Query - Philatelic</controllingFieldValue>
+            <valueName>Change/Update</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <controllingFieldValue>Load Funds</controllingFieldValue>
+            <valueName>Declined</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <controllingFieldValue>Load Funds</controllingFieldValue>
+            <valueName>Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <controllingFieldValue>Load Funds</controllingFieldValue>
+            <controllingFieldValue>Reissue Card</controllingFieldValue>
+            <controllingFieldValue>Replacement or Reissue Card</controllingFieldValue>
+            <valueName>Not Received</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>EPOS reversal</controllingFieldValue>
             <valueName>Activation Failure</valueName>
         </valueSettings>
@@ -796,22 +869,6 @@
         <valueSettings>
             <controllingFieldValue>Online Shop</controllingFieldValue>
             <valueName>Order Not Received</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Product Information</controllingFieldValue>
-            <valueName>Pricing/Discounts</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Product Information</controllingFieldValue>
-            <valueName>Promotion</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Product Information</controllingFieldValue>
-            <valueName>Stock Availability</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Product Information</controllingFieldValue>
-            <valueName>Technical Information</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>HLC</controllingFieldValue>
@@ -905,62 +962,6 @@
         <valueSettings>
             <controllingFieldValue>FOS</controllingFieldValue>
             <valueName>Original</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Enquiry</controllingFieldValue>
-            <valueName>Order Status</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Enquiry</controllingFieldValue>
-            <valueName>Undelivered Parcel</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Enquiry</controllingFieldValue>
-            <valueName>Incorrectly Delivered Parcel</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Enquiry</controllingFieldValue>
-            <valueName>Order not PGI&apos;d</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Order Enquiry</controllingFieldValue>
-            <valueName>Return To Sender</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
-            <valueName>Delayed Parcel</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
-            <valueName>Delivered to Wrong Address</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
-            <valueName>Missing Contents</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
-            <valueName>Missing In Transit</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
-            <valueName>Poor Packing Quality</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
-            <valueName>Wrong Customer</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Returns</controllingFieldValue>
-            <valueName>Damaged/Faulty</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Returns</controllingFieldValue>
-            <valueName>Outstanding Credit</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Returns</controllingFieldValue>
-            <valueName>Excess/Duplicate Order</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

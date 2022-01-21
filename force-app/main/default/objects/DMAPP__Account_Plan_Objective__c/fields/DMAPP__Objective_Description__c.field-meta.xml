@@ -6,6 +6,7 @@
     <inlineHelpText>The value this objective delivers to others. How is this Objective relevant to the customer, or how is it relevant to the partner if this is a Partner Objective, or relevant to you if this is a Customer Success Objective.</inlineHelpText>
     <label>Objective Description</label>
     <length>8192</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>4</visibleLines>

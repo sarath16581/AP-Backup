@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Quicklink Count Rollup</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>DMAPP__DM_DVLS_Quicklink_User__c.DMAPP__DM_DVLS_Component_User__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackTrending>false</trackTrending>

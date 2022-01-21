@@ -6,6 +6,7 @@
     <inlineHelpText>For SAP Mapping: Domestic Indicator</inlineHelpText>
     <label>Domestic Indicator</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

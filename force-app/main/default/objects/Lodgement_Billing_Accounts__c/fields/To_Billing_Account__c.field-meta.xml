@@ -8,6 +8,7 @@
     <relationshipLabel>Lodgement Billing Accounts (To Billing Account)</relationshipLabel>
     <relationshipName>Lodgement_Billing_Accounts1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

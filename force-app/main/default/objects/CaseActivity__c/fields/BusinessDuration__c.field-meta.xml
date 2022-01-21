@@ -12,6 +12,7 @@ TEXT(FLOOR((TotalBusinessDurationMilliseconds__c/1000)/3600))
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Business Duration</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

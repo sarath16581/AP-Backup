@@ -5,6 +5,7 @@
     <inlineHelpText>Please select the change of organisation type if the selected work type is &apos;Change of Organisation Details&apos;</inlineHelpText>
     <label>Change of Organisation Details Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>

@@ -28,6 +28,7 @@ For Journal Templates Only.</inlineHelpText>
     <relationshipLabel>Job Templates</relationshipLabel>
     <relationshipName>Job_Templates</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

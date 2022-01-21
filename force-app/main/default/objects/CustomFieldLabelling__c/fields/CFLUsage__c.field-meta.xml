@@ -6,6 +6,7 @@
     <inlineHelpText>Please specify the usage. If this is to be used for SSSW, then leave this field blank.</inlineHelpText>
     <label>CFL Usage</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

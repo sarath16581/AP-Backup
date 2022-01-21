@@ -6,6 +6,7 @@
     <formula>OR (DMAPP__Worked_in_OM__c, DMAPP__Worked_in_Playbook__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Worked in DM</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

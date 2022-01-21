@@ -5,6 +5,7 @@
     <formula>if(  Pick_Up_Depot__r.Name = $User.Network__c, true , false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Logged In Users Pick Up Network</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

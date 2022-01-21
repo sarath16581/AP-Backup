@@ -6,6 +6,7 @@
     <inlineHelpText>The date the order is ready for activation. The order is activated on this date.</inlineHelpText>
     <label>Ready For Activation Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>DateTime</type>
 </CustomField>

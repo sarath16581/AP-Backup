@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Apttus Contract Record has a file(s)</inlineHelpText>
     <label>Agreement Attached</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

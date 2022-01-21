@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates that a Trailer is a Line Haul trailer, and not based in a location or territory</inlineHelpText>
     <label>Line Haul</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

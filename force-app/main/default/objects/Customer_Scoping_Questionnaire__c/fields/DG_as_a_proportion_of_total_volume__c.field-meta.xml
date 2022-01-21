@@ -3,6 +3,7 @@
     <fullName>DG_as_a_proportion_of_total_volume__c</fullName>
     <externalId>false</externalId>
     <label>DG % as a proportion of total volume</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Freight_Offering__c.DG_as_a_proportion_of_total_volume__c</summarizedField>
     <summaryForeignKey>Freight_Offering__c.Customer_Scoping_Questionnaire__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

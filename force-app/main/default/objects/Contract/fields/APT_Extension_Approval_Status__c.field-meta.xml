@@ -6,6 +6,7 @@
     <inlineHelpText>Approval Status for Extension Request</inlineHelpText>
     <label>Extension Approval Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

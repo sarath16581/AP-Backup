@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This field should be deprecated, as it is not used by the Dealmaker application.</inlineHelpText>
     <label>Mandatory</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

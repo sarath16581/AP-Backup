@@ -8,6 +8,7 @@
     <inlineHelpText>Activates the conract</inlineHelpText>
     <label>Activate</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

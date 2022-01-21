@@ -6,6 +6,7 @@
     <inlineHelpText>Insert Date only if for Deed Of Variation Template</inlineHelpText>
     <label>Amendment Effective Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

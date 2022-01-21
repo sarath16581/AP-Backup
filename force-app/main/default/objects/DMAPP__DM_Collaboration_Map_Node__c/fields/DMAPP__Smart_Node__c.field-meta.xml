@@ -8,6 +8,7 @@
     <referenceTo>DMAPP__Insight_Smart_Node__c</referenceTo>
     <relationshipName>Insight_Map_Nodes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

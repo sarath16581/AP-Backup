@@ -14,6 +14,11 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
+                <fullName>3PL</fullName>
+                <default>false</default>
+                <label>3PL</label>
+            </value>
+            <value>
                 <fullName>Accommodation</fullName>
                 <default>false</default>
                 <label>Accommodation</label>
@@ -94,6 +99,11 @@
                 <label>Cafes, Restaurants &amp; Takeaway Food Services</label>
             </value>
             <value>
+                <fullName>Carrier with assets in Australia</fullName>
+                <default>false</default>
+                <label>Carrier with assets in Australia</label>
+            </value>
+            <value>
                 <fullName>Cars, Motorbikes &amp; Trailers</fullName>
                 <default>false</default>
                 <label>Cars, Motorbikes &amp; Trailers</label>
@@ -162,6 +172,11 @@
                 <fullName>Department Stores</fullName>
                 <default>false</default>
                 <label>Department Stores</label>
+            </value>
+            <value>
+                <fullName>Domestic Broker</fullName>
+                <default>false</default>
+                <label>Domestic Broker</label>
             </value>
             <value>
                 <fullName>Electrical Appliances</fullName>
@@ -257,6 +272,11 @@
                 <fullName>Insurance</fullName>
                 <default>false</default>
                 <label>Insurance</label>
+            </value>
+            <value>
+                <fullName>International Aggregator</fullName>
+                <default>false</default>
+                <label>International Aggregator</label>
             </value>
             <value>
                 <fullName>Internet &amp; Data Services</fullName>
@@ -640,6 +660,34 @@
         <valueSettings>
             <controllingFieldValue>Education</controllingFieldValue>
             <valueName>School Education</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Broker</controllingFieldValue>
+            <controllingFieldValue>3PL</controllingFieldValue>
+            <controllingFieldValue>International Aggregator</controllingFieldValue>
+            <controllingFieldValue>Carrier with assets in Australia</controllingFieldValue>
+            <valueName>3PL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Broker</controllingFieldValue>
+            <controllingFieldValue>3PL</controllingFieldValue>
+            <controllingFieldValue>International Aggregator</controllingFieldValue>
+            <controllingFieldValue>Carrier with assets in Australia</controllingFieldValue>
+            <valueName>Carrier with assets in Australia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Broker</controllingFieldValue>
+            <controllingFieldValue>3PL</controllingFieldValue>
+            <controllingFieldValue>International Aggregator</controllingFieldValue>
+            <controllingFieldValue>Carrier with assets in Australia</controllingFieldValue>
+            <valueName>Domestic Broker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Broker</controllingFieldValue>
+            <controllingFieldValue>3PL</controllingFieldValue>
+            <controllingFieldValue>International Aggregator</controllingFieldValue>
+            <controllingFieldValue>Carrier with assets in Australia</controllingFieldValue>
+            <valueName>International Aggregator</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Insurance</controllingFieldValue>

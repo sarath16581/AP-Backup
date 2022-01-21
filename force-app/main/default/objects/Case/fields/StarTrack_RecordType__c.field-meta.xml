@@ -5,6 +5,7 @@
     <formula>CONTAINS(RecordType.DeveloperName,&quot;StarTrack&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>StarTrack RecordType</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

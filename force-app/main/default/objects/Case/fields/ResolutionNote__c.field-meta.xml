@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Resolution Note</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>

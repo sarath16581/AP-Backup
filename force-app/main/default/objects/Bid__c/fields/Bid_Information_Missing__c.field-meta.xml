@@ -24,6 +24,7 @@ IF(ISBLANK(TEXT( Product__c)) ,&quot;Main Product |  &quot;,&quot;&quot;)
     <inlineHelpText>The following information is missing from this Bid or Tender eg | Start Date |</inlineHelpText>
     <label>Bid Information Missing</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

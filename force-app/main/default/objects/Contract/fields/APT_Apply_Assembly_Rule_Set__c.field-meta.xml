@@ -4,6 +4,7 @@
     <defaultValue>true</defaultValue>
     <externalId>false</externalId>
     <label>Apply Assembly Rule Set</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

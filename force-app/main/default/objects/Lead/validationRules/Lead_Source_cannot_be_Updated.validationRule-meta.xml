@@ -5,6 +5,7 @@
     <description>The Lead Source field cannot be updated after a lead record has been created.</description>
     <errorConditionFormula>AND( NOT(ISNEW()),
 $Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+$Profile.Name&lt;&gt;&apos;Sales Admin&apos;,
 NOT(RecordType.Name = &apos;Conveyancer Onboarding&apos;),
 ISCHANGED(LeadSource)
 )</errorConditionFormula>

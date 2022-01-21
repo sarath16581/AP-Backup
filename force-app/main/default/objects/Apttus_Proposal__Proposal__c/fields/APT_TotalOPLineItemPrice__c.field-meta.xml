@@ -3,6 +3,7 @@
     <fullName>APT_TotalOPLineItemPrice__c</fullName>
     <externalId>false</externalId>
     <label>APT Total Opportunity Line Item Price</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>APT_Opportunity_Product_Line_Item__c.APT_TotalPrice__c</summarizedField>
     <summaryForeignKey>APT_Opportunity_Product_Line_Item__c.APT_Quote_Proposal__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

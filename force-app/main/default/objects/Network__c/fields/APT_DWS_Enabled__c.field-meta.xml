@@ -5,6 +5,7 @@
     <formula>IF(ISBLANK(APT_DWS_ID__c) , false, true)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>DWS Enabled</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

@@ -11,6 +11,7 @@
     <relationshipLabel>IDEMapFieldProvisions</relationshipLabel>
     <relationshipName>IDEMapFieldProvisions</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

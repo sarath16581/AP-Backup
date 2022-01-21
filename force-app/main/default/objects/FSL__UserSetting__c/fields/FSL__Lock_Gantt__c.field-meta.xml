@@ -6,6 +6,7 @@
     <description>gantt is locked for drag and drop</description>
     <externalId>false</externalId>
     <label>Lock Gantt</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

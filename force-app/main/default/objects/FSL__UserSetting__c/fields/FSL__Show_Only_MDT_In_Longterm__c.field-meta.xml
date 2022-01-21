@@ -6,6 +6,7 @@
     <description>Show only MDT service appointments in long term view</description>
     <externalId>false</externalId>
     <label>Show only MDT in Longterm</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -7,6 +7,7 @@
     <inlineHelpText>When checked, compare the Minimum Crew Size field on the Work Order or Work Order Line Item to the actual available Service Crew Members. 
 Otherwise, compare the Minimum Crew Size to the Crew Size field on the Service Crew.</inlineHelpText>
     <label>Consider Service Crew Membership</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

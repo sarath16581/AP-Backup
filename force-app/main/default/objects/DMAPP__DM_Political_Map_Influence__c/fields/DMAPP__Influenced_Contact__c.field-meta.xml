@@ -8,6 +8,7 @@
     <referenceTo>DMAPP__DM_Opportunity_Contact_Extra__c</referenceTo>
     <relationshipName>Influenced_By</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

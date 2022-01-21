@@ -6,6 +6,7 @@
     <formula>IF(NOT(ISBLANK(TEXT(Sub_docket__c))), TEXT(Sub_docket__c), TEXT(Organisation__r.Sub_docket__c))</formula>
     <label>Allows delivery on sub-docket?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

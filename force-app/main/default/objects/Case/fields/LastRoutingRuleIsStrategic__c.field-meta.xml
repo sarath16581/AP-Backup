@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Determines whether the last routing rule required article attributes (for Strategic rules and Extra Cover Rules)</inlineHelpText>
     <label>LastRoutingRuleRequiresArticleAttributes</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

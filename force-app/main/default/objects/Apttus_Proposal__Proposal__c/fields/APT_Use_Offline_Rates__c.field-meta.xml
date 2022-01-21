@@ -5,6 +5,7 @@
     <description>Use Offline Rates?</description>
     <externalId>false</externalId>
     <label>Use Offline Rates</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

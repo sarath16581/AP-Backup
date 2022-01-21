@@ -9,6 +9,7 @@ false =&gt; Map or Solution was viewed</description>
     <inlineHelpText>true =&gt; Map or Solution was used
 false =&gt; Map or Solution was viewed</inlineHelpText>
     <label>Used</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -7,6 +7,7 @@
     <inlineHelpText>Holds comments entered for this input</inlineHelpText>
     <label>Comments</label>
     <length>500</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

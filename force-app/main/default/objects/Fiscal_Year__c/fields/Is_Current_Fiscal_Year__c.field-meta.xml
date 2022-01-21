@@ -5,6 +5,7 @@
     <formula>AND(Start_of_financial_year__c &lt;= TODAY(), End_of_financial_year__c &gt;= TODAY())</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Current Fiscal Year</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

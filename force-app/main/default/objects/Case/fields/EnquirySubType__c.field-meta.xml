@@ -657,6 +657,66 @@
                 <default>false</default>
                 <label>ULD/Pallet Issues</label>
             </value>
+            <value>
+                <fullName>Tracking status</fullName>
+                <default>false</default>
+                <label>Tracking status</label>
+            </value>
+            <value>
+                <fullName>Damaged item</fullName>
+                <default>false</default>
+                <label>Damaged item</label>
+            </value>
+            <value>
+                <fullName>Return to Sender</fullName>
+                <default>false</default>
+                <label>Return to Sender</label>
+            </value>
+            <value>
+                <fullName>Request a refund</fullName>
+                <default>false</default>
+                <label>Request a refund</label>
+            </value>
+            <value>
+                <fullName>Label Support</fullName>
+                <default>false</default>
+                <label>Label Support</label>
+            </value>
+            <value>
+                <fullName>Pick Up Failure</fullName>
+                <default>false</default>
+                <label>Pick Up Failure</label>
+            </value>
+            <value>
+                <fullName>General</fullName>
+                <default>false</default>
+                <label>General</label>
+            </value>
+            <value>
+                <fullName>Change Request</fullName>
+                <default>false</default>
+                <label>Change Request</label>
+            </value>
+            <value>
+                <fullName>Band Discount Enquiry</fullName>
+                <default>false</default>
+                <label>Band Discount Enquiry</label>
+            </value>
+            <value>
+                <fullName>Sending Volume Enquiry</fullName>
+                <default>false</default>
+                <label>Sending Volume Enquiry</label>
+            </value>
+            <value>
+                <fullName>Disputed Payment</fullName>
+                <default>false</default>
+                <label>Disputed Payment</label>
+            </value>
+            <value>
+                <fullName>More Information</fullName>
+                <default>false</default>
+                <label>More Information</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Home Insurance</controllingFieldValue>

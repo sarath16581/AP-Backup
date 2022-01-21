@@ -3,6 +3,7 @@
     <fullName>Subdocket_Count__c</fullName>
     <externalId>false</externalId>
     <label>Subdocket Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Sub_Docket__c.Consignment__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Fear of fraud</inlineHelpText>
     <label>Fear of fraud</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

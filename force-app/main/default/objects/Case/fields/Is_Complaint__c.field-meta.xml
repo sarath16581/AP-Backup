@@ -66,6 +66,7 @@ IsPickval (EnquirySubType__c,&quot;Website/app technical issues&quot;))
 ,true,false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Complaint</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

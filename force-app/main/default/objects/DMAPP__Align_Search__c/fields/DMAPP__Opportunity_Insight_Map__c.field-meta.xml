@@ -9,6 +9,7 @@
     <relationshipLabel>Align Searches</relationshipLabel>
     <relationshipName>Align_Searches</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

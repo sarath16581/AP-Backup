@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Further Advice on Pricing Recommendation</label>
     <length>5000</length>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

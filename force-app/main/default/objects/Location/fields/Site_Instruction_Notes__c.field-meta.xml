@@ -6,6 +6,7 @@
     <inlineHelpText>Brief searchable notes about the Location. Retrieved and displayed in the Transport mobile collect deliver flow.</inlineHelpText>
     <label>Site Notes</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>TextArea</type>

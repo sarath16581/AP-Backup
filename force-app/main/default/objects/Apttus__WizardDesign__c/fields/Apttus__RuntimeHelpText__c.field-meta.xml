@@ -7,6 +7,7 @@
     <inlineHelpText>Describe what the runtime user can see as a help or instruction description for this wizard design.</inlineHelpText>
     <label>Runtime Help Text</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

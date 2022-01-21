@@ -141,19 +141,19 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Miscellaneous Type 1</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Miscellaneous Type 2</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Miscellaneous Type 3</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Negotiated Accommodation Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Negotiated Payment %E2%80%93 Compliance Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Negotiated Payment %E2%80%93 Performance Payment</fullName>
             <default>false</default>
         </values>
         <values>

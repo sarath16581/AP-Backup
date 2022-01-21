@@ -9,6 +9,7 @@
     <relationshipLabel>Insight Smart Business Maps</relationshipLabel>
     <relationshipName>Insight_Smart_Business_Maps</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

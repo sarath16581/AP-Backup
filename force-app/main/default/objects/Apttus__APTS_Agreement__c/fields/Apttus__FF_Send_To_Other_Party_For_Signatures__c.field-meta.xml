@@ -9,6 +9,7 @@
     <inlineHelpText>Send the contract for signatures</inlineHelpText>
     <label>Send For Signatures</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

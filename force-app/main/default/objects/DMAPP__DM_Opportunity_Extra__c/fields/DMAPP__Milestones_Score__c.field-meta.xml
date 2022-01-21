@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Milestones Score</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__DM_Milestone_Opportunity_Answer__c.DMAPP__Score__c</summarizedField>
     <summaryForeignKey>DMAPP__DM_Milestone_Opportunity_Answer__c.DMAPP__Dealmaker_Opportunity__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

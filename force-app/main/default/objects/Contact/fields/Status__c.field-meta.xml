@@ -7,6 +7,7 @@
 Consider setting Status to Inactive, if (Contact Maintained By = Unmanaged &amp; No Activity for 12 months).</inlineHelpText>
     <label>Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>

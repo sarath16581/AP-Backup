@@ -9,6 +9,7 @@ It is anticipated that these qualifiers will be set by other means (triggers etc
     <inlineHelpText>A Smart Qualifier cannot be set by a user on the playbook UI screen. 
 It is anticipated that these qualifiers will be set by other means (triggers etc)</inlineHelpText>
     <label>Smart Qualifier</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

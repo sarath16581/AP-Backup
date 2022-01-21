@@ -9,6 +9,7 @@
     <relationshipLabel>Call Plan High Yield Questions</relationshipLabel>
     <relationshipName>Call_Plan_High_Yield_Questions</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

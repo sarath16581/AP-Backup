@@ -9,6 +9,7 @@
     <relationshipLabel>Plan Rows</relationshipLabel>
     <relationshipName>Child_Plan_Units</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

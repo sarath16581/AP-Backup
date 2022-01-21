@@ -3,6 +3,7 @@
     <fullName>Locations_Inspection__c</fullName>
     <externalId>false</externalId>
     <label>Locations Inspection</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Pick_Up_Location__c.CSQ__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

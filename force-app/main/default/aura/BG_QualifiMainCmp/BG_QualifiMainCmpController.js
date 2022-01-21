@@ -1,6 +1,6 @@
 ({
     doInit : function(cmp, event, helper) {
-        helper.loadInitCmp(cmp, event);
+       helper.loadInitCmp(cmp, event);
     },
     handleComponentEvent : function(cmp, event, helper) {
         //-- Needs to check below scroll how it works in SF1

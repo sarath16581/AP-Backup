@@ -5,6 +5,7 @@
     <description>This field provides a count of objectives that are Not Started, In Progress, or Deferred.</description>
     <externalId>false</externalId>
     <label>Number Open Objectives</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>DMAPP__Account_Plan_Objective__c.DMAPP__Status__c</field>
         <operation>equals</operation>

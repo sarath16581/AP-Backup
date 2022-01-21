@@ -6,6 +6,7 @@
     <inlineHelpText>Factors that influenced customer decision to decline</inlineHelpText>
     <label>Merchant Key Drivers to Decline</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

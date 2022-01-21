@@ -6,6 +6,7 @@
     <inlineHelpText>List the key benefits linked to this message</inlineHelpText>
     <label>Benefits</label>
     <length>2048</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>10</visibleLines>

@@ -32,6 +32,21 @@
                 <default>false</default>
                 <label>Low</label>
             </value>
+            <value>
+                <fullName>Regular</fullName>
+                <default>false</default>
+                <label>Regular</label>
+            </value>
+            <value>
+                <fullName>Critical</fullName>
+                <default>false</default>
+                <label>Critical</label>
+            </value>
+            <value>
+                <fullName>Urgent</fullName>
+                <default>false</default>
+                <label>Urgent</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

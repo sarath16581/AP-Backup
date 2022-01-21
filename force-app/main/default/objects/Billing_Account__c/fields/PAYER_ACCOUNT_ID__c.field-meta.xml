@@ -18,6 +18,7 @@
     <relationshipLabel>Sub Accounts</relationshipLabel>
     <relationshipName>Billing_Accounts</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Lookup</type>
 </CustomField>

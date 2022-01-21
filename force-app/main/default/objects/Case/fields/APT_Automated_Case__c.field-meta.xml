@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This field will be true for the cases which are created by APTTUS system</inlineHelpText>
     <label>{Hidden} Automated Case</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

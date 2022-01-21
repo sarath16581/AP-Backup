@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Quicklink Complete Rollup</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__DM_DVLS_Component_User__c.DMAPP__Quicklink_Complete_Rollup__c</summarizedField>
     <summaryForeignKey>DMAPP__DM_DVLS_Component_User__c.DMAPP__DM_DVLS_Module_User__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

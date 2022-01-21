@@ -6,6 +6,7 @@
     <inlineHelpText>This field is used to select the non-Salesforce contact&apos;s role.</inlineHelpText>
     <label>Role</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

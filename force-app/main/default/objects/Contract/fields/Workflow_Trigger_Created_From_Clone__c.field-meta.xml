@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates a transient contract that may get deleted by the user. A new contract is in transient state until the agreement is explicitly saved by the user.</inlineHelpText>
     <label>Is Transient</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

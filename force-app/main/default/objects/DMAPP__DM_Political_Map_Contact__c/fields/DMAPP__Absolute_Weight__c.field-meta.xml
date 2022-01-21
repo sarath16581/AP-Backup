@@ -31,6 +31,7 @@ CASE(DMAPP__Key_Buyer_Role__c,
     <precision>18</precision>
     <required>false</required>
     <scale>1</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

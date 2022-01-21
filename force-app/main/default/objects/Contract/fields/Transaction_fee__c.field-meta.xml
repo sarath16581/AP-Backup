@@ -6,6 +6,7 @@
     <inlineHelpText>Payable each time a transaction is conducted, including refunds, pre-authorisations and card-issuer declined payments.</inlineHelpText>
     <label>Transaction fee</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Used to indicate the Segmentation Contact which will be the location for sales visits. Please ensure that the physical address is accurate as this field will be used for segmentation purposes. There should only be one Segmentation Contact per organisation</inlineHelpText>
     <label>Segmentation Contact</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

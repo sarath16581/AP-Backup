@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Restore is required for this object.</inlineHelpText>
     <label>Is Restore Required?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

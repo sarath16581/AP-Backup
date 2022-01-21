@@ -9,6 +9,7 @@
     <relationshipLabel>Quicklink Users</relationshipLabel>
     <relationshipName>DM_DVLS_Quicklink_User</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Dates are defaulted to start of week. This can take the due date to the previous month if start of that week is in the previous month. For example if start of month is on a Friday, the start of week will be on the 27th of previous month.</inlineHelpText>
     <label>Re-calculate Next DueDate</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

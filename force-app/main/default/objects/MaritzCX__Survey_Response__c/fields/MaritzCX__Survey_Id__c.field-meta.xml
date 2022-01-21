@@ -9,6 +9,7 @@
     <relationshipLabel>MaritzCX Responses</relationshipLabel>
     <relationshipName>Survey_Response</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

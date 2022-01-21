@@ -5,6 +5,7 @@
     <formula>Contract_End_Date__c  -  TODAY()  &lt;= 15</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Escalated To Manager?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

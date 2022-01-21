@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Rule</label>
     <length>8192</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

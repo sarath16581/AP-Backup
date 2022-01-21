@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Insight Map Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>DMAPP__Account_Plan_Unit_Insight_Map__c.DMAPP__Plan_Unit__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackTrending>false</trackTrending>

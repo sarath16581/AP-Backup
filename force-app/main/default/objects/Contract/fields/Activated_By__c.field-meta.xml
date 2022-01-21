@@ -9,6 +9,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>SFCon_APTS_Agreement</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

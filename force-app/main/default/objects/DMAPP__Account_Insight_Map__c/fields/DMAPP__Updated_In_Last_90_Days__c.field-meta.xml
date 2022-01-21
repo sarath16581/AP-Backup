@@ -6,6 +6,7 @@
     <formula>TODAY() &lt; DATEVALUE(LastModifiedDate) + 90</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Updated In Last 90 Days</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -538,6 +538,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Band Discount Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Booking amendment</fullName>
             <default>false</default>
         </values>
@@ -551,6 +555,10 @@
         </values>
         <values>
             <fullName>Carding issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change Request</fullName>
             <default>false</default>
         </values>
         <values>
@@ -583,6 +591,10 @@
         </values>
         <values>
             <fullName>Damage to vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Damaged item</fullName>
             <default>false</default>
         </values>
         <values>
@@ -622,6 +634,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Disputed Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Disputed delivery scan</fullName>
             <default>false</default>
         </values>
@@ -643,6 +659,10 @@
         </values>
         <values>
             <fullName>Facility reported damages</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General</fullName>
             <default>false</default>
         </values>
         <values>
@@ -671,6 +691,10 @@
         </values>
         <values>
             <fullName>Item transfer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Label Support</fullName>
             <default>false</default>
         </values>
         <values>
@@ -706,6 +730,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>More Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>MyPost balance request</fullName>
             <default>false</default>
         </values>
@@ -723,6 +751,10 @@
         </values>
         <values>
             <fullName>POD request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pick Up Failure</fullName>
             <default>false</default>
         </values>
         <values>
@@ -798,7 +830,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Request a refund</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Request for personal information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Return to Sender</fullName>
             <default>false</default>
         </values>
         <values>
@@ -818,6 +858,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Sending Volume Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Service availability</fullName>
             <default>false</default>
         </values>
@@ -831,6 +875,10 @@
         </values>
         <values>
             <fullName>Tracking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tracking status</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1037,42 +1085,106 @@
     <picklistValues>
         <picklist>MPB_BSP_Enquiry_Type__c</picklist>
         <values>
-            <fullName>Advice on sending parcels</fullName>
+            <fullName>Delivery Enquiry</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Growing Global</fullName>
+            <fullName>Label Enquiry</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other enquiry</fullName>
+            <fullName>Other Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pick up Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing Enquiry</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Technical enquiry</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Tracking enquiry</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
-        <picklist>MPB_BSP_Tech_Enquiry_Type__c</picklist>
+        <picklist>MPB_BSP_Sub_Enquiry_Type__c</picklist>
         <values>
-            <fullName>MyPost Business app</fullName>
+            <fullName>Band Discount Enquiry</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Change Request</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Sending parcels</fullName>
+            <fullName>Damaged item</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disputed Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disputed Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Error Codes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Label Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Missing item</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>More Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PickUp Failure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Platform Partner Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request a refund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Return to Sender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sending Volume Enquiry</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Small Business offers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System Outage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tracking status</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction History Request</fullName>
             <default>false</default>
         </values>
     </picklistValues>

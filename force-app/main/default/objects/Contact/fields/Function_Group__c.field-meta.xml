@@ -6,6 +6,7 @@
     <inlineHelpText>Used by Marketing to categorise contacts. Select the most appropriate option from the picklist.</inlineHelpText>
     <label>Title Group</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

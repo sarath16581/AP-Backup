@@ -6,6 +6,7 @@
     <inlineHelpText>The overall approval status for line items associated with the contract</inlineHelpText>
     <label>Line Item Approval Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

@@ -6,6 +6,7 @@
     <inlineHelpText>What is the main reason for giving a score out of 10?</inlineHelpText>
     <label>SI-CFF - Q6 Communication Verbatim</label>
     <length>1000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

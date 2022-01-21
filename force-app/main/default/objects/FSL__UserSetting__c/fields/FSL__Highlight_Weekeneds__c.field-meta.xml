@@ -6,6 +6,7 @@
     <description>Highlight Weekeneds On The Gantt</description>
     <externalId>false</externalId>
     <label>Highlight Weekeneds</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

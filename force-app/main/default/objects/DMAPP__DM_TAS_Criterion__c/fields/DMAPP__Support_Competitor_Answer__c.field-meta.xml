@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Is it sensible for this criterion to have competitor answers, as well as answers for your organization? This is checked by default.</inlineHelpText>
     <label>Support Competitor Answer</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

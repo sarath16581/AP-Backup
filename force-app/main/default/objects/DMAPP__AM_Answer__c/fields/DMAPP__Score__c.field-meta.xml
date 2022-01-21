@@ -11,6 +11,7 @@ DMAPP__AM_Question__r.DMAPP__No_Score__c, DMAPP__AM_Question__r.DMAPP__Unknown_S
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

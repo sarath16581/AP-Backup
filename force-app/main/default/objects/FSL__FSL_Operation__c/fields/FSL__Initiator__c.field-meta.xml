@@ -9,6 +9,7 @@
     <relationshipLabel>FSL Operations</relationshipLabel>
     <relationshipName>FSL_Operations</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <formula>TODAY() &lt; DMAPP__Last_Accessed_Date__c + 30</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Accessed in Last 30 Days</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

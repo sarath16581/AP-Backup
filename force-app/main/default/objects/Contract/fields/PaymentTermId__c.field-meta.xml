@@ -10,6 +10,7 @@
     <relationshipLabel>Agreements</relationshipLabel>
     <relationshipName>SFCon_Agreements</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

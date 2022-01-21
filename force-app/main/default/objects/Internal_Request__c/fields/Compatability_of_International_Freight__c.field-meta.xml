@@ -6,6 +6,7 @@
     <inlineHelpText>Any Dangerous Goods, Articles over 20kg, multi-consignment requirements, Return Solutions?</inlineHelpText>
     <label>Compatability of International Freight</label>
     <length>5000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

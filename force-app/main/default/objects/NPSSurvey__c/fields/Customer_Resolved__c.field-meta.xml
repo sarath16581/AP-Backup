@@ -8,6 +8,7 @@ CASE( Answer2__c, &quot;1&quot;, &quot;Yes&quot;, &quot;2&quot;, &quot;No&quot;,
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Customer Resolved</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

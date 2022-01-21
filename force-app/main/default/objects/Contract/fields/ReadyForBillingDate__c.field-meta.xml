@@ -6,6 +6,7 @@
     <inlineHelpText>The date when the order is ready for billing. The billing schedules are created on this date.</inlineHelpText>
     <label>Ready For Billing Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>DateTime</type>
 </CustomField>

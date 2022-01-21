@@ -6,6 +6,7 @@
     <inlineHelpText>Reasons for why the customer is downtrading</inlineHelpText>
     <label>Reason for Downtrading</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

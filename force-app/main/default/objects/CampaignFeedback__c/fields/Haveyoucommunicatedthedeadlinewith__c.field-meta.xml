@@ -6,6 +6,7 @@
     <inlineHelpText>Have you communicated the deadline with your customer?</inlineHelpText>
     <label>Advise customer of the deadline?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

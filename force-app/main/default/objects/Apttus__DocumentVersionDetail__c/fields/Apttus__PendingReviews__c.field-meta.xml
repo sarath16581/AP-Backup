@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Count of Review Cycles Pending.</inlineHelpText>
     <label>Pending Reviews</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Apttus__ReviewCycle__c.Apttus__ReviewStatus__c</field>
         <operation>equals</operation>

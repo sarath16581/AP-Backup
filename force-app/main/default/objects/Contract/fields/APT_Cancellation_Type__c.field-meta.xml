@@ -6,6 +6,7 @@
     <inlineHelpText>Indicate whether Customer is getting disqualified, or contract is lost / cancelled</inlineHelpText>
     <label>Cancellation Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

@@ -7,6 +7,7 @@ Apttus_CMConfig__PriceListItemId__r.APT_Rate_Card_Version__c &amp; &quot; / &quo
 null)</formula>
     <label>Depot Tier Version</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -9,6 +9,7 @@
     <relationshipLabel>Altify Logs</relationshipLabel>
     <relationshipName>Altify_Logs</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Competitor Wallet Value</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__Unit_Solution_Competitor__c.DMAPP__Wallet_Value__c</summarizedField>
     <summaryForeignKey>DMAPP__Unit_Solution_Competitor__c.DMAPP__Unit_Solution__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

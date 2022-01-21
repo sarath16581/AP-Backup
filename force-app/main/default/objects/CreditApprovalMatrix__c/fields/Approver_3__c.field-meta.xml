@@ -8,6 +8,7 @@
     <relationshipLabel>Credit Approval Matrix (Approver 3)</relationshipLabel>
     <relationshipName>Credit_Approval_Matrix3</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

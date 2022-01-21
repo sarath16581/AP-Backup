@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This flag when checked means this is a Conveyancer primary contact in relation to Land Tittle VOI registration.</inlineHelpText>
     <label>Conveyancer Contact</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

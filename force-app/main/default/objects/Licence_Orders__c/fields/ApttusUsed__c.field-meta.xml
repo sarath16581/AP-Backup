@@ -3,6 +3,7 @@
     <fullName>ApttusUsed__c</fullName>
     <externalId>false</externalId>
     <label>ApttusUsed</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Salesforce_Licence__c.Apttus__c</summarizedField>
     <summaryForeignKey>Salesforce_Licence__c.Licence_Orders__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

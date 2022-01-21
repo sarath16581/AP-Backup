@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Detail</label>
     <length>40000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>10</visibleLines>

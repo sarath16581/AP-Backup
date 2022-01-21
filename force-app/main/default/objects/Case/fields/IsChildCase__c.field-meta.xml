@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <formula>NOT(ISBLANK(ParentId))</formula>
     <label>Is Child Case</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

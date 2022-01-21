@@ -6,6 +6,7 @@
     <formula>IF( Current_Approver_Name__c = $User.Id,True,False)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Logged in User is Current Approver</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

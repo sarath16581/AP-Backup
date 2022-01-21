@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Send this contact the updated .DAT file containing the new rates based on the APR % increase applicable to their StarTrack products.</inlineHelpText>
     <label>Updated Cost Calculator File (StarTrack)</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

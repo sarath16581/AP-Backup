@@ -5,6 +5,7 @@
     <inlineHelpText>Relevant details about this customer migration</inlineHelpText>
     <label>Migration Update / Next Steps</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

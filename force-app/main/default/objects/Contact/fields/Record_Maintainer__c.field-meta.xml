@@ -5,6 +5,7 @@
     <inlineHelpText>The key details of the contact are kept up-to-date by this role.</inlineHelpText>
     <label>Contact Maintained By</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>

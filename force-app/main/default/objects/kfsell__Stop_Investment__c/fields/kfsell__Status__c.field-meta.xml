@@ -13,14 +13,71 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Incomplete</fullName>
+                <fullName>Not Started</fullName>
                 <default>true</default>
-                <label>Incomplete</label>
+                <label>Not Started</label>
+            </value>
+            <value>
+                <fullName>Waiting for Operations</fullName>
+                <default>false</default>
+                <label>Waiting for Operations</label>
+            </value>
+            <value>
+                <fullName>Acknowledged</fullName>
+                <default>false</default>
+                <label>Acknowledged</label>
+            </value>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+            <value>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+                <label>Deferred</label>
+            </value>
+            <value>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+                <label>In Progress</label>
+            </value>
+            <value>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <label>Rejected</label>
+            </value>
+            <value>
+                <fullName>Waiting on someone else</fullName>
+                <default>false</default>
+                <label>Waiting on someone else</label>
+            </value>
+            <value>
+                <fullName>Finished</fullName>
+                <default>false</default>
+                <label>Finished</label>
+            </value>
+            <value>
+                <fullName>Attempted Contact</fullName>
+                <default>false</default>
+                <label>Attempted Contact</label>
+            </value>
+            <value>
+                <fullName>Finished - Case Resolved</fullName>
+                <default>false</default>
+                <label>Finished - Case Resolved</label>
             </value>
             <value>
                 <fullName>Complete</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Complete</label>
+            </value>
+            <value>
+                <fullName>Incomplete</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Incomplete</label>
             </value>
         </valueSetDefinition>
     </valueSet>

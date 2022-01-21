@@ -9,6 +9,7 @@ Customer Data &amp; Insights</description>
     <inlineHelpText>To clearly &amp; easily Identify Small Business Customers.</inlineHelpText>
     <label>Segment</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

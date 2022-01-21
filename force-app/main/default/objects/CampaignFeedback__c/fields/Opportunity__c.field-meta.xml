@@ -8,6 +8,7 @@
     <relationshipLabel>Campaign Feedback</relationshipLabel>
     <relationshipName>Campaign_Feedback</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -9,6 +9,7 @@
 To progress an opportunity through the pipeline, the user sets the status on the qualifiers associated with each stage in the sales process.</inlineHelpText>
     <label>Question</label>
     <length>1024</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

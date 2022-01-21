@@ -8,6 +8,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Deal_Support_Requests4</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>IF(OR(CONTAINS(Account.ATL_Allowed_Billing_Accounts__c ,  &apos;Y&apos; + Related_Billing_Account__c),  AND(NOT(CONTAINS(Account.ATL_Allowed_Billing_Accounts__c , Related_Billing_Account__c)),ISPICKVAL(Account.Authority_to_leave__c, &apos;Yes&apos;))), true, false)</formula>
     <label>ATL Allowed</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

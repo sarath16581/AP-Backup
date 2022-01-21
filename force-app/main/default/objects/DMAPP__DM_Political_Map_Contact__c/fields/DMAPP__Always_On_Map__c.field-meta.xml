@@ -6,6 +6,7 @@
     <description>The Contact will always appear on the map rather than participating in the unattached contacts section.</description>
     <externalId>false</externalId>
     <label>Always On Map</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

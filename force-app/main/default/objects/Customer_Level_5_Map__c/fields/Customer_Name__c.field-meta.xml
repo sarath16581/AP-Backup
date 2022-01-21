@@ -8,6 +8,7 @@
     <relationshipLabel>Customers Level 5 Map</relationshipLabel>
     <relationshipName>Customers_Level_5_Map</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

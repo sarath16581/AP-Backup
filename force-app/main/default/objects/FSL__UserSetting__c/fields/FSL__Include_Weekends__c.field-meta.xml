@@ -6,6 +6,7 @@
     <description>Include weekends inside the gantt view</description>
     <externalId>false</externalId>
     <label>Include Weekends</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

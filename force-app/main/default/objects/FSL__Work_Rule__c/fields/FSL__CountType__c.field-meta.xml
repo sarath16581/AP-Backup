@@ -6,6 +6,7 @@
     <inlineHelpText>The type of item counted in the work rule.</inlineHelpText>
     <label>Count Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Tick this box if the contact does not wish to be contacted for research / interviews. Contact the Marketing Voice of Customer team if you do not have edit access</inlineHelpText>
     <label>Exclude from Research - Contact</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

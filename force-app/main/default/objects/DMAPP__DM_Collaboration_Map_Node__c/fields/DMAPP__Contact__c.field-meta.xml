@@ -8,6 +8,7 @@
     <referenceTo>Contact</referenceTo>
     <relationshipName>DM_Collaboration_Map_Nodes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

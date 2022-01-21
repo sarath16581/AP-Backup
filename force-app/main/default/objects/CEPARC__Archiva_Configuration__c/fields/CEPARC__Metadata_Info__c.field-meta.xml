@@ -7,6 +7,7 @@
     <inlineHelpText>Metadata information</inlineHelpText>
     <label>Metadata Info</label>
     <length>131072</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

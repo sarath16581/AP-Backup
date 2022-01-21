@@ -6,6 +6,7 @@
     <inlineHelpText>Merchant Adoption of Large Parcel Streaming.</inlineHelpText>
     <label>Merchant Adoption of Large Parcel Stream</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

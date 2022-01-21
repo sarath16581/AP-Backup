@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates approval is provided automatically on submission.</inlineHelpText>
     <label>Auto Approve</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

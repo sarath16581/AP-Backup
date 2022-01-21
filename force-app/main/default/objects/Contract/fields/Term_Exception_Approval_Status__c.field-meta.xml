@@ -6,6 +6,7 @@
     <inlineHelpText>This field denotes the overall approval status for agreement term exceptions associated with the contract.</inlineHelpText>
     <label>Term Exception Approval Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

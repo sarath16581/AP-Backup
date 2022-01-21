@@ -6,6 +6,7 @@
     <inlineHelpText>What is our competitive advantage over our primary competitors? (3%)</inlineHelpText>
     <label>Competitive Advantage</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

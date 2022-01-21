@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>(CreatedBy.ManagerId = $User.Id)</formula>
     <label>Is Team Manager</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

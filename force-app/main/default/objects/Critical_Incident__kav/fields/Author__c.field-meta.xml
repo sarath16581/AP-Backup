@@ -5,6 +5,7 @@
     <label>Author</label>
     <length>125</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Text</type>
     <unique>false</unique>

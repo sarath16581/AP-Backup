@@ -6,6 +6,7 @@
     <label>Days on gantt</label>
     <length>3</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

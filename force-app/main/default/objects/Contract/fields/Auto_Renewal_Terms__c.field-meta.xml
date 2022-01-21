@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Renewal Terms</label>
     <length>32000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

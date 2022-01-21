@@ -23,6 +23,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Custom_Pricing_Requests1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

@@ -9,6 +9,7 @@
     <relationshipLabel>DM Strategy Map Node Parents (DM Strategy Map Node)</relationshipLabel>
     <relationshipName>StrategyMapChildren</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <formula>DMAPP__User__c = DMAPP__Opportunity__r.OwnerId</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Opp Owner</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

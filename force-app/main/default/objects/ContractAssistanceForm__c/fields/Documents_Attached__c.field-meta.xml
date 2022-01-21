@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Attach a copy of the proposed or any previous contract and any other relevant documents in the Notes &amp; Attachments section.</inlineHelpText>
     <label>Contract/Documents Attached</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

@@ -8,6 +8,7 @@
 Use this section to provide instructions to the user on what the question is asking them to focus on, what steps they should take and/or what details they should provide in the comments</inlineHelpText>
     <label>Tip</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>10</visibleLines>

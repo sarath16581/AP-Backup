@@ -5,6 +5,7 @@
     <label>Date Of Generation Rate Card</label>
     <length>100</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

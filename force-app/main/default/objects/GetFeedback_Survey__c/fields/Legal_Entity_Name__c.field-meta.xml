@@ -8,6 +8,7 @@
     <relationshipLabel>GetFeedback Surveys</relationshipLabel>
     <relationshipName>GetFeedback_Surveys2</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

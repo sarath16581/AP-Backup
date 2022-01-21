@@ -7,6 +7,7 @@
     <label>Initiated By (Non SF user)</label>
     <length>40</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

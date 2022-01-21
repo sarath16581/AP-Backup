@@ -2,6 +2,7 @@
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
         <fullName>ACIC_Send_Case_Status_Notification</fullName>
+        <ccEmails>DLProductSpecialistTEAMServiceSpecialistsGroup@auspost.com.au</ccEmails>
         <description>ACIC - Send Case Status Notification</description>
         <protected>false</protected>
         <recipients>
@@ -4479,7 +4480,7 @@ if case is accepted manually, change case status from New to In Progress</descri
             <name>RFCC_Set_Last_Assigned_Queue_Name</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Sets the last assigned queue and ID</description>
         <formula>OR(RecordType.DeveloperName =&apos;Retail_Fulfilment_Support&apos;,RecordType.DeveloperName=&apos;StarTrack_PUD_Enquiry&apos;,RecordType.DeveloperName = &apos;StarTrack_Credit_Dispute_Claim&apos;,RecordType.DeveloperName=&apos;StarTrack_General_Enquiry&apos;,RecordType.DeveloperName=&apos;StarTrack_Pickup_Booking_Enquiry&apos;,RecordType.DeveloperName=&apos;StarTrack_Sales_Enquiry&apos;,RecordType.DeveloperName=&apos;StarTrack_Voice_of_Customer&apos;)&amp;&amp; NOT(ISBLANK(Owner:Queue.Id))</formula>
         <triggerType>onAllChanges</triggerType>

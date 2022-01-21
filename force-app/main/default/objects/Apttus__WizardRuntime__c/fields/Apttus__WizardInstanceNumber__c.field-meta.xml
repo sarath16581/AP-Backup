@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Auto number (counter) of Wizard runtime. This identifies the Wizard runtime uniquely in the chronology of creation.</inlineHelpText>
     <label>Wizard Instance Number</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>AutoNumber</type>
 </CustomField>

@@ -3,6 +3,7 @@
     <fullName>Number_Of_Items__c</fullName>
     <externalId>false</externalId>
     <label>Number Of Items</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Contract_Performance_SLA_COA__c.Contract_Performance_Agreement__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackTrending>false</trackTrending>

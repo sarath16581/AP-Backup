@@ -8,6 +8,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Foresight_Team_Members</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

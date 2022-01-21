@@ -21,10 +21,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Area_to_Benefit__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Description</field>
             </layoutItems>
         </layoutColumns>
@@ -64,10 +60,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Case_Lead__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Other_CoE_s_Involved__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

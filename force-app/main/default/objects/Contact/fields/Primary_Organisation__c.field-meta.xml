@@ -9,6 +9,7 @@
     <relationshipLabel>Business Contacts</relationshipLabel>
     <relationshipName>Primary_Organisations</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Lookup</type>

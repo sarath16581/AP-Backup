@@ -11,6 +11,7 @@
     <relationshipLabel>Quote Line Items (Ship To)</relationshipLabel>
     <relationshipName>QuoteLineItemsShipTo</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

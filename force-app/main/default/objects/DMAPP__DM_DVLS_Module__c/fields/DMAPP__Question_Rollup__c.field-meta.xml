@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Automatic calculation of the number of questions within the module (sum of the questions in each component). Used to determine the user&apos;s current overall &quot;score&quot; in the underlying tests.</inlineHelpText>
     <label>Question Rollup</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__DM_DVLS_Component__c.DMAPP__Question_Rollup__c</summarizedField>
     <summaryForeignKey>DMAPP__DM_DVLS_Component__c.DMAPP__DM_DVLS_Module__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

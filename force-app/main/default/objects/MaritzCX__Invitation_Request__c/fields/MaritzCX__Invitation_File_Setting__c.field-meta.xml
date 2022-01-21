@@ -10,6 +10,7 @@
     <relationshipLabel>Invitation Requests</relationshipLabel>
     <relationshipName>Invitation_Requests</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

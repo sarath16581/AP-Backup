@@ -14,6 +14,7 @@ Total Current Pipeline Goal = Annual Plan Target x Current Opportunity Multiplie
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

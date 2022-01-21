@@ -6,6 +6,7 @@
     <inlineHelpText>.</inlineHelpText>
     <label>Activated Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

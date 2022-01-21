@@ -17,6 +17,8 @@
     28/01/2020          vcheng@salesforce.com                       MW0009344 update to assign and complete BGS Milestones, aligned with SSSW flow
     07/10/2021          naveen.rajanna@auspost.com.au               REQ2616056 Modified updateCaseStatusTracking to update only when there is a change and api version to 52
     15/11/2021          ashapriya.gadi@auspost.com.au               SMWD-312 - MW0004779 - Assign the correct entitlement process and business hours record to the case
+    12/01/2022          naveen.rajanna@auspost.com.au               REQ2656153 Added check for whether Batch invoked call before making future call
+    17/01/2022          ashapriya.gadi@auspost.com.au               SMWD-312 - MW0004779 - defaulting all the manual service delivery cases' entitlement to VIC
  *******************************  History ************************************************/
 public with sharing class CaseMilestoneUtility{
        
@@ -48,7 +50,7 @@ public with sharing class CaseMilestoneUtility{
 
             // Get the Record Type Id for BGS Service Delivery Cases
             bgsRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()), BGSConstants.SERVICE_DELIVERY_NAME);
-            bgsEntitlementsByName = getBGSEntitlementIds();
+            //bgsEntitlementsByName = getBGSEntitlementIds();//commented by Asha for SMWD-312: retreiving all the entitlements is not required anymore as we are defaulting all cases to VIC entitlement
         }
         catch(Exception exp){
             // Error Logged to Exception object for analysis
@@ -118,31 +120,32 @@ public with sharing class CaseMilestoneUtility{
                     SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
         }
     }
-
+    
     /**
-     * Added 2020-01 Assigns a BGS Entitlement to a list of Cases for MW0009344
-     * This replaces the functionality of the existing Process Builder "Case Entitlement Assignment BGS"
-     *
-     * @param bgsCases a list of Cases of type Service Delivery/Sales_Ops_Delivery
-     */
+	  * Added 2020-01 Assigns a BGS Entitlement to a list of Cases for MW0009344
+	  * This replaces the functionality of the existing Process Builder "Case Entitlement Assignment BGS"
+	  *
+	  * @param bgsCases a list of Cases of type Service Delivery/Sales_Ops_Delivery
+	  */
     private static void AssignBGSEntitlement(List<Case> bgsCases)
     {
-        System.debug('CaseMilestoneUtility::AssignBGSEntitlement:' + bgsEntitlementsByName);
-        // no entitlement records, EARLY OUT
-        if(bgsEntitlementsByName == null || bgsEntitlementsByName.keySet().size() == 0)
-            return;
-
+        System.debug('CaseMilestoneUtility::AssignBGSEntitlement:');
+        
         // we need to query the contact mailing state to assign the correct time zone
         List<Id> caseContactIds = new List<Id>();
-        for(Case csRec:bgsCases)
-        {
-            if(csRec.ContactId != null)
-                caseContactIds.add(csRec.ContactId);
+        //query just the VIC entitlement to default all cases to VIC
+        List<Entitlement> entitlementList = [SELECT Id FROM Entitlement WHERE Name =: BGSConstants.BGS_ENTITLEMENT_VIC];
+        if(!entitlementList.isEmpty()) {
+            for (Case csRec : bgsCases) {
+                csRec.EntitlementId = entitlementList[0].Id;
+                /*if (csRec.ContactId != null)
+                    caseContactIds.add(csRec.ContactId);*/
+            }
         }
-
+        
         // we need to query the Contacts attached to the cases to match by MailingState
         // reformat into a map for lookup later
-        Map<Id, Contact> contactByIds = new Map<Id, Contact>();
+        /*Map<Id, Contact> contactByIds = new Map<Id, Contact>();
         for(Contact caseContact: [SELECT Id, MailingState FROM Contact WHERE Id in:caseContactIds ])
         {
             contactByIds.put(caseContact.Id, caseContact);
@@ -207,8 +210,8 @@ public with sharing class CaseMilestoneUtility{
                 // default
                 csRec.EntitlementId = bgsEntitlementsByName.get(BGSConstants.BGS_ENTITLEMENT_VIC);
             }
-        }
-
+        }*/
+    
     }
 
     
@@ -234,7 +237,7 @@ public with sharing class CaseMilestoneUtility{
             if(!casesToUpdate.isEmpty()){
                 isCaseSLASet = true;        // set flag to true
                 
-                if(!System.IsFuture()){
+                if(!System.IsFuture() && !System.IsBatch()){ //REQ2656153
                     casesJson = JSON.serialize(casesToUpdate);
                     setSLA(casesJson);
                 }
@@ -673,14 +676,15 @@ public with sharing class CaseMilestoneUtility{
                     SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
         }
     }
-
-
+    
+    
     /**
-     * MW0009344 get all entitlement records for BGS. It expects the records to be named as BGS Entitlement Standard VIC/NSW/etc
-     *
-     * @return a Map of <Name , Id> of entitlement records
-     */
-    public static Map<String, Id> getBGSEntitlementIds()
+	  * MW0009344 get all entitlement records for BGS. It expects the records to be named as BGS Entitlement Standard VIC/NSW/etc
+	  *
+	  * @return a Map of <Name , Id> of entitlement records
+	  * commented by Asha for SMWD-312: retreiving all the entitlements is not required anymore as we are defaulting all cases to VIC entitlement
+	  */
+    /*public static Map<String, Id> getBGSEntitlementIds()
     {
         // Get all the entitlement names from the account
         List<Entitlement> bgsEntitlements = [
@@ -697,5 +701,5 @@ public with sharing class CaseMilestoneUtility{
         }
         //System.debug('BGS Entitlements:' + bgsEntitlementIds);
         return bgsEntitlementIds;
-    }
+    }*/
 }

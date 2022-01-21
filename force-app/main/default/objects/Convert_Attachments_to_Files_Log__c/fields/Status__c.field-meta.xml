@@ -6,6 +6,7 @@
     <inlineHelpText>Indicates the status of log message, whether an attachment was successfully converted or perhaps that it was skipped during conversion or that it failed conversion. The API values match conversion result enum value in apex code.</inlineHelpText>
     <label>Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

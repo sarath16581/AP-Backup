@@ -6,6 +6,7 @@
     <formula>IF(NOT(ISBLANK(TEXT(Depot_Collection__c))), TEXT(Depot_Collection__c), TEXT(Organisation__r.Depot_Collection__c))</formula>
     <label>Allows depot collection?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

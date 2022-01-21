@@ -50,6 +50,7 @@ CASE(MOD( Date_Status_Changed_Complete__c - DATE(1985,6,24),7),
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

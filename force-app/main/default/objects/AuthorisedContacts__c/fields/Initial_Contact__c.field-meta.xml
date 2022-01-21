@@ -5,6 +5,7 @@
     <description>This will flag the related contact as initial contact</description>
     <externalId>false</externalId>
     <label>Initial Contact</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

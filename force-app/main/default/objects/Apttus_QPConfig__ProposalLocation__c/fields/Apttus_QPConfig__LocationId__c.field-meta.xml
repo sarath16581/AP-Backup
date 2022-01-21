@@ -11,6 +11,7 @@
     <relationshipLabel>Proposal Location</relationshipLabel>
     <relationshipName>ProposalLocation</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

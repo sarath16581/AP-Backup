@@ -6,6 +6,7 @@
     <formula>IF(No_Data_Consignment__c ,Address3Suburb__c, ArticleTest__r.Sender_Suburb__c)</formula>
     <label>Sender Suburb</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -8,6 +8,7 @@
     <inlineHelpText>Account Manager who owns the Organisation this contact is attached to.</inlineHelpText>
     <label>Account Owner Name</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

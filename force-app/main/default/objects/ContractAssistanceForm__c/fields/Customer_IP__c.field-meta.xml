@@ -5,6 +5,7 @@
     <inlineHelpText>Provide details of any customer Intellectual Property that AP requires a licence to access or use.</inlineHelpText>
     <label>Customer Intellectual Property</label>
     <length>131072</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

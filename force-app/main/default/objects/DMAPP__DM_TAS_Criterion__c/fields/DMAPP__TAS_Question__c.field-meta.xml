@@ -8,6 +8,7 @@
 Defined as a picklist, you can edit the section headings (change the names of the existing and/or add new) under App Setup &gt; Create &gt; Objects &gt; Assessment Criterion &gt; Section Heading.</inlineHelpText>
     <label>Section Heading</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

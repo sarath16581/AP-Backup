@@ -11,14 +11,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Advice on sending parcels</fullName>
+                <fullName>Delivery Enquiry</fullName>
                 <default>false</default>
-                <label>Advice on sending parcels</label>
+                <label>Delivery Enquiry</label>
             </value>
             <value>
-                <fullName>Tracking enquiry</fullName>
+                <fullName>Label Enquiry</fullName>
                 <default>false</default>
-                <label>Tracking enquiry</label>
+                <label>Label Enquiry</label>
+            </value>
+            <value>
+                <fullName>Pick up Enquiry</fullName>
+                <default>false</default>
+                <label>Pick up Enquiry</label>
             </value>
             <value>
                 <fullName>Technical enquiry</fullName>
@@ -26,14 +31,14 @@
                 <label>Technical enquiry</label>
             </value>
             <value>
-                <fullName>Growing Global</fullName>
+                <fullName>Pricing Enquiry</fullName>
                 <default>false</default>
-                <label>Growing Global</label>
+                <label>Pricing Enquiry</label>
             </value>
             <value>
-                <fullName>Other enquiry</fullName>
+                <fullName>Other Enquiry</fullName>
                 <default>false</default>
-                <label>Other enquiry</label>
+                <label>Other Enquiry</label>
             </value>
         </valueSetDefinition>
     </valueSet>

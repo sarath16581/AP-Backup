@@ -6,6 +6,7 @@
     <description>Gantt markers clustering</description>
     <externalId>false</externalId>
     <label>Marker Clustering</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

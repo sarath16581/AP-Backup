@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Adds Courier language to generated Short Form Contract</inlineHelpText>
     <label>Include Courier Language</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

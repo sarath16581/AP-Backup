@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>eParcel Damages</label>
     <length>2000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>

@@ -14,6 +14,7 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
+                <identifier>forceCommunity_htmlBlock</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -32,6 +33,7 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
+                <identifier>forceCommunity_htmlBlock2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -43,6 +45,7 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
+                <identifier>forceCommunity_htmlBlock3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -54,6 +57,7 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
+                <identifier>forceCommunity_htmlBlock4</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -72,6 +76,7 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
+                <identifier>forceCommunity_htmlBlock5</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -83,6 +88,7 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
+                <identifier>forceCommunity_htmlBlock6</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>
@@ -101,6 +107,7 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
+                <identifier>forceCommunity_htmlBlock7</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -112,6 +119,7 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
+                <identifier>forceCommunity_htmlBlock8</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebarAlt</name>
@@ -141,6 +149,7 @@
                     <value>Customer enquiry forms</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
+                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

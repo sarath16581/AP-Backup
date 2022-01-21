@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Contact Mobile</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Phone</type>

@@ -767,6 +767,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>kfsell__FOP_Name__c</fields>
         <relatedList>kfsell__Gold_Sheet__c.kfsell__Account__c</relatedList>
     </relatedLists>
     <relatedLists>

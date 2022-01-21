@@ -9,6 +9,7 @@
     <relationshipLabel>Milestone Section Quicklinks</relationshipLabel>
     <relationshipName>Milestone_Section_Quicklinks</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

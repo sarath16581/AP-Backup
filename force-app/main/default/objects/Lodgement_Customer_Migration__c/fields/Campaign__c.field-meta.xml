@@ -8,6 +8,7 @@
     <relationshipLabel>Lodgement Customer Migrations</relationshipLabel>
     <relationshipName>Lodgement_Customer_Migrations</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

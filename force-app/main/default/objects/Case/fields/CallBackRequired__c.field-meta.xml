@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>If this is Checked, the Customer would like to be called about this Case before closure.</inlineHelpText>
     <label>Call Back Required</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

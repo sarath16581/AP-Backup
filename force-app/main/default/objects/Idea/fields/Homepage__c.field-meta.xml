@@ -4,5 +4,6 @@
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Homepage</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

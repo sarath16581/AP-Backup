@@ -6,6 +6,7 @@
     <inlineHelpText>Enter the text of the message</inlineHelpText>
     <label>Message</label>
     <length>2048</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

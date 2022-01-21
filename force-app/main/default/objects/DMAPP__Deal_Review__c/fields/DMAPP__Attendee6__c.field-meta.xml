@@ -8,6 +8,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Deal_Reviews5</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

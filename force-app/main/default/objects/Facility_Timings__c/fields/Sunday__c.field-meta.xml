@@ -5,6 +5,7 @@
     <label>Sunday</label>
     <length>8</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

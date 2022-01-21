@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Tier Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>

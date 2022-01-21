@@ -6122,7 +6122,7 @@ Also, the package has changed the setting to prevent the creation of Contacts an
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PUDJobsAlreadyPushedToDispatchSystemErrorMessage</shortDescription>
-        <value>Please review no-pickup date range and days selected. No-pickup cannot be added when existing jobs have been already sent to dispatch system.</value>
+        <value>Please review no-pickup date range and days selected. No-pickup cannot be added to jobs which have been marked {0}.</value>
     </labels>
     <labels>
         <fullName>PUDUpdateBookingToCancelFutureJobsErrorMessage</fullName>

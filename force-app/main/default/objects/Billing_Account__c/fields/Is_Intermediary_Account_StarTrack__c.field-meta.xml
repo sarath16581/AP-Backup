@@ -5,6 +5,7 @@
     <description>The field is used to indicate that the Organisation is a StarTrack Intermediary Account.</description>
     <externalId>false</externalId>
     <label>Is Intermediary Account - StarTrack</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

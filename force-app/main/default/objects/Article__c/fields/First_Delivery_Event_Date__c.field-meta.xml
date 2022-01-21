@@ -4,6 +4,7 @@
     <description>StarTrack field used for storing the latest delivery date for a consignment record</description>
     <externalId>false</externalId>
     <label>First Delivery Event Date</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>EventMessage__c.ActualDateTime__c</summarizedField>
     <summaryFilterItems>
         <field>EventMessage__c.RecordTypeId</field>

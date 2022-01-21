@@ -8,6 +8,7 @@
     <referenceTo>Opportunity</referenceTo>
     <relationshipName>Unit_Solution_Opps</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

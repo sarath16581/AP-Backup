@@ -6,6 +6,7 @@
     <inlineHelpText>Is the merchant already, or intending to sell on Amazon</inlineHelpText>
     <label>Are you selling on Amazon?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

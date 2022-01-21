@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>In-Active rules are NOT evaluated when a lead or campaign member is saved.</inlineHelpText>
     <label>Active</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

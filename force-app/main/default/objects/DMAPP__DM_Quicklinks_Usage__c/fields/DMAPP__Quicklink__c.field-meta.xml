@@ -9,6 +9,7 @@
     <relationshipLabel>Dealmaker Quicklinks Usage</relationshipLabel>
     <relationshipName>Dealmaker_Quicklinks_Usage</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

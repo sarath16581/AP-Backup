@@ -6,6 +6,7 @@
     <inlineHelpText>This field provides the status while your lead is &quot;In Progress&quot;. Select from the drop down choices.</inlineHelpText>
     <label>In Progress Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

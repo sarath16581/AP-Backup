@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>If checked, gap between services will be based on the minimum gap field, without travel calculations.</inlineHelpText>
     <label>Fixed Gap</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

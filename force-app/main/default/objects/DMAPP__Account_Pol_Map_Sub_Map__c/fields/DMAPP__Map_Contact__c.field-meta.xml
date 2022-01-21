@@ -9,6 +9,7 @@
     <relationshipLabel>Account Pol Map Sub Maps</relationshipLabel>
     <relationshipName>Account_Pol_Map_Sub_Maps</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

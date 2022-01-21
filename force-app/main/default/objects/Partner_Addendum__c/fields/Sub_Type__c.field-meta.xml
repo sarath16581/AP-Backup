@@ -122,14 +122,14 @@
                 <label>Ad-hoc</label>
             </value>
             <value>
-                <fullName>Miscellaneous Type 1</fullName>
+                <fullName>Negotiated Payment – Compliance Payment</fullName>
                 <default>false</default>
-                <label>Miscellaneous Type 1</label>
+                <label>Negotiated Payment – Compliance Payment</label>
             </value>
             <value>
-                <fullName>Miscellaneous Type 2</fullName>
+                <fullName>Negotiated Payment – Performance Payment</fullName>
                 <default>false</default>
-                <label>Miscellaneous Type 2</label>
+                <label>Negotiated Payment – Performance Payment</label>
             </value>
             <value>
                 <fullName>Miscellaneous Type 3</fullName>

@@ -8,6 +8,7 @@
     <precision>14</precision>
     <required>false</required>
     <scale>5</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

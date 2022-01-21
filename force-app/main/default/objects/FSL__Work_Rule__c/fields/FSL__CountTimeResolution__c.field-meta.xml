@@ -6,6 +6,7 @@
     <inlineHelpText>The time resolution for the count.</inlineHelpText>
     <label>Count Time Resolution</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

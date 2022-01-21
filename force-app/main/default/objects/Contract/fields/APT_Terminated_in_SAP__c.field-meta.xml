@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Please check this checkbox if contract was terminated in SAP</inlineHelpText>
     <label>Terminated in SAP?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

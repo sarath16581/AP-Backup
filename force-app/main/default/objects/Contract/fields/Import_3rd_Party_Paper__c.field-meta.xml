@@ -9,6 +9,7 @@ HYPERLINK(&quot;/apex/Apttus__OfflineDocumentImport?id=&quot;&amp;Id+&quot;&amp;
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Import 3rd Party Contract</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

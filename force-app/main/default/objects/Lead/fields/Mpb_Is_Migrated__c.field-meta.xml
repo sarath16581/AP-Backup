@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates if this Lead is migrated from an Account + Contact pair.  Used for suppressing Marketing Cloud Journeys.</inlineHelpText>
     <label>Is Migrated?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

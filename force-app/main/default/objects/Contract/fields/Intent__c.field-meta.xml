@@ -6,6 +6,7 @@
     <inlineHelpText>The intent associated with the agreement</inlineHelpText>
     <label>Intent</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

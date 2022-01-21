@@ -6,6 +6,7 @@
     <inlineHelpText>For SAP Mapping: International Indicator</inlineHelpText>
     <label>International Indicator</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

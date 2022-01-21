@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Number Of Days Accessed (DEPRECATED)</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>DMAPP__AM_Plan_Team__c.DMAPP__Number_Of_Days_Accessed__c</summarizedField>
     <summaryForeignKey>DMAPP__AM_Plan_Team__c.DMAPP__Account_Plan__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

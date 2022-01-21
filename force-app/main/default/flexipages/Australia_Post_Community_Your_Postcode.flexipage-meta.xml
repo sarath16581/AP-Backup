@@ -9,6 +9,7 @@
                     <value>&lt;h1 style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-family: arial; font-size: 28px;&quot;&gt;Tell us a﻿bout yo﻿ur Postcode&lt;/b&gt;&lt;/h1&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-family: verdana;&quot;&gt;Did you know Postcodes have been around for 50 years?&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-family: verdana;&quot;&gt;To help us understand what&apos;s important to you about your local community, take the short survey or share your story below.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-family: verdana;&quot;&gt;Get involved, and make sure your Postcode is represented!&lt;/span&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:richTextInline</componentName>
+                <identifier>forceCommunity_richTextInline2</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -37,6 +38,7 @@
                     <value>100%</value>
                 </componentInstanceProperties>
                 <componentName>Get_Feedback:GetFeedbackSurvey</componentName>
+                <identifier>Get_Feedback_GetFeedbackSurvey2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -58,6 +60,7 @@
                     <value>100%</value>
                 </componentInstanceProperties>
                 <componentName>Get_Feedback:GetFeedbackSurvey</componentName>
+                <identifier>Get_Feedback_GetFeedbackSurvey</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -74,6 +77,7 @@
                     <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;﻿&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Want to learn more? Check out this &lt;/span&gt;&lt;a href=&quot;https://australiapostcollectables.com.au/articles/postcodes-turn-50&quot; target=&quot;_self&quot; style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;history of Postcodes in Australia&lt;/b&gt;&lt;/a&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt; &lt;/b&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;on our Collectables website.&lt;/span&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:richTextInline</componentName>
+                <identifier>forceCommunity_richTextInline</identifier>
             </componentInstance>
         </itemInstances>
         <name>footer</name>

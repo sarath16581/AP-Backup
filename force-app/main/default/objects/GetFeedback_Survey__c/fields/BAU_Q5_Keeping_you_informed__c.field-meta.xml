@@ -9,6 +9,7 @@ Keeping you informed</inlineHelpText>
     <label>BAU Q5 - Keeping you informed</label>
     <length>2</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
