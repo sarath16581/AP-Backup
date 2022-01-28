@@ -6,6 +6,7 @@
     <inlineHelpText>If your Opportunity does not require a contract, then the ‘Contract Product?’ field of all products in the Opportunity must have been flagged as not requiring a contract.</inlineHelpText>
     <label>Contract Product?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>

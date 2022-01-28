@@ -51,7 +51,7 @@ public class BspConstants{
     // MPB ENQUIRY TYPES
     public static final String ENQUIRY_TYPE_MPB_DEL_ENQ= 'delivery enquiry';
     public static final String ENQUIRY_TYPE_MPB_LABEL_ENQ = 'label enquiry';
-    public static final String ENQUIRY_TYPE_MPB_PICKUP_ENQ = 'pickup enquiry';
+    public static final String ENQUIRY_TYPE_MPB_PICKUP_ENQ = 'pick up enquiry';
     public static final String ENQUIRY_TYPE_MPB_PRICING_ENQ = 'pricing enquiry';
     public static final String ENQUIRY_TYPE_MPB_OTHER_ENQ = 'other enquiry';
 
@@ -121,7 +121,7 @@ public class BspConstants{
     public static final String SELECT_OPTION_MPB_LABEL_ENQ_REFUND = 'Request a refund';
     public static final String SELECT_OPTION_MPB_LABEL_ENQ_LABEL_SUPPORT = 'Label Support';
 
-    public static final String SELECT_OPTION_MPB_PICKUP_ENQ_PICKUP_FAILURE = 'PickUp Failure';
+    public static final String SELECT_OPTION_MPB_PICKUP_ENQ_PICKUP_FAILURE = 'Pick Up Failure';
     public static final String SELECT_OPTION_MPB_PICKUP_ENQ_GENERAL = 'General';
     public static final String SELECT_OPTION_MPB_PICKUP_ENQ_CHANGE_REQUEST= 'Change Request';
 

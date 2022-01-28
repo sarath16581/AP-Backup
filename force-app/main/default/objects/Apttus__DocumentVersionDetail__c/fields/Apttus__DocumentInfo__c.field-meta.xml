@@ -7,6 +7,7 @@
     <inlineHelpText>Additional document information</inlineHelpText>
     <label>Document Info</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

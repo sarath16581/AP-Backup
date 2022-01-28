@@ -7,6 +7,7 @@ Setting the flag false will trigger a validation rule which prevent selling this
 Apttus Flow is not affected.</description>
     <externalId>false</externalId>
     <label>Is Selling Product</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

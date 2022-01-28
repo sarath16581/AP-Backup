@@ -29,6 +29,7 @@ FiscalYear__r.Q3_Work_Days__c + FiscalYear__r.Q4_Work_Days__c)
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

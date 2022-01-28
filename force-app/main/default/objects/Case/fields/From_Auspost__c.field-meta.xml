@@ -5,6 +5,7 @@
     <formula>IF(CONTAINS(SuppliedEmail,&apos;auspost.com.au&apos;),true,false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>From Auspost</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

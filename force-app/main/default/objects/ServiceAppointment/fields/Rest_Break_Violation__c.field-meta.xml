@@ -10,6 +10,7 @@
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Rest Break Violation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

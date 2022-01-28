@@ -6,6 +6,7 @@
     <description>Filter candidates after get slots</description>
     <externalId>false</externalId>
     <label>Filter Candidates</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

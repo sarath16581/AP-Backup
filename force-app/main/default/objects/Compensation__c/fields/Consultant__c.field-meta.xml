@@ -5,6 +5,7 @@
     <formula>$User.FirstName &amp; &quot; &quot; &amp; $User.LastName</formula>
     <label>Consultant</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -5,6 +5,7 @@
     <formula>Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Day_of_Delivery__c</formula>
     <label>Day of Delivery</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

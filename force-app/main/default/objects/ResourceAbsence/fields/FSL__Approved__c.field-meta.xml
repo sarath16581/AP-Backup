@@ -5,6 +5,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Approved</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

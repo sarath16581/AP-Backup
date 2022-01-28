@@ -5,6 +5,7 @@
     <formula>if(APT_Approval_Required4__c==true,true,false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>APT_Ar4</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

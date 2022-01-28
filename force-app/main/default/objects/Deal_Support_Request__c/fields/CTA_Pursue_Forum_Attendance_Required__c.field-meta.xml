@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>CTA Pursue Forum Attendance Required</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -16,6 +16,7 @@
 * 2021-09-01 hara.sahoo@auspost.com.au: Added isWithinEDD method which includes additional considerations for ranged EDD pattern
 * 2021-11-02 phap.mai@auspost.com.au: DDS-7977 - Added methods to determine if all articles are successed
 * 2021-12-06 alex.volkov@auspost.com.au: Added newInstance() method, minor refactoring
+* 2022-01-24 alex.volkov@auspost.com.au: Updated isEligibleForMyNetworkAssignment flag to consider all consignment articles statuses
 */
 
 public without sharing class ChasTrackStatus {
@@ -626,14 +627,15 @@ public without sharing class ChasTrackStatus {
     // 1. isDelivered , isDeliveredLeftInASafePlace : There is a delivered scan and it's not safe drop
     // 2. isReturnToSender : Is does not have a return to sender scan
     // 3. hasCustomerSignedFor : This is a boolean returned from the service to suggest is customer has signed for the consignment, if yes dont send to network
-    // 4  duplicateCase : No existing case
+    // 4.  duplicateCase : No existing case
+    // 5. if part of a consignment: all articles are in the consignment are delivered
     public Boolean isEligibleForMyNetworkAssignment {
         get {
             if(isEligibleForMyNetworkAssignment == null) {
                 isEligibleForMyNetworkAssignment = false;
                 //-- Commenting the piece of code with the hasCustomerSignedFor till SAP-EM deliver the fix
                 //if(String.isEmpty(duplicateCase) && !isReturnToSender && isDelivered && !isDeliveredLeftInASafePlace && (! hasCustomerSignedFor)) {
-                if(String.isEmpty(duplicateCase) && !isReturnToSender && isDelivered && !isDeliveredLeftInASafePlace) {
+                if(String.isEmpty(duplicateCase) && !isReturnToSender && isDelivered && !isDeliveredLeftInASafePlace && allArticlesSuccessed) {
                     isEligibleForMyNetworkAssignment = true;
                 }
             }

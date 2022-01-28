@@ -9,6 +9,7 @@
     <relationshipLabel>Product Feature Values</relationshipLabel>
     <relationshipName>ProductFeatureValues</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -7,6 +7,7 @@
     <inlineHelpText>The related object to default the quantity from. If the related object is not available, the quantity default value will be used.</inlineHelpText>
     <label>Default Quantity From</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

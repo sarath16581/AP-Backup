@@ -11,6 +11,7 @@ Identify the importance of each criterion relative to one another (% weighting)<
     <precision>5</precision>
     <required>false</required>
     <scale>2</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Percent</type>
 </CustomField>

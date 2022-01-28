@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Notify this Contact about any Account Manager changes affecting  their Organisation.</inlineHelpText>
     <label>Account Manager changes</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Checkbox</type>

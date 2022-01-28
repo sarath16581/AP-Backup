@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Address</label>
     <length>32768</length>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>

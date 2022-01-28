@@ -3,6 +3,7 @@
     <fullName>KnowledgeUser__c</fullName>
     <externalId>false</externalId>
     <label>KnowledgeUser</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Salesforce_Feature_Licence__c.Feature_Licence_Type__c</field>
         <operation>equals</operation>

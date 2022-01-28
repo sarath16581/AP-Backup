@@ -5,6 +5,7 @@
     <formula>IF(NOT(ISBLANK(Related_Billing_Account__c)), TRUE, FALSE)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Calc Related Billing Account</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

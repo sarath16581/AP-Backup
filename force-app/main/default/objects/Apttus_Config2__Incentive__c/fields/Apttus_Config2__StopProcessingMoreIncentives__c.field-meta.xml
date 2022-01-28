@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicator to prevent subsequent incentives from processing</inlineHelpText>
     <label>Stop Processing More Incentives</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

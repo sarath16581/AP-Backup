@@ -7,6 +7,7 @@
     <referenceTo>Contact</referenceTo>
     <relationshipName>IT_Contacts_and_Integration_Details</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

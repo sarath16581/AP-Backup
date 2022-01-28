@@ -7,6 +7,7 @@
     <inlineHelpText>The order source channel. Indicates the primary Sales Channel for the Order.</inlineHelpText>
     <label>Source Channel</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

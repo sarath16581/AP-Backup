@@ -6,6 +6,7 @@
     <formula>Opportunity__r.AccountId</formula>
     <label>Opportunity Account ID</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

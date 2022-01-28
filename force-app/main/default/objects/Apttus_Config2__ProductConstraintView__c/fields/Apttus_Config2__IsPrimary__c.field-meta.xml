@@ -6,6 +6,7 @@
     <description>Indicates whether the rule considers the product only if it is added to the cart as a primary product which is not an option.</description>
     <externalId>false</externalId>
     <label>Is Primary</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

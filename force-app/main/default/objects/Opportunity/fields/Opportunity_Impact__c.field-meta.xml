@@ -8,6 +8,7 @@ Identifying the likely outcome if we didn’t pursue this opportunity beyond fin
     <inlineHelpText>What would be the effect if we did not pursue this opportunity? (6%)</inlineHelpText>
     <label>Opportunity Impact</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>

@@ -21,6 +21,7 @@
     <relationshipLabel>Revenue Split Policy Entries (Deferred Revenue Account)</relationshipLabel>
     <relationshipName>RevenueSplitPolicyEntriesDR</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

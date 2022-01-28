@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether the quantity is auto updated when the default quantity field gets a new value</inlineHelpText>
     <label>Auto Update Quantity</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

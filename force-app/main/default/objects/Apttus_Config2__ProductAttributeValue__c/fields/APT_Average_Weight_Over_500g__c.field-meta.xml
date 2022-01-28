@@ -11,6 +11,7 @@ Formula updated to return a value when 100% returns was selected in the shopping
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

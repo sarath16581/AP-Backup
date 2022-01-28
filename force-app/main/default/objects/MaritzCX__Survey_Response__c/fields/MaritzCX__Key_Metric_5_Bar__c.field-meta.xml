@@ -46,6 +46,7 @@ IF( (MaritzCX__Key_Metric_5__c &lt;= MaritzCX__Survey_Id__r.MaritzCX__KM5_Max__c
 IF(ISBLANK( MaritzCX__Key_Metric_5__c ),&quot;&quot;,TEXT(MaritzCX__Key_Metric_5__c) + &quot; &quot; +  $Label.maritzcx__out_of_range ))</formula>
     <label>Key Metric 5</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

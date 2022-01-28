@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This field determines if the Duty Service Resource should be included in the scheduled Generate Work process which creates jobs approx 24 hours prior to the duty start time.</inlineHelpText>
     <label>Auto Generate Work</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

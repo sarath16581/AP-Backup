@@ -5,6 +5,7 @@
     <formula>HYPERLINK(&quot;/&quot;&amp;OwnerId ,  Owner:User.FirstName &amp;&quot; &quot;&amp;Owner:User.LastName ,&quot;_self&quot;)</formula>
     <label>User</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

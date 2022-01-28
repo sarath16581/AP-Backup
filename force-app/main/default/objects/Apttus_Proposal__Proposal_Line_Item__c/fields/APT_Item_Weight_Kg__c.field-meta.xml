@@ -5,6 +5,7 @@
     <formula>Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Item_Weight__c /*Apttus_QPConfig__AttributeValueId__r.APT_Item_Weight__c*/</formula>
     <label>Item/Weight(Kg)</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

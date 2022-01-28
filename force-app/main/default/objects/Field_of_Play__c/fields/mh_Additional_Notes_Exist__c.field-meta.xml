@@ -5,6 +5,7 @@
     <description>SAM Integration FOP Gold Sheet</description>
     <externalId>false</externalId>
     <label>Additional Notes Exist</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <label>ptestname</label>
     <length>23</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

@@ -3,6 +3,7 @@
     <fullName>First_Job_Start_Time_Number__c</fullName>
     <externalId>false</externalId>
     <label>First Job Start Time Number</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Job_Template__c.Start_Time_Number__c</summarizedField>
     <summaryForeignKey>Job_Template__c.Route_Template__c</summaryForeignKey>
     <summaryOperation>min</summaryOperation>

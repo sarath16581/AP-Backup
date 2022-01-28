@@ -6,6 +6,7 @@
 LEFT( Apttus_Config2__PriceListItemId__r.APT_Zone_Description__c ,FIND(&quot;,&quot;, Apttus_Config2__PriceListItemId__r.APT_Zone_Description__c )-1), Apttus_Config2__PriceListItemId__r.APT_Zone_Description__c )</formula>
     <label>Pickup Zone 1</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

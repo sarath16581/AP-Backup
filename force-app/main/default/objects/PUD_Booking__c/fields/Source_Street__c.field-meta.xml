@@ -6,6 +6,7 @@ Which will further be used to get geo-cordinates from AME,</description>
     <externalId>false</externalId>
     <label>Source Street</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>

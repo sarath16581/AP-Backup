@@ -4,6 +4,7 @@
     <description>Phase 2 for Custom Pricing Requests</description>
     <externalId>false</externalId>
     <label>No of Products</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>OpportunityLineItem.OpportunityId</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

@@ -10,6 +10,7 @@
     <relationshipLabel>Base Products (Related Product)</relationshipLabel>
     <relationshipName>BaseProducts</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

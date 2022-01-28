@@ -5,6 +5,7 @@
     <formula>ActualDeliveryDate &gt; ExpectedDeliveryDate</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Late Delivery</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

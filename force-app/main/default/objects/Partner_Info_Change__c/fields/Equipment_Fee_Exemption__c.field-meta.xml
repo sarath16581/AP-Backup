@@ -5,6 +5,7 @@
     <description>Whether or not an LPO is exempted from paying equipment fees.</description>
     <externalId>false</externalId>
     <label>Equipment Fee Exemption</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

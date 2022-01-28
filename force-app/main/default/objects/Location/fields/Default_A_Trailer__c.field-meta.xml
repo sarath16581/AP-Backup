@@ -9,6 +9,7 @@
     <relationshipLabel>Locations</relationshipLabel>
     <relationshipName>ParentTruckToATrailer</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

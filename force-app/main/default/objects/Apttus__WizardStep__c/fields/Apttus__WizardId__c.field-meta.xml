@@ -10,6 +10,7 @@
     <referenceTo>Apttus__Wizard__c</referenceTo>
     <relationshipName>WizardSteps</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

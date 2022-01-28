@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Warning: Clicking this box will ignore this item in reporting / analysis for the responsible status. Changes to this field are logged.</inlineHelpText>
     <label>Ignore</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

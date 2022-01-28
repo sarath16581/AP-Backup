@@ -484,9 +484,9 @@
                 <label>MyAccount</label>
             </value>
             <value>
-                <fullName>MyPost Business App</fullName>
+                <fullName>MyPost Business</fullName>
                 <default>false</default>
-                <label>MyPost Business App</label>
+                <label>MyPost Business</label>
             </value>
             <value>
                 <fullName>MyPost Concession Card</fullName>
@@ -1444,7 +1444,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
-            <valueName>MyPost Business App</valueName>
+            <valueName>MyPost Business</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Web &amp; Apps</controllingFieldValue>

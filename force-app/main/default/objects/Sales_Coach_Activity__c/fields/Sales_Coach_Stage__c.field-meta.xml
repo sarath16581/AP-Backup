@@ -8,6 +8,7 @@
     <relationshipLabel>Sales Coach Activities</relationshipLabel>
     <relationshipName>Sales_Coach_Activities</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

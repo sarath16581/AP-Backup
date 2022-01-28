@@ -22,11 +22,12 @@ IF((ISPICKVAL(Apttus_Config2__AdjustmentType__c, &quot;Customised Pricing&quot;)
 &amp;&amp; (APT_Category__c == &quot;CAT6&quot; || (CONTAINS(APT_Pricing_Structure__c, &quot;SPECIAL EXPRESS {Z40}&quot;)) || (NOT(CONTAINS(APT_Pricing_Structure__c,&quot;{Z30}&quot;))&amp;&amp;NOT(CONTAINS(APT_Pricing_Structure__c,&quot;{Z40}&quot;)))) 
 ))&amp;&amp;APT_Product_Name__c &lt;&gt; &quot;Local Pickup and Delivery Charges&quot; &amp;&amp; APT_New__c ,TRUE,FALSE))*/
 
-
+/* Changes : Removed APT_Service_Type__c =Premium */
 IF(( (AND(APT_Product_Name__c != &quot;International Bundle&quot;,APT_Product_Name__c != &quot;International Digital PCMS Bundle&quot;, APT_Product_Name__c != &quot;International Digital PCMS Bundle incl Airmail Letters&quot;) &amp;&amp; Apttus_Config2__AdjustmentAmount__c &gt; 0 &amp;&amp; Apttus_Config2__OptionId__c = null ) 
 || (APT_Product_Name__c == &quot;International Bundle&quot; &amp;&amp; Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.RecordType.Name ==&apos;Proposal&apos; &amp;&amp; ( Is_BAND_5_OR_6__c == &quot;YES&quot; || (Apttus_Config2__AdjustmentAmount__c &gt; 0) || OR(ISPICKVAL(Apttus_Config2__AdjustmentType__c, &quot;Offer Higher Band&quot;),ISPICKVAL(Apttus_Config2__AdjustmentType__c, &quot;Customised Pricing&quot;)))) 
-|| (APT_Product_Name__c == &quot;Unaddressed Mail Services&quot; &amp;&amp; ( APT_Volume_Thresholds__c == &quot;Above 2.5M&quot; || ISPICKVAL(Apttus_Config2__AttributeValueId__r.APT_Service_Type__c ,&quot;Premium&quot;)) )) &amp;&amp;APT_Product_Name__c &lt;&gt; &quot;Local Pickup and Delivery Services&quot; &amp;&amp; APT_New__c ,TRUE,FALSE)</formula>
+|| (APT_Product_Name__c == &quot;Unaddressed Mail Services&quot; &amp;&amp; ( APT_Volume_Thresholds__c == &quot;Above 2.5M&quot; ) )) &amp;&amp;APT_Product_Name__c &lt;&gt; &quot;Local Pickup and Delivery Services&quot; &amp;&amp; APT_New__c ,TRUE,FALSE)</formula>
     <label>Approval Required?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

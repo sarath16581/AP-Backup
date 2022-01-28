@@ -6,6 +6,7 @@
     <label>Geo</label>
     <required>false</required>
     <scale>8</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Location</type>
 </CustomField>

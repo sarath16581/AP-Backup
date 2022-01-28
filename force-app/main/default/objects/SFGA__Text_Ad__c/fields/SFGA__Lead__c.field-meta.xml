@@ -8,6 +8,7 @@
     <referenceTo>Lead</referenceTo>
     <relationshipName>R00N40000001Hgh4EAC</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

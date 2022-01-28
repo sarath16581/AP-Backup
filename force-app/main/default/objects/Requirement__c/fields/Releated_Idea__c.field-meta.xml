@@ -7,6 +7,7 @@
     <referenceTo>Idea</referenceTo>
     <relationshipName>Requirements</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

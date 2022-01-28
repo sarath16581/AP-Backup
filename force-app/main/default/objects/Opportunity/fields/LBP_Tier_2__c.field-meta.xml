@@ -19,6 +19,7 @@
     <relationshipLabel>Opportunities (LBP Tier 2)</relationshipLabel>
     <relationshipName>Opportunities2</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

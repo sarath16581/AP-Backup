@@ -8,6 +8,7 @@
     <relationshipLabel>Job Templates (Vehicle)</relationshipLabel>
     <relationshipName>Job_Templates</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -10,6 +10,7 @@ For a new record, the name will be passed as a URL parameter.</inlineHelpText>
     <label>Custom Display Setting</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -8,6 +8,7 @@
 This is mainly for DOV Purposes.
 New Case will be created and assigned to Contract Consulting Team. Please provide details in &apos;Details for Contract Consulting/Legal&apos; field.</inlineHelpText>
     <label>Submit To Contract Consulting Team</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <formula>Text(Account.Sales_Segment__c)</formula>
     <label>Sales Team</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

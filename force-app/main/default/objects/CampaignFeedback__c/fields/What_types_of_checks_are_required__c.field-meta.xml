@@ -6,6 +6,7 @@
     <inlineHelpText>Specific needs analysis on type of check required</inlineHelpText>
     <label>What types of checks are required?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

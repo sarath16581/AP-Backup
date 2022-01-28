@@ -8,6 +8,7 @@ Identify how competitive our value proposition is in regards to this criterion</
     <inlineHelpText>How competitive are we for this criterion?</inlineHelpText>
     <label>Competitive</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

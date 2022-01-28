@@ -8,6 +8,7 @@
     <relationshipLabel>Qualification-Response Details</relationshipLabel>
     <relationshipName>Qualification_Response_Details</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

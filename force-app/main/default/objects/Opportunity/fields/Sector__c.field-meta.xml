@@ -26,6 +26,7 @@ IF(CONTAINS(Closing_Owner_Role__c, &quot;ES Utilities&quot;), &quot;ES Utilities
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Sector</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

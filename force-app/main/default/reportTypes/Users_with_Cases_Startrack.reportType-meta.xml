@@ -160,4 +160,7 @@
         </columns>
         <masterLabel>Case (owner) info</masterLabel>
     </sections>
+    <sections>
+        <masterLabel>Cases</masterLabel>
+    </sections>
 </ReportType>

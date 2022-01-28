@@ -9,6 +9,7 @@
     <relationshipLabel>Revenue Start Dates (Product)</relationshipLabel>
     <relationshipName>Revenue_Start_Dates1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

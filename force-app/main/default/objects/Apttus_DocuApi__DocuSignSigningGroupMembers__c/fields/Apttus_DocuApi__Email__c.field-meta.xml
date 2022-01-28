@@ -7,6 +7,7 @@
     <inlineHelpText>This field stores the email address of the group members</inlineHelpText>
     <label>Email</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Email</type>
     <unique>false</unique>

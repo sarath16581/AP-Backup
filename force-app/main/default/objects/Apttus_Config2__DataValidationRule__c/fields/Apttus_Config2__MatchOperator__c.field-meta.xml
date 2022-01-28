@@ -7,6 +7,7 @@
     <inlineHelpText>The operator used to match the value in the target object field against the value in the source object field</inlineHelpText>
     <label>Match Operator</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

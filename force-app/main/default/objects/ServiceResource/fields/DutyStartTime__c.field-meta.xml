@@ -6,6 +6,7 @@ AJ 21/05/20 - Changed Field Type from Date/Time</description>
     <externalId>false</externalId>
     <label>Duty Start Time</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Time</type>
 </CustomField>

@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Competitors</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

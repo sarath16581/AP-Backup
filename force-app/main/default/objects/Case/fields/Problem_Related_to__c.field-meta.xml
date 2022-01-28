@@ -6,6 +6,7 @@
     <inlineHelpText>Problem Related to</inlineHelpText>
     <label>Problem Related to</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

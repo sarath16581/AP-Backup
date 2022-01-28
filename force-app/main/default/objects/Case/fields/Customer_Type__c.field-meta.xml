@@ -30,6 +30,7 @@ Gunith - When Case.Account is null, use the Contact to derive Account (PRB004960
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Customer Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

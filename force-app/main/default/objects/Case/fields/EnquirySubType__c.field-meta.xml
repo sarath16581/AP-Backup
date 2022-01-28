@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Enquiry Sub Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
@@ -717,6 +718,31 @@
                 <default>false</default>
                 <label>More Information</label>
             </value>
+            <value>
+                <fullName>Refund Request</fullName>
+                <default>false</default>
+                <label>Refund Request</label>
+            </value>
+            <value>
+                <fullName>Transaction History Request</fullName>
+                <default>false</default>
+                <label>Transaction History Request</label>
+            </value>
+            <value>
+                <fullName>Error Codes</fullName>
+                <default>false</default>
+                <label>Error Codes</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>System Outage</fullName>
+                <default>false</default>
+                <label>System Outage</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Home Insurance</controllingFieldValue>
@@ -788,7 +814,6 @@
             <controllingFieldValue>General Enquiry|International Letters|International Courier</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|International Express</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Pack and Track International</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Registered Post International</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
@@ -847,6 +872,7 @@
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Load &amp; Go</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Money Orders</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Multi-Currency Cash Passport</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Post BillPay</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Western Union</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Gift cards</controllingFieldValue>
@@ -994,7 +1020,6 @@
             <controllingFieldValue>General Enquiry|International Letters|International Courier</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|International Express</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Pack and Track International</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Registered Post International</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
@@ -1095,7 +1120,7 @@
             <controllingFieldValue>Feedback|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Domestic Parcels|StarTrack (Next Flight Premium &amp; Express)</controllingFieldValue>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business App</controllingFieldValue>
+            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -1110,7 +1135,6 @@
             <controllingFieldValue>Investigation|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Investigation|Post Office &amp; Business Hub Services|Post office locator</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Parcel Collect</controllingFieldValue>
@@ -1154,6 +1178,7 @@
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Money Orders</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Letters|Registered Post</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Multi-Currency Cash Passport</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Letters|Regular Mail</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Post BillPay</controllingFieldValue>
             <controllingFieldValue>Feedback|Domestic Letters|Express Post</controllingFieldValue>
@@ -2721,7 +2746,6 @@
             <controllingFieldValue>Investigation|Post Office &amp; Business Hub Services|PO Boxes &amp; Bags</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -2733,7 +2757,6 @@
             <controllingFieldValue>Investigation|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Feedback|Post Office &amp; Business Hub Services|General merchandise</controllingFieldValue>
@@ -2961,7 +2984,6 @@
             <controllingFieldValue>General Enquiry|International Letters|International Courier</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|International Express</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Pack and Track International</controllingFieldValue>
             <controllingFieldValue>General Enquiry|International Letters|Registered Post International</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
@@ -3000,6 +3022,7 @@
             <controllingFieldValue>General Enquiry|Domestic Parcels|StarTrack (Next Flight Premium &amp; Express)</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Domestic Parcels|StarTrack Courier</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Domestic Letters|Mail redirection</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
             <valueName>Pricing</valueName>
         </valueSettings>
         <valueSettings>
@@ -3013,7 +3036,6 @@
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -3036,7 +3058,6 @@
             <controllingFieldValue>Investigation|Post Office &amp; Business Hub Services|Mail redirection</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -3050,7 +3071,6 @@
             <controllingFieldValue>Investigation|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Investigation|Post Office &amp; Business Hub Services|Post office locator</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Parcel Collect</controllingFieldValue>
@@ -3081,6 +3101,7 @@
             <controllingFieldValue>General Enquiry|Post Office &amp; Business Hub Services|Mail hold</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Post Office &amp; Business Hub Services|Mail redirection</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Post Office &amp; Business Hub Services|Post office locator</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
             <valueName>Product return</valueName>
         </valueSettings>
         <valueSettings>
@@ -3199,7 +3220,6 @@
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -3209,6 +3229,7 @@
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Website</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|MRS Online</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Online shop</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
             <valueName>Self-service support</valueName>
         </valueSettings>
         <valueSettings>
@@ -3247,7 +3268,6 @@
             <controllingFieldValue>Feedback|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -3259,7 +3279,6 @@
             <controllingFieldValue>Investigation|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -3274,7 +3293,6 @@
             <controllingFieldValue>Feedback|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -3286,7 +3304,6 @@
             <controllingFieldValue>Investigation|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -3301,7 +3318,6 @@
             <controllingFieldValue>Feedback|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Feedback|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -3315,7 +3331,6 @@
             <controllingFieldValue>Investigation|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Mobile apps</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business App</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Online Returns Portal</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Parcel Collect</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|Parcel Lockers</controllingFieldValue>
@@ -3571,6 +3586,14 @@
             <valueName>Locations &amp; hours of operation</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>General Enquiry|Post Office &amp; Business Hub Services|Mail Pick up</controllingFieldValue>
+            <valueName>Pick Up Failure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Post Office &amp; Business Hub Services|Mail Pick up</controllingFieldValue>
+            <valueName>Change Request</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Bank@Post</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Foreign Currency</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Load &amp; Go</controllingFieldValue>
@@ -3580,6 +3603,46 @@
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Western Union</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Gift cards</controllingFieldValue>
             <valueName>Service availability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Request a refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Label Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Band Discount Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Sending Volume Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Disputed Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>More Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Transaction History Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Error Codes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>System Outage</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

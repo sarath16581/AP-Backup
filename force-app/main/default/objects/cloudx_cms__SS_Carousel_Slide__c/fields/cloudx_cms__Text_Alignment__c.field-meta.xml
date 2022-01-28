@@ -6,6 +6,7 @@
     <inlineHelpText>Choose alignment of text: left, center, right</inlineHelpText>
     <label>Text Alignment</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

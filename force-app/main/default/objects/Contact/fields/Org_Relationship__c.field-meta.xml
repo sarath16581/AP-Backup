@@ -11,6 +11,7 @@ NOT(ISBLANK(AccountId))
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Org Relationship</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -5,6 +5,7 @@
     <formula>(Account.Owner.FirstName &amp; &quot; &quot; &amp; Account.Owner.LastName)</formula>
     <label>Account Owner</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

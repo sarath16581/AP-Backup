@@ -6,6 +6,7 @@
     <inlineHelpText>Customer feedback of Australia Post performance, business at risk and/or win-back/growth opportunities’</inlineHelpText>
     <label>Additional detail &amp; comments</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

@@ -8,6 +8,7 @@
     <relationshipLabel>Duty Assignments</relationshipLabel>
     <relationshipName>Assigned_Service_Resources</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

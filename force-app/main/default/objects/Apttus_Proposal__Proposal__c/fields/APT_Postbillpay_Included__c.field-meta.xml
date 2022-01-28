@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Used in System Configuration to display &apos;Create Postbillpay Contract&apos; button. Please make sure filter criteria match the exact name of the product behind the scenes (Case Sensitive)</inlineHelpText>
     <label>Postbillpay Included?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Apttus_Proposal__Proposal_Line_Item__c.Product_Name_Text__c</field>
         <operation>contains</operation>

@@ -6,6 +6,7 @@
     <formula>IF(AND(ISBLANK( ArticleTest__r.ReceiverPostcode__c ), ISBLANK( ArticleTest__r.Receiver_Suburb__c )), true, false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>No Data Consignment</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

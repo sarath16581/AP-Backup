@@ -12,6 +12,7 @@ CASE(Account.StarTrack_Customer_Stream__c,
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Customer Stream</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -700,6 +700,10 @@
                 <behavior>Edit</behavior>
                 <field>CCUItemContents__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>MPB_BSP_Tech_Enquiry_Type__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

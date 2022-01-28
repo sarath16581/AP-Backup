@@ -9,6 +9,7 @@
     <relationshipLabel>Resource Absences</relationshipLabel>
     <relationshipName>Resource_Absences</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

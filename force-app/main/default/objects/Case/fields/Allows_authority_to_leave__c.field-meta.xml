@@ -5,6 +5,7 @@
     <formula>IF(NOT(ISBLANK(AccountId)), !ISPICKVAL(Account.Authority_to_leave__c, &apos;No&apos;), false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Allows Authority To Leave?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <description>SAM Integration FOP</description>
     <externalId>false</externalId>
     <label>Associated Gold Sheet</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

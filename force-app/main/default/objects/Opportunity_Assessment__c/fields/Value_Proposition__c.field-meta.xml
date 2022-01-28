@@ -8,6 +8,7 @@ Identifying the key products we plan to offer and why the customer would choose 
     <inlineHelpText>What is our value proposition and product/ solution offering?</inlineHelpText>
     <label>Value Proposition</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

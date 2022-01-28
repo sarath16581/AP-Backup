@@ -6,6 +6,7 @@
     <description>Indicates whether the product has default rules</description>
     <externalId>false</externalId>
     <label>Has Defaults</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

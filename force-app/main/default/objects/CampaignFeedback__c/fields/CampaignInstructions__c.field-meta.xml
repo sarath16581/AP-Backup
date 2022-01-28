@@ -6,6 +6,7 @@
     <inlineHelpText>Follow these instructions for assistance with your conversations and next steps</inlineHelpText>
     <label>Campaign Instructions</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Url</type>
 </CustomField>

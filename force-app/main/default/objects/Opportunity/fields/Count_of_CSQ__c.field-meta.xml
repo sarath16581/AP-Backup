@@ -4,6 +4,7 @@
     <description>Field to count the number of CSQ on the Opportunity.  This is used in Internal Request object for the Deal Support Request record type to ensure that a StarTrack Deal Support Request for pricing cannot be saved without a CSQ record existing against the Opportunity</description>
     <externalId>false</externalId>
     <label>Count of CSQ</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Customer_Scoping_Questionnaire__c.Opportunity__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

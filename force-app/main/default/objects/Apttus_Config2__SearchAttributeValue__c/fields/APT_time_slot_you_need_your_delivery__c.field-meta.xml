@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>At what time slot you need your delive</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

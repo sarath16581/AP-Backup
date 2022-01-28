@@ -20,6 +20,7 @@ Added to capture contact portion of Personal_Account__c (PA rollback)</descripti
     <relationshipLabel>Opportunities (Key Contact)</relationshipLabel>
     <relationshipName>Opportunities</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

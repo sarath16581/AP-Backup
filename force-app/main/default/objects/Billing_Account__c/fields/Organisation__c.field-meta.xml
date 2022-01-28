@@ -8,6 +8,7 @@
     <relationshipName>Billing_Accounts</relationshipName>
     <relationshipOrder>0</relationshipOrder>
     <reparentableMasterDetail>true</reparentableMasterDetail>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>true</trackTrending>
     <type>MasterDetail</type>

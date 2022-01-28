@@ -9,6 +9,7 @@
     <relationshipLabel>Pickup Booking Jobs</relationshipLabel>
     <relationshipName>Pickup_Booking_Job</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

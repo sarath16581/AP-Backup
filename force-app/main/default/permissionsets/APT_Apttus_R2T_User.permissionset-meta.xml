@@ -16317,7 +16317,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Product2.Wanting_to_Send_Publications__c</field>
+        <field>Product2.Wanting_to_Send_PUBLICations__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

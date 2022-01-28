@@ -6,6 +6,7 @@
     <inlineHelpText>Identifying Contacts in Salesforce who are the Key Contacts for those mail outs</inlineHelpText>
     <label>Key Business Contact</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>

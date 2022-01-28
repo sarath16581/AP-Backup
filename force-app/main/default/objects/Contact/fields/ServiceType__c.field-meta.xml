@@ -11,6 +11,7 @@ IF( Account.CreatorProfile__c == &apos;SSSW Social Integration&apos;, IMAGE(&quo
 IMAGE(&quot;/resource/SSSWIcons/icon-segment_smb_consumer_24px.png&quot;, &quot;ConsumerSMB&quot;, 16, 16)) )))</formula>
     <label>Service Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -5,6 +5,7 @@
     <label>Profiling Date</label>
     <length>55</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

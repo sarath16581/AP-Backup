@@ -6,6 +6,7 @@
     <inlineHelpText>This field determines the data type of the response to be captured, whether its a Text (free text) or a Picklist field.</inlineHelpText>
     <label>Datatype</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

@@ -748,4 +748,8 @@
         <name>standard__DataManager</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>dfsle__DocuSignForSalesforceCore</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

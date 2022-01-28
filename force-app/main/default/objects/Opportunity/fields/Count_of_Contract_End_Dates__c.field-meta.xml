@@ -3,6 +3,7 @@
     <fullName>Count_of_Contract_End_Dates__c</fullName>
     <externalId>false</externalId>
     <label>Count of Contract End Dates</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>OpportunityLineItem.Contract_End_Date__c</field>
         <operation>equals</operation>

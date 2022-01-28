@@ -5,6 +5,7 @@
     <formula>Apttus_Config2__OptionId__r.APT_Cascade_Adjustments__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Cascade Adjustments</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

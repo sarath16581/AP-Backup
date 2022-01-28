@@ -11,6 +11,7 @@
     <relationshipLabel>Order Rollup Data</relationshipLabel>
     <relationshipName>OrderRollupData</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -7,6 +7,7 @@
     <inlineHelpText>Expression used to determine qualifying line items for rollup.</inlineHelpText>
     <label>Match Expression</label>
     <length>4096</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

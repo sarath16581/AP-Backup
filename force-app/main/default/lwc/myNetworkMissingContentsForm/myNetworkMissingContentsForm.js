@@ -12,6 +12,7 @@
 02.09.2019    spingali REQ1886703 - Type of damage picklist is dependent on Missing contents or Damaged article.
 26.05.2021    Naveen Rajanna           REQ2513603 Show Print button when submitted and hide few tags upon print
 18.08.2021    Naveen Rajanna           REQ2588480 Introduce Copy to buttons and logic to Copy customer details to sender/addressee
+10.01.2022    SaiSwetha Pingali        REQ2689571 Add custom validity on "Type of Damage" field on 'Damaged/Missing Contents form'. 
 **/
 
 import { track } from 'lwc'
@@ -161,6 +162,9 @@ export default class myNetworkMissingContentsForm extends LwcForm {
     @track
     maxlength=255
 
+    @track
+    damagedOrMissingSelection = ''
+
     handleUploadFinished(event) {
         // Get the list of uploaded files
         const uploadedFiles = event.detail.files
@@ -267,6 +271,8 @@ export default class myNetworkMissingContentsForm extends LwcForm {
     handleDamagedOrMissingChange(event){
         console.log('handleDamagedOrMissingChange...'+event.target.value)
 
+        this.damagedOrMissingSelection = event.target.value;
+
         if(event.target.value === 'Missing contents')
         {this.typeOfDamageOptions = this.typeOfMissingDamageOptions;}else
         {if(event.target.value === 'Damaged article')
@@ -345,6 +351,18 @@ export default class myNetworkMissingContentsForm extends LwcForm {
         console.log('datatosubmit:'+ formJson)
         console.log('formId:'+ formId)
         const allValid = this.validateInputs()
+
+        const typeofDamageCmp = this.template.querySelector(".typeOfDamage");
+        const typeofDamageVal = typeofDamageCmp.value;
+        const damagedOrMissingSelectionval = this.damagedOrMissingSelection;
+        
+        if (!damagedOrMissingSelectionval && !typeofDamageVal) {
+            typeofDamageCmp.setCustomValidity("Scroll up and select either Damage article or missing contents.");
+        } else {
+            typeofDamageCmp.setCustomValidity("");
+        }
+
+        typeofDamageCmp.reportValidity();
         
         const formData = [{
             formId,

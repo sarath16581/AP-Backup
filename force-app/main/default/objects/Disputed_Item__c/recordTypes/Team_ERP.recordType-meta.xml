@@ -460,6 +460,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Oversize Charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Product Return %28Commercial%29</fullName>
             <default>false</default>
         </values>

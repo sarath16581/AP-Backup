@@ -6,6 +6,7 @@
     <inlineHelpText>Enter a URL for an icon. The URL must end in an image suffix, such as .png.</inlineHelpText>
     <label>Gantt Icon</label>
     <length>2048</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>

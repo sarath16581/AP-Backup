@@ -5,6 +5,7 @@
     <description>Phase 2 - Field to indicate that the OPC record is the first in a multi-year contract.</description>
     <externalId>false</externalId>
     <label>Hidden 1st of Multi-Year</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

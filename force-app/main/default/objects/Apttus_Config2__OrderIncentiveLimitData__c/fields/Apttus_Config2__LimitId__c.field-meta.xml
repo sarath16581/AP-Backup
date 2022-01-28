@@ -11,6 +11,7 @@
     <relationshipLabel>Order Incentive Limit Data</relationshipLabel>
     <relationshipName>OrderIncentiveLimitData</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

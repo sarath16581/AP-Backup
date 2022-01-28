@@ -435,6 +435,11 @@
                 <label>International Linehaul Surcharge</label>
             </value>
             <value>
+                <fullName>Oversize Charge</fullName>
+                <default>false</default>
+                <label>Oversize Charge</label>
+            </value>
+            <value>
                 <fullName>Annual Pricing Review</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -1134,6 +1139,10 @@
         <valueSettings>
             <controllingFieldValue>Billing Processing error</controllingFieldValue>
             <valueName>Manual Handling Surcharge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Oversize Charge</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>

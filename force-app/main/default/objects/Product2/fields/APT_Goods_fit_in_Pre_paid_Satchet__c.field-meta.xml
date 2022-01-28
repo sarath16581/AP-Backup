@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Goods fit in Pre-paid Satchet?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

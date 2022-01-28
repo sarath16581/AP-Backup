@@ -8,6 +8,7 @@
     <relationshipLabel>Revenue Targets (Lookup)</relationshipLabel>
     <relationshipName>Revenue_Targets_Lookup</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -8,5 +8,6 @@ IF(YED__c - YSD__c &gt; 0, (YED__c - YSD__c + 1)/(Contract_End_Date__c -  Contra
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <type>Currency</type>
 </CustomField>

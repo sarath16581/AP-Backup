@@ -5,6 +5,7 @@
     <label>Current Quotation No</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

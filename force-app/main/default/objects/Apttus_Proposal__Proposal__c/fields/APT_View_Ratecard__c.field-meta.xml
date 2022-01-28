@@ -7,6 +7,7 @@
 IF ( AND(NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c , &apos;Approval Required&apos;)) &amp;&amp; NOT(ISNULL(Apttus_QPConfig__ConfigurationFinalizedDate__c))) || ISPICKVAL( Apttus_Proposal__Approval_Stage__c , &apos;Approved&apos;) , HYPERLINK(&quot;/apex/APT_ViewRatecardBatchExecute?id=&quot;&amp;Id , IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL)</formula>
     <label>Create (View RateCard)</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

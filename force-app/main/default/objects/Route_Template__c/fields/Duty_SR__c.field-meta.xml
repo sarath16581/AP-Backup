@@ -13,6 +13,7 @@ Work generated will be assigned to this Duty, unless the Operational Duty Overri
     <relationshipLabel>Duty Templates</relationshipLabel>
     <relationshipName>Duty_Templates</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

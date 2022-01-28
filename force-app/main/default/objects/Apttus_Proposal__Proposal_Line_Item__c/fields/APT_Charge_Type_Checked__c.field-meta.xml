@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>AND ( ( Apttus_Proposal__Product__r.Name = &apos;eParcel&apos;|| Apttus_Proposal__Product__r.Name = &quot;eParcel Express&quot;), (APT_Product_Name__c = &quot;Missing Manifest Fee&quot; || APT_Product_Name__c = &quot;Administrative Fee&quot; || APT_Product_Name__c = &quot;Return to Sender&quot; || APT_Product_Name__c = &quot;Minimum Collection Value&quot;))</formula>
     <label>Charge Type Checked</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

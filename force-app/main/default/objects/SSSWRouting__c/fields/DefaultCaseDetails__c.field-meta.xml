@@ -5,6 +5,7 @@
     <inlineHelpText>NOTE: Only the matching criteria for the “Consumer” Type and associated Clearview Codes will be used when assigning a default value for Case Details. (i.e the Customer type criteria is ignored when a match is found.)</inlineHelpText>
     <label>Default Case Details</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

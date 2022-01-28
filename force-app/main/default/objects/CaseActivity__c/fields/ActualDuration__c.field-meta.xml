@@ -12,6 +12,7 @@ TEXT(FLOOR((TotalActualDurationMilliseconds__c/1000)/3600))
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Actual Duration</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

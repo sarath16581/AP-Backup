@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This field is checked if 4 Settlement fields are filled on the related Application.</inlineHelpText>
     <label>Settlement Fields Filled?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

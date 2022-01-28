@@ -5,6 +5,7 @@
     <label>ST Revenue Depot</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

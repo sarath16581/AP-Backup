@@ -3,6 +3,7 @@
     <fullName>Count_of_Opportunity_Line_Items__c</fullName>
     <externalId>false</externalId>
     <label>Count of Opportunity Line Items</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>OpportunityLineItem.OpportunityId</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

@@ -5,6 +5,7 @@
     <description>Flag to bypass validation in Apex RateListTriggerHandler_Test</description>
     <externalId>false</externalId>
     <label>ByPassValidation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

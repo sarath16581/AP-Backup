@@ -12,6 +12,7 @@ IF (Blue_Bags__c == 0,&quot;&quot;,&quot;Blue Bags: &quot; + TEXT(Blue_Bags__c) 
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Deliver Product</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

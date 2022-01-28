@@ -10,6 +10,7 @@
     <relationshipLabel>Hierarchy View (Child)</relationshipLabel>
     <relationshipName>HierarchyView2</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

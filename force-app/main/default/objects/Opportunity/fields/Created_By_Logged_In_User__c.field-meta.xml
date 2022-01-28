@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>CreatedById  =  $User.Id</formula>
     <label>Created By Logged In User</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

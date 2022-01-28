@@ -9,6 +9,7 @@ The field is used in the Proposal Template to conditionally display the &apos;Lo
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Frequency</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -21,6 +21,7 @@
     <relationshipLabel>Price List Items (Deferred Revenue Account)</relationshipLabel>
     <relationshipName>PriceListItemsDR</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

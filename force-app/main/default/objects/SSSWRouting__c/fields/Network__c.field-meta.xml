@@ -8,6 +8,7 @@
     <relationshipLabel>SSSW Routing</relationshipLabel>
     <relationshipName>SSSWRouting</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

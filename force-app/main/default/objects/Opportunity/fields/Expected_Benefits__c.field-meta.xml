@@ -8,6 +8,7 @@ The expected outcomes the customer is hoping to achieve</description>
     <inlineHelpText>The expected benefits the customer is hoping to realise. (8%)</inlineHelpText>
     <label>Benefits to the Customer</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>

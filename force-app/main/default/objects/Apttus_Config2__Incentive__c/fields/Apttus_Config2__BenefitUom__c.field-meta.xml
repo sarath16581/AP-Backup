@@ -7,6 +7,7 @@
     <inlineHelpText>The benefit unit of measure for the product</inlineHelpText>
     <label>Benefit Uom</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

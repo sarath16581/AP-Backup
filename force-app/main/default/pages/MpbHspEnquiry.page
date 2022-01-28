@@ -397,7 +397,7 @@
                                 <apex:outputPanel id="Enquiry_Sub_Tech_Enq" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='technical enquiry',true,false)}">
                                     <div class="input required">
                                         <p>What are you enquiring about?<span class="symbol-req"> *</span></p>
-                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Sub_Enquiry_Type__c}" styleclass="input-medium"  >
+                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!TechMpbCaseType}"/>
                                             <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Tech_Enq,messages"/>
                                         </apex:selectList>
@@ -413,7 +413,7 @@
 
                                     <div class="input required">
                                         <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
-                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Sub_Enquiry_Type__c}" styleclass="input-medium"  >
+                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!MPBLabelSubEnqPicklist}"/>
                                             <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_label_Enq,messages,Enquiry_Section,Enquiry_General_Enquiry"/>
                                         </apex:selectList>
@@ -423,7 +423,7 @@
                                 <apex:outputPanel id="Enquiry_Sub_Pick_Up_Enq" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='pick up enquiry',true,false)}">
                                     <div class="input required">
                                         <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
-                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Sub_Enquiry_Type__c}" styleclass="input-medium"  >
+                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!MPBPickUpEnqPicklist}"/>
                                             <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pick_Up_Enq,messages,Enquiry_Section"/>
                                         </apex:selectList>
@@ -431,7 +431,7 @@
                                 </apex:outputPanel>
                                 <apex:outputPanel id="Enquiry_Sub_Pricing_Enq" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='pricing enquiry',true,false)}">
 
-                                    <apex:outputPanel id="Enquiry_Pricing_Disputed" rendered="{!IF(LOWER(enq.MPB_BSP_Sub_Enquiry_Type__c)='disputed payment',true,false)}">
+                                    <apex:outputPanel id="Enquiry_Pricing_Disputed" rendered="{!IF(LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='disputed payment',true,false)}">
                                         <div class="input required input-large">
                                             <p>Transaction ID <span class="symbol-req"> *</span></p>
                                             <apex:inputField value="{!enq.ReferenceID__c}" />
@@ -440,7 +440,7 @@
 
                                     <div class="input required">
                                         <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
-                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Sub_Enquiry_Type__c}" styleclass="input-medium"  >
+                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!MPBPricEnqPicklist}"/>
                                             <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pricing_Enq,messages,
                                             Enquiry_Section"/>
@@ -448,9 +448,9 @@
                                     </div>
                                 </apex:outputPanel>
 
-                                <apex:outputPanel id="Enquiry_attachment_other" rendered="{!IF(LOWER(enq.MPB_BSP_Sub_Enquiry_Type__c)='label support' || LOWER(enq.MPB_BSP_Sub_Enquiry_Type__c)='error codes'
-                                || LOWER(enq.MPB_BSP_Sub_Enquiry_Type__c)='platform partner integration' || LOWER(enq.MPB_BSP_Sub_Enquiry_Type__c)='system outage' || LOWER(enq.MPB_BSP_Sub_Enquiry_Type__c)='sending volume enquiry'
-                                || LOWER(enq.MPB_BSP_Sub_Enquiry_Type__c)='disputed payment',true,false)}">
+                                <apex:outputPanel id="Enquiry_attachment_other" rendered="{!IF(LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='label support' || LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='error codes'
+                                || LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='platform partner integration' || LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='system outage' || LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='sending volume enquiry'
+                                || LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='disputed payment',true,false)}">
                                     <div class="bw-add-attachment">
                                         <apex:actionRegion >
                                             <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/plus-icon.png')}" alt="Add" styleclass="left cursor-pointer" onclick="JS_DisplayAttachmentButtonED();" />
@@ -485,7 +485,7 @@
                                 <div style="heigh:5px;" />
                                 <div class="input required">
                                     <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
-                                    <apex:selectList size="1" value="{!enq.MPB_BSP_Sub_Enquiry_Type__c}" styleclass="input-medium"  >
+                                    <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                         <apex:selectOptions value="{!MPBDelEnqPicklist}"/>
                                         <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Item_Search,messages"/>
                                     </apex:selectList>
@@ -532,7 +532,7 @@
                                     <p>Tell us what your enquiry’s about <span class="symbol-req"> *</span></p>
                                     <apex:inputTextarea value="{!descript}" styleclass="bw-input-field"/>
                                 </div>
-                                <apex:outputPanel id="Enquiry_delivery_Enquiry" rendered="{!IF(LOWER(enq.MPB_BSP_Sub_Enquiry_Type__c) != 'tracking status',true,false)}">
+                                <apex:outputPanel id="Enquiry_delivery_Enquiry" rendered="{!IF(LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c) != 'tracking status',true,false)}">
                                     <div class="bw-add-attachment">
                                         <apex:actionRegion >
                                             <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/plus-icon.png')}" alt="Add" styleclass="left cursor-pointer" onclick="JS_DisplayAttachmentButtonED();" />

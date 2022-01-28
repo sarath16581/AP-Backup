@@ -10,6 +10,7 @@
     <relationshipLabel>Price List Items</relationshipLabel>
     <relationshipName>PriceListItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <inlineHelpText>Please select the system the query is about</inlineHelpText>
     <label>Affected System</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

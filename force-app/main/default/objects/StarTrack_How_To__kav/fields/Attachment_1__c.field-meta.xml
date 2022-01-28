@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Attachment 1</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>File</type>
 </CustomField>

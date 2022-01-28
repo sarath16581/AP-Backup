@@ -8,6 +8,7 @@
     <referenceTo>Opportunity</referenceTo>
     <relationshipName>R00N40000001HggwEAC</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

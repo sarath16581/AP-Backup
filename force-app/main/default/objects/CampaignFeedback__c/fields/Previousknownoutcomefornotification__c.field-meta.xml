@@ -6,6 +6,7 @@
     <inlineHelpText>Results from the ATL campaign discussion</inlineHelpText>
     <label>Previous known outcome for notification</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

@@ -6,6 +6,7 @@
     <inlineHelpText>What other areas can we assist the the customer with (product, support etc.)</inlineHelpText>
     <label>If relevant - How else can we help?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

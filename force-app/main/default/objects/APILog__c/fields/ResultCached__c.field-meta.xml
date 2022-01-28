@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Logs whether a cached result was fed back to the consumer. Only applicable for Inbound requests.</inlineHelpText>
     <label>Result Cached</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

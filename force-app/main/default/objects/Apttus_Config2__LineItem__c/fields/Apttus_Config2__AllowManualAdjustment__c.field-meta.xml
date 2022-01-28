@@ -6,6 +6,7 @@
     <description>Indicates whether manual price adjustments are allowed for the line item</description>
     <externalId>false</externalId>
     <label>Allow Manual Adjustment</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

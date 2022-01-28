@@ -6,6 +6,7 @@
     <description>When set to true the product can be considered as base product for searching related products</description>
     <externalId>false</externalId>
     <label>Has Search Attributes</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

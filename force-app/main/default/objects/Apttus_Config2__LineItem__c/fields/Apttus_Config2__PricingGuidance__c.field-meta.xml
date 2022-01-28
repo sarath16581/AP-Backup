@@ -7,6 +7,7 @@
     <inlineHelpText>The pricing guidance associated with the line item</inlineHelpText>
     <label>Pricing Guidance</label>
     <length>8000</length>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

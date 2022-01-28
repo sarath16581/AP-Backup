@@ -10,6 +10,7 @@ Please enter in HH format. e.g. 08, 09, 10, 11</inlineHelpText>
     <label>Territory Hours</label>
     <length>150</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

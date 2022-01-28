@@ -8,6 +8,7 @@ Identify likely timeframe that this initiatives will be complete</description>
     <inlineHelpText>When will this activity be completed?</inlineHelpText>
     <label>Expected Activity End Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>

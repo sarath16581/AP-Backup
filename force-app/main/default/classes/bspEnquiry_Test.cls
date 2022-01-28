@@ -1043,7 +1043,7 @@ private class bspEnquiry_Test {
 			System.assertNotEquals(null, bspEnq.enq.Id);
 
 			bspEnq.enq.MPB_BSP_Enquiry_Type__c = 'Delivery enquiry';
-			bspEnq.enq.MPB_BSP_Sub_Enquiry_Type__c = 'Missing item';
+			bspEnq.enq.MPB_BSP_Tech_Enquiry_Type__c = 'Missing item';
 			bspEnq.submitPageMpbHsp();
 			bspEnq.getCaseNo();
 

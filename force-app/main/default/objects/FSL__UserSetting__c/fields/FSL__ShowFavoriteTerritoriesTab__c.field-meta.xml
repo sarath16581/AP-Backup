@@ -6,6 +6,7 @@
     <description>Default tab to show on the territories window</description>
     <externalId>false</externalId>
     <label>Show Favorite Territories Tab</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

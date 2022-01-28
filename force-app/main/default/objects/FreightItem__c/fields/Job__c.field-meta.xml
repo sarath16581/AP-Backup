@@ -8,6 +8,7 @@
     <relationshipLabel>Freight Items</relationshipLabel>
     <relationshipName>Freight_Items</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AccountId</fullName>
     <inlineHelpText>The Legal Entity that the opportunity is aligned to</inlineHelpText>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Lookup</type>

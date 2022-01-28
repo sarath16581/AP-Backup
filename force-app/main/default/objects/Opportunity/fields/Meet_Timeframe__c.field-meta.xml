@@ -8,6 +8,7 @@ Identify if we can develop new capabilities to fulfil customer requirements in t
     <externalId>false</externalId>
     <inlineHelpText>Can we develop the required capabilities in the required timeframe?</inlineHelpText>
     <label>Meet Timeframe</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

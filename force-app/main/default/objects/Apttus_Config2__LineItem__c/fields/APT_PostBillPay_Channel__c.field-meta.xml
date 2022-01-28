@@ -8,6 +8,7 @@ IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c ,
 IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Channel__c , &quot;Scan and Pay&quot; ), &quot;Scan and Pay; &quot;,null )</formula>
     <label>Channel</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

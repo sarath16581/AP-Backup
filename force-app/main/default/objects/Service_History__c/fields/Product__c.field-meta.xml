@@ -9,6 +9,7 @@
     <relationshipLabel>Service Histories</relationshipLabel>
     <relationshipName>Service_Histories</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

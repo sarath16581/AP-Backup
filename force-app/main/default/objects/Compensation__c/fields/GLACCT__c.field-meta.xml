@@ -21,6 +21,7 @@ IF ( AND ( ISPICKVAL (Case__r.ProductCategory__c, &quot;International Letters&qu
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>GLACCT</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -4728,6 +4728,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Rate_List__c.PUBLIC_Phone_Collect_Clearance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Rate_List__c.PUBLIC_Phone_Collect_Count__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Rate_List__c.Parcel_Collect_Scanned_Item__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4854,16 +4864,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Rate_List__c.Process_Postage_Meter_Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Rate_List__c.Public_Phone_Collect_Clearance__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Rate_List__c.Public_Phone_Collect_Count__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

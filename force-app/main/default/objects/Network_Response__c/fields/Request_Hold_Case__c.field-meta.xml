@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Add notes to the case without sending it back to customer service</inlineHelpText>
     <label>Still Under Investigation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

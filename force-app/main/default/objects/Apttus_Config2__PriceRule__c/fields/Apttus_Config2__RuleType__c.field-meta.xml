@@ -9,6 +9,7 @@
 3. RATE TABLE - WITH TIERS: Different rate based on volume or revenue tiers - 1-100 - $5, 101-1000 - $10</inlineHelpText>
     <label>Rule Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

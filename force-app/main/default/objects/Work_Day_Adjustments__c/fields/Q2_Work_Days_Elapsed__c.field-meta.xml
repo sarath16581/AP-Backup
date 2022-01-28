@@ -28,6 +28,7 @@ CASE(MOD( DATE(VALUE(FiscalYear__r.Name)-1,10,1) - DATE(1985,6,24),7),
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

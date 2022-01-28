@@ -7,6 +7,7 @@
     <inlineHelpText>The date requested to deliver products and services referred to in the purchase order item</inlineHelpText>
     <label>Requested Delivery Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

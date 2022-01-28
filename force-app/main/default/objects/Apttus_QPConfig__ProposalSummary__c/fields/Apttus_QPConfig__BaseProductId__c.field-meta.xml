@@ -10,6 +10,7 @@
     <relationshipLabel>Proposal Summary (Base Product)</relationshipLabel>
     <relationshipName>BaseProposalSummary</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

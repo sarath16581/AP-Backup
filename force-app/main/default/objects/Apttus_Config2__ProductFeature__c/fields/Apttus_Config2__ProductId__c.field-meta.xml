@@ -11,6 +11,7 @@
     <relationshipLabel>Product Features</relationshipLabel>
     <relationshipName>ProductFeatures</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

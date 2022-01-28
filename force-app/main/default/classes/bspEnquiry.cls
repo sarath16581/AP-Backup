@@ -1017,9 +1017,12 @@ public without sharing class bspEnquiry extends bspBase {
 
         enq.CaseOriginator__c = 'Sender';
         String enqType = enq.MPB_BSP_Enquiry_Type__c.toLowerCase();
-        String enqSubType = enq.MPB_BSP_Sub_Enquiry_Type__c;
+        String enqSubType = '';
         if(enqType == BspConstants.ENQUIRY_TYPE_MPB_OTHER_ENQ){
-            enqSubType = enq.MPB_BSP_Enquiry_Type__c;
+            enqSubType = enq.MPB_BSP_Enquiry_Type__c.toLowerCase();
+            enq.MPB_BSP_Tech_Enquiry_Type__c = enq.MPB_BSP_Enquiry_Type__c;
+        } else {
+            enqSubType = enq.MPB_BSP_Tech_Enquiry_Type__c.toLowerCase();
         }
 
         if(enqType == BspConstants.ENQUIRY_TYPE_MPB_PICKUP_ENQ || enqType == BspConstants.ENQUIRY_TYPE_MPB_LABEL_ENQ

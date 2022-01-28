@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Amount</fullName>
     <inlineHelpText>Forecast a value at the start of the sales process. At later stages, the value will be calculated as the sum of the total price of each product attached to the Opportunity.</inlineHelpText>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>true</trackTrending>

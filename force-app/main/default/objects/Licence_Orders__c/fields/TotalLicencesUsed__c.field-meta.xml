@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This is a total Standard &amp; Restricted licences used.</inlineHelpText>
     <label>TotalLicencesUsed</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Salesforce_Licence__c.User__c</field>
         <operation>notEqual</operation>

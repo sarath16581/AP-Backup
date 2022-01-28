@@ -6,6 +6,7 @@
     <inlineHelpText>Compare a numeric service property with a numeric resource property</inlineHelpText>
     <label>Boolean Operator</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

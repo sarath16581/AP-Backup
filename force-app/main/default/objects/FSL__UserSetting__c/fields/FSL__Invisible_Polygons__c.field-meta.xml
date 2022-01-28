@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Hidden Polygons</label>
     <length>130000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

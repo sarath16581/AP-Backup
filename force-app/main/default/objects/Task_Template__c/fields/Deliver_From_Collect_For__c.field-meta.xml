@@ -16,6 +16,7 @@ Only applicable for customer site Task Templates.</inlineHelpText>
     <relationshipLabel>Task Templates</relationshipLabel>
     <relationshipName>DeliverFrom_CollectFor_Task_Templates</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

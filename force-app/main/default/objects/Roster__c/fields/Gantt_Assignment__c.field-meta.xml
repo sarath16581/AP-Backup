@@ -5,6 +5,7 @@
     <description>TDF Enhance 2020: Indicates the roster record was created from the Assign Driver action in the gantt chart</description>
     <externalId>false</externalId>
     <label>Gantt Assignment</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

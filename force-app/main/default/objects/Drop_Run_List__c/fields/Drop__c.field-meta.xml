@@ -8,6 +8,7 @@
     <relationshipLabel>Drop Run Lists</relationshipLabel>
     <relationshipName>Drop_Run_Lists</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <formula>IF(ISBLANK(Email),false,true)</formula>
     <label>Has Email</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -20,6 +20,7 @@ IF(
 &quot;Credit Person Code&quot;)))))</formula>
     <label>Credit Queue Routing</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

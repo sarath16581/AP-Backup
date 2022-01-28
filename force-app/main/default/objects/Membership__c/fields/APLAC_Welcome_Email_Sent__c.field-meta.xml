@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Has the APLAC Welcome Email been sent?</inlineHelpText>
     <label>{hidden} APLAC Welcome Email Sent</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

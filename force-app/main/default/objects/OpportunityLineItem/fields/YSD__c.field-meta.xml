@@ -8,5 +8,6 @@
     )</formula>
     <label>In Year Start Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Date</type>
 </CustomField>

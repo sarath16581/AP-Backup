@@ -20,6 +20,7 @@
     <relationshipLabel>Proposal Footnotes</relationshipLabel>
     <relationshipName>QuoteFootnotes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <description>Indicates whether the product has options.</description>
     <externalId>false</externalId>
     <label>Has Options</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

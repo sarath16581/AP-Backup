@@ -7,6 +7,7 @@
     <inlineHelpText>The incentive payout frequency</inlineHelpText>
     <label>Payout Frequency</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -6,6 +6,7 @@
     <label>Workflow Email Alert</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

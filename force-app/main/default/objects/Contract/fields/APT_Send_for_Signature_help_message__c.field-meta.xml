@@ -9,6 +9,7 @@ HYPERLINK(&quot;/apex/APT_HelptotheSeller?id=&quot;&amp;Id &amp; &quot;&amp;acti
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Send For Signatures</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

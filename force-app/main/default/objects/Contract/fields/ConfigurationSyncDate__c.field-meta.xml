@@ -6,6 +6,7 @@
     <inlineHelpText>Date when the configuration was synchronized for the contract</inlineHelpText>
     <label>Configuration Sync Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>DateTime</type>
 </CustomField>

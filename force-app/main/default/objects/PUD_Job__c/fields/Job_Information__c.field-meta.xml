@@ -13,6 +13,7 @@ IF (Booking_Record_Type__c  = &apos;MPB Pickup&apos;,&quot;Contact Name: &quot; 
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Job Information</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

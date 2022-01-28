@@ -9,6 +9,7 @@
     <relationshipLabel>Service Appointments</relationshipLabel>
     <relationshipName>Service_Appointments</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

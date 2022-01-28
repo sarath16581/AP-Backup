@@ -10,6 +10,7 @@
     <referenceTo>Apttus__WizardStepRuntime__c</referenceTo>
     <relationshipName>WizardStepRuntime1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

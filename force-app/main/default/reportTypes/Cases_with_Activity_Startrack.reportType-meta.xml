@@ -310,4 +310,7 @@
         </columns>
         <masterLabel>Task/Activity Info</masterLabel>
     </sections>
+    <sections>
+        <masterLabel>Cases</masterLabel>
+    </sections>
 </ReportType>

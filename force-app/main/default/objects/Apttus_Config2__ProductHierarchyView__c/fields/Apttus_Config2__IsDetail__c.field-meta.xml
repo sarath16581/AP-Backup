@@ -6,6 +6,7 @@
     <description>Indicates whether the node in the hierarchy is a detail node.</description>
     <externalId>false</externalId>
     <label>Is Detail</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <inlineHelpText>Information on issue.  This detail will be displayed to the driver for all Fixed items on the next use of the vehicle.</inlineHelpText>
     <label>Inspection Information</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>

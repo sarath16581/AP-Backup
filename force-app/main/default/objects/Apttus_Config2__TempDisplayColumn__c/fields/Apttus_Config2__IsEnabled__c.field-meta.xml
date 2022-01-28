@@ -6,6 +6,7 @@
     <description>Indicates whether the column is enabled</description>
     <externalId>false</externalId>
     <label>Is Enabled</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

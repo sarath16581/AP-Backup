@@ -7,6 +7,7 @@
     <inlineHelpText>Indicates which type of start type will be used to calculate the payment term.</inlineHelpText>
     <label>Start Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

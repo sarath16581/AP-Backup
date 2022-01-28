@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>No Domestic Parcels send p/a</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

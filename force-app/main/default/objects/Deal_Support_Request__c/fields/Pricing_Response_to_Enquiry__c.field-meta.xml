@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Pricing Response to Enquiry</label>
     <length>5000</length>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

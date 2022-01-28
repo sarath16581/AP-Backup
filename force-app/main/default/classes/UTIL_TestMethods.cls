@@ -33,7 +33,7 @@ public with sharing class UTIL_TestMethods{
     public static User runningUser(String aliasId, String profileName){
         Id profId = [SELECT Id FROM Profile WHERE Name=: profileName].Id;
         User userData = new User(FirstName=aliasId, LastName=aliasId, Alias=aliasId, IsActive=True, Email=aliasId+'@test.com',
-                                 ProfileId=profId, Username=aliasId+'@test.com', EmailEncodingKey='UTF-8', CommunityNickname='Test',
+                                 ProfileId=profId, Username=aliasId+'@test.com', EmailEncodingKey='UTF-8', CommunityNickname=aliasId,
                                  LanguageLocaleKey='en_US', LocaleSidKey='en_US', TimeZoneSidKey='GMT');
         return userData;
     }

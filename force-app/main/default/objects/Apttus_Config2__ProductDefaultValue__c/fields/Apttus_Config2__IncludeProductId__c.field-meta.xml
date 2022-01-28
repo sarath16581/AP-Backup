@@ -10,6 +10,7 @@
     <relationshipLabel>Product Default Values (Include Product)</relationshipLabel>
     <relationshipName>IncludeProductDefaultValues</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

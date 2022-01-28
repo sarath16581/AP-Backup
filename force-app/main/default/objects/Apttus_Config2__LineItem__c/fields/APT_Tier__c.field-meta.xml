@@ -5,6 +5,7 @@
     <formula>Apttus_Config2__AttributeValueId__r.APT_Tier__c</formula>
     <label>Tier</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

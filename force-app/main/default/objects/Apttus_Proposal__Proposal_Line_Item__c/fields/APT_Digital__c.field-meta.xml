@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <formula>Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_eParcel_Lodgment__c /*Apttus_QPConfig__AttributeValueId__r.APT_eParcel_Lodgment__c*/</formula>
     <label>Digital</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

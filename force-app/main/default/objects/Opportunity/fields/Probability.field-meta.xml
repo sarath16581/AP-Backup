@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Probability</fullName>
     <inlineHelpText>Percentage of estimated confidence in closing the opportunity. Values are: Identify(1%-10%) Qualify(11%-40%) Propose(41%-60%) Negotiate(61%-80%) Closed Won (100%) Closed Lost (0%) Closed Disq&apos;d (0%) Closed Duplicate(0%).</inlineHelpText>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>true</trackTrending>

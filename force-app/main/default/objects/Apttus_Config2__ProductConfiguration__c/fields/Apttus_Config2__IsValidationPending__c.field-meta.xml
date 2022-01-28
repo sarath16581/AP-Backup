@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Flag to indicate the need of revalidation due to probable changes in configuration</inlineHelpText>
     <label>Is Validation Pending</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

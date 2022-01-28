@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Pricing Steps</label>
     <length>20000</length>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

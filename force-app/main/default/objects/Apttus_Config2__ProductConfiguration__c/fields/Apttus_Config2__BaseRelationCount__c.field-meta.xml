@@ -5,6 +5,7 @@
     <description>Counts the number of line items related to base product.</description>
     <externalId>false</externalId>
     <label>Base Relation Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Apttus_Config2__LineItem__c.Apttus_Config2__HasBaseProduct__c</field>
         <operation>equals</operation>

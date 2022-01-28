@@ -10,6 +10,7 @@ DEPRECATED: This field has now been deprecated and should be removed when possib
     <externalId>false</externalId>
     <inlineHelpText>DEPRECATED: This field has now been deprecated and should be removed when possible, AUG-2020</inlineHelpText>
     <label>(DEPRECATED) Subscribe</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

@@ -27,6 +27,7 @@ NULL
     <inlineHelpText>Send for Signatures via Email from Salesforce</inlineHelpText>
     <label>Send For Signatures</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

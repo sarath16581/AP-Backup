@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Wanting to Send Publications?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

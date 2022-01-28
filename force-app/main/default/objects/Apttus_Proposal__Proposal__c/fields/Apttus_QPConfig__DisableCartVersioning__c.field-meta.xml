@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether cart versioning is disabled for the quote/proposal</inlineHelpText>
     <label>Disable Cart Versioning</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

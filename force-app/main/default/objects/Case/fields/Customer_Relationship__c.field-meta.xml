@@ -6,6 +6,7 @@
     <inlineHelpText>The Snapit case requester&apos;s relationship with customers.</inlineHelpText>
     <label>Customer Relationship</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

@@ -46,7 +46,7 @@ public class WorkDayAdjustmentTriggerHandlerTest {
         ssrList.add(ssrVar1);
         
         Sales_Segment_Reference__c ssrVar2 = new Sales_Segment_Reference__c();
-        ssrVar2.Sales_Segment__c = 'Business Sales NSW 1';
+        ssrVar2.Sales_Segment__c = 'Enterprise';
         ssrVar2.Sales_Director__c = UserInfo.getUserId(); 
         ssrList.add(ssrVar2);
         
@@ -55,7 +55,7 @@ public class WorkDayAdjustmentTriggerHandlerTest {
         test.startTest();
         	insert wdVar;
         
-        	wdVar.Sales_Team__c = 'Business Sales NSW 1';
+        	wdVar.Sales_Team__c = 'Enterprise';
         	update wdVar;
         
         test.stopTest();

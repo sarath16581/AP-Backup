@@ -3,6 +3,7 @@
     <fullName>Depot_Area_User_Count__c</fullName>
     <externalId>false</externalId>
     <label>Depot Area User Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Depot_Area_User__c.System_User__c</field>
         <operation>equals</operation>

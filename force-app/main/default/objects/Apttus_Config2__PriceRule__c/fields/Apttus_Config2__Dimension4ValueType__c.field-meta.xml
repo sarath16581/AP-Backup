@@ -8,6 +8,7 @@
 2. RATE PER EACH TIER:  E.g. For 450 Qty with above Tier Table. Rebate = 100*$5 + 350*$10=$4,000</inlineHelpText>
     <label>Dimension 4 Value Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

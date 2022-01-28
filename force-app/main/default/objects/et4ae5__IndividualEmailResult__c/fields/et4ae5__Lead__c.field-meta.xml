@@ -9,6 +9,7 @@
     <relationshipLabel>Individual Email Results</relationshipLabel>
     <relationshipName>IndividualEmailResults</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

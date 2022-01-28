@@ -6,6 +6,7 @@
     <inlineHelpText>Date after which the article will no longer appear in the &quot;Featured&quot; section. A empty value means no expiration date. Does not apply to records with the &quot;Is Keyword Article&quot; checked.</inlineHelpText>
     <label>Featured Expiration</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>

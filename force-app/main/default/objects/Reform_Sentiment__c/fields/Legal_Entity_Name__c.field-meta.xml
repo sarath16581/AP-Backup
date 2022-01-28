@@ -7,6 +7,7 @@
     <referenceTo>Account</referenceTo>
     <relationshipName>Reform_Sentiments</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

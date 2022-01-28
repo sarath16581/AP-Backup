@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>How much do you spend p/m on transport?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

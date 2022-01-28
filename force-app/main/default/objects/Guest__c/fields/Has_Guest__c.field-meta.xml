@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Has the invited guest brought another guest?</inlineHelpText>
     <label>Has Guest?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

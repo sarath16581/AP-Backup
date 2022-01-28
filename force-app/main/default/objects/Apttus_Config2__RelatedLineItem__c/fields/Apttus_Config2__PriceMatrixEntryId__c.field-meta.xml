@@ -11,6 +11,7 @@
     <relationshipLabel>Related Line Items</relationshipLabel>
     <relationshipName>RelatedLineItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -20,6 +20,7 @@ ISPICKVAL(Apttus_Config2__ChargeType__c, &quot;Standard Price&quot;))
 ,TRUE, FALSE)*/</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Approval Required3?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

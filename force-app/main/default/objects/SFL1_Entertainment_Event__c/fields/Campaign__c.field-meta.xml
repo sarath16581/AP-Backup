@@ -8,6 +8,7 @@
     <relationshipLabel>Entertainment Event</relationshipLabel>
     <relationshipName>R00NT0000000qjOOMAY</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

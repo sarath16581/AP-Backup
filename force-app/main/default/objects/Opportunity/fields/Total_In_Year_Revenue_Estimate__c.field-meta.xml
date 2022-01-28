@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>The total in year revenue estimate calculated as a sum of the in year revenue estimates on each product attached to the opportunity</inlineHelpText>
     <label>Total In Year Revenue Estimate</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>OpportunityLineItem.Hidden_In_Year_Revenue__c</summarizedField>
     <summaryForeignKey>OpportunityLineItem.OpportunityId</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

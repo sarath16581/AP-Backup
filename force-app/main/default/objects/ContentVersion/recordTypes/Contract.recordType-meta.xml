@@ -59,4 +59,30 @@
             <default>false</default>
         </values>
     </picklistValues>
+    <picklistValues>
+        <picklist>dfsle__GeneratedFileFormat__c</picklist>
+        <values>
+            <fullName>PDF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Word</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>dfsle__GeneratedFileSuffix__c</picklist>
+        <values>
+            <fullName>date</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>name</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>name_date</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

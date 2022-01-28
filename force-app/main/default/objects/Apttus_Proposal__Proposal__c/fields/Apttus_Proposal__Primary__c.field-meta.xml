@@ -6,6 +6,7 @@
     <description>Indicates whether the quote/proposal is the primary quote to update the related opportunity</description>
     <externalId>false</externalId>
     <label>Primary</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

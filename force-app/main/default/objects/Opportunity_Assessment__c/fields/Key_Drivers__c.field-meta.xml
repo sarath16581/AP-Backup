@@ -8,6 +8,7 @@ Concise description of the events that have caused the customer to take action i
     <inlineHelpText>Why is the customer acting? i.e. key drivers, issues</inlineHelpText>
     <label>Key Drivers</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

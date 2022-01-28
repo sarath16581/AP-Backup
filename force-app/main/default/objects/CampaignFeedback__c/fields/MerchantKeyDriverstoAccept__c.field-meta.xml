@@ -6,6 +6,7 @@
     <inlineHelpText>Factors that influenced customer decision to accept</inlineHelpText>
     <label>Merchant Key Drivers to Accept</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

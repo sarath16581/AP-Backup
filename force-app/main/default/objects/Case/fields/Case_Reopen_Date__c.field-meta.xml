@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Case Reopen Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>DateTime</type>

@@ -5,6 +5,7 @@
     <description>ECLM field</description>
     <externalId>false</externalId>
     <label>Customised Pricing</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

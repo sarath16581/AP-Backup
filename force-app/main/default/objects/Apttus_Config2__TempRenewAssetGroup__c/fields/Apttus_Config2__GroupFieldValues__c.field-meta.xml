@@ -7,6 +7,7 @@
     <inlineHelpText>The group field values</inlineHelpText>
     <label>Group Field Values</label>
     <length>1000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

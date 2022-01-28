@@ -10,6 +10,7 @@ Identify if any additional CAPEX investment would be required</description>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Currency</type>

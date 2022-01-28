@@ -6,6 +6,7 @@
     <description>Indicates whether the column is visible</description>
     <externalId>false</externalId>
     <label>Is Visible</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

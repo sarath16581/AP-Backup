@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This field counts the number of products that have been attached to the opportunity (Data Quality Score – 15)</inlineHelpText>
     <label>Product Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>OpportunityLineItem.OpportunityId</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

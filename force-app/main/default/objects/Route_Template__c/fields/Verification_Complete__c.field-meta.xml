@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Pre deployment field to indicate that the business has completed the review of the Duty Template and related Job and Task Templates</inlineHelpText>
     <label>Verification Complete</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

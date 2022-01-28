@@ -5,6 +5,7 @@
     <formula>IF( Apttus_Config2__AttributeValueId__r.APT_International_Letters__c = TRUE, &quot;CSP&quot;,&quot;PCMS&quot;)</formula>
     <label>International PCMS or CSP</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -11,6 +11,7 @@ IF(Booking_Record_Type__c == &quot;Dependent Delivery&quot; &amp;&amp;  Booking_
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Booking Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>ArticleTest__r.Bookin__c</formula>
     <label>Book-in</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

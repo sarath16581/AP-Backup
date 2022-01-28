@@ -7,6 +7,7 @@
     <inlineHelpText>Document Ids selected for signatures</inlineHelpText>
     <label>Document Ids</label>
     <length>1000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>2</visibleLines>

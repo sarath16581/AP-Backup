@@ -9,6 +9,7 @@
     <relationshipLabel>Line Item Rollups</relationshipLabel>
     <relationshipName>LineItemRollups</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

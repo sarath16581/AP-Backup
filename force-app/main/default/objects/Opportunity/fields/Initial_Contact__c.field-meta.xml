@@ -7,6 +7,7 @@
 Select Customer approached Account Manager or Account Manager approached the customer (incs LPO or Hub referred the customer to AM, Outbound Marketing activity asked customer to engage)</inlineHelpText>
     <label>Initial Contact</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

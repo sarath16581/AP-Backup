@@ -7,6 +7,7 @@
     <inlineHelpText>The point accrual level</inlineHelpText>
     <label>Point Accrual Level</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

@@ -6,6 +6,7 @@
     <label>Credit Assessment Outcome Status</label>
     <length>20</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

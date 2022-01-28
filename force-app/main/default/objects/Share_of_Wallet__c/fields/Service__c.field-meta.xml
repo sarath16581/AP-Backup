@@ -5,6 +5,7 @@
     <inlineHelpText>Identify the Service that the Share of Wallet entry relates to</inlineHelpText>
     <label>Service Required</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

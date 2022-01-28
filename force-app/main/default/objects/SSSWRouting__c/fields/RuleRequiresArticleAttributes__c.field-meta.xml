@@ -6,6 +6,7 @@
     <formula>OR(IsStrategic__c, HasExtraCover__c)</formula>
     <inlineHelpText>Used for routing of case when article attributes are required</inlineHelpText>
     <label>Rule Requires Article Attributes</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

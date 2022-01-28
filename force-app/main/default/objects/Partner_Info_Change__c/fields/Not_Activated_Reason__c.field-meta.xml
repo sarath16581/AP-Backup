@@ -6,6 +6,7 @@
     <inlineHelpText>The reason the Licence is being set to Not Activated.  This will be copied to the Not Activated Reason field on the Licence if the PICR is approved.</inlineHelpText>
     <label>Not Activated Reason</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

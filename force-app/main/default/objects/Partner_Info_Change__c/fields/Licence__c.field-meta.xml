@@ -17,6 +17,7 @@
     <relationshipLabel>Partner Info Changes</relationshipLabel>
     <relationshipName>Partner_Info_Changes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

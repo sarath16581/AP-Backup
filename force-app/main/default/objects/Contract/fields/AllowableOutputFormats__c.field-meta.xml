@@ -6,6 +6,7 @@
     <inlineHelpText>The list of output formats allowed for the contract.</inlineHelpText>
     <label>Allowable Output Formats</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>

@@ -26,6 +26,7 @@ OR(ISPICKVAL(StageName, &quot;Closed Won&quot;),  ISPICKVAL(StageName, &quot;Clo
     <inlineHelpText>Review these hygiene errors to improve your hygiene errors</inlineHelpText>
     <label>Hygiene Errors</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

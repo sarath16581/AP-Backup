@@ -8,6 +8,7 @@ Identify if we have been executing this initiatives</description>
     <externalId>false</externalId>
     <inlineHelpText>Has activity begun?</inlineHelpText>
     <label>Has Activity Begun</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

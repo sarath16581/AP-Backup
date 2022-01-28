@@ -6,6 +6,7 @@
     <formula>LBP_Tier_1__r.Org_ID__c</formula>
     <label>LBP Tier 1 Org ID</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

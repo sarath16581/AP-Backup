@@ -5,6 +5,7 @@
     <formula>IF(Apttus_Config2__ProductId__r.Name = &apos;Express Road - STE&apos;, &quot;Road Express - STE&quot;,Apttus_Config2__ProductId__r.Name)</formula>
     <label>Parent Product</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

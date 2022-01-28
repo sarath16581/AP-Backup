@@ -1243,11 +1243,6 @@
                 <label>General Enquiry|Web &amp; Apps|MyPost Deliveries</label>
             </value>
             <value>
-                <fullName>General Enquiry|Web &amp; Apps|MyPost Business App</fullName>
-                <default>false</default>
-                <label>General Enquiry|Web &amp; Apps|MyPost Business App</label>
-            </value>
-            <value>
                 <fullName>General Enquiry|Web &amp; Apps|Online Returns Portal</fullName>
                 <default>false</default>
                 <label>General Enquiry|Web &amp; Apps|Online Returns Portal</label>
@@ -1313,9 +1308,9 @@
                 <label>Feedback|Web &amp; Apps|MyPost Deliveries</label>
             </value>
             <value>
-                <fullName>Feedback|Web &amp; Apps|MyPost Business App</fullName>
+                <fullName>Feedback|Web &amp; Apps|MyPost Business</fullName>
                 <default>false</default>
-                <label>Feedback|Web &amp; Apps|MyPost Business App</label>
+                <label>Feedback|Web &amp; Apps|MyPost Business</label>
             </value>
             <value>
                 <fullName>Feedback|Web &amp; Apps|Online Returns Portal</fullName>
@@ -1383,9 +1378,9 @@
                 <label>Investigation|Web &amp; Apps|MyPost Deliveries</label>
             </value>
             <value>
-                <fullName>Investigation|Web &amp; Apps|MyPost Business App</fullName>
+                <fullName>Investigation|Web &amp; Apps|MyPost Business</fullName>
                 <default>false</default>
-                <label>Investigation|Web &amp; Apps|MyPost Business App</label>
+                <label>Investigation|Web &amp; Apps|MyPost Business</label>
             </value>
             <value>
                 <fullName>Investigation|Web &amp; Apps|Online Returns Portal</fullName>
@@ -1561,6 +1556,11 @@
                 <fullName>Service Delivery</fullName>
                 <default>false</default>
                 <label>Service Delivery</label>
+            </value>
+            <value>
+                <fullName>General Enquiry|Web &amp; Apps|MyPost Business</fullName>
+                <default>false</default>
+                <label>General Enquiry|Web &amp; Apps|MyPost Business</label>
             </value>
         </valueSetDefinition>
     </valueSet>

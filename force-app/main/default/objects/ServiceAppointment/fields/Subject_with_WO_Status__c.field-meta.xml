@@ -15,6 +15,7 @@ CASE(Work_Order_Status__c ,
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Subject with WO Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

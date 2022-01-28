@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Does an initiative need to be put in place to prevent this from occurring?</inlineHelpText>
     <label>Preventive Initiative?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

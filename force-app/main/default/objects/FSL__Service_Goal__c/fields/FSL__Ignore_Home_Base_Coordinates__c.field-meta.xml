@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Sets the scheduling to include or exclude from minimize travel considerations the first and last travel of the day, to and from the service resource home base</inlineHelpText>
     <label>Exclude Home Base Travel</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

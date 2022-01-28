@@ -7,6 +7,7 @@
     <inlineHelpText>One or more product family inclusion/exclusion criteria</inlineHelpText>
     <label>Product Family Criteria</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

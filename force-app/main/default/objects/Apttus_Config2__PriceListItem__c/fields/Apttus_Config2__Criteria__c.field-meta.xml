@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Charge Type Criteria</label>
     <length>16000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

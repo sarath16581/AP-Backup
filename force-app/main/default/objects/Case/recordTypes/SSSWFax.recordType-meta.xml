@@ -869,7 +869,14 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>MPB_BSP_Sub_Enquiry_Type__c</picklist>
+        <picklist>MPB_BSP_Enquiry_Type__c</picklist>
+        <values>
+            <fullName>Advice on sending parcels</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>MPB_BSP_Tech_Enquiry_Type__c</picklist>
         <values>
             <fullName>Band Discount Enquiry</fullName>
             <default>false</default>
@@ -883,23 +890,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Disputed Delivery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Disputed Payment</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Error Codes</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>General</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Label Support</fullName>
             <default>false</default>
         </values>
         <values>
@@ -911,15 +906,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>PickUp Failure</fullName>
+            <fullName>Pick Up Failure</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Platform Partner Integration</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Request a refund</fullName>
             <default>false</default>
         </values>
         <values>
@@ -931,15 +922,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Small Business offers</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>System Outage</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Tracking status</fullName>
             <default>false</default>
         </values>
         <values>

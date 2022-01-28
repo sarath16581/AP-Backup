@@ -5,6 +5,7 @@
     <description>This field indicates the jobs are marked with stop credit</description>
     <externalId>false</externalId>
     <label>Stop Credit</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

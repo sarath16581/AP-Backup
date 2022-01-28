@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether the line item has a tiered price.</inlineHelpText>
     <label>Has Tiered Price</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

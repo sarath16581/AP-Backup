@@ -6,6 +6,7 @@
     <description>Indicates whether the rule considers the Product only when it is added to the cart as an option.</description>
     <externalId>false</externalId>
     <label>Is Option</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

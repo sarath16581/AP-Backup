@@ -3,6 +3,7 @@
     <fullName>Delivered__c</fullName>
     <externalId>false</externalId>
     <label>Delivered</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>EventMessage__c.EventDescription__c</field>
         <operation>contains</operation>

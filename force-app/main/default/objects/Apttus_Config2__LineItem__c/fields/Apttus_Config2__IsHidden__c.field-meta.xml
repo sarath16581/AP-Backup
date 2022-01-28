@@ -6,6 +6,7 @@
     <description>Indicates whether the Line Item will be hidden in the Configuration. If this field is true then IsReadOnly__c also needs to be true to prevent user from modifying field values.</description>
     <externalId>false</externalId>
     <label>Is Hidden</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

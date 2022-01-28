@@ -5,6 +5,7 @@
     <inlineHelpText>- Statement of need/ Description of the Changes</inlineHelpText>
     <label>Requirement Statement</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

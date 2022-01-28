@@ -6,6 +6,7 @@
     <inlineHelpText>Is there an opportunity to win-back lost business?</inlineHelpText>
     <label>Can we win this business back?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

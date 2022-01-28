@@ -5,6 +5,7 @@
     <inlineHelpText>Case Description at the time of network response creation</inlineHelpText>
     <label>Message to Network</label>
     <length>32000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

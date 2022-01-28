@@ -1684,7 +1684,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Apttus_CMConfig__OptionId__c.Wanting_to_Send_Publications__c</field>
+            <field>Apttus_CMConfig__OptionId__c.Wanting_to_Send_PUBLICations__c</field>
             <table>Apttus__AgreementLineItem__c</table>
         </columns>
         <columns>
@@ -4090,7 +4090,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Apttus__ProductId__c.Wanting_to_Send_Publications__c</field>
+            <field>Apttus__ProductId__c.Wanting_to_Send_PUBLICations__c</field>
             <table>Apttus__AgreementLineItem__c</table>
         </columns>
         <columns>

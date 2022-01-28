@@ -5,6 +5,7 @@
     <description>StarTrack No Data values changed (triggers the process builder to record a task asynchronously using the No Data datetime field)</description>
     <externalId>false</externalId>
     <label>No Data Change</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

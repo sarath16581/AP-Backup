@@ -9,6 +9,7 @@
     <relationshipLabel>Optimization Request Queue</relationshipLabel>
     <relationshipName>Optimization_Request_Queue</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <inlineHelpText>Comments for the Audit Program. Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Comments</label>
     <length>131072</length>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

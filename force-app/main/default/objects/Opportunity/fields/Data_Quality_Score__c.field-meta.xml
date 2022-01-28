@@ -21,6 +21,7 @@ IF( ISPICKVAL(LeadSource, &quot;&quot;) ,0,5)</formula>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Number</type>
     <unique>false</unique>

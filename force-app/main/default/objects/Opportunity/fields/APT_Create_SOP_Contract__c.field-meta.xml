@@ -7,6 +7,7 @@ HYPERLINK(&quot;/apex/Apttus__OpportunityAgreement?id=&quot; &amp;Id&amp;&quot;&
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Create SOP Contract</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -1078,11 +1078,11 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>john.tripodi@startrack.com.au</name>
+                <name>gill.alvarado@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
-                <name>peter.furey@startrack.com.au</name>
+                <name>john.tripodi@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

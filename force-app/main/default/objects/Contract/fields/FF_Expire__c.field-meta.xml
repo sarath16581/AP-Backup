@@ -7,6 +7,7 @@
     <inlineHelpText>Expire the contract</inlineHelpText>
     <label>Expire</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

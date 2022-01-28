@@ -7,6 +7,7 @@
     <inlineHelpText>The adjustment type to apply to the based on price</inlineHelpText>
     <label>Based On Adjustment Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

@@ -1085,6 +1085,10 @@
     <picklistValues>
         <picklist>MPB_BSP_Enquiry_Type__c</picklist>
         <values>
+            <fullName>Advice on sending parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Delivery Enquiry</fullName>
             <default>false</default>
         </values>
@@ -1110,7 +1114,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>MPB_BSP_Sub_Enquiry_Type__c</picklist>
+        <picklist>MPB_BSP_Tech_Enquiry_Type__c</picklist>
         <values>
             <fullName>Band Discount Enquiry</fullName>
             <default>false</default>
@@ -1124,23 +1128,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Disputed Delivery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Disputed Payment</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Error Codes</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>General</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Label Support</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1152,15 +1144,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>PickUp Failure</fullName>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pick Up Failure</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Platform Partner Integration</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Request a refund</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1172,15 +1164,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Small Business offers</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>System Outage</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Tracking status</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1756,10 +1740,6 @@
         </values>
         <values>
             <fullName>MyAccount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MyPost Business App</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3282,7 +3262,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Feedback%7CWeb %26 Apps%7CMyPost Business App</fullName>
+            <fullName>Feedback%7CWeb %26 Apps%7CMyPost Business</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3694,7 +3674,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>General Enquiry%7CWeb %26 Apps%7CMyPost Business App</fullName>
+            <fullName>General Enquiry%7CWeb %26 Apps%7CMyPost Business</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4106,7 +4086,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Investigation%7CWeb %26 Apps%7CMyPost Business App</fullName>
+            <fullName>Investigation%7CWeb %26 Apps%7CMyPost Business</fullName>
             <default>false</default>
         </values>
         <values>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>True: if validated through address lookup feature</inlineHelpText>
     <label>Address Validated</label>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

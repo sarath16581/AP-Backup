@@ -6,6 +6,7 @@
     <inlineHelpText>Task Name the Action is based on.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Task Category</label>
     <length>131072</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

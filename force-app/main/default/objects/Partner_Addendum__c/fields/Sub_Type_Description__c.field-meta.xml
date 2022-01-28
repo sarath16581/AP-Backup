@@ -19,8 +19,8 @@
 &quot;Mail Bag Despatched Variation&quot;,$Setup.PA_ST_Desc__c.Mail_Bag_Despatched_Var__c,
 &quot;Mail Conveyancing Fee&quot;,$Setup.PA_ST_Desc__c.Mail_Conveyancing_Fee__c,
 &quot;Mail Service Payment&quot;,$Setup.PA_ST_Desc__c.Mail_Service_Payment__c,
-&quot;Miscellaneous Type 1&quot;,$Setup.PA_ST_Desc__c.Misc_Type_1__c,
-&quot;Miscellaneous Type 2&quot;,$Setup.PA_ST_Desc__c.Misc_Type_2__c,
+&quot;Negotiated Payment – Compliance Payment&quot;,$Setup.PA_ST_Desc__c.Negotiated_Payment_Compliance_Payment__c,
+&quot;Negotiated Payment – Performance Payment&quot;,$Setup.PA_ST_Desc__c.Negotiated_Payment_Performance_Payment__c,
 &quot;Miscellaneous Type 3&quot;,$Setup.PA_ST_Desc__c.Misc_Type_3__c,
 &quot;Negotiated Accommodation Fee&quot;,$Setup.PA_ST_Desc__c.Negotiated_Accom_Fee__c,
 &quot;New Business Spotter&apos;s Fee&quot;,$Setup.PA_ST_Desc__c.New_Bus_Spotters_Fee__c,
@@ -39,6 +39,7 @@
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Sub Type Description</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

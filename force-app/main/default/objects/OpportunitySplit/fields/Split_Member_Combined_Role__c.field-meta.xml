@@ -5,6 +5,7 @@
     <formula>IF(ISBLANK(Split_Member_Role_At_Opportunity_Closure__c), Split_Member_Current_Role__c, Split_Member_Role_At_Opportunity_Closure__c)</formula>
     <label>Split Member Combined Role</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

@@ -9,6 +9,7 @@
     <relationshipLabel>Service Territory Members</relationshipLabel>
     <relationshipName>Service_Territory_Members</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

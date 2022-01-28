@@ -8,6 +8,7 @@
     <relationshipLabel>Service Resources (Fit For Duty Work Order)</relationshipLabel>
     <relationshipName>Service_Resources1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

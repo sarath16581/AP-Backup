@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Pre-filled automatically if this Opportunity was created from a  Lead submitted through the Seeker program.</inlineHelpText>
     <label>Lead Seeker</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

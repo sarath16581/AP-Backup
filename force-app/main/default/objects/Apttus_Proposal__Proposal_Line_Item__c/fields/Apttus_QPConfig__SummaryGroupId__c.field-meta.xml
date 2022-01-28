@@ -10,6 +10,7 @@
     <relationshipLabel>Line Items</relationshipLabel>
     <relationshipName>ProposalLineItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -8,6 +8,7 @@ Identify if we have developed plans for how we would deliver this product/ servi
     <externalId>false</externalId>
     <inlineHelpText>Have we developed an execution plan?</inlineHelpText>
     <label>Executive Plan Developed</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

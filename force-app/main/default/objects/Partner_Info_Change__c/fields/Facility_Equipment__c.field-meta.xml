@@ -6,6 +6,7 @@
     <inlineHelpText>Equipment that the outlet owns, but is not charged for</inlineHelpText>
     <label>Facility Equipment</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

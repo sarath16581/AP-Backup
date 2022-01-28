@@ -7,6 +7,7 @@
     <inlineHelpText>The encoded matrix information.</inlineHelpText>
     <label>Hash</label>
     <length>51200</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>The total incentive benefit amount</inlineHelpText>
     <label>Incentive Benefit Amount</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Apttus_Config2__ExternalOrderAdjustmentItem__c.Apttus_Config2__IncentiveAdjustmentAmount__c</summarizedField>
     <summaryForeignKey>Apttus_Config2__ExternalOrderAdjustmentItem__c.Apttus_Config2__LineItemId__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

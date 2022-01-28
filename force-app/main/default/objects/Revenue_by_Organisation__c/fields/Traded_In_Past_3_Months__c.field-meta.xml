@@ -8,6 +8,7 @@ IF( NOT(Current_Year__c) , &quot;NA&quot;,IMAGE(&quot;/img/samples/flag_red.gif&
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Traded In Past 3 Months</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

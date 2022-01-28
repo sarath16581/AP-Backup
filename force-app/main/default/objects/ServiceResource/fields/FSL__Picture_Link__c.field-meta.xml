@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Picture Link</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Url</type>
 </CustomField>

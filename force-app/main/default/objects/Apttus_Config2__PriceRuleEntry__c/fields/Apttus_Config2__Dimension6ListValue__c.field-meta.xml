@@ -7,6 +7,7 @@
     <inlineHelpText>The list of values for the sixth dimension. Only applicable to List dimensions</inlineHelpText>
     <label>Dimension 6 List Value</label>
     <length>5000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

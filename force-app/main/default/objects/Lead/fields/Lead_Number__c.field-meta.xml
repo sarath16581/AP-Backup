@@ -5,6 +5,7 @@
     <displayFormat>Lead{000000}</displayFormat>
     <externalId>true</externalId>
     <label>Lead Number</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>AutoNumber</type>
 </CustomField>

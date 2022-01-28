@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether there are validation errors associated with the purchase order</inlineHelpText>
     <label>Validation Errors ?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -8,6 +8,7 @@ Identify whether or not Australia Post would make profit on this if it was won</
     <externalId>false</externalId>
     <inlineHelpText>Is this opportunity likely to be profitable?</inlineHelpText>
     <label>Profitable</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

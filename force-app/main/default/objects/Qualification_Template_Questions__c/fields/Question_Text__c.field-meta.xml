@@ -7,6 +7,7 @@
     <label>Question Text</label>
     <length>150</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

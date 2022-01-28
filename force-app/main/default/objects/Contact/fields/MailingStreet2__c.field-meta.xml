@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Mailing Street 2</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>TextArea</type>

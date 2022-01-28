@@ -5,6 +5,7 @@
     <label>Account Number</label>
     <length>18</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -66,61 +66,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Area_to_Benefit__c</picklist>
-        <values>
-            <fullName>Business Hubs</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Contracts</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Contact Centre</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Finance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Implementation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Optimisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reporting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Service</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Systems</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transport</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>ArticleType__c</picklist>
         <values>
             <fullName>Letter</fullName>
@@ -1374,81 +1319,9 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>MPB_BSP_Sub_Enquiry_Type__c</picklist>
+        <picklist>MPB_BSP_Enquiry_Type__c</picklist>
         <values>
-            <fullName>Band Discount Enquiry</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Change Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Damaged item</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Disputed Delivery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Disputed Payment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Error Codes</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>General</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Label Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Missing item</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>More Information</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>PickUp Failure</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Platform Partner Integration</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Request a refund</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Return to Sender</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sending Volume Enquiry</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Small Business offers</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>System Outage</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Tracking status</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction History Request</fullName>
+            <fullName>Advice on sending parcels</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1678,33 +1551,6 @@
         </values>
         <values>
             <fullName>White mail</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Other_CoE_s_Involved__c</picklist>
-        <values>
-            <fullName>Contracts</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Implementation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Optimisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reporting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Service</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Systems</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2126,10 +1972,6 @@
         </values>
         <values>
             <fullName>MyAccount</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MyPost Business App</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3964,7 +3806,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Feedback%7CWeb %26 Apps%7CMyPost Business App</fullName>
+            <fullName>Feedback%7CWeb %26 Apps%7CMyPost Business</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4372,7 +4214,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>General Enquiry%7CWeb %26 Apps%7CMyPost Business App</fullName>
+            <fullName>General Enquiry%7CWeb %26 Apps%7CMyPost Business</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4780,7 +4622,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Investigation%7CWeb %26 Apps%7CMyPost Business App</fullName>
+            <fullName>Investigation%7CWeb %26 Apps%7CMyPost Business</fullName>
             <default>false</default>
         </values>
         <values>

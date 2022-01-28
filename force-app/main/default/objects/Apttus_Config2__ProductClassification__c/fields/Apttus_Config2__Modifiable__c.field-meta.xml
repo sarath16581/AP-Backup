@@ -6,6 +6,7 @@
     <description>Indicates whether the option or component is modifiable during selection. This is applicable only to options or components.</description>
     <externalId>false</externalId>
     <label>Modifiable</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

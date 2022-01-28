@@ -8,6 +8,7 @@ Identify, based on importance, whether we need to invest in building a relations
     <externalId>false</externalId>
     <inlineHelpText>Do we need to engage this person?</inlineHelpText>
     <label>Engage Contact</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -4,6 +4,7 @@
     <description>ECLM field</description>
     <externalId>false</externalId>
     <label>Total Volume</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>OpportunityLineItem.Quantity</summarizedField>
     <summaryForeignKey>OpportunityLineItem.OpportunityId</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

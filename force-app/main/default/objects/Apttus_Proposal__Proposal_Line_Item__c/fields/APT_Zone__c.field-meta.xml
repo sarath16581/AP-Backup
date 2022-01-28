@@ -5,6 +5,7 @@
     <formula>IF( APT_New__c =true &amp;&amp; APT_Price_Structure__c&lt;&gt;null,APT_Price_Structure__c+&apos; true&apos;,APT_Price_Structure__c+&apos; false&apos;)</formula>
     <label>Zone</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

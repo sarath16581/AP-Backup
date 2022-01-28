@@ -3,6 +3,7 @@
     <fullName>APT_Total_Physical_Weight_Kg2__c</fullName>
     <externalId>false</externalId>
     <label>Total Physical Weight Kg2</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>APT_Cubic_Factor__c.APT_Physical_Weight_Kg__c</summarizedField>
     <summaryForeignKey>APT_Cubic_Factor__c.APT_Proposal__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

@@ -23,6 +23,7 @@
     <relationshipLabel>Duty Assignments</relationshipLabel>
     <relationshipName>AssignedRoutes</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

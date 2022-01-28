@@ -5,6 +5,7 @@
     <label>Opportunity Driver</label>
     <length>80</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

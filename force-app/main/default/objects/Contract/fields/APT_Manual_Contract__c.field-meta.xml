@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Tick this box for products that aren’t configured in Apttus. Ie StarTrack, Decipha</inlineHelpText>
     <label>Manual Contract?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <formula>TEXT(Account.Conveyancer_Number__c)</formula>
     <label>Conveyancer Number</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -25,6 +25,7 @@ IF(VALUE(MID(TEXT(Article_Expected_Delivery_Date__c), 12, 2))&lt;12, &apos;AM&ap
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Expected Delivery Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

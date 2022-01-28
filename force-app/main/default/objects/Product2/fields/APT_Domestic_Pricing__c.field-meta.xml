@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>if true then product pricing will be handled using domestic pricing batch</inlineHelpText>
     <label>Domestic Pricing</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

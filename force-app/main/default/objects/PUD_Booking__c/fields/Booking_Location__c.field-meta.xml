@@ -24,6 +24,7 @@ Please navigate to the Booking Location screen to create a Booking Location and 
     <relationshipLabel>Bookings</relationshipLabel>
     <relationshipName>Bookings</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

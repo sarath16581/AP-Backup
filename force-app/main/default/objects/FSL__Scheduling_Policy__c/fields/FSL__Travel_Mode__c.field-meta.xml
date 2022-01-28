@@ -5,6 +5,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Travel Mode (Closed Pilot)</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

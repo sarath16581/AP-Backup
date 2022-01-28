@@ -7,6 +7,7 @@
     <inlineHelpText>Recipient Delivered Date Time</inlineHelpText>
     <label>Delivered Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

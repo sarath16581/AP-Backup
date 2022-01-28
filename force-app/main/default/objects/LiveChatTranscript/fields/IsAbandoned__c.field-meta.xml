@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <formula>IF(ISPICKVAL(Status,&quot;Missed&quot;),True,False)</formula>
     <label>Is Abandoned</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <inlineHelpText>Please select all of the product lines that will be covered by this contract</inlineHelpText>
     <label>Included Product Lines</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
@@ -146,6 +147,11 @@
                 <fullName>Undefined</fullName>
                 <default>false</default>
                 <label>Undefined</label>
+            </value>
+            <value>
+                <fullName>APGL Commercial Outbound</fullName>
+                <default>false</default>
+                <label>APGL Commercial Outbound</label>
             </value>
         </valueSetDefinition>
     </valueSet>

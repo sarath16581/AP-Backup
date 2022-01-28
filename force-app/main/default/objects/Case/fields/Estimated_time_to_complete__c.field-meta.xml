@@ -7,6 +7,7 @@
     <label>Est. Time to Complete(Mins)</label>
     <length>25</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

@@ -3,6 +3,7 @@
     <fullName>Dangerous_Goods_count__c</fullName>
     <externalId>false</externalId>
     <label>Dangerous Goods Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Dangerous_Goods__c.Freight_Offering__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

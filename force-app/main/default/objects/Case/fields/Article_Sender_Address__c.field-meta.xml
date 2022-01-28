@@ -6,6 +6,7 @@
     <formula>IF( No_Data_Consignment__c,Address1__c, ArticleTest__r.SenderAddress__c)</formula>
     <label>Sender Address</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

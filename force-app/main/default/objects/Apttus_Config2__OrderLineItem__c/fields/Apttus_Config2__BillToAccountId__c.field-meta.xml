@@ -11,6 +11,7 @@
     <relationshipLabel>Order Line Items (Bill To)</relationshipLabel>
     <relationshipName>OrderLineItemsBillTo</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

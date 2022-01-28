@@ -5,6 +5,7 @@
     <description>Indicates if a Rest Break has been started, but not completed. Set in flow TDF_Rest_Break. Checked in flow TDF_Execute_Job</description>
     <externalId>false</externalId>
     <label>Rest Break In Progress</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>The email sent to this subscriber  was rejected due to permanent conditions (this typically results when &quot;user unknown&quot; or &quot;domain not found&quot; errors occur)</inlineHelpText>
     <label>Hard Bounce</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

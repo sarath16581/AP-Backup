@@ -8,6 +8,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Sales_Coverage_Change_Requests</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -27,6 +27,7 @@ IMAGE(&quot;/img/samples/flag_green.gif&quot;,&quot;Opportunity Data Good&quot;)
     <inlineHelpText>Refer to Hygiene Errors to improve your rating</inlineHelpText>
     <label>Hygiene Rating</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

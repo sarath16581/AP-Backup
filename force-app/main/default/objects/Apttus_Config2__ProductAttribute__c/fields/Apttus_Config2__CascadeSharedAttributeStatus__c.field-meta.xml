@@ -7,6 +7,7 @@
     <inlineHelpText>Indicates one or more line status to which the cascade shared attribute updates should apply to</inlineHelpText>
     <label>Cascade Shared Attribute Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

@@ -7,6 +7,7 @@
     <inlineHelpText>The type of offset to apply to the rollup end date</inlineHelpText>
     <label>Rollup End Date Offset Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

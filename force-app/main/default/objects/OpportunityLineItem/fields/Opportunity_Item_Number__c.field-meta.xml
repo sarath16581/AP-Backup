@@ -4,5 +4,6 @@
     <displayFormat>{00000000}</displayFormat>
     <externalId>true</externalId>
     <label>Opportunity Item Number</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>AutoNumber</type>
 </CustomField>

@@ -8,5 +8,6 @@
     <relationshipLabel>Opportunity Product</relationshipLabel>
     <relationshipName>Opportunity_Product</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Lookup</type>
 </CustomField>

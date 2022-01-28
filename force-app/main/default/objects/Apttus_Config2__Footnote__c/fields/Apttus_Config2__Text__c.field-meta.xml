@@ -7,6 +7,7 @@
     <inlineHelpText>The footnote text. This is deprecated. Please use the Body to store the content.</inlineHelpText>
     <label>Text (Deprecated)</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Html</type>
     <visibleLines>10</visibleLines>

@@ -6,6 +6,7 @@
     <inlineHelpText>Solution profiling; is it user pays or merchant pays?</inlineHelpText>
     <label>Who pays for the background checks?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

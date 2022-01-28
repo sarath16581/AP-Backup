@@ -5,6 +5,7 @@
     <formula>Fiscal_Year__r.Name + &apos;_&apos; +  TEXT(State__c)</formula>
     <label>Public Holiday Name</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

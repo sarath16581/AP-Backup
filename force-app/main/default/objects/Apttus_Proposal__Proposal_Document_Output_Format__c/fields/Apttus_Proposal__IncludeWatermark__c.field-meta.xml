@@ -6,6 +6,7 @@
     <description>Indicates whether watermark will be added to the document</description>
     <externalId>false</externalId>
     <label>Include Watermark</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

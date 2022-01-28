@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>As we create individual records for roles/users/profiles added in the admin UI, introducing this field to track view level default attribute</inlineHelpText>
     <label>IsDefaultView</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

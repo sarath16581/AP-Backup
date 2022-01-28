@@ -7,6 +7,7 @@
     <inlineHelpText>The original effective date associated with the incentive</inlineHelpText>
     <label>Original Effective Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

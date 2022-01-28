@@ -6,6 +6,7 @@
     <inlineHelpText>Is there risk of migration to another AP/ST product?</inlineHelpText>
     <label>Risk of migration to SOD Always Required</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

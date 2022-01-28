@@ -5,6 +5,7 @@
     <description>Identifies if the LPO is subject to GST or not (e.g. outside of Australia).</description>
     <externalId>false</externalId>
     <label>GST Applicable</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

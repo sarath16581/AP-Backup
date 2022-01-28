@@ -3,6 +3,7 @@
     <fullName>Total_Weekly_Indirect_Work_Hours__c</fullName>
     <externalId>false</externalId>
     <label>Total Weekly Indirect Work Hours</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Timesheet_Entry__c.Indirect_Work_Hours__c</summarizedField>
     <summaryForeignKey>Timesheet_Entry__c.Time_Utilisation__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

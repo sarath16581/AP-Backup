@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Is property owned or leased by Australia Post?</inlineHelpText>
     <label>Facility Fit out AP Owned</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

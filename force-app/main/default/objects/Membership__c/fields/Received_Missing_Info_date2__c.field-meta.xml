@@ -6,6 +6,7 @@
     <inlineHelpText>Updated when status is changed to received missing info</inlineHelpText>
     <label>Received Missing Info date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

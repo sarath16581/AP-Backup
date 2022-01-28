@@ -7,6 +7,7 @@ This field is planned for decommission as part of STP-4232.</description>
     <label>Work Centre Code</label>
     <length>10</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

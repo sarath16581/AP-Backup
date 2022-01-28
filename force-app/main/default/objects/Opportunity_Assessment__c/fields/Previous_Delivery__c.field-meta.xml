@@ -8,6 +8,7 @@ Identify with internal stakeholders if we have delivered this product previously
     <inlineHelpText>Do we have a track record in delivering these types of products/ solutions?</inlineHelpText>
     <label>Previous Delivery</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

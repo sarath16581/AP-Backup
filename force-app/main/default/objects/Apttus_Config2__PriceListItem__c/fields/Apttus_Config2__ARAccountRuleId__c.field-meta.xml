@@ -21,6 +21,7 @@
     <relationshipLabel>Price List Items  (A/R Account)</relationshipLabel>
     <relationshipName>PriceListItemsAR</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

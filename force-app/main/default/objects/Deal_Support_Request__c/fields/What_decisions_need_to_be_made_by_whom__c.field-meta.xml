@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>What Decisions Required &amp; By whom?</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

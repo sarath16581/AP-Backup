@@ -7,6 +7,7 @@
     <inlineHelpText>The currency which the Customer organization in concern is dealing with.</inlineHelpText>
     <label>Dispute Currency</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

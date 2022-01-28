@@ -12,6 +12,7 @@ Select YES, if Contact is:
 4. AND have had interaction with their AM in the last 12 months.</inlineHelpText>
     <label>Email/Electronic Opt-In</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>

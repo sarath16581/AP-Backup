@@ -11,6 +11,7 @@
     <relationshipLabel>Loyalty Point Accrual Summary</relationshipLabel>
     <relationshipName>LoyaltyPointAccrualSummary</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

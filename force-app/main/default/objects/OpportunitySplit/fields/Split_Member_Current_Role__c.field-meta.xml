@@ -5,6 +5,7 @@
     <formula>SplitOwner.Current_Owner_Role__c</formula>
     <label>Split Member Current Role</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

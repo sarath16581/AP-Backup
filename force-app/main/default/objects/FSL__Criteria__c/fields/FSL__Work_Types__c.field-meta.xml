@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Work Types</label>
     <length>65536</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

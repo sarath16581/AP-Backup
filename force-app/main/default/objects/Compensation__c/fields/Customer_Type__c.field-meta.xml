@@ -7,6 +7,7 @@ IF (Contact__r.Account.Role_Type_Roll_Up__c==&quot;Customer&quot;, &quot;Silver&
 &quot;Consumer&quot;))</formula>
     <label>Customer Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

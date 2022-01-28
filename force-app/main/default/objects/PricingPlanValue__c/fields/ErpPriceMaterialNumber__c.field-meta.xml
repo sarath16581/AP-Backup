@@ -6,6 +6,7 @@
     <label>ERP Price Material Number</label>
     <length>4</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

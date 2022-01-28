@@ -7,6 +7,7 @@
 5 - Least Urgent</inlineHelpText>
     <label>Case Urgency</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

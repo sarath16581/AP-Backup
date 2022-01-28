@@ -5,6 +5,7 @@
     <label>IT Change Request Number</label>
     <length>35</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

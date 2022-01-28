@@ -5,6 +5,7 @@
     <inlineHelpText>The date when the primary competitors contract with the customer is up for review/renewal</inlineHelpText>
     <label>Contract Renewal</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>

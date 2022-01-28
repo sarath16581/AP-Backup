@@ -19,6 +19,7 @@
     <relationshipLabel>Deal Guidance Rules</relationshipLabel>
     <relationshipName>DealGuidanceRules</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -3,6 +3,7 @@
     <fullName>Phone</fullName>
     <inlineHelpText>Number for contact&apos;s landline 
 (sample format: 07 1111 1111)</inlineHelpText>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
 </CustomField>

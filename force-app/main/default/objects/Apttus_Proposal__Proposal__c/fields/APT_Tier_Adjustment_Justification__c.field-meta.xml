@@ -6,6 +6,7 @@
     <inlineHelpText>What is the justification for requesting a price adjustment?</inlineHelpText>
     <label>Sales Justification</label>
     <length>300</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

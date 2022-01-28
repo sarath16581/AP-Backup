@@ -5,6 +5,7 @@
     <description>STP: Set to true once Deal Desk DSR is created against the opportunity.</description>
     <externalId>false</externalId>
     <label>Deal Desk DSR Exist</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

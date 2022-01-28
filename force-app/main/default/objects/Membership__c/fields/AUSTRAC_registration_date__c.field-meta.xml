@@ -6,6 +6,7 @@
     <inlineHelpText>Stores the date that this registration was activated by AUSTRAC</inlineHelpText>
     <label>AUSTRAC registration date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

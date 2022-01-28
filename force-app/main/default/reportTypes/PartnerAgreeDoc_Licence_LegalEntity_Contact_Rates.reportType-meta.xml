@@ -1294,7 +1294,7 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <displayNameOverride>Public Phone Collect Clearance</displayNameOverride>
-            <field>Rate_List__c.Public_Phone_Collect_Clearance__c</field>
+            <field>Rate_List__c.PUBLIC_Phone_Collect_Clearance__c</field>
             <table>Agreement_Document__c</table>
         </columns>
         <columns>
@@ -1408,7 +1408,7 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <displayNameOverride>Public Phone Collect Count</displayNameOverride>
-            <field>Rate_List__c.Public_Phone_Collect_Count__c</field>
+            <field>Rate_List__c.PUBLIC_Phone_Collect_Count__c</field>
             <table>Agreement_Document__c</table>
         </columns>
         <columns>

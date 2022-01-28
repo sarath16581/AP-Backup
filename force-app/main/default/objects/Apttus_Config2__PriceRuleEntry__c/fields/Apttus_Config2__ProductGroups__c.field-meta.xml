@@ -7,6 +7,7 @@
     <inlineHelpText>The list of product groups associated with the entry</inlineHelpText>
     <label>Product Groups</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>

@@ -7,6 +7,7 @@
     <referenceTo>BusinessHours</referenceTo>
     <relationshipName>Status_Tracking</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

@@ -5,5 +5,6 @@
     <inlineHelpText>The ‘revenue start date’ is the date the customer is first invoiced for services provided to them. Please factor into the ‘start date’ any on-boarding and implementation time required for the product or service.</inlineHelpText>
     <label>Revenue Start Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Date</type>
 </CustomField>

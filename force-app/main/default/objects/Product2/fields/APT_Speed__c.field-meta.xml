@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Speed</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>

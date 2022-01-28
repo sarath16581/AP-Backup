@@ -8,6 +8,7 @@
     <precision>1</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Number</type>

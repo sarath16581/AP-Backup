@@ -8,6 +8,7 @@
     <inlineHelpText>Organisation Id of the Depot that service the parent booking.</inlineHelpText>
     <label>Depot Organisation Id</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

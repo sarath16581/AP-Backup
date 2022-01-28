@@ -3,6 +3,7 @@
     <fullName>No_of_Guests__c</fullName>
     <externalId>false</externalId>
     <label>No. of Invited Guests</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Guest__c.hidden_guest_number__c</summarizedField>
     <summaryFilterItems>
         <field>Guest__c.Invited__c</field>

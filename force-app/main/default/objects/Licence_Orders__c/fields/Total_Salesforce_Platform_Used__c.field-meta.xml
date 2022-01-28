@@ -3,6 +3,7 @@
     <fullName>Total_Salesforce_Platform_Used__c</fullName>
     <externalId>false</externalId>
     <label>Total Salesforce Platform Used</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Salesforce_Licence__c.LicenceType__c</field>
         <operation>equals</operation>

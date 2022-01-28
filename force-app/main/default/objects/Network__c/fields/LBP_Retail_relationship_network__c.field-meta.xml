@@ -5,6 +5,7 @@
     <inlineHelpText>This field is used to identify the Program of the Corp or LPO outlet as part of the Local Business Partner (LBP) Program. For changes to these fields please consult Sales Cloud Admin.</inlineHelpText>
     <label>LBP Retail Relationship</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

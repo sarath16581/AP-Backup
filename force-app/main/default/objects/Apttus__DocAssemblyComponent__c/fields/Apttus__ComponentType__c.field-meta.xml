@@ -7,6 +7,7 @@
     <inlineHelpText>Clause = clause document, Attachment (Id) = hardcoded attachment id, Attachment (Object/Field) = attachment id in a field, Parent (Object/Field) = first attachment in the parent represented by the field, Content (Object/Field) =  raw content of the field.</inlineHelpText>
     <label>Component Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

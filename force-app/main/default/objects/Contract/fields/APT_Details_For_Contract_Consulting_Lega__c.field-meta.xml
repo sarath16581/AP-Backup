@@ -5,6 +5,7 @@
     <inlineHelpText>Provide as much details as possible before checking the &apos;Submit to Contract Consulting&apos; checkbox.</inlineHelpText>
     <label>Details for Contract Consulting/Legal</label>
     <length>25000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

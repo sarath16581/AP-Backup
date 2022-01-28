@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AnnualRevenue</fullName>
     <inlineHelpText>Estimated revenue generated annually by the lead&apos;s company.</inlineHelpText>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
 </CustomField>

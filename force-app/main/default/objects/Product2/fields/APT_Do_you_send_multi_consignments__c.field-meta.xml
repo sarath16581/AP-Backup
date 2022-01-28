@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Do you send multi-consignments?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

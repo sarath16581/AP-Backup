@@ -54,6 +54,7 @@
 &apos;CHQ Handling Fee Reversal&apos;,&apos;7X&apos;,
 &apos;Un-manifested Fee Refund&apos;,&apos;45&apos;,
 &apos;Manifest Correction Fee Credit&apos;,&apos;40&apos;,
+&apos;Oversize Charge&apos;,&apos;54&apos;,
 &apos; &apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>TEAM Reason Code</label>

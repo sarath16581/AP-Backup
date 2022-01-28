@@ -7,6 +7,7 @@
     <inlineHelpText>This field will indicate if your deal is required to attend Commit to Action or Deal Desk forum (based on size, products and complexity)</inlineHelpText>
     <label>B&amp;G Forum attendance</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -15,6 +15,7 @@ IF( ISBLANK($Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c)  , &apos;
 ),&apos;&apos;))</formula>
     <label>View Response</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

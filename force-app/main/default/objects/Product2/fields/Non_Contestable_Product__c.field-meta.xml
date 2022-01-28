@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>If ticked, this indicates the product is not offered by any competitor (previously known as Reserved Services)</inlineHelpText>
     <label>Non-Contestable Product</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates if PBP Contract is Gross Settled</inlineHelpText>
     <label>PBP Gross Settled</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -11,6 +11,7 @@ if((ISPICKVAL(Revenue_Committment__c,&apos;35,000 - 50,000&apos;) || ISPICKVAL(R
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Estimated Band</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

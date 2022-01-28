@@ -7,6 +7,7 @@
     <inlineHelpText>The period end date. The entry becomes ineffective after this date.</inlineHelpText>
     <label>End Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

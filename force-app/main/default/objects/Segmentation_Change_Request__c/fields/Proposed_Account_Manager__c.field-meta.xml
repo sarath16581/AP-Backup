@@ -18,6 +18,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Segmentation_Change_Requests</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

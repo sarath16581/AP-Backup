@@ -322,11 +322,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Public_Phone_Collect_Clearance__c</field>
+                <field>PUBLIC_Phone_Collect_Clearance__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Public_Phone_Collect_Count__c</field>
+                <field>PUBLIC_Phone_Collect_Count__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

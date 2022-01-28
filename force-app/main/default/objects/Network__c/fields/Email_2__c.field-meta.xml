@@ -5,6 +5,7 @@
     <label>Email 2</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

@@ -41,6 +41,7 @@ CASE(Status,
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Enquiry Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

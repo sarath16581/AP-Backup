@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether the quantity is auto cascaded from the bundle product to the options. Only applicable for recurring and usage price types</inlineHelpText>
     <label>Auto Cascade Quantity</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

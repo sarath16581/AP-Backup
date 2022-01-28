@@ -8,6 +8,7 @@ Identifying if it’s a key account, market, product focus</description>
     <inlineHelpText>Is this opportunity aligned to our market focus?</inlineHelpText>
     <label>Marketing Focus Aligned</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

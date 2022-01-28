@@ -5,6 +5,7 @@
     <description>Used to Indicate Contract Service in Stage 1</description>
     <externalId>false</externalId>
     <label>Contract Service Flag</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

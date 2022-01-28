@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Include ULD Labels</inlineHelpText>
     <label>ULDs</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>If the Case matches the Routing Logic, this setting will allow for the Case to jump the first contact point when sending it to the Network. (i.e a Staff Complaint)</inlineHelpText>
     <label>Auto Escalate</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

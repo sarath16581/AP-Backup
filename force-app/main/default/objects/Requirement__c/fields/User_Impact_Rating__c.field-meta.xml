@@ -5,6 +5,7 @@
     <inlineHelpText>What is required for the implementation of this solution from an end user perspective?</inlineHelpText>
     <label>User Impact Rating</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

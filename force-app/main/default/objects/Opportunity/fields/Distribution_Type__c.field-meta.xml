@@ -6,6 +6,7 @@
     <inlineHelpText>Please identify whether the customer intends to distribute primarily to other Businesses or Consumers.</inlineHelpText>
     <label>Distribution Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

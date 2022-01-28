@@ -5,6 +5,7 @@
     <formula>TEXT(Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c )/*Apttus_QPConfig__AttributeValueId__r.APT_Volume_Thresholds__c*/</formula>
     <label>Volume Thresholds</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

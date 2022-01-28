@@ -6,6 +6,7 @@
     <inlineHelpText>Job specific instructions. Not updated by the system when changes applied to a booking.</inlineHelpText>
     <label>Job Instructions</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

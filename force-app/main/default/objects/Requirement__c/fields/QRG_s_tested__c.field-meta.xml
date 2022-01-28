@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>If QRG&apos;s require updated/develoment - have they been tested?</inlineHelpText>
     <label>QRG&apos;s tested</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

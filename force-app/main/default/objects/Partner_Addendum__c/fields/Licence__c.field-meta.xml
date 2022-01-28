@@ -17,6 +17,7 @@
     <relationshipLabel>Partner Addendums (Licence)</relationshipLabel>
     <relationshipName>Licence_Addendums</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

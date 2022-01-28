@@ -9,6 +9,7 @@ Like Upload attachments docs or download and attach documents to parent.</descri
 Like Upload attachments docs or download and attach documents to parent.</inlineHelpText>
     <label>Batch Apex Job Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

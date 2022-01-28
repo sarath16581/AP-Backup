@@ -5,6 +5,7 @@
     <label>Role Name at Opportunity Closure</label>
     <length>100</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

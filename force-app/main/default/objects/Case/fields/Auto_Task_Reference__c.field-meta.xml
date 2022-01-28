@@ -9,6 +9,7 @@
     <relationshipLabel>Case Created</relationshipLabel>
     <relationshipName>Auto_ask</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

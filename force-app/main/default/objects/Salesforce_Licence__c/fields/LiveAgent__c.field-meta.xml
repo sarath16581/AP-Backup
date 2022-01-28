@@ -3,6 +3,7 @@
     <fullName>LiveAgent__c</fullName>
     <externalId>false</externalId>
     <label>LiveAgent</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Salesforce_Feature_Licence__c.Feature_Licence_Type__c</field>
         <operation>equals</operation>

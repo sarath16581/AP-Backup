@@ -6,6 +6,7 @@
     <description>Indicates whether the product is customizable during selection.</description>
     <externalId>false</externalId>
     <label>Customizable</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

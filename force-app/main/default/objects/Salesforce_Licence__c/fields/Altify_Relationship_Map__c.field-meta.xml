@@ -3,6 +3,7 @@
     <fullName>Altify_Relationship_Map__c</fullName>
     <externalId>false</externalId>
     <label>Altify Relationship Map</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Salesforce_Feature_Licence__c.Feature_Licence_Type__c</field>
         <operation>equals</operation>

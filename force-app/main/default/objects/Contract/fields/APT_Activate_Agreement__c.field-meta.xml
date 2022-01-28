@@ -6,6 +6,7 @@
     <inlineHelpText>Please enter SAP Contract Number to make &apos;Activate&apos; button appear on the layout</inlineHelpText>
     <label>Activate Contract</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

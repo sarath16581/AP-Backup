@@ -21,6 +21,7 @@
     <relationshipLabel>Price List Items (Recognized Revenue Account)</relationshipLabel>
     <relationshipName>PriceListItemsRR</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <inlineHelpText>Proactive Mail Optimisation &amp; Efficiency review (Priority to regular migration, Transactional/Promo classification review, Mail size/type classification and same/other state efficiencies)</inlineHelpText>
     <label>Proactive Mail Optimisation &amp; Efficiency</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

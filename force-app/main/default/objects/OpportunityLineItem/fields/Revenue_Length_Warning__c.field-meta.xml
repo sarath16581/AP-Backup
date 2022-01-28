@@ -18,6 +18,7 @@
     <inlineHelpText>Visual indicator of Revenue Length</inlineHelpText>
     <label>Revenue Length Warning</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

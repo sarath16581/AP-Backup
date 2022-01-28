@@ -5,6 +5,7 @@
     <inlineHelpText>Have you had the handover conversation with the incoming or outgoing Account Manager?</inlineHelpText>
     <label>Have you had the handover Conversation?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -17,6 +17,7 @@ Apttus_Config2__ProductId__r.Name == &quot;Post Billpay&quot;,TEXT(Apttus_Config
 Apttus_Config2__ProductId__r.Name == &quot;SecurePay&quot;, TEXT(Apttus_Config2__ProductId__r.Product_Level_3__c) == &quot;StarTrack&quot;, TEXT(Apttus_Config2__ProductId__r.Product_Level_3__c) == &quot;AP Global Solutions&quot;)) , IMAGE(&quot;/resource/APT_NoLPRequired_Cart&quot;,&quot;No LP Required&quot;), null))</formula>
     <label>Lodgement Point</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

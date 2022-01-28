@@ -8,6 +8,7 @@
     <relationshipLabel>Events</relationshipLabel>
     <relationshipName>R00NT0000000qjOPMAY</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

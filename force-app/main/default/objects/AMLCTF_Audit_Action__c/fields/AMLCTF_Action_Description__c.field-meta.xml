@@ -6,6 +6,7 @@
     <inlineHelpText>A description of the the Action to be taken by Licensee.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Action Description</label>
     <length>131072</length>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

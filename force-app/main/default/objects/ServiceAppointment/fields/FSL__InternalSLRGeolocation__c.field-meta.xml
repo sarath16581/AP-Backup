@@ -7,6 +7,7 @@
     <label>Internal SLR Geolocation</label>
     <required>false</required>
     <scale>6</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Location</type>

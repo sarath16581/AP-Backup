@@ -8,6 +8,7 @@
     <relationshipLabel>Service Resources</relationshipLabel>
     <relationshipName>Service_Resources</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

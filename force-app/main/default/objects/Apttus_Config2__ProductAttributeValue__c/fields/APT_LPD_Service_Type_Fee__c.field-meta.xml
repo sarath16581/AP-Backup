@@ -19,6 +19,7 @@ The fee is $12 for &apos;Delivery Service&apos; or &apos;Pickup Service&apos;, $
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Currency</type>

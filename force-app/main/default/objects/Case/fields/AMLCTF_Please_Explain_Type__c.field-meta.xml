@@ -6,6 +6,7 @@
     <inlineHelpText>Type of Please Explain audit request, similar to Report Name in FIC.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Please Explain Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
@@ -196,6 +197,30 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Cheque Encashments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Official Money Orders</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Uncertified Expenditure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Bad Debt Write Offs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Stock Adjustments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Incorrect Method of Payment</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Cash Management</controllingFieldValue>
             <valueName>Cash Threshold</valueName>
         </valueSettings>
@@ -298,30 +323,6 @@
         <valueSettings>
             <controllingFieldValue>Reversals</controllingFieldValue>
             <valueName>Other Reversals</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Other</controllingFieldValue>
-            <valueName>Cheque Encashments</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Other</controllingFieldValue>
-            <valueName>Official Money Orders</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Other</controllingFieldValue>
-            <valueName>Uncertified Expenditure</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Other</controllingFieldValue>
-            <valueName>Bad Debt Write Offs</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Other</controllingFieldValue>
-            <valueName>Stock Adjustments</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Other</controllingFieldValue>
-            <valueName>Incorrect Method of Payment</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

@@ -729,30 +729,18 @@ public with sharing class ChasApexController {
             toBeCreateCase.Address4Country__c = deliveryOrRecipientCountry;   // Added newly INC1222366
 
             String wcid = (String) wizardData.get('wcid');
-            system.debug('all success - wizard: '+ wizardData.get('allArticlesSuccessed'));
-            system.debug('all fail - wizard: '+ wizardData.get('allArticlesNotSuccessed'));
+
             // DDS-7977: consignment handling optimize
-            Boolean allArticlesSuccessed = wizardData.get('allArticlesSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesSuccessed')) : false;
-            Boolean allArticlesNotSuccessed = wizardData.get('allArticlesNotSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesNotSuccessed')) : true;
-            system.debug('all success - wizard: '+ allArticlesSuccessed);
-            system.debug('all fail - wizard: '+ allArticlesNotSuccessed);
-            // assign to my network only when articles are all successed or non-successed
-            if (allArticlesSuccessed || allArticlesNotSuccessed)
+           // Boolean allArticlesSuccessed = wizardData.get('allArticlesSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesSuccessed')) : false;
+           // Boolean allArticlesNotSuccessed = wizardData.get('allArticlesNotSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesNotSuccessed')) : true;
+
+            // certain cases can be auto allocated from H&S directly to MyNetwork
+            // this criteria is assessed here and if the criteria matches then the case is created and then updated to point to mynetwork
+            // 17-08-2021 Updated to assign directly on creation
+            if(!String.isEmpty(wcid) && !String.isEmpty(wizardData.get('isEligibleForMyNetworkAssignment')) && 'true'.equalsIgnoreCase(wizardData.get('isEligibleForMyNetworkAssignment')))
             {
-                // certain cases can be auto allocated from H&S directly to MyNetwork
-                // this criteria is assessed here and if the criteria matches then the case is created and then updated to point to mynetwork
-                // 17-08-2021 Updated to assign directly on creation
-                if(!String.isEmpty(wcid) && !String.isEmpty(wizardData.get('isEligibleForMyNetworkAssignment')) && 'true'.equalsIgnoreCase(wizardData.get('isEligibleForMyNetworkAssignment')))
-                {
-                    setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
-                }
+                setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
             }
-            else
-            {
-                // if articles having different statuses do not assign to network and follow current routing logic instead
-                // this else block will do nothing and just for commenting purpose
-            }
-            // DDS-7977: END
 
             //if eligible for hold, run the async process to update case details on case creation to put it ON HOLD and set a Reopen date
             // 17-08-2021 switched to direct routing

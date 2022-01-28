@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>MPB BSP Enquiry Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
@@ -39,6 +40,11 @@
                 <fullName>Other Enquiry</fullName>
                 <default>false</default>
                 <label>Other Enquiry</label>
+            </value>
+            <value>
+                <fullName>Advice on sending parcels</fullName>
+                <default>false</default>
+                <label>Advice on sending parcels</label>
             </value>
         </valueSetDefinition>
     </valueSet>

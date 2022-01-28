@@ -5,6 +5,7 @@
     <inlineHelpText>This date is auto populated when the Entered in Team / PeopleSoft check box is selected.</inlineHelpText>
     <label>Processed Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>

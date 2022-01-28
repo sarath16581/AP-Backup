@@ -23,6 +23,7 @@
     <relationshipLabel>Roster (Driver)</relationshipLabel>
     <relationshipName>Driver_Roster_Records</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

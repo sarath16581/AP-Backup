@@ -18,6 +18,7 @@ AND(
    Apttus_Config2__ProductId__r.APT_Ratecards_Available__c ) ,HYPERLINK(&quot;/apex/c__APT_ViewRatecardAPI?parentRecordID=&quot;&amp;Id &amp;&quot;&amp;isPrestoMode=false&quot;,IMAGE(&quot;/resource/APT_Edit_Rate_Card&quot;, &quot;APT_Edit_Rate_Card&quot;),&quot;_blank&quot;),null)</formula>
     <label>Edit Rate Card</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

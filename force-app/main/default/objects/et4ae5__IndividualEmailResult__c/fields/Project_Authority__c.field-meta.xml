@@ -6,6 +6,7 @@
     <inlineHelpText>Response to the role profiling question for the tactical email stream</inlineHelpText>
     <label>Project Authority</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

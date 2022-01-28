@@ -2013,11 +2013,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Area_to_Benefit__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.Ariba_Prep_work_Required__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3863,6 +3858,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.MPB_BSP_Tech_Enquiry_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.ManagerLevel1__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4164,11 +4164,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Other_ATL_Instructions__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.Other_CoE_s_Involved__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7098,6 +7093,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Rate_List__c.PUBLIC_Phone_Collect_Clearance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Rate_List__c.PUBLIC_Phone_Collect_Count__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Rate_List__c.Parcel_Collect_Scanned_Item__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7224,16 +7229,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Rate_List__c.Process_Postage_Meter_Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Rate_List__c.Public_Phone_Collect_Clearance__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Rate_List__c.Public_Phone_Collect_Count__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

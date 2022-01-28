@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Set Sync with Opportunity as true if you want to sync the product while sync with opportunity action otherwise false.</inlineHelpText>
     <label>Sync with Opportunity</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

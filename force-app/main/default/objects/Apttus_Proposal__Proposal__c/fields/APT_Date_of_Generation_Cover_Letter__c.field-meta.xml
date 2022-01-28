@@ -18,6 +18,7 @@
 &quot;None&quot;)+&quot;-&quot;+TEXT(YEAR(TODAY()))</formula>
     <label>Date of Generation Cover Letter</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

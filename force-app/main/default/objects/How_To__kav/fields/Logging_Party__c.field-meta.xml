@@ -5,6 +5,7 @@
     <label>Who to action for</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Text</type>
     <unique>false</unique>

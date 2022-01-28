@@ -8,6 +8,7 @@ Identifying why the customer has chosen to use this supplier in the past</descri
     <inlineHelpText>Why does the customer use this supplier?</inlineHelpText>
     <label>Incumbent Reason</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

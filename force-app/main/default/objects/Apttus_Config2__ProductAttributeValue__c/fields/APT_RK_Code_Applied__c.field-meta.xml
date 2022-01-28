@@ -5,6 +5,7 @@
     <description>when Attributes are updated from RK Code response this field is made true</description>
     <externalId>false</externalId>
     <label>RK Code Applied</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

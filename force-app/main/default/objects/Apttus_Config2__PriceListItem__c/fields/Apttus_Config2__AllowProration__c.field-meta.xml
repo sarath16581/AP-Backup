@@ -6,6 +6,7 @@
     <description>Indicates whether proration is allowed for the product.</description>
     <externalId>false</externalId>
     <label>Allow Proration</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

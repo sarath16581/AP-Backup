@@ -5,6 +5,7 @@
     <formula>Booking_Location__r.Key_Number__c</formula>
     <label>Location Key Number</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

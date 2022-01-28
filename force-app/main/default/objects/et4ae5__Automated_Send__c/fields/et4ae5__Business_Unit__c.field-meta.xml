@@ -9,6 +9,7 @@
     <relationshipLabel>Triggered Sends</relationshipLabel>
     <relationshipName>Send_Automations</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

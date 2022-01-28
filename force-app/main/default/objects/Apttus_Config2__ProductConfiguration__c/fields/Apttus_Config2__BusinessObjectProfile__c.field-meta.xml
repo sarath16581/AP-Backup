@@ -7,6 +7,7 @@
     <inlineHelpText>“Regular” will process the quote as a single entity.  Select “Split” before clicking on Configure Products to allow the subdivision of the quote into multiple smaller quotes for business reasons, volume related reasons or multiple sold to accounts.</inlineHelpText>
     <label>Business Object Profile</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

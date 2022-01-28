@@ -7,6 +7,7 @@
     <inlineHelpText>The date when the order is closed. The order is completed on this date.</inlineHelpText>
     <label>Close Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

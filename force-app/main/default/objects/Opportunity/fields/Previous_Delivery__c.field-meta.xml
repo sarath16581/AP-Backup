@@ -8,6 +8,7 @@ Identify with internal stakeholders if we have delivered this product previously
     <inlineHelpText>Does Australia Post have a track record in delivering these types of products/solutions? (3%)</inlineHelpText>
     <label>Previous Delivery</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

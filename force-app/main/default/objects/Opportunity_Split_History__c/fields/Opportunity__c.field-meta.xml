@@ -8,6 +8,7 @@
     <relationshipLabel>Opportunity Split History</relationshipLabel>
     <relationshipName>Opportunity_Split_Histories</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <description>Used to validate contract pricing with charge type criteria</description>
     <externalId>false</externalId>
     <label>Charge Type Criteria</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

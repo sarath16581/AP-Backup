@@ -8,6 +8,7 @@ Identify if other parts of Australia Post need to be engaged as part of these in
     <inlineHelpText>Who else in Australia Post needs to be engaged for this step?</inlineHelpText>
     <label>AusPost Resourcing</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

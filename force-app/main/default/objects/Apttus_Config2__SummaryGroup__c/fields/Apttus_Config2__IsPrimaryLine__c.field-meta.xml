@@ -6,6 +6,7 @@
     <description>Indicates whether the line is the primary line for the group</description>
     <externalId>false</externalId>
     <label>Is Primary Line</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

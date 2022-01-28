@@ -8,6 +8,7 @@
     <relationshipLabel>At Risk Business (Product)</relationshipLabel>
     <relationshipName>At_Risk_Business</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

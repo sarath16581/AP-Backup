@@ -3,6 +3,7 @@
     <fullName>Qualification_Responses_Count__c</fullName>
     <externalId>false</externalId>
     <label>Qualification Responses Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Qualification_Template_Responses__c.Active__c</field>
         <operation>equals</operation>

@@ -8,6 +8,7 @@
     <inlineHelpText>If marked as ‘primary’, this Pick Up Location Address will be reflected as the physical address in the StarTrack Leader Account</inlineHelpText>
     <label>Primary Pick-Up Location</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

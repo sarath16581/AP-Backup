@@ -8,6 +8,7 @@ Identifying if any extra resources will be required to deliver the product/solut
     <inlineHelpText>What internal resources will be required to deliver this product/ solution?</inlineHelpText>
     <label>Internal Resources</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

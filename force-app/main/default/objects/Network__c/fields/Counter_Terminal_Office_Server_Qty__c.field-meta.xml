@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Total of Equipment Type Code starting with EL, excluding ELSC</inlineHelpText>
     <label>Counter Terminal + Office Server Qty</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Network_Equipment__c.Equipment_Count_On_Premises__c</summarizedField>
     <summaryFilterItems>
         <field>Network_Equipment__c.Equipment_Type_Code__c</field>

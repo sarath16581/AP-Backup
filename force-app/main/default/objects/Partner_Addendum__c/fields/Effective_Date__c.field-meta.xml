@@ -6,6 +6,7 @@
     <inlineHelpText>Effective date the fee will be applied for New Business Spotter&apos;s Fee records and Customer Transfer Fee records.</inlineHelpText>
     <label>Effective Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>

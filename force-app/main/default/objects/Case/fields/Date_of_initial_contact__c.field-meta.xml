@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Date of initial contact</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>

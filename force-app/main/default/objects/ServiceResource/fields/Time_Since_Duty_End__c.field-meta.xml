@@ -12,6 +12,7 @@ ROUND(MOD((NOW() - Fit_For_Duty_Work_Order__r.Duty_End__c)*1440,60),0)
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Time Since Duty End</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

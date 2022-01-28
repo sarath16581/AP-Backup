@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CampaignId</fullName>
     <inlineHelpText>Complete this field to link an opportunity to a primary campaign.</inlineHelpText>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Lookup</type>

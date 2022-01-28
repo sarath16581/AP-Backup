@@ -7,6 +7,7 @@
     <inlineHelpText>Leave this blank for always effective rule.</inlineHelpText>
     <label>Expiration Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

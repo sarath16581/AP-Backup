@@ -8,6 +8,7 @@
     <relationshipLabel>Customer Pain Points</relationshipLabel>
     <relationshipName>Customer_Pain_Points</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

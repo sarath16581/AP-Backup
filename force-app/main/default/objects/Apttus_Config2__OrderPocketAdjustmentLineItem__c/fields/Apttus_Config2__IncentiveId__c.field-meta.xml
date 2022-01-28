@@ -11,6 +11,7 @@
     <relationshipLabel>Order Pocket Adjustment Line Items</relationshipLabel>
     <relationshipName>OrderProcketAdjustmentLineItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

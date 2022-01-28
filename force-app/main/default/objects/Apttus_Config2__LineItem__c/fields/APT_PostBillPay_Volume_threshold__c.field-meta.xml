@@ -9,6 +9,7 @@ IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Volume_thres
 IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_PostBillPay_Volume_threshold__c , &quot;1,500,001 – 3,000,000&quot; ), &quot;1,500,001 – 3,000,000; &quot;,null )</formula>
     <label>Volume Threshold</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

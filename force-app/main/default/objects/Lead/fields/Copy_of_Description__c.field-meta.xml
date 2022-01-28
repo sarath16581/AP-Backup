@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Copy of Description</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>

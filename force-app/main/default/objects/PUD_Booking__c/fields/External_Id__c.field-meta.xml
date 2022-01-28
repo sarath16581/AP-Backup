@@ -8,6 +8,7 @@ For TIS data it is &apos;Duty Entry Id&apos; for non SPB bookings, and &apos;Tas
     <label>External Id</label>
     <length>80</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

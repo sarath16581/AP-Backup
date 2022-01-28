@@ -6,6 +6,7 @@
     <formula>Parent_Booking__r.Booking_Location__r.Address__c</formula>
     <label>Parent Booking Location Address</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

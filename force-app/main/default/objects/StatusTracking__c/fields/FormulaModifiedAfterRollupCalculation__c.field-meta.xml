@@ -6,6 +6,7 @@
     <formula>OR(ISBLANK(Case__r.StatusTrackingRollupsLastRun__c), LastModifiedDate &gt; Case__r.StatusTrackingRollupsLastRun__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Modified After Rollup Calculation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

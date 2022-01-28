@@ -13,6 +13,7 @@ Root &gt; Parent &gt; Leaf</inlineHelpText>
     <relationshipLabel>Account Hierarchies (Account)</relationshipLabel>
     <relationshipName>AccountHierarchiesParent</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

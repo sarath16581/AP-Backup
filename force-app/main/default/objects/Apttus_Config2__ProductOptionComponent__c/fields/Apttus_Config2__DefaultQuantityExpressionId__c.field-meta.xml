@@ -9,6 +9,7 @@
     <relationshipLabel>Product Option Components (Default Quantity Expression)</relationshipLabel>
     <relationshipName>ProductOptionComponents2</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

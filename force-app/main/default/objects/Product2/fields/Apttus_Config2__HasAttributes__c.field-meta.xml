@@ -6,6 +6,7 @@
     <description>Indicates whether the product has attributes.</description>
     <externalId>false</externalId>
     <label>Has Attributes</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

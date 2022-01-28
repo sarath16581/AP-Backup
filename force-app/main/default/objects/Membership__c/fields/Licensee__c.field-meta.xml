@@ -20,6 +20,7 @@
     <relationshipLabel>Memberships (Primary Contact)</relationshipLabel>
     <relationshipName>Memberships2</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

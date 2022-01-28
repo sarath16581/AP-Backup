@@ -10,6 +10,7 @@
     <relationshipLabel>Related Constraints</relationshipLabel>
     <relationshipName>RelatedConstraints</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

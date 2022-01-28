@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Ariba Original Expiry Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

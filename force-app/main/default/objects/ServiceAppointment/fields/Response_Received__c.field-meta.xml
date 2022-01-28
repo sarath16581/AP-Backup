@@ -5,6 +5,7 @@
     <description>Transport - indicates that a response (comment) has been posted on an active post by a driver. Used as a filter in the Gantt. Works in conjunction with Message Active field</description>
     <externalId>false</externalId>
     <label>Response Received</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

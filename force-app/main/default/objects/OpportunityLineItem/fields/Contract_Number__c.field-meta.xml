@@ -6,6 +6,7 @@
     <label>Quote Number</label>
     <length>30</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Case assigned by Fill Inbox</inlineHelpText>
     <label>Assigned by Fill Inbox</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

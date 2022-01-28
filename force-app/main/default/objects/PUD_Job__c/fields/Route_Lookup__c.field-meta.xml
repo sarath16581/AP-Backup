@@ -9,6 +9,7 @@
     <relationshipLabel>Jobs</relationshipLabel>
     <relationshipName>Jobs</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

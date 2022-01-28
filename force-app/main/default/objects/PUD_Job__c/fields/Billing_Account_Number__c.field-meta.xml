@@ -8,6 +8,7 @@
     <inlineHelpText>Customer billing account number on parent booking.</inlineHelpText>
     <label>Billing Account Number</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

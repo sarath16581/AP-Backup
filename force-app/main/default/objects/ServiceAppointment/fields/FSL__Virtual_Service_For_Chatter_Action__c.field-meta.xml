@@ -5,6 +5,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Virtual Service For Chatter Action (SLR)</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

@@ -23,6 +23,9 @@ Last Modified Date - 12th Dec, 2017 | Updated to flush values in opportunity clo
 
 Last Modified By - Madhuri Awasthi
 Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract Inactive when for the old version contarcts
+
+Last Modified By - Neha Mehta
+Last Modified Date -  28th January, 2022 | REQ2493838
 */
 public without sharing class APT_AmendRenewUtility {
     
@@ -99,6 +102,24 @@ public without sharing class APT_AmendRenewUtility {
             clonedOpportunity.Offline_Contract_Received__c = false;
             clonedOpportunity.Data_Integrity_Compliance__c = false;
             clonedOpportunity.DOV_Reason__c = '';
+            clonedOpportunity.Total_Schedule_Revenue_to_Date__c=null;  
+            clonedOpportunity.Opportunity_Traded_Revenue__c=null;
+            clonedOpportunity.Monthly_Executive_Summary__c=null;
+            clonedOpportunity.Description=null;
+            clonedOpportunity.mh_Associated_Blue_Sheet__c=false;
+            clonedOpportunity.mh_Strengths__c =null;
+            clonedOpportunity.mh_Red_Flags__c =null;
+            clonedOpportunity.KeyContact__c=null;
+            clonedOpportunity.Closed_Reason__c=null;
+            clonedOpportunity.Closed_Comments__c=null;
+            clonedOpportunity.CampaignId=null;
+            clonedOpportunity.Lead_Seeker__c=false;
+            clonedOpportunity.LeadSource=null;
+            clonedOpportunity.LPO_WCC__c=null;
+            clonedOpportunity.LBP_Tier_1__c=null;
+            clonedOpportunity.LBP_Tier_2__c=null;
+            clonedOpportunity.Amount=null;
+            clonedOpportunity.Primary_Competitor_Name__c=null;
             
             /* Shashwat.Nath@Auspost.com.code ends*/
             
@@ -195,7 +216,28 @@ public without sharing class APT_AmendRenewUtility {
             } else {
                 newOpportunity.CloseDate = date.today().addDays(365);
             }  
-            newOpportunity.AccountID = agreement.Apttus__Account__c;
+            newOpportunity.Primary_Competitor_Name__c=null;
+            newOpportunity.Amount=null;
+            newOpportunity.Commit_to_close_by__c = null;
+            newOpportunity.Pre_Entry__c=false;
+            newOpportunity.Offline_Contract_Received__c=false;
+            newOpportunity.Is_Superseded_Opportunity__c=false;
+            newOpportunity.Total_Schedule_Revenue_to_Date__c=null;
+            newOpportunity.Opportunity_Traded_Revenue__c=null;   
+            newOpportunity.Monthly_Executive_Summary__c=null;
+            newOpportunity.Description=null;
+            newOpportunity.mh_Associated_Blue_Sheet__c=false;
+            newOpportunity.mh_Strengths__c =null;
+            newOpportunity.mh_Red_Flags__c =null;
+            newOpportunity.KeyContact__c=null;
+            newOpportunity.Closed_Reason__c=null;
+            newOpportunity.Closed_Comments__c=null;
+            newOpportunity.CampaignId=null;
+            newOpportunity.LPO_WCC__c=null;
+            newOpportunity.Lead_Seeker__c=false;
+            newOpportunity.LeadSource=null;
+            newOpportunity.LBP_Tier_1__c=null;
+            newOpportunity.LBP_Tier_2__c=null;
         } catch (System.Exception ex) {            
             system.debug(Logginglevel.ERROR, 'Exception msg : ' + ex.getMessage());
             return null;

@@ -9,6 +9,7 @@
     <relationshipLabel>Individual Link Level Details</relationshipLabel>
     <relationshipName>Individual_Link_Level_Detail_Individual</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

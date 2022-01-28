@@ -8,6 +8,7 @@
     <relationshipLabel>Key Customer People</relationshipLabel>
     <relationshipName>Key_Customer_People</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

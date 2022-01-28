@@ -10,6 +10,7 @@ It is used in the Proposal Template to conditionally display the &apos;Local Pic
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

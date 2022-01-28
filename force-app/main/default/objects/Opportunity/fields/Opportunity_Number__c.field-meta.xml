@@ -5,6 +5,7 @@
     <externalId>true</externalId>
     <inlineHelpText>A unique reference number for this opportunity</inlineHelpText>
     <label>Opportunity Number</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>AutoNumber</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <inlineHelpText>Identify the scale of the risk/lost business.</inlineHelpText>
     <label>Scale</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

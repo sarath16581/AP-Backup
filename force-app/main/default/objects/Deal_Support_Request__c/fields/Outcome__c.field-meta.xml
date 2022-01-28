@@ -6,6 +6,7 @@
     <inlineHelpText>Commercial analytics team to enter the outcome of the request prior to closure</inlineHelpText>
     <label>Outcome</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

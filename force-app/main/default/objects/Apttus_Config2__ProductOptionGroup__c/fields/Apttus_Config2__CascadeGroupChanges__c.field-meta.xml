@@ -6,6 +6,7 @@
     <description>This field will represent the difference between Local and Global Option Group.</description>
     <externalId>false</externalId>
     <label>CascadeGroupChanges</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates the number of entries associated with the mapping rule</inlineHelpText>
     <label>Number Of Entries</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Apttus_Config2__GLAccountMapEntry__c.Apttus_Config2__MapRuleId__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackTrending>false</trackTrending>

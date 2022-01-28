@@ -6,6 +6,7 @@
     <inlineHelpText>The type of contract this product/solution requires. (5%)</inlineHelpText>
     <label>Contract Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

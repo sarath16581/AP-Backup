@@ -19,6 +19,7 @@
     <relationshipLabel>Partner Addendums (Facility)</relationshipLabel>
     <relationshipName>Facility_Addendums</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

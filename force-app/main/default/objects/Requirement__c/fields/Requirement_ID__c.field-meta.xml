@@ -8,6 +8,7 @@ HYPERLINK(&quot;/&quot;&amp;Id, &quot;BRS&quot;&amp;&quot; - &quot;&amp;Legacyid
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Requirement ID</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -5,6 +5,7 @@
     <inlineHelpText>What else can you tell us that we can relay to the customer?</inlineHelpText>
     <label>Network Comments</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>10</visibleLines>

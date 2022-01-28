@@ -10,6 +10,7 @@ ISBLANK(TEXT(  Apttus_Config2__AttributeValueId__r.APT_Tier_Adjustment_Type__c  
 )
 )</formula>
     <label>ST Approval Required?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

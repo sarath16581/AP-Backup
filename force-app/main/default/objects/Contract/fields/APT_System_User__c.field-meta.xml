@@ -9,6 +9,7 @@
     <relationshipLabel>Contracts (System User)</relationshipLabel>
     <relationshipName>Contracts</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

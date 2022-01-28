@@ -5,6 +5,7 @@
     <description>Indicates that a deactivation request has been sent to Camunda for the Contact Application. When deactivation has been confirmed the record status will be set to &apos;Inactive&apos;.</description>
     <externalId>false</externalId>
     <label>Pending Deactivation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

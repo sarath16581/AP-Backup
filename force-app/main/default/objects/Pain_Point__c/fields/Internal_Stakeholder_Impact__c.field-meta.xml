@@ -8,6 +8,7 @@ Identify wow this either drives/ exacerbates other issues being experienced by t
     <inlineHelpText>Which other internal stakeholders does this affect?</inlineHelpText>
     <label>Internal Stakeholder Impact</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

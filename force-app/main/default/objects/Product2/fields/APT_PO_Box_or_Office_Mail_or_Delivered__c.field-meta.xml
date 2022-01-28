@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>PO Box or Office Mail or Delivered?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

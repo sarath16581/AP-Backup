@@ -3,6 +3,7 @@
     <fullName>APT_Total_Weight_Parcel2__c</fullName>
     <externalId>false</externalId>
     <label>Total Weight Parcel2</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>APT_Cubic_Factor__c.APT_Weight_Parcel__c</summarizedField>
     <summaryForeignKey>APT_Cubic_Factor__c.APT_Proposal__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

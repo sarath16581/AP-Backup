@@ -11,6 +11,7 @@
     <relationshipLabel>Configurations (Effective)</relationshipLabel>
     <relationshipName>Configurations2</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

@@ -15,6 +15,7 @@ HYPERLINK(
 )</formula>
     <label>Domain Name</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

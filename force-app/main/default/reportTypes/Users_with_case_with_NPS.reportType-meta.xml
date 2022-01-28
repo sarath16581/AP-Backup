@@ -2062,4 +2062,7 @@
         </columns>
         <masterLabel>NPS Surveys</masterLabel>
     </sections>
+    <sections>
+        <masterLabel>Cases</masterLabel>
+    </sections>
 </ReportType>

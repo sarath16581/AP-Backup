@@ -7,6 +7,7 @@
     <inlineHelpText>The incentive application method, depends on the application type.</inlineHelpText>
     <label>Application Method</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

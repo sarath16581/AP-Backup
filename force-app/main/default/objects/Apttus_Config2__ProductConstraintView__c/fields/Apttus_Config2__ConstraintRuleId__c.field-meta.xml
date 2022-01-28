@@ -10,6 +10,7 @@
     <relationshipLabel>Product Constraint Views</relationshipLabel>
     <relationshipName>ProductConstraintViews</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

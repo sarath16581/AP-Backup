@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Notify this Contact about any Pricing issues affecting  their Organisation.</inlineHelpText>
     <label>Pricing</label>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Checkbox</type>

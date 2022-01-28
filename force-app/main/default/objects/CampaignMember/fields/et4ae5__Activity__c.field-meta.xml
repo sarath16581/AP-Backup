@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Activity</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>

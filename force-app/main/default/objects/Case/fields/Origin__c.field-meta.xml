@@ -18,6 +18,7 @@ CASE(Origin,
 )</formula>
     <label>Channel</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

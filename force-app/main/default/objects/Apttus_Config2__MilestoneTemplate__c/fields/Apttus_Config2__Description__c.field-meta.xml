@@ -7,6 +7,7 @@
     <inlineHelpText>The milestone description</inlineHelpText>
     <label>Description</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

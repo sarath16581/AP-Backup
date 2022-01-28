@@ -5,6 +5,7 @@
     <description>ECLM Field</description>
     <externalId>false</externalId>
     <label>Government or Tender Contract</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

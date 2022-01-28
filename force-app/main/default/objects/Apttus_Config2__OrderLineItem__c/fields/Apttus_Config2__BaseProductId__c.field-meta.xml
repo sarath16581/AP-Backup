@@ -10,6 +10,7 @@
     <relationshipLabel>Order Line Items (Base Product)</relationshipLabel>
     <relationshipName>BaseOrderLineItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

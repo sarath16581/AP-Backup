@@ -5,6 +5,7 @@
     <label>Respondents Name</label>
     <length>50</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

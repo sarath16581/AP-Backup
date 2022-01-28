@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Send Addressed or unaddressed mail?</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

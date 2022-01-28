@@ -10,6 +10,7 @@
     <referenceTo>Apttus__WizardInputGroup__c</referenceTo>
     <relationshipName>Wizard_Input_Control_Runtime1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -9,6 +9,7 @@
     <relationshipLabel>GetFeedback Surveys (Case)</relationshipLabel>
     <relationshipName>GetFeedback_Surveys1</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

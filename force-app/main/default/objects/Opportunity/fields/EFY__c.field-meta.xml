@@ -11,6 +11,7 @@ End_of_CFY__c - Modified_Contract_Start_Date__c, 0)))</formula>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Number</type>
     <unique>false</unique>
