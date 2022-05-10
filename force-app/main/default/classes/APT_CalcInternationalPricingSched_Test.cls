@@ -4,6 +4,8 @@ Created By - Mausam Padhiyar
 Created Date - 13th Oct, 2015
 Last Modified By -
 Last Modified Date - 
+@changelog
+09/05/2022 - Seth Heang - Fix Test class failure due to system.schedule() set in the past
 **/
 @isTest
 private with sharing class APT_CalcInternationalPricingSched_Test {
@@ -94,7 +96,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
       //  APT_CalculateInternationalPricingSched cips = new APT_CalculateInternationalPricingSched();
         test.stopTest();
         
@@ -192,7 +194,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
         //APT_CalculateInternationalPricingSched cips = new APT_CalculateInternationalPricingSched();
         test.stopTest();
         
@@ -286,7 +288,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
         //APT_CalculateInternationalPricingSched cips = new APT_CalculateInternationalPricingSched();
         test.stopTest();
         
@@ -392,7 +394,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
         //APT_CalculateInternationalPricingSched cips = new APT_CalculateInternationalPricingSched();
         test.stopTest();
         
@@ -482,7 +484,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
        // APT_CalculateInternationalPricingSched cips = new APT_CalculateInternationalPricingSched();
         test.stopTest();
         
@@ -569,7 +571,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
        // APT_CalculateInternationalPricingSched cips = new APT_CalculateInternationalPricingSched();
         test.stopTest();
         
@@ -653,7 +655,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
         //APT_CalculateInternationalPricingSched cips = new APT_CalculateInternationalPricingSched();
         test.stopTest();
         
@@ -734,7 +736,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
         //APT_CalculateInternationalPricingSched cips = new APT_CalculateInternationalPricingSched();
         test.stopTest();
         
@@ -812,7 +814,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
         //APT_CalculateInternationalPricingSched cips = new APT_CalculateInternationalPricingSched();
         test.stopTest();
         
@@ -834,7 +836,7 @@ private with sharing class APT_CalcInternationalPricingSched_Test {
         
         test.startTest();
         
-        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateInternationalPricingSched());
+        Id jobId = system.schedule('Calculate International Pricing', '0 0 0 ? * *', new APT_CalculateInternationalPricingSched());
         
         test.stopTest();
         

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_KeySalesOwner_For_Submission</fullName>
+    <active>true</active>
+    <description>Allow to submit BAR only if below conditions are true
+1. if Submitting user is the Key Sales Owner.
+2. Key Sales Owner is either the creator of BAR or owns the Organisation/Legal Entity of BAR.</description>
+    <errorConditionFormula>AND(
+ ISCHANGED(Stage__c),
+ ISPICKVAL(Stage__c , &quot;Submitted&quot;),
+ OR(
+  $User.Id != Key_Sales_Owner__c,
+  AND(
+   Key_Sales_Owner__c != CreatedById,
+   Key_Sales_Owner__c != Legal_Entity_Name__r.OwnerId
+  )
+ )
+)</errorConditionFormula>
+    <errorMessage>Only Key Sales Owner can submit BAR. Also Key Sales Owner should be either the creator of BAR or owns the Organisation/Legal Entity of BAR.</errorMessage>
+</ValidationRule>

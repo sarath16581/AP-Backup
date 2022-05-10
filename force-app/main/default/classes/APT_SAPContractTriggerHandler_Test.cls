@@ -1,3 +1,14 @@
+/***
+ * @author Mausam Padhiyar
+ * @date 2016-09-16
+ * @group 
+ * @description This class is test class for APT_SAPContractTriggerHandler.
+ * @changelog
+ * 2016-09-16 - Mausam Padhiyar - Created
+ * 2021-11-17 - Mathew Jose - Fixing the test method failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
+ * 2022-02-11  REQ2723568: API version 52 upgrade
+*/
+
 @isTest
 private class APT_SAPContractTriggerHandler_Test{
     public static testMethod void testingData(){
@@ -10,12 +21,14 @@ private class APT_SAPContractTriggerHandler_Test{
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity(CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <customSettingsType>List</customSettingsType>
-    <description>SSSW - these are the settings required in order to use the AusPost web services. The values for different settings are used by SSSW classes</description>
+    <description>These are the settings required in order to use AusPost web services. The values for different settings are used by various components in the solution.</description>
     <enableFeeds>false</enableFeeds>
     <label>AusPost Settings</label>
     <visibility>Protected</visibility>

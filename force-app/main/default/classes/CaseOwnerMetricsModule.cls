@@ -8,6 +8,7 @@
  * @group Domain
  * @domain EmailMessage
  * @changelog
+ * 02-02-2022 Ashapriya Gadi The closing owner user role field will be populated with the Role display name of the user that closes the case. Originally it was populated with the role name, but was requested by the BGS team to have this populated with the Role display name, so that it adheres to all their existing reporting.
  */
 
 public inherited sharing class CaseOwnerMetricsModule extends ApplicationDomain.Module  {
@@ -85,6 +86,10 @@ public inherited sharing class CaseOwnerMetricsModule extends ApplicationDomain.
 	public void assignCaseClosureOwnerRole(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		//Map to store the case records for which status is changed in case of update scenario
 		Map<Id, Set<SObjectField>> statusChangedRecords = new Map<Id, Set<SObjectField>>();
+		//List to store the cases for which status is changed
+		List<Case> statusChangedCases = new List<Case>();
+		//List to store user roles
+		List<UserRole> userRolesList = new List<UserRole>();
 		Boolean isInsert = false;
 		if(existingRecords == null || existingRecords.isEmpty()){
 			isInsert = true;
@@ -92,16 +97,24 @@ public inherited sharing class CaseOwnerMetricsModule extends ApplicationDomain.
 			//call getIsChanged method to retrieve the case records for which the status is changed
 			statusChangedRecords = getIsChanged(records, existingRecords, new Set<SObjectField>{Case.Status});
 		}
-		//Fetch the userRole(to be assigned to ClosureOwnerRole__c field) using the UserRolesSelector. The roleId from UserInfo is sufficient here
-		List<UserRole> userRolesList = UserRolesSelector.newInstance().selectById(new Set<Id>{UserInfo.getUserRoleId()}).values();
 		//get the set of statuses that define a case as closed{Closed, Closed - Expired, Closed-duplicate, Closed-out of scope, Discontinued, Merged, Resolved}
 		Set<String> setOfClosedStatuses = Utility.getCaseClosedStatus();
+		//populate statusChangedCases
 		for(Case c : (List<Case>)records) {
-			//if update and statusChangedRecords map contains the current case record. That would mean that the status is changed for that case record. Or if its insert
-			if((!isInsert && !statusChangedRecords.isEmpty() && statusChangedRecords.keySet().contains(c.Id)) || isInsert ){
-				//If the status is changed to closed, then assign ClosureOwnerRole__c to the user role name of the user that closed the case(which will be the roleId from the userInfo).
-				if(setOfClosedStatuses.contains(c.Status)){
-					c.ClosureOwnerRole__c = userRolesList[0].Name;
+			//if update and statusChangedRecords map contains the current case record. That would mean that the status is changed for that case record. Or if the case is created with closed status
+			if((!isInsert && !statusChangedRecords.isEmpty() && statusChangedRecords.keySet().contains(c.Id)) || (isInsert && setOfClosedStatuses.contains(c.Status)) ){
+					statusChangedCases.add(c);
+			}
+		}
+		//Fetch the userRole(to be assigned to ClosureOwnerRole__c field) using the UserRolesSelector. The roleId from UserInfo is sufficient here
+		if(!statusChangedCases.isEmpty() && String.isNotBlank(UserInfo.getUserRoleId())) {
+			userRolesList = UserRolesSelector.newInstance().selectById(new Set<Id>{UserInfo.getUserRoleId()}).values();
+		}
+		if(!statusChangedCases.isEmpty()) {
+			for (Case c : statusChangedCases) {
+				//If the status is changed to closed, then assign ClosureOwnerRole__c to the user role display name of the user that closed the case(which will be the roleId from the userInfo).
+				if (setOfClosedStatuses.contains(c.Status) && !userRolesList.isEmpty()) {
+					c.ClosureOwnerRole__c = userRolesList[0].RollupDescription;
 				}
 				//If the status is changed to anything other than Closed, then we clear out the ClosureOwnerRole__c field
 				else c.ClosureOwnerRole__c = '';

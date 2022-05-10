@@ -82,6 +82,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>APR__c.Communicated_to_customer_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APR__c.Communicated_to_customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>APR__c.Conclusion_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -118,6 +128,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>APR__c.Cust_Legal_Entity_Revenue_Total__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APR__c.Customer_Correspondence_Method__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

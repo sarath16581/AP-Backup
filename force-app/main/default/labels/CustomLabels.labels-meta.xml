@@ -361,6 +361,13 @@
         <value>Confirmation Required</value>
     </labels>
     <labels>
+        <fullName>APT_Constraint_Rule_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Constraint Rule Error Message</shortDescription>
+        <value>Shopping cart is not configured properly. In order to view the Rate Card, please re-configure the cart and try again.</value>
+    </labels>
+    <labels>
         <fullName>APT_ContactEmail</fullName>
         <categories>Custom Label</categories>
         <language>en_US</language>
@@ -1757,6 +1764,13 @@
         <value>chargeAccountCLM</value>
     </labels>
     <labels>
+        <fullName>APT_dsrStatusErrorOnQuoteLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APT_dsrStatusErrorOnQuoteLabel</shortDescription>
+        <value>Shopping cart will open in read only mode due to pending APPC PSR outcome.  Please accept/reject Pricing response or follow-up with Pricing.</value>
+    </labels>
+    <labels>
         <fullName>APT_eParcelExpressCode</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1832,6 +1846,13 @@
         <protected>false</protected>
         <shortDescription>AccountOutOfSyncUpdateError</shortDescription>
         <value>The new Integration_Service_Mod_Date__c is older than the existing value</value>
+    </labels>
+    <labels>
+        <fullName>AddressSearch_NoAccess_ErrorMessage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AddressSearch NoAccess Error Message</shortDescription>
+        <value>You do not have access to update this record. Please raise a case record to the Data Quality Management team with your change request.</value>
     </labels>
     <labels>
         <fullName>AdvancedSearchOutletName</fullName>
@@ -3009,6 +3030,24 @@ Australia Post
         <shortDescription>CSVMessage</shortDescription>
         <value>If no record is selected, first 1000 of the displayed records will be downloaded.
 To download selected records please select the desired rows you want to download. If more that 1000 records are selected first 1000 of the selected records will be downloaded.</value>
+    </labels>
+    <labels>
+        <fullName>CampaignAssignContactTaskContent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CampaignAssignContactTaskContent</shortDescription>
+        <value>New activities have been created in Salesforce for you to complete. To get started:
+
+1. Click on activity link below in this email.
+2. Click on the Campaign name in the ‘Related to’ field.
+3. Click on &apos;Campaign Contacts&apos; button (top right of the window).
+4. Select the contact for each organisation you have activity for. Then click ‘Save’.
+5. Click on the ‘View Campaign Member’ link to see the contact’s details and complete the activity.
+6. Once each activity is completed and any customer feedback is captured, change its status to reflect the outcome of the activity. Then click ‘Save’.
+
+See the description for details for each activity and refer to any other campaign information.
+
+You can go back to the activity through the link in this email or find it within your task list in Salesforce.</value>
     </labels>
     <labels>
         <fullName>Cancel</fullName>
@@ -4737,6 +4776,13 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <value>Australia Post can send information relating to products and services offered by Australia Post</value>
     </labels>
     <labels>
+        <fullName>MPB_Missing_Item_Attachment_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MPB Missing Item Attachment Error</shortDescription>
+        <value>Please attach wholesale invoice of goods for the item, or proof of value. Providing this information initially may speed up your enquiry.</value>
+    </labels>
+    <labels>
         <fullName>MYNETWORK_LABEL</fullName>
         <categories>mynetwork portal name</categories>
         <language>en_US</language>
@@ -6053,6 +6099,30 @@ Also, the package has changed the setting to prevent the creation of Contacts an
         <value>PostalCode</value>
     </labels>
     <labels>
+        <fullName>PUDBulkEditNoBookingsToDisplayMessage</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PUD Bulk Edit No Bookings To Display Message</shortDescription>
+        <value>No bookings to display. Please review and adjust filters and press &apos;Apply&apos; button.</value>
+    </labels>
+    <labels>
+        <fullName>PUDBulkEditNoMatchesFoundMessage</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PUD Bulk Edit No Matches Found Message</shortDescription>
+        <value>No matches found for the search term</value>
+    </labels>
+    <labels>
+        <fullName>PUDBulkEditNoRoutesSelectedMessage</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PUD Bulk Edit No Routes Selected Message</shortDescription>
+        <value>No routes selected. Please populate depot and route filters and press &apos;Apply&apos; button.</value>
+    </labels>
+    <labels>
         <fullName>PUDCancelJobsRestrictedStatusErrorMessage</fullName>
         <categories>PUD Pickup Booking</categories>
         <language>en_US</language>
@@ -6075,6 +6145,14 @@ Also, the package has changed the setting to prevent the creation of Contacts an
         <protected>false</protected>
         <shortDescription>PUDConfirmCancellationPrompt</shortDescription>
         <value>Cancelling a job is not reversible. Are you sure you want to continue ?</value>
+    </labels>
+    <labels>
+        <fullName>PUDEnableIntegratedJobDispatchPrompt</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PUDEnableIntegratedJobDispatchPrompt</shortDescription>
+        <value>Are you sure you want to {0} the Integrated Job Dispatch on this network record?</value>
     </labels>
     <labels>
         <fullName>PUDInvalidBookingLocationAddressErrorMessage</fullName>
@@ -6239,6 +6317,142 @@ We manage your personal information in accordance with our Privacy policy. The p
         <protected>false</protected>
         <shortDescription>Profile Id</shortDescription>
         <value>00e30000001N9BE</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CAR</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of  Customer Analytics &amp; Reporting Request (CAR)</shortDescription>
+        <value>CAR_Request</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_ASH</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Accounting Service Helpdesk</shortDescription>
+        <value>Accounting_Service_Helpdesk</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_ASIC</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of ASIC Request</shortDescription>
+        <value>ACIC_Request</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_BSI</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Business Systems Integration</shortDescription>
+        <value>Business_System_Integration</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_CAR</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Customer Analytics &amp; Reporting Request (CAR)</shortDescription>
+        <value>CAR_Request</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_CIA</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Customer Integration Application</shortDescription>
+        <value>Customer_Integration_Application</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_Dispute_Claim</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Enterprise Credit Dispute Claim</shortDescription>
+        <value>Enterprise_Credit_Dispute_Claim</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_EG_Sales</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of E&amp;G Sales Implementation</shortDescription>
+        <value>Sales_Implementation_Case</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_NCL</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Non-compliance Lodgement Issue</shortDescription>
+        <value>Non_compliance_Lodgement_Issue</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_RFS</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Retail Fulfilment &amp; Support</shortDescription>
+        <value>Retail_Fulfilment_Support</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_SalesCoordinator</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Sales Coordinator</shortDescription>
+        <value>Sales_Coordinator</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_SecurityExpress</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Security Express</shortDescription>
+        <value>Security_Express</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_Service_Delivery</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Service Delivery</shortDescription>
+        <value>Sales_Ops_Delivery</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_Shipster</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Shipster</shortDescription>
+        <value>Shipster</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CASE_SpecialServices</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Special Services</shortDescription>
+        <value>Special Services</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_KEYWORD_SSSW</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type keyword SSSW</shortDescription>
+        <value>SSSW</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_KEYWORD_StarTrack</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type keyword StarTrack</shortDescription>
+        <value>StarTrack</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_SOCIAL</fullName>

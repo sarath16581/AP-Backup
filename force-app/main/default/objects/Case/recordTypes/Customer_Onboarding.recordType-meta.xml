@@ -3478,10 +3478,6 @@
     <picklistValues>
         <picklist>MPB_BSP_Enquiry_Type__c</picklist>
         <values>
-            <fullName>Advice on sending parcels</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Other Enquiry</fullName>
             <default>false</default>
         </values>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Feedback_Base_URL__c</fullName>
+    <description>This field has been created to store the base URL for any survey originating inside the InMoment platform.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Include the base URL if this campaign includes customer feedback captured through the InMoment survey platform. Leave blank if this campaign does not include customer feedback.</inlineHelpText>
+    <label>Customer Feedback Base URL</label>
+    <length>80</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

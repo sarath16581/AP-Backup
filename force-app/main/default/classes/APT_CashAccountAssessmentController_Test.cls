@@ -1,10 +1,15 @@
-/**
-Description - Test class for APT_CashAccountAssessmentController controller.
-Created By - Mausam Padhiyar
-Created Date - 14th Dec, 2015
-Last Modified By -
-Last Modified Date - 
- */
+/***
+ * @author Mausam Padhiyar
+ * @date 2015-12-14
+ * @group 
+ * @description Test class for APT_CashAccountAssessmentController controller.
+ * @changelog
+ * 2015-12-14 - Mausam Padhiyar- Created
+ * 2021-11-17 - Mathew Jose - Fixing the test class failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
+ * Last Modified By -madhuri.awasthi@auspost.com.au REQ2723568: Text Class changes
+ * Last Modified Date -11th Feb 2022 
+ * 2022-02-11  REQ2723568: API version 52 upgrade
+*/
 @isTest
 private class APT_CashAccountAssessmentController_Test{
     //Creating test data
@@ -50,27 +55,29 @@ private class APT_CashAccountAssessmentController_Test{
             con.Phone='123456789';
             con.Fax='123456789'; 
             con.Salutation='mr';
-            con.Title='test';   
-              
+            con.Title='test';
+            //Applying the following change as key contact have look up filter introduced on Opportunity.  
+            con.AccountId = acc.Id;  
             insert con; 
             
             Opportunity opty = APT_TestUtils.createOpportunity(acc.id);
-             opty.KeyContact__c=con.id;
-             insert opty;
+            opty.AccountId = acc.Id;
+            opty.KeyContact__c=con.id;
+            insert opty;
             Apttus_Config2__PriceList__c priceList =APT_TestUtils.createPriceList(); 
-             insert priceList ;
+            insert priceList ;
             Apttus_Proposal__Proposal__c Proposal= APT_TestUtils.getQuoteProposal(acc.id,opty.id,'Proposal','Quote',priceList.id);
-             Proposal.Apttus_Proposal__Approval_Stage__c='Draft';
-             insert Proposal;
+            Proposal.Apttus_Proposal__Approval_Stage__c='Draft';
+            insert Proposal;
              
               
                         
-             Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator());
-             
-             
-             system.debug('@@cssetting'+r2tSystemProperty);
-             
-             system.debug('@@endpoint'+r2tSystemProperty.APT_Org_Id_Service_End_Point_URL__c);
+            Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator());
+            
+            
+            system.debug('@@cssetting'+r2tSystemProperty);
+            
+            system.debug('@@endpoint'+r2tSystemProperty.APT_Org_Id_Service_End_Point_URL__c);
              
             PageReference pageRef = Page.APT_CashAccountAssessment;
             Test.setCurrentPage(pageRef);
@@ -193,6 +200,7 @@ private class APT_CashAccountAssessmentController_Test{
             cac.backToProposal();
             cac.getCompanyBusinessType();
             cac.requestOrgIDDetails();
+            cac.createCashAccount();
             PageReference pgRef = cac.doNextForChargeAccount();
             
             

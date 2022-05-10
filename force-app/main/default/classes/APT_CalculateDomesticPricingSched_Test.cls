@@ -4,6 +4,8 @@ Created By - Mausam Padhiyar
 Created Date - 16th Oct, 2015
 Last Modified By -
 Last Modified Date -
+@changelog
+09/05/2022 - Seth Heang - Fix Test class failure due to system.schedule() set in the past
 **/
 @isTest
 private with sharing class APT_CalculateDomesticPricingSched_Test {
@@ -21,7 +23,7 @@ private with sharing class APT_CalculateDomesticPricingSched_Test {
         
         APT_CalculateDomesticPricingSched.sendEmailAlert('test@example.com', new list<String>{'error1', 'error2'});
         
-        Id jobId = system.schedule('Calculate Domestic Pricing', '0 0 0 15 3 ? 2022', new APT_CalculateDomesticPricingSched());
+        Id jobId = system.schedule('Calculate Domestic Pricing', '0 0 0 ? * *', new APT_CalculateDomesticPricingSched());
         
         test.stopTest();
         

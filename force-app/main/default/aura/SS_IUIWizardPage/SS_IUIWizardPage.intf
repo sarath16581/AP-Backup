@@ -8,6 +8,7 @@
     <aura:attribute name="backButtonLabel" type="String"  description="Override label for Back Button."/>
     <aura:attribute name="backButtonAction" type="Aura.Action"  description="Override Action for back Button."/>
     <aura:attribute name="wizardData" type="Map" description="Wizard Data"></aura:attribute>
+    <aura:attribute name="selectedArticles" type="String[]" default="[]" description="Selected Articles"></aura:attribute>
 	<aura:registerEvent name="wizardPageEvent" type="c:SS_uiWizardPageEvent"/>
     
 </aura:interface>

@@ -21,9 +21,9 @@ Changes Made - Fix to set industry attribute only if the value is not blank at o
 
 Mathew Jose - 29/05/2021 - Added to beforeInsertEvent method to set the zone dispersions (STP-5812)
 Mathew Jose - 29/05/2021 - Added afterUpdateEvent method to set the Is Band Changed flag on lineItem (STP-5812)
+Pradeep Jaiswal - 26/4/2022 - CI-224 - Removed Existing Customer field from layout and checked Exisiting Customer from opportunity
 
-Naveen Rajanna - 18/01/2022 - REQ2649482 - Modified Minimum Quantity to be set to Category low and high if entered quantity exceeds category range
-                
+
 **/
 public with sharing class APT_ProductAttributeValueTriggerHandler {
     
@@ -40,64 +40,96 @@ public with sharing class APT_ProductAttributeValueTriggerHandler {
                 System.Debug('Line item ID kushal '+pav.Apttus_Config2__LineItemId__c);
                 lineItemIDSet.add(pav.Apttus_Config2__LineItemId__c);
             }
-            Map<ID,Apttus_Config2__LineItem__c> lineItemMap = new Map<ID,Apttus_Config2__LineItem__c>([select ID,Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Industry, Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Role_Type_Roll_Up__c,Apttus_Config2__ProductId__r.ProductCode from Apttus_Config2__LineItem__c where ID in : lineItemIDSet]);
+            //CI-224 Removed APT_Existing_APPC_Customer__c 
+            Map<ID,Apttus_Config2__LineItem__c> lineItemMap = new Map<ID,Apttus_Config2__LineItem__c>([select ID,Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Industry, 
+                                                                                                       Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Role_Type_Roll_Up__c,
+                                                                                                       Apttus_Config2__ProductId__r.ProductCode,
+                                                                                                         Apttus_Config2__ConfigurationId__c, 
+                                                                                                       Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.APT_Eligible_APPC_Tier__c,
+                                                                                                       Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Cubic_Factor__c,
+                                                                                                       Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Cubic_Factor_Type__c,
+                                                                                                       Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Cubic_Calculation1__c,
+                                                                                                       Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Cubic_Calculation2__c,
+                                                                                                       Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Total_Physical_Weight_Kg1__c,
+                                                                                                       Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Type                                                                                                                                                                                     
+                                                                                                       from Apttus_Config2__LineItem__c where ID in : lineItemIDSet]);
             //STP-5812 - Converting workflow to trigger for improved shopping cart performance.  
             Map<String,Map<String, Decimal>> productCodeToZoneDispersionMap = new Map<String,Map<String, Decimal>>();
             productCodeToZoneDispersionMap = getInternationalZoneDispersion(lineItemMap);          
             //list<Apttus_Config2__ProductAttributeValue__c> listPAV = new list<Apttus_Config2__ProductAttributeValue__c>();
             for(Apttus_Config2__ProductAttributeValue__c pav : listProductAttributeValue) {
-                //listPAV.add(pav);
-                //workflow rule to trigger
-                //default cubic factor from proposal
-                if(/*pav.APT_Cubic_Factor__c == 1 &&*/ pav.APT_Proposal_Cubic_Factor__c != null && pav.APT_Proposal_Cubic_Factor__c != 0) {
-                    pav.APT_Cubic_Factor__c = pav.APT_Proposal_Cubic_Factor__c;
-                }
-                if(lineItemMap.containsKey(pav.Apttus_Config2__LineItemId__c) && lineItemMap.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Role_Type_Roll_Up__c == 'Customer')
-                {
-                    //pav.APT_Industry__c = lineItemMap.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Industry;
-                    //spingali - Commented and added below code to set industry attribute only if the value is not blank at organisation.                    
-                    if (!(string.ISBLANK(lineItemMap.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Industry)))
-                    pav.APT_Industry__c = lineItemMap.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Industry;
-                }
-                //workflow rule to trigger
-                //STP-5812 - Updates Mathew Jose (Shopping Cart performance)
-                String productCode = lineItemMap.get(pav.Apttus_Config2__LineItemId__c)?.Apttus_Config2__ProductId__r.ProductCode;
-                if(productCodeToZoneDispersionMap.containsKey(productCode)){
-                    //Set zone dispersion values
-                    Map<String, Decimal> zoneDispersions = new Map<String,Decimal>();
-                    zoneDispersions = productCodeToZoneDispersionMap.get(productCode);
-                    if(zoneDispersions.containsKey('Zone 1')){
-                        pav.APT_Zone_1_Dispersion__c = zoneDispersions.get('Zone 1');
+                Apttus_Config2__LineItem__c configLineItem = lineItemMap.get(pav.Apttus_Config2__LineItemId__c);
+                if(configLineItem.Apttus_Config2__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_APPC){
+                    
+                    // CI-69 ------- Existing Customer Use Case ----------
+                    // For Existing APPC Customer case, Tier will only get defaulted to Eligible APPC Tier when Tier is blank 
+                    // (as there could be scenario where Tier value is defaulted but when Compass send custom Tier in that case it should take that value rather then defaulting from Eligible APPC Tier)
+                    //CI-224 Existing APPC Customer flag from Proposal rather than from Account Object 
+                    String strExistingAPPCCustomer = lineItemMap.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Type;
+                    
+                    if(strExistingAPPCCustomer == APT_Constants.OPPORTUNITY_TYPE_EXISTING_CUSTOMER) { 
+                       
+                        if(String.isBlank(pav.APT_Customer_Tier__c)){
+                            pav.APT_Customer_Tier__c = configLineItem.Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.APT_Eligible_APPC_Tier__c;
+                        }
                     }
-                    if(zoneDispersions.containsKey('Zone 2')){
-                        pav.APT_Zone_2_Dispersion__c = zoneDispersions.get('Zone 2');
-                    }
-                    if(zoneDispersions.containsKey('Zone 3')){
-                        pav.APT_Zone_3_Dispersion__c = zoneDispersions.get('Zone 3');
-                    }
-                    if(zoneDispersions.containsKey('Zone 4')){
-                        pav.APT_Zone_4_Dispersion__c = zoneDispersions.get('Zone 4');
-                    }
-                    if(zoneDispersions.containsKey('Zone 5')){
-                        pav.APT_Zone_5_Dispersion__c = zoneDispersions.get('Zone 5');
-                    }
-                    if(zoneDispersions.containsKey('Zone 6')){
-                        pav.APT_Zone_6_Dispersion__c = zoneDispersions.get('Zone 6');
-                    }
-                    if(zoneDispersions.containsKey('Zone 7')){
-                        pav.APT_Zone_7_Dispersion__c = zoneDispersions.get('Zone 7');
-                    }
-                    if(zoneDispersions.containsKey('Zone 8')){
-                        pav.APT_Zone_8_Dispersion__c = zoneDispersions.get('Zone 8');
-                    }                                                                                                                                                
-                     
-                }
+                  
 
-            }
-            //APOST-924
-            //populateFieldValues(listPAV,null);
-            //return APT_Constants.SUCCESS_LABEL;
-        } catch(Exception ex) {
+                } else{
+                    
+                    //listPAV.add(pav);
+                    //workflow rule to trigger
+                    //default cubic factor from proposal
+                    if(/*pav.APT_Cubic_Factor__c == 1 &&*/ pav.APT_Proposal_Cubic_Factor__c != null && pav.APT_Proposal_Cubic_Factor__c != 0) {
+                        pav.APT_Cubic_Factor__c = pav.APT_Proposal_Cubic_Factor__c;
+                    }
+                    if(lineItemMap.containsKey(pav.Apttus_Config2__LineItemId__c) && lineItemMap.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Role_Type_Roll_Up__c == 'Customer')
+                    {
+                        //spingali - Commented and added below code to set industry attribute only if the value is not blank at organisation. 
+                        
+                        if (!(string.ISBLANK(lineItemMap.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Industry)))
+                            pav.APT_Industry__c = lineItemMap.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Industry;
+                    }
+                    //workflow rule to trigger
+                    //STP-5812 - Updates Mathew Jose (Shopping Cart performance)
+                    String productCode = lineItemMap.get(pav.Apttus_Config2__LineItemId__c)?.Apttus_Config2__ProductId__r.ProductCode;
+                    if(productCodeToZoneDispersionMap.containsKey(productCode)){
+                        //Set zone dispersion values
+                        Map<String, Decimal> zoneDispersions = new Map<String,Decimal>();
+                        zoneDispersions = productCodeToZoneDispersionMap.get(productCode);
+                        if(zoneDispersions.containsKey('Zone 1')){
+                            pav.APT_Zone_1_Dispersion__c = zoneDispersions.get('Zone 1');
+                        }
+                        if(zoneDispersions.containsKey('Zone 2')){
+                            pav.APT_Zone_2_Dispersion__c = zoneDispersions.get('Zone 2');
+                        }
+                        if(zoneDispersions.containsKey('Zone 3')){
+                            pav.APT_Zone_3_Dispersion__c = zoneDispersions.get('Zone 3');
+                        }
+                        if(zoneDispersions.containsKey('Zone 4')){
+                            pav.APT_Zone_4_Dispersion__c = zoneDispersions.get('Zone 4');
+                        }
+                        if(zoneDispersions.containsKey('Zone 5')){
+                            pav.APT_Zone_5_Dispersion__c = zoneDispersions.get('Zone 5');
+                        }
+                        if(zoneDispersions.containsKey('Zone 6')){
+                            pav.APT_Zone_6_Dispersion__c = zoneDispersions.get('Zone 6');
+                        }
+                        if(zoneDispersions.containsKey('Zone 7')){
+                            pav.APT_Zone_7_Dispersion__c = zoneDispersions.get('Zone 7');
+                        }
+                        if(zoneDispersions.containsKey('Zone 8')){
+                            pav.APT_Zone_8_Dispersion__c = zoneDispersions.get('Zone 8');
+                        }                                                                                                                                                
+                        
+                    }
+                    
+                }
+                //APOST-924
+                //populateFieldValues(listPAV,null);
+                //return APT_Constants.SUCCESS_LABEL;
+            } 
+        }catch(Exception ex) {
             //return ex.getMessage();
             for(Apttus_Config2__ProductAttributeValue__c pav : listProductAttributeValue){
                 pav.addError(ex.getMessage());    
@@ -209,338 +241,332 @@ public with sharing class APT_ProductAttributeValueTriggerHandler {
      */
      
     /**
-     Method to update fields before event update
-    **/
-    public static String beforeUpdateEvent(list<Apttus_Config2__ProductAttributeValue__c> listProductAttributeValue,Map<Id,Apttus_Config2__ProductAttributeValue__c> pavOldMap,
-                                                                        Map<Id,Apttus_Config2__ProductAttributeValue__c> pavNewMap) {
-        try {
-            system.debug('*** PAV before Update Handler ***');
-            set<String> setProductType = new set<String>();
-            set<String> setCategory = new set<String>();
-            set<String> setLodgementZone = new set<String>();
-            set<Id> setLineItemId = new set<Id>();
-            //search lodgement zone
-            set<String> setZoneStructure = new set<String>();
-            set<String> setPriceStructure = new set<String>();
-            set<decimal> setPostCode = new set<decimal>();
-            //search lodgement zone
-            
-            //calculate estimated revenue
-            list<Apttus_Config2__ProductAttributeValue__c> listPAV = new list<Apttus_Config2__ProductAttributeValue__c>();
-            list<Apttus_Config2__LineItem__c> listLineItem = new list<Apttus_Config2__LineItem__c>();
-            Apttus_Config2__LineItem__c lineItemSO;
-            //calculate estimated revenue
-            
-            for(Apttus_Config2__ProductAttributeValue__c pav : listProductAttributeValue) {
-                system.debug('*** PAV before Update Handler > pav.id ***'+pav.Id);
-                
-                /*
-                //1493
-                if(String.isNotBlank(pav.APT_Domestic_Customer__c) && pav.APT_Domestic_Customer__c.equalsIgnoreCase('No') 
-                    && String.isNotBlank(pav.APT_Volume_Data__c) && pav.APT_Volume_Data__c.equalsIgnoreCase('Yes')
-                    && pav.APT_Estimated_Revenue__c > 0 && pav.APT_Estimated_Revenue__c < 3000) {
-                    return 'Estimated Revenue($) is ' + pav.APT_Estimated_Revenue__c + ' Revenue Commitment can not be Less than 3,000 when Domestic Customer is No.';
-                }
-                //1493
-                */
-                
-                //1560
-                if(String.isNotBlank(pav.APT_Volume_Threshold_Post_BillPay__c) && String.isNotBlank(pav.APT_PostBillPay_Volume_threshold__c)
-                    && !pav.APT_PostBillPay_Volume_threshold__c.contains(pav.APT_Volume_Threshold_Post_BillPay__c)) {
-                    //pav.addError('Invalid Annual Volume Review.');
-                    
-                    return 'Invalid Annual Volume Review.';
-                }
-                //1560
-            
-                /*
-                if(pav.APT_Volume_Data__c != null && pav.APT_Volume_Data__c == 'Yes' && pav.APT_AirmailSmallParcelGT2kgAVGWeightKG__c < 2) {
-                    pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). It must be greater than 2 kg.');
-                }
-                */
-                
-                // Code Added for International CO - By Akansha
-                //workflow to trigger
-                //set band
-                String oldBandValue;
-                String newbandValue;
-                if((pavOldMap.get(pav.Id).APT_Band__c) == null && (pavNewMap.get(pav.Id).APT_Band__c) == null){
-                    oldBandValue =  '';
-                    newbandValue =  '';
-                }else{
-                    oldBandValue = pavOldMap.get(pav.Id).APT_Band__c; 
-                    newbandValue = pavNewMap.get(pav.Id).APT_Band__c;
-                }
-                if((String.isNotBlank(oldBandValue) && oldBandValue.equalsIgnoreCase(newbandValue)) || String.isBlank(oldBandValue)){
-                    if(pav.APT_Volume_Data__c != null && pav.APT_Volume_Data__c.equalsIgnoreCase(APT_Constants.OPTION_NO) && (pav.APT_RK_Code_Applied__c == false)) {
-                        if(pav.Revenue_Committment__c != null) {
-                            if(pav.Revenue_Committment__c.equalsIgnoreCase(APT_Constants.REVENUE_COMMITTMENT_LESS_THAN_3000)) {
-                                pav.APT_Band__c = APT_Constants.BAND_1;
-                                pav.APT_Band_Original_Value__c = pav.APT_Band__c ;
-                            } else {
-                                pav.APT_Band__c = APT_Constants.BAND_2;
-                                pav.APT_Band_Original_Value__c = pav.APT_Band__c ;
-                            }
-                        }
-                    }
-                }
-                //set band
-                
-                //set min quantity based on category
-                if(pav.Category__c != null) {    //defect 1057 //REQ2649482
-                    if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT1)) {
-                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
-                                                        || pav.APT_Minimum_Quantity__c == 1 
-                                                        || pav.APT_Minimum_Quantity__c < 1000) 
-                                                        ? 1000 
-                                                        : 1999;
-                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT2)) {
-                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
-                                                        || pav.APT_Minimum_Quantity__c == 1 
-                                                        || pav.APT_Minimum_Quantity__c < 2000) 
-                                                        ? 2000 
-                                                        : 4999;
-                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT3)) {
-                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
-                                                        || pav.APT_Minimum_Quantity__c == 1 
-                                                        || pav.APT_Minimum_Quantity__c < 5000) 
-                                                        ? 5000 
-                                                        : 9999;
-                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT4)) {
-                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
-                                                        || pav.APT_Minimum_Quantity__c == 1 
-                                                        || pav.APT_Minimum_Quantity__c < 10000) 
-                                                        ? 10000 
-                                                        : 19999;
-                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT5)) {
-                        pav.APT_Minimum_Quantity__c = (pav.APT_Minimum_Quantity__c == null 
-                                                        || pav.APT_Minimum_Quantity__c == 1 
-                                                        || pav.APT_Minimum_Quantity__c < 20000) 
-                                                        ? 20000 
-                                                        : 49999;
-                    } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT6) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 50000)) {
-                        pav.APT_Minimum_Quantity__c = 50000;
-                    } else { }
-                }
-                
-                //set min quantity based on category
-                
-                //workflow to trigger
-                
-                setProductType.add(pav.APT_Product_Type__c);
-                setCategory.add(pav.Category__c);                
-                setLodgementZone.add(pav.APT_Lodgement_Zone__c);
-                setLineItemId.add(pav.Apttus_Config2__LineItemId__c);
-                
-                //search lodgement zone
-                setZoneStructure.add(pav.APT_Zone_Structure__c);
-                setPriceStructure.add(pav.APTS_Price_Structure__c);
-                if(pav.APT_Postcode__c != null) {
-                    setPostCode.add(decimal.valueOf(pav.APT_Postcode__c));
-                }
-                //search lodgement zone
-                
-                //cubic factor - updated for REQ1282919 - VO             
-                //if(pav.Category__c != null && pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT1) && pav.APT_Cubic_Factor__c != null && (pav.APTS_Price_Structure__c != null && pav.APTS_Price_Structure__c != 'WINE {Z30}') ) {
-                //    pav.APT_Cubic_Factor__c = null;
-                //}
-                //cubic factor
-                
-                //calculate estimated revenue
-                if(pav.APT_Volume_Data__c != null && true == pav.APT_Volume_Data__c.equalsIgnoreCase(APT_Constants.OPTION_YES)){
-                    listPAV.add(pav);
-                }
-                //calculate estimated revenue
-                
-            }
-            
-            // Getting the mapLineItem to fetch the product code 
-            // This was placed after search lodgement zone 
-            // Changes for CI-7 (APPC)
-            map<Id, Apttus_Config2__LineItem__c> mapLineItem = new map<Id, Apttus_Config2__LineItem__c>([SELECT Id, Name, Apttus_Config2__ProductId__c, Apttus_Config2__ProductId__r.ProductCode,
-                                                                                                         Apttus_Config2__ConfigurationId__c, 
-                                                                                                         Apttus_Config2__LineType__c,
-                                                                                                         Apttus_Config2__AttributeValueId__r.APT_Industry__c, 
-                                                                                                         Apttus_Config2__AttributeValueId__r.APT_eParcel_Lodgment__c,
-                                                                                                         Apttus_Config2__AttributeValueId__r.APT_International_Letters__c                                                        
-                                                                                                         FROM Apttus_Config2__LineItem__c WHERE Id IN :setLineItemId]);
-            
-            
-            //search lodgement zone
-            if(setZoneStructure.size() > 0) {
-                map<String, list<APT_Lodgement_Zone__c>> mapLZ = new map<String, list<APT_Lodgement_Zone__c>>();
-                for(APT_Lodgement_Zone__c lodgementZone : [SELECT Id, Name, APT_Lodgement_Zone_Code__c, APT_Post_Code_Start__c, APT_Post_Code_End__c,
-                                                            APT_Zone_Structure__c 
-                                                            FROM APT_Lodgement_Zone__c 
-                                                            WHERE APT_Zone_Structure__c IN :setZoneStructure]) {
-                    
-                    list<APT_Lodgement_Zone__c> listLodgementZone = mapLZ.get(lodgementZone.APT_Zone_Structure__c);
-                    if(listLodgementZone != null) {
-                        listLodgementZone.add(lodgementZone);
-                        mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
-                    } else {
-                        listLodgementZone = new list<APT_Lodgement_Zone__c>();
-                        listLodgementZone.add(lodgementZone);
-                        mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
-                    }
-                }
-                
-                for(Apttus_Config2__ProductAttributeValue__c pav : listProductAttributeValue) {
-                    Apttus_Config2__LineItem__c configLineItem = mapLineItem.get(pav.Apttus_Config2__LineItemId__c);
-                    decimal postcode = 0; 
-                    System.debug('SM Debug --> ' + pav.APT_Primary_Postcode__c);
-                    if(configLineItem.Apttus_Config2__ProductId__r.ProductCode == 'APPC'){
-                        System.debug('SM Debug 1--> ' + pav.APT_Primary_Postcode__c);
-                        if(pav.APT_Primary_Postcode__c != null) {
-                            postcode = decimal.valueOf(pav.APT_Primary_Postcode__c);
-                        }
-                    } else{
-                        if(pav.APT_Postcode__c != null) {
-                            postcode = decimal.valueOf(pav.APT_Postcode__c);
-                        }
-                    }
-                    list<APT_Lodgement_Zone__c> listLodgementZone = mapLZ.get(pav.APT_Zone_Structure__c);
-                    if(listLodgementZone != null) {
-                        for(APT_Lodgement_Zone__c lz: listLodgementZone) {
-                            if(lz.APT_Post_Code_Start__c <= postcode && lz.APT_Post_Code_End__c >= postcode) {
-                                //if(pav.APT_Lodgement_Zone__c == null) {
-                                    pav.APT_Lodgement_Zone__c = lz.Id;
-                                    setLodgementZone.add(pav.APT_Lodgement_Zone__c);    //feature pricing
-                                //}
-                            }
-                        }
-                    }
-                }
-            }
-            //search lodgement zone
-            
-            //calculate estimated revenue
-            if(listPAV.size() > 0){
-                set<String> setProduct = new set<String>();
-                set<String> setZone = new set<String>();
-                set<String> setBand = new set<String>();
-                map<String, list<Apttus_Config2__PriceMatrixEntry__c>> mappmeByZone = new map<String, list<Apttus_Config2__PriceMatrixEntry__c>>();
-                map<String, double> mpPMEByBand = new map<String, double>();
-                
-                list<string> myIds = new list<string>();
-                list<string> pliIds = new list<string>();
-                list<string> pmIds = new list<string>();
-                list<string> pmeIds = new list<string>();
-                for (Product2 product :  [select Id from Product2  where APT_International_Pricing__c = true]){
-                    myIds.add(product.Id);
-                }
-                for (Apttus_Config2__PriceListItem__c pli : [select Id from Apttus_Config2__PriceListItem__c   where  Apttus_Config2__ProductId__c in :myIds]){
-                    pliIds.add(pli.Id);
-                }
-                for (Apttus_Config2__PriceMatrix__c pm :  [select Id from Apttus_Config2__PriceMatrix__c  where  Apttus_Config2__PriceListItemId__c in :pliIds]){
-                    pmIds.add(pm.Id);
-                }
-                for (Apttus_Config2__PriceMatrixEntry__c pme :  [select Id from Apttus_Config2__PriceMatrixEntry__c where  Apttus_Config2__PriceMatrixId__c in :pmIds]){
-                    pmeIds.add(pme.Id);
-                }
-                
-                list<Apttus_Config2__PriceMatrixEntry__c> priceMatrixEntries =  
-                    [select Apttus_Config2__Dimension1Value__c, Apttus_Config2__Dimension2Value__c, Apttus_Config2__Dimension3Value__c,
-                     Apttus_Config2__AdjustmentAmount__c,
-                     Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c, Apttus_Config2__PriceOverride__c,
-                     Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode,   
-                     Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Lodgement_Zone_Code__c,
-                     Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_eParcel_Lodgment__c,
-                     Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Zones__c,  
-                     Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_International_Pricing__c,
-                     Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band_Range_Max__c from 
-                     Apttus_Config2__PriceMatrixEntry__c 
-                     where Apttus_Config2__PriceMatrixId__c in :pmIds];
-                
-                for(Apttus_Config2__PriceMatrixEntry__c pme : priceMatrixEntries){
-                    setProduct.add(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode);
-                    setZone.add(pme.Apttus_Config2__Dimension1Value__c); // dimension 1 value stores zone for international price
-                    setBand.add(pme.Apttus_Config2__PriceMatrixId__r?.Apttus_Config2__PriceListItemId__r?.APT_Band__c);
-                    //System.debug('setproduct::'+setProduct);
-                    //by industry + band
-                    mpPMEByBand.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c, 
-                                    pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band_Range_Max__c);
-                      
-                    //by industry + band + product
-                    if(pme.Apttus_Config2__Dimension3Value__c!=null){ // dimension 3 value is for weight in international price data
-                        list<Apttus_Config2__PriceMatrixEntry__c> listPmeByZone1 = mappmeByZone.get(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension3Value__c);
-                        if(listPmeByZone1 != null && listPmeByZone1.size() > 0) {
-                            listPmeByZone1.add(pme);
-                            mappmeByZone.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension3Value__c, listPmeByZone1);
-                        } else {
-                            listPmeByZone1 = new list<Apttus_Config2__PriceMatrixEntry__c>();
-                            listPmeByZone1.add(pme);
-                            mappmeByZone.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension3Value__c, listPmeByZone1);
-                        }
-                        
-                    }
-                    else{
-                        list<Apttus_Config2__PriceMatrixEntry__c> listPmeByZone = mappmeByZone.get(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c);
-                        if(listPmeByZone != null && listPmeByZone.size() > 0) {
-                            listPmeByZone.add(pme);
-                            mappmeByZone.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c, listPmeByZone);
-                        } else {
-                            listPmeByZone = new list<Apttus_Config2__PriceMatrixEntry__c>();
-                            listPmeByZone.add(pme);
-                            mappmeByZone.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c, listPmeByZone);
-                        }
-                    }
-                }
-                
-                list<String> listBand = new list<String>();
-                listBand.addAll(setBand);
-                listBand.sort();
-                
-                // Code Added fro International CO - By Akansha
-                String oldBandValue;
-                String newbandValue;
-                for(Apttus_Config2__ProductAttributeValue__c pav : listProductAttributeValue) {
-                    if((pavOldMap.get(pav.Id).APT_Band__c) == null && (pavNewMap.get(pav.Id).APT_Band__c) == null){
-                        oldBandValue =  '';
-                        newbandValue =  '';
-                    }else{
-                        oldBandValue = pavOldMap.get(pav.Id).APT_Band__c; 
-                        newbandValue = pavNewMap.get(pav.Id).APT_Band__c;
-                    }
-                    system.debug('*** oldBandValue ***'+oldBandValue);
-                    system.debug('*** newbandValue ***'+newbandValue);
-                    if((String.isNotBlank(oldBandValue) && oldBandValue.equalsIgnoreCase(newbandValue)) || String.isBlank(oldBandValue)){
-                        //String pricePoint = '';   //remove hardcoding
-                        String pricePoint;
-                        if(pav.APT_eParcel_Lodgment__c == true && pav.APT_International_Letters__c == true) {
-                            pricePoint = APT_Constants.ePARCEL_PRICE_POINT;
-                        } else if(pav.APT_eParcel_Lodgment__c == true && pav.APT_International_Letters__c == false) {
-                            pricePoint = APT_Constants.ePARCEL_PRICE_POINT;
-                        } else if(pav.APT_eParcel_Lodgment__c == false && pav.APT_International_Letters__c == true) {
-                            pricePoint = APT_Constants.CSP_PRICE_POINT;
-                        } else {
-                            //default price point. This won't be the case.
-                            pricePoint = APT_Constants.ePARCEL_PRICE_POINT;
-                        }  
-                        
-                        Apttus_Config2__LineItem__c lineItem = mapLineItem.get(pav.Apttus_Config2__LineItemId__c);
-                        system.debug('*** listBand ***'+listBand);
-                        for(String band : listBand){
-                            system.debug('*** band ***'+band);
-                            double dbEstimatedRevenue = processInternationalPriceData(lineItem, band, setProduct, setZone, pricePoint, mappmeByZone, pav);
-                            system.debug('*** dbEstimatedRevenue ***'+dbEstimatedRevenue);
-                            //find max revenue band
-                            double dbMaximumRevenueBand = mpPMEByBand.get(band);
-                            system.debug('*** dbMaximumRevenueBand ***'+dbMaximumRevenueBand);
-                            //validate band
-                            boolean bIsValidBand = validateBand(dbEstimatedRevenue, dbMaximumRevenueBand, band);
-                            system.debug('*** bIsValidBand ***'+bIsValidBand);
-                            //if valid band
-                            if(bIsValidBand == true) {
-                                //populate estimated revenue on attribute
-                                if(pav.APT_RK_Code_Applied__c == false){
-                                    pav.APT_Estimated_Revenue__c = dbEstimatedRevenue;
-                                }
-                                pav.APT_Band__c = band;
-                                pav.APT_Band_Original_Value__c = pav.APT_Band__c ;
-                                //update productAttributeValue;   //will be executed only once
-                                
-                                /*
+Method to update fields before event update
+**/
+    public static String beforeUpdateEvent(list<Apttus_Config2__ProductAttributeValue__c> listProductAttributeValue,
+                                           Map<Id,Apttus_Config2__ProductAttributeValue__c> pavOldMap,
+                                           Map<Id,Apttus_Config2__ProductAttributeValue__c> pavNewMap) {
+                                               try {
+                                                   system.debug('*** PAV before Update Handler ***');
+                                                   set<String> setProductType = new set<String>();
+                                                   set<String> setCategory = new set<String>();
+                                                   set<String> setLodgementZone = new set<String>();
+                                                   set<Id> setLineItemId = new set<Id>();
+                                                   //search lodgement zone
+                                                   set<String> setZoneStructure = new set<String>();
+                                                   set<String> setPriceStructure = new set<String>();
+                                                   set<decimal> setPostCode = new set<decimal>();
+                                                   //search lodgement zone
+                                                   
+                                                   //calculate estimated revenue
+                                                   list<Apttus_Config2__ProductAttributeValue__c> listPAV = new list<Apttus_Config2__ProductAttributeValue__c>();
+                                                   list<Apttus_Config2__LineItem__c> listLineItem = new list<Apttus_Config2__LineItem__c>();
+                                                   Apttus_Config2__LineItem__c lineItemSO;
+                                                   //calculate estimated revenue
+                                                   
+                                                   for(Apttus_Config2__ProductAttributeValue__c pav : listProductAttributeValue) {
+                                                       system.debug('*** PAV before Update Handler > pav.id ***'+pav.Id);
+                                                       
+                                                       /*
+//1493
+if(String.isNotBlank(pav.APT_Domestic_Customer__c) && pav.APT_Domestic_Customer__c.equalsIgnoreCase('No') 
+&& String.isNotBlank(pav.APT_Volume_Data__c) && pav.APT_Volume_Data__c.equalsIgnoreCase('Yes')
+&& pav.APT_Estimated_Revenue__c > 0 && pav.APT_Estimated_Revenue__c < 3000) {
+return 'Estimated Revenue($) is ' + pav.APT_Estimated_Revenue__c + ' Revenue Commitment can not be Less than 3,000 when Domestic Customer is No.';
+}
+//1493
+*/
+                                                       
+                                                       //1560
+                                                       if(String.isNotBlank(pav.APT_Volume_Threshold_Post_BillPay__c) && String.isNotBlank(pav.APT_PostBillPay_Volume_threshold__c)
+                                                          && !pav.APT_PostBillPay_Volume_threshold__c.contains(pav.APT_Volume_Threshold_Post_BillPay__c)) {
+                                                              //pav.addError('Invalid Annual Volume Review.');
+                                                              
+                                                              return 'Invalid Annual Volume Review.';
+                                                          }
+                                                       //1560
+                                                       
+                                                       /*
+if(pav.APT_Volume_Data__c != null && pav.APT_Volume_Data__c == 'Yes' && pav.APT_AirmailSmallParcelGT2kgAVGWeightKG__c < 2) {
+pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). It must be greater than 2 kg.');
+}
+*/
+                                                       
+                                                       // Code Added for International CO - By Akansha
+                                                       //workflow to trigger
+                                                       //set band
+                                                       String oldBandValue;
+                                                       String newbandValue;
+                                                       if((pavOldMap.get(pav.Id).APT_Band__c) == null && (pavNewMap.get(pav.Id).APT_Band__c) == null){
+                                                           oldBandValue =  '';
+                                                           newbandValue =  '';
+                                                       }else{
+                                                           oldBandValue = pavOldMap.get(pav.Id).APT_Band__c; 
+                                                           newbandValue = pavNewMap.get(pav.Id).APT_Band__c;
+                                                       }
+                                                       if((String.isNotBlank(oldBandValue) && oldBandValue.equalsIgnoreCase(newbandValue)) || String.isBlank(oldBandValue)){
+                                                           if(pav.APT_Volume_Data__c != null && pav.APT_Volume_Data__c.equalsIgnoreCase(APT_Constants.OPTION_NO) && (pav.APT_RK_Code_Applied__c == false)) {
+                                                               if(pav.Revenue_Committment__c != null) {
+                                                                   if(pav.Revenue_Committment__c.equalsIgnoreCase(APT_Constants.REVENUE_COMMITTMENT_LESS_THAN_3000)) {
+                                                                       pav.APT_Band__c = APT_Constants.BAND_1;
+                                                                       pav.APT_Band_Original_Value__c = pav.APT_Band__c ;
+                                                                   } else {
+                                                                       pav.APT_Band__c = APT_Constants.BAND_2;
+                                                                       pav.APT_Band_Original_Value__c = pav.APT_Band__c ;
+                                                                   }
+                                                               }
+                                                           }
+                                                       }
+                                                       //set band
+                                                       
+                                                       //set min quantity based on category
+                                                       if(pav.Category__c != null) {    //defect 1057
+                                                           if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT1) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 1000)) {
+                                                               pav.APT_Minimum_Quantity__c = 1000;
+                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT2) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 2000)) {
+                                                               pav.APT_Minimum_Quantity__c = 2000;
+                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT3) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 5000)) {
+                                                               pav.APT_Minimum_Quantity__c = 5000;
+                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT4) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 10000)) {
+                                                               pav.APT_Minimum_Quantity__c = 10000;
+                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT5) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 20000)) {
+                                                               pav.APT_Minimum_Quantity__c = 20000;
+                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT6) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 50000)) {
+                                                               pav.APT_Minimum_Quantity__c = 50000;
+                                                           } else { }
+                                                       }
+                                                       
+                                                       //set min quantity based on category
+                                                       
+                                                       //workflow to trigger
+                                                       
+                                                       setProductType.add(pav.APT_Product_Type__c);
+                                                       setCategory.add(pav.Category__c);                
+                                                       setLodgementZone.add(pav.APT_Lodgement_Zone__c);
+                                                       setLineItemId.add(pav.Apttus_Config2__LineItemId__c);
+                                                       
+                                                       //search lodgement zone
+                                                       setZoneStructure.add(pav.APT_Zone_Structure__c);
+                                                       setPriceStructure.add(pav.APTS_Price_Structure__c);
+                                                       if(pav.APT_Postcode__c != null) {
+                                                           setPostCode.add(decimal.valueOf(pav.APT_Postcode__c));
+                                                       }
+                                                       //search lodgement zone
+                                                       
+                                                       //cubic factor - updated for REQ1282919 - VO             
+                                                       if(pav.Category__c != null && pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT1) && pav.APT_Cubic_Factor__c != null && (pav.APTS_Price_Structure__c != null && pav.APTS_Price_Structure__c != 'WINE {Z30}') ) {
+                                                           pav.APT_Cubic_Factor__c = null;
+                                                       }
+                                                       //cubic factor
+                                                       
+                                                       //calculate estimated revenue
+                                                       if(pav.APT_Volume_Data__c != null && true == pav.APT_Volume_Data__c.equalsIgnoreCase(APT_Constants.OPTION_YES)){
+                                                           listPAV.add(pav);
+                                                       }
+                                                       //calculate estimated revenue
+                                                       
+                                                   }
+                                                   
+                                                   // Getting the mapLineItem to fetch the product code 
+                                                   // This was placed after search lodgement zone 
+                                                   // Changes for CI-7 (APPC)
+                                                   //CI-224 Removed APT_Existing_APPC_Customer__c
+                                                   map<Id, Apttus_Config2__LineItem__c> mapLineItem = new map<Id, Apttus_Config2__LineItem__c>([SELECT Id, Name, Apttus_Config2__ProductId__c, Apttus_Config2__ProductId__r.ProductCode,
+                                                                                                                                                Apttus_Config2__ConfigurationId__c, 
+                                                                                                                                                Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.APT_Eligible_APPC_Tier__c,
+                                                                                                                                                Apttus_Config2__LineType__c,
+                                                                                                                                                Apttus_Config2__AttributeValueId__r.APT_Industry__c, 
+                                                                                                                                                Apttus_Config2__AttributeValueId__r.APT_eParcel_Lodgment__c,
+                                                                                                                                                Apttus_Config2__AttributeValueId__r.APT_International_Letters__c,
+                                                                                                                                                Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Type
+                                                                                                                                                FROM Apttus_Config2__LineItem__c WHERE Id IN :setLineItemId]);
+                                                   
+                                                   //search lodgement zone
+                                                   if(setZoneStructure.size() > 0) {
+                                                       map<String, list<APT_Lodgement_Zone__c>> mapLZ = new map<String, list<APT_Lodgement_Zone__c>>();
+                                                       for(APT_Lodgement_Zone__c lodgementZone : [SELECT Id, Name, APT_Lodgement_Zone_Code__c, APT_Post_Code_Start__c, APT_Post_Code_End__c,
+                                                                                                  APT_Zone_Structure__c 
+                                                                                                  FROM APT_Lodgement_Zone__c 
+                                                                                                  WHERE APT_Zone_Structure__c IN :setZoneStructure]) {
+                                                                                                      
+                                                                                                      list<APT_Lodgement_Zone__c> listLodgementZone = mapLZ.get(lodgementZone.APT_Zone_Structure__c);
+                                                                                                      if(listLodgementZone != null) {
+                                                                                                          listLodgementZone.add(lodgementZone);
+                                                                                                          mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
+                                                                                                      } else {
+                                                                                                          listLodgementZone = new list<APT_Lodgement_Zone__c>();
+                                                                                                          listLodgementZone.add(lodgementZone);
+                                                                                                          mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
+                                                                                                      }
+                                                                                                  }
+                                                       
+                                                       for(Apttus_Config2__ProductAttributeValue__c pav : listProductAttributeValue) {
+                                                           
+                                                           Apttus_Config2__LineItem__c configLineItem = mapLineItem.get(pav.Apttus_Config2__LineItemId__c);
+                                                           
+                                                           System.debug('configLineItem.Apttus_Config2__ProductId__r.ProductCode' + configLineItem.Apttus_Config2__ProductId__r.ProductCode);
+                                                           System.debug('pav.APTS_Price_Structure__c' + pav.APTS_Price_Structure__c);
+                                                           System.debug('pav.APT_RK_Code_Applied__c' + pav.APT_RK_Code_Applied__c);
+                                                           System.debug('pav.APT_Cubic_Factor__c' + pav.APT_Cubic_Factor__c);
+                                                           if(configLineItem != null 
+                                                              && configLineItem.Apttus_Config2__ProductId__r != null
+                                                              && configLineItem.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) 
+                                                              && pav.APTS_Price_Structure__c != null
+                                                              && pav.APTS_Price_Structure__c.equalsIgnoreCase(APT_Constants.STRING_BANDED_Z6) 
+                                                              && pav.APT_RK_Code_Applied__c == false ){
+                                                                  pav.APT_Cubic_Factor__c = NULL;
+                                                              }
+                                                           System.debug('pav.APT_Cubic_Factor__c '+pav.APT_Cubic_Factor__c);
+                                                           
+                                                           decimal postcode = 0;
+                                                           
+                                                           if(configLineItem.Apttus_Config2__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_APPC){
+                                                               
+                                                               // CI-69 Code block for new APPC customer to fetch the tier value based on the min spend per anumn entered on the cart attribute configuration.
+                                                               //CI-224 Existing APPC Customer flag from Proposal rather then from Account Object
+                                                               string strNewAPPCCustomer = mapLineItem.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Type;
+                                                               if(strNewAPPCCustomer == APT_Constants.OPPORTUNITY_TYPE_NEW_CUSTOMER && pav.APT_Min_Spend_Per_Annum__c != NULL)
+                                                               {
+                                                                   // CI-69 Fetch the APT_Simplified_Parcel_Spend_Range__c where the pav.APT_Min_Spend_Per_Annum__c is in range of APT_Min_Spend__c and APT_Max_Spend__c
+                                                                   APT_Simplified_Parcel_Spend_Range__c sr = [select Id, APT_Min_Spend__c, APT_Max_Spend__c, APT_Tier__c from APT_Simplified_Parcel_Spend_Range__c where APT_Product_Code__c =:APT_Constants.PRODUCT_CODE_APPC and APT_Min_Spend__c <= :pav.APT_Min_Spend_Per_Annum__c and APT_Max_Spend__c >= :pav.APT_Min_Spend_Per_Annum__c LIMIT 1];
+                                                                   if(!String.isBlank(sr?.APT_Tier__c)){
+                                                                       pav.APT_Customer_Tier__c = sr.APT_Tier__c;
+                                                                   }
+                                                               }
+                                                               
+                                                               if(pav.APT_Primary_Postcode__c != null) {
+                                                                   postcode = decimal.valueOf(pav.APT_Primary_Postcode__c);
+                                                               }
+                                                           } else{
+                                                               if(pav.APT_Postcode__c != null) {
+                                                                   postcode = decimal.valueOf(pav.APT_Postcode__c);
+                                                               }
+                                                           }
+                                                           
+                                                           list<APT_Lodgement_Zone__c> listLodgementZone = mapLZ.get(pav.APT_Zone_Structure__c);
+                                                           if(listLodgementZone != null) {
+                                                               for(APT_Lodgement_Zone__c lz: listLodgementZone) {
+                                                                   if(lz.APT_Post_Code_Start__c <= postcode && lz.APT_Post_Code_End__c >= postcode) {
+                                                                       //if(pav.APT_Lodgement_Zone__c == null) {
+                                                                       pav.APT_Lodgement_Zone__c = lz.Id;
+                                                                       setLodgementZone.add(pav.APT_Lodgement_Zone__c);    //feature pricing
+                                                                       //}
+                                                                   }
+                                                               }
+                                                           }
+                                                       }
+                                                   }
+                                                   //search lodgement zone
+                                                   
+                                                   //calculate estimated revenue
+                                                   if(listPAV.size() > 0){
+                                                       set<String> setProduct = new set<String>();
+                                                       set<String> setZone = new set<String>();
+                                                       set<String> setBand = new set<String>();
+                                                       map<String, list<Apttus_Config2__PriceMatrixEntry__c>> mappmeByZone = new map<String, list<Apttus_Config2__PriceMatrixEntry__c>>();
+                                                       map<String, double> mpPMEByBand = new map<String, double>();
+                                                       
+                                                       list<Apttus_Config2__PriceMatrixEntry__c> priceMatrixEntries =  
+                                                           [select Apttus_Config2__Dimension1Value__c, Apttus_Config2__Dimension2Value__c, Apttus_Config2__Dimension3Value__c,
+                                                            Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c, Apttus_Config2__PriceOverride__c,
+                                                            Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode,   
+                                                            Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Lodgement_Zone_Code__c,
+                                                            Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_eParcel_Lodgment__c,
+                                                            Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Zones__c,  
+                                                            Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_International_Pricing__c,
+                                                            Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band_Range_Max__c from 
+                                                            Apttus_Config2__PriceMatrixEntry__c 
+                                                            where Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_International_Pricing__c = true];
+                                                       
+                                                       for(Apttus_Config2__PriceMatrixEntry__c pme : priceMatrixEntries){
+                                                           setProduct.add(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode);
+                                                           setZone.add(pme.Apttus_Config2__Dimension1Value__c); // dimension 1 value stores zone for international price
+                                                           setBand.add(pme.Apttus_Config2__PriceMatrixId__r?.Apttus_Config2__PriceListItemId__r?.APT_Band__c);
+                                                           //System.debug('setproduct::'+setProduct);
+                                                           //by industry + band
+                                                           mpPMEByBand.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c, 
+                                                                           pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band_Range_Max__c);
+                                                           
+                                                           //by industry + band + product
+                                                           if(pme.Apttus_Config2__Dimension3Value__c!=null){ // dimension 3 value is for weight in international price data
+                                                               list<Apttus_Config2__PriceMatrixEntry__c> listPmeByZone1 = mappmeByZone.get(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension3Value__c);
+                                                               if(listPmeByZone1 != null && listPmeByZone1.size() > 0) {
+                                                                   listPmeByZone1.add(pme);
+                                                                   mappmeByZone.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension3Value__c, listPmeByZone1);
+                                                               } else {
+                                                                   listPmeByZone1 = new list<Apttus_Config2__PriceMatrixEntry__c>();
+                                                                   listPmeByZone1.add(pme);
+                                                                   mappmeByZone.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension3Value__c, listPmeByZone1);
+                                                               }
+                                                               
+                                                           }
+                                                           else{
+                                                               list<Apttus_Config2__PriceMatrixEntry__c> listPmeByZone = mappmeByZone.get(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c);
+                                                               if(listPmeByZone != null && listPmeByZone.size() > 0) {
+                                                                   listPmeByZone.add(pme);
+                                                                   mappmeByZone.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c, listPmeByZone);
+                                                               } else {
+                                                                   listPmeByZone = new list<Apttus_Config2__PriceMatrixEntry__c>();
+                                                                   listPmeByZone.add(pme);
+                                                                   mappmeByZone.put(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode + APT_Constants.SEPERATOR_SIMILARITY + pme.Apttus_Config2__Dimension1Value__c, listPmeByZone);
+                                                               }
+                                                           }
+                                                       }
+                                                       
+                                                       list<String> listBand = new list<String>();
+                                                       listBand.addAll(setBand);
+                                                       listBand.sort();
+                                                       
+                                                       // Code Added fro International CO - By Akansha
+                                                       String oldBandValue;
+                                                       String newbandValue;
+                                                       for(Apttus_Config2__ProductAttributeValue__c pav : listProductAttributeValue) {
+                                                           if((pavOldMap.get(pav.Id).APT_Band__c) == null && (pavNewMap.get(pav.Id).APT_Band__c) == null){
+                                                               oldBandValue =  '';
+                                                               newbandValue =  '';
+                                                           }else{
+                                                               oldBandValue = pavOldMap.get(pav.Id).APT_Band__c; 
+                                                               newbandValue = pavNewMap.get(pav.Id).APT_Band__c;
+                                                           }
+                                                           system.debug('*** oldBandValue ***'+oldBandValue);
+                                                           system.debug('*** newbandValue ***'+newbandValue);
+                                                           if((String.isNotBlank(oldBandValue) && oldBandValue.equalsIgnoreCase(newbandValue)) || String.isBlank(oldBandValue)){
+                                                               //String pricePoint = '';   //remove hardcoding
+                                                               String pricePoint;
+                                                               if(pav.APT_eParcel_Lodgment__c == true && pav.APT_International_Letters__c == true) {
+                                                                   pricePoint = APT_Constants.ePARCEL_PRICE_POINT;
+                                                               } else if(pav.APT_eParcel_Lodgment__c == true && pav.APT_International_Letters__c == false) {
+                                                                   pricePoint = APT_Constants.ePARCEL_PRICE_POINT;
+                                                               } else if(pav.APT_eParcel_Lodgment__c == false && pav.APT_International_Letters__c == true) {
+                                                                   pricePoint = APT_Constants.CSP_PRICE_POINT;
+                                                               } else {
+                                                                   //default price point. This won't be the case.
+                                                                   pricePoint = APT_Constants.ePARCEL_PRICE_POINT;
+                                                               }  
+                                                               
+                                                               Apttus_Config2__LineItem__c lineItem = mapLineItem.get(pav.Apttus_Config2__LineItemId__c);
+                                                               system.debug('*** listBand ***'+listBand);
+                                                               for(String band : listBand){
+                                                                   system.debug('*** band ***'+band);
+                                                                   double dbEstimatedRevenue = processInternationalPriceData(lineItem, band, setProduct, setZone, pricePoint, mappmeByZone, pav);
+                                                                   system.debug('*** dbEstimatedRevenue ***'+dbEstimatedRevenue);
+                                                                   //find max revenue band
+                                                                   double dbMaximumRevenueBand = mpPMEByBand.get(band);
+                                                                   system.debug('*** dbMaximumRevenueBand ***'+dbMaximumRevenueBand);
+                                                                   //validate band
+                                                                   boolean bIsValidBand = validateBand(dbEstimatedRevenue, dbMaximumRevenueBand, band);
+                                                                   system.debug('*** bIsValidBand ***'+bIsValidBand);
+                                                                   //if valid band
+                                                                   if(bIsValidBand == true) {
+                                                                       //populate estimated revenue on attribute
+                                                                       if(pav.APT_RK_Code_Applied__c == false){
+                                                                           pav.APT_Estimated_Revenue__c = dbEstimatedRevenue;
+                                                                       }
+                                                                       pav.APT_Band__c = band;
+                                                                       pav.APT_Band_Original_Value__c = pav.APT_Band__c ;
+                                                                       //update productAttributeValue;   //will be executed only once
+                                                                       
+                                                                       /*
 //defect-1332
 if(pav.APT_BAND__c.equalsIgnoreCase(APT_Constants.BAND_5)) {
 if(pav.APT_Estimated_Revenue__c <= 50000) {
@@ -1240,5 +1266,11 @@ mapProductAttributeValue:       product attribute value by line item id
     
     private static Decimal calculateRevenue(decimal volume, decimal dispersion, decimal perItemRate, decimal weight, decimal perKGRate){
         return volume * (dispersion / 100) * (perItemRate + (weight * perKGRate));       
+    }
+
+    private static Decimal calculateMinimumQuantity(Decimal minQty, Integer minValue, Integer maxValue) {
+        return (minQty == null || minQty == 1 || minQty < minValue)
+                ? (Decimal) minValue
+                : (minQty >= maxValue ? (Decimal) maxValue : minQty);
     }
 }

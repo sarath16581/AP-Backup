@@ -21,3 +21,8 @@
 .THIS .form-input-container {
     max-width : none;	
 }
+
+.THIS .item-detail-header {
+  font-weight: bold;
+  font-size: 18px;
+}

@@ -467,6 +467,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Account Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Address not in NAF</fullName>
             <default>false</default>
         </values>
@@ -865,13 +869,6 @@
         </values>
         <values>
             <fullName>Upgrade equipment</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>MPB_BSP_Enquiry_Type__c</picklist>
-        <values>
-            <fullName>Advice on sending parcels</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2101,6 +2098,10 @@
         </values>
         <values>
             <fullName>Duplicates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exec Letter</fullName>
             <default>false</default>
         </values>
         <values>

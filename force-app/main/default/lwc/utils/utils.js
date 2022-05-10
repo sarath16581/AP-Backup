@@ -109,3 +109,7 @@ export const get = (object, path, defaultVal) => {
 export const getOrEmpty = (object, path, defaultVal) => {
     return (typeof(object.isEmpty) === 'function' && object.isEmpty === true) ? '' : get(object, path, defaultVal);
 }
+
+
+export const DAMAGE_MISSING_CONTENTS_ERROR_MESSAGE = 'Scroll up and select either damaged article or missing contents.';
+export const REQUIRED_ERROR_MESSAGE = 'Complete this field';

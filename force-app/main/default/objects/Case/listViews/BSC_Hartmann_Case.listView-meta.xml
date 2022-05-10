@@ -9,9 +9,9 @@
     <columns>CASES.CREATED_DATE</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
-    <label>BSC - Hartmann</label>
+    <label>BSC - TMS</label>
     <language>en_US</language>
-    <queue>BSC_Hartmann</queue>
+    <queue>BSC_TMS</queue>
     <sharedTo>
         <roleAndSubordinatesInternal>StarTrack_CSC_Manager</roleAndSubordinatesInternal>
     </sharedTo>

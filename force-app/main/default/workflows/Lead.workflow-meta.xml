@@ -109,18 +109,6 @@
         <template>All_Email_Templates/Lead_Seeker_New_Lead_received1</template>
     </alerts>
     <alerts>
-        <fullName>Lead_Seeker_New_Lead_Received_Email_Alert_MPB</fullName>
-        <description>Lead Seeker - New Lead Received Email Alert MPB</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Lead_Creator_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>All_Email_Templates/Lead_Seeker_New_Lead_received_MPB</template>
-    </alerts>
-    <alerts>
         <fullName>Lead_Seeker_Verified_and_Disqualified_Existing_or_LPO_Customer</fullName>
         <description>Lead Seeker - Verified Existing or LPO Customer</description>
         <protected>false</protected>
@@ -233,30 +221,6 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>All_Email_Templates/Lead_Seeker_New_Lead_received1</template>
     </alerts>
-    <alerts>
-        <fullName>Snap_It_Lead_Seeker_New_Lead_Received_Email_Alert</fullName>
-        <description>Snap It (Lead Seeker) - New Lead Received Email Alert</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Lead_Creator_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>All_Email_Templates/Lead_Seeker_New_Lead_received_Snap_It</template>
-    </alerts>
-    <alerts>
-        <fullName>Snap_It_Lead_Seeker_New_Lead_Received_Email_Alert_Customer</fullName>
-        <description>Snap It (Lead Seeker) - New Lead Received Email Alert -Customer</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Email</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>All_Email_Templates/Lead_Seeker_New_Lead_received_Snap_It_Customer</template>
-    </alerts>
     <fieldUpdates>
         <fullName>BAU_Lead_Nurture_queue</fullName>
         <field>OwnerId</field>
@@ -359,28 +323,6 @@
         <name>Update Lead Title</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Update_Lead_owner_to_MPB_Seeker_Leads</fullName>
-        <field>OwnerId</field>
-        <lookupValue>MPB_Seeker_Leads</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>Update Lead owner to MPB Seeker Leads</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Update_Status_to_Qualified</fullName>
-        <description>Update Status of Lead to Qualified</description>
-        <field>Status</field>
-        <literalValue>Qualified</literalValue>
-        <name>Update Status to Qualified</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
         <protected>false</protected>
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
@@ -781,29 +723,25 @@
             <value>True</value>
         </criteriaItems>
         <criteriaItems>
-            <field>Lead.Products__c</field>
-            <operation>excludes</operation>
-            <value>MyPost Business</value>
+            <field>Lead.LeadSource</field>
+            <operation>contains</operation>
+            <value>Seeker_LS_</value>
         </criteriaItems>
         <description>Lead Seeker - New Lead received</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>Lead Seeker - New Lead received MPB</fullName>
-        <actions>
-            <name>Lead_Seeker_New_Lead_Received_Email_Alert_MPB</name>
-            <type>Alert</type>
-        </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Lead.Lead_Seeker__c</field>
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>
         <criteriaItems>
-            <field>Lead.Products__c</field>
-            <operation>includes</operation>
-            <value>MyPost Business</value>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>SBSub_Retail</value>
         </criteriaItems>
         <description>Lead Seeker - New Lead received</description>
         <triggerType>onCreateOnly</triggerType>
@@ -858,46 +796,6 @@
         </criteriaItems>
         <description>This sends email alerts to MyPost Business customers</description>
         <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Lead Seeker - Updates Owner to MPB Seeker Leads</fullName>
-        <actions>
-            <name>Update_Lead_owner_to_MPB_Seeker_Leads</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>Update_Status_to_Qualified</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
-        <criteriaItems>
-            <field>Lead.Products__c</field>
-            <operation>includes</operation>
-            <value>MyPost Business</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Lead.Lead_Seeker__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Lead.LeadSource</field>
-            <operation>equals</operation>
-            <value>Snap It</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Lead.LeadSource</field>
-            <operation>equals</operation>
-            <value>National Contact Centre – Phone</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Lead.LeadSource</field>
-            <operation>equals</operation>
-            <value>Other website</value>
-        </criteriaItems>
-        <description>This Updates the lead owner to MPB Seeker Leads when MyPost Business is included on Product Interested</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>Lead%3AMarketing form opt in</fullName>
@@ -1019,7 +917,7 @@
         <criteriaItems>
             <field>User.UserRoleId</field>
             <operation>equals</operation>
-            <value>Service Government North - Service Manager,Service Government North - Service Partner</value>
+            <value>Service Government North - Service Manager,Service Government North - Service Partner,Service Government South - Service Partner</value>
         </criteriaItems>
         <description>To update the employee number, name and email onto the lead record &amp; set &apos;lead seeker&apos; as TRUE.
 To capture into the lead seeker program for possible reward points.
@@ -1135,34 +1033,6 @@ REQ2276204 added Service Manager</description>
             <value>Retail SMB</value>
         </criteriaItems>
         <description>Send an email when a new lead is created</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Snap It Send Email to Customer Lead</fullName>
-        <actions>
-            <name>Snap_It_Lead_Seeker_New_Lead_Received_Email_Alert_Customer</name>
-            <type>Alert</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Lead.LeadSource</field>
-            <operation>equals</operation>
-            <value>Snap It</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Lead.Lead_Seeker__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Lead.Email</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Lead.Products__c</field>
-            <operation>excludes</operation>
-            <value>MyPost Business</value>
-        </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
     </rules>
 </Workflow>

@@ -136,12 +136,14 @@
         <customTabListAdditionalFields>ShiftTemplateDurationType</customTabListAdditionalFields>
         <customTabListAdditionalFields>IsActive</customTabListAdditionalFields>
         <customTabListAdditionalFields>RecordsetFilterCriteria</customTabListAdditionalFields>
+        <customTabListAdditionalFields>TimeSlotType</customTabListAdditionalFields>
         <searchResultsAdditionalFields>JobProfile</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>StartTime</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Duration</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ShiftTemplateDurationType</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsActive</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>RecordsetFilterCriteria</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TimeSlotType</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Read</sharingModel>
 </CustomObject>

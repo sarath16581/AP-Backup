@@ -2257,6 +2257,11 @@
             <field>APT_TotalOPLineItemPrice__c</field>
             <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r</table>
+        </columns>
         <masterLabel>Proposals</masterLabel>
     </sections>
     <sections>
@@ -3971,5 +3976,13 @@
             <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.Apttus_QPComply__Agreements__r</table>
         </columns>
         <masterLabel>Contracts</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.Apttus_QPComply__Agreements__r</table>
+        </columns>
+        <masterLabel>Apttus Contracts</masterLabel>
     </sections>
 </ReportType>

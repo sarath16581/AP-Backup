@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This perm set is to provision access to Data Science team to extract data from SF to GCP.</description>
+    <description>DEPRECATED - This permission set is deprecated. Please use CET_GCP_Connected_Clients2 permission set instead. 
+This perm set is to provision access to Data Science team to extract data from SF to GCP.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Job_Template__c.Active_Route_Days__c</field>

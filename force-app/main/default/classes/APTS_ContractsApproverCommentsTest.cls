@@ -45,6 +45,9 @@ public class APTS_ContractsApproverCommentsTest {
         approvalReq.Apttus_Approval__Approval_Status__c = 'Not Submitted';
         //approvalReq.Apttus_Approval__ChildObjectId__c = bundleLine.Id;
 		approvalReq.Apttus_Approval__Object_Id__c = aptContract.ID;
+        
+        approvalReq.Apttus_Approval__Object_Type__c = 'Apttus__APTS_Agreement__c';
+        
 		approvalReq.Apttus_Approval__Initial_Submitter__c = UserInfo.getUserId();
         insert approvalReq;
         
@@ -115,6 +118,7 @@ public class APTS_ContractsApproverCommentsTest {
         //approvalReq.Apttus_Approval__ChildObjectId__c = bundleLine.Id;
 		approvalReq.Apttus_Approval__Object_Id__c = aptContract.ID;
 		approvalReq.Apttus_Approval__Initial_Submitter__c = UserInfo.getUserId();
+        approvalReq.Apttus_Approval__Object_Type__c = 'Apttus__APTS_Agreement__c';
         insert approvalReq;
         
         approvalReq.Apttus_Approval__Approval_Status__c = 'Rejected';

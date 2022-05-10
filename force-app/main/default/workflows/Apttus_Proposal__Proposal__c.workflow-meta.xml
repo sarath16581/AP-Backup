@@ -91,27 +91,6 @@
         <senderType>CurrentUser</senderType>
         <template>Apttus__ApttusEmailTemplates/APT_Credit_Assessment_Approval</template>
     </alerts>
-    <alerts>
-        <fullName>Dangerous_Goods_Approved_Rejected_Notification</fullName>
-        <description>Dangerous Goods Approved/Rejected Notification</description>
-        <protected>false</protected>
-        <recipients>
-            <type>owner</type>
-        </recipients>
-        <senderType>CurrentUser</senderType>
-        <template>APT_R2T_System_Email_Templates/Dangerous_Goods_Approved_Rejected_Notification1</template>
-    </alerts>
-    <alerts>
-        <fullName>Overweight_Approved_Rejected_Notification</fullName>
-        <description>Overweight Approved/Rejected Notification</description>
-        <protected>false</protected>
-        <recipients>
-            <recipient>vera.octavia@auspost.com.au</recipient>
-            <type>user</type>
-        </recipients>
-        <senderType>CurrentUser</senderType>
-        <template>APT_R2T_System_Email_Templates/Overwieght_Approved_Rejected_Notification1</template>
-    </alerts>
     <fieldUpdates>
         <fullName>APT_Check_UMS_Overweight_Flag</fullName>
         <field>APT_UMS_Overweight_Flag__c</field>
@@ -393,20 +372,6 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <rules>
-        <fullName>APT Dangerous Goods Approval</fullName>
-        <actions>
-            <name>Dangerous_Goods_Approved_Rejected_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus_Proposal__Proposal__c.APT_Dangerous_Goods_Status__c</field>
-            <operation>equals</operation>
-            <value>Approved,Rejected</value>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
         <fullName>APT International Bundle Exist</fullName>
         <actions>
             <name>APT_International_Bundle_Exist</name>
@@ -443,20 +408,6 @@
             <value>True</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>APT Overweight Goods Approval</fullName>
-        <actions>
-            <name>Overweight_Approved_Rejected_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus_Proposal__Proposal__c.APT_Overweight_Approval_Status__c</field>
-            <operation>equals</operation>
-            <value>Approved,Rejected</value>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>APT UMS Overweight Flag</fullName>

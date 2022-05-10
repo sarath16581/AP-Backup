@@ -2,6 +2,7 @@
 <DelegateGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>Sales Admin</label>
     <loginAccess>true</loginAccess>
+    <permissionSets>MFA Authorization for User Logins</permissionSets>
     <permissionSets>Service Partner Changes</permissionSets>
     <permissionSets>LBP Program field changes</permissionSets>
     <permissionSets>myTrailhead Content Access</permissionSets>

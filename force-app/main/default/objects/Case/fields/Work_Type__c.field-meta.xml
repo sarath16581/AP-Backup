@@ -87,6 +87,11 @@
                 <label>Business Initiatives</label>
             </value>
             <value>
+                <fullName>Business Led Initiatives</fullName>
+                <default>false</default>
+                <label>Business Led Initiatives</label>
+            </value>
+            <value>
                 <fullName>CDMT Only</fullName>
                 <default>false</default>
                 <label>CDMT Only</label>
@@ -197,6 +202,11 @@
                 <label>Customer Initiatives</label>
             </value>
             <value>
+                <fullName>Customer Led Initiatives</fullName>
+                <default>false</default>
+                <label>Customer Led Initiatives</label>
+            </value>
+            <value>
                 <fullName>Customer Meeting</fullName>
                 <default>false</default>
                 <label>Customer Meeting</label>
@@ -215,6 +225,11 @@
                 <fullName>Customer Service Plan</fullName>
                 <default>false</default>
                 <label>Customer Service Plan</label>
+            </value>
+            <value>
+                <fullName>Customer Service Profile/Plan</fullName>
+                <default>false</default>
+                <label>Customer Service Profile/Plan</label>
             </value>
             <value>
                 <fullName>Dashboard</fullName>
@@ -340,6 +355,11 @@
                 <fullName>Maintenance</fullName>
                 <default>false</default>
                 <label>Maintenance</label>
+            </value>
+            <value>
+                <fullName>Major Event Planning</fullName>
+                <default>false</default>
+                <label>Major Event Planning</label>
             </value>
             <value>
                 <fullName>Manage Issues / Complaints</fullName>

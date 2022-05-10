@@ -1,0 +1,26 @@
+/**
+ * Created by Mahesh Parvathaneni on 03/05/2022.
+ */
+
+.disclaimer-box {
+    background: #FFF5F5;
+    border: 1px solid #FFB3B3;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+h3 {
+    letter-spacing: 0.8px;
+}
+
+p, span, li, a {
+    line-height: 20px;
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 400;
+    color: #212129;
+}
+
+a {
+    text-decoration: underline;
+}

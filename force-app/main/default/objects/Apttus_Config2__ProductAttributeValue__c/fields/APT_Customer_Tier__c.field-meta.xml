@@ -2,47 +2,29 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Customer_Tier__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>Customers who spend more on Australia Post products and services will have access to lower prices.  Standard contract prices are available in 5 tiers as follows:
-
-Value (ex Gst)
-TIER 4 ($20,000.00 - $49,999.99)
-TIER 5 ($50,000.00 - $124,999.99)
-TIER 6 ($125,000.00 - $249,999.99)
-TIER 7 ($250,000.00 - $499,999.99)
-TIER 8 ($500,000.00+)</inlineHelpText>
+    <inlineHelpText>Customers who spend more with Australia Post will have access to lower prices. Access to Tier 9+ will require approval by Pricing. 
+Value (ex Gst) 
+TIER 1: $2.5K - $4.99K 
+TIER 2: $5K - $9.99K 
+TIER 3: $10K - $19.99K 
+TIER 4 = $20K - $49.99K 
+TIER 5 = $50K - $124.99K 
+TIER 6 = $125K - $249.99K 
+TIER 7 = $250K - $499.99K 
+TIER 8 = $500K - $999.99K 
+TIER 9 = $1M - $2.49M 
+TIER 10 = $2.5M - $4M 
+TIER 11 = $5M - $9.99M 
+TIER 12 = $10M - $19.99M 
+TIER 13 = $20M - $39.99M 
+TIER 14 = $40M +</inlineHelpText>
     <label>Tier (ex GST)</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>TIER 4</fullName>
-                <default>false</default>
-                <label>TIER 4 ($20,000.00 - $49,999.99)</label>
-            </value>
-            <value>
-                <fullName>TIER 5</fullName>
-                <default>false</default>
-                <label>TIER 5 ($50,000.00 - $124,999.99)</label>
-            </value>
-            <value>
-                <fullName>TIER 6</fullName>
-                <default>false</default>
-                <label>TIER 6 ($125,000.00 - $249,999.99)</label>
-            </value>
-            <value>
-                <fullName>TIER 7</fullName>
-                <default>false</default>
-                <label>TIER 7 ($250,000.00 - $499,999.99)</label>
-            </value>
-            <value>
-                <fullName>TIER 8</fullName>
-                <default>false</default>
-                <label>TIER 8 ($500,000.00 - $999,999.99)</label>
-            </value>
-        </valueSetDefinition>
+        <restricted>true</restricted>
+        <valueSetName>APT_Customer_Tier</valueSetName>
     </valueSet>
 </CustomField>

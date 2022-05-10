@@ -30,6 +30,10 @@ Last Modified Date: 15th Feb, 2017 | 1550 | Credit Assessment Status - Completed
 @ModifiedBy: Seth Heang
 @ModifiedOn: 30 Nov, 2020
 @Description: Added constants for updated credit assessment mismatched warning message from Equifax
+
+@ModifiedBy: Sriharsha
+@ModifiedOn: 22 Apr, 2022
+@Description: Added constants for Contract validation.
 **/
 public with sharing class APT_Constants {
   //label
@@ -245,6 +249,8 @@ public with sharing class APT_Constants {
   public static final String PRICE_UOM_EACH = 'Each';
   public static final String SRRING_AAT = 'AAT';
   public static final String STRING_BANDED = 'BANDED {Z30}';
+  public static final String STRING_BANDED_Z6 = 'BANDED {Z6}';
+  public static final String STRING_BANDEDWINE = 'BANDED WINE {Z40}';
   
   //Dimension Value Type
   public static final String DIMENSION_VALUE_TYPE_DISCRETE = 'Discrete';
@@ -317,6 +323,12 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String PRODUCT_CODE_LOCAL_PICKUP_DELIVERY = 'LPDC';
   public static final String STRING_POSTAL_SERVICES = 'Postal Services';
   
+  public static final String PRODUCT_CODE_APPC ='APPC';
+  public static final String PRODUCT_TYPE_PARCEL_CONTRACT = 'Parcel Contract';
+  public static final String PRODUCT_CLASSIFICATION_APPC_STANDARD = 'APPC-Standard';
+  public static final String PRODUCT_CLASSIFICATION_APPC_PREMIUM = 'APPC-Premium';
+  public static final String R2T_APPC_CONTRACT = 'R2T APPC Contract';
+  
   //network type
   public static final String NETWORK_TYPE_STANDARD = 'Standard';
   public static final String NETWORK_TYPE_EXPRESS = 'Express';
@@ -340,6 +352,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
    
    //Access levels
    public static final String ACCESS_LEVEL_EDIT = 'Full Access';
+   public static final String ACCESS_FULL = 'Full';
    
    //approval stage
    public static final String APPROVAL_STAGE_DRAFT = 'Draft';
@@ -419,15 +432,19 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
    public static final String ACCOUNT_TYPE_CHARGE_ACCOUNT_PLUS_SUB_ACCOUNT = 'Charge Account + Sub Account';
    
    //Error Messsage
+   public static final String ERROR_MESSAGE_CONSTRAINT_RULES = System.Label.APT_Constraint_Rule_Error_Message;
    public static final String ERROR_MESSAGE_INVALID_PROPOSAL = 'Missing Quote/Proposal. Can not update Quote/Porposal.';
    public static final String ERROR_MESSAGE_MALFORMED_URL = 'Malformed URL Parameters';
    public static final String ERROR_MESSAGE_CANNOT_ACCEPT_PROPOSAL = 'Cannot accept the expired proposal. To accept this proposal please update the proposal expiration date.';
    public static final String ERROR_MESSAGE_CANNOT_PRESENT_PROPOSAL = 'Cannot present the expired proposal. To present this proposal please update the proposal expiration date.';
+   public static final string ERROR_MESSAGE_CANNOT_CREATE_CONTRACT ='Cannot Create a Contract document for an expired Contract.Please Create a new contract to continue.';
+   public static final string ERROR_MESSAGE_CANNOT_SEND_CONTRACT='Cannot send a contract out for signature for an expired Contract. Please Create a new contract to continue.';
   //Approval Rejection comments mandotory
   public static final String APPROVAL_REJECTION_COMMENTS_MANDOTORY = 'Please provide Rejection commnets';     
   public static final String APPROVAL_STATUS_REJECTED = 'Rejected';
   public static final String APPROVAL_STATUS_CANCELLED = 'Cancelled';
   public static final String APPROVAL_STATUS_PROCESSING_APPROVAL = 'Processing Approval';
+
    
   //Agreement
   public static final String AGREEMENT_STATUS_FULLY_SIGNED = 'Fully Signed';
@@ -604,6 +621,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String PRODUCT_NAME_LOCAL_COUNTRY_LETTER = 'Local Country Letter';
   public static final String PRODUCT_NAME_COMPETITION_MAIL = 'Competition Mail';
   public static final String PRODUCT_NAME_LOCAL_PICKUP_DELIVERY = 'Local Pickup and Delivery Services';
+
   
   public static final String INTERNATIONAL_PRICING_BATCH_STATUS = '*** International Pricing Batch Status ***';
   public static final String JOB_COMPLETED_SUCCESSFULLY = 'The job completed sucessfully.';
@@ -638,6 +656,14 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   
   
   public static final string PARAM_ID = 'id';
+  public static final string PARAM_COUNT = 'count';
+  public static final string PARAM_NAME='name';
+  public static final string PARAM_TEXT='text';
+  Public static final Integer PARAM_CONTRACT_EXP_DAYS=59;
+  Public static final string PARAM_APPC_PRODUCT='Australia Post Parcel Contract';
+  public static final string PARAM_PRODUCT_Type='Product/Service';
+  public static final string APT_VfcontractPage='APT_CreateContractValidation';
+  public static final string APT_VfcontractesignaturePage='APT_HelptotheSeller';
   public static final string PARAM_ACCOUNT_TYPE = 'accountType';
   public static final string PARAM_RECORDTYPE = 'recordType';
   public static final string PARAM_RETURN_URL = 'retURL';
@@ -888,6 +914,9 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String URL_AGREEMENTID = 'agreementId';
   public static final String URL_SELECTED_CATEGORY = 'selectedCategory';
   public static final String URL_SERVICES_SOAP = '/services/Soap/u/28.0/';
+  public static final String URL_SERVICES_SOAP_V43 = '/services/Soap/u/43.0/';  
+  public static final String URL_SERVICES_SOAP_DOWNLOAD_DOCUMENT = '/sfc/servlet.shepherd/document/download/';  
+  public static final String URL_SERVICES_OPERATION_CONTEXT_S1 = 'operationContext=S1';  
   public static final String URL_AMEND_RENEW_PAGE = '/apex/APT_AmendRenew?agreementId=';
   public static final String URL_AMEND_RENEW_PAGE_ACTION_NAME = '&actionName=DoV';
   public static final String URL_SEND_MAIL_PAGE = '/apex/Apttus__SendEmail?id=';
@@ -1216,6 +1245,8 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String STRING_LINE_ITEM = 'Line Item : ';
   public static final String STRING_VIEW_RATE_CARD_FAILED = ' View rate card Failed';
   public static final String STRING_R2T_PROPOSAL_TEMPLATE = 'R2T Proposal Template';
+  public static final string TEMPLATE_APPC_PROPOSAL = 'APPC_Proposal';
+  public static final string METADATTYPERECORD_TEMPLATE_APPC_RATE_CARD = 'APPC_RateCard';
   public static final String STRING_VIEW_RATE_CARD_ON_LINEITEMS = '*** View rate cards on Line Items ***';
   public static final String STRING_PROPOSALDOC_EMAIlSUBJECT = '*** Notification for Proposal Document - ';
   public static final String STRING_STAR=' ***';
@@ -1379,6 +1410,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String Customer = 'Customer';
   /* Start: Meet Desai: Updated Apttus Merge Service's API Version from 29 to 38 */
   public static final String services_Soap_u_38_0 = '/services/Soap/u/38.0/';
+  public static final String services_Soap_u_52_0 = '/services/Soap/u/52.0/';
   /* End: Meet Desai: Updated Apttus Merge Service's API Version from 29 to 38 */
   public static final String Left_curly_bracket = '{';
   public static final String product_non_contracted = ', Apttus_Proposal__Product__r.Non_contracted__c,';
@@ -1597,4 +1629,12 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String INCLUDE = 'Include';
   public static final String EXCLUDE = 'Exclude';
   
+  //APPC PSR Details
+  public static final String RECORD_TYPE_NAME_APPC = 'Australia_Post_Parcel_Contract'; //UserStory:CI-126
+  public static final String PSR_APPC_RECORD_TYPE_APINAME = 'Pricing_Support_Request_Australia_Post_Parcel_Contract';
+  public static final String PSR_APPC_PRODUCT_NAME = 'Australia Post Parcel Contract';
+  public static final String PSR_STATUS_COMPLETE = 'Completed';
+  public static final String PSR_STAGE_COMPLETE = 'Completed';
+  public static final String PSR_APPC_STANDARD_DELEGATED_PRICING = 'Delegated Pricing';
+  public static final String PSR_APPC_CUSTOM_PRICING = 'Customised Pricing';
 }

@@ -518,6 +518,11 @@
             <field>Apttus_QPComply__MasterAgreementId__c</field>
             <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r</table>
+        </columns>
         <masterLabel>Proposals</masterLabel>
     </sections>
 </ReportType>

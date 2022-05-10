@@ -3,7 +3,7 @@
     <fullName>Support_information__c</fullName>
     <externalId>false</externalId>
     <label>Support information</label>
-    <length>32768</length>
+    <length>65536</length>
     <trackHistory>true</trackHistory>
     <type>Html</type>
     <visibleLines>30</visibleLines>

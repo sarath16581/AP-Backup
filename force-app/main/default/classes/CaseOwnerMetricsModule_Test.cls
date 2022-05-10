@@ -70,6 +70,7 @@ Private class CaseOwnerMetricsModule_Test {
 		//get userrole
 		List<UserRole> userRoles = ApplicationTestDataFactory.getUserRoles(1, true);
 		userRoles[0].Name = 'Architect';
+		userRoles[0].RollupDescription = 'Architect';
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		// =====================================
 		// Stubbing
@@ -116,6 +117,7 @@ Private class CaseOwnerMetricsModule_Test {
 		//get userrole
 		List<UserRole> userRoles = ApplicationTestDataFactory.getUserRoles(1, true);
 		userRoles[0].Name = 'Architect';
+		userRoles[0].RollupDescription = 'Architect';
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		// =====================================
 		// Stubbing
@@ -133,6 +135,6 @@ Private class CaseOwnerMetricsModule_Test {
 		CaseOwnerMetricsModule module = CaseOwnerMetricsModule.newInstance();
 		module.onBeforeUpdate( (List<SObject>)cases, new Map<Id, SObject>(oldCasesList), uow);
 		Test.stopTest();
-		system.assertEquals(cases[0].ClosureOwnerRole__c,userRoles[0].Name,'case last assigned queue id is not equal to queue id');
+		system.assertEquals(cases[0].ClosureOwnerRole__c,userRoles[0].RollupDescription,'case last assigned queue id is not equal to queue id');
 	}
 }

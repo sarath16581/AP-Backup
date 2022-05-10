@@ -1,4 +1,17 @@
 <apex:page controller="APT_CreateContractValidationController">
-	<apex:pageMessages rendered="{!IsError}"></apex:pageMessages>
-   	<apex:include rendered="{!NOT(IsError)}" pageName="APTS_GenerateDocs"/>
+    <script type="text/javascript">
+        window.onload = function(){
+            setTimeout(initJS, 2000);
+        } 
+        </script>
+    
+    <apex:pageMessages rendered="{!IsError}"></apex:pageMessages>
+       
+        <apex:include rendered="{!AND(NOT(appcCount > 0), NOT(IsError))}" pageName="APTS_GenerateDocs"/>
+        <apex:form id="createValidationForm">
+
+        <c:APT_APPCParcelContractWait rendered="{!appcCount > 0}" /> <!-- rendered="{!appcCount <= 0}" -->
+        <apex:actionStatus id="ajaxStatus" onstart="wait(true)" />
+        <apex:actionFunction status="ajaxStatus" name="initJS" rendered="{!AND(appcCount > 0, Not(IsError))}" action="{!generateAPPCContractDocument}" oncomplete="window.close();" ></apex:actionFunction>
+    </apex:form>
 </apex:page>

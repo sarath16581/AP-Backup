@@ -1,0 +1,14 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:html tag="style"> .slds-modal__container { min-width: 90vw; } </aura:html>
+    <!--Modal Header-->  
+    <div class="modal-header slds-modal__header slds-size_1-of-1">
+        <h4 class="title slds-text-heading--medium">Campaign Contacts</h4>
+    </div>
+    <!--End Modal Header-->
+    <!--Modal Body-->   
+    <div class="slds-modal__content slds-p-around--x-small slds-align_absolute-center slds-size_1-of-1 slds-is-relative">
+        <c:campaignContactAssignment recordId="{!v.recordId}"/>
+    </div>
+    <!--End of Modal Body-->       
+
+</aura:component>

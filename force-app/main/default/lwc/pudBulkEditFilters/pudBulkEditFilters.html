@@ -1,0 +1,95 @@
+<!--
+    Filters panel for PUD bulk edit user interface.
+    Changelog:
+    2022-01-21 - Ranjeewa Silva - Created.
+ -->
+<template>
+    <div class="slds-filters bulk-edit-filters">
+        <ol class="slds-list_vertical slds-list_vertical-space">
+            <li class="slds-item slds-hint-parent">
+                <div class="slds-filters__item slds-grid slds-grid_vertical-align-center">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label"><abbr class="slds-required" title="required">* </abbr>Depot</label>
+                        <div class="slds-form-element__control">
+                            <template if:false={depot}>
+                                <c-lookup class="slds-show"
+                                          field-list="Id, Name"
+                                          sobject-name="Network__c"
+                                          fields-to-search="Name"
+                                          icon-name="custom:custom32"
+                                          placeholder="Please select depot"
+                                          num-chars-to-search=4
+                                          onrecordselected={handleDepotSelected}
+                                          search-delay=400>
+                                </c-lookup>
+                            </template>
+                            <template if:true={depot}>
+                                <lightning-pill-container is-expanded items={selectedDepotPill} onitemremove={handleClearSelectedDepot}>
+                                </lightning-pill-container>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <template if:true={depot}>
+                <li class="slds-item slds-hint-parent">
+                    <div class="slds-filters__item slds-grid slds-grid_vertical-align-center">
+
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label"><abbr class="slds-required" title="required">* </abbr>Routes</label>
+                            <div class="slds-form-element__control">
+                                <template if:true={hasSelectedRoutes}>
+                                    <lightning-pill-container items={selectedRoutePills} onitemremove={handleClearSelectedRoute}></lightning-pill-container>
+                                </template>
+                            </div>
+
+                            <div class="slds-scrollable slds-grow slds-p-top_small">
+                                <div class="routes-filter">
+                                    <table class="slds-table slds-no-row-hover slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols">
+                                        <thead></thead>
+                                        <tbody>
+                                            <template for:each={depot.routes} for:item="route">
+                                                <tr class="slds-hint-parent" key={route.routeId}>
+                                                    <th scope="row" class="slds-text-align_left">
+                                                        <div class="slds-truncate" title={route.name}><span>{route.name}</span></div>
+                                                    </th>
+                                                    <td class="slds-text-align_right slds-p-vertical_none" role="gridcell" tabindex="0">
+                                                        <lightning-input class="slds-p-top_xx-small" type="checkbox-button" name={route.routeId} checked={route.isSelected} disabled={route.isDisabled} onchange={handleSelectRoute} variant="label-hidden"></lightning-input>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!--li class="slds-item slds-hint-parent">
+                    <div class="slds-filters__item slds-grid slds-grid_vertical-align-center">
+                        <div class="slds-form-element">
+                            <lightning-combobox name="bookingRecordType" label="Booking Record Type" value={bookingRecordTypeId} options={bookingRecordTypeOptions} onchange={handleBookingRecordTypeSelect} >
+                            </lightning-combobox>
+                        </div>
+                    </div>
+                </li-->
+            </template>
+        </ol>
+        <div class="slds-filters__footer slds-clearfix">
+
+            <div class="slds-float_right">
+                <lightning-button variant="brand" label="Apply" title="Apply Filters" onclick={handleApplyFilters} class="slds-m-left_x-small" disabled={filteringDisabled}></lightning-button>
+            </div>
+            <div class="slds-float_left">
+                <lightning-button label="Reset" title="Reset Filters" onclick={handleResetFilters} class="slds-m-left_x-small" disabled={filteringDisabled}></lightning-button>
+            </div>
+
+        </div>
+    </div>
+    <template if:true={isLoading}>
+        <div class="slds-text-align_center slds-grow">
+            <lightning-spinner variant="brand" size="medium" alternative-text="Loading...">
+            </lightning-spinner>
+        </div>
+    </template>
+</template>

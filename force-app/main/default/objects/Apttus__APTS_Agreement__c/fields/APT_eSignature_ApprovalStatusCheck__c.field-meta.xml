@@ -3,26 +3,35 @@
     <fullName>APT_eSignature_ApprovalStatusCheck__c</fullName>
     <externalId>false</externalId>
     <formula>IF( 
-AND( 
-AND( 
-OR( ISPICKVAL( Apttus_Approval__Approval_Status__c , &apos;None&apos;) , 
-ISPICKVAL( Apttus_Approval__Approval_Status__c , &apos;Approved&apos;) 
-), 
-OR( ISPICKVAL( Apttus_Approval__Term_Exception_Approval_Status__c , &apos;None&apos;) , 
-ISPICKVAL( Apttus_Approval__Term_Exception_Approval_Status__c , &apos;Approved&apos;) 
-) 
-) 
-, 
-OR( 
-ISPICKVAL(Apttus__Status_Category__c,&quot;In Authoring&quot;), 
-(AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), 
-ISPICKVAL(Apttus__Status__c,&quot;Ready for Signatures&quot;))), 
-(AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), 
-ISPICKVAL(Apttus__Status__c,&quot;Signature Declined&quot;))) 
-) 
-), 
-HYPERLINK(&quot;/apex/APT_HelptotheSeller?id=&quot;&amp;Id &amp;&quot;&amp;text&quot; &amp; &quot;&amp;name=&quot;&amp;Name, IMAGE(&quot;/resource/Apttus_DocuApi__eSignature&quot;,&quot;Send For eSignatures&quot;), &quot;_self&quot;), 
-NULL 
+	AND( 
+		AND( 
+			OR( 
+				ISPICKVAL( Apttus_Approval__Approval_Status__c , &apos;None&apos;) , 
+				ISPICKVAL( Apttus_Approval__Approval_Status__c , &apos;Approved&apos;) 
+			), 
+			OR( 
+			ISPICKVAL( Apttus_Approval__Term_Exception_Approval_Status__c , &apos;None&apos;) , 
+			ISPICKVAL( Apttus_Approval__Term_Exception_Approval_Status__c , &apos;Approved&apos;) 
+			) 
+		), 
+		OR( 
+			ISPICKVAL(Apttus__Status_Category__c,&quot;In Authoring&quot;), 
+			(
+				AND(
+					ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), 
+					ISPICKVAL(Apttus__Status__c,&quot;Ready for Signatures&quot;)
+				)
+			), 
+			(
+				AND(
+				ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), 
+				ISPICKVAL(Apttus__Status__c,&quot;Signature Declined&quot;)
+				)
+			) 
+		) 
+	), 
+	HYPERLINK(&quot;/apex/APT_HelptotheSeller?id=&quot;&amp;Id &amp;&quot;&amp;text&quot; &amp; &quot;&amp;name=&quot;&amp;Name, IMAGE(&quot;/resource/Apttus_DocuApi__eSignature&quot;,&quot;Send For eSignatures&quot;), &quot;_self&quot;), 
+	NULL 
 )</formula>
     <inlineHelpText>If Approvals are required - all of them needs to be obtained for the button to be visible on the layout</inlineHelpText>
     <label>eSignature</label>

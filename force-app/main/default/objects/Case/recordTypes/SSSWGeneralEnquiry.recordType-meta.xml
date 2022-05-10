@@ -502,6 +502,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Account Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Address Correction</fullName>
             <default>false</default>
         </values>
@@ -650,6 +654,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Error Codes</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Express Guarantee Failure</fullName>
             <default>false</default>
         </values>
@@ -730,7 +738,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>More Information</fullName>
+            <fullName>More Pricing Information</fullName>
             <default>false</default>
         </values>
         <values>
@@ -743,6 +751,10 @@
         </values>
         <values>
             <fullName>New pick up request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>
@@ -759,6 +771,10 @@
         </values>
         <values>
             <fullName>Pick up issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Platform Partner Integration</fullName>
             <default>false</default>
         </values>
         <values>
@@ -818,6 +834,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Refund Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Reissue MyPost card</fullName>
             <default>false</default>
         </values>
@@ -827,10 +847,6 @@
         </values>
         <values>
             <fullName>Renewal%2FPayment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Request a refund</fullName>
             <default>false</default>
         </values>
         <values>
@@ -874,11 +890,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>System Outage</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Tracking</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Tracking status</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction History Request</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1072,10 +1096,6 @@
     </picklistValues>
     <picklistValues>
         <picklist>MPB_BSP_Enquiry_Type__c</picklist>
-        <values>
-            <fullName>Advice on sending parcels</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>Delivery Enquiry</fullName>
             <default>false</default>
@@ -1755,6 +1775,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>MyPost Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>MyPost Concession Card</fullName>
             <default>false</default>
         </values>
@@ -1872,6 +1896,10 @@
         </values>
         <values>
             <fullName>Priority Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product %26 service information</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2517,6 +2545,10 @@
         </values>
         <values>
             <fullName>Duplicates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exec Letter</fullName>
             <default>false</default>
         </values>
         <values>

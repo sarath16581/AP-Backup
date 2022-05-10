@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Revenue_Last_12_months__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(MONTH(Today()),
+1,Feb_Revenue_Amount__c + Mar_Revenue_Amount__c +Apr_Revenue_Amount__c + May_Revenue_Amount__c+Jun_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+2,Jan_Revenue_Amount__c+  Mar_Revenue_Amount__c +Apr_Revenue_Amount__c + May_Revenue_Amount__c+Jun_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+3,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Apr_Revenue_Amount__c + May_Revenue_Amount__c+Jun_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+4,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Mar_Revenue_Amount__c  + May_Revenue_Amount__c+Jun_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+5,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Mar_Revenue_Amount__c +Apr_Revenue_Amount__c +Jun_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+6,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Mar_Revenue_Amount__c +Apr_Revenue_Amount__c + May_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+7,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Mar_Revenue_Amount__c +Apr_Revenue_Amount__c + May_Revenue_Amount__c+Jun_Revenue_Amount__c  +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+8,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Mar_Revenue_Amount__c +Apr_Revenue_Amount__c + May_Revenue_Amount__c+Jun_Revenue_Amount__c + Jul_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+9,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Mar_Revenue_Amount__c +Apr_Revenue_Amount__c + May_Revenue_Amount__c+Jun_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c  +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+10,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Mar_Revenue_Amount__c +Apr_Revenue_Amount__c + May_Revenue_Amount__c+Jun_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c  + Nov_Revenue_Amount__c+Dec_Revenue_Amount__c,
+11,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Mar_Revenue_Amount__c +Apr_Revenue_Amount__c + May_Revenue_Amount__c+Jun_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c +Dec_Revenue_Amount__c,
+12,Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c + Mar_Revenue_Amount__c +Apr_Revenue_Amount__c + May_Revenue_Amount__c+Jun_Revenue_Amount__c + Jul_Revenue_Amount__c +Aug_Revenue_Amount__c + Sep_Revenue_Amount__c +Oct_Revenue_Amount__c + Nov_Revenue_Amount__c,0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Revenue Last 12 months</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

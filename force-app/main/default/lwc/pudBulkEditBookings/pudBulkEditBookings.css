@@ -1,0 +1,29 @@
+/**
+ * 2022-02-14 - Ranjeewa Silva - Created.
+ */
+
+.bulk-edit-contents-panel {
+	background-color:#fafaf9;
+	position:relative;
+	min-height:100%;
+	display:flex;
+	flex-direction:row-reverse;
+
+	/* css variables for color coding bookings */
+	--background-color_permanent-booking: #fccf3e;
+	--background-color_adhoc-booking: #d8bfd8;
+	--background-color_dependent-booking: #87ceeb;
+	--background-color_mpb-booking: #ffa07a;
+	--background-color_other-booking: #91db8b;
+	--background-color_default: #d3d3d3;
+	--border-color_permanent-booking: #fbf3e0;
+    --border-color_adhoc-booking: #ece1f9;
+    --border-color_dependent-booking: #cfe9fe;
+    --border-color_mpb-booking: #fbf3e0;
+    --border-color_other-booking: #ebf7e6;
+    --border-color_default: #f3f3f3;
+}
+
+.bulk-edit-filters-panel {
+    height:auto;
+}

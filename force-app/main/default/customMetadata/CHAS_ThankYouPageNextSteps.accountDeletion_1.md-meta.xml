@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>accountDeletion_1</label>
+    <protected>false</protected>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">1.0</value>
+    </values>
+    <values>
+        <field>Group__c</field>
+        <value xsi:type="xsd:string">accountDeletion</value>
+    </values>
+    <values>
+        <field>Image__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Label__c</field>
+        <value xsi:type="xsd:string">We&apos;ll contact you if we need to confirm anything before we delete your account</value>
+    </values>
+    <values>
+        <field>Step_ID__c</field>
+        <value xsi:type="xsd:string">contact</value>
+    </values>
+    <values>
+        <field>Sub_Label__c</field>
+        <value xsi:type="xsd:string">Expect to hear from us if you have a PO Box or MyPost Business account that shares the same email address</value>
+    </values>
+    <values>
+        <field>isActive__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+</CustomMetadata>

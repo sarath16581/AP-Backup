@@ -98,7 +98,7 @@
      */
     pageVariation: function(component)
     {
-        let mtdGroup = '';
+        let mtdGroup = 'noEDD';     // DDS-8370: set default thankyou page to be no EDD variation
         let isDeliveredScan = !$A.util.isEmpty(component.get('v.wizardData.latestDeliveredScanWcid'));
         let isSafeDrop = component.get('v.wizardData.hasCustomerSeenSafeDrop') === 'true'? true : false;
         let isPastEddPlusBusinessDays = component.get('v.wizardData.isEnquiryDatePastEDDPlusBusinessdays');
@@ -106,13 +106,19 @@
         let isWithinEdd = component.get('v.wizardData.isEnquiryDateWithinEDD');
         let isNoEddReturned = component.get('v.wizardData.isNoEddReturned');
         let containsPharma = component.get('v.wizardData.selectedRadio4Name');
-        // DDS-5272, 5273: different header for pharma and NO EDD variations
-        let header = isNoEddReturned || containsPharma == 'Yes' ? "We've received your enquiry" : component.get('v.header');
-        
+        let multiSelection = component.get('v.wizardData.isEligibleForMultipleArticleSelection');
+        let lSelectedArticles = [];
+        // when there are no articles
+        if(!$A.util.isEmpty(component.get('v.wizardData.articles'))) {
+            lSelectedArticles = JSON.parse(component.get('v.wizardData.articles')).filter(item => item.isSelected == true);
+        } else {
+            mtdGroup = ''; // this should be set to empty when the tracking ID keyed in is not valid.
+        }
+
         // DDS-6707: set expectedDeliveryText for isWithinEdd and isWithinEddPlusBusinessDays 
         let expectedDeliveryText = isWithinEdd ? $A.get('$Label.c.withinEDDText') : isWithinEddPlusBusinessDays ? $A.get('$Label.c.withinEDDPlusBusinessDaysText') : "" ;
         component.set('v.expectedDeliveryText',expectedDeliveryText);
-        
+        if (!multiSelection || (lSelectedArticles && lSelectedArticles.length == 1)) {
         // no EDD returned -- DDS-5272
         isNoEddReturned && (mtdGroup = 'noEDD');
 
@@ -133,7 +139,44 @@
         
         // article contains essential pharma items
         containsPharma == 'Yes' && (mtdGroup = 'nextStepsContainsPharma');
-        
+        }
+        else {
+            //if all are delivered
+            if (!lSelectedArticles.find(item => item.trackStatusValue != 'Delivered')){
+                //all are safe dropped
+                if (!lSelectedArticles.find(item => item.eddStatus != 'SAFE_DROP')){
+                   mtdGroup = 'nextStepsSafeDropDelivered';
+                }
+                //some are not safe dropped
+                else {
+                    mtdGroup = 'nextStepsDelivered';
+                }
+            }
+            else {
+                mtdGroup = 'noEDD';
+            }
+        }
+        // DDS-8370: set metadata group to no EDD again if its empty, just in case above processing having issue
+/*        if (!mtdGroup) {
+            mtdGroup = 'noEDD';
+        }*/
+
+        // DDS-5272, 5273: different header for pharma and NO EDD variations
+        let header = isNoEddReturned || containsPharma == 'Yes' || mtdGroup == 'noEDD' ? "We've received your enquiry" : component.get('v.header');
+
+        //DDS-10128: delete MyPost account
+        let currentpageTitle = component.get('v.pageTitle');
+        if (currentpageTitle == 'Products & services'){
+            let selectedRadio1Name = component.get("v.wizardData.selectedRadio1Name");
+            let idDocumentsAccountsEnquiryType = component.get('v.wizardData.idDocumentsAccountsEnquiryType');
+            if (selectedRadio1Name == 'ID, documents & accounts' && idDocumentsAccountsEnquiryType == 'Delete MyPost account'){
+                mtdGroup = 'accountDeletion';
+                header = 'Thanks for your enquiry';
+            }else{
+                mtdGroup = '';
+            }
+        }
+
         // set header accordingly 
         component.set('v.header', header);
 

@@ -2,7 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>External_Reference__c</fullName>
     <caseSensitive>false</caseSensitive>
+    <description>This field has been created to cater for an external reference IDs. Originally, this has been setup to hold the EonX ID for the Lead Seeker program, however it can be used for other external IDs should the need arise.</description>
     <externalId>true</externalId>
+    <inlineHelpText>For use by external sources for ID purposes.</inlineHelpText>
     <label>External Reference</label>
     <length>100</length>
     <required>false</required>

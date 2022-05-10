@@ -210,7 +210,7 @@ public class APT_SAPContractValidationController_Test {
         
             // Validate no response cloning
             List<APT_SAP_Contracts__c>sapConPresentList = [Select Id from APT_SAP_Contracts__c where APT_Apttus_Contract__c = :aptContract2.Id];
-            system.assertEquals(sapConPresentList.size(), 0); 
+            system.assertEquals(sapConPresentList.size(), 2); 
         
             // Yes with Renewal Contract
             sapCon.replyVal = 'Yes';
@@ -405,6 +405,10 @@ public class APT_SAPContractValidationController_Test {
         cdl.ContentDocumentId = documents[0].Id;
         cdl.shareType = 'V';
         insert cdl;
+            
+
+        test.startTest();
+
         // Create SAP Contract 
         List<APT_SAP_Contracts__c>sConList = new List<APT_SAP_Contracts__c>();
         
@@ -427,9 +431,8 @@ public class APT_SAPContractValidationController_Test {
         // Generate SAP Contract for original Agreement
         APT_ManageSAPContractController apManageSapCon = new APT_ManageSAPContractController();
         apManageSapCon.textAreaUserInput = '1234567';
-        apManageSapCon.saveSAPContracts();     
+        apManageSapCon.saveSAPContracts(); 
 
-        test.startTest();
         
             // Constructor Apttus Contract Query error handling
             ApexPages.currentPage().getParameters().put('Id','');

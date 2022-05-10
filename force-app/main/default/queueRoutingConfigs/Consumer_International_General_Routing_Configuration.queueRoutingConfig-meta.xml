@@ -5,5 +5,5 @@
     <label>Consumer International General Routing Configuration</label>
     <pushTimeout>60</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
-    <routingPriority>5</routingPriority>
+    <routingPriority>2</routingPriority>
 </QueueRoutingConfig>

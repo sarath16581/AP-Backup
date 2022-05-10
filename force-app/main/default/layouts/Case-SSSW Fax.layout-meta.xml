@@ -40,7 +40,7 @@
         <feedFilters>
             <feedFilterType>AllUpdates</feedFilterType>
         </feedFilters>
-        <fullWidthFeed>false</fullWidthFeed>
+        <fullWidthFeed>true</fullWidthFeed>
         <hideSidebar>true</hideSidebar>
         <highlightExternalFeedItems>false</highlightExternalFeedItems>
         <useInlineFiltersInConsole>false</useInlineFiltersInConsole>

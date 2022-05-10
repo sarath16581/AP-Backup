@@ -12,7 +12,7 @@
     <columns>State__c</columns>
     <columns>Geo__Latitude__s</columns>
     <columns>Geo__Longitude__s</columns>
-    <filterScope>Everything</filterScope>
+    <filterScope>Mine</filterScope>
     <filters>
         <field>State__c</field>
         <operation>equals</operation>

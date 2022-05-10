@@ -33,7 +33,7 @@
     <groups>PERTH CITY VAN SERVICES</groups>
     <groups>MALAGA VAN SERVICES</groups>
     <groups>PORT KENNEDY VAN SERVICES</groups>
-    <groups>CENTRAL COAST VANS</groups>
+    <groups>CENTRAL COAST VAN SERVICES</groups>
     <groups>BROOKVALE VAN OPS</groups>
     <groups>LEIGHTONFIELD VAN OPS</groups>
     <groups>ST LEONARDS VAN OPS</groups>
@@ -43,6 +43,7 @@
     <groups>NAMBOUR PUD TRANSPORT</groups>
     <label>AP Depot Admin</label>
     <loginAccess>false</loginAccess>
+    <permissionSets>MFA Authorization for User Logins</permissionSets>
     <profiles>AusPost Depot Supervisor</profiles>
     <roles>AP Vans Depot Users</roles>
 </DelegateGroup>

@@ -1,0 +1,21 @@
+<p>Dear {!Apttus__APTS_Agreement__c.CreatedBy} </p>
+
+<p>This is a system generated reminder.</p>
+
+<p>Your contract <a href="{!Apttus__APTS_Agreement__c.Link}">{!Apttus__APTS_Agreement__c.Name}</a> for opportunity <b>{!Apttus__APTS_Agreement__c.Apttus__Related_Opportunity__c}</b> has not been accepted.  The offer is valid until {!Apttus__APTS_Agreement__c.Contract_Expiration_Date__c}.</p>
+
+<p>Recommended action</p>
+<ul>
+<li>Follow up with your customer and determine next steps</li>
+
+<li>If your customer wishes to proceed, advise them to sign the contract and return before {!Apttus__APTS_Agreement__c.Contract_Expiration_Date__c}</li>
+
+<li>Alternatively, reissue the proposal and contract</li>
+</ul>
+
+<p>What happens if the offer expires?</p>
+<ul>
+<li>The offer and associated pricing is no longer valid and will not be accepted</li>
+
+<li>You will need to reissue the proposal and contract</li>
+</ul>

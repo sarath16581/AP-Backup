@@ -146,6 +146,10 @@
                 <behavior>Readonly</behavior>
                 <field>hidden_Account_Managers_Email__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ServicePartnerManagedContact__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

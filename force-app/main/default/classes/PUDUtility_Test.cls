@@ -16,6 +16,9 @@
 * 2021-09-28 - Ranjewa Silva - Added tests to verify additional address fields (dpid, frontage geocode, side of street code) are
 *                              populated on Job records.
 * 2021-11-22 - Mathew Jose - Added tests for job cancellation on Booking Exception creation provided jobs are not completed.
+* 2022-02-10 - Seth Heang - Added test method for updating booking location details to also flow to booking and job details where job status is schedule or accepted
+* 2022-02-28 - Seth Heang - Update test methods to test containers and product types for the booking-job sync validation for jobs with status 'New', 'Schedule', 'Accept' and 'Completed'
+* 2022-04-11 - Seth Heang - Added test method to test booking's before insert trigger and validate booking's default depot from route's depot
 */
 @isTest
 public with sharing class PUDUtility_Test {
@@ -180,6 +183,14 @@ public with sharing class PUDUtility_Test {
 
 		//Create a Booking for customer booking location
 		PUD_Booking__c booking = PUDTestUtility.createBooking('AP_Permanent_Pickup', recordIdMap.get('blCust'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
+		// Add container and product type details to test on newly created jobs with 'New' Status
+		booking.Regular_Product__c = true;
+		booking.International_Product__c = false;
+		booking.Express_Product__c = true;
+		booking.Empty_Trailer__c = 5;
+		booking.Empty_ULD__c = 4;
+		booking.Full_Colby__c = 3;
+		booking.Full_Pallets__c = 2;
 		insert booking;
 
 		Test.stopTest();
@@ -201,7 +212,14 @@ public with sharing class PUDUtility_Test {
 				Route_Lookup__c,
 				Site_Instructions__c,
 				State__c,
-				Street__c
+				Street__c,
+				Regular_Product__c,
+				International_Product__c,
+				Express_Product__c,
+				Empty_Trailer__c,
+				Empty_ULD__c,
+				Full_Colby__c,
+				Full_Pallets__c
 				FROM PUD_Booking__c WHERE Id = :booking.Id];
 
 		//Get jobs
@@ -221,7 +239,14 @@ public with sharing class PUDUtility_Test {
 				Route_Lookup__c,
 				Site_Instructions__c,
 				State__c,
-				Street__c
+				Street__c,
+				Regular_Product__c,
+				International_Product__c,
+				Express_Product__c,
+				Empty_Trailer__c,
+				Empty_ULD__c,
+				Full_Colby__c,
+				Full_Pallets__c
 				FROM PUD_Job__c WHERE Booking__c = :booking.Id];
 
 		//Get job field values
@@ -240,7 +265,14 @@ public with sharing class PUDUtility_Test {
 				jobsList[0].Route_Lookup__c +
 				jobsList[0].Site_Instructions__c +
 				jobsList[0].State__c +
-				jobsList[0].Street__c;
+				jobsList[0].Street__c +
+				jobsList[0].Regular_Product__c +
+				jobsList[0].International_Product__c +
+				jobsList[0].Express_Product__c +
+				jobsList[0].Empty_Trailer__c +
+				jobsList[0].Empty_ULD__c +
+				jobsList[0].Full_Colby__c +
+				jobsList[0].Full_Pallets__c;
 
 		//Get booking field values
 		strBookingFieldValues = bookingList[0].City__c +
@@ -258,7 +290,14 @@ public with sharing class PUDUtility_Test {
 				bookingList[0].Route_Lookup__c +
 				bookingList[0].Site_Instructions__c +
 				bookingList[0].State__c +
-				bookingList[0].Street__c;
+				bookingList[0].Street__c +
+				bookingList[0].Regular_Product__c +
+				bookingList[0].International_Product__c +
+				bookingList[0].Express_Product__c +
+				bookingList[0].Empty_Trailer__c +
+				bookingList[0].Empty_ULD__c +
+				bookingList[0].Full_Colby__c +
+				bookingList[0].Full_Pallets__c;
 
 		system.debug('strJobFieldValues ' + strJobFieldValues);
 		system.debug('strBookingFieldValues ' + strBookingFieldValues);
@@ -579,6 +618,14 @@ public with sharing class PUDUtility_Test {
 
 		//Create a Booking for customer booking location
 		PUD_Booking__c booking = PUDTestUtility.createBooking('AP_Permanent_Pickup', recordIdMap.get('blCust'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
+		// Add container and product type details
+		booking.Regular_Product__c = true;
+		booking.International_Product__c = false;
+		booking.Express_Product__c = true;
+		booking.Empty_Trailer__c = 5;
+		booking.Empty_ULD__c = 4;
+		booking.Full_Colby__c = 3;
+		booking.Full_Pallets__c = 2;
 		insert booking;
 
 		// call PUDUtility to create jobs
@@ -594,17 +641,52 @@ public with sharing class PUDUtility_Test {
 
 		//Update booking contact name - which will update job contact name if not completed
 		booking.Contact_Name__c = 'Joe Blogs';
+		booking.Regular_Product__c = false;
+		booking.International_Product__c = true;
+		booking.Express_Product__c = false;
+		booking.Empty_Trailer__c = 23;
+		booking.Empty_ULD__c = 34;
+		booking.Full_Pallets__c = 56;
+		booking.Full_Colby__c = 67;
 		update booking;
+
+		// create a map with sample data of container payload
+		Map<String,PUDUtility.ContainerPayload> samplePayloadMap = new Map<String,PUDUtility.ContainerPayload>{
+			'Empty_Trailer'=>new PUDUtility.ContainerPayload('Trailer', 23, 'Empty'),
+			'Empty_ULD'=>new PUDUtility.ContainerPayload('ULD', 34, 'Empty'),
+			'Full_Pallets'=>new PUDUtility.ContainerPayload('Pallets', 56, 'Full'),
+			'Full_Colby'=>new PUDUtility.ContainerPayload('Colby', 67, 'Full')
+		};
 
 		Test.stopTest();
 
 		//Get job contact name for updated job
-		jobs = [SELECT Id, Date__c, Status__c, Contact_Name__c FROM PUD_Job__c];
+		jobs = [SELECT Id, Date__c, Status__c, Contact_Name__c, Regular_Product__c, Express_Product__c, International_Product__c, Empty_ULD__c, Empty_Trailer__c,
+						Full_Colby__c, Full_Pallets__c, Containers_Payload__c FROM PUD_Job__c];
+
+		// deserialise the JSON structure into a list of container payload object for validation
+		List<PUDUtility.ContainerPayload> containerPayloads = (List<PUDUtility.ContainerPayload>)JSON.deserialize(jobs[0].Containers_Payload__c, List<PUDUtility.ContainerPayload>.class);
+		Map<String,PUDUtility.ContainerPayload> returnJobPayloadMap = new Map<String,PUDUtility.ContainerPayload>();
+		// Prepare a map with key e.g. 'Empty_Aircan'
+		for(PUDUtility.ContainerPayload cp: containerPayloads){
+			returnJobPayloadMap.put(cp.Condition +'_'+cp.Name, cp);
+		}
+		// loop the map and assert that the quantity is not equal
+		for(String key: returnJobPayloadMap.keyset()){
+			System.assertNotEquals(samplePayloadMap.get(key).Quantity, returnJobPayloadMap.get(key).Quantity, 'Expected the container quantity to NOT match with sample data');
+		}
 
 		for (PUD_Job__c job: jobs) {
 			if (job.Status__c == PUDConstants.PUD_JOB_STATUS_COMPLETED) {
 				// job has been pushed to dispatch system.
 				System.assertNotEquals(booking.Contact_Name__c, job.Contact_Name__c, 'Expected completed Job not to be updated from Booking');
+				System.assertNotEquals(booking.Regular_Product__c, job.Regular_Product__c, 'Expected Regular product flag not to be updated from Booking');
+				System.assertNotEquals(booking.Express_Product__c, job.Express_Product__c, 'Expected Express product flag not to be updated from Booking');
+				System.assertNotEquals(booking.International_Product__c, job.International_Product__c, 'Expected International product flag not to be updated from Booking');
+				System.assertNotEquals(booking.Empty_ULD__c, job.Empty_ULD__c, 'Expected Empty ULD quantity not to be updated from Booking');
+				System.assertNotEquals(booking.Empty_Trailer__c, job.Empty_Trailer__c, 'Expected Empty Trailer quantity not to be updated from Booking');
+				System.assertNotEquals(booking.Full_Colby__c, job.Full_Colby__c, 'Expected Full Colby quantity not to be updated from Booking');
+				System.assertNotEquals(booking.Full_Pallets__c, job.Full_Pallets__c, 'Expected Full Pallets quantity not to be updated from Booking');
 			} else if (job.Status__c == PUDConstants.PUD_JOB_STATUS_NEW) {
 				System.assertEquals(booking.Contact_Name__c, job.Contact_Name__c, 'Expected Job to be updated from Booking');
 			}
@@ -669,5 +751,173 @@ public with sharing class PUDUtility_Test {
 		Test.stopTest();
 		//Check if today's job is set to Cancel status
 		System.assertEquals(PUDConstants.PUD_JOB_STATUS_CANCEL, [Select id,Date__c,Status__c from PUD_Job__c Where Date__c = :Date.today()][0].Status__c);
+	}
+    
+	//Validate that when updating details on Booking Location, these are also updated on the dependent Booking and Jobs where status is 'Schedule' or 'Accepted'
+	testmethod static void validateUpdateBookingDetailsFLowToBookingAndJobDetailsWhereStatusIsScheduleORAccepted(){
+
+		Map<String, Id> recordIdMap = new Map<String, Id>();
+		List<PUD_Booking_Location__c> bookingLocationList = new List<PUD_Booking_Location__c>();
+		List<PUD_Booking__c> bookingList = new List<PUD_Booking__c>();
+		//Create Booking location
+		recordIdMap = PUDTestUtility.createPUDBasicRecords();
+
+		// construct a map with sample container payload for testing
+		Map<String,PUDUtility.ContainerPayload> samplePayloadMap = new Map<String,PUDUtility.ContainerPayload>{
+			'Empty_Aircan'=> new PUDUtility.ContainerPayload('Aircan', 1, 'Empty'),
+			'Full_Aircan'=>new PUDUtility.ContainerPayload('Aircan', 11, 'Full'),
+			'Empty_Trailer'=>new PUDUtility.ContainerPayload('Trailer', 2, 'Empty'),
+			'Full_CardULD'=>new PUDUtility.ContainerPayload('CardULD', 3, 'Full'),
+			'Full_Pallets'=>new PUDUtility.ContainerPayload('Pallets', 4, 'Full')
+		};
+
+		//Create Pickup Booking for customer booking location
+		PUD_Booking__c booking1 = PUDTestUtility.createBooking('AP_Permanent_Pickup', recordIdMap.get('blCust'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
+		PUD_Booking__c booking2 = PUDTestUtility.createBooking('AP_Permanent_Pickup', recordIdMap.get('blCust'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
+		PUD_Booking__c booking3 = PUDTestUtility.createBooking('AP_Permanent_Pickup', recordIdMap.get('blCust'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
+		insert new PUD_Booking__c[]{booking1, booking2, booking3};
+			
+		// Call PUDUtility to create jobs
+		PUDUtility.getInstance().createJobs(new Set<Id>{booking1.Id, booking2.Id, booking3.Id}, true);
+
+		List<PUD_Job__c> jobs = [Select Id, Date__c, Status__c from PUD_Job__c WHERE Booking__c IN (:booking1.Id,:booking2.Id,:booking3.Id) AND Date__c=TODAY];
+		// update status of one of today's jobs to 'Schedule' and another to 'Accepted'
+		jobs[0].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
+		jobs[1].Status__c = PUDConstants.PUD_JOB_STATUS_ACCEPTED;
+		jobs[2].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
+		update jobs;
+
+		Test.startTest();
+			
+		//Update the Revenue_Check__c flag on the booking location
+		bookingLocationList = [SELECT Id, Revenue_Check__c FROM PUD_Booking_Location__c WHERE Id = :recordIdMap.get('blCust')];
+		for(PUD_Booking_Location__c bookingLocation : bookingLocationList) {
+			bookingLocation.Revenue_Check__c = true;
+		}
+		update bookingLocationList;
+
+		//Update the containers and product types on the booking
+		bookingList = [SELECT Id, Regular_Product__c, Express_Product__c, International_Product__c, Empty_Aircan__c, Empty_Trailer__c, Full_CardULD__c, Full_Pallets__c
+						FROM PUD_Booking__c WHERE Id IN (:booking1.Id, :booking2.Id, :booking3.Id) ];
+		for(PUD_Booking__c booking : bookingList) {
+			booking.Regular_Product__c = true;
+			booking.Express_Product__c = true;
+			booking.International_Product__c = true;
+			// update the container type details on the booking1 and booking2 only, while booking3 is used to test blank container type scenario
+			if(booking.Id != booking3.Id){                
+				booking.Empty_Aircan__c = 1;            
+				booking.Full_Aircan__c = 11;
+				booking.Empty_Trailer__c = 2;
+				booking.Full_CardULD__c = 3;
+				booking.Full_Pallets__c = 4;
+			}
+		}
+		update bookingList;
+
+		Map<Id, PUD_Booking_Location__c> bookingLocationMap = new Map<Id, PUD_Booking_Location__c>(bookingLocationList);
+		Map<Id, PUD_Booking__c> bookingMap = new Map<Id, PUD_Booking__c>(bookingList);
+
+		Test.stopTest();
+
+
+		//Confirm the Revenue Check flag on the booking has been updated
+		for (PUD_Booking__c updatedBooking: [SELECT Revenue_Check__c FROM PUD_Booking__c WHERE Id IN (:booking1.Id, :booking2.Id)]) {
+			System.assertEquals(updatedBooking.Revenue_Check__c, bookingLocationMap.get(bookingLocationList[0].Id).Revenue_Check__c, 'Expected the revenue check flag on booking to be updated to match booking location revenue check flag');
+		}
+
+		Map<Id, PUD_Job__c> updatedJobsMap = new Map<Id, PUD_Job__c>(
+			[SELECT Revenue_Check__c,Regular_Product__c, Express_Product__c, International_Product__c, Empty_Aircan__c, Empty_Trailer__c, Full_CardULD__c, Full_Pallets__c, Containers_Payload__c
+				FROM PUD_Job__c WHERE Booking__c IN(:booking1.Id,:booking2.Id,:booking3.Id) AND Date__c=TODAY]);
+		//Confirm the Revenue Check flag on the Job has been updated
+		System.assertEquals(updatedJobsMap.get(jobs[0].Id).Revenue_Check__c, bookingLocationMap.get(bookingLocationList[0].Id).Revenue_Check__c, 'Expected the Revenue Check to be set to TRUE where Job Status is Schedule');
+		System.assertEquals(updatedJobsMap.get(jobs[1].Id).Revenue_Check__c, bookingLocationMap.get(bookingLocationList[0].Id).Revenue_Check__c, 'Expected the Revenue Check to be set to TRUE where Job Status is Accepted');
+
+		//Confirm the containers and product types on the Job has been updated for Job with 'Schedule' Status
+		System.assertEquals(updatedJobsMap.get(jobs[0].Id).Regular_Product__c, bookingMap.get(booking1.Id).Regular_Product__c, 'Expected the Regular Product flag on Job to match the Regular Product flag on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[0].Id).Express_Product__c, bookingMap.get(booking1.Id).Express_Product__c, 'Expected the Express Product flag on Job to match the Express Product flag on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[0].Id).International_Product__c, bookingMap.get(booking1.Id).International_Product__c, 'Expected the International Product flag on Job to match the International Product flag on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[0].Id).Empty_Aircan__c, bookingMap.get(booking1.Id).Empty_Aircan__c, 'Expected the Empty Aircan quantity on Job to match the Empty Aircan quantity on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[0].Id).Empty_Trailer__c, bookingMap.get(booking1.Id).Empty_Trailer__c, 'Expected the Empty Trailer quantity on Job to match the Empty Trailer quantity on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[0].Id).Full_CardULD__c, bookingMap.get(booking1.Id).Full_CardULD__c, 'Expected the Full CardULD quantity on Job to match the Full CardULD quantity on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[0].Id).Full_Pallets__c, bookingMap.get(booking1.Id).Full_Pallets__c, 'Expected the Full Pallets quantity on Job to match the Full Pallets quantity on booking');
+		//Confirm the containers and product types on the Job has been updated for Job with 'Accepted' Status
+		System.assertEquals(updatedJobsMap.get(jobs[1].Id).Regular_Product__c, bookingMap.get(booking1.Id).Regular_Product__c, 'Expected the Regular Product flag on Job to match the Regular Product flag on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[1].Id).Express_Product__c, bookingMap.get(booking1.Id).Express_Product__c, 'Expected the Express Product flag on Job to match the Express Product flag on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[1].Id).International_Product__c, bookingMap.get(booking1.Id).International_Product__c, 'Expected the International Product flag on Job to match the International Product flag on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[1].Id).Empty_Aircan__c, bookingMap.get(booking1.Id).Empty_Aircan__c, 'Expected the Empty Aircan quantity on Job to match the Empty Aircan quantity on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[1].Id).Empty_Trailer__c, bookingMap.get(booking1.Id).Empty_Trailer__c, 'Expected the Empty Trailer quantity on Job to match the Empty Trailer quantity on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[1].Id).Full_CardULD__c, bookingMap.get(booking1.Id).Full_CardULD__c, 'Expected the Full CardULD quantity on Job to match the Full CardULD quantity on booking');
+		System.assertEquals(updatedJobsMap.get(jobs[1].Id).Full_Pallets__c, bookingMap.get(booking1.Id).Full_Pallets__c, 'Expected the Full Pallets quantity on Job to match the Full Pallets quantity on booking');
+		
+		// Deserialise the JSON structure of containers payload for assertion validation
+		List<PUDUtility.ContainerPayload> containerPayloads = (List<PUDUtility.ContainerPayload>)JSON.deserialize(updatedJobsMap.get(jobs[0].Id).Containers_Payload__c, List<PUDUtility.ContainerPayload>.class);
+		Map<String,PUDUtility.ContainerPayload> returnJobPayloadMap = new Map<String,PUDUtility.ContainerPayload>();
+		// Prepare a map with key e.g 'Empty_Aircan' 
+		for(PUDUtility.ContainerPayload cp: containerPayloads){
+			returnJobPayloadMap.put(cp.Condition +'_'+cp.Name, cp);
+		}
+		// loop the map and validate the two maps of container type being equal
+		for(String key: returnJobPayloadMap.keyset()){
+			System.assertEquals(samplePayloadMap.get(key).Name, returnJobPayloadMap.get(key).Name, 'Expected the container name to be match with sample data');
+			System.assertEquals(samplePayloadMap.get(key).Quantity, returnJobPayloadMap.get(key).Quantity, 'Expected the container quantity to be match with sample data');
+			System.assertEquals(samplePayloadMap.get(key).Condition, returnJobPayloadMap.get(key).Condition, 'Expected the container name to be match with sample data');
+		}
+		// Test the Blank Containers Payload scenario where the container informaiton is not populated at the booking record
+		System.assertEquals(updatedJobsMap.get(jobs[2].Id).Containers_Payload__c, null, 'Expected the Containers Payload JSON Structure on Job to be null as no container type details were populated on booking');
+	}
+
+	//Validate that when creating an a new booking then depot is automatically populated from related Route's depot if Route exists and depot is not filled
+	testmethod static void validateDepotPopulationOnNewBookingCreation(){
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Network__c> newDepotList = ApplicationTestDataFactory.getNetworks(2, false);
+		newDepotList[0].recordtypeId = newDepotList[1].recordTypeId = PUDTestDataFactory.businessHubNetworkRecordType; 
+		newDepotList[0].ORG_UNIT_ADDR_1__c  = newDepotList[1].ORG_UNIT_ADDR_1__c  = '111 Bourke Street';
+		newDepotList[0].ORG_UNIT_ADDR_2__c  = newDepotList[1].ORG_UNIT_ADDR_2__c  = 'Unit 11';
+		insert newDepotList;
+
+		List<PUD_Route__c> newRouteList = PUDTestDataFactory.getPUDRoutes(2, null, false);
+		newRouteList[0].Depot__c = newDepotList[0].id;
+		newRouteList[1].Depot__c = newDepotList[1].id;
+		insert newRouteList;
+
+		List<PUD_Booking_Location__c> bookingLocationList = PUDTestDataFactory.getPUDNetworkBookingLocations(2, newDepotList[1].Id, false);
+		bookingLocationList[0].Route__c = newRouteList[1].Id;
+		insert bookingLocationList;
+
+		//Create a Booking with a location with related Route, a route and BLANK depot
+		PUD_Booking__c booking1 = PUDTestDataFactory.getPUDAdhocPickupDeliveryBookings(1, bookingLocationList[0].Id, null, Date.today().addDays(-7), Date.today().addDays(7), null, false)[0];
+		booking1.Route_Lookup__c = newRouteList[0].Id;
+
+		//Create a Booking with a location with related Route, BLANK route and BLANK depot
+		PUD_Booking__c booking2 = PUDTestDataFactory.getPUDAdhocPickupDeliveryBookings(1, bookingLocationList[0].Id, null, Date.today().addDays(-7), Date.today().addDays(7), null, false)[0];
+
+		//Create a Booking with a location with related BLANK route, BLANK route and BLANK depot
+		PUD_Booking__c booking3 = PUDTestDataFactory.getPUDAdhocPickupDeliveryBookings(1, bookingLocationList[1].Id, null, Date.today().addDays(-7), Date.today().addDays(7), null, false)[0];
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		List<Database.SaveResult> results = Database.insert(new List<PUD_Booking__c>{booking1, booking2, booking3}, false);
+		Test.stopTest();
+		// Loop through database result and assert for successful and failed booking creation
+		for(Database.SaveResult sr : results){
+			if(sr.isSuccess()){
+				// booking1 and booking2 should be successful
+				Set<Id> successfulBooking = new Set<Id>{booking1.Id, booking2.Id};
+				System.assertEquals(true, successfulBooking.contains(sr.Id), 'Encounter error while inserting a valid booking');
+			}
+			else{
+				// booking3 should be failing
+				System.assertEquals(booking3.Id, sr.getId(), 'Expected mandatory Depot validation error is not thrown');
+			}
+		}
+		//Confirm bookings' depot are populated from route's depot
+		Map<Id, PUD_Booking__c> bookingMap = new Map<Id, PUD_Booking__c>([SELECT Id, Depot__c FROM PUD_Booking__c WHERE Id IN(:booking1.Id,:booking2.Id)]);
+		System.assertEquals(newDepotList[0].Id, bookingMap.get(booking1.Id).Depot__c, 'Expected Depot name was incorrect!');
+		System.assertEquals(newDepotList[1].Id, bookingMap.get(booking2.Id).Depot__c, 'Expected Depot name was incorrect!');
 	}
 }

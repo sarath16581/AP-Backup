@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>accountDeletion_2</label>
+    <protected>false</protected>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">2.0</value>
+    </values>
+    <values>
+        <field>Group__c</field>
+        <value xsi:type="xsd:string">accountDeletion</value>
+    </values>
+    <values>
+        <field>Image__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Label__c</field>
+        <value xsi:type="xsd:string">You&apos;ll have access to your account until it&apos;s been deleted</value>
+    </values>
+    <values>
+        <field>Step_ID__c</field>
+        <value xsi:type="xsd:string">access</value>
+    </values>
+    <values>
+        <field>Sub_Label__c</field>
+        <value xsi:type="xsd:string">Make sure you write down tracking numbers for parcels you haven&apos;t received yet or want to keep a record of. You can still track them without an account</value>
+    </values>
+    <values>
+        <field>isActive__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+</CustomMetadata>

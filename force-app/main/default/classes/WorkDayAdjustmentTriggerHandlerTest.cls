@@ -3,6 +3,7 @@ Purpose:    Test class for workday adjustment trigger and handler
 History:
 --------------------------------------------------
 8.9.2017    Adrian Recio Created
+31.01.2022  Naveen Rajanna REQ2723602 - Minor Fix to failing test class
 **************************************************/
 
 @IsTest

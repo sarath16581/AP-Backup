@@ -14,12 +14,11 @@ History:
                                                         attempting SOQL queries and milestone updates.
 12.08.2020    Suman Gunaganti                           Updated updateAssociatedCaseMilestones to only process completed tasks.
 18.12.2020    Suman Gunaganti                           Added method to capture datetime of first activity of sales person on lead
+20.04.2022    SaiSwetha Pingali                         Removed snapIt logic as it is no longer required.
+
 **************************************************/
 
 public with sharing class ActivityUtil {
-
-    //30-May-16 Eric Add final variable for Snap It
-    public static final String SNAPIT = 'Snap It';
 
     // Adrian Recio
     // Task and Event recortype getbylabel describe
@@ -203,24 +202,6 @@ public with sharing class ActivityUtil {
                  
                 system.debug('George says: found contact with name = ' + ct.Name + ' and mobile = ' + ct.MobilePhone);
                 contactIdAndMobiles.put(ct.Id, ct.MobilePhone);  
-            }
-        }
-        //25-May-16 Eric Shen get employee mobile phone numbers from leads and cases for SNAP IT initiative
-        if(!leadIdAndEmpMobiles.isEmpty()) {       
-            for(Lead ld:[select Name, Lead_Creator_Phone__c  from Lead where Lead_Seeker__c=true and LeadSource = :SNAPIT 
-                                  and id in:leadIdAndEmpMobiles.keySet()]){
-         
-                system.debug('George says: found lead with name = ' + ld.Name + ' and mobile = ' + ld.Lead_Creator_Phone__c);
-                leadIdAndEmpMobiles.put(ld.Id, ld.Lead_Creator_Phone__c);    
-            }
-        }
-
-        //25-May-16 Eric Shen get employee mobile phone numbers from leads and cases for SNAP IT initiative
-        if(!caseIdAndEmpMobiles.isEmpty()) {    
-            for(Case cse:[select CaseNumber, Employee_Mobile__c from Case where origin =:SNAPIT and id in:caseIdAndEmpMobiles.keySet()]){
-                
-                system.debug('George says: found case with case number = ' + cse.CaseNumber + ' and mobile = ' + cse.Employee_Mobile__c);
-                 caseIdAndEmpMobiles.put(cse.Id, cse.Employee_Mobile__c);   
             }
         }
 

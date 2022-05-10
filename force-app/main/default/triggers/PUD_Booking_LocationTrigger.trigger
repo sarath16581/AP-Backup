@@ -9,6 +9,7 @@
 * 2019-10-15 - ajudd@salesforce.com  - Created and Added set of Legacy Id
 * 2019-11-26 - ajudd@salesforce.com  - Added set of Route_Prior__c
 * 2020-06-17 - Dheeraj Mandavilli    - Added set of Account_Manager_Email__c
+* 2022-03-10 - SaiSwetha Pingali     - INC1932337 - Reset route_prior__C field on PUD_Booking_Location__c.
 */
 trigger PUD_Booking_LocationTrigger on PUD_Booking_Location__c (before insert, before update, after update) {
     
@@ -45,6 +46,9 @@ trigger PUD_Booking_LocationTrigger on PUD_Booking_Location__c (before insert, b
                 if(Trigger.isUpdate && (Trigger.oldMap.get( bookingLocation.Id ).Route__c != Trigger.newMap.get( bookingLocation.Id ).Route__c)){
                     System.debug('set old route to = ' + Trigger.oldMap.get( bookingLocation.Id ).Route__c);
                     bookingLocation.Route_Prior__c = Trigger.oldMap.get( bookingLocation.Id ).Route__c;
+                } else {
+                    //spingali - INC1932337 - Reset the field to null when the route on location is not updated.This is to avoid updating the route value on the bookings that matches to route_prior__c value.
+                    bookingLocation.Route_Prior__c = null;
                 }
             }   
         }

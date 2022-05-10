@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Price_Catalyst__c</fullName>
+    <description>The price catalyst from Compass</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Contract renewal Ad-hoc review New to AP customer New acquisition or Campaign Business at risk of churning Price for significant customer growth Most relevant in-market offer</inlineHelpText>
+    <label>Catalyst</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Contract renewal</fullName>
+                <default>false</default>
+                <label>Contract renewal</label>
+            </value>
+            <value>
+                <fullName>New customer</fullName>
+                <default>false</default>
+                <label>New customer</label>
+            </value>
+            <value>
+                <fullName>Acquisition/Campaign</fullName>
+                <default>false</default>
+                <label>Acquisition/Campaign</label>
+            </value>
+            <value>
+                <fullName>Competitor risk</fullName>
+                <default>false</default>
+                <label>Competitor risk</label>
+            </value>
+            <value>
+                <fullName>Growth</fullName>
+                <default>false</default>
+                <label>Growth</label>
+            </value>
+            <value>
+                <fullName>Price structure</fullName>
+                <default>false</default>
+                <label>Price structure</label>
+            </value>
+            <value>
+                <fullName>Mid-Contract review</fullName>
+                <default>false</default>
+                <label>Mid-Contract review</label>
+            </value>
+            <value>
+                <fullName>Commercial review</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial review</label>
+            </value>
+            <value>
+                <fullName>Migration</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Migration</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

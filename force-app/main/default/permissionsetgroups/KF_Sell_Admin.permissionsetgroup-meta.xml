@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>includes all KF Sell permission sets</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>KF Sell Admin</label>
+    <permissionSets>kfsell__Blue_Sheet_Edit_All</permissionSets>
+    <permissionSets>kfsell__Blue_Sheet_View_All</permissionSets>
+    <permissionSets>kfsell__Gold_Sheet_Edit_All</permissionSets>
+    <permissionSets>kfsell__Gold_Sheet_View_All</permissionSets>
+    <permissionSets>kfsell__Green_Sheet_Edit_All</permissionSets>
+    <permissionSets>kfsell__Green_Sheet_View_All</permissionSets>
+    <permissionSets>kfsell__KF_Admin</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

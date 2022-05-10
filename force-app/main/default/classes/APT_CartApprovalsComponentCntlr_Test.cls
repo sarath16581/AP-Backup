@@ -1,8 +1,9 @@
 /**
 Created By - Yukti Jain
 Created Date - 22nd Feb, 2016
-Last Modified By -
-Last Modified Date -
+Last Modified By -madhuri.awasthi@auspost.com.au REQ2723568: Text Class changes
+Last Modified Date -11th Feb 2022 
+2022-02-11  REQ2723568: API version 52 upgrade
 **/
 @isTest
 private class APT_CartApprovalsComponentCntlr_Test {
@@ -60,8 +61,7 @@ private class APT_CartApprovalsComponentCntlr_Test {
         Apttus_Approval__Approval_Request__c appReq = new Apttus_Approval__Approval_Request__c();
         appReq.Apttus_CQApprov__CartId__c = config.Id;
         appReq.Apttus_Approval__Approver_Comments__c = 'Reassigned with comments - Test \n Test';
-        Insert appReq;
-
+        
         objCls.approvalRequestSO = appReq;
         objCls.lineItemSOId = bundleLine.id;
         objCls.getLineItemSO();

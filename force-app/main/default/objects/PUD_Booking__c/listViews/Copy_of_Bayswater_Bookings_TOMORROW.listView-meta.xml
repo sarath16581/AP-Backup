@@ -23,14 +23,14 @@
         <value>PUD_Booking__c.AP_Permanent_Pickup</value>
     </filters>
     <filters>
-        <field>Status__c</field>
-        <operation>equals</operation>
-        <value>ACTIVE,PLANNED</value>
-    </filters>
-    <filters>
         <field>State__c</field>
         <operation>equals</operation>
         <value>VIC</value>
+    </filters>
+    <filters>
+        <field>Booking_Type__c</field>
+        <operation>equals</operation>
+        <value>Pickup</value>
     </filters>
     <label>Bayswater Bookings - Perm</label>
     <sharedTo>

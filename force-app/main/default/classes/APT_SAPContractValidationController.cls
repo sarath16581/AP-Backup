@@ -26,6 +26,7 @@ o   System to clone all SAP Contract records from previous amended or renewed Ap
 o   System to rename all previous SAP Contract records with postfix of .old (doing this will ensure that there is only 1 unique SAP Contract number in Salesforce)
 
 o   24/12/2021 - REQ2703652 : Adding New Contract Type : DoV From ST Revision
+    08/02/2022 - REQ2725624 - Added condition in cloneSapCon method to ignore Contracts with type 'DOV from ST Revision' as they do not have original agreement.  
 
 */
 
@@ -160,6 +161,12 @@ public class APT_SAPContractValidationController {
         cleanSAP(aptContract);
         
         Apttus__APTS_Agreement__c origAgreeVar;
+
+        //spingali REQ2725624 - Contracts with type 'DOV from ST Revision' do not have original agreement  
+
+        if(renewConVar.APT_Contract_Type__c <> 'DoV From ST Revision')
+
+        {
         
         // Catch error if more than 1 match exist
         try{
@@ -187,6 +194,7 @@ public class APT_SAPContractValidationController {
                 failClone = true;
             }
         }
+    }
         
         return failClone;
     }

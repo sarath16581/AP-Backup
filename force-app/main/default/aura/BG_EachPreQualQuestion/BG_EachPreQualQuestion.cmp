@@ -43,6 +43,7 @@
                             options='{!v.options}'
                             required='{!v.catQuestion.isRequired}'
                             placeholder='--- Select an Option ---'
+                            helptext='{!v.catQuestion.helpText}'  
                             />
         
         
@@ -55,7 +56,7 @@
                             options='{!v.options}'
                             label="{!v.index + '. '+v.catQuestion.questionName}"
                             uniqueKey="{!v.catQuestion.uniqueKey}"
-                            helptext=''  
+                            helptext='{!v.catQuestion.helpText}'  
                             value='{!v.multiSelectAnswerList}'
                             onchange='{!c.onchangeMultiselect}'
                             required='{!v.catQuestion.isRequired}'
@@ -69,7 +70,7 @@
                             options='{!v.options}'
                             label="{!v.index + '. '+v.catQuestion.questionName}"
                             uniqueKey="{!v.catQuestion.uniqueKey}"
-                            helptext=''
+                            helptext='{!v.catQuestion.helpText}'
                             value="{!v.catQuestion.selectedAnswer}"
                             required='{!v.catQuestion.isRequired}'
                             />
@@ -84,6 +85,7 @@
                             type="{!v.catQuestion.dataType}"
                             messageWhenValueMissing=" "
                             required='{!v.catQuestion.isRequired}'
+                            helptext="{!v.catQuestion.helpText}"
                             />
     </aura:if>
  <aura:if isTrue="{!v.catQuestion.dataType == 'Multiline Text'}">
@@ -96,6 +98,7 @@
                             type="{!v.catQuestion.dataType}"
                             messageWhenValueMissing=" "
                             required='{!v.catQuestion.isRequired}'
+                            helptext="{!v.catQuestion.helpText}"
                             />
     </aura:if>
     <aura:if isTrue="{!v.catQuestion.dataType == 'Percent'}">
@@ -108,6 +111,7 @@
                             type="{!v.catQuestion.dataType}"
                             messageWhenValueMissing=" "
                             required='{!v.catQuestion.isRequired}'
+                            helptext="{!v.catQuestion.helpText}"
                             />
     </aura:if>
    <aura:if isTrue="{!v.catQuestion.dataType == 'Postcode Lookup'}">

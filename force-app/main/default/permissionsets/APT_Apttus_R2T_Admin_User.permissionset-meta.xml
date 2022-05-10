@@ -753,6 +753,41 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>APT_APPC_Definition__c.APTS_Ext_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_APPC_Definition__c.APT_Dest_Zone1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_APPC_Definition__c.APT_Dest_Zone2_In_RateCard__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_APPC_Definition__c.APT_Dest_Zone2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_APPC_Definition__c.APT_Lodgement__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_APPC_Definition__c.APT_Price_Model__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_APPC_Definition__c.APT_Sort_Sequence__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>APT_ASIC_Report__c.APT_ABN__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3563,6 +3598,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>APT_Operational_Schedule__c.APT_APPC_Minimum_spend__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>APT_Operational_Schedule__c.APT_Australia_Lifestyle_Survey_Services__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4618,6 +4658,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>APT_Simplified_Parcel_Spend_Range__c.APT_Product_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>APT_Site_Inspection__c.APT_Agreed_Time_by_Transport__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5072,11 +5117,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.APT_Ready_For_APPC_Migration__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Approval__ApprovalRuleAssignee__c.APTS_Ext_ID__c</field>
         <readable>true</readable>
@@ -5318,6 +5358,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Transit_Cover_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Volume_Threshold_Post_BillPay__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5458,6 +5503,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Cubic_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.APT_Cubic_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Customer_Tier__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5474,6 +5529,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__AssetAttributeValue__c.APT_Subsequent_Parcel_Discount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetAttributeValue__c.Applied_PSR__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5934,6 +5994,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Config2__LineItem__c.APT_Size_Print_Post__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__LineItem__c.APT_Sort_Sequence__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6818,6 +6883,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Cubic_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Customer_Tier__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6834,6 +6904,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Subsequent_Parcel_Discount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__OrderProductAttributeValue__c.APT_Transit_Cover_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7149,6 +7224,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_Cubic_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Cubic_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7663,6 +7743,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.APT_Transit_Cover_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APT_UnaddressedMail_Distirbution_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7808,6 +7893,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.Applied_PSR__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.Apttus_Config2__BillingOffsetDays__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7844,6 +7934,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.Revenue_Committment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.SAP_Rating_Group__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.SAP_Rating_Model__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7919,11 +8019,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Config2__ProductConfiguration__c.APT_Proposal_Record_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus_Config2__ProductConfiguration__c.APT_Ready_For_APPC_Migration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8969,6 +9064,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Service_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal_Line_Item__c.APT_Sort_Sequence__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10302,7 +10402,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Expiration_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11023,6 +11123,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Transit_Cover_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Up_to_500g_Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11109,6 +11214,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_eParcel_Lodgment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.Applied_PSR__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -12768,6 +12878,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus__APTS_Agreement__c.Contract_Expiration_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus__APTS_Agreement__c.Contract_Fully_Signed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -13174,6 +13289,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Service_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus__AgreementLineItem__c.APT_Sort_Sequence__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14428,7 +14548,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product2.Lodgement_zone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.Non_contracted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.SAP_Rating_Group__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.SAP_Rating_Model__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14471,6 +14606,15 @@
         <modifyAllRecords>false</modifyAllRecords>
         <object>APT_ABRreport__c</object>
         <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>APT_APPC_Definition__c</object>
+        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -14732,6 +14876,15 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>APT_SAP_Group_Template__c</object>
         <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>APT_Simplified_Parcel_Spend_Range__c</object>
+        <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -15035,6 +15188,14 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_SubAccountAssessment</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APT_ValidateContract</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APT_ValidateContracteSignature</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

@@ -125,6 +125,7 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>B&amp;G Sales</label>
     <navType>Standard</navType>
     <profileActionOverrides>
@@ -2025,6 +2026,38 @@
         <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
         <type>Flexipage</type>
         <profile>Coverage Sales Read Only</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>At_Risk_Business_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>At_Risk_Business__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Sales Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>At_Risk_Business_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>At_Risk_Business__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Sales Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>At_Risk_Business_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>At_Risk_Business__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>At_Risk_Business_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>At_Risk_Business__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
     </profileActionOverrides>
     <setupExperience>all</setupExperience>
     <tabs>standard-home</tabs>

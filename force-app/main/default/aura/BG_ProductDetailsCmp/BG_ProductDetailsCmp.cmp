@@ -29,6 +29,9 @@
 
     <!--Event cmp -->
     <aura:registerEvent name="genCmpEvent" type="c:BG_GenericComponentEvent"/>
+    <c:BG_ValidationCmp aura:id="validateCmp" selectedProductsQuestions="{!v.selectedProductsQuestions}" />
+
+
     
     <!-- Progress BAR -->
     <div>

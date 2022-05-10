@@ -5,6 +5,65 @@
     <description>Licence agreement with a CPA Partner</description>
     <label>Licence CPA</label>
     <picklistValues>
+        <picklist>APT_Eligible_APPC_Tier__c</picklist>
+        <values>
+            <fullName>TIER 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>AccountSource</picklist>
         <values>
             <fullName>Procurement</fullName>
@@ -795,6 +854,17 @@
         </values>
         <values>
             <fullName>TLCC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Healthy__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>

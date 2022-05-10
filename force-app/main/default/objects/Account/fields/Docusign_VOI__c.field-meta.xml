@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Docusign_VOI__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+    &quot;/apex/dfsle__sending?sId=&quot;&amp; Id &amp;&quot;&amp;quickSend=false&amp;isEmbedded=false&amp;templateId=aJY0w0000004GiOGAU&amp;recordId=&quot;&amp; Id &amp;&quot;&amp;title=Docusign Test&quot;,
+    IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),
+    &quot;_blank&quot;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Docusign VOI</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

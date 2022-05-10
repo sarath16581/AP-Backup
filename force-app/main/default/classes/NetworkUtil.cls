@@ -8,6 +8,8 @@
 18.09,2019    ajudd@salesforce.com  		 PUD Added to updateBookingLocationAddress update address fields on booking location
 16.10.2019    ajudd@salesforce.com  		 Added check to updateBookingLocationAddress to prevent recursion
 06.11.2019    ajudd@salesforce.com  		 Applied fix to updateBookingLocationAddress where check for networkIdSet size was inside for loop (Incident INC1497717)
+16.03.2022    saiswetha.pingali@auspost.com.au Updated updateBookingLocationAddress to invoke direct method for test class execution.
+
 **/
 
 public class NetworkUtil
@@ -243,7 +245,7 @@ public class NetworkUtil
         if(networkIdSet.size() > 0 ){
             
             //If this is being called from a future, batch or scheduled method - directly call method to check for and update booking location address 
-            if(System.IsBatch() || System.isFuture() || System.isScheduled() || System.isQueueable()){
+            if(System.IsBatch() || System.isFuture() || System.isScheduled() || System.isQueueable() || Test.IsRunningTest()){
                 updateBookingLocationAddressProcess(networkIdSet);
             } else {
                 //Else call method in future mode

@@ -7,7 +7,7 @@
     <join>
         <join>
             <outerJoin>false</outerJoin>
-            <relationship>OpportunityLineItems</relationship>
+            <relationship>SFCon_R00N50000001Xl0FEAS__r</relationship>
         </join>
         <outerJoin>false</outerJoin>
         <relationship>Opportunities</relationship>
@@ -2643,5 +2643,18 @@
             <table>Account.Opportunities</table>
         </columns>
         <masterLabel>Opportunities</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hiddenTieContactToServicePartner__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
+            <table>Account</table>
+        </columns>
+        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

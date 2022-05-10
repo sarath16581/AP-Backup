@@ -4,24 +4,21 @@
         <description>This step navigates user to Edit Page of Deal Support Request</description>
         <name>Navigate_to_DSR_New_Record</name>
         <label>Navigate to DSR New Record</label>
-        <locationX>389</locationX>
-        <locationY>512</locationY>
+        <locationX>182</locationX>
+        <locationY>1214</locationY>
         <actionName>c:navigateToRecord</actionName>
         <actionType>component</actionType>
-        <connector>
-            <targetReference>close_Popup</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>recordId</name>
-            <value>
-                <elementReference>VarNewDSRRecordId</elementReference>
-            </value>
-        </inputParameters>
         <inputParameters>
             <name>sObject</name>
             <value>
                 <stringValue>Deal_Support_Request__c</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recordId</name>
+            <value>
+                <elementReference>DSRRecord.Id</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -32,6 +29,88 @@
         </inputParameters>
     </actionCalls>
     <apiVersion>52.0</apiVersion>
+    <assignments>
+        <name>Assign_APPC_Specific_fields</name>
+        <label>Assign APPC Specific fields</label>
+        <locationX>50</locationX>
+        <locationY>758</locationY>
+        <assignmentItems>
+            <assignToReference>DSRRecord.Product__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Australia Post Parcel Contract</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Other_DSR_Fields</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Other_DSR_Fields</name>
+        <label>Assign Other DSR Fields</label>
+        <locationX>182</locationX>
+        <locationY>974</locationY>
+        <assignmentItems>
+            <assignToReference>DSRRecord.Organisation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>VarAcctID</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DSRRecord.Business_At_Risk__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DSRRecord.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>RecordType</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DSRRecord.Request_type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Business At Risk</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DSRRecord.Requestor__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>RunningUser</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DSRRecord.Stage__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DSRRecord.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_Deal_Support_Request</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>Choice_APPC_Parcel_Contract</name>
+        <choiceText>&lt;b&gt;Pricing Support Request - Australia Post Parcel Contract&lt;/b&gt;&lt;p&gt;Engage support from Domestic Parcels Pricing Team regarding customised rates, business at risk due to price, unable to Self Service rates, or general pricing enquiries&lt;/p&gt;</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Pricing_Support_Request_Australia_Post_Parcel_Contract</stringValue>
+        </value>
+    </choices>
     <choices>
         <name>Choice_Deal_enablement_Centre</name>
         <choiceText>&lt;b&gt;Customer Onboarding&lt;/b&gt;&lt;p&gt;Support on boarding activities including agreement preparation, the creation of billing accounts, lodgement changes for contracted products and other customer on boarding tasks&lt;/p&gt;</choiceText>
@@ -72,6 +151,31 @@
             <stringValue>Surcharge_Exemption_Request</stringValue>
         </value>
     </choices>
+    <decisions>
+        <name>If_APPC_Record_Type</name>
+        <label>If APPC Record Type</label>
+        <locationX>182</locationX>
+        <locationY>638</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Other_DSR_Fields</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>APPC</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>RecordTypeDevName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pricing_Support_Request_Australia_Post_Parcel_Contract</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_APPC_Specific_fields</targetReference>
+            </connector>
+            <label>APPC</label>
+        </rules>
+    </decisions>
     <description>This flow will allow users to create Deal Support requests from BAR with limited DSR record Types</description>
     <formulas>
         <name>RunningUser</name>
@@ -89,7 +193,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>FREE_FORM_CANVAS</stringValue>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -102,65 +206,22 @@
     <recordCreates>
         <name>Create_Deal_Support_Request</name>
         <label>Create Deal Support Request</label>
-        <locationX>831</locationX>
-        <locationY>493</locationY>
-        <assignRecordIdToReference>VarNewDSRRecordId</assignRecordIdToReference>
+        <locationX>182</locationX>
+        <locationY>1094</locationY>
         <connector>
             <targetReference>Navigate_to_DSR_New_Record</targetReference>
         </connector>
-        <inputAssignments>
-            <field>Business_At_Risk__c</field>
-            <value>
-                <elementReference>recordId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Organisation__c</field>
-            <value>
-                <elementReference>VarAcctID</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>RecordTypeId</field>
-            <value>
-                <elementReference>RecordType</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Request_type__c</field>
-            <value>
-                <stringValue>Business At Risk</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Requestor__c</field>
-            <value>
-                <elementReference>RunningUser</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Stage__c</field>
-            <value>
-                <stringValue>New</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Draft</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Deal_Support_Request__c</object>
+        <inputReference>DSRRecord</inputReference>
     </recordCreates>
     <recordLookups>
         <description>This step matches user selection to the record types of deal support object</description>
         <name>Get_Deal_Support_Request_Record_Type</name>
         <label>Get Deal Support Request Record Type</label>
-        <locationX>717</locationX>
-        <locationY>231</locationY>
+        <locationX>182</locationX>
+        <locationY>518</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Create_Deal_Support_Request</targetReference>
+            <targetReference>If_APPC_Record_Type</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -179,6 +240,10 @@
         </filters>
         <object>RecordType</object>
         <outputAssignments>
+            <assignToReference>RecordTypeDevName</assignToReference>
+            <field>DeveloperName</field>
+        </outputAssignments>
+        <outputAssignments>
             <assignToReference>RecordType</assignToReference>
             <field>Id</field>
         </outputAssignments>
@@ -186,8 +251,8 @@
     <recordLookups>
         <name>GetOrganisationDetails</name>
         <label>GetOrganisationDetails</label>
-        <locationX>411</locationX>
-        <locationY>258</locationY>
+        <locationX>182</locationX>
+        <locationY>158</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>New_Deal_Support_Request</targetReference>
@@ -206,40 +271,42 @@
             <field>Legal_Entity_Name__c</field>
         </outputAssignments>
     </recordLookups>
-    <screens>
-        <description>Additional screen to close the blank popup.
-The popup does not close automatically upon successful navigation to the new DSR record.</description>
-        <name>close_Popup</name>
-        <label>close Popup</label>
-        <locationX>390</locationX>
-        <locationY>683</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>closeFlow</name>
-            <extensionName>c:closeFlow</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
+    <recordLookups>
+        <description>Organisation associated with BAR</description>
+        <name>Org_Details</name>
+        <label>Org Details</label>
+        <locationX>182</locationX>
+        <locationY>398</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Deal_Support_Request_Record_Type</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>VarAcctID</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <screens>
         <name>New_Deal_Support_Request</name>
         <label>New Deal Support Request</label>
-        <locationX>390</locationX>
-        <locationY>35</locationY>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_Deal_Support_Request_Record_Type</targetReference>
+            <targetReference>Org_Details</targetReference>
         </connector>
         <fields>
             <name>Select_the_Deal_Support_Request_Type</name>
+            <choiceReferences>Choice_APPC_Parcel_Contract</choiceReferences>
             <choiceReferences>Choice_PSR_Domestic</choiceReferences>
             <choiceReferences>Choice_PSR_Intl</choiceReferences>
             <choiceReferences>Choice_PSR_StarTrack</choiceReferences>
@@ -254,13 +321,21 @@ The popup does not close automatically upon successful navigation to the new DSR
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>50</locationX>
-        <locationY>50</locationY>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
         <connector>
             <targetReference>GetOrganisationDetails</targetReference>
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>DSRRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Deal_Support_Request__c</objectType>
+    </variables>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>
@@ -270,6 +345,13 @@ The popup does not close automatically upon successful navigation to the new DSR
     </variables>
     <variables>
         <name>RecordType</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>RecordTypeDevName</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>

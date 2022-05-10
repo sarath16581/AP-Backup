@@ -1,12 +1,20 @@
-@isTest
+/**
+ * @domain Tests
+ * @changelog
+ * 2022-02-17 - Alex Volkov - Updated data setup to reflect changes to case comment creation
+ *                            Commented out redundant dataSetUp calls
+ */
+
+@IsTest
 public class ChasCustomCaseListAndDetailTest {
     
     
-    @testSetup static void dataSetUp() {
+    @TestSetup
+    static void dataSetUp() {
         try{
             //-- Create Case
             Id SSSWGeneralRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-                .get(Chasconstants.CASE_RECORDTYPE_SSSWGENERALDELIVERY).getRecordTypeId();
+                .get(ChasConstants.CASE_RECORDTYPE_SSSWGENERALDELIVERY).getRecordTypeId();
             String origin = 'Web'; 
             String type = 'General Enquiry';
             String typeAndProduct = 'General Enquiry|Domestic Parcels|Parcel Post';
@@ -32,7 +40,7 @@ public class ChasCustomCaseListAndDetailTest {
              //-- Crating Case
             Database.SaveResult[] results = Database.insert(new SObject[] {toBeCreateCase });
             //-- Parse Case results and create Case Comment
-            ChasUtil.parseInsertedCaseResultsAndCreateComment(results, new ChasApexController.CaseWrapper(), 'Test comment Body');
+            ChasUtil.parseInsertedCaseResultsAndCreateComment(results, new ChasApexController.CaseWrapper(), new List<CaseComment>{new CaseComment(CommentBody = 'Test comment Body')});
             //-- Create Case Comment
         }catch(Exception ex){
             System.debug(LoggingLevel.ERROR, 'ChasCustomCaseListAndDetailTest::dataSetUp() ==>Error occoured while creating Case/Case comment in data setup of test class==>'+ex);
@@ -45,14 +53,15 @@ public class ChasCustomCaseListAndDetailTest {
     /**
 * Success Case of create Case with 'Compalint and feedback'
 * */
-    public static testMethod void fetchCaseCommentsTest() {
+    @IsTest
+    public static void fetchCaseCommentsTest() {
         Boolean isSuccess = true; 
         
         try{
-            dataSetUp();
+            //dataSetUp();
             
             Test.startTest();
-            Case caseObJ = [SELECT Id FROM Case where Subject='subject1' Limit 1];
+            Case caseObJ = [SELECT Id FROM Case WHERE Subject='subject1' LIMIT 1];
             ChasCustomCaseListAndDetailController.fetchCaseComments(caseObJ.Id);
             Test.stopTest();
             
@@ -66,14 +75,15 @@ public class ChasCustomCaseListAndDetailTest {
     /**
 * Success Case of create case comment 
 * */
-    public static testMethod void createCaseCommentTest() {
+    @IsTest
+    public static void createCaseCommentTest() {
         Boolean isSuccess = true; 
         
         try{
-            dataSetUp();
+            //dataSetUp();
             
             Test.startTest();
-            Case caseObJ = [SELECT Id FROM Case where Subject='subject1' Limit 1];
+            Case caseObJ = [SELECT Id FROM Case WHERE Subject='subject1' LIMIT 1];
             ChasCustomCaseListAndDetailController.creatCaseComment(caseObJ.Id, 'comment body desc');
             Test.stopTest();
             
@@ -88,7 +98,8 @@ public class ChasCustomCaseListAndDetailTest {
     /**
 * Success Case to get current current user name
 * */
-    public static testMethod void getCurrentUserNameTest() {
+    @IsTest
+    public static void getCurrentUserNameTest() {
         Boolean isSuccess = true; 
         
         try{
@@ -107,13 +118,14 @@ public class ChasCustomCaseListAndDetailTest {
     /**
 * Success Case to get current current user name
 * */
-    public static testMethod void UpdateCaseStatus() {
+    @IsTest
+    public static void UpdateCaseStatus() {
         Boolean isSuccess = true; 
         
         try{
-            dataSetUp();
+           // dataSetUp();
             Test.startTest();
-            Case caseObJ = [SELECT Id FROM Case where Subject='subject1' Limit 1];
+            Case caseObJ = [SELECT Id FROM Case WHERE Subject='subject1' LIMIT 1];
             ChasCustomCaseListAndDetailController.UpdateCaseStatus(caseObJ.Id, 'In Progress');
             Test.stopTest();
             
@@ -127,13 +139,14 @@ public class ChasCustomCaseListAndDetailTest {
         /**
 * Failed Case to get current current user name
 * */
-    public static testMethod void UpdateCaseStatusFail() {
+    @IsTest
+    public static void UpdateCaseStatusFail() {
         Boolean isSuccess = true; 
         
         try{
-            dataSetUp();
+            //dataSetUp();
             Test.startTest();
-            Case caseObJ = [SELECT Id FROM Case where Subject='subject1' Limit 1];
+            Case caseObJ = [SELECT Id FROM Case WHERE Subject='subject1' LIMIT 1];
             ChasCustomCaseListAndDetailController.UpdateCaseStatus(caseObJ.Id, 'wrong status');
             Test.stopTest();
             
@@ -147,13 +160,14 @@ public class ChasCustomCaseListAndDetailTest {
         /**
 * Success Case to get current current user name
 * */
-    public static testMethod void getCaseStatusTest() {
+    @IsTest
+    public static void getCaseStatusTest() {
         Boolean isSuccess = true; 
         
         try{
-            dataSetUp();
+            //dataSetUp();
             Test.startTest();
-            Case caseObJ = [SELECT Id FROM Case where Subject='subject1' Limit 1];
+            Case caseObJ = [SELECT Id FROM Case WHERE Subject='subject1' LIMIT 1];
             ChasCustomCaseListAndDetailController.getCaseStatus(caseObJ.Id);
             Test.stopTest();
             
@@ -167,11 +181,12 @@ public class ChasCustomCaseListAndDetailTest {
     /**
 * Success get logged in user Cases 
 * */
-    public static testMethod void getCurrentUserCases() {
+    @IsTest
+    public static void getCurrentUserCases() {
         Boolean isSuccess = true; 
         
         try{
-            dataSetUp();
+           // dataSetUp();
             Test.startTest();
             ChasCustomCaseListAndDetailController.getLoggedInUserCaseList();
             Test.stopTest();
@@ -186,7 +201,8 @@ public class ChasCustomCaseListAndDetailTest {
         /**
 * Success Case of fetch get Case Status Excepton case
 * */
-    public static testMethod void getCaseStatusExceptionTest() {
+    @IsTest
+    public static void getCaseStatusExceptionTest() {
         Boolean isSuccess = true; 
         
         try{

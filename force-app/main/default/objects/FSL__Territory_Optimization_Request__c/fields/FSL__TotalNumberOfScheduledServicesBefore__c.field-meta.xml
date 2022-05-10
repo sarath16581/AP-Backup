@@ -3,7 +3,7 @@
     <fullName>FSL__TotalNumberOfScheduledServicesBefore__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Number Of Scheduled Services Before</label>
+    <label>Scheduled Appointments Before</label>
     <precision>7</precision>
     <required>false</required>
     <scale>0</scale>

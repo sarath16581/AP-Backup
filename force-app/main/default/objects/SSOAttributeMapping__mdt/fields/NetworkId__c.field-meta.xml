@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NetworkId__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <caseSensitive>true</caseSensitive>
+    <description>A reg handler that implements the SSO Attribute Mapping custom metadata type will use this value to map to correct federation identifier field for that particular network. Example: LBP Community will point to LBPFederationIdentifier__c. This really is environment specific, so this potentially should be refactored at some point (or CI/CD to cover environment specific metadata deployment)</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>A reg handler that implements the SSO Attribute Mapping custom metadata type will use this value to map to correct federation identifier field for that particular network. Example: LBP Community will point to LBPFederationIdentifier__c</inlineHelpText>
+    <label>Network Id</label>
+    <length>18</length>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

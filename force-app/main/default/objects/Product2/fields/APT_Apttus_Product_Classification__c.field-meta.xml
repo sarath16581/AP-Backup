@@ -37,24 +37,14 @@
                 <label>Other Fees &amp; Services</label>
             </value>
             <value>
-                <fullName>APPC-Surcharge</fullName>
-                <default>false</default>
-                <label>APPC-Surcharge</label>
-            </value>
-            <value>
-                <fullName>APPC-Feature</fullName>
-                <default>false</default>
-                <label>APPC-Feature</label>
-            </value>
-            <value>
                 <fullName>APPC</fullName>
                 <default>false</default>
                 <label>APPC</label>
             </value>
             <value>
-                <fullName>APPC-Return</fullName>
+                <fullName>APPC-Standard</fullName>
                 <default>false</default>
-                <label>APPC-Return</label>
+                <label>APPC-Standard</label>
             </value>
             <value>
                 <fullName>APPC-Premium</fullName>
@@ -62,9 +52,19 @@
                 <label>APPC-Premium</label>
             </value>
             <value>
-                <fullName>APPC-Standard</fullName>
+                <fullName>APPC-Feature</fullName>
                 <default>false</default>
-                <label>APPC-Standard</label>
+                <label>APPC-Feature</label>
+            </value>
+            <value>
+                <fullName>APPC-Surcharge</fullName>
+                <default>false</default>
+                <label>APPC-Surcharge</label>
+            </value>
+            <value>
+                <fullName>APPC-Return</fullName>
+                <default>false</default>
+                <label>APPC-Return</label>
             </value>
         </valueSetDefinition>
     </valueSet>

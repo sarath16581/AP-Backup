@@ -32,6 +32,11 @@
                 <default>false</default>
                 <label>Track Mail</label>
             </value>
+            <value>
+                <fullName>Parcel Contract</fullName>
+                <default>false</default>
+                <label>Parcel Contract</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

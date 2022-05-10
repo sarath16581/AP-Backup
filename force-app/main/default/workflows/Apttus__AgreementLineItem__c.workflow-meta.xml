@@ -24,17 +24,6 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>APT_Update_Product_name_on_Contract</fullName>
-        <field>APT_Rollup_Product_Names__c</field>
-        <formula>IF(AND(OR(Apttus__ProductId__r.Name==&apos;eParcel&apos;,Apttus__ProductId__r.Name==&apos;eParcel Express&apos;),Apttus__AgreementId__r.APT_Rollup_Product_Names__c !=&apos;OtherProduct&apos;,Apttus__AgreementId__r.APT_Rollup_Product_Names__c !=&apos;PostalServices&apos;),&apos;eParcelProduct&apos;,IF(AND(TEXT(Apttus__ProductId__r.Family) = &apos;Postal Services&apos;,Apttus__AgreementId__r.APT_Rollup_Product_Names__c ==&apos;&apos;,Apttus__AgreementId__r.APT_Rollup_Product_Names__c !=&apos;eParcelProduct&apos;,Apttus__AgreementId__r.APT_Rollup_Product_Names__c !=&apos;OtherProduct&apos;),&apos;PostalServices&apos;,&apos;OtherProduct&apos;))</formula>
-        <name>APT Update Product name on Contract</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>Apttus__AgreementId__c</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>APT_WFV_Update_Police_and_Visa_Check</fullName>
         <description>Used for the Workforce Verification product and checked when Feature Type equals Police and Visa Check</description>
         <field>APT_WFV_Police_and_Visa_Check__c</field>
@@ -80,25 +69,6 @@
         </criteriaItems>
         <description>Populates list price text for OS</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>APT Rollup product name to Agreement</fullName>
-        <actions>
-            <name>APT_Update_Product_name_on_Contract</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus__AgreementLineItem__c.Apttus_CMConfig__IsPrimaryLine__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c</field>
-            <operation>notEqual</operation>
-            <value>Option</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>APT WFV Police and Visa Check</fullName>

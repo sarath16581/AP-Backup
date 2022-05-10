@@ -11,6 +11,7 @@ October 02, 2017 - Angelo Rivera - Added for Minor Work MWT0004521
 2018-06-21  nathan.franklin@auspost.com.au Adding values for non transactional IVR exclusions (CCTR/CTI Project)
 2020-04-22 - Nathan Franklin - Removing unused code
 2021-09-09 - Steve Judd - Added values for MW0004540
+2022-02-22  naveen.rajanna@auspost.com.au - Added constants for REQ2723199
 **************************************************/
 public class StarTrack_Constants {
 
@@ -89,7 +90,14 @@ public class StarTrack_Constants {
     public static final String CASE_CREDIT_RT = 'Credit Dispute Claim';
     public static final String CASE_VOCINC_RT = 'Voice of Customer Incident';
     public static final String CASE_VOC_RT = 'Voice of Customer Enquiry';
+    public static final String CASE_TWC_RT = 'Transit Warranty Claim';
     public static final String CASE_VOCINC_RT_DEV = 'StarTrack_Voice_of_Customer_Incident';
+    public static final String CASE_VOC_RT_DEV = 'StarTrack_Voice_of_Customer';
+    public static final String CASE_DELIVERY_RT_DEV = 'StarTrack_PUD_Enquiry';
+    public static final String CASE_TWC_RT_DEV = 'StarTrack_Transit_Warranty_Claim';
+    public static final String CASE_CREDIT_RT_DEV = 'StarTrack_Credit_Dispute_Claim';
+    public static final String CASE_PBE_RT_DEV = 'StarTrack_Pickup_Booking_Enquiry';
+
     public static final String CASE_ORIGIN_WEB = 'Web';
     public static final String CASE_ORIGIN_EMAIL = 'Email';
     public static final String CASE_ORIGIN_PHONE = 'Phone';
@@ -104,6 +112,7 @@ public class StarTrack_Constants {
     public static final String CASE_STAT_CLOSEDCV = 'Closed - Customer Viewed';
     public static final String CASE_STAT_CLOSED_PEN = 'Closed - Pending';
     public static final String CASE_STAT_PENCUSNOTIF = 'Pending Customer Notification';
+    public static final String CASE_APPROVALSTAT_PENDING = 'Pending';
     public static final String CASE_DIRECTION_IN = 'Inbound';
     public static final String CASE_CONTYPE_RECEIVER = 'Receiver';
     public static final String CASE_CONTYPE_INITIAL = 'Initial';
@@ -174,6 +183,8 @@ public class StarTrack_Constants {
     public static final String forwardPrefix3 = 'FW: ';
     public static final String forwardPrefix2 = 'Fwd: ';
     public static final String forwardPrefix4 = 'FWD: ';
+    public static final String KEYWRD_SUBJECT_PREFIX_REF = 'ref:_';
+    public static final String KEYWRD_SUBJECT_SUFFIX_REF = ':ref';
     
     //StarTrack_Case_ConsignSearch_Controllerx.cls constants
     public static final String STARTRACK = 'StarTrack';
@@ -234,7 +245,8 @@ public class StarTrack_Constants {
     public static final String KEYWRD_CASECREATETIMEOUT = 'Case Create Timeout';
     public static final String KEYWRD_SIGXSTRING = 'Signature XString: data value too large';
     public static final String KEYWRD_ASSIGNCONTIMEOUT = 'Assign Consignment Timeout';
-    
+    public static final String KEYWRD_NEWEMAILRECVD = 'New Email Received';
+
     //David Catindoy - Sept. 10, 2016 - Added constants for StarTrack Card Left controller.
     public static final String CASEPURPOSE_CARDLEFT = 'Card Left';
     public static final String CASEENTYPE_CHECKADDRESS = 'Check Address';
@@ -299,6 +311,7 @@ public class StarTrack_Constants {
      public static final String ERRORMSG_LDCCASE = 'LDC case depot can no longer be changed after it entered the LDC process.';
      public static final String ERRORMSG_CONSIGNNODATA = 'You cannot edit \'No Data\' Sender and Receiver details if the associated Consignment is not a \'No Data\' Consignment.';
      
+     public static final String CASEMILESTONE_CUST_FIRST_RESP ='StarTrack - Customer 1st Response';
      //Andrew Judd - 06-04-2017 - B1647 - Added constant for bspEnquiry
      public static final String CASE_CONTACT_TYPE_SENDER = 'Sender';
        

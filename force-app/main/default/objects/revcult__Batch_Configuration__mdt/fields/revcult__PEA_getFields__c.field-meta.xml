@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>revcult__PEA_getFields__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>Defaults to 10 unless set here. Set the number to gradually lower than 10 if encountering an apex side issue on page load (e.g. CPU time limit exceeded). Controls how many objects are sent to apex per batch to retrieve fields.</inlineHelpText>
+    <label>PEA getFields</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

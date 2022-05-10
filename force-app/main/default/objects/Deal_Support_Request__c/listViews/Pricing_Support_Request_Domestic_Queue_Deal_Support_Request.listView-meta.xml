@@ -16,7 +16,7 @@
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Deal_Support_Request__c.Pricing_Support_Request_Domestic</value>
+        <value>Deal_Support_Request__c.Pricing_Support_Request_Australia_Post_Parcel_Contract,Deal_Support_Request__c.Pricing_Support_Request_Domestic</value>
     </filters>
     <filters>
         <field>Status__c</field>

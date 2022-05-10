@@ -29,6 +29,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CampaignAssignmentController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CreateBillingAccountController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -336,6 +340,26 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>CampaignContactAssignment__c.Contact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CampaignContactAssignment__c.Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CampaignContactAssignment__c.Organisation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CampaignMember.Campaign_Member_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Contact.Exclude_from_Research_Contact__c</field>
         <readable>true</readable>
@@ -526,8 +550,28 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Approved_Event__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Approved_Pricing_Structure__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Approved_Rate_Card_for_Simulation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Approved_Tier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Approved_lodgement_zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -738,6 +782,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Commercial_Justification__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Compass_Quote_ID_Link__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Compass_Quote_Reference__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1102,6 +1156,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Deal_Support_Request__c.Estimated_annual_revenue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Estimated_annual_volume__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Deal_Support_Request__c.Estimated_number_of_parcels_per_annum__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1128,6 +1192,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Expected_Revenue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Features__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1476,6 +1545,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Price_Catalyst__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Pricing_Analyst_Manager__c</field>
         <readable>true</readable>
@@ -1612,6 +1686,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Deal_Support_Request__c.Quote_Validity_End_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Deal_Support_Request__c.Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1716,6 +1795,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Returns__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Revenue_Impact_of_Recommendation__c</field>
         <readable>true</readable>
@@ -1792,6 +1876,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Deal_Support_Request__c.Speed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Deal_Support_Request__c.Stage_Days__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1843,6 +1932,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Deal_Support_Request__c.Surcharge_Submitted_for_Approval__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Surcharges__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2482,11 +2576,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Qualification_Template_Questions__c.Category__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Qualification_Template_Questions__c.Datatype__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2802,6 +2891,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Deal_Support_Request__c.Legal_Support_Request</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Deal_Support_Request__c.Pricing_Support_Request_Australia_Post_Parcel_Contract</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

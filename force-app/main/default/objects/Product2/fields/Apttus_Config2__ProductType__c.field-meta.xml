@@ -49,6 +49,26 @@
                 <default>false</default>
                 <label>Subscription</label>
             </value>
+            <value>
+                <fullName>Parcel Contract</fullName>
+                <default>false</default>
+                <label>Parcel Contract</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Feature</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Feature</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Surcharge</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Surcharge</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Return</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Return</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

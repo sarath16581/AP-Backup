@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APGL</fullName>
+    <active>true</active>
+    <label>APGL</label>
+    <picklistValues>
+        <picklist>Freight_Offering__c</picklist>
+        <values>
+            <fullName>Additional Freight Presentation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Break Bulk Pallets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bulk Pallets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cartons</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dangerous Goods</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incompatible Freight</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Satchels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Requirements</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Location_TypeBBP__c</picklist>
+        <values>
+            <fullName>Book in - current</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CBD buildings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Household</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Offices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shopping Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warehouse%2Findustrial</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Location_TypeCartons__c</picklist>
+        <values>
+            <fullName>Book in - current</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CBD Buildings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Household</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Offices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shopping Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warehouse%2Findustrial</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Location_TypeSatchels__c</picklist>
+        <values>
+            <fullName>Book in - current</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CBD buildings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Household</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Offices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shopping Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warehouse%2Findustrial</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pallet_AccountBBP__c</picklist>
+        <values>
+            <fullName>CHEP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CHEP %26 Loscam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loscam</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pallet_Account_Cartons__c</picklist>
+        <values>
+            <fullName>CHEP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CHEP %26 Loscam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loscam</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Permanent_pick_up_days__c</picklist>
+        <values>
+            <fullName>Friday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thursday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tuesday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wednesday</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pick_up_Scheduling__c</picklist>
+        <values>
+            <fullName>Adhoc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Permanent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service__c</picklist>
+        <values>
+            <fullName>Express</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Premium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Same Day Courier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Special Services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_vehicle_required__c</picklist>
+        <values>
+            <fullName>2T</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bulk Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Semi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Van</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

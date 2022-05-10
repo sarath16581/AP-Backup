@@ -166,6 +166,30 @@
         <template>Business_Sales_Implementation/Business_Sales_Implementation_Internal</template>
     </alerts>
     <alerts>
+        <fullName>CAR_Send_Email_Closed_Alert</fullName>
+        <description>Send Email to the case requestor when the associated Case is closed/resolved</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Business_Enablement_Templates/CAR_Case_Closed</template>
+    </alerts>
+    <alerts>
+        <fullName>CAR_Send_Email_Closed_Bounce_Back_Alert</fullName>
+        <description>Send Bounce Email to Sender if the associated Case has already been closed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Business_Enablement_Templates/CAR_Case_Closed_Bounce_Back</template>
+    </alerts>
+    <alerts>
         <fullName>CFF_Alert_of_New_Case_from_Survey_Response</fullName>
         <description>CFF - Alert of New Case from Survey Response</description>
         <protected>false</protected>
@@ -344,18 +368,6 @@
         <senderAddress>customerservice@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Email_Templates/Case_Created</template>
-    </alerts>
-    <alerts>
-        <fullName>Contract_Management_Enquiry_CME_Case_Closed_Notification</fullName>
-        <description>Contract Management Enquiry (CME) Case Closed Notification</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Requestor__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Australia_Post_Email_Templates/CME_Case_Closed_v2</template>
     </alerts>
     <alerts>
         <fullName>Contract_Management_Enquiry_CME_Case_Created_Notification</fullName>
@@ -642,6 +654,19 @@
         <template>SSSW_System_Emails/SSSW_Case_Within_EDD_Plus_Business_Days_Created</template>
     </alerts>
     <alerts>
+        <fullName>SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - New Case Notification for Delete Account Web Portal</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</template>
+    </alerts>
+    <alerts>
         <fullName>SSSW_New_Case_Notification_for_Delivery_Issue_automatic_network_assignment</fullName>
         <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW New Case Notification for Delivery Issue automatic network assignment</description>
@@ -770,97 +795,6 @@
         <senderAddress>customerservice@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>SSSW_System_Emails/SSSW_New_Case_Notification</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Snap_It_1st_Reminder_for_Ref_ID_to_Customer</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW (Snap It) - 1st Reminder for Ref ID to Customer</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Contact_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/X1st_SSSW_Request_Ref_ID_Snap_It</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Snap_It_2nd_Reminder_for_Ref_ID_to_Customer</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW (Snap It) - 2nd Reminder for Ref ID to Customer</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Contact_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/X2nd_SSSW_Request_Ref_ID_Snap_It</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Snap_It_3rd_Reminder_for_Ref_ID_to_Customer</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW (Snap It) - 3rd Reminder for Ref ID to Customer</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Contact_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/X3rd_SSSW_Request_Ref_ID_Snap_It</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Snap_It_4th_Closure_for_Ref_ID_to_Customer</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW (Snap It) - 4th Closure for Ref ID to Customer</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Contact_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/X4th_SSSW_Request_Ref_ID_Closure_Snap_It</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Snap_It_Send_Customer_Closure_Email</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW (Snap It) - Send Customer Closure Email</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Contact_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW_Case_Closed_Notification_Snap_It</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Snap_It_Send_Customer_Closure_Email_Employee</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW (Snap It) - Send Customer Closure Email - Employee</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Employee_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW_Case_Closed_Notification_Snap_It_Employee</template>
-    </alerts>
-    <alerts>
-        <fullName>SSSW_Snap_It_Send_a_Email_when_a_new_Case_has_been_created_to_Employee</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
-        <description>SSSW (Snap It) - Send a Email when a new Case has been created to Employee</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Employee_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>SSSW_System_Emails/SSSW_New_Case_Notification_Snap_It_Employee</template>
     </alerts>
     <alerts>
         <fullName>SSSW_Snap_It_Send_a_Email_when_a_new_Case_has_been_created_to_customer</fullName>
@@ -1133,90 +1067,6 @@
         <template>StarTrack_System_Emails/StarTrack_General_Enquiry_Security_Incident_Notification</template>
     </alerts>
     <alerts>
-        <fullName>StarTrack_Snap_It_1st_reminder_for_reference_ID</fullName>
-        <description>StarTrack (Snap It) - 1st reminder for reference ID</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Recent_Caller_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@startrack.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>StarTrack_System_Emails/StarTrack_1st_Request_Ref_ID_Snap_It</template>
-    </alerts>
-    <alerts>
-        <fullName>StarTrack_Snap_It_2nd_reminder_for_reference_ID</fullName>
-        <description>StarTrack (Snap It) - 2nd reminder for reference ID</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Recent_Caller_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@startrack.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>StarTrack_System_Emails/StarTrack_2nd_Request_Ref_ID_Snap_It</template>
-    </alerts>
-    <alerts>
-        <fullName>StarTrack_Snap_It_Case_closure_after_failure_of_returning_Ref_ID</fullName>
-        <description>StarTrack (Snap It) - Case closure after failure of returning Ref ID</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Recent_Caller_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@startrack.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>StarTrack_System_Emails/StarTrack_3rd_Closure_Request_Ref_ID_Snap_It</template>
-    </alerts>
-    <alerts>
-        <fullName>StarTrack_Snap_It_Notify_customer_case_creation</fullName>
-        <description>StarTrack (Snap It) - Notify customer case creation</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Recent_Caller_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@startrack.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>StarTrack_System_Emails/StarTrack_Snap_It_New_Case_Notification</template>
-    </alerts>
-    <alerts>
-        <fullName>StarTrack_Snap_It_Send_Customer_Closure_Email</fullName>
-        <description>StarTrack (Snap It) - Send Customer Closure Email</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Recent_Caller_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@startrack.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>StarTrack_System_Emails/StarTrack_Snap_It_Case_Closure_Customer</template>
-    </alerts>
-    <alerts>
-        <fullName>StarTrack_Snap_It_Send_Customer_Closure_Email_Employee</fullName>
-        <description>StarTrack (Snap It) - Send Customer Closure Email - Employee</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Employee_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@startrack.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>StarTrack_System_Emails/StarTrack_Snap_It_Case_Closure_Response_to_Employee</template>
-    </alerts>
-    <alerts>
-        <fullName>StarTrack_Snap_It_Send_a_Email_when_a_new_Case_has_been_created_to_Employee</fullName>
-        <description>StarTrack (Snap It) - Send a Email when a new Case has been created to Employee</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Employee_Email__c</field>
-            <type>email</type>
-        </recipients>
-        <senderAddress>customerservice@startrack.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>StarTrack_System_Emails/StarTrack_Snap_It_Response_to_Employee</template>
-    </alerts>
-    <alerts>
         <fullName>StarTrack_Transit_Warranty_Claim_Create_Email</fullName>
         <description>StarTrack Transit Warranty Claim Create Email</description>
         <protected>false</protected>
@@ -1344,18 +1194,6 @@
         <template>Contract_Consulting/SLA_Third_Reminder</template>
     </alerts>
     <alerts>
-        <fullName>eParcel_Onboarding_Case_now_In_Progress</fullName>
-        <description>eParcel Onboarding Case now In Progress</description>
-        <protected>false</protected>
-        <recipients>
-            <recipient>Enterprise_Onboarding_Team</recipient>
-            <type>role</type>
-        </recipients>
-        <senderAddress>dlcustomerdatamanagementteam@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Australia_Post_Email_Templates/CME_eParcel_Onboarding_Case_In_Progress</template>
-    </alerts>
-    <alerts>
         <fullName>email_non_compliance_case</fullName>
         <description>An email is sent to account manager when a non-compliance lodgement issue is escalated as a case</description>
         <protected>false</protected>
@@ -1397,6 +1235,17 @@
         <operation>Literal</operation>
         <protected>false</protected>
         <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CAR_Update_LastIncomingEmail</fullName>
+        <description>CAR - Update LastIncomingEmail</description>
+        <field>LastIncomingEmailAddress__c</field>
+        <formula>Requestor__r.Email</formula>
+        <name>CAR - Update LastIncomingEmail</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>CIA_F_U_on_Priority_to_Critic</fullName>
@@ -1503,16 +1352,6 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>Contracts_Case_Transferred</fullName>
-        <field>Transferred__c</field>
-        <literalValue>1</literalValue>
-        <name>Contracts - Case Transferred</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Customer_Data_Team_update_owner_to_que</fullName>
         <field>OwnerId</field>
         <lookupValue>Data_Quality_Management</lookupValue>
@@ -1590,17 +1429,6 @@
         <name>Increase Internal Milestone Violated</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Move_to_Social_Queue</fullName>
-        <field>OwnerId</field>
-        <lookupValue>SSSW_Social_Media_Team</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>Move to Social Queue</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
         <protected>false</protected>
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
@@ -2514,17 +2342,6 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SSSW_Set_to_SSSW_Snap_It_International</fullName>
-        <field>OwnerId</field>
-        <lookupValue>SSSW_Snap_It_International</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SSSW - Set to SSSW Snap It International</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Set_to_Social_Back_Office</fullName>
         <field>OwnerId</field>
         <lookupValue>SSSWSocial</lookupValue>
@@ -2657,17 +2474,6 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <name>SSSW - Set Escalation Email to null</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Null</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SetOwnerSocialBusiness</fullName>
-        <field>OwnerId</field>
-        <lookupValue>SSSW_Social_Media_Business</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SetOwnerSocialBusiness</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
         <protected>false</protected>
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
@@ -3861,288 +3667,6 @@ if case is accepted manually, change case status from New to In Progress</descri
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>Contract Consulting - Close Other Milestones</fullName>
-        <actions>
-            <name>CC_Close_Awaiting_Information_Milestone</name>
-            <type>FlowAction</type>
-        </actions>
-        <actions>
-            <name>CC_Close_Case_Assignment_Milestone</name>
-            <type>FlowAction</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Type</field>
-            <operation>equals</operation>
-            <value>Sales Contract Consulting</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.IsClosed</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Case_Owner_Title__c</field>
-            <operation>equals</operation>
-            <value>Contract Consulting</value>
-        </criteriaItems>
-        <description>Closes other milestones related to Contract Management Enquiry cases</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Consulting - Close Resolution Time Milestone</fullName>
-        <actions>
-            <name>CC_Close_Awaiting_Information_Milestone</name>
-            <type>FlowAction</type>
-        </actions>
-        <actions>
-            <name>CC_Close_Resolution_Time_Milestone</name>
-            <type>FlowAction</type>
-        </actions>
-        <actions>
-            <name>CP_Close_Assess_Complexity_Milestone</name>
-            <type>FlowAction</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.IsClosed</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <description>Closes the Resolution Time milestone related to Contract Management Enquiry cases when the case is closed</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Consulting - Close wait Milestones</fullName>
-        <actions>
-            <name>CC_Close_Awaiting_Information_Milestone</name>
-            <type>FlowAction</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Type</field>
-            <operation>equals</operation>
-            <value>Sales Contract Consulting</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.IsClosed</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Case_Owner_Title__c</field>
-            <operation>equals</operation>
-            <value>Contract Consulting</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Awaiting Information,Validating</value>
-        </criteriaItems>
-        <description>Closes other milestones related to Contract Management Enquiry cases</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Consulting - Default Entitlement</fullName>
-        <actions>
-            <name>CC_Default_Entitlement</name>
-            <type>FlowAction</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <description>Defaults the Contract Consulting Entitlement on all new cases created with the Contract Management Enquiry Record Type</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Management Enquiry %28CME%29 Case Validated</fullName>
-        <actions>
-            <name>eParcel_Onboarding_Case_now_In_Progress</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>In Progress</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Type</field>
-            <operation>equals</operation>
-            <value>eParcel Onboarding</value>
-        </criteriaItems>
-        <description>Contract Management Enquiry (CME) - Advise case owner the case is now validated and &quot;In Progress&quot;</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Management Enquiry %28CME%29 Close Case</fullName>
-        <actions>
-            <name>Contract_Management_Enquiry_CME_Case_Closed_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Closed</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <description>Sales Contract Mangent Enquiry (CME) Cases. Adivse case requestor case has been closed</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Processing - Close Assess Milestone</fullName>
-        <actions>
-            <name>CP_Close_Assess_Complexity_Milestone</name>
-            <type>FlowAction</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.IsClosed</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Case_Owner_Title__c</field>
-            <operation>equals</operation>
-            <value>Contract Processing</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Number_of_Sites__c</field>
-            <operation>greaterOrEqual</operation>
-            <value>0</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Type</field>
-            <operation>equals</operation>
-            <value>Sales Contract Processing</value>
-        </criteriaItems>
-        <description>Closes Assess milestone related to Contract Management Enquiry cases</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Processing - Close Assignment Milestone</fullName>
-        <actions>
-            <name>CC_Close_Case_Assignment_Milestone</name>
-            <type>FlowAction</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.IsClosed</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Case_Owner_Title__c</field>
-            <operation>equals</operation>
-            <value>Contract Processing</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>New,Transferred</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Type</field>
-            <operation>equals</operation>
-            <value>Sales Contract Processing</value>
-        </criteriaItems>
-        <description>Closes Assignment milestone related to Contract Management Enquiry cases</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Processing - Close wait Milestones</fullName>
-        <actions>
-            <name>CC_Close_Awaiting_Information_Milestone</name>
-            <type>FlowAction</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Type</field>
-            <operation>equals</operation>
-            <value>Sales Contract Processing</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.IsClosed</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Case_Owner_Title__c</field>
-            <operation>equals</operation>
-            <value>Contract Processing</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Awaiting Information,Validating</value>
-        </criteriaItems>
-        <description>Closes waiting milestones related to Contract Management Enquiry cases</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contracts - Case Transferred</fullName>
-        <actions>
-            <name>Contracts_Case_Transferred</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Transferred</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <description>this rule is used to set the Transferred field to TRUE when Contract Consulting have transferred the case to Processing</description>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
         <fullName>Credit Dispute - Close Case</fullName>
         <actions>
             <name>Update_Credit_Claim_Status</name>
@@ -4340,26 +3864,6 @@ if case is accepted manually, change case status from New to In Progress</descri
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>Nullify lodgement Date on Snap It Case</fullName>
-        <actions>
-            <name>Set_Date_Posted_to_Null</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Snap It</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.DatePosted__c</field>
-            <operation>equals</operation>
-            <value>1/1/1970</value>
-        </criteriaItems>
-        <description>This resets the lodgement date to null if value is 1/1/1970</description>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
         <fullName>Phase 2 Update Case Subject</fullName>
         <actions>
             <name>Phase_2_Update_Subject_Field_Case</name>
@@ -4470,21 +3974,6 @@ if case is accepted manually, change case status from New to In Progress</descri
             <timeLength>48</timeLength>
             <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>RFCC - Last Assigned Queue</fullName>
-        <actions>
-            <name>RFCC_Set_Last_Assigned_Queue_ID</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>RFCC_Set_Last_Assigned_Queue_Name</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <description>Sets the last assigned queue and ID</description>
-        <formula>OR(RecordType.DeveloperName =&apos;Retail_Fulfilment_Support&apos;,RecordType.DeveloperName=&apos;StarTrack_PUD_Enquiry&apos;,RecordType.DeveloperName = &apos;StarTrack_Credit_Dispute_Claim&apos;,RecordType.DeveloperName=&apos;StarTrack_General_Enquiry&apos;,RecordType.DeveloperName=&apos;StarTrack_Pickup_Booking_Enquiry&apos;,RecordType.DeveloperName=&apos;StarTrack_Sales_Enquiry&apos;,RecordType.DeveloperName=&apos;StarTrack_Voice_of_Customer&apos;)&amp;&amp; NOT(ISBLANK(Owner:Queue.Id))</formula>
-        <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>RFCC - Set Case Closed</fullName>
@@ -5535,7 +5024,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>Alert</type>
         </actions>
         <active>true</active>
-        <formula>(TEXT(Type) = &apos;Investigation&apos; || TEXT(Type) = &apos;General Enquiry&apos; || TEXT(Origin) = &apos;BSP&apos; ) &amp;&amp;              Subject &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Web&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Email&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Portal&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Snap It&apos;&amp;&amp;             TEXT(Origin) &lt;&gt; &apos;BSP Bulk Upload&apos; &amp;&amp;              CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;) &amp;&amp;              (TEXT(Origin) &lt;&gt; &apos;Direct Email&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp;              NOT(ISBLANK(Contact.Email)) &amp;&amp;              ISBLANK(ParentId)&amp;&amp;              NOT(CONTAINS(Subject,&apos;Enterprise Contact Registration&apos;))&amp;&amp;              NOT(TypeofDamage__c = &apos;Wine Damage&apos; &amp;&amp;             ISPICKVAL(EnquirySubType__c,&apos;Facility reported damages&apos;))</formula>
+        <formula>(TEXT(Type) = &apos;Investigation&apos; || (TEXT(Type) = &apos;General Enquiry&apos; &amp;&amp; TEXT(Origin) = &apos;MyPost Business&apos;)  || TEXT(Origin) = &apos;BSP&apos; ) &amp;&amp;              Subject &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Web&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Email&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Portal&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Snap It&apos;&amp;&amp;             TEXT(Origin) &lt;&gt; &apos;BSP Bulk Upload&apos; &amp;&amp;              CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;) &amp;&amp;              (TEXT(Origin) &lt;&gt; &apos;Direct Email&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp;              NOT(ISBLANK(Contact.Email)) &amp;&amp;              ISBLANK(ParentId)&amp;&amp;              NOT(CONTAINS(Subject,&apos;Enterprise Contact Registration&apos;))&amp;&amp;              NOT(TypeofDamage__c = &apos;Wine Damage&apos; &amp;&amp;             ISPICKVAL(EnquirySubType__c,&apos;Facility reported damages&apos;))</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -5654,7 +5143,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 3 AND 4 AND 5 AND 2</booleanFilter>
+        <booleanFilter>1 AND 3 AND 4 AND 5 AND 2 AND 6 AND 7 AND 8</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -5679,6 +5168,21 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.Type</field>
             <operation>equals</operation>
             <value>Investigation,Feedback</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.IsHLC__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.IsCR__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.OwnerId</field>
+            <operation>notEqual</operation>
+            <value>SSSW High Level Complaints</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -5706,6 +5210,17 @@ Warehouse: 0200, 0350, 0600, 0990</description>
         <description>SSSW - Resets the Network Milestones when the Network is changed, but the Status remains the same.</description>
         <formula>BEGINS(RecordType.DeveloperName,&apos;SSSW&apos;)    &amp;&amp;    (  NOT(ISCHANGED(Status))   &amp;&amp; ISPICKVAL(Status,&apos;Awaiting Network Response&apos;)  )    &amp;&amp;    ISCHANGED(Network__c)  &amp;&amp;  CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - New Case Notification for Delete Account Web Portal</fullName>
+        <actions>
+            <name>SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>SSSW New Case Notification for Delete Account Web Portal</description>
+        <formula>TEXT( CHASEnquiryType__c)==&apos;Products &amp; services&apos;  &amp;&amp; TEXT( EnquirySubType__c )==&apos;Account Enquiry&apos;  &amp;&amp; ( TEXT(Origin) = &apos;Web&apos; || TEXT(Origin) = &apos;Portal&apos; )  &amp;&amp; CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;)  &amp;&amp; (TEXT(Origin) &lt;&gt; &apos;Direct Email&apos;  &amp;&amp; TEXT(Origin) &lt;&gt; &apos;Bulk Upload&apos;)  &amp;&amp; NOT(ISBLANK(Contact.Email))  &amp;&amp; ISBLANK(ParentId) &amp;&amp; NOT(CONTAINS(Subject,&apos;Enterprise Contact Registration&apos;))  &amp;&amp; Automated_Network_Assignment__c == false</formula>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>SSSW - New SSSW Child Cases</fullName>
@@ -6563,31 +6078,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SnapIT new case to SSSWSnapItInternational</fullName>
-        <actions>
-            <name>SSSW_Set_to_SSSW_Snap_It_International</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Case.CreatedById</field>
-            <operation>equals</operation>
-            <value>SNAPP Integration</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.ProductCategory__c</field>
-            <operation>equals</operation>
-            <value>International Parcels,International Letters</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.LastRoutingRuleIsStrategic__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <description>Newly created SnapIt cases with International Products (letters or parcels) to be allocated to SSSW Snap It International</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>Social Case origin change</fullName>
         <actions>
             <name>social_case_origin_social</name>
@@ -6640,56 +6130,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <operation>contains</operation>
             <value>SSSW Delivery,SSSW Fax,SSSW General Enquiry,SSSW Service,Social Record Type</value>
         </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>SocialCasetoQueue1</fullName>
-        <actions>
-            <name>Move_to_Social_Queue</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Social</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Twitter</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Facebook</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>contains</operation>
-            <value>SSSW Delivery,SSSW Fax,SSSW General Enquiry,SSSW Service,Social Record Type</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SocialCasetoQueueBusniss</fullName>
-        <actions>
-            <name>SetOwnerSocialBusiness</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Social Business</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>contains</operation>
-            <value>SSSW Delivery,SSSW Fax,SSSW General Enquiry,SSSW Service,Social Record Type</value>
-        </criteriaItems>
-        <description>Business Queue</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -6921,5 +6361,29 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         <protected>false</protected>
         <status>Completed</status>
         <subject>Bounce Email Sent to Customer</subject>
+    </tasks>
+    <tasks>
+        <fullName>CARCase_Closed_Bounce_Back</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>An automatic email response email has been sent to the customer who had requested an update for this Closed Case.</description>
+        <dueDateOffset>0</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>Case.Closed_Date__c</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Completed</status>
+        <subject>Case Closed Bounce Back</subject>
+    </tasks>
+    <tasks>
+        <fullName>Send_email_to_requstor_on_closed_case</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>An automatic email response email has been sent to the requestor on the case has closed.</description>
+        <dueDateOffset>0</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>Case.Closed_Date__c</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Completed</status>
+        <subject>Send email to requstor on closed case</subject>
     </tasks>
 </Workflow>

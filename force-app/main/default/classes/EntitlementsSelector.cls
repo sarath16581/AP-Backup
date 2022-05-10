@@ -1,16 +1,16 @@
 /**
-* @author Ashapriya Gadi
-* @date 2021-11-17
-* @group Selector
-* @tag Selector
-* @tag Entitlement
-* @domain Core
-* @description A very simple selector class that sits in the base domain
-* @changelog
-* 2021-11-17 - Ashapriya Gadi - Created
-*/
-
-public virtual inherited sharing class EntitlementsSelector extends ApplicationSelector{
+ * @author Ashapriya Gadi
+ * @date 2021-11-17
+ * @group Selector
+ * @tag Selector
+ * @tag Entitlement
+ * @domain Core
+ * @description A very simple selector class that sits in the base domain
+ * @changelog
+ * 2021-11-17 - Ashapriya Gadi - Created
+ * 2022-02-17 - Nathan Franklin - Changed method name and small refactor
+ */
+public virtual inherited sharing class EntitlementsSelector extends ApplicationSelector {
 	
 	public static EntitlementsSelector newInstance() {
 		return (EntitlementsSelector)Application.Selectors.newInstance(EntitlementsSelector.class);
@@ -22,7 +22,7 @@ public virtual inherited sharing class EntitlementsSelector extends ApplicationS
 	
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-				Entitlement.Id, Entitlement.Name
+				Entitlement.Id, Entitlement.Name, Entitlement.BusinessHoursId
 		};
 	}
 	/**
@@ -39,19 +39,24 @@ public virtual inherited sharing class EntitlementsSelector extends ApplicationS
 		return Database.query(qb.toSoqlString());
 	}
 	/**
-	 * @description Run a simple query to get entitlements based on Name
+	 * @description Run a simple query to get entitlements based on Name that are tied to specific accounts
 	 */
-	public virtual List<Entitlement> selectByName(Set<String> entitlementNames) {
-		return selectByName(entitlementNames, new Set<Object>());
+	public virtual List<Entitlement> selectByNameAndAccountName(Set<String> entitlementNames, Set<String> accountNames) {
+		return selectByNameAndAccountName(entitlementNames, accountNames, new Set<Object>());
 	}
 	
 	/**
-	 * @description Run a simple query to get entitlements based on Name
+	 * @description Run a simple query to get entitlements based on Name that are tied to specific accounts
 	 */
-	public virtual List<Entitlement> selectByName(Set<String> entitlementNames, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Entitlement.Name + ' in :entitlementNames')).endConditions();
+	public virtual List<Entitlement> selectByNameAndAccountName(Set<String> entitlementNames, Set<String> accountNames, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+					.add(new QueryBuilder.SimpleCondition(Entitlement.Name + ' in :entitlementNames'))
+					.add(new QueryBuilder.SimpleCondition('Account.Name in :accountNames'))
+				.endConditions();
 		return Database.query(qb.toSoqlString());
 	}
+
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}

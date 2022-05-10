@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>includes Green Sheet view, Blue Sheet view and Gold Sheet view permission sets only</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>KF Sell Read Only</label>
+    <permissionSets>kfsell__Blue_Sheet_View_All</permissionSets>
+    <permissionSets>kfsell__Gold_Sheet_View_All</permissionSets>
+    <permissionSets>kfsell__Green_Sheet_View_All</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

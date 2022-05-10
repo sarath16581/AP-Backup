@@ -6,6 +6,9 @@
 font-size: 0.875rem !important;
 }*/
 
+.THIS .slds-form-element__icon{
+    padding-top: 0;
+}
 
 .THIS .input 
 {

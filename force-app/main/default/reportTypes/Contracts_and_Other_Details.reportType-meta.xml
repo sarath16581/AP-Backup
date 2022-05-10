@@ -1756,6 +1756,11 @@
             <field>Working_Days_Elapsed__c</field>
             <table>Apttus__APTS_Agreement__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Apttus__APTS_Agreement__c</table>
+        </columns>
         <masterLabel>Apttus Contracts</masterLabel>
     </sections>
     <sections>

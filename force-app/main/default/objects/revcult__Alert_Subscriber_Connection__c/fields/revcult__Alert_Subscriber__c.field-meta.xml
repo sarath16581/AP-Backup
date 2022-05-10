@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>revcult__Alert_Subscriber__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Alert Subscriber</label>
+    <referenceTo>revcult__Alert_Subscriber__c</referenceTo>
+    <relationshipLabel>Alert Subscribers</relationshipLabel>
+    <relationshipName>Subscriber_Connections</relationshipName>
+    <relationshipOrder>1</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

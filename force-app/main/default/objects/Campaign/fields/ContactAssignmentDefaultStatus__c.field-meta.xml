@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContactAssignmentDefaultStatus__c</fullName>
+    <description>Used to set the default status for campaign members when created via contact assignment UI.</description>
+    <externalId>false</externalId>
+    <label>Contact Assignment Default Status</label>
+    <length>30</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

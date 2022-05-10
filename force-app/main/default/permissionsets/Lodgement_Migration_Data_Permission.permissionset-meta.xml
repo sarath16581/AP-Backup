@@ -737,11 +737,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.APT_Ready_For_APPC_Migration__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Account.ASIC_Lookup__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5143,11 +5138,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Config2__ProductConfiguration__c.APT_Proposal_Record_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus_Config2__ProductConfiguration__c.APT_Ready_For_APPC_Migration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

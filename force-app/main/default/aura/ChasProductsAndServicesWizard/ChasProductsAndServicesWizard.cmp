@@ -31,17 +31,17 @@
                              {'key': 'ChasProductsAndServicesWPage03'
                              ,'name': 'c:ChasProductsAndServicesWPage03'
                              ,'prev': 'ChasContactDetailsPage'
-                             ,'next': 'ChasThankYouWizardPage'
+                             ,'next': 'chasContextualThankYouPage'
                              ,'step': '3'
                              ,'currentStepName': 'Review and submit'
                              ,'stage': ''
                              ,'attributes':
                              {'apexCaseCreationFunction': 'c.createCaseFromProductsAndServices'
                              }
-                             }
-                             ,'ChasThankYouWizardPage':
-                             {'key': 'ChasThankYouWizardPage'
-                             ,'name': 'c:ChasThankYouWizardPage'
+                             },
+                             'chasContextualThankYouPage':
+                             {'key': 'chasContextualThankYouPage'
+                             ,'name': 'c:chasContextualThankYouPage'
                              ,'step': '3'
                              ,'currentStepName': 'thankyou'
                              ,'stage': 'submit'

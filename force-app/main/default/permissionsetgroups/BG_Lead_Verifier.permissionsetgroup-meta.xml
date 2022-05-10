@@ -4,5 +4,6 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>BG Lead Verifier</label>
     <permissionSets>BG_Core</permissionSets>
+    <permissionSets>Marketing_Feedback_Account_Contact_Assignment</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

@@ -1254,6 +1254,11 @@
             <field>APT_Sales_Team__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Apttus_Proposal__Proposal__c</table>
+        </columns>
         <masterLabel>Proposals</masterLabel>
     </sections>
     <sections>
@@ -4366,5 +4371,21 @@
             <table>Apttus_Proposal__Proposal__c.Apttus_QPComply__Agreements__r.Apttus__AgreementLineItems__r</table>
         </columns>
         <masterLabel>Contract Line Items</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Apttus_Proposal__Proposal__c.Apttus_QPComply__Agreements__r</table>
+        </columns>
+        <masterLabel>Apttus Contracts</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Cubic_Status__c</field>
+            <table>Apttus_Proposal__Proposal__c.Apttus_QPComply__Agreements__r.Apttus__AgreementLineItems__r</table>
+        </columns>
+        <masterLabel>Agreement Line Items</masterLabel>
     </sections>
 </ReportType>

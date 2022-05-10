@@ -3,7 +3,7 @@
     <fullName>FSL__TotalWorkCapacity__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Work Capacity</label>
+    <label>Resources Availability</label>
     <precision>7</precision>
     <required>false</required>
     <scale>0</scale>

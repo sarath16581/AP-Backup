@@ -112,6 +112,36 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Approved_Event__c</picklist>
+        <values>
+            <fullName>Customised Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delegated Pricing</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approved_Pricing_Structure__c</picklist>
+        <values>
+            <fullName>Z3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Z6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Z60</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Z9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Approved_Rate_Card_for_Simulation__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -119,6 +149,80 @@
         </values>
         <values>
             <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approved_Tier__c</picklist>
+        <values>
+            <fullName>TIER 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TIER 9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approved_lodgement_zone__c</picklist>
+        <values>
+            <fullName>Capital</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Country</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Metro</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -957,6 +1061,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Features__c</picklist>
+        <values>
+            <fullName>Capture ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Signature on delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transit cover</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Go_No_Go__c</picklist>
         <values>
             <fullName>Go</fullName>
@@ -1283,6 +1402,37 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Price_Catalyst__c</picklist>
+        <values>
+            <fullName>Acquisition%2FCampaign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitor risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract renewal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Growth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mid-Contract review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price structure</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Pricing_Request_Type__c</picklist>
         <values>
             <fullName>New Business %2F Growth</fullName>
@@ -1397,6 +1547,10 @@
         <picklist>Product__c</picklist>
         <values>
             <fullName>3PL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>APGL Commercial Outbound</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1868,6 +2022,17 @@
         </values>
         <values>
             <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Speed__c</picklist>
+        <values>
+            <fullName>Premium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3244,6 +3409,29 @@
         </values>
         <values>
             <fullName>eParcel</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Surcharges__c</picklist>
+        <values>
+            <fullName>Administrative fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fuel surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual handling surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security management surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unmanifested article</fullName>
             <default>false</default>
         </values>
     </picklistValues>

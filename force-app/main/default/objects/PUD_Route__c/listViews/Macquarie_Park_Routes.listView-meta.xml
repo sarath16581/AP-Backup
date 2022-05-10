@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Macquarie_Park_Routes</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>equals</operation>
+        <value>MACQUARIE PARK VAN OPS</value>
+    </filters>
+    <label>Macquarie Park Routes</label>
+</ListView>

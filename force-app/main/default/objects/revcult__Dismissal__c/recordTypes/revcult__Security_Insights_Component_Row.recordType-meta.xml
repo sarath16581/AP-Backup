@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>revcult__Security_Insights_Component_Row</fullName>
+    <active>true</active>
+    <description>A specific row in a Security Insights dashboard component</description>
+    <label>Security Insights Component Row</label>
+</RecordType>

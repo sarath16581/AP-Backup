@@ -15,10 +15,6 @@
             <fullName>Pickup</fullName>
             <default>true</default>
         </values>
-        <values>
-            <fullName>Pickup %26 Delivery</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Source_State__c</picklist>

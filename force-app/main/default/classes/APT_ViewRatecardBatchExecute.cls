@@ -9,7 +9,8 @@ History:
 2017-02-14 Mausam Padhiyar Modified 1834 | set flag - Identical Lines
 2019-05-31 anshul.goyal@auspost.com.au Modified | 31052019 | pass exempted product type to the batch class from the proposal record
 2020-10-20 Mahesh Patel Modified STP-2763 STPAC - Generate ST proposal document - Added this condition for not doing any of these calculations for StarTrack
-2021-06-05 Naveen Rajanna - STP-5598/REQ2519238 Check if Pricing fields changed on proposal then display error if matches certain condition
+2021-06-02 Naveen Rajanna - STP-5598/REQ2519238 Check if Pricing fields changed on proposal then display error if matches certain condition
+2021-11-10 Sautul Mehta - CI-95 Changes for APPC product
 **************************************************/
 public with sharing class APT_ViewRatecardBatchExecute {
     
@@ -115,7 +116,8 @@ public with sharing class APT_ViewRatecardBatchExecute {
                     for(Apttus_Proposal__Proposal_Line_Item__c pli : listProposalLineItem)
                     {
                         //STP-2763 STPAC - Generate ST proposal document - Added this condition for not doing any of these calculations for StarTrack
-                        if(pli.Apttus_Proposal__Product__r.APT_Product_type__c != APT_Constants.PRODUCTTYPE_STARTRACK)
+                        if(pli.Apttus_Proposal__Product__r.APT_Product_type__c != APT_Constants.PRODUCTTYPE_STARTRACK
+                        && pli.Apttus_Proposal__Product__r.APT_Product_type__c != APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT)
                         {
                             if(pli.Apttus_QPConfig__OptionId__r.APT_Domestic_Pricing__c) {
                                 setPriceStructure.add(pli.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c);    //charge code calculation
@@ -172,7 +174,8 @@ public with sharing class APT_ViewRatecardBatchExecute {
                     for(Apttus_Proposal__Proposal_Line_Item__c pli : listProposalLineItem) 
                     {
                         //STP-2763 STPAC - Generate ST proposal document - Added this condition for not doing any of these calculations for StarTrack
-                        if(pli.Apttus_Proposal__Product__r.APT_Product_type__c != APT_Constants.PRODUCTTYPE_STARTRACK)
+                        if(pli.Apttus_Proposal__Product__r.APT_Product_type__c != APT_Constants.PRODUCTTYPE_STARTRACK
+                        && pli.Apttus_Proposal__Product__r.APT_Product_type__c != APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT)
                         {
                             //charge code calculation
                             if(pli.Apttus_QPConfig__OptionId__r.APT_Domestic_Pricing__c) {

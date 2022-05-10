@@ -2,23 +2,27 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>View_Rate_Card__c</fullName>
     <externalId>false</externalId>
-    <formula>/** IF(  Apttus_Config2__OptionGroupLabel__c = &quot;Pricing Products&quot; ,HYPERLINK(&quot;/apex/Apttus_XApps__EditInExcelLaunch?selectedRecordID=&quot;&amp;Id&amp;&quot;&amp;appName=Domestic Base per Kg 1016&amp;mode=touchless&amp;outputType=PDF&quot;,IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_blank&quot;),null) 
+    <formula>/** IF( Apttus_Config2__OptionGroupLabel__c = &quot;Pricing Products&quot; ,HYPERLINK(&quot;/apex/Apttus_XApps__EditInExcelLaunch?selectedRecordID=&quot;&amp;Id&amp;&quot;&amp;appName=Domestic Base per Kg 1016&amp;mode=touchless&amp;outputType=PDF&quot;,IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_blank&quot;),null)
+
 
 
 IF(AND(NOT(ISPICKVAL(Apttus_Config2__LineType__c , &apos;Option&apos;)), Apttus_Config2__IsPrimaryLine__c, NOT( ISPICKVAL( Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c , &quot;0 - 250K&quot;) )) ,HYPERLINK(&quot;/apex/c__APT_ViewRatecard?parentRecordID=&quot;&amp;Id &amp;&quot;&amp;isPrestoMode=true&quot;,IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_blank&quot;),null)**/
 /*
-IF(AND(NOT(ISPICKVAL(Apttus_Config2__LineType__c , &apos;Option&apos;)), Apttus_Config2__IsPrimaryLine__c, NOT( ISPICKVAL( Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c , &quot;0 - 250K&quot;) ),NOT( Apttus_Config2__ProductId__r.Non_contracted__c ),NOT(  Apttus_Config2__AttributeValueId__r.APT_Non_Contracted_Rates_Printpost__c)) ,HYPERLINK(&quot;/apex/c__APT_ViewRatecardAPI?parentRecordID=&quot;&amp;Id &amp;&quot;&amp;isPrestoMode=true&quot;,IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_blank&quot;),null)
+IF(AND(NOT(ISPICKVAL(Apttus_Config2__LineType__c , &apos;Option&apos;)), Apttus_Config2__IsPrimaryLine__c, NOT( ISPICKVAL( Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c , &quot;0 - 250K&quot;) ),NOT( Apttus_Config2__ProductId__r.Non_contracted__c ),NOT( Apttus_Config2__AttributeValueId__r.APT_Non_Contracted_Rates_Printpost__c)) ,HYPERLINK(&quot;/apex/c__APT_ViewRatecardAPI?parentRecordID=&quot;&amp;Id &amp;&quot;&amp;isPrestoMode=true&quot;,IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_blank&quot;),null)
 */
+
+
 IF(
+AND(
 OR
 (
-APT_Contracted_Line_Item__c &amp;&amp;  Apttus_Config2__ProductId__r.APT_Ratecards_Available__c,
-NOT(ISPICKVAL(Apttus_Config2__LineType__c , &apos;Option&apos;)) &amp;&amp; Apttus_Config2__ProductId__r.APT_Ratecards_Available__c  &amp;&amp;  ISPICKVAL(Apttus_Config2__ProductId__r.APT_Product_type__c, &quot;StarTrack&quot;)   
-) 
+APT_Contracted_Line_Item__c &amp;&amp; Apttus_Config2__ProductId__r.APT_Ratecards_Available__c,
+NOT(ISPICKVAL(Apttus_Config2__LineType__c , &apos;Option&apos;)) &amp;&amp; Apttus_Config2__ProductId__r.APT_Ratecards_Available__c &amp;&amp; ISPICKVAL(Apttus_Config2__ProductId__r.APT_Product_type__c, &quot;StarTrack&quot;)
+),
+OR( TEXT(Apttus_Config2__ConfigStatus__c) =&apos;Complete&apos;, TEXT(Apttus_Config2__ConfigStatus__c) =&apos;NA&apos;))
 ,HYPERLINK(&quot;/apex/c__APT_ViewRatecardAPI?parentRecordID=&quot;&amp;Id &amp;&quot;&amp;isPrestoMode=true&quot;,IMAGE(&quot;/resource/APT_RateCard_Cart&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_blank&quot;),null)</formula>
     <label>Rate Card</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

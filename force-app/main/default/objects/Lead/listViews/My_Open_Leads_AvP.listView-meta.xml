@@ -14,7 +14,7 @@
     <columns>LEAD.LAST_ACTIVITY</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <columns>LEAD.UNREAD</columns>
-    <columns>Campaign_Name__c</columns>
+    <columns>Campaign__c</columns>
     <filterScope>Mine</filterScope>
     <filters>
         <field>LEAD.STATUS</field>
@@ -22,7 +22,6 @@
         <value>New,In progress,Qualified,Not Verified</value>
     </filters>
     <label>My Open Leads</label>
-    <language>en_US</language>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
         <group>Hub_Users</group>

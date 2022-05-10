@@ -698,4 +698,12 @@
         </columns>
         <masterLabel>Target and Revenue</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Revenue_Last_12_months__c</field>
+            <table>Budget_and_Revenue__c</table>
+        </columns>
+        <masterLabel>Customer Revenue</masterLabel>
+    </sections>
 </ReportType>

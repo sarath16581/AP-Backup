@@ -83,6 +83,7 @@ public with sharing class PUD_AdhocJobsfromListViewControllerX {
                                       FROM PUD_Job__c WHERE Date__c = TODAY AND Route_Lookup__c !=NULL AND  Depot__c= :depotId AND Booking_Record_Type__c !='Other'
                                       AND Route_Lookup__r.Id IN :selectedRouteIDs ORDER BY Route_Lookup__c,Start_Time__c];
             
+            System.debug('list1____'+list1);
             //Create temp list2
             List<PUD_Job__c> list2=new List<PUD_Job__c>();
             //Create a result list

@@ -19,6 +19,7 @@
     <aura:attribute name="recordId" type="String" />
     <aura:attribute name="showEstimatedRevenue" type="Boolean" default="true" />
     <aura:attribute name="isManualOpp" type="Boolean" />
+
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="RelatedQuestionOrderEvt" event="c:BG_RelatedQuestionOrderEvt" action="{!c.handleRelatedQuestionEvent}"/>
     <!-- validation methods -->
@@ -26,15 +27,15 @@
     <aura:method name="checkValidity" action="{! c.checkValidity }" />
     
     <div style='center;width:100%' >
-        
+
         <aura:iteration items="{!v.productQuestions}" var="catQuestion" indexVar="index">
-           <c:BG_EachPreQualQuestion aura:id="field" catQuestion='{!catQuestion}' index='{!v.modifiedIndex + 1+ index}' selectedProductRelatedQuestions='{!v.selectedProductRelatedQuestions}' product='{!v.product}'/>   
+            <c:BG_EachPreQualQuestion aura:id="field" catQuestion='{!catQuestion}' index='{!v.modifiedIndex + 1+ index}' selectedProductRelatedQuestions='{!v.selectedProductRelatedQuestions}' product='{!v.product}'/>   
         </aura:iteration>
-        <aura:if isTrue="{!v.showEstimatedRevenue}">
+        <!--<aura:if isTrue="{!v.showEstimatedRevenue}">-->
             <c:BG_InfoInputWrap 
                             aura:id="field"
                             name="er"
-                            label="Estimated Revenue"
+                            label="Estimated Annual Revenue"
                             value="{!v.estimatedRevenue}"
                             type="number"
                             messageWhenValueMissing=" "
@@ -42,7 +43,7 @@
                             formatter='Currency'
                             required = 'true'
                             />
-        </aura:if>
+        <!--</aura:if>-->
 
         <!-- aura:if here to check if opp is converted yet-->
         <aura:if isTrue="{!v.isManualOpp}"> 

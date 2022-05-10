@@ -11,6 +11,6 @@
     </filters>
     <label>Central Coast Vans</label>
     <sharedTo>
-        <group>Tuggerah_Vans</group>
+        <group>CENTRAL_COAST_VAN_SERVICES</group>
     </sharedTo>
 </ListView>

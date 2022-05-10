@@ -319,6 +319,12 @@
                 <identifier>RecordImpacted_Areas__cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Campaign__c</fieldItem>
+                <identifier>RecordCampaign_cField1</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-ff076372-6e89-4c57-9c4d-5a46320b621e</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -580,6 +586,12 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Impacted_Areas__c</fieldItem>
                 <identifier>RecordImpacted_Areas__cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Campaign__c</fieldItem>
+                <identifier>RecordCampaign_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-e229a948-b2e8-4b0b-a630-be75fe798122</name>

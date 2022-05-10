@@ -275,11 +275,12 @@ public with sharing class CreateBillingAccountControllerForTeams {
             stateInfoVar.chargeAccountRequestId = chargeAccountRequestId;
             stateInfoVar.onboardingRequestId = onboardingRequestId;
             stateInfoVar.contractdetails = conDetails;
-
+            System.debug('I5 BRP billingAccountJson 2 : ' + billingAccountJson);  
             BillingAccountService service = BillingAccountService.getInstance();
             Continuation con = service.getContinuation(billingAccountJson, onboardingRequestId, sourceSystem);
             con.state = stateInfoVar;
             con.continuationMethod = 'processResponse';
+           
             return con;
         }
         catch (Exception e) {

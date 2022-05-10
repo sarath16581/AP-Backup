@@ -1,12 +1,14 @@
-/**
-Description - 
-Created By - Aakash Khatri
-Created Date - 23rd June, 2016
-***************************************
-@ModifiedBy: Meet Desai
-@ModifiedOn: 12 Mar, 2020
-@Description: Updated Merge Documents logic to refer Files/ Content Documents instead of Attachments
- */
+/***
+ * @author Aakash Khatri
+ * @date 2016-06-23
+ * @group 
+ * @description Test class for APT_CreateContractBatch.
+ * @changelog
+ * 2016-06-23 - Aakash Khatri - Created
+ * 2016-03-12 - Meet Desai - Updated Merge Documents logic to refer Files/ Content Documents instead of Attachments
+ * 2021-11-17 - Mathew Jose - Fixing the test method failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
+ * 2022-02-11  REQ2723568: API version 52 upgrade
+*/
  
 @isTest
 private class APT_CreateContractBatch_Test {
@@ -40,12 +42,14 @@ private class APT_CreateContractBatch_Test {
         complySystemProperties.Apttus__InstanceUrl__c = 'https://auspost--devr2t.cs5.my.salesforce.com';
         insert complySystemProperties;
         
-        Contact con= APT_TestUtils.createContact();
-        con.Email = 'temp@temp.com';
-        insert con;
-        
         Account acc = APT_TestUtils.createOrganisation();
         insert acc;
+
+        Contact con= APT_TestUtils.createContact();
+        con.Email = 'temp@temp.com';
+        //Applying the following change as key contact have look up filter introduced on Opportunity.  
+        con.AccountId = acc.Id;
+        insert con;        
         
         Opportunity opp = APT_TestUtils.createOpportunity(acc.id);
         opp.KeyContact__c = con.Id;

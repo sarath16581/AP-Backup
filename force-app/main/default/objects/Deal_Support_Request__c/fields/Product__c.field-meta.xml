@@ -30,6 +30,16 @@
                 <label>Address Post</label>
             </value>
             <value>
+                <fullName>APGL Commercial Outbound</fullName>
+                <default>false</default>
+                <label>APGL Commercial Outbound</label>
+            </value>
+            <value>
+                <fullName>Australia Post Parcel Contract</fullName>
+                <default>false</default>
+                <label>Australia Post Parcel Contract</label>
+            </value>
+            <value>
                 <fullName>Bank@Post</fullName>
                 <default>false</default>
                 <label>Bank@Post</label>
@@ -215,14 +225,14 @@
                 <label>Parcel AP</label>
             </value>
             <value>
+                <fullName>Parcels</fullName>
+                <default>false</default>
+                <label>Parcel Contract</label>
+            </value>
+            <value>
                 <fullName>Parcel Post</fullName>
                 <default>false</default>
                 <label>Parcel Post</label>
-            </value>
-            <value>
-                <fullName>Parcels</fullName>
-                <default>false</default>
-                <label>Parcels</label>
             </value>
             <value>
                 <fullName>Payments</fullName>

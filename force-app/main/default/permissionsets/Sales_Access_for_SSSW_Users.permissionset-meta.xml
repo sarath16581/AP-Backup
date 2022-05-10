@@ -213,10 +213,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>BillingAccountStagingUtil</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>BillingAccountUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -745,10 +741,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>InlineAcountHerachy_TestUtilities</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>LatestFaxExt</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1245,10 +1237,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestAttachmentSaver</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>TestBatchableNetworkBankFieldsUpdater</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1542,10 +1530,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>ssswRecentNetworkEmailMessageTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>takeOwnershipControllerExtension</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -9130,10 +9114,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>salescoachsetup</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>takeOwnership</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

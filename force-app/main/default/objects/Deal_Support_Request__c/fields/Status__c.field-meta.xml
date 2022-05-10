@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
@@ -264,6 +263,12 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Submitted for Approval</label>
+            </value>
+            <value>
+                <fullName>TEST AJ</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>TEST AJ</label>
             </value>
             <value>
                 <fullName>Under Review</fullName>

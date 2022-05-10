@@ -135,7 +135,7 @@ public class SSSW_MyNetworkResponsePageContr {
             }    
             
             //query for retreival of relevant case fields from current case id                       
-            relatedCse = [Select Id,CaseNumber,Description,Primary_Email__c,Network__c,Network__r.Name,SLATargetDate__c,NetworkTierSLA__c, Contact.FirstName, ArticleTest__r.Name,ProductSubCategory__c,
+            relatedCse = [Select Id,CaseNumber,Description,ResolutionCode__c,Primary_Email__c,Network__c,Network__r.Name,SLATargetDate__c,NetworkTierSLA__c, Contact.FirstName, ArticleTest__r.Name,ProductSubCategory__c,
                 CaseOriginator__c,Address2Postcode__c, Status, NetworkComments__c,Contact.email, Type,Contact.Name,LastModifiedById ,ReferenceId__c,ClosedDate,
                 CreatedDate,Subject,Primary_Name__c,Address1__c ,Secondary_Contact__c ,Address2__c ,Root_cause__c , Owner.Name,
                 OwnerId,ProductCategory__c ,Origin ,LastModifiedDate , IsHLC__c, IsCR__c, 
@@ -293,11 +293,13 @@ public class SSSW_MyNetworkResponsePageContr {
                             
                  for(PON_Update_EmailTemplates__c mp: ponCS){
                        //check if case condition matches the custom setting value
+                       if(relatedCse.ResolutionCode__c!='MyNetwork Resolution'){
                         if(caseCond.equalsIgnoreCase(mp.CaseCondition__c)) {
                             templateName = mp.Template_API_Name__c;
                             system.debug(templateName);
                             doNotShowEmail = false;
                         }
+                       }
                  }
                             
                     if(!String.isBlank(templateName)) { // if valid template exists, continue for automation email

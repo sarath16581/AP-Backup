@@ -5,7 +5,8 @@ Description:    Test class to cover BG_QualificationApex functionality
 History:
 -----------------------------------------------------------------------------------------
 05.03.2020      Jansi (CRMIT Solutions)            Test class created
-17.08.2020      arjun.singh@auspost.com.au          test a method to fetch the configured estimated revnue used in lead qualification flow
+17.08.2020      arjun.singh@auspost.com.au         test a method to fetch the configured estimated revnue used in lead qualification flow
+08.03.2022      seth.heang@auspost.com.au          update query on qualification template question to retrieve new validation related fields in test methods 
 *****************************************************************************************/
 @isTest
 public class BG_QualificationApexTest {
@@ -203,7 +204,8 @@ public class BG_QualificationApexTest {
             List<BG_QualificationApex.CategoryQuestionWrapper> wrapperist = new  List<BG_QualificationApex.CategoryQuestionWrapper>();
             for(Qualification_Template_Questions__c qta :[SELECT Name,
                                                           Category__c,Datatype__c,Order__c,
-                                                          Question_Text__c, Required__c, Related_Response__c,Related_Response__r.Name
+                                                          Question_Text__c, Required__c, Related_Response__c,Related_Response__r.Name,
+                                                          Min_Value__c, Max_Value__c, Help_Text__c, Validation_Message__c, APT_Applicable_Validation__c
                                                           FROM Qualification_Template_Questions__c 
                                                           WHERE Category__c=:category and Active__c = TRUE
                                                           ORDER BY Order__c ASC]){
@@ -249,7 +251,8 @@ public class BG_QualificationApexTest {
             List<BG_QualificationApex.CategoryQuestionWrapper> wrapperist = new  List<BG_QualificationApex.CategoryQuestionWrapper>();
             for(Qualification_Template_Questions__c qta :[SELECT Name,
                                                           Category__c,Datatype__c,Order__c,
-                                                          Question_Text__c, Required__c, Related_Response__c,Related_Response__r.Name
+                                                          Question_Text__c, Required__c, Related_Response__c,Related_Response__r.Name,
+                                                          Min_Value__c, Max_Value__c, Help_Text__c, Validation_Message__c, APT_Applicable_Validation__c
                                                           FROM Qualification_Template_Questions__c 
                                                           WHERE Category__c=:category and Active__c = TRUE
                                                           ORDER BY Order__c ASC]){
@@ -366,7 +369,8 @@ public class BG_QualificationApexTest {
             
             for(Qualification_Template_Questions__c qta :[SELECT Name,
                                                           Category__c,Datatype__c,Order__c,
-                                                          Question_Text__c, Required__c, Related_Response__c,Related_Response__r.Name
+                                                          Question_Text__c, Required__c, Related_Response__c,Related_Response__r.Name,
+                                                          Min_Value__c, Max_Value__c, Help_Text__c, Validation_Message__c, APT_Applicable_Validation__c
                                                           FROM Qualification_Template_Questions__c 
                                                           WHERE Category__c IN : categorySet and Active__c = TRUE
                                                           ORDER BY Order__c ASC]){

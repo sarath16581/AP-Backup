@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Rule_for_PSR_APPC_OnEdit</fullName>
+    <active>true</active>
+    <description>User must enter either of Speed, Features, Returns or Surcharges in order to edit the record.</description>
+    <errorConditionFormula>AND(
+   RecordType.DeveloperName == &apos;Pricing_Support_Request_Australia_Post_Parcel_Contract&apos;,
+   !ISNEW(),
+   ISNULL(Speed__c),
+   Returns__c==false,
+   ISNULL(Surcharges__c), 
+   ISNULL(Features__c)
+)</errorConditionFormula>
+    <errorMessage>At least one out of the Speed, Features, Returns or Surcharges must be selected</errorMessage>
+</ValidationRule>

@@ -11,6 +11,7 @@ History:
 19.04.2013  Haider Raza(Post)               Commented if (ba.Organisation__c != tempacct.Id) so that Date_Parent_Changed is updated for new BA created
 01.02.2017  davey.yu@auspost.com.au         Updated: INC0880835 Validate if billing account is "ZBIL" then dont update customer type
 31.03.2017  Disha.Kariya@auspost.com.au     Updated: REQ1104500 Renamed ZBIL to SBBA
+23.03.2022  Naveen Rajanna                  Updated api version to 52 and commented debug statements
 **************************************************/
 trigger BillingAccountTrigger on Billing_Account__c (after insert, after update, before insert) {
     if (!SystemSettings__c.getInstance().Disable_Billing_Account_Trigger__c) {
@@ -24,7 +25,7 @@ trigger BillingAccountTrigger on Billing_Account__c (after insert, after update,
                                 
                 for (Billing_Account__c ba : trigger.new){
                     if (trigger.isInsert || (trigger.isUpdate && ba.Organisation__c!=trigger.oldMap.get(ba.Id).Organisation__c)){
-                        system.debug('***** type'+ba.Type__c);
+                        // system.debug('***** type'+ba.Type__c);
                         if(ba.Type__c != 'SBBA') // Added by DYU 01-FEB-2017 - INC0880835 Exclude ZBIL billing account when updating org customer type // Updated by Disha 31-MAR-2017 - REQ1104500 Renamed ZBIL to SBBA  
                             OrgIds.add(ba.Organisation__c);
                     }
@@ -48,8 +49,8 @@ trigger BillingAccountTrigger on Billing_Account__c (after insert, after update,
             List<Id> baIds = new List<Id>();
             Map<String, String> baIdorgIdMap = new Map<String, String>(); 
             for (Billing_Account__c ba : trigger.new) {
-                system.debug('***ba.Organisation__c: ' + ba.Organisation__c);
-                system.debug('***trigger.oldMap.get(ba.Id).Organisation__c: ' + trigger.oldMap.get(ba.Id).Organisation__c);
+                // system.debug('***ba.Organisation__c: ' + ba.Organisation__c);
+                // system.debug('***trigger.oldMap.get(ba.Id).Organisation__c: ' + trigger.oldMap.get(ba.Id).Organisation__c);
                 if (ba.Organisation__c != trigger.oldMap.get(ba.Id).Organisation__c) {
                     baIds.add(ba.Id);       
                     baIdorgIdMap.put(ba.Id, ba.Organisation__c);                        

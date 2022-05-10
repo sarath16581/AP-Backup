@@ -21,21 +21,8 @@
     </filters>
     <filters>
         <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>Bayswater</value>
-    </filters>
-    <filters>
-        <field>Contact_Phone_Number__c</field>
-        <operation>greaterOrEqual</operation>
-    </filters>
-    <filters>
-        <field>Contact_Email__c</field>
         <operation>equals</operation>
-    </filters>
-    <filters>
-        <field>Customer__c</field>
-        <operation>equals</operation>
-        <value>Kmart Australia Limited</value>
+        <value>Bayswater Van Operations</value>
     </filters>
     <label>All - Today</label>
 </ListView>

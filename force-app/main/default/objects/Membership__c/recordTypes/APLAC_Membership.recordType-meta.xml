@@ -12,6 +12,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Ineligible_reason__c</picklist>
+        <values>
+            <fullName>Licensee does not work at outlet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Managed by Council</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not primary outlet for entity</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Licensee_Type__c</picklist>
         <values>
             <fullName>New Membership</fullName>

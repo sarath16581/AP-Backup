@@ -3,7 +3,7 @@
     <fullName>FSL__TotalNumberOfOptimizableServices__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Number Of Optimizable Services</label>
+    <label>Optimizable Appointments</label>
     <precision>7</precision>
     <required>false</required>
     <scale>0</scale>

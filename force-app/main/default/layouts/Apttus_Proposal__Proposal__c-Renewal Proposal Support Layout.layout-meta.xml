@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <customButtons>Apttus_CQApprov__Approvals</customButtons>
     <customButtons>APT_Clone</customButtons>
+    <customButtons>Apttus_CQApprov__Approvals</customButtons>
     <customButtons>APT_Submit_for_Approval</customButtons>
     <customButtons>Apttus_CQApprov__MyApprovals</customButtons>
     <excludeButtons>Clone</excludeButtons>
@@ -45,10 +45,6 @@
                 <behavior>Readonly</behavior>
                 <field>APT_Make_Primary__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_Document_Generation_in_Progress__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -75,10 +71,6 @@
                 <behavior>Readonly</behavior>
                 <field>APT_STE_Pricing_Tier__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Apttus_Proposal__Primary__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -95,10 +87,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Apttus_Proposal__Opportunity__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Apttus_Proposal__Account__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -280,14 +268,19 @@
             <sortOrder>2</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Apttus_CQApprov__MyApprovals</actionName>
+            <actionName>Apttus_CQApprov__Approvals</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>3</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Apttus_CQApprov__Approvals</actionName>
+            <actionName>Apttus_CQApprov__MyApprovals</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>4</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Apttus_Proposal__Proposal__c.Clone_with_Configuration</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>5</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
@@ -379,6 +372,28 @@
         <fields>Apttus_Proposal__Quantity__c</fields>
         <fields>Apttus_QPConfig__DerivedFromId__c</fields>
         <relatedList>Apttus_Proposal__Proposal_Line_Item__c.Apttus_Proposal__Proposal__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <excludeButtons>NewCase</excludeButtons>
+        <fields>CASES.CASE_NUMBER</fields>
+        <fields>CASES.SUBJECT</fields>
+        <fields>CREATEDBY_USER.ALIAS</fields>
+        <fields>CASES.CREATED_DATE</fields>
+        <fields>CASES.PRIORITY</fields>
+        <relatedList>Case.Proposal__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <excludeButtons>New</excludeButtons>
+        <fields>NAME</fields>
+        <fields>APT_ABN__c</fields>
+        <fields>APT_ACN__c</fields>
+        <fields>CREATED_DATE</fields>
+        <fields>LAST_UPDATE</fields>
+        <relatedList>APT_Cash_Account__c.APT_Proposal__c</relatedList>
+        <sortField>LAST_UPDATE</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>

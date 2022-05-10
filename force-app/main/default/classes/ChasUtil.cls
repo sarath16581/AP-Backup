@@ -5,11 +5,22 @@
  * 2021-08-25 alex.volkov@auspost.com.au Added "---Enquiry Details---" line to comments to distinguish from case comments submitted by the customer
  * 2021-12-03 edgarallan.castillo3@auspost.com.au Updated case comment creation to use list of comments
  * 2021-12-06 alex.volkov@auspost.com.au Added support for mocks
+ * 2022-01-27 hasantha.liyanage@auspost.com.au added null check for convertToDateWithTimezoneFormat()
  * */
 public without sharing class ChasUtil {
 
-    public static ChasUtil newInstance() {
-        return (ChasUtil)Application.Utilities.newInstance(ChasUtil.class);
+    public static ChasUtil getInstance() {
+        return (ChasUtil)Application.Utilities.getInstance(ChasUtil.class);
+    }
+
+    public static Consumer_Help_and_Support__c CHAS_SETTINGS {
+        get {
+            if(CHAS_SETTINGS == null) {
+                return Consumer_Help_and_Support__c.getInstance();
+            }
+            return CHAS_SETTINGS;
+        }
+        set;
     }
 
     /**
@@ -61,7 +72,7 @@ public without sharing class ChasUtil {
      * */
     public static Boolean isTheDateWithinEDDPlusBusinessdays(Date inputDate){
         Boolean isWithinEDDPlusBusinessdays = false;
-        if(Date.today() > inputDate  && Date.today() <= ChasUtil.calculateNextBusinessDay(inputDate,Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c): 0))
+        if(Date.today() > inputDate  && Date.today() <= ChasUtil.calculateNextBusinessDay(inputDate,CHAS_SETTINGS.nextUpdateInForLateItems__c != null ? Integer.valueOf(CHAS_SETTINGS.nextUpdateInForLateItems__c): 0))
         {
             isWithinEDDPlusBusinessdays = true;
         }
@@ -72,7 +83,7 @@ public without sharing class ChasUtil {
      * */
     public static Boolean isTheDatePastEDDPlusBusinessdays(Date inputDate){
         Boolean isPastEDDPlusBusinessdays = false;
-        if(Date.today() >= ChasUtil.calculateNextBusinessDay(inputDate,Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c): 0))
+        if(Date.today() >= ChasUtil.calculateNextBusinessDay(inputDate,CHAS_SETTINGS.nextUpdateInForLateItems__c != null ? Integer.valueOf(CHAS_SETTINGS.nextUpdateInForLateItems__c): 0))
         {
             isPastEDDPlusBusinessdays = true;
         }
@@ -94,11 +105,12 @@ public without sharing class ChasUtil {
      * Check the input date with currentdate and return true if inputDate is before the provided date otherwise true
      **/
     public static Boolean isTheDateIsBefore(Date inputDate){
-        if(inputDate > Date.today()){
+        if(inputDate >= Date.today()){
             return true;
         }
         return false;
     }
+
 
     /**
      * Convert String Date(YYYYMMDD) to String Date YYYY-MM-DD
@@ -118,7 +130,9 @@ public without sharing class ChasUtil {
     public static String convertToDateWithTimezoneFormat(String inputDate){
         String returnDateStr = null;
         try{
-            returnDateStr = inputDate.substring(0,4)+'-'+inputDate.substring(5,7)+'-'+inputDate.substring(8,10);
+            if(String.isNotBlank(inputDate)) {
+                returnDateStr = inputDate.substring(0, 4) + '-' + inputDate.substring(5, 7) + '-' + inputDate.substring(8, 10);
+            }
         }catch(Exception ex){
             System.debug(LoggingLevel.ERROR, 'ChasUtil:Error while parsing String date to string date');
         }
@@ -190,7 +204,6 @@ public without sharing class ChasUtil {
     public static String convertToSFDateStrFormat(String inputDateStr){
         String returnDateStr = null;
         String dateDelimeter = null;
-        System.debug('--- convertToSFDateStrFormat --- START ---');
         try{
 
             //-- Getting delimter of a date String
@@ -203,7 +216,7 @@ public without sharing class ChasUtil {
             }else{
                 System.debug(LoggingLevel.ERROR, 'inputDateStr is coming with invalid delimeter');
             }
-            System.debug('dateDelimeter='+ dateDelimeter);
+
             //-- splitteing the Date based n delimeter
             if(dateDelimeter != null){
                 String[] dateElemnetsArray =null;
@@ -214,7 +227,6 @@ public without sharing class ChasUtil {
                     dateElemnetsArray =  inputDateStr.split(dateDelimeter);
                 }
 
-                System.debug('dateElemnetsArray='+ dateElemnetsArray);
                 Boolean isDateStartsWithYear = false;
 
                 //-- identify date starts with Year or not
@@ -231,8 +243,7 @@ public without sharing class ChasUtil {
         }catch(Exception ex){
             System.debug(LoggingLevel.ERROR, 'ChasUtil:convertToSFDateStrFormat() - Error while parsing String date to string date');
         }
-        System.debug('returnDateStr==='+returnDateStr);
-        System.debug('--- convertToSFDateStrFormat --- END ---');
+
         return returnDateStr;
     }
 
@@ -258,7 +269,7 @@ public without sharing class ChasUtil {
 * Create Casecomment from CaseId and commentBody
 * */
     public static String createCaseCommentAndReturnId(String caseId, String commentBody){
-        System.debug('--- createCaseComment --- START ---');
+
         commentBody = '---Enquiry Details---' + '\n' + commentBody;
         Flow.Interview.CreateCaseComment caseCommentFlow;
         Map<String, Object> myMap = new Map<String, Object>();
@@ -266,29 +277,23 @@ public without sharing class ChasUtil {
         myMap.put('InputCaseDescription', commentBody);
         caseCommentFlow = new Flow.Interview.CreateCaseComment(myMap);
         caseCommentFlow.start();
-        System.debug('*** Flow called - returning CaseCommentID');
 
-        System.debug('--- createCaseComment --- END ---');
         return (String)(caseCommentFlow.getVariableValue('CaseCommentID'));
     }
     /**
 * Create Parse Case inserted results and create case comment
 * */
     public static ChasApexController.CaseWrapper parseInsertedCaseResultsAndCreateComment(Database.SaveResult[] results, ChasApexController.CaseWrapper caseWrapperObj, List<CaseComment> comments) {
-        System.debug('--- parseInsertedCaseResults --- START ---');
         Set<Id> vCaseIds = new Set<Id>();
         for (Integer i = 0; i < results.size(); i++) {
             if (results[i].isSuccess()) {
-                System.debug('Successfully created ID: '+ results[i].getId());
                 try{
                     Id lObjectId = Id.valueOf(results[i].getId());
                     String objName = lObjectId.getSobjectType().getDescribe().getName();
-                    System.debug('*** - objName = '+objName);
                     //-- Creating Case Comment for inserted Case
                     if( objName.equalsIgnoreCase('Case')) {
                         ChasUtil.createCaseComment(lObjectId, comments);
                         vCaseIds.add(lObjectId);
-                        //System.debug('*** Flow called - CaseNumber:'+caseWrapperObj.caseNumber);
                     }
 
                 }catch(Exception ex) {
@@ -305,7 +310,6 @@ public without sharing class ChasUtil {
 
         caseWrapperObj.caseNumber = CasesSelector.newInstance().selectById(vCaseIds).get(new List<Id>(vCaseIds)[0]).CaseNumber;
 
-        System.debug('--- parseInsertedCaseResults --- END ---');
         return caseWrapperObj;
     }
 
@@ -329,5 +333,20 @@ public without sharing class ChasUtil {
         {
             UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'CHAS', 'ChasApexController', 'createCaseComment', '', LoggingLevel.ERROR);
         }
+    }
+
+    /**
+     * @param data sanitise a string passed in with html and javascript escapes
+     *
+     * @return
+     */
+    public static String sanitizeString(String data){
+        try{
+            data = data.escapeHtml4();
+            data = data.escapeJava();
+        } catch (Exception e) {
+            // throws
+        }
+        return data;
     }
 }

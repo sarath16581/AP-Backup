@@ -1,10 +1,12 @@
-/**
-Description - This class is test class for APT_ProposalApprovalsComponentCntrl.
-Created By - Aakash Khatri
-Created Date - 15th APR, 2016
-Last Modified By -
-Last Modified Date - 
- */
+/***
+ * @author Aakash Khatri
+ * @date 2016-04-15
+ * @group 
+ * @description This class is test class for APT_ProposalApprovalsComponentCntrl.
+ * @changelog
+ * 2016-04-16 - Aakash Khatri- Created
+ * 2021-11-17 - Mathew Jose - Fixing the test method failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
+*/
  
 @isTest
 private class APT_ProposalApprovalsComponentCntrl_Test {
@@ -19,12 +21,13 @@ private class APT_ProposalApprovalsComponentCntrl_Test {
         TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
         UserName=APT_Constants.EMAIL_TEST_USER);
         System.runAs(testuser) { 
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+            //Applying the following change as key contact have look up filter introduced on Opportunity on Opportunity(CI-194).  
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
             opp.KeyContact__c = con.Id;

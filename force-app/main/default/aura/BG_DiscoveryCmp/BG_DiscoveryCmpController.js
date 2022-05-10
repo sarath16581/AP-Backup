@@ -12,7 +12,19 @@
     },
     showPrductServices: function(cmp, event, helper) {
         helper.reportAllInValid(cmp, event);
-        var allValid =  helper.checkAllValid(cmp, event)
+        var allValid =  helper.checkAllValid(cmp, event);
+
+        // Call validation component to check if input is valid against validation configuration
+        var validateCmp = cmp.find("validateCmp");
+        var passValidation = validateCmp.validateResponse(cmp);
+        // Check validation result and throw error if false
+        if(passValidation.status === false){
+            helper.setCurrentStepErrorStatus(cmp, true);
+            cmp.set('v.showErrorMessage', true);
+            cmp.set('v.errorMessage', passValidation.errorMsg);
+            return;
+        }
+
         if(allValid){
             helper.setCurrentStepErrorStatus(cmp, false);
             var GenEvent = cmp.getEvent("genCmpEvent");

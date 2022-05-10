@@ -4352,4 +4352,25 @@
         </columns>
         <masterLabel>SAP Contracts</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hiddenTieContactToServicePartner__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
+            <table>Account</table>
+        </columns>
+        <masterLabel>Organisations</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Account.Apttus__R00N50000001Xl0UEAS__r</table>
+        </columns>
+        <masterLabel>Apttus Contracts</masterLabel>
+    </sections>
 </ReportType>

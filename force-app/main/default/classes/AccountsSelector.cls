@@ -13,6 +13,7 @@
  * 2021-03-22 - Jansi - Added 'WITH_RECENT_CREATED_CREDIT_ASSESMENT'
  * 2021-08-06 - Seth Heang - Added selectByLikedNameAndPersonAccountOrderByName
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+ * 2022-03-16 - Naveen Rajanna - REQ2656153 - Included missing fields to avoid SObjectException
 */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
     public enum Options {
@@ -51,12 +52,12 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
-                Account.Id, Account.Name, Account.Type, Account.OwnerId, Account.APLAC_Member__c,Account.LEGACY_ID__c, Account.Customer_Account_Group__c, Account.Organisation_Trading_Name__c, 
+                Account.Id, Account.Name, Account.Type, Account.OwnerId, Account.APLAC_Member__c, Account.APT_Min_Spend_Per_Annum__c, Account.LEGACY_ID__c, Account.Customer_Account_Group__c, Account.Organisation_Trading_Name__c, 
                 Account.BillingStreet, Account.BillingCity, Account.BillingState, 
                 Account.BillingPostalCode, Account.Phone, Account.Email__c , Account.ABN__c,
                 Account.ACN__c , Account.Primary_Business_Solutions_Contact__c , Account.BillingCountry , Account.Role_Type_Roll_Up__c,
 				Account.ShippingStreet, Account.ShippingCity, Account.ShippingState,  Account.ShippingPostalCode, Account.ShippingCountry ,
-				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount
+				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount, Account.Business_Solutions_Customer__c, Account.Exclude_Notification_Automation__c, Account.Exclude_Subscription_Automation__c, Account.Sales_Director__c
         };
     }
 

@@ -3,7 +3,7 @@
     <fullName>FSL__TotalWorkDurationScheduledAfter__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Total Work Duration Scheduled After</label>
+    <label>Scheduled Appointments Duration After</label>
     <precision>7</precision>
     <required>false</required>
     <scale>0</scale>

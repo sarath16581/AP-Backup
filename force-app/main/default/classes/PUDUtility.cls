@@ -1,4 +1,4 @@
-/*-------------------------    
+/*-------------------------
 Overview: Utility functions for Pickup and Delivery functionality
 
 Three primary functions:
@@ -27,7 +27,9 @@ History:
 2021-09-29 - Ranjeewa Silva - Populate additional address details (frontage geocode and side of street) on jobs.
 2021-10-12 - Ranjeewa Silva - Added Start Time to the list of fields updateable on jobs in 'Schedule' and 'Accepted' status.
 2021-11-09 - Mathew Jose - Updated refreshjobs method to Cancel the current day's jobs in 'Schedule' and 'Accepted' statuses when a No Pickup is raised(Booking Exception).
-
+2022-02-09 - Seth Heang - REQ2742514 Added 'Revenue_Check__c' into the comparation fields check in order to trigger the job update when Job is in 'Schedule' and 'Accepted' Status
+2022-02-23 - Seth Heang - Added Container Type fields and Product Type fields into the sync functionality from booking and job and to the Dispatch System as part of Metro Transport Enhancements
+2022-02-23 - Seth Heang - Serialised container type fields information into a JSON format and populate to a new long text field called Containers Payload
 -------------------------
 */
 public with sharing class PUDUtility {
@@ -63,7 +65,10 @@ public with sharing class PUDUtility {
 						PUD_Job__c.Source_Street__c, PUD_Job__c.Source_City__c, PUD_Job__c.Source_Post_Code__c, PUD_Job__c.Source_State__c,
 						PUD_Job__c.Confidence__c, PUD_Job__c.Stop_Credit__c, PUD_Job__c.Key_Number__c, PUD_Job__c.Article_Count__c,
 						PUD_Job__c.Location_Frontage_Geo__Latitude__s, PUD_Job__c.Location_Frontage_Geo__Longitude__s,
-						PUD_Job__c.Location_Side_Of_Street_Code__c, PUD_Job__c.Location_DPID__c
+						PUD_Job__c.Location_Side_Of_Street_Code__c, PUD_Job__c.Location_DPID__c, PUD_Job__c.Regular_Product__c, PUD_Job__c.Express_Product__c, 
+						PUD_Job__c.International_Product__c, PUD_Job__c.Empty_Aircan__c, PUD_Job__c.Empty_Cage__c, PUD_Job__c.Empty_CardULD__c, PUD_Job__c.Empty_Colby__c, 
+						PUD_Job__c.Empty_Pallets__c, PUD_Job__c.Empty_Trailer__c, PUD_Job__c.Empty_ULD__c, PUD_Job__c.Full_Aircan__c, PUD_Job__c.Full_Cage__c,
+						PUD_Job__c.Full_CardULD__c, PUD_Job__c.Full_Colby__c, PUD_Job__c.Full_Pallets__c, PUD_Job__c.Full_Trailer__c, PUD_Job__c.Full_ULD__c, PUD_Job__c.Containers_Payload__c
 				};
 			}
 			return COMPARABLE_FIELD_SET_NEW_JOBS;
@@ -82,13 +87,32 @@ public with sharing class PUDUtility {
 						PUD_Job__c.Site_Instructions__c, PUD_Job__c.Comments__c, PUD_Job__c.Hazards__c, PUD_Job__c.Key_Number__c,
 						PUD_Job__c.Pallets_Quantity__c, PUD_Job__c.Bags_Quantity__c, PUD_Job__c.Volume_Cubic_Metre__c, PUD_Job__c.Tubs_Quantity__c,
 						PUD_Job__c.Trays_Quantity__c, PUD_Job__c.Large_Letter_Tubs__c, PUD_Job__c.White_Bags__c, PUD_Job__c.Blue_Bags__c,
-						PUD_Job__c.Small_Letter_Trays__c, PUD_Job__c.Express_Bags__c, PUD_Job__c.Red_Tubs__c, PUD_Job__c.Start_Time__c
+						PUD_Job__c.Small_Letter_Trays__c, PUD_Job__c.Express_Bags__c, PUD_Job__c.Red_Tubs__c, PUD_Job__c.Start_Time__c, PUD_Job__c.Revenue_Check__c, 
+						PUD_Job__c.Regular_Product__c, PUD_Job__c.Express_Product__c, PUD_Job__c.International_Product__c, PUD_Job__c.Empty_Aircan__c, PUD_Job__c.Empty_Cage__c,
+						PUD_Job__c.Empty_CardULD__c, PUD_Job__c.Empty_Colby__c, PUD_Job__c.Empty_Pallets__c, PUD_Job__c.Empty_Trailer__c, PUD_Job__c.Empty_ULD__c, PUD_Job__c.Full_Aircan__c,
+						PUD_Job__c.Full_Cage__c, PUD_Job__c.Full_CardULD__c, PUD_Job__c.Full_Colby__c, PUD_Job__c.Full_Pallets__c, PUD_Job__c.Full_Trailer__c, PUD_Job__c.Full_ULD__c, PUD_Job__c.Containers_Payload__c
 				};
 			}
 			return COMPARABLE_FIELD_SET_SCHEDULED_JOBS;
 		}
 		set;
 	}
+
+	// container type mappings used for generating container type payload (JSON format) for a Job. Container type payload
+	// is included in the Job dispatch interface (outbound message).
+	private static final Map<String, ContainerTypeMapping> CONTAINER_TYPE_MAPPINGS = new Map<String, ContainerTypeMapping>{
+			'Aircan' => new ContainerTypeMapping('Aircan', PUD_Job__c.Empty_Aircan__c, PUD_Job__c.Full_Aircan__c),
+			'Cage' =>  new ContainerTypeMapping('Cage', PUD_Job__c.Empty_Cage__c, PUD_Job__c.Full_Cage__c),
+			'CardULD' => new ContainerTypeMapping('CardULD', PUD_Job__c.Empty_CardULD__c, PUD_Job__c.Full_CardULD__c),
+			'Colby' => new ContainerTypeMapping('Colby', PUD_Job__c.Empty_Colby__c, PUD_Job__c.Full_Colby__c),
+			'Pallets' => new ContainerTypeMapping('Pallets', PUD_Job__c.Empty_Pallets__c, PUD_Job__c.Full_Pallets__c),
+			'Trailer' => new ContainerTypeMapping('Trailer', PUD_Job__c.Empty_Trailer__c, PUD_Job__c.Full_Trailer__c),
+			'ULD' => new ContainerTypeMapping('ULD', PUD_Job__c.Empty_ULD__c, PUD_Job__c.Full_ULD__c)
+	};
+
+	// container type conditions
+	private static final String CONTAINER_CONDITION_EMPTY = 'Empty';
+	private static final String CONTAINER_CONDITION_FULL = 'Full';
 
 	// grab settings configured in custom setting
 	private static Pickup_Booking_Settings__c pickupBookingSettings {
@@ -127,7 +151,9 @@ public with sharing class PUDUtility {
 				Booking_Comments__c, Revenue_Check__c, Article_Info__c, Booking_Type__c,
 				Source_Street__c, Source_City__c, Source_Post_Code__c, Source_State__c, Confidence__c,
 				Route_Lookup__r.Name,Stop_Credit__c,Key_Number__c,Display_Start_Time__c,Article_Count__c,
-				Frontage_Geo__Latitude__s, Frontage_Geo__Longitude__s, DPID__c, Side_Of_Street_Code__c
+				Frontage_Geo__Latitude__s, Frontage_Geo__Longitude__s, DPID__c, Side_Of_Street_Code__c, Regular_Product__c, Express_Product__c, International_Product__c,
+				Empty_Aircan__c, Empty_Cage__c, Empty_CardULD__c, Empty_Colby__c, Empty_Pallets__c, Empty_Trailer__c, Empty_ULD__c,
+				Full_Aircan__c, Full_Cage__c, Full_CardULD__c, Full_Colby__c, Full_Pallets__c, Full_Trailer__c, Full_ULD__c
 		FROM PUD_Booking__c WHERE Id IN:bookingIdSet];
 
 		//Call function depending on input parameter
@@ -260,7 +286,25 @@ public with sharing class PUDUtility {
 				Location_Frontage_Geo__Longitude__s,
 				Location_Side_Of_Street_Code__c,
 				Location_DPID__c,
-				Status__c
+				Status__c,
+				Regular_Product__c,
+				Express_Product__c,
+				International_Product__c,
+				Empty_Aircan__c,
+				Empty_Cage__c,
+				Empty_CardULD__c,
+				Empty_Colby__c,
+				Empty_Pallets__c,
+				Empty_Trailer__c,
+				Empty_ULD__c,
+				Full_Aircan__c, 
+				Full_Cage__c, 
+				Full_CardULD__c, 
+				Full_Colby__c, 
+				Full_Pallets__c, 
+				Full_Trailer__c, 
+				Full_ULD__c,
+				Containers_Payload__c
 		FROM PUD_Job__c
 		WHERE Booking__c IN:bookingIdSet
 		AND Date__c >= :DATE_FROM];
@@ -619,7 +663,26 @@ public with sharing class PUDUtility {
 								jobRec.Location_Frontage_Geo__Longitude__s = booking.Frontage_Geo__Longitude__s;
 								jobRec.Location_Side_Of_Street_Code__c = booking.Side_Of_Street_Code__c;
 								jobRec.Location_DPID__c          = booking.DPID__c;
+								jobRec.Regular_Product__c       = booking.Regular_Product__c;
+								jobRec.Express_Product__c       = booking.Express_Product__c;
+								jobRec.International_Product__c = booking.International_Product__c;
+								jobRec.Empty_Aircan__c          = booking.Empty_Aircan__c;
+								jobRec.Empty_Cage__c            = booking.Empty_Cage__c;
+								jobRec.Empty_CardULD__c         = booking.Empty_CardULD__c;
+								jobRec.Empty_Colby__c           = booking.Empty_Colby__c;
+								jobRec.Empty_Pallets__c         = booking.Empty_Pallets__c;
+								jobRec.Empty_Trailer__c         = booking.Empty_Trailer__c;
+								jobRec.Empty_ULD__c             = booking.Empty_ULD__c;
+								jobRec.Full_Aircan__c           = booking.Full_Aircan__c;
+								jobRec.Full_Cage__c             = booking.Full_Cage__c;
+								jobRec.Full_CardULD__c          = booking.Full_CardULD__c;
+								jobRec.Full_Colby__c            = booking.Full_Colby__c;
+								jobRec.Full_Pallets__c          = booking.Full_Pallets__c;
+								jobRec.Full_Trailer__c          = booking.Full_Trailer__c;
+								jobRec.Full_ULD__c              = booking.Full_ULD__c;
 
+								// call method to serialise payload to json format and populate Containers Payload long text field
+								jobRec.Containers_Payload__c = generateContainerTypePayload(jobRec);
 								jobsNewList.add(jobRec);
 							}
 						}
@@ -793,5 +856,68 @@ public with sharing class PUDUtility {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Generate the JSON payload representing container type data on the Job record.
+	 * @param jobRec job instance for which the payload is generated
+	 * @return container types JSON payload (JSON array)
+	 */
+	private static String generateContainerTypePayload(PUD_Job__c jobRec){
+
+		List<ContainerPayload> payloads = new List<ContainerPayload>();
+
+		// generate container payloads based on the configuration in CONTAINER_TYPE_MAPPINGS
+		for (String containerType: CONTAINER_TYPE_MAPPINGS.keySet()) {
+			ContainerTypeMapping mapping = CONTAINER_TYPE_MAPPINGS.get(containerType);
+			if (jobRec.get(mapping.emptyQuantityField) != null) {
+				payloads.add(new ContainerPayload(containerType, (Decimal) jobRec.get(mapping.emptyQuantityField), CONTAINER_CONDITION_EMPTY));
+			}
+			if (jobRec.get(mapping.fullQuantityField) != null) {
+				payloads.add(new ContainerPayload(containerType, (Decimal) jobRec.get(mapping.fullQuantityField), CONTAINER_CONDITION_FULL));
+			}
+		}
+
+		if (!payloads.isEmpty()) {
+			// Serialise container payload and suppress null value
+			return JSON.serialize(payloads, true);
+		}
+
+		return null;
+	}
+	
+	/**
+	* The class stores container related information such as Name, Quantity and Condition.
+	* The classed is used to be serialised into a list in JSON format and value to be populated to the Containers Payload Long Text field.
+	* Containers Payload will then send out to TIBCO, and then dispatch system
+	*/
+	@TestVisible private class ContainerPayload{
+		public String Name {get; private set;}
+		public Decimal Quantity {get; private set;}
+		public String Condition {get; private set;}
+		public ContainerPayload(String Name, Decimal Quantity, String Condition){
+			this.Name = Name;
+			this.Quantity = Quantity;
+			this.Condition = Condition;
+		}
+		public ContainerPayload(String Name, String Condition){
+			this.Name = Name;
+			this.Condition = Condition;
+		}
+	}
+
+	/**
+	 * Mapping for a container type. Each container type has an empty and full quantity captured on PUD_Job__c
+	 */
+	private class ContainerTypeMapping {
+		String name;
+		SObjectField emptyQuantityField;
+		SObjectField fullQuantityField;
+
+		ContainerTypeMapping(String name, SObjectField emptyQuantityField, SObjectField fullQuantityField) {
+			this.name = name;
+			this.emptyQuantityField = emptyQuantityField;
+			this.fullQuantityField = fullQuantityField;
+		}
 	}
 }

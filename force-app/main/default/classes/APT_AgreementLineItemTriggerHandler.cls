@@ -8,6 +8,8 @@ History:
 2020-01-27 Sheryl Crisostomo Modified | Added additional picklist value called Pickup & Delivery At the same time for Local Pickup and Delivery service type
 2021-03-02 - Mathew Jose - Amended International & Local pick & delivery service's automation on DOS checkoxes to be based on relevant product codes & charge types (STP-4590)
 2021-06-22 Naveen Rajanna Changed APT_LPD_Frequency__c picklist to APT_LPD_Multiple_Frequency__c  multi-picklist field
+2021-10-28 Sautul Mehta - CI-96 Changes for APPC Contract Template Document Generation.
+2022-04-26 Pradeep Jaiswal - CI-224 Populated Cubic Status, Cubic Factor and Existing APPC Customer Attributes
 **************************************************/
 
 public with sharing class APT_AgreementLineItemTriggerHandler{
@@ -89,6 +91,13 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                                                     Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c, 
                                                     Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Dangerous_Goods_Flag__c,
                                                     APT_Identical_Line__c, List_Price_Text__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Subsequent_Parcel_Discount__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Spend_Per_Annum__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Status__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Factor__c,  
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c, 
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Estimated_Revenue__c,
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Distance_Facility_Provided_In_Km__c,
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Multiple_Frequency__c,
@@ -154,21 +163,23 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                 }
                 
                 //Local Pickup 
-                if(String.isBlank(ali.Apttus_CMConfig__OptionId__c) 
+                if((String.isBlank(ali.Apttus_CMConfig__OptionId__c) 
                     && String.isNotBlank(ali.Apttus__ProductId__c) 
                     && null != ali.Apttus__ProductId__r.ProductCode 
                     && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) 
-                    && ali.Apttus__ProductId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_LOCAL_PICKUP_DELIVERY)
+                    && (ali.Apttus__ProductId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_LOCAL_PICKUP_DELIVERY))
                     && String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) 
                     && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
                     && null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c 
                     && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c) 
                     && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.CONFIG_TYPE_STAND_ALONE)
                     && null != ali.Apttus__AgreementId__r.Operational_Schedule__c 
-                    && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c)) {
+                    && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c)
+                    ) || ali.Apttus__ProductId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_APPC)) {
                     
                     os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
                     if(isInsert) {
+                        os.APT_Parcel__c = true; //US-126
                         // Populate relevant attribute values from DerivedFrom field and save into an agreement product attribute value
                         newApav.APT_LPD_Service_Type__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Service_Type__c;
                         newApav.APT_LPD_Multiple_Frequency__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Multiple_Frequency__c;
@@ -183,6 +194,14 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                         newApav.APT_LPD_Collection_Address_To_2__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Collection_Address_To_2__c;
                         // Attach agreement line item to agreement product attribute value
                         newApav.Apttus_CMConfig__LineItemId__c = ali.id;
+
+                        newApav.APT_Subsequent_Parcel_Discount__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Subsequent_Parcel_Discount__c;
+                        newApav.APT_Min_Transit_Cover_Amount_Per_Article__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c;
+                        newApav.APT_Min_Spend_Per_Annum__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Spend_Per_Annum__c;
+                        newApav.APTS_Price_Structure__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c;
+                        newApav.APT_Cubic_Factor__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Factor__c;
+                        newApav.APT_Cubic_Status__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Status__c;
+                        newApav.APT_Existing_APPC_Customer__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c;
                         
                         // Populate attribute values from DerivedFrom field into a new operational schedule
                         os.APT_LPD_Service_Type__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Service_Type__c;
@@ -233,7 +252,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                 if(String.isBlank(ali.Apttus_CMConfig__OptionId__c) && String.isNotBlank(ali.Apttus__ProductId__c) && null != ali.Apttus__ProductId__r.ProductCode && String.isNotBlank(ali.Apttus__ProductId__r.ProductCode) && ali.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD)
                     && String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
                     && null != ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c && String.isNotBlank(ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c) && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.LABEL_LINE_TYPE_BUNDLE)
-                    && null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
+                    && null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c
+                  ) {
                     
                     os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
                     if(isInsert) {

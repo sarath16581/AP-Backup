@@ -50,13 +50,21 @@ public class BGSCase_Test {
 
         csRec.Status = 'Closed';
         csRec.ResolutionCode__c = 'Assistance Provided';
-        //csRec.IsClosed = true;
+        csRec.Type = 'General Enquiry';
+        csRec.ProductCategory__c = 'Domestic Parcels';
+        csRec.ProductSubCategory__c = 'eParcel';
+        csRec.EnquirySubType__c = 'Tracking';
         update csRec;
+
         // Assert that an email is sent, when the case is "closed" and the resolution code is not 'Closed - Duplicate'
         System.assertEquals(1, Limits.getEmailInvocations(), 'One email should be sent upon case closure');
         
         csRec2.Status = 'Closed';
         csRec2.ResolutionCode__c = 'Closed - Duplicate';
+        csRec.Type = 'General Enquiry';
+        csRec.ProductCategory__c = 'Domestic Parcels';
+        csRec.ProductSubCategory__c = 'eParcel';
+        csRec.EnquirySubType__c = 'Tracking';
         update csRec2;
         // Assert that No email is sent when the "closed" case has resolution code as 'Closed - Duplicate'
         System.assertEquals(1, Limits.getEmailInvocations(), 'No email should be sent, so email log remain 1 due to duplicate reason');

@@ -1,0 +1,37 @@
+<!--
+    Data table for the AM's to assign contacts to campaigns.
+
+    Changelog:
+    2021-12-21 - Mathew Jose- Created.
+ -->
+<template>
+    <div>
+		<template if:true={error}>
+			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
+				<span class="slds-assistive-text">error</span>
+				<h2>{error}</h2>
+			</div>
+		</template>               
+        <template if:true={data}>
+            <c-campaign-assignment-datatable 
+                key-field="assignmentId" 
+                data={data}
+                columns={columns} 
+                onpicklistchanged={picklistChanged} 
+                onvalueselect={handleSelection}
+                draft-values={draftValues} 
+                oncellchange={handleCellChange}
+                onsave={handleSave}
+                oncancel={handleCancel}
+                hide-checkbox-column
+                >
+            </c-campaign-assignment-datatable>
+        </template>
+        <div if:true={isSpinning} class="spinner">
+            <lightning-spinner variant="brand" 
+                               alternative-text="Loading assignments"     
+                               size="medium">
+            </lightning-spinner>
+        </div>       
+    </div>
+</template>

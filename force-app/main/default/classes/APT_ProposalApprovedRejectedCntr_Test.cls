@@ -1,10 +1,13 @@
-/**
-Description: Test class for Apex Class- APT_ProposalApprovedRejectedController.
-Created By - Jetha Ram
-Created Date - 28th July, 2016
-Last Modified By -
-Last Modified Date -
-**/
+/***
+ * @author Jetha Ram
+ * @date 2016-07-28
+ * @group 
+ * @description This class is test class for APT_ProposalApprovedRejectedController.
+ * @changelog
+ * 2016-07-28 - Jetha Ram- Created
+ * 2021-11-17 - Mathew Jose - Fixing the test method failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
+ * 2022-02-11  REQ2723568: API version 52 upgrade
+*/
 @isTest
 private class APT_ProposalApprovedRejectedCntr_Test 
 {
@@ -18,9 +21,6 @@ private class APT_ProposalApprovedRejectedCntr_Test
         UserName=APT_Constants.EMAIL_TEST_USER);
         System.runAs(testuser) 
         {   
-            //Create Contact
-            Contact con = APT_TestUtils.createContact();
-            insert con;
             
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -28,6 +28,12 @@ private class APT_ProposalApprovedRejectedCntr_Test
             acc.ACN__c = APT_Constants.TEST_ACCOUNT_ACN;
             acc.LEGACY_ID__c = APT_Constants.TEST_ACCOUNT_LEGACY_ID;
             insert acc;
+
+            //Create Contact
+            //Applying the following change as key contact have look up filter introduced on Opportunity(CI-194).  
+            Contact con = APT_TestUtils.createContact();
+            con.AccountId = acc.Id;
+            insert con;            
             
             acc.LEGACY_ID__c = APT_Constants.TEST_ACCOUNT_LEGACY_ID;
             update acc;
@@ -190,6 +196,8 @@ private class APT_ProposalApprovedRejectedCntr_Test
             parentApprovalReq.Apttus_Approval__Actual_Approver__c = u.Id;
             parentApprovalReq.Apttus_Approval__Approver_Comments__c = APT_Constants.STRING_TEST1;
             parentApprovalReq.Apttus_Approval__Approval_Status__c = APT_Constants.APPROVAL_STATUS_SUBMITTED;
+            //Fixing issues with test class failures.
+            parentApprovalReq.Apttus_Approval__Object_Type__c = APT_Constants.PRODUCT_CONFIGURATION_OBJECT;
             insert parentApprovalReq;
             
             Apttus_Approval__Approval_Request__c childApprovalReq = new Apttus_Approval__Approval_Request__c();
@@ -199,6 +207,8 @@ private class APT_ProposalApprovedRejectedCntr_Test
             childApprovalReq.Apttus_Approval__Approval_Status__c = APT_Constants.APPROVAL_STATUS_SUBMITTED;
             childApprovalReq.Apttus_Approval__ParentRequestId__c = parentApprovalReq.Id;
             childApprovalReq.Apttus_CQApprov__CartId__c = prodconfig.Id;
+            //Fixing issues with test class failures.
+            childApprovalReq.Apttus_Approval__Object_Type__c = APT_Constants.PRODUCT_CONFIGURATION_OBJECT;            
             insert childApprovalReq; 
             
             Test.StartTest();
@@ -220,9 +230,6 @@ private class APT_ProposalApprovedRejectedCntr_Test
         UserName=APT_Constants.EMAIL_TEST_USER);
         System.runAs(testuser) 
         {   
-            //Create Contact
-            Contact con = APT_TestUtils.createContact();
-            insert con;
             
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -230,9 +237,15 @@ private class APT_ProposalApprovedRejectedCntr_Test
             acc.ACN__c = APT_Constants.TEST_ACCOUNT_ACN;
             acc.LEGACY_ID__c = APT_Constants.TEST_ACCOUNT_LEGACY_ID;
             insert acc;
+
+            //Create Contact
+            Contact con = APT_TestUtils.createContact();
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = acc.Id;
+            insert con;            
             
-            acc.LEGACY_ID__c = APT_Constants.TEST_ACCOUNT_LEGACY_ID;
-            update acc;
+            //acc.LEGACY_ID__c = APT_Constants.TEST_ACCOUNT_LEGACY_ID;
+            //update acc;
             
             Opportunity opp = APT_TestUtils.createOpportunity(acc.id);
             opp.KeyContact__c = con.Id;

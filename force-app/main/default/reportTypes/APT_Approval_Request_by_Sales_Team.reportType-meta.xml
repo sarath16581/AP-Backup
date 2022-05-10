@@ -1258,6 +1258,11 @@
             <field>APT_Sales_Team__c</field>
             <table>Apttus_Proposal__Proposal__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Apttus_Proposal__Proposal__c</table>
+        </columns>
         <masterLabel>Proposals</masterLabel>
     </sections>
     <sections>

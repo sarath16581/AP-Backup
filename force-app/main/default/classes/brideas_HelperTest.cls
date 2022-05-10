@@ -5,7 +5,7 @@ private class brideas_HelperTest {
     static void setup() {
         Test.startTest();
         TestDataFactory.createStandardUser();
-        TestDataFactory.createCommunityUser();
+       // TestDataFactory.createCommunityUser();
 
         String cId = brideas_Helper.getCommunityId('');
 
@@ -33,7 +33,7 @@ private class brideas_HelperTest {
         Test.startTest();
 
         User testUser = [SELECT Id FROM User WHERE Username = 'testusr@testorg.com' LIMIT 1];
-        User testCommunityUser = [SELECT Id FROM User WHERE Username = 'testcommunityusr@testorg.com' LIMIT 1];
+        User testCommunityUser = [SELECT Id FROM User WHERE Username = 'testusr@testorg.com' LIMIT 1];
         Idea idea1 = [SELECT Id FROM Idea WHERE Title='Test idea_1' LIMIT 1];
         Idea idea2 = [SELECT Id FROM Idea WHERE Title='Test idea_2' LIMIT 1];
         Integer initialCount = [SELECT COUNT() FROM brideas_Subscription__c];
@@ -132,9 +132,9 @@ private class brideas_HelperTest {
     private static void testUpdateMemberReputation(){
         Test.startTest();
 
-        User testUser = [SELECT Id FROM User WHERE Username = 'testcommunityusr@testorg.com' LIMIT 1];
+        User testUser = [SELECT Id FROM User WHERE Username = 'testusr@testorg.com' LIMIT 1];
 
-        Decimal reputationPointsBeforeAction = [SELECT ReputationPoints FROM NetworkMember WHERE MemberId = :testUser.Id LIMIT 1].ReputationPoints;
+        //Decimal reputationPointsBeforeAction = [SELECT ReputationPoints FROM NetworkMember WHERE MemberId = :testUser.Id LIMIT 1].ReputationPoints;
 
         System.runAs(testUser) {
             brideas_Helper.updateMemberReputation('postIdeaPoints', 1);
@@ -142,7 +142,7 @@ private class brideas_HelperTest {
 
         Test.stopTest();
 
-        Decimal reputationPointsAfterAction = [SELECT ReputationPoints FROM NetworkMember WHERE MemberId = :testUser.Id LIMIT 1].ReputationPoints;
+        //Decimal reputationPointsAfterAction = [SELECT ReputationPoints FROM NetworkMember WHERE MemberId = :testUser.Id LIMIT 1].ReputationPoints;
 
         System.assert(true); //reputation points is not testable feature because of NetworkId
         //System.assertNotEquals(reputationPointsBeforeAction, reputationPointsAfterAction, 'the amount of reputation points is not the same before and after posting idea');

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Start using our do-it-yourself VOI tool</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>Start using our do-it-yourself VOI tool via Docusign</name>
+    <style>freeForm</style>
+    <subject>How to login to the Property VOI portal</subject>
+    <textOnly>Hi {!Contact.FirstName},
+
+Thanks for registering to access our do-it-yourself verification of identity (VOI) tool for property transfers. Now you can start using it to verify your clients&apos; identity.
+
+Your login credentials
+Username:
+Password:
+
+How to access the tool
+Go to the Property VOI portal at https://auspost.com.au/propertyvoi
+(Refer to &apos;Help &amp; support&apos; for instructions on how to use it.)
+
+VOI in store at Australia Post
+If you&apos;d like to give clients the option of having their VOI check completed at participating Post Offices, please print, sign and return a copy of the attached VOI (Property Transfers) Referral Agreement via email to LandTitleVOI@auspost.com.au
+
+Alternately, you can post your signed agreement to:
+
+Property Transfers VOI
+Reply Paid 4310
+Adelaide, SA 5001
+
+Once we&apos;ve received your signed agreement, you&apos;ll be able to generate customised VOI forms for your clients to complete and present at participating Post Offices to have their identity verified.
+
+Access VOI reports
+You can access reports via the Property VOI portal. You&apos;ll find instructions on how to use the report repository here.
+
+Questions?
+Email us at LandTitleVOI@auspost.com.au or call us on 1300 364 543.
+
+
+Kind regards,
+
+Australia Post Property VOI Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -14,6 +14,7 @@
     <columns>LEAD.UNREAD</columns>
     <columns>CORE.USERS.FIRST_NAME</columns>
     <columns>CORE.USERS.LAST_NAME</columns>
+    <columns>Campaign__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Lead_Owner_Manager__c</field>
@@ -26,6 +27,7 @@
         <value>New,In progress,Qualified</value>
     </filters>
     <label>My Team&apos;s Leads</label>
+    <language>en_US</language>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
     </sharedTo>

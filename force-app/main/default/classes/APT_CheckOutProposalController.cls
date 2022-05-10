@@ -66,6 +66,7 @@ public class APT_CheckOutProposalController {
     **/
     public void finalizeProposal(){
         try{
+       
             Apttus_CpqApi.CPQ.FinalizeCartRequestDO request = new Apttus_CpqApi.CPQ.FinalizeCartRequestDO();
             // add request parameters
             request.CartId = configurationId;
@@ -84,6 +85,31 @@ public class APT_CheckOutProposalController {
     **/
     public PageReference redirectToOpportunity(){
         finalizeProposal();
+        
+        //if(!Test.isRunningTest()) 
+        {
+        //date quoteValidityEndDate = APT_ProposalLineItemSelector.newInstance(1).selectByConfigId(new Set<Id>{configurationId}).values()[0].Apttus_QPConfig__AttributeValueId__r.Applied_PSR__r.Quote_Validity_End_Date__c;
+       // Id ProposalId=APT_ProposalLineItemSelector.newInstance(1).selectByConfigId(new Set<Id>{configurationId}).values()[0].Apttus_Proposal__Proposal__c;
+       // date proposalCreateddate=date.valueof(APT_ProposalLineItemSelector.newInstance(1).selectByConfigId(new Set<Id>{configurationId}).values()[0].Apttus_Proposal__Proposal__r.createddate);
+     
+        Apttus_Proposal__Proposal_Line_Item__c proposalLineItem = APT_ProposalLineItemSelector.newInstance(1).selectByConfigId(new Set<Id>{configurationId}, new Set<Object>{APT_ProposalLineItemSelector.Options.WITH_PROPOSAL, APT_ProposalLineItemSelector.Options.WITH_APTTUS_CONFIG_ATTRIBUTE_VALUE}).values()[0];
+        date quoteValidityEndDate = proposalLineItem.Apttus_QPConfig__AttributeValueId__r.Applied_PSR__r.Quote_Validity_End_Date__c;
+         Id ProposalId=proposalLineItem.Apttus_Proposal__Proposal__c;
+         date proposalCreateddate=date.valueof(proposalLineItem.Apttus_Proposal__Proposal__r.createddate);
+         
+        Apttus_Proposal__Proposal__c Proposal= new Apttus_Proposal__Proposal__c();
+        Proposal.id=ProposalId;
+        if(quoteValidityEndDate!=null)
+        {
+        Proposal.Apttus_Proposal__Proposal_Expiration_Date__c=quoteValidityEndDate;
+        }
+        else{
+        Proposal.Apttus_Proposal__Proposal_Expiration_Date__c=proposalCreateddate.AddDays(APT_Constants.PARAM_CONTRACT_EXP_DAYS);
+        }
+        
+        update proposal;
+        }
+         
         PageReference pageRef;
         if(prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c != null){
            pageRef = new PageReference(instanceURL+'/' + prodConfig.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c); 

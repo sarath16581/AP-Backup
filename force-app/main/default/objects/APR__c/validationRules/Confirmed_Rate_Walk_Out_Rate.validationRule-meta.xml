@@ -2,14 +2,13 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Confirmed_Rate_Walk_Out_Rate</fullName>
     <active>true</active>
-    <description>Confirmed Rate for Auto Accepted/Accepted Status must be equal or greater than the Walk Out Rate</description>
+    <description>Confirmed Rate for Accepted Status must be equal or greater than the Walk Out Rate</description>
     <errorConditionFormula>AND(
 RecordType.DeveloperName = &apos;StarTrack&apos;,
 OR(
 Confirmed_Rate__c &lt; Walk_out_Rate__c
 ),
 OR(
-ISPICKVAL( Status__c , &apos;Auto-Accepted&apos;),
 ISPICKVAL( Status__c , &apos;Accepted&apos;)
 )
 )</errorConditionFormula>

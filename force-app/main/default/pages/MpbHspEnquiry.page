@@ -236,8 +236,9 @@
 
 
                     <apex:form styleClass="form fn-validation"  id="Enquiry_Form" rendered="{!IF(section='enquiry' || section='landing',true,false)}" enctype="multipart/form-data">
-
-                        <apex:Messages id="messages" styleclass="form-errors"/>
+                        <apex:outputPanel id="errMsg">
+                            <apex:Messages id="messages" styleclass="form-errors"/>
+                        </apex:outputPanel>
                         <!-- START Error list
                                 If there are serverside errors, include them as <li> elements
                                 If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
@@ -358,8 +359,8 @@
                                         <!-- 2016-03-23 CLIEW: SELECT LIST AND SELECT OPTIONS UPDATED TO USE NEW CASE OBJECT CUSTOM PICKLIST FIELD TO CAPTURE MPBSP SPECIFIC ENQUIRY TYPES -->
                                         <apex:selectList size="1" value="{!enq.MPB_BSP_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!MpbCaseType}"/>
-                                           <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Section,Enquiry_General_Enquiry,
-                                           Enquiry_Item_Search,Enquiry_delivery_Enquiry,Enquiry_attachment_other,Enquiry_Sub_Pricing_Enq,Enquiry_Sub_Tech_Enq"/>
+                                            <apex:actionSupport event="onchange" action="{!enquiryTypeOnChange}" reRender="Enquiry_Section,Enquiry_General_Enquiry,
+                                           Enquiry_Item_Search,Enquiry_delivery_Enquiry,Enquiry_attachment_other,Enquiry_Sub_Pricing_Enq,Enquiry_Sub_Tech_Enq,errMsg"/>
                                         </apex:selectList>
                                     </apex:actionRegion>
 
@@ -386,7 +387,7 @@
                                 </div>
 
                                 <div class="input input-large">
-                                    <p>Preferred contact</p><span>We'll only call you if needed to finalise your enquiry.</span>
+                                    <p>Preferred Contact Number</p><span>We'll only call you if needed to finalise your enquiry.</span>
                                     <apex:inputField value="{!enq.SuppliedPhone}" styleclass="bw-input-field" />
                                 </div>
 
@@ -399,7 +400,7 @@
                                         <p>What are you enquiring about?<span class="symbol-req"> *</span></p>
                                         <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!TechMpbCaseType}"/>
-                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Tech_Enq,messages"/>
+                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Tech_Enq"/>
                                         </apex:selectList>
                                     </div>
                                 </apex:outputPanel>
@@ -415,7 +416,7 @@
                                         <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
                                         <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!MPBLabelSubEnqPicklist}"/>
-                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_label_Enq,messages,Enquiry_Section,Enquiry_General_Enquiry"/>
+                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_label_Enq,Enquiry_Section,Enquiry_General_Enquiry"/>
                                         </apex:selectList>
                                     </div>
                                 </apex:outputPanel>
@@ -425,7 +426,7 @@
                                         <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
                                         <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!MPBPickUpEnqPicklist}"/>
-                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pick_Up_Enq,messages,Enquiry_Section"/>
+                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pick_Up_Enq,Enquiry_Section"/>
                                         </apex:selectList>
                                     </div>
                                 </apex:outputPanel>
@@ -433,7 +434,7 @@
 
                                     <apex:outputPanel id="Enquiry_Pricing_Disputed" rendered="{!IF(LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='disputed payment',true,false)}">
                                         <div class="input required input-large">
-                                            <p>Transaction ID <span class="symbol-req"> *</span></p>
+                                            <p>Underpaid Reference or Transaction ID <span class="symbol-req"> *</span></p>
                                             <apex:inputField value="{!enq.ReferenceID__c}" />
                                         </div>
                                     </apex:outputPanel>
@@ -442,7 +443,7 @@
                                         <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
                                         <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!MPBPricEnqPicklist}"/>
-                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pricing_Enq,messages,
+                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pricing_Enq,
                                             Enquiry_Section"/>
                                         </apex:selectList>
                                     </div>
@@ -487,7 +488,7 @@
                                     <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
                                     <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
                                         <apex:selectOptions value="{!MPBDelEnqPicklist}"/>
-                                        <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Item_Search,messages"/>
+                                        <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Item_Search"/>
                                     </apex:selectList>
                                 </div>
 
@@ -497,7 +498,7 @@
                                 </div>
 
                                 <div class="input input-large">
-                                    <p>Preferred contact number</p>
+                                    <p>Preferred Contact Number</p>
                                     <span class="tooltiptext">We'll only call you if needed to finalise your enquiry.</span>
                                     <apex:inputField value="{!enq.SuppliedPhone}" styleclass="bw-input-field" />
                                 </div>

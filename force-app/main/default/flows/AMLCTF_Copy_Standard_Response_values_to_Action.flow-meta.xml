@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>49.0</apiVersion>
-    <assignments>
-        <name>myVariable_waitStartTimeAssignment</name>
-        <label>myVariable_waitStartTimeAssignment</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>myVariable_waitStartTimeVariable</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>myDecision</targetReference>
-        </connector>
-    </assignments>
+    <apiVersion>52.0</apiVersion>
     <decisions>
         <processMetadataValues>
             <name>index</name>
@@ -36,32 +20,11 @@
             <name>myRule_1</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>ID</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>ID</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.AMLCTF_Audit_Action_Standard_Response__c</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <leftValueReference>formula_myRule_1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
             </conditions>
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
@@ -86,67 +49,18 @@
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_5</name>
-            <conditionLogic>or</conditionLogic>
+            <conditionLogic>and</conditionLogic>
             <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.AMLCTF_Comments_or_Findings__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.AMLCTF_Corrective_Action__c</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <leftValueReference>formula_myRule_5</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_5_pmetdec</targetReference>
+                <targetReference>myRule_5_A1</targetReference>
             </connector>
-            <label>Observation or Action Updated?</label>
+            <label>Observation &amp; Action both NULL</label>
         </rules>
     </decisions>
     <decisions>
@@ -165,171 +79,8 @@
             <name>myRule_7</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.AMLCTF_Comments_or_Findings__c</leftValueReference>
+                <leftValueReference>formula_myRule_7</leftValueReference>
                 <operator>EqualTo</operator>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.AMLCTF_Corrective_Action__c</leftValueReference>
-                <operator>EqualTo</operator>
-            </conditions>
-            <connector>
-                <targetReference>myRule_7_pmetdec</targetReference>
-            </connector>
-            <label>Observation &amp; Action both NULL</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>myRule_5_pmetdec</name>
-        <label>Previously Met Decision</label>
-        <locationX>500</locationX>
-        <locationY>100</locationY>
-        <defaultConnector>
-            <targetReference>myRule_5_A1</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
-        <rules>
-            <name>myRule_5_pmetnullrule</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>myVariable_old</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>myRule_5_A1</targetReference>
-            </connector>
-            <label>Previously Met - Null</label>
-        </rules>
-        <rules>
-            <name>myRule_5_pmetrule</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_old.AMLCTF_Comments_or_Findings__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_old.AMLCTF_Corrective_Action__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-            </conditions>
-            <connector>
-                <targetReference>myDecision6</targetReference>
-            </connector>
-            <label>Previously Met - Prev</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>myRule_7_pmetdec</name>
-        <label>Previously Met Decision</label>
-        <locationX>700</locationX>
-        <locationY>100</locationY>
-        <defaultConnector>
-            <targetReference>myRule_7_A1</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
-        <rules>
-            <name>myRule_7_pmetnullrule</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>myVariable_old</leftValueReference>
-                <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
@@ -337,68 +88,7 @@
             <connector>
                 <targetReference>myRule_7_A1</targetReference>
             </connector>
-            <label>Previously Met - Null</label>
-        </rules>
-        <rules>
-            <name>myRule_7_pmetrule</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_old.AMLCTF_Comments_or_Findings__c</leftValueReference>
-                <operator>EqualTo</operator>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_old.AMLCTF_Corrective_Action__c</leftValueReference>
-                <operator>EqualTo</operator>
-            </conditions>
-            <label>Previously Met - Prev</label>
+            <label>Observation or Action changed?</label>
         </rules>
     </decisions>
     <description>Copies values from a selected Standard Response record to an Action record.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
@@ -409,9 +99,9 @@
                 <stringValue>IF(ISBLANK([AMLCTF_Audit_Action__c].AMLCTF_Comments_or_Findings__c ) ,[AMLCTF_Audit_Action__c].AMLCTF_Audit_Action_Standard_Response__c.AMLCTF_Comments_or_Findings__c , [AMLCTF_Audit_Action__c].AMLCTF_Comments_or_Findings__c) </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_2_myRule_1_A1_AMLCTF_Comments_or_Findings_c</name>
+        <name>formula_2_myRule_1_A1_6343873551</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK({!myVariable_current.AMLCTF_Comments_or_Findings__c} ) ,{!myVariable_current.AMLCTF_Audit_Action_Standard_Response__c.AMLCTF_Comments_or_Findings__c} , {!myVariable_current.AMLCTF_Comments_or_Findings__c})</expression>
+        <expression>IF(ISBLANK({!myVariable_current.AMLCTF_Comments_or_Findings__c} ) ,{!myVariable_current.AMLCTF_Audit_Action_Standard_Response__r.AMLCTF_Comments_or_Findings__c} , {!myVariable_current.AMLCTF_Comments_or_Findings__c})</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
@@ -420,11 +110,62 @@
                 <stringValue>IF(ISBLANK([AMLCTF_Audit_Action__c].AMLCTF_Corrective_Action__c ) ,[AMLCTF_Audit_Action__c].AMLCTF_Audit_Action_Standard_Response__c.AMLCTF_Corrective_Action__c , [AMLCTF_Audit_Action__c].AMLCTF_Corrective_Action__c) </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A1_AMLCTF_Corrective_Action_c</name>
+        <name>formula_3_myRule_1_A1_0423203579</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK({!myVariable_current.AMLCTF_Corrective_Action__c} ) ,{!myVariable_current.AMLCTF_Audit_Action_Standard_Response__c.AMLCTF_Corrective_Action__c} , {!myVariable_current.AMLCTF_Corrective_Action__c})</expression>
+        <expression>IF(ISBLANK({!myVariable_current.AMLCTF_Corrective_Action__c} ) ,{!myVariable_current.AMLCTF_Audit_Action_Standard_Response__r.AMLCTF_Corrective_Action__c} , {!myVariable_current.AMLCTF_Corrective_Action__c})</expression>
     </formulas>
-    <interviewLabel>AMLCTF_Copy_Standard_Response_values_to_Action-10_AMLCTF_Audit_Action__c</interviewLabel>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+ISCHANGED([AMLCTF_Audit_Action__c].AMLCTF_Audit_Action_Standard_Response__c ),
+NOT(ISBLANK([AMLCTF_Audit_Action__c].AMLCTF_Audit_Action_Standard_Response__c ))
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+ISCHANGED({!myVariable_current.AMLCTF_Audit_Action_Standard_Response__c} ),
+NOT(ISBLANK({!myVariable_current.AMLCTF_Audit_Action_Standard_Response__c} ))
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+ ISBLANK([AMLCTF_Audit_Action__c].AMLCTF_Comments_or_Findings__c),
+ ISBLANK([AMLCTF_Audit_Action__c].AMLCTF_Corrective_Action__c)
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_5</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+ ISBLANK({!myVariable_current.AMLCTF_Comments_or_Findings__c}),
+ ISBLANK({!myVariable_current.AMLCTF_Corrective_Action__c})
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>OR(
+ NOT(ISBLANK([AMLCTF_Audit_Action__c].AMLCTF_Comments_or_Findings__c)),
+ NOT(ISBLANK([AMLCTF_Audit_Action__c].AMLCTF_Corrective_Action__c))
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_7</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+ NOT(ISBLANK({!myVariable_current.AMLCTF_Comments_or_Findings__c})),
+ NOT(ISBLANK({!myVariable_current.AMLCTF_Corrective_Action__c}))
+)</expression>
+    </formulas>
+    <interviewLabel>AMLCTF_Copy_Standard_Response_values_to_Action-11_InterviewLabel</interviewLabel>
     <label>AMLCTF Copy Standard Response values to Action</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -459,6 +200,9 @@
             </value>
         </processMetadataValues>
         <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
             <name>isChildRelationship</name>
             <value>
                 <booleanValue>false</booleanValue>
@@ -470,13 +214,13 @@
                 <stringValue>[AMLCTF_Audit_Action__c]</stringValue>
             </value>
         </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
         <name>myRule_1_A1</name>
         <label>Update fields</label>
         <locationX>100</locationX>
         <locationY>200</locationY>
-        <connector>
-            <targetReference>myDecision4</targetReference>
-        </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
@@ -518,7 +262,7 @@
             </processMetadataValues>
             <field>AMLCTF_Comments_or_Findings__c</field>
             <value>
-                <elementReference>formula_2_myRule_1_A1_AMLCTF_Comments_or_Findings_c</elementReference>
+                <elementReference>formula_2_myRule_1_A1_6343873551</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -548,7 +292,43 @@
             </processMetadataValues>
             <field>AMLCTF_Corrective_Action__c</field>
             <value>
-                <elementReference>formula_3_myRule_1_A1_AMLCTF_Corrective_Action_c</elementReference>
+                <elementReference>formula_3_myRule_1_A1_0423203579</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Print?</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>AMLCTF_Print__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
         <object>AMLCTF_Audit_Action__c</object>
@@ -559,6 +339,9 @@
             <value>
                 <stringValue>always</stringValue>
             </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
         </processMetadataValues>
         <processMetadataValues>
             <name>isChildRelationship</name>
@@ -572,13 +355,88 @@
                 <stringValue>[AMLCTF_Audit_Action__c]</stringValue>
             </value>
         </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
         <name>myRule_5_A1</name>
-        <label>Set Print? to Checked</label>
+        <label>Set Print? to Unchecked</label>
         <locationX>500</locationX>
         <locationY>200</locationY>
-        <connector>
-            <targetReference>myDecision6</targetReference>
-        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Print?</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>AMLCTF_Print__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>AMLCTF_Audit_Action__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[AMLCTF_Audit_Action__c]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_7_A1</name>
+        <label>Set Print? to Checked</label>
+        <locationX>700</locationX>
+        <locationY>200</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
@@ -625,76 +483,7 @@
         </inputAssignments>
         <object>AMLCTF_Audit_Action__c</object>
     </recordUpdates>
-    <recordUpdates>
-        <processMetadataValues>
-            <name>evaluationType</name>
-            <value>
-                <stringValue>always</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>isChildRelationship</name>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>reference</name>
-            <value>
-                <stringValue>[AMLCTF_Audit_Action__c]</stringValue>
-            </value>
-        </processMetadataValues>
-        <name>myRule_7_A1</name>
-        <label>Set Print? to Unchecked</label>
-        <locationX>700</locationX>
-        <locationY>200</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <processMetadataValues>
-                <name>implicit</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </processMetadataValues>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>myVariable_current.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <processMetadataValues>
-                <name>dataType</name>
-                <value>
-                    <stringValue>Boolean</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>isRequired</name>
-                <value>
-                    <booleanValue>false</booleanValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideLabel</name>
-                <value>
-                    <stringValue>Print?</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>rightHandSideType</name>
-                <value>
-                    <stringValue>Boolean</stringValue>
-                </value>
-            </processMetadataValues>
-            <field>AMLCTF_Print__c</field>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </inputAssignments>
-        <object>AMLCTF_Audit_Action__c</object>
-    </recordUpdates>
-    <startElementReference>myVariable_waitStartTimeAssignment</startElementReference>
+    <startElementReference>myDecision</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>
@@ -711,15 +500,5 @@
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <objectType>AMLCTF_Audit_Action__c</objectType>
-    </variables>
-    <variables>
-        <name>myVariable_waitStartTimeVariable</name>
-        <dataType>DateTime</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <elementReference>$Flow.CurrentDateTime</elementReference>
-        </value>
     </variables>
 </Flow>

@@ -97,7 +97,7 @@
     <groups>StarTrack Recycle Bin</groups>
     <groups>BSC - DHL Apple</groups>
     <groups>BSC - DHL ColdChain</groups>
-    <groups>BSC – Hartmann</groups>
+    <groups>BSC – TMS</groups>
     <groups>Customer Service Project 1</groups>
     <groups>Disputes Access</groups>
     <groups>Security Express</groups>
@@ -105,6 +105,7 @@
     <groups>Special Services &amp; Security Express</groups>
     <label>StarTrack Admin</label>
     <loginAccess>false</loginAccess>
+    <permissionSets>Knowledge Management Manager Article Permisssions</permissionSets>
     <permissionSets>StarTrack Autoclose Case from Task</permissionSets>
     <permissionSets>StarTrack Delegated Users</permissionSets>
     <permissionSets>StarTrack Due Date Override</permissionSets>

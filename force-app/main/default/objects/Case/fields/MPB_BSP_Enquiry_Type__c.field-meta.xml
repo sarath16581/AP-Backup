@@ -41,11 +41,6 @@
                 <default>false</default>
                 <label>Other Enquiry</label>
             </value>
-            <value>
-                <fullName>Advice on sending parcels</fullName>
-                <default>false</default>
-                <label>Advice on sending parcels</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

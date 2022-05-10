@@ -6,6 +6,7 @@
 * @changelog
 * 2021-08-10 - Ranjeewa Silva - Created.
 * 2021-10-13 - Ranjeewa Silva - Added new constant values.
+* 2022-03-16 - Ranjeewa Silva - Added new constant PUD_BOOKING_STATUS_ACTIVE.
 */
 public inherited sharing class PUDConstants {
 
@@ -13,6 +14,7 @@ public inherited sharing class PUDConstants {
 
 	// PUD Booking status
 	public static final String PUD_BOOKING_STATUS_EXPIRED = 'Expired';
+	public static final String PUD_BOOKING_STATUS_ACTIVE = 'Active';
 
 	//PUD Job status
 	// jobs are created in 'New' status. they are not yet pushed to dispatch system

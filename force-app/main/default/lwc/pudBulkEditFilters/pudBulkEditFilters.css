@@ -1,0 +1,11 @@
+/**
+ * 2022-01-21 - Ranjeewa Silva - Created.
+ */
+
+.bulk-edit-filters .slds-form-element {
+    width: 100%;
+}
+
+.routes-filter {
+    max-height:240px;
+}

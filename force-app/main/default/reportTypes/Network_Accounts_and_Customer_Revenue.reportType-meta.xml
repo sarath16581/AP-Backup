@@ -4625,6 +4625,24 @@
             <field>YTD_Variance_Actual_to_Budget__c</field>
             <table>Network__c.Assigned_Network__r.Budget_and_Revenue_2__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Revenue_Last_12_months__c</field>
+            <table>Network__c.Assigned_Network__r.Budget_and_Revenue_2__r</table>
+        </columns>
         <masterLabel>Customer Revenue</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hiddenTieContactToServicePartner__c</field>
+            <table>Network__c.Assigned_Network__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
+            <table>Network__c.Assigned_Network__r</table>
+        </columns>
+        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

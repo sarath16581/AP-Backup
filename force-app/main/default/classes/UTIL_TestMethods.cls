@@ -19,6 +19,7 @@
   * to the software and all copyright, patent, trade secret, trademark and other intellectual 
   * property rights therein.
   *
+  31.01.2022  Naveen Rajanna REQ2723602 - Minor Fix to failing test class
   */
   
 public with sharing class UTIL_TestMethods{

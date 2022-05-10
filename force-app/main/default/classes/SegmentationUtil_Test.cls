@@ -7,6 +7,7 @@ History:
 04.08.2016  eugene.jandusay@auspost.com.au        Created
 14.02.2017  eric.shen@auspost.com.au      update test class to reflect SCCR new
 05.03.2020  seth.heang@auspost.com.au     fixed test class failure with user role and increase code coverage
+01.03.2022  saiswetha.pingali@auspost.com.au REQ2723594 - Fixed test class failure with validation rule error "Missing Mobile or Phone Number" on lead creation.
 **************************************************/
 
 @isTest
@@ -133,7 +134,7 @@ private class SegmentationUtil_Test {
             
             Lead leadRec = new Lead(LastName='Lead Record',FirstName='First Name',Email='x@x.com',
                                         Street='Street',City='City',State='State',Country='Country',
-                                        PostalCode='1000',Parcels_per_week__c='1-9');
+                                        PostalCode='1000',Parcels_per_week__c='1-9',MobilePhone='0412345678');
             Database.insert(leadRec);
             
 

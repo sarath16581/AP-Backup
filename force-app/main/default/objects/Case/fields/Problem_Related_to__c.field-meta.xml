@@ -31,6 +31,11 @@
                 <label>Advice emails</label>
             </value>
             <value>
+                <fullName>Advice only</fullName>
+                <default>false</default>
+                <label>Advice only</label>
+            </value>
+            <value>
                 <fullName>Armaguard Remittance</fullName>
                 <default>false</default>
                 <label>Armaguard Remittance</label>
@@ -1319,6 +1324,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Agency</controllingFieldValue>
+            <controllingFieldValue>ATO</controllingFieldValue>
             <valueName>Reversal Request</valueName>
         </valueSettings>
         <valueSettings>
@@ -1542,6 +1548,10 @@
         <valueSettings>
             <controllingFieldValue>Accounts Receivable</controllingFieldValue>
             <valueName>Reprint Tax Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Western Union</controllingFieldValue>
+            <valueName>Advice only</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Western Union</controllingFieldValue>

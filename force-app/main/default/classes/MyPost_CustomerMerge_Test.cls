@@ -5,6 +5,7 @@
   */
 /*******************************  History ************************************************
 22/03/2016  kalpita.talwadekar@auspost.com.au   Created
+21/02/2022 swati.mogadala2@auspost.com.au REQ2723596-Added Cover_type when inserting Compensation records
     
 *******************************  History ************************************************/
 
@@ -119,13 +120,13 @@ private class MyPost_CustomerMerge_Test{
         acc2.Phone ='2132456';
         //acc2.Winning_Master_Record__pc = accWin.Id;
         database.insert(acc2);
-        //create related records
+        //create related recordsSSSSSS
         Contact con = testdataProvider.createContact('test',acc2.Id,'Contact');
         insert con;
         
         Case cse = TestUtility.createCase('test','new','investigation',accLoose.Id,perAcc.Id,recTypeId3);insert cse;
         NPSSurvey__c nps = new NPSSurvey__c(Contact__c=perAcc.Id); insert nps;
-        Compensation__c comp = new Compensation__c(Case__c  =cse.Id, Contact__c=perAcc.id,Compensation_Amount__c=10); insert comp;
+        Compensation__c comp = new Compensation__c(Case__c  =cse.Id,Contact__c=perAcc.id,Compensation_Amount__c=10,Cover_Type__c='Transit Cover'); insert comp;
         Task tsk = new Task(WhoId= perAcc.Id ,Priority= 'high'  , status='In Progress'  ,subject='tets'); insert tsk;
         Attachment att = TestUtility.createAttachment(Blob.valueOf('tetst'),accLoose.Id); att.Name='test'; insert att;
         AuthorisedContacts__c auth = new AuthorisedContacts__c(AuthorisingContact__c=perAcc.Id, Related_Contact__c=con.Id);
@@ -224,7 +225,7 @@ private class MyPost_CustomerMerge_Test{
         
         Case cse = TestUtility.createCase('test','new','investigation',acc2.Id,perAcc.Id,recTypeId3);insert cse;
         NPSSurvey__c nps = new NPSSurvey__c(Contact__c=perAcc.Id); insert nps;
-        Compensation__c comp = new Compensation__c(Case__c  =cse.Id, Contact__c=perAcc.id,Compensation_Amount__c=10); insert comp;
+        Compensation__c comp = new Compensation__c(Case__c  =cse.Id, Contact__c=perAcc.id,Compensation_Amount__c=10,Cover_Type__c='Transit Cover'); insert comp;
         Task tsk = new Task(WhoId= perAcc.Id ,Priority= 'high'  , status='In Progress'  ,subject='tets'); insert tsk;
         Attachment att = TestUtility.createAttachment(Blob.valueOf('tetst'),accLoose.Id); att.Name='test'; insert att;
         AuthorisedContacts__c auth = new AuthorisedContacts__c(AuthorisingContact__c=con.Id, Related_Contact__c=accLoose.Id);

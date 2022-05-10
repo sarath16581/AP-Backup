@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>revcult__Scoring_Changes_Made__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This checkbox indicates that there has been a change made to Scoring Policy when this was the latest analysis. These changes will be visible in the next analysis.</description>
+    <externalId>false</externalId>
+    <label>Scoring Policy Changes Made On This Job</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

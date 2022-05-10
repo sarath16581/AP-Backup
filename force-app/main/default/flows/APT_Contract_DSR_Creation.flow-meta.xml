@@ -738,7 +738,7 @@
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_10_myRule_7_A1_8233723854</name>
+        <name>formula_10_myRule_7_A1_9876280771</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -757,7 +757,7 @@ ISPICKVAL([Apttus__APTS_Agreement__c].Apttus_QPComply__RelatedProposalId__r.APT_
 ))</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A1_1959577829</name>
+        <name>formula_3_myRule_1_A1_9695744635</name>
         <dataType>String</dataType>
         <expression>IF(
 ISPICKVAL({!myVariable_current.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c}, &quot;Charge Account&quot;), 
@@ -783,6 +783,7 @@ IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Print P
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
 IF(OR(
 INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Decipha&quot;),
 INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Legacy Products&quot;),
@@ -793,7 +794,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_4_myRule_1_A1_5160192875</name>
+        <name>formula_4_myRule_1_A1_3846159754</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -805,6 +806,7 @@ IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Print Post&qu
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
 IF(OR(
 INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Decipha&quot;),
 INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Legacy Products&quot;),
@@ -821,7 +823,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
                 <stringValue>$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_5_myRule_1_A1_5528881614</name>
+        <name>formula_5_myRule_1_A1_1059622105</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.STP_Lead_Assignment_Settings__mdt.Deal_Enablement_Centre_DSR_record_type.Attribute_Value__c}</expression>
     </formulas>
@@ -839,6 +841,7 @@ IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Print P
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
 IF(OR(
 INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Decipha&quot;),
 INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Legacy Products&quot;),
@@ -849,7 +852,7 @@ INCLUDES([Apttus__APTS_Agreement__c].Included_Product_Lines__c, &quot;Track Mail
 &quot;Other&quot;, NULL)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_9_myRule_7_A1_1743684507</name>
+        <name>formula_9_myRule_7_A1_0042002042</name>
         <dataType>String</dataType>
         <expression>IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;eParcels Domestic&quot;), &quot;eParcel&quot;, NULL) + &apos;;&apos;+ 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;International&quot;), &quot;International&quot;, NULL) + &apos;;&apos; + 
@@ -861,6 +864,7 @@ IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Print Post&qu
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;On Demand&quot;), &quot;On Demand&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Courier&quot;), &quot;Courier&quot;, NULL) + &apos;;&apos; + 
 IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Community Update&quot;), &quot;Community Update&quot;, NULL) + &apos;;&apos; + 
+IF(INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Parcel Contract&quot;), &quot;Australia Post Parcel Contract&quot;, NULL) + &apos;;&apos; + 
 IF(OR(
 INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Decipha&quot;),
 INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Legacy Products&quot;),
@@ -870,7 +874,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
 ),
 &quot;Other&quot;, NULL)</expression>
     </formulas>
-    <interviewLabel>APT_Contract_DSR_Creation-4_InterviewLabel</interviewLabel>
+    <interviewLabel>APT_Contract_DSR_Creation-8_InterviewLabel</interviewLabel>
     <label>APT Contract DSR Creation</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1154,7 +1158,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Description__c</field>
             <value>
-                <elementReference>formula_3_myRule_1_A1_1959577829</elementReference>
+                <elementReference>formula_3_myRule_1_A1_9695744635</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1376,7 +1380,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_4_myRule_1_A1_5160192875</elementReference>
+                <elementReference>formula_4_myRule_1_A1_3846159754</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1412,7 +1416,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_5_myRule_1_A1_5528881614</elementReference>
+                <elementReference>formula_5_myRule_1_A1_1059622105</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2076,7 +2080,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>Product__c</field>
             <value>
-                <elementReference>formula_9_myRule_7_A1_1743684507</elementReference>
+                <elementReference>formula_9_myRule_7_A1_0042002042</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2112,7 +2116,7 @@ INCLUDES({!myVariable_current.Included_Product_Lines__c}, &quot;Track Mail&quot;
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_10_myRule_7_A1_8233723854</elementReference>
+                <elementReference>formula_10_myRule_7_A1_9876280771</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

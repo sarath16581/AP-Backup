@@ -3,11 +3,11 @@
     <fullName>SSSW</fullName>
     <isActive>true</isActive>
     <values>
-        <fullName>Closed</fullName>
+        <fullName>ACL Compensation Assessment</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Compensation Assessment</fullName>
+        <fullName>Closed</fullName>
         <default>false</default>
     </values>
     <values>

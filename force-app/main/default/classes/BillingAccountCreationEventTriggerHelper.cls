@@ -14,6 +14,7 @@
  * 2021-05-21 - seth.heang@auspost.com.au - Updates to process Sub-Account Requests response from Camunda, update related fields and bell notification
  * 2021-07-23 - seth.heang@auspost.com.au - Bug Fix STP5550 Remove Filter on Known or Prospect Role in SOQL query on Account and update logic check on HoldingRole Mapping
  * 2021-07-27 - naveen.rajanna@auspost.com.au - REQ2540323 - Changed to use DeveloperName instead of Label for Deal_Enablement_Centre_Queue
+ * 2022-02-18 - Naveen.Rajanna@auspost.com.au - INC1911242 - Include RoleType check 
  */
 
 public with sharing class BillingAccountCreationEventTriggerHelper {
@@ -448,8 +449,12 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
                             Organisation_Role__c  orgRole = new Organisation_Role__c();
                             orgRole.id = organisationToOrganisationRoleMap.get(billingAccountRecord.Organisation__c).id;
                             // Only Update Role to "Customer" When Holding Role is "Known" or "Prospect"
-                            if(orgRole.id!=null && ('Known'.equalsIgnoreCase(orgRole.Role_Type__c) || 'Prospect'.equalsIgnoreCase(orgRole.Role_Type__c))){
+                            String roleType = organisationToOrganisationRoleMap.get(billingAccountRecord.Organisation__c).Role_Type__c; // Bug Fix INC1911242
+                            // Only Update Role to "Customer" When Holding Role is "Known" or "Prospect"
+                            system.debug('Check the Role1'+roleType);
+                            if(orgRole.id!=null && ('Known'.equalsIgnoreCase(roleType) || 'Prospect'.equalsIgnoreCase(roleType))){
                                 orgRole.Role_Type__c = 'Customer';
+                                system.debug('Check the Role1'+orgRole.Role_Type__c);
                                 relatedObjectsToBeUpdated.add(orgRole);
                             }
                             // Setting up Account for updating the holding Role to New Accounts
@@ -459,6 +464,7 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
                             // Bug Fix STP-5550 OR REQ2571490: Only Update Holding Role to "New Accounts" When Holding Role is "Known" or "Prospect"
                             if(acc.id!=null && newAccountHoldingRole!=null && ('Known'.equalsIgnoreCase(holdingRole) || 'Prospect'.equalsIgnoreCase(holdingRole))){
                                 acc.Holding_Role_Reference__c = newAccountHoldingRole.id;
+                                system.debug('Check the holding Role1'+ acc.Holding_Role_Reference__c);
                                 relatedObjectsToBeUpdated.add(acc);
                             }
                         }

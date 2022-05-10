@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>revcult__ObjectRelationshipsBatch__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>Controls the batch size on the ObjectRelationshipsBatch in the Platform Encryption Analysis process. Defaults to 200 if nothing specified. This will need to be lowered if heap size or CPU errors occur.</inlineHelpText>
+    <label>ObjectRelationshipsBatch</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

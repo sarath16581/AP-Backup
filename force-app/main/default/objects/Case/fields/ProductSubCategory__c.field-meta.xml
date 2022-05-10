@@ -913,6 +913,11 @@
                 <default>false</default>
                 <label>Premium Express Parcel</label>
             </value>
+            <value>
+                <fullName>Product &amp; service information</fullName>
+                <default>false</default>
+                <label>Product &amp; service information</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
@@ -1214,11 +1219,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
-            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
-            <valueName>Bank@Post</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
             <valueName>General merchandise</valueName>
         </valueSettings>
         <valueSettings>
@@ -1353,6 +1353,10 @@
         <valueSettings>
             <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
             <valueName>Working with children check</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Bank@Post</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>

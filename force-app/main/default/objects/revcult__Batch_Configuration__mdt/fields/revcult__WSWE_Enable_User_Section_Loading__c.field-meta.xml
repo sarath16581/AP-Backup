@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>revcult__WSWE_Enable_User_Section_Loading__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This is a switch that will allow the User Population Filters to appear in the Who Sees What Explorer. These filters allow you to view a subset of your User population in the tool. This will help load all of the information we need to display in the Who Sees What Explorer in very large Salesforce Orgs. North of 2500 Users could warrant this switch being enabled.</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>This is a switch that will allow the User Population Filters to appear in the Who Sees What Explorer. These filters allow you to view a subset of your User population in the tool. This will help load all of the information we need to display in the Who Sees What Explorer in very large Salesforce Orgs. North of 2500 Users could warrant this switch being enabled.</inlineHelpText>
+    <label>WSWE Enable User Section Loading</label>
+    <type>Checkbox</type>
+</CustomField>

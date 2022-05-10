@@ -14,12 +14,12 @@
             <value>
                 <fullName>25</fullName>
                 <default>false</default>
-                <label>25</label>
+                <label>25%</label>
             </value>
             <value>
                 <fullName>50</fullName>
                 <default>false</default>
-                <label>50</label>
+                <label>50%</label>
             </value>
         </valueSetDefinition>
     </valueSet>

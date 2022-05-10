@@ -4,9 +4,16 @@
  */
 @IsTest
 public class APT_CreateContractValidation_Test {
-    public static testMethod void Test_APT_CreateContractValidation(){
+
+    @TestSetup
+    static void makeData(){
+
+        Apttus__ComplySystemProperties__c complySystemProperties = new Apttus__ComplySystemProperties__c(Name = 'System Properties', Apttus__InstanceUrl__c = String.valueOf(System.URL.getSalesforceBaseURL()));
+        insert complySystemProperties;
+
         // Create test contact
         Contact con= APT_TestUtils.createContact();
+        con.email = 'abc@test.com';
         insert con;
         
         // Create test account
@@ -47,16 +54,60 @@ public class APT_CreateContractValidation_Test {
         dovLVar.APT_DoV_Product__c = 'eParcel';
         dovLVar.APT_DoV_Type__c = 'Open Ended'; // Updated to satisfy new validation in DoV Language, Adrian Recio, 2/8/2018
         insert dovLVar;
-        
+
+    }
+    public static testMethod void Test_APT_CreateContractValidation(){
+
+        List<Apttus__APTS_Agreement__c> listAgreement = [Select Id from Apttus__APTS_Agreement__c order by APT_Contract_Type__c asc];
+        Apttus__APTS_Agreement__c aptContract = listAgreement[0];
+        Apttus__APTS_Agreement__c aptContract2 = listAgreement[1];
+
+        Pagereference pageRef = Page.APT_CreateContractValidation;
+
+        Test.setCurrentPage(pageRef);
         ApexPages.currentPage().getParameters().put('Id',aptContract.Id);
+        ApexPages.currentPage().getParameters().put('count','1');
         
         test.startTest();
         	APT_CreateContractValidationController acValCon = new APT_CreateContractValidationController();
-        	system.assertEquals(acValCon.IsError,true);
-        	
         	ApexPages.currentPage().getParameters().put('Id',aptContract2.Id);
+            ApexPages.currentPage().getParameters().put('count','1');
+        	acValCon = new APT_CreateContractValidationController();
+        test.stopTest();
+        system.assertEquals(acValCon.IsError,false);
+    }
+    
+    public static testMethod void Test_APT_CreateContractValidation_DocumentGeneration(){
+        
+        List<Apttus__APTS_Agreement__c> listAgreement = [Select Id from Apttus__APTS_Agreement__c order by APT_Contract_Type__c asc];
+        Apttus__APTS_Agreement__c aptContract = listAgreement[0];
+        Apttus__APTS_Agreement__c aptContract2 = listAgreement[1];
+
+        ApexPages.currentPage().getParameters().put('Id',aptContract.Id);
+        ApexPages.currentPage().getParameters().put('count','1');
+        
+        Apttus__APTS_Template__c templateObj = new Apttus__APTS_Template__c();
+        templateObj.Name = 'Parcel Contract';
+        templateObj.Apttus__Type__c = APT_Constants.TYPE_AGR;
+        templateObj.Apttus__Agreement_Types__c = APT_Constants.AGR_TYPE_MSA_SERVICE;
+        templateObj.Apttus__Category__c = APT_Constants.CATG_SUBMIT;
+        templateObj.Apttus__Subcategory__c = APT_Constants.SUBCATG_DEFAULT;
+        templateObj.Apttus__Language__c = APT_Constants.LANG_ENG;
+        templateObj.Apttus__Locale__c = APT_Constants.LOCALE_ENG;
+        templateObj.Apttus__IsActive__c = true;
+        insert templateObj;
+        
+        test.startTest();
+        	APT_CreateContractValidationController acValCon = new APT_CreateContractValidationController();
+        	ApexPages.currentPage().getParameters().put('Id',aptContract2.Id);
+            ApexPages.currentPage().getParameters().put('count','1');
         	acValCon = new APT_CreateContractValidationController();
         	system.assertEquals(acValCon.IsError,false);
+        acValCon.generateAPPCContractDocument();
         test.stopTest();
+
+        List<AsyncApexJob> a = [Select Id, Status,ExtendedStatus,NumberOfErrors, JobItemsProcessed,TotalJobItems, CreatedBy.Email from AsyncApexJob];
+        system.assert(a != null);
+
     }
 }

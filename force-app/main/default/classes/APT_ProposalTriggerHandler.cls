@@ -39,6 +39,10 @@ Last Modified By - Darshan Chauhan
 Last Modified Date - 2021-06-15 Darshan Chauhan Removing unessecary code for Approval Rejection
 
 2021-07-14 - Mansi Shah - Added method onBeforeInsert and commented method setOpportunityDriver
+
+2022-02-28  SaiSwetha Pingali  REQ2703521 - Added logic to capture role of the user at the time of creation.
+
+
 */
 public without sharing class APT_ProposalTriggerHandler {
     
@@ -54,7 +58,15 @@ public without sharing class APT_ProposalTriggerHandler {
         //KG ROUNDING CODE START    
         try
         {
-            //system.debug('*** before insert ***');
+             //spingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
+
+             String roleId = Userinfo.getUserRoleId();
+             List<UserRole> RoleList ;
+             if(roleId !=null)
+             {
+                RoleList = [SELECT id, name FROM userrole WHERE Id =: roleId ];
+             }
+             //system.debug('*** before insert ***');
             Set<ID> accSet = new Set<ID>();
             Map<ID, Apttus_Proposal__Proposal__c> oppToProposalMap = new Map<ID, Apttus_Proposal__Proposal__c>();
             for(Apttus_Proposal__Proposal__c proposal : listProposal) {
@@ -94,6 +106,10 @@ public without sharing class APT_ProposalTriggerHandler {
             }
 
             for(Apttus_Proposal__Proposal__c proposal : listProposal){
+
+                //spingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
+                    proposal.APT_Creator_Role__c = RoleList?.get(0).Name;
+                    
                 // Added by Adrian Recio, 4/12/2017, Check if organisation budget and revenue has error
                 Boolean hasBRError = brHasErrorMap.get(proposal.Apttus_Proposal__Account__c);
                 if(hasBRError == true){

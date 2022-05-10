@@ -2,6 +2,8 @@
   * @author       : nandan.narasappa@auspost.com.au
   * @date         : 16/06/2015
   * @description  : Trigger on Case Object to call the Handler class to perform necessary action
+  * @changelog
+  * 2022-02-03 - Nathan Franklin - Added temporary CaseTriggerHandler3
   */
 trigger CaseCommonTrigger on Case(before insert,before update,before delete,
                                     after insert,after update,after delete,after undelete){
@@ -14,7 +16,9 @@ trigger CaseCommonTrigger on Case(before insert,before update,before delete,
 		CaseTriggerHandler.execute();  // Case handler dispatches appropriate event
 
 	    // New domain based trigger dispatch
-	    //(new CaseTriggerHandler2()).dispatch();
+	    // NOTE: This is used specifically ONLY for code the MUST run after the legacy code runs
+	    // This is temporary and after all the legacy code is migrated to domain architecture, this should be decommissioned
+	    (new CaseTriggerHandler3()).dispatch();
     }
 
     // Added by : Adrian Recio

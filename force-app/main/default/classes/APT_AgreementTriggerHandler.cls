@@ -34,7 +34,7 @@ Last Modified Date - 23rd Feb, 2021 | STP-4289 STPAC - DLWT: Ability to generate
 
 2021-03-02 - Mathew Jose - Amended Local pick & delivery service's automation on DOS to be based on included product lines
 2021-08-31 - Naveen Rajanna - REQ2542972 - Set term to 'Fixed Term' when UMS or print Post
-
+2022-04-14 -Sri Harsha-CI-128- Updated trigger code to populate expiration date.
 **/
 public with sharing class APT_AgreementTriggerHandler{
 
@@ -126,7 +126,6 @@ public with sharing class APT_AgreementTriggerHandler{
     public static Void  beforeAgreementFullySigned(Map<Id, Apttus__APTS_Agreement__c> oldAgreementMap, List<Apttus__APTS_Agreement__c> newAgreementList) {
         Set<ID> proposalIdSet = new Set<ID>();
         List<APT_Agreement_Lodgement_Point__c> agreementLPList = null;
-        List<Apttus__AgreementLineItem__c> aliList = null;
         Set<ID> agreementIds = new Set<ID>();
         try {
             for(Apttus__APTS_Agreement__c agreement : newAgreementList){
@@ -196,8 +195,10 @@ public with sharing class APT_AgreementTriggerHandler{
                     } else{
                         otherProductsOnAgreementMap.put(ali.Apttus__AgreementId__c, true);
                     }
+                    //US-126: Added APPC Product
                 } else if(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD.equalsIgnoreCase(ali.Apttus__ProductId__r.ProductCode)
-                        || APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS.equalsIgnoreCase(ali.Apttus__ProductId__r.ProductCode)){
+                        || APT_Constants.PRODUCT_CODE_ePARCEL_EXPRESS.equalsIgnoreCase(ali.Apttus__ProductId__r.ProductCode)
+                         || APT_Constants.PRODUCT_CODE_APPC.equalsIgnoreCase(ali.Apttus__ProductId__r.ProductCode)){
                     eParcelProductsOnAgreementMap.put(ali.Apttus__AgreementId__c, true);
                 } else if(APT_Constants.PARCEL_SERVICES.equalsIgnoreCase(ali.Apttus__ProductId__r.Family)){
                     otherProductsOnAgreementMap.put(ali.Apttus__AgreementId__c, true);
@@ -343,13 +344,17 @@ public with sharing class APT_AgreementTriggerHandler{
     **/
     public static String createOperationalSchedule(List<Apttus__APTS_Agreement__c> listAgrmnt) {
         try{
-            Map<ID,Schema.RecordTypeInfo> rt_Map = new Map<ID, Schema.RecordTypeInfo>();
+            Map<ID,Schema.RecordTypeInfo> recordTypeMap = new Map<ID, Schema.RecordTypeInfo>();
             Map<ID,RecordType> opSchedRecTypeMap = new Map<ID, RecordType>();
-            rt_Map = Apttus__APTS_Agreement__c.sObjectType.getDescribe().getRecordTypeInfosById();
-            opSchedRecTypeMap = RecordTypesSelector.newInstance().selectByDeveloperName('APT_Operational_Schedule__c', new Set<String>{APT_Constants.OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE});             
+            recordTypeMap = Apttus__APTS_Agreement__c.sObjectType.getDescribe().getRecordTypeInfosById();
+            opSchedRecTypeMap = RecordTypesSelector.newInstance().selectByDeveloperName('APT_Operational_Schedule__c', new Set<String>{APT_Constants.RECORD_TYPE_NAME_APPC,APT_Constants.OPERATIONAL_SCHEDULE_STARTTRACK_RECORDTYPE});    //CI:126 Added APPC Record Type   
             List<APT_Operational_Schedule__c> listOprSchedule = new List<APT_Operational_Schedule__c>();
             Set<ID> proposalIDSet = new Set<ID>();
             APT_Operational_Schedule__c opSchedule = new APT_Operational_Schedule__c();
+
+            // CI:126 preparing Data for OperationalSchedule record population
+            Set<Id> setAccountIds = new Set<Id>();
+            Set<Id> setAgreements = new Set<Id>();
             //contract pricing
             set<Id> agreementIds = new set<Id>();
             //contract pricing
@@ -360,7 +365,33 @@ public with sharing class APT_AgreementTriggerHandler{
                 if(agrmnt.Apttus_QPComply__RelatedProposalId__c!=null){
                     proposalIds.add(agrmnt.Apttus_QPComply__RelatedProposalId__c);
                 }
+
+                //CI:126
+                setAccountIds.add(agrmnt.Apttus__Account__c);
+                setAgreements.add(agrmnt.Id);
             }
+
+            //CI:126
+            Map<Id,Account> mapAccount = AccountsSelector.newInstance().selectById(setAccountIds);
+            //commenting below SOQL, not required as a part of CI-106 which is a design change on top of CI-126 by Gopesh Banker on 22/04/2022
+            // Map<Id,APT_Site_Inspection__c> mapSiteInspection = new Map<Id,APT_Site_Inspection__c>([SELECT Id,APT_Contract__r.Operational_Schedule__c,
+            // APT_Agreement_Lodgement_Point__c,
+            // APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__c,
+            // APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__r.Apttus__ProductId__c,
+            // APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__r.Apttus__ProductId__r.ProductCode,
+            // APT_Contract__r.Operational_Schedule__r.APT_Parcel_Collection_Point_Ids__c,
+            // APT_Contract__r.Operational_Schedule__r.APT_Parcel_Collection_Points__c,
+            // APT_Collection_Street_Address__c,
+            // APT_State__c,
+            // APT_Suburb__c,
+            // APT_Postal_Code__c,
+            // APT_Agreement_Lodgement_Point__r.APT_Billing_Account__r.LEGACY_ID__c,
+            // APT_Contract__r.Operational_Schedule__r.APT_Parcel_Collection_Times__c,
+            // APT_Requested_Collection_Time__c
+            // FROM APT_Site_Inspection__c
+            // WHERE APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__r.Apttus__ProductId__r.ProductCode =: APT_Constants.PRODUCT_CODE_APPC
+            // AND APT_Contract__c IN :setAgreements]);
+
             //create map of proposals to identify if it has startrack products
             //The proposalToPriceListMap which was used to iterate through the proposal line items is removed.
             //This iteration is will be based on SOQL below which retrieves the related proposal line items.
@@ -376,7 +407,10 @@ public with sharing class APT_AgreementTriggerHandler{
                                                                                             Apttus_Proposal__Product__r.Name,
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Monthly_Spend__c, 
                                                                                             Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_StarTrack_Service_Type__c,
-                                                                                            Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c
+                                                                                            Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c,
+                                                                                            Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Spend_Per_Annum__c,
+                                                                                            Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c,
+                                                                                            Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c                                                                           
                                                                                             FROM Apttus_Proposal__R00N70000001yUfBEAU__r)
                                                                                        FROM Apttus_Proposal__Proposal__c
                                                                                        WHERE Id IN :proposalIds]);                                                                                                                                                                                                                                         
@@ -388,11 +422,11 @@ public with sharing class APT_AgreementTriggerHandler{
             //system.debug('proposalIds '+proposalIds);
             Map<Id,Case> proposalToCaseMap = new Map<Id,Case>();
             if(!proposalIds.isEmpty()){ ////28062019- added to fix selective query issue
-                for(Case cs :[SELECT Id, Proposal__c, APT_Approved_ABN__c,
+                for(Case proposalCase :[SELECT Id, Proposal__c, APT_Approved_ABN__c,
                         APT_Approved_Entities__c, APT_Payment_Terms__c FROM Case
                 WHERE Proposal__c IN :proposalIds ORDER BY LastModifiedDate DESC]){
-                    if(!proposalToCaseMap.containsKey(cs.Proposal__c)){
-                        proposalToCaseMap.put(cs.Proposal__c,cs);
+                    if(!proposalToCaseMap.containsKey(proposalCase.Proposal__c)){
+                        proposalToCaseMap.put(proposalCase.Proposal__c,proposalCase);
                     }
                 }
             }
@@ -400,13 +434,13 @@ public with sharing class APT_AgreementTriggerHandler{
             //LJ moved out of for loop
             List<R2T_Exempted_Contract_Settings__mdt> contractSettingList = [SELECT Id, MasterLabel, Operational_Schedule_RecordType__c FROM R2T_Exempted_Contract_Settings__mdt ];
             Map<String ,R2T_Exempted_Contract_Settings__mdt> contractSettingsMap = new Map<String ,R2T_Exempted_Contract_Settings__mdt>();
-            for(R2T_Exempted_Contract_Settings__mdt CS : contractSettingList){
-                contractSettingsMap.put(CS.MasterLabel, CS);
+            for(R2T_Exempted_Contract_Settings__mdt contSetting : contractSettingList){
+                contractSettingsMap.put(contSetting.MasterLabel, contSetting);
 
             }
             for(Apttus__APTS_Agreement__c agrmnt : listAgrmnt){
                 proposalIDSet.add(agrmnt.Apttus_QPComply__RelatedProposalId__c);
-                if(rt_map.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_MSA_SERVICE_SCHEDULE) && (agrmnt.APT_Contract_Type__c.equalsIgnoreCase(APT_Constants.CONTRACT_TYPE_NEW_CONTRACT))){
+                if(recordTypeMap.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_MSA_SERVICE_SCHEDULE) && (agrmnt.APT_Contract_Type__c.equalsIgnoreCase(APT_Constants.CONTRACT_TYPE_NEW_CONTRACT))){
                     opSchedule = new APT_Operational_Schedule__c();
                     opSchedule.APT_Contract__c=agrmnt.Id;
                     opSchedule.APT_Minimum_Monthly_Revenue__c = proposalsWithLineItemsMap.get(agrmnt.Apttus_QPComply__RelatedProposalId__c)?.APT_minimum_monthly_spend__c;
@@ -420,7 +454,7 @@ public with sharing class APT_AgreementTriggerHandler{
                                 if(productType.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_STARTRACK_PRODUCT_TYPE)){
                                     opSchedule.APT_Startrack__c = true;
                                     // set the operational schedule record type to star track
-                                    opSchedule.RecordTypeId = opSchedRecTypeMap.values()?.get(0)?.Id;
+                                    opSchedule.RecordTypeId = opSchedRecTypeMap.values()?.get(1)?.Id;
                                     string productName = propLineItem.Apttus_Proposal__Product__r.Name;
                                     if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_EXPRESS_ROAD_PRODUCT)) {
                                         opSchedule.APT_Express_Road__c = true;                                           
@@ -456,6 +490,40 @@ public with sharing class APT_AgreementTriggerHandler{
                                     opSchedule.APT_Track_Mail__c = true;         
                                     opSchedule.APT_TrackMail_Minimum_Quantity__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Minimum_Quantity__c;                                  
                                 }
+                                
+                                //US:CI-126
+                                if(productType.equalsIgnoreCase(APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT)) 
+                                    {
+                                      opSchedule.RecordTypeId = opSchedRecTypeMap.values()?.get(0)?.Id;  
+                                      if(propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c)
+                                      {
+                                        opSchedule.APT_APPC_Minimum_spend__c = mapAccount.get(agrmnt.Apttus__Account__c).APT_Min_Spend_Per_Annum__c;
+                                      }
+                                      else {
+                                          opSchedule.APT_APPC_Minimum_spend__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Spend_Per_Annum__c;
+                                         }
+                                          opSchedule.APT_Parcel_Services_Transit_Cover_Amount__c = propLineItem.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c;
+                                    }
+                                
+                                //US: CI-126
+                                //commenting below SOQL, not required as a part of CI-106 which is a design change on top of CI-126 by Gopesh Banker on 22/04/2022
+                                // for(APT_Site_Inspection__c siteInsp : mapSiteInspection.values())
+                                // {                                    
+                                //     if(agrmnt.id == siteInsp.APT_Contract__c)
+                                //     {
+                                //         if(String.IsNotBlank(siteInsp.APT_Contract__r.Operational_Schedule__c) &&
+                                //         String.isNotBlank(siteInsp.APT_Agreement_Lodgement_Point__c) &&
+                                //         String.isNotBlank(siteInsp.APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__c) &&
+                                //         String.isNotBlank(siteInsp.APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__r.Apttus__ProductId__c) &&
+                                //         siteInsp.APT_Agreement_Lodgement_Point__r.APT_Agreement_Line_Item__r.Apttus__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_APPC))
+                                //         {	
+                                //             opSchedule.APT_Parcel_Collection_Point_Ids__c = opSchedule.APT_Parcel_Collection_Point_Ids__c + ',' + siteInsp.Id;
+                                //             opSchedule.APT_Parcel_Collection_Points__c = opSchedule.APT_Parcel_Collection_Points__c + ' ' + siteInsp.APT_Collection_Street_Address__c + ' ' + siteInsp.APT_State__c + ' ' + siteInsp.APT_Suburb__c + ' ' + siteInsp.APT_Postal_Code__c + ' ' + siteInsp.APT_Agreement_Lodgement_Point__r.APT_Billing_Account__r.LEGACY_ID__c + ' ';
+                                //             opSchedule.APT_Parcel_Collection_Times__c = opSchedule.APT_Parcel_Collection_Times__c + ' ' + siteInsp.APT_Requested_Collection_Time__c;
+                                //         }
+                                //     }                                    
+                                // }
+                                
 
                                 //Following code which calculated the monthly spend based on the proposal line items removed
                                 //This calculation is now based on the Minimum Monthly Spend field on Proposal.
@@ -491,7 +559,7 @@ public with sharing class APT_AgreementTriggerHandler{
                 
 
                 //contract pricing
-                if(rt_map.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_POST_BILLPAY_CONTRACT)) {
+                if(recordTypeMap.get(agrmnt.recordTypeID).getName().containsIgnoreCase(APT_Constants.RECORD_TYPE_POST_BILLPAY_CONTRACT)) {
                     agreementIds.add(agrmnt.Id);
                 }
                 //contract pricing
@@ -603,9 +671,6 @@ public with sharing class APT_AgreementTriggerHandler{
             if(agreementLineItemsToBeInserted.size() > 0 ) {
                 insert agreementLineItemsToBeInserted;
                 List<APT_Agreement_Rate_Card__c> agreementRatecards = new List<APT_Agreement_Rate_Card__c>();
-                List<APT_Agreement_Lodgement_Point__c> agreementLodgementPoints = new List<APT_Agreement_Lodgement_Point__c>();
-                List<Apttus_CMConfig__AgreementUsagePriceTier__c> agreementUsagePriceTiers = new List<Apttus_CMConfig__AgreementUsagePriceTier__c>();
-
                 for(Apttus__AgreementLineItem__c ali : agreementLineItemsToBeInserted){
 
 
@@ -707,7 +772,7 @@ public with sharing class APT_AgreementTriggerHandler{
         } catch(system.exception ex) {
             //ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
             throw ex;
-            return null;
+            //return null;
         }
     }
     /**
@@ -775,7 +840,8 @@ public with sharing class APT_AgreementTriggerHandler{
                 includedProductLines = mapOSId.get(osId);
 
                 //domestic
-                if(String.isNotBlank(includedProductLines) && includedProductLines.contains(APT_Constants.EPARCELS_DOMESTIC)) {
+                //CI-126: Added Condition for Parcel Contract Product Type
+                if(String.isNotBlank(includedProductLines) && (includedProductLines.contains(APT_Constants.EPARCELS_DOMESTIC) || includedProductLines.contains(APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT))) {
                     os.APT_Parcel__c = true;
                 } else {
                     os.APT_Parcel__c = false;
@@ -970,7 +1036,7 @@ public with sharing class APT_AgreementTriggerHandler{
                     PricingPlan__r.PricingPlanDesc__c from Application__c
             where Opportunity__c in : opportunityIds];
             Map<ID, Application__c> mapApplicationsWithOpportunityIds = new Map<ID, Application__c>();
-            Map<ID, Apttus_Proposal__Proposal__c> mapProposal = new Map<ID, Apttus_Proposal__Proposal__c>([select id, APT_Contracting_Entity__c,Apttus_QPApprov__Approval_Status__c  from Apttus_Proposal__Proposal__c where id in: quoteIds]);
+            Map<ID, Apttus_Proposal__Proposal__c> mapProposal = new Map<ID, Apttus_Proposal__Proposal__c>([select id,Apttus_Proposal__Proposal_Expiration_Date__c, APT_Contracting_Entity__c,Apttus_QPApprov__Approval_Status__c  from Apttus_Proposal__Proposal__c where id in: quoteIds]);
 
             //creating APMS List based on Opportunity
             if(applicationsList != null && applicationsList.size() > 0 ){
@@ -996,6 +1062,7 @@ public with sharing class APT_AgreementTriggerHandler{
                 agreement.APT_System_User__c = agreement.Apttus__Primary_Contact__c;
                 Application__c apms = mapApplicationsWithOpportunityIds.get(agreement.Apttus__Related_Opportunity__c);
                 Apttus_Proposal__Proposal__c proposal = mapProposal.get(agreement.Apttus_QPComply__RelatedProposalId__c);
+                agreement.Contract_Expiration_Date__c=mapProposal.get(agreement.Apttus_QPComply__RelatedProposalId__c).Apttus_Proposal__Proposal_Expiration_Date__c;
                 Opportunity opp = mapOpportunity.get(agreement.Apttus__Related_Opportunity__c);
 
                 if(mapQuotePLI.get(agreement.Apttus_QPComply__RelatedProposalId__c) != null){
@@ -1136,8 +1203,6 @@ public with sharing class APT_AgreementTriggerHandler{
             pricingPlanVal = APT_Constants.PRICING_PLAN_2_4;
         } else if(pricingPlan.contains(APT_Constants.PRICING_PLAN_3_5)){
             pricingPlanVal = APT_Constants.PRICING_PLAN_3_5;
-        } else {
-
         }
 
         string pricingPlanValue = pricingPlanVal + APT_Constants.SEPARATOR_PERCENT;

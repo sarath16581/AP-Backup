@@ -14,6 +14,11 @@
             <operation>equals</operation>
             <value>AP_Adhoc_Pickup, AP_Permanent_Pickup</value>
         </filterItems>
+        <filterItems>
+            <field>PUD_Booking__c.Booking_Type__c</field>
+            <operation>equals</operation>
+            <value>Pickup</value>
+        </filterItems>
         <infoMessage>Please select either an Adhoc or Permanent Pickup Booking.</infoMessage>
         <isOptional>false</isOptional>
     </lookupFilter>

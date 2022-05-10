@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>revcult__Policy_Migration_Export__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field is used in the Policy Migration component to determine how many Data Classification Field Levels to calculate and import at one time. The default value is 500.</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Policy Migration Export</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

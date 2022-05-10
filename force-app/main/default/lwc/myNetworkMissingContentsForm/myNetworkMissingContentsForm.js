@@ -17,7 +17,7 @@
 
 import { track } from 'lwc'
 import LwcForm from 'c/lwcForm'
-import { get, getOrEmpty, emptySearch, ausPhoneNumberRegEx } from 'c/utils'
+import { get, getOrEmpty, emptySearch, ausPhoneNumberRegEx,DAMAGE_MISSING_CONTENTS_ERROR_MESSAGE } from 'c/utils'
 import getProductPickListValues from '@salesforce/apex/MyNetworkSmartFormsService.getProductPickListValues'
 import getNetworkUsers from '@salesforce/apex/MyNetworkSmartFormsService.getListOfNetworksForLoginUser'
 import createCase from '@salesforce/apex/MyNetworkSmartForms.createCase'
@@ -165,6 +165,9 @@ export default class myNetworkMissingContentsForm extends LwcForm {
     @track
     damagedOrMissingSelection = ''
 
+    @track
+    damagedOrMissingerror = DAMAGE_MISSING_CONTENTS_ERROR_MESSAGE;
+
     handleUploadFinished(event) {
         // Get the list of uploaded files
         const uploadedFiles = event.detail.files
@@ -272,6 +275,7 @@ export default class myNetworkMissingContentsForm extends LwcForm {
         console.log('handleDamagedOrMissingChange...'+event.target.value)
 
         this.damagedOrMissingSelection = event.target.value;
+        this.damagedOrMissingerror ='';
 
         if(event.target.value === 'Missing contents')
         {this.typeOfDamageOptions = this.typeOfMissingDamageOptions;}else

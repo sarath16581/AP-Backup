@@ -1,0 +1,193 @@
+/**
+ * 2022-02-11 - Ranjeewa Silva - Created.
+ */
+
+.timeline-wrapper {
+	padding: 1.25rem;
+	position:relative;
+}
+
+.title {
+	width:150px;
+	background-color:#014486;
+	color:white;
+	font-style:bold;
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+}
+
+.timeline {
+	height: 4rem;
+	position: relative;
+	background-color:#eef4ff;
+	border-top:1px solid #ecebea;
+	border-bottom:1px solid #ecebea
+}
+
+.timeline:after {
+	content: '';
+	position: absolute;
+	height: 5px;
+	width: 100%;
+	top: 50%;
+	margin-top: -3px;
+	background-color: #b0adab;
+}
+
+.timeline .interval {
+	height: 100%;
+	position: absolute;
+	z-index: 40;
+	opacity: 7;
+}
+
+.timeline .interval span.marker-label {
+	display:none;
+}
+
+.timeline:not(.compact) .interval.marker-visible span.marker-label, .timeline.compact .interval.marker-visible.marker-0-min span.marker-label, .timeline.compact .interval.marker-visible.marker-30-min span.marker-label {
+	position: absolute;
+	white-space: normal;
+	width: 6rem;
+	left: -3rem;
+	bottom: -1rem;
+	text-align: center;
+	font-size: 0.65rem;
+	display:block;
+}
+
+@media screen and (max-width: 64em) {
+    .timeline:not(.compact) .interval.marker-visible.marker-15-min span.marker-label, .timeline:not(.compact) .interval.marker-visible.marker-30-min span.marker-label, .timeline:not(.compact) .interval.marker-visible.marker-45-min span.marker-label {
+        display:none;
+    }
+}
+
+@media screen and (max-width: 80em) {
+    .timeline.compact .interval.marker-visible.marker-15-min span.marker-label, .timeline.compact .interval.marker-visible.marker-30-min span.marker-label, .timeline.compact .interval.marker-visible.marker-45-min span.marker-label {
+		display:none;
+    }
+
+    .timeline:not(.compact) .interval.marker-visible.marker-15-min span.marker-label, .timeline:not(.compact) .interval.marker-visible.marker-45-min span.marker-label {
+        display:none;
+    }
+}
+
+
+.timeline .interval .marker {
+	 height: 100%;
+	position: absolute;
+	border-left: 1px dashed #dddbda;
+}
+
+.timeline .interval.marker-visible .marker {
+	height: 100%;
+	position: absolute;
+	border-left: 1px dashed #b0adab;
+}
+
+.timeline .interval.end .marker {
+	height: 100%;
+    position: absolute;
+    border-left: 2px solid #b0adab;
+    top: 0;
+}
+
+.timeline .interval.end {
+	top: 0;
+	height: 100%;
+}
+
+.timeline .entry {
+	margin-left: 0 !important;
+	width: 0;
+	height: 1.25rem;
+	position: absolute;
+	top: 50.5%;
+	margin-top: calc(-0.5rem - 2px);
+	z-index: 50;
+}
+
+.timeline .entry > div {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/*animation-duration: 1.5s;
+	animation-name: entrygrow;
+	animation-fill-mode: forwards;*/
+}
+
+.timeline .entry.vertical-offset-1 {
+	margin-top: calc(-1.7rem - 2px);
+}
+
+.timeline .entry.vertical-offset-2 {
+	margin-top: calc(0.7rem - 2px);
+}
+
+@keyframes entrygrow {
+	from {
+    	width:0;
+	}
+	to {
+		width:100%;
+	}
+}
+
+.interval.over {
+    border: 2px dotted green;
+    background: lightyellow;
+}
+
+.interval .drop-target-label {
+    display: none;
+}
+
+.interval.over .drop-target-label {
+    display: block;
+    background: yellowgreen;
+    color: white;
+    text-align:center;
+    padding-left:4px;
+    padding-right:4px;
+    font-size:xx-small;
+    top:-15px;
+    position:absolute;
+    min-width:35px;
+    max-width:50px;
+}
+
+.timeline-wrapper .item {
+	--sds-c-badge-radius-border: 0.6rem;
+	--sds-c-badge-font-size: 0.6rem;
+	--sds-c-badge-text-color: #080707;
+	--slds-c-badge-color-background: var(--background-color_default, #d3d3d3);
+	--slds-c-badge-color-border: var(--border-color_default, #f3f3f3);
+	padding-left: min(20%, 0.5rem);
+	padding-right: min(20%, 0.5rem);
+	font-weight: normal;
+}
+
+.timeline-wrapper .item.color-code_permanent {
+    --slds-c-badge-color-background: var(--background-color_permanent-booking, #fccf3e);
+    --slds-c-badge-color-border: var(--border-color_permanent-booking, #fbf3e0);
+}
+
+.timeline-wrapper .item.color-code_adhoc {
+    --slds-c-badge-color-background: var(--background-color_adhoc-booking, #d8bfd8);
+    --slds-c-badge-color-border: var(----border-color_adhoc-booking, #ece1f9);
+}
+
+.timeline-wrapper .item.color-code_dependent {
+    --slds-c-badge-color-background: var(--background-color_dependent-booking, #87ceeb);
+    --slds-c-badge-color-border: var(--border-color_dependent-booking, #cfe9fe);
+}
+
+.timeline-wrapper .item.color-code_mpb {
+    --slds-c-badge-color-background: var(--background-color_mpb-booking, #ffa07a);
+    --slds-c-badge-color-border: var(--border-color_mpb-booking, #fbf3e0);
+}
+
+.timeline-wrapper .item.color-code_other {
+    --slds-c-badge-color-background: var(--background-color_other-booking, #91db8b);
+    --slds-c-badge-color-border: var(--border-color_other-booking, #ebf7e6);
+}

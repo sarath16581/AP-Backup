@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ABFFieldsmustbeempty</fullName>
+    <active>true</active>
+    <description>The ABF Authoriser and ABF Instruction Date must be empty if the ABF Reason is empty</description>
+    <errorConditionFormula>AND(
+            ISBLANK(TEXT( ABFReason__c )),
+            OR (
+            NOT(ISBLANK( ABFInstructionDate__c )),
+            NOT(ISBLANK( ABFAuthoriser__c ))
+            )
+            )</errorConditionFormula>
+    <errorMessage>The ABF Authoriser and ABF Instruction Date must be empty if the ABF Reason is empty</errorMessage>
+</ValidationRule>

@@ -1558,13 +1558,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>MPB_BSP_Enquiry_Type__c</picklist>
-        <values>
-            <fullName>Advice on sending parcels</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Network_Response__c</picklist>
         <values>
             <fullName>Addressed with staff</fullName>
@@ -3298,6 +3291,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>API Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annual Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Annual Service Plan</fullName>
             <default>false</default>
         </values>
@@ -3314,7 +3315,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Business Support Portal</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Chain of Responsibility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Christmas Peak Planning</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3359,6 +3368,10 @@
         </values>
         <values>
             <fullName>Deliveries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elections</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3446,6 +3459,34 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>MSM Avg Revenue Leakage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MSM Cases per 1k</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MSM EP Mis-stream per 1k</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MSM Early Manifesting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MSM Late Manifesting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MSM Processing Scan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MSM Small Sort Mis-streaming</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Marketing</fullName>
             <default>false</default>
         </values>
@@ -3455,6 +3496,10 @@
         </values>
         <values>
             <fullName>Network Changes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Objective</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3479,6 +3524,10 @@
         </values>
         <values>
             <fullName>Parcel AP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Send</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3567,6 +3616,10 @@
         </values>
         <values>
             <fullName>Transport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transport Efficiencies</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4148,39 +4201,19 @@
     <picklistValues>
         <picklist>Work_Type__c</picklist>
         <values>
-            <fullName>Business Initiatives</fullName>
+            <fullName>Business Led Initiatives</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Initiatives</fullName>
+            <fullName>Customer Led Initiatives</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer QBR</fullName>
+            <fullName>Customer Service Profile%2FPlan</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Service Plan</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Operational Issues</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Peak Plan</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product%2FServices</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Service Partner Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Service Partner Triage</fullName>
+            <fullName>Major Event Planning</fullName>
             <default>false</default>
         </values>
         <values>

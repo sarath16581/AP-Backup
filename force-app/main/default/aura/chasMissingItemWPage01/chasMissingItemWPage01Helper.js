@@ -10,12 +10,10 @@
         // make Spinner attribute true for display loading spinner 
         cmp.set("v.isLoading", true);
         cmp.set('v.error500', false);
-        
         //-- checking if Tracking Number is entered
         var isTrackingNumEntered = helper.validateTrackingNumber(cmp.find("ChasTrackingId"), true);
-        
         if (isTrackingNumEntered ) {
-            if (cmp.get('v.wizardData.trackingId') != cmp.get('v.wizardData.pretrackingId')) {
+           if (cmp.get('v.wizardData.trackingId') != cmp.get('v.wizardData.pretrackingId')) {
                 //-- Trcking number is changed, so make a server call
                 
                 var action = cmp.get("c.searchTrackingNumber");
@@ -32,38 +30,52 @@
                         //--Setting Tracking Number again
                         cmp.set('v.wizardData.trackingId',trackingId);
                         var returnObj =  JSON.parse((JSON.stringify(response.getReturnValue())));
-                        //-- dummy set
-                        cmp.set('v.wizardData.eddStatus','xxxxxxxx');  //-- If not setting this then EDD passed deflection is not showing next time search(if used closed this manually before) 
-                        cmp.set('v.wizardData.senderOrRecipientType', returnObj["itemType"]);
-                        cmp.set('v.wizardData.parcelOrLetter', returnObj["articleType"]);
-                        cmp.set('v.wizardData.eddStatus', returnObj["eddStatus"]);
-                        cmp.set('v.wizardData.dpid', returnObj["dpid"]);
-                        cmp.set('v.wizardData.articleId', returnObj["articleId"]);
-                        cmp.set('v.wizardData.duplicateCase', returnObj["duplicateCase"]);
-                        cmp.set('v.wizardData.isReturnToSender', returnObj["isReturnToSender"]);
-                        cmp.set('v.wizardData.isRedirectApplied', returnObj["isRedirectApplied"]);
-                        cmp.set('v.wizardData.hasSignature', returnObj["hasSignature"]);
-                        cmp.set('v.wizardData.safedropDelivered', returnObj["safedropDelivered"]);
-                        cmp.set('v.wizardData.enqSubtype', returnObj["enqSubtype"]);
-                        cmp.set('v.wizardData.wcid', returnObj["wcid"]);
-                        cmp.set('v.wizardData.latestEventLocation', returnObj["latestEventLocation"]);
-                        cmp.set('v.wizardData.latestEventLocationMessage', returnObj["latestEventLocationMessage"]);
-                        cmp.set('v.wizardData.trackingNumSerachStatusCode', returnObj["trackingNumSerachStatusCode"]);
-                        cmp.set('v.wizardData.trackStatusValue', returnObj["trackStatusValue"]);
-                        cmp.set('v.wizardData.deliveredByDateOrEDD', returnObj["deliveredByDateOrEDD"]);
-                        cmp.set('v.wizardData.deliveredByDateFrom', returnObj["deliveredByDateFrom"]);
-                        cmp.set('v.wizardData.deliveredByDateTo', returnObj["deliveredByDateTo"]);
-                        cmp.set('v.wizardData.deliveredByDateToUntil', returnObj["deliveredByDateToUntil"]);
-                        cmp.set('v.wizardData.isEnquiryDateWithinEDDPlusBusinessdays', returnObj["isEnquiryDateWithinEDDPlusBusinessdays"]);
-                        cmp.set('v.wizardData.isEnquiryDatePastEDDPlusBusinessdays', returnObj["isEnquiryDatePastEDDPlusBusinessdays"]);
-                        cmp.set('v.wizardData.isEnquiryDateWithinEDD', returnObj["isEnquiryDateWithinEDD"]);
-                        cmp.set('v.wizardData.deliveredByDatePlusBusinessDays', returnObj["deliveredByDatePlusBusinessDays"]);
-                        //cmp.set('v.wizardData.deliveredByDateFormatted', returnObj["deliveredByDateFormatted"]);
-                        cmp.set('v.wizardData.isEligibleForMyNetworkAssignment', returnObj["isEligibleForMyNetworkAssignment"]);
-                        cmp.set('v.wizardData.latestDeliveredScanWcid', returnObj["latestDeliveredScanWcid"]!= null?returnObj["latestDeliveredScanWcid"]:returnObj["previousDeliveredScanWcid"] );
-                        cmp.set('v.wizardData.isNoEddReturned', returnObj["isNoEddReturned"]);
-                        cmp.set('v.wizardData.isEDDEstimated', returnObj["isEDDEstimated"]);
-                        
+                        // DDS-7977: pass attributes from wrapper object to wizard data
+                        cmp.set('v.wizardData.allArticlesSuccessful', returnObj["allArticlesSuccessed"]);
+                        cmp.set('v.wizardData.articles', returnObj["trackingNumberDetails"]);
+                        cmp.set('v.wizardData.isEligibleForMultipleArticleSelection', returnObj["isEligibleForMultipleArticleSelection"]);
+
+                        let isEligibleForMultipleArticleSelection = returnObj["isEligibleForMultipleArticleSelection"];
+                        if (!$A.util.isEmpty(isEligibleForMultipleArticleSelection)
+                            && !$A.util.isUndefined(isEligibleForMultipleArticleSelection)
+                            && isEligibleForMultipleArticleSelection == false
+                            && !$A.util.isUndefined(returnObj["trackingNumberDetails"])){
+                            let lArticle = returnObj["trackingNumberDetails"][0];
+                            //-- dummy set
+                            cmp.set('v.wizardData.eddStatus','xxxxxxxx');  //-- If not setting this then EDD passed deflection is not showing next time search(if used closed this manually before)
+                            cmp.set('v.wizardData.senderOrRecipientType', lArticle["itemType"]);
+                            cmp.set('v.wizardData.parcelOrLetter', lArticle["articleType"]);
+                            cmp.set('v.wizardData.eddStatus', lArticle["eddStatus"]);
+                            cmp.set('v.wizardData.dpid', lArticle["dpid"]);
+                            cmp.set('v.wizardData.articleId', lArticle["articleId"]);
+                            cmp.set('v.wizardData.duplicateCase', lArticle["duplicateCase"]);
+                            cmp.set('v.wizardData.isReturnToSender', lArticle["isReturnToSender"]);
+                            cmp.set('v.wizardData.isRedirectApplied', lArticle["isRedirectApplied"]);
+                            cmp.set('v.wizardData.hasSignature', lArticle["hasSignature"]);
+                            cmp.set('v.wizardData.safedropDelivered', lArticle["safedropDelivered"]);
+                            cmp.set('v.wizardData.enqSubtype', lArticle["enqSubtype"]);
+                            cmp.set('v.wizardData.wcid', lArticle["wcid"]);
+                            cmp.set('v.wizardData.latestEventLocation', lArticle["latestEventLocation"]);
+                            cmp.set('v.wizardData.latestEventLocationMessage', lArticle["latestEventLocationMessage"]);
+                            cmp.set('v.wizardData.trackingNumSerachStatusCode', lArticle["trackingNumSerachStatusCode"]);
+                            cmp.set('v.wizardData.trackStatusValue', lArticle["trackStatusValue"]);
+                            cmp.set('v.wizardData.deliveredByDateOrEDD', lArticle["deliveredByDateOrEDD"]);
+                            cmp.set('v.wizardData.deliveredByDateFrom', lArticle["deliveredByDateFrom"]);
+                            cmp.set('v.wizardData.deliveredByDateTo', lArticle["deliveredByDateTo"]);
+                            cmp.set('v.wizardData.deliveredByDateToUntil', lArticle["deliveredByDateToUntil"]);
+                            cmp.set('v.wizardData.isEnquiryDateWithinEDDPlusBusinessdays', lArticle["isEnquiryDateWithinEDDPlusBusinessdays"]);
+                            cmp.set('v.wizardData.isEnquiryDatePastEDDPlusBusinessdays', lArticle["isEnquiryDatePastEDDPlusBusinessdays"]);
+                            cmp.set('v.wizardData.isEnquiryDateWithinEDD', lArticle["isEnquiryDateWithinEDD"]);
+                            cmp.set('v.wizardData.deliveredByDatePlusBusinessDays', lArticle["deliveredByDatePlusBusinessDays"]);
+                            //cmp.set('v.wizardData.deliveredByDateFormatted', returnObj["deliveredByDateFormatted"]);
+                            cmp.set('v.wizardData.isEligibleForMyNetworkAssignment', lArticle["isEligibleForMyNetworkAssignment"]);
+                            cmp.set('v.wizardData.latestDeliveredScanWcid', lArticle["latestDeliveredScanWcid"]!= null?lArticle["latestDeliveredScanWcid"]:lArticle["previousDeliveredScanWcid"] );
+                            cmp.set('v.wizardData.isNoEddReturned', lArticle["isNoEddReturned"]);
+                            cmp.set('v.wizardData.isEDDEstimated', lArticle["isEDDEstimated"]);
+                        } else {
+                            cmp.set('v.wizardData.trackingNumSerachStatusCode', returnObj["trackingNumSerachStatusCode"]);
+                        }
+
                         if (returnObj["trackingNumSerachStatusCode"] == 400) {
                             //trackingNumInputCmp.set("v.error", "Unconfirmed tracking number. It may be incorrect, or not in our system yet.");
                             // trackingNumInputCmp.set("v.error", "Unconfirmed tracking number. It may be incorrect, or not in our system yet. <a target='_blank' href='https://auspost.com.au/help-and-support/answers?s=000003988'><u>Learn more</u></a>");
@@ -98,12 +110,16 @@
                             var dpidFromOneTrackService = cmp.get("v.wizardData.dpid");
                             // get the boolean for inflight redirection
                             var isRedirectApplied = cmp.get("v.wizardData.isRedirectApplied");
-                            
+
+                            if(returnObj["isEligibleForMultipleArticleSelection"]) {
+                                cmp.set('v.isMultipleArticles', true);
+                                cmp.set("v.isLoading", false);
+                            }
                             //safedrop flow - checks for SAFE_DROP, RTS Scan event, DPid, inflight redirection before presenting address validations screen
-                            if(returnObj["eddStatus"] == 'SAFE_DROP' && returnObj["isReturnToSender"] == false && !$A.util.isEmpty(dpidFromOneTrackService) && !isRedirectApplied )
+                            else if(cmp.get('v.wizardData.eddStatus') == 'SAFE_DROP' && cmp.get('v.wizardData.isReturnToSender') == false && !$A.util.isEmpty(dpidFromOneTrackService) && !isRedirectApplied )
                             {
                                 helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
-                                cmp.set("v.wizardData.hasQualifiedForSafeDropFlow",true);
+                                cmp.set("v.wizardData.hasQualifiedForSafeDropFlow","true");
                                 /*2020-10-09 - Code removed - as safedrop is now rolledout to nation-wide*/
                                 //If the delivered location includes NSW, only then navigate to the safedrop flow- this is a temporary solution and needs to be refactored later
                                 /*var deliveredLocation = cmp.get("v.wizardData.latestEventLocation");
@@ -156,21 +172,20 @@
                 });
                 
                 $A.enqueueAction(action);
-            } /* Commented - not relevant- 12/01/2021
-               else {
-                //-- No change in tracking number
-                helper.gotoNextPage(cmp);
-            }*/
-            //-- No change in tracking number, no need to make a callout, proceed based on the previous stored values
-            else {
-                if(cmp.get("v.wizardData.hasQualifiedForSafeDropFlow"))
-                {
-                    helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
-                } else 
-                {
-                    helper.gotoNextPage(cmp);
-                }
             }
+              else {
+              //-- No change in tracking number
+              if (cmp.get("v.wizardData.isEligibleForMultipleArticleSelection")) {
+                  cmp.set('v.isMultipleArticles', true);
+                  cmp.set("v.isLoading", false);
+              }
+              else if (cmp.get("v.wizardData.hasQualifiedForSafeDropFlow")){
+                 helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
+              }
+              else {
+                    helper.gotoNextPage(cmp);
+                   }
+              }
             
         } else {
             cmp.set("v.isLoading", false);
@@ -243,5 +258,68 @@
             }
         }
 		return varsObj; 
+	},
+
+	handleMultiSelection: function(cmp, event, helper) {
+        cmp.set('v.showSelectionError', false);
+	    cmp.set("v.isLoading", true);
+        let lSelectedArticles = cmp.get('v.wizardData.articles').filter(item => item.isSelected == true);
+        //check statuses of selected articles, guide the flow based on that
+        let firstSelectedItem = lSelectedArticles[0];
+        let lStatuses = new Set(lSelectedArticles.map(item => item.trackStatusValue));
+        //if all articles are of the same status, show deflection page
+        if (lStatuses.size == 1){
+            cmp.set('v.wizardData.skipDeflectionPage', false);
+            //if multiple articles are selected, all are delivered, check for safe drops and send user to delivered deflection unless all are safe dropped
+            if(lStatuses.values().next().value == 'Delivered' && lSelectedArticles.length > 1) {
+                let lFirstFullyDelivered = lSelectedArticles.find(item => item.eddStatus != 'SAFE_DROP');
+                //if there is at least 1 not safe dropped article, send the user down delivered journey
+                if (lFirstFullyDelivered) {
+                    firstSelectedItem = lFirstFullyDelivered;
+                }
+            }
+            }
+        //if statuses are different, skip deflection page
+        else {
+            cmp.set('v.wizardData.skipDeflectionPage', true);
+        }
+        cmp.set('v.wizardData.senderOrRecipientType', firstSelectedItem["itemType"]);
+        cmp.set('v.wizardData.parcelOrLetter', firstSelectedItem["articleType"]);
+        cmp.set('v.wizardData.eddStatus', firstSelectedItem["eddStatus"]);
+        cmp.set('v.wizardData.dpid', firstSelectedItem["dpid"]);
+        cmp.set('v.wizardData.articleId', firstSelectedItem["articleId"]);
+        cmp.set('v.wizardData.duplicateCase', firstSelectedItem["duplicateCase"]);
+        cmp.set('v.wizardData.isReturnToSender', firstSelectedItem["isReturnToSender"]);
+        cmp.set('v.wizardData.isRedirectApplied', firstSelectedItem["isRedirectApplied"]);
+        cmp.set('v.wizardData.hasSignature', firstSelectedItem["hasSignature"]);
+        cmp.set('v.wizardData.safedropDelivered', firstSelectedItem["safedropDelivered"]);
+        cmp.set('v.wizardData.enqSubtype', firstSelectedItem["enqSubtype"]);
+        cmp.set('v.wizardData.wcid', firstSelectedItem["wcid"]);
+        cmp.set('v.wizardData.latestEventLocation', firstSelectedItem["latestEventLocation"]);
+        cmp.set('v.wizardData.latestEventLocationMessage', firstSelectedItem["latestEventLocationMessage"]);
+        cmp.set('v.wizardData.trackingNumSerachStatusCode', firstSelectedItem["trackingNumSerachStatusCode"]);
+        cmp.set('v.wizardData.trackStatusValue', firstSelectedItem["trackStatusValue"]);
+        cmp.set('v.wizardData.deliveredByDateOrEDD', firstSelectedItem["deliveredByDateOrEDD"]);
+        cmp.set('v.wizardData.deliveredByDateFrom', firstSelectedItem["deliveredByDateFrom"]);
+        cmp.set('v.wizardData.deliveredByDateTo', firstSelectedItem["deliveredByDateTo"]);
+        cmp.set('v.wizardData.deliveredByDateToUntil', firstSelectedItem["deliveredByDateToUntil"]);
+        cmp.set('v.wizardData.isEnquiryDateWithinEDDPlusBusinessdays', firstSelectedItem["isEnquiryDateWithinEDDPlusBusinessdays"]);
+        cmp.set('v.wizardData.isEnquiryDatePastEDDPlusBusinessdays', firstSelectedItem["isEnquiryDatePastEDDPlusBusinessdays"]);
+        cmp.set('v.wizardData.isEnquiryDateWithinEDD', firstSelectedItem["isEnquiryDateWithinEDD"]);
+        cmp.set('v.wizardData.deliveredByDatePlusBusinessDays', firstSelectedItem["deliveredByDatePlusBusinessDays"]);
+        //cmp.set('v.wizardData.deliveredByDateFormatted', returnObj["deliveredByDateFormatted"]);
+        cmp.set('v.wizardData.isEligibleForMyNetworkAssignment', firstSelectedItem["isEligibleForMyNetworkAssignment"]);
+        cmp.set('v.wizardData.latestDeliveredScanWcid', firstSelectedItem["latestDeliveredScanWcid"]!= null?firstSelectedItem["latestDeliveredScanWcid"]:firstSelectedItem["previousDeliveredScanWcid"] );
+        cmp.set('v.wizardData.isNoEddReturned', firstSelectedItem["isNoEddReturned"]);
+        cmp.set('v.wizardData.isEDDEstimated', firstSelectedItem["isEDDEstimated"]);
+        if (lSelectedArticles.length == 1 && firstSelectedItem["eddStatus"] == 'SAFE_DROP' && firstSelectedItem["isReturnToSender"] == false && !$A.util.isEmpty(firstSelectedItem["dpid"]) && !firstSelectedItem["isRedirectApplied"]){
+            helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
+            cmp.set("v.isLoading", false);
+            cmp.set("v.wizardData.hasQualifiedForSafeDropFlow","true");
+        }
+        else {
+	        helper.gotoNextPage(cmp);
+	        cmp.set("v.isLoading", false);
+	    }
 	}
 })

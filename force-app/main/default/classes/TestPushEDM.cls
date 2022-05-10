@@ -1,6 +1,7 @@
 /*
  * @changelog
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+ *2022-03-01 - SaiSwetha Pingali REQ2723594 - Fix for test class failures .
 */
 @isTest
 private class TestPushEDM 
@@ -155,10 +156,10 @@ private class TestPushEDM
     
     static testMethod void ControllerTest() 
     {  
-        PushEDM_Domain__c pED_CS = new  PushEDM_Domain__c(Force_Com_URL__c = 'force.com', Site_URL__c = 'force.com');
+        PushEDM_Domain__c pED_CS = new  PushEDM_Domain__c(SetupOwnerId = UserInfo.getUserId(),Force_Com_URL__c = 'force.com', Site_URL__c = 'force.com');
         insert pED_CS;
         
-        QM__c q = new QM__c(CusEmail__c = 'test@test.com');
+        QM__c q = new QM__c(SetupOwnerId = UserInfo.getUserId(),CusEmail__c = 'test@test.com');
         insert q;
         Exact_Target_LogIn__c e = new Exact_Target_LogIn__c(Name='test',ClientId__c='test');
         e.ClientSecret__c = 't';

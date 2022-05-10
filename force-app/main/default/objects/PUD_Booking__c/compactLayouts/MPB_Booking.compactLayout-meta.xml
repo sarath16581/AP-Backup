@@ -5,7 +5,6 @@
     <fields>RecordTypeId</fields>
     <fields>Customer__c</fields>
     <fields>Location__c</fields>
-    <fields>Route__c</fields>
     <fields>Effective_Date__c</fields>
     <label>MPB Booking</label>
 </CompactLayout>

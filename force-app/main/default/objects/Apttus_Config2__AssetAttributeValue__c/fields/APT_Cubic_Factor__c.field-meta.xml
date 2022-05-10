@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Cubic_Factor__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Y cubic status = 1 cubic factor
+EC cubic status = &gt;1 cubic factor
+N = populated from PSR response</inlineHelpText>
+    <label>Cubic Factor</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

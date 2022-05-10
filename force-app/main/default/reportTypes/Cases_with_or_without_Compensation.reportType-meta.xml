@@ -4173,6 +4173,21 @@
             <field>ManagerLevel3__c</field>
             <table>Case.Compensation__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy.Manager.Name</field>
+            <table>Case.Compensation__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy.Manager.Manager.Name</field>
+            <table>Case.Compensation__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy.Manager.Manager.Manager.Name</field>
+            <table>Case.Compensation__r</table>
+        </columns>
         <masterLabel>Compensation</masterLabel>
     </sections>
 </ReportType>

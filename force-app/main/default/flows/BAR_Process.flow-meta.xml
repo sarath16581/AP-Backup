@@ -19,9 +19,9 @@
                 <stringValue>currentUser</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_5_A1</name>
+        <name>myRule_3_A1</name>
         <label>BAR - Submit for Manager Approval</label>
-        <locationX>500</locationX>
+        <locationX>300</locationX>
         <locationY>200</locationY>
         <actionName>submit</actionName>
         <actionType>submit</actionType>
@@ -58,14 +58,14 @@
                 <stringValue>At_Risk_Business_Escalated</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_8_A1</name>
+        <name>myRule_6_A1</name>
         <label>Send email alert to Escalated To User</label>
-        <locationX>800</locationX>
+        <locationX>600</locationX>
         <locationY>200</locationY>
         <actionName>At_Risk_Business__c.At_Risk_Business_Escalated</actionName>
         <actionType>emailAlert</actionType>
         <connector>
-            <targetReference>myRule_8_A2</targetReference>
+            <targetReference>myRule_6_A2</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -82,9 +82,9 @@
                 <stringValue>{&quot;mentions&quot;:[],&quot;message&quot;:&quot;{![At_Risk_Business__c].Name} has been escalated to {![At_Risk_Business__c].Escalated_To__r.FirstName} {![At_Risk_Business__c].Escalated_To__r.LastName}\n\nEscalation comments: {![At_Risk_Business__c].Escalation_Comments__c}&quot;}</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_8_A2</name>
+        <name>myRule_6_A2</name>
         <label>Post to this record chatter</label>
-        <locationX>800</locationX>
+        <locationX>600</locationX>
         <locationY>300</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
@@ -107,10 +107,10 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>51.0</apiVersion>
+    <apiVersion>52.0</apiVersion>
     <decisions>
-        <name>isChangedDecision12_myRule_11_Stage_c</name>
-        <label>isChangedDecision12_myRule_11_Stage_c</label>
+        <name>isChangedDecision10_myRule_9_Stage_c</name>
+        <label>isChangedDecision10_myRule_9_Stage_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
@@ -118,7 +118,7 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_12_myRule_11_Stage_c</name>
+            <name>isChangedRule_10_myRule_9_Stage_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -137,20 +137,20 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
             <connector>
                 <targetReference>myDecision</targetReference>
             </connector>
-            <label>isChangedRule_12_myRule_11_Stage_c</label>
+            <label>isChangedRule_10_myRule_9_Stage_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision6_myRule_5_Stage_c</name>
-        <label>isChangedDecision6_myRule_5_Stage_c</label>
+        <name>isChangedDecision4_myRule_3_Stage_c</name>
+        <label>isChangedDecision4_myRule_3_Stage_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision9_myRule_8_Status_c</targetReference>
+            <targetReference>isChangedDecision7_myRule_6_Status_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_6_myRule_5_Stage_c</name>
+            <name>isChangedRule_4_myRule_3_Stage_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -167,22 +167,22 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision9_myRule_8_Status_c</targetReference>
+                <targetReference>isChangedDecision7_myRule_6_Status_c</targetReference>
             </connector>
-            <label>isChangedRule_6_myRule_5_Stage_c</label>
+            <label>isChangedRule_4_myRule_3_Stage_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision9_myRule_8_Status_c</name>
-        <label>isChangedDecision9_myRule_8_Status_c</label>
+        <name>isChangedDecision7_myRule_6_Status_c</name>
+        <label>isChangedDecision7_myRule_6_Status_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision12_myRule_11_Stage_c</targetReference>
+            <targetReference>isChangedDecision10_myRule_9_Stage_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_9_myRule_8_Status_c</name>
+            <name>isChangedRule_7_myRule_6_Status_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -199,9 +199,9 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision12_myRule_11_Stage_c</targetReference>
+                <targetReference>isChangedDecision10_myRule_9_Stage_c</targetReference>
             </connector>
-            <label>isChangedRule_9_myRule_8_Status_c</label>
+            <label>isChangedRule_7_myRule_6_Status_c</label>
         </rules>
     </decisions>
     <decisions>
@@ -232,23 +232,195 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
             <connector>
                 <targetReference>myRule_1_A1</targetReference>
             </connector>
-            <label>Key Sales Owner is blank</label>
+            <label>Check Key Sales Owner</label>
         </rules>
     </decisions>
     <decisions>
         <processMetadataValues>
             <name>index</name>
             <value>
-                <numberValue>4.0</numberValue>
+                <numberValue>1.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision10</name>
-        <label>myDecision10</label>
+        <name>myDecision2</name>
+        <label>myDecision2</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision5</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>isChangedRule_4_myRule_3_Stage_c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.Stage__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Submitted</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_3_A1</targetReference>
+            </connector>
+            <label>BAR stage is changed to Submitted</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>2.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision5</name>
+        <label>myDecision5</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision8</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_6</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>isChangedRule_7_myRule_6_Status_c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Escalated</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_6_A1</targetReference>
+            </connector>
+            <label>BAR status is changed to Escalated</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>3.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision8</name>
+        <label>myDecision8</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_11</name>
+            <name>myRule_9</name>
             <conditionLogic>1 AND 2 AND 3 AND ( 4 OR 5 )</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -275,7 +447,7 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_12_myRule_11_Stage_c</leftValueReference>
+                <leftValueReference>isChangedRule_10_myRule_9_Stage_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -412,212 +584,9 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_11_A1</targetReference>
+                <targetReference>myRule_9_A1</targetReference>
             </connector>
             <label>ABN Change Closed BAR</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <processMetadataValues>
-            <name>index</name>
-            <value>
-                <numberValue>1.0</numberValue>
-            </value>
-        </processMetadataValues>
-        <name>myDecision2</name>
-        <label>myDecision2</label>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>myDecision4</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>default</defaultConnectorLabel>
-        <rules>
-            <name>myRule_3</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>formula_myRule_3</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>myRule_3_A1</targetReference>
-            </connector>
-            <label>Key Sales Owner has changed</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <processMetadataValues>
-            <name>index</name>
-            <value>
-                <numberValue>2.0</numberValue>
-            </value>
-        </processMetadataValues>
-        <name>myDecision4</name>
-        <label>myDecision4</label>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>myDecision7</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>default</defaultConnectorLabel>
-        <rules>
-            <name>myRule_5</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>isChangedRule_6_myRule_5_Stage_c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.Stage__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Submitted</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>myRule_5_A1</targetReference>
-            </connector>
-            <label>BAR stage is changed to Submitted</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <processMetadataValues>
-            <name>index</name>
-            <value>
-                <numberValue>3.0</numberValue>
-            </value>
-        </processMetadataValues>
-        <name>myDecision7</name>
-        <label>myDecision7</label>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>myDecision10</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>default</defaultConnectorLabel>
-        <rules>
-            <name>myRule_8</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>isChangedRule_9_myRule_8_Status_c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.Status__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Escalated</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>myRule_8_A1</targetReference>
-            </connector>
-            <label>BAR status is changed to Escalated</label>
         </rules>
     </decisions>
     <description>This Process builder is to implement functionality on At Risk Business Object</description>
@@ -625,33 +594,26 @@ Escalation comments: {!myVariable_current.Escalation_Comments__c}</stringValue>
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>ISBLANK([At_Risk_Business__c].Key_Sales_Owner__r.Id)</stringValue>
+                <stringValue>OR
+(ISBLANK([At_Risk_Business__c].Key_Sales_Owner__c),
+AND(
+NOT(ISBLANK([At_Risk_Business__c].Key_Sales_Owner__c)),
+ISCHANGED([At_Risk_Business__c].Key_Sales_Owner__c)
+)
+) </stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_1</name>
         <dataType>Boolean</dataType>
-        <expression>ISBLANK({!myVariable_current.Key_Sales_Owner__r.Id})</expression>
-    </formulas>
-    <formulas>
-        <processMetadataValues>
-            <name>originalFormula</name>
-            <value>
-                <stringValue>AND(
-NOT(ISBLANK([At_Risk_Business__c].Key_Sales_Owner__r.Id)),
-ISCHANGED([At_Risk_Business__c].Key_Sales_Owner__r.Id)
-) 
-
-</stringValue>
-            </value>
-        </processMetadataValues>
-        <name>formula_myRule_3</name>
-        <dataType>Boolean</dataType>
-        <expression>AND(
-NOT(ISBLANK({!myVariable_current.Key_Sales_Owner__r.Id})),
-ISCHANGED({!myVariable_current.Key_Sales_Owner__r.Id})
+        <expression>OR
+(ISBLANK({!myVariable_current.Key_Sales_Owner__c}),
+AND(
+NOT(ISBLANK({!myVariable_current.Key_Sales_Owner__c})),
+ISCHANGED({!myVariable_current.Key_Sales_Owner__c})
+)
 )</expression>
     </formulas>
-    <interviewLabel>BAR_Process-4_InterviewLabel</interviewLabel>
+    <interviewLabel>BAR_Process-9_InterviewLabel</interviewLabel>
     <label>BAR Process</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -682,88 +644,7 @@ ISCHANGED({!myVariable_current.Key_Sales_Owner__r.Id})
         <processMetadataValues>
             <name>evaluationType</name>
             <value>
-                <stringValue>always</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>extraTypeInfo</name>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>isChildRelationship</name>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>reference</name>
-            <value>
-                <stringValue>[At_Risk_Business__c].Legal Entity Name</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>referenceTargetField</name>
-        </processMetadataValues>
-        <name>myRule_11_A1</name>
-        <label>Update Related to Organisation</label>
-        <locationX>1100</locationX>
-        <locationY>200</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <processMetadataValues>
-                <name>implicit</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </processMetadataValues>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>myVariable_current.Legal_Entity_Name__c</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <processMetadataValues>
-                <name>dataType</name>
-                <value>
-                    <stringValue>ID</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>isRequired</name>
-                <value>
-                    <booleanValue>false</booleanValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideLabel</name>
-                <value>
-                    <stringValue>Related to Organisation</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideReferenceTo</name>
-                <value>
-                    <stringValue>Account</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>rightHandSideType</name>
-                <value>
-                    <stringValue>Reference</stringValue>
-                </value>
-            </processMetadataValues>
-            <field>Related_to_Organisation__c</field>
-            <value>
-                <elementReference>myVariable_current.Related_Organisation__c</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
-    </recordUpdates>
-    <recordUpdates>
-        <processMetadataValues>
-            <name>evaluationType</name>
-            <value>
-                <stringValue>always</stringValue>
+                <stringValue>criteria</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
@@ -785,9 +666,142 @@ ISCHANGED({!myVariable_current.Key_Sales_Owner__r.Id})
             <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_1_A1</name>
-        <label>Update Key Sales Owner and Key Sales Owner Manager</label>
+        <label>Update KSO</label>
         <locationX>100</locationX>
         <locationY>200</locationY>
+        <connector>
+            <targetReference>myRule_1_A2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>inputDataType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Key Sales Owner</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>operatorDataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Key_Sales_Owner__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Key Sales Owner Manager</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Key_Sales_Owner_Manager__c</field>
+            <value>
+                <elementReference>myVariable_current.Key_Sales_Owner__r.ManagerId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>At_Risk_Business__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>criteria</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[At_Risk_Business__c]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_1_A2</name>
+        <label>Update KSO and KSO Manager</label>
+        <locationX>100</locationX>
+        <locationY>300</locationY>
         <connector>
             <targetReference>myDecision2</targetReference>
         </connector>
@@ -803,6 +817,55 @@ ISCHANGED({!myVariable_current.Key_Sales_Owner__r.Id})
             <operator>EqualTo</operator>
             <value>
                 <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>inputDataType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Key Sales Owner</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>operatorDataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Boolean</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Key_Sales_Owner__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </filters>
         <inputAssignments>
@@ -874,7 +937,7 @@ ISCHANGED({!myVariable_current.Key_Sales_Owner__r.Id})
             </processMetadataValues>
             <field>Key_Sales_Owner__c</field>
             <value>
-                <elementReference>myVariable_current.CreatedBy.Id</elementReference>
+                <elementReference>myVariable_current.CreatedById</elementReference>
             </value>
         </inputAssignments>
         <object>At_Risk_Business__c</object>
@@ -898,19 +961,16 @@ ISCHANGED({!myVariable_current.Key_Sales_Owner__r.Id})
         <processMetadataValues>
             <name>reference</name>
             <value>
-                <stringValue>[At_Risk_Business__c]</stringValue>
+                <stringValue>[At_Risk_Business__c].Legal Entity Name</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_3_A1</name>
-        <label>Update Key Sales Owner Manager</label>
-        <locationX>300</locationX>
+        <name>myRule_9_A1</name>
+        <label>Update Related to Organisation</label>
+        <locationX>900</locationX>
         <locationY>200</locationY>
-        <connector>
-            <targetReference>myDecision4</targetReference>
-        </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
@@ -922,7 +982,7 @@ ISCHANGED({!myVariable_current.Key_Sales_Owner__r.Id})
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>myVariable_current.Id</elementReference>
+                <elementReference>myVariable_current.Legal_Entity_Name__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -941,13 +1001,13 @@ ISCHANGED({!myVariable_current.Key_Sales_Owner__r.Id})
             <processMetadataValues>
                 <name>leftHandSideLabel</name>
                 <value>
-                    <stringValue>Key Sales Owner Manager</stringValue>
+                    <stringValue>Related to Organisation</stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
                 <name>leftHandSideReferenceTo</name>
                 <value>
-                    <stringValue>User</stringValue>
+                    <stringValue>Account</stringValue>
                 </value>
             </processMetadataValues>
             <processMetadataValues>
@@ -956,14 +1016,14 @@ ISCHANGED({!myVariable_current.Key_Sales_Owner__r.Id})
                     <stringValue>Reference</stringValue>
                 </value>
             </processMetadataValues>
-            <field>Key_Sales_Owner_Manager__c</field>
+            <field>Related_to_Organisation__c</field>
             <value>
-                <elementReference>myVariable_current.Key_Sales_Owner__r.Manager.Id</elementReference>
+                <elementReference>myVariable_current.Related_Organisation__c</elementReference>
             </value>
         </inputAssignments>
-        <object>At_Risk_Business__c</object>
+        <object>Account</object>
     </recordUpdates>
-    <startElementReference>isChangedDecision6_myRule_5_Stage_c</startElementReference>
+    <startElementReference>isChangedDecision4_myRule_3_Stage_c</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>

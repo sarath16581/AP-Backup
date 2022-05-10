@@ -31,6 +31,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Customer_Correspondence_Method__c</picklist>
+        <values>
+            <fullName>Account Manager to generate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auto generated mailout</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>MHS_Cohort__c</picklist>
         <values>
             <fullName>A</fullName>
@@ -95,10 +106,6 @@
         </values>
         <values>
             <fullName>Account Lost</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Auto-Accepted</fullName>
             <default>false</default>
         </values>
         <values>

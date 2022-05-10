@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata"/>
-
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>LPO_User_Sales_Owner_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing is required for LPO user as it overrides the Sales Owner.
+Read Only access</description>
+        <label>LPO User Sales Owner Access</label>
+        <sharedTo>
+            <roleAndSubordinates>PartnerInfo_National_RNP_Manager</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Sales_Segment__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

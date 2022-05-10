@@ -35,6 +35,11 @@
                 <label>Rejected by SM</label>
             </value>
             <value>
+                <fullName>Rejected by Triage</fullName>
+                <default>false</default>
+                <label>Rejected by Triage</label>
+            </value>
+            <value>
                 <fullName>Escalated</fullName>
                 <default>false</default>
                 <label>Escalated</label>

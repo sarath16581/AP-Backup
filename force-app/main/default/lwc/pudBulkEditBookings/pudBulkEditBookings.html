@@ -1,0 +1,111 @@
+<!--
+  	Main component that wraps all functionality exposed by PUD Bulk Edit user interface.
+  	Changelog:
+  	2022-02-14 - Ranjeewa Silva - Created.
+ -->
+<template>
+	<header class="slds-theme_default slds-border_bottom slds-p-around_small slds-text-align_right">
+		<div class="slds-button-group-row">
+			<lightning-button-icon-stateful icon-name="utility:filterList" selected={showFiltersPanel}
+			  	  	  	  	  	  	  	  	onclick={handleShowFiltersPanel}></lightning-button-icon-stateful>
+		</div>
+	</header>
+	<div class="bulk-edit-contents-panel">
+		<div class="bulk-edit-filters-panel slds-panel slds-size_medium slds-panel_docked slds-panel_docked-right slds-panel_drawer slds-is-open">
+			<!-- Filters Panel -->
+			<div class="slds-panel__header">
+				<h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title="Filter">Filters</h2>
+				<div class="slds-panel__header-actions">
+					<lightning-button-icon icon-name="utility:close" size="small" icon-class="slds-panel__close"
+					  	  	  	  	  	   onclick={handleShowFiltersPanel}></lightning-button-icon>
+				</div>
+			</div>
+			<div class="slds-panel__body">
+				<c-pud-bulk-edit-filters depot-id={homeDepotId}
+                                         max-routes-selection=4
+										 onconfirm={handleApplyFilters}></c-pud-bulk-edit-filters>
+			</div>
+		</div>
+		<div class="slds-col slds-p-around_small slds-scrollable_x">
+
+			<template if:true={isLoading}>
+				<div class="slds-text-align_center slds-grow">
+					<lightning-spinner variant="brand" size="large" alternative-text="Loading...">
+					</lightning-spinner>
+				</div>
+			</template>
+
+			<template if:false={isLoading}>
+
+				<lightning-layout multiple-rows="true">
+					<lightning-layout-item padding="around-small" size="12">
+
+						<!-- Routes Timeline Panel -->
+						<lightning-card icon-name="utility:shift_pattern" title="Route Timeline" class="slds-m-bottom_medium">
+							<template if:true={routesAvailable}>
+								<div class="slds-clearfix slds-p-horizontal_small slds-p-top_small slds-m-bottom_small slds-border_top">
+									<div class="slds-scrollable_x slds-p-bottom_medium" style="width:100%">
+										<template for:each={routes} for:item="route">
+											<c-pud-route-timeline key={route.route.Id}
+											  	  	  	  	  	  route={route.route}
+											  	  	  	  	  	  bookings={route.bookings}
+											  	  	  	  	  	  start-time={earliestStartTime}
+											  	  	  	  	  	  end-time={latestEndTime}
+											  	  	  	  	  	  horizontal-scale={horizontalScalingFactor}
+											  	  	  	  	  	  onbookingdragstart={handleBookingDragStart}
+											  	  	  	  	  	  onbookingdrop={handleBookingDrop}
+											  	  	  	  	  	  onbookingselect={handleBookingSelect}>
+											</c-pud-route-timeline>
+										</template>
+									</div>
+									<lightning-button-group class="slds-float_right slds-p-top_small">
+										<lightning-button-icon icon-name="utility:dash" variant="border-filled"
+										  	  	  	  	  	   alternative-text="Zoom Out" onclick={handleZoomOut}
+										  	  	  	  	  	   disabled={zoomOutDisabled}></lightning-button-icon>
+										<lightning-button-icon icon-name="utility:add" variant="border-filled"
+										  	  	  	  	  	   alternative-text="Zoom In" onclick={handleZoomIn}
+										  	  	  	  	  	   disabled={zoomInDisabled}></lightning-button-icon>
+									</lightning-button-group>
+								</div>
+							</template>
+							<template if:false={routesAvailable}>
+								<div class="slds-border_top">
+									<div class="slds-m-vertical_large slds-m-horizontal_medium">
+										<p class="slds-text-color_weak">{label.noRoutesSelectedMessage}</p>
+									</div>
+								</div>
+							</template>
+						</lightning-card>
+					</lightning-layout-item>
+
+					<lightning-layout-item padding="around-small" size="12">
+						<!-- Bookings Panel -->
+						<lightning-card icon-name="utility:table" title="Bookings" class="slds-m-bottom_large">
+							<template if:true={bookingsAvailable}>
+								<div class="slds-scrollable_x slds-p-bottom_medium" style="width:100%">
+									<c-pud-bulk-edit-bookings-datatable bookings={bookings} onfieldvaluechange={handleBookingFieldValueChange}></c-pud-bulk-edit-bookings-datatable>
+									<div slot="footer" class="slds-p-bottom_medium">
+									</div>
+								</div>
+							</template>
+							<template if:false={bookingsAvailable}>
+								<div class="slds-border_top">
+									<div class="slds-m-vertical_large slds-m-horizontal_medium">
+										<p class="slds-text-color_weak">{label.noBookingsToDisplayMessage}</p>
+									</div>
+								</div>
+							</template>
+						</lightning-card>
+					</lightning-layout-item>
+				</lightning-layout>
+
+			</template>
+		</div>
+	</div>
+	<footer class="slds-docked-form-footer slds-align_absolute-center">
+		<template if:true={hasDirtyRecords}>
+			<lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+			<lightning-button variant="brand" label="Save" class="slds-m-left_x-small" onclick={handleSave}></lightning-button>
+		</template>
+	</footer>
+</template>

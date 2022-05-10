@@ -124,12 +124,15 @@
         var action = cmp.get('c.isOpportunityConverted');
         action.setParams({ "recordId" : cmp.get("v.recordId")});
         action.setCallback(this, function(response) {
+            /*
+             * commented no more required has per CNA*
             if (response.getState() == "SUCCESS") {
                 var showEstimatedRevenue = response.getReturnValue();
                 cmp.set('v.showEstimatedRevenue',showEstimatedRevenue);
                 
             }
-            else if (response.getState() == "INCOMPLETE") {
+            */
+             if (response.getState() == "INCOMPLETE") {
                 console.log("Response Incomplete");
             }else if (response.getState() == "ERROR") {
                 var errors = response.getError();

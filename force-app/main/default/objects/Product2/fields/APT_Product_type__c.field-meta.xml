@@ -115,6 +115,11 @@
                 <default>false</default>
                 <label>Parcel Contract-Return</label>
             </value>
+            <value>
+                <fullName>APGL Commercial Outbound</fullName>
+                <default>false</default>
+                <label>APGL Commercial Outbound</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

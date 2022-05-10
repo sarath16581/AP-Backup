@@ -43,7 +43,7 @@ public class APT_GenerateOperationalSchedule_Test {
             aptContract.APT_Product__c= APT_Constants.PRODUCT_NAME_EPARCEL ;
             aptContract.Apttus__Related_Opportunity__c=opp.Id;
             aptContract.Apttus__Account__c=tempacct.Id;
-            aptContract.RecordTypeId = tariffQuoteRecordType.ID;
+            //aptContract.RecordTypeId = tariffQuoteRecordType.ID;
             //aptContract.RecordType = [Select Id, Name, DeveloperName From RecordType where SobjectType = 'Apttus__APTS_Agreement__c' and Name = 'SecurePay Online Payments' Limit 1];
             //aptContract.RecordType.DeveloperName = 'Securepay Online Payments';
             //aptContract.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c ='Charge Account';

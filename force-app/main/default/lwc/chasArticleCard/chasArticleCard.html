@@ -1,0 +1,9 @@
+<template>
+  <div style="border: 1px solid #bc111e; padding: 5px; margin-bottom: 15px; border-radius: 6px; padding: 10px;">
+    <lightning-input type="checkbox" data-id="checkbox" name="input1" value={articleSelected} label={articleLabel} onchange={isSelected} checked={articleSelected}></lightning-input>
+    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 16px;">
+      <div style="font-weight: bold; font-size: 18px;">{articleId}</div>
+      <div class={getStatusClass} style="font-weight: bold;">{articleStatus}</div>
+    </div>
+  </div>
+</template>

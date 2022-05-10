@@ -7,6 +7,7 @@
  * @description Test Class covering ApplicationSelector
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
+ * 2022-04-12 - Ranjeewa Silva - Added tests to verify the use of WITHOUT_DEFAULT_ORDER option to build queries with no default ordering applied
  */
 @IsTest
 public class ApplicationSelector_Test {
@@ -114,6 +115,20 @@ public class ApplicationSelector_Test {
 
 		System.assertEquals(false, Pattern.compile('(?ism)\\bownerid\\b').matcher(soql).find(), 'Resulting query selects OwnerId from Account: ' + soql);
 
+	}
+
+	/**
+	 * Test: Ensures that selectors Query Builder is not applying default order when ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER
+	 *       selector option is used.
+	 */
+	@IsTest
+	public static void testWithoutDefaultOrderOption() {
+
+		AccountsSelector selector = new AccountsSelector();
+
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER});
+		String soql = qb.toSoqlString();
+		System.assertEquals(false, Pattern.compile('(?ism)\\bfrom account\\b.*?Order\\s+By\\s').matcher(soql).find(), 'Resulting query includes order by clause, but it should not: ' + soql);
 	}
 
 	// TODO: Activate Cache

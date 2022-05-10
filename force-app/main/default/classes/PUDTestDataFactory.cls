@@ -6,6 +6,7 @@
 * @tags mocking, apex mocks, tests, data factory, test data
 * @changelog
 * 2021-08-31 - Ranjeewa Silva - Created
+* 2022-03-23 - Ranjeewa Silva - Added helper methods to return Adhoc bookings
 */
 @IsTest
 public class PUDTestDataFactory {
@@ -14,6 +15,18 @@ public class PUDTestDataFactory {
 		return (List<PUD_Route__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(PUD_Route__c.SObjectType, new Map<SObjectField, Object> {
 				PUD_Route__c.Name => 'TestRoute%count%',
 				PUD_Route__c.Depot__c => networkId
+		}, count), generateIds);
+	}
+
+	public static List<PUD_Booking_Location__c> getPUDCustomerBookingLocations(Integer count, Id customerId, Boolean generateIds) {
+		return (List<PUD_Booking_Location__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(PUD_Booking_Location__c.SObjectType, new Map<SObjectField, Object> {
+				PUD_Booking_Location__c.Name => 'TestCustomerBookingLocation%count%',
+				PUD_Booking_Location__c.Customer__c => customerId,
+				PUD_Booking_Location__c.RecordTypeId => customerBookingLocationRecordType,
+				PUD_Booking_Location__c.Street__c => '1 Main St',
+				PUD_Booking_Location__c.City__c => 'Melbourne',
+				PUD_Booking_Location__c.State__c => 'VIC',
+				PUD_Booking_Location__c.Post_Code__c => '3121'
 		}, count), generateIds);
 	}
 
@@ -29,11 +42,19 @@ public class PUDTestDataFactory {
 		}, count), generateIds);
 	}
 
+	public static List<PUD_Booking__c> getPUDAdhocPickupDeliveryBookings(Integer count, Id bookingLocationId, Id depotId, Date effectiveDate, Date expiryDate, List<String> daysOfWeek, Boolean generateIds) {
+		return getPUDBookings(count, adhocPickupDeliveryBookingRecordType, bookingLocationId, depotId, effectiveDate, expiryDate, daysOfWeek, generateIds);
+	}
+
 	public static List<PUD_Booking__c> getPUDPermanentPickupDeliveryBookings(Integer count, Id bookingLocationId, Id depotId, Date effectiveDate, Date expiryDate, List<String> daysOfWeek, Boolean generateIds) {
+		return getPUDBookings(count, permanentPickupDeliveryBookingRecordType, bookingLocationId, depotId, effectiveDate, expiryDate, daysOfWeek, generateIds);
+	}
+
+	private static List<PUD_Booking__c> getPUDBookings(Integer count, Id recordTypeId, Id bookingLocationId, Id depotId, Date effectiveDate, Date expiryDate, List<String> daysOfWeek, Boolean generateIds) {
 		return (List<PUD_Booking__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(PUD_Booking__c.SObjectType, new Map<SObjectField, Object> {
 				PUD_Booking__c.Booking_Location__c => bookingLocationId,
 				PUD_Booking__c.Depot__c => depotId,
-				PUD_Booking__c.RecordTypeId => permanentPickupDeliveryBookingRecordType,
+				PUD_Booking__c.RecordTypeId => recordTypeId,
 				PUD_Booking__c.Effective_Date__c => effectiveDate,
 				PUD_Booking__c.Expiry_Date__C => expiryDate,
 				PUD_Booking__c.Monday__c => (daysOfWeek != null && daysOfWeek.contains('Monday')),
@@ -79,12 +100,32 @@ public class PUDTestDataFactory {
 		private set;
 	}
 
+	public static Id customerBookingLocationRecordType {
+		get {
+			if(customerBookingLocationRecordType == null) {
+				customerBookingLocationRecordType = Schema.SObjectType.PUD_Booking_Location__c.getRecordTypeInfosByDeveloperName().get('AP_Customer').getRecordTypeId();
+			}
+			return customerBookingLocationRecordType;
+		}
+		private set;
+	}
+
 	public static Id permanentPickupDeliveryBookingRecordType {
 		get {
 			if(permanentPickupDeliveryBookingRecordType == null) {
 				permanentPickupDeliveryBookingRecordType = Schema.SObjectType.PUD_Booking__c.getRecordTypeInfosByDeveloperName().get('AP_Permanent_Pickup').getRecordTypeId();
 			}
 			return permanentPickupDeliveryBookingRecordType;
+		}
+		private set;
+	}
+
+	public static Id adhocPickupDeliveryBookingRecordType {
+		get {
+			if(adhocPickupDeliveryBookingRecordType == null) {
+				adhocPickupDeliveryBookingRecordType = Schema.SObjectType.PUD_Booking__c.getRecordTypeInfosByDeveloperName().get('AP_Adhoc_Pickup').getRecordTypeId();
+			}
+			return adhocPickupDeliveryBookingRecordType;
 		}
 		private set;
 	}

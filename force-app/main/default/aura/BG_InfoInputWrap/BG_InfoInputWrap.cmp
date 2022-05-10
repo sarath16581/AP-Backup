@@ -61,6 +61,9 @@
                     <ui:outputText value="*" class="slds-required"/>
                 </aura:if>
                 <label class="labelClss">{! v.label }</label></span>
+                <span><aura:if isTrue="{!and(v.helptext != null , v.helptext != '')}">
+                    <lightning:helptext content="{! v.helptext }" />
+                </aura:if></span>
                 <lightning:combobox aura:id='field' 
                                     name="{! v.name }" 
                                     value="{! v.value }" 
@@ -76,6 +79,9 @@
                     <ui:outputText value="*" class="slds-required"/>
                 </aura:if>
                 <label class="labelClss">{! v.label }</label></span>
+                <span><aura:if isTrue="{!and(v.helptext != null , v.helptext != '')}">
+                    <lightning:helptext content="{! v.helptext }" />
+                </aura:if></span>
                 <lightning:radioGroup aura:id='field'
                                       type="radio"
                                       name="{! v.name }"
@@ -92,6 +98,9 @@
                     <ui:outputText value="*" class="slds-required"/>
                 </aura:if>
                 <label class="labelClss">{! v.label }</label></span>
+                <span><aura:if isTrue="{!and(v.helptext != null , v.helptext != '')}">
+                    <lightning:helptext content="{! v.helptext }" />
+                </aura:if></span>
                 <lightning:textarea aura:id='field'
                                     variant="label-hidden"
                                     name="{! v.name }" 
@@ -141,6 +150,9 @@
                 <ui:outputText value="*" class="slds-required"/>
                 </aura:if>
                 <label class="labelClss">{! v.label }</label></span>             
+                <span><aura:if isTrue="{!and(v.helptext != null , v.helptext != '')}">
+                    <lightning:helptext content="{! v.helptext }" />
+                </aura:if></span>
                	<lightning:input aura:id='field' 
                                  type="{! v.type }" 
                                  name="{! v.name }" 
@@ -171,6 +183,9 @@
                     <ui:outputText value="*" class="slds-required"/>
                     </aura:if>
                     <label class="labelClss">{! v.label }</label></span>             
+                    <span><aura:if isTrue="{!and(v.helptext != null , v.helptext != '')}">
+                        <lightning:helptext content="{! v.helptext }" />
+                    </aura:if></span>           
                <lightning:dualListbox aura:id="field"
                                        name="{! v.name }" 
                                        sourceLabel="{! v.sourceLabel }" 
@@ -200,6 +215,9 @@
                     <ui:outputText value="*" class="slds-required"/>
                     </aura:if>
                     <label class="labelClss">{! v.label }</label></span>             
+                    <span><aura:if isTrue="{!and(v.helptext != null , v.helptext != '')}">
+                        <lightning:helptext content="{! v.helptext }" />
+                    </aura:if></span>             
             <lightning:checkboxGroup aura:id="field"
                                        	 name="{! v.name }"
                                        	 options="{! v.options }"
@@ -212,6 +230,9 @@
                     <ui:outputText value="*" class="slds-required"/>
                     </aura:if>
                     <label class="labelClss">{! v.label }</label></span>             
+                    <span><aura:if isTrue="{!and(v.helptext != null , v.helptext != '')}">
+                        <lightning:helptext content="{! v.helptext }" />
+                    </aura:if></span>             
                 <lightning:inputAddress
                                         addressLabel="{!v.label}"
                                         streetLabel="Street"
@@ -234,6 +255,9 @@
                     <ui:outputText value="*" class="slds-required"/>
                     </aura:if>
                     <label class="labelClss">{! v.label }</label></span>             
+                    <span><aura:if isTrue="{!and(v.helptext != null , v.helptext != '')}">
+                        <lightning:helptext content="{! v.helptext }" />
+                    </aura:if></span>             
                 <lightning:input aura:id='field' 
                                  type="number" 
                                  name="{! v.name }" 

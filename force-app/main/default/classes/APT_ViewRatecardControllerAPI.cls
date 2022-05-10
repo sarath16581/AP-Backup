@@ -112,11 +112,32 @@ public with sharing class APT_ViewRatecardControllerAPI {
             
             if(String.IsNotBlank(lineItemID))
             {
-                ParentlineItem = [SELECT id, Apttus_Config2__PrimaryLineNumber__c, Apttus_Config2__ProductId__r.APT_Consolidated_Usage_Price_Tiers__c, Name, Apttus_Config2__ConfigurationId__c, Apttus_Config2__ProductId__r.Name, Apttus_Config2__ProductId__r.ProductCode, Apttus_Config2__ProductId__r.APT_Product_type__c FROM Apttus_Config2__LineItem__c WHERE id =: lineItemID];
-            }
-
+                ParentlineItem = [SELECT id,APT_Product_Code__c, Apttus_Config2__PrimaryLineNumber__c, Apttus_Config2__ProductId__r.APT_Consolidated_Usage_Price_Tiers__c, Name, Apttus_Config2__ConfigurationId__c, Apttus_Config2__ProductId__r.Name, Apttus_Config2__ProductId__r.ProductCode, Apttus_Config2__ProductId__r.APT_Product_type__c,Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c FROM Apttus_Config2__LineItem__c WHERE id =: lineItemID];
+            } 
+            
             if(ParentlineItem != null && ParentlineItem.ID != null)
             {
+                System.debug(ParentlineItem.Id);
+                System.debug(ParentlineItem.APT_Product_Code__c);
+                If (ParentlineItem.APT_Product_Code__c == APT_Constants.PRODUCT_CODE_APPC)
+                {
+                    // Check for Constraint Rule
+                    string cartConfigId = ParentlineItem.Apttus_Config2__ConfigurationId__c;
+                    Apttus_CPQApi.CPQ.ConstraintResultDO constraintResult = Apttus_CPQApi.CPQWebService.getConstraintRuleResult(cartConfigId); 
+                    
+                    If (constraintResult.NeedMoreProcessing == false && constraintResult.HasPendingError == false){
+                        // Call new Class for to execute Data Transformation Logic
+                        APT_ViewRateCardHandler viewRateCardHandler = new APT_ViewRateCardHandler();
+                        viewRateCardHandler.process(ParentlineItem.Apttus_Config2__ConfigurationId__c); 
+                        
+                    } else {
+                        hasErrors = true;
+                        errorMessage = APT_Constants.ERROR_MESSAGE_CONSTRAINT_RULES;
+                        return;
+                    }
+                    return;
+                } 
+                
                 System.Debug('ParentlineItem.Name-->' + ParentlineItem.Apttus_Config2__ProductId__r.Name);
                 System.Debug('isPrestoMode-->' + (isPrestoMode));
                 
@@ -265,8 +286,22 @@ public with sharing class APT_ViewRatecardControllerAPI {
         }  
     }
     
-    public PageReference prestoAPI(){
-         return prestoAPI(outputFormat);
+    public void syncConfigLineItems(){
+        If (ParentlineItem.APT_Product_Code__c == APT_Constants.PRODUCT_CODE_APPC){
+            APT_ViewRateCardHandler viewRateCardHandler = new APT_ViewRateCardHandler();
+             
+            viewRateCardHandler.createLineItemRateCard(ParentlineItem.Apttus_Config2__ConfigurationId__c,
+                                                              ParentlineItem.Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c);
+        }       
+    }
+    
+     public PageReference prestoAPI(){
+        If (ParentlineItem.APT_Product_Code__c == APT_Constants.PRODUCT_CODE_APPC){
+            APT_ViewRateCardHandler viewRateCardHandler = new APT_ViewRateCardHandler();
+    
+            return viewRateCardHandler.generateDocument(ParentlineItem.Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c);
+        }       
+        return prestoAPI(outputFormat);
     }
 
     public string newAttachmentID {get;set;}

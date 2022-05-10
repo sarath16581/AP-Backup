@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StoredLocation__c</fullName>
+    <description>This is the location where the article/s are stored prior to release for delivery</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the location where the article/s are stored prior to release for delivery</inlineHelpText>
+    <label>Stored Location</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>1-00</fullName>
+                <default>false</default>
+                <label>1-00</label>
+            </value>
+            <value>
+                <fullName>1-00Q&apos;Tine</fullName>
+                <default>false</default>
+                <label>1-00Q&apos;Tine</label>
+            </value>
+            <value>
+                <fullName>Alcohol Hw</fullName>
+                <default>false</default>
+                <label>Alcohol Hw</label>
+            </value>
+            <value>
+                <fullName>Ap Safe</fullName>
+                <default>false</default>
+                <label>Ap Safe</label>
+            </value>
+            <value>
+                <fullName>Aqis</fullName>
+                <default>false</default>
+                <label>Aqis</label>
+            </value>
+            <value>
+                <fullName>B</fullName>
+                <default>false</default>
+                <label>B</label>
+            </value>
+            <value>
+                <fullName>B/M Large</fullName>
+                <default>false</default>
+                <label>B/M Large</label>
+            </value>
+            <value>
+                <fullName>B/M Medium</fullName>
+                <default>false</default>
+                <label>B/M Medium</label>
+            </value>
+            <value>
+                <fullName>B/M O-Size</fullName>
+                <default>false</default>
+                <label>B/M O-Size</label>
+            </value>
+            <value>
+                <fullName>B/M Small</fullName>
+                <default>false</default>
+                <label>B/M Small</label>
+            </value>
+            <value>
+                <fullName>B/M Uld</fullName>
+                <default>false</default>
+                <label>B/M Uld</label>
+            </value>
+            <value>
+                <fullName>B/M Wheeler</fullName>
+                <default>false</default>
+                <label>B/M Wheeler</label>
+            </value>
+            <value>
+                <fullName>Bin A</fullName>
+                <default>false</default>
+                <label>Bin A</label>
+            </value>
+            <value>
+                <fullName>Bin B</fullName>
+                <default>false</default>
+                <label>Bin B</label>
+            </value>
+            <value>
+                <fullName>Bulk A</fullName>
+                <default>false</default>
+                <label>Bulk A</label>
+            </value>
+            <value>
+                <fullName>Bulk B</fullName>
+                <default>false</default>
+                <label>Bulk B</label>
+            </value>
+            <value>
+                <fullName>Bulk C</fullName>
+                <default>false</default>
+                <label>Bulk C</label>
+            </value>
+            <value>
+                <fullName>Bulk D</fullName>
+                <default>false</default>
+                <label>Bulk D</label>
+            </value>
+            <value>
+                <fullName>Bulk E</fullName>
+                <default>false</default>
+                <label>Bulk E</label>
+            </value>
+            <value>
+                <fullName>Bulk F</fullName>
+                <default>false</default>
+                <label>Bulk F</label>
+            </value>
+            <value>
+                <fullName>Bulk G1</fullName>
+                <default>false</default>
+                <label>Bulk G1</label>
+            </value>
+            <value>
+                <fullName>Bulk G 1</fullName>
+                <default>false</default>
+                <label>Bulk G 1</label>
+            </value>
+            <value>
+                <fullName>Bulk G2</fullName>
+                <default>false</default>
+                <label>Bulk G2</label>
+            </value>
+            <value>
+                <fullName>Bulk G 2</fullName>
+                <default>false</default>
+                <label>Bulk G 2</label>
+            </value>
+            <value>
+                <fullName>Bulk G3</fullName>
+                <default>false</default>
+                <label>Bulk G3</label>
+            </value>
+            <value>
+                <fullName>Bulk G 3</fullName>
+                <default>false</default>
+                <label>Bulk G 3</label>
+            </value>
+            <value>
+                <fullName>Bulk G4</fullName>
+                <default>false</default>
+                <label>Bulk G4</label>
+            </value>
+            <value>
+                <fullName>Bulk G 4</fullName>
+                <default>false</default>
+                <label>Bulk G 4</label>
+            </value>
+            <value>
+                <fullName>Bulk G5</fullName>
+                <default>false</default>
+                <label>Bulk G5</label>
+            </value>
+            <value>
+                <fullName>Bulk G 5</fullName>
+                <default>false</default>
+                <label>Bulk G 5</label>
+            </value>
+            <value>
+                <fullName>Bulk H</fullName>
+                <default>false</default>
+                <label>Bulk H</label>
+            </value>
+            <value>
+                <fullName>Bulk H 1</fullName>
+                <default>false</default>
+                <label>Bulk H 1</label>
+            </value>
+            <value>
+                <fullName>Bulk H 2</fullName>
+                <default>false</default>
+                <label>Bulk H 2</label>
+            </value>
+            <value>
+                <fullName>Bulk I</fullName>
+                <default>false</default>
+                <label>Bulk I</label>
+            </value>
+            <value>
+                <fullName>Bulk J</fullName>
+                <default>false</default>
+                <label>Bulk J</label>
+            </value>
+            <value>
+                <fullName>Bulk J 1</fullName>
+                <default>false</default>
+                <label>Bulk J 1</label>
+            </value>
+            <value>
+                <fullName>Bulk J 2</fullName>
+                <default>false</default>
+                <label>Bulk J 2</label>
+            </value>
+            <value>
+                <fullName>Bulk J 3</fullName>
+                <default>false</default>
+                <label>Bulk J 3</label>
+            </value>
+            <value>
+                <fullName>Bulk K</fullName>
+                <default>false</default>
+                <label>Bulk K</label>
+            </value>
+            <value>
+                <fullName>Bulk L</fullName>
+                <default>false</default>
+                <label>Bulk L</label>
+            </value>
+            <value>
+                <fullName>Bulk L 1</fullName>
+                <default>false</default>
+                <label>Bulk L 1</label>
+            </value>
+            <value>
+                <fullName>Bulk L 2</fullName>
+                <default>false</default>
+                <label>Bulk L 2</label>
+            </value>
+            <value>
+                <fullName>Bulk L 3</fullName>
+                <default>false</default>
+                <label>Bulk L 3</label>
+            </value>
+            <value>
+                <fullName>Bulk Long</fullName>
+                <default>false</default>
+                <label>Bulk Long</label>
+            </value>
+            <value>
+                <fullName>Bulk M</fullName>
+                <default>false</default>
+                <label>Bulk M</label>
+            </value>
+            <value>
+                <fullName>Bulk N</fullName>
+                <default>false</default>
+                <label>Bulk N</label>
+            </value>
+            <value>
+                <fullName>Bulk P</fullName>
+                <default>false</default>
+                <label>Bulk P</label>
+            </value>
+            <value>
+                <fullName>C/Store</fullName>
+                <default>false</default>
+                <label>C/Store</label>
+            </value>
+            <value>
+                <fullName>C.P.O.</fullName>
+                <default>false</default>
+                <label>C.P.O.</label>
+            </value>
+            <value>
+                <fullName>Cig Large</fullName>
+                <default>false</default>
+                <label>Cig Large</label>
+            </value>
+            <value>
+                <fullName>Cig Medium</fullName>
+                <default>false</default>
+                <label>Cig Medium</label>
+            </value>
+            <value>
+                <fullName>Cig Osize</fullName>
+                <default>false</default>
+                <label>Cig Osize</label>
+            </value>
+            <value>
+                <fullName>Cig Small</fullName>
+                <default>false</default>
+                <label>Cig Small</label>
+            </value>
+            <value>
+                <fullName>Cig Tub</fullName>
+                <default>false</default>
+                <label>Cig Tub</label>
+            </value>
+            <value>
+                <fullName>Cig Uld</fullName>
+                <default>false</default>
+                <label>Cig Uld</label>
+            </value>
+            <value>
+                <fullName>Cigwheeler</fullName>
+                <default>false</default>
+                <label>Cigwheeler</label>
+            </value>
+            <value>
+                <fullName>Colby</fullName>
+                <default>false</default>
+                <label>Colby</label>
+            </value>
+            <value>
+                <fullName>Corflute</fullName>
+                <default>false</default>
+                <label>Corflute</label>
+            </value>
+            <value>
+                <fullName>CP</fullName>
+                <default>false</default>
+                <label>CP</label>
+            </value>
+            <value>
+                <fullName>CPR</fullName>
+                <default>false</default>
+                <label>CPR</label>
+            </value>
+            <value>
+                <fullName>Customs</fullName>
+                <default>false</default>
+                <label>Customs</label>
+            </value>
+            <value>
+                <fullName>Dandy</fullName>
+                <default>false</default>
+                <label>Dandy</label>
+            </value>
+            <value>
+                <fullName>Door 3</fullName>
+                <default>false</default>
+                <label>Door 3</label>
+            </value>
+            <value>
+                <fullName>EMS</fullName>
+                <default>false</default>
+                <label>EMS</label>
+            </value>
+            <value>
+                <fullName>Kardex</fullName>
+                <default>false</default>
+                <label>Kardex</label>
+            </value>
+            <value>
+                <fullName>Key</fullName>
+                <default>false</default>
+                <label>Key</label>
+            </value>
+            <value>
+                <fullName>Large</fullName>
+                <default>false</default>
+                <label>Large</label>
+            </value>
+            <value>
+                <fullName>Large Bin</fullName>
+                <default>false</default>
+                <label>Large Bin</label>
+            </value>
+            <value>
+                <fullName>Medium</fullName>
+                <default>false</default>
+                <label>Medium</label>
+            </value>
+            <value>
+                <fullName>Mics/Inv</fullName>
+                <default>false</default>
+                <label>Mics/Inv</label>
+            </value>
+            <value>
+                <fullName>Multiples</fullName>
+                <default>false</default>
+                <label>Multiples</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Oversize</fullName>
+                <default>false</default>
+                <label>Oversize</label>
+            </value>
+            <value>
+                <fullName>Quarantine</fullName>
+                <default>false</default>
+                <label>Quarantine</label>
+            </value>
+            <value>
+                <fullName>Refrig</fullName>
+                <default>false</default>
+                <label>Refrig</label>
+            </value>
+            <value>
+                <fullName>S.C.O.</fullName>
+                <default>false</default>
+                <label>S.C.O.</label>
+            </value>
+            <value>
+                <fullName>Safe</fullName>
+                <default>false</default>
+                <label>Safe</label>
+            </value>
+            <value>
+                <fullName>Scoshelves</fullName>
+                <default>false</default>
+                <label>Scoshelves</label>
+            </value>
+            <value>
+                <fullName>Shorty</fullName>
+                <default>false</default>
+                <label>Shorty</label>
+            </value>
+            <value>
+                <fullName>Small</fullName>
+                <default>false</default>
+                <label>Small</label>
+            </value>
+            <value>
+                <fullName>Spares</fullName>
+                <default>false</default>
+                <label>Spares</label>
+            </value>
+            <value>
+                <fullName>Trolley</fullName>
+                <default>false</default>
+                <label>Trolley</label>
+            </value>
+            <value>
+                <fullName>U.L.D.</fullName>
+                <default>false</default>
+                <label>U.L.D.</label>
+            </value>
+            <value>
+                <fullName>ULD</fullName>
+                <default>false</default>
+                <label>ULD</label>
+            </value>
+            <value>
+                <fullName>ULD 1</fullName>
+                <default>false</default>
+                <label>ULD 1</label>
+            </value>
+            <value>
+                <fullName>ULD 2</fullName>
+                <default>false</default>
+                <label>ULD 2</label>
+            </value>
+            <value>
+                <fullName>ULD 3</fullName>
+                <default>false</default>
+                <label>ULD 3</label>
+            </value>
+            <value>
+                <fullName>ULD- CT</fullName>
+                <default>false</default>
+                <label>ULD- CT</label>
+            </value>
+            <value>
+                <fullName>Uld Store</fullName>
+                <default>false</default>
+                <label>Uld Store</label>
+            </value>
+            <value>
+                <fullName>Vault</fullName>
+                <default>false</default>
+                <label>Vault</label>
+            </value>
+            <value>
+                <fullName>Vault Safe</fullName>
+                <default>false</default>
+                <label>Vault Safe</label>
+            </value>
+            <value>
+                <fullName>Wheeler</fullName>
+                <default>false</default>
+                <label>Wheeler</label>
+            </value>
+            <value>
+                <fullName>White Tubs</fullName>
+                <default>false</default>
+                <label>White Tubs</label>
+            </value>
+            <value>
+                <fullName>X</fullName>
+                <default>false</default>
+                <label>X</label>
+            </value>
+            <value>
+                <fullName>X-STQ</fullName>
+                <default>false</default>
+                <label>X-STQ</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

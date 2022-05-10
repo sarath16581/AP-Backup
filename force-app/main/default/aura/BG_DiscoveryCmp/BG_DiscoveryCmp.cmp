@@ -26,11 +26,13 @@
     <aura:attribute name="summaryNotes" type="String" default=''/>
     <aura:attribute name="selectedPrimaryProduct" type="String"/>
     <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="showErrorMessage" type="Boolean" default='false'/>
+    <aura:attribute name="errorMessage" type="String" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     
     <aura:registerEvent name="genCmpEvent" type="c:BG_GenericComponentEvent"/>
     <aura:handler name="RelatedQuestionOrderEvt" event="c:BG_RelatedQuestionOrderEvt" action="{!c.handleRelatedQuestionEvent}"/>
-    
+    <c:BG_ValidationCmp aura:id="validateCmp" discoveryCategoryQuestions="{!v.discoveryCategoryQuestions}" />
     <!-- Progress BAR -->
     <div>
         <c:BG_QualificationProgressIndicator currentProgressStep='{!v.currentProgressStep}'
@@ -48,9 +50,13 @@
             <c:BG_EachPreQualQuestion aura:id="field"
                                       catQuestion='{!catQuestion}' index='{!index+1}' /> 
         </aura:iteration>
+        <!-- ERROR Message -->
+        <aura:if isTrue='{!v.showErrorMessage == true}'>
+            <p class='errorFont'>{!v.errorMessage}</p>
+        </aura:if>
         <br/>
         <aura:if isTrue="{!v.isLoading}">
-            <div >
+            <div>
                 <lightning:spinner alternativeText="Loading" size="small" />
             </div>            
         </aura:if> 

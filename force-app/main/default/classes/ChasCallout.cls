@@ -68,7 +68,6 @@ public with sharing class ChasCallout {
         
         try {
             Consumer_Help_and_Support__c consumerHelpNSupport = Consumer_Help_and_Support__c.getInstance();
-                System.debug('consumerHelpNSupport=' + consumerHelpNSupport);
                 if (consumerHelpNSupport != null) {
                     endpointURL = consumerHelpNSupport.End_Point_1Track_Service_URL_v2__c;
                     apikey = consumerHelpNSupport.API_Key_v2__c;
@@ -94,7 +93,6 @@ public with sharing class ChasCallout {
                     apikey = consumerHelpNSupport.Safedrop_API_Key__c;
                     connectionTimeOut = Integer.valueOf(consumerHelpNSupport.Safedrop_Connection_Time_Out__c);
                     apChannelName = consumerHelpNSupport.AP_Channel_Name__c;
-                    System.debug('consumerHelpNSupport=' + endpointURL);
                 } else {
                     System.debug(LoggingLevel.ERROR, 'No Custom Setting is present for CHAS to get 1Track endpoint URL and its API Keys') ;
                 }
@@ -116,7 +114,6 @@ public with sharing class ChasCallout {
                     connectionTimeOut = Integer.valueOf(consumerHelpNSupport.EDD_Service_Connection_Time_Out__c);
                     apChannelName = consumerHelpNSupport.AP_Channel_Name__c;
                     serviceParams = consumerHelpNSupport.EDDQueryParams__c;
-                    System.debug('consumerHelpNSupport=' + endpointURL);
                 } else {
                     System.debug(LoggingLevel.ERROR, 'No Custom Setting is present for EDD service API') ;
                 }
@@ -150,7 +147,6 @@ public with sharing class ChasCallout {
         httpReq.setHeader('Content-Type', 'application/json');
         httpReq.setHeader('AP_CHANNEL_NAME', apChannelName); 
         httpReq.setTimeout(connectionTimeOut);
-        System.debug('Http Request=' + httpReq);
         return httpReq;
     }
     
@@ -165,9 +161,7 @@ public with sharing class ChasCallout {
             //-- Retrying the http request in case of timeout
             httpRes = http.send(httpReq);
         }
-        
-        System.debug('Http Response=' + httpRes);
-        System.debug('Http Response=' + httpRes.getBody());
+
         return httpRes;
     }
     

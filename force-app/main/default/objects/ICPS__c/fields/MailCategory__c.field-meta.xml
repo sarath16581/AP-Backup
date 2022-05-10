@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MailCategory__c</fullName>
+    <description>The Category assigned to the ICPS record.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The Category assigned to the ICPS record.</inlineHelpText>
+    <label>Mail Category</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>EMS</fullName>
+                <default>false</default>
+                <label>EMS</label>
+            </value>
+            <value>
+                <fullName>Express</fullName>
+                <default>false</default>
+                <label>Express</label>
+            </value>
+            <value>
+                <fullName>Insured</fullName>
+                <default>false</default>
+                <label>Insured</label>
+            </value>
+            <value>
+                <fullName>Ordinary</fullName>
+                <default>false</default>
+                <label>Ordinary</label>
+            </value>
+            <value>
+                <fullName>Registered</fullName>
+                <default>false</default>
+                <label>Registered</label>
+            </value>
+            <value>
+                <fullName>Small Packet</fullName>
+                <default>false</default>
+                <label>Small Packet</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

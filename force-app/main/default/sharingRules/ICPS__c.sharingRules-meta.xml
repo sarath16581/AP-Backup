@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>NSW_Users_see_all_NSW_records</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All NSW ICPS users can view/edit all NSW ICPS records</description>
+        <label>NSW Users see all NSW records</label>
+        <sharedTo>
+            <role>ICPSNSW</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ICPSNSW</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>QLD_Users_see_all_QLD_records</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All QLD ICPS users can view/edit all QLD ICPS records</description>
+        <label>QLD Users see all QLD records</label>
+        <sharedTo>
+            <role>ICPSQLD</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ICPSQLD</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>VIC_Users_see_all_VIC_records</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All VIC ICPS users can view/edit all VIC ICPS records</description>
+        <label>VIC Users see all VIC records</label>
+        <sharedTo>
+            <role>ICPSVIC</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ICPSVIC</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>WA_Users_see_all_WA_records</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All WA ICPS users can view/edit all WA ICPS records</description>
+        <label>WA Users see all WA records</label>
+        <sharedTo>
+            <role>ICPSWA</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ICPSWA</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

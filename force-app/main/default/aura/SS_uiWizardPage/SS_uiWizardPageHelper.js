@@ -549,6 +549,7 @@
                 cmp.set("v.wizardData.recipientState",streetAddress.state);
                 cmp.set("v.wizardData.recipientPostcode",streetAddress.postcode);
                 cmp.set("v.wizardData.recipientDeliveryAddress", streetAddress.address);
+                cmp.set("v.wizardData.recipientDPID", streetAddress.dpid);
             }
         }
         if(formType == 'AMEAddressBlock')

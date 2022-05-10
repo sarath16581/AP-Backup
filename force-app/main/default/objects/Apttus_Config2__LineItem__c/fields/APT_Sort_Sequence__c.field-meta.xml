@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Sort_Sequence__c</fullName>
+    <description>Sort sequence to sort the the view rate card data on generated document based on the selection of selected lodgment zone on cart configuration page</description>
+    <externalId>false</externalId>
+    <formula>IF(TEXT( Apttus_Config2__LineType__c ) == &quot;Product/Service&quot;,NULL,IF((CONTAINS(TEXT(Apttus_Config2__OptionId__r.APT_Apttus_Product_Classification__c ), &quot;APPC-Standard&quot;) || CONTAINS(TEXT(Apttus_Config2__OptionId__r.APT_Apttus_Product_Classification__c ), &quot;APPC-Premium&quot;) ),IF(CONTAINS(Apttus_Config2__OptionId__r.Name,&apos;Capital&apos;),1,IF(CONTAINS(Apttus_Config2__OptionId__r.Name, &apos;Metro&apos;),2,3)),NULL))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Sort Sequence</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

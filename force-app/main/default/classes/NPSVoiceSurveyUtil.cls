@@ -5,6 +5,7 @@ History:
 and passing Task's Contact details instead of Case's Contact details
 13-05-2019 saisweth.pingali@auspost.com.au Fix for INC1330241 - Task created by field data is not available on Survey.
 10-08-2020 Ranjeewa Silva - Optimised checkTaskNPSVoiceSurvey method to only query task details if there are tasks to process.
+12-04-2022 Madhuri - DML Exception : Check tRec.Queue__C is not null in isTaskValid method
 -----------------------------------------------------------------------
 **********************************************************************/
 public with sharing class NPSVoiceSurveyUtil {
@@ -157,6 +158,7 @@ public with sharing class NPSVoiceSurveyUtil {
         if (Utility.isValidRecordType(taskRecTypeIds,tRec.RecordTypeId)
                 && tRec.whatId !=null && tRec.whatId.getSObjectType() == Case.getSObjectType()
                 && tRec.whoId !=null && tRec.whoId.getSObjectType() == Contact.getSObjectType()
+           	    && tRec.Queue__c != null
                 &&
                 (
                         tRec.CallType == CALLTYPE_INBOUND

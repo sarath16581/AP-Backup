@@ -1,14 +1,17 @@
-/**
-Description - 
-Created By - Drashtee Shah
-Created Date - 29th Feb, 2016
-
-Last Modified By - Mausam Padhiyar  
-Last Modified Date - 30th Aug, 2016
-05.03.2020 seth.heang@auspost.com.au  Fixed SOQL101 error on Proposal Trigger
-02.06.2020 shashwat.a.nath@accenture.com Updated the method testMethod1 to include the isactive and LIMIT clause on user query 
-08.03.2020 seth.heang@auspost.com.au  Update Contract test data to fulfil the updated criteria in APT_SyncContractAndRatesSchedule class, and get picked up for the rate sync
- */
+/***
+ * @author Drashtee Shah
+ * @date 2016-02-29
+ * @group 
+ * @description This class is test class for APT_SyncContractAndRatesBatch.
+ * @changelog
+ * 2016-02-29 - Drashtee Shah - Created
+ * 2016-08-30 - Mausam Padhiyar - modified
+ * 2020-03-05 - seth.heang@auspost.com.au - Fixed SOQL101 error on Proposal Trigger
+ * 2020-06-02 - shashwat.a.nath@accenture.com - Updated the method testMethod1 to include the isactive and LIMIT clause on user query 
+ * 2020-03-08 - seth.heang@auspost.com.au - Update Contract test data to fulfil the updated criteria in APT_SyncContractAndRatesSchedule class, and get picked up for the rate sync
+ * 2021-11-17 - Mathew Jose - Fixing the test method failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
+ * 2022-02-11  REQ2723568: API version 52 upgrade
+*/
 @isTest
 private class APT_SyncContractAndRatesBatch_Test {
     /* 
@@ -31,12 +34,14 @@ private class APT_SyncContractAndRatesBatch_Test {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -510,12 +515,15 @@ private class APT_SyncContractAndRatesBatch_Test {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
             
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -738,15 +746,17 @@ private class APT_SyncContractAndRatesBatch_Test {
             
             APT_Agreement_auto_activate_recordtypes__c customsetting1 = new APT_Agreement_auto_activate_recordtypes__c();
             customsetting1.Name = 'APT_MSA_Service_Schedule';
-            insert customsetting1;
-            
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
+            insert customsetting1;            
             
             Account tempacct = APT_TestUtils.createOrganisation();
             tempacct.Owner = u;
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -966,12 +976,14 @@ private class APT_SyncContractAndRatesBatch_Test {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -1186,14 +1198,16 @@ private class APT_SyncContractAndRatesBatch_Test {
             
             APT_Agreement_auto_activate_recordtypes__c customsetting1 = new APT_Agreement_auto_activate_recordtypes__c();
             customsetting1.Name = 'APT_MSA_Service_Schedule';
-            insert customsetting1;
-            
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
+            insert customsetting1;            
             
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -1410,14 +1424,16 @@ private class APT_SyncContractAndRatesBatch_Test {
             
             APT_Agreement_auto_activate_recordtypes__c customsetting1 = new APT_Agreement_auto_activate_recordtypes__c();
             customsetting1.Name = 'APT_MSA_Service_Schedule';
-            insert customsetting1;
-            
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
+            insert customsetting1;            
             
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -1642,12 +1658,14 @@ private class APT_SyncContractAndRatesBatch_Test {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -1932,12 +1950,14 @@ private class APT_SyncContractAndRatesBatch_Test {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -2183,12 +2203,14 @@ private class APT_SyncContractAndRatesBatch_Test {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -2475,12 +2497,14 @@ private static TestMethod void testMethodInternational4() {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -2734,12 +2758,14 @@ private static TestMethod void testMethodInternational4() {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -2993,12 +3019,14 @@ private static TestMethod void testMethodInternational4() {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -3260,12 +3288,14 @@ private static TestMethod void testMethodInternational4() {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+            
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -3525,12 +3555,14 @@ private static TestMethod void testMethodInternational4() {
             customsetting1.Name = 'APT_MSA_Service_Schedule';
             insert customsetting1;
             
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
-            
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
@@ -3806,12 +3838,15 @@ private static TestMethod void testMethodInternational4() {
         TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
         UserName=APT_Constants.EMAIL_TEST_USER);
         System.runAs(testuser) {       
-            Contact con= APT_TestUtils.createContact();
-            con.Email = 'temp@temp.com';
-            insert con;
             
             Account tempacct = APT_TestUtils.createOrganisation();
             insert tempacct;
+
+            Contact con= APT_TestUtils.createContact();
+            con.Email = 'temp@temp.com';
+            //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+            con.AccountId = tempacct.Id;
+            insert con;            
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
             opp.StageName = 'Identify';

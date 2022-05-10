@@ -42,18 +42,6 @@
         <template>APT_R2T_System_Email_Templates/APT_Return_and_check_in_of_Biller_and_Credit_forms</template>
     </alerts>
     <alerts>
-        <fullName>APT_GM_Notification_10_days_Before_Expiration</fullName>
-        <description>APT GM Notification 10 days Before Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <field>APT_Sales_General_Manager__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Apttus_Approval__Visualforce_Email_Templates/Contract_GM_Expiration_10_DaysVF</template>
-    </alerts>
-    <alerts>
         <fullName>APT_LOI_Biller_Form_Notification</fullName>
         <ccEmails>TEST_DLHQSAC@auspost.com.au; cmagency@auspost.com.au</ccEmails>
         <description>APT LOI Biller Form Notification</description>
@@ -78,52 +66,6 @@
         <template>APT_R2T_System_Email_Templates/APT_Return_and_check_in_of_Questionnaire</template>
     </alerts>
     <alerts>
-        <fullName>APT_Manager_Notification_10_days_Before_Expiration</fullName>
-        <description>APT Manager Notification 10 days Before Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <field>APT_Seller_Manager__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Apttus_Approval__Visualforce_Email_Templates/Contract_Mngr_Expire_10_Days_NotiFVF</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_Manager_Notification_15_days_Before_Expiration</fullName>
-        <description>APT Manager Notification 15 days Before Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <field>APT_Seller_Manager__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Apttus_Approval__Visualforce_Email_Templates/Contract_Mngr_Expire_15_Days_NotiFVF</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_Notification_10_days_Before_Expiration</fullName>
-        <description>APT Notification 10 days Before Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <type>accountOwner</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>APT_R2T_System_Email_Templates/Contract_Expiration_10_Days_Notification1</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_Notification_15_days_Before_Expiration</fullName>
-        <description>APT Notification 15 days Before Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <type>accountOwner</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>APT_R2T_System_Email_Templates/Contract_Expiration_15_Days_Notification1</template>
-    </alerts>
-    <alerts>
         <fullName>APT_Notification_30_days_Before_Anniversary</fullName>
         <description>APT Notification 30 days Before Anniversary</description>
         <protected>false</protected>
@@ -133,32 +75,6 @@
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>APT_R2T_System_Email_Templates/APT_Contract_Anniversary_30_Days_Notification1</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_Notification_35_days_Before_Expiration</fullName>
-        <description>APT Notification 35 days Before Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <type>accountOwner</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>APT_R2T_System_Email_Templates/Contract_Expiration_35_Days_Notification1</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_Notification_35_days_Before_Expiration_Rebate</fullName>
-        <description>APT Notification 35 days Before Expiration Rebate</description>
-        <protected>false</protected>
-        <recipients>
-            <type>owner</type>
-        </recipients>
-        <recipients>
-            <field>APT_Sales_Specialist__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>APT_R2T_System_Email_Templates/Contract_Expiration_35_Days_Notification1</template>
     </alerts>
     <alerts>
         <fullName>APT_Notification_60_days_Before_Anniversary</fullName>
@@ -172,32 +88,6 @@
         <template>APT_R2T_System_Email_Templates/APT_Contract_Anniversary_60_Days_Notification1</template>
     </alerts>
     <alerts>
-        <fullName>APT_Notification_60_days_Before_Expiration</fullName>
-        <description>APT Notification 60 days Before Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <type>accountOwner</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>APT_R2T_System_Email_Templates/Contract_Expiration_60_Days_Notification1</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_Notification_60_days_Before_Expiration_Rebate</fullName>
-        <description>APT Notification 60 days Before Expiration Rebate</description>
-        <protected>false</protected>
-        <recipients>
-            <type>owner</type>
-        </recipients>
-        <recipients>
-            <field>APT_Sales_Specialist__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>APT_R2T_System_Email_Templates/Contract_Expiration_60_Days_Notification1</template>
-    </alerts>
-    <alerts>
         <fullName>APT_Notification_90_days_Before_Anniversary</fullName>
         <description>APT Notification 90 days Before Anniversary</description>
         <protected>false</protected>
@@ -209,32 +99,6 @@
         <template>APT_R2T_System_Email_Templates/APT_Contract_Anniversary_90_Days_Notification1</template>
     </alerts>
     <alerts>
-        <fullName>APT_Notification_90_days_Before_Expiration</fullName>
-        <description>APT Notification 90 days Before Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <type>accountOwner</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>APT_R2T_System_Email_Templates/Contract_Expiration_90_Days_Notification1</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_Notification_90_days_Before_Expiration_Rebate</fullName>
-        <description>APT Notification 90 days Before Expiration Rebate</description>
-        <protected>false</protected>
-        <recipients>
-            <type>owner</type>
-        </recipients>
-        <recipients>
-            <field>APT_Sales_Specialist__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>APT_R2T_System_Email_Templates/Contract_Expiration_90_Days_Notification1</template>
-    </alerts>
-    <alerts>
         <fullName>APT_Notification_about_Approved_Extension</fullName>
         <description>APT Notification about Approved Extension</description>
         <protected>false</protected>
@@ -244,21 +108,6 @@
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Apttus_Approval__Visualforce_Email_Templates/Contract_Extension_Approval_Notification</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_Notification_about_Expiration</fullName>
-        <description>APT Notification about Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <type>accountOwner</type>
-        </recipients>
-        <recipients>
-            <recipient>Contract_Management_Enquiry_CME</recipient>
-            <type>group</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>APT_R2T_System_Email_Templates/Contract_Expiration_Notification1</template>
     </alerts>
     <alerts>
         <fullName>APT_Notification_about_Rejected_Extension</fullName>
@@ -337,6 +186,17 @@
         <template>Apttus_Approval__Visualforce_Email_Templates/Contract_Approval_Notification1VF</template>
     </alerts>
     <alerts>
+        <fullName>APT_Send_Contract_Expiration_Email_Alert</fullName>
+        <description>APT_Send Contract Expiration Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/APT_Send_Contract_Expiration_Email_Alert</template>
+    </alerts>
+    <alerts>
         <fullName>APT_Send_Rejection_Notification_EA</fullName>
         <description>APT Send Rejection Notification EA</description>
         <protected>false</protected>
@@ -358,16 +218,6 @@
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>APT_R2T_System_Email_Templates/APT_Return_of_LOI_via_DocuSign</template>
-    </alerts>
-    <alerts>
-        <fullName>APT_Termination_Email_Alert</fullName>
-        <description>Termination Email Alert</description>
-        <protected>false</protected>
-        <recipients>
-            <type>owner</type>
-        </recipients>
-        <senderType>CurrentUser</senderType>
-        <template>APT_R2T_System_Email_Templates/APT_Terminated_Contract_Notification</template>
     </alerts>
     <alerts>
         <fullName>APT_Termination_Initiation_Notification_EA</fullName>
@@ -402,15 +252,6 @@
         <protected>false</protected>
         <senderType>CurrentUser</senderType>
         <template>APT_R2T_System_Email_Templates/Activated_Workforce_Verification_Contract_Notification_for_DL</template>
-    </alerts>
-    <alerts>
-        <fullName>eParcel_Contract_Notification</fullName>
-        <ccEmails>DLNationalEparcelSupportTeam@auspost.com.au</ccEmails>
-        <description>eParcel Contract Notification</description>
-        <protected>false</protected>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>BAU_Email_Templates/R2T_eParcel_Support_Email_Notification</template>
     </alerts>
     <fieldUpdates>
         <fullName>APT_Populate_Contract_End_Date</fullName>
@@ -486,32 +327,10 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>APT_Set_Status_Category_to_Expired</fullName>
-        <description>Change the value of Status Category field to &apos;Expired&apos;</description>
-        <field>Apttus__Status_Category__c</field>
-        <literalValue>Expired</literalValue>
-        <name>APT Set Status Category to Expired</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>APT_Set_Status_To_Author_Contract</fullName>
         <field>Apttus__Status__c</field>
         <literalValue>Author Contract</literalValue>
         <name>APT Set Status To Author Contract</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>APT_Set_Status_to_Expired</fullName>
-        <description>Change the value of Status field to &apos;Expired&apos;</description>
-        <field>Apttus__Status__c</field>
-        <literalValue>Expired</literalValue>
-        <name>APT Set Status to Expired</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -953,175 +772,6 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>APT FT Contract Activated OE Marked For Review WFR2</fullName>
-        <active>false</active>
-        <booleanFilter>1 AND 2 AND (3 OR (4 AND 5)) AND 6 AND 7</booleanFilter>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
-            <operation>equals</operation>
-            <value>In Effect</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status__c</field>
-            <operation>notEqual</operation>
-            <value>Superseded</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Term__c</field>
-            <operation>equals</operation>
-            <value>Fixed Term</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Term__c</field>
-            <operation>equals</operation>
-            <value>Open Ended</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.APT_Mark_for_Review__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.APT_Switch_off_Notifications__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Letter of Intent,Postbillpay Contract,Community Update Pack,MSA &amp; Service Schedule</value>
-        </criteriaItems>
-        <description>Triggers when Contract is activated in Salesforce. Applies to Fixed-Term Contracts and Contracts which are Open Ended but marked for Review</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Notification_60_days_Before_Expiration</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Contract_Expiration_Notice_Please_take_action</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>-60</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Notification_35_days_Before_Expiration</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Contract_Expiration_Notice_Please_take_action</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>-35</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Manager_Notification_15_days_Before_Expiration</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Notification_15_days_Before_Expiration</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Contract_Expiration_Notice_Please_take_action</name>
-                <type>Task</type>
-            </actions>
-            <actions>
-                <name>APT_Escalated_to_Manager</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>-15</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Notification_90_days_Before_Expiration</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Contract_Expiration_Notice_Please_take_action</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>-90</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_GM_Notification_10_days_Before_Expiration</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Manager_Notification_10_days_Before_Expiration</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Notification_10_days_Before_Expiration</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Contract_Expiration_Notice_Please_take_action</name>
-                <type>Task</type>
-            </actions>
-            <actions>
-                <name>APT_Escalated_to_GM</name>
-                <type>Task</type>
-            </actions>
-            <actions>
-                <name>APT_Escalated_to_Manager</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>-10</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Set_Status_Category_to_Expired</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>APT_Set_Status_to_Expired</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>APT FT Contract Expired WFR</fullName>
-        <actions>
-            <name>APT_Notification_about_Expiration</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
-            <operation>equals</operation>
-            <value>Expired</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status__c</field>
-            <operation>equals</operation>
-            <value>Expired</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.APT_Switch_off_Notifications__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <description>Triggers when contract statuses changes to expired</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
         <fullName>APT LOI Fully Signed WFR</fullName>
         <actions>
             <name>APT_Signed_LOI</name>
@@ -1160,145 +810,6 @@
         </criteriaItems>
         <description>Workflow which fires when LOI return of questionnaire is checked</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>APT MSA Activated</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
-            <operation>equals</operation>
-            <value>In Effect</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Community Update Pack,MSA &amp; Service Schedule</value>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Contract_Review</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>90</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>APT MSA Cubic Factor Contract Activated</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
-            <operation>equals</operation>
-            <value>In Effect</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>MSA &amp; Service Schedule</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.APT_Cubic_Factor_Contract__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.APT_Cubic_Factor_Review_Completed__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>90</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>120</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>150</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>180</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>210</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>240</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>270</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>300</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>330</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_3_Months_Cubic_Factor_Assessment</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c</offsetFromField>
-            <timeLength>360</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
     </rules>
     <rules>
         <fullName>APT Other Party Paper</fullName>
@@ -1452,105 +963,6 @@
         </workflowTimeTriggers>
     </rules>
     <rules>
-        <fullName>APT Print Post Makes Contract FT</fullName>
-        <actions>
-            <name>APT_Set_Term_to_FT</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Term__c</field>
-            <operation>notEqual</operation>
-            <value>Fixed Term</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Included_Product_Lines__c</field>
-            <operation>includes</operation>
-            <value>Print Post</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Included_Product_Lines__c</field>
-            <operation>includes</operation>
-            <value>UMS</value>
-        </criteriaItems>
-        <description>WFR that changes contract to &apos;Fixed Term&apos; if UMS OR Print Post is in &apos;Included Product Line Items&apos;</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>APT Rebate Contract Activated</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
-            <operation>equals</operation>
-            <value>In Effect</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status__c</field>
-            <operation>equals</operation>
-            <value>Activated</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Rebate Contract</value>
-        </criteriaItems>
-        <description>Enables notifications for rebate contract only</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Notification_90_days_Before_Expiration_Rebate</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Contract_Expiration_Notice_Please_take_action</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>-90</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Set_Status_Category_to_Expired</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>APT_Set_Status_to_Expired</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Notification_35_days_Before_Expiration_Rebate</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Contract_Expiration_Notice_Please_take_action</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>-35</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Notification_60_days_Before_Expiration_Rebate</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Contract_Expiration_Notice_Please_take_action</name>
-                <type>Task</type>
-            </actions>
-            <offsetFromField>Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c</offsetFromField>
-            <timeLength>-60</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
         <fullName>APT Returned to Requestor</fullName>
         <actions>
             <name>APT_Set_Status_Category_To_Authoring</name>
@@ -1588,21 +1000,6 @@
             <value>Submitted Request</value>
         </criteriaItems>
         <description>Changes status of Contract to &apos;In Authoring&apos; when it was submitted using agreement rules</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>APT Submitted for Extension WFR</fullName>
-        <actions>
-            <name>APT_Contract_submitted_for_Extension</name>
-            <type>Task</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.APT_Extension_Approval_Status__c</field>
-            <operation>equals</operation>
-            <value>Pending Approval</value>
-        </criteriaItems>
-        <description>Triggers when extension for contract is requested</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -1676,21 +1073,6 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>APT Terminated Contract WFR</fullName>
-        <actions>
-            <name>APT_Termination_Email_Alert</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
-            <operation>equals</operation>
-            <value>Terminated</value>
-        </criteriaItems>
-        <description>Triggers when Contract Steps changes to Terminated</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
         <fullName>APT Termination Initiated For SecurePay Online WFR</fullName>
         <actions>
             <name>APT_Initiated_Termination_of_Contract</name>
@@ -1713,35 +1095,6 @@
             <value>SecurePay Online Payments</value>
         </criteriaItems>
         <description>Triggers when Seller initiates termination of an Contract in the system. Works for only SecurePay Online Payments Contracts</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>APT Termination Initiated WFR</fullName>
-        <actions>
-            <name>APT_Termination_Initiation_Notification_EA</name>
-            <type>Alert</type>
-        </actions>
-        <actions>
-            <name>APT_Initiated_Termination_of_Contract</name>
-            <type>Task</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
-            <operation>equals</operation>
-            <value>In Effect</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status__c</field>
-            <operation>equals</operation>
-            <value>Being Terminated</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>SecurePay Online Payments</value>
-        </criteriaItems>
-        <description>Triggers when Seller initiates termination of an Contract in the system. Works for all the contracts other than Contracts for Secure Pay Online Payment product.</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -1919,41 +1272,6 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>R2T eParcel Support Email Notification</fullName>
-        <actions>
-            <name>eParcel_Contract_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Included_Product_Lines__c</field>
-            <operation>includes</operation>
-            <value>eParcels Domestic</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.APT_Contract_Type__c</field>
-            <operation>equals</operation>
-            <value>New Contract</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Record_Type_Name__c</field>
-            <operation>equals</operation>
-            <value>MSA &amp; Service Schedule</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
-            <operation>equals</operation>
-            <value>In Effect</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Apttus__APTS_Agreement__c.Apttus__Status__c</field>
-            <operation>equals</operation>
-            <value>Activated</value>
-        </criteriaItems>
-        <description>R2T eParcel Support Email Notification</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
         <fullName>Send email on Apttus Contract activation</fullName>
         <actions>
             <name>Send_Email_on_Apttus_Contract_Activation_Email_Alert</name>
@@ -1968,38 +1286,6 @@
         <formula>IF( AND(NOT(APT_Email_sent_on_Contract_Activation__c), RecordType.DeveloperName = &apos;APT_MSA_Service_Schedule&apos;, ISPICKVAL(Apttus__Status_Category__c, &apos;In Effect&apos;), ISPICKVAL(Apttus__Status__c, &apos;Activated&apos;),  INCLUDES( Included_Product_Lines__c , &apos;Workforce Verification&apos;) ),true,false)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
-    <tasks>
-        <fullName>APT_3_Months_Contract_Review</fullName>
-        <assignedToType>owner</assignedToType>
-        <description>Please review contract performance.</description>
-        <dueDateOffset>5</dueDateOffset>
-        <notifyAssignee>true</notifyAssignee>
-        <priority>Normal</priority>
-        <protected>false</protected>
-        <status>Not Started</status>
-        <subject>3 Months Contract Review</subject>
-    </tasks>
-    <tasks>
-        <fullName>APT_3_Months_Cubic_Factor_Assessment</fullName>
-        <assignedToType>owner</assignedToType>
-        <description>Please review contract performance for Cubic Factor. Once completed, please indicate it on Contract record by checking &apos;Cubic Factor Review Completed&apos; checkbox.</description>
-        <dueDateOffset>0</dueDateOffset>
-        <notifyAssignee>true</notifyAssignee>
-        <priority>Normal</priority>
-        <protected>false</protected>
-        <status>Not Started</status>
-        <subject>Please Review Cubic Factor for This Contract</subject>
-    </tasks>
-    <tasks>
-        <fullName>APT_Contract_Expiration_Notice_Please_take_action</fullName>
-        <assignedToType>owner</assignedToType>
-        <dueDateOffset>2</dueDateOffset>
-        <notifyAssignee>false</notifyAssignee>
-        <priority>High</priority>
-        <protected>false</protected>
-        <status>Not Started</status>
-        <subject>Contract Expiration Notice. Please take action.</subject>
-    </tasks>
     <tasks>
         <fullName>APT_Contract_Extension_Approved</fullName>
         <assignedToType>owner</assignedToType>
@@ -2021,37 +1307,6 @@
         <protected>false</protected>
         <status>Completed</status>
         <subject>Contract Extension Rejected</subject>
-    </tasks>
-    <tasks>
-        <fullName>APT_Contract_submitted_for_Extension</fullName>
-        <assignedToType>owner</assignedToType>
-        <description>Log about Extension Submission</description>
-        <dueDateOffset>0</dueDateOffset>
-        <notifyAssignee>false</notifyAssignee>
-        <priority>Normal</priority>
-        <protected>false</protected>
-        <status>Completed</status>
-        <subject>Contract submitted for Extension</subject>
-    </tasks>
-    <tasks>
-        <fullName>APT_Escalated_to_GM</fullName>
-        <assignedToType>owner</assignedToType>
-        <dueDateOffset>0</dueDateOffset>
-        <notifyAssignee>false</notifyAssignee>
-        <priority>High</priority>
-        <protected>false</protected>
-        <status>Completed</status>
-        <subject>Escalated to GM</subject>
-    </tasks>
-    <tasks>
-        <fullName>APT_Escalated_to_Manager</fullName>
-        <assignedToType>owner</assignedToType>
-        <dueDateOffset>0</dueDateOffset>
-        <notifyAssignee>false</notifyAssignee>
-        <priority>Normal</priority>
-        <protected>false</protected>
-        <status>Completed</status>
-        <subject>Escalated to Manager</subject>
     </tasks>
     <tasks>
         <fullName>APT_Initiated_Termination_of_Contract</fullName>

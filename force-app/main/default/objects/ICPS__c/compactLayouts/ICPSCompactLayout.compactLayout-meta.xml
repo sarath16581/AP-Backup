@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ICPSCompactLayout</fullName>
+    <fields>ReferenceFormula__c</fields>
+    <fields>MailCategory__c</fields>
+    <fields>Status__c</fields>
+    <fields>StoredLocation__c</fields>
+    <fields>ItemType__c</fields>
+    <fields>OwnerId</fields>
+    <label>ICPS Compact Layout</label>
+</CompactLayout>

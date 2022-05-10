@@ -18,6 +18,11 @@ public inherited sharing class CasesDomain extends ApplicationDomain{
 		// each module will register their trigger entry points
 		// additionally, each module will specify a list of fields that it monitors changes for.
 		registerModule(CaseOwnerMetricsModule.class);
+
+		// The case survey Invitation Module tests case data for entry criteria for sending
+		// Survey Invitations. Those records which meet specified criteria are enqued and sent to 
+		// the survey service and the last survey sent date on the case object is updated to reflect this.
+		registerModule(CaseSurveyInvitationModule.class);
 	}
 	/**
 	 * Trigger instantiation context

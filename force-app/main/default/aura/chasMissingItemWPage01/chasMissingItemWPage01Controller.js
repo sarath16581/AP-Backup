@@ -67,4 +67,36 @@
     displaymyPostLoginForm : function (cmp, event, helper) {
         helper.storeEncryPtWizardDataAndNavigateToMyPost(cmp);
     },
+    isSelected: function(cmp, event, helper) {
+      var isSelected = event.getParam('articleSelected');
+      var articleId = event.getParam('articleId');
+
+      var articles = cmp.get('v.wizardData.articles');
+      articles.find(item => item.articleId == articleId).isSelected = isSelected;
+
+      cmp.set('v.wizardData.articles', articles);
+    },
+    selectionMade : function (cmp, event, helper) {
+      var articles = cmp.get('v.wizardData.articles');
+      //console.log(JSON.stringify(articles));
+      var isItemSelected = articles.find(item => item.isSelected == true);
+        if (!($A.util.isUndefined(isItemSelected))) {
+         // console.log(selectedItem);
+          helper.handleMultiSelection(cmp, event, helper);
+        } else {
+          cmp.set('v.showSelectionError', true);
+        }
+      },
+      goBack: function (cmp, event, helper) {
+        //Check the base url of the page, this is to ascertain users getting directed from a direct link
+        var baseUrl = window.location.href;
+        if(baseUrl.includes("trackingId"))
+        {
+            baseUrl = baseUrl + '#';
+            window.location.href = window.location.href + '#';
+        }
+        cmp.set('v.isMultipleArticles', false);
+        cmp.set('v.showSelectionError', false);
+        helper.gotoPrevPage(cmp);
+    },
 })

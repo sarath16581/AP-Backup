@@ -163,7 +163,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -251,7 +251,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -445,7 +445,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -612,7 +612,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -759,7 +759,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1044,7 +1044,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1101,7 +1101,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1158,7 +1158,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1215,7 +1215,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1272,7 +1272,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1329,7 +1329,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1386,7 +1386,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1443,7 +1443,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1500,7 +1500,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -1557,7 +1557,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Premium</value>
+                <value>Premium,APGL</value>
             </criteriaItems>
         </entryCriteria>
         <label>Location Queensland</label>

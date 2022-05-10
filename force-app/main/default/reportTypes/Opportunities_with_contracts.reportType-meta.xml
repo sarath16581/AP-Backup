@@ -3088,6 +3088,11 @@
             <field>Apttus__Related_Opportunity__c</field>
             <table>Opportunity.Apttus__R00N50000001Xl0FEAS__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Opportunity.Apttus__R00N50000001Xl0FEAS__r</table>
+        </columns>
         <masterLabel>Apttus Contracts</masterLabel>
     </sections>
 </ReportType>

@@ -95,8 +95,9 @@ private class bspEnquiry_Test {
 		Database.insert(bspErrorMessages);
 
 		List<MpbHsp_Mappings__c> MpbHspMappings = new List<MpbHsp_Mappings__c>();
-		MpbHspMappings.add(new MpbHsp_Mappings__c(Name = 'Other Enquiry', Case_Enquiry_Sub_Type__c = 'Other', Case_Product_Category__c = 'Web & Apps', Case_Product_Sub_Category__c = 'MyPost Business', Case_Type__c = 'General Enquiry',MpbHspEnquiryType__c = 'Other Enquiry' ));
-		MpbHspMappings.add(new MpbHsp_Mappings__c(Name = 'Missing item', Case_Enquiry_Sub_Type__c = 'Missing item', Case_Product_Category__c = 'Domestic Parcels', Case_Product_Sub_Category__c = 'Parcel Post', Case_Type__c = 'Investigation',MpbHspEnquiryType__c = 'Delivery Enquiry'	));
+		MpbHspMappings.add(new MpbHsp_Mappings__c(Name = 'other enquiry', Case_Enquiry_Sub_Type__c = 'Other', Case_Product_Category__c = 'Web & Apps', Case_Product_Sub_Category__c = 'MyPost Business', Case_Type__c = 'General Enquiry',MpbHspEnquiryType__c = 'Other Enquiry' ));
+		MpbHspMappings.add(new MpbHsp_Mappings__c(Name = 'missing item', Case_Enquiry_Sub_Type__c = 'Missing item', Case_Product_Category__c = 'Domestic Parcels', Case_Product_Sub_Category__c = 'Parcel Post', Case_Type__c = 'Investigation',MpbHspEnquiryType__c = 'Delivery Enquiry'	));
+		MpbHspMappings.add(new MpbHsp_Mappings__c(Name = 'tracking status', Case_Enquiry_Sub_Type__c = 'Tracking', Case_Product_Category__c = 'Domestic Parcels', Case_Product_Sub_Category__c = 'Parcel Post', Case_Type__c = 'General Enquiry',MpbHspEnquiryType__c = 'Delivery Enquiry'	));
 		Database.insert(MpbHspMappings);
 
 		List<BSPMappings__c> bspMappings = new List<BSPMappings__c>();
@@ -1023,7 +1024,8 @@ private class bspEnquiry_Test {
 			bspEnq.getTechMpbCaseType();
 			bspEnq.setFirstNameLastName();
 
-			bspEnq.enq.MPB_BSP_Enquiry_Type__c = 'Other Enquiry';
+			bspEnq.enq.MPB_BSP_Enquiry_Type__c = 'Delivery enquiry';
+			bspEnq.enq.MPB_BSP_Tech_Enquiry_Type__c = 'Tracking status';
 			bspEnq.enq.ReferenceID__c = '00093459160047634904';
 			bspEnq.enq.BSPLodgementDate__c = System.today() + 3;
 			bspEnq.enq.ArticleType__c = 'Parcel';
@@ -1037,13 +1039,6 @@ private class bspEnquiry_Test {
 			bspEnq.enq.SecondaryContactLastName__c = 'Catindoy';
 			bspEnq.enq.SecondaryAccount__c = 'Accenture';
 			bspEnq.toAddress = new AddressExtension('line1', 'line2', 'suburb', 'state', 'postcode', 'dpid', 'country');
-			bspEnq.submitPageMpbHsp();
-
-			System.assertNotEquals(null, bspEnq.enq);
-			System.assertNotEquals(null, bspEnq.enq.Id);
-
-			bspEnq.enq.MPB_BSP_Enquiry_Type__c = 'Delivery enquiry';
-			bspEnq.enq.MPB_BSP_Tech_Enquiry_Type__c = 'Missing item';
 			bspEnq.submitPageMpbHsp();
 			bspEnq.getCaseNo();
 

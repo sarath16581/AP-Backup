@@ -8,6 +8,7 @@ History:
 2018-06-14  TDO-45 : rahul.kapoor@coroma.com.au Refactored comments and indentation,
             added assertEquals and assertNotEquals, added new tests to handle
             send SMS for Star Track Tasks, tests to sendSMS using Mock class.
+2022-04-20  Remove test methods for snapIt Cases and lead as it is no longer needed
 ***********************************************************************************/
 @isTest
 private class ActivityUtil_Test {
@@ -572,69 +573,7 @@ private class ActivityUtil_Test {
         ActivityUtil.sendSMSForTasks(new List<Task>{testTask});
     }
 
-    /*****************************************************
-    *  Scenario:
-    *      Test for the for Snap It Process for Lead.
-    ******************************************************/
-    @isTest
-    static void testFutureSendSMSForTasks_SnapIt_Lead() {
-        Lead testLead = TestDataProvider.createLead( 'Standard');
-        insert testLead;
-
-        ID recordTypeID = [SELECT Id
-                           FROM RecordType
-                           WHERE SObjectType = 'Task'
-                           AND DeveloperName = 'SSSWSMS'
-                           LIMIT 1].Id;
-
-        Task testTask = TestDataProvider.createTask(null, testLead.Id, 'SSSW SMS');
-        testTask.RecordTypeID = recordTypeID;
-        testTask.Subject = 'Test';
-        testTask.Status = 'Not Started';
-
-        insert testTask;
-
-        List<Task> tasks = new List<Task>();
-        tasks.add(testTask);
-
-        Test.startTest();
-            ActivityUtil.sendSMSForTasks(tasks);
-        Test.stopTest();
-    }
-
-    /*****************************************************
-    *  Scenario:
-    *      Test for the for Snap It Process for Case.
-    ******************************************************/
-    @isTest
-    static void testFutureSendSMSForTasks_SnapIt_Case() {
-        Case testCase = TestDataProvider.createCase('Test', 'test description', 'SSSW General Enquiry');
-        testCase.origin='Snap It';
-        testCase.ProductCategory__c ='test product';
-        testCase.Employee_Mobile__c ='12345';
-
-        insert testCase;
-
-        ID recordTypeID = [SELECT Id
-                           FROM RecordType
-                           WHERE SObjectType = 'Task'
-                           AND DeveloperName = 'SSSWSMS'
-                           LIMIT 1].Id;
-
-        Task testTask = TestDataProvider.createTask(testCase.id, null, 'SSSW SMS');
-        testTask.RecordTypeID = recordTypeID;
-        testTask.Subject = 'Test';
-        testTask.Status = 'Not Started';
-
-        INSERT testTask;
-
-        List<Task> tasks = new List<Task>();
-        tasks.add(testTask);
-
-        Test.startTest();
-            ActivityUtil.sendSMSForTasks(tasks);
-        Test.stopTest();
-    }
+    
     /*****************************************************
     *  Scenario:
     *      Method to test populates lead first activity of sales person

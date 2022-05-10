@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FederationField__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>The API name of the field on the User object to match the SSO subject claim to</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>The API name of the field on the User object to match the SSO subject claim to</inlineHelpText>
+    <label>Federation Field</label>
+    <length>40</length>
+    <required>true</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Consignment_Search_Display_Max_Articles__c</fullName>
+    <defaultValue>5</defaultValue>
+    <description>Consignment search display articles limit: this is to limit the display of consignment search result  when there are articles more than this number it will not allow the user to select articles.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Consignment search display articles limit: this is to limit the display of consignment search result  when there are articles more than this number it will not allow the user to select articles.</inlineHelpText>
+    <label>Consignment Search Display Max Articles</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

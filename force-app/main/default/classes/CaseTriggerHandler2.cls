@@ -20,9 +20,7 @@ public inherited sharing class CaseTriggerHandler2 extends ApplicationDomainTrig
 		return new List<Type>{
 				MyCustomerCasesDomain.class,
 				//Added by madhusudhan | PBRP
-				StarTrackSupportCasesDomain.class,
-				//Added by Asha
-				CasesDomain.class
+				StarTrackSupportCasesDomain.class
 		};
 	}
 	

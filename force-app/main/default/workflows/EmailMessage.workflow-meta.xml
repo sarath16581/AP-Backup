@@ -13,17 +13,6 @@
         <targetObject>ParentId</targetObject>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>ASH_Prod_Sub_Cat_Acc_Non_urgent</fullName>
-        <field>ProductSubCategory__c</field>
-        <literalValue>Acc Non-urgent</literalValue>
-        <name>ASH- Prod Sub Cat - Acc Non-urgent</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>ASH_Prod_Sub_Cat_Cheque_Fraud</fullName>
         <field>ProductSubCategory__c</field>
         <literalValue>Cheque Fraud</literalValue>
@@ -51,17 +40,6 @@
         <field>ProductSubCategory__c</field>
         <literalValue>KeyPass</literalValue>
         <name>ASH- Prod Sub Cat - Keypass</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>ASH_Prod_Sub_Cat_MMM</fullName>
-        <field>ProductSubCategory__c</field>
-        <literalValue>MMM</literalValue>
-        <name>ASH- Prod Sub Cat - MMM</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -139,28 +117,6 @@
         <field>ProductSubCategory__c</field>
         <literalValue>Western Union</literalValue>
         <name>ASH- Prod Sub Cat - Western Union</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>ASH_Update_Agency_Operation</fullName>
-        <field>ProductSubCategory__c</field>
-        <literalValue>Agency</literalValue>
-        <name>ASH - Update Agency Operation</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>ASH_Update_Payment_Supp</fullName>
-        <field>ProductSubCategory__c</field>
-        <literalValue>Payment</literalValue>
-        <name>ASH- Update Payment Supp</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -284,28 +240,6 @@
         <targetObject>ParentId</targetObject>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>CTM_Update_Case_Type_GeneralEnq</fullName>
-        <field>Type</field>
-        <literalValue>General inquires</literalValue>
-        <name>CTM - Update Case Type -GeneralEnq</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>CTM_Update_Case_Type_Online_Shop</fullName>
-        <field>Type</field>
-        <literalValue>Online Shop</literalValue>
-        <name>CTM - Update Case Type - Online Shop</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>CTM_Update_Case_Type_WUEmergCase</fullName>
         <field>Type</field>
         <literalValue>WU Emergency Cash</literalValue>
@@ -395,156 +329,11 @@
         <targetObject>ParentId</targetObject>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SD_ACTSupp_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>Federal_ACT_Government_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD ACTSupp - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_EnterpriseSupport_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>BGS_Enterprise</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD EnterpriseSupport - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_FedSupp_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>Federal_ACT_Government_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD FedSupp - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_FinSerSupport_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>Financial_Service_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD FinSerSupport - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_NSWSupp_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>NSW_Government_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD NSWSupp - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_QLDSupp_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>Qld_Government_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD QLDSupp - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_SANTSupp_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>SA_NT_Government_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD SANTSupp - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_Strategic_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>Strategic_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD Strategic - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_Telstra_Support_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>BGS_Telstra_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD Telstra Support - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_VICTASSupp_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>Vic_Tas_Government_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD VICTASSupp - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SD_WaSupp_Field_Update</fullName>
-        <field>OwnerId</field>
-        <lookupValue>WA_Government_Support</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SD WaSupp - Field Update</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Assign_Australian_Philatelic_Bure</fullName>
         <field>OwnerId</field>
         <lookupValue>SSSWPhilatelic</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Australian Philatelic Bure</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SSSW_Assign_Click_Send</fullName>
-        <description>Assigns to the click &amp; send queue</description>
-        <field>OwnerId</field>
-        <lookupValue>SSSW_MyPost_Business_Inbound</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SSSW - Assign Click &amp; Send</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>LookupValue</operation>
         <protected>false</protected>
@@ -895,17 +684,6 @@ History
         <targetObject>ParentId</targetObject>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SSSW_Set_Enquiry_Pricing</fullName>
-        <field>EnquirySubType__c</field>
-        <literalValue>Pricing</literalValue>
-        <name>SSSW - Set Enquiry Pricing</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Set_Enquiry_Product_Order</fullName>
         <field>EnquirySubType__c</field>
         <literalValue>Product Order</literalValue>
@@ -1039,17 +817,6 @@ History
         <targetObject>ParentId</targetObject>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SSSW_Set_Product_Sub_Click_Send</fullName>
-        <field>ProductSubCategory__c</field>
-        <literalValue>Click &amp; Send</literalValue>
-        <name>SSSW - Set Product Sub Click &amp; Send</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Set_Product_Sub_ECI</fullName>
         <field>ProductSubCategory__c</field>
         <literalValue>ECI</literalValue>
@@ -1088,17 +855,6 @@ History
         <field>ProductSubCategory__c</field>
         <literalValue>Online Returns Portal</literalValue>
         <name>SSSW - Set Product Sub Online Returns</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SSSW_Set_Product_Sub_Ordinary_Mail</fullName>
-        <field>ProductSubCategory__c</field>
-        <literalValue>Ordinary mail</literalValue>
-        <name>SSSW - Set Product Sub Ordinary Mail</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -1217,17 +973,6 @@ History
         <targetObject>ParentId</targetObject>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SSSW_Set_Status_Awaitng_Network</fullName>
-        <field>Status</field>
-        <literalValue>Awaiting Network Response</literalValue>
-        <name>SSSW - Set Status - Awaiting Network</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Set_Type_to_General_Enquiry</fullName>
         <field>Type</field>
         <literalValue>General Enquiry</literalValue>
@@ -1255,18 +1000,6 @@ History
         <lookupValue>SSSWAwaitingCustomer</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Customer Queue</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SSSW_Set_to_Network_Queue</fullName>
-        <field>OwnerId</field>
-        <lookupValue>SSSWNetworkQueue</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SSSW - Set to Network Queue</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>LookupValue</operation>
         <protected>false</protected>
@@ -1388,18 +1121,6 @@ History
         <targetObject>ParentId</targetObject>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>StarTrack_Snap_It_Status_Change</fullName>
-        <description>change case status from Waiting for Reference ID to New once customer responds email to Snap It cases</description>
-        <field>Status</field>
-        <literalValue>New</literalValue>
-        <name>StarTrack Snap It Status Change</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Update_1st_Response</fullName>
         <description>StarTrack field update to mark an Case as having its first Email response complete</description>
         <field>First_Email_Response__c</field>
@@ -1428,17 +1149,6 @@ History
         <field>Status</field>
         <literalValue>Customer Responded</literalValue>
         <name>Update CTM Cases to Customer Responded</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-        <targetObject>ParentId</targetObject>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Update_Case_Origin_to_White_mail</fullName>
-        <field>Origin</field>
-        <literalValue>White mail</literalValue>
-        <name>Update Case Origin to White mail</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -1492,34 +1202,6 @@ History
             <field>EmailMessage.ToAddress</field>
             <operation>contains</operation>
             <value>ato.enquiry@auspost.com.au</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>ASH - WF for Acc Non-urgent</fullName>
-        <actions>
-            <name>ASH_Prod_Sub_Cat_Acc_Non_urgent</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>contains</operation>
-            <value>acc@auspost.com.au</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>ASH - WF for Agency Operations</fullName>
-        <actions>
-            <name>ASH_Update_Agency_Operation</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>contains</operation>
-            <value>agency.operations@auspost.com.au</value>
         </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
     </rules>
@@ -1581,20 +1263,6 @@ History
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>ASH - WF for MMM</fullName>
-        <actions>
-            <name>ASH_Prod_Sub_Cat_MMM</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>contains</operation>
-            <value>mmmcontroller@auspost.com.au</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>ASH - WF for MO Enquiry</fullName>
         <actions>
             <name>ASH_Prod_Sub_Cat_MO_Enquiry</name>
@@ -1643,20 +1311,6 @@ Product Sub Category - MO Forms</description>
         <description>Create Salseforce case
 Product Category - Accounting Service Helpdesk
 Product Sub Category - Post Office Accounting</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>ASH - WF for Payment Support</fullName>
-        <actions>
-            <name>ASH_Update_Payment_Supp</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>contains</operation>
-            <value>Accountspayable@auspost.com.au</value>
-        </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -2000,75 +1654,6 @@ Product Sub Category - Western Union</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>CTM - General Enquires</fullName>
-        <actions>
-            <name>CTM_Update_Case_Type_GeneralEnq</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <booleanFilter>1 AND 2 AND 3 AND (4 or 5 or 6)</booleanFilter>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card Transaction Monitoring</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Headers</field>
-            <operation>contains</operation>
-            <value>ctm@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Headers</field>
-            <operation>contains</operation>
-            <value>customersupport@loadandgo.auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Headers</field>
-            <operation>contains</operation>
-            <value>CardTransactionsMonitoring@auspost.com.au</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>CTM - Online Shop</fullName>
-        <actions>
-            <name>CTM_Update_Case_Type_Online_Shop</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card Transaction Monitoring</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Headers</field>
-            <operation>contains</operation>
-            <value>loadandgoproductsupport@auspost.com.au</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>CTM - WU Emergency Cash</fullName>
         <actions>
             <name>CTM_Update_Case_Type_WUEmergCase</name>
@@ -2223,310 +1808,6 @@ Product Sub Category - Western Union</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SD ACTSupp - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_ACTSupp_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>actgovsupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>ACTGovsupport</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD EnterpriseSupport - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_EnterpriseSupport_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>Enterprisesupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>Enterprise Support</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD FedSupp - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_FedSupp_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>fedgovsupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>FedGovsupport</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD FinSerSupport - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_FinSerSupport_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>Finservicesupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>Financial Service Support</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD NSWSupp - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_NSWSupp_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>nswgovsupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>NSWGovsupport</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD QLDSupp - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_QLDSupp_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>qldgovsupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>QLDGovsupport</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD SANTSupp - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_SANTSupp_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>santgovsupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>SAGovsupport</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD StrategicSupport - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_Strategic_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>Strategicsupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>Strategic Support</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD Telstra Support - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_Telstra_Support_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>Telstrasupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>Telstra Support</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD VICTASSupp - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_VICTASSupp_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>vicgovsupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>VICGovsupport</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SD WaSupp - Email2Case Owner update</fullName>
-        <actions>
-            <name>SD_WaSupp_Field_Update</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>wagovsupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>WAGovsupport</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign Australian Philatelic Bureau Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_Australian_Philatelic_Bure</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>Mail.Order@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Assign Australian Philatelic Bureau Cases - Header Contains</fullName>
         <actions>
             <name>SSSW_Assign_Australian_Philatelic_Bure</name>
@@ -2559,35 +1840,6 @@ Product Sub Category - Western Union</description>
             <field>EmailMessage.Headers</field>
             <operation>contains</operation>
             <value>mailorder@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign Consumer Back Office Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_Consumer_Back_Office_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>customers@auspost.com.au</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.Origin</field>
@@ -2678,41 +1930,6 @@ Product Sub Category - Western Union</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Assign HLC Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_HLC_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <booleanFilter>(1 Or 5) AND (2 AND 3 AND 4)</booleanFilter>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>resolutions@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>HLC@auspost.com.au</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Assign HLC Cases - Header Contains</fullName>
         <actions>
             <name>SSSW_Assign_HLC_Cases</name>
@@ -2796,80 +2013,6 @@ Product Sub Category - Western Union</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Assign Letter Reform enquiries Cases - Header Contains</fullName>
-        <actions>
-            <name>SSSW_Assign_Test_lab</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Enquiry_Pricing</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Product_Domestic_Letters</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Product_Sub_Ordinary_Mail</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Type_to_General_Enquiry</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Headers</field>
-            <operation>contains</operation>
-            <value>twospeed@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign Load and Go Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_Load_and_Go_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>LoadandGoCustomerSupport@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Assign Load and Go Cases - Header Contains</fullName>
         <actions>
             <name>SSSW_Assign_Load_and_Go_Cases</name>
@@ -2915,126 +2058,6 @@ Product Sub Category - Western Union</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Assign NCCC Click %26 Send Cases</fullName>
-        <active>false</active>
-        <booleanFilter>(1 OR 5 OR 6 OR 7 OR 8) AND 2 AND 3 AND 4</booleanFilter>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>nccc.clickandsend@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>ClickandSendBackOffice@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>NCCC.Click&amp;Send@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>NCCCClickSend@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>nccc.clickandsend@auspost.com.au</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign NCCC Click %26 Send Cases - Header Contains</fullName>
-        <actions>
-            <name>SSSW_Assign_Click_Send</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Enquiry_Product_Service</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Product_Sub_Click_Send</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Product_Web_Apps</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_Type_to_General_Enquiry</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Headers</field>
-            <operation>contains</operation>
-            <value>nccc.clickandsend@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign NCCC International Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_NCCC_International_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>International@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Assign NCCC International Cases - Header Contains</fullName>
         <actions>
             <name>SSSW_Assign_NCCC_International_Cases</name>
@@ -3057,64 +2080,6 @@ Product Sub Category - Western Union</description>
             <field>EmailMessage.Headers</field>
             <operation>contains</operation>
             <value>international@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign NCCC International Cases Tester</fullName>
-        <actions>
-            <name>SSSW_Assign_NCCC_International_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>ssswinternationaluat@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign NCCC UMS Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_NCCC_UMS_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>UMS@auspost.com.au</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.Origin</field>
@@ -3247,35 +2212,6 @@ Product Sub Category - Western Union</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Assign NCCC Wine Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_NCCC_Wine_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>wine@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Assign NCCC Wine Cases - Header Contains</fullName>
         <actions>
             <name>SSSW_Assign_NCCC_Wine_Cases</name>
@@ -3302,35 +2238,6 @@ Product Sub Category - Western Union</description>
             <field>EmailMessage.Headers</field>
             <operation>contains</operation>
             <value>wine@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign NCCCBusinessEnquiries Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_NCCCBusinessEnquiries_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>business@auspost.com.au</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.Origin</field>
@@ -3383,35 +2290,6 @@ Product Sub Category - Western Union</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Assign Online Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_Load_and_Go_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>online@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Assign Online Cases - Header Contains</fullName>
         <actions>
             <name>SSSW_Assign_Online_Cases</name>
@@ -3434,36 +2312,6 @@ Product Sub Category - Western Union</description>
             <field>EmailMessage.Headers</field>
             <operation>contains</operation>
             <value>OnLineReturns@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign PBD Inbound Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_PBD_Inbound_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>PBDInbound@auspost.com.au</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.Origin</field>
@@ -3581,35 +2429,6 @@ MyPost RTS (returned mail scanned from Decipher)</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Assign Shop Mate Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_Load_and_Go_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>ShopMate@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>High</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Assign Shop Mate Cases - Header Contains</fullName>
         <actions>
             <name>SSSW_Assign_Load_and_Go_Cases</name>
@@ -3708,35 +2527,6 @@ MyPost RTS (returned mail scanned from Decipher)</description>
             <value>Email</value>
         </criteriaItems>
         <description>Update Case Type</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Assign eParcel Damages Cases</fullName>
-        <actions>
-            <name>SSSW_Assign_eParcel_Damages_Cases</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.ToAddress</field>
-            <operation>equals</operation>
-            <value>eparcelservicecentre@auspost.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Priority</field>
-            <operation>equals</operation>
-            <value>Low</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>SSSW General Enquiry</value>
-        </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -3925,21 +2715,6 @@ Doesn&apos;t change status of case if case.Preventstatuschange__c is true.</desc
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Outbound Network Email</fullName>
-        <actions>
-            <name>SSSW_Set_Status_Awaitng_Network</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>SSSW_Set_to_Network_Queue</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <description>Outbound Network Email - Sets Status to &quot;Awaiting Network Response&quot;.</description>
-        <formula>NOT(Incoming)  &amp;&amp;  CONTAINS(Parent.RecordType.DeveloperName, &apos;SSSW&apos;)  &amp;&amp;  FromAddress = $Setup.QM__c.NetworkEmail__c &amp;&amp;  TEXT(Parent.Type) != &apos;Feedback&apos;</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Q - Expected Incoming Customer Closure Email</fullName>
         <actions>
             <name>Case_Complaint_to_No</name>
@@ -3996,7 +2771,9 @@ Doesn&apos;t change status of case if case.Preventstatuschange__c is true.</desc
         </actions>
         <active>true</active>
         <description>SSSW - Used to update the Case Status when an incoming Network email is received. NEEDS PROD UPDATE</description>
-        <formula>Incoming  &amp;&amp;  (  (  CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c)  ||  CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c)  )  &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c))  )  &amp;&amp;  NOT(Parent.Permanent_Close__c)  &amp;&amp; TEXT(Parent.Status) = $Setup.QM__c.Network_Status__c  &amp;&amp;  CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)</formula>
+        <formula>Incoming  &amp;&amp;  (  (  CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c)  ||  CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c)  )  &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c))  )  &amp;&amp;  NOT(Parent.Permanent_Close__c)  &amp;&amp; TEXT(Parent.Status) = $Setup.QM__c.Network_Status__c  &amp;&amp;  CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; 
+NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; 
+NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -4078,7 +2855,9 @@ Doesn&apos;t change status of case if case.Preventstatuschange__c is true.</desc
         </actions>
         <active>true</active>
         <description>SSSW - Used to update the Case Status when an incoming Network email is received.</description>
-        <formula>Incoming    &amp;&amp;  ( ( CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c)  ||  CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c)  ) &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c))  ) &amp;&amp;   NOT(Parent.Permanent_Close__c)    &amp;&amp;    (TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Network_Status__c &amp;&amp; NOT(Parent.IsClosed))  &amp;&amp;    CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)</formula>
+        <formula>Incoming    &amp;&amp;  ( ( CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c)  ||  CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c)  ) &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c))  ) &amp;&amp;   NOT(Parent.Permanent_Close__c)    &amp;&amp;    (TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Network_Status__c &amp;&amp; NOT(Parent.IsClosed))  &amp;&amp;    CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; 
+NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; 
+NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -4150,32 +2929,6 @@ Doesn&apos;t change status of case if case.Preventstatuschange__c is true.</desc
             <operation>contains</operation>
             <value>UMS@aupost.com.au</value>
         </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Update Case Origin to White mail</fullName>
-        <actions>
-            <name>Update_Case_Origin_to_White_mail</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <booleanFilter>1 AND 2 AND 3</booleanFilter>
-        <criteriaItems>
-            <field>EmailMessage.FromAddress</field>
-            <operation>equals</operation>
-            <value>noreply@decipha.com.au</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Subject</field>
-            <operation>contains</operation>
-            <value>scanned mail</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <description>Default origin for all enquiries from email address noreply@decipha.com.au with subject containing text &quot;scanned mail&quot;. This work arrives to several different email addresses including customers@auspost.com.au, international@auspost</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -4325,35 +3078,6 @@ Doesn&apos;t change status of case if case.Preventstatuschange__c is true.</desc
             <value>Closed</value>
         </criteriaItems>
         <description>Updates the Case Status to Reopened</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>StarTrack Snap It Returning reference ID from customer</fullName>
-        <actions>
-            <name>StarTrack_Snap_It_Status_Change</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Case.Case_RecordType_Name__c</field>
-            <operation>equals</operation>
-            <value>Delivery Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Snap It</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Waiting for Reference ID</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
     </rules>
 </Workflow>

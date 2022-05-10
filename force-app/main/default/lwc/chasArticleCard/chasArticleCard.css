@@ -1,0 +1,27 @@
+.status-default {
+  color: #919194;
+}
+
+.status-delivered {
+  color: #00AC3E;
+}
+
+.status-on-its-way {
+  color: #009FDA;
+}
+
+.status-return-to-sender {
+  color: #FC622E;
+}
+
+.status-despatched {
+  color: #8177E7;
+}
+
+.status-pending {
+  color: #DAD0CA;
+}
+
+.status-contact-sender {
+  color: #EE2E7F
+}

@@ -54,6 +54,10 @@
                 <field>APT_Anniversary_Date_Calc__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Contract_Expiration_Date__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>APT_Contract_Extension_Date__c</field>
             </layoutItems>

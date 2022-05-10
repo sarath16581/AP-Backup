@@ -7,7 +7,7 @@
     <masterLabel>MergeTest</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/13.0/connection.js&quot;)}
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/52.0/connection.js&quot;)}
 
 var AccountObj = new sforce.SObject(&quot;Account&quot;);
 

@@ -5,8 +5,14 @@
  * @domain Core
  * @description A very simple selector class that sits in the base domain
  * @changelog
+ * 2022-03-05	Naveen Rajanna	REQ2723199 Added enum and selectByCaseAndMilestoneNames method
  */
 public virtual inherited sharing class CaseMilestonesSelector extends ApplicationSelector {
+	
+	public enum Options {
+		FILTER_VIOLATED
+	}
+	
 	public static CaseMilestonesSelector newInstance() {
 		return (CaseMilestonesSelector) Application.Selectors.newInstance(CaseMilestonesSelector.class);
 	}
@@ -45,6 +51,21 @@ public virtual inherited sharing class CaseMilestonesSelector extends Applicatio
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+		if(selectorOptions.contains(Options.FILTER_VIOLATED)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(CaseMilestone.IsViolated).eq(true)).endConditions();
+		}
 		return builder;
+	}
+
+	/**
+	 * @description Run a simple query to get records based on caseIds and milestoneNames
+	 */
+	public virtual List<CaseMilestone> selectByCaseAndMilestoneNames(Set<Id> caseIds, Set<String> mileStoneNames, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addConditions()
+			.add(new QueryBuilder.SimpleCondition(CaseMilestone.CaseId + ' in :caseIds'))
+			.add(new QueryBuilder.SimpleCondition('MilestoneType.Name in :mileStoneNames'))
+			.endConditions();
+		return Database.query(qb.toSoqlString());
 	}
 }

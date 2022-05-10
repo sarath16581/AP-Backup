@@ -1404,13 +1404,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>MPB_BSP_Enquiry_Type__c</picklist>
-        <values>
-            <fullName>Advice on sending parcels</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Network_Response__c</picklist>
         <values>
             <fullName>Addressed with staff</fullName>

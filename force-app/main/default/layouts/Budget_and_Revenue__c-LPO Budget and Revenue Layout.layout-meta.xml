@@ -23,6 +23,10 @@
                 <behavior>Readonly</behavior>
                 <field>Total_Revenue_Amount__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Revenue_Last_12_months__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

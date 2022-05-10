@@ -8,6 +8,8 @@
                2021-05-13 Added test methods for EDD plus n business days
                2021-08-18 alex.volkov@auspost.com.au Updated to improve performance.
                										 The class should be overhauled to use stubbing and test data factory and lower number of test methods
+               2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the method searchTrackingNumber() to handle multiple articles
+               												Adapting the unit tests to support the coverage.
 **/
 @IsTest(IsParallel=true)
 private class ChasApexControllerTest {
@@ -700,6 +702,103 @@ private class ChasApexControllerTest {
 
 
 	/**
+	 * Consignment has multiple articles and user is eligible for multi article selection
+	 */
+	@IsTest
+	public static void missingItem_create_case_multiple_article_selected() {
+		Boolean isSuccess = true;
+
+		try{
+			TestData vTestData = wizardDataSetUp();
+
+			List<Object> articles = new List<Object>();
+			Map<Object, Object> article1Obj1 = new Map<Object, Object>();
+			article1Obj1.put('articleId', 'JDQ028052801000910904');
+			article1Obj1.put('dpid', '76953814');
+			article1Obj1.put('articleType', 'Parcel Post');
+			article1Obj1.put('eddStatus', 'DELIVERED');
+			article1Obj1.put('enqSubtype', 'Disputed delivery scan');
+			article1Obj1.put('isEligibleForMyNetworkAssignment', true);
+			article1Obj1.put('wcid', '351310');
+			article1Obj1.put('trackStatusValue', 'Delivered');
+			Object article1 = (Object) article1Obj1;
+			articles.add(article1);
+
+			Map<Object, Object> article1Obj2 = new Map<Object, Object>();
+			article1Obj2.put('articleId|', 'JDQ028052802000910901');
+			article1Obj2.put('dpid', '76953815');
+			article1Obj2.put('articleType', 'Parcel Post');
+			article1Obj2.put('eddStatus', 'DELIVERED');
+			article1Obj2.put('enqSubtype', 'Disputed delivery scan');
+			article1Obj2.put('isEligibleForMyNetworkAssignment', true);
+			article1Obj2.put('wcid', '351310');
+			article1Obj2.put('trackStatusValue', 'Delivered');
+			article1Obj2.put('isSelected', true);
+			Object article2 = (Object) article1Obj2;
+			articles.add(article2);
+
+			Map<Object, Object> article1Obj3 = new Map<Object, Object>();
+			article1Obj3.put('articleId|', 'JDQ028052803000910908');
+			article1Obj3.put('dpid', '76953814');
+			article1Obj3.put('articleType', 'Parcel Post');
+			article1Obj3.put('eddStatus', 'PENDING');
+			article1Obj3.put('enqSubtype', 'Disputed delivery scan');
+			article1Obj3.put('isEligibleForMyNetworkAssignment', true);
+			article1Obj3.put('wcid', '351310');
+			article1Obj3.put('trackStatusValue', 'Pending');
+			article1Obj3.put('isSelected', true);
+			Object article3 = (Object) article1Obj3;
+			articles.add(article3);
+			vTestData.missingItemWizardData.put('isEligibleForMultipleArticleSelection', 'true');
+			vTestData.missingItemWizardData.put('articles', JSON.serializePretty(articles));
+			Test.startTest();
+			ChasApexController.createCaseFromMissingWizard(vTestData.missingItemWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('missingItem_International_Recipient_Letter_EconomySea()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+	 * user is not eligible for multiple article selection
+	 */
+	@IsTest
+	public static void missingItem_create_case_not_eligible_multi_article_select() {
+		Boolean isSuccess = true;
+
+		try{
+			TestData vTestData = wizardDataSetUp();
+
+			List<Object> articles = new List<Object>();
+			Map<Object, Object> article1Obj1 = new Map<Object, Object>();
+			article1Obj1.put('articleId', 'JDQ028052801000910904');
+			article1Obj1.put('dpid', '76953814');
+			article1Obj1.put('articleType', 'Parcel Post');
+			article1Obj1.put('eddStatus', 'DELIVERED');
+			article1Obj1.put('enqSubtype', 'Disputed delivery scan');
+			article1Obj1.put('isEligibleForMyNetworkAssignment', true);
+			article1Obj1.put('wcid', '351310');
+			article1Obj1.put('trackStatusValue', 'Delivered');
+			Object article1 = (Object) article1Obj1;
+			articles.add(article1);
+
+			vTestData.missingItemWizardData.put('isEligibleForMultipleArticleSelection', 'false');
+			vTestData.missingItemWizardData.put('articles', JSON.serializePretty(articles));
+			Test.startTest();
+			ChasApexController.createCaseFromMissingWizard(vTestData.missingItemWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('missingItem_International_Recipient_Letter_EconomySea()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
 * Success Case for : Mail Redirection & Hold 
 * */
 	@IsTest
@@ -1255,6 +1354,27 @@ deliveryIssue_Somethingelse
 		System.assert(isSuccess);
 	}
 
+	@IsTest
+	public static void productIssue_DeleteMyPostAccount() {
+		Boolean isSuccess = true;
+
+		try{
+
+			TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','Delete MyPost account');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_Letter()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
 
 	/**
 * Success Case for : Procu Issue 
@@ -1775,7 +1895,7 @@ deliveryIssue_Somethingelse
 		System.assert(isSuccess);
 	}
 
-	public static  ChasApexController.TrackingNumberDetails testsearchTrackingNumberSetup(StaticResourceCalloutMock mock, String consType) {
+	public static  ChasApexController.ConsignmentDetails testsearchTrackingNumberSetup(StaticResourceCalloutMock mock, String consType) {
 
 		List< Consumer_Help_and_Support__c> customSettingList = new List< Consumer_Help_and_Support__c>();
 		//-- setting some key and service URL as it wont hit a call for service from test cases
@@ -1813,12 +1933,16 @@ deliveryIssue_Somethingelse
 		//Safedrop ineligible
 		a.deliveryChoicesSafeDropIneligibilityCode = false;
 
+		List<ChasApexController.TrackingNumberDetails> trackingNumberDetails = new List<ChasApexController.TrackingNumberDetails>();
+		trackingNumberDetails.add(a);
+		ChasApexController.ConsignmentDetails cons = new ChasApexController.ConsignmentDetails();
+		cons.trackingNumberDetails = trackingNumberDetails;
 
 		mock.setStaticResource(consType);
 		mock.setStatusCode(200);
 		mock.setHeader('Content-Type', 'application/json');
 
-		return a;
+		return cons;
 
 	}
 

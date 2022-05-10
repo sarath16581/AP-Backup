@@ -10,6 +10,7 @@
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-04-30 - Dheeraj Mandavilli - Updated - Removed Mockdatabase stubbing logic.
  * 2020-08-24 - Disha Kariya - Updated with test for field override
+ * 2022-02-10 - Alex Volkov - Added test for selectCasesEligibleForReopenByOwnerAndDate method
  */
 @IsTest
 public with sharing class SSSWCasesSelector_Test {
@@ -83,6 +84,7 @@ public with sharing class SSSWCasesSelector_Test {
 		MockUtility.disableTriggerExecution();
 
 		RecordType rt = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
+		Id vHoldQueueId = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{SSSWConstants.QUEUE_NAME_REOPEN_Q}).values()[0].Id;
 
 		Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
 		insert account;
@@ -90,15 +92,18 @@ public with sharing class SSSWCasesSelector_Test {
 		Contact contact = ApplicationTestDataFactory.getContacts(1, account.Id, false)[0];
 		insert contact;
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(2, new List<Id>{contact.Id, contact.Id}, false);
+		List<Case> cases = ApplicationTestDataFactory.getCases(3, new List<Id>{contact.Id, contact.Id, contact.Id}, false);
 		cases[0].ReferenceID__c = '12345';
 		cases[0].RecordTypeId = rt.Id;
 		cases[0].Type = 'General Enquiry';
 		cases[1].ReferenceID__c = '123456';
 		cases[1].RecordTypeId = rt.Id;
 		cases[1].Type = 'General Enquiry';
+		cases[2].Type = 'General Enquiry';
+		cases[2].Case_Reopen_Date__c = System.now();
+		cases[2].OwnerId = vHoldQueueId;
+		cases[2].RecordTypeId = rt.Id;
 		insert cases;
-
 		cases[1].ParentId = cases[0].Id;
 		update cases[1];
 
@@ -130,6 +135,14 @@ public with sharing class SSSWCasesSelector_Test {
 		results = selector.selectChildCasesByParent(new Set<Id>{cases[0].Id});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 
+		selector = SSSWCasesSelector.newInstance();
+		Date vReopenUpToDate = System.today().addDays(1);
+		//Test record returning mode
+		results = (Map<Id, Case>)selector.selectCasesEligibleForReopenByOwnerAndDate(new Set<String>{vHoldQueueId}, Datetime.newInstance(vReopenUpToDate.year(), vReopenUpToDate.month(), vReopenUpToDate.day()), new Set<Object>());
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		//Test query locator mode
+		selector = SSSWCasesSelector.newInstance();
+		System.assertNotEquals(null, (Database.QueryLocator)selector.selectCasesEligibleForReopenByOwnerAndDate(new Set<String>{vHoldQueueId}, Datetime.newInstance(vReopenUpToDate.year(), vReopenUpToDate.month(), vReopenUpToDate.day()), new Set<Object>{SSSWCasesSelector.Options.RETURN_QUERY_LOCATOR}), 'Invalid query locator');
 		Test.stopTest();
 
 	}

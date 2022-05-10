@@ -1,34 +1,26 @@
-/**************************************************
-Description:    Trigger Class for Email Message
-History:
---------------------------------------------------
-5/9/2016  eric.shen@auspost.com.au  add methods to parse email body for snap it case
+/**
+  * @author       : eric.shen@auspost.com.au
+  * @date         : 2016-09-05
+  * @description  : Trigger Class for Email Message
+  * @changelog
+-----------------------------------------------------------------------------------------
+2016-09-05  eric.shen@auspost.com.au  add methods to parse email body for snap it case
 2018-07-10  nathan.franklin@auspost.com.au  Renamed checkNPS to setEmailToCaseAddress as it's a more meaningful name
 2019-02-22  nathan.franklin@auspost.com.au  Added CaseActivity__c integration for first response SLA reporting
-**************************************************/
-/**
-  * @author       : 
-  * @date         : 
-  * @description  : Trigger Class for Email Message
-  */
-/*******************************  History ************************************************
-    Date                User                                        Comments
-    5/9/2016          eric.shen@auspost.com.au             add methods to parse email body for snap it case
-    Date                User                                        Comments
-    30/11/2021          ashapriya.gadi@auspost.com.au      Added a call to ServiceAdvisorEmailMessageTriggerHandler as part of SMWD-312 - MW0004779
-    
-*******************************  History ************************************************/
+2021-11-30  ashapriya.gadi@auspost.com.au   Added a call to ServiceAdvisorEmailMessageTriggerHandler as part of SMWD-312 - MW0004779
+2022-02-10  naveen.rajanna@auspost.com.au   REQ2723199 - Modified API version and commented Debug statements
+*****************************************************************************************/
 
 trigger EmailMessageTrigger on EmailMessage (after insert,before insert, after update, before update) 
 {
-    system.debug('####################################### Email Message trigger: ' + SystemSettings__c.getInstance().Disable_Triggers__c + '#######################################');
+    // system.debug('####################################### Email Message trigger: ' + SystemSettings__c.getInstance().Disable_Triggers__c + '#######################################');
     
     if (!SystemSettings__c.getInstance().Disable_Triggers__c) 
     {   
         if(trigger.isInsert){
             
             if(trigger.isBefore){    
-                system.debug('####################################### Email Message isInsert & isBefore #####################################');
+                // system.debug('####################################### Email Message isInsert & isBefore #####################################');
                 
                 //Removing Cloning of Cases - change to not allow networks to reopen closed cases.
                 //EmailMessageUtil.clonePermanentlyClosedCases(Trigger.new);
@@ -40,7 +32,7 @@ trigger EmailMessageTrigger on EmailMessage (after insert,before insert, after u
             }
             
             if(trigger.isAfter){
-                system.debug('####################################### Email Message isInsert & isAfter #####################################');
+                // system.debug('####################################### Email Message isInsert & isAfter #####################################');
                 
                 EmailMessageUtil.detectSpamEmailOnCases(Trigger.new);
 
@@ -60,7 +52,7 @@ trigger EmailMessageTrigger on EmailMessage (after insert,before insert, after u
             }
         }
 
-        if(trigger.isUpdate){
+        /* if(trigger.isUpdate){
             if(trigger.isBefore){
                 system.debug('####################################### Email Message isUpdate & isBefore #####################################');
                 
@@ -70,6 +62,6 @@ trigger EmailMessageTrigger on EmailMessage (after insert,before insert, after u
                 system.debug('####################################### Email Message isUpdate & isAfter #####################################');
                 
             }
-        } 
+        }  */
     }
 }

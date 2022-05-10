@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>revcult__Data_Classification_Snapshot__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The job that created this data classification sensitivity level snapshot</description>
+    <externalId>false</externalId>
+    <label>Data Classification Snapshot</label>
+    <referenceTo>revcult__Data_Classification_Snapshot__c</referenceTo>
+    <relationshipLabel>Data Classification Level Snapshots</relationshipLabel>
+    <relationshipName>Data_Classification_Level_Snapshots</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

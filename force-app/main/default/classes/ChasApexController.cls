@@ -47,11 +47,14 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2021-11-02 phap.mai@auspost.com.au DDS-7977 - Added attributes to indicate if all articles are delivered/safe dropped and optimize case routing accordingly
 * 2021-11-04 phap.mai@auspost.com.au - Handled when network assigning failed to find network id or network group
 * 2021-12-03 edgarallan.castillo3@auspost.com.au Updated case comment creation to use list of comments
+* 2022-02-07 alex.volkov@auspost.com.au Temporarily removed network assignment failure comment until approach to creation of automatic private comments is confirmed
+* 2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the method searchTrackingNumber() to handle multiple articles
+* 2022-05-04 mahesh.parvathaneni@auspost.com.au DDS-10119 Changed to Mypost general enquiries from Mypost
 */
 public with sharing class ChasApexController {
 
-    public static ChasApexController newInstance() {
-        return (ChasApexController)Application.Utilities.newInstance(ChasApexController.class);
+    public static ChasApexController getInstance() {
+        return (ChasApexController)Application.Utilities.getInstance(ChasApexController.class);
     }
 
     @AuraEnabled
@@ -65,7 +68,7 @@ public with sharing class ChasApexController {
     
     @AuraEnabled
     public static CaseWrapper createCaseFromComplaintWizard( Map <String,String> wizardData){
-        System.debug('----- createCaseFromComplaintWizard ----- START');
+        //System.debug('----- createCaseFromComplaintWizard ----- START');
         
         CaseWrapper caseWrapper = new CaseWrapper();
         caseWrapper.caseStatus = 'SUCCESS';
@@ -83,9 +86,6 @@ public with sharing class ChasApexController {
         String phone =  (String)wizardData.get('phone');
         String contactPreferrence =  (String)wizardData.get('contactPreferrence');  // Contact Preference, added by Edmarco on July 2019
         
-        //-- logging input values
-        System.debug('origin='+origin+', enquiryType='+enquiryType+', complaintDetails='+complaintDetails
-                     +', givenName='+givenName+', surname='+surname+', email='+email+', phone='+phone+', contactPreferrence='+contactPreferrence); // Contact Preference, added by Edmarco on July 2019
         
         //-- Trimming the complaint details to 255 chars 
         if(complaintDetails != null){
@@ -145,7 +145,6 @@ public with sharing class ChasApexController {
                 'Details : ' + complaintDetails + '\n' +                               //-- Jansi :Replaced 'Case Comment =' with 'Detail :' - July 03 2018
                 'Contact Preference : ' + contactPreferrence; // Contact Preference, added by Edmarco on July 2019
             
-            System.debug('***CommentBody input = '+ commentBody);
             
             //--  Building Case object record
             Case toBeCreateCase = new Case(// ChasExternalId__c=guid,
@@ -169,9 +168,8 @@ public with sharing class ChasApexController {
                 CHASEnquiryType__c = CHASEnquiryType,
                 DescriptionofContents__c = trimmedComplaintDetails);
             
-            System.debug('*** About to create case - toBeCreateCase input = '+toBeCreateCase);
             
-            //-- Crating Case
+            //-- Creating Case
             Database.SaveResult[] results = Database.insert(new SObject[] {toBeCreateCase });
             //-- Parse Case results and create Case Comment
             List<CaseComment> comments = new List<CaseComment>();
@@ -182,7 +180,6 @@ public with sharing class ChasApexController {
             caseWrapper.caseStatus = 'ERROR';
             System.debug('*** - Error while creating Case/CaseComment/retrieving CaseID ==='+ex);
         }
-        System.debug('----- createCaseFromComplaintWizard ----- END');
         return caseWrapper ;
         
     }
@@ -192,17 +189,59 @@ public with sharing class ChasApexController {
 * */
     @AuraEnabled
     public static CaseWrapper createCaseFromMissingWizard( Map <String,String> wizardData, Map <String,String> authUserData ){
+        //wizardData = ChasUtil.sanitizeMap(wizardData);
         CaseWrapper caseWrapper = new CaseWrapper();
         caseWrapper.caseStatus = 'SUCCESS';
-        
          try{
-            
+
             String typeAndProduct = null;
             String  productSubCategory= null;
             String subject = null;
             String caseOriginator = null;
             
             String type = ChasConstants.INVESTIGATION;
+
+             // DDS-8586
+             // is the search eligible for multiple article selection?
+             Boolean isEligibleForMultipleArticleSelection = (String.isNotEmpty(wizardData.get('isEligibleForMultipleArticleSelection'))) && 'true'.equalsIgnoreCase(wizardData.get('isEligibleForMultipleArticleSelection'));
+             // this eligibility parameter is from the top level not the individual article level,
+             // this could be changed based on the user's interactions from the UI
+             Boolean isEligibleForMyNetworkAssignmentWizardLevel = (String.isNotEmpty(wizardData.get('isEligibleForMyNetworkAssignment'))) && 'true'.equalsIgnoreCase(wizardData.get('isEligibleForMyNetworkAssignment'));
+             Boolean isMultipleArticlesSelected = false;            // are multiple article selected
+             Boolean isDeliveredByMultipleDeliveryCenters = false;  // are those selected multiple articles are delivered from different delivery centers
+             Boolean isAllSelectedArticlesDelivered = false;                // are those all selected multiple articles are delivered
+             Boolean isAllArticlesSelectedAreEligibleForNetwork = false; // if either a single selected article of multiple selected articles are eligible for network
+             Boolean allArticlesSuccessful = false; // if either a single selected article of multiple selected articles are eligible for network
+             List<TrackingNumberDetails> selectedArticles = new List<TrackingNumberDetails>(); // hold the selected articles
+             List<TrackingNumberDetails> allArticles = new List<TrackingNumberDetails>(); // hold the selected articles
+
+             // are all the articles succesful in the consignment?
+             allArticlesSuccessful = (String.isNotEmpty(wizardData.get('allArticlesSuccessful'))) && 'true'.equalsIgnoreCase(wizardData.get('allArticlesSuccessful'));
+
+             // get the selected articles from the wizardData, this could be either single article selected or multiple/
+             // regardless of isEligibleForMultipleArticleSelection this must have at least one article.
+             selectedArticles = getArticles(wizardData, true);
+             allArticles = getArticles(wizardData, false);
+             // checking whether the article searched performed is eligible for multiple article selection or not,
+             // if it is allowed routing needs to be changed accordingly
+             if(isEligibleForMultipleArticleSelection){
+                 // in case if the UI validation failed when user proceeds without selecting at least one article, user must not allow to create a case.
+                 if(selectedArticles.isEmpty()) {
+                     throw new AuraHandledException('At least one article must be selected to submit an enquiry');
+                 }
+                 // is multiple articles selected
+                 isMultipleArticlesSelected = isMultipleArticlesSelected(selectedArticles);
+
+                 // if there are multiple articles, are they delivered from deferment delivery centers?
+                 if(isMultipleArticlesSelected) {
+                     isDeliveredByMultipleDeliveryCenters = isDeliveredByMultipleDeliveryCenters(selectedArticles);
+                 }
+                 // all the selected articles are delivered? even when there is a single article selected, we should get the isDelivered result
+                 isAllSelectedArticlesDelivered = isAllArticlesDelivered(selectedArticles);
+                 // either a single selected article of multiple selected articles are eligible for network
+                 isAllArticlesSelectedAreEligibleForNetwork = isAllArticlesSelectedAreEligibleForNetwork(selectedArticles);
+             }
+
             //--        Getting recordType Id
             String recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(ChasConstants.CASE_RECORDTYPE_SSSWDELIVERY).getRecordTypeId();
             String enquirySubType = wizardData.get('enqSubtype'); //Enquiry subtype is decided in the searchTrackingNumber method when deciding the tracking message
@@ -211,7 +250,8 @@ public with sharing class ChasApexController {
             String isEligibleForHold = '';
             // DDS-5273: article that contains pharma should not be held
              if ('No'.equalsIgnoreCase(wizardData.get('selectedRadio4Name'))) {
-                 if (String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
+                 if (!isMultipleArticlesSelected // DDS-8586 4. ignore holding for more than one tracking id and all of them are delivered but delivered by different delivery centres (non medication/medication priority set above in existing logic)
+                         && String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
                          !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))) {
                      // avoid cases for which the case reopen date falls on the case creation date
                      if (EDDPlusBusinessDays != null && EDDPlusBusinessDays != System.today()) {
@@ -235,25 +275,52 @@ public with sharing class ChasApexController {
                 type = ChasConstants.GENERAL_ENQUIRY;
                 recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(ChasConstants.CASE_RECORDTYPE_SSSWGENERALDELIVERY).getRecordTypeId();
             }
-            
-            //-- Getting all field details from WizardData
-            String isEligibleForMyNetwork = wizardData.get('isEligibleForMyNetworkAssignment');
+
+             Boolean isEligibleForMyNetwork = false;
+            // DDS-8586 allow network for single delivery centers : more than one tracking id and tracking ids are all delivered from same delivery centre (non medication/medication priority set above in existing logic)
+             if(isEligibleForMultipleArticleSelection) {
+                 // DDS-8586 2. if multiple articles selected and not delivered by different delivery centers and all articles are in delivered status
+                 if (isMultipleArticlesSelected && !isDeliveredByMultipleDeliveryCenters && isAllArticlesSelectedAreEligibleForNetwork) {
+                     isEligibleForMyNetwork = true;
+                 }
+
+                 // DDS-8586 5. Single article selected and, the selected article is eligible for network: assign to network
+                 if (!isMultipleArticlesSelected && isEligibleForMyNetworkAssignmentWizardLevel) {
+                     isEligibleForMyNetwork = true;
+                 }
+             } else { // if NOT eligible for multiple article selection
+                 // only if a single article is selected when multiple article selection is not allowed.
+                 // this is to cater the old behaviour where we treat the search as one sigle article
+                 if(allArticles.size() == 1) {
+                     // DDS-6115 Direct to Network - Do not assign directly unless manifest matches address
+                     Boolean dpidNotMatched = (String.isNotBlank(allArticles[0].dpid) && String.isNotBlank(wizardData.get('recipientDPID'))) && allArticles[0].dpid != wizardData.get('recipientDPID');
+                     // if user selected address anf the manifest address is available and they doesn't match, then do not let the logic to assign to network.
+                     isEligibleForMyNetwork = (dpidNotMatched ?  false : isEligibleForMyNetworkAssignmentWizardLevel);
+                 } else if(allArticles.size() > Integer.valueOf(ChasUtil.CHAS_SETTINGS.Consignment_Search_Display_Max_Articles__c)) {
+                     // in case if the search is not allowed multiple selection and consignment has more than 5 articles.
+                     // this is the only place we check for allArticlesSuccessful
+                     if(isEligibleForMyNetworkAssignmentWizardLevel && allArticlesSuccessful) {
+                         isEligibleForMyNetwork = true;
+                     }
+                 }
+             }
+
             // if the case is eligible for my network , assign the type to INVESTIGATION and enquirySubType to Disputed delivery scan
-            if(isEligibleForMyNetwork == 'true')
-            {
+            if(isEligibleForMyNetwork) {
                 type = ChasConstants.INVESTIGATION;
                 enquirySubType = ChasConstants.ENQ_SUB_TYPE_DISPUTED;
             }
-            String referenceId = wizardData.get('trackingId');
+            // reference ID to save against the case
+            String referenceId = getReferenceId(wizardData, isEligibleForMultipleArticleSelection, isMultipleArticlesSelected, selectedArticles, allArticles);
             String productCategory= wizardData.get('selectedRadio2Name');
             String datePostedStr= wizardData.get('itemSentDate');
             // if EDD range is available consider the "deliveredByDateTo" as EDD, otherwise consider deliveredByDateOrEDD
             String EDD= !String.isEmpty(wizardData.get('deliveredByDateTo'))? wizardData.get('deliveredByDateTo'): wizardData.get('deliveredByDateOrEDD');
             // RSolomon 2nd Apr: Sources value of radio button on form, that indicates if parcel contains essential medication
-            String containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')) ? 'True' : 'False');
+            Boolean containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')));
             // Gets the field value of the sentimental field on the LOMI forms
             String containsSentimentalValue = ('yes'.equalsIgnoreCase(wizardData.get('selectedSentiValue')) ? 'Yes' : 'No');
-            
+
             // authenticated user details
             String userContactEmail = authUserData.get('userContactEmail');
             String userContactFirstName = (!String.isEmpty(authUserData.get('userContactFirstName')) ? authUserData.get('userContactFirstName') : '');
@@ -275,7 +342,8 @@ public with sharing class ChasApexController {
             String valuesOfContents = wizardData.get('itemValue');
             String suppliedPhone = authUserData.get('userContactPhone');
             String CHASEnquiryType = 'Missing or lost item';
-            String issueDetails = wizardData.get('issueDetails');
+            String issueDetails = ChasUtil.sanitizeString(wizardData.get('issueDetails'));
+            String reasonForEnquiry = ChasUtil.sanitizeString(wizardData.get('reasonForEnquiry'));
             String contactPreferrence = (String)wizardData.get('contactPreferrence'); // Contact Preference, added by Edmarco on July 2019
             
             // setup which names to place on the case
@@ -338,12 +406,24 @@ public with sharing class ChasApexController {
                     return caseWrapper;
                 }
             }
-            String complaintDetails = wizardData.get('complaintDetails');
+            String complaintDetails = ChasUtil.sanitizeString(wizardData.get('complaintDetails'));
             String issueDetailsDisplayText = '';
             if(!String.isEmpty(complaintDetails)) {
                 issueDetailsDisplayText = '\n' + 'Issue Details : ' + complaintDetails;
             }
-            
+
+             String consignmentSearchComments = '';
+             // get the consignment search type comments, based on the scenarios where user is allowed/not allowed to select multiple articles and/or
+             // user select multiple articles or a single article the comments will be generated
+             consignmentSearchComments = getConsignmentSearchTypeComments(isEligibleForMultipleArticleSelection, isMultipleArticlesSelected, containsPharma, isDeliveredByMultipleDeliveryCenters, isAllSelectedArticlesDelivered);
+
+             //  When user is allowed to select multiple articles and user selects multiple articles OR,
+             //  user is not allowed to select multiple articles and there are more than maximum allowed selection of articles in the consignment
+             consignmentSearchComments += getConsignmentSearchSelectedArticleIdsComment(isEligibleForMultipleArticleSelection, isMultipleArticlesSelected, selectedArticles, allArticles);
+
+             // append the 'Consignment Search' header if there are comments
+             consignmentSearchComments = String.isEmpty(consignmentSearchComments) ? '' : 'Consignment Search \n'+consignmentSearchComments;
+
             String commentBody= null;
             if(valuesOfContents != null && valuesOfContents != ''){
                 commentBody ='Issue Type : Missing or Lost item'  + '\n' +
@@ -358,9 +438,9 @@ public with sharing class ChasApexController {
                     'Contact Preference : ' + contactPreferrence // Contact Preference, added by Edmarco on July 2019
                     + issueDetailsDisplayText + '\n';
                 // Change made for roll out of Safe Drop feature on Missing Items form : add reason for enquiry to the case comments
-                if(wizardData.get('reasonForEnquiry') != null)
+                if(String.IsNotEmpty(reasonForEnquiry))
                 {
-                    commentBody = commentBody + 'Reason for enquiry : ' + wizardData.get('reasonForEnquiry')+ '\n';
+                    commentBody = commentBody + 'Reason for enquiry : ' + reasonForEnquiry+ '\n';
                 }
                 // Change made for roll out of Safe Drop feature on Missing Items form : add flag to indicate whether customer has seen safedrop image? to the case description
                 if(wizardData.get('hasCustomerSeenSafeDrop') == 'true')
@@ -371,7 +451,7 @@ public with sharing class ChasApexController {
                     commentBody = commentBody + 'Has customer seen safedrop image : ' + 'No' + '\n';
                 }
                 // Change made for roll out of Safe Drop feature on Missing Items form : add flag to indicate whether the case was eligible for network assignment
-                if(isEligibleForMyNetwork == 'true')
+                if(isEligibleForMyNetwork)
                 {
                     commentBody = commentBody + 'Is eligible for network assignment : ' + 'Yes';
                 } else
@@ -391,9 +471,9 @@ public with sharing class ChasApexController {
                     'Contact Preference : ' + contactPreferrence // Contact Preference, added by Edmarco on July 2019
                     + issueDetailsDisplayText + '\n';
                 // Change made for roll out of Safe Drop feature on Missing Items form : add reason for enquiry to the case comments
-                if(wizardData.get('reasonForEnquiry') != null)
+                if(String.IsNotEmpty(reasonForEnquiry))
                 {
-                    commentBody = commentBody + 'Reason for enquiry : ' + wizardData.get('reasonForEnquiry')+ '\n';
+                    commentBody = commentBody + 'Reason for enquiry : ' + reasonForEnquiry+ '\n';
                 }
                 // Change made for roll out of Safe Drop feature on Missing Items form : add flag to indicate whether customer has seen safedrop image? to the case description
                 if(wizardData.get('hasCustomerSeenSafeDrop') == 'true')
@@ -404,7 +484,7 @@ public with sharing class ChasApexController {
                     commentBody = commentBody + 'Has customer seen safedrop image : ' + 'No' + '\n';
                 }
                 // Change made for roll out of Safe Drop feature on Missing Items form : add flag to indicate whether the case was eligible for network assignment
-                if(isEligibleForMyNetwork == 'true')
+                if(isEligibleForMyNetwork)
                 {
                     commentBody = commentBody + 'Is eligible for network assignment : ' + 'Yes';
                 } else
@@ -423,11 +503,11 @@ public with sharing class ChasApexController {
             }
             
             //-- Subject : Trimming the complaint details to 255 chars
-            if(wizardData.get('issueDetails') != null){
+            if(String.IsNotEmpty(issueDetails)){
                 if(wizardData.get('issueDetails').trim().length() > 255){
-                    subject = wizardData.get('issueDetails').substring(0, 255);
+                    subject = issueDetails.substring(0, 255);
                 }else{
-                    subject = wizardData.get('issueDetails');
+                    subject = issueDetails;
                 }
             }
             
@@ -607,7 +687,7 @@ public with sharing class ChasApexController {
             toBeCreateCase.Preferred_Communication_Method__c=contactPreferrence; // Contact Preference, added by Edmarco on July 2019
             toBeCreateCase.DescriptionofContents__c = subject;
             // RSolomon 2nd Apr: Update value for whether parcel contains essential pharma
-            if(Boolean.valueOf(containsPharma)) {
+            if(containsPharma) {
                 toBeCreateCase.Priority = 'High';
             }
             
@@ -615,12 +695,12 @@ public with sharing class ChasApexController {
             if(!String.isEmpty(complaintDetails)) {
                 toBeCreateCase.Description = Label.HS_Issue_Details_Warning +'\n\n'+ complaintDetails + '\n\n';
                 // Change made for roll out of Safe Drop feature on Missing Items form : add reason for enquiry to the case description
-                if(wizardData.get('reasonForEnquiry') != null)
+                if(String.IsNotEmpty(reasonForEnquiry))
                 {
-                    toBeCreateCase.Description = toBeCreateCase.Description + 'Reason for enquiry : ' + wizardData.get('reasonForEnquiry') + '\n';
+                    toBeCreateCase.Description = toBeCreateCase.Description + 'Reason for enquiry : ' + reasonForEnquiry + '\n';
                 }
                 // Change made for roll out of Safe Drop feature on Missing Items form : has customer seen safe drop image to the case description
-                if(isEligibleForMyNetwork == 'true')
+                if(isEligibleForMyNetwork)
                 {
                     if(wizardData.get('hasCustomerSeenSafeDrop') == 'true')
                     {
@@ -728,28 +808,30 @@ public with sharing class ChasApexController {
             toBeCreateCase.Address3Country__c = senderCountry;
             toBeCreateCase.Address4Country__c = deliveryOrRecipientCountry;   // Added newly INC1222366
 
-            String wcid = (String) wizardData.get('wcid');
+
+             String wcid = (String) wizardData.get('wcid');
 
             // DDS-7977: consignment handling optimize
            // Boolean allArticlesSuccessed = wizardData.get('allArticlesSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesSuccessed')) : false;
-           // Boolean allArticlesNotSuccessed = wizardData.get('allArticlesNotSuccessed') != null? Boolean.valueOf(wizardData.get('allArticlesNotSuccessed')) : true;
-
             // certain cases can be auto allocated from H&S directly to MyNetwork
             // this criteria is assessed here and if the criteria matches then the case is created and then updated to point to mynetwork
             // 17-08-2021 Updated to assign directly on creation
-            if(!String.isEmpty(wcid) && !String.isEmpty(wizardData.get('isEligibleForMyNetworkAssignment')) && 'true'.equalsIgnoreCase(wizardData.get('isEligibleForMyNetworkAssignment')))
-            {
-                setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
-            }
+
+             if(!String.isEmpty(wcid) && isEligibleForMyNetwork) {
+                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
+             }
 
             //if eligible for hold, run the async process to update case details on case creation to put it ON HOLD and set a Reopen date
             // 17-08-2021 switched to direct routing
-            if(!String.isEmpty(isEligibleForHold) && 'true'.equalsIgnoreCase(isEligibleForHold))
-            {
+            if(!String.isEmpty(isEligibleForHold) && 'true'.equalsIgnoreCase(isEligibleForHold)) {
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.HOLD, null);
             }
 
-            
+             // DDS-9811 Multiple article selection - update Description field (Message to Network is the field label on the UI)
+             if(isMultipleArticlesSelected) {
+                 toBeCreateCase.Description = toBeCreateCase.Description + '\n' + consignmentSearchComments;
+             }
+
 			Database.SaveResult[] results;
 			if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
 				SharingBypass lSharingBypass = new SharingBypass();
@@ -758,11 +840,13 @@ public with sharing class ChasApexController {
 			else {
 				results = Database.insert(new SObject[] {toBeCreateCase });
 			}
-        List<CaseComment> vComments = new List<CaseComment>();
-        vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
-        checkNetworkAssigningResult(toBeCreateCase, vComments);
+            List<CaseComment> vComments = new List<CaseComment>(); // DDS-9235, DDS-8594 updating the case comments for different types of article selection
+            commentBody += '\n' +consignmentSearchComments; // adding the
+            vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
+        //temporarily removed due to inability to make case comment private in authenticated community user context
+        //checkNetworkAssigningResult(toBeCreateCase, vComments);
       //-- Parse Case results and create Case Comment
-        caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
 
             // checkNetworkAssigningResult(toBeCreateCase);
             
@@ -777,19 +861,197 @@ public with sharing class ChasApexController {
          }
         return caseWrapper;
     }
-    
+
+    /**
+     * get the consignment search type comments, based on the scenarios where user is allowed/not allowed to select multiple articles and/or
+     * user select multiple articles or a single article the comments will be generated
+     * @param isMultipleArticlesSelected is user allowed to select multiple articles
+     * @param containsPharma is user mentioned there is pharma in the package
+     * @param isDeliveredByMultipleDeliveryCenters are the articles selected are delivered from multiple delivery centers
+     * @param isAllArticlesDelivered are all articles selected are delivered
+     * @param isEligibleForMultipleArticleSelection is it eligible for multi select, populate comments only if this is true
+     *
+     * @return generate consignment type comments
+     */
+    private static String getConsignmentSearchTypeComments(Boolean isEligibleForMultipleArticleSelection ,Boolean isMultipleArticlesSelected, Boolean containsPharma, Boolean isDeliveredByMultipleDeliveryCenters, Boolean isAllArticlesDelivered) {
+        String consignmentTypeComments = '';
+        // when it is not allow to select multiple articles, there is no need of the 'Consignment Type : ' comment
+        if(!isEligibleForMultipleArticleSelection) {
+            return consignmentTypeComments;
+        }
+        if (!isMultipleArticlesSelected) {
+            // Customer selects only one tracking id from the list
+            consignmentTypeComments = 'Consignment Type: Single article selected' + (containsPharma ? ' (medication).' : '.') + '\n';
+        } else if (isMultipleArticlesSelected && !isDeliveredByMultipleDeliveryCenters && isAllArticlesDelivered) {
+            //  Customer select more than one tracking id and tracking ids are all delivered from same delivery centre (medication)
+            consignmentTypeComments = 'Consignment Type: Disputed delivery for multiple articles' + (containsPharma ? ' (medication).' : '.') + '\n';
+        } else if (isMultipleArticlesSelected && isDeliveredByMultipleDeliveryCenters && isAllArticlesDelivered) {
+            //  Customer selects more than one tracking id and all of them are delivered but delivered by different delivery centres (medication)
+            consignmentTypeComments = 'Consignment Type: Disputed delivery for multiple articles with different delivery centres' + (containsPharma ? ' (medication).' : '.') + '\n';
+        } else if (isMultipleArticlesSelected && isDeliveredByMultipleDeliveryCenters && !isAllArticlesDelivered) {
+            //  Customer select more than one tracking id and at least one article is not delivered (medication)
+            consignmentTypeComments = 'Consignment Type: Multiple articles selected mix of delivered and in transit' + (containsPharma ? ' (medication).' : '.') + '\n';
+        }
+        return consignmentTypeComments;
+    }
+
+    /**
+     * When user is allowed to select multiple articles and user selects multiple articles OR,
+     * user is not allowed to select multiple articles and there are more than maximum allowed selection of articles in the consignment
+     * @param isEligibleForMultipleArticleSelection is the consignment search allowed multiple selection of articles?
+     * @param isMultipleArticlesSelected is user allowed to select multiple articles
+     * @param selectedArticles selected articles when allowed multiple
+     * @param allArticles all the articles in the consignment
+     *
+     * @return selected article IDS comment
+     */
+    private static String getConsignmentSearchSelectedArticleIdsComment(Boolean isEligibleForMultipleArticleSelection, Boolean isMultipleArticlesSelected, List<TrackingNumberDetails> selectedArticles, List<TrackingNumberDetails> allArticles) {
+        String selectedArticleIdsComment = '';
+        // when eligible for multi selection ans user selects more than a single article, we cannot store all the article id's in reference ID field
+        // so let's let the agent/network know what are the tracking ids selected for consignment
+        if (isEligibleForMultipleArticleSelection && isMultipleArticlesSelected) {
+            List<String> selectedArticleIDS = new List<String>();
+            for (TrackingNumberDetails article : selectedArticles) {
+                selectedArticleIDS.add(article.articleId);
+            }
+            selectedArticleIdsComment = 'Tracking IDs:\n'+String.join(selectedArticleIDS, '\n');
+        } else if (!isEligibleForMultipleArticleSelection && allArticles.size() > Integer.valueOf(ChasUtil.CHAS_SETTINGS.Consignment_Search_Display_Max_Articles__c)) {
+            // user is not allowed to select multiple articles since the number of articles in the consignment exceeds the allowed number of articles
+            selectedArticleIdsComment = 'More than 5 articles in consignment \n';
+        }
+        return selectedArticleIdsComment;
+    }
+
+    /**
+     * get the reference Id based on the eligibility to multi select and the selection of articles.
+     * @param wizardData JSON data passed in to controller
+     * @param isEligibleForMultipleArticleSelection eligibility based on the number of articles in a consignment or a tracking id being a single article id
+     * @param isMultipleArticlesSelected based on the eligibility user selected more than one article
+     * @param selectedArticles user selected articles
+     *
+     * @return
+     */
+    private static String getReferenceId(Map<String, String> wizardData
+            , Boolean isEligibleForMultipleArticleSelection
+            , Boolean isMultipleArticlesSelected
+            , List<TrackingNumberDetails> selectedArticles
+            , List<TrackingNumberDetails> allArticles) {
+        // this could be the article id or the consignment id used to search the tracking
+        String referenceId = wizardData.get('trackingId');
+        // if eligible for multiple article selection and only single article is selected, reference Id should be the selected article ID
+        if (isEligibleForMultipleArticleSelection && !isMultipleArticlesSelected) {
+            // get the selected article's article ID
+            referenceId = selectedArticles[0].articleId;
+        } else if (!isEligibleForMultipleArticleSelection && allArticles.size() == 1) {
+            // if multiple selection is not allowed and consignment has only a single article
+            referenceId = allArticles[0].articleId;
+        }
+        return referenceId;
+    }
+
+    /**
+     * When user selects multiple articles and if all the articles are in Delivered status or not
+     * @param selectedArticles selected articles by the user
+     *
+     * @return is all deliveres or not
+     */
+    private static Boolean isAllArticlesDelivered(List<TrackingNumberDetails> selectedArticles) {
+        for (TrackingNumberDetails selectedArticle : selectedArticles) {
+            if (!(String.isNotEmpty(selectedArticle.eddStatus)
+                    && (ChasConstants.TRACK_STAT_LEFT_IN_A_SAFE_PLACE.equalsIgnoreCase(selectedArticle.eddStatus)
+                    || ChasConstants.TRACK_STAT_DELIVERED.equalsIgnoreCase(selectedArticle.eddStatus)))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * if the selected articles has multiple articles and the articles are delivered by multiple delivery centers
+     * @param selectedArticles selected articles by user
+     *
+     * @return Boolean result
+     */
+    private static Boolean isDeliveredByMultipleDeliveryCenters(List<TrackingNumberDetails> selectedArticles) {
+        Set<String> deliveryCenters = new Set<String>();
+        for (TrackingNumberDetails selectedArticle : selectedArticles) {
+            deliveryCenters.add(selectedArticle.wcid);
+        }
+
+        if (deliveryCenters.size() > 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * if there are multiple articles selected by the user returns true,
+     * otherwise false if the user selects one article,
+     * NOTE : user will not allow to proceed without selecting at least one article.
+     * @param selectedArticles selected articles by user
+     *
+     * @return Boolean result
+     */
+    private static Boolean isMultipleArticlesSelected(List<TrackingNumberDetails> selectedArticles) {
+        if (!selectedArticles.isEmpty() && selectedArticles.size() > 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * if either multiple articles are selected or a single article selected,
+     * check weather the selected areticles are eligible for my network assignment
+     * @param selectedArticles
+     *
+     * @return a boolean value indicating the eligibility
+     */
+    private static Boolean isAllArticlesSelectedAreEligibleForNetwork(List<TrackingNumberDetails> selectedArticles) {
+        if (selectedArticles.isEmpty()) {
+            return false;
+        }
+        for (TrackingNumberDetails selectedArticle : selectedArticles) {
+            if(!selectedArticle.isEligibleForMyNetworkAssignment) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Filter and get the selected articles from wizardData,
+     * returned data based on the attribute isSelected on TrackingNumberDetails
+     * @param wizardData contains all the data within the wizard
+     *
+     * @return list of selected articles
+     */
+    private static List<TrackingNumberDetails> getArticles(Map<String, String> wizardData, Boolean isSelectedArticlesOnly) {
+        List<TrackingNumberDetails> allArticles = new List<TrackingNumberDetails>();
+        if(String.isNotEmpty(wizardData.get('articles'))) {
+            allArticles = (List<TrackingNumberDetails>) JSON.deserialize(wizardData.get('articles'), List<TrackingNumberDetails>.class);
+        }
+
+        List<TrackingNumberDetails> selectedArticles = new List<TrackingNumberDetails>();
+        for (TrackingNumberDetails article : allArticles) {
+            if (isSelectedArticlesOnly && article.isSelected) {
+                selectedArticles.add(article);
+            } else if (!isSelectedArticlesOnly) {
+                selectedArticles.add(article);
+            }
+        }
+        return selectedArticles;
+    }
+
     /**
 * This method will create Case for mail redirect and hold
 * */
     @AuraEnabled
     public static CaseWrapper createCaseFromMailRedirectAndHold( Map <String,Object> wizardData, Map <String,String> authUserData ){
-        System.debug('----- createCaseFromMailRedirectAndHold ----- START');
         
         CaseWrapper caseWrapper = new CaseWrapper();
         caseWrapper.caseStatus = 'SUCCESS';
         
         try{
-            System.debug('wizardData='+wizardData);
             
             //-- Getting recordType Id
             String recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().
@@ -810,7 +1072,6 @@ public with sharing class ChasApexController {
             
             //-- Getting additional person details
             List<Object> persons = (List<Object>) wizardData.get('household');
-            System.debug('persons==='+persons);
             Map<Integer,String> personDetails = new  Map<Integer,String>();
             Integer count = 0;
             for(Object person :persons){
@@ -823,7 +1084,6 @@ public with sharing class ChasApexController {
                 }
                 count = count+1;
             }
-            System.debug('personDetails==='+personDetails);
             
             //-- Getting all wizard data details
             String enquiryType =  (String) wizardData.get('selectedRadio1Name');
@@ -954,8 +1214,6 @@ commentBody = commentBody  + 'False';
             commentBody = commentBody + '\n' +
                 'Contact Preference : ' + contactPreferrence;  // Contact Preference, added by Edmarco on July 2019
             
-            System.debug('***CommentBod = '+ commentBody);
-            
             if(enquiryType == 'Mail redirection'){
                 productSubCategory = ChasConstants.MAIL_REDIRECTION;
                 if(whichItemYouarHavingIssuesWith == 'Parcels'){
@@ -1055,12 +1313,9 @@ commentBody = commentBody  + 'False';
             
             if(enquiryType != 'Mail hold' && whereIsYouremailRedirected == 'Overseas' && newAddPostcode !=null){
                 toBeCreateCase.Address4Country__c = newAddCountry;
-            }
+            }          
             
-            
-            System.debug('toBeCreateCase == '+toBeCreateCase);
             Database.SaveResult[] results = Database.insert(new SObject[] {toBeCreateCase });
-            System.debug('results == '+results);
 
             List<CaseComment> vComments = new List<CaseComment>();
             vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
@@ -1071,8 +1326,6 @@ commentBody = commentBody  + 'False';
             caseWrapper.caseStatus = 'ERROR';
             System.debug('*** - Error while in createCaseFromMailRedirectAndHold method ==='+ex);
         }
-        System.debug('caseWrapper= ' +caseWrapper);
-        System.debug('----- createCaseFromMailRedirectAndHold ----- END');
         return caseWrapper;
     }
     
@@ -1082,13 +1335,11 @@ commentBody = commentBody  + 'False';
 * */
     @AuraEnabled
     public static CaseWrapper createCaseFromDeliveryIssue( Map <String,String> wizardData, Map <String,String> authUserData ){
-        System.debug('----- createCaseFromDeliveryIssue ----- START');
         
         CaseWrapper caseWrapper = new CaseWrapper();
         caseWrapper.caseStatus = 'SUCCESS';
         
         try{
-            System.debug('wizardData='+wizardData);
             
             //-- Getting recordType Id
             String recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().
@@ -1207,7 +1458,6 @@ commentBody = commentBody  + 'False';
             
             //--Converting input issueDate string to SF acceptable Date
             Date convertedIssueDate = null;
-            System.debug('issueDateStr='+issueDateStr);
             if(issueDateStr != null && issueDateStr.trim().length() > 0 && issueDetailsType != 'Item was left in an unsafe place'){
                 String convertedDateStr = ChasUtil.convertToSFDateStrFormat(issueDateStr);
                 if(convertedDateStr !=null){
@@ -1219,7 +1469,6 @@ commentBody = commentBody  + 'False';
                     return caseWrapper;
                 }
             }
-            System.debug('convertedIssueDate='+convertedIssueDate);
             
             //-- Building Comment Body
             String commentBody ='Issue details : '  + issueDetailsType ;
@@ -1419,7 +1668,6 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             
             toBeCreateCase.Preferred_Communication_Method__c=contactPreferrence;  // Contact Preference, added by Edmarco on July 2019
             
-            System.debug('toBeCreateCase == '+toBeCreateCase);
 			Database.SaveResult[] results;
 			if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
 				SharingBypass lSharingBypass = new SharingBypass();
@@ -1428,11 +1676,11 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
 			else {
 				results = Database.insert(new SObject[] {toBeCreateCase });
 			}
-            System.debug('results == '+results);
 
             List<CaseComment> vComments = new List<CaseComment>();
             vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
-            checkNetworkAssigningResult(toBeCreateCase, vComments);
+        //temporarily removed due to inability to make case comment private in authenticated community user context
+        //checkNetworkAssigningResult(toBeCreateCase, vComments);
 
             //-- Parse Case results and create Case Comment
             caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
@@ -1445,37 +1693,11 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                 Id jobId = System.enqueueJob(caseAssignment);
                 
             } */
-            //Code can be removed by 30/10/2020, as it's no more relevant
-            /*for (Integer i = 0; i < results.size(); i++) {
-if (results[i].isSuccess()) {
-System.debug('Successfully created ID: '+ results[i].getId());
-try{
-String objName = results[i].getId().getSObjectType().getDescribe().getName(); 
-System.debug('*** - objName = '+objName);
-//-- Creating Case Comment for inserted Case
-if( objName.equalsIgnoreCase('Case')){
-caseWrapper.caseNumber = ChasUtil.createCaseComment(results[i].getId(),commentBody);
-System.debug('*** Flow called - CaseNumber:'+caseWrapper.caseNumber);
-}
-
-}catch(Exception ex){
-System.debug('*** - Error while retrieving Case Number/Creating Case Comment ==='+ex);
-}
-
-} else {
-caseWrapper.caseStatus = 'ERROR';
-System.debug('Error: could not create sobject '+ 'for array element ' + i + '.');
-System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() + '\n');
-
-}
-}*/
             
         }catch(Exception ex){
             caseWrapper.caseStatus = 'ERROR';
             System.debug('*** - Error while in createCaseFromDeliveryIssue method ==='+ex);
         }
-        System.debug('caseWrapper= ' +caseWrapper);
-        System.debug('----- createCaseFromDeliveryIssue ----- END');
         return caseWrapper;
     }
     
@@ -1588,7 +1810,10 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
             if(issueDetailsType == 'Mail products' && mailProductsEnquiryType == 'Transfer to another post office'){
                 commentBody = commentBody+ '\n' + originalDeliveryAddress;
             }
-            
+
+            if(issueDetailsType == 'ID, documents & accounts' && idDocumentsAccountsEnquiryType == 'Delete MyPost account') {
+                commentBody = commentBody+ '\n' + 'MyPost account closure request, please check customer product holdings, refer SOP 05.06. MyPost Account – Cancel or merge MyPost account requests';
+            }
             
             if(issueDetailsType == 'Mail products'){
                 if(mailProductsEnquiryType == '24/7 Parcel Locker'){
@@ -1644,7 +1869,7 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
                     typeAndProduct = 'General Enquiry|Travel & ID|Land titles check';
                     productCategory = 'Travel & ID';
                     productSubCategory = 'Land titles check';
-                }else if(idDocumentsAccountsEnquiryType == 'MyPost'){
+                }else if(idDocumentsAccountsEnquiryType == 'MyPost general enquiries'){ //DDS-10119 Changed to Mypost general enquires
                     typeAndProduct = 'General Enquiry|Travel & ID|My Post ID card';
                     productCategory = 'Travel & ID';
                     productSubCategory = 'My Post ID card';
@@ -1660,6 +1885,12 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
                     typeAndProduct = 'General Enquiry|Travel & ID|Tax file number';
                     productCategory = 'Travel & ID';
                     productSubCategory = 'Tax file number';
+                }else if(idDocumentsAccountsEnquiryType == 'Delete MyPost account'){
+                    typeVal = 'Investigation';
+                    typeAndProduct = 'Investigation|Web & Apps|MyPost Deliveries';
+                    productCategory = 'Web & Apps';
+                    productSubCategory = 'MyPost Deliveries';
+                    enquirySubType = 'Account Enquiry';
                 }else if(idDocumentsAccountsEnquiryType == 'Other'){
                     typeAndProduct = 'General Enquiry|Travel & ID|Identity & document services';
                     productCategory = 'Travel & ID';
@@ -1766,7 +1997,8 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
 			}
             List<CaseComment> comments = new List<CaseComment>();
             comments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
-            checkNetworkAssigningResult(toBeCreateCase, comments);
+        //temporarily removed due to inability to make case comment private in authenticated community user context
+        //checkNetworkAssigningResult(toBeCreateCase, vComments);
 
             //-- Parse Case results and create Case Comment
             caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
@@ -1794,23 +2026,28 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
     private static Id getContactId(Id userId) {
         return [SELECT ContactId FROM User WHERE Id = :userId]?.ContactId;
     }
-    
-    /* -------------------------NEW SERVICE--------------------------------------*/
+
+
     /**
-* This method will take the 'Tracking Number' as input and will call the rest service and return the response in JSON format
-* */
+     * @description passing the tracking number will response with all the articles and tracking details linked to the
+     * related consignment. Initially this method has been written to handle one article and the behaviour is changed
+     * to handle multiple articles as a part of the ticket DDS-9011
+     * @param trackingNumber
+     *
+     * @return ConsignmentDetails: this object is wrapped around a list of TrackingNumberDetails objects and
+     * few other common parameters to handle multiple articles in the response.
+     */
     @AuraEnabled
-    public static TrackingNumberDetails searchTrackingNumber(String trackingNumber){
+    public static ConsignmentDetails searchTrackingNumber(String trackingNumber) {
         //Initializing the return wrapper obj
-        TrackingNumberDetails trackingNumDetailsWrapperObj = new TrackingNumberDetails();
-        
-        if(trackingNumber != null && trackingNumber.trim().length() > 0){
-            
+        ConsignmentDetails consignmentDetailsWrapperObj = new ConsignmentDetails();
+        if (trackingNumber != null && trackingNumber.trim().length() > 0) {
+
             HttpResponse httpRes = ChasCallout.requestStatus(trackingNumber);
-            
+
             //Checking the httpResponse Status Codes
-            if(httpRes!=null){
-                
+            if (httpRes != null) {
+
                 String jsonString = httpRes.getBody();
                 String enqSubTypeOverride = '';
                 jsonString = jsonString.replace('"on"', '"eventDateTime"'); // replacing the dateTime in the response as this "on" is reserved keyword in apex
@@ -1819,187 +2056,204 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
                 ChasOneTrackResponse response = (ChasOneTrackResponse) System.JSON.deserialize(jsonString, ChasOneTrackResponse.class);
                 ChasTrackStatus trackService = new ChasTrackStatus(response, trackingNumber);
                 //Intilalizing status code in to wrapper
-                if(httpRes.getStatusCode() != null ){
+                if (httpRes.getStatusCode() != null) {
                     //trackingNumDetailsWrapperObj.trackingNumSerachStatusCode = httpRes.getStatusCode();
-                    trackingNumDetailsWrapperObj.trackingNumSerachStatusCode = trackService.responseCode;
-                    trackingNumDetailsWrapperObj.trackingNumSerachStatusMsg = httpRes.getStatus();
+                    consignmentDetailsWrapperObj.trackingNumSerachStatusCode = trackService.responseCode;
+                    consignmentDetailsWrapperObj.trackingNumSerachStatusMsg = httpRes.getStatus();
                 }
-                //Special handling for response code 403
-                if(trackingNumDetailsWrapperObj.trackingNumSerachStatusCode == 403){
-                    trackingNumDetailsWrapperObj.enqSubtype = ChasConstants.ENQ_SUB_TYPE_TRACKING;
-                    trackingNumDetailsWrapperObj.itemType = ChasConstants.ITEM_TYPE_DOMESTIC;
-                }
-                // DDS-5488: Enquiry sub type should be “tracking” and type should be “general” for 404 response
-                if(trackingNumDetailsWrapperObj.trackingNumSerachStatusCode == 404){
-                    trackingNumDetailsWrapperObj.enqSubtype = ChasConstants.ENQ_SUB_TYPE_TRACKING;
-                    trackingNumDetailsWrapperObj.itemType = ChasConstants.ITEM_TYPE_DOMESTIC;
-                }
-                //If response status code is 200 then parsing the response
-                if(trackingNumDetailsWrapperObj.trackingNumSerachStatusCode == 200){
-                    //trackingNumDetailsWrapperObj.trackingNumSerachStatusCode = httpRes.getStatusCode();
-                    trackingNumDetailsWrapperObj.trackingNumSerachStatusMsg = httpRes.getStatus();
-                    //ChasTrackStatus trackService = new ChasTrackStatus(response, trackingNumber);
-                    //assign the dpid returned from the service
-                    trackingNumDetailsWrapperObj.dpid = trackService.dpid;
-                    //assign the articleId returned from the service
-                    trackingNumDetailsWrapperObj.articleId = trackService.articleId;
-                    //change made for roll out of Products and services uplift - assign the subProductId returned from the service
-                    trackingNumDetailsWrapperObj.subProductId = trackService.subProductId;
-                    
-                    //fetch the safedDropDelivered date time
-                    Datetime safedropDeliveredDateTime = trackService.safedropDeliveredDateTime;
-                    String safedropDelivered = '';
-                    //Convert the data time format to a desired format like "11:31 am, Wednesday 8 April"
-                    if(safedropDeliveredDateTime != null)
-                    {
-                        String dayOfWeek = safedropDeliveredDateTime.format('EEEE');
-                        String dateOfWeek = safedropDeliveredDateTime.format('d MMMM ');
-                        String timeOfWeek = safedropDeliveredDateTime.format('hh:mm a');
-                        safedropDelivered = timeOfWeek + ', ' + dayOfWeek + ' ' + dateOfWeek;
-                        trackingNumDetailsWrapperObj.safedropDelivered = safedropDelivered;  
-                    }
-                    
-                    //if safedropped, then assign the edd status
-                    if(trackingNumDetailsWrapperObj.safedropDelivered != null)
-                    {
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_LEFT_IN_A_SAFE_PLACE;
-                    }
-                    
-                    // article type and the item type will be used to generate the case
-                    if (trackService.articleType != null) {
-                        trackingNumDetailsWrapperObj.articleType = trackService.articleType;
-                        trackingNumDetailsWrapperObj.itemType = (trackService.articleType.containsIgnoreCase(ChasConstants.ITEM_TYPE_INTERNATIONAL) ? ChasConstants.ITEM_TYPE_INTERNATIONAL : ChasConstants.ITEM_TYPE_DOMESTIC);
-                    }
-                    //setting the value for a duplicate case, derived from the latest event code
-                    trackingNumDetailsWrapperObj.duplicateCase = trackService.duplicateCase;
-                    //set RTS scan flag if any
-                    trackingNumDetailsWrapperObj.isReturnToSender = trackService.isReturnToSender;
-                    //set signature flag if any
-                    trackingNumDetailsWrapperObj.hasSignature = trackService.hasSignature;
-                    //set isParcelAwaitingCollection flag if any
-                    trackingNumDetailsWrapperObj.isParcelAwaitingCollection = trackService.eventCodeisAwaitingCollection;
-                    // if there's a work center id (facility code)
-                    trackingNumDetailsWrapperObj.wcid = trackService.wcid;
-                    //-- change made for roll out of delivery issues network assignment automation
-                    trackingNumDetailsWrapperObj.latestDeliveredScanWcid = trackService.hasDeliveredScanEvent;
-                    trackingNumDetailsWrapperObj.previousDeliveredScanWcid = trackService.previousDeliveredScanWcid;
-                    // set isRedirectApplied flag if any
-                    trackingNumDetailsWrapperObj.isRedirectApplied = trackService.isRedirectApplied;
-                    // if there's a latest event location, track it to decide the delivery location state like NSW,VIC etc.Temporary solution to be refactored
-                    if(trackService.latestEvent != null)
-                    {
-                        trackingNumDetailsWrapperObj.latestEventLocation = trackService.latestEvent.location;
-                        trackingNumDetailsWrapperObj.latestEventLocationMessage = trackService.latestEvent.message;
-                    }
-                    //set trackStatusValue value from the milestone 
-                    trackingNumDetailsWrapperObj.trackStatusValue = trackService.trackStatusValue;
-                    //set deliveryChoicesSafeDropIneligibilityCode flag if any
-                    trackingNumDetailsWrapperObj.deliveryChoicesSafeDropIneligibilityCode = trackService.deliveryChoicesSafeDropIneligibilityCode;
-                    // set the value for isEligibleForMyNetworkAssignment
-                    trackingNumDetailsWrapperObj.isEligibleForMyNetworkAssignment = trackService.isEligibleForMyNetworkAssignment;
-                    // setting the EDD or delivered date
-                    trackingNumDetailsWrapperObj.deliveredByDateOrEDD = trackService.deliveredByDate;
-                    // setting the EDD From DateTime
-                    trackingNumDetailsWrapperObj.deliveredByDateFrom = trackService.deliveredByDateFrom;
-                    // // setting the EDD To DateTime
-                    trackingNumDetailsWrapperObj.deliveredByDateTo = trackService.deliveredByDateTo;
-                    // setting the EDD monitor date until
-                    trackingNumDetailsWrapperObj.deliveredByDateToUntil = trackService.deliveredByDateToUntil;
-                    // setting the EDD plus business days
-                    trackingNumDetailsWrapperObj.deliveredByDatePlusBusinessDays = trackService.deliveredByDatePlusBusinessDays;
-                    // check if the system date is within EDD plus business days
-                    trackingNumDetailsWrapperObj.isEnquiryDateWithinEDDPlusBusinessdays =trackService.isEnquiryDateWithinEDDPlusBusinessdays;
-                    trackingNumDetailsWrapperObj.isEnquiryDatePastEDDPlusBusinessdays =trackService.isEnquiryDatePastEDDPlusBusinessdays;
-                    trackingNumDetailsWrapperObj.isEnquiryDateWithinEDD=trackService.isWithinEDD;
 
-                    // this takes the highest priority in deciding what type of enquiry should be raised for the supplied article
-                    // this is just for the enquiry type on the case and does not impact the ui feedback provided to a user.
-                    if(trackService.isReturnToSender || trackService.isDeliveredLeftInASafePlace || (trackService.isDelivered && ! trackService.deliveryChoicesSafeDropIneligibilityCode)) {
-                        enqSubTypeOverride = ChasConstants.ENQ_SUB_TYPE_TRACKING;
+                // DDS-7977: pass attributes from tracking response to wrapper object
+                consignmentDetailsWrapperObj.allArticlesSuccessed = trackService.allArticlesSuccessed;
+
+                List<TrackingNumberDetails> trackingNumDetailsWrapperObjs = new List<TrackingNumberDetails>();
+                TrackingNumberDetails trackingNumDetailsWrapperObj;
+
+                // if the tracking search result has more than one article and less than five, allow the user to select multiple articles when create case
+                consignmentDetailsWrapperObj.isEligibleForMultipleArticleSelection = isEligibleForMultipleArticleSelection(trackService, Integer.valueOf(ChasUtil.CHAS_SETTINGS.Consignment_Search_Display_Max_Articles__c));
+
+                for (ChasTrackStatus.ArticleDetailsWrapper article : trackService.articleDetailsWrappers) {
+                    trackingNumDetailsWrapperObj = new TrackingNumberDetails();
+                    trackingNumDetailsWrapperObj.trackingNumSerachStatusCode = consignmentDetailsWrapperObj.trackingNumSerachStatusCode;
+                    //Special handling for response code 403
+                    if (consignmentDetailsWrapperObj.trackingNumSerachStatusCode == 403) {
+                        trackingNumDetailsWrapperObj.enqSubtype = ChasConstants.ENQ_SUB_TYPE_TRACKING;
+                        trackingNumDetailsWrapperObj.itemType = ChasConstants.ITEM_TYPE_DOMESTIC;
                     }
-                    // no EDD found, deliveredByDate on the response, update the enquiry subtype as Tracking if a case created
-                    if(trackService.isNoEDDReturned
-                      ) {
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_NO_EDD_FOUND;
-                        trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_MISSING);
-                        // DDS-5272: indicator for no EDD return
-                        trackingNumDetailsWrapperObj.isNoEddReturned = true;
+                    // DDS-5488: Enquiry sub type should be “tracking” and type should be “general” for 404 response
+                    if (consignmentDetailsWrapperObj.trackingNumSerachStatusCode == 404) {
+                        trackingNumDetailsWrapperObj.enqSubtype = ChasConstants.ENQ_SUB_TYPE_TRACKING;
+                        trackingNumDetailsWrapperObj.itemType = ChasConstants.ITEM_TYPE_DOMESTIC;
                     }
-                    else if(trackService.isDelivered) {
-                        // item delivered but submit a case,  update the enquiry subtype as Disputed Scan if a case created
-                        
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_DELIVERED;
-                        trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_DISPUTED);
-                        
-                    } else if(trackService.isDeliveringLate) {
-                        //The expected delivered date is passed today,  update the enquiry subtype as Missing item if a case created
-                        
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_DELIVERING_LATE;
-                        trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_MISSING);
-                        
-                    } else if(trackService.isDeliveryOnTime) {
-                        // delivering on time, the EDD shows the expected delivery date as a future date, ,  update the enquiry subtype as Tracking if a case created
-                        
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_DELIVERING_ON_TIME;
-                        trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_TRACKING);
-                        
-                    } else if(trackService.isNotScannedYet) {
-                        // no scan events found and the status is pending, update the enquiry subtype as Tracking if a case created
-                        
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_NOT_SCANNED_YET;
-                        trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_TRACKING);
-                        
-                    } else if(trackService.isDeliveredLeftInASafePlace) {
-                        // item is safe dropped, update the enquiry subtype as Disputed Scan if a case created
-                        
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_LEFT_IN_A_SAFE_PLACE;
-                        trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_DISPUTED);
-                        
-                    } else if(trackService.isAwaitingCollection) {
-                        // awaiting collection at the location, ,  update the enquiry subtype as Missing Item if a case created
-                        
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_AWAITING_COLLECTION;
-                        trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_MISSING);
-                        // if there's a latest event location, track it to display it for awaiting collection status.
-                        trackingNumDetailsWrapperObj.latestEventLocation = trackService.latestEvent.location;
-                        
-                    } else if(trackService.isOnBoardForDelivery) {
-                        // It's coming today, ,  update the enquiry subtype as Missing Item if a case created
-                        
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_COMING_TODAY;
-                        trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_MISSING);
-                        
-                    } else {
-                        // default
-                        trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_NO_EDD_FOUND;
-                        trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_TRACKING); 
-                        // DDS-5272: indicator for no EDD return
-                        trackingNumDetailsWrapperObj.isNoEddReturned = true;
+                    //If response status code is 200 then parsing the response
+                    if (consignmentDetailsWrapperObj.trackingNumSerachStatusCode == 200) {
+                        // setting the global tracking search response status message
+                        trackingNumDetailsWrapperObj.trackingNumSerachStatusMsg = httpRes.getStatus();
+                        //assign the dpid returned from the service
+                        trackingNumDetailsWrapperObj.dpid = article.dpid;
+                        //assign the articleId returned from the service
+                        trackingNumDetailsWrapperObj.articleId = article.articleId;
+                        //change made for roll out of Products and services uplift - assign the subProductId returned from the service
+                        trackingNumDetailsWrapperObj.subProductId = article.subProductId;
+
+                        //fetch the safedDropDelivered date time
+                        Datetime safedropDeliveredDateTime = article.safedropDeliveredDateTime;
+                        String safedropDelivered = '';
+                        //Convert the data time format to a desired format like "11:31 am, Wednesday 8 April"
+                        if (safedropDeliveredDateTime != null) {
+                            String dayOfWeek = safedropDeliveredDateTime.format('EEEE');
+                            String dateOfWeek = safedropDeliveredDateTime.format('d MMMM ');
+                            String timeOfWeek = safedropDeliveredDateTime.format('hh:mm a');
+                            safedropDelivered = timeOfWeek + ', ' + dayOfWeek + ' ' + dateOfWeek;
+                            trackingNumDetailsWrapperObj.safedropDelivered = safedropDelivered;
+                        }
+
+                        //if safedropped, then assign the edd status
+                        if (trackingNumDetailsWrapperObj.safedropDelivered != null) {
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_LEFT_IN_A_SAFE_PLACE;
+                        }
+
+                        // article type and the item type will be used to generate the case
+                        if (article.articleType != null) {
+                            trackingNumDetailsWrapperObj.articleType = article.articleType;
+                            trackingNumDetailsWrapperObj.itemType = (article.articleType.containsIgnoreCase(ChasConstants.ITEM_TYPE_INTERNATIONAL) ? ChasConstants.ITEM_TYPE_INTERNATIONAL : ChasConstants.ITEM_TYPE_DOMESTIC);
+                        }
+                        //setting the value for a duplicate case, derived from the latest event code
+                        trackingNumDetailsWrapperObj.duplicateCase = article.duplicateCase;
+                        //set RTS scan flag if any
+                        trackingNumDetailsWrapperObj.isReturnToSender = article.isReturnToSender;
+                        //set signature flag if any
+                        trackingNumDetailsWrapperObj.hasSignature = article.hasSignature;
+                        //set isParcelAwaitingCollection flag if any
+                        trackingNumDetailsWrapperObj.isParcelAwaitingCollection = article.eventCodeisAwaitingCollection;
+                        // if there's a work center id (facility code)
+                        trackingNumDetailsWrapperObj.wcid = article.wcid;
+                        //-- change made for roll out of delivery issues network assignment automation
+                        trackingNumDetailsWrapperObj.latestDeliveredScanWcid = article.hasDeliveredScanEvent;
+                        trackingNumDetailsWrapperObj.previousDeliveredScanWcid = article.previousDeliveredScanWcid;
+                        // set isRedirectApplied flag if any
+                        trackingNumDetailsWrapperObj.isRedirectApplied = article.isRedirectApplied;
+                        // if there's a latest event location, track it to decide the delivery location state like NSW,VIC etc.Temporary solution to be refactored
+                        if (article.latestEvent != null) {
+                            trackingNumDetailsWrapperObj.latestEventLocation = article.latestEvent.location;
+                            trackingNumDetailsWrapperObj.latestEventLocationMessage = article.latestEvent.message;
+                        }
+                        // set the article's is delivered
+                        trackingNumDetailsWrapperObj.isDelivered = article.isDelivered;
+                        //set trackStatusValue value from the milestone
+                        trackingNumDetailsWrapperObj.trackStatusValue = article.trackStatusValue;
+                        //set deliveryChoicesSafeDropIneligibilityCode flag if any
+                        trackingNumDetailsWrapperObj.deliveryChoicesSafeDropIneligibilityCode = article.deliveryChoicesSafeDropIneligibilityCode;
+                        // set the value for isEligibleForMyNetworkAssignment
+                        trackingNumDetailsWrapperObj.isEligibleForMyNetworkAssignment = article.isEligibleForMyNetworkAssignment;
+                        // setting the EDD or delivered date
+                        trackingNumDetailsWrapperObj.deliveredByDateOrEDD = article.deliveredByDate;
+                        // setting the EDD From DateTime
+                        trackingNumDetailsWrapperObj.deliveredByDateFrom = article.deliveredByDateFrom;
+                        // // setting the EDD To DateTime
+                        trackingNumDetailsWrapperObj.deliveredByDateTo = article.deliveredByDateTo;
+                        // setting the EDD monitor date until
+                        trackingNumDetailsWrapperObj.deliveredByDateToUntil = article.deliveredByDateToUntil;
+                        // setting the EDD plus business days
+                        trackingNumDetailsWrapperObj.deliveredByDatePlusBusinessDays = article.deliveredByDatePlusBusinessDays;
+                        // check if the system date is within EDD plus business days
+                        trackingNumDetailsWrapperObj.isEnquiryDateWithinEDDPlusBusinessdays = article.isEnquiryDateWithinEDDPlusBusinessdays;
+                        trackingNumDetailsWrapperObj.isEnquiryDatePastEDDPlusBusinessdays = article.isEnquiryDatePastEDDPlusBusinessdays;
+                        trackingNumDetailsWrapperObj.isEnquiryDateWithinEDD = article.isWithinEDD;
+
+                        // this takes the highest priority in deciding what type of enquiry should be raised for the supplied article
+                        // this is just for the enquiry type on the case and does not impact the ui feedback provided to a user.
+                        if (article.isReturnToSender || article.isDeliveredLeftInASafePlace || (article.isDelivered && !article.deliveryChoicesSafeDropIneligibilityCode)) {
+                            enqSubTypeOverride = ChasConstants.ENQ_SUB_TYPE_TRACKING;
+                        }
+                        // no EDD found, deliveredByDate on the response, update the enquiry subtype as Tracking if a case created
+                        if (article.isNoEDDReturned
+                                ) {
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_NO_EDD_FOUND;
+                            trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_MISSING);
+                            // DDS-5272: indicator for no EDD return
+                            trackingNumDetailsWrapperObj.isNoEddReturned = true;
+                        } else if (article.isDelivered) {
+                            // item delivered but submit a case,  update the enquiry subtype as Disputed Scan if a case created
+
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_DELIVERED;
+                            trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_DISPUTED);
+
+                        } else if (article.isDeliveringLate) {
+                            //The expected delivered date is passed today,  update the enquiry subtype as Missing item if a case created
+
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_DELIVERING_LATE;
+                            trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_MISSING);
+
+                        } else if (article.isDeliveryOnTime) {
+                            // delivering on time, the EDD shows the expected delivery date as a future date, ,  update the enquiry subtype as Tracking if a case created
+
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_DELIVERING_ON_TIME;
+                            trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_TRACKING);
+
+                        } else if (article.isNotScannedYet) {
+                            // no scan events found and the status is pending, update the enquiry subtype as Tracking if a case created
+
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_NOT_SCANNED_YET;
+                            trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_TRACKING);
+
+                        } else if (article.isDeliveredLeftInASafePlace) {
+                            // item is safe dropped, update the enquiry subtype as Disputed Scan if a case created
+
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_LEFT_IN_A_SAFE_PLACE;
+                            trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_DISPUTED);
+
+                        } else if (article.isAwaitingCollection) {
+                            // awaiting collection at the location, ,  update the enquiry subtype as Missing Item if a case created
+
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_AWAITING_COLLECTION;
+                            trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_MISSING);
+                            // if there's a latest event location, track it to display it for awaiting collection status.
+                            trackingNumDetailsWrapperObj.latestEventLocation = article.latestEvent.location;
+
+                        } else if (article.isOnBoardForDelivery) {
+                            // It's coming today, ,  update the enquiry subtype as Missing Item if a case created
+
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_COMING_TODAY;
+                            trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_MISSING);
+
+                        } else {
+                            // default
+                            trackingNumDetailsWrapperObj.eddStatus = ChasConstants.TRACK_STAT_NO_EDD_FOUND;
+                            trackingNumDetailsWrapperObj.enqSubtype = (!String.isEmpty(enqSubTypeOverride) ? enqSubTypeOverride : ChasConstants.ENQ_SUB_TYPE_TRACKING);
+                            // DDS-5272: indicator for no EDD return
+                            trackingNumDetailsWrapperObj.isNoEddReturned = true;
+                        }
+
+                        // collecting the prepared individual article information
+                        trackingNumDetailsWrapperObjs.add(trackingNumDetailsWrapperObj);
                     }
-                    // DDS-7977: pass attributes from tracking response to wrapper object
-                    trackingNumDetailsWrapperObj.allArticlesSuccessed = trackService.allArticlesSuccessed;
-                    trackingNumDetailsWrapperObj.allArticlesNotSuccessed = trackService.allArticlesNotSuccessed;
-                    
-                    return trackingNumDetailsWrapperObj;
+                    consignmentDetailsWrapperObj.trackingNumberDetails = trackingNumDetailsWrapperObjs;
                 }
             }
-            
-        } else {
-            //System.debug('Input trackingNumber is null or Empty');
         }
-        
-        return trackingNumDetailsWrapperObj;
+        return consignmentDetailsWrapperObj;
     }
-    
+
+    /** we will check whether the searched tracking is eligible for multiple article selection,
+     * if the response has only one article, not eligible for multi select
+     * if the response have more than one article and less than five articles, it is allowed to select multiple articles
+     * if the response contain more than 5 articles, multiple article selection is not possible
+     * (when we say more than 5 this should be able to fetched from a configurable attribute custom setting/metadata)
+    **/
+    private static Boolean isEligibleForMultipleArticleSelection(ChasTrackStatus trackService, Integer maxArticles) {
+        if (trackService.articleDetailsWrappers != null && !trackService.articleDetailsWrappers.isEmpty()
+                && trackService.articleDetailsWrappers.size() > 1
+                && trackService.articleDetailsWrappers.size() <= maxArticles) {
+                return true;
+        }
+            return false;
+    }
+
     @AuraEnabled
     public static UserDetails getLoggedInUserInfo(){
-        System.debug('----- getLoggedInUserInfo ----- START');
-        System.debug('UserInfo==='+UserInfo.getUserId());
         UserDetails userDetail = new UserDetails();
         userDetail.isUserAuthenticated = false;
         
-        System.debug('UserInfo.getUserId()=='+UserInfo.getUserId());
-        System.debug('UserInfo.getUserType()=='+UserInfo.getUserType());
         try{
             //-- iIf user is logged in then
             if(UserInfo.getUserId() != null && !UserInfo.getUserType().equalsIgnoreCase('Guest')){
@@ -2013,12 +2267,10 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
                 String userId = UserInfo.getUserId();
                 //-- Querying User ContactId
                 User userObj = [SELECT ContactId FROM User WHERE Id= :userId LIMIT 1];
-                System.debug('----- userObj ==='+userObj);
-                
+
                 if(userObj.ContactId !=null){
                     //-- Querying  Contact Details
                     Contact contactbj = [SELECT Phone, Email, Name, FirstName, LastName FROM Contact WHERE Id= :userObj.ContactId LIMIT 1];
-                    System.debug('----- contactbj ==='+contactbj);
                     if(contactbj != null){
                         if(contactbj.Email != null){
                             userDetail.userContactEmail = contactbj.Email;
@@ -2039,11 +2291,6 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
             System.debug(LoggingLevel.ERROR,'ChasApexController: getLoggedInUserInfo() ===>'+ex);
         }
         
-        System.debug('----- userDetail ==='+userDetail);
-        
-        //-- Query user contact, phone number
-        System.debug('----- getLoggedInUserInfo ----- END');
-        
         return userDetail;
         
     }
@@ -2053,8 +2300,6 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
 * */
     @AuraEnabled
     public static EncryptDetails encryptData(String inputData){
-        System.debug(LoggingLevel.DEBUG,'ChasApexController.encryptData() --> encryptData  .... START');
-        System.debug(LoggingLevel.DEBUG,'ChasApexController.encryptData() --> inputData='+inputData);
         
         EncryptDetails encryptDetailObj = null;
         try{
@@ -2063,7 +2308,6 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
                 //-- Getting crypto key from Custom Settings
                 try{
                     Consumer_Help_and_Support__c consumerHelpNSupport = Consumer_Help_and_Support__c.getOrgDefaults();
-                    System.debug(LoggingLevel.DEBUG,'consumerHelpNSupport custom setting='+consumerHelpNSupport);
                     if(consumerHelpNSupport != null && consumerHelpNSupport.Encoded_Crypto_Key__c != null){
                         cryptoKey = EncodingUtil.base64Decode(consumerHelpNSupport.Encoded_Crypto_Key__c);
                     }else{
@@ -2076,9 +2320,6 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
                 encryptDetailObj = new EncryptDetails();
                 //Blob cryptoKey = Crypto.generateAesKey(256);
                 Blob blobInputData = Blob.valueOf(inputData);
-                
-                System.debug(LoggingLevel.DEBUG,'ChasApexController.encryptData() --> cryptoKey='+cryptoKey);
-                System.debug(LoggingLevel.DEBUG,'ChasApexController.encryptData() --> blobInputData='+blobInputData);
                 
                 //Encrypt the data
                 Blob encryptedBlobInputData = Crypto.encryptWithManagedIV('AES256', cryptoKey, blobInputData);
@@ -2110,9 +2351,6 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
     @AuraEnabled
     public static String decryptData(String encodedData, String cacheKey){
         
-        System.debug('decryptBlobData  .... START');
-        //System.debug('encodedData='+encodedData);
-        System.debug('cacheKey='+cacheKey);
         
         String decryptStr = null;
         Blob cryptoKey = null;
@@ -2268,6 +2506,7 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
             SharingBypass vSharingBypass = new SharingBypass();
             Id vNetworkId = vSharingBypass.getNetworkIdByOrgId(pOrgId);
             if (vNetworkId != null){
+
                 pCase.Status = SSSWConstants.STAT_AWAITING_NTWRK_RESPONSE;
                 pCase.Network__c = vNetworkId;
                 Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{SSSWConstants.QUEUE_DEV_NAME_SSSWNETWORKQUEUE});
@@ -2310,15 +2549,40 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
         @AuraEnabled public String caseNumber{get;set;}
         @AuraEnabled public String caseStatus{get;set;}
     }
-    
+
+
+    /**
+     * DTO to transfer consignment details,
+     * a consignment could contain one or more articles, article specific information are delivered as a list of TrackingNumberDetails
+     */
+    public class ConsignmentDetails{
+        @AuraEnabled public List<TrackingNumberDetails> trackingNumberDetails{get;set;}
+        @AuraEnabled public Integer trackingNumSerachStatusCode{get;set;}
+        @AuraEnabled public String trackingNumSerachStatusMsg{get;set;}
+        @AuraEnabled public Boolean allArticlesSuccessed {get; set;}                    // DDS-7977: flag for all articles are either delivered or safe dropped
+        @AuraEnabled public Boolean isEligibleForMultipleArticleSelection {get; set;}  // DDS-9011: is the tracking search is allowed to select multiple articles?
+    }
+
+
     //-- TrackingNumberDetails Wrapper Class
     public class TrackingNumberDetails{
         @AuraEnabled public String articleId{get;set;}
+        // is the article is selected from the UI only if eligible for multiple selection
+        @AuraEnabled public Boolean isSelected {
+            get {
+                if (isSelected == null) {
+                    return false;
+                } else {
+                    return isSelected;
+                }
+            }
+            set;
+        }
         @AuraEnabled public String articleType{get;set;}   //from Response, Ex:International, International Express,StarTrack International
         @AuraEnabled public Date deliveredByDateOrEDD{get;set;}
         //@AuraEnabled public String deliveredByDateFormatted{get;set;}
         @AuraEnabled public String eddStatus{get;set;}   // dateNotfound, datePassed, dateNotPassed
-        @AuraEnabled public String itemType{get;set;}  // 'Domestic' or 'International'
+        @AuraEnabled public String itemType{get;set;}  // 'Domestic' or 'International'*/
         @AuraEnabled public String senderCountry{get;set;}
         @AuraEnabled public String recipientCountry{get;set;}
         @AuraEnabled public Integer trackingNumSerachStatusCode{get;set;}
@@ -2334,6 +2598,17 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
         @AuraEnabled public String dpid{get;set;}
         // Safedrop flow : date time when the article was safedropped
         @AuraEnabled public String safedropDelivered{get;set;}
+        // is article delivered
+        @AuraEnabled public Boolean isDelivered {
+            get {
+                if (isDelivered == null) {
+                    return false;
+                } else {
+                    return isDelivered;
+                }
+            }
+            set;
+        }
         // Safedrop flow : Inflight redirection applied
         @AuraEnabled public Boolean isRedirectApplied{get;set;}
         // article contains a return to sender scan event as defined in ChasTrackStatus
@@ -2366,8 +2641,6 @@ System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() 
         @AuraEnabled public Date deliveredByDatePlusBusinessDays{get;set;}
         @AuraEnabled public Boolean isNoEddReturned {get; set;}
         @AuraEnabled public Boolean isEDDEstimated {get; set;}
-        @AuraEnabled public Boolean allArticlesSuccessed {get; set;}            // DDS-7977: flag for all articles are either delivered or safe dropped
-        @AuraEnabled public Boolean allArticlesNotSuccessed {get; set;}         // DDS-7977: flag for all articles are neither delivered or safe dropped
     }
     
     //-- User Information Wrapper Class

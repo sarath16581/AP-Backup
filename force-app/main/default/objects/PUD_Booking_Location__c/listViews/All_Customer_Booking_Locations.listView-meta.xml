@@ -10,6 +10,7 @@
     <columns>State__c</columns>
     <columns>Site_Instructions__c</columns>
     <columns>Geolocation__c</columns>
+    <columns>RECORDTYPE</columns>
     <filterScope>Everything</filterScope>
     <label>All Customer Booking Locations</label>
 </ListView>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubjectAttribute__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>This represents the name of the attribute of the subject to use from the SSO provider. The value thats contained within this attribute will be compared against the value in the field represented in Federation Field field</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>This represents the name of the attribute of the subject to use from the SSO provider. The value thats contained within this attribute will be compared against the value in the field represented in Federation Field field</inlineHelpText>
+    <label>Subject Attribute</label>
+    <length>100</length>
+    <required>true</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

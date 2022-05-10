@@ -1,0 +1,32 @@
+/**
+ * 2022-03-08 - Ranjeewa Silva - Created.
+ */
+.pud-bulk-edit-datatable-summary {
+	background-color:#f3f3f3;
+}
+
+@media screen and (max-width: 48em) {
+	.max-width_x-small {
+        max-width: 60px
+    }
+	.max-width_small {
+    	max-width: 100px
+    }
+
+    .max-width_medium {
+    	max-width: 200px
+    }
+
+}
+
+.max-width_x-small {
+    max-width: 150px
+}
+
+.max-width_small {
+    max-width: 200px
+}
+
+.max-width_medium {
+    max-width: 260px
+}

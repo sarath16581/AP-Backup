@@ -686,6 +686,7 @@
             <controllingFieldValue>Request update</controllingFieldValue>
             <controllingFieldValue>System</controllingFieldValue>
             <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
             <controllingFieldValue>In-Flight</controllingFieldValue>
             <valueName>Short - No Scan</valueName>
         </valueSettings>
@@ -694,6 +695,7 @@
             <controllingFieldValue>In Transit</controllingFieldValue>
             <controllingFieldValue>Late Delivery</controllingFieldValue>
             <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
             <controllingFieldValue>In-Flight</controllingFieldValue>
             <valueName>Short - Scanned</valueName>
         </valueSettings>

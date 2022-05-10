@@ -9,6 +9,8 @@ History:
 unknown         David Catindoy
 March 1, 2016   David Catindoy - Modified
 11.06.1018      TDO-223 - kalpita.talwadekar@auspost.com.au   updated code for coding standard follow
+26.04.2022      Naveen Rajanna  REQ2787691 - Avoid copying of template on email template for StarTrack
+06.05.2022      Naveen Rajanna  REQ2829614 - Copy original attachment on email template only for StarTrack VOC
 ***************************************************************************************************/
 global class SSSWDefaultTemplateLoader implements QuickAction.QuickActionDefaultsHandler {
 
@@ -53,9 +55,10 @@ global class SSSWDefaultTemplateLoader implements QuickAction.QuickActionDefault
             // set the template id
             sendEmailDefaults.setTemplateId(getTemplateId(caseRec));
 
-            //for all ST recordtypes, set the template details
             if(caseRec.RecordType.DeveloperName.contains('StarTrack')){
-                sendEmailDefaults.setInsertTemplateBody(true);
+                if(StarTrack_Constants.CASE_VOC_RT_DEV.equals(caseRec.RecordType.DeveloperName)) { //REQ2829614
+                    sendEmailDefaults.setInsertTemplateBody(true); 
+                }
                 sendEmailDefaults.setIgnoreTemplateSubject(true);
             }
 

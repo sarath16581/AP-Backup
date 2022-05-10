@@ -20,6 +20,8 @@
  * 2021-09-09	seth.heang@auspost.com.au   Uplift SF API version to 52
  * 2021-09-22   prerna.rahangdale@auspost.com.au EventMessages
  * 2021-09-30 - Nathan Franklin - adding transient attributes capability (for attributes that are not stored within SF but still mapped for UI only use) + modifying logic for safe drop images
+ * * 2022-03-07   prerna.rahangdale@auspost.com.au For VODV Articles location doesn't come for Merchant profile , but when internal user searches the article the location details are show in BSP, resetting the
+ * 											     values to get the location from SAP everytime with Merchant profile access controls.
 **************************************************/
 
 public class TIBCOEventMessageWrapper implements Comparable {
@@ -177,6 +179,18 @@ public class TIBCOEventMessageWrapper implements Comparable {
 			proxyEM.ExternalDescription__c = me.EventDescription;
 			proxyEM.ShowtoExternals__c = true;
 		}
+
+		//07/03/2022 START - added to get the latest location details from SAP,In Case of VODV for merchant profile the location is supressed
+		// If internal user queries the article the event messages location are retrieved and resetting these below values would bring the location
+		// details from SAP as per access rules for portal access profiles.
+
+		proxyEM.ActualLocation__c = null;
+		proxyEM.FacilityOrganisationID__c = null;
+		proxyEM.PlannedLocation__c = null;
+		proxyEM.WorkCentreText__c = null;
+
+		// 07/03/2022 END
+
 
 		if (me.LocationIdentifications != null) {
 			for (AuspostEventSchema.LocationIdentifications li : me.LocationIdentifications) {

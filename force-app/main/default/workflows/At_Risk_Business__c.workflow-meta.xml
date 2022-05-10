@@ -79,26 +79,6 @@
         <senderType>CurrentUser</senderType>
         <template>Australia_Post_Email_Templates/Business_At_Risk_Fuel_Surcharge_Rejected</template>
     </alerts>
-    <alerts>
-        <fullName>Email_Product_owner_for_At_Risk_Business</fullName>
-        <description>Email Product owner for At Risk Business</description>
-        <protected>false</protected>
-        <recipients>
-            <field>Escalated_To__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <recipients>
-            <field>Key_Product_Owner__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <recipients>
-            <field>Key_Sales_Owner_Manager__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Australia_Post_Email_Templates/Busines_at_Risk_Notification_Template</template>
-    </alerts>
     <fieldUpdates>
         <fullName>Update_Stage_to_New</fullName>
         <description>Update Stage to New</description>
@@ -127,6 +107,16 @@
         <field>Stage__c</field>
         <literalValue>Work In Progress</literalValue>
         <name>Update Stage to Work In Progress</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_rejected_by_triage</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected by Triage</literalValue>
+        <name>Update Status rejected by triage</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -205,19 +195,36 @@
         <protected>false</protected>
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
-    <rules>
-        <fullName>At Risk Business Product Notification Email</fullName>
-        <actions>
-            <name>Email_Product_owner_for_At_Risk_Business</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>At_Risk_Business__c.Approval_Status__c</field>
-            <operation>equals</operation>
-            <value>Submitted</value>
-        </criteriaItems>
-        <description>Send an email to the Product Owner when an At Risk Business instance is created and submitted.</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
+    <fieldUpdates>
+        <fullName>escalated_to_comment</fullName>
+        <field>Escalation_Comments__c</field>
+        <formula>&quot;Auto Escalated&quot;</formula>
+        <name>escalated to comment</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_Escalated_to_North</fullName>
+        <field>Escalated_To__c</field>
+        <lookupValue>lauren.torrance@auspost.com.au</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>update Escalated to North</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_Escalated_to_South</fullName>
+        <field>Escalated_To__c</field>
+        <lookupValue>martin.siney@auspost.com.au</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>update Escalated to South</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
 </Workflow>

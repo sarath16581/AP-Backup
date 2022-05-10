@@ -17,6 +17,7 @@ public class MockUtility {
 	 */
 	public static List<SObject> mockDMLInsertedRecords = new List<SObject>();
 	public static List<SObject> mockDMLUpdatedRecords = new List<SObject>();
+	public static List<SObject> mockUnitOfWorkDMLs = new List<SObject>();
 
 	public static fflib_ApexMocks Mocks {
 		get {
@@ -65,6 +66,15 @@ public class MockUtility {
 		Application.Utilities.setMock(ApplicationDatabase.class, utility);
 		return utility;
 	}
+	
+	/**
+	 * Use this to return a stubbed ApplicationUnitOfWork instance - Added Mathew
+	 */
+	public static ApplicationUnitOfWork mockUnitOfWork() {
+		ApplicationUnitOfWork utility = (ApplicationUnitOfWork)Mocks.mock(ApplicationUnitOfWork.class);
+		Application.Utilities.setMock(ApplicationUnitOfWork.class, utility);
+		return utility;
+	}	
 
 	/**
 	 * Stubs the Application domain to stop all trigger processing
@@ -245,6 +255,19 @@ public class MockUtility {
 			return result;
 		}
 	}
+	
+	/**
+	 * A simple Answer class to set an Id on the record to simulate a DML insert operation
+	 */
+	public class AnswerGenericRegisterUnitOfWorkDML implements fflib_Answer {
+		public Object answer(fflib_InvocationOnMock invocation) {
+			Boolean isList = (invocation.getArgument(0) instanceof List<SObject>);		
+			List<SObject> records = (isList ? (List<SObject>)invocation.getArgument(0) : new List<SObject>{(SObject)invocation.getArgument(0)});	
+			// store a list of the records that were updated when this answer is invoked.
+			mockUnitOfWorkDMLs.addAll(records);	
+            return  (isList ? (Object)records : (Object)records[0]);
+		}
+	}	
 
 	/**
 	 * This Answer is used for methods requiring mocking that return VOID

@@ -1,0 +1,86 @@
+<!--
+  	PUD bookings data table with sorting, filtering and inline edit support.
+  	Changelog:
+  	2022-03-08 - Ranjeewa Silva - Created.
+ -->
+<template>
+	<article>
+		<div class="slds-border_top slds-clearfix slds-p-vertical_xx-small pud-bulk-edit-datatable-summary">
+			<div class="slds-float_right slds-button-group-row">
+				<span class="slds-align_absolute-center slds-p-horizontal_small slds-text-body_small" style="color: gray">{bookingsCountSummary}</span>
+				<lightning-input class="slds-m-right_x-small"
+				                 type="search"
+				                 label="Search File Name"
+				                 placeholder="Search this list.."
+				                 value={searchTerm}
+				                 autocomplete="off"
+				                 variant="label-hidden"
+				                 onchange={handleSearchTermChange}></lightning-input>
+			</div>
+		</div>
+		<div class="slds-scrollable slds-table_edit_container" style="max-height:400px;">
+			<template if:false={isLoading}>
+				<table class="slds-table slds-table_bordered slds-table_edit" role="grid">
+					<thead>
+					<tr class="slds-line-height_reset">
+						<!-- Iterating columns-->
+						<template for:each={bookingsTableColumns} for:item="col">
+
+							<th key={col.fieldName} data-id={col.fieldName} onclick={handleSort}>
+								<a class={col.headerCssClass}  data-id={col.fieldName}>
+									<div class="slds-truncate slds-text-align_left" data-id={col.fieldName}>
+										{col.label}
+									</div>
+									<template if:true={col.sortedColumn}>
+										<template if:false={isAsc}>
+											<lightning-icon icon-name="utility:arrowdown" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+										</template>
+										<template if:true={isAsc}>
+											<lightning-icon icon-name="utility:arrowup" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+										</template>
+									</template>
+								</a>
+							</th>
+						</template>
+					</tr>
+					</thead>
+					<tbody class="brand-table">
+						<!-- Iterating bookings-->
+						<template for:each={computedBookings} for:item="booking">
+							<tr class="slds-hint-parent" key={booking.Id}>
+								<template for:each={booking._columns} for:item="column">
+									<td class={column.styleCss} key={column.key} role="gridcell" data-id={column.key}>
+										<c-pud-bulk-edit-bookings-datatable-cell
+											booking-id={booking.Id}
+											label={column.label}
+											type={column.fieldType}
+											name={column.fieldName}
+											value={column.fieldValue}
+											editable={column.editable}
+											cell-attributes={column.cellAttributes}
+											type-attributes={column.typeAttributes}
+											onvaluechange={handleValueChange}></c-pud-bulk-edit-bookings-datatable-cell>
+									</td>
+								</template>
+							</tr>
+						</template>
+
+						<template if:false={hasBookingsToShow}>
+							<tr class="slds-hint-parent">
+								<td colspan={bookingsTableColumns.length} role="gridcell" style="max-width:100px">
+									<p class="slds-text-color_weak slds-p-vertical_x-small">{noMatchesFoundMessage}: '{searchTerm}'</p>
+								</td>
+							</tr>
+						</template>
+					</tbody>
+				</table>
+			</template>
+			<template if:true={isLoading}>
+				<div class="slds-text-align_center slds-grow">
+					<lightning-spinner variant="brand" size="large" alternative-text="Loading...">
+					</lightning-spinner>
+				</div>
+			</template>
+		</div>
+	</article>
+</template>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Dest_Zone2_In_RateCard__c</fullName>
+    <description>This field represent the Destination Zone e.g. either Capital/Local, Country, Metro, and each State in case of Z60.
+This information will be used to Print on ViewRatecard, Proposal and Contract document.</description>
+    <externalId>false</externalId>
+    <label>Dest Zone2 In RateCard</label>
+    <length>32</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

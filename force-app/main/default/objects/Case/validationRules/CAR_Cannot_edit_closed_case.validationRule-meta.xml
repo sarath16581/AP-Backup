@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAR_Cannot_edit_closed_case</fullName>
+    <active>true</active>
+    <description>Only Business Enablement can edit closed CAR cases</description>
+    <errorConditionFormula>AND(
+RecordType.Name = &apos;Customer Analytics &amp; Reporting Request (CAR)&apos;,
+NOT(
+OR ($Profile.Name = &apos;Business Enablement&apos;,
+$Profile.Name = &apos;System Administrator&apos; )
+),
+OR( TEXT(PRIORVALUE(Status)) = &quot;Closed&quot;,
+TEXT(PRIORVALUE(Status)) = &quot;Closed-duplicate&quot;,
+TEXT(PRIORVALUE(Status)) = &quot;Closed-out of scope&quot;,
+TEXT(PRIORVALUE(Status)) = &quot;Resolved&quot;
+)
+)</errorConditionFormula>
+    <errorMessage>You do not have access to edit a closed CAR case.</errorMessage>
+</ValidationRule>

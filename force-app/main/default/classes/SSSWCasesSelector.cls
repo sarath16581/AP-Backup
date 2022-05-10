@@ -11,10 +11,12 @@
 * 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId Methods
 * 2020-08-24 - Disha Kariya - Added fields override with Map
 * 2020-08-28 - Disha Kariya - Added With Network Response
+* 2021-12-02 - Alex Volkov - Added selectCasesEligibleForReopenByOwnerAndDate method
 */
 public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	public enum Options {
-		WITH_NETWORK_RESPONSE
+		WITH_NETWORK_RESPONSE,
+		RETURN_QUERY_LOCATOR
 	}
 	private static final Set<String> SSSW_CASE_RECORD_TYPES = new Set<String>{
 			'SSSWDelivery',
@@ -80,7 +82,7 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 				Case.FirstName2__c, Case.FirstName3__c, Case.FirstName4__c, Case.FirstName5__c, Case.FirstName6__c, Case.FirstName7__c, Case.Full_Name__c, Case.Initiated_By__c,
 				Case.Internal_Milestones_Violated__c, Case.Internal_Tier_Escalation_Email__c, Case.Investigation_Date__c, Case.Is_Complaint__c, Case.IsCR__c,
 				Case.IsHLC__c, Case.Issue_Resolution__c, Case.Last_Name__c, Case.LastName1__c, Case.LastName2__c, Case.LastName3__c, Case.LastName4__c, Case.LastName5__c,
-				Case.LastName6__c, Case.LastName7__c, Case.Lodgement_Network__c, Case.MPB_BSP_Enquiry_Type__c,Case.MPB_BSP_Tech_Enquiry_Type__c, Case.Network__c,
+				Case.LastName6__c, Case.LastName7__c, Case.Lodgement_Network__c, Case.MPB_BSP_Enquiry_Type__c, Case.MPB_BSP_Tech_Enquiry_Type__c, Case.Network__c,
 				Case.Network_Response__c, Case.NetworkComments__c, Case.NPSRequired__c, Case.NPSScheduledDate__c, Case.NPSTagDate__c, Case.Number_of_Cases__c,
 				Case.Originating_Network__c, Case.Permanent_Close__c, Case.PrimaryContactFirstName__c, Case.PrimaryContactLastName__c, Case.Product__c,
 				Case.ProductCategory__c, Case.ProductSubCategory__c, Case.Reason_Code__c, Case.Refer_to_Third_Party__c, Case.ReferenceID__c, Case.RelatedCase__c,
@@ -104,7 +106,7 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	public virtual Map<Id, Case> selectByReferenceIdPartial(String referenceId, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.LikeCondition(Case.ReferenceID__c).likeAnyRight(referenceId)).endConditions();
 		String soql = qb.toSoqlString();
-        return new Map<Id, Case>((List<Case>)Database.query(soql));
+		return new Map<Id, Case>((List<Case>)Database.query(soql));
 	}
 
 	/**
@@ -133,7 +135,7 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	 * @description Run a simple query to get open cases based on ReferenceID__c
 	 */
 	public virtual Map<Id, Case> selectOpenCasesByReferenceId(Set<String> referenceIds, Set<Object> selectorOptions) {
-        return new Map<Id, Case>((List<Case>)Database.query(getOpenCasesByReferenceIdQueryBuilder(referenceIds, selectorOptions).toSoqlString()));
+		return new Map<Id, Case>((List<Case>)Database.query(getOpenCasesByReferenceIdQueryBuilder(referenceIds, selectorOptions).toSoqlString()));
 	}
 
 	/**
@@ -149,13 +151,48 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	public virtual Integer countOpenCasesByReferenceId(Set<String> referenceIds, Set<Object> selectorOptions) {
 		return Database.countQuery(getOpenCasesByReferenceIdQueryBuilder(referenceIds, selectorOptions).toCountString());
 
-    }
+	}
+
+	/**
+	 * @description Return cases eligible for reopen before specified reopen date
+	 * @param pOwnerIds Filter by owner
+	 * @param pReopenDate Cutoff date (method will return cases eligible for reopen before, but not including this date)
+	 * @param selectorOptions Options
+	 * @return Object - either map of selected cases or a query locator
+	 */
+	public virtual Object selectCasesEligibleForReopenByOwnerAndDate(Set<String> pOwnerIds, Datetime pReopenDate, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
+				  .add(new QueryBuilder.CompareCondition(Case.Case_Reopen_Date__c).lt(pReopenDate));
+		conditions.add(new QueryBuilder.NullCondition(Case.ProductCategory__c).notNull());
+		conditions.add(new QueryBuilder.NullCondition(Case.ProductSubCategory__c).notNull());
+		conditions.add(new QueryBuilder.NullCondition(Case.EnquirySubType__c).notNull());
+		conditions.add(new QueryBuilder.CompareCondition(Case.IsHLC__c).eq(false));
+		conditions.add(new QueryBuilder.CompareCondition(Case.IsCR__c).eq(false));
+		//First condition in this selector is always the record type list, method specific conditions start with 2
+		String lConditionString = '1 AND 2 AND 3 AND ((4 AND 5 AND 6) OR (7 AND 8))';
+		if (pOwnerIds != null && !pOwnerIds.isEmpty()){
+			conditions.add(new QueryBuilder.SimpleCondition(Case.OwnerId + ' in :pOwnerIds'));
+			lConditionString += ' AND 9';
+		}
+		conditions.setConditionOrder(lConditionString).endConditions();
+		qb.addOrderDesc('Case_Reopen_Date__c');
+		Object vResult;
+		if (selectorOptions.contains(Options.RETURN_QUERY_LOCATOR)) {
+			vResult = Database.getQueryLocator(qb.toSoqlString());
+		}
+		else {
+			vResult = new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+		}
+		return vResult;
+	}
 
 	private virtual QueryBuilder getOpenCasesByReferenceIdQueryBuilder(Set<String> referenceIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.InCondition(Case.ReferenceID__c).inCollection(referenceIds))
-            	.add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :referenceIds'))
+				.add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :referenceIds'))
 				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
 				.endConditions();
 		return qb;

@@ -1,44 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
-        <fullName>Contract_Management_Enquiry_CME_Case_Comments_Updated</fullName>
-        <description>Contract Management Enquiry (CME) Case Comments Updated</description>
-        <protected>false</protected>
-        <recipients>
-            <recipient>Case Viewer</recipient>
-            <type>caseTeam</type>
-        </recipients>
-        <recipients>
-            <recipient>Co-Work</recipient>
-            <type>caseTeam</type>
-        </recipients>
-        <recipients>
-            <type>owner</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Australia_Post_Email_Templates/CME_Case_Comments_Updated_v2</template>
-    </alerts>
-    <alerts>
-        <fullName>Contract_Management_Enquiry_CME_Case_Comments_Updated_Case_Origin_Email</fullName>
-        <description>Contract Management Enquiry (CME) Case Comments Updated - Case Origin Email</description>
-        <protected>false</protected>
-        <recipients>
-            <recipient>Case Viewer</recipient>
-            <type>caseTeam</type>
-        </recipients>
-        <recipients>
-            <recipient>Co-Work</recipient>
-            <type>caseTeam</type>
-        </recipients>
-        <recipients>
-            <type>owner</type>
-        </recipients>
-        <senderAddress>noreply@auspost.com.au</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>Australia_Post_Email_Templates/CME_Case_Comments_Updated_v2</template>
-    </alerts>
-    <alerts>
         <fullName>Customer_Data_Case_Comments_Updated</fullName>
         <description>Customer Data Case Comments Updated</description>
         <protected>false</protected>
@@ -372,66 +334,6 @@
         <description>StarTrack Case Comment workflow to notify investigators of new comments on their cases</description>
         <formula>AND(     CreatedById &lt;&gt; Parent.OwnerId,     Parent.StarTrack_RecordType__c,     NOT(CONTAINS(CommentBody, &apos;Operations Outcome: &apos;)),     NOT(ISPICKVAL(Parent.Status, &apos;Closed&apos;)))</formula>
         <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Management Enquiry %28CME%29 Case Comment Updated</fullName>
-        <actions>
-            <name>Contract_Management_Enquiry_CME_Case_Comments_Updated</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>notEqual</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Closed</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>CaseComment.IsPublished</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <description>Contract Management Enquiry (CME) Case Comment Updated</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Contract Management Enquiry %28CME%29 Case Comment Updated - Case Origin Email</fullName>
-        <actions>
-            <name>Contract_Management_Enquiry_CME_Case_Comments_Updated_Case_Origin_Email</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Deal Enablement Centre</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Closed</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>CaseComment.IsPublished</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <description>Contract Management Enquiry (CME) Case Comment Updated</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>Customer Data Case Comment Updated</fullName>

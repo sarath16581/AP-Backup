@@ -4,7 +4,7 @@
     <description>StarTrack Description</description>
     <externalId>false</externalId>
     <label>Description</label>
-    <length>32768</length>
+    <length>65536</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Html</type>

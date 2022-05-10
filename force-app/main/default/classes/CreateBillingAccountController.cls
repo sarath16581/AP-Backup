@@ -93,12 +93,15 @@ public with sharing class CreateBillingAccountController {
             stateInfoVar.requestObjId = requestObjId;
             stateInfoVar.chargeAccountRequestId = chargeAccountRequestId;
             stateInfoVar.onboardingRequestId = onboardingRequestId;
-
-            BillingAccountService service = BillingAccountService.getInstance();        
+           
+            BillingAccountService service = BillingAccountService.getInstance();  
+            System.debug('I5 BRP billingAccountJson : ' + billingAccountJson);      
             Continuation con = service.getContinuation(billingAccountJson, onboardingRequestId, sourceSystem);
             con.state = stateInfoVar;
             con.continuationMethod = 'processResponse';
+           
             return con;
+
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());        
         }       

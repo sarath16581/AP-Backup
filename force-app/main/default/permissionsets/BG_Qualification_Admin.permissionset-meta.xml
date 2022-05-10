@@ -105,6 +105,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Qualification_Template_Questions__c.APT_Applicable_Validation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Qualification_Template_Questions__c.Account_Manager_Only__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -125,7 +130,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Qualification_Template_Questions__c.Help_Text__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Qualification_Template_Questions__c.Initiation_Pathway__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Qualification_Template_Questions__c.Max_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Qualification_Template_Questions__c.Min_Value__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -156,6 +176,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Qualification_Template_Questions__c.Required__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Qualification_Template_Questions__c.Validation_Message__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -167,6 +167,7 @@
     <description>Retail Fulfilment Call Centre (RFCC)</description>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isServiceCloudConsole>true</isServiceCloudConsole>
     <label>Retail Fulfilment</label>
     <logo>SharedDocuments/Aus_Post_Logo.gif</logo>

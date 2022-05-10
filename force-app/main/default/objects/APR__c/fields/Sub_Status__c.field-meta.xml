@@ -97,10 +97,6 @@
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Exemption</controllingFieldValue>
-            <valueName>Changed Channel</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Exemption</controllingFieldValue>
             <controllingFieldValue>Reduction</controllingFieldValue>
             <controllingFieldValue>Deferral</controllingFieldValue>
             <controllingFieldValue>Go early</controllingFieldValue>
@@ -155,7 +151,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Accepted</controllingFieldValue>
-            <controllingFieldValue>Auto-Accepted</controllingFieldValue>
             <controllingFieldValue>Account Lost</controllingFieldValue>
             <controllingFieldValue>Open</controllingFieldValue>
             <valueName>Other</valueName>

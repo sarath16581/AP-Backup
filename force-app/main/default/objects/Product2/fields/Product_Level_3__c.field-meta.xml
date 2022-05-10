@@ -21,11 +21,6 @@
                 <label>Addressed Mail</label>
             </value>
             <value>
-                <fullName>AP Global Solutions</fullName>
-                <default>false</default>
-                <label>AP Global Solutions</label>
-            </value>
-            <value>
                 <fullName>AP Global Solutions L3</fullName>
                 <default>false</default>
                 <label>AP Global Solutions L3</label>
@@ -54,11 +49,6 @@
                 <fullName>Consumer Products L3</fullName>
                 <default>false</default>
                 <label>Consumer Products L3</label>
-            </value>
-            <value>
-                <fullName>Courier</fullName>
-                <default>false</default>
-                <label>Courier</label>
             </value>
             <value>
                 <fullName>Courier L3</fullName>
@@ -136,11 +126,6 @@
                 <label>Financial Products</label>
             </value>
             <value>
-                <fullName>Fulfilment</fullName>
-                <default>false</default>
-                <label>Fulfilment</label>
-            </value>
-            <value>
                 <fullName>Fulfilment L3</fullName>
                 <default>false</default>
                 <label>Fulfilment L3</label>
@@ -156,19 +141,9 @@
                 <label>Identity &amp; Government Services</label>
             </value>
             <value>
-                <fullName>Identity Services</fullName>
-                <default>false</default>
-                <label>Identity Services</label>
-            </value>
-            <value>
                 <fullName>Identity Services L3</fullName>
                 <default>false</default>
                 <label>Identity Services L3</label>
-            </value>
-            <value>
-                <fullName>Insight Services</fullName>
-                <default>false</default>
-                <label>Insight Services</label>
             </value>
             <value>
                 <fullName>Insight Services L3</fullName>
@@ -176,19 +151,9 @@
                 <label>Insight Services L3</label>
             </value>
             <value>
-                <fullName>International Inward</fullName>
-                <default>false</default>
-                <label>International Inward</label>
-            </value>
-            <value>
                 <fullName>International Inward Letters L3</fullName>
                 <default>false</default>
                 <label>International Inward Letters L3</label>
-            </value>
-            <value>
-                <fullName>International Outward</fullName>
-                <default>false</default>
-                <label>International Outward</label>
             </value>
             <value>
                 <fullName>International Outward Letters L3</fullName>
@@ -391,11 +356,6 @@
                 <label>Star Track International</label>
             </value>
             <value>
-                <fullName>Star Track International L3</fullName>
-                <default>false</default>
-                <label>Star Track International L3</label>
-            </value>
-            <value>
                 <fullName>Star Track L3</fullName>
                 <default>false</default>
                 <label>Star Track L3</label>
@@ -414,11 +374,6 @@
                 <fullName>Unaddressed</fullName>
                 <default>false</default>
                 <label>Unaddressed</label>
-            </value>
-            <value>
-                <fullName>Unaddressed L3</fullName>
-                <default>false</default>
-                <label>Unaddressed L3</label>
             </value>
             <value>
                 <fullName>Unaddressed Mail</fullName>

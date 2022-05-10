@@ -12,16 +12,13 @@ Billing Account No: {!APR__c.Billing_Account_No__c}<br/>
 Billing Account: {!APR__c.Billing_Account_Name__c}<br/>
 <br/><br/>
     <strong><u>APR Information</u></strong><br/>
-Published Rate: {!APR__c.Published_Rate__c}<br/>
-Confirmed Rate: {!APR__c.Confirmed_Rate__c}<br/>
-Published Date: {!APR__c.Published_Date__c}<br/>
 Confirmed Date: {!APR__c.Confirmed_Date__c}<br/>
-Conclusion Date: {!APR__c.Conclusion_Date__c}<br/>
+Confirmed Rate: {!APR__c.Confirmed_Rate__c}<br/>
 Status: {!APR__c.Status__c}<br/>
 Sub-Status: {!APR__c.Sub_Status__c}<br/>
 Comments: {!APR__c.Comments__c}<br/>
 <br/><br/>
-<strong><u>Manual Handling Surcharge Information</u></strong><br/>
-MHS Status: {!APR__c.MHS_Status__c}<br/>
-MHS Published Rate: {!APR__c.MHS_Published_Rate__c}<br/>
-MHS Confirmed Rate: {!APR__c.MHS_Confirmed_Rate__c}<br/>
+<strong><u>PTS Information</u></strong><br/>
+Walk in Rate: {!APR__c.Walk_in_Rate__c}<br/>
+Walk out Rate: {!APR__c.Walk_out_Rate__c}
+<br/><br/>

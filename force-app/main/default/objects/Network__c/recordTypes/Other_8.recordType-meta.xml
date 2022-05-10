@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Other_8</fullName>
     <active>true</active>
+    <compactLayoutAssignment>Network_Compact_Layout</compactLayoutAssignment>
     <label>Other</label>
     <picklistValues>
         <picklist>Contact_Facility__c</picklist>

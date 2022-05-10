@@ -24,11 +24,6 @@
                 <label>Account Lost</label>
             </value>
             <value>
-                <fullName>Auto-Accepted</fullName>
-                <default>false</default>
-                <label>Auto-Accepted</label>
-            </value>
-            <value>
                 <fullName>Deferral</fullName>
                 <default>false</default>
                 <label>Deferral</label>

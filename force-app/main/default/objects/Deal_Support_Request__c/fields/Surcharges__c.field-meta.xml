@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Surcharges__c</fullName>
+    <externalId>false</externalId>
+    <label>Surcharges</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Manual handling surcharge</fullName>
+                <default>false</default>
+                <label>Manual handling surcharge</label>
+            </value>
+            <value>
+                <fullName>Security management surcharge</fullName>
+                <default>false</default>
+                <label>Security management surcharge</label>
+            </value>
+            <value>
+                <fullName>Fuel surcharge</fullName>
+                <default>false</default>
+                <label>Fuel surcharge</label>
+            </value>
+            <value>
+                <fullName>Unmanifested article</fullName>
+                <default>false</default>
+                <label>Unmanifested article</label>
+            </value>
+            <value>
+                <fullName>Administrative fee</fullName>
+                <default>false</default>
+                <label>Administrative fee</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

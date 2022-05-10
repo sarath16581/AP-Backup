@@ -144,9 +144,24 @@
                 <label>Track Mail</label>
             </value>
             <value>
-                <fullName>Undefined</fullName>
+                <fullName>Parcel Contract</fullName>
                 <default>false</default>
-                <label>Undefined</label>
+                <label>Parcel Contract</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Feature</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Feature</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Surcharge</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Surcharge</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Return</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Return</label>
             </value>
             <value>
                 <fullName>APGL Commercial Outbound</fullName>

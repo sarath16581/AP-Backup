@@ -8,6 +8,7 @@
  * 2020-07-28 hara.sahoo@auspost.com.au Reset the showErrorSummary flag, to display the error summary.
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
  * 2020-11-26 hara.sahoo@auspost.com.au Added click tracking for adobe analytics
+ * 2022-02-28 alex.volkov@auspost.com.au Added deflection page skip option
  */
 
 ({
@@ -15,11 +16,10 @@
     
     init: function(component, event, helper) {
         var statusCode = component.get('v.wizardData.trackingNumSerachStatusCode');
-        
         //show the first search section on the component
         component.set('v.displaySection','START');
         //Special handling for response code 403
-        if(statusCode == 403)
+        if(statusCode == 403 || component.get('v.wizardData.skipDeflectionPage'))
         {
             component.set('v.displaySection','START_CASE_CREATE');
         }
@@ -72,6 +72,7 @@
     },
     goBack: function (cmp, event, helper) {
         //Check the base url of the page, this is to ascertain users getting directed from a direct link
+        //Also do this for multiple article selection so that previous page would show selection rather than search
         var baseUrl = window.location.href;
         if(baseUrl.includes("trackingId"))
         {

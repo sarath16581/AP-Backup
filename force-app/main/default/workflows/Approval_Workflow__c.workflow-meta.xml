@@ -12,24 +12,4 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Case_Templates/Credit_Approval_Escalation_EmailWF</template>
     </alerts>
-    <fieldUpdates>
-        <fullName>Update_Case_Summary</fullName>
-        <field>CaseSummary__c</field>
-        <formula>Credit_Approval_Name__r.Case_Summary__c</formula>
-        <name>Update Case Summary</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>true</reevaluateOnChange>
-    </fieldUpdates>
-    <rules>
-        <fullName>Update Case Summary</fullName>
-        <actions>
-            <name>Update_Case_Summary</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <formula>true</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
 </Workflow>

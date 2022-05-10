@@ -10,6 +10,11 @@
     <columns>November__c</columns>
     <columns>December__c</columns>
     <columns>January__c</columns>
+    <columns>February__c</columns>
+    <columns>March__c</columns>
+    <columns>April__c</columns>
+    <columns>May__c</columns>
+    <columns>June__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Fiscal_Year__c</field>
@@ -17,7 +22,6 @@
         <value>2022</value>
     </filters>
     <label>Public Holidays 2022</label>
-    <language>en_US</language>
     <sharedTo>
         <group>Sales_Reporting</group>
     </sharedTo>

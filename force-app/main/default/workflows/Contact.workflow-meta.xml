@@ -95,17 +95,6 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>Update_Billing_DPID</fullName>
-        <description>2014-02 Consumer Enablement</description>
-        <field>Mailing_DPID__c</field>
-        <formula>Account.Billing_DPID__c</formula>
-        <name>Update Billing DPID</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Update_Contact_Maintained_By</fullName>
         <description>Update SSSW Contact Maintained By field to Transaction for SSSW profile users</description>
         <field>Record_Maintainer__c</field>
@@ -391,17 +380,6 @@
         <active>true</active>
         <description>Used by workflow - sets to profile of user creating record.</description>
         <formula>True</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Update Contact Billing DPID</fullName>
-        <actions>
-            <name>Update_Billing_DPID</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <description>2014-02 Consumer Enablement - Copy Billing DPID from Account when creating new Contact, if the Billing Address on Account is same as Billing Address on Contact.</description>
-        <formula>AND(   MailingStreet = Account.BillingStreet,   MailingCity = Account.BillingCity,   MailingState = Account.BillingState,   MailingPostalCode = Account.BillingPostalCode,   MailingCountry = Account.BillingCountry )</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>

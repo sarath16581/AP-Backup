@@ -224,41 +224,4 @@ public class SSSWDefaultTemplateLoader_Test{
         System.assertEquals(null, failureDuringExecution, 
                             'SSSWDefaultTemplateLoader_Test_testCaseEmailFeed :There was an exception thrown during the test!');
     }
-    
-    /**********************************************************************
-     *  Scenario:
-     *      test class for non- email feed quick action
-     ********************************************************************/
-    @isTest
-    static void testNotCaseEmailFeed() {
-        //Create test data here
-        Exception failureDuringExecution = null;
-        Case queryCase = [ SELECT Id FROM Case LIMIT 1];
-
-        //create map of default settings as quick action for log a call
-        List<Map<String, Object>> defaultSettingAsObject =
-                new List<Map<String, Object>> {
-                        new Map<String, Object>{
-                                'targetSObject' => new Task(),
-                                'actionType' => 'Log a Call',
-                                'contextId' => queryCase.Id,
-                                'actionName' => 'Case.LogACall'
-                        }
-                };
-
-        //serialize quick action setting
-        List<QuickAction.QuickActionDefaults> defaultsSettings = (List<QuickAction.QuickActionDefaults>)JSON.deserialize(JSON.serialize(defaultSettingAsObject), 
-                                                                                                                        List<QuickAction.QuickActionDefaults>.class);
-        Test.startTest();
-            try { 
-                //initialize the default template loader
-                (new SSSWDefaultTemplateLoader()).onInitDefaults(defaultsSettings);
-            } catch(Exception failure) {
-                failureDuringExecution = failure;
-            }
-        Test.stopTest();
-
-        System.assertEquals(null, failureDuringExecution, 
-                            'SSSWDefaultTemplateLoader_Test_testCaseEmailFeed : There was an exception thrown during the test!');
-    }
 }

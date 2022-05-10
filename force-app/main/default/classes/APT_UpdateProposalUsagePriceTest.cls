@@ -1,10 +1,13 @@
-/**
-Description - 
-Created By - Aakash Khatri
-Created Date - 22nd June, 2016
-Last Modified By -
-Last Modified Date - 
- */
+/***
+ * @author Aakash Khatri
+ * @date 2016-06-22
+ * @group 
+ * @description This class is test class for APT_UpdateProposalUsagePriceTierBatch.
+ * @changelog
+ * 2016-06-22 - Aakash Khatri - Created
+ * 2021-11-17 - Mathew Jose - Fixing the test method failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
+ * 2022-02-11  REQ2723568: API version 52 upgrade
+*/
  
 @isTest
 private class APT_UpdateProposalUsagePriceTest {
@@ -32,14 +35,16 @@ private class APT_UpdateProposalUsagePriceTest {
         r2tSystemProperties.APT_Sync_Contract_Rate_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
         
         insert r2tSystemProperties;
-        
-        Contact con= APT_TestUtils.createContact();
-        con.Email = 'temp@temp.com';
-        insert con;
-        
+
         Account acc = APT_TestUtils.createOrganisation();
         insert acc;
-        
+
+        Contact con= APT_TestUtils.createContact();
+        con.Email = 'temp@temp.com';
+        //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+        con.AccountId = acc.Id;
+        insert con;
+                
         Opportunity opp = APT_TestUtils.createOpportunity(acc.id);
         opp.KeyContact__c = con.Id;
         insert opp;
@@ -190,12 +195,14 @@ private class APT_UpdateProposalUsagePriceTest {
         
         insert r2tSystemProperties;
         
-        Contact con= APT_TestUtils.createContact();
-        con.Email = 'temp@temp.com';
-        insert con;
-        
         Account acc = APT_TestUtils.createOrganisation();
         insert acc;
+
+        Contact con= APT_TestUtils.createContact();
+        con.Email = 'temp@temp.com';
+        //Applying the following change as key contact have look up filter introduced on Opportunity.  
+        con.AccountId = acc.Id;
+        insert con;        
         
         Opportunity opp = APT_TestUtils.createOpportunity(acc.id);
         opp.KeyContact__c = con.Id;
@@ -333,12 +340,14 @@ private class APT_UpdateProposalUsagePriceTest {
         
         insert r2tSystemProperties;
         
-        Contact con= APT_TestUtils.createContact();
-        con.Email = 'temp@temp.com';
-        insert con;
-        
         Account acc = APT_TestUtils.createOrganisation();
         insert acc;
+
+        Contact con= APT_TestUtils.createContact();
+        con.Email = 'temp@temp.com';
+        //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+        con.AccountId = acc.Id;
+        insert con;        
         
         Opportunity opp = APT_TestUtils.createOpportunity(acc.id);
         opp.KeyContact__c = con.Id;
@@ -466,12 +475,14 @@ private class APT_UpdateProposalUsagePriceTest {
         
         insert r2tSystemProperties;
         
-        Contact con= APT_TestUtils.createContact();
-        con.Email = 'temp@temp.com';
-        insert con;
-        
         Account acc = APT_TestUtils.createOrganisation();
         insert acc;
+
+        Contact con= APT_TestUtils.createContact();
+        con.Email = 'temp@temp.com';
+        //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+        con.AccountId = acc.Id;
+        insert con;          
         
         Opportunity opp = APT_TestUtils.createOpportunity(acc.id);
         opp.KeyContact__c = con.Id;
@@ -598,13 +609,15 @@ private class APT_UpdateProposalUsagePriceTest {
         r2tSystemProperties.APT_Sync_Contract_Rate_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
         
         insert r2tSystemProperties;
-        
-        Contact con= APT_TestUtils.createContact();
-        con.Email = 'temp@temp.com';
-        insert con;
-        
+
         Account acc = APT_TestUtils.createOrganisation();
         insert acc;
+
+        Contact con= APT_TestUtils.createContact();
+        con.Email = 'temp@temp.com';
+        //Applying the following change as key contact have look up filter introduced on Opportunity (CI-194).  
+        con.AccountId = acc.Id;
+        insert con;          
         
         Opportunity opp = APT_TestUtils.createOpportunity(acc.id);
         opp.KeyContact__c = con.Id;

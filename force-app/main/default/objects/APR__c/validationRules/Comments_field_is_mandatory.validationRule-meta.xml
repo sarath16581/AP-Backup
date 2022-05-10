@@ -2,17 +2,19 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Comments_field_is_mandatory</fullName>
     <active>true</active>
-    <description>Comments field is mandatory when Status is Exemption, Reduction or Deferral</description>
+    <description>Comments field is mandatory when Status is Exemption, Reduction, Deferral, Go Early or Accepted where LTA as the Sub Status.</description>
     <errorConditionFormula>AND(
 RecordType.DeveloperName = &apos;StarTrack&apos;,
-OR( 
+ISBLANK(Comments__c),
+OR(
 ISPICKVAL(Status__c, &apos;Exemption&apos;),
 ISPICKVAL(Status__c, &apos;Reduction&apos;),
 ISPICKVAL(Status__c, &apos;Deferral&apos;),
-ISPICKVAL(Status__c, &apos;Go Early&apos;)
-), 
-OR( 
-ISBLANK(Comments__c) 
+ISPICKVAL(Status__c, &apos;Go Early&apos;),
+AND(
+ISPICKVAL(Status__c, &apos;Accepted&apos;),
+ISPICKVAL(Sub_Status__c, &apos;Long term agreement&apos;)
+)
 )
 )</errorConditionFormula>
     <errorDisplayField>Comments__c</errorDisplayField>

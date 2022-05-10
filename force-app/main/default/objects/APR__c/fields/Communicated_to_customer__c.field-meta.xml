@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Communicated_to_customer__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>A tick in this box will indicate that the AM has communicated the APR to the customer</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Account Manager must produce a letter and attach a copy to the Customer Notes &amp; Attachments.</inlineHelpText>
+    <label>Communicated to customer</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

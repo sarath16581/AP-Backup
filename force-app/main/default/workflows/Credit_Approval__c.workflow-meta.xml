@@ -317,16 +317,6 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>Uncheck_the_Escalation_Checkbox</fullName>
-        <field>Escalated__c</field>
-        <literalValue>0</literalValue>
-        <name>Uncheck the Escalation Checkbox</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>true</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Update_Approval_Level</fullName>
         <field>Approval_Level__c</field>
         <literalValue>Approved by Level 1</literalValue>
@@ -356,16 +346,6 @@
         <operation>Literal</operation>
         <protected>false</protected>
         <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Update_Escalated_Time</fullName>
-        <field>Escalated_Date_Time__c</field>
-        <formula>NULL</formula>
-        <name>Update Escalated Time</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Update_Sales_Team</fullName>
@@ -479,25 +459,6 @@
             </actions>
             <offsetFromField>Credit_Approval__c.Date_Submitted_to_Current_Approver__c</offsetFromField>
             <timeLength>24</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>Escalation Updates</fullName>
-        <active>false</active>
-        <formula>Escalated__c = TRUE</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>Uncheck_the_Escalation_Checkbox</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>Update_Escalated_Time</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <offsetFromField>Credit_Approval__c.TimeTrigger1Mins__c</offsetFromField>
-            <timeLength>1</timeLength>
             <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </workflowTimeTriggers>
     </rules>

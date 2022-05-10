@@ -24,6 +24,7 @@
  2021-09-06 seth.heang@auspost.com.au   Uplift SF API version to 52
  2021-09.20 seth.heang@auspost.com.au   INC1852893 Fix SOQL query bug which caused 'Reassign' button functionality to not working 
  2021.10.01	seth.heang@auspost.com.au	INC1859157, INC1859449 Fix SOQL query issue with ReferenceID__c, Status, EnquirySubType__c
+ 2022-04-08 Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
 ***********************************/
 global class CaseDetailsCaseContExt  {
 
@@ -128,7 +129,7 @@ global class CaseDetailsCaseContExt  {
       */
     @RemoteAction
     global static string getRecordTypeId(string caseType, string productCategory, String productSubCategory){
-        system.debug('######### checking record type id ###############');
+        //System.Debug('######### checking record type id ###############');
         string result = '';
         Savepoint sp = Database.setSavepoint();
         Case c = [select id from Case where referenceId__c = 'SSSWCase' limit 1];
@@ -139,7 +140,7 @@ global class CaseDetailsCaseContExt  {
         c.productsubcategory__c = productSubCategory; // added by kalpita
         update c;
         result = [select recordTypeid from Case where id=:c.id].RecordTypeId;
-        system.debug('record type = ' + result);
+        //System.Debug('record type = ' + result);
         Database.rollback(sp);
         return result;
     }
@@ -185,7 +186,7 @@ global class CaseDetailsCaseContExt  {
     @RemoteAction
     global static String getClonedCaseId(Id caseId) {
         toClone = Database.query(Util.getCreatableFieldsSOQL('Case','Id = :caseId limit 1'));
-        system.debug('CaseId**'+caseId);
+        //System.Debug('CaseId**'+caseId);
         //toClone = [Select Id from Case where Id=:caseId limit 1];
         clonedCase = toClone.clone(false, true);
         //clonedCase.ReferenceID__c = '';
@@ -235,7 +236,7 @@ global class CaseDetailsCaseContExt  {
     @RemoteAction
     global static String getChildCaseId(Id caseId) {
         toClone = Database.query(Util.getCreatableFieldsSOQL('Case','Id = :caseId limit 1'));
-        system.debug('CaseId**'+caseId);
+        //System.Debug('CaseId**'+caseId);
         //toClone = [Select Id from Case where Id=:caseId limit 1];
         childCase = toClone.clone(false, true);
         //childCase.ReferenceID__c = '';
@@ -395,7 +396,7 @@ global class CaseDetailsCaseContExt  {
       *
       */
     public void reloadPicklists(){
-        system.debug('===============================  reloadPicklists  =======================================');
+        //System.Debug('===============================  reloadPicklists  =======================================');
         loadPageLayout(true);
     }
 
@@ -527,8 +528,8 @@ global class CaseDetailsCaseContExt  {
             this.myCase = new Case();
             this.myCase.recordTypeId = [select id from RecordType where SObjectType='Case' and Name = 'SSSW General Enquiry' limit 1].id;
         }
-        system.debug('-------------------------------------------------------------------------------------');
-        system.debug('-------------------------------------------------------------------------------------');
+        //System.Debug('-------------------------------------------------------------------------------------');
+        //System.Debug('-------------------------------------------------------------------------------------');
         loadPageLayout(false);
 
         //16-03-2017 Dion Gunn: added as part of MLS remediation project
@@ -684,7 +685,7 @@ global class CaseDetailsCaseContExt  {
       *
       */
     void loadPageLayout(boolean maintainValues){
-        system.debug('############### case record type id: ' + myCase.recordTypeId);
+        //System.Debug('############### case record type id: ' + myCase.recordTypeId);
         fieldArray = '';
         String query = 'Select Id';
         sectionDetails = new List<SectionDetail>();
@@ -711,7 +712,7 @@ global class CaseDetailsCaseContExt  {
             req.setMethod('GET');
             Http h = new Http();
             HttpResponse res = h.send(req);
-            system.debug(res.getBody());
+            //System.Debug(res.getBody());
             JSONParser parser = JSON.createParser(res.getBody());
             LayoutAPIRoot root = (LayoutAPIRoot)parser.readValueAs(LayoutAPIRoot.class);
 
@@ -730,7 +731,7 @@ global class CaseDetailsCaseContExt  {
         showOwnerPanel = String.isNotBlank(queueType) && (myCase.isHLC__c || myCase.isCR__c) ? true : false;    // change ownership rendered only for HLC/Cr agent
 
         sections = HLCUtility.getSectionsBasedOnAccess(sections);
-        System.debug('** sections ==>'+ sections);
+        //System.Debug('** sections ==>'+ sections);
         sectionDetails = new List<SectionDetail>();
         Map<string, integer> sameGroupNameIndexMap = new Map<string, integer>();
         Map<string, string> groupNames = new Map<string, string>();
@@ -763,7 +764,7 @@ global class CaseDetailsCaseContExt  {
                                     // Change 'li.editable' to 'li.editableForUpdate' in the condition below due to changes in payload coming from API v31 onward
                                     FieldDetail d = new FieldDetail(label,c.details.name, li.required,c.details.type, li.editableForUpdate && c.details.updateable);
                                     if(groupNames.containsKey(label)){
-                                        system.debug('# flagging field label = ' + label);
+                                        //System.Debug('# flagging field label = ' + label);
                                         d.groupTag = groupNames.get(label);
                                         d.isDynamicDisplay = true;
                                         sectionsDisplayOnLoadMappings.put(d.groupTag, c.details.name);
@@ -788,9 +789,9 @@ global class CaseDetailsCaseContExt  {
 
                     List<string> labelParts = newSectionDetail.myLabel.split(',', 0);
                     if(labelParts.size() > 1){
-                        system.debug('>> Label has multi-parts: ' + labelParts.size());
+                        //System.Debug('>> Label has multi-parts: ' + labelParts.size());
                         for(string l: labelParts) {
-                            system.debug('>> part: ' + l);
+                            //System.Debug('>> part: ' + l);
                             SectionDetail cloned = newSectionDetail.clone();
                             cloned.myLabel = l;
                             sectionDetails.add(cloned);
@@ -905,10 +906,10 @@ global class CaseDetailsCaseContExt  {
         }
 
         fieldArray = fieldArray.substring(1);
-        system.debug('%% sectionsDisplayOnLoad = ' + sectionsDisplayOnLoad);
-        system.debug('%% record type id = ' + myCase.recordTypeId);
-        system.debug('%% type = ' + myCase.Type);
-        system.debug('%% product category = ' + myCase.ProductCategory__c);
+        //System.Debug('%% sectionsDisplayOnLoad = ' + sectionsDisplayOnLoad);
+        //System.Debug('%% record type id = ' + myCase.recordTypeId);
+        //System.Debug('%% type = ' + myCase.Type);
+        //System.Debug('%% product category = ' + myCase.ProductCategory__c);
     }
 
 
@@ -968,7 +969,10 @@ global class CaseDetailsCaseContExt  {
     private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSWInternationalBackOffice',
     'Consumer' => 'SSSWConsumerBackOffice',
     'Enterprise' => 'SSSWEnterpriseBackOffice',
-    'SMB' => 'SSSWBusinessBackOffice','Gold' => 'SSSWBusinessBackOffice'};
+    'SMB' => 'SSSWBusinessBackOffice',
+    'Silver' => 'SSSWBusinessBackOffice',
+    'MyPost Business' => 'SSSW_MyPost_Business_Back_Office',
+    'Gold' => 'SSSWBusinessBackOffice'};
 
     private static final String REOPEN_QUEUE_NAME = 'SSSW Awaiting Reopen';
     private static final String DAMAGES_IN_TRANSIT = 'Damages in transit';
@@ -1082,7 +1086,7 @@ global class CaseDetailsCaseContExt  {
                     SSSW_Routing.assignCasesAndDescription(new List<Case>{reassignCase}, null, false);
                     routedCase = reassignCase;
                 }
-                System.debug('routedCase.OwnerId--->'+routedCase.OwnerId);
+                //System.Debug('routedCase.OwnerId--->'+routedCase.OwnerId);
                 if(!casesTobeRouted.isEmpty()){
                     for(Case caseRec : casesTobeRouted) {
                         if(routedCase != null){
@@ -1105,80 +1109,16 @@ global class CaseDetailsCaseContExt  {
                             assignedQueueName = routingOwner != null && groupIds.contains(routingOwner) ?
                                     groupNameMapUI.get(routingOwner) :
                                     groupNameMapUI.get(groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id); //groupNameMapUI.get(CUST_TYPE_QUEUE_MAP.get(queueKey));
-                            System.debug('assignedQueueName--->'+assignedQueueName);
+                            //System.Debug('assignedQueueName--->'+assignedQueueName);
                             if(caseRec.OwnerId == previousOwner && caseRec.OwnerId==userinfo.getUserId()) {
                                 sameOwner = true;
                             }
                             caseRec.AllocateToQueue__c = false;     // disable case queue allocation
                         }
                     }
-                    System.debug('caseRec.OwnerId--->'+casesTobeRouted[0].OwnerId);
+                    //System.Debug('caseRec.OwnerId--->'+casesTobeRouted[0].OwnerId);
                     if(!sameOwner && doUpdate) database.update(casesTobeRouted);
                 }
-                //01/06/2017 - dion.gunn@auspostcom.au - Removed the below code to cater for new routing rule changes.
-
-
-
-                // Set<String> caseKeySet = new Set<String>();
-                // List<Case> casesTobeRouted = new List<Case>();
-                // Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
-                // Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();   // map of case id and case key without origin
-
-                // if(Utility.isValidRecordType(Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP),myCase.RecordTypeId)){  // verify if its SSSW recordtype
-                //     // verify if network or description is null & case is set for queue allocation
-                //     setCaseKeyMap(myCase,caseOriginKeyMap,caseNoOriginKeyMap, custType);   // set case key maps
-                //     casesTobeRouted.add(myCase);
-                // }
-
-                // if(!casesTobeRouted.isEmpty()){ // check if casesTobeRouted got values
-                //     if(!caseOriginKeyMap.isEmpty() && !caseNoOriginKeyMap.isEmpty()){   //  check if caseOriginKeyMap & caseNoOriginKeyMap got values
-                //         // get all case keys to fetch routing rows
-                //         caseKeySet.addAll(caseOriginKeyMap.values());
-                //         caseKeySet.addAll(caseNoOriginKeyMap.values());
-                //     }
-                //     if(!caseKeySet.isEmpty()){  // check if caseKeySet got values
-                //         isAssign = true;
-                //         Map<String,SSSWRouting__c> routingMap = getSSSWRoutings(caseKeySet);    // fetch routing records based on case key
-
-                //    for(Case caseRec : casesTobeRouted){
-                //         String keyWOrigin = caseOriginKeyMap.containsKey(caseRec.Id) ? caseOriginKeyMap.get(caseRec.Id) : null;
-                //         String keyNoOrigin = caseNoOriginKeyMap.containsKey(caseRec.Id) ? caseNoOriginKeyMap.get(caseRec.Id) : null;
-                //         // get the routing record based on case key
-                //         SSSWRouting__c routing = (!routingMap.isEmpty() && routingMap.containsKey(keyWOrigin)) ? routingMap.get(keyWOrigin) :
-                //                 (routingMap.containsKey(keyNoOrigin) ? routingMap.get(keyNoOrigin) : null);
-                //        Id routingOwner;
-                //         if(routing != null){    // check if routing record is available
-                //             caseRec.Network__c = (caseRec.Network__c == null) ? routing.Network__c : caseRec.Network__c;
-                //             caseRec.Description = String.isBlank(caseRec.Description) ? routing.DefaultCaseDetails__c : caseRec.Description;
-                //             routingOwner = routing.Queue_ID__c;
-                //         }
-                //         // check if case is set for queue allocation & assign case to queue based on mapping
-                //         String queueKey = LOC_INTERNATIONAL.equalsIgnoreCase(caseRec.CaseLocality__c) ?
-                //                 LOC_INTERNATIONAL : custType ;
-                //         caseRec.OwnerId = routingOwner != null && !groupIds.contains(routingOwner) ? routingOwner :
-                //                 groupIds.contains(routingOwner)  ? caseRec.OwnerId :
-                //                         (String.isNotBlank(queueKey) && groupNameMap.containsKey(CUST_TYPE_QUEUE_MAP.get(queueKey)) &&
-                //                                 !groupIds.contains(groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id)) ?
-                //                                 groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id :
-                //                                 caseRec.OwnerId;
-                //         if(groupIds.contains(caseRec.OwnerId)) {
-                //             caseRec.OwnerId = userinfo.getUserId();
-                //         }
-                //         doUpdate = true;
-
-                //         assignedQueueName = routingOwner != null && groupIds.contains(routingOwner) ?
-                //                 groupNameMapUI.get(routingOwner) :
-                //                 groupNameMapUI.get(groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id); //groupNameMapUI.get(CUST_TYPE_QUEUE_MAP.get(queueKey));
-                //         if(caseRec.OwnerId == previousOwner && caseRec.OwnerId==userinfo.getUserId()) {
-                //             sameOwner = true;
-                //         }
-
-                //         caseRec.AllocateToQueue__c = false;     // disable case queue allocation
-                //     }
-                //     if(!sameOwner && doUpdate) database.update(casesTobeRouted);
-                //     }
-                // }
-
             }
 
         }
@@ -1287,7 +1227,7 @@ global class CaseDetailsCaseContExt  {
 
         testCase = myCase;
         hasEdd = false;
-        system.debug(myCAse);
+        //System.Debug(myCAse);
         if(eddCase.DatePosted__c !=null && receiverCode!=null &&
                 senderCode!=null &&  testCase.ProductSubCategory__c!= null) {
             AusPostSettings__c settings = AusPostSettings__c.getValues('EstimatedDeliveryDate');
@@ -1296,7 +1236,7 @@ global class CaseDetailsCaseContExt  {
 
             string url = settings.URL__c + '?from=' + senderCode.trim() + '&to=' + ReceiverCode.trim() +
                     '&type=' + articleType + '&date=' + dateSent;
-            system.debug('calling url = ' + url);
+            //System.Debug('calling url = ' + url);
             HttpRequest req = new HttpRequest();
             req.setEndpoint(url);
             req.setMethod('GET');
@@ -1313,7 +1253,7 @@ global class CaseDetailsCaseContExt  {
             // Dion Gunn 15/05/2017 - modified back so it can be properly tested with a mock interface.
             //if(!Test.isRunningTest()) {
             res = http.send(req);
-            system.debug('--response here---'+res);
+            //System.Debug('--response here---'+res);
             /*}else {
                 String serviceJson = '{"ha":"ha","regular":{"serviceType":"regular","min":10,"max":20,"sla":"sla"}}';
                 String errJson = '{"ha":"ha","regular":{"code":1,"description":"test"}}';
@@ -1324,30 +1264,30 @@ global class CaseDetailsCaseContExt  {
                 res.setStatusCode(TestDataProvider.httpStatus);
             } */
             if(res.getStatusCode() == 400 || res.getStatusCode() == 200){
-                system.debug('Content from AusPost: ' + res.getBody());
+                //System.Debug('Content from AusPost: ' + res.getBody());
                 JSONParser parser = JSON.createParser(res.getBody());
                 parser.nextToken();
-                system.debug('1: ' + parser.getText());
+                //System.Debug('1: ' + parser.getText());
                 parser.nextToken();
-                system.debug('2: ' + parser.getText());
+                //System.Debug('2: ' + parser.getText());
                 parser.nextToken();
-                system.debug('3: ' + parser.getText());
+                //System.Debug('3: ' + parser.getText());
 
                 if(res.getStatusCode() == 200){
                     while (parser.nextToken() != null) {
-                        system.debug('4: ' + parser.getText());
+                        //System.Debug('4: ' + parser.getText());
                         string serviceType = parser.getText();
                         parser.nextToken();
                         if (parser.getCurrentToken() == JSONToken.START_OBJECT) {
                             service s = (service)parser.readValueAs(service.class);
                             s.serviceType = serviceType;
                             listOfServices.add(s);
-                            system.debug(s);
+                            //System.Debug(s);
                         }
                     }
                 } else if(res.getStatusCode() == 400){
                     while (parser.nextToken() != null) {
-                        system.debug('7: ' + parser.getText());
+                        //System.Debug('7: ' + parser.getText());
                         string serviceType = parser.getText();
                         parser.nextToken();
                         if (parser.getCurrentToken() == JSONToken.START_OBJECT) {
@@ -1365,21 +1305,21 @@ global class CaseDetailsCaseContExt  {
                 missingItemLodgedonAfter = false;
                 missingItemLodged = false;
             }
-            system.debug('--response here---'+res);
+            //System.Debug('--response here---'+res);
             string serviceType = REGULAR;
             if(testCase.ProductSubCategory__c.tolowercase().contains(COURIER)){
                 serviceType = COURIER;
             } else if (testCase.ProductSubCategory__c.tolowercase().contains(EXPRESS)) {
                 serviceType = EXPRESS;
             }
-            system.debug('service type = ' + serviceType);
+            //System.Debug('service type = ' + serviceType);
 
             if(listOfServices.size() > 0) {
                 Service highestMax = null;
                 Service userSelected = null;
                 string maxDateString = '';
                 for(Service s: listOfServices){
-                    system.debug('current service type = ' + s.serviceType);
+                    //System.Debug('current service type = ' + s.serviceType);
                     if(s.serviceType == serviceType && s.max != null){
                         userSelected = s;
                     }
@@ -1398,17 +1338,17 @@ global class CaseDetailsCaseContExt  {
                 }else {
                     maxDateString =  (highestMax != null) ? (highestMax.max + '') : null;   // Nandan : added null check to fix INC0835553
                 }
-                system.debug('max = ' + maxDateString);
+                //System.Debug('max = ' + maxDateString);
 
                 if(maxDateString != null && maxDateString.length() == 8){
                     hasEDD = true;
                     integer yearPart = integer.valueOf(maxDateString.substring(0, 4));
                     integer monthPart = integer.valueOf(maxDateString.substring(4, 6));
                     integer dayPart = integer.valueOf(maxDateString.substring(6, 8));
-                    system.debug('year='+yearPart+',month='+monthPart+',day='+dayPart);
+                    //System.Debug('year='+yearPart+',month='+monthPart+',day='+dayPart);
                     date maxdate = date.newInstance(yearPart, monthPart, dayPart);
-                    system.debug(maxdate);
-                    system.debug(date.today());
+                    //System.Debug(maxdate);
+                    //System.Debug(date.today());
                     if(maxdate > date.today()){
                         iconImageName = CONFIRM_IMG;
                     }else if(maxdate < date.today()){
@@ -1422,7 +1362,7 @@ global class CaseDetailsCaseContExt  {
                     Integer wrkingDays = 0;
                     Integer noOfDays = testCase.ProductSubCategory__c.tolowercase().contains(EXPRESS) ? 1 : 3;
                     Date tempDate = testCase.ProductSubCategory__c.tolowercase().contains(EXPRESS) ?  maxDate + 1 : maxDate + 3;
-                    system.debug('--+maxDate'+maxDate);
+                    //System.Debug('--+maxDate'+maxDate);
                     Date tempOld;
                     //date and date + 1day
                     Boolean noWorkingDay = true;
@@ -1431,13 +1371,13 @@ global class CaseDetailsCaseContExt  {
                     Set<Date> datChecked = new Set<Date>();
                     Integer count = 0;
                     while(noWorkingDay) {
-                        system.debug('--+startDate '+startDate );
-                        system.debug('--+endDate '+endDate );
+                        //System.Debug('--+startDate '+startDate );
+                        //System.Debug('--+endDate '+endDate );
                         count = 0;
                         for(Integer i=1; i<=noOfDays;i++) {
                             if(!datChecked.contains(startDate+i) && !checkifItisWorkingDay(startDate+i)) { count++ ; }
                             datChecked.add(startDate+i);
-                            system.debug('--+count '+count );
+                            //System.Debug('--+count '+count );
                         }
                         noWorkingDay = count != 0;
                         startDate += count;
@@ -1481,15 +1421,15 @@ global class CaseDetailsCaseContExt  {
 
     public boolean checkifItisWorkingDay(Date currentDate){
         Date weekStart  = currentDate.toStartofWeek();
-        system.debug('--+'+weekStart+'--+'+currentDate);
+        //System.Debug('--+'+weekStart+'--+'+currentDate);
         if(weekStart.daysBetween(currentDate) ==6 || weekStart.daysBetween(currentDate) == 0){
-            system.debug('--+ sat/sun');
+            //System.Debug('--+ sat/sun');
             return false;
         }
 
         for(Holiday hDay:holidays){
             if(currentDate.daysBetween(hDay.ActivityDate) == 0 ){
-                system.debug('--+ pib hol');
+                //System.Debug('--+ pib hol');
                 return false;
             }
         }

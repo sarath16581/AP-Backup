@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Eligible_APPC_Tier__c</fullName>
+    <description>Eligible APPC tier (part of compass price management data)</description>
+    <externalId>false</externalId>
+    <label>Eligible APPC Tier</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>APT_Customer_Tier</valueSetName>
+    </valueSet>
+</CustomField>

@@ -5,6 +5,7 @@
 -----------------------------------------------------------------------------------------
 16-01-2020     vcheng@salesforce.com            New class created
 14-07-2020     seth.heang@auspost.com.au 		Add case constant for STP-2240/STP-2242
+10-02-2022     ashapriya.gadi@auspost.com.au 		Added BGS_BUSINESSHOUR_VIC
 *****************************************************************************************/
 
 public with sharing class BGSConstants {
@@ -29,4 +30,5 @@ public with sharing class BGSConstants {
     public static final String AUSPOST_NOREPLY_EMAIL = 'noreply@auspost.com.au';
     public static final String CASE_RESOLUTION_CODE_CLOSED_DUPLICATE = 'Closed - Duplicate';
     public static final String EMAILMESSAGE_TRIGGER = 'EmailMessageTrigger';
+    public static final String BGS_BUSINESSHOUR_VIC = 'Service Delivery VIC';
 }

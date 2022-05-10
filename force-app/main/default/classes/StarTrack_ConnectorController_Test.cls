@@ -4,6 +4,7 @@ History:
 --------------------------------------------------
 2018-02-22  angelo.rivera@auspost.com.au  Created
 2018-07-01  kalpita.talwadekar@auspost.com.au  Added test methods
+2022-03-01  SaiSwetha.pingali@auspost.com.au REQ2723594 - Fix for test class failures with validation rule on Lead creation.
 **************************************************/
 @isTest
 public class StarTrack_ConnectorController_Test {
@@ -60,7 +61,7 @@ public class StarTrack_ConnectorController_Test {
      *****************************************************************/
     @isTest
     static void findLeadTest() {
-        Lead lead = new Lead(Company = 'Lead Company', FirstName = 'firstname', LastName = 'lastname', Phone = '3456');
+        Lead lead = new Lead(Company = 'Lead Company', FirstName = 'firstname', LastName = 'lastname', Phone = '3456',email='test@gmail.com');
         insert lead;
         Lead c = (Lead) StarTrack_ConnectorController.findContact('Phone', '3456');
         System.assert(c != null);
@@ -68,7 +69,7 @@ public class StarTrack_ConnectorController_Test {
         c = (Lead) StarTrack_ConnectorController.getContact(c.Id, null);
         System.assert(c != null);
 
-        Lead lead2 = new Lead(Company = 'Lead Company', FirstName = 'firstname2', LastName = 'lastname2', Phone = '3456');
+        Lead lead2 = new Lead(Company = 'Lead Company', FirstName = 'firstname2', LastName = 'lastname2', Phone = '3456', email='test@gmail.com');
         insert lead2;
         c = (Lead) StarTrack_ConnectorController.findContact('Phone', '3456');
         System.assert(c.Id == null);

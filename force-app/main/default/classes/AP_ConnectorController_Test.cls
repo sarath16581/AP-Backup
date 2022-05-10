@@ -6,6 +6,8 @@ History:
 2018-06-08  TDO-41 : rahul.kapoor@coroma.com.au Refactored comments and indentation,
             added assertEquals and assertNotEquals, added new tests to handle
             bulk records, test for close task.
+2022-02-11  REQ2723568: Text Class changes 
+2022-02-11  REQ2723568: API version 52 upgrade
 ***********************************************************************************/
 @isTest
 private class AP_ConnectorController_Test {
@@ -93,7 +95,8 @@ private class AP_ConnectorController_Test {
         insert testCaseList;
 
         //Fetch the case number of the inserted case.
-        testCaseList = [SELECT CaseNumber FROM Case];
+        //Adding limit in the query
+        testCaseList = [SELECT CaseNumber FROM Case limit 5];
         Case testCase = new Case();
         for(Case myCase : testCaseList){
             testCase  = AP_ConnectorController.findCase(myCase.CaseNumber);

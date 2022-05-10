@@ -176,8 +176,8 @@ System.debug(a3.get('BusinessPartnerID'));
                                   MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name, Account.IsPersonAccount, 
                                   Account.RecordTypeId, Account.RecordType.Name, Account.ABN__c,Account.Role_Type_Roll_Up__c, 
                                   Account.ServiceSLA__c, Account.IsVIP__c, BillingAccount__r.Id, BillingAccount__r.Name, 
-                                  BillingAccount__r.LEGACY_ID__c, (SELECT Id,IsClosed FROM Cases) 
-                         FROM Contact where Account.IsPersonAccount = true AND Account.APCN__c IN :aPCNs Limit 50]){
+                                  BillingAccount__r.LEGACY_ID__c, Unique_Mobile__c, (SELECT Id,IsClosed FROM Cases)
+                         FROM Contact where Account.IsPersonAccount = true AND Account.APCN__c IN :aPCNs ORDER BY Unique_Mobile__c DESC, Name Limit 50]){
         
                  
         	returnList.add(new ContactListDisplay((Contact)con));

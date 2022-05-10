@@ -28,6 +28,7 @@
         <fields>Comments__c</fields>
         <fields>Contact_Name__c</fields>
         <fields>Contact_Phone_Number__c</fields>
+        <fields>Containers_Payload__c</fields>
         <fields>Customer_Name__c</fields>
         <fields>Date__c</fields>
         <fields>Deliver_Product__c</fields>
@@ -36,10 +37,12 @@
         <fields>Dwell_Time_Planned__c</fields>
         <fields>Earliest_Start_Time_Text__c</fields>
         <fields>Express_Bags__c</fields>
+        <fields>Express_Product__c</fields>
         <fields>Geo__Latitude__s</fields>
         <fields>Geo__Longitude__s</fields>
         <fields>Hazards__c</fields>
         <fields>Id</fields>
+        <fields>International_Product__c</fields>
         <fields>Job_Instructions__c</fields>
         <fields>Key_Number__c</fields>
         <fields>Large_Letter_Tubs__c</fields>
@@ -48,11 +51,13 @@
         <fields>Location_Frontage_Geo__Latitude__s</fields>
         <fields>Location_Frontage_Geo__Longitude__s</fields>
         <fields>Location_Side_Of_Street_Code__c</fields>
+        <fields>Location_Type__c</fields>
         <fields>Location__c</fields>
         <fields>Name</fields>
         <fields>Pallets_Quantity__c</fields>
         <fields>Post_Code__c</fields>
         <fields>Red_Tubs__c</fields>
+        <fields>Regular_Product__c</fields>
         <fields>Revenue_Check__c</fields>
         <fields>Route_Start_Time__c</fields>
         <fields>Site_Instructions__c</fields>
@@ -64,7 +69,6 @@
         <fields>Street__c</fields>
         <fields>Trays_Quantity__c</fields>
         <fields>Tubs_Quantity__c</fields>
-        <fields>Volume_Cubic_Metre__c</fields>
         <fields>White_Bags__c</fields>
         <includeSessionId>false</includeSessionId>
         <integrationUser>pudintegration@auspost.com.au</integrationUser>

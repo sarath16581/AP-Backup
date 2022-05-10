@@ -7,11 +7,20 @@ History:
 2018-07-10  nathan.franklin@auspost.com.au  Renamed checkNPS to setEmailToCaseAddress as it's more meaningful
 2018-08-08  disha.kariya@auspost.com.au     Commented clonePermanentlyClosedCases, cloneCase and reparentEmails method as it is not used.
 2018-12-11  disha.kariya@auspost.com.au     Update Case from Email for Secure Post
+2022-02-22  naveen.rajanna@auspost.com.au - Added constants for REQ2723199
+2022-04-08  naveen.rajanna@auspost.com.au - REQ2804764 - Remove debug and Add null check to prevent nullpointerexception for parseEmailbodySnapIt,setEmailToCaseAddress
+2022-05-06  naveen.rajanna@auspost.com.au - Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
 **************************************************/
 public class EmailMessageUtil {
 
     private static final String REFSTART = 'Article Number:';
     private static final String REFEND = '.';
+    public static final String STATUS_NEW = '0';
+    public static final String STATUS_READ = '1';
+    public static final String STATUS_REPLIED = '2';
+    public static final String STATUS_SENT = '3';
+    public static final String STATUS_FORWARDED = '4';
+    public static final String STATUS_DRAFT = '5';
 
     /**
      * This is used to set the source email to case address on a case when it's first received
@@ -40,8 +49,8 @@ public class EmailMessageUtil {
 //                }
             }
             // Added check for Secure Post to update Type & Product on Case for SECURE_POST
-            if (securePostSetting.Email_to_Case_address__c != null && em.ToAddress.contains(securePostSetting.Email_to_Case_address__c)) { // Check if ToAddress is Secure Post email Address
-                if(caseMap.containsKey(em.ParentId)) { // Check if Case is already added in Map
+            if (securePostSetting!= null && securePostSetting.Email_to_Case_address__c != null && em.ToAddress != null && em.ToAddress.contains(securePostSetting.Email_to_Case_address__c)) { // Check if ToAddress is Secure Post email Address
+                if(em.ParentId!= null && caseMap.containsKey(em.ParentId)) { // Check if Case is already added in Map
                     Case cs = caseMap.get(em.ParentId);
                     cs.Type = securePostSetting.CaseType__c != null ? securePostSetting.CaseType__c : '';
                     if(productList != null && productList.size() > 0){
@@ -144,58 +153,6 @@ public class EmailMessageUtil {
         update changedSpamEmails;
     }
 
-    //  Below commented Code can be removed on or after 28 Feb 2019
-    // //Clones permanently closed cases and re-parents email messages to cloned cases
-    // /*public static void clonePermanentlyClosedCases(List<EmailMessage> newEmails) 
-    // {
-    //     Map<Id, List<EmailMessage>> parentToEmails = new Map<Id, List<EmailMessage>>();
-    //     for (EmailMessage em : newEmails)
-    //     {
-    //         //if (em.Incoming && em.parentId != null && em.parent.Origin != 'Direct Email' && em.FromAddress != QM__c.getOrgDefaults().CusEmail__c)
-    //         if (em.Incoming && 
-    //             em.parentId != null && 
-    //             (String.isNotBlank(em.ToAddress) && em.ToAddress.containsIgnoreCase(QM__c.getOrgDefaults().NetworkEmail__c) ||
-    //             String.isNotBlank(em.CcAddress) && em.CcAddress.containsIgnoreCase(QM__c.getOrgDefaults().NetworkEmail__c) ||
-    //             String.isNotBlank(em.BccAddress) && em.BccAddress.containsIgnoreCase(QM__c.getOrgDefaults().NetworkEmail__c)))
-    //         {
-    //             List<EmailMessage> emails = parentToEmails.get(em.parentId);
-    //             if (emails == null)
-    //             {
-    //                 emails = new List<EmailMessage>();
-    //             }
-    //             emails.add(em);
-    //             parentToEmails.put(em.parentId, emails);
-    //         }
-    //     }
-    //     System.debug('---parentToEmails: ' + parentToEmails);
-
-    //     if (parentToEmails.size() > 0)
-    //     {
-    //         List<Case> clonedCases = new List<Case>();
-    //         Set<Id> caseIds = parentToEmails.keySet();
-    //         String soql = Util.getCreatableFieldsSOQL('Case','Id IN :caseIds AND Permanent_Close__c = true AND RecordType.DeveloperName LIKE \'SSSW%\'');
-
-    //         System.debug('---caseIds: ' + caseIds);
-    //         System.debug('---soql: ' + soql);
-    //         for (Case c : Database.query(soql)) 
-    //         {
-    //             Case clonedCase = cloneCase(c);
-    //             clonedCase.AllocateToQueue__c = true;
-    //             clonedCase.Status = 'Network Responded';
-    //             clonedCases.add(clonedCase);
-    //         }
-
-    //         System.debug('---clonedCases: ' + clonedCases);
-    //         if (clonedCases.size() > 0)
-    //         {               
-    //             insert clonedCases;
-
-    //             reparentEmails(clonedCases, parentToEmails);
-    //         }
-    //     }
-    // }*/
-
-
     //Ensures Customer Emails routed back into Salesforce show as Outbound, not Incoming. Also prevents Email to Case 'Notify Case Owner' Issue
     public static void switchInboundToOutbound(List<EmailMessage> newEmails) {
         // fetch Customer Address from Custom Setting
@@ -221,7 +178,7 @@ public class EmailMessageUtil {
         //loop through email messages and try to obtain reference ID field value from Parcel number section of email body
         for (EmailMessage em : [select subject, textbody,parentId,parent.ownerid, Incoming,parent.Email_Bypass_Data_enforcement__c, parent.referenceid__C from EmailMessage where id in :newEmails]) {
 
-            if (em.ParentId.getSObjectType() == Case.sObjectType && em.Incoming && String.isNotEmpty(em.subject) && em.parent.ownerid == holdinqueueID) {
+            if (em.ParentId != null && em.ParentId.getSObjectType() == Case.sObjectType && em.Incoming && String.isNotEmpty(em.subject) && em.parent.ownerid == holdinqueueID) {
                 if (em.subject.contains(SSSWConstants.SNAPIT)) {
 
                     if (String.isNotEmpty(em.textbody)) {
@@ -242,49 +199,6 @@ public class EmailMessageUtil {
         update casesToUpdate;
 
     }
-
-    // Below commented Code can be removed on or after 28 Feb 2019
-    // /*private static Case cloneCase(Case c) {
-    //     Case clonedCase = c.clone(false, true);
-    //     clonedCase.Unique_Case__c = ''; 
-    //     clonedCase.Status = 'New';
-    //     clonedCase.Permanent_Close__c = false;
-    //     clonedCase.ResolutionCode__c = '';
-    //     //clonedCase.ClosedDate = null;
-    //     clonedCase.RelatedCase__c = c.Id;
-    //     clonedCase.Case_Milestone_Violation__c = false;
-    //     clonedCase.Customer_Milestones_Violated__c = null;
-    //     clonedCase.Internal_Milestones_Violated__c = null;
-    //     clonedCase.Facility_Milestones_Violated__c = null;
-    //     clonedCase.Customer_Email_Notification__c = null;
-    //     clonedCase.Facility_Tier_Escalation_Email__c = null;
-    //     clonedCase.NPSAgent__c = null;
-    //     //clonedCase.NPSRequired__c = false;
-    //     clonedCase.NPSScheduledDate__c = null;      
-    //     //clonedCase.NPSTagDate__c = null;        
-
-    //     if (!String.isEmpty(c.Service_Now_Ticket_Number__c)) {//Defect #979
-    //         clonedCase.Service_Now_Ticket_Number__c = null;
-    //         clonedCase.Network__c = null;
-    //     }
-
-    //     return clonedCase;
-    // }
-
-    // private static void reparentEmails(List<Case> clonedCases, Map<Id, List<EmailMessage>> emails)
-    // {
-    //     for (Case c : clonedCases)
-    //     {
-    //         List<EmailMessage> emList = emails.get(c.RelatedCase__c);
-    //         if (emList != null) 
-    //         {
-    //             for (EmailMessage em : emList)
-    //             {
-    //                 em.parentId = c.Id;
-    //             }
-    //         }
-    //     }
-    // }*/
 
     //StarTrack method which detects duplicate inbound email message based on email message subject.
     //Created by: David Catindoy (Accenture) - Nov. 24, 2016
@@ -314,16 +228,18 @@ public class EmailMessageUtil {
                 for (EmailMessage newEmail : starTrackEmailMessages) {
                     String emailSubject = newEmail.Subject; //Get email message subject to avoid modification in the actual subject field.
                     //Validate if email body contains parent case thread Id.
-                    System.debug('Case Thread Id: ' + getThreadId(newEmail.ParentId));
-                    System.debug('Current parent id: ' + newEmail.ParentId);
-                    if ((String.isBlank(newEmail.HTMLBody) || (String.isNotBlank(newEmail.HTMLBody) && !newEmail.HTMLBody.contains(getThreadId(newEmail.ParentId)))) && newEmail.Incoming) {
+                    // System.debug('Case Thread Id: ' + getThreadId(newEmail.ParentId));
+                    // System.debug('Current parent id: ' + newEmail.ParentId);
+                    if (emailSubject != null && newEmail.Incoming && 
+                            (String.isBlank(newEmail.HTMLBody) || 
+                                (String.isNotBlank(newEmail.HTMLBody) && !newEmail.HTMLBody.contains(getThreadId(newEmail.ParentId))))) {
                         //Validate if Subject contains any of the specified prefix.
                         if (emailSubject.containsIgnoreCase(StarTrack_Constants.rePrefix) || emailSubject.containsIgnoreCase(StarTrack_Constants.forwardPrefix1) || emailSubject.containsIgnoreCase(StarTrack_Constants.forwardPrefix2)) {
                             emailSubject = getEmailSubject(emailSubject); //Call the method that removes all the prefix that is found in the subject.
                             emailMessageSubject.add(emailSubject); //Add the new subject value to the container.
                             newCasesId.add(newEmail.ParentId);
                             emailMessageList.add(newEmail);
-                            System.debug('Valid 255');
+                            // System.debug('Valid 255');
                         }
                     }
                 }
@@ -350,7 +266,7 @@ public class EmailMessageUtil {
                             if (caseSubjectMap.containsKey(emailSubject)) { //Validate if the map contains email message subject.
                                 parentCase.put(emailMessageRec.ParentId, caseSubjectMap.get(emailSubject));
                                 emailMessageRec.ParentId = caseSubjectMap.get(emailSubject).Id;//Reassign parent Id to an existing case that matches the subject of the email.
-                                System.debug('Success! 277');
+                                // System.debug('Success! 277');
                             }
                         }
                     }
@@ -374,7 +290,7 @@ public class EmailMessageUtil {
                 }
             }
         }
-        System.debug(newEmails);
+        // System.debug(newEmails);
     }
 
     //StarTrack method to generate case thread id based on the id passed in the parameter.

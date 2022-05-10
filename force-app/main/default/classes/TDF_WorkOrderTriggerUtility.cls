@@ -10,6 +10,7 @@
 *                               Ignoring the assigned duty Service Resource when update executed in a Resource by Duty context
 * 2020.05.06 - Andrew Judd - Changes to align with change in Work Order Line Item to Work Order data model.
 * 2020.05.06 - Andrew Judd - Changed to with sharing
+* 2022-04-08 Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
 */
 global with sharing class TDF_WorkOrderTriggerUtility{
 
@@ -389,7 +390,7 @@ global with sharing class TDF_WorkOrderTriggerUtility{
                                     }
                                 }
             
-                                System.debug('vehicleId ->'+vehicleId);
+                                //System.debug('vehicleId ->'+vehicleId);
                                 //AJ 31.07.18 Added trailer map condition to fix error when not a location
                                 if(objWorkOrder.Trailer_Reg_No_A__c != null && trailerMap.get((objWorkOrder.Trailer_Reg_No_A__c).toUpperCase()) != null){                          
                                     //Set Truck as Trailer parent as Truck, Status In Use, and clear Inspection Issue Id
@@ -444,7 +445,7 @@ global with sharing class TDF_WorkOrderTriggerUtility{
                             }
                         }
     
-                        System.debug('locId ->'+locId);
+                        //System.debug('locId ->'+locId);
     
                         if(locId != null){
                             if(locationeMap.get(locId) != null){
@@ -535,7 +536,7 @@ global with sharing class TDF_WorkOrderTriggerUtility{
                                     }
                                 }
                                 //Add adjust the values in the map for the Site associated to this work order and reset variables
-                                if(productWiseProductItemMap.get(objWorkOrder.LocationId) != null){
+                                if(productWiseProductItemMap.get(objWorkOrder.LocationId) != null && productWiseProductItemMap.get(objWorkOrder.LocationId).get(pId) != null){//REQ2804764
                                     productWiseProductItemMap.get(objWorkOrder.LocationId).get(pId).QuantityOnHand += deliverValue;    
                                     productWiseProductItemMap.get(objWorkOrder.LocationId).get(pId).QuantityOnHand -= collectValue;    
                                     collectValue = 0;    
@@ -653,14 +654,14 @@ global with sharing class TDF_WorkOrderTriggerUtility{
                         if(objWorkOrder.Trailer_Reg_No_A__c != null && trailerMap.get((objWorkOrder.Trailer_Reg_No_A__c).toUpperCase()) != null){
                             locationeMap.get(trailerMap.get((objWorkOrder.Trailer_Reg_No_A__c).toUpperCase()).Id).ParentLocationId = objWorkOrder.LocationId;
                             locationeMap.get(trailerMap.get((objWorkOrder.Trailer_Reg_No_A__c).toUpperCase()).Id).Status__c = 'Available';
-                            System.debug('In Trailer A Mapping ->'+trailerMap.get((objWorkOrder.Trailer_Reg_No_A__c).toUpperCase()).ParentLocationId);
+                            //System.debug('In Trailer A Mapping ->'+trailerMap.get((objWorkOrder.Trailer_Reg_No_A__c).toUpperCase()).ParentLocationId);
                         }
     
                         //Set Truck as Trailer parent as Site, and Status Available
                         if(objWorkOrder.Trailer_Reg_No_B__c != null && trailerMap.get((objWorkOrder.Trailer_Reg_No_B__c).toUpperCase()) != null){
                             locationeMap.get(trailerMap.get((objWorkOrder.Trailer_Reg_No_B__c).toUpperCase()).Id).ParentLocationId = objWorkOrder.LocationId;
                             locationeMap.get(trailerMap.get((objWorkOrder.Trailer_Reg_No_B__c).toUpperCase()).Id).Status__c = 'Available';
-                            System.debug('In Trailer B Mapping ->'+trailerMap.get((objWorkOrder.Trailer_Reg_No_B__c).toUpperCase()).ParentLocationId);
+                            //System.debug('In Trailer B Mapping ->'+trailerMap.get((objWorkOrder.Trailer_Reg_No_B__c).toUpperCase()).ParentLocationId);
                         }                   
                     }
                 }//End if Completed
@@ -892,7 +893,7 @@ global with sharing class TDF_WorkOrderTriggerUtility{
             }   
             /*Main Trigger for loop Ends*/          
 
-            System.debug('productItemToUpdateList- >'+productItemToUpdateList);
+            //System.debug('productItemToUpdateList- >'+productItemToUpdateList);
             if(productItemToUpdateList.size()>0){
                 update productItemToUpdateList;
             }
@@ -966,9 +967,9 @@ global with sharing class TDF_WorkOrderTriggerUtility{
                 insert vehicleInspectIssuesToInsertList;
             }
             
-            System.debug('serviceResourceMap ->'+serviceResourceMap);
+            //System.debug('serviceResourceMap ->'+serviceResourceMap);
             update serviceResourceMap.values();
-            System.debug('locationeMap ->'+locationeMap);
+            //System.debug('locationeMap ->'+locationeMap);
             update locationeMap.values();   
 
             //AJ 27.08.18 update work order to set Util

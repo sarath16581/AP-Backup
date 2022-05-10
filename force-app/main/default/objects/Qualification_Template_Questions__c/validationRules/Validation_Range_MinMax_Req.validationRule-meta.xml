@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validation_Range_MinMax_Req</fullName>
+    <active>true</active>
+    <description>If the Data Type is Number and Applicable Validation is Range, then minimum and maximum values become mandatory.</description>
+    <errorConditionFormula>AND(
+
+INCLUDES( APT_Applicable_Validation__c , &quot;RANGE&quot;) ,
+OR(
+   ISBLANK( Min_Value__c ), 
+   ISBLANK( Max_Value__c ),
+   Min_Value__c &lt; 0
+  )
+)</errorConditionFormula>
+    <errorMessage>Please enter the minimum and maximum value for range validation logic.</errorMessage>
+</ValidationRule>

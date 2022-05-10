@@ -20,8 +20,8 @@
     <assignments>
         <name>assign_false_to_day_off</name>
         <label>assign false to day off</label>
-        <locationX>1450</locationX>
-        <locationY>697</locationY>
+        <locationX>803</locationX>
+        <locationY>632</locationY>
         <assignmentItems>
             <assignToReference>varholiday</assignToReference>
             <operator>Assign</operator>
@@ -31,6 +31,22 @@
         </assignmentItems>
         <connector>
             <targetReference>TIMESHEET_ENTRY_ASSIGN</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>ASSIGN_HOLIDAY</name>
+        <label>ASSIGN HOLIDAY</label>
+        <locationX>780</locationX>
+        <locationY>443</locationY>
+        <assignmentItems>
+            <assignToReference>holidaydate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SOHOLIDAY.ActivityDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_holiday</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -63,7 +79,7 @@
             <assignToReference>TUNEWWEEK.Work_Week_Start__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>NewStartdate</elementReference>
+                <elementReference>$Flow.CurrentDate</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -101,8 +117,8 @@
     <assignments>
         <name>Assign_Timesheet_to_SO_Collection</name>
         <label>Assign Timesheet to SO Collection</label>
-        <locationX>942</locationX>
-        <locationY>1032</locationY>
+        <locationX>679</locationX>
+        <locationY>830</locationY>
         <assignmentItems>
             <assignToReference>Alltimesheetentries</assignToReference>
             <operator>Add</operator>
@@ -111,7 +127,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>LOOP_MONTHLY_TU</targetReference>
+            <targetReference>daycount_plus_1</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -133,8 +149,8 @@
     <assignments>
         <name>daycount_plus_1</name>
         <label>daycount plus 1</label>
-        <locationX>797</locationX>
-        <locationY>793</locationY>
+        <locationX>511</locationX>
+        <locationY>947</locationY>
         <assignmentItems>
             <assignToReference>daycount</assignToReference>
             <operator>Add</operator>
@@ -149,8 +165,8 @@
     <assignments>
         <name>if_it_s_a_holiday_assign_true</name>
         <label>if it&apos;s a holiday assign true</label>
-        <locationX>1225</locationX>
-        <locationY>669</locationY>
+        <locationX>552</locationX>
+        <locationY>614</locationY>
         <assignmentItems>
             <assignToReference>varholiday</assignToReference>
             <operator>Assign</operator>
@@ -188,8 +204,8 @@
     <assignments>
         <name>TIMESHEET_ENTRY_ASSIGN</name>
         <label>TIMESHEET ENTRY ASSIGN</label>
-        <locationX>1149</locationX>
-        <locationY>917</locationY>
+        <locationX>679</locationX>
+        <locationY>732</locationY>
         <assignmentItems>
             <assignToReference>SOTIMESHEET.Time_Utilisation__c</assignToReference>
             <operator>Assign</operator>
@@ -232,13 +248,6 @@
                 <elementReference>varholiday</elementReference>
             </value>
         </assignmentItems>
-        <assignmentItems>
-            <assignToReference>SOTIMESHEET.Monthly_Time_Utilisation__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>SOMONTHLYTU.Id</elementReference>
-            </value>
-        </assignmentItems>
         <connector>
             <targetReference>Assign_Timesheet_to_SO_Collection</targetReference>
         </connector>
@@ -253,8 +262,8 @@
     <decisions>
         <name>check_holiday</name>
         <label>check holiday</label>
-        <locationX>1330</locationX>
-        <locationY>540</locationY>
+        <locationX>670</locationX>
+        <locationY>526</locationY>
         <defaultConnector>
             <targetReference>assign_false_to_day_off</targetReference>
         </defaultConnector>
@@ -275,67 +284,15 @@
             <label>if it&apos;s a holiday</label>
         </rules>
     </decisions>
-    <decisions>
-        <name>CURRENT_OR_NEXT_MONTH</name>
-        <label>CURRENT OR NEXT MONTH</label>
-        <locationX>1081</locationX>
-        <locationY>340</locationY>
-        <defaultConnector>
-            <targetReference>LOOP_MONTHLY_TU</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>[Default Outcome]</defaultConnectorLabel>
-        <rules>
-            <name>CURRENT_MONTH</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>datecount</leftValueReference>
-                <operator>GreaterThanOrEqualTo</operator>
-                <rightValue>
-                    <elementReference>SOMONTHLYTU.Month_Indicator__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>datecount</leftValueReference>
-                <operator>LessThan</operator>
-                <rightValue>
-                    <elementReference>FIRSTDAYOFNEXTMONTH</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>lookup_holiday</targetReference>
-            </connector>
-            <label>CURRENT MONTH</label>
-        </rules>
-    </decisions>
     <formulas>
         <name>datecount</name>
         <dataType>Date</dataType>
-        <expression>Today() +1</expression>
-    </formulas>
-    <formulas>
-        <name>FIRSTDAYOFMONTH</name>
-        <dataType>Date</dataType>
-        <expression>TODAY()-DAY(TODAY())+1</expression>
-    </formulas>
-    <formulas>
-        <name>FIRSTDAYOFNEXTMONTH</name>
-        <dataType>Date</dataType>
-        <expression>DATE
-(
-IF(MONTH({!SOMONTHLYTU.Month_Indicator__c}) = 12, YEAR({!SOMONTHLYTU.Month_Indicator__c}) + 1, YEAR({!SOMONTHLYTU.Month_Indicator__c})),
-IF(MONTH({!SOMONTHLYTU.Month_Indicator__c}) = 12, 1, MONTH({!SOMONTHLYTU.Month_Indicator__c}) + 1),
-1
-)</expression>
+        <expression>Today()</expression>
     </formulas>
     <formulas>
         <name>ftoday7</name>
         <dataType>Date</dataType>
-        <expression>Today()+8</expression>
-    </formulas>
-    <formulas>
-        <name>NewStartdate</name>
-        <dataType>Date</dataType>
-        <expression>Today()+1</expression>
+        <expression>Today()+6</expression>
     </formulas>
     <interviewLabel>TU POPULATE TIMESHEET ENTRIES {!$Flow.CurrentDateTime}</interviewLabel>
     <label>TU POPULATE TIMESHEET ENTRIES</label>
@@ -348,25 +305,10 @@ IF(MONTH({!SOMONTHLYTU.Month_Indicator__c}) = 12, 1, MONTH({!SOMONTHLYTU.Month_I
         <collectionReference>SOTIMEREGISTER</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
-            <targetReference>MONTHLYTU</targetReference>
+            <targetReference>Look_up_holidays</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
             <targetReference>add_new_TU_update_newly_created_objects</targetReference>
-        </noMoreValuesConnector>
-    </loops>
-    <loops>
-        <name>LOOP_MONTHLY_TU</name>
-        <label>LOOP MONTHLY TU</label>
-        <locationX>789</locationX>
-        <locationY>535</locationY>
-        <assignNextValueToReference>SOMONTHLYTU</assignNextValueToReference>
-        <collectionReference>SOCMONTHLYTU</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>CURRENT_OR_NEXT_MONTH</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>daycount_plus_1</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -445,6 +387,28 @@ IF(MONTH({!SOMONTHLYTU.Month_Indicator__c}) = 12, 1, MONTH({!SOMONTHLYTU.Month_I
         <queriedFields>Work_Week_End__c</queriedFields>
     </recordLookups>
     <recordLookups>
+        <name>Look_up_holidays</name>
+        <label>Look up holidays</label>
+        <locationX>625</locationX>
+        <locationY>403</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>ASSIGN_HOLIDAY</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ActivityDate</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>datecount</elementReference>
+            </value>
+        </filters>
+        <object>Holiday</object>
+        <outputReference>SOHOLIDAY</outputReference>
+        <queriedFields>ActivityDate</queriedFields>
+        <queriedFields>Id</queriedFields>
+    </recordLookups>
+    <recordLookups>
         <name>LOOK_UP_PREVIOUS_TU_RECORD</name>
         <label>LOOK UP PREVIOUS TU RECORD</label>
         <locationX>110</locationX>
@@ -490,62 +454,8 @@ IF(MONTH({!SOMONTHLYTU.Month_Indicator__c}) = 12, 1, MONTH({!SOMONTHLYTU.Month_I
         <queriedFields>Start_Time__c</queriedFields>
         <queriedFields>End_Time__c</queriedFields>
         <queriedFields>Lunch_Time_Mins__c</queriedFields>
-        <queriedFields>OwnerId</queriedFields>
         <sortField>Week_Seq__c</sortField>
         <sortOrder>Asc</sortOrder>
-    </recordLookups>
-    <recordLookups>
-        <name>lookup_holiday</name>
-        <label>lookup holiday</label>
-        <locationX>1326</locationX>
-        <locationY>341</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>check_holiday</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>ActivityDate</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>daycount</elementReference>
-            </value>
-        </filters>
-        <object>Holiday</object>
-        <outputAssignments>
-            <assignToReference>holidaydate</assignToReference>
-            <field>ActivityDate</field>
-        </outputAssignments>
-    </recordLookups>
-    <recordLookups>
-        <name>MONTHLYTU</name>
-        <label>MONTHLY TU</label>
-        <locationX>803</locationX>
-        <locationY>287</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>LOOP_MONTHLY_TU</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Month_Indicator__c</field>
-            <operator>GreaterThanOrEqualTo</operator>
-            <value>
-                <elementReference>FIRSTDAYOFMONTH</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>OwnerId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>soregister.OwnerId</elementReference>
-            </value>
-        </filters>
-        <object>Monthly_Time_Utilisation__c</object>
-        <outputReference>SOCMONTHLYTU</outputReference>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>OwnerId</queriedFields>
-        <queriedFields>Month_Indicator__c</queriedFields>
     </recordLookups>
     <recordUpdates>
         <name>update_all_newly_created_flag</name>
@@ -582,20 +492,12 @@ IF(MONTH({!SOMONTHLYTU.Month_Indicator__c}) = 12, 1, MONTH({!SOMONTHLYTU.Month_I
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>SOCMONTHLYTU</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>Monthly_Time_Utilisation__c</objectType>
-    </variables>
-    <variables>
-        <name>SOMONTHLYTU</name>
+        <name>SOHOLIDAY</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
-        <objectType>Monthly_Time_Utilisation__c</objectType>
+        <objectType>Holiday</objectType>
     </variables>
     <variables>
         <name>soregister</name>

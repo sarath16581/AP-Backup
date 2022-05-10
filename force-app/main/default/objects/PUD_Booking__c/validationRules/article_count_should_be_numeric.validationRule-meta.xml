@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>article_count_should_be_numeric</fullName>
+    <active>true</active>
+    <description>Article count should be a numeric number</description>
+    <errorConditionFormula>AND(
+NOT(ISBLANK(Article_Count__c)),
+NOT(ISNUMBER(Article_Count__c))
+)</errorConditionFormula>
+    <errorMessage>Article count should be a numeric number. Please correct before saving the record.</errorMessage>
+</ValidationRule>

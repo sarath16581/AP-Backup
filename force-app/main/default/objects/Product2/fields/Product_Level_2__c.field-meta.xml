@@ -81,11 +81,6 @@
                 <label>Financial Services</label>
             </value>
             <value>
-                <fullName>Fulfilment</fullName>
-                <default>false</default>
-                <label>Fulfilment</label>
-            </value>
-            <value>
                 <fullName>Fulfilment &amp; Unaddressed</fullName>
                 <default>false</default>
                 <label>Fulfilment &amp; Unaddressed</label>

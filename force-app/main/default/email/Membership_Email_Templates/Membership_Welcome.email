@@ -14,7 +14,6 @@ replyTo="customerservice@testauspost.com.au" >
 <table>
 <tbody>
 <tr>
-<td>&nbsp;</td>
 <td>{!DAY(DATEVALUE(relatedTo.LastModifiedDate))}
 {!CASE(MONTH(DATEVALUE(relatedTo.LastModifiedDate)),
 1, "January",
@@ -30,10 +29,12 @@ replyTo="customerservice@testauspost.com.au" >
 11, "November",
 12, "December",
 "None")}, {!YEAR(DATEVALUE(relatedTo.LastModifiedDate))}</td>
+<td>&nbsp;</td>
 </tr>
 <tr>
-<td><apex:image id="APLACLogo" value="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0159000000ERRvK&amp;oid=00D30000001GGce&amp;lastMod=1531985641000" width="165" height="172"/></td>
-<td><strong>Licensee Advisory Council Membership</strong></td>
+<td><strong>Licensee Advisory Council Membership &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</strong></td>
+<td><apex:image id="APLACLogo" value="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0159000000ERRvK&amp;oid=00D30000001GGce&amp;lastMod=1531985641000" width="165" height="172"/>
+</td>
 </tr>
 <tr>
 <td>&nbsp;</td>
@@ -58,7 +59,7 @@ replyTo="customerservice@testauspost.com.au" >
 <li>National and State Bulletins providing an overview on quarterly meeting content and upcoming meeting dates.</li>
 <li>General Information including a summary of the APLAC Constitution.</li>
 </ul>
-<p>Alternatively, if you don&rsquo;t have access to POP, you will receive a copy of the Quarterly Bulletin in the mail and can obtain copies of the above by emailing <a href="mailto:APLAC@auspost.com.au">APLAC@auspost.com.au</a> if required.</p>
+<p>Alternatively, if you don&rsquo;t have access to POP, you can request a copy of the above documentation and a copy of the Quarterly Bulletin by emailing <a href="mailto:APLAC@auspost.com.au">APLAC@auspost.com.au</a></p>
 <p>A reminder that APLAC aims to:</p>
 <ul>
 <li>Facilitate improved two-way communications between Licensees and Australia Post</li>
@@ -69,8 +70,8 @@ replyTo="customerservice@testauspost.com.au" >
 <ul>
 <li>Provide constructive assistance to Australia Post in the development of the Post brand and network</li>
 </ul>
-<p>If you have any suggestions that you feel may contribute to the development of new products or services, marketing and sales opportunities or ways we can improve our business relationship, then forward your feedback via the <strong>Notification of Revenue Opportunity/Operational Improvement</strong> <strong>form</strong> attached or download a copy directly on POP.</p>
-<p>Finally, to ensure you receive APLAC updates, please advise on any changes to your contact information as required. Updates can be completed by downloading a copy of the membership form on POP, circle &lsquo;update existing membership&rsquo; and note the new details in the comments section. A copy of the membership form is included for your reference or alternatively, please contact us at APLAC@auspost.com.au</p>
+<p>If you have any suggestions that you feel may contribute to the development of new products/services, marketing and sales opportunities or ways we can improve our business relationship, you can submit your suggestions on the form located on POP by selecting <strong>Tools &#38; Apps | APLAC Business Opportunity</strong>. If you do not have access to POP, you can request a suggestion form at APLAC@auspost.com.au.</p>
+<p>Finally, to ensure you receive APLAC updates, please advise on any changes to your contact information as required. Updates can be completed by downloading a copy of the membership form on POP, circle &lsquo;update existing membership&rsquo; and note the new details in the comments section. Alternatively, you can request a copy of the membership form at APLAC@auspost.com.au</p>
 <p>I look forward to working closely with you in the near future.</p>
 <p>Yours sincerely</p>
 
@@ -79,18 +80,17 @@ replyTo="customerservice@testauspost.com.au" >
 <table>
 <tbody>
 <tr>
-<td><apex:image id="ChairPersonSignature" value="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0152v00000G4Xlm&amp;oid=00D30000001GGce&amp;lastMod=1554700958000" width="264" height="80"/></td>
+<td><apex:image id="ChairPersonSignature" value="https://auspost--ptest--c.documentforce.com/servlet/servlet.ImageServer?id=0150p000000MXYf&oid=00D0p0000001xRS&" width="264" height="80"/></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>
 <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>
 <td><div align="right">
-<apex:image id="APLAC_Attachments" value="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0159000000ERRvL&oid=00D30000001GGce&lastMod=1531985641000"/>
 </div></td>
 </tr>
 <tr>
 <td>
-<p>Scott Burnham</p>
+<p>David Jeffries</p>
 <p>APLAC Chairperson</p>
 </td>
 <td>&nbsp;</td>
@@ -167,7 +167,7 @@ I look forward to working closely with you in the near future.
 
 Yours sincerely
 
-Scott Burnham
+David Jeffries
 </messaging:plainTextEmailBody>
 
 
@@ -185,7 +185,7 @@ Scott Burnham
 <br></br>
 <p style="text-align: center;"><strong><span style="font-size: 14.0pt; line-height: 115%; font-family: 'Bradley Hand ITC';"> {!relatedTo.Account__r.Facility__r.Name} </span></strong></p>
 <div style="text-align:center">
-<apex:image url="{!$Resource.APLAC_Signature_Chairman_Title}" width="115" height="119" style="vertical-align:left"/>
+<apex:image url="{!$Resource.APLAC_Signature_Chairman}" width="115" height="119" style="vertical-align:left"/>
 </div>
 <br></br>
 <br></br>

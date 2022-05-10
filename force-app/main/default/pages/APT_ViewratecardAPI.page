@@ -2,7 +2,7 @@
     
     
 	<script type="text/javascript">
-		window.onload = function(){
+		window.onload = function(){ 
 	        if('{!LastPageURL}' != null && '{!LastPageURL}' != '')
 	        {
 	            var lastPageURLName = 'lastPageURL' + '{!lineItemID}';
@@ -23,15 +23,16 @@
 
 <apex:form id="viewRatecardForm">
     <c:APT_WaitComponent />
-    <apex:actionStatus id="ajaxStatus" onstart="wait(true)" onstop="wait(false)" />
+    <apex:actionStatus id="ajaxStatus" onstart="wait(true)" />
     
-    <apex:actionFunction status="ajaxStatus" name="prestoApiJS" action="{!prestoAPI}" reRender="viewRatecardForm"></apex:actionFunction>
-    <apex:actionFunction name="initJS" action="{!init}" oncomplete="prestoApiJS();" ></apex:actionFunction>
+        <apex:actionFunction name="prestoApiJS" action="{!prestoAPI}" oncomplete="window.close();" ></apex:actionFunction>
+    <apex:actionFunction name="syncConfigLineItemsJS" action="{!syncConfigLineItems}" oncomplete="prestoApiJS();"></apex:actionFunction>
+    <apex:actionFunction status="ajaxStatus" name="initJS" action="{!init}" oncomplete="syncConfigLineItemsJS();" ></apex:actionFunction>
         
         <apex:pageBlock mode="edit">
             <apex:pageMessages />
             <apex:pageBlockButtons location="bottom" >
-                <apex:commandButton action="{!doCancel}" value="{!$Label.Apttus_XApps__Cancel}" immediate="true" oncomplete="ReturnToCart();"/>
+                <apex:commandButton action="{!doCancel}" value="{!$Label.apttus_xapps__cancel}" immediate="true" oncomplete="ReturnToCart();"/>
             </apex:pageBlockButtons>
         </apex:pageBlock>
         

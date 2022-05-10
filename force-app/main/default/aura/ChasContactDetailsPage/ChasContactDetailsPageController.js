@@ -15,6 +15,7 @@
     },
     goForwardAsGuest: function (cmp, event, helper) {
        var isValid = helper.checkAllValidForGuest(cmp, true);
+       console.log(JSON.parse(JSON.stringify(cmp.get('v.wizardData'))));
        if(isValid){
            helper.gotoNextPage(cmp);
        }

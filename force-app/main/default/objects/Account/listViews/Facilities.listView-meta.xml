@@ -4,16 +4,13 @@
     <columns>ACCOUNT.NAME</columns>
     <columns>WCIS_Code__c</columns>
     <columns>ACCOUNT.ADDRESS2_STATE</columns>
+    <columns>Status__pc</columns>
+    <columns>Licence_Status__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>ACCOUNT.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Account.Facility,Account.Facility_CMA,Account.Facility_CPA</value>
-    </filters>
-    <filters>
-        <field>Hidden_Data_Score_Individual__pc</field>
-        <operation>equals</operation>
-        <value>377043</value>
     </filters>
     <label>Facilities</label>
     <sharedTo>

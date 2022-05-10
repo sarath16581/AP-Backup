@@ -139,6 +139,7 @@
         <customTabListAdditionalFields>ShouldAddConstantValue</customTabListAdditionalFields>
         <customTabListAdditionalFields>ConstantValue</customTabListAdditionalFields>
         <customTabListAdditionalFields>AdditionalConstantValue</customTabListAdditionalFields>
+        <customTabListAdditionalFields>DateValue</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>BundlePolicy</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ShouldUpdateOnAdd</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ShouldUpdateOnRemove</lookupDialogsAdditionalFields>
@@ -148,6 +149,7 @@
         <lookupDialogsAdditionalFields>ShouldAddConstantValue</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ConstantValue</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>AdditionalConstantValue</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>DateValue</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>BundlePolicy</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ShouldUpdateOnAdd</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ShouldUpdateOnRemove</lookupPhoneDialogsAdditionalFields>
@@ -157,6 +159,7 @@
         <lookupPhoneDialogsAdditionalFields>ShouldAddConstantValue</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>ConstantValue</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>AdditionalConstantValue</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>DateValue</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>BundlePolicy</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ShouldUpdateOnAdd</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ShouldUpdateOnRemove</searchResultsAdditionalFields>
@@ -166,6 +169,7 @@
         <searchResultsAdditionalFields>ShouldAddConstantValue</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ConstantValue</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>AdditionalConstantValue</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>DateValue</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

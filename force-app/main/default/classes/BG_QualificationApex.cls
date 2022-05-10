@@ -6,6 +6,7 @@ History:
 -----------------------------------------------------------------------------------------
 20.02.2020      Jansi (CRMIT Solutions)             created
 17.08.2020      arjun.singh@auspost.com.au          Added a method to fetch the configured estimated revnue used in lead qualification flow
+07.03.2022      seth.heang@auspost.com.au           Added new fields to Qualification Template Question query and update search filter from Category API name to Category Label
 *****************************************************************************************/
 public class BG_QualificationApex {
     /**
@@ -61,13 +62,13 @@ public class BG_QualificationApex {
             [SELECT  Category__c,Datatype__c,Order__c,
              Question_Text__c,Related_Response__c,Related_Response__r.Name
              FROM Qualification_Template_Questions__c 
-             WHERE Category__c=:category AND Related_Response__c = NULL ORDER BY Order__c ASC];
+             WHERE toLabel(Category__c)=:category AND Related_Response__c = NULL ORDER BY Order__c ASC];
         }else{
             categoryQuestions =
             [SELECT  Category__c,Datatype__c,Order__c,
              Question_Text__c,Related_Response__c,Related_Response__r.Name
              FROM Qualification_Template_Questions__c 
-             WHERE Category__c=:category AND Account_Manager_Only__c= false AND Related_Response__c = NULL ORDER BY Order__c ASC];
+             WHERE toLabel(Category__c)=:category AND Account_Manager_Only__c= false AND Related_Response__c = NULL ORDER BY Order__c ASC];
         }        
         return categoryQuestions;
     }
@@ -86,7 +87,7 @@ public class BG_QualificationApex {
         }
         List<CategoryQuestionWrapper> categoryQuestionsList = new List<CategoryQuestionWrapper>();
         for( Qualification_Template_Questions__c categoryQuestions :
-            [SELECT  Category__c,Datatype__c,Order__c,
+            [SELECT  toLabel(Category__c),Datatype__c,Order__c,Help_Text__c,APT_Applicable_Validation__c,Validation_Message__c,Min_Value__c,Max_Value__c,
              Question_Text__c, Required__c, Name,Related_Response__r.Qualification_Template_Question__r.Name,Related_Response__c,Related_Response__r.Name
              FROM Qualification_Template_Questions__c 
              WHERE Related_Response__r.Qualification_Template_Question__r.Name=:parentUniqueKey AND Related_Response__r.Response_Text__c IN :selectedAnswerList ORDER BY Order__c ASC]){
@@ -114,9 +115,10 @@ public class BG_QualificationApex {
             String ObjectName = String.valueOf(id.valueOf(recordIdStr).getsobjecttype());
             Boolean isConvertedOpportunity = false;
             
-            String select_Query = ' SELECT Category__c,Datatype__c,Order__c,Question_Text__c, Required__c, Name,Related_Response__c,Related_Response__r.Name,Related_Response__r.Qualification_Template_Question__r.name FROM Qualification_Template_Questions__c WHERE ';
+            String select_Query = ' SELECT Category__c,Datatype__c,Order__c,Question_Text__c, Required__c, Name,Help_Text__c,APT_Applicable_Validation__c,Validation_Message__c,Min_Value__c,Max_Value__c,Related_Response__c,Related_Response__r.Name,Related_Response__r.Qualification_Template_Question__r.name FROM Qualification_Template_Questions__c WHERE ';
             String accountManager_Filter = ' AND Account_Manager_Only__c = false ' ;
-            String category_Filter = 'Category__c =' + '\'' + category + '\'';
+            // Update category check from API name to Label Name
+            String category_Filter = 'toLabel(Category__c) =' + '\'' + category + '\'';
             String active_Filter = ' AND Active__c = TRUE ';
             String lead_Filter = 'AND Initiation_Pathway__c IN (' + '\'' + 'Leads' + '\'' + ',' + '\'' + 'Leads and Opportunities' + '\'' +')' ;
             String opportunity_Filter = ' AND Initiation_Pathway__c IN (' + '\'' + 'Opportunities' + '\'' + ',' + '\'' + 'Leads and Opportunities' + '\'' +')' ;
@@ -198,6 +200,11 @@ public class BG_QualificationApex {
         @AuraEnabled public Boolean isRequired {get; set;}
         @AuraEnabled public String uniqueKey {get; set;}
         @AuraEnabled public String parentUniqueKey {get; set;}
+        @AuraEnabled public Decimal minValue {get; set;}
+        @AuraEnabled public Decimal maxValue {get; set;}
+        @AuraEnabled public String validationMessage {get; set;}
+        @AuraEnabled public String applicableValidationType {get; set;}
+        @AuraEnabled public String helpText {get; set;}
         @AuraEnabled public Map<String, String> answerMap {get; set;}
         @AuraEnabled public List<CategoryQuestionWrapper> relatedQuestionsList {get; set;}
         @AuraEnabled public String relatedResponseId {get; set;}
@@ -209,6 +216,11 @@ public class BG_QualificationApex {
             this.order = qta.Order__c;
             this.isRequired = qta.Required__c;
             this.uniqueKey = qta.Name;
+            this.minValue = qta.Min_Value__c;
+            this.maxValue = qta.Max_Value__c;
+            this.helpText = qta.Help_Text__c;
+            this.validationMessage = qta.Validation_Message__c;
+            this.applicableValidationType = qta.APT_Applicable_Validation__c;
             this.parentUniqueKey = parentUniqueKey;
             if(qta.Related_Response__c != null){
                 this.relatedResponseId = qta.Related_Response__r.Name;
@@ -224,26 +236,31 @@ public class BG_QualificationApex {
                                                                 WHERE Qualification_Template_Question__r.Question_Text__c=:this.questionName AND 
                                                                       Qualification_Template_Question__r.name =: this.uniqueKey AND
                                                                       Active__c = true AND   
-                                                                      Qualification_Template_Question__r.Category__c = :category ORDER BY Order__c ASC]){
+                                                                      toLabel(Qualification_Template_Question__r.Category__c) = :category ORDER BY Order__c ASC]){
                                                                     this.answers.add(qtAns.Response_Text__c);      
                                                                     this.answerMap.put(qtAns.Response_Text__c, qtAns.Id);
                                                                     
                                                                 }
 																
 				List<CategoryQuestionWrapper> CategoryQuestionWrapperListVar = new List<CategoryQuestionWrapper>();												
-				for(Qualification_Template_Questions__c relatedQuestion:[SELECT Id,Question_Text__c,  Datatype__c, Order__c, Required__c, Name,
+				for(Qualification_Template_Questions__c relatedQuestion:[SELECT Id,Question_Text__c,  Datatype__c, Order__c, Required__c, Name,Min_Value__c,Max_Value__c,Validation_Message__c,APT_Applicable_Validation__c,Help_Text__c,
 																			(SELECT Id,
 																				Response_Text__c,Next_Question__c,Order__c,
 																				Qualification_Template_Question__c FROM Qualification_Template_Responses__r)
 																		 FROM Qualification_Template_Questions__c
 																		 WHERE Related_Response__r.Qualification_Template_Question__r.Question_Text__c=:this.questionName AND 
-																		 Related_Response__r.Qualification_Template_Question__r.Category__c = :category ORDER BY Order__c ASC]){
+																		 toLabel(Related_Response__r.Qualification_Template_Question__r.Category__c) = :category ORDER BY Order__c ASC]){
 																			 CategoryQuestionWrapper CategoryQuestionWrapperVar = new CategoryQuestionWrapper();
 																			 CategoryQuestionWrapperVar.questionName = relatedQuestion.Question_Text__c;
 																			 CategoryQuestionWrapperVar.dataType = relatedQuestion.Datatype__c;
 																			 CategoryQuestionWrapperVar.order = relatedQuestion.Order__c;
 																			 CategoryQuestionWrapperVar.isRequired = relatedQuestion.Required__c;
 																			 CategoryQuestionWrapperVar.uniqueKey = relatedQuestion.Name;
+																			 CategoryQuestionWrapperVar.minValue = relatedQuestion.Min_Value__c;
+																			 CategoryQuestionWrapperVar.maxValue = relatedQuestion.Max_Value__c;
+																			 CategoryQuestionWrapperVar.validationMessage = relatedQuestion.Validation_Message__c;
+																			 CategoryQuestionWrapperVar.applicableValidationType = relatedQuestion.APT_Applicable_Validation__c;
+																			 CategoryQuestionWrapperVar.helpText = relatedQuestion.Help_Text__c;
 																			 List<String> answersTemp = new List<String>();
 																			 Map<String,String> answerMapTemp = new Map<String,String>();
 																			 for(Qualification_Template_Responses__c qtRelatedAns: relatedQuestion.Qualification_Template_Responses__r){

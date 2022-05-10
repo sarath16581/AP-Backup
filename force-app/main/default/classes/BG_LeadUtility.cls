@@ -9,6 +9,7 @@ Test Class:BG_LeadUtilityTest
 17-01-2020      Suman Gunaganti     Methods to support HVS functionality 
 05-03-2020      Suman Gunaganti     Lead SLA fields logic update
 01-10-2021	Seth Heang	    Uplift SF API version to 52
+08-04-2022      Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
 **************************************************/
 
 public with sharing class BG_LeadUtility {
@@ -17,21 +18,21 @@ public with sharing class BG_LeadUtility {
     
     @InvocableMethod(label='Map Lead Owners' description='Assign the Lead owners based on mapping criteria')
     public static void  assignLeadOwner(List<ID> ids) {
-        System.debug('assignLeadOwner --- START');
+        //System.Debug('assignLeadOwner --- START');
         if(ids != null && ids.size() > 0){
             List<Lead> leadsList = [SELECT Id, Product__c, Opportunity_Initial_Estimate__c, PostalCode
             FROM Lead
             WHERE Id in :ids];
-            System.debug('leadsList='+leadsList);
+            //System.Debug('leadsList='+leadsList);
             if(leadsList !=null && leadsList.size() > 0) {
                 assignSalesRep(leadsList);
             }
         }
-        System.debug('assignLeadOwner --- END');
+        //System.Debug('assignLeadOwner --- END');
     }
     
     public static void assignSalesRep (List <Lead> leadList ){  
-        System.debug('assignSalesRep --- START');
+        //System.Debug('assignSalesRep --- START');
 
         // list of leads to updated in single DML
         List <Lead> leadUpdateList = new List <Lead>();
@@ -47,7 +48,7 @@ public with sharing class BG_LeadUtility {
 
         // begin processing
         if (!leadList.isEmpty()){
-            System.debug ('############# Started getting territory matrix ###############');
+            //System.Debug ('############# Started getting territory matrix ###############');
 
             // SOQL for territory assignment matrix records
             List <Territory_Assignment_Matrix__c> territoryList = [
@@ -56,9 +57,9 @@ public with sharing class BG_LeadUtility {
                             Sales_Team_Member__r.Email
                     FROM Territory_Assignment_Matrix__c
                     WHERE Post_Code__c in : postCodeList];
-            System.debug('territoryList='+territoryList);
+            //System.Debug('territoryList='+territoryList);
             String defaultSalesRep = ConfigSetting__c.getInstance().OpportunityDriverDefaultUserId__c;
-            System.debug('defaultSalesRep='+defaultSalesRep);
+            //System.Debug('defaultSalesRep='+defaultSalesRep);
 
             // 2020/07/23 vcheng - adding notification email
             Id emailTemplateId = getLeadAssignEmailTemplateId();
@@ -81,8 +82,8 @@ public with sharing class BG_LeadUtility {
                             (tmpLead.Opportunity_Initial_Estimate__c <= tmpTerritory.High_Threshold_amount__c ||
                              tmpTerritory.High_Threshold_amount__c == null) && tmpLead.Product__c == tmpTerritory.Product__c)
                         {
-                            system.debug('*****LOW: ' + tmpTerritory.Low_Threshold_Amount__c);
-                            system.debug('*****HIGH: ' + tmpTerritory.High_Threshold_amount__c);
+                            //System.Debug('*****LOW: ' + tmpTerritory.Low_Threshold_Amount__c);
+                            //System.Debug('*****HIGH: ' + tmpTerritory.High_Threshold_amount__c);
 
                             // if territory is found, assign the territory's sales rep as owner
                             tmpLead.OwnerId= tmpTerritory.Sales_Team_Member__c ;
@@ -108,7 +109,7 @@ public with sharing class BG_LeadUtility {
                 }
                 isFound=false;
             }
-            System.debug('####### leadUpdateList= #######' + leadUpdateList);
+            //System.Debug('####### leadUpdateList= #######' + leadUpdateList);
 
             // DML to update the processed leads
             if (!leadUpdateList.isEmpty()) {
@@ -118,17 +119,17 @@ public with sharing class BG_LeadUtility {
             // 2020/07/23 VC Send the emails
             if(emailTemplateId != null)
             {
-                System.debug('BG_LeadUtility:: Notification Emails ' + managerNotificationEmails);
+                //System.Debug('BG_LeadUtility:: Notification Emails ' + managerNotificationEmails);
                 Messaging.sendEmail(managerNotificationEmails);
             }
             else
             {
-                System.debug('BG_LeadUtility:: Email Template ' + LEAD_ASSIGNED_EMAIL_TEMPLATE + ' not found');
+                //System.Debug('BG_LeadUtility:: Email Template ' + LEAD_ASSIGNED_EMAIL_TEMPLATE + ' not found');
             }
 
         }
 
-        System.debug('assignSalesRep --- END');
+        //System.Debug('assignSalesRep --- END');
     }
 
 
@@ -233,7 +234,7 @@ public with sharing class BG_LeadUtility {
         for (Lead leadrec : newLeadList) {
             Lead oldLead = oldLeadMap?.get(leadrec.Id);
             //Collect In Progress and Qualified leads
-            if (leadRecordTypeMap.get(leadrec.RecordTypeId).DeveloperName == 'BG_Standard' &&
+            if (leadrec.RecordTypeId != null && leadRecordTypeMap.get(leadrec.RecordTypeId).DeveloperName == 'BG_Standard' &&
                 leadrec.OwnerId.getSobjectType() == Schema.User.SObjectType &&
                 leadrec.OwnerId <> leadrec.CreatedById &&
                 (leadrec.OwnerId <> oldLead?.ownerId || leadrec.Status <> oldLead?.Status) &&
@@ -241,7 +242,7 @@ public with sharing class BG_LeadUtility {
                     leadsForcadence.add(leadrec);
                     leadOwnersList.add(leadrec.OwnerId);
             }
-            else if (leadRecordTypeMap.get(leadrec.RecordTypeId).DeveloperName == 'BG_Standard' &&
+            else if (leadrec.RecordTypeId != null && leadRecordTypeMap.get(leadrec.RecordTypeId).DeveloperName == 'BG_Standard' &&
                     leadrec.Status <> oldLead?.Status &&
                     'Disqualified'.equalsIgnoreCase(leadrec.Status)) {
                     disqualifiedLeads.add(leadrec);

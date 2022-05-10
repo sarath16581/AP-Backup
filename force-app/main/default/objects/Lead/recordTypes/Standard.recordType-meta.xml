@@ -1447,6 +1447,10 @@
     <picklistValues>
         <picklist>Products__c</picklist>
         <values>
+            <fullName>APPC Domestic Parcels %28B2C%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Change of Address Notification</fullName>
             <default>false</default>
         </values>

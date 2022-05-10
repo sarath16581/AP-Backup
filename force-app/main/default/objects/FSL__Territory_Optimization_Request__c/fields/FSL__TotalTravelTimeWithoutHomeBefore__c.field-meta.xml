@@ -3,7 +3,7 @@
     <fullName>FSL__TotalTravelTimeWithoutHomeBefore__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Total Travel Without Home Before</label>
+    <label>Travel Time Between Appointments Before</label>
     <precision>7</precision>
     <required>false</required>
     <scale>0</scale>

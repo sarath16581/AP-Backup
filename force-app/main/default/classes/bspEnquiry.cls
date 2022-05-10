@@ -508,6 +508,11 @@ public without sharing class bspEnquiry extends bspBase {
         //hans 02/05/2019 embedded dropzone file upload
         //delete the created files when enquiry type is changed
         convertFilesToAttachmentsAndDeleteFiles('', false);
+        if(isMpbHspFlag){
+            String enquiryType =  enq.MPB_BSP_Enquiry_Type__c;
+            createCase();
+            enq.MPB_BSP_Enquiry_Type__c = enquiryType;
+        }
         return null;
     }
 
@@ -552,7 +557,6 @@ public without sharing class bspEnquiry extends bspBase {
         //Set header for page rendering and security for IE8
        setPageHeaders();
 
-        //system.debug('xxx fromWhoRadio = ' + fromWhoRadio);
         return null;
 
     }
@@ -1111,10 +1115,9 @@ public without sharing class bspEnquiry extends bspBase {
 
         if(isDmlError == false && !dontSave) {
             // Added a condition to make Attachment mandatory if Enquiry Type is delivery Enquiry and Sub Case type is not equal to Tracking Status
-            /* If(enqType == BspConstants.ENQUIRY_TYPE_MPB_DEL_ENQ &&
-                enqSubType == BspConstants.SELECT_OPTION_MPB_DEL_ENQ_MISSING && fileBody == null || fileBodyLength == 0){
-                String msgString = 'Please attach document is required for delivery enquiry of missing item type.';
-                ApexPages.Message msg = new ApexPages.Message(ApexPages.Severity.ERROR, msgString);
+            If(enqType == BspConstants.ENQUIRY_TYPE_MPB_DEL_ENQ &&
+                    enqSubType == BspConstants.SELECT_OPTION_MPB_DEL_ENQ_MISSING && (fileBody == null || fileBodyLength == 0)){
+                ApexPages.Message msg = new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.MPB_Missing_Item_Attachment_Error);
                 Apexpages.addmessage(msg);
 
                 // clear fileBody to blank to avoid viewstate error
@@ -1123,7 +1126,10 @@ public without sharing class bspEnquiry extends bspBase {
 
                 isDmlError = true;
                 Database.rollback(sp);
-            } */
+                if(enq != null && enq.Id != null){
+                    enq.Id = null;
+                }
+            }
             if(fileBodyLength > 0) {
                 if ((fileBodyLength / 1048576) > fileSizeLimit) {
                     String msgString = 'This file exceeds the maximum size limit of ' + fileSizeLimitInteger + 'MB.';

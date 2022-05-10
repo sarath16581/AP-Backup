@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FinalNoticeDate__c</fullName>
+    <description>The date that the Final Notice was generated.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The date that the Final Notice was generated.</inlineHelpText>
+    <label>Final Notice Date</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

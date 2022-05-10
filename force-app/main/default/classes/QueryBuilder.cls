@@ -29,6 +29,7 @@
  * @version 1.0
  * @changelog
  * 2020-08-02 - Nathan Franklin - Added option for fieldOverrides
+ * 2021-12-02 - Alex Volkov - Added datetime comparison conditions
  */
 public virtual inherited sharing class QueryBuilder {
 
@@ -281,6 +282,7 @@ public virtual inherited sharing class QueryBuilder {
      */
     public QueryBuilder addFields(List<SObjectField> fields) {
         for (SObjectField field : fields) {
+            System.debug(field);
             this.fieldTokens.add('' + field);
         }
         return this;
@@ -962,6 +964,7 @@ public virtual inherited sharing class QueryBuilder {
         }
 
         String output = result.trim();
+        System.debug(output);
         return output;
     }
 
@@ -1085,6 +1088,7 @@ public virtual inherited sharing class QueryBuilder {
         public final String QUOTE = '\'';
         public final String BRACKET_L = '(';
         public final String BRACKET_R = ')';
+        public final String DATETIME_FORMAT = 'yyyy-MM-dd\'T\'HH:mm:ss\'Z\'';
         protected String formedCondition;
 
         public Condition() {
@@ -1097,6 +1101,10 @@ public virtual inherited sharing class QueryBuilder {
 
         protected String bracket(String field) {
             return BRACKET_L + field.trim() + BRACKET_R;
+        }
+
+        protected String datetimeLiteral(Datetime field) {
+            return field.formatGmt(DATETIME_FORMAT);
         }
 
         public virtual override String toString() {
@@ -1228,6 +1236,29 @@ public virtual inherited sharing class QueryBuilder {
 
         public Condition ne(Decimal fieldValue) {
             this.formedCondition = this.fieldName + ' != ' + fieldValue;
+            return this;
+        }
+
+        /**
+         * DateTime values need to be converted to GMT before being used as strings in SOQL due to variable timezone offset
+        */
+        public Condition lte(Datetime fieldValue) {
+            this.formedCondition = this.fieldName + ' <= ' + this.datetimeLiteral(fieldValue);
+            return this;
+        }
+
+        public Condition gte(Datetime fieldValue) {
+            this.formedCondition = this.fieldName + ' >= ' + this.datetimeLiteral(fieldValue);
+            return this;
+        }
+
+        public Condition lt(Datetime fieldValue) {
+            this.formedCondition = this.fieldName + ' < ' + this.datetimeLiteral(fieldValue);
+            return this;
+        }
+
+        public Condition gt(Datetime fieldValue) {
+            this.formedCondition = this.fieldName + ' > ' + this.datetimeLiteral(fieldValue);
             return this;
         }
     }

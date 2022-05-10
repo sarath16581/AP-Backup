@@ -1586,6 +1586,21 @@
             <field>BillingAccount__c.Id</field>
             <table>User.Contacts__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Unique_Mobile__c</field>
+            <table>User.Contacts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
+            <table>User.Contacts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hiddenTieContactToServicePartner__c</field>
+            <table>User.Contacts__r</table>
+        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -4528,5 +4543,18 @@
             <table>User.Contacts__r.Accounts__r.Billing_Accounts__r</table>
         </columns>
         <masterLabel>Billing Accounts</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hiddenTieContactToServicePartner__c</field>
+            <table>User.Contacts__r.Accounts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
+            <table>User.Contacts__r.Accounts__r</table>
+        </columns>
+        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

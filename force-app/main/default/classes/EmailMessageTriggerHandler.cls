@@ -5,6 +5,7 @@
  * @group Domain
  * @domain EmailMessage
  * @changelog
+ * 2022-02-10	Naveen Rajanna	REQ2723199 - Added StarTrackEmailMessagesDomain class to the register
  */
 
 public inherited sharing class EmailMessageTriggerHandler extends ApplicationDomainTriggerHandler {
@@ -14,7 +15,8 @@ public inherited sharing class EmailMessageTriggerHandler extends ApplicationDom
 	
 	public override List<Type> registerDomains() {
 		return new List<Type>{
-				ServiceAdvisorsEmailMessagesDomain.class
+			ServiceAdvisorsEmailMessagesDomain.class,			
+			StarTrackEmailMessagesDomain.class
 		};
 	}
 	/**
@@ -26,7 +28,8 @@ public inherited sharing class EmailMessageTriggerHandler extends ApplicationDom
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
 				EmailMessage.SObjectType,
-				Case.SObjectType
+				Case.SObjectType,
+				CaseMileStone.SObjectType
 		};
 	}
 }

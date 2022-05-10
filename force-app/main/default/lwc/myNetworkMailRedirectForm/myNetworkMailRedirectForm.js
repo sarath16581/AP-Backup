@@ -134,19 +134,20 @@ export default class myNetworkMailRedirectForm extends LwcForm {
         let errorMsg = ''
         
         if(!(this.isUndefinedOrNull(this.getVisibleData().productSubCategory)) &&
-                this.getVisibleData().productSubCategory === this.mailRedirectionConfig.showFor &&
-                this.getVisibleData().senderAddressSearchTerm === this.getVisibleData().addresseeAddressSearchTerm) {
-            isValid = false
-            errorMsg = 'Old address cannot be the same as the new address'
-        } else {
-            isValid = true
-            errorMsg = ''
+                this.getVisibleData().productSubCategory === this.mailRedirectionConfig.showFor) {
+                
+            if(this.getVisibleData().senderAddressSearchTerm === this.getVisibleData().addresseeAddressSearchTerm) {
+                isValid = false
+                errorMsg = 'Old address cannot be the same as the new address'
+            } else {
+                isValid = true
+                errorMsg = ''
+            }
+            const oldAddressCmp = this.template.querySelector('c-qas-address-validation[data-id="mailredirect-old-address-input"]')
+            oldAddressCmp.setCustomValidity(isValid, errorMsg)
+            const newAddressCmp = this.template.querySelector('c-qas-address-validation[data-id="mailredirect-new-address-input"]')
+            newAddressCmp.setCustomValidity(isValid, errorMsg)
         }
-        const oldAddressCmp = this.template.querySelector('c-qas-address-validation[data-id="mailredirect-old-address-input"]')
-        oldAddressCmp.setCustomValidity(isValid, errorMsg)
-        const newAddressCmp = this.template.querySelector('c-qas-address-validation[data-id="mailredirect-new-address-input"]')
-        newAddressCmp.setCustomValidity(isValid, errorMsg)
-
         isValid = this.validateInputs()
         return isValid; 
     }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>1</activeVersionNumber>
+    <description>This sub flow is triggered from AP Domain Flow - Record Triggered After Save Flow for Customer Analytics and Reporting Request (CAR) Cases</description>
+    <masterLabel>CAR Case Notification Sub Flow</masterLabel>
+</FlowDefinition>

@@ -5,6 +5,7 @@
  * @domain Core
  * @description :Test Class covering CaseMilestonesSelector
  * @changelog
+ * 2022-02-22 - Naveen Rajanna - REQ2723199	Added tests for FILTER_VIOLATED selector and selectByIdsWithParentStarTrackCase method
  */
 @IsTest
 private class CaseMilestonesSelector_Test {
@@ -39,6 +40,10 @@ private class CaseMilestonesSelector_Test {
 			'Resulting query does not select from CaseMilestone: ' + soql
 		);
 
+		qb = selector.newQueryBuilder(new Set<Object>{CaseMilestonesSelector.Options.FILTER_VIOLATED});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom CaseMilestone\\b.*?IsViolated\\s*?=\\s*?true\\b').matcher(soql).find(), 'Resulting query did not filter IsViolated');
+		
 		Test.stopTest();
 	}
 
@@ -69,10 +74,13 @@ private class CaseMilestonesSelector_Test {
 		CaseMilestonesSelector selector = CaseMilestonesSelector.newInstance();
 		Map<Id, CaseMilestone> results = selector.selectByCase(new Set<Id>{ myCase[0].Id });
 
+		List<CaseMilestone> results2 = selector.selectByCaseAndMilestoneNames(new Set<Id>{myCase[0].Id}, new Set<String>{StarTrack_Constants.CASEMILESTONE_CUST_FIRST_RESP}, new Set<Object>{CaseMilestonesSelector.Options.FILTER_VIOLATED});
+
 		Test.stopTest();
 
 		// ensure the query is producing correct result
 		// Milestones cannot be inserted in test class due to entitlement process
 		System.assertEquals(0, results.size(), 'Expected result size of 0');
+		System.assertEquals(0, results2.size(), 'Expected result size of 0');
 	}
 }

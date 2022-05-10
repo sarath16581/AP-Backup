@@ -7,6 +7,7 @@
  * @description A very simple selector class that sits in the base domain
  * @changelog
  * 2020-11-25 - Shashwat.nath@auspost.com.au - Created
+ * 2022-02-18 - Naveen.Rajanna@auspost.com.au - INC1911242 - Include Role_Type__c field to do bug fix
  */
  
 public with sharing class OrganisationRoleSelector extends ApplicationSelector{
@@ -40,7 +41,7 @@ public with sharing class OrganisationRoleSelector extends ApplicationSelector{
     }    
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
-            Organisation_Role__c.Id
+            Organisation_Role__c.Id, Organisation_Role__c.Role_Type__c
         };
     }
     /**

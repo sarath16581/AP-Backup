@@ -1,0 +1,78 @@
+<!--
+  	Single cell (field) of the bookings data table in PUD Bulk Edit user interface. Supports display and inline editing
+  	for the bookings field value received from the parent component.
+  	Changelog:
+  	2022-03-11 - Ranjeewa Silva - Created.
+ -->
+<template>
+	<template if:false={editMode}>
+        <span class="slds-grid slds-grid_align-spread">
+
+            <div class={readOnlyCssClass} title={_value}>
+                <template if:true={isTextArea}>
+                    <lightning-formatted-rich-text value={_value}></lightning-formatted-rich-text>
+	            </template>
+                <template if:false={isTextArea}>
+	                <c-formatted-text-label type={type} value={_value}></c-formatted-text-label>
+	            </template>
+            </div>
+            <template if:true={editable}>
+                <lightning-button-icon icon-name="utility:edit"
+                                       size="small"
+                                       variant="bare"
+                                       icon-class="slds-button__icon_edit"
+                                       class="slds-cell-edit__button slds-m-left_x-small"
+                                       onclick={handleEdit}
+                                       alternative-text="Edit">
+                </lightning-button-icon>
+            </template>
+            <template if:false={editable}>
+                <lightning-button-icon icon-name="utility:lock"
+                                       size="small"
+                                       variant="bare"
+                                       icon-class="slds-button__icon_edit"
+                                       class="slds-cell-edit__button slds-m-left_x-small">
+                </lightning-button-icon>
+            </template>
+        </span>
+	</template>
+	<template if:true={editMode}>
+		<section class="slds-popover slds-popover slds-popover_edit" role="dialog" style="position:absolute;top:0;left:0.0625rem">
+			<div class="slds-popover__body">
+				<div class="slds-media">
+					<div class="slds-media__body">
+						<div class="slds-form-element slds-grid slds-wrap">
+							<label class="slds-form-element__label slds-form-element__label_edit slds-no-flex">
+								<span class="slds-assistive-text">{label}</span>
+							</label>
+							<div class="slds-form-element__control slds-grow">
+								<template if:true={isTextArea}>
+									<lightning-textarea name={name}
+									                    value={_value}
+									                    class="booking-input"
+									                    variant="label-hidden"
+									                    max-length={inputTypeAttributes.maxLength}
+									                    onchange={handleValueChange}
+									                    onblur={handleEditCompleted}>
+									</lightning-textarea>
+								</template>
+								<template if:false= {isTextArea}>
+									<lightning-input type={inputType}
+									                 name={name}
+									                 value={_value}
+									                 class="booking-input"
+									                 variant="label-hidden"
+									                 min={inputTypeAttributes.min}
+									                 max={inputTypeAttributes.max}
+									                 onchange={handleValueChange}
+									                 onblur={handleEditCompleted}>
+									</lightning-input>
+								</template>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</template>
+</template>

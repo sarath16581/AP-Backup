@@ -6,7 +6,6 @@
     <fields>Booking_Location__c</fields>
     <fields>Customer__c</fields>
     <fields>Network__c</fields>
-    <fields>Route__c</fields>
     <fields>Effective_Date__c</fields>
     <label>AP Booking</label>
 </CompactLayout>

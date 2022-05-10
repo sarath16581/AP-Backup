@@ -17,10 +17,7 @@
     <filters>
         <field>ACCOUNT.NAME</field>
         <operation>equals</operation>
-    </filters>
-    <filters>
-        <field>CASES.STATUS</field>
-        <operation>equals</operation>
+        <value>Two Ham Sandwiches</value>
     </filters>
     <label>Sales Ops Delivery Cases</label>
     <language>en_US</language>

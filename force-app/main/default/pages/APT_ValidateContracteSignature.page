@@ -1,0 +1,18 @@
+<apex:page Controller="APT_ValidateContracteSignatureController" showHeader="true" sidebar="true">
+    <script type="text/javascript">
+        showConfirmation();
+        function showConfirmation() 
+        {
+            var validationRes = "{!checkAndRedirect}"; 
+            if(validationRes == 'success') 
+            {
+                window.location.href = '/apex/{!pageSource}?id={!contID}&name={!name}&text={!text}';
+            }
+            else
+            {
+                alert(validationRes);
+                window.location.href = '/{!contID}';
+            }
+        }
+    </script>
+</apex:page>

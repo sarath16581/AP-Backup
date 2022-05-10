@@ -18,6 +18,11 @@
     </customPermissions>
     <description>Provides permission specific to the B&amp;G Sales users.</description>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.BillingAddressText__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.CoverageMethod__c</field>
         <readable>true</readable>

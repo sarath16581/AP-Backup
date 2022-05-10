@@ -21,7 +21,7 @@
  */
 @isTest
 private class GsUnitTests {
-	
+    
 
     static Campaign testCampaign;
     static Lead testLead;
@@ -53,13 +53,13 @@ private class GsUnitTests {
         cms3 = new CampaignMemberStatus(CampaignId = testCampaign.Id, Label = 'Application Form Confirmed', HasResponded = TRUE, SortOrder = 5);
         insert new List<CampaignMemberStatus>{cms1, cms2, cms3};
 
-        testLead = new Lead(FirstName = 'Test', LastName = 'Lead', State = 'NSW', email = 'testLead@lead123.com.au', Company = 'Test Company', Public_Id__c = 'tl1', JSONApplicationFormData__c = applicationFormData, Send_Business_Credit_Account_Info__c = 'No');
+        testLead = new Lead(FirstName = 'Test', LastName = 'Lead', State = 'NSW', email = 'testLead@lead123.com.au', Company = 'Test Company', Public_Id__c = 'tl1', JSONApplicationFormData__c = applicationFormData, Send_Business_Credit_Account_Info__c = 'No', MobilePhone='0444444444');
         insert testLead;
         testMember = new CampaignMember(LeadId = testLead.Id, CampaignId = testCampaign.Id, Public_Id__c = 'tl1');
         insert testMember;
 
         //Insert a Lead with a Campaign Member Status of Application Form Visited
-        testLead2 = new Lead(FirstName = 'Test', LastName = 'Lead 2', State = 'VIC', email = 'testLead@lead123.com.au', Company = 'Test Company', Public_Id__c = 'tl2', JSONApplicationFormData__c = applicationFormData, Send_Business_Credit_Account_Info__c = 'Yes');
+        testLead2 = new Lead(FirstName = 'Test', LastName = 'Lead 2', State = 'VIC', email = 'testLead@lead123.com.au', Company = 'Test Company', Public_Id__c = 'tl2', JSONApplicationFormData__c = applicationFormData, Send_Business_Credit_Account_Info__c = 'Yes', MobilePhone='0444444444');
         insert testLead2;
         testMember2 = new CampaignMember(LeadId = testLead2.Id, CampaignId = testCampaign.Id, Status = 'Application Form Visited', Public_Id__c = 'tl2');
         insert testMember2;
@@ -67,13 +67,13 @@ private class GsUnitTests {
         //Insert a Lead with a Campaign Member Status of Application Form Submitted
         applicationData.eParcelApplication = 'No';
         applicationFormData = JSON.serialize(applicationData);
-        testLead3 = new Lead(FirstName = 'Test', LastName = 'Lead 3', State = 'WA', email = 'testLead@lead123.com.au', Company = 'Test Company', Public_Id__c = 'tl3', JSONApplicationFormData__c = applicationFormData, Send_Business_Credit_Account_Info__c = 'Yes');
+        testLead3 = new Lead(FirstName = 'Test', LastName = 'Lead 3', State = 'WA', email = 'testLead@lead123.com.au', Company = 'Test Company', Public_Id__c = 'tl3', JSONApplicationFormData__c = applicationFormData, Send_Business_Credit_Account_Info__c = 'Yes', MobilePhone='0444444444');
         insert testLead3;
         testMember3 = new CampaignMember(LeadId = testLead3.Id, CampaignId = testCampaign.Id, Status = 'Application Form Submitted', Public_Id__c = 'tl3');
         insert testMember3;
 
         //Insert a Lead with a Campaign Member Status of Application Form Confirmed
-        testLead4 = new Lead(FirstName = 'Test', LastName = 'Lead 4', email = 'testLead@lead123.com.au', Company = 'Test Company', Public_Id__c = 'tl4', JSONApplicationFormData__c = applicationFormData);
+        testLead4 = new Lead(FirstName = 'Test', LastName = 'Lead 4', email = 'testLead@lead123.com.au', Company = 'Test Company', Public_Id__c = 'tl4', JSONApplicationFormData__c = applicationFormData, MobilePhone='0444444444');
         insert testLead4;
         testMember4 = new CampaignMember(LeadId = testLead4.Id, CampaignId = testCampaign.Id, Status = 'Application Form Confirmed', Public_Id__c = 'tl4');
         insert testMember4;
@@ -248,7 +248,9 @@ private class GsUnitTests {
         gsfc.applyForCreditAccount = 'No';
         gsfc.resetPicklist();
 
-        gsfc.applicationData.creditAccountNumber = '234567890';
+        //Snigdha : Change API to 52
+        //gsfc.applicationData.creditAccountNumber = '234567890';
+        gsfc.getAppData().creditAccountNumber = '234567890';
 
         gsfc.existingCreditAccount = 'Yes';
         gsfc.resetPicklist();
@@ -499,7 +501,7 @@ private class GsUnitTests {
             gsec.generatePublicId();
         }
         catch(Exception ex){
-        	
+            
         }
     }
 

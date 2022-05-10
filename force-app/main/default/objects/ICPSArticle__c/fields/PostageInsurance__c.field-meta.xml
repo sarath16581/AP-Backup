@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PostageInsurance__c</fullName>
+    <description>This is the amount paid for postage / insurance as declared by the sender</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the amount paid for postage / insurance as declared by the sender</inlineHelpText>
+    <label>Postage / Insurance</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

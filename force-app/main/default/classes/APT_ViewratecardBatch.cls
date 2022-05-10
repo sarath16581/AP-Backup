@@ -13,6 +13,8 @@ History:
 @ModifiedBy: Mahesh Patel
 @ModifiedOn: 2020-10-20 
 @Description: STP-2763 STPAC - Generate ST proposal document - Added this condition for not doing any of these calculations for StarTrack
+**************************************************
+2021-11-10 Sautul Mehta - CI-95 Changes for APPC product
 **************************************************/
 global class APT_ViewratecardBatch implements Database.Batchable<sObject>, Database.Stateful , Database.AllowsCallouts{
 
@@ -191,9 +193,11 @@ global class APT_ViewratecardBatch implements Database.Batchable<sObject>, Datab
 
                     APT_ViewRatecardControllerAPI ratecardAPI = new APT_ViewRatecardControllerAPI(li.id,APT_Constants.BOOLEAN_TRUE);
                     ratecardAPI.init();
-                    PageReference redirectPage = ratecardAPI.prestoAPI();
-                    if(redirectPage == null) {
-                        setErrorMessage.add(APT_Constants.STRING_LINE_ITEM + li.id + APT_Constants.STRING_VIEW_RATE_CARD_FAILED);
+                    if(li.Apttus_Config2__ProductId__r.ProductCode != APT_Constants.PRODUCT_CODE_APPC){
+                        PageReference redirectPage = ratecardAPI.prestoAPI();
+                        if(redirectPage == null) {
+                            setErrorMessage.add(APT_Constants.STRING_LINE_ITEM + li.id + APT_Constants.STRING_VIEW_RATE_CARD_FAILED);
+                        }
                     }
                     lineItemIdSet.add(li.id);
                     parentBundleNumberSet.add(li.Apttus_Config2__PrimaryLineNumber__c);
@@ -385,7 +389,20 @@ global class APT_ViewratecardBatch implements Database.Batchable<sObject>, Datab
             }
             system.debug('****Default Proposal Template Name*****'+defaultProposalTemplateName);
             system.debug('****Prod Type*****'+prodType);
-            Apttus__APTS_Template__c template = [select id from Apttus__APTS_Template__c where name=: defaultProposalTemplateName Limit 1];
+            Apttus__APTS_Template__c template = null;
+            if(this.productType == APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT)
+            {
+                // pulling the setting for APPC_Proposal template.
+                //R2T_Exempted_Proposal_Settings__mdt setting = [Select Proposal_template_Name__c, DeveloperName from R2T_Exempted_Proposal_Settings__mdt where DeveloperName = :APT_Constants.TEMPLATE_APPC_PROPOSAL limit 1];
+                R2T_Exempted_Proposal_Settings__mdt setting = R2T_Exempted_Proposal_Settings__mdt.getInstance('APPC_Proposal');
+                String templateName = setting.Proposal_template_Name__c;
+                //template = [select id from Apttus__APTS_Template__c where name=: templateName Limit 1];
+                template =APT_TemplateObjectSelector.newInstance(1).selectByConfigId(new Set<String>{templateName}).values()[0];
+            } else {
+                //template = [select id from Apttus__APTS_Template__c where name=: defaultProposalTemplateName Limit 1];
+                template =APT_TemplateObjectSelector.newInstance(1).selectByConfigId(new Set<String>{defaultProposalTemplateName}).values()[0];
+            }
+            
             String pLevel = APT_Constants.ACCESS_LEVEL_EDIT;
             String docFormat = APT_Constants.DOCUMENT_TYPE_PDF;
             Boolean isDraft = false;

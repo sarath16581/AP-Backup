@@ -995,4 +995,17 @@
         </columns>
         <masterLabel>Accounts</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hiddenTieContactToServicePartner__c</field>
+            <table>User.Account$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
+            <table>User.Account$OwnerId</table>
+        </columns>
+        <masterLabel>Organisations</masterLabel>
+    </sections>
 </ReportType>

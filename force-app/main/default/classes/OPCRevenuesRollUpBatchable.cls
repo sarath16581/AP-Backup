@@ -5,6 +5,7 @@ Type:       	Apex Batchable Job Class for Revenues Rollup of Opportunity Product
 History:
 --------------------------------------------------
 29.10.2020  seth.heang@auspost.com.au   Created
+2022-04-08 Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
 **************************************************/
 global without sharing class OPCRevenuesRollUpBatchable implements Database.Batchable<sObject> {
     global Set<String> setErrorMessage {get;set;}  
@@ -20,7 +21,6 @@ global without sharing class OPCRevenuesRollUpBatchable implements Database.Batc
         setErrorMessage = new set<String>();
         // Retrieve the WHERE Condition from the Custom Setting(BatchJobSettings)
         lastModifiedDateCondition = BatchJobSettings__c.getInstance().OPC_Last_Modified_Date_Condition__c;
-        System.debug('***lastModifiedDateCondition=> ' + lastModifiedDateCondition);
         queryString = 'SELECT id, Jan_Schedule_Amount__c, Feb_Schedule_Amount__c,' 
                             +  ' Mar_Schedule_Amount__c, Apr_Schedule_Amount__c,'
                             +  ' May_Schedule_Amount__c, Jun_Schedule_Amount__c, '
@@ -41,7 +41,6 @@ global without sharing class OPCRevenuesRollUpBatchable implements Database.Batc
       */ 
     global Database.QueryLocator start(Database.BatchableContext BC) { 
         // Execute Query
-        system.debug('***queryString=>' + queryString);
         return Database.getQueryLocator(queryString);
     }
     
@@ -53,7 +52,6 @@ global without sharing class OPCRevenuesRollUpBatchable implements Database.Batc
         * @throws            Method might throw exception which is handled by Try-Catch block
       */ 
     global void execute(Database.BatchableContext BC, list<Opp_Product_Classification__c> scope){
-        system.debug('***EXECUTE***');
         Integer currentMonth = system.today().month();
         Boolean currentFiscalYearFlag = false;
         Integer currentFiscalYear;
@@ -76,40 +74,41 @@ global without sharing class OPCRevenuesRollUpBatchable implements Database.Batc
            
             // Query all OPCs under the Opportunities related to the updated OPC
             for(Opp_Product_Classification__c opc : OpportunityProductClassificationSelector.newInstance().selectByOpportunity(oppSet).values()){                                             
-                Integer financialYear = Integer.valueof(opc.Financial_Year__c);
-                
-                // initialise the maps
-                if(!totalActualRevenueOPCMap.containsKey(opc.Opportunity__c)){
-                    totalActualRevenueOPCMap.put(opc.Opportunity__c,0);
-                }
-                if(!pastScheduleRevenueOPCMap.containsKey(opc.Opportunity__c)){
-                    pastScheduleRevenueOPCMap.put(opc.Opportunity__c,0);
-                }
-                
-                // OPC is current financial year
-                if(financialYear == currentFiscalYear){
-                    // has OPC with current financial year
-                    currentFiscalYearFlag = true;
-                    List<Opp_Product_Classification__c> opcList= new List<Opp_Product_Classification__c>();
-                    if(!currentFiscalYearOPCMap.containsKey(opc.Opportunity__c)){
-                        opcList.add(opc);
-                    }else{
-                        opcList = currentFiscalYearOPCMap.get(opc.Opportunity__c);
-                        opcList.add(opc);
+                if(opc.Financial_Year__c != null) {//REQ2804764
+                    Integer financialYear = Integer.valueof(opc.Financial_Year__c);
+                    
+                    // initialise the maps
+                    if(!totalActualRevenueOPCMap.containsKey(opc.Opportunity__c)){
+                        totalActualRevenueOPCMap.put(opc.Opportunity__c,0);
                     }
-                    // populate the current financial year OPCs into a map, with opportunity key
-                    currentFiscalYearOPCMap.put(opc.Opportunity__c, opcList);
-                    // sum up the total actual revenues of current financial years and map to opportunity
-                    totalActualRevenueOPCMap.put(opc.Opportunity__c, totalActualRevenueOPCMap.get(opc.Opportunity__c) + opc.Total_Actual_Revenue__c);
+                    if(!pastScheduleRevenueOPCMap.containsKey(opc.Opportunity__c)){
+                        pastScheduleRevenueOPCMap.put(opc.Opportunity__c,0);
+                    }
+                    
+                    // OPC is current financial year
+                    if(financialYear == currentFiscalYear){
+                        // has OPC with current financial year
+                        currentFiscalYearFlag = true;
+                        List<Opp_Product_Classification__c> opcList= new List<Opp_Product_Classification__c>();
+                        if(!currentFiscalYearOPCMap.containsKey(opc.Opportunity__c)){
+                            opcList.add(opc);
+                        }else{
+                            opcList = currentFiscalYearOPCMap.get(opc.Opportunity__c);
+                            opcList.add(opc);
+                        }
+                        // populate the current financial year OPCs into a map, with opportunity key
+                        currentFiscalYearOPCMap.put(opc.Opportunity__c, opcList);
+                        // sum up the total actual revenues of current financial years and map to opportunity
+                        totalActualRevenueOPCMap.put(opc.Opportunity__c, totalActualRevenueOPCMap.get(opc.Opportunity__c) + opc.Total_Actual_Revenue__c);
+                    }
+                    // OPC is past financial year
+                    else if(financialYear < currentFiscalYear){
+                        // populate the past financial year OPCs into a map, with opportunity key
+                        pastScheduleRevenueOPCMap.put(opc.Opportunity__c, pastScheduleRevenueOPCMap.get(opc.Opportunity__c) + opc.Total_Schedule_Amount__c);
+                        // sum up the total actual revenues of past financial years and map to opportunity
+                        totalActualRevenueOPCMap.put(opc.Opportunity__c, totalActualRevenueOPCMap.get(opc.Opportunity__c) + opc.Total_Actual_Revenue__c);
+                    }
                 }
-                // OPC is past financial year
-                else if(financialYear < currentFiscalYear){
-                    // populate the past financial year OPCs into a map, with opportunity key
-                    pastScheduleRevenueOPCMap.put(opc.Opportunity__c, pastScheduleRevenueOPCMap.get(opc.Opportunity__c) + opc.Total_Schedule_Amount__c);
-                    // sum up the total actual revenues of past financial years and map to opportunity
-                    totalActualRevenueOPCMap.put(opc.Opportunity__c, totalActualRevenueOPCMap.get(opc.Opportunity__c) + opc.Total_Actual_Revenue__c);
-                }           
-                
             }
 
             // loop current fiscal year OPC and initialise the map for each monthly schedule revenue and add to map

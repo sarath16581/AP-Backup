@@ -1,9 +1,10 @@
-/**************************************************
-Description: This class contains unit tests for validating the behavior of Apex class ResourceV2AuthorisationRules
-
-History:
-2019-08-05  	nathan.franklin@auspost.com.au		Created.
-*************************************/
+/***
+ * @description This class contains unit tests for validating the behavior of Apex class ResourceV2AuthorisationRules
+ * @author Nathan Franklin
+ * @date 2019-08-05
+ * @changelog
+ * 2022-04-22 - Nathan Franklin - Updated test classes for conveyancers
+ */
 @isTest
 public class ResourceV2AuthorisationRules_Test {
 
@@ -50,6 +51,8 @@ public class ResourceV2AuthorisationRules_Test {
         // insert accounts
         // produce accounts like this: BAM1, BAM2 etc..
         List<Account> accounts = TestDataProvider.createAccount('BAM', 2);
+        accounts[0].Conveyancer_Is_a__c = true;
+        accounts[0].Conveyancer_Number__c = 1;
         insert accounts;
 
         // only insert assets for account[0]

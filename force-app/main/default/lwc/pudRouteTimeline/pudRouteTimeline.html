@@ -1,0 +1,42 @@
+<!--
+    Timeline of the Route with drag and drop support for the bookings.
+    Changelog:
+    2022-02-11 - Ranjeewa Silva - Created.
+ -->
+<template>
+
+	<div class="timeline-wrapper" style={timelineWrapperStyleCss}>
+		<div class="title slds-p-around_xx-small">{timelineTitle}</div>
+		<div class={timelineCssClass}>
+
+			<!-- intervals to render on the timeline. they also work as drop zones for drag and drop.-->
+			<template for:each={intervals} for:item="interval">
+				<div key={interval.value} class={interval.cssClass} style={interval.cssStyle}
+					data-hour={interval.hour}
+					data-min={interval.minute}
+					ondrop={handleDrop}
+					ondragenter={handleDragEnter}
+					ondragover={handleDragOver}
+					ondragleave={handleDragLeave}>
+					<span class="drop-target-label">{interval.label}</span>
+					<div class="marker"></div>
+					<span class="marker-label">{interval.label}</span>
+				</div>
+			</template>
+
+			<!-- plots to render on the timeline.-->
+			<template for:each={computedPlots} for:item="plot">
+				<div key={plot.id} class={plot.cssClass} style={plot.cssStyle} title={plot.tooltip}
+					data-id={plot.id}
+					draggable="true"
+					ondragstart={handleItemDragStart}
+					onclick={handleSelectItem}>
+					<div class={plot.cssClassInner} style={plot.cssStyleInner}>
+						<span class="slds-truncate">{plot.label}</span>
+					</div>
+				</div>
+			</template>
+		</div>
+	</div>
+
+</template>

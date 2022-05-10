@@ -3,6 +3,7 @@ Description:    Utility Class for handling NPS functions
 History:
 --------------------------------------------------
 2018-07-09  nathan.franklin@auspost.com.au  refactored code. added NPS methods into class
+2022-04-08 Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
 **************************************************/
 public with sharing class NPSSurveyUtil {
 
@@ -23,14 +24,14 @@ public with sharing class NPSSurveyUtil {
                 shortListed.add(n);    // Nandan : adding values to list  list
             }
         }
-        System.debug('** shortListed ==>'+shortListed); // Nandan : Added to debug
+        //System.Debug('** shortListed ==>'+shortListed); // Nandan : Added to debug
         Map<id, Case> relatedCases = new Map<id, Case>([select NPSAgent__c from Case where id in :relatedCaseIds]);
-        System.debug('** relatedCases ==>'+relatedCases ); // Nandan : Added to debug
+        //System.Debug('** relatedCases ==>'+relatedCases ); // Nandan : Added to debug
         for(NPSSurvey__c n: shortListed ){    // Nandan : Changed from shortListed.values() to shortListed
             n.Agent__c = relatedCases.get(n.Case__c).NPSAgent__c;
-            System.debug('** n.Agent__c ==>'+n.Agent__c);    // Nandan : Added to debug
+            //System.Debug('** n.Agent__c ==>'+n.Agent__c);    // Nandan : Added to debug
         }
-        System.debug('** shortListed ==>'+shortListed);    // Nandan : Added to debug
+        //System.Debug('** shortListed ==>'+shortListed);    // Nandan : Added to debug
     }
 
     /**
@@ -46,7 +47,7 @@ public with sharing class NPSSurveyUtil {
         // get all valid record types for processing NPS
         Set<Id> validRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()), caseTypePrefix);
 
-        System.debug('validRecTypes---->'+validRecTypes);
+        //System.Debug('validRecTypes---->'+validRecTypes);
         try {
             Set<Id> contactIds = new Set<Id>();
             List<Case> casesToUpdate = new List<Case>();
@@ -54,11 +55,11 @@ public with sharing class NPSSurveyUtil {
             for(Case caseRec : caseList){
                 if(Utility.isValidRecordType(validRecTypes, caseRec.RecordTypeId)){  // verify if its SSSW recordtype
                     Case oldCase = oldMap.get(caseRec.Id);  // get old values of case
-                    System.debug('caseRec.IsChildCase__c--->'+caseRec.IsChildCase__c);
-                    System.debug('caseRec.Status--->'+caseRec.Status+'<---oldCase.Status--->'+oldCase.Status);
-                    System.debug('caseRec.IsClosed--->'+caseRec.IsClosed);
-                    System.debug('caseRec.NPSScheduledDate__c--->'+caseRec.NPSScheduledDate__c);
-                    System.debug('caseRec.ContactId--->'+caseRec.ContactId);
+                    //System.Debug('caseRec.IsChildCase__c--->'+caseRec.IsChildCase__c);
+                    //System.Debug('caseRec.Status--->'+caseRec.Status+'<---oldCase.Status--->'+oldCase.Status);
+                    //System.Debug('caseRec.IsClosed--->'+caseRec.IsClosed);
+                    //System.Debug('caseRec.NPSScheduledDate__c--->'+caseRec.NPSScheduledDate__c);
+                    //System.Debug('caseRec.ContactId--->'+caseRec.ContactId);
                     // make sure only closed cases that haven't already been flagged will be considered.
                     // also make sure the case isn't a child case
                     if(caseRec.IsChildCase__c == false && oldCase != null && ((caseRec.Status != oldCase.Status && caseRec.Status == 'Closed') ||
@@ -70,7 +71,7 @@ public with sharing class NPSSurveyUtil {
             }
 
             // only process NPS criteria if there are cases to process
-            System.Debug('>> found cases to maybe be flagged for NPS: ' + casesToUpdate);
+            //System.Debug('>> found cases to maybe be flagged for NPS: ' + casesToUpdate);
             if(!casesToUpdate.isEmpty()) {
                 AusPostSettings__c npsSetting = AusPostSettings__c.getValues(SSSWConstants.NPS_CUTOFF_CUST_SETTING);
                 Integer npsCutOffDays = npsSetting != null ? npsSetting.Number1__c.intValue() : SSSWConstants.NPS_CUTOFF_DAYS;
@@ -143,10 +144,10 @@ public with sharing class NPSSurveyUtil {
 
         Map<Id, Boolean> caseExclusions = new Map<Id, Boolean>();
         Map<Integer, List<String>> emailExclusions = getNPSEmailExclusions(caseTypePrefix);
-        System.debug('emailExclusions--->'+emailExclusions);
+        //System.Debug('emailExclusions--->'+emailExclusions);
         List<String> emailToCaseExclusions = (emailExclusions.get(1) == null ? new List<String>() : emailExclusions.get(1));
         List<String> contactExclusions = (emailExclusions.get(2) == null ? new List<String>() : emailExclusions.get(2));
-        System.debug('contactExclusions--->'+contactExclusions);
+        //System.Debug('contactExclusions--->'+contactExclusions);
         List<Pattern> emailToCaseExclusionPatterns = new List<Pattern>();
         List<Pattern> contactExclusionPatterns = new List<Pattern>();
 
@@ -157,22 +158,22 @@ public with sharing class NPSSurveyUtil {
                 emailToCaseExclusionPatterns.add(Pattern.compile('(?i)' + emailToCaseExclusion));
             } catch(Exception ex) { /* invalid rule format... ignore */ }
         }
-        System.debug('emailToCaseExclusionPatterns--->'+emailToCaseExclusionPatterns);
+        //System.Debug('emailToCaseExclusionPatterns--->'+emailToCaseExclusionPatterns);
         // precompile the patterns for contact matches to handle bulk operations better
         for(String contactExclusion : contactExclusions) {
             try {
                 // case insensitive matching
                 contactExclusionPatterns.add(Pattern.compile('(?i)/' + contactExclusion));
-            } catch(Exception ex) { System.debug('Error contactExclusionPatterns >>>'+ex); }
+            } catch(Exception ex) { System.Debug('Error contactExclusionPatterns >>>'+ex); }
         }
-        System.debug('contactExclusionPatterns--->'+contactExclusionPatterns);
+        //System.Debug('contactExclusionPatterns--->'+contactExclusionPatterns);
         for(Case c : cases) {
-            String caseContactEmail = contacts.get(c.ContactId).Email;   // get case contact details
-            System.Debug('>> Checking case contact email: ' + caseContactEmail);
+            String caseContactEmail = contacts.get(c.ContactId) != null ? contacts.get(c.ContactId).Email : '';   // get case contact details
+            //System.Debug('>> Checking case contact email: ' + caseContactEmail);
 
             // the email address that this case was received from (if email-to-case)
             String emailToCase = (String.isEmpty(c.EmailToCaseAddress__c) ? '' : c.EmailToCaseAddress__c);
-            System.Debug('>> Checking case email to case email: ' + emailToCase);
+            //System.Debug('>> Checking case email to case email: ' + emailToCase);
 
             // by default a case shouldn't be excluded
             caseExclusions.put(c.Id, false);
@@ -182,7 +183,7 @@ public with sharing class NPSSurveyUtil {
             for(Pattern contactExclusionPattern : contactExclusionPatterns) {
                 try {
                     // case insensitive matching
-                    System.debug('contactExclusionPattern--->'+contactExclusionPattern);
+                    //System.Debug('contactExclusionPattern--->'+contactExclusionPattern);
                     if(contactExclusionPattern.matcher(caseContactEmail).find()) {
                         excluded = true;
                         break;
@@ -195,7 +196,7 @@ public with sharing class NPSSurveyUtil {
                 caseExclusions.put(c.Id, true);
                 continue;
             }
-            System.debug('After Contact Pattern caseExclusions--->'+caseExclusions);
+            //System.Debug('After Contact Pattern caseExclusions--->'+caseExclusions);
             // check for email-to-case exclusions
             excluded = false;
             for(Pattern emailToCaseExclusionPattern : emailToCaseExclusionPatterns) {
@@ -212,7 +213,7 @@ public with sharing class NPSSurveyUtil {
             if(excluded) {
                 caseExclusions.put(c.Id, true);
             }
-            System.debug('After emailToCase Pattern caseExclusions--->'+caseExclusions);
+            //System.Debug('After emailToCase Pattern caseExclusions--->'+caseExclusions);
         }
 
         return caseExclusions;

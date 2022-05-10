@@ -134,7 +134,7 @@ public class BspConstants{
     public static final String SELECT_OPTION_MPB_PRICING_ENQ_DISCOUNT = 'Band Discount Enquiry';
     public static final String SELECT_OPTION_MPB_PRICING_ENQ_SEND_VOL = 'Sending Volume Enquiry';
     public static final String SELECT_OPTION_MPB_PRICING_ENQ_DISPUTED = 'Disputed Payment';
-    public static final String SELECT_OPTION_MPB_PRICING_ENQ_MORE_INFO = 'More Information';
+    public static final String SELECT_OPTION_MPB_PRICING_ENQ_MORE_INFO = 'More Pricing Information';
     /** MPB Case Sub type End**/
 
     public static final String PICKLIST_VALUE_DEFAULT_PLEASE_SELECT = 'Please select';

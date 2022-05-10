@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is a Custom Metadata Type to relate our report names to the classes which generate them.</description>
+    <label>Report</label>
+    <pluralLabel>Reports</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

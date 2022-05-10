@@ -1234,86 +1234,110 @@ public with sharing class AccountTriggerUtility {
         Set<Id> networkIdsToAdd = new Set<Id>();
         Set<Id> acctIdsToRemove = new Set<Id>();
         Map<String, Set<Id>> orgIdsToAccounts = new Map<String, Set<Id>>();
-        
-        public AccountTeamMemberModificationQueueable(Set<Id> networkIdsToAdd, Set<Id> acctIdsToRemove, 
+
+        public AccountTeamMemberModificationQueueable(Set<Id> networkIdsToAdd, Set<Id> acctIdsToRemove,
             Map<String, Set<Id>> orgIdsToAccounts) {
             this.networkIdsToAdd = networkIdsToAdd;
             this.acctIdsToRemove = acctIdsToRemove;
             this.orgIdsToAccounts = orgIdsToAccounts;
         }
         /**
-         * @description      Method adds, updates, deletes Account Team based on Post Office Assigned value
-        * @param             QueueableContext context
-        * @return            NA
-        * @throws            NA
-        */
+		 * @description      Method adds, updates, deletes Account Team based on Post Office Assigned value
+		* @param             QueueableContext context
+		* @return            NA
+		* @throws            NA
+		*/
         public void execute(QueueableContext context) {
             Set<String> orgIdsToAdd = new Set<String>();
-            if(!acctIdsToRemove.isEmpty()) {
+            if (!acctIdsToRemove.isEmpty()) {
                 List<AccountTeamMember> acctTeamToRemove = AccountTeamMembersSelector.newInstance().selectByTeamRoleAndAccountIds(
-                'Assigned LPO', acctIdsToRemove, new Set<Object>()).values();
-            
-                if(acctTeamToRemove.size() > 0){
+                    'Assigned LPO', acctIdsToRemove, new Set<Object>()).values();
+
+                if (acctTeamToRemove.size() > 0) {
                     delete acctTeamToRemove;
                 }
             }
-            if(networkIdsToAdd.isEmpty()) return;
-            Map<Id, Network__c> netWorks = NetworksSelector.newInstance(new Set<SObjectField>{Network__c.Id, Network__c.Org_Id__c}).selectById(networkIdsToAdd);
+            if (networkIdsToAdd.isEmpty()) return;
+
+            Map<Id, Network__c> netWorks = NetworksSelector.newInstance(new Set<SObjectField>{
+                Network__c.Id, Network__c.Org_ID__c
+            }).selectById(networkIdsToAdd);
+
             //Get Org Id From Network and add to a List
-            for(Network__c n: netWorks.values()){
-                orgIdsToAdd.add(n.Org_Id__c);
-                if(orgIdsToAccounts.containsKey(n.Id)){
+            for (Network__c n : netWorks.values()) {
+                orgIdsToAdd.add(n.Org_ID__c);
+                if (orgIdsToAccounts.containsKey(n.Id)) {
                     Set<Id> sId = orgIdsToAccounts.get(n.Id);
                     orgIdsToAccounts.remove(n.Id);
-                    orgIdsToAccounts.put(n.Org_Id__c, sId);
+                    orgIdsToAccounts.put(n.Org_ID__c, sId);
                 }
-            }
-            Map<Id, String> partnerAcctsToOrgId = new Map<Id, String>();
-            //Get Uppermost Account based on OrgId with the assumption that hierarchy can go up to four level
-            for(Account a: [SELECT Id, ParentId, Parent.ParentId, WCIS_Code__c FROM Account WHERE WCIS_Code__c IN: orgIdsToAdd 
-                and RecordType.Name= 'Facility' and Parent.RecordType.Name = 'Licence' and Parent.Parent.RecordType.Name = 'Organisation']){
-                Id pId;
-                if(a.Parent.ParentId != null ) {
-                    pId = a.Parent.ParentId;
-                    partnerAcctsToOrgId.put(pId, a.WCIS_Code__c);
-                }
-            }
-            
-            //Get LPO Contacts Uppermost Account
-            Map<Id, Id> contactIdsToCheck = new Map<Id, Id>();
-            Map<Id, Contact> contacts = ContactsSelector.newInstance().selectByAccount(partnerAcctsToOrgId.keySet());
-            for(Contact c: contacts.values()){
-                contactIdsToCheck.put(c.Id, c.AccountId);
             }
 
-            //Add LPO Contacts to Uppermost Account
-            List<AccountTeamMember> acctTeamToAdd = new List<AccountTeamMember>();
-            if(!contactIdsToCheck.isEmpty()) {
-                Map<Id, User> usrMap = UsersSelector.newInstance().selectActiveuserByProfileName(contactIdsToCheck.keySet(), 
-                                    'LPO Partner Community User', new Set<Object>());
-                for(User u: usrMap.values()){
-                    if(contactIdsToCheck.containsKey(u.ContactId) && partnerAcctsToOrgId.containsKey(contactIdsToCheck.get(u.ContactId)) && 
-                    orgIdsToAccounts.containsKey(partnerAcctsToOrgId.get(contactIdsToCheck.get(u.ContactId))) ) {
-                        for(Id aId: orgIdsToAccounts.get(partnerAcctsToOrgId.get(contactIdsToCheck.get(u.ContactId)))){
-                            AccountTeamMember at = new AccountTeamMember();
-                            at.UserId = u.Id;
-                            at.TeamMemberRole = 'Assigned LPO';
-                            at.AccountId = aId;
-                            acctTeamToAdd.add(at);
+            Map<Id, String> partnerAcctsToOrgId = new Map<Id, String>();
+            //Get Uppermost Account based on OrgId with the assumption that hierarchy can go up to four level
+            for (Account a : [
+                SELECT Id, RecordType.DeveloperName, ParentId, WCIS_Code__c, Licence_Type__c,
+                    Parent.RecordType.DeveloperName, Parent.ParentId,
+                    Parent.Parent.RecordType.DeveloperName
+                FROM Account
+                WHERE WCIS_Code__c IN :orgIdsToAdd
+                AND RecordType.Name = 'Facility'
+            ]) {
+
+                if ('RP'.equalsIgnoreCase(a.Licence_Type__c) && a.ParentId == null) {
+                    // this is too accommodate the CPO scenario where a facility record will exist, however no License or Organisation record
+                    // the contacts in the scenario will exist on the Facility record directly
+                    partnerAcctsToOrgId.put(a.Id, a.WCIS_Code__c);
+                } else if (a.Parent != null && a.Parent.Parent != null &&
+                    a.Parent.RecordType != null && 'Licence'.equalsIgnoreCase(a.Parent.RecordType.DeveloperName) &&
+                    a.Parent.Parent.RecordType != null && 'Business_Account'.equalsIgnoreCase(a.Parent.Parent.RecordType.DeveloperName)) {
+                    // this is to handle the LPO scenario where a Facility record has a License linked to the Legal Entity holding the license
+                    partnerAcctsToOrgId.put(a.Parent.ParentId, a.WCIS_Code__c);
+                }
+            }
+
+            if (!partnerAcctsToOrgId.isEmpty()) {
+
+                //Get LPO Contacts Uppermost Account
+                Map<Id, Id> contactIdsToCheck = new Map<Id, Id>();
+                Map<Id, Contact> contacts = ContactsSelector.newInstance().selectByAccount(partnerAcctsToOrgId.keySet());
+                for (Contact c : contacts.values()) {
+                    contactIdsToCheck.put(c.Id, c.AccountId);
+                }
+
+                //Add LPO Contacts to Uppermost Account
+                List<AccountTeamMember> acctTeamToAdd = new List<AccountTeamMember>();
+                if (!contactIdsToCheck.isEmpty()) {
+
+                    Map<Id, User> usrMap = UsersSelector.newInstance().selectActiveuserByProfileName(contactIdsToCheck.keySet(),
+                        'LPO Partner Community User', new Set<Object>());
+
+                    for (User u : usrMap.values()) {
+                        if (contactIdsToCheck.containsKey(u.ContactId) && partnerAcctsToOrgId.containsKey(contactIdsToCheck.get(u.ContactId)) &&
+                            orgIdsToAccounts.containsKey(partnerAcctsToOrgId.get(contactIdsToCheck.get(u.ContactId)))) {
+                            for (Id aId : orgIdsToAccounts.get(partnerAcctsToOrgId.get(contactIdsToCheck.get(u.ContactId)))) {
+                                AccountTeamMember at = new AccountTeamMember();
+                                at.UserId = u.Id;
+                                at.TeamMemberRole = 'Assigned LPO';
+                                at.AccountId = aId;
+                                acctTeamToAdd.add(at);
+                            }
                         }
                     }
-                }
-                if(!acctTeamToAdd.isEmpty()) {
-                    try{
-                        insert acctTeamToAdd;
-                    } catch (Exception e) {
-                        UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(),  SSSWConstants.SSSW_APP, 
-                                                        AccountTriggerUtility.class.getName(), 'updateAccountTeamForLPO', 
-                                                        SSSWConstants.ACCOUNT_TRIGGER, LoggingLevel.ERROR);
+
+                    if (!acctTeamToAdd.isEmpty()) {
+                        try {
+                            ApplicationDatabase.getInstance().dmlInsert(acctTeamToAdd);
+                        } catch (Exception e) {
+                            UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP,
+                                AccountTriggerUtility.class.getName(), 'updateAccountTeamForLPO',
+                                SSSWConstants.ACCOUNT_TRIGGER, LoggingLevel.ERROR);
+                        }
                     }
+
                 }
             }
         }
-    }        
+    }
     
 }

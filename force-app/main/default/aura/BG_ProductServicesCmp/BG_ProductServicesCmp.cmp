@@ -16,7 +16,7 @@
                             name="{! 'pd' + v.index }"
                             options='{! v.productAndServicesList}'
                             label=''
-                            helptext='Please select Product and Services'  
+                            helptext=''  
                             value='{!v.selectedProducts}' /> 
 
 </aura:component>

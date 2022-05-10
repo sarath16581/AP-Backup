@@ -3,6 +3,7 @@
   * @date         : 19/06/2020
   * Modified by   : Hara Sahoo
   * @description  : 1. Added Back Button and a card layout outer-box
+  * Modified by Mahesh Parvathaneni - 10/05/2022 - Hide details section on Delete MyPost account enquiry
 -->
 <aura:component extends="c:CHAS_reviewAndSubmit" description="Products and Services wizard page 3: Review and Submit">
     
@@ -68,10 +69,14 @@
                         </div>
                     </aura:if>
                     
-                    <div>
-                        <dt>Details</dt>
-                        <dd>{! v.wizardData.enquiryDetails }</dd>
-                    </div>
+                    <!-- DDS-10265 Hide the details section when Delete Mypost account is selected -->
+                    <aura:if isTrue="{! !and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account')}">
+                        <div>
+                            <dt>Details</dt>
+                            <dd>{! v.wizardData.enquiryDetails }</dd>
+                        </div>
+                    </aura:if>
+
                     <aura:if isTrue="{! and(v.wizardData.selectedRadio1Name == 'Online Shop', v.wizardData.selectedRadio2Name == 'Yes') }">
                         <div>
                             <dt>Delivery address</dt>

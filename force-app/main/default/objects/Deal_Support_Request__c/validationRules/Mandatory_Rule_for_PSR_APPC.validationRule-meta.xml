@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Rule_for_PSR_APPC</fullName>
+    <active>true</active>
+    <description>This rule is to ensure all mandatory fields are populated before APPC domestic pricing request is submitted</description>
+    <errorConditionFormula>if(RecordType.DeveloperName==&apos;Pricing_Support_Request_Australia_Post_Parcel_Contract&apos;&amp;&amp;TEXT(Status__c)==&apos;Submitted&apos;,if(ISBLANK(Requestor_Name__c)||ISBLANK(TEXT(Request_type__c))||ISBLANK(TEXT(Agreement_Duration__c))||ISBLANK(TEXT(Stage__c))||ISBLANK(TEXT(Status__c))||ISBLANK(Organisation__c)||ISBLANK(Estimated_annual_revenue__c)||ISBLANK(Estimated_annual_volume__c)||ISBLANK(TEXT(Price_Catalyst__c))||ISBLANK(Sales_Justification__c)||ISBLANK(Product__c),true,if(!ISNUll(Speed__c)||Returns__c==true||!ISNULL(Surcharges__c)||!ISNULL(Features__c),false,true)),false)</errorConditionFormula>
+    <errorMessage>Request cannot be submitted to the support team as all the mandatory fields have not been updated. Please edit the request and complete all the mandatory fields and then submit request to Support Team</errorMessage>
+</ValidationRule>

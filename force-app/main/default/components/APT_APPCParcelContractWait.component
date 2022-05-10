@@ -1,0 +1,43 @@
+<apex:component >
+<style type="text/css">
+div#wait { width: 100%; height: 100% }
+div#loading { width: 100%; height: 100%; position: fixed; top: 0px;}
+/*div#waitingHolder { width: 213px; }*/
+</style>
+
+<script type="text/javascript">
+console.log()
+function setVisible(name, visible) {
+  var e = document.getElementById(name);
+  if (e != null) {
+    if (visible) {
+      e.setAttribute("style", "display: block");
+      e.style.cssText = "display: block";
+    } else {
+      e.setAttribute("style", "display: none");
+      e.style.cssText = "display: none";
+    }
+  }
+}
+
+function wait(val) {
+  console.log('BRP : APT_APPCParcelContractWait.wait() called ' +  val);
+  setVisible('loading', val);
+  setVisible('wait', val);
+}
+console.log('BRP : APT_APPCParcelContractWait.wait() called 2 ');
+</script>
+
+<div id="wait" class="waitingSearchDiv waitingSearchDivOpacity" style="display: none"></div> 
+<div id="loading" class="waitingSearchDiv" tyle="display: none"> 
+ <div id="waitingHolder" class="waitingHolder">
+  <img class="waitingImage" src="/img/loading.gif"/>
+  <span class="waitingDescription">Documents generation in progress... You will be notified once the document generation is completed.</span>
+ </div>
+</div>
+
+<!-- example usage:
+<apex:commandButton value="Search" action="{!doSearch}" rendered="{!showContent}" rerender="uninvoicedItemsBlock,messages" onclick="wait(true);" oncomplete="wait(false);"/>
+ -->
+
+</apex:component>

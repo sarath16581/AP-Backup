@@ -7,6 +7,8 @@
  * @domain PUD
  * @changelog
  * 2021-08-17 - Ranjeewa Silva - Created
+ * 2022-02-10 - Seth Heang - Updated test method to detect Revenue Check flag change which triggers the job update to the dispatch system where job status is schedule or accepted
+ * 2022-03-08 - Seth Heang - Updated test method to detect Container Payload change which triggers the job update to the dispatch system where job status is schedule or accepted
  */
 
 @IsTest
@@ -69,7 +71,7 @@ private class PUDJobDispatchSystemSyncModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, null, PUDConstants.PUD_JOB_STATUS_NEW, true);
+		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(9, null, PUDConstants.PUD_JOB_STATUS_NEW, true);
 
 		//jobs[0] is a current day job in status 'New'
 		jobs[0].Status__c = PUDConstants.PUD_JOB_STATUS_NEW;
@@ -97,8 +99,23 @@ private class PUDJobDispatchSystemSyncModule_Test {
 		jobs[5].Status__c = PUDConstants.PUD_JOB_STATUS_NEW;
 		jobs[5].Job_Instructions__c = 'test1';
 
+		//jobs[6] is a current job in status 'Accepted'
+		jobs[6].Status__c = PUDConstants.PUD_JOB_STATUS_ACCEPTED;
+		jobs[6].Revenue_Check__c = false;
+
+		//jobs[7] is a current job in status 'Schedule'
+		jobs[7].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
+		jobs[7].Revenue_Check__c = false;
+
+		// construct a sample json structure for container payload
+		jobs[8].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
+		jobs[8].Containers_Payload__c = JSON.serialize(new List<PUDUtility.ContainerPayload>{
+			new PUDUtility.ContainerPayload('Aircan', 5, 'Empty'),
+			new PUDUtility.ContainerPayload('Trailer', 6, 'Full')
+		});
+
 		// clone the jobs - this is used as the old versions
-		List<PUD_Job__c> oldJobs = new List<PUD_Job__c>{jobs[0].clone(true), jobs[1].clone(true), jobs[2].clone(true), jobs[3].clone(true), jobs[4].clone(true), jobs[5].clone(true)};
+		List<PUD_Job__c> oldJobs = new List<PUD_Job__c>{jobs[0].clone(true), jobs[1].clone(true), jobs[2].clone(true), jobs[3].clone(true), jobs[4].clone(true), jobs[5].clone(true), jobs[6].clone(true), jobs[7].clone(true), jobs[8].clone(true)};
 
 		// now update field values on jobs to test the scenario
 		jobs[0].Job_Instructions__c = 'test2';
@@ -108,6 +125,14 @@ private class PUDJobDispatchSystemSyncModule_Test {
 		jobs[4].Job_Instructions__c = 'test2';
 		jobs[5].Status__c = PUDConstants.PUD_JOB_STATUS_CANCEL;
 
+		// Update Revenue Check flag to True
+		jobs[6].Revenue_Check__c = true;
+		jobs[7].Revenue_Check__c = true;
+		// Update Containers Payload
+		jobs[8].Containers_Payload__c = JSON.serialize(new List<PUDUtility.ContainerPayload>{
+			new PUDUtility.ContainerPayload('Aircan', 10, 'Empty'),
+			new PUDUtility.ContainerPayload('Trailer', 12, 'Full')
+		});
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -116,7 +141,7 @@ private class PUDJobDispatchSystemSyncModule_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockPUDUtil.setEligibleJobsToTriggerDispatchSystemSync((List<PUD_Job__c>)fflib_Match.anyList())).thenReturn(new List<PUD_Job__c>{jobs[2], jobs[3]});
+		MockUtility.Mocks.when(mockPUDUtil.setEligibleJobsToTriggerDispatchSystemSync((List<PUD_Job__c>)fflib_Match.anyList())).thenReturn(new List<PUD_Job__c>{jobs[2], jobs[3], jobs[6], jobs[7], jobs[8]});
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -139,11 +164,16 @@ private class PUDJobDispatchSystemSyncModule_Test {
 
 		List<PUD_Job__c> jobsForDispatch = (List<PUD_Job__c>) jobsCaptor.getValue();
 		System.assertNotEquals(null, jobsForDispatch, 'Expected a list of pud jobs to be passed in for dispatch; but passed null.');
-		System.assertEquals(2, jobsForDispatch.size(), 'Expected only one pud job to be passed in for dispatch');
+		System.assertEquals(5, jobsForDispatch.size(), 'Expected only five pud jobs to be passed in for dispatch');
 
 		Map<Id, PUD_Job__c> jobsForDispatchMap = new Map<Id, PUD_Job__c>(jobsForDispatch);
 		System.assertEquals(true, jobsForDispatchMap.containsKey(jobs[2].Id), 'Expected to dispatch current day job in Schedule status when job information updated.');
 		System.assertEquals(true, jobsForDispatchMap.containsKey(jobs[3].Id), 'Expected to dispatch current day job when status updated to Cancel.');
+		//Confirm Revenue Check flag update trigger the sync to dispatch system
+		System.assertEquals(true, jobsForDispatchMap.get(jobs[6].Id).Revenue_Check__c, 'Expected Revenue Check change to trigger the dispatch system when job status is Accepted');
+		System.assertEquals(true, jobsForDispatchMap.get(jobs[7].Id).Revenue_Check__c, 'Expected Revenue Check change to trigger the dispatch system when job status is Schedule');
+		//Confirm container payload update trigger the sync to dispatch system
+		System.assertEquals(jobs[8].Containers_Payload__c, jobsForDispatchMap.get(jobs[8].Id).Containers_Payload__c, 'Expected containers payload change to trigger the dispatch system when job status is Schedule');
 	}
 
 	@IsTest

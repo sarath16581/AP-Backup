@@ -11,11 +11,12 @@
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Add field overrides
  * 2020-10-12 - Jansi - Added offsetLimit
+ * 2022-04-12 - Ranjeewa Silva - Added new selector option to build queries with no default ordering applied
  */
 public inherited sharing abstract class ApplicationSelector {
 
 	public enum Options {
-		ID_FIELD_ONLY
+		ID_FIELD_ONLY, WITHOUT_DEFAULT_ORDER
 	}
 
 	/**
@@ -166,8 +167,10 @@ public inherited sharing abstract class ApplicationSelector {
 			}
 		}
 		qb.addFrom(String.valueOf(getSObjectType()));
-		qb.addOrder(getOrderBy());
-	
+		if (!selectorOptions.contains(Options.WITHOUT_DEFAULT_ORDER)) {
+			qb.addOrder(getOrderBy());
+		}
+
 		if(recordLimit != null && recordLimit != 0) {
 			qb.setLimit(recordLimit);
 		}

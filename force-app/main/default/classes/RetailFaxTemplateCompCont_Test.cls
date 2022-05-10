@@ -3,8 +3,8 @@
     * 
     * @Author kalpita.talwadekar@auspost.com.au
     * @Date 21/09/2015
-    *   
-    */
+    * saiswetha.pingali@auspost.com.au - Fix the user creation to resolve test class failures and version update to 52. 
+     */
 @isTest
 public with sharing class RetailFaxTemplateCompCont_Test{
 
@@ -15,7 +15,8 @@ public with sharing class RetailFaxTemplateCompCont_Test{
         User usr = new User(Alias = 'standt', Email='standarduser@testorg.com', 
         EmailEncodingKey='UTF-8', LastName='TestingAgnt', LanguageLocaleKey='en_US', 
         LocaleSidKey='en_US', ProfileId = p.Id, 
-        TimeZoneSidKey='America/Los_Angeles', UserName='standarduser@testorg.com');
+        TimeZoneSidKey='America/Los_Angeles', UserName='standarduser@testorg.com.test');
+        insert usr;
     }
 
 
@@ -30,7 +31,7 @@ public with sharing class RetailFaxTemplateCompCont_Test{
         //creating test data
 
         Contact con = TestDataProvider.createAndSaveContact();
-        User usr = [Select Id from User limit 1];
+        User usr = [Select Id from User where UserName='standarduser@testorg.com.test' limit 1];
         system.runAs(usr){
 
             Case c = TestDataProvider.createCase();
@@ -61,7 +62,7 @@ public with sharing class RetailFaxTemplateCompCont_Test{
     static testMethod void caseFaxTemplateTestMethod2() {
         //creating test data
         Contact con = TestDataProvider.createAndSaveContact();
-        User usr = [Select Id from User limit 1];
+        User usr = [Select Id from User where UserName='standarduser@testorg.com.test' limit 1];
         system.runAs(usr){
             Case c = TestDataProvider.createCase();
             c.EnquirySubType__c = 'Item Transfer';
@@ -92,7 +93,7 @@ public with sharing class RetailFaxTemplateCompCont_Test{
     static testMethod void caseFaxTemplateTestMethod3() {
         //creating test data
         Contact con = TestDataProvider.createAndSaveContact();
-        User usr = [Select Id from User limit 1];
+        User usr = [Select Id from User where UserName='standarduser@testorg.com.test' limit 1];
         system.runAs(usr){
             Case c = TestDataProvider.createCase();
             c.EnquirySubType__c = 'Missing Item';
@@ -124,7 +125,7 @@ public with sharing class RetailFaxTemplateCompCont_Test{
     static testMethod void caseFaxTemplateTestMethod4() {
         //creating test data
         Contact con = TestDataProvider.createAndSaveContact();
-        User usr = [Select Id from User limit 1];
+        User usr = [Select Id from User where UserName='standarduser@testorg.com.test' limit 1];
         system.runAs(usr){
             Case c = TestDataProvider.createCase();
             c.EnquirySubType__c = 'RTS Request';
@@ -154,7 +155,7 @@ public with sharing class RetailFaxTemplateCompCont_Test{
     static testMethod void caseFaxTemplateTestMethod5() {
         //creating test data
         Contact con = TestDataProvider.createAndSaveContact();
-        User usr = [Select Id from User limit 1];
+        User usr = [Select Id from User where UserName='standarduser@testorg.com.test' limit 1];
         system.runAs(usr){
             Case c = TestDataProvider.createCase();
             c.EnquirySubType__c = 'Disputed Delivery';
@@ -184,7 +185,7 @@ public with sharing class RetailFaxTemplateCompCont_Test{
     static testMethod void caseFaxTemplateTestMethod6() {
         //creating test data
         Contact con = TestDataProvider.createAndSaveContact();
-        User usr = [Select Id from User limit 1];
+        User usr = [Select Id from User where UserName='standarduser@testorg.com.test' limit 1];
         system.runAs(usr){
             Case c = TestDataProvider.createCase();
             c.EnquirySubType__c = 'Remmitance not recieved';
@@ -216,7 +217,7 @@ public with sharing class RetailFaxTemplateCompCont_Test{
     static testMethod void caseFaxTemplateTestMethod7() {
         //creating test data
         Contact con = TestDataProvider.createAndSaveContact();
-        User usr = [Select Id from User limit 1];
+        User usr = [Select Id from User where UserName='standarduser@testorg.com.test' limit 1];
         system.runAs(usr){
             Case c = TestDataProvider.createCase();
             c.EnquirySubType__c = 'Delivery Complaint';
@@ -249,7 +250,7 @@ public with sharing class RetailFaxTemplateCompCont_Test{
     static testMethod void caseFaxTemplateTestMethod8() {
         //creating test data
         Contact con = TestDataProvider.createAndSaveContact();
-        User usr = [Select Id from User limit 1];
+        User usr = [Select Id from User where UserName='standarduser@testorg.com.test' limit 1];
         Article__c art = TestDataProvider.createTestArticle();
         insert art;
         EventMessage__c em = new EventMessage__c(EventId__c='1234',Article__c=art.id,ActualDateTime__c=system.now());

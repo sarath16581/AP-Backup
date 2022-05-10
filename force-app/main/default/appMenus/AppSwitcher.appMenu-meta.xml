@@ -752,4 +752,16 @@
         <name>dfsle__DocuSignForSalesforceCore</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>DocuSign</name>
+        <type>ConnectedApp</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>ICPS</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>revcult__Cloud_Security_Cockpit</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

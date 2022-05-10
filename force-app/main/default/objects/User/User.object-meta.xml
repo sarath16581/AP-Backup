@@ -234,6 +234,11 @@
     </profileSearchLayouts>
     <profileSearchLayouts>
         <fields>FULL_NAME</fields>
+        <fields>CORE.USERS.TITLE</fields>
+        <profileName>LPO Partner Community User</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>FULL_NAME</fields>
         <fields>CORE.USER_ROLE.NAME</fields>
         <fields>CORE.USERS.EMAIL</fields>
         <fields>CORE.PROFILE.NAME</fields>

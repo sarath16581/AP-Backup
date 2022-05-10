@@ -1,20 +1,20 @@
-/**************************************************
-Description			:	Handles Authorisation API requests to get the List of all Applications enabled for a contact.
-Custom Metadatatype : 	ResourceAPI__mdt
-						// /api/2.0/authorisation/{cNumber}/{app}?orgNumber={orgNumber}&org={orgId}
-
-TODO: I think the the asset check should be done first shouldn't it? If no asset, no need to select any other data...?- 
-This is to cater mutiple contact , in case of orgdetails are not provided
-If we need to do Asset query first, the query need to split upto a contact query first , like in the older version
-
-History:
---------------------------------------------------
-2019-04-29  	lija.jawahar@auspost.com.au  		Created
-2019-06-02  	nathan.franklin@auspost.com.au  	Added a more robust return response capability
-2019-06-04		lija.jawahar@auspost.com.au			Change URI parameter OrgId to Org
-2019-07-06		nathan.franklin@auspost.com.au		Added custom 404 response and a custom cache key identifier
-2019-09-05		nathan.franklin@auspost.com.au		Added location id and mlid to group location payloads
-**************************************************/
+/***
+ * @description Handles Authorisation API requests to get the List of all Applications enabled for a contact.
+ *              Custom Metadatatype : 	ResourceAPI__mdt
+ *              /api/2.0/authorisation/{cNumber}/{app}?orgNumber={orgNumber}&org={orgId}
+ *              TODO: I think the the asset check should be done first shouldn't it? If no asset, no need to select any other data...?-
+ *				This is to cater mutiple contact , in case of orgdetails are not provided
+ *				If we need to do Asset query first, the query need to split upto a contact query first , like in the older version
+ * @author Nathan Franklin
+ * @date 2019-04-29
+ * @changelog
+ * 2019-04-29  	lija.jawahar@auspost.com.au  		Created
+ * 2019-06-02  	nathan.franklin@auspost.com.au  	Added a more robust return response capability
+ * 2019-06-04		lija.jawahar@auspost.com.au			Change URI parameter OrgId to Org
+ * 2019-07-06		nathan.franklin@auspost.com.au		Added custom 404 response and a custom cache key identifier
+ * 2019-09-05		nathan.franklin@auspost.com.au		Added location id and mlid to group location payloads
+ * 2022-04-22 - Nathan Franklin - Added fields specific for Conveyancer's as a part of the Property VOI MP onboarding
+ */
 public with sharing class ResourceV2AuthorisationRules extends ResourceAPIService.IApi {
 	// Organisation Id (salesforce Id) - uri request parameter - optional
 	public static String orgId = '';
@@ -125,7 +125,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 		// Get the application specific details from the Custom settings
 		Map<String, BAMApplicationSpecificFields__c> fieldDetails = BAMApplicationSpecificFields__c.getAll();
 		for (BAMApplicationSpecificFields__c fieldDetailRec : fieldDetails.values()) {
-			if (appKey == fieldDetailRec.name.substringBefore('_')) {
+			if (appKey == fieldDetailRec.Name.substringBefore('_')) {
 				String apiFieldName = fieldDetailRec.SObject__c + '.' + fieldDetailRec.API_Name__c;
 				fieldNames = fieldNames + ' , ' + apiFieldName;
 				contactApplicationdetail.put(fieldDetailRec.Label__c, fieldDetailRec.API_Name__c);
@@ -152,6 +152,16 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 				+ 'ContactApplication__r.Contact__r.Account.Name,'
 				+ 'ContactApplication__r.Contact__r.Account.Role_Type_Roll_Up__c,'
 				+ 'ContactApplication__r.Contact__r.Account.LEGACY_Id__c,'
+				+ 'ContactApplication__r.Contact__r.Account.Organisation_Trading_Name__c,'
+				+ 'ContactApplication__r.Contact__r.Account.Conveyancer_Number__c,'
+				+ 'ContactApplication__r.Contact__r.Account.Registration_Type__c,'
+				+ 'ContactApplication__r.Contact__r.Account.Conveyancer_Is_a__c,'
+				+ 'ContactApplication__r.Contact__r.Account.BillingStreet,'
+				+ 'ContactApplication__r.Contact__r.Account.BillingStreet2__c,'
+				+ 'ContactApplication__r.Contact__r.Account.BillingCity,'
+				+ 'ContactApplication__r.Contact__r.Account.BillingState,'
+				+ 'ContactApplication__r.Contact__r.Account.BillingPostalCode,'
+				+ 'ContactApplication__r.Contact__r.Account.BillingCountry,'
 				+ 'ContactApplication__r.Contact__r.BillingAccount__r.Id,'
 				+ 'ContactApplication__r.Contact__r.BillingAccount__r.Name,'
 				+ 'ContactApplication__r.Contact__r.BillingAccount__r.LEGACY_Id__c,'
@@ -178,6 +188,16 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 				+ 'Organisation__r.Id,'
 				+ 'Organisation__r.APCN__c,'
 				+ 'Organisation__r.LEGACY_Id__c,'
+				+ 'Organisation__r.Organisation_Trading_Name__c,'
+				+ 'Organisation__r.Conveyancer_Number__c,'
+				+ 'Organisation__r.Registration_Type__c,'
+				+ 'Organisation__r.Conveyancer_Is_a__c,'
+				+ 'Organisation__r.BillingStreet,'
+				+ 'Organisation__r.BillingStreet2__c,'
+				+ 'Organisation__r.BillingCity,'
+				+ 'Organisation__r.BillingState,'
+				+ 'Organisation__r.BillingPostalCode,'
+				+ 'Organisation__r.BillingCountry,'
 				+ 'Group__r.Id,'
 				+ 'Group__r.Name,'
 				+ 'Group__r.Organisation__c,'
@@ -315,7 +335,6 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 			for (Id contactId : contactRoleEntityMap.keySet()) {
 				//Contact roles for each contact
 				List<BAMContactRole__c> contactRoleList = contactRoleEntityMap.get(contactId);
-				System.debug('getResult contactrole.size() :: ' + contactRoleList.size());
 
 				//In case Application has
 				// specific fields need to be displayed
@@ -323,7 +342,6 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 				if (contactApplicationdetail != null) {
 					for (String field : contactApplicationdetail.keySet()) {
 						appSpecFieldValueMap.put(field, String.valueOf(contactRoleList[0].ContactApplication__r.get(contactApplicationdetail.get(field))));
-						System.debug('getResult appSpecFieldValueMap :: ' + appSpecFieldValueMap);
 					}
 				}
 
@@ -363,6 +381,14 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 					acc.name = contactRole.ContactApplication__r.Contact__r.Account.Name;
 					acc.accountNumber = contactRole.ContactApplication__r.Contact__r.Account.LEGACY_ID__c;
 					acc.type = contactRole.ContactApplication__r.Contact__r.Account.Role_Type_Roll_Up__c;
+					acc.tradingName = contactRole.ContactApplication__r.Contact__r.Account.Organisation_Trading_Name__c;
+					acc.billingAddress = new AuthAddress(contactRole.ContactApplication__r.Contact__r.Account.BillingStreet, contactRole.ContactApplication__r.Contact__r.Account.BillingStreet2__c,
+															contactRole.ContactApplication__r.Contact__r.Account.BillingCity, contactRole.ContactApplication__r.Contact__r.Account.BillingState,
+															contactRole.ContactApplication__r.Contact__r.Account.BillingPostalCode, contactRole.ContactApplication__r.Contact__r.Account.BillingCountry);
+					acc.isConveyancer = contactRole.ContactApplication__r.Contact__r.Account.Conveyancer_Is_a__c;
+					if(contactRole.ContactApplication__r.Contact__r.Account.Conveyancer_Is_a__c) {
+						acc.conveyancer = new AuthConveyancer(String.valueOf(contactRole.ContactApplication__r.Contact__r.Account.Conveyancer_Number__c), contactRole.ContactApplication__r.Contact__r.Account.Registration_Type__c);
+					}
 					authOrgMap.put(contactId, acc);
 
 					AuthLinkedEntity accessEntity = new AuthLinkedEntity();
@@ -375,11 +401,21 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 					// if the role is Organisation based then we rely on the Org of the contact it's assigned to
 					if (contactRole.ApplicationRole__r.ShowOrganisation__c) {
 						orgroupIds.add(contactRole.ContactApplication__r.Contact__r.Account.Id);
+
 						AuthOrganisation accAO = new AuthOrganisation();
 						accAO.organisationId = contactRole.ContactApplication__r.Contact__r.Account.Id;
 						accAO.name = contactRole.ContactApplication__r.Contact__r.Account.Name;
 						accAO.accountNumber = contactRole.ContactApplication__r.Contact__r.Account.LEGACY_ID__c;
 						accAO.type = contactRole.ApplicationRole__r.Role__c ;
+						accAO.tradingName = contactRole.ContactApplication__r.Contact__r.Account.Organisation_Trading_Name__c;
+						accAO.billingAddress = new AuthAddress(contactRole.ContactApplication__r.Contact__r.Account.BillingStreet, contactRole.ContactApplication__r.Contact__r.Account.BillingStreet2__c,
+																contactRole.ContactApplication__r.Contact__r.Account.BillingCity, contactRole.ContactApplication__r.Contact__r.Account.BillingState,
+																contactRole.ContactApplication__r.Contact__r.Account.BillingPostalCode, contactRole.ContactApplication__r.Contact__r.Account.BillingCountry);
+						accAO.isConveyancer = contactRole.ContactApplication__r.Contact__r.Account.Conveyancer_Is_a__c;
+						if(contactRole.ContactApplication__r.Contact__r.Account.Conveyancer_Is_a__c) {
+							accAO.conveyancer = new AuthConveyancer(String.valueOf(contactRole.ContactApplication__r.Contact__r.Account.Conveyancer_Number__c), contactRole.ContactApplication__r.Contact__r.Account.Registration_Type__c);
+						}
+
 						authOrgMap.put(contactId, accAO);
 					}
 
@@ -592,6 +628,39 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 		public String name { get; set; }
 		public String accountNumber { get; set; }
 		public String type { get; set; }
+		public String tradingName { get; set; }
+		public AuthAddress billingAddress { get; set; }
+		public Boolean isConveyancer { get; set; }
+		public AuthConveyancer conveyancer;
+	}
+
+	public class AuthConveyancer {
+		public String registrationNumber { get; set; }
+		public String registrationType { get; set; }
+
+		public AuthConveyancer(String registrationNumber, String registrationType) {
+			this.registrationNumber = registrationNumber;
+			this.registrationType = registrationType;
+
+		}
+	}
+
+	public class AuthAddress {
+		public String street { get; set; }
+		public String street2 { get; set; }
+		public String city { get; set; }
+		public String state { get; set; }
+		public String postCode { get; set; }
+		public String country { get; set; }
+
+		public AuthAddress(String street, String street2, String city, String state, String postCode, String country) {
+			this.street = street;
+			this.street2 = street2;
+			this.city = city;
+			this.state = state;
+			this.postCode = postCode;
+			this.country = country;
+		}
 	}
 
 	public class AuthBillingAccount {

@@ -31,6 +31,11 @@
                 <default>false</default>
                 <label>ACL</label>
             </value>
+            <value>
+                <fullName>Goodwill</fullName>
+                <default>false</default>
+                <label>Goodwill</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

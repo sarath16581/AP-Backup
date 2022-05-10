@@ -3,7 +3,7 @@
     <fullName>ProofOfValueThreshold__c</fullName>
     <description>Proof of value Threshold is $250 for Transit and Extra Cover, otherwise it is $100</description>
     <externalId>false</externalId>
-    <formula>IF(OR(TEXT(Cover_Type__c) = &quot;Extra Cover&quot;,TEXT(Cover_Type__c) = &quot;Transit Cover&quot;),250,100)</formula>
+    <formula>IF(OR(TEXT(Cover_Type__c) = &quot;Extra Cover&quot;,TEXT(Cover_Type__c) = &quot;Transit Cover&quot;),250,100.01)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Proof of value Threshold is $250 for  both Transit Cover and Extra Cover, otherwise it is $100</inlineHelpText>
     <label>Proof Of Value Threshold</label>

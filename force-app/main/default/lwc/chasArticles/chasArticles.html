@@ -1,0 +1,11 @@
+<template>
+  <template for:each={data} for:item="articleItem">
+    <div key={articleId}>
+      <c-chas-article-card
+              article-item={articleItem}
+              total-item={totalArticles}
+              onisselected={isSelected}
+      ></c-chas-article-card>
+    </div>
+  </template>
+</template>

@@ -16,6 +16,7 @@
  * 2021-08-09 - Seth Heang - Added selectByReferenceIdOrderByCreatedDate test coverage
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2021-11-26 - Ashapriya Gadi - Added test coverage for enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER
+ * 2022-02-17 - Nathan Franklin - Refactored WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -93,18 +94,17 @@ public with sharing class CasesSelector_Test {
 		System.assertEquals(true, Pattern.compile('(?is)Owner\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
 		System.assertEquals(true, Pattern.compile('(?is)Contact\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Contact fields');
 
-		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER});
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER});
 		soql = qb.toSoqlString();
-		System.assertEquals(true, Pattern.compile('(?is)Select.*?\\(Select.*?\\bfrom EmailMessages\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select emailmessage fields');
+		System.assertEquals(true, Pattern.compile('(?is)Select.*?\\(Select.*?\\bfrom EmailMessages\\b.*?\\bLIMIT 1\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select single EmailMessage record');
+
 		//Testing field override
 		CasesSelector selectorNew = CasesSelector.newInstance(0, new Set<SObjectField>{Case.IssuePreviouslyReported__c});
-
 		qb = selectorNew.newQueryBuilder();
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)IssuePreviouslyReported__c.*?\\bfrom Case\\b').matcher(soql).find(), 'Resulting query does not select IssuePreviouslyReported__c field: ' + soql);
 
 		CasesSelector selectorNew2 = CasesSelector.newInstance(new Set<SObjectField>{Case.IssuePreviouslyReported__c});
-
 		qb = selectorNew2.newQueryBuilder();
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)IssuePreviouslyReported__c.*?\\bfrom Case\\b').matcher(soql).find(), 'Resulting query does not select IssuePreviouslyReported__c field: ' + soql);
@@ -141,7 +141,7 @@ public with sharing class CasesSelector_Test {
 		cases[0].Type = 'General Enquiry';
 		cases[1].RecordTypeId = rt.Id;
 		cases[1].Type = 'General Enquiry';
-        cases[1].ReferenceID__c = '5555000';
+		cases[1].ReferenceID__c = '5555000';
 		insert cases;
 
 		cases[0] = [Select Id, CaseNumber From Case Where Id = :cases[0].Id];
@@ -158,7 +158,7 @@ public with sharing class CasesSelector_Test {
 		// =====================================
 		Test.startTest();
 
-       	CasesSelector selector = CasesSelector.newInstance(2);
+	   	CasesSelector selector = CasesSelector.newInstance(2);
 		Map<Id, Case> results = selector.selectById(caseIds);
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
 
@@ -182,7 +182,7 @@ public with sharing class CasesSelector_Test {
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 		System.assertNotEquals(null, results.values()[0].RecordType, 'Results did not include RecordType object');
 
-        results = selector.selectByReferenceIdOrderByCreatedDate(new Set<String>{cases[1].ReferenceID__c});
+		results = selector.selectByReferenceIdOrderByCreatedDate(new Set<String>{cases[1].ReferenceID__c});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 		
 		Test.stopTest();

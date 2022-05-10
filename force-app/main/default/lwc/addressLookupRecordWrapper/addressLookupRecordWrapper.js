@@ -5,6 +5,7 @@
 --------------------------------------- History --------------------------------------------------
 29/01/2020    alex.volkov@auspost.com.au    Initial creation
 26/07/2021    naveen.rajanna@auspost.com.au   REQ2573263  Update the country code as AU only for leads
+21/02/2022    naveen.rajanna@auspost.com.au   REQ2755163  Minor label change and API version change
 **/
 
 import { LightningElement, api, track } from 'lwc';
@@ -244,7 +245,7 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
               this.showSpinner = false;
               this.dispatchEvent(new ShowToastEvent({
                 title: 'Error on Address save',
-                message: 'Failed to update the record. Please make sure you have required access.',
+                message: 'You do not have access to update this record. Please raise a case record to the Data Quality Management team with your change request.',
                 variant: 'error',
               })
               );

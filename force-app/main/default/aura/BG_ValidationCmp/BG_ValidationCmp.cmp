@@ -1,0 +1,9 @@
+<!--
+	This component perform validation based on applicable validation type configured
+	in the qualification template question
+-->
+<aura:component>
+	<aura:attribute name="discoveryCategoryQuestions" type="Object" />
+	<aura:attribute name="selectedProductsQuestions" type="Map" />
+	<aura:method name="validateResponse" action="{!c.validateResponse}" />
+</aura:component>

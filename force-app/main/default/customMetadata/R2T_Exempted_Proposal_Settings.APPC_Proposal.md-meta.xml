@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>APPC_Proposal</label>
+    <protected>false</protected>
+    <values>
+        <field>APT_Terms_Condition_Template__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Is_T_C_Enabled__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Pricing__c</field>
+        <value xsi:type="xsd:string">Offline</value>
+    </values>
+    <values>
+        <field>Proposal_template_Name__c</field>
+        <value xsi:type="xsd:string">R2T APPC Proposal</value>
+    </values>
+</CustomMetadata>

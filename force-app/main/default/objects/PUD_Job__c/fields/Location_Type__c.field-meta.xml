@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Location_Type__c</fullName>
+    <description>Display the associated Network record type or Customer record type from Location lookup</description>
+    <externalId>false</externalId>
+    <formula>IF(
+  Network__c != &apos;&apos;,
+  Booking_Location__r.Network__r.RecordType.Name,
+  IF( Customer__c != &apos;&apos;,  Booking_Location__r.Customer__r.RecordType.Name , &apos;&apos;)
+)</formula>
+    <label>Location Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -7,7 +7,7 @@
  * @Last Modified On   : 9/24/2019, 2:04:29 PM
  * @Modification Log   : 
  *==============================================================================
- * Ver         Date                     Author      		      Modification
+ * Ver         Date                     Author                    Modification
  *==============================================================================
  * 1.0    7/30/2019, 10:55:02 AM   rajesh.punjabi@mav3rik.com     Initial Version
 **/
@@ -53,7 +53,7 @@ public class CallbackRequestTriggerHandlerTest {
         DateTime dtNow = System.now();
         
         callbackRequestList.add(new Callback_Request__c(Type__c ='Business',ReExecutionDateTime__c=dtNow.addMinutes(15), RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
-		callbackRequestList.add(new Callback_Request__c(Type__c ='FCR',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
+        callbackRequestList.add(new Callback_Request__c(Type__c ='FCR',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
         callbackRequestList.add(new Callback_Request__c(RecordTypeId=SSSW_Callback_RequestId,Status__c = SSSWConstants.CALLBACK_REQUEST_STATUS_VOICEMAIL, CaseId__c=cs.Id, CaseBusinessHoursId__c=cs.BusinessHoursId));
         callbackRequestList.add(new Callback_Request__c(RecordTypeId=SSSW_Callback_RequestId,Status__c = SSSWConstants.CALLBACK_REQUEST_STATUS_NO_VOICEMAIL, CaseId__c=cs.Id, CaseBusinessHoursId__c=cs.BusinessHoursId));
         callbackRequestList.add(new Callback_Request__c(RecordTypeId=SSSW_Callback_RequestId,Status__c = SSSWConstants.CALLBACK_REQUEST_STATUS_CASE_UNRESOLVED, CaseId__c=cs.Id,CaseBusinessHoursId__c=cs.BusinessHoursId));
@@ -104,7 +104,7 @@ public class CallbackRequestTriggerHandlerTest {
         Case cs2 =[SELECT Id,BusinessHoursId FROM Case WHERE Subject='CBR_Reminder'];
         
         Callback_Request__c cbr1 = new Callback_Request__c(Type__c ='Business',ReExecutionDateTime__c=dtNow.addMinutes(15), RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId);
-		Callback_Request__c cbr2 = new Callback_Request__c(Type__c ='FCR',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId);
+        Callback_Request__c cbr2 = new Callback_Request__c(Type__c ='FCR',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId);
         
         List<Callback_Request__c> cbReqlistOld = new List<Callback_Request__c>();
         List<Callback_Request__c> cbReqlist = new List<Callback_Request__c>();
@@ -112,7 +112,7 @@ public class CallbackRequestTriggerHandlerTest {
         cbReqlistOld.add(cbr2);
         cbReqlist.add(cbr1);
         cbReqlist.add(cbr2);
-    	             
+                     
         Test.startTest();
         CallbackRequestTriggerHandler.routeCallbackReminder(cbReqlistOld, cbReqlist);
         Test.stopTest();
@@ -163,7 +163,7 @@ public class CallbackRequestTriggerHandlerTest {
     @IsTest
     public static void validateDueDateTimeWithShiftHours3(){  // Date Time is OK + SLA Hours Fails.
         Id SSSW_Callback_ReminderId = Schema.SObjectType.Callback_Request__c.getRecordTypeInfosByDeveloperName().get('SSSW_Callback_Reminder').getRecordTypeId();
-    	Date dtToday = System.today();
+        Date dtToday = System.today();
         Time tCurrent = Time.newInstance(22, 09, 11, 11);
         DateTime dtNow = DateTime.newInstance(dtToday, tCurrent);
                

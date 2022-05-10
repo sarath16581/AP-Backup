@@ -4,7 +4,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>APR for Billing Accts</name>
     <style>none</style>
-    <subject>APR Approval (or Rejection) - Account No: {!APR__c.Billing_Account_No__c} {!APR__c.Billing_Account_Name__c}</subject>
+    <subject>APR Approval (or Rejection) required - Account No: {!APR__c.Billing_Account_No__c}</subject>
     <textOnly>The following APR requires your approval (or rejection):
 
 APR No: {!APR__c.Name}

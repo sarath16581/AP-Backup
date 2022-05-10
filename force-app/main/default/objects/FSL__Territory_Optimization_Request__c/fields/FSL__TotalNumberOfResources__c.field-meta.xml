@@ -3,7 +3,7 @@
     <fullName>FSL__TotalNumberOfResources__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Number Of Resources</label>
+    <label>Number of Resources</label>
     <precision>7</precision>
     <required>false</required>
     <scale>0</scale>

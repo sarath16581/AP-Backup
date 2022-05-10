@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ineligible_reason__c</fullName>
+    <description>Picklist to contain the reason why APLAC membership is ineligible</description>
+    <externalId>false</externalId>
+    <label>Ineligible reason</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Licensee does not work at outlet</fullName>
+                <default>false</default>
+                <label>Licensee does not work at outlet</label>
+            </value>
+            <value>
+                <fullName>Managed by Council</fullName>
+                <default>false</default>
+                <label>Managed by Council</label>
+            </value>
+            <value>
+                <fullName>Not primary outlet for entity</fullName>
+                <default>false</default>
+                <label>Not primary outlet for entity</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

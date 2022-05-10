@@ -37,7 +37,7 @@
                 if(valuesOrApiNames == null || valuesOrApiNames == 'values'){
                     var item = {
                         "label": inputMap[key],
-                        "value": inputMap[key]+'~~~'+key,
+                        "value": inputMap[key],
                     }; 
                 } else {
                     var item = {

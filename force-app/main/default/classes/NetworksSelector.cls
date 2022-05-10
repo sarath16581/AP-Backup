@@ -13,6 +13,7 @@
 * 2021-04-01 - Victor Cheng - Added method selectByMaxDistance()
 * 2021-07-20 - Seth Heang - Added method selectByNetworkNameANDOrgIdANDNotID_OR_ENDWITH_SUBSTRING()
 * 2021-07-27 - Naveen Rajanna - Added method selectByNetworkNameANDOrgIdANDNotID_OR_ENDWITH_SUBSTRING_OR_WORKCENTRE()
+* 2022-03-23 - Ranjeewa Silva - Added methods to select by name
 */
 public virtual inherited sharing class NetworksSelector extends ApplicationSelector {
 
@@ -251,6 +252,28 @@ public virtual inherited sharing class NetworksSelector extends ApplicationSelec
 		.setConditionOrder('(1 AND 2 AND 3) OR (1 AND 3 AND 4) OR (2 AND 3 AND 5) OR (3 AND 4 AND 5)')
 		.endConditions();
 		return new Map<Id, Network__c>((List<Network__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Query Network records by name.
+	 * @param names Network names to select (exact match)
+	 *
+	 * @return list of networks matching the names supplied
+	 */
+	public List<Network__c> selectByName(Set<String> names) {
+		return selectByName(names, new Set<Object>());
+	}
+
+	/**
+	 * @description Query Network records by name.
+	 * @param names Network names to select (exact match)
+	 * @param selectorOptions additional selector options
+	 *
+	 * @return list of networks matching the names supplied
+	 */
+	public List<Network__c> selectByName(Set<String> names, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Network__c.Name + ' in :names')).endConditions();
+		return (List<Network__c>)Database.query(qb.toSoqlString());
 	}
 	
 	public virtual override QueryBuilder newQueryBuilder() {

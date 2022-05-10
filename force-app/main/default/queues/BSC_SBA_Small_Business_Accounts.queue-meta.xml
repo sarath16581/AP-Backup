@@ -8,6 +8,7 @@
             <publicGroup>BSC_SBA</publicGroup>
         </publicGroups>
     </queueMembers>
+    <queueRoutingConfig>Startrack_BSC_Routing_Configuration</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

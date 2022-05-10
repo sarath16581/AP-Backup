@@ -9,6 +9,7 @@ October 15, 2015 - David Catindoy - Modified (Added additional methods)
 July 18, 2016 - David Catindoy - Reason for Without Sharing: Users need access to update Tasks and other records owned by other users.
 March 08, 2017 - David Catindoy - Transferred closeRelatedTasksAndWFEmails method from CaseCommonUtility class to let user close the tasks that they don't own when the parent case record was closed.
 2019-02-23  nathan.franklin@auspost.com.au  Small refactoring of closeRelatedTasksAndWFEmails to minimise additional DML operations
+2022-02-22  naveen.rajanna@auspost.com.au   REQ2723199  Added  updateSTCaseFields, getCaseSTCalcEmailAddress and updateSTCaseFields methods
 ------------------------------------------------------------*/
 public without sharing class StarTrackUtil {
 
@@ -22,7 +23,7 @@ public without sharing class StarTrackUtil {
 
         // get only the records that need processing (either records that have never passed through here, or where the values of tracked fields have changed since it was last processed)
         for(Case caseRec : (List<Case>)RecursionUtility.getUnprocessedRecords('ST-processFCRFlag', caseList, new Set<String>{'Status', 'FCR__c', 'RecordTypeId'})) {
-            System.debug('Processing Record for processFCRFlag');
+            // System.debug('Processing Record for processFCRFlag');
             if (caseRec.StarTrack_RecordType__c) {
                 Case oldCaseRec = oldCases.get(caseRec.Id);
 
@@ -555,73 +556,46 @@ public without sharing class StarTrackUtil {
         }
         Database.update(caseList);
     }
-    
-    /*------------------------------------------------------------
-    Author:        David Catindoy
-    Company:       Cloud Sherpas
-    Description:   Calculate Case From Address.
-    Inputs:        List of Case Ids
-    Returns:       None
-    History:
-    May 31, 2016 - David Catindoy - Created
-    ------------------------------------------------------------*/
-    public static void calculateFromAddress(String paramList){
-        List<String> params = paramList.split('-');
-        StarTrack_Settings__c customSetting = StarTrack_Settings__c.getOrgDefaults();
-        EmailMessage currentEmail = [SELECT Id, CreatedDate, CcAddress, BccAddress, Subject, ToAddress, FromAddress FROM EmailMessage WHERE Id = :params[1]];
-        DateTime currentEmailDateTime = currentEmail.CreatedDate - (customSetting.Duplicate_Email_Check_Interval_Minutes__c/1440);
-        EmailMessage duplicateEmailRec = new EmailMessage();
-        
-        Case caseRec = [SELECT Id, ResolutionCode__c, Subject, Status, OwnerId, CaseNumber, RecordType.Name, StarTrack_Calc_Email_Address__c, Auto_Email_Response_sent__c, Send_Auto_Response_Email__c, Enquiry_Type__c, Call_Purpose__c FROM Case WHERE Id = :params[0]];
-        
-        if(StarTrack_Constants.CASE_CREDIT_RT.equals(caseRec.RecordType.Name) && ((String.isNotBlank(currentEmail.CcAddress) && currentEmail.CcAddress.containsIgnoreCase(customSetting.Credit_Dispute_From_Email__c)) ||
-          (String.isNotBlank(currentEmail.BccAddress) && currentEmail.BccAddress.containsIgnoreCase(customSetting.Credit_Dispute_From_Email__c)) ||
-          (String.isNotBlank(currentEmail.Subject) && currentEmail.Subject.contains(StarTrack_Constants.CREDITCLAIM_INVSUBJECT) && String.isNotBlank(currentEmail.ToAddress) && currentEmail.ToAddress.containsIgnoreCase(customSetting.Credit_Dispute_From_Email__c)))){
-            caseRec.Subject = customSetting.ST_Credit_Claim_Inbound_Email_Prefix__c + caseRec.Subject;
-            caseRec.ResolutionCode__c = String.isBlank(caseRec.ResolutionCode__c) ? StarTrack_Constants.CASE_RESOLUTION_DUPLICATE : caseRec.ResolutionCode__c;
-            caseRec.Status = StarTrack_Constants.CASE_STAT_CLOSED;
-            caseRec.Enquiry_Type__c = String.isBlank(caseRec.Enquiry_Type__c) ? StarTrack_Constants.CASE_ENQUIRY_DEF : caseRec.Enquiry_Type__c;
-            caseRec.Call_Purpose__c = String.isBlank(caseRec.Call_Purpose__c) ? StarTrack_Constants.CASE_PURPOSE_DEF : caseRec.Call_Purpose__c;
-            caseRec.FCR__c = false;
-        } else{
-            if(customSetting.Check_for_Duplicate_Email__c){
-                try{
-                    duplicateEmailRec = [SELECT Id, ParentId, FromAddress, Subject FROM EmailMessage
-                                WHERE Id != :currentEmail.Id AND FromAddress = :currentEmail.FromAddress AND Subject = :currentEmail.Subject AND CreatedDate >= :currentEmailDateTime LIMIT 1];
-                } catch(Exception e){
-                    duplicateEmailRec = null;
-                }
-                
-            }else{
-                duplicateEmailRec = null;
-            }
-            
-            
-            if(duplicateEmailRec == null){
-                
-                Map<String, StarTrackDefaultEmailAddresses__c> defaultAddress = StarTrackDefaultEmailAddresses__c.getAll();
-                if((caseRec.StarTrack_Calc_Email_Address__c.contains(customSetting.Business_Solutions_From_Email__c) || caseRec.StarTrack_Calc_Email_Address__c.contains(customSetting.Investigators_From_Email__c)) &&
-                    StarTrack_Constants.CASE_DELIVERY_RT.equals(caseRec.RecordType.Name) && !caseRec.Auto_Email_Response_sent__c){
-                    caseRec.Send_Auto_Response_Email__c = true;
-                } else if((StarTrack_Constants.CASE_CREDIT_RT.equals(caseRec.RecordType.Name) || StarTrack_Constants.CASE_VOC_RT.equals(caseRec.RecordType.Name)) && !caseRec.Auto_Email_Response_sent__c){
-                    caseRec.Send_Auto_Response_Email__c = true;
-                }
-                
-                if(defaultAddress.containsKey(caseRec.StarTrack_Calc_Email_Address__c) && defaultAddress.get(caseRec.StarTrack_Calc_Email_Address__c).From_Email_Address__c != null &&
-                   defaultAddress.get(caseRec.StarTrack_Calc_Email_Address__c).From_Email_Address__c != caseRec.StarTrack_Calc_Email_Address__c){
-                    caseRec.StarTrack_Calc_Email_Address__c = defaultAddress.get(caseRec.StarTrack_Calc_Email_Address__c).From_Email_Address__c;
-                }
-                
-            } else {
-                caseRec.Subject = StarTrack_Constants.DUPLICATE_EMAIL + caseRec.Subject;
-                caseRec.ResolutionCode__c = StarTrack_Constants.CASE_RESOLUTION_DUPLICATE;
-                caseRec.Status = StarTrack_Constants.CASE_STAT_CLOSED;
-                caseRec.Enquiry_Type__c = StarTrack_Constants.CASE_ENQUIRY_DEF;
-                caseRec.Call_Purpose__c = StarTrack_Constants.CASE_PURPOSE_DEF;
-            }
-        }
-        
-        Database.update(caseRec);
+
+    public static String getCaseOtherFieldValue(String emailSubject) {
+        return (emailSubject.containsIgnoreCase(StarTrack_Constants.KEYWRD_SUBJECT_PREFIX_REF) && 
+                emailSubject.containsIgnoreCase(StarTrack_Constants.KEYWRD_SUBJECT_SUFFIX_REF)) 
+            ? '[ ' + StarTrack_Constants.KEYWRD_SUBJECT_PREFIX_REF +
+                    emailSubject.substringBetween(StarTrack_Constants.KEYWRD_SUBJECT_PREFIX_REF,
+                        StarTrack_Constants.KEYWRD_SUBJECT_SUFFIX_REF).trim() +
+                    StarTrack_Constants.KEYWRD_SUBJECT_SUFFIX_REF + ']' 
+            : '';
+    }
+
+    public static String getCaseSTCalcEmailAddress(String toAdd) {
+        StarTrack_Settings__c starTrackSettings = StarTrack_Settings__c.getOrgDefaults();
+        return toAdd.containsIgnoreCase(starTrackSettings.DHL2__c) ? starTrackSettings.DHL2__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Apple__c) ? starTrackSettings.BSC_Apple__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Defence_Force__c) ? starTrackSettings.BSC_Defence_Force__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Dell_Schenker__c) ? starTrackSettings.BSC_Dell_Schenker__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Phillips_Schenker__c) ? starTrackSettings.BSC_Phillips_Schenker__c
+            : toAdd.containsIgnoreCase(starTrackSettings.ST_Acc_Mgr_Supp__c) ? starTrackSettings.ST_Acc_Mgr_Supp__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_DHL_Road__c) ? starTrackSettings.BSC_DHL_Road__c
+            : toAdd.containsIgnoreCase(starTrackSettings.DHL1__c) ? starTrackSettings.DHL1__c
+            : toAdd.containsIgnoreCase(starTrackSettings.DHL3__c) ? starTrackSettings.DHL3__c
+            : toAdd.containsIgnoreCase(starTrackSettings.DHL5__c) ? starTrackSettings.DHL5__c
+            : toAdd.containsIgnoreCase(starTrackSettings.DHL4__c) ? starTrackSettings.DHL4__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Fedex_Enq__c) ? starTrackSettings.BSC_Fedex_Enq__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Fedex_Pick__c) ? starTrackSettings.BSC_Fedex_Pick__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_HP_Schenker__c) ? starTrackSettings.BSC_HP_Schenker__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Optus__c) ? starTrackSettings.BSC_Optus__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Samsung__c) ? starTrackSettings.BSC_Samsung__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Stop_Delivery__c) ? starTrackSettings.BSC_Stop_Delivery__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Optus_Stop_Delivery__c) ? starTrackSettings.BSC_Optus_Stop_Delivery__c
+            : toAdd.containsIgnoreCase(starTrackSettings.BSC_Telstra__c) ? starTrackSettings.BSC_Telstra__c
+            : toAdd.containsIgnoreCase(starTrackSettings.Business_Solutions_From_Email__c) ? starTrackSettings.Business_Solutions_From_Email__c
+            : toAdd.containsIgnoreCase(starTrackSettings.Investigators_From_Email__c) ? starTrackSettings.Investigators_From_Email__c
+            : toAdd.containsIgnoreCase(starTrackSettings.Credit_Dispute_From_Email__c) ? starTrackSettings.Credit_Dispute_From_Email__c
+            : toAdd.containsIgnoreCase(starTrackSettings.Transit_Warranty_From_Email__c) ? starTrackSettings.Transit_Warranty_From_Email__c
+            : toAdd.containsIgnoreCase(starTrackSettings.VOC_From_Email__c) ? starTrackSettings.VOC_From_Email__c
+            : toAdd.containsIgnoreCase(starTrackSettings.General_Enquiry_From_Address__c) ? starTrackSettings.General_Enquiry_From_Address__c
+            : toAdd.containsIgnoreCase(starTrackSettings.Startrackdamages__c) ? starTrackSettings.Startrackdamages__c
+            : starTrackSettings.Default_From_Email__c;
     }
     
     /*------------------------------------------------------------
@@ -755,7 +729,7 @@ public without sharing class StarTrackUtil {
                     FROM Case
                     WHERE Id IN :processableCases.keySet()
             ]);
-            System.debug('~~ processableCases : ' + processableCases);
+            // System.debug('~~ processableCases : ' + processableCases);
             for (Case caseRec : processableCases.values()) {
 
                 Case oldCaseRec = oldCases.get(caseRec.Id);
@@ -831,7 +805,7 @@ public without sharing class StarTrackUtil {
             //            }
 
             if (!closeTasks.isEmpty()) {
-                System.debug('List of tasks to close: ' + closeTasks);
+                // System.debug('List of tasks to close: ' + closeTasks);
                 //Call method to close all task records passed in the parameter.
                 StarTrackUtil.closeCaseTask(closeTasks);
             }

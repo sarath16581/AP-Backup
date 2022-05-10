@@ -1820,6 +1820,11 @@
             <field>APT_has_file__c</field>
             <table>Apttus__APTS_Agreement__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Creator_Role__c</field>
+            <table>Apttus__APTS_Agreement__c</table>
+        </columns>
         <masterLabel>Apttus Contracts</masterLabel>
     </sections>
     <sections>
@@ -2879,5 +2884,13 @@
             <table>Apttus__APTS_Agreement__c.Apttus__AgreementLineItems__r</table>
         </columns>
         <masterLabel>Contract Line Items</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APT_Cubic_Status__c</field>
+            <table>Apttus__APTS_Agreement__c.Apttus__AgreementLineItems__r</table>
+        </columns>
+        <masterLabel>Agreement Line Items</masterLabel>
     </sections>
 </ReportType>

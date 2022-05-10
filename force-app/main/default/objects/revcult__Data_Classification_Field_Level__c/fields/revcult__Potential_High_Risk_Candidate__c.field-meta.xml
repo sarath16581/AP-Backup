@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>revcult__Potential_High_Risk_Candidate__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicates if field has been flagged as potential high risk candidate via SI job. Dismissed status obtained by user excluding the field from within the SI tab.</description>
+    <externalId>false</externalId>
+    <label>Potential High Risk Candidate</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No</fullName>
+                <default>true</default>
+                <label>No</label>
+            </value>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>Dismissed</fullName>
+                <default>false</default>
+                <label>Dismissed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

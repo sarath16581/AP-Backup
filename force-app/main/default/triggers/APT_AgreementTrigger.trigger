@@ -10,6 +10,7 @@ Last Modified Date - 28th May 2020 | SOQL Limit exceeding Fix
 
 2020-10-22 - Mathew Jose - setting product lines on Agreement
 2021-08-31 - Naveen Rajanna - REQ2542972 - Comment code to set 'Fixed Term' when UMS or print Post
+2022-02-28 - SaiSwetha Pingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
 */
 trigger APT_AgreementTrigger on Apttus__APTS_Agreement__c (after insert,before insert,before update,after update) {
     String result;
@@ -25,8 +26,18 @@ trigger APT_AgreementTrigger on Apttus__APTS_Agreement__c (after insert,before i
             Set<Id> setOwnerId = new Set<Id>();
             Set<Id> setProposalId = new Set<Id>();
             Map<Id, Apttus_Proposal__Proposal__c> mapProposal = new Map<Id, Apttus_Proposal__Proposal__c>();
+            //spingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
+            String roleId = Userinfo.getUserRoleId();
+            List<UserRole> RoleList ;
+            if(roleId !=null)
+            {
+                RoleList = [SELECT id, name FROM userRole WHERE Id =: roleId];
+            }
+
 
             for (Apttus__APTS_Agreement__c agreement : Trigger.new) {
+                //spingali - REQ2703521 - Added logic to capture role of the user at the time of creation.
+                agreement.APT_Creator_Role__c = RoleList?.get(0).Name;
                 setOwnerId.add(agreement.OwnerId);
                 if (null != agreement.Apttus__Related_Opportunity__c) {
                     oppty = new Opportunity(Id = agreement.Apttus__Related_Opportunity__c);

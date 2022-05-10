@@ -9,6 +9,7 @@
  04.06.18    kalpita.talwadekar@auspost.com.au            updated code for test class failure fix and coding standards TDO-201
  2018-11-27    nathan.franklin@auspost.com.au            Adding new test method to test visualforce array chunking
  2019-11-26 gunith.devasurendra@auspost.com.au REQ1982330/REQ1962663 - Order by Priority and highlight High priority ones
+ 2022-03-16 saiswetha.pingali@auspost.com.au Added custom settings to disable triggers on case object to fix soql error.
  *******************************  History ************************************************/
 @isTest
 private class SSSW_MyNetworkLandingContr_Test{
@@ -310,6 +311,11 @@ private class SSSW_MyNetworkLandingContr_Test{
     **********************************************************************/
     @isTest
     static void MyNetworkLanding_testCaseArrayChunk() {
+
+        SystemSwitch__c settings = SystemSwitch__c.getInstance();
+        settings.DisableTriggers__c = true;
+        settings.ObjectTriggersToBeDisabled__c = 'Case';
+        upsert settings;
 
         Account acc = [Select Id From Account LIMIT 1];
         Contact con = [Select Id From Contact LIMIT 1];

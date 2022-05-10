@@ -1,6 +1,5 @@
 ({
     init: function(cmp, event, helper) {
-        
         //Call the helper method to parse the url.
         var urlVars = helper.parseUrlParam();
         //Get the DPID

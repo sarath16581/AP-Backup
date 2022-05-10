@@ -5,6 +5,7 @@
   * @description  : 1. Added Back Button and a card layout outer-box
   * Modifield by Hara Sahoo - 11/01/2020 - Changes made as part of enquiry submission in an unauthenticated user context 
   * Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form 
+  * Modified by Mahesh Parvathaneni - 03/05/2022 - Added disclaimer section on Delete MyPost account enquiry and changed to MyPost general enquiries
 -->
 <aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Products and Services wizard page 1: Issue Details">
     
@@ -33,7 +34,7 @@
                     default="[
                              {'label':'ID check', value:'ID check'},
                              {'label':'Land title', value:'Land title'},
-                             {'label':'MyPost', value:'MyPost'},
+                             {'label':'MyPost general enquiries', value:'MyPost general enquiries'},
                              {'label':'Passport', value:'Passport'},
                              {'label':'Police check', value:'Police check'},
                              {'label':'Tax file number (TFN)', value:'Tax file number (TFN)'},
@@ -196,6 +197,14 @@
                     <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts' }">
                         <!-- ID, documents & accounts enquiry type Select -->
                         <c:ChasSelect aura:id='chasInput' name='idDocumentsAccountsEnquiryTypes' required="true" label='Enquiry type' options="{!v.idDocumentsAccountsEnquiryTypes}" value='{!v.wizardData.idDocumentsAccountsEnquiryType}' />
+
+                        <!-- DDS-10265 Show disclaimer when Delete Mypost account is selected -->
+                        <aura:if isTrue="{! v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account' }">
+                            <!-- Lwc component to show disclaimer -->
+                            <div class="slds-var-m-bottom_medium">
+                                <c:chasDeleteAccountDisclaimer></c:chasDeleteAccountDisclaimer>
+                            </div>
+                        </aura:if>
                     </aura:if>
                     
                     <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Online Shop' }">
@@ -209,7 +218,7 @@
                         
                         <aura:if isTrue="{! v.wizardData.selectedRadio2Name == 'Yes' }">
                             <!-- Order Number -->
-                            <c:ChasInput type='number' aura:id='chasInput' name='orderNumber' required="true" label='Order no' value='{!v.wizardData.orderNumber}' />
+                            <c:ChasInput type='text' aura:id='chasInput' maxlength="50" name='orderNumber' required="true" label='Order no' value='{!v.wizardData.orderNumber}' />
                             
                             <!-- Order Tracking Number -->
                             <c:ChasInput type='text' aura:id="chasInput" name="orderTrackingNumber" required="false" label='Tracking number' subLabel='(optional)' value='{! v.wizardData.orderTrackingNumber }' />
@@ -228,7 +237,10 @@
                     
                     
                     <!-- Enquiry details -->
-                    <c:chasTextArea aura:id="chasInput" name="enquiryDetails" required="true" label="Please provide details" value="{!v.wizardData.enquiryDetails}" helptext="{! v.helptext }" />
+                    <!-- DDS-10265 Hide the details section when Delete Mypost account is selected -->
+                    <aura:if isTrue="{! !and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account')}">
+                        <c:chasTextArea aura:id="chasInput" name="enquiryDetails" required="true" label="Please provide details" value="{!v.wizardData.enquiryDetails}" helptext="{! v.helptext }" />
+                    </aura:if>
                     
                     <aura:if isTrue="{! and(v.wizardData.selectedRadio1Name == 'Online Shop', v.wizardData.selectedRadio2Name == 'Yes') }">
                         <div id="AMEOnlineDeliveryAddress" name="AMEOnlineDeliveryAddress" class="AMEAddress">

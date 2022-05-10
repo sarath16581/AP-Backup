@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_APPC_Minimum_spend__c</fullName>
+    <description>APPC Minimum Spend field is to define the Minimum business committed by customer - this field will be populated from shopping cart and help Pricing Team to process Pricing Support request to provide better price to Customer.</description>
+    <externalId>false</externalId>
+    <label>APPC Minimum spend</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

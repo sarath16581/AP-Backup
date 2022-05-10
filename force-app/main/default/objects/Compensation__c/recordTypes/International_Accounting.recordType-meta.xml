@@ -26,6 +26,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Goodwill</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>T%26C Cover</fullName>
             <default>false</default>
         </values>

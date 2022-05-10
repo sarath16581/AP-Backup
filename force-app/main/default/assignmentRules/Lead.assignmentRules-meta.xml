@@ -280,43 +280,4 @@
             </criteriaItems>
         </ruleEntry>
     </assignmentRule>
-    <assignmentRule>
-        <fullName>BG Lead Assignments</fullName>
-        <active>false</active>
-        <ruleEntry>
-            <assignedTo>Lead_Vero_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>AND(  NOT($Permission.BG_Sales),  $Permission.BG_Core,  OR(     ISPICKVAL( LeadSource ,&apos;Generic Incoming Call&apos;),     ISPICKVAL( LeadSource ,&apos;StarTrack Incoming Call&apos;),     ISPICKVAL( LeadSource ,&apos;SnapIT&apos;),     ISPICKVAL( LeadSource ,&apos;Seeker&apos;)  ) )</formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Secure_Pay_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>AND(  NOT($Permission.BG_Sales),  $Permission.BG_Core,  OR(     ISPICKVAL( LeadSource ,&apos;SecurePay Incoming Call&apos;),     ISPICKVAL( LeadSource ,&apos;SecurePay Web Lead&apos;)  ) )</formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>StarTrack_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>AND(  NOT($Permission.BG_Sales),  $Permission.BG_Core,  OR(     ISPICKVAL( LeadSource ,&apos;StarTrack Web Lead&apos;)  ) )</formula>
-        </ruleEntry>
-        <ruleEntry>
-            <criteriaItems>
-                <field>Lead.Created_by_Sales__c</field>
-                <operation>equals</operation>
-                <value>True</value>
-            </criteriaItems>
-        </ruleEntry>
-    </assignmentRule>
-    <assignmentRule>
-        <fullName>BrandWrapped</fullName>
-        <active>false</active>
-        <ruleEntry>
-            <assignedTo>BrandWrapped</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Lead.LeadSource</field>
-                <operation>equals</operation>
-                <value>BrandWrapped</value>
-            </criteriaItems>
-        </ruleEntry>
-    </assignmentRule>
 </AssignmentRules>

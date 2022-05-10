@@ -604,6 +604,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Seismic Send</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seismic View</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Social Media</fullName>
             <default>false</default>
         </values>

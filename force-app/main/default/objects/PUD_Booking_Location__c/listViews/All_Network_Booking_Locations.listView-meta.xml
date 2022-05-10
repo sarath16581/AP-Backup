@@ -8,5 +8,10 @@
     <columns>Post_Code__c</columns>
     <columns>State__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>startsWith</operation>
+        <value>IGA</value>
+    </filters>
     <label>All Network Booking Locations</label>
 </ListView>
