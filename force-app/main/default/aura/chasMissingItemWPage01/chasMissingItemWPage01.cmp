@@ -6,6 +6,7 @@
   * @Modifield by Hara Sahoo - 11/01/2020 - Changes made as part of enquiry submission in an unauthenticated user context 
   * Modifield by Hara Sahoo - 09/03/2021 - Changes made as part of tracking id and dpid url paramteres and auto-progression
   * Modified by Phap Mai - 10/05/2021 - DDS-5488: When consignment API returns 404, route the cases to domestic queue
+  * Modified by Mahesh Parvathaneni - 19/05/2022 - DDS-7472: When consignment API returns 404, show the warning message
 -->
 <aura:component extends="c:SS_uiWizardPage" implements="forceCommunity:searchInterface" controller='ChasApexController' description="Missing Items wizard page 1: Item details (API call)">
     <aura:attribute name="error500" type="Boolean" default="false"/>
@@ -17,6 +18,7 @@
     <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
     <aura:attribute name="isMultipleArticles" type="Boolean" default="false"/>
     <aura:attribute name="showSelectionError" type="Boolean" default="false"/>
+    <aura:attribute name="showInvalidMessage" type="Boolean" default="false"/>
     <!-- Guest login attributes-->
     <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
     <aura:handler name="chasmyPostLogin" event="c:ChasMyPostLogin" action="{!c.displaymyPostLoginForm}"/>
@@ -62,6 +64,15 @@
             </aura:set>
         </aura:if>
         <div class="outer-box">
+            <!-- Invalid Tracking number message -->
+            <aura:if isTrue="{!(v.showInvalidMessage)}">
+                <div class="tracking-error">
+                    <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-warn-circle.svg'}">
+                        <p class="message-text">We couldn't find this tracking number in our records. Please check the tracking number and then continue.</p>
+                    </c:ChasBspDeflection>
+                </div>
+            </aura:if>
+
             <!-- Tracking Number -->
             <aura:if isTrue="{!!(v.isMultipleArticles)}">
             <div class="form-input-container">

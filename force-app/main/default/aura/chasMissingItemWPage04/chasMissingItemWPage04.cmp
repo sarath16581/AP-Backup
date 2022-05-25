@@ -5,6 +5,7 @@
  @date 2020-07-06
  @changelog : Change made for roll out of Safe Drop feature on Missing Items form 
  2020-07-06 : Modified : Recipient Address(from AME address validation)
+ 2022-05-19 : Mahesh Parvathaneni : DDS - 7402 - Mapped description field
 -->
 <aura:component extends="c:CHAS_reviewAndSubmit" description="Missing Items wizard page 3: Review and Submit">
    
@@ -46,7 +47,7 @@
                     </div>
                     <div>
                         <dt>Item description</dt>
-                        <dd>{! v.wizardData.complaintDetails }</dd>
+                        <dd>{! v.wizardData.issueDetails }</dd>
                     </div>
                     
                     <!-- Item Value-->

@@ -12,7 +12,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>myNetworkOthersFormContainer</componentName>
-                <identifier>myNetworkOthersFormContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -42,7 +41,6 @@
                     <value>Something else form</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
-                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

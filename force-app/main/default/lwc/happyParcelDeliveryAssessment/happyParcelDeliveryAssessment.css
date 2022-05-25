@@ -1,0 +1,15 @@
+.green-box {
+	color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.red-text {
+    color: #ff0000;
+}
+
+.distance-help-text {
+    position: relative;
+    top: -3px;
+    padding-left: 4px;
+}

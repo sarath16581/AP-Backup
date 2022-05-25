@@ -13,7 +13,9 @@ private with sharing class APT_AgreementObjectsSelector_Test {
     //Test setupdata;
     @testSetup static void setup() {
         
-       Contact con= APT_TestUtils.createContact();
+        MockUtility.disableTriggerExecution();
+        
+        Contact con= APT_TestUtils.createContact();
         con.MailingCity = 'Melbourne';
         con.MailingState = 'VIC';
         con.MailingStreet = 'Flinders Street';
@@ -311,7 +313,6 @@ private with sharing class APT_AgreementObjectsSelector_Test {
         // =====================================
         // Data Preparation
         // =====================================
-        MockUtility.disableTriggerExecution();
         
         Contact con = [Select Id from Contact Limit 1];
         Account legacyacct = [Select Id from Account where Name = 'legacyacct' Limit 1];

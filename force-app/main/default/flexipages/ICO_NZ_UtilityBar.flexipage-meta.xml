@@ -4,7 +4,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>console:history</componentName>
-                <identifier>console_history</identifier>
             </componentInstance>
         </itemInstances>
         <name>utilityItems</name>

@@ -14,7 +14,6 @@
 My name is {!User_FirstName}, how may I help you?</autoGreeting>
     <criticalWaitTime>60</criticalWaitTime>
     <customAgentName>MyPost Business Agent</customAgentName>
-    <disableTransferConferenceGreeting>false</disableTransferConferenceGreeting>
     <enableAgentFileTransfer>false</enableAgentFileTransfer>
     <enableAgentSneakPeek>false</enableAgentSneakPeek>
     <enableAssistanceFlag>false</enableAssistanceFlag>

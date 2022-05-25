@@ -42,7 +42,7 @@
 		}
 	</style>
 </head>
-<body style="margin:0; padding:0;" bgcolor="#f3f1ee" link="#dc1928">
+<body style="margin:0; padding:0;" bgcolor="#f3f1ee">
 <!--[if gte mso 12]>
 	<style type="text/css">
 		.button-outlook{padding:8px 14px 7px !important;}
@@ -92,11 +92,11 @@
 					<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
 						<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
-								<td style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;"><br/><p>Hi {!Contact.FirstName},</p></td>
+								<td style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#212129;"><br/><p>Hi {!Contact.FirstName},</p></td>
 							</tr>				
 													<tr>
-								<td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:1px solid #cdc6c5;">
-<br/>We’ve received your request to delete your account. Your reference number is {!Case.CaseNumber}.
+								<td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#212129;border-bottom:1px solid #cdc6c5;">
+<br/>We’ve received your request to delete your account. Your reference number is: <b>{!Case.CaseNumber}</b>
 </p>
 
 <p>It may take up to 10 business days to delete your account. </p>
@@ -105,7 +105,7 @@
  
 <p>You’ll receive confirmation once your account has been deleted.  </p>
  
-<p>In accordance with the MyPost Terms and Conditions we may retain a copy of your data so that we can comply with our regulatory obligations. <a href="https://auspost.com.au/terms-conditions/mypost-account-terms-of-use#/">See MyPost Terms of Use.</a></p>
+<p>In accordance with the MyPost Terms and Conditions we may retain a copy of your data so that we can comply with our regulatory obligations. <a href="https://auspost.com.au/terms-conditions/mypost-account-terms-of-use#/" style="color:#212129;">See MyPost Terms of Use.</a></p>
 
 
 <br/></td>
@@ -121,9 +121,9 @@
 														<td valign="top" width="100%">
 															<table width="100%" cellspacing="0" cellpadding="0">
 																<tr>
-																	<td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
+																	<td style="font:13px Arial, Helvetica, sans-serif; color:#212129; line-height:16px; padding:11px 0 6px;">
 																		Kind regards, <br /></br>
-																		<b style="color:#dc1928;">Australia Post</b>
+																		Australia Post
 																		<br/><span style="color:#ffffff">{!Case.Thread_Id}</span>
 																	</td>
 																</tr>

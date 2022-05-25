@@ -3,6 +3,8 @@ Description:    Test class to cover EmailMessageUtil
 History:
 --------------------------------------------------
 2022-03-25  naveen.rajanna@auspost.com.au   Update API version to 52 and fix failing test class
+2022.05.11  saiswetha.pingali@auspost.com.au REQ2723491 - Removed references for snapIT related.
+
 **************************************************/@isTest
 private class TestEmailMessageUtil {
     //Added by David Catindoy - Nov 29, 2016
@@ -63,7 +65,7 @@ private class TestEmailMessageUtil {
             EmailMessage email = new EmailMessage();
             email.ParentId = c.Id;
             email.Incoming = true;
-            email.Subject = 'subject SNAPIT';
+            email.Subject = 'subject';
             email.TextBody = 'text body';
             email.FromAddress = 'test@test.com';
             email.FromName = 'from name';
@@ -101,7 +103,7 @@ private class TestEmailMessageUtil {
         
         Test.startTest();            
             Database.insert(vocIncident); 
-            EmailMessage newEmail = new EmailMessage(ParentId = vocIncident.Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'VOC Incident Inbound Email SNAPIT', HTMLBody = 'Sample', ToAddress = 'support@test.com');
+            EmailMessage newEmail = new EmailMessage(ParentId = vocIncident.Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'VOC Incident Inbound Email ', HTMLBody = 'Sample', ToAddress = 'support@test.com');
             Database.insert(newEmail);
         Test.stopTest();
         

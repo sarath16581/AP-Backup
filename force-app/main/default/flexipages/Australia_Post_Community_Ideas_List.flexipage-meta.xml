@@ -13,7 +13,6 @@
                     <value>Featured category:</value>
                 </componentInstanceProperties>
                 <componentName>brideas_FeaturedCategoryHeader</componentName>
-                <identifier>brideas_FeaturedCategoryHeader</identifier>
             </componentInstance>
         </itemInstances>
         <name>ContentHeader</name>
@@ -46,7 +45,6 @@
                     <value>Recent</value>
                 </componentInstanceProperties>
                 <componentName>brideas_Ideas</componentName>
-                <identifier>brideas_Ideas</identifier>
             </componentInstance>
         </itemInstances>
         <name>Content</name>

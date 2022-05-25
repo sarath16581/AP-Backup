@@ -21,7 +21,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -39,7 +38,6 @@
                     <value>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 86, 48);&quot;&gt;Before conducting an Account Assessment, please complete the following information. Once Completed the Account Assessment button will appear. Thank you.&lt;/span&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;color: rgb(255, 86, 48);&quot;&gt;Please add Opportunity Products and/or Revenue Start Dates and Revenue End Dates to the related Opportunity Products Section.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
                 <visibilityRule>
                     <booleanFilter>(1 OR 2) AND (3 OR 4)</booleanFilter>
                     <criteria>
@@ -76,13 +74,11 @@
                     <value>linear</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
-                <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>
@@ -104,7 +100,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-40f27672-3adb-40bf-866d-46b49bdf708a</name>
@@ -114,7 +109,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-c33f8896-eed6-4729-9085-aaa2fb4faf86</name>
@@ -136,7 +130,6 @@
                     <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -150,7 +143,6 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-adb41672-4694-40b0-9527-5bd31b0feafc</name>
@@ -164,7 +156,6 @@
                     <value>Facet-adb41672-4694-40b0-9527-5bd31b0feafc</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -190,7 +181,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

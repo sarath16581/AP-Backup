@@ -3,6 +3,7 @@
     <fullName>Other_8</fullName>
     <active>true</active>
     <compactLayoutAssignment>Network_Compact_Layout</compactLayoutAssignment>
+    <description>Other Network Type</description>
     <label>Other</label>
     <picklistValues>
         <picklist>Contact_Facility__c</picklist>

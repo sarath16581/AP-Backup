@@ -16,12 +16,15 @@ public class APT_CheckOutProposalControllerTest {
     **/
     @TestSetup
     static void makeData(){
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
         EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
         LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
         TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-        UserName=APT_Constants.EMAIL_TEST_USER);
+        UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         
         System.runAs(testuser) {
             Account acc = APT_TestUtils.createOrganisation();

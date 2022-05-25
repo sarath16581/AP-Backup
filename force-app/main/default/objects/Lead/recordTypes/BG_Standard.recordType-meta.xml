@@ -4,6 +4,7 @@
     <active>true</active>
     <businessProcess>BG_Sales</businessProcess>
     <compactLayoutAssignment>BG_Compact_Lead_Layout</compactLayoutAssignment>
+    <description>B&amp;G Sales Standard</description>
     <label>BG_Standard</label>
     <picklistValues>
         <picklist>ABN_Status__c</picklist>

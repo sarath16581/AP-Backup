@@ -4,7 +4,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>HappyParcelLightningConsoleWrapper</componentName>
-                <identifier>HappyParcelLightningConsoleWrapper</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>

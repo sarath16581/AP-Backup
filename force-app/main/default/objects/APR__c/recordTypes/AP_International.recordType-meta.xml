@@ -5,17 +5,6 @@
     <description>AP International APR records</description>
     <label>AP International</label>
     <picklistValues>
-        <picklist>APR_Cohort__c</picklist>
-        <values>
-            <fullName>Cohort 1</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cohort 2</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Approval_Status__c</picklist>
         <values>
             <fullName>Approved</fullName>

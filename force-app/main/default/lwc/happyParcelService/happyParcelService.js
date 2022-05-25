@@ -12,6 +12,7 @@
  * 2021-05-18 - Disha Kariya - Changes for notification preferences
  * 2021-10-26 - Nathan Franklin - add safeToUpper
  * 2021-06-15 - Prerna Rahangdale - Added the warning to show for the VODV Articles.
+ * 2022-04-12 - Mahesh Parvathaneni - Added custom lables and location icon SVG path to use in the lightning map marker
  */
 
 //continuations
@@ -28,6 +29,8 @@ import setSafeDropToEligible from '@salesforce/apex/HappyParcelController.setSaf
 import unsetSafeDropEligibility from '@salesforce/apex/HappyParcelController.unsetSafeDropEligibility';
 import getNotificationPreferences from '@salesforce/apex/HappyParcelController.getNotificationPreferences';
 import setNotificationPreferences from '@salesforce/apex/HappyParcelController.setNotificationPreferences';
+import getDistanceBetweenLocations from '@salesforce/apex/HappyParcelController.getDistanceBetweenLocations';
+
 
 // field mappings
 // import field mappings to create a concrete dependency
@@ -87,6 +90,12 @@ import LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESAPCNEMAILHELPTEXT from '@salesfor
 import LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESOPTOUTHELPTEXT from '@salesforce/label/c.HappyParcelNotificationPreferencesOptOutHelpText';
 import LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESBLUEBOXTEXT from '@salesforce/label/c.HappyParcelNotificationPreferencesBlueBoxText';
 import LABEL_HAPPYPARCELVODVWARNINGTEXT from '@salesforce/label/c.HappyParcelVODVWarningText';
+import LABEL_HAPPYPARCELCORRECTDELIVERYHELPTEXT from '@salesforce/label/c.HappyParcelCorrectDeliveryHelpText';
+import LABEL_HAPPYPARCELACCEPTABLEDELIVERYHELPTEXT from '@salesforce/label/c.HappyParcelAcceptableDeliveryHelpText';
+import LABEL_HAPPYPARCELACCEPTABLEDISTANCEHELPTEXT from '@salesforce/label/c.HappyParcelAcceptableDistanceHelpText';
+import LABEL_HAPPYPARCELSCANHELPTEXT from '@salesforce/label/c.HappyParcelScanHelpText';
+import LABEL_HAPPYPARCELDISTANCECALCULATEDDELIVERYHELPTEXT from '@salesforce/label/c.HappyParcelDistanceCalculatedHelpText';
+
 
 //Custom permissions
 import PERMISSION_CREATECASEDIRECTTONETWORK from '@salesforce/customPermission/CreateCaseDirectToNetwork';
@@ -155,10 +164,16 @@ export const CONSTANTS = {
 	LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESOPTOUTHELPTEXT: LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESOPTOUTHELPTEXT,
 	LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESBLUEBOXTEXT: LABEL_HAPPYPARCELNOTIFICATIONPREFERENCESBLUEBOXTEXT,
 	LABEL_HAPPYPARCELVODVWARNINGTEXT: LABEL_HAPPYPARCELVODVWARNINGTEXT,
+	LABEL_HAPPYPARCELCORRECTDELIVERYHELPTEXT: LABEL_HAPPYPARCELCORRECTDELIVERYHELPTEXT,
+	LABEL_HAPPYPARCELACCEPTABLEDELIVERYHELPTEXT: LABEL_HAPPYPARCELACCEPTABLEDELIVERYHELPTEXT,
+	LABEL_HAPPYPARCELACCEPTABLEDISTANCEHELPTEXT: LABEL_HAPPYPARCELACCEPTABLEDISTANCEHELPTEXT,
+	LABEL_HAPPYPARCELSCANHELPTEXT: LABEL_HAPPYPARCELSCANHELPTEXT,
+	LABEL_HAPPYPARCELDISTANCECALCULATEDDELIVERYHELPTEXT: LABEL_HAPPYPARCELDISTANCECALCULATEDDELIVERYHELPTEXT,
 
 	SAFEDROP_INELIGIBLE: 'Ineligible',
 	SAFEDROP_ELIGIBLE: 'Eligible',
-	DTN_CASE_RECORDTYPE: 'SSSW Delivery'
+	DTN_CASE_RECORDTYPE: 'SSSW Delivery',
+	LOCATION_ICON_SVG_PATH: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'
 };
 
 export const safeTrim = (str) => {
@@ -422,4 +437,27 @@ export const get = (object, path, defaultVal) => {
 		return get(object, path.slice(1));
 	}
 	return object === undefined ? defaultVal : object;
+}
+
+/**
+ * Function to get the distance in kms between two geo-coordinates
+ * @param {Number} lat1 
+ * @param {Number} lon1 
+ * @param {Number} lat2 
+ * @param {Number} lon2 
+ * @returns Distance in Kms
+ */
+export const getDistanceBetweenGeoCoordinates = async (lat1, lon1, lat2, lon2) => {
+	try{
+		const result = await getDistanceBetweenLocations({
+			lat1: lat1,
+			lon1: lon1,
+			lat2: lat2,
+			lon2: lon2
+		});
+		return result;
+	}
+	catch (error) {
+        return null;
+    }
 }

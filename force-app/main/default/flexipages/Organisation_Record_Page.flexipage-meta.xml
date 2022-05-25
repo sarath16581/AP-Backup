@@ -20,7 +20,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -31,7 +30,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -54,7 +52,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -69,7 +66,6 @@
                     <value>list</value>
                 </componentInstanceProperties>
                 <componentName>wits:newsPanel</componentName>
-                <identifier>wits_newsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -110,7 +106,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>addressLookupRecordWrapper</componentName>
-                <identifier>addressLookupRecordWrapper</identifier>
                 <visibilityRule>
                     <booleanFilter>4 OR (3 AND (1 OR 2 OR (6 AND 7))) OR 5</booleanFilter>
                     <criteria>
@@ -162,7 +157,6 @@
                     <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b&gt;Address Search is unavailable for Organisations with Role other than Prospect or Known&lt;/b&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2 AND 3 AND 4 AND (NOT (5 AND 6 AND 3))</booleanFilter>
                     <criteria>
@@ -225,7 +219,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-08b5ac99-0fce-45e4-92be-3a03ab0ec454</name>
@@ -279,7 +272,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
-                <identifier>wave_waveDashboard</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.StandardPermission.InsightsAppUser}</leftValue>
@@ -308,7 +300,6 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -326,7 +317,6 @@
                     <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -340,7 +330,6 @@
                     <value>Standard.Tab.news</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>newsTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -354,7 +343,6 @@
                     <value>Change Address</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -368,7 +356,6 @@
                     <value>Deal Support Requests</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -382,7 +369,6 @@
                     <value>Customer 360</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab3</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -397,7 +383,6 @@
                     <value>maintabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -408,7 +393,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -419,7 +403,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -442,7 +425,6 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -456,7 +438,6 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>collaborateTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -471,7 +452,6 @@
                     <value>BOTH</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
-                <identifier>runtime_sales_merge_mergeCandidatesPreviewCard</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -481,7 +461,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListQuickLinksContainer</componentName>
-                <identifier>force_relatedListQuickLinksContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -531,7 +510,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
-                <identifier>wave_waveDashboard2</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.StandardPermission.InsightsAppUser}</leftValue>
@@ -548,7 +526,6 @@
                     <value>sidebartabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -574,7 +551,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -600,13 +576,11 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>dfsle:Status</componentName>
-                <identifier>dfsle_Status1</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$User.dfsle__Status__c}</leftValue>

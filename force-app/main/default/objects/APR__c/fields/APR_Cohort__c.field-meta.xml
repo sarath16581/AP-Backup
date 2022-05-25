@@ -4,25 +4,11 @@
     <description>To indicate which cohort the customer this APR is for is part of</description>
     <externalId>false</externalId>
     <label>APR Cohort</label>
+    <length>25</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Cohort 1</fullName>
-                <default>false</default>
-                <label>Cohort 1</label>
-            </value>
-            <value>
-                <fullName>Cohort 2</fullName>
-                <default>false</default>
-                <label>Cohort 2</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

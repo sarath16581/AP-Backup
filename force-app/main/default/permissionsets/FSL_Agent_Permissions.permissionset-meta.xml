@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>FSL__AppointmentBookingLightningController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customPermissions>
         <enabled>true</enabled>
         <name>FSL__Bulk_Dispatch</name>
@@ -396,6 +400,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FSL__Work_Rule_Entry__c.FSL__Break_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FSL__Work_Rule_Entry__c.FSL__Earliest_Break_Start__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FSL__Work_Rule_Entry__c.FSL__Latest_Break_End__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FSL__Work_Rule__c.FSL__Active__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -646,6 +665,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResourceAbsence.FSL__Last_Updated_Epoch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResourceAbsence.FSL__Scheduling_Policy_Used__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -742,6 +766,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ServiceAppointment.FSL__IsMultiDay__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ServiceAppointment.FSL__Last_Updated_Epoch__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1145,7 +1174,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>FSL Agent Permissions</label>
+    <label>Field Service Agent Permissions</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -1279,6 +1308,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>FSL__Time_Dependency__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>FSL__Work_Rule_Entry__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

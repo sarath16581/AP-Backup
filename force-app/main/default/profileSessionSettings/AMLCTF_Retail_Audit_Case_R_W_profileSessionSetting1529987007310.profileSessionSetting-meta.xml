@@ -2,7 +2,7 @@
 <ProfileSessionSetting xmlns="http://soap.sforce.com/2006/04/metadata">
     <externalCommunityUserIdentityVerif>false</externalCommunityUserIdentityVerif>
     <forceLogout>false</forceLogout>
-    <profile>AMLCTF Retail Audit Case R%2FW</profile>
+    <profile>amlctf retail audit case r/w</profile>
     <sessionPersistence>false</sessionPersistence>
     <sessionTimeout>0</sessionTimeout>
     <sessionTimeoutWarning>false</sessionTimeoutWarning>

@@ -9,6 +9,8 @@
 2019-02-22  nathan.franklin@auspost.com.au  Added CaseActivity__c integration for first response SLA reporting
 2021-11-30  ashapriya.gadi@auspost.com.au   Added a call to ServiceAdvisorEmailMessageTriggerHandler as part of SMWD-312 - MW0004779
 2022-02-10  naveen.rajanna@auspost.com.au   REQ2723199 - Modified API version and commented Debug statements
+2022-05-03  saiswetha.pingali@auspost.com.au Removed call to EmailMessageUtil.parseEmailbodySnapIT as this is no more used.
+
 *****************************************************************************************/
 
 trigger EmailMessageTrigger on EmailMessage (after insert,before insert, after update, before update) 
@@ -38,9 +40,6 @@ trigger EmailMessageTrigger on EmailMessage (after insert,before insert, after u
 
                 // when an email is received from email to case, this is used to set the email-to-case address on the parent case record
                 EmailMessageUtil.setEmailToCaseAddress(Trigger.newMap);
-
-                //5-9-16 Eric Shen add parseEmailbodySnapIt 
-                EmailMessageUtil.parseEmailbodySnapIt(Trigger.new);
 
                 // Given agent sends email to the customer (via Send Email action in case record)
                 // And cases are under customer centre

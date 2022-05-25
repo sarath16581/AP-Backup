@@ -5,7 +5,6 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>Marketing Team</label>
     <logo>SharedDocuments/Aus_Post_Logo.gif</logo>
     <tabs>standard-Chatter</tabs>

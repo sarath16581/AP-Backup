@@ -1,0 +1,70 @@
+/* For mobiles: */
+/* slds map override to not overlay the map in small devices */
+.em-map-card__container .slds-map {
+    min-width: 0 !important;
+    height: 80vw !important;
+}
+
+.em-map-list-card__container .slds-map {
+    min-width: 20rem !important;
+}
+
+/* anchor tag text color has been overridden globally in app.css, changing here to white to show in footer*/
+.em-map-list-card__container lightning-external-link a,
+.em-map-card__container lightning-external-link a {
+    color: #fff;
+}
+
+/* added bottom padding for the map locations */
+.em-map-list-card__container .slds-coordinates {
+    padding-bottom: 3rem;
+}
+
+/* override the open in maps button */
+.em-map-list-card__container .slds-map_container .slds-button_brand,
+.em-map-card__container .slds-map_container .slds-button_brand {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border: 0px;
+    background: gray;
+}
+
+/* added bottom padding to iframe without locations */
+.em-map-card__container .slds-map iframe {
+    padding-bottom: 1rem;
+}
+
+/* remove padding around the open in maps link button */
+.em-map-list-card__container .slds-map_container div.slds-p-around_medium {
+    padding: 0px;
+}
+
+/*For small devices: */
+@media screen and (min-width: 600px) {
+    /* slds map override to not overlay the map in small devices */
+    .em-map-list-card__container .slds-map,
+    .em-map-card__container .slds-map {
+        max-height: 30vw !important;
+    }
+
+    /* reduced the default padding to remove the extra scrolling*/
+    .em-map-list-card__container .slds-has-coordinates .slds-map:before {
+        padding-top: 38%;
+    }
+
+    .em-map-list-card__container .slds-has-coordinates {
+        display: block;
+    }
+}
+
+/*For large devices: */
+@media screen and (min-width: 992px) {
+    .em-map-list-card__container .slds-has-coordinates {
+        display: flex;
+    }
+
+    .em-map-list-card__container .slds-coordinates {
+        padding-bottom: 0;
+    }
+}

@@ -12,7 +12,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
-                <identifier>desktopDashboards_embeddedDashboard</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -26,7 +25,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
-                <identifier>desktopDashboards_embeddedDashboard2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -40,7 +38,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
-                <identifier>desktopDashboards_embeddedDashboard3</identifier>
             </componentInstance>
         </itemInstances>
         <name>top</name>
@@ -62,7 +59,6 @@ This can be configured to show key metrics, and other items including links to r
 Lets gather some feedback so we can finalise what should be displayed here.</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
             </componentInstance>
         </itemInstances>
         <name>bottomLeft</name>
@@ -72,7 +68,6 @@ Lets gather some feedback so we can finalise what should be displayed here.</val
         <itemInstances>
             <componentInstance>
                 <componentName>home:recentRecordContainer</componentName>
-                <identifier>home_recentRecordContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>bottomRight</name>
@@ -90,7 +85,6 @@ Lets gather some feedback so we can finalise what should be displayed here.</val
                     <value>&lt;p&gt;&lt;a href=&quot;https://auspost.lightning.force.com/lightning/r/Dashboard/01Z90000000EsvVEAS/view&quot; target=&quot;_blank&quot;&gt;Vehicle Inspections Dashboard&lt;/a&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -100,7 +94,6 @@ Lets gather some feedback so we can finalise what should be displayed here.</val
                     <value>TO</value>
                 </componentInstanceProperties>
                 <componentName>forceChatter:exposedFeed</componentName>
-                <identifier>forceChatter_exposedFeed</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

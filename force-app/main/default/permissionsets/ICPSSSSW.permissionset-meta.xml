@@ -356,4 +356,8 @@
         <object>ICPS__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>ICPS__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
 </PermissionSet>

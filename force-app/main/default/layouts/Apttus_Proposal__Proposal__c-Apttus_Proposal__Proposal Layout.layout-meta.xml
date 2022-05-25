@@ -93,7 +93,7 @@
                 <field>Apttus_Proposal__Opportunity__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>Apttus_Proposal__Proposal_Expiration_Date__c</field>
             </layoutItems>
             <layoutItems>

@@ -1,0 +1,10 @@
+/**
+ * 2022-05-11 - Harry Wang - Created.
+ */
+.table-input{
+    --lwc-spacingSmall: 0.2rem;
+}
+
+.table-readonly{
+    --lwc-inputStaticFontSize: 0.75rem;
+}

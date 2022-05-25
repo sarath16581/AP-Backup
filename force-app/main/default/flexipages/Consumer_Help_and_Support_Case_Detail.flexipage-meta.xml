@@ -17,7 +17,6 @@
                     <value>enquiry details</value>
                 </componentInstanceProperties>
                 <componentName>ChasCaseHeader</componentName>
-                <identifier>ChasCaseHeader</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -30,13 +29,11 @@
         <itemInstances>
             <componentInstance>
                 <componentName>ChasCaseDetails</componentName>
-                <identifier>ChasCaseDetails</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>ChasCaseComments</componentName>
-                <identifier>ChasCaseComments</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -66,7 +63,6 @@
                     <value>{!Record._Object}: {!Record._Title}</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
-                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

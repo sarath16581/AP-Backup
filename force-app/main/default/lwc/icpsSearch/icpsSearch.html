@@ -94,7 +94,7 @@
                     columns={columns}
                     hide-checkbox-column="true">
             </lightning-datatable>
-            <template if:false = {hasDataToDisplay}>
+            <template if:true = {noDataToDisplay}>
                 <div class=slds-m-around_x-small>No data to display</div>
             </template>
         </div>

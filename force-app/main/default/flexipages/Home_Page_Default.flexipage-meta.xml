@@ -12,7 +12,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
-                <identifier>desktopDashboards_embeddedDashboard</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -26,7 +25,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
-                <identifier>desktopDashboards_embeddedDashboard2</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -55,7 +53,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
-                <identifier>desktopDashboards_embeddedDashboard3</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

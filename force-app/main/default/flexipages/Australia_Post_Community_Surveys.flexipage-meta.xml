@@ -14,7 +14,6 @@
 &lt;!--render facet: 13:2;a--&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
-                <identifier>forceCommunity_htmlBlock</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -43,7 +42,6 @@
                     <value>100%</value>
                 </componentInstanceProperties>
                 <componentName>Get_Feedback:GetFeedbackSurvey</componentName>
-                <identifier>Get_Feedback_GetFeedbackSurvey</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -67,7 +65,6 @@
                     <value>Surveys</value>
                 </componentInstanceProperties>
                 <componentName>cpAdobeAnalyticsPageView</componentName>
-                <identifier>cpAdobeAnalyticsPageView</identifier>
             </componentInstance>
         </itemInstances>
         <name>footer</name>
@@ -91,7 +88,6 @@
                     <value>Surveys</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
-                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

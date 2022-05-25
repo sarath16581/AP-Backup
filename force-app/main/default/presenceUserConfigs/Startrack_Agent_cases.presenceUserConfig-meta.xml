@@ -2,8 +2,8 @@
 <PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <profiles>
-            <profile>StarTrack Support</profile>
-            <profile>StarTrack VOC</profile>
+            <profile>startrack support</profile>
+            <profile>startrack voc</profile>
         </profiles>
     </assignments>
     <capacity>1</capacity>

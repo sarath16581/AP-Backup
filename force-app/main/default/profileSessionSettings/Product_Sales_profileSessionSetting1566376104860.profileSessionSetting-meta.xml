@@ -2,7 +2,7 @@
 <ProfileSessionSetting xmlns="http://soap.sforce.com/2006/04/metadata">
     <externalCommunityUserIdentityVerif>false</externalCommunityUserIdentityVerif>
     <forceLogout>false</forceLogout>
-    <profile>Product Sales</profile>
+    <profile>product sales</profile>
     <sessionPersistence>false</sessionPersistence>
     <sessionTimeout>0</sessionTimeout>
     <sessionTimeoutWarning>false</sessionTimeoutWarning>

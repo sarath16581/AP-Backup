@@ -263,14 +263,6 @@
         </filters>
         <object>Account</object>
         <outputAssignments>
-            <assignToReference>AccountId</assignToReference>
-            <field>Name</field>
-        </outputAssignments>
-        <outputAssignments>
-            <assignToReference>OrganisationContactId</assignToReference>
-            <field>PA_Contact__c</field>
-        </outputAssignments>
-        <outputAssignments>
             <assignToReference>ShippingState</assignToReference>
             <field>ShippingState</field>
         </outputAssignments>

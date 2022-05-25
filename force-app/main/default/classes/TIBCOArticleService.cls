@@ -23,6 +23,7 @@
  * 2021-09-23 prerna.rahangdale@auspost.com.au added TruckId__c,FacilitySubLocationId__c,FacilitySubLocationName__c to query from event Messages for Agg WP40.
  * 2021-10-01 - Nathan Franklin - Refactor transient attributes
  * 2021-10-20 - prerna.rahangdale@auspost.com.au added VODV_Redirect__c to article SOQL.
+ * 2022-04-11 - Mahesh Parvathaneni - added Outside_Delivery_Radius__c, Geo_Precision__c to event message SOQL
 **/
 public class TIBCOArticleService {
 
@@ -201,7 +202,7 @@ public class TIBCOArticleService {
 						VISALabelLine1__c, VISALabelLine2__c, SAR__c, SortDest__c, SortOutputStatus__c,
 						SortInductMode__c, OCRVCSResultSource__c, OCRVCS_OS_Zone__c, DeliveryNetworkState__c, DeliveryNetworkPostcode__c,
 						AttachmentType__c, AttachmentGUID__c, TruckId__c, FacilitySubLocationId__c, FacilitySubLocationName__c,
-						Length__c, Height__c, Width__c, Weight__c, Volume__c, Cube__c
+						Length__c, Height__c, Width__c, Weight__c, Volume__c, Cube__c, Outside_Delivery_Radius__c, Geo_Precision__c
 
 				FROM
 						EventMessage__c

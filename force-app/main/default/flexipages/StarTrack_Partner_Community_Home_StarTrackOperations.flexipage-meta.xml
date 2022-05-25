@@ -9,7 +9,6 @@
                     <value>&lt;div class=&quot;slds-text-heading_large slds-text-color_inverse&quot; style=&quot;border-radius: 3px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;background:#009ED9; margin-top:2px; text-align: left;&quot;&gt;StarTrack Partner Portal&lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
-                <identifier>forceCommunity_htmlBlock</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -22,7 +21,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>stp_mainContainer</componentName>
-                <identifier>stp_mainContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -39,7 +37,6 @@
                     <value>&lt;p&gt;&lt;img class=&quot;sfdcCbImage&quot; src=&quot;{!contentAsset.startrack_endtoend_express_rgb.1}&quot; /&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:richTextInline</componentName>
-                <identifier>forceCommunity_richTextInline</identifier>
             </componentInstance>
         </itemInstances>
         <name>footer</name>
@@ -62,7 +59,6 @@
                     <value>StarTrackOperations</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
-                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

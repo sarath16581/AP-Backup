@@ -24,7 +24,7 @@
     </values>
     <values>
         <field>Sub_Label__c</field>
-        <value xsi:type="xsd:string">Expect to hear from us if you have a PO Box or MyPost Business account that shares the same email address</value>
+        <value xsi:type="xsd:string">Expect to hear from us if you have a PO Box or MyPost Business account that shares the same email address.</value>
     </values>
     <values>
         <field>isActive__c</field>

@@ -4,7 +4,6 @@
     <description>AdvancedCommunities App for Ideas Lightning component</description>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>AC Ideas</label>
     <tabs>standard-Idea</tabs>
     <tabs>brideas_Settings</tabs>

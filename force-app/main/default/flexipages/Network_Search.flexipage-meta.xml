@@ -8,7 +8,6 @@
                     <value>/apex/FacilitySearch?isReadOnly=false</value>
                 </componentInstanceProperties>
                 <componentName>cpVisualforceWrapper</componentName>
-                <identifier>cpVisualforceWrapper</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>

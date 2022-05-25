@@ -7,7 +7,7 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
-                            <value>Global.LogACall</value>
+                            <value>Deal_Support_Request__c.New_Billing_Account</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Global.New_BG_Task</value>
@@ -59,7 +59,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -73,7 +72,6 @@
                     <value>linear</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
-                <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -84,7 +82,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -115,7 +112,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-125fcff8-a56f-4557-853c-af29f62707b9</name>
@@ -137,7 +133,6 @@
                     <value>GRID</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -155,7 +150,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -181,7 +175,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -207,7 +200,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer4</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -230,7 +222,6 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -244,7 +235,6 @@
                     <value>Attachments</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -258,7 +248,6 @@
                     <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -277,7 +266,6 @@
                     <value>&lt;p&gt;&lt;b style=&quot;color: rgb(237, 4, 4); font-size: 16px;&quot;&gt;The Deal Support Request has not been submitted.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;color: rgb(237, 4, 4); font-size: 16px;&quot;&gt;Please click the ‘Submit’ button to ensure your request is received by the Support Team.&lt;/b&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
@@ -309,7 +297,6 @@
                     <value>&lt;p&gt;&lt;b style=&quot;font-size: 16px; color: rgb(218, 9, 9);&quot;&gt;The Deal Support Request has been submitted and is pending approval, no further action is required at this stage.  Once approved, the Deal support request will be automatically submitted to the Support Team for review.&lt;/b&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText2</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -332,7 +319,6 @@
                     <value>maintabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -343,7 +329,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -354,7 +339,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-4af650f6-e95f-41ba-9955-6a65c34f7237</name>
@@ -376,7 +360,6 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -390,7 +373,6 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>collaborateTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -409,7 +391,6 @@
                     <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;/resource/1592468426000/Pricing_Support_Request&quot; target=&quot;_blank&quot; style=&quot;color: rgb(27, 137, 234);&quot;&gt;&lt;b&gt;Pricing Support Requests Guidelines&lt;/b&gt;&lt;/a&gt;&lt;a href=&quot;/resource/1568878337000/Help_Internal_Request&quot; target=&quot;_blank&quot; style=&quot;color: rgb(27, 137, 234); background-color: rgb(255, 255, 255);&quot;&gt;&lt;b&gt;.&lt;/b&gt;&lt;/a&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText3</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
@@ -426,7 +407,6 @@
                     <value>sidebartabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -452,7 +432,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer5</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Opportunity_Name__c}</leftValue>

@@ -72,3 +72,26 @@
         min-width : 90%;
     }
 }
+
+/* Small devices */
+@media screen and (min-width: 480px) {
+    .r-padding {
+        padding-right: 0.5rem;
+    }
+
+    .manifest-padding,
+    .l-padding {
+        padding-left: 0.5rem;
+    }
+}
+
+/* Large devices */
+@media screen and (min-width: 992px) {
+    .manifest-padding {
+        padding-right: 0.5rem;
+    }
+
+    .redirect-padding {
+        padding-left: 0.5rem;
+    }
+}

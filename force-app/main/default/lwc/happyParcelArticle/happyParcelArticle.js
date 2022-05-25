@@ -7,6 +7,7 @@
  * 2020-10-05 - Disha Kariya - Allow safe drop attachment for case creation
  * 2020-10-12 - Ranjeewa Silva -  Added support for Direct to Network case creation.
  * 2021-10-01 - Nathan Franklin - Changed safe drop to delivery proof + uplift to v52
+ * 2022-04-11 - Mahesh Parvathaneni - Added Map component for delivery and manifest locations
  */
 import { LightningElement, track, api } from 'lwc';
 import { getConfig, get, CONSTANTS } from "c/happyParcelService";
@@ -58,6 +59,9 @@ export default class HappyParcelArticle extends HappyParcelBase {
 
 	// selection to attach safedrop or signature PDF to cases raised when supportsDeliveryProofAttachment is true
 	attachDeliveryProof;
+	showMapCard = false; // Flag to show/hide the map card based on delivery assessment event
+	mapMarkers; // map markers for delivery address gps and manifested address gps from delivery assessment component
+	selectedMarkerValue; //selected map marker value for lightning map
 
 	connectedCallback() {
 		getConfig().then(result => {
@@ -183,4 +187,16 @@ export default class HappyParcelArticle extends HappyParcelBase {
 	get selectedCustomerType() {
 	    return (this.senderSelected ? CONSTANTS.CUSTOMER_DETAILS_SENDER : (this.receiverSelected ? CONSTANTS.CUSTOMER_DETAILS_RECEIVER : null));
     }
+
+	//handler for map click dispatched by happyParcelDeliveryAssessment component
+	handleMapClick(event) {
+		this.showMapCard = true;
+		this.mapMarkers = event.detail.mapMarkers;
+		this.selectedMarkerValue = this.mapMarkers[0].value;
+	}
+
+	// handler to hide the map from happyParcelEventMessageMap event
+	handleCloseMap(event) {
+		this.showMapCard = false;
+	}
 }

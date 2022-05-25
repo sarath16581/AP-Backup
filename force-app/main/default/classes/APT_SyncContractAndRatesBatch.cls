@@ -2898,26 +2898,21 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
         APT_SAP_SyncContractAndRatesService.TransitCoverDetailsType TransitCoverDetails = new APT_SAP_SyncContractAndRatesService.TransitCoverDetailsType();
         
         //TransitCoverDetails.TransitCover = Missing Mapping
-        System.debug('Assign MinimumTransitCover');
         TransitCoverDetails.MinimumTransitCover = parentPLI.Apttus_QPConfig__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c;
         
         if(r2tSystemProperties != null) {
             if(!String.isEmpty(rateCardType) && rateCardType.equalsIgnoreCase(APT_Constants.RATE_CARD_TYPE_DOMESTIC) && r2tSystemProperties.APT_Maximum_Transit_Cover__c != null) {
-                System.debug('Assign MaximumTransitCover');
                 TransitCoverDetails.MaximumTransitCover = r2tSystemProperties.APT_Maximum_Transit_Cover__c;
             }
             
             if(TransitCoverDetails.MinimumTransitCover != null) {
                 if(TransitCoverDetails.MinimumTransitCover == 0 && r2tSystemProperties.APT_Transit_Cover_Percentage_Non_Bundled__c != null) {
-                    System.debug('Assign Percentage 1');
                     TransitCoverDetails.Percentage = r2tSystemProperties.APT_Transit_Cover_Percentage_Non_Bundled__c / 100; 
                 } else if(TransitCoverDetails.MinimumTransitCover != 0 && r2tSystemProperties.APT_Transit_Cover_Percentage_Bundled__c != null) {
-                    System.debug('Assign Percentage 2');
                     TransitCoverDetails.Percentage = r2tSystemProperties.APT_Transit_Cover_Percentage_Bundled__c / 100; 
                 } else {}                
             }
         }
-        System.debug('TransitCoverDetails: ' + TransitCoverDetails);
         
         return TransitCoverDetails;
     }

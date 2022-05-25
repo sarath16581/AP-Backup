@@ -9,6 +9,7 @@
     <columns>Product_Level_4__c</columns>
     <columns>PRODUCT2.LAST_UPDATE</columns>
     <columns>UPDATEDBY_USER.ALIAS</columns>
+    <columns>PRODUCT2.CUSTOMER_PRODUCT_ID</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>PRODUCT2.ACTIVE</field>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <available>true</available>
+    <description>Welcome Email for new LPO Community member. This differentiates between SSO user and non SSO user. SSO user will just be directed to login page and not set password page.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>LPO Communities: Welcome Email w/ SSO</name>
+    <style>none</style>
+    <subject>Welcome to LBP Community</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -12,7 +12,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>desktopDashboards:embeddedDashboard</componentName>
-                <identifier>desktopDashboards_embeddedDashboard</identifier>
             </componentInstance>
         </itemInstances>
         <name>top</name>
@@ -30,7 +29,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>home:recentRecordContainer</componentName>
-                <identifier>home_recentRecordContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

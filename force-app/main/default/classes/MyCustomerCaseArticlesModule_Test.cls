@@ -6,6 +6,8 @@
  * @group Tests
  * @domain SSSW
  * @changelog
+ * SaiSwetha Pingali - Removed the test method for SnapIt cases as it is no longer required.
+
  */
 @IsTest
 private class MyCustomerCaseArticlesModule_Test {
@@ -642,55 +644,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// verify the owner did not change since the linked article did not have a billing account
 		System.assertEquals(UserInfo.getUserId(), ((Case)MockUtility.mockDMLUpdatedRecords[0]).OwnerId, 'Expected case to not be rerouted to strategic queue');
 	}
-
-	/**
-	 * Test:
-	 *  When defaulting case values, SNAP IT cases require special attention... apparently... :| ...
-	 *  Confirm that these details are populated correctly
-	 */
-	@IsTest
-	private static void testEnsureSnapItMappingsArePopulated() {
-
-		// =====================================
-		// Data Preparation
-		// =====================================
-
-		List<MiniCaseFieldMapping__c> enquiryMappings = ApplicationTestDataFactory.getEnquiryTypeMappings(true);
-		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, null, true);
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-
-		cases[0].Origin = SSSWConstants.SNAPIT;
-		cases[0].ReferenceID__c = articles[0].ReferenceID__c;
-		cases[0].ArticleTest__c = articles[0].Id;
-
-		// =====================================
-		// Stubbing
-		// =====================================
-		EnquiryMappingsSelector mockEnquiryMappingsSelector = (EnquiryMappingsSelector)MockUtility.mockSelector(EnquiryMappingsSelector.class);
-
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockEnquiryMappingsSelector.selectBySAPKey((Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id, MiniCaseFieldMapping__c>(enquiryMappings));
-		MockUtility.Mocks.stopStubbing();
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-
-		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-
-		module.applyCaseArticleDefaults(cases, new Map<Id, Article__c>(articles));
-
-		Test.stopTest();
-
-		((EnquiryMappingsSelector)MockUtility.Mocks.verify(mockEnquiryMappingsSelector, 1)).selectBySAPKey((Set<String>)fflib_Match.anyObject());
-
-		System.assertEquals('Domestic Parcels', cases[0].ProductCategory__c, 'Expected category to be populated for snap it case');
-		System.assertEquals('eParcel- Regular', cases[0].ProductSubcategory__c, 'Expected sub category to be populated for snap it case');
-
-	}
-
+	
 	/**
 	 * Test:
 	 *      When a consignment that only contains 1 article is set on the case, the module logic should rewrite the case values to the article rather than the consignment

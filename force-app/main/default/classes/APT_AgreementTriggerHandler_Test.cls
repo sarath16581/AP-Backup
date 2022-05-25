@@ -137,7 +137,7 @@ private class APT_AgreementTriggerHandler_Test{
         r2tSystemProperties.APT_INDV_Credit_Assessment_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
         r2tSystemProperties.APT_PricingBatchStatusEmailNotification__c = 'test@apttus.com1';
         //RecordType rt12 = [SELECT Id,Name FROM RecordType WHERE SobjectType= 'APT_Contract_Fee__c' and DeveloperName = 'Transaction_Fees'];
-        r2tSystemProperties.Transaction_Fee_Reord_Type_ID__c = '01290000001UPguAAG';  //Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Transaction Fees').getRecordTypeId();
+        r2tSystemProperties.Transaction_Fee_Reord_Type_ID__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Transaction Fees').getRecordTypeId();
         r2tSystemProperties.Name = 'System Properties';
         r2tSystemProperties.APT_ReversalFees__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Card Dishonour and Reversal Fees').getRecordTypeId();
         r2tSystemProperties.APT_Change_Management__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Change Management').getRecordTypeId();
@@ -865,7 +865,7 @@ private class APT_AgreementTriggerHandler_Test{
         Application__c appli  = [Select Id from Application__c Limit 1];
         Apttus_Config2__PriceList__c priceList = [Select Id from Apttus_Config2__PriceList__c Limit 1];
 
-          
+          /**
         APT_R2T_System_Properties__c r2tSystemProperties = APT_TestUtils.createR2TSystemProperties(priceList.Id);
             r2tSystemProperties.APT_Org_Id_Service_End_Point_URL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
             r2tSystemProperties.APT_CompanyCreditAssessmentEndPointURL__c = 'https://webapi-pdevext.npe.auspost.com.au/pdev/services/ABN/queryABN/v1.0';
@@ -876,7 +876,7 @@ private class APT_AgreementTriggerHandler_Test{
             r2tSystemProperties.Name = 'System Properties';
             r2tSystemProperties.APT_ReversalFees__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Card Dishonour and Reversal Fees').getRecordTypeId();
             r2tSystemProperties.APT_Change_Management__c = Schema.SObjectType.APT_Contract_Fee__c.getRecordTypeInfosByName().get('Change Management').getRecordTypeId();
-            insert r2tSystemProperties; 
+            insert r2tSystemProperties; */
             
             //Test Starts
             Test.startTest();
@@ -885,7 +885,7 @@ private class APT_AgreementTriggerHandler_Test{
             aptContractParent.APT_Product__c= 'eParcel';
             aptContractParent.Apttus__Related_Opportunity__c=opp1.Id;
             aptContractParent.Apttus__Account__c=tempacct.Id;
-            aptContractParent.RecordTypeID = Schema.SObjectType.Apttus__APTS_Agreement__c.getRecordTypeInfosByName().get('Post Billpay Contract').getRecordTypeId();
+            aptContractParent.RecordTypeID = Schema.SObjectType.Apttus__APTS_Agreement__c.getRecordTypeInfosByName().get('MSA & Service Schedule').getRecordTypeId();
             aptContractParent.Apttus_QPComply__RelatedProposalId__c = proposal.ID;
             aptContractParent.APT_New_Rate_Card_Download__c = true;
             aptContractParent.OwnerId = u1.ID;

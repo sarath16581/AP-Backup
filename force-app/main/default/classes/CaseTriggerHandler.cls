@@ -33,6 +33,7 @@
  * 2020-08-20 - Nathan Franklin - Deprecated syncArticlesToCase
  * 2020-10-15 - Naseer Abbasi						Modified calls to routeCase(), additional parameter added
  * 2021-10-04 - Nathan Franklin - Deprecated shareUtility.createSignatureAttachments
+ * 2022-04-20 - SaiSwetha Pingali - Removed call to assignContactIDToSnapItCase as it is no lonmger required. 
  *
  */
 public with sharing class CaseTriggerHandler{
@@ -89,7 +90,6 @@ public with sharing class CaseTriggerHandler{
 		if(Trigger.isInsert) {
 
 			// Methods to be invoked for before insert event
-			caseUtility.assignContactIDToSnapItCase(Trigger.new); //12.05.2017 APRivera Added new method to handle Snap It cases
 			caseUtility.assignContactIDToCase(Trigger.new); // links contact to case based on the email & other details
 			caseUtility.validateCase(Trigger.new);  // assigns case locality to international & checks for duplicate for BSP & DDC
 			oppUtility.updateOpportunityDriver(Trigger.new);	// sets opportunity driver for case to opportunity owner

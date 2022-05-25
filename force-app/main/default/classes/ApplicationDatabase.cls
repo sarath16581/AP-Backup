@@ -10,6 +10,7 @@
  * 2020-08-02 - Nathan Franklin - Added return results for database methods and the ability to do allOrNothing
  * 2020-08-16 - arjun.singh@auspost.com.au - Added methods for  rollback and savepoint
  * 2020-10-18 - Nathan Franklin - Increased API Version to 49
+ * 2022-05-09 - Ranjeewa Silva - Added support for upsert operation.
  */
 public inherited sharing class ApplicationDatabase {
 
@@ -29,6 +30,34 @@ public inherited sharing class ApplicationDatabase {
 	 */
 	public List<Database.SaveResult> dmlInsert(List<SObject> objList, Boolean allOrNothing) {
 		return Database.insert(objList, allOrNothing);
+	}
+
+	/**
+	 * Creates new sObject records or updates existing sObject records, using the specified field to determine the presence
+	 * of existing objects. Does not allow partial success (i.e. allOrNothing = true).
+	 *
+	 * @param objList list of sObject records to upsert
+	 * @param idField id / external id field to determine the presence of existing records.
+	 *
+	 * @return Database.UpsertResults[] if successful. An exception is thrown in the case of any failures.
+	 */
+	public List<Database.UpsertResult> dmlUpsert(List<SObject> objList, SObjectField idField) {
+		return dmlUpsert(objList, idField,true);
+	}
+
+	/**
+	 * Creates new sObject records or updates existing sObject records, using the specified field to determine the presence
+	 * of existing objects. The optional allOrNothing parameter specifies whether partial success is to be allowed.
+	 *
+	 * @param objList list of sObject records to upsert
+	 * @param idField id / external id field to determine the presence of existing records.
+	 * @param allOrNothing specifies whether the operation allows partial success
+	 *
+	 * @return Database.UpsertResults[] if 'allOrNothing' is false. If 'allOrNothing' is not set or is set true, an exception
+	 * is thrown if the method is not successful.
+	 */
+	public List<Database.UpsertResult> dmlUpsert(List<SObject> objList, SObjectField idField, Boolean allOrNothing) {
+		return Database.upsert(objList, idField, allOrNothing);
 	}
 
 	/**

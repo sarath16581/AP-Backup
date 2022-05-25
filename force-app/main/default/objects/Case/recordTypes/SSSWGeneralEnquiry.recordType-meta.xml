@@ -1265,6 +1265,10 @@
     <picklistValues>
         <picklist>Origin</picklist>
         <values>
+            <fullName>AP Network</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>AP Retail %28PM26%29</fullName>
             <default>false</default>
         </values>

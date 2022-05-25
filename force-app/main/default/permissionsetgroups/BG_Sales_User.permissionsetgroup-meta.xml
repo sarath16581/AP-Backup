@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Permissions for B&amp;G Sales users.</description>
-    <hasActivationRequired>false</hasActivationRequired>
     <label>BG Sales User</label>
     <permissionSets>BG_Core</permissionSets>
     <permissionSets>BG_Sales</permissionSets>

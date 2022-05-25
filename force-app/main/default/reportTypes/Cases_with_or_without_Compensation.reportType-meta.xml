@@ -4175,16 +4175,19 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By: Manager Level 1</displayNameOverride>
             <field>LastModifiedBy.Manager.Name</field>
             <table>Case.Compensation__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By: Manager Level 2</displayNameOverride>
             <field>LastModifiedBy.Manager.Manager.Name</field>
             <table>Case.Compensation__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By: Manager Level 3</displayNameOverride>
             <field>LastModifiedBy.Manager.Manager.Manager.Name</field>
             <table>Case.Compensation__r</table>
         </columns>

@@ -10,6 +10,8 @@ History:
 2022-02-22  naveen.rajanna@auspost.com.au - Added constants for REQ2723199
 2022-04-08  naveen.rajanna@auspost.com.au - REQ2804764 - Remove debug and Add null check to prevent nullpointerexception for parseEmailbodySnapIt,setEmailToCaseAddress
 2022-05-06  naveen.rajanna@auspost.com.au - Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
+2022-05-03  saiswetha.pingali@auspost.com.au - Removed parseEmailbodySnapIT as it is no more used.
+
 **************************************************/
 public class EmailMessageUtil {
 
@@ -167,39 +169,7 @@ public class EmailMessageUtil {
         }
     }
 
-
-    //31-Aug-16 Eric Shen create method to parse emailbody of Snap it case to update referenceID field on case based on email content returned from customer
-    public static void parseEmailbodySnapIt(List<EmailMessage> newEmails) {
-
-        ID queueID = Utility.getGroupId(SSSWConstants.QUEUESNAPIT, 'Queue'); //get Snapit Inbound queue id
-        ID holdinqueueID = Utility.getGroupId(SSSWConstants.QUEUEHOLDING, 'Queue'); //get Snapit Holding Case queue id
-        String strRefID = '';
-        List<Case> casesToUpdate = new List<Case>();
-        //loop through email messages and try to obtain reference ID field value from Parcel number section of email body
-        for (EmailMessage em : [select subject, textbody,parentId,parent.ownerid, Incoming,parent.Email_Bypass_Data_enforcement__c, parent.referenceid__C from EmailMessage where id in :newEmails]) {
-
-            if (em.ParentId != null && em.ParentId.getSObjectType() == Case.sObjectType && em.Incoming && String.isNotEmpty(em.subject) && em.parent.ownerid == holdinqueueID) {
-                if (em.subject.contains(SSSWConstants.SNAPIT)) {
-
-                    if (String.isNotEmpty(em.textbody)) {
-
-                        strRefID = Utility.parsetext(em.textbody, REFSTART, REFEND);
-
-                    }
-                    //regardless if a reference ID is obtained, the relevant Snapit case should be updated to the agent's queue after response from customer via email.
-                    em.parent.referenceid__C = strRefID;
-                    em.parent.Email_Bypass_Data_enforcement__c = true;
-                    em.parent.ownerid = queueID;
-
-                    casesToUpdate.add(em.parent);
-                }
-            }
-        }
-
-        update casesToUpdate;
-
-    }
-
+   
     //StarTrack method which detects duplicate inbound email message based on email message subject.
     //Created by: David Catindoy (Accenture) - Nov. 24, 2016
     public static void startrackDuplicateInboundEmail(List<EmailMessage> newEmails) {

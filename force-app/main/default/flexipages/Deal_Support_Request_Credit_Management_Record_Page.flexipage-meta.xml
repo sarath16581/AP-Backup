@@ -53,7 +53,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -67,7 +66,6 @@
                     <value>linear</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
-                <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -82,7 +80,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Work_Type__c</fieldItem>
-                <identifier>RecordCredit_Work_Type__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -92,7 +89,6 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Pay_Account_Type__c</fieldItem>
-                <identifier>RecordPay_Account_Type__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Name}</leftValue>
@@ -113,7 +109,6 @@
                     <value>Facet-5b5499e8-c4f5-4308-973d-68f920db2c31</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-1d32cd8b-a844-4eea-bc68-87c785bd23b7</name>
@@ -127,7 +122,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Assessment__c</fieldItem>
-                <identifier>RecordCredit_Assessment__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -144,7 +138,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Assessment_Outcome_Status__c</fieldItem>
-                <identifier>RecordCredit_Assessment_Outcome_Status__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -161,7 +154,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.ABN__c</fieldItem>
-                <identifier>RecordABN__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -178,7 +170,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Existing_Credit_Limit__c</fieldItem>
-                <identifier>RecordExisting_Credit_Limit__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -195,7 +186,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Limit_Review_Reason__c</fieldItem>
-                <identifier>RecordCredit_Limit_Review_Reason__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -212,7 +202,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Attach_2_Years_of_Cash_Flow_Bal_P_L_Stmt__c</fieldItem>
-                <identifier>RecordAttach_2_Years_of_Cash_Flow_Bal_P_L_Stmt__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -235,7 +224,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Document_Type__c</fieldItem>
-                <identifier>RecordCredit_Document_Type__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -252,7 +240,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Email_Address__c</fieldItem>
-                <identifier>RecordEmail_Address__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -275,7 +262,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Period_Date_Required__c</fieldItem>
-                <identifier>RecordPeriod_Date_Required__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -298,7 +284,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Invoice_No_or_Period_Date_Required__c</fieldItem>
-                <identifier>RecordInvoice_No_or_Period_Date_Required__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -321,7 +306,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Billing_Account_Change_of_Details_Type__c</fieldItem>
-                <identifier>RecordBilling_Account_Change_of_Details_Type__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -338,7 +322,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Customer_Request_Attached__c</fieldItem>
-                <identifier>RecordCustomer_Request_Attached__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
@@ -366,7 +349,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Lodgement_Point_to_Work_Centre_Code__c</fieldItem>
-                <identifier>RecordLodgement_Point_to_Work_Centre_Code__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -383,7 +365,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Payment_Related_Query_Type__c</fieldItem>
-                <identifier>RecordPayment_Related_Query_Type__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -404,7 +385,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Assessment_Query_Reason__c</fieldItem>
-                <identifier>RecordCredit_Assessment_Query_Reason__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -421,7 +401,6 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Management_Response__c</fieldItem>
-                <identifier>RecordCredit_Management_Response__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -438,7 +417,6 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.ACN__c</fieldItem>
-                <identifier>RecordACN__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -455,7 +433,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.New_Credit_Limit_Required__c</fieldItem>
-                <identifier>RecordNew_Credit_Limit_Required__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -472,7 +449,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Request_Source__c</fieldItem>
-                <identifier>RecordRequest_Source__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -489,7 +465,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Change_of_details_Sub_Type_AP__c</fieldItem>
-                <identifier>RecordChange_of_details_Sub_Type_AP__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>(1 OR 2) AND 3</booleanFilter>
                     <criteria>
@@ -517,7 +492,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Change_of_details_Sub_Type_ST__c</fieldItem>
-                <identifier>RecordChange_of_details_Sub_Type_ST__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -540,7 +514,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Billing_Account_Change_of_Details_Desc__c</fieldItem>
-                <identifier>RecordBilling_Account_Change_of_Details_Desc__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -557,7 +530,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Invoice_Number__c</fieldItem>
-                <identifier>RecordInvoice_Number__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
@@ -585,7 +557,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Transaction_Number__c</fieldItem>
-                <identifier>RecordTransaction_Number__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -608,7 +579,6 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_for_Account_Closure__c</fieldItem>
-                <identifier>RecordReason_for_Account_Closure__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -625,7 +595,6 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.CustomerContact1__c</fieldItem>
-                <identifier>RecordCustomerContact1__cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -642,7 +611,6 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Description__c</fieldItem>
-                <identifier>RecordDescription__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>(1 AND 3) OR 2 OR 4</booleanFilter>
                     <criteria>
@@ -679,7 +647,6 @@
                     <value>Facet-6249a33b-c5d8-4118-a82e-5353c90556d7</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -689,7 +656,6 @@
                     <value>Facet-ccf9e31e-54ba-4bcf-8382-19c87a7409b9</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column3</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-839dba37-742b-4a2b-a6b9-ae2dafdff614</name>
@@ -703,7 +669,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Name</fieldItem>
-                <identifier>RecordNameField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -713,13 +678,11 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Requestor__c</fieldItem>
-                <identifier>RecordRequestor__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldItem>Record.Requestor_Email__c</fieldItem>
-                <identifier>RecordRequestor_Email__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -729,7 +692,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Stage__c</fieldItem>
-                <identifier>RecordStage__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -739,7 +701,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Status__c</fieldItem>
-                <identifier>RecordStatus__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-bcfb3d34-6bae-4187-8a3e-1a0f6c43712b</name>
@@ -753,7 +714,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.RecordTypeId</fieldItem>
-                <identifier>RecordRecordTypeIdField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -763,7 +723,6 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Organisation__c</fieldItem>
-                <identifier>RecordOrganisation__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -773,7 +732,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Origin__c</fieldItem>
-                <identifier>RecordOrigin__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -783,7 +741,6 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.OwnerId</fieldItem>
-                <identifier>RecordOwnerIdField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-44ae7b02-f48c-43f0-ba49-9d3a00771498</name>
@@ -797,7 +754,6 @@
                     <value>Facet-bcfb3d34-6bae-4187-8a3e-1a0f6c43712b</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column4</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -807,7 +763,6 @@
                     <value>Facet-44ae7b02-f48c-43f0-ba49-9d3a00771498</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column5</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-ac5bba7d-a8df-4cf1-b3b8-50339aedaa96</name>
@@ -821,7 +776,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Billing_Account__c</fieldItem>
-                <identifier>RecordBilling_Account__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -831,7 +785,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Billing_Number__c</fieldItem>
-                <identifier>RecordBilling_Number__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -841,7 +794,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Sub_Account_Checkbox__c</fieldItem>
-                <identifier>RecordSub_Account_Checkbox__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-46bceb6b-f5cb-4dd4-ab34-4a928b0f723f</name>
@@ -851,19 +803,16 @@
         <itemInstances>
             <fieldInstance>
                 <fieldItem>Record.Credit_Representative__c</fieldItem>
-                <identifier>RecordCredit_Representative__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldItem>Record.Credit_Representative_Email__c</fieldItem>
-                <identifier>RecordCredit_Representative_Email__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldItem>Record.Credit_Person_Code__c</fieldItem>
-                <identifier>RecordCredit_Person_Code__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-7dd871c2-1f87-4bb2-82b7-08ebe7ba9911</name>
@@ -877,7 +826,6 @@
                     <value>Facet-46bceb6b-f5cb-4dd4-ab34-4a928b0f723f</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column6</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -887,7 +835,6 @@
                     <value>Facet-7dd871c2-1f87-4bb2-82b7-08ebe7ba9911</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column7</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-73c21c47-5869-4384-b1ed-194c7a821b6c</name>
@@ -905,7 +852,6 @@
                     <value>Work Type</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -919,7 +865,6 @@
                     <value>Information Requirement</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -933,7 +878,6 @@
                     <value>Request Information</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -947,7 +891,6 @@
                     <value>Billing Account Details</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection4</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-eb94c0f9-f5e1-4782-bb6b-b99d50628cda</name>
@@ -957,7 +900,6 @@
         <itemInstances>
             <fieldInstance>
                 <fieldItem>Record.Additional_Comments__c</fieldItem>
-                <identifier>RecordAdditional_Comments__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -967,7 +909,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Duration__c</fieldItem>
-                <identifier>RecordDuration__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -977,7 +918,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Date_Time_Opened__c</fieldItem>
-                <identifier>RecordDate_Time_Opened__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -987,7 +927,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Days_Open_Since_Creation__c</fieldItem>
-                <identifier>RecordDays_Open_Since_Creation__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c27dcae8-b9aa-48c4-8918-e43d09bd3eef</name>
@@ -997,7 +936,6 @@
         <itemInstances>
             <fieldInstance>
                 <fieldItem>Record.Priority__c</fieldItem>
-                <identifier>RecordPriority__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1007,7 +945,6 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Further_Info_Required_Counter__c</fieldItem>
-                <identifier>RecordFurther_Info_Required_Counter__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1017,7 +954,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Date_Time_Closed__c</fieldItem>
-                <identifier>RecordDate_Time_Closed__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1027,7 +963,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.KPI_SLA__c</fieldItem>
-                <identifier>RecordKPI_SLA__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-448e26d4-b3c6-46ef-ad06-a8c04d73ec1b</name>
@@ -1041,7 +976,6 @@
                     <value>Facet-c27dcae8-b9aa-48c4-8918-e43d09bd3eef</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column8</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1051,7 +985,6 @@
                     <value>Facet-448e26d4-b3c6-46ef-ad06-a8c04d73ec1b</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column9</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-8a4dd19a-e316-4713-b04a-8afd35c06539</name>
@@ -1065,7 +998,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.CreatedById</fieldItem>
-                <identifier>RecordCreatedByIdField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-2d8999f9-d14b-40f0-a2da-22749cd004b6</name>
@@ -1079,7 +1011,6 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.LastModifiedById</fieldItem>
-                <identifier>RecordLastModifiedByIdField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-cb5fcfe4-258d-46b0-902e-e3a4d8cf2a81</name>
@@ -1093,7 +1024,6 @@
                     <value>Facet-2d8999f9-d14b-40f0-a2da-22749cd004b6</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column10</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1103,7 +1033,6 @@
                     <value>Facet-cb5fcfe4-258d-46b0-902e-e3a4d8cf2a81</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column11</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-f3aba5d1-2b7d-4b29-a775-738bb3446871</name>
@@ -1121,7 +1050,6 @@
                     <value>Additional Information</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection5</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1135,7 +1063,6 @@
                     <value>System Information</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection6</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-3fa614f7-a296-4c23-beac-5baf8f2b83e8</name>
@@ -1157,7 +1084,6 @@
                     <value>accordionSection1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
-                <identifier>fieldsSection</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1175,7 +1101,6 @@
                     <value>accordionSection2</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
-                <identifier>additionalFieldsSection</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-080ee4aa-a32f-4a52-8d93-43bf3e5e6ca4</name>
@@ -1193,13 +1118,11 @@
                     <value>accordionSection1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordion</componentName>
-                <identifier>flexipage_accordion</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>force:recordDetailPanelMobile</componentName>
-                <identifier>force_recordDetailPanelMobile</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -1230,7 +1153,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-125fcff8-a56f-4557-853c-af29f62707b9</name>
@@ -1252,7 +1174,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1278,7 +1199,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1304,7 +1224,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -1327,7 +1246,6 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1341,7 +1259,6 @@
                     <value>Attachments</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1355,7 +1272,6 @@
                     <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -1374,7 +1290,6 @@
                     <value>&lt;p&gt;&lt;b style=&quot;color: rgb(237, 4, 4); font-size: 16px;&quot;&gt;The Deal Support Request has not been submitted.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;color: rgb(237, 4, 4); font-size: 16px;&quot;&gt;Please click the ‘Submit’ button to ensure your request is received by the Support Team.&lt;/b&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
@@ -1406,7 +1321,6 @@
                     <value>&lt;p&gt;&lt;b style=&quot;font-size: 16px; color: rgb(218, 9, 9);&quot;&gt;The Deal Support Request has been submitted and is pending approval, no further action is required at this stage.  Once approved, the Deal support request will be automatically submitted to the Support Team for review.&lt;/b&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText2</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -1429,7 +1343,6 @@
                     <value>maintabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -1440,7 +1353,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -1451,7 +1363,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-4af650f6-e95f-41ba-9955-6a65c34f7237</name>
@@ -1473,7 +1384,6 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1487,7 +1397,6 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>collaborateTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -1506,7 +1415,6 @@
                     <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;/resource/1592468426000/Pricing_Support_Request&quot; target=&quot;_blank&quot; style=&quot;color: rgb(27, 137, 234);&quot;&gt;&lt;b&gt;Pricing Support Requests Guidelines&lt;/b&gt;&lt;/a&gt;&lt;a href=&quot;/resource/1568878337000/Help_Internal_Request&quot; target=&quot;_blank&quot; style=&quot;color: rgb(27, 137, 234); background-color: rgb(255, 255, 255);&quot;&gt;&lt;b&gt;.&lt;/b&gt;&lt;/a&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText3</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
@@ -1527,7 +1435,6 @@
                     <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 16px; color: rgb(255, 0, 0);&quot;&gt;Please Add at least One Lodgement Point before Deal Support Request submission.&lt;/b&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText4</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -1546,7 +1453,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>addMultipleLodgementPoint</componentName>
-                <identifier>addMultipleLodgementPoint</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
@@ -1563,7 +1469,6 @@
                     <value>sidebartabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1589,7 +1494,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer4</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Opportunity_Name__c}</leftValue>

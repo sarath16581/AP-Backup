@@ -12,7 +12,7 @@
 public with sharing class ICPSServiceController {
 
 	/**
-	 * Record limit on search results
+	 * Record limit on ICPS search results
 	 */
 	private static final Integer SEARCH_LIMIT = 100;
 
@@ -75,5 +75,125 @@ public with sharing class ICPSServiceController {
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
+	}
+
+	/**
+	 * This method is used to get ICPS record with child articles if found
+	 * @param icpsId Id of the ICPS
+	 * @return ICPS with articles
+	 */
+	@AuraEnabled
+	public static ICPS__c getICPSWithArticles(String icpsId) {
+		try {
+			List<ICPS__c> icpsList = ICPSSelector.newInstance(1).selectById(new Set<Id>{icpsId}, new Set<Object>{ICPSSelector.Options.WITH_ICPS_ARTICLES});
+			return icpsList[0];
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
+	 * This method is used to search ICPS Articles in SAP EM
+	 * @param trackingId tracking Id to be used for search
+	 * @return ICPSArticleTrackingResult wrapping required details
+	 */
+	@AuraEnabled
+	public static ICPSArticleTrackingResult searchICPSArticlesInSAP(String trackingId) {
+		try {
+			TIBCOArticleService articleService = TIBCOArticleService.getInstance();
+			TIBCOSearchResult searchResult = articleService.search(new String[] {trackingId}, true, false, false, false, true);
+			ICPSArticleTrackingResult trackingResult = mapICPSArticles(trackingId, searchResult);
+
+			return trackingResult;
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
+	 * This method is used to upsert ICPS articles and update related ICPS
+	 * notes: Two dml calls are required as ICPS and ICPS Articles can't be updated in one DML
+	 * @param articles articles to be upserted
+	 * @param icps ICPS to be updated if not null
+	 */
+	@AuraEnabled
+	public static void saveArticles(List<ICPSArticle__c> articles, ICPS__c icps) {
+		try {
+			// Update ICPS record if not null
+			if (icps != null) {
+				ApplicationDatabase.getInstance().dmlUpdate(new List<ICPS__c>{icps});
+			}
+			ApplicationDatabase.getInstance().dmlUpsert(articles, ICPSArticle__c.Id);
+		} catch (Exception e) {
+			// Changes will be rolled back and error message will be passed back to frontend if encounter any DML exceptions
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
+	 * This method is used to map Tracking result from TIBCO Service to ICPSArticleTrackingResult
+	 * @param articleNumber Article number or tracking Id
+	 * @param searchResult TIBCOSearchResult from TIBCO Service
+	 * @return ICPSArticleTrackingResult
+	 */
+	private static ICPSArticleTrackingResult mapICPSArticles(String articleNumber, TIBCOSearchResult searchResult) {
+		ICPSArticleTrackingResult result = new ICPSArticleTrackingResult();
+		List<TrackingArticle> trackingArticles = new List<TrackingArticle>();
+		List<ConsignmentDetail> consignmentDetails = new List<ConsignmentDetail>();
+
+		for (TIBCOTrackingResultWrapper tr: searchResult.trackResults) {
+			TrackingArticle trackingArticle = new TrackingArticle();
+			ConsignmentDetail consignmentDetail;
+			trackingArticle.trackingId = articleNumber;
+			if (searchResult.success && tr.Success) {
+				if (tr.consignmentDetails != null) {
+					consignmentDetail = new ConsignmentDetail();
+					consignmentDetail.consignmentArticle = tr.consignmentDetails.proxyConsignment;
+					consignmentDetails.add(consignmentDetail);
+				} else {
+					trackingArticle.article = tr.articleDetails.proxyArticle;
+				}
+			} else {
+				if (!tr.Success) {
+					result.errors.add(tr.resultDescription);
+					trackingArticle.error = tr.resultDescription;
+				}
+			}
+			trackingArticles.add(trackingArticle);
+		}
+		if (!searchResult.success) {
+			result.errors.addAll(searchResult.errors);
+		}
+
+		result.articles = trackingArticles;
+		result.consignments = consignmentDetails;
+
+		return result;
+	}
+
+	/**
+	 * Wrapper class for ICPS Article with Error status captured from SAP EM
+	 */
+	public class ICPSArticleTrackingResult {
+		@AuraEnabled
+		public List<String> errors = new List<String>();
+		@AuraEnabled
+		public List<ConsignmentDetail> consignments { get; set; }
+		@AuraEnabled
+		public List<TrackingArticle> articles = new List<TrackingArticle>();
+	}
+
+	public class TrackingArticle {
+		@AuraEnabled
+		public String trackingId { get; set; }
+		@AuraEnabled
+		public Article__c article { get; set; }
+		@AuraEnabled
+		public String error { get; set; }
+	}
+
+	public class ConsignmentDetail {
+		@AuraEnabled
+		public Article__c consignmentArticle { get; set; }
 	}
 }

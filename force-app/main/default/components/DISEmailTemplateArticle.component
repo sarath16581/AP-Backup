@@ -3,7 +3,8 @@ History:
 --------------------------------------------------
 12/05/2020 - Hara Sahoo Modified- Added page break
 22/05/2020 - Hara Sahoo Modified- Added page break on the event message section display
---->
+28/04/2022 - Mahesh Parvathaneni Modified- Added fixed layout to event message table to display all columns
+-->
 <apex:component >
     <apex:attribute name="article" description="Article to be displayed"
                     type="Article__c" required="true"/>
@@ -64,7 +65,7 @@ History:
         <div style="page-break-inside: avoid;">
         <apex:outputPanel rendered="{!eventMessages.size > 0 || NOT(IsConsignment)}">
             <h3 style="color: #DF1027;">Event Messages</h3>
-            <table class="event-message-section">
+            <table style="table-layout: fixed;width: 100%;" class="event-message-section">
                 <tr>
                     <apex:repeat value="{!eventMessageFields}" var="f">
                         <th><apex:outputLabel value="{!f.Label}"/></th>

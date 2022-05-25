@@ -9,6 +9,7 @@ Last Modified Date - 18/03/2020
 Last Modified By - Seth Heang
 Last Modified Date - 30/11/2020 | add createASICReport_element method to mock ASIC returned result
 */
+@IsTest
 public with sharing class APT_TestUtils {
     
     /**

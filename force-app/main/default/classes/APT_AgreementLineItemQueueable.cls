@@ -37,15 +37,18 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
                             && agreement.Apttus__AgreementLineItems__r.size() > 0)){
                 return;
             }
+            system.Debug('CD: configurationID-------->' + configurationID);
+            system.Debug('CD: Included Product Lines-------->' + agreement.Included_Product_Lines__c);
+            
             String availableProductTypes = APT_Constants.EMPTY_STRING;
             
             if(String.IsNOtBlank(agreement.RecordType.DeveloperName) 
                 && (APT_Constants.RECORD_TYPE_DOV_CONTRACT.equalsIgnoreCase(agreement.APT_Contract_Type__c)
                     || APT_Constants.RECORD_TYPE_RENEWAL_CONTRACT.equalsIgnoreCase(agreement.APT_Contract_Type__c))){
-                system.Debug('agreement.RecordType.Name-------->' + agreement.RecordType.DeveloperName);
+                system.Debug('CD: agreement.RecordType.Name-------->' + agreement.RecordType.DeveloperName);
             
                 List<APT_AgreementIncludedProductsLineMapping__mdt> agreementLineItemsMappings = [select id, Product_Type__c from APT_AgreementIncludedProductsLineMapping__mdt where MasterLabel=: agreement.RecordType.DeveloperName]; 
-                system.Debug('agreementLineItemsMappings-------->' + agreementLineItemsMappings);
+                system.Debug('CD: agreementLineItemsMappings-------->' + agreementLineItemsMappings);
             
                 if(agreementLineItemsMappings != null && agreementLineItemsMappings.size() > 0 ){
                     for(APT_AgreementIncludedProductsLineMapping__mdt mapings  : agreementLineItemsMappings){
@@ -53,13 +56,13 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
                     }
                 }
             } else {
-                system.Debug('agreement.Included_Product_Lines__c-------->' + agreement.Included_Product_Lines__c);
+                system.Debug('CD: agreement.Included_Product_Lines__c-------->' + agreement.Included_Product_Lines__c);
                 availableProductTypes = agreement.Included_Product_Lines__c;
-                system.Debug('availableProductTypes-------->' + availableProductTypes);
+                system.Debug('CD: availableProductTypes-------->' + availableProductTypes);
                 
             }
             
-            system.Debug('availableProductTypes-------->' + availableProductTypes);
+            system.Debug('CD: availableProductTypes-------->' + availableProductTypes);
                 
             Set<String> sourceFieldNames = new Set<String>(APT_AmendRenewUtility.getFieldNames(Apttus__AgreementLineItem__c.getSObjectType()));
                 
@@ -75,7 +78,7 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
                                 + APT_Constants.product_product_type
                                 + APT_Constants.STRING_FROM_PLI
                                 + ORDER_BY_LINENUMBER;
-            System.Debug('PliList-->' + database.query(pliQuery));
+            System.Debug('CD: PliList-->' + database.query(pliQuery));
             Apttus__AgreementLineItem__c clonedAgreementLineItem;
             /*
             //1084
@@ -118,8 +121,7 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
                 
                 listAgreementLineItems.add(clonedAgreementLineItem);
                 system.Debug('clonedAgreementLineItem-->' + clonedAgreementLineItem);      
-            system.Debug('pli-->' + pli);      
-            
+            	system.Debug('pli-->' + pli);
             }         
             
             system.Debug('listAgreementLineItems-->' + listAgreementLineItems);      

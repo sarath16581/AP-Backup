@@ -20,7 +20,6 @@
                     <value>1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -34,7 +33,6 @@
                     <value>2</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <name>facet-indirection-e365d95e-1939-460f-8a13-762d18caa8a2</name>
@@ -51,7 +49,6 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>myNetworkRelatedEventMessages</componentName>
-                <identifier>myNetworkRelatedEventMessages</identifier>
             </componentInstance>
         </itemInstances>
         <name>3d5a0a90-ba54-4e90-9d48-8ee29424cdf0</name>
@@ -72,7 +69,6 @@
                     <value>MEDIUM</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:relatedRecords</componentName>
-                <identifier>forceCommunity_relatedRecords</identifier>
             </componentInstance>
         </itemInstances>
         <name>e38e7ac9-8c2d-4db7-8be8-dcf2ead127a7</name>
@@ -89,7 +85,6 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>myNetworkPrintSingleCase</componentName>
-                <identifier>myNetworkPrintSingleCase</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -99,7 +94,6 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>myNetworkCaseDetails</componentName>
-                <identifier>myNetworkCaseDetails</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -117,7 +111,6 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:visualforcePage</componentName>
-                <identifier>forceCommunity_visualforcePage</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -135,7 +128,6 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:visualforcePage</componentName>
-                <identifier>forceCommunity_visualforcePage2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -149,7 +141,6 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>myNetworkChatterPublisher</componentName>
-                <identifier>myNetworkChatterPublisher</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -163,7 +154,6 @@
                     <value>{&quot;UUID&quot;:&quot;e365d95e-1939-460f-8a13-762d18caa8a2&quot;,&quot;activeTab&quot;:&quot;&quot;,&quot;useOverflowMenu&quot;:false,&quot;tabs&quot;:[{&quot;UUID&quot;:&quot;3d5a0a90-ba54-4e90-9d48-8ee29424cdf0&quot;,&quot;tabName&quot;:&quot;EVENT MESSAGES&quot;,&quot;tabKey&quot;:&quot;1&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:true,&quot;seedComponents&quot;:[]},{&quot;UUID&quot;:&quot;e38e7ac9-8c2d-4db7-8be8-dcf2ead127a7&quot;,&quot;tabName&quot;:&quot;RELATED LISTS&quot;,&quot;tabKey&quot;:&quot;2&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:true,&quot;seedComponents&quot;:[]}]}</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:tabset</componentName>
-                <identifier>forceCommunity_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -193,7 +183,6 @@
                     <value>{!Record._Object}: {!Record._Title}</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
-                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

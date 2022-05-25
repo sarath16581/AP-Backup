@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Administrative_fee__c</fullName>
+    <description>REQ2838686 - update to formula, for domestic yes or no, always 45.45</description>
     <externalId>false</externalId>
-    <formula>IF( ISPICKVAL( APT_Domestic_Customer__c , &quot;Yes&quot;) ,&quot;N/A&quot;,&quot;$&quot;&amp;TEXT(45.45))</formula>
+    <formula>&apos;$45.45&apos;
+/*IF( ISPICKVAL( APT_Domestic_Customer__c , &quot;Yes&quot;) ,&quot;N/A&quot;,&quot;$&quot;&amp;TEXT(45.45))*/</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Administrative fee</label>
     <required>false</required>

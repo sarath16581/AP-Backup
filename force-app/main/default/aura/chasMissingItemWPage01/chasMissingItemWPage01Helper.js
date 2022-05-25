@@ -1,6 +1,7 @@
 /**
  * Created by nmain on 31/10/2017.
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
+ * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
  */
  ({   
     callTrackingNumberService : function(cmp, event, helper) {
@@ -95,9 +96,14 @@
                             //Set the Item Type as 'International'
                             // DDS-5488: When consignment API returns 404, route the cases to domestic queue
                             cmp.set('v.wizardData.senderOrRecipientType', "Domestic");
-                            //Proceed to next page
-                            helper.gotoNextPage(cmp);
-                            return;                            
+                            //Show Invalid Message
+                            if(!cmp.get("v.showInvalidMessage")) {
+                                cmp.set("v.showInvalidMessage", true);                                
+                            } else {
+                                //Proceed to next page
+                                helper.gotoNextPage(cmp);
+                                return;
+                            }                            
                         }
                           else if(returnObj["trackingNumSerachStatusCode"] == 500) {
                             cmp.set('v.error500', true);

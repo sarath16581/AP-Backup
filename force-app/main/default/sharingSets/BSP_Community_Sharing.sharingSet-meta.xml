@@ -44,7 +44,7 @@ R/W to current account
 R/W Contact Application for BAM
 R on Group</description>
     <name>BSP/MPB/MP Community Sharing</name>
-    <profiles>BSP Community User</profiles>
-    <profiles>Merchant Portal Community User</profiles>
-    <profiles>Mypost Business Help %26 Support Community User</profiles>
+    <profiles>bsp community user</profiles>
+    <profiles>merchant portal community user</profiles>
+    <profiles>mypost business help &amp; support community user</profiles>
 </SharingSet>

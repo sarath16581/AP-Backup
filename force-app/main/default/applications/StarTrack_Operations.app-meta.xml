@@ -5,7 +5,6 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>StarTrack Operations</label>
     <logo>StarTrack_Documents/StarTrack_Logo_jpg.jpg</logo>
     <tabs>standard-Case</tabs>

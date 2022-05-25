@@ -4,7 +4,6 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>Time Management</label>
     <tabs>standard-Case</tabs>
     <tabs>Time_Utilisation__c</tabs>

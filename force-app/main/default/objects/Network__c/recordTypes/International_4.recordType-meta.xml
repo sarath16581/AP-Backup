@@ -3,6 +3,7 @@
     <fullName>International_4</fullName>
     <active>true</active>
     <compactLayoutAssignment>Network_Compact_Layout</compactLayoutAssignment>
+    <description>International Deliveries</description>
     <label>International</label>
     <picklistValues>
         <picklist>Air_Parcel_Air_Parcel_Insured__c</picklist>

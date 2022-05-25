@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Negotiated_Payment_Type_L1</fullName>
     <active>true</active>
-    <description>Negotiated Accommodation Fee, Storage of Carded Articles Annual Fee, Storage of Mail Fee, Annual Lease Account Payment, Negotiated Payments - Compliance &amp; Performance, Misc Type 3, Acceptance of Defence Parcels Less than 2kg, Annual Phone &amp; Rent Subsidies</description>
+    <description>Negotiated Accommodation Fee,Storage of Carded Articles Annual Fee,Storage of Mail Fee,Annual Lease Account Payment,Negotiated Payments - Compliance &amp; Performance,Misc Types 1-3,Acceptance of Defence Parcels Less than 2kg,Annual Phone &amp; Rent Subsidies</description>
     <label>Negotiated Payment Type L1</label>
     <picklistValues>
         <picklist>Additional_Minutes__c</picklist>
@@ -138,6 +138,14 @@
         </values>
         <values>
             <fullName>Annual Rent Subsidy Amount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miscellaneous Type 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miscellaneous Type 2</fullName>
             <default>false</default>
         </values>
         <values>

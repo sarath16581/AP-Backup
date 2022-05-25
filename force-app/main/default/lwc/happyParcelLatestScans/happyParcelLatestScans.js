@@ -10,8 +10,9 @@
  * 2021-07-12 - Nathan Franklin - Added temporary Google Maps link (to be implemented correctly in future piece of work)
  * 2021-10-01 - Nathan Franklin - Add event reason (with transient attributes) + uplift to version 52
  * 2021-10-19 - Mathew Jose - Added the expander for more event message details.
+ * 2022-04-11 - Mahesh Parvathaneni - Changed from google map new tab to lightning map
  */
-import { LightningElement, api, track } from "lwc";
+import { api, track } from "lwc";
 import HappyParcelBase from "c/happyParcelBase";
 import { get, getConfig, CONSTANTS } from "c/happyParcelService";
 
@@ -32,6 +33,8 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 	@track featuredScanEvents = [];
 
 	@api loading = false;
+	chevronDownIcon = "utility:chevrondown"; //icon name for chevrondown
+	chevronUpIcon = "utility:chevronup"; //icon name for chevronup
 
 	/**
 	 * Setting this value occurs on the completion of an article search (in the parent)
@@ -60,7 +63,7 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 
 			this.featuredScanEvents = get(value, 'events', []).filter(item => {
 				return this._featuredScanEventTypes.includes(item.event.EventType__c);
-			}).slice(-3).reverse().map(item => {
+			}).slice(-6).reverse().map((item, index) => {
 				alt = !alt;
 				animationDelay += 50;
 
@@ -68,7 +71,8 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 
 				// set a value to indicate whether GPS co-ords are available or not
 				const hasGeoCoordinates = (item.event.EventGeoLocation__Latitude__s && item.event.EventGeoLocation__Longitude__s);
-				const googleMapLink = (hasGeoCoordinates ? 'https://maps.google.com?q=' + encodeURIComponent(item.event.EventGeoLocation__Latitude__s + ',' + item.event.EventGeoLocation__Longitude__s) : '');
+				// set the map markers required for lightning map component
+				const mapMarkers = hasGeoCoordinates ? this.setMapMarkers(item) : [];
 
 				//updating event description with concatenation of original event decription and event reason.
 				const eventDescriptionCombined = (item.transientAttributes.eventReason ? `${item.event.EventDescription__c} (${item.transientAttributes.eventReason})` : item.event.EventDescription__c);		
@@ -91,7 +95,10 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 					animationCssStyle: this.getAnimationStyleCss(animationDelay),
 					cssClass: this.getEventTypeCssClass(item.event.EventType__c) + ' animated ' + (alt ? 'zoomInLeft' : 'zoomInRight'),
 					hasGeoCoordinates,
-					googleMapLink
+					showMap: false,
+					_mapMarkers: mapMarkers,
+					expandEventSection: index > 2 ? false : true,
+					chevronIcon: index > 2 ? this.chevronUpIcon : this.chevronDownIcon
 				};
 			});
 		} else {
@@ -180,6 +187,7 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 			if (eventIndex > -1) {
 				//Show event details
 				this.featuredScanEvents[eventIndex].showEventDetails = true;
+				this.expandEventSection(eventIndex);
 			}         
 		}
     }
@@ -202,6 +210,7 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 		let eventIndex = this.featuredScanEvents.findIndex(item => item.event.EventID__c === eventId);
 		if (eventIndex > -1) {
 			this.featuredScanEvents[eventIndex].showNetworkDetails = true;
+			this.expandEventSection(eventIndex);
 		}
 	}
 
@@ -222,6 +231,7 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 		let eventIndex = this.featuredScanEvents.findIndex(item => item.event.EventID__c === eventId);
 		if (eventIndex > -1) {
 			this.featuredScanEvents[eventIndex].showAttachment = true;
+			this.expandEventSection(eventIndex);
 		}
 	}
 
@@ -239,5 +249,58 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 			return 'color-code_' + this._eventMessageTypes[eventType].ColourCode__c.toLowerCase();
 		}
 		return 'color-code_default';
+	}
+
+	// function to set the map markers for lightning map
+	setMapMarkers(item) {
+		return [{
+			location: {
+				Latitude: item.event.EventGeoLocation__Latitude__s,
+				Longitude: item.event.EventGeoLocation__Longitude__s,
+			}
+		 }];
+	}
+
+	// function to render map on click of map icon
+	handleShowMap(event) {
+		const target = event.currentTarget;
+		const eventId = target.dataset.id;
+		let eventIndex = this.featuredScanEvents.findIndex(item => item.event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this.featuredScanEvents[eventIndex].showMap = true;
+			this.expandEventSection(eventIndex);
+		}
+	}
+
+	// handler to hide the map from happyParcelEventMessageMap event
+	handleCloseMap(event) {
+		const eventId = event.detail;
+		let eventIndex = this.featuredScanEvents.findIndex(item => item.event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this.featuredScanEvents[eventIndex].showMap = false;
+		}
+	}
+
+	//handler for chevron to expand and collapse the scan events
+	handleChevronClick(event) {
+		let iconName = event.target.iconName;
+		let eventId = event.target.dataset.id;
+		let eventIndex = this.featuredScanEvents.findIndex(item => item.event.EventID__c === eventId);
+		if (iconName === this.chevronDownIcon) {
+			this.featuredScanEvents[eventIndex].chevronIcon = this.chevronUpIcon;
+			this.featuredScanEvents[eventIndex].expandEventSection = false;
+		} else {
+			this.featuredScanEvents[eventIndex].chevronIcon = this.chevronDownIcon;
+			this.featuredScanEvents[eventIndex].expandEventSection = true;
+		}
+	}
+
+	//expand event section to show map, attachment etc. if it's not opened 
+	expandEventSection(eventIndex) {
+		let iconName = this.featuredScanEvents[eventIndex].chevronIcon;
+		if (iconName === this.chevronUpIcon) {
+			this.featuredScanEvents[eventIndex].chevronIcon = this.chevronDownIcon;
+			this.featuredScanEvents[eventIndex].expandEventSection = true;
+		} 
 	}
 }

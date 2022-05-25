@@ -10,6 +10,9 @@
  * 2022-03-21 - Harry Wang - Created
  */
 public inherited sharing class ICPSSelector extends ApplicationSelector {
+	public enum Options {
+		WITH_ICPS_ARTICLES
+	}
 
 	public static ICPSSelector newInstance() {
 		return (ICPSSelector) Application.Selectors.newInstance(ICPSSelector.class);
@@ -139,7 +142,26 @@ public inherited sharing class ICPSSelector extends ApplicationSelector {
 	* @description Return ICPS List by ICPS Id set
 	*/
 	public List<ICPS__c> selectById(Set<Id> icpsIds) {
-		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(ICPS__c.Id + ' IN :icpsIds')).endConditions();
+		return selectById(icpsIds, new Set<Object>());
+	}
+
+	/**
+	* @description Return ICPS List by ICPS Id set given selector options
+	*/
+	public List<ICPS__c> selectById(Set<Id> icpsIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(ICPS__c.Id + ' IN :icpsIds')).endConditions();
 		return (List<ICPS__c>) Database.query(qb.toSoqlString());
+	}
+
+	/**
+	 * @description Grabs a new QueryBuilder based on the selector options passed in
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if (selectorOptions.contains(Options.WITH_ICPS_ARTICLES)) {
+			builder.addSubQuery(ICPSArticlesSelector.newInstance(fieldOverrides).newQueryBuilder(), 'ICPS_Articles__r');
+		}
+		return builder;
 	}
 }

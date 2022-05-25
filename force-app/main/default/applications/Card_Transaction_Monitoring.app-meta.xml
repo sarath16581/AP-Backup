@@ -4,7 +4,6 @@
     <description>This is an App created for Cash Transaction Monitoring Team.</description>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>Card Transaction Monitoring</label>
     <tabs>standard-Case</tabs>
     <tabs>standard-Account</tabs>

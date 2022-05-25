@@ -3,6 +3,7 @@
     <fullName>Community_General_Enquiry</fullName>
     <active>true</active>
     <businessProcess>Community General Enquiry</businessProcess>
+    <description>Community General Enquiry</description>
     <label>Community General Enquiry</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>

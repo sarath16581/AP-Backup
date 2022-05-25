@@ -3,6 +3,7 @@
     <fullName>Business_System_Integration</fullName>
     <active>true</active>
     <businessProcess>Business System Integration</businessProcess>
+    <description>Business System Integration</description>
     <label>Business Systems Integration</label>
     <picklistValues>
         <picklist>APT_New_Contract__c</picklist>

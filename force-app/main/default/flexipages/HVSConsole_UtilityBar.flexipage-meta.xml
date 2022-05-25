@@ -5,13 +5,11 @@
         <itemInstances>
             <componentInstance>
                 <componentName>console:history</componentName>
-                <identifier>console_history</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>notes:utilityBarNoteList</componentName>
-                <identifier>notes_utilityBarNoteList</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -47,7 +45,6 @@
                     <value>340</value>
                 </componentInstanceProperties>
                 <componentName>HVSQualificationsUtilitybar</componentName>
-                <identifier>HVSQualificationsUtilitybar</identifier>
             </componentInstance>
         </itemInstances>
         <name>utilityItems</name>
@@ -57,7 +54,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>HVSBackgroundUtility</componentName>
-                <identifier>HVSBackgroundUtility</identifier>
             </componentInstance>
         </itemInstances>
         <name>backgroundComponents</name>

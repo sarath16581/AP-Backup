@@ -21,7 +21,6 @@
                     <value>10</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -40,7 +39,6 @@
                     <value>linear</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
-                <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -51,7 +49,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -74,13 +71,11 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>BG_LeadQualificationsList</componentName>
-                <identifier>BG_LeadQualificationsList</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -114,7 +109,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>seismic:SeismicEmbeddedApplication</componentName>
-                <identifier>seismic_SeismicEmbeddedApplication</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.Seismic_Access}</leftValue>
@@ -143,7 +137,6 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -157,7 +150,6 @@
                     <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -171,7 +163,6 @@
                     <value>Seismic</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -186,7 +177,6 @@
                     <value>tabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -197,7 +187,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-02d94d6e-bd78-4fb0-b1be-d49c40c13d56</name>
@@ -207,7 +196,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-7803f9a0-6772-403b-88de-e578df4438fd</name>
@@ -229,7 +217,6 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -243,7 +230,6 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>collaborateTab</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-02c3554f-de48-4009-b6c8-53c459ec152e</name>
@@ -253,7 +239,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel2</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -264,7 +249,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-1b1dbca2-c517-4afa-b8a0-3c0cf1bb9f4f</name>
@@ -294,7 +278,6 @@
                     <value>7</value>
                 </componentInstanceProperties>
                 <componentName>th_contextualRecommend</componentName>
-                <identifier>th_contextualRecommend</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-5acdee9f-2847-435d-ac99-60ffae3266f7</name>
@@ -316,7 +299,6 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>activityTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -330,7 +312,6 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>collaborateTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -344,7 +325,6 @@
                     <value>Training</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -359,7 +339,6 @@
                     <value>recordId</value>
                 </componentInstanceProperties>
                 <componentName>opportunityCloseErrors</componentName>
-                <identifier>opportunityCloseErrors</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.StageName}</leftValue>
@@ -376,7 +355,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListQuickLinksContainer</componentName>
-                <identifier>force_relatedListQuickLinksContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -386,7 +364,6 @@
                     <value>Facet-02c3554f-de48-4009-b6c8-53c459ec152e</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset2</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.Show_Trailhead_Training}</leftValue>
@@ -403,7 +380,6 @@
                     <value>sidebartabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset3</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.Show_Trailhead_Training}</leftValue>

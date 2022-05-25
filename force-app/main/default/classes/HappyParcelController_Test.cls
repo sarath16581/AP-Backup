@@ -423,4 +423,34 @@ private class HappyParcelController_Test {
 			return searchResult;
 		}
 	}
+
+	/**
+	 * Scenario: Testing to ensure distance between the locations are returned.
+	 */
+	@IsTest
+	private static void testGetDistanceBetweenLocations() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+
+		Test.startTest();
+
+		Double distance = HappyParcelController.getDistanceBetweenLocations(28.635308, 77.22496, 37.7749295, -122.4194155);
+
+		Test.stopTest();
+
+		System.assertEquals(12352.481223068238, distance, 'Incorrect distance between locations');
+
+	}
 }

@@ -73,4 +73,36 @@ public with sharing class ICPSArticlesSelector_Test {
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom ICPSArticle__c\\b').matcher(soql).find(), 'Resulting query does not select from ICPSArticle__c');
 		Test.stopTest();
 	}
+
+	/**
+	* Test:
+	*  Ensures that the selector methods return expected matching result
+	*/
+	@IsTest
+	public static void testSelectorIntegration() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<ICPS__c> icpsList = ICPSTestDataFactory.getICPS(1, false);
+		insert icpsList;
+
+		List<ICPSArticle__c> articles = ICPSTestDataFactory.getICPSArticles(icpsList[0].Id, 2, false);
+
+		insert articles;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		ICPSArticle__c searchResult = ICPSArticlesSelector.newInstance().selectByICPSId(new Set<Id>{
+				icpsList[0].Id
+		})[0];
+		System.assert(searchResult != null, 'Expected article found');
+		Test.stopTest();
+	}
 }

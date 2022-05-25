@@ -40,7 +40,7 @@
         <inputAssignments>
             <field>EventCode__c</field>
             <value>
-                <stringValue>CE-EN10</stringValue>
+                <stringValue>CE-EN11</stringValue>
             </value>
         </inputAssignments>
         <inputReference>$Record</inputReference>
@@ -65,7 +65,6 @@
             <connector>
                 <targetReference>Outbound_Message_to_SAP_EM</targetReference>
             </connector>
-            <pathType>AsyncAfterCommit</pathType>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>

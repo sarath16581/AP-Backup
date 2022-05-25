@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Signature XString</label>
     <length>32768</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

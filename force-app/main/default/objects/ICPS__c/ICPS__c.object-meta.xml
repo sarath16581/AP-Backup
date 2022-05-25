@@ -169,7 +169,17 @@
     </nameField>
     <pluralLabel>ICPS</pluralLabel>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>RECORDTYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CountryofOrigin__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>DutyStatus__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ItemType__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>MailCategory__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>StoredLocation__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>NumberofArticles__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>MigratedICPSReference__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>Private</sharingModel>
     <startsWith>Vowel</startsWith>
     <visibility>Public</visibility>

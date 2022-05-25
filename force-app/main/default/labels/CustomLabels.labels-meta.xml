@@ -7498,4 +7498,44 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>withinEDDPlusBusinessDaysText</shortDescription>
         <value>Your delivery is expected on</value>
     </labels>
+    <labels>
+        <fullName>HappyParcelAcceptableDeliveryHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Acceptable Delivery Help Text</shortDescription>
+        <value>Within acceptable delivery radius</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelAcceptableDistanceHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Acceptable Distance Help Text</shortDescription>
+        <value>Distance within 100m</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelCorrectDeliveryHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Correct Delivery Help Text</shortDescription>
+        <value>Driver indicated correct delivery address</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelDistanceCalculatedHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Distance Calculated Help Text</shortDescription>
+        <value>Distance between Delivered and Manifest locations</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelScanHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Scan Help Text</shortDescription>
+        <value>Parcel scanned within 100m range of manifested location</value>
+    </labels>
 </CustomLabels>

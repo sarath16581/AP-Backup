@@ -273,6 +273,7 @@ public class APTS_ContractsApproverCommentsTest {
 	    approvalReq.Apttus_Approval__Approver_Comments__c = 'Approved Discount - 89';
         approvalReq.Apttus_Approval__StepLabel__c = 'Dangerous Goods';
         approvalReq.Apttus_QPApprov__ProposalId__c = proposal.Id;
+        approvalReq.Apttus_Approval__Object_Type__c = 'Apttus_Config2__ProductConfiguration__c';
         insert approvalReq;
         
         Apttus_Config2__PriceListItem__c priceListItem = APT_TestUtils.createPriceListItem(priceList.id,product.id,'','');

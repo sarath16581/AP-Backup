@@ -68,7 +68,6 @@ My name is {!User_FirstName}, how may I help you?</autoGreeting>
     <capacity>2</capacity>
     <criticalWaitTime>60</criticalWaitTime>
     <customAgentName>Australia Post Service Agent</customAgentName>
-    <disableTransferConferenceGreeting>false</disableTransferConferenceGreeting>
     <enableAgentFileTransfer>false</enableAgentFileTransfer>
     <enableAgentSneakPeek>true</enableAgentSneakPeek>
     <enableAssistanceFlag>false</enableAssistanceFlag>

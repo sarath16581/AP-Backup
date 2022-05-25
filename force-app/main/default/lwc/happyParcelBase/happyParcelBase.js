@@ -8,6 +8,7 @@
 import { LightningElement, api } from 'lwc';
 import { loadStyle } from "lightning/platformResourceLoader";
 import GLOBAL_ASSETS from '@salesforce/resourceUrl/GlobalAssets';
+import HAPPY_PARCEL_ASSETS from '@salesforce/resourceUrl/HappyParcelAssets';
 
 let resourcesLoaded;
 
@@ -18,8 +19,14 @@ export default class HappyParcelBase extends LightningElement {
 
 	connectedCallback() {
 		if(!resourcesLoaded) {
-			resourcesLoaded = true;
-			loadStyle(this, GLOBAL_ASSETS + '/css/animatecss/3.7.2/animate.css');
+			Promise.all([
+				loadStyle(this, GLOBAL_ASSETS + '/css/animatecss/3.7.2/animate.css'),
+				loadStyle(this, HAPPY_PARCEL_ASSETS + '/HappyParcelAssets/css/global-overrides.css')
+			]).then(() => {
+				resourcesLoaded = true;
+			}).catch(error => {
+				console.error('Unable to load resource: '+ error.body.message);
+			})
 		}
 	}
 

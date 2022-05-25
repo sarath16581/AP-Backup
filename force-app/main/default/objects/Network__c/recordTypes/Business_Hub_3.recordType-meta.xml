@@ -3,6 +3,7 @@
     <fullName>Business_Hub_3</fullName>
     <active>true</active>
     <compactLayoutAssignment>Network_Compact_Layout</compactLayoutAssignment>
+    <description>AP Business Hub</description>
     <label>Business Hub</label>
     <picklistValues>
         <picklist>ANZNSWGovtSchoolBanking__c</picklist>

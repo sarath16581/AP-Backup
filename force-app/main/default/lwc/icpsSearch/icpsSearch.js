@@ -32,8 +32,8 @@ export default class IcpsSearch extends LightningElement {
 	storedLocations;
 
 	@track searchResults = [];
-	get hasDataToDisplay() {
-		return this.searchResults.length !== 0;
+	get noDataToDisplay() {
+		return this.searchResults.length === 0;
 	}
 	isLoading = false;
 
@@ -53,7 +53,6 @@ export default class IcpsSearch extends LightningElement {
 				searchParams[input.getAttribute('data-id')] = input.value;
 			}
 		});
-
 		if (this.validateInput(searchParams)) {
 			this.isLoading = true;
 			this.searchResults = [];

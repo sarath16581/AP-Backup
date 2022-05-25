@@ -46,7 +46,13 @@
                                 <img class="info" src="sfsites/c/resource/ChasIcons/chas-icons/svgs/UI/icons/chas-thankyou.svg" alt="thank you"/>
                                 <h1>{! v.header }</h1>
                                 <div class="top-bit">
-                                    <p>We've sent you a confirmation email with the details,</p><p>including your reference number: <b>{! v.wizardData.caseNumber }</b></p>
+                                    <!-- DDS-10571: message variation when delete account is selected -->
+                                    <aura:if isTrue="{! and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account')}">
+                                        <p>We've sent you a confirmation email </p><p>including your reference number: <b>{! v.wizardData.caseNumber }</b></p>
+                                        <aura:set attribute="else">
+                                            <p>We've sent you a confirmation email with the details,</p><p>including your reference number: <b>{! v.wizardData.caseNumber }</b></p>
+                                        </aura:set>
+                                    </aura:if>
                                 </div>
                             </div>
                         </div>

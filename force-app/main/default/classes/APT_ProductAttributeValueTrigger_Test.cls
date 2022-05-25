@@ -19,12 +19,15 @@ Creating test data
     private static testMethod void testMethodeParcelStandard() 
         
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         list<Apttus_Config2__ProductAttributeValue__c> listProductAttribute=new list<Apttus_Config2__ProductAttributeValue__c>();
         Apttus_Config2__LineItem__c bundleLine;
         Product2 bundle11;
@@ -219,12 +222,15 @@ Creating test data
     private static testMethod void testMethodeParcelStandard2() 
         
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {            
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -354,12 +360,15 @@ Creating test data
     private static testMethod void testMethodeParcelStandard3() 
         
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         list<Apttus_Config2__ProductAttributeValue__c> listProductAttribute=new list<Apttus_Config2__ProductAttributeValue__c>();
         
         System.runAs(testuser) {   
@@ -494,12 +503,15 @@ Creating test data
     private static testMethod void testMethodeParcelStandard4() 
         
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {   
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -627,12 +639,15 @@ Creating test data
     private static testMethod void testMethodeParcelExpress() 
         
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {        
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -720,12 +735,15 @@ Creating test data
     private static testMethod void testMethodeParcelExpress2() 
         
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -809,12 +827,15 @@ Creating test data
     
     public static testMethod void testMethodeAPPC_ExistingCustomer()  
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -906,12 +927,15 @@ Creating test data
     
     public static testMethod void testMethodeAPPC_NonExistingCustomer()  
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -1006,12 +1030,15 @@ Creating test data
     private static testMethod void testMethodException() 
         
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {        
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -1116,12 +1143,15 @@ Test method for PCMS bundles
     private static testMethod void testMethodePCMSbundles() 
         
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {    
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -1263,12 +1293,15 @@ Test method for PCMS bundles
     @isTest
     public static void testMethodePCMSbundles1()     
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {    
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -2272,12 +2305,15 @@ Test method for PCMS bundles
 @isTest
     public static void testMethodePCMSbundles1_1()     
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {    
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
@@ -3413,12 +3449,15 @@ Test method for PCMS bundles
     
     public static void testMethodePCMSbundles1(Product2 internationalProduct, string zone)     
     {
+        UserRole role = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert role;
+
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
                                  EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
                                  LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
                                  TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-                                 UserName=APT_Constants.EMAIL_TEST_USER);
+                                 UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {    
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();

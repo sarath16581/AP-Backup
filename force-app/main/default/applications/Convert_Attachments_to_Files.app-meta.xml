@@ -3,7 +3,6 @@
     <defaultLandingTab>Convert_Attachments_to_Files</defaultLandingTab>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>Convert Attachments to Files</label>
     <tabs>standard-File</tabs>
     <tabs>Convert_Attachments_to_Files</tabs>

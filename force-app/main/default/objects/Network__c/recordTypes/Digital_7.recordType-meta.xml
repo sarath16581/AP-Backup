@@ -3,6 +3,7 @@
     <fullName>Digital_7</fullName>
     <active>true</active>
     <compactLayoutAssignment>Network_Compact_Layout</compactLayoutAssignment>
+    <description>AP Digital</description>
     <label>Digital</label>
     <picklistValues>
         <picklist>Contact_Facility__c</picklist>

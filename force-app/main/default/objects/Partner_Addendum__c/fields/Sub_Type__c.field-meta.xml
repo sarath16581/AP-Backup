@@ -123,14 +123,14 @@
                 <label>Ad-hoc</label>
             </value>
             <value>
-                <fullName>Negotiated Payment – Compliance Payment</fullName>
+                <fullName>Miscellaneous Type 1</fullName>
                 <default>false</default>
-                <label>Negotiated Payment – Compliance Payment</label>
+                <label>Miscellaneous Type 1</label>
             </value>
             <value>
-                <fullName>Negotiated Payment – Performance Payment</fullName>
+                <fullName>Miscellaneous Type 2</fullName>
                 <default>false</default>
-                <label>Negotiated Payment – Performance Payment</label>
+                <label>Miscellaneous Type 2</label>
             </value>
             <value>
                 <fullName>Miscellaneous Type 3</fullName>
@@ -166,6 +166,16 @@
                 <fullName>Repayment Arrangement</fullName>
                 <default>false</default>
                 <label>Repayment Arrangement</label>
+            </value>
+            <value>
+                <fullName>Negotiated Payment – Compliance Payment</fullName>
+                <default>false</default>
+                <label>Negotiated Payment – Compliance Payment</label>
+            </value>
+            <value>
+                <fullName>Negotiated Payment – Performance Payment</fullName>
+                <default>false</default>
+                <label>Negotiated Payment – Performance Payment</label>
             </value>
         </valueSetDefinition>
     </valueSet>

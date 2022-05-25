@@ -1,0 +1,5 @@
+.map-icon {
+	padding: 0 !important;
+	--sds-c-icon-color-background: none;
+	--sds-c-icon-color-foreground: var(--lwc-colorTextIconDefault, rgb(112, 110, 107));
+}

@@ -8,7 +8,6 @@
                     <value>carousel</value>
                 </componentInstanceProperties>
                 <componentName>home:newsPanel</componentName>
-                <identifier>home_newsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -19,7 +18,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>home:eventContainer</componentName>
-                <identifier>home_eventContainer</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -30,7 +28,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:todayTaskContainer</componentName>
-                <identifier>runtime_sales_activities_todayTaskContainer</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -45,7 +42,6 @@
                     <value>GLOBAL</value>
                 </componentInstanceProperties>
                 <componentName>forceChatter:publisher</componentName>
-                <identifier>forceChatter_publisher</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -55,7 +51,6 @@
                     <value>NEWS</value>
                 </componentInstanceProperties>
                 <componentName>forceChatter:exposedFeed</componentName>
-                <identifier>forceChatter_exposedFeed</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -85,7 +80,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
-                <identifier>flexipage_filterListCard</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -128,7 +122,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
-                <identifier>flexipage_filterListCard2</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
                     <criteria>
@@ -186,7 +179,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
-                <identifier>flexipage_filterListCard3</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>

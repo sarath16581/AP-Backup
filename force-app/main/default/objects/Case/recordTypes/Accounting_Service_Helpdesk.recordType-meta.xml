@@ -3,6 +3,7 @@
     <fullName>Accounting_Service_Helpdesk</fullName>
     <active>true</active>
     <businessProcess>Accounting Service Helpdesk</businessProcess>
+    <description>Accounting Service Helpdesk</description>
     <label>Accounting Service Helpdesk</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>

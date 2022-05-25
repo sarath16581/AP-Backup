@@ -3,6 +3,7 @@
     <fullName>Shipster</fullName>
     <active>true</active>
     <businessProcess>Startrack Business Enablement</businessProcess>
+    <description>Shipster Cases</description>
     <label>Shipster</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>

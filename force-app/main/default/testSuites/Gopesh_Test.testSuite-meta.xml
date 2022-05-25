@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexTestSuite xmlns="http://soap.sforce.com/2006/04/metadata">
-    <testClassName>APTS_ContractsApproverCommentsTest</testClassName>
     <testClassName>APT_AgreementObjectsSelector_Test</testClassName>
     <testClassName>APT_AgreementTriggerHandler_Test</testClassName>
+    <testClassName>APT_CalcInternationalPricingSched_Test</testClassName>
+    <testClassName>APT_CalculateDomesticPricingSched_Test</testClassName>
+    <testClassName>APT_CartApprovalsComponentCntlr_Test</testClassName>
+    <testClassName>APT_CheckOutProposalControllerTest</testClassName>
+    <testClassName>APT_CleanupAPPCRateCard_Test</testClassName>
+    <testClassName>APT_CreateContractValidation_Test</testClassName>
+    <testClassName>APT_DataTransformationLogicTest</testClassName>
+    <testClassName>APT_Dealsupportobjectselector_Test</testClassName>
+    <testClassName>APT_GenerateOperationalSchedule_Test</testClassName>
+    <testClassName>APT_ProductAttributeValueTrigger_Test</testClassName>
+    <testClassName>APT_ProposalLineItemSelector_Test</testClassName>
+    <testClassName>APT_Proposalproductobjectselector_Test</testClassName>
+    <testClassName>APT_QuoteRateCardUtilityFactoryTest</testClassName>
+    <testClassName>APT_QuoteRateCardUtilityTest</testClassName>
     <testClassName>APT_SAPContractValidationController_Test</testClassName>
+    <testClassName>APT_TemplateObjectSelector_Test</testClassName>
+    <testClassName>APT_ValidateContractController_Test</testClassName>
+    <testClassName>APT_ValidateContracteSignatureCon_Test</testClassName>
+    <testClassName>APT_ViewratecardBatchTest</testClassName>
+    <testClassName>APT_ViewRatecardController_Test</testClassName>
+    <testClassName>APT_ViewRateCardHandlerTest</testClassName>
+    <testClassName>BG_QualificationApexTest</testClassName>
 </ApexTestSuite>

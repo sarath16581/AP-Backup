@@ -21,9 +21,12 @@ Changes Made - Fix to set industry attribute only if the value is not blank at o
 
 Mathew Jose - 29/05/2021 - Added to beforeInsertEvent method to set the zone dispersions (STP-5812)
 Mathew Jose - 29/05/2021 - Added afterUpdateEvent method to set the Is Band Changed flag on lineItem (STP-5812)
+
+Naveen Rajanna - 11/02/2022 - REQ2649482 - Modified API Version and Minimum Quantity to be set to Category low and high if entered quantity exceeds category range
+
 Pradeep Jaiswal - 26/4/2022 - CI-224 - Removed Existing Customer field from layout and checked Exisiting Customer from opportunity
-
-
+Naveen Rajanna - 20/05/2022 - INC1976447 - Fix Null pointer exception preventing Add Product (StarTrack product – Premium – STE) in shopping cart
+Naveen Rajanna - 24/05/2022 - INC1977875 - To fix query not being selective error and missing code changes for REQ2649482
 **/
 public with sharing class APT_ProductAttributeValueTriggerHandler {
     
@@ -320,21 +323,21 @@ pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). 
                                                        //set band
                                                        
                                                        //set min quantity based on category
-                                                       if(pav.Category__c != null) {    //defect 1057
-                                                           if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT1) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 1000)) {
-                                                               pav.APT_Minimum_Quantity__c = 1000;
-                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT2) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 2000)) {
-                                                               pav.APT_Minimum_Quantity__c = 2000;
-                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT3) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 5000)) {
-                                                               pav.APT_Minimum_Quantity__c = 5000;
-                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT4) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 10000)) {
-                                                               pav.APT_Minimum_Quantity__c = 10000;
-                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT5) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 20000)) {
-                                                               pav.APT_Minimum_Quantity__c = 20000;
-                                                           } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT6) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 50000)) {
-                                                               pav.APT_Minimum_Quantity__c = 50000;
-                                                           } else { }
-                                                       }
+                                                       if(pav.Category__c != null) {    //defect 1057 //REQ2649482
+                                                            if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT1)) {
+                                                                pav.APT_Minimum_Quantity__c = calculateMinimumQuantity(pav.APT_Minimum_Quantity__c, 1000, 1999);
+                                                            } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT2)) {
+                                                                pav.APT_Minimum_Quantity__c = calculateMinimumQuantity(pav.APT_Minimum_Quantity__c, 2000, 4999);
+                                                            } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT3)) {
+                                                                pav.APT_Minimum_Quantity__c = calculateMinimumQuantity(pav.APT_Minimum_Quantity__c, 5000, 9999);
+                                                            } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT4)) {
+                                                                pav.APT_Minimum_Quantity__c = calculateMinimumQuantity(pav.APT_Minimum_Quantity__c, 10000, 19999);
+                                                            } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT5)) {
+                                                                pav.APT_Minimum_Quantity__c = calculateMinimumQuantity(pav.APT_Minimum_Quantity__c, 20000, 49999);
+                                                            } else if(pav.Category__c.equalsIgnoreCase(APT_Constants.CATEGORY_CAT6) && (pav.APT_Minimum_Quantity__c == null || pav.APT_Minimum_Quantity__c == 1 || pav.APT_Minimum_Quantity__c < 50000)) {
+                                                                pav.APT_Minimum_Quantity__c = 50000;
+                                                            }
+                                                        }
                                                        
                                                        //set min quantity based on category
                                                        
@@ -384,22 +387,8 @@ pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). 
                                                    //search lodgement zone
                                                    if(setZoneStructure.size() > 0) {
                                                        map<String, list<APT_Lodgement_Zone__c>> mapLZ = new map<String, list<APT_Lodgement_Zone__c>>();
-                                                       for(APT_Lodgement_Zone__c lodgementZone : [SELECT Id, Name, APT_Lodgement_Zone_Code__c, APT_Post_Code_Start__c, APT_Post_Code_End__c,
-                                                                                                  APT_Zone_Structure__c 
-                                                                                                  FROM APT_Lodgement_Zone__c 
-                                                                                                  WHERE APT_Zone_Structure__c IN :setZoneStructure]) {
-                                                                                                      
-                                                                                                      list<APT_Lodgement_Zone__c> listLodgementZone = mapLZ.get(lodgementZone.APT_Zone_Structure__c);
-                                                                                                      if(listLodgementZone != null) {
-                                                                                                          listLodgementZone.add(lodgementZone);
-                                                                                                          mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
-                                                                                                      } else {
-                                                                                                          listLodgementZone = new list<APT_Lodgement_Zone__c>();
-                                                                                                          listLodgementZone.add(lodgementZone);
-                                                                                                          mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
-                                                                                                      }
-                                                                                                  }
                                                        
+                                                       String pavAPTTierRef = '';                                          
                                                        for(Apttus_Config2__ProductAttributeValue__c pav : listProductAttributeValue) {
                                                            
                                                            Apttus_Config2__LineItem__c configLineItem = mapLineItem.get(pav.Apttus_Config2__LineItemId__c);
@@ -410,6 +399,7 @@ pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). 
                                                            System.debug('pav.APT_Cubic_Factor__c' + pav.APT_Cubic_Factor__c);
                                                            if(configLineItem != null 
                                                               && configLineItem.Apttus_Config2__ProductId__r != null
+                                                              && configLineItem.Apttus_Config2__ProductId__r.ProductCode != null //INC1976447
                                                               && configLineItem.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD) 
                                                               && pav.APTS_Price_Structure__c != null
                                                               && pav.APTS_Price_Structure__c.equalsIgnoreCase(APT_Constants.STRING_BANDED_Z6) 
@@ -427,19 +417,62 @@ pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). 
                                                                string strNewAPPCCustomer = mapLineItem.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Type;
                                                                if(strNewAPPCCustomer == APT_Constants.OPPORTUNITY_TYPE_NEW_CUSTOMER && pav.APT_Min_Spend_Per_Annum__c != NULL)
                                                                {
+                                                                   APT_Simplified_Parcel_Spend_Range__c sr;
                                                                    // CI-69 Fetch the APT_Simplified_Parcel_Spend_Range__c where the pav.APT_Min_Spend_Per_Annum__c is in range of APT_Min_Spend__c and APT_Max_Spend__c
-                                                                   APT_Simplified_Parcel_Spend_Range__c sr = [select Id, APT_Min_Spend__c, APT_Max_Spend__c, APT_Tier__c from APT_Simplified_Parcel_Spend_Range__c where APT_Product_Code__c =:APT_Constants.PRODUCT_CODE_APPC and APT_Min_Spend__c <= :pav.APT_Min_Spend_Per_Annum__c and APT_Max_Spend__c >= :pav.APT_Min_Spend_Per_Annum__c LIMIT 1];
+                                                                   if(pavAPTTierRef == '') {
+                                                                    
+                                                                     sr = [select Id, APT_Min_Spend__c, APT_Max_Spend__c, APT_Tier__c from APT_Simplified_Parcel_Spend_Range__c where APT_Product_Code__c =:APT_Constants.PRODUCT_CODE_APPC and APT_Min_Spend__c <= :pav.APT_Min_Spend_Per_Annum__c and APT_Max_Spend__c >= :pav.APT_Min_Spend_Per_Annum__c LIMIT 1];
+                                                                   }
+                                                                   else 
+                                                                   {
+                                                                        pav.APT_Customer_Tier__c = pavAPTTierRef;
+                                                                   }                                                                 
                                                                    if(!String.isBlank(sr?.APT_Tier__c)){
+
+                                                                        pavAPTTierRef = sr.APT_Tier__c;
                                                                        pav.APT_Customer_Tier__c = sr.APT_Tier__c;
                                                                    }
                                                                }
                                                                
                                                                if(pav.APT_Primary_Postcode__c != null) {
                                                                    postcode = decimal.valueOf(pav.APT_Primary_Postcode__c);
+
+                                                                   for(APT_Lodgement_Zone__c lodgementZone : [SELECT Id, Name, APT_Lodgement_Zone_Code__c, APT_Post_Code_Start__c, APT_Post_Code_End__c,
+                                                                                                  APT_Zone_Structure__c 
+                                                                                                  FROM APT_Lodgement_Zone__c 
+                                                                                                  WHERE APT_Zone_Structure__c IN :setZoneStructure and APT_Post_Code_Start__c =: postcode]) {
+                                                                                                      
+                                                                                                      list<APT_Lodgement_Zone__c> listLodgementZone = mapLZ.get(lodgementZone.APT_Zone_Structure__c);
+                                                                                                      if(listLodgementZone != null) {
+                                                                                                          listLodgementZone.add(lodgementZone);
+                                                                                                          mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
+                                                                                                      } else {
+                                                                                                          listLodgementZone = new list<APT_Lodgement_Zone__c>();
+                                                                                                          listLodgementZone.add(lodgementZone);
+                                                                                                          mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
+                                                                                                      }
+                                                                                                  }
+
                                                                }
                                                            } else{
                                                                if(pav.APT_Postcode__c != null) {
                                                                    postcode = decimal.valueOf(pav.APT_Postcode__c);
+
+                                                                   for(APT_Lodgement_Zone__c lodgementZone : [SELECT Id, Name, APT_Lodgement_Zone_Code__c, APT_Post_Code_Start__c, APT_Post_Code_End__c,
+                                                                                                  APT_Zone_Structure__c 
+                                                                                                  FROM APT_Lodgement_Zone__c 
+                                                                                                  WHERE APT_Zone_Structure__c IN :setZoneStructure]) {
+                                                                                                      
+                                                                                                      list<APT_Lodgement_Zone__c> listLodgementZone = mapLZ.get(lodgementZone.APT_Zone_Structure__c);
+                                                                                                      if(listLodgementZone != null) {
+                                                                                                          listLodgementZone.add(lodgementZone);
+                                                                                                          mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
+                                                                                                      } else {
+                                                                                                          listLodgementZone = new list<APT_Lodgement_Zone__c>();
+                                                                                                          listLodgementZone.add(lodgementZone);
+                                                                                                          mapLZ.put(lodgementZone.APT_Zone_Structure__c, listLodgementZone);
+                                                                                                      }
+                                                                                                  }
                                                                }
                                                            }
                                                            
@@ -466,8 +499,24 @@ pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). 
                                                        map<String, list<Apttus_Config2__PriceMatrixEntry__c>> mappmeByZone = new map<String, list<Apttus_Config2__PriceMatrixEntry__c>>();
                                                        map<String, double> mpPMEByBand = new map<String, double>();
                                                        
+                                                       //Start of INC1977875 fix - To fix query not being selective error
+                                                       list<string> myIds = new list<string>();
+                                                       list<string> pliIds = new list<string>();
+                                                       list<string> pmIds = new list<string>();
+                                                       
+                                                       for (Product2 product :  [select Id from Product2  where APT_International_Pricing__c = true]){
+                                                           myIds.add(product.Id);
+                                                       }
+                                                       for (Apttus_Config2__PriceListItem__c pli : [select Id from Apttus_Config2__PriceListItem__c   where  Apttus_Config2__ProductId__c in :myIds]){
+                                                           pliIds.add(pli.Id);
+                                                       }
+                                                       for (Apttus_Config2__PriceMatrix__c pm :  [select Id from Apttus_Config2__PriceMatrix__c  where  Apttus_Config2__PriceListItemId__c in :pliIds]){
+                                                           pmIds.add(pm.Id);
+                                                       }
+                                                       
                                                        list<Apttus_Config2__PriceMatrixEntry__c> priceMatrixEntries =  
                                                            [select Apttus_Config2__Dimension1Value__c, Apttus_Config2__Dimension2Value__c, Apttus_Config2__Dimension3Value__c,
+                                                            Apttus_Config2__AdjustmentAmount__c,
                                                             Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band__c, Apttus_Config2__PriceOverride__c,
                                                             Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode,   
                                                             Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Lodgement_Zone_Code__c,
@@ -476,8 +525,9 @@ pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). 
                                                             Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_International_Pricing__c,
                                                             Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band_Range_Max__c from 
                                                             Apttus_Config2__PriceMatrixEntry__c 
-                                                            where Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_International_Pricing__c = true];
-                                                       
+                                                            where Apttus_Config2__PriceMatrixId__c in :pmIds];
+                                                       //End of INC1977875 fix - To fix query not being selective error
+
                                                        for(Apttus_Config2__PriceMatrixEntry__c pme : priceMatrixEntries){
                                                            setProduct.add(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode);
                                                            setZone.add(pme.Apttus_Config2__Dimension1Value__c); // dimension 1 value stores zone for international price

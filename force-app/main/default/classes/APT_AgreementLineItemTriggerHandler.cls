@@ -10,6 +10,7 @@ History:
 2021-06-22 Naveen Rajanna Changed APT_LPD_Frequency__c picklist to APT_LPD_Multiple_Frequency__c  multi-picklist field
 2021-10-28 Sautul Mehta - CI-96 Changes for APPC Contract Template Document Generation.
 2022-04-26 Pradeep Jaiswal - CI-224 Populated Cubic Status, Cubic Factor and Existing APPC Customer Attributes
+2022-05-23 Chaitanya Doshi - Added NULL CHECK For Product Code as for "Premium - STE" has blank Productcode, which causing issue after APPC Live.
 **************************************************/
 
 public with sharing class APT_AgreementLineItemTriggerHandler{
@@ -18,7 +19,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
      * before insert trigger event
      */
     public static String beforeInsertEvent(List<Apttus__AgreementLineItem__c> aliList) {
-        try {
+       try {
             //1084
             for(Apttus__AgreementLineItem__c ali : aliList) {
                 if(ali.APT_Mark_All_Agreement_Line_Items_as_Old__c) {
@@ -175,8 +176,11 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.CONFIG_TYPE_STAND_ALONE)
                     && null != ali.Apttus__AgreementId__r.Operational_Schedule__c 
                     && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c)
-                    ) || ali.Apttus__ProductId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_APPC)) {
-                    
+                    ) || ( 
+                        // Chaitanya 23-05-2022: Added NULL CHECK For Product Code as for "Premium - STE" has blank Productcode, which causing issue after APPC Live.
+                        ali.Apttus__ProductId__r.ProductCode != null && ali.Apttus__ProductId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_APPC) 
+                    ))                   
+                	{                    
                     os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
                     if(isInsert) {
                         os.APT_Parcel__c = true; //US-126
@@ -541,7 +545,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
             }
             
             return APT_Constants.SUCCESS_LABEL;
-        } catch(system.exception ex) {
+         } catch(system.exception ex) {
             return ex.getMessage();
         }
     }

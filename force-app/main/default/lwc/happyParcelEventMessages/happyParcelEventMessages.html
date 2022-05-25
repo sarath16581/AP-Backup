@@ -8,6 +8,7 @@
 	2021-07-12 - Nathan Franklin - Added temporary Google Maps link (to be implemented correctly in future piece of work)
 	2021-10-01 - Nathan Franklin - Add event reason (with transient attributes) + uplift to version 52
 	2021-10-04 - Mathew Jose - Added the changes associated with row overflow feature in the data table.
+	2022-04-11 - Mahesh Parvathaneni - Changed from google map new tab to lightning map
 -->
 <template>
 
@@ -92,13 +93,14 @@
 															</lightning-button-icon>
 														</template>
 														<template if:true={event.hasGeoCoordinates}>
-															<a href={event.googleMapLink} target="_blank" title="View location in Google Maps">
-																<lightning-icon icon-name="action:map"
-																				size="xx-small"
-																				class="slds-m-right_xx-small map-icon"
-																				alternative-text="View location in Google Maps">
-																</lightning-icon>
-															</a>
+															<lightning-button-icon data-id = {event.EventID__c}
+																				   icon-name="action:map"
+																				   size="small"
+																				   variant="bare"
+																				   class="slds-m-right_xx-small map-icon"
+																				   onclick={handleShowMap}
+																				   alternative-text="View location in Google Maps">
+															</lightning-button-icon>
 														</template>
 														<template if:true={event.overflowRequired}>
 															<lightning-button-icon onclick={handleShowOverflow}
@@ -137,8 +139,15 @@
 											</template>
 
 											<template if:true={event.showAttachment}>
-												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container">
+												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container em-card__container">
 													<c-happy-parcel-event-message-attachment event-id={event.EventID__c} guid={event.AttachmentGUID__c} attachment-type={event.AttachmentType__c} oncloseattachmentview={handleCloseAttachment}></c-happy-parcel-event-message-attachment>
+												</div>
+											</template>
+
+											<!-- Renders google maps using lightning map -->
+											<template if:true={event.showMap}>
+												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container em-card__container">
+													<c-happy-parcel-event-message-map event-id={event.EventID__c} map-markers={event._mapMarkers} show-footer onclosemap={handleCloseMap}></c-happy-parcel-event-message-map>
 												</div>
 											</template>
 										</td>

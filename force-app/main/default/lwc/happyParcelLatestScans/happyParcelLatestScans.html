@@ -9,6 +9,7 @@
 	2021-07-12 - Nathan Franklin - Added temporary Google Maps link (to be implemented correctly in future piece of work)
 	2021-10-01 - Nathan Franklin - Add event reason (with transient attributes) + uplift to version 52
 	2021-10-19 - Mathew Jose - Added the pop up for more event message details.
+	2022-04-11 - Mahesh Parvathaneni - Changed from google map new tab to lightning map
 -->
 <template>
 	<c-happy-parcel-card title="Latest Featured Scans" icon-name="utility:high_velocity_sales" loading={loading} variant="stretch" help-text={helpText}>
@@ -19,9 +20,12 @@
 						<div class="slds-timeline__item_expandable timeline__item_event_message">
 							<div class="slds-media">
 								<div class="slds-media__figure">
-									<button class="slds-button slds-button_icon">
+									<lightning-button-icon icon-name={eventMessage.chevronIcon} size="small" variant="bare"
+									onclick={handleChevronClick} data-id={eventMessage.event.EventID__c}>
+									</lightning-button-icon>
+									<!-- <button class="slds-button slds-button_icon">
 										<lightning-icon icon-name="utility:switch" size="xx-small"></lightning-icon>
-									</button>
+									</button> -->
 									<c-happy-parcel-custom-icon icon="event-message" size="x-small" class="slds-icon_container slds-timeline__icon icon-event-message" colour="#ffffff"></c-happy-parcel-custom-icon>
 
 								</div>
@@ -62,13 +66,14 @@
 											</template>
 											<!--Event details expander button-->											
 											<template if:true={eventMessage.hasGeoCoordinates}>
-												<a href={eventMessage.googleMapLink} target="_blank" title="View Location in Google Maps">
-													<lightning-icon icon-name="action:map"
-																	size="xx-small"
-																	class="slds-m-right_xx-small map-icon"
-																	alternative-text="View Location in Google Maps">
-													</lightning-icon>
-												</a>
+												<lightning-button-icon onclick={handleShowMap} 
+														data-id = {eventMessage.event.EventID__c}
+														icon-name="action:map"
+														size="small"
+														variant="bare"
+														class="slds-m-right_xx-small map-icon"
+														alternative-text="View location in Google Maps">
+												</lightning-button-icon>
 											</template>
 										</div>
 										<div class="slds-timeline__actions slds-timeline__actions_inline">
@@ -76,56 +81,65 @@
 												<lightning-relative-date-time value={eventMessage.parsedDateTime}></lightning-relative-date-time></p>
 										</div>
 									</div>
-									<div class="slds-m-horizontal_xx-small">
-										<template if:true={eventMessage.event.ActualLocation__c}>
-											{eventMessage.event.ActualLocation__c}
-										</template>
-										<template if:true={eventMessage.event.Facility__c}>
-											<lightning-button-icon data-id={eventMessage.event.EventID__c}
-																   class="btn-x-large slds-m-horizontal_x-small"
-																   icon-name="utility:preview"
-																   alternative-text="Network Info"
-																   size="medium"
-																   variant="bare"
-																   onclick={handleNetworkInfo}
-																   style="position:relative;top:-3px;"
-											>
-											</lightning-button-icon>
-										</template><br/>
-
-										<lightning-formatted-date-time value={eventMessage.parsedDateTime} year="numeric" month="2-digit" day="2-digit" weekday="long"></lightning-formatted-date-time> @&nbsp;
-										<lightning-formatted-date-time value={eventMessage.parsedDateTime} hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
-
-										<!-- Network details popover -->
-										<template if:true={eventMessage.showNetworkDetails}>
-											<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
-												<c-happy-parcel-network-popup onclosepopup= {closePopupHandler} event-id= {eventMessage.event.EventID__c} wcc={eventMessage.event.FacilityOrganisationID__c} variant=""></c-happy-parcel-network-popup>
-											</div>
-										</template>
-										<!-- end Network details popover -->
-
-										<!-- Attachment popover -->
-										<template if:true={eventMessage.showAttachment}>
-											<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
-												<c-happy-parcel-event-message-attachment event-id={eventMessage.event.EventID__c} guid={eventMessage.event.AttachmentGUID__c} attachment-type={eventMessage.event.AttachmentType__c} oncloseattachmentview={handleCloseAttachment}></c-happy-parcel-event-message-attachment>
-											</div>
-										</template>
-										<!-- end Attachment popover -->
-
-										<!-- Event Details popover -->
-										<template if:true={eventMessage.showEventDetails}>
-											<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
-													<c-happy-parcel-event-detail event-id={eventMessage.event.EventID__c}
-														fields={eventMessage._eventColumns}
-														loading={loading}
-														oncloseoverflowview={handleCloseEventDetails}
-														variant="">
-													</c-happy-parcel-event-detail>											
-											</div>
-										</template>
-										<!-- Event Details popover-->
-
-									</div>
+									<template if:true={eventMessage.expandEventSection}>
+										<div class="slds-m-horizontal_xx-small">
+											<template if:true={eventMessage.event.ActualLocation__c}>
+												{eventMessage.event.ActualLocation__c}
+											</template>
+											<template if:true={eventMessage.event.Facility__c}>
+												<lightning-button-icon data-id={eventMessage.event.EventID__c}
+																	   class="btn-x-large slds-m-horizontal_x-small"
+																	   icon-name="utility:preview"
+																	   alternative-text="Network Info"
+																	   size="medium"
+																	   variant="bare"
+																	   onclick={handleNetworkInfo}
+																	   style="position:relative;top:-3px;"
+												>
+												</lightning-button-icon>
+											</template><br/>
+	
+											<lightning-formatted-date-time value={eventMessage.parsedDateTime} year="numeric" month="2-digit" day="2-digit" weekday="long"></lightning-formatted-date-time> @&nbsp;
+											<lightning-formatted-date-time value={eventMessage.parsedDateTime} hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
+	
+											<!-- Network details popover -->
+											<template if:true={eventMessage.showNetworkDetails}>
+												<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
+													<c-happy-parcel-network-popup onclosepopup= {closePopupHandler} event-id= {eventMessage.event.EventID__c} wcc={eventMessage.event.FacilityOrganisationID__c} variant=""></c-happy-parcel-network-popup>
+												</div>
+											</template>
+											<!-- end Network details popover -->
+	
+											<!-- Attachment popover -->
+											<template if:true={eventMessage.showAttachment}>
+												<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
+													<c-happy-parcel-event-message-attachment event-id={eventMessage.event.EventID__c} guid={eventMessage.event.AttachmentGUID__c} attachment-type={eventMessage.event.AttachmentType__c} oncloseattachmentview={handleCloseAttachment}></c-happy-parcel-event-message-attachment>
+												</div>
+											</template>
+											<!-- end Attachment popover -->
+	
+											<!-- Event Details popover -->
+											<template if:true={eventMessage.showEventDetails}>
+												<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
+														<c-happy-parcel-event-detail event-id={eventMessage.event.EventID__c}
+															fields={eventMessage._eventColumns}
+															loading={loading}
+															oncloseoverflowview={handleCloseEventDetails}
+															variant="">
+														</c-happy-parcel-event-detail>											
+												</div>
+											</template>
+											<!-- Event Details popover-->
+	
+											<!-- Renders google maps using lightning map -->
+											<template if:true={eventMessage.showMap}>
+												<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
+													<c-happy-parcel-event-message-map event-id={eventMessage.event.EventID__c} map-markers={eventMessage._mapMarkers} show-footer onclosemap={handleCloseMap}></c-happy-parcel-event-message-map>
+												</div>
+											</template>
+	
+										</div>
+									</template>
 								</div>
 							</div>
 						</div>

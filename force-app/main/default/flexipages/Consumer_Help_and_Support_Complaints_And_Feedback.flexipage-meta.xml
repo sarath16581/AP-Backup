@@ -12,7 +12,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>CHAS_ComplaintsFeedbackWizard</componentName>
-                <identifier>CHAS_ComplaintsFeedbackWizard</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -42,7 +41,6 @@
                     <value>Complaints And Feedback</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
-                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

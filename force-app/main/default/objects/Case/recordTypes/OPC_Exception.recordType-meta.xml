@@ -3,6 +3,7 @@
     <fullName>OPC_Exception</fullName>
     <active>true</active>
     <businessProcess>Internal</businessProcess>
+    <description>OPC Exception</description>
     <label>OPC Exception</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>

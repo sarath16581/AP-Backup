@@ -3,5 +3,5 @@
     <description>This is used to map attributes from the JIT/Reg handler claims to the correct identifying attribute on the user record.</description>
     <label>SSO Attribute Mapping</label>
     <pluralLabel>SSO Attribute Mappings</pluralLabel>
-    <visibility>Protected</visibility>
+    <visibility>Public</visibility>
 </CustomObject>

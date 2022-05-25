@@ -4,6 +4,7 @@
     2020-10-05 - Disha Kariya - Allow safe drop attachment for case creation
     2020-10-12 - Ranjeewa Silva - Added support for Direct to Network case creation.
     2021-10-01 - Nathan Franklin - Changed safe drop to delivery proof + uplift to v52
+	2022-04-11 - Mahesh Parvathaneni - Added Map component for delivery and manifest locations
 -->
 <template>
 
@@ -131,25 +132,40 @@
 
 		</div>
 
-		<!-- delivery assessment -->
-		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_1-of-4 slds-m-bottom_medium">
-			<c-happy-parcel-delivery-assessment loading={loadingAnalyticsApi}
-			                                    analytics-api-result={article.analyticsResult}>
-			</c-happy-parcel-delivery-assessment>
-		</div>
+		<div class="slds-col slds-size_1-of-1">
+			<div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-grid_align-spread slds-gutters_direct-x-small">
+				<!-- delivery assessment -->
+				<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_2-of-4 slds-large-size_1-of-4 slds-m-bottom_medium slds-order_1">
+					<c-happy-parcel-delivery-assessment loading={loadingAnalyticsApi}
+														analytics-api-result={article.analyticsResult}
+														events={article.trackingResult.events}
+														onmapclick={handleMapClick}>
+					</c-happy-parcel-delivery-assessment>
+				</div>
 
-		<!-- Manifest assessment -->
-		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_1-of-4 slds-m-bottom_medium">
-			<c-happy-parcel-manifest-assessment loading={loadingAnalyticsApi}
-			                                    analytics-api-result={article.analyticsResult}>
-			</c-happy-parcel-manifest-assessment>
-		</div>
+				<!-- Manifest assessment -->
+				<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_2-of-4 slds-large-size_1-of-4 slds-m-bottom_medium slds-order_3 slds-small-order_2">
+					<c-happy-parcel-manifest-assessment loading={loadingAnalyticsApi}
+														analytics-api-result={article.analyticsResult}>
+					</c-happy-parcel-manifest-assessment>
+				</div>
 
-		<!-- Intransit redirect assessment -->
-		<div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-4 slds-m-bottom_medium">
-			<c-happy-parcel-redirect-assessment loading={loadingAnalyticsApi}
-			                                    analytics-api-result={article.analyticsResult}>
-			</c-happy-parcel-redirect-assessment>
+				<!-- Intransit redirect assessment -->
+				<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-4 slds-m-bottom_medium slds-order_4 slds-large-order_3">
+					<c-happy-parcel-redirect-assessment loading={loadingAnalyticsApi}
+														analytics-api-result={article.analyticsResult}>
+					</c-happy-parcel-redirect-assessment>
+				</div>
+
+				<!-- Show map related to delivery assessment card -->
+				<template if:true={showMapCard}>
+					<div class="slds-col slds-size_1-of-1 slds-m-bottom_medium slds-order_2 slds-small-order_3 slds-large-order_4">
+						<c-happy-parcel-event-message-map map-markers={mapMarkers} list-view="visible" 
+							onclosemap={handleCloseMap} selected-marker-value={selectedMarkerValue} 
+							markers-title="Delivered and Manifest locations" show-footer></c-happy-parcel-event-message-map>
+					</div>
+				</template>
+			</div>
 		</div>
 
 		<!-- Delivery Proofs -->

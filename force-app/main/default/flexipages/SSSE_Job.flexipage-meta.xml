@@ -12,7 +12,6 @@
                     <value>6</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -22,7 +21,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>facet-3af53f22-882f-4893-852c-3e5e2ec0c109</name>
@@ -36,7 +34,6 @@
                     <value>NONE</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>facet-417f2ffa-5d28-43db-9140-3338497b5dde</name>
@@ -58,7 +55,6 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -76,7 +72,6 @@
                     <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
         <name>facet-a223ec55-9094-474d-914e-75c4633adec2</name>
@@ -90,7 +85,6 @@
                     <value>facet-a223ec55-9094-474d-914e-75c4633adec2</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>
@@ -108,7 +102,6 @@
                     <value>Case.Edit_VOC_Enquiry_Case</value>
                 </componentInstanceProperties>
                 <componentName>console:relatedRecord</componentName>
-                <identifier>console_relatedRecord</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

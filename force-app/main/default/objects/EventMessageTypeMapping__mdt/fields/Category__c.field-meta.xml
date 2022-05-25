@@ -52,6 +52,11 @@
                 <default>false</default>
                 <label>Admin</label>
             </value>
+            <value>
+                <fullName>Returned to Sender</fullName>
+                <default>false</default>
+                <label>Returned to Sender</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

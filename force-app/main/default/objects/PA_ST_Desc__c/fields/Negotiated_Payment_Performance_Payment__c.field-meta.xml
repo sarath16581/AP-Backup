@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Negotiated_Payment_Performance_Payment__c</fullName>
-    <description>Partner Addendum Negotiated Payment – Performance Payment (Formally &apos;Miscellaneous Type 2&apos;) Sub Type Description</description>
+    <description>Negotiated Payment – Performance Payment</description>
     <externalId>false</externalId>
     <label>Negotiated Payment – Performance Payment</label>
     <required>false</required>

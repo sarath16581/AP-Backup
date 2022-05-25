@@ -8,6 +8,46 @@
         <application>FSL__FieldService_Admin</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <classAccesses>
+        <apexClass>FSL__AppointmentBookingLightningController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FSL__EnhancedMatchRuleController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FSL__IntegrityCheckerUtils</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FSL__IntegrityResults</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FSL__OptimizationHub</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FSL__OptimizationInsightsKPIController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FSL__OptimizationInsightsMetricsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FSL__OptimizationInsightsSummaryController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FSL__SchedulingAssistant</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FSL__countRule</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customPermissions>
         <enabled>true</enabled>
         <name>FSL__Bulk_Dispatch</name>
@@ -92,6 +132,211 @@
         <enabled>true</enabled>
         <name>FSL__Utilization_on_Service_Territory</name>
     </customPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrDurDnscale.MaxReduction</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrDurDnscale.ToBundleMemberNumber</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrPolicy.AggregationOrder</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrPolicy.BundleMemberAddiFieldName</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrPolicy.BundleMemberFieldName</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrPolicy.ConstantValue</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrPolicy.DateValue</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrPolicy.DoesAllowDuplicateStrings</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrPolicy.DownscaleSortDirection</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrPolicy.MaxBundleDuration</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleAggrPolicy.ShouldUpdateOnCreationOnly</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleConfig.AddToBundleStatuses</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleConfig.BundleStatusesToPropagate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleConfig.CriteriaForAutoUnbundlingId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleConfig.MemberStatusesNotToPropagate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleConfig.RemoveFromBundleStatuses</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleConfig.StatusesNotToUpdateOnUnbundle</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.BundleEndTimeFieldName</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.BundleStartTimeFieldName</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.CanAllowSchleDepndInBundle</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.ConstantTimeValue</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.FilterCriteriaId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.IsAutomaticBundling</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.IsManualBundling</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.IsTimeCalcByBundleDurationFld</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.LimitAmountOfBundleMembers</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePolicy.LimitDurationOfBundle</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePropagatePolicy.AdditionalConstantValue</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePropagatePolicy.BundleFieldName</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePropagatePolicy.BundleMemberFieldName</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePropagatePolicy.ConstantValue</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePropagatePolicy.ShouldAddConstantValue</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePropagatePolicy.ShouldUpdateOnAdd</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePropagatePolicy.ShouldUpdateOnRemove</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundlePropagatePolicy.ShouldUpdateOnUnbundle</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleRestrictPolicy.DoesAllowEmpty</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleRestrictPolicy.DoesRestrictAutomaticMode</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleRestrictPolicy.DoesRestrictManualMode</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleRestrictPolicy.IsRestrictByDateOnly</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleRestrictPolicy.RestrictionFieldName</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApptBundleSortPolicy.SortFieldName</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>AssignedResource.ActualTravelTime</field>
@@ -754,6 +999,26 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__AvgResponseTimeForSasWithWindowAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__AvgResponseTimeForSasWithWindowBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__AvgResponseTimeForSasWoWindowAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__AvgResponseTimeForSasWoWindowBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FSL__Territory_Optimization_Request__c.FSL__AvgTravelTimeAfter__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -784,6 +1049,116 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumOfScheduledSasToCapacityAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumOfScheduledSasToCapacityBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumOfScheduledSasToCrewAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumOfScheduledSasToCrewBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumOfScheduledSasToResourcesAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumOfScheduledSasToResourcesBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumberOfSasSchedToPreferredSrAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumberOfSasSchedToPreferredSrBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumberOfSasWithPreferredResource__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumberOfUnscheduledCapacityAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumberOfUnscheduledCapacityBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumberOfUnscheduledCrewAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumberOfUnscheduledCrewBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumberOfUnscheduledResourcesAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__NumberOfUnscheduledResourcesBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalCrewWorkCapacity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalLunchBreakDurationAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalLunchBreakDurationBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalNaWithGeolocationDurationAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalNaWithGeolocationDurationBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalNaWoGeolocationDurationAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalNaWoGeolocationDurationBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FSL__Territory_Optimization_Request__c.FSL__TotalNumberOfCapacityBasedResources__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -795,6 +1170,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FSL__Territory_Optimization_Request__c.FSL__TotalNumberOfOptimizableServices__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalNumberOfPinnedServices__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -814,6 +1194,36 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalNumberOfServicesWithWindow__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalNumberOfServicesWithoutWindow__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalOvertimeForCrews__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalOvertimeForResources__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalScheduledTimeOnOvertimeAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalScheduledTimeOnOvertimeBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelByPrimaryMembershipAfter__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -824,12 +1234,62 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelDistanceFromHomebaseAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelDistanceFromHomebaseBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelDistanceToHomebaseAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelDistanceToHomebaseBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelDistanceWoHomebaseAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelDistanceWoHomebaseBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelTimeAfter__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelTimeBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelTimeFromHomebaseAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelTimeFromHomebaseBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelTimeToHomebaseAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalTravelTimeToHomebaseBefore__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -855,6 +1315,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FSL__Territory_Optimization_Request__c.FSL__TotalWorkDurationScheduledBefore__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TotalWorkTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TravelTimeOnTheResourcesExpenseAfter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Territory_Optimization_Request__c.FSL__TravelTimeOnTheResourcesExpenseBefore__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1114,6 +1589,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FSL__Work_Rule_Entry__c.FSL__Break_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Work_Rule_Entry__c.FSL__Earliest_Break_Start__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FSL__Work_Rule_Entry__c.FSL__Latest_Break_End__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FSL__Work_Rule__c.FSL__Active__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1369,6 +1859,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResourceAbsence.FSL__Last_Updated_Epoch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResourceAbsence.FSL__Scheduling_Policy_Used__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1405,6 +1900,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ServiceAppointment.ArrivalWindowStartTime</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ServiceAppointment.BundlePolicyId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1484,6 +1984,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ServiceAppointment.FSL__Last_Updated_Epoch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ServiceAppointment.FSL__MDS_Calculated_length__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1550,6 +2055,26 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ServiceAppointment.FSL__Virtual_Service_For_Chatter_Action__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ServiceAppointment.IsBundle</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ServiceAppointment.IsBundleMember</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ServiceAppointment.IsManuallyBundled</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ServiceAppointment.RelatedBundleId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2163,7 +2688,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>FSL Admin Permissions</label>
+    <label>Field Service Admin Permissions</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -2171,6 +2696,78 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Account</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ApptBundleAggrDurDnscale</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ApptBundleAggrPolicy</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ApptBundleConfig</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ApptBundlePolicy</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ApptBundlePolicySvcTerr</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ApptBundlePropagatePolicy</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ApptBundleRestrictPolicy</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ApptBundleSortPolicy</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -2198,6 +2795,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Entitlement</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>FSL__Bundler_Cache_Refresh_Event__e</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -2405,6 +3011,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>FSL__User_Territory__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>FSL__Work_Rule_Entry__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -2720,6 +3335,18 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>FSL__Work_Rule_Entry__c.FSL__Gap_Rule_Service</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>FSL__Work_Rule__c.FSL__Count_Rule</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>FSL__Work_Rule__c.FSL__Enhanced_Match_Service</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>FSL__Work_Rule__c.FSL__Excluded_Resources_Service</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -2784,6 +3411,10 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>FSL__Field_Service_Settings</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>FSL__Master_Settings</tab>
         <visibility>Visible</visibility>
     </tabSettings>
@@ -2829,6 +3460,10 @@
     </tabSettings>
     <userPermissions>
         <enabled>true</enabled>
+        <name>AssignPermissionSets</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>CreateCustomizeFilters</name>
     </userPermissions>
     <userPermissions>
@@ -2845,6 +3480,14 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ManageInternalUsers</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ManageIpAddresses</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ManageLoginAccessPolicies</name>
     </userPermissions>
     <userPermissions>
@@ -2853,11 +3496,27 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ManageProfilesPermissionsets</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ManageRoles</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ManageSharing</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ManageUsers</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ResetPasswords</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewAllUsers</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

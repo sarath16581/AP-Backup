@@ -26,3 +26,17 @@
   font-weight: bold;
   font-size: 18px;
 }
+
+.THIS .tracking-error .info-box {
+    border: none;
+    border-left: 3px solid #EDA51F;
+    background-color: #FBEDD2;
+}
+
+.THIS .message-text {
+    display: inline-flex;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    font-style: normal;
+}

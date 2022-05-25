@@ -22,7 +22,7 @@ public class OpportunityLineItemServiceTest {
         List<Organisation_Role__c> orgRoleList = new List<Organisation_Role__c>();
         List<Organisation_Role__c> newOrgRoleList = new List<Organisation_Role__c>();
         Integer currentYear = Date.today().year();
-        
+        // Create a Sales Administrator Profile for running tests
         Profile covSales = [SELECT Id FROM Profile WHERE Name = 'Coverage Sales'];
 
         User user1 = new User(
@@ -35,34 +35,38 @@ public class OpportunityLineItemServiceTest {
         
         INSERT user1;
         
+        // Set the nominal trade amount to be used in classification
         NominalTradeAmount__c ntAmount = NominalTradeAmount__c.getInstance();
         ntAmount.Amount__c = 100;
         upsert ntAmount;
         
+        // Trigger Isolation Setttings
         SystemSettings__c sysCS = SystemSettings__c.getInstance();
         sysCS.Disable_Triggers__c = FALSE;
         upsert sysCS;
         
-        // Create test Account
-        Account accVar = APT_TestUtil2.createOrganisation();
-        accVar.Name = 'WithRevenue';
-        accIdSet.add(accVar.Id);
-        accVarList.add(accVar);
+        // Create test Accounts
+        Account accountWithRevenue1 = APT_TestUtil2.createOrganisation();
+        accountWithRevenue1.Name = 'WithRevenue';
+        accIdSet.add(accountWithRevenue1.Id);
+        accVarList.add(accountWithRevenue1);
         
-        Account accVar2 = APT_TestUtil2.createOrganisation();
-        accVar2.Name = 'WithoutRevenue';
-        accIdSet.add(accVar2.Id);
-        accVarList.add(accVar2);
+        Account accountWithRevenue2 = APT_TestUtil2.createOrganisation();
+        accountWithRevenue2.Name = 'AnotherWithRevenue';
+        accIdSet.add(accountWithRevenue2.Id);
+        accVarList.add(accountWithRevenue2);
         
-        Account accVar3 = APT_TestUtil2.createOrganisation();
-        accVar.Name = 'AnotherWithRevenue';
-        accIdSet.add(accVar3.Id);
-        accVarList.add(accVar3);
+        Account accountWithoutRevenue = APT_TestUtil2.createOrganisation();
+        accountWithoutRevenue.Name = 'WithoutRevenue';
+        accIdSet.add(accountWithoutRevenue.Id);
+        accVarList.add(accountWithoutRevenue);
         
-        Account accVar4 = APT_TestUtil2.createOrganisation();
-        accVar4.Name = 'RefactoredAcct';
-        accIdSet.add(accVar4.Id);
-        accVarList.add(accVar4);
+
+        
+        Account refactoredAccount = APT_TestUtil2.createOrganisation();
+        refactoredAccount.Name = 'RefactoredAcct';
+        accIdSet.add(refactoredAccount.Id);
+        accVarList.add(refactoredAccount);
         
         insert accVarList;
         
@@ -75,32 +79,34 @@ public class OpportunityLineItemServiceTest {
         
         UPDATE newOrgRoleList;
         
-        // Create test Opportunity
-        Opportunity oppVar = APT_TestUtil2.createOpportunity(accVar);
-        oppVar.Pre_Entry__c = TRUE;
-        oppVar.StageName = 'Identify';
-        optyList.add(oppVar);
+        // Create an open test Opportunity for the first account with revenue 
+        Opportunity oppVar1 = APT_TestUtil2.createOpportunity(accountWithRevenue1);
+        oppVar1.Pre_Entry__c = TRUE;
+        oppVar1.StageName = 'Identify';
+        optyList.add(oppVar1);
         
-        Opportunity oppVar2 = APT_TestUtil2.createOpportunity(accVar2);
-        oppVar2.Pre_Entry__c = TRUE;
-        oppVar2.StageName = 'Identify';
-        optyList.add(oppVar2);
+        // Create two test opportunities, one open and one with a close reason for the second account with revenue
+        Opportunity oppVar2a = APT_TestUtil2.createOpportunity(accountWithRevenue2);
+        oppVar2a.Pre_Entry__c = TRUE;
+        oppVar2a.StageName = 'Identify';
+        optyList.add(oppVar2a);
         
-        Opportunity oppVar3 = APT_TestUtil2.createOpportunity(accVar2);
+        Opportunity oppVar2b = APT_TestUtil2.createOpportunity(accountWithRevenue2);
+        oppVar2b.Pre_Entry__c = TRUE;
+        oppVar2b.Closed_Reason__c = 'Functionality';
+        oppVar2b.StageName = 'Identify';
+        optyList.add(oppVar2b);
+        
+        // Create a test opportunity for the refactored account with a closed reason
+        Opportunity oppVar3 = APT_TestUtil2.createOpportunity(refactoredAccount);
         oppVar3.Pre_Entry__c = TRUE;
         oppVar3.Closed_Reason__c = 'Functionality';
         oppVar3.StageName = 'Identify';
         optyList.add(oppVar3);
         
-        Opportunity oppVar4 = APT_TestUtil2.createOpportunity(accVar4);
-        oppVar4.Pre_Entry__c = TRUE;
-        oppVar4.Closed_Reason__c = 'Functionality';
-        oppVar4.StageName = 'Identify';
-        optyList.add(oppVar4);
-        
         insert optyList;
         
-        //create products
+        //create product bundles
         Product2 bundle1 = OpptyLineItemTriggerHandler_TestUtil.getTestProduct('International Bundle', TRUE);
         productList.add(bundle1);
         
@@ -115,7 +121,7 @@ public class OpportunityLineItemServiceTest {
         
         insert productList;
         
-        //Create your pricebook entry
+        //Create pricebook entries for teh product bundles
         PricebookEntry pbEntry = new PricebookEntry();
         
         for(Product2 testProd : productList){
@@ -129,10 +135,10 @@ public class OpportunityLineItemServiceTest {
         
         insert pbEntryList;
         
-        //Create Budget_and_Revenue__c
+        //Create Budget_and_Revenue__c for the first account with revenue
         Budget_and_Revenue__c barObj = new Budget_and_Revenue__c();
-        barObj.Name = 'Test Name';
-        barObj.Organisation__c = accVar.Id;
+        barObj.Name = 'Revenue 1a Current Year'; // test name
+        barObj.Organisation__c = accountWithRevenue1.Id;
         barObj.Product__c = bundle3.Id;
         barObj.Jan_Revenue_Amount__c = 50;
         barObj.Feb_Revenue_Amount__c = 50;
@@ -151,102 +157,20 @@ public class OpportunityLineItemServiceTest {
         
         barList.add(barObj);
         
+        
         Budget_and_Revenue__c barObjPFY = new Budget_and_Revenue__c();
-        barObjPFY.Name = 'Test Name Last Year';
-        barObjPFY.Organisation__c = accVar.Id;
+        barObjPFY.Name = 'Revenue 1a Last Year';
+        barObjPFY.Organisation__c = accountWithRevenue1.Id;
         barObjPFY.Product__c = bundle3.Id;
         barObjPFY.Total_Revenue_Amount__c = 0;
         barObjPFY.Financial_Year__c = String.valueOf(currentYear-1);
         
         barList.add(barObjPFY);
         
-        Budget_and_Revenue__c barObj2 = new Budget_and_Revenue__c();
-        barObj2.Name = 'Revenue1';
-        barObj2.Organisation__c = accVar3.Id;
-        barObj2.Product__c = bundle3.Id;
-        barObj2.Jan_Revenue_Amount__c = 100;
-        barObj2.Feb_Revenue_Amount__c = 100;
-        barObj2.Mar_Revenue_Amount__c = 100;
-        barObj2.Apr_Revenue_Amount__c = 100;
-        barObj2.May_Revenue_Amount__c = 100;
-        barObj2.Jun_Revenue_Amount__c = 100;
-        barObj2.Jul_Revenue_Amount__c = 100;
-        barObj2.Aug_Revenue_Amount__c = 100;
-        barObj2.Sep_Revenue_Amount__c = 100;
-        barObj2.Oct_Revenue_Amount__c = 100;
-        barObj2.Nov_Revenue_Amount__c = 100;
-        barObj2.Dec_Revenue_Amount__c = 100;
-        barObj2.Total_Revenue_Amount__c = 1200;
-        barObj2.Financial_Year__c = String.valueOf(currentYear-1);
-        
-        barList.add(barObj2);
-        
-        Budget_and_Revenue__c barObj3 = new Budget_and_Revenue__c();
-        barObj3.Name = 'Revenue2';
-        barObj3.Organisation__c = accVar3.Id;
-        barObj3.Product__c = bundle3.Id;
-        barObj3.Jan_Revenue_Amount__c = 100;
-        barObj3.Feb_Revenue_Amount__c = 100;
-        barObj3.Mar_Revenue_Amount__c = 100;
-        barObj3.Apr_Revenue_Amount__c = 100;
-        barObj3.May_Revenue_Amount__c = 100;
-        barObj3.Jun_Revenue_Amount__c = 100;
-        barObj3.Jul_Revenue_Amount__c = 100;
-        barObj3.Aug_Revenue_Amount__c = 100;
-        barObj3.Sep_Revenue_Amount__c = 100;
-        barObj3.Oct_Revenue_Amount__c = 100;
-        barObj3.Nov_Revenue_Amount__c = 100;
-        barObj3.Dec_Revenue_Amount__c = 100;
-        barObj3.Total_Revenue_Amount__c = 1200;
-        barObj3.Financial_Year__c = String.valueOf(currentYear-2);
-        
-        barList.add(barObj3);
-        
-        Budget_and_Revenue__c barObj4 = new Budget_and_Revenue__c();
-        barObj4.Name = 'Revenue2';
-        barObj4.Organisation__c = accVar3.Id;
-        barObj4.Product__c = bundle3.Id;
-        barObj4.Jan_Revenue_Amount__c = 0;
-        barObj4.Feb_Revenue_Amount__c = 0;
-        barObj4.Mar_Revenue_Amount__c = 0;
-        barObj4.Apr_Revenue_Amount__c = 0;
-        barObj4.May_Revenue_Amount__c = 0;
-        barObj4.Jun_Revenue_Amount__c = 0;
-        barObj4.Jul_Revenue_Amount__c = 0;
-        barObj4.Aug_Revenue_Amount__c = 0;
-        barObj4.Sep_Revenue_Amount__c = 0;
-        barObj4.Oct_Revenue_Amount__c = 0;
-        barObj4.Nov_Revenue_Amount__c = 0;
-        barObj4.Dec_Revenue_Amount__c = 0;
-        barObj4.Total_Revenue_Amount__c = 1200;
-        barObj4.Financial_Year__c = String.valueOf(currentYear+1);
-        
-        barList.add(barObj4);
-        
-        Budget_and_Revenue__c barObj5 = new Budget_and_Revenue__c();
-        barObj5.Name = 'Revenue3';
-        barObj5.Organisation__c = accVar4.Id;
-        barObj5.Product__c = bundle4.Id;
-        barObj5.Jan_Revenue_Amount__c = 0;
-        barObj5.Feb_Revenue_Amount__c = 0;
-        barObj5.Mar_Revenue_Amount__c = 0;
-        barObj5.Apr_Revenue_Amount__c = 0;
-        barObj5.May_Revenue_Amount__c = 0;
-        barObj5.Jun_Revenue_Amount__c = 0;
-        barObj5.Jul_Revenue_Amount__c = 0;
-        barObj5.Aug_Revenue_Amount__c = 0;
-        barObj5.Sep_Revenue_Amount__c = 0;
-        barObj5.Oct_Revenue_Amount__c = 0;
-        barObj5.Nov_Revenue_Amount__c = 0;
-        barObj5.Dec_Revenue_Amount__c = 0;
-        barObj5.Total_Revenue_Amount__c = 50;
-        barObj5.Financial_Year__c = String.valueOf(2020);
-        
-        barList.add(barObj5);
-        
+                
         Budget_and_Revenue__c barObj6 = new Budget_and_Revenue__c();
-        barObj6.Name = 'Revenue3';
-        barObj6.Organisation__c = accVar.Id;
+        barObj6.Name = 'Revenue 1b Current Year';
+        barObj6.Organisation__c = accountWithRevenue1.Id;
         barObj6.Product__c = bundle4.Id;
         barObj6.Jan_Revenue_Amount__c = 0;
         barObj6.Feb_Revenue_Amount__c = 0;
@@ -266,8 +190,8 @@ public class OpportunityLineItemServiceTest {
         barList.add(barObj6);
         
         Budget_and_Revenue__c barObj7 = new Budget_and_Revenue__c();
-        barObj7.Name = 'Revenue3';
-        barObj7.Organisation__c = accVar.Id;
+        barObj7.Name = 'Revenue 1b Last Year';
+        barObj7.Organisation__c = accountWithRevenue1.Id;
         barObj7.Product__c = bundle4.Id;
         barObj7.Jan_Revenue_Amount__c = 0;
         barObj7.Feb_Revenue_Amount__c = 0;
@@ -285,6 +209,93 @@ public class OpportunityLineItemServiceTest {
         barObj7.Financial_Year__c = String.valueOf(2018);
         
         barList.add(barObj7);
+        
+         //Create Budget_and_Revenue__c for the second account with revenue
+        Budget_and_Revenue__c barObj2 = new Budget_and_Revenue__c();
+        barObj2.Name = 'Revenue 2a Currrent Year';
+        barObj2.Organisation__c = accountWithRevenue2.Id;
+        barObj2.Product__c = bundle3.Id;
+        barObj2.Jan_Revenue_Amount__c = 100;
+        barObj2.Feb_Revenue_Amount__c = 100;
+        barObj2.Mar_Revenue_Amount__c = 100;
+        barObj2.Apr_Revenue_Amount__c = 100;
+        barObj2.May_Revenue_Amount__c = 100;
+        barObj2.Jun_Revenue_Amount__c = 100;
+        barObj2.Jul_Revenue_Amount__c = 100;
+        barObj2.Aug_Revenue_Amount__c = 100;
+        barObj2.Sep_Revenue_Amount__c = 100;
+        barObj2.Oct_Revenue_Amount__c = 100;
+        barObj2.Nov_Revenue_Amount__c = 100;
+        barObj2.Dec_Revenue_Amount__c = 100;
+        barObj2.Total_Revenue_Amount__c = 1200;
+        barObj2.Financial_Year__c = String.valueOf(currentYear-1);
+        
+        barList.add(barObj2);
+        
+        Budget_and_Revenue__c barObj3 = new Budget_and_Revenue__c();
+        barObj3.Name = 'Revenue 2a Last year';
+        barObj3.Organisation__c = accountWithRevenue2.Id;
+        barObj3.Product__c = bundle3.Id;
+        barObj3.Jan_Revenue_Amount__c = 100;
+        barObj3.Feb_Revenue_Amount__c = 100;
+        barObj3.Mar_Revenue_Amount__c = 100;
+        barObj3.Apr_Revenue_Amount__c = 100;
+        barObj3.May_Revenue_Amount__c = 100;
+        barObj3.Jun_Revenue_Amount__c = 100;
+        barObj3.Jul_Revenue_Amount__c = 100;
+        barObj3.Aug_Revenue_Amount__c = 100;
+        barObj3.Sep_Revenue_Amount__c = 100;
+        barObj3.Oct_Revenue_Amount__c = 100;
+        barObj3.Nov_Revenue_Amount__c = 100;
+        barObj3.Dec_Revenue_Amount__c = 100;
+        barObj3.Total_Revenue_Amount__c = 1200;
+        barObj3.Financial_Year__c = String.valueOf(currentYear-2);
+        
+        barList.add(barObj3);
+        
+        
+        Budget_and_Revenue__c barObj4 = new Budget_and_Revenue__c();
+        barObj4.Name = 'Revenue 2b First Year';
+        barObj4.Organisation__c = accountWithRevenue2.Id;
+        barObj4.Product__c = bundle3.Id;
+        barObj4.Jan_Revenue_Amount__c = 0;
+        barObj4.Feb_Revenue_Amount__c = 0;
+        barObj4.Mar_Revenue_Amount__c = 0;
+        barObj4.Apr_Revenue_Amount__c = 0;
+        barObj4.May_Revenue_Amount__c = 0;
+        barObj4.Jun_Revenue_Amount__c = 0;
+        barObj4.Jul_Revenue_Amount__c = 0;
+        barObj4.Aug_Revenue_Amount__c = 0;
+        barObj4.Sep_Revenue_Amount__c = 0;
+        barObj4.Oct_Revenue_Amount__c = 0;
+        barObj4.Nov_Revenue_Amount__c = 0;
+        barObj4.Dec_Revenue_Amount__c = 0;
+        barObj4.Total_Revenue_Amount__c = 1200;
+        barObj4.Financial_Year__c = String.valueOf(currentYear+1);
+        
+        barList.add(barObj4);
+        
+        Budget_and_Revenue__c barObj5 = new Budget_and_Revenue__c();
+        barObj5.Name = 'Revenue 2b Last Year';
+        barObj5.Organisation__c = accountWithRevenue2.Id;
+        barObj5.Product__c = bundle4.Id;
+        barObj5.Jan_Revenue_Amount__c = 0;
+        barObj5.Feb_Revenue_Amount__c = 0;
+        barObj5.Mar_Revenue_Amount__c = 0;
+        barObj5.Apr_Revenue_Amount__c = 0;
+        barObj5.May_Revenue_Amount__c = 0;
+        barObj5.Jun_Revenue_Amount__c = 0;
+        barObj5.Jul_Revenue_Amount__c = 0;
+        barObj5.Aug_Revenue_Amount__c = 0;
+        barObj5.Sep_Revenue_Amount__c = 0;
+        barObj5.Oct_Revenue_Amount__c = 0;
+        barObj5.Nov_Revenue_Amount__c = 0;
+        barObj5.Dec_Revenue_Amount__c = 0;
+        barObj5.Total_Revenue_Amount__c = 50;
+        barObj5.Financial_Year__c = String.valueOf(2020);
+        
+        barList.add(barObj5);
+
         
         insert barList;
         
@@ -1045,8 +1056,7 @@ public class OpportunityLineItemServiceTest {
             
         }
         test.stopTest();
-    }
-    
+    }    
     /*********************************
      * Description: Tests the changeClassification() for Growth scenario
      * Author: Jeoffrey Palmero

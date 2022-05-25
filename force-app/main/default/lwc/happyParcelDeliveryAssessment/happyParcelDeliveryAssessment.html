@@ -1,44 +1,65 @@
 <!--
     2020-04-01 nathan.franklin@auspost.com.au Created
+	2022-04-11 - Mahesh Parvathaneni - Changed the logic behind View in Maps and emotion icons
 -->
 <template>
 
 	<c-happy-parcel-card title="Distance" icon-name="utility:pinned" loading={loading} variant="stretch" help-text={helpText}>
 		<div class="slds-align_absolute-center animated pulse" style={animationCss}>
-			<template if:true={isAvailable}>
-				<template if:true={isHappy}>
-					<div class="slds-grid slds-grid_align-spread slds-align_absolute-center">
-						<div class="slds-col slds-m-right_small">
-							<c-happy-parcel-custom-icon size="large" icon="happy-face" class="slds-show_inline-block"></c-happy-parcel-custom-icon>
+			<template if:false={isDataLoading}>
+				<template if:true={isAvailable}>
+					<template if:true={isHappy}>
+						<div class="slds-grid slds-grid_align-spread slds-align_absolute-center">
+							<template if:true={showEmotionIcon}>
+								<div class="slds-col slds-m-right_small">
+									<c-happy-parcel-custom-icon size="large" icon="happy-face" class="slds-show_inline-block"></c-happy-parcel-custom-icon>
+								</div>
+							</template>
+							<div class="slds-col slds-m-left_small">
+								<template if:true={outsideDeliveryRadius}>
+									<div class="slds-box slds-box_x-small green-box">
+										<span>{deliveryMessage}</span>
+									</div>
+								</template>
+								<template if:true={distanceCalculated}>
+									<p class={distanceClass}>
+										{distanceCalculated}
+										<lightning-helptext content={distanceHelpText} class="distance-help-text"></lightning-helptext>
+									</p>
+								</template>
+								<p class="slds-p-top_small">
+									<a target="_blank" onclick={handleMapClick}>View in Maps</a>
+								</p>
+							</div>
 						</div>
-						<div class="slds-col slds-m-left_small">
-							<p class="slds-p-bottom_medium">
-								Distance &lt; {thresholdDisplay}
-							</p>
-							<p>
-								<a href={mapLink} target="_blank">View in Maps</a>
-							</p>
+					</template>
+					<template if:true={isSad}>
+						<div class="slds-grid slds-grid_align-spread slds-align_absolute-center">
+							<div class="slds-col slds-m-right_small">
+								<c-happy-parcel-custom-icon size="large" icon="sad-face" class="slds-show_inline-block"></c-happy-parcel-custom-icon>
+							</div>
+							<div class="slds-col slds-m-left_small">
+								<p class="red-text">
+									Distance &gt; {thresholdDisplay}
+									<lightning-helptext content={distanceHelpText} class="distance-help-text"></lightning-helptext>
+								</p>
+								<p class="slds-p-top_small">
+									<a target="_blank" onclick={handleMapClick}>View in Maps</a>
+								</p>
+							</div>
 						</div>
-					</div>
+					</template>
 				</template>
-				<template if:true={isSad}>
-					<div class="slds-grid slds-grid_align-spread slds-align_absolute-center">
-						<div class="slds-col slds-m-right_small">
-							<c-happy-parcel-custom-icon size="large" icon="sad-face" class="slds-show_inline-block"></c-happy-parcel-custom-icon>
-						</div>
-						<div class="slds-col slds-m-left_small slds-text-align_center">
-							<p class="slds-p-bottom_medium">
-								Distance &gt; {thresholdDisplay}
-							</p>
-							<p>
-								<a href={mapLink} target="_blank">View in Maps</a>
-							</p>
-						</div>
-					</div>
+				<template if:false={isAvailable}>
+					<lightning-icon icon-name="utility:dash" size="medium"></lightning-icon>
 				</template>
 			</template>
-			<template if:false={isAvailable}>
-				<lightning-icon icon-name="utility:dash" size="medium"></lightning-icon>
+			<!-- Spinner on server side call -->
+			<template if:true={isDataLoading}>
+				<div class="slds-text-align_center slds-grow">
+					<lightning-spinner variant="brand" size="small" alternative-text="Loading search results...">
+					</lightning-spinner>
+				</div>
 			</template>
 		</div>
 	</c-happy-parcel-card>

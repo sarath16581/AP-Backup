@@ -2,7 +2,7 @@
 <ProfileSessionSetting xmlns="http://soap.sforce.com/2006/04/metadata">
     <externalCommunityUserIdentityVerif>false</externalCommunityUserIdentityVerif>
     <forceLogout>false</forceLogout>
-    <profile>SSSW Security and Investigations</profile>
+    <profile>sssw security and investigations</profile>
     <sessionPersistence>false</sessionPersistence>
     <sessionTimeout>0</sessionTimeout>
     <sessionTimeoutWarning>false</sessionTimeoutWarning>

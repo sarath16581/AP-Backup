@@ -10,6 +10,8 @@
  * @changelog
  * 10.04.2020		Naseer Abbasi		Added logic to determine case queues once ArticleTest__c is populated
  * 30.06.2021	Steve.judd6@auspost.com.au  Added debug statement, description changes for extra cover.
+ * 20.04.2022   SaiSwetha Pingali - Removed logic for SnapIT cases as it is no longer required.
+ *
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
 
@@ -451,32 +453,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					c.ArticleRecordType__c = a.RecordType.Name;
 				}
 
-				// if the case is SNAPIT, we need to also ensure the category/subcategory mappings are copied across if applicable
-				//tags: Snap it, case origin
-				if (c.Origin == SSSWConstants.SNAPIT) {
-					// grab the mappings from the database so they can be used to set the default clear view mappings (if they haven't already been set)
-					Map<String, MiniCaseFieldMapping__c> clearViewCodeProductMappings = new Map<String, MiniCaseFieldMapping__c>();
-					if(!articleProductKeys.isEmpty()) {
-						for(MiniCaseFieldMapping__c mapping: EnquiryMappingsSelector.newInstance().selectBySAPKey(articleProductKeys).values()) {
-							String key = (String.isEmpty(mapping.SAPProductCategory__c) ? '' : mapping.SAPProductCategory__c.trim()).toUpperCase() + (String.isEmpty(mapping.SAPProductSubcategory__c) ? '' : mapping.SAPProductSubcategory__c.trim()).toUpperCase();
-							clearViewCodeProductMappings.put(key, mapping);
-						}
-					}
-
-					String articleProductMappingKey = ((String.isEmpty(a.ProductCategory__c) ? '' : a.ProductCategory__c.trim()).toUpperCase() + (String.isEmpty(a.SubProduct__c) ? '' : a.SubProduct__c.trim())).toUpperCase();
-					if(clearViewCodeProductMappings.containsKey(articleProductMappingKey)) {
-						MiniCaseFieldMapping__c categoryMapping = clearViewCodeProductMappings.get(articleProductMappingKey);
-						if(!String.isEmpty(categoryMapping.ProductCategory__c)) {
-							c.ProductCategory__c = categoryMapping.ProductCategory__c;
-						}
-						if(!String.isEmpty(categoryMapping.ProductSubcategory__c)) {
-							c.ProductSubcategory__c = categoryMapping.ProductSubcategory__c;
-						}
-						if(!String.isEmpty(categoryMapping.Type__c)) {
-							c.Type = categoryMapping.Type__c;
-						}
-					}
-				}
+				
 			}
 		}
 	}

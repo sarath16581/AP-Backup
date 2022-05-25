@@ -211,6 +211,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FSL__Work_Rule_Entry__c.FSL__Break_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FSL__Work_Rule_Entry__c.FSL__Earliest_Break_Start__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FSL__Work_Rule_Entry__c.FSL__Latest_Break_End__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FSL__Work_Rule__c.FSL__Active__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -431,6 +446,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResourceAbsence.FSL__Last_Updated_Epoch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ServiceAppointment.Address</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -452,6 +472,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ServiceAppointment.FSL__IsMultiDay__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ServiceAppointment.FSL__Last_Updated_Epoch__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -585,7 +610,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>FSL Resource Permissions</label>
+    <label>Field Service Resource Permissions</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -647,6 +672,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>FSL__SchedulingRecipe__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>FSL__Work_Rule_Entry__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

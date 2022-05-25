@@ -12,7 +12,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>ChasDeliveryIssuesWizard</componentName>
-                <identifier>ChasDeliveryIssuesWizard</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -29,7 +28,6 @@
                     <value>DeliveryIssueAnonymous</value>
                 </componentInstanceProperties>
                 <componentName>ChasAdobeAnalyticsPageView</componentName>
-                <identifier>ChasAdobeAnalyticsPageView</identifier>
             </componentInstance>
         </itemInstances>
         <name>footer</name>
@@ -46,7 +44,6 @@
                     <value>Delivery issue</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
-                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

@@ -5,7 +5,6 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>Client Entertainment Register</label>
     <tabs>standard-Chatter</tabs>
     <tabs>SFL1_Entertainment_Event__c</tabs>

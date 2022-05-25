@@ -20,7 +20,6 @@
                     <value>10</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -39,7 +38,6 @@
                     <value>linear</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
-                <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -50,7 +48,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -61,7 +58,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>BG_QualifiMainCmp</componentName>
-                <identifier>BG_QualifiMainCmp</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-760bb721-cc79-4ed0-9ce6-2645f2b7a14b</name>
@@ -91,7 +87,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -117,7 +112,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -143,7 +137,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -169,7 +162,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer4</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -195,7 +187,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer5</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-ohxx6m7bnso</name>
@@ -221,7 +212,6 @@
                     <value>Opportunity.Edit_Onboarding</value>
                 </componentInstanceProperties>
                 <componentName>console:relatedRecord</componentName>
-                <identifier>console_relatedRecord</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-72f9633c-72fd-474f-9b39-ec4612542d67</name>
@@ -251,7 +241,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer6</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -277,7 +266,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer7</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-f8c8d211-1a79-4790-a8bf-228f22dae5ef</name>
@@ -287,7 +275,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>BG_LeadQualificationsList</componentName>
-                <identifier>BG_LeadQualificationsList</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -313,7 +300,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer8</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -339,7 +325,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer9</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -365,7 +350,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer10</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -391,7 +375,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer11</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -417,7 +400,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer12</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -443,7 +425,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer13</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -469,7 +450,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer14</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -495,7 +475,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer15</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -521,7 +500,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer16</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -547,7 +525,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer17</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -573,7 +550,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer18</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -604,7 +580,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer19</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -630,7 +605,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer20</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-8ede340b-d132-41a2-bd8c-add13cebbccf</name>
@@ -663,7 +637,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>seismic:SeismicEmbeddedApplication</componentName>
-                <identifier>seismic_SeismicEmbeddedApplication</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.Seismic_Access}</leftValue>
@@ -700,7 +673,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer21</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -726,7 +698,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer22</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-5fba57fc-ea2a-4ee5-ab71-7087dbaa1f6b</name>
@@ -756,7 +727,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer23</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-8a5a98de-9282-4378-a341-c33e13a41a8c</name>
@@ -766,7 +736,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>kfsell:bluesheetNavigate</componentName>
-                <identifier>kfsell_bluesheetNavigate1</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-903c912e-7855-43b3-ae49-0a146b9ca7ee</name>
@@ -788,7 +757,6 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -802,7 +770,6 @@
                     <value>Customer Needs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -816,7 +783,6 @@
                     <value>Products &amp; Contracts</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -830,7 +796,6 @@
                     <value>Onboarding</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -844,7 +809,6 @@
                     <value>Revenue</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab4</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -858,7 +822,6 @@
                     <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -872,7 +835,6 @@
                     <value>Support Requests</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab5</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -886,7 +848,6 @@
                     <value>Seismic</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab6</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -900,7 +861,6 @@
                     <value>Notes</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab7</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -914,7 +874,6 @@
                     <value>Files</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab8</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -928,7 +887,6 @@
                     <value>Blue Sheet</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab1</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -943,7 +901,6 @@
                     <value>tabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -954,7 +911,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-02d94d6e-bd78-4fb0-b1be-d49c40c13d56</name>
@@ -964,7 +920,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-7803f9a0-6772-403b-88de-e578df4438fd</name>
@@ -986,7 +941,6 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1000,7 +954,6 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>collaborateTab</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-02c3554f-de48-4009-b6c8-53c459ec152e</name>
@@ -1010,7 +963,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-fab420f7-f2a9-46c4-a656-9c95ead8ebe2</name>
@@ -1020,7 +972,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-600cc6bd-3020-4593-a811-221ccfb7fa4f</name>
@@ -1050,7 +1001,6 @@
                     <value>7</value>
                 </componentInstanceProperties>
                 <componentName>th_contextualRecommend</componentName>
-                <identifier>th_contextualRecommend</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-091e18a2-cff3-4b56-a98a-02f52829a4c4</name>
@@ -1072,7 +1022,6 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>activityTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1086,7 +1035,6 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>collaborateTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1100,7 +1048,6 @@
                     <value>Training</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab9</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-90b05354-b0d8-4120-9a16-f2e02718f567</name>
@@ -1114,7 +1061,6 @@
                     <value>recordId</value>
                 </componentInstanceProperties>
                 <componentName>opportunityCloseErrors</componentName>
-                <identifier>opportunityCloseErrors</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.StageName}</leftValue>
@@ -1131,7 +1077,6 @@
                     <value>Facet-02c3554f-de48-4009-b6c8-53c459ec152e</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset2</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.Show_Trailhead_Training}</leftValue>
@@ -1144,19 +1089,16 @@
         <itemInstances>
             <componentInstance>
                 <componentName>kfsell:bestActionWidgetAuraWrapper</componentName>
-                <identifier>kfsell_bestActionWidgetAuraWrapper1</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>kfsell:kfLearnLink</componentName>
-                <identifier>kfsell_kfLearnLink1</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>kfsell:blueSheetProgressWidget</componentName>
-                <identifier>kfsell_blueSheetProgressWidget1</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1166,7 +1108,6 @@
                     <value>Facet-90b05354-b0d8-4120-9a16-f2e02718f567</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset3</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.Show_Trailhead_Training}</leftValue>

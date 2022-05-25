@@ -16,7 +16,7 @@ Reference number {!Case.CaseNumber}
 Hi {!Contact.FirstName},
 
 
-We’ve received your request to delete your account. Your reference number is {!Case.CaseNumber}.
+We’ve received your request to delete your account. Your reference number is: {!Case.CaseNumber}
 
 It may take up to 10 business days to delete your account.
 

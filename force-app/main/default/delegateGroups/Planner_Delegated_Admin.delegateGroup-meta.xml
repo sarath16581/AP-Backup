@@ -3,12 +3,17 @@
     <groups>All Users</groups>
     <label>Planner Delegated Admin</label>
     <loginAccess>true</loginAccess>
-    <permissionSets>FSL Dispatcher Permissions</permissionSets>
+    <permissionSets>TDF Duty Planner</permissionSets>
+    <permissionSets>TDF Roster User</permissionSets>
+    <permissionSets>Field Service Dispatcher Permissions</permissionSets>
     <permissionSets>FSL Dispatcher License</permissionSets>
     <permissionSets>FSL Admin License</permissionSets>
-    <permissionSets>FSL Resource Permissions</permissionSets>
+    <permissionSets>Field Service Resource Permissions</permissionSets>
     <permissionSets>FSL Resource License</permissionSets>
-    <permissionSets>FSL Admin Permissions</permissionSets>
+    <permissionSets>FSL Mobile License</permissionSets>
+    <permissionSets>Field Service Admin Permissions</permissionSets>
+    <permissionSets>Lightning experience user</permissionSets>
+    <permissionSets>FSL Scheduling License</permissionSets>
     <profiles>TDF Planner</profiles>
     <profiles>TDF Driver</profiles>
     <roles>Accounting Services</roles>

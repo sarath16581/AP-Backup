@@ -15,7 +15,6 @@
                     <value>Your enquiries</value>
                 </componentInstanceProperties>
                 <componentName>ChasCaseHeader</componentName>
-                <identifier>ChasCaseHeader</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -35,7 +34,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>ChasCaseList</componentName>
-                <identifier>ChasCaseList</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -55,7 +53,6 @@
                     <name>title</name>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:recommendations</componentName>
-                <identifier>forceCommunity_recommendations</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>
@@ -85,7 +82,6 @@
                     <value>Home</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
-                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

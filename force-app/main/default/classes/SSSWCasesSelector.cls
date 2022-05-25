@@ -75,7 +75,7 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 				Case.Case_Reopen_Date__c, Case.Case_Reopen_Status__c, Case.CaseLocality__c, Case.CaseOriginator__c, Case.CashOnDelivery__c,
 				Case.CCU3rdPartyReference__c, Case.CCUEnquiryType__c, Case.CCUItemContents__c, Case.CCUServiceUsed__c, Case.CCUYourReference__c,
 				Case.CollectionCardColour__c, Case.Complaint__c, Case.Completed_Customer_Conversion__c, Case.Contact_Email__c, Case.Contact_Mobile__c,
-				Case.CRN__c, Case.Customer_Email_Notification__c, Case.Customer_Milestones_Violated__c, Case.Customer_Number__c, Case.Customer_Relationship__c,
+				Case.CRN__c, Case.Customer_Email_Notification__c, Case.Customer_Milestones_Violated__c, Case.Customer_Number__c,
 				Case.Customer_Type__c, Case.DateofIncident__c, Case.DDC_Receiver_First_Name__c, Case.DDC_Receiver_Last_Name__c, Case.Deployment_Duration__c,
 				Case.EmailThreadID__c, Case.Employee_Email__c, Case.Employee_Lastname__c, Case.Employee_Mobile__c, Case.EnquirySubType__c,
 				Case.ExtraCover__c, Case.Facility_Milestones_Violated__c, Case.Facility_Tier_Escalation_Email__c, Case.First_Name__c, Case.FirstName1__c,

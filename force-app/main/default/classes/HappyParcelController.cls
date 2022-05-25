@@ -16,6 +16,7 @@
  * 2021-10-01 - Nathan Franklin - Updated logic for transient attributes. Now more structured and linked to each article/event
  * 2021-08-02 - Mathew Jose - Added new methods to retrievethe overflow field sets associated with the event messages table.
  * 2021-08-02 - Prerna Rahangdale - Added a method to query the Knowledge article to show in warning when articles has VODV set to true.
+ * 2022-04-14 - Mahesh Parvathaneni - Added a method to calculate the distance between geo-coordinates
 */
 public with sharing class HappyParcelController {
 
@@ -238,6 +239,16 @@ public with sharing class HappyParcelController {
 				return new NetworkDetailsWrapper(null, 'No network found');
 			}
 		}catch(Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	@AuraEnabled
+	public static Double getDistanceBetweenLocations(Decimal lat1, Decimal lon1, Decimal lat2, Decimal lon2) {
+		try {
+			LocationsService locService = LocationsService.getInstance();
+			return locService.getDistanceBetweenLocations(Location.newInstance(lat1, lon1), Location.newInstance(lat2, lon2));
+		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}

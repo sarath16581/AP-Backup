@@ -3,6 +3,7 @@
     <fullName>Credit_Management</fullName>
     <active>false</active>
     <businessProcess>Credit Managemet</businessProcess>
+    <description>Credit Management</description>
     <label>Credit Management</label>
     <picklistValues>
         <picklist>APT_New_Contract__c</picklist>

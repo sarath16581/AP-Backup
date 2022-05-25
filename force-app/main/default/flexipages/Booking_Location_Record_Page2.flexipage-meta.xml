@@ -20,7 +20,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -39,7 +38,6 @@
                     <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0); font-size: 16px;&quot;&gt;WARNING! The address must be populated. Please enter an address from the &apos;Enter Customer Address Details&apos; form.&lt;/b&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Street__c}</leftValue>
@@ -52,7 +50,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -75,7 +72,6 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -90,7 +86,6 @@
                     <value>maintabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -108,7 +103,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -119,7 +113,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>pudBookingLocationAddressLookup</componentName>
-                <identifier>pudBookingLocationAddressLookup</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
@@ -152,7 +145,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -162,7 +154,6 @@
                     <value>RECORD</value>
                 </componentInstanceProperties>
                 <componentName>forceChatter:exposedFeed</componentName>
-                <identifier>forceChatter_exposedFeed</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

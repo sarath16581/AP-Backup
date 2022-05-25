@@ -2,7 +2,7 @@
 2020-05-05 - Nathan Franklin - Fixed bug with custom settings
 2021-11-18  - Prerna Rahangdale - MPB Case type Subtype and new fields Preferred Contact Number, Detailed description of contents,
                 Wholesale Value of contents,Attach a document or image and change Tracking Id label Tracking Number.
-
+2022-05-17 - Talib Raza - Enquiry Sub types picklist moved to top for multiple enquiry types for consistency in UI.
 -->
 <apex:page controller="bspEnquiry"
            cache="false"
@@ -354,13 +354,14 @@
 
                             <div class="input-group">
                                 <div class="input required">
-                                    <p>What is your enquiry about?<span class="symbol-req"> *</span></p>
+                                    <p>Enquiry Type<span class="symbol-req"> *</span></p>
                                     <apex:actionRegion >
                                         <!-- 2016-03-23 CLIEW: SELECT LIST AND SELECT OPTIONS UPDATED TO USE NEW CASE OBJECT CUSTOM PICKLIST FIELD TO CAPTURE MPBSP SPECIFIC ENQUIRY TYPES -->
                                         <apex:selectList size="1" value="{!enq.MPB_BSP_Enquiry_Type__c}" styleclass="input-medium"  >
                                             <apex:selectOptions value="{!MpbCaseType}"/>
                                             <apex:actionSupport event="onchange" action="{!enquiryTypeOnChange}" reRender="Enquiry_Section,Enquiry_General_Enquiry,
-                                           Enquiry_Item_Search,Enquiry_delivery_Enquiry,Enquiry_attachment_other,Enquiry_Sub_Pricing_Enq,Enquiry_Sub_Tech_Enq,errMsg"/>
+                                           Enquiry_Item_Search,Enquiry_delivery_Enquiry,Enquiry_attachment_other,Enquiry_Sub_Pricing_Enq_Section1
+                                           ,Enquiry_Sub_Tech_Enq,errMsg"/>
                                         </apex:selectList>
                                     </apex:actionRegion>
 
@@ -375,11 +376,52 @@
 
                             <br/>
 
-<!-- MpBSP General Enquiry -->
-<!-- 2016-03-23 CLIEW: OUTPUT PANEL TAG UPDATED ACCORDING TO REVELANT MPBSP ENQUIRY TYPES -->
+                            <!-- MpBSP General Enquiry -->
+                            <!-- 2016-03-23 CLIEW: OUTPUT PANEL TAG UPDATED ACCORDING TO REVELANT MPBSP ENQUIRY TYPES -->
                             <apex:outputPanel id="Enquiry_General_Enquiry" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='technical enquiry' || LOWER(enq.MPB_BSP_Enquiry_Type__c) ='pricing enquiry'
                             || LOWER(enq.MPB_BSP_Enquiry_Type__c) ='other enquiry' || LOWER(enq.MPB_BSP_Enquiry_Type__c) ='label enquiry' || LOWER(enq.MPB_BSP_Enquiry_Type__c) ='pick up enquiry',true,false)}" >
-
+                                <!--2022-05-17 Talib: Enquiry subtype section moved together and split into two where required-->
+                                <apex:outputPanel id="Enquiry_Sub_Tech_Enq" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='technical enquiry',true,false)}">
+                                    <div class="input required">
+                                        <p>What are you enquiring about?<span class="symbol-req"> *</span></p>
+                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
+                                            <apex:selectOptions value="{!TechMpbCaseType}"/>
+                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Tech_Enq"/>
+                                        </apex:selectList>
+                                    </div>
+                                </apex:outputPanel>
+                            
+                                <apex:outputPanel id="Enquiry_Sub_label_Enq_section1" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='label enquiry',true,false)}">
+                                    <div class="input required">
+                                        <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
+                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
+                                            <apex:selectOptions value="{!MPBLabelSubEnqPicklist}"/>
+                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_label_Enq_section1,Enquiry_Section,Enquiry_Sub_label_Enq_section2,Enquiry_General_Enquiry"/>
+                                        </apex:selectList>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel id="Enquiry_Sub_Pick_Up_Enq" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='pick up enquiry',true,false)}">
+                                    <div class="input required">
+                                        <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
+                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
+                                            <apex:selectOptions value="{!MPBPickUpEnqPicklist}"/>
+                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pick_Up_Enq,Enquiry_Section"/>
+                                        </apex:selectList>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel id="Enquiry_Sub_Pricing_Enq_Section1" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='pricing enquiry',true,false)}">
+                                    <div class="input required">
+                                        <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
+                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
+                                            <apex:selectOptions value="{!MPBPricEnqPicklist}"/>
+                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pricing_Enq_Section1,Enquiry_Sub_Pricing_Enq_Section2,
+                                            Enquiry_Section"/>
+                                        </apex:selectList>
+                                    </div>
+                                </apex:outputPanel>
+                                
                                 <div style="height:5px;"/>
                                 <div class="input input-large">
                                     <p>Reference / name for your own records</p>
@@ -394,59 +436,22 @@
                                 <hr/>
 
                                 <h3>Your enquiry</h3>
+                                <br/>
 
-                                <apex:outputPanel id="Enquiry_Sub_Tech_Enq" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='technical enquiry',true,false)}">
-                                    <div class="input required">
-                                        <p>What are you enquiring about?<span class="symbol-req"> *</span></p>
-                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
-                                            <apex:selectOptions value="{!TechMpbCaseType}"/>
-                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Tech_Enq"/>
-                                        </apex:selectList>
-                                    </div>
-                                </apex:outputPanel>
-
-                                <apex:outputPanel id="Enquiry_Sub_label_Enq" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='label enquiry',true,false)}">
-
+                                <apex:outputPanel id="Enquiry_Sub_label_Enq_section2" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='label enquiry',true,false)}">
                                     <div class="input required input-large">
                                         <p>Transaction ID <span class="symbol-req"> *</span></p>
                                         <apex:inputField value="{!enq.ReferenceID__c}" />
                                     </div>
-
-                                    <div class="input required">
-                                        <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
-                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
-                                            <apex:selectOptions value="{!MPBLabelSubEnqPicklist}"/>
-                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_label_Enq,Enquiry_Section,Enquiry_General_Enquiry"/>
-                                        </apex:selectList>
-                                    </div>
                                 </apex:outputPanel>
 
-                                <apex:outputPanel id="Enquiry_Sub_Pick_Up_Enq" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='pick up enquiry',true,false)}">
-                                    <div class="input required">
-                                        <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
-                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
-                                            <apex:selectOptions value="{!MPBPickUpEnqPicklist}"/>
-                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pick_Up_Enq,Enquiry_Section"/>
-                                        </apex:selectList>
-                                    </div>
-                                </apex:outputPanel>
-                                <apex:outputPanel id="Enquiry_Sub_Pricing_Enq" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='pricing enquiry',true,false)}">
-
+                                <apex:outputPanel id="Enquiry_Sub_Pricing_Enq_Section2" rendered="{!IF(LOWER(enq.MPB_BSP_Enquiry_Type__c)='pricing enquiry',true,false)}">
                                     <apex:outputPanel id="Enquiry_Pricing_Disputed" rendered="{!IF(LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='disputed payment',true,false)}">
                                         <div class="input required input-large">
                                             <p>Underpaid Reference or Transaction ID <span class="symbol-req"> *</span></p>
                                             <apex:inputField value="{!enq.ReferenceID__c}" />
                                         </div>
                                     </apex:outputPanel>
-
-                                    <div class="input required">
-                                        <p>What are you enquiring about? <span class="symbol-req"> *</span> </p>
-                                        <apex:selectList size="1" value="{!enq.MPB_BSP_Tech_Enquiry_Type__c}" styleclass="input-medium"  >
-                                            <apex:selectOptions value="{!MPBPricEnqPicklist}"/>
-                                            <apex:actionSupport event="onchange" action="{!refreshPage}" reRender="Enquiry_Sub_Pricing_Enq,
-                                            Enquiry_Section"/>
-                                        </apex:selectList>
-                                    </div>
                                 </apex:outputPanel>
 
                                 <apex:outputPanel id="Enquiry_attachment_other" rendered="{!IF(LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='label support' || LOWER(enq.MPB_BSP_Tech_Enquiry_Type__c)='error codes'

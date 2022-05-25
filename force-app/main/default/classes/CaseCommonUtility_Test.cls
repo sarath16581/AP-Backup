@@ -11,6 +11,8 @@ History:
 2019-05-06    gunith.devasurendra@auspost.com.au    Convert Workflow logic to route Cases when state is 'new'ed
 2019-05-08    seth.p.heang@accenture.com            Adding test class to assert 'CAR' Case requestor field is populated with current user if left empty upon case creation
 2020-11-17 - Ranjeewa Silva - Added test casses to verify Social Case routing behaviour
+2022-04-22   SaiSwetha Pingali - Removed test methods for snapIt cases as it is no longer required.
+
 **************************************************/
 @isTest
 private with sharing class CaseCommonUtility_Test {
@@ -18,10 +20,6 @@ private with sharing class CaseCommonUtility_Test {
     
     @testSetup static void testDataCreate() {
         insert new Conveyancer_Number__c(SetupOwnerId=UserInfo.getOrganizationId(), Next_Id__c=123456);
-    }
-
-    //Added by David Catindoy - Sept 20, 2016
-    @testSetup static void createUser(){
         Profile p = [SELECT Id FROM Profile WHERE Name='StarTrack Support']; 
         UserRole r = [SELECT Id FROM UserRole WHERE Name = 'CEO/Reporting'];
         User supportUser = new User(Alias = 'spUser', Email='user@testorg.a', EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='user@testorg.a');
@@ -100,68 +98,6 @@ private with sharing class CaseCommonUtility_Test {
                 Database.insert(csRecBSP);
             Test.stopTest();
     }
-    }
-
-    /********************************************************************
-    Name:       testassignContactIDToSnapItCase
-    Purpose:    This method tests the testassignContactIDToSnapItCase
-    Return:     void
-    Param:      N/A
-    History:    
-    ---------------------------------------------------------------------
-    12.05.2017  A. Rivera   Created
-    *********************************************************************/  
-    private static testMethod void testAssignContactIDToSnapItCase(){
-        Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
-        System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
-            Map<String,Schema.RecordTypeInfo> accRecTypeMap = Schema.Sobjecttype.Account.getRecordTypeInfosByName();
-            
-            Id recTypeId = accRecTypeMap.get('Consumer').getRecordTypeId();
-            
-            Account acc = TestUtility.createBusinessAccount('TestAccount1', accRecTypeMap.get('Organisation').getRecordTypeId());
-            Contact con1 = new Contact(FirstName = 'TesTfirstName',LastName = 'TestlastName',Email = 'test@email.com',AccountId = acc.Id, phone = '0478738121');
-            Contact con2 = new Contact(FirstName = 'TesTfirstName1',LastName = 'TestlastName1',Email = 'test@email.com',AccountId = acc.Id, phone = '0478738120');
-            List<Contact> lstContact = new List<Contact>{con1, con2};
-            Database.insert(lstContact);
-            
-            
-            Account acct1 = new Account(FirstName = 'Bruce',LastName = 'Wayne', PersonEmail = 'bruce@wayne.com', RecordTypeId = recTypeId, PersonMobilePhone = '0478738121');
-            Database.insert(acct1);
-            
-            Case csRec1 = new Case(Contact_Email__c = 'bruce@wayne.com',Subject = 'Test',Origin = 'Snap It',Type = 'General Enquiry',
-                                    PrimaryContactFirstName__c = 'Bruce', PrimaryContactLastName__c = 'Wayne', Contact_Mobile__c = '0478738121',
-                                    ProductCategory__c = 'Domestic Parcels', ProductSubCategory__c = 'Courier Post');
-                                    
-            Case csRec2 = new Case(Contact_Email__c = 'test@email.com',Subject = 'Test',Origin = 'Snap It',Type = 'General Enquiry',
-                                    PrimaryContactFirstName__c = 'Bruce', PrimaryContactLastName__c = 'Wayne', Contact_Mobile__c = '0478738122',
-                                    ProductCategory__c = 'Domestic Parcels', ProductSubCategory__c = 'Courier Post');    
-                                    
-            Case csRec3 = new Case(Contact_Email__c = 'test@email.com',Subject = 'Test',Origin = 'Snap It',Type = 'General Enquiry',
-                                    PrimaryContactFirstName__c = 'Bruce', PrimaryContactLastName__c = 'Wayne', Contact_Mobile__c = '0478738121',
-                                    ProductCategory__c = 'Domestic Parcels', ProductSubCategory__c = 'Courier Post');                         
-                                    
-            Case csRec4 = new Case(Contact_Email__c = 'test@email.com',Subject = 'Test',Origin = 'Snap It',Type = 'General Enquiry',
-                                    PrimaryContactFirstName__c = 'TesTfirstName', PrimaryContactLastName__c = 'TestlastName', Contact_Mobile__c = '0478738123',
-                                    ProductCategory__c = 'Domestic Parcels', ProductSubCategory__c = 'Courier Post');     
-                                    
-            Case csRec5 = new Case(Contact_Email__c = 'test@emailko.com',Subject = 'Test',Origin = 'Snap It',Type = 'General Enquiry',
-                                    PrimaryContactFirstName__c = 'TesTfirstName', PrimaryContactLastName__c = 'TestlastName', Contact_Mobile__c = '0478738121',
-                                    ProductCategory__c = 'Domestic Parcels', ProductSubCategory__c = 'Courier Post'); 
-             
-            Case csRec6 = new Case(Contact_Email__c = 'test@email.com',Subject = 'Test',Origin = 'Snap It',Type = 'General Enquiry',
-                                    PrimaryContactFirstName__c = 'TesTfirstName', PrimaryContactLastName__c = 'TestlastName', Contact_Mobile__c = '0478738121',
-                                    ProductCategory__c = 'Domestic Parcels', ProductSubCategory__c = 'Courier Post');                         
-                                    
-            List<Case> lstCase = new List<Case>{csRec1, csRec2, csRec3, csRec4,csRec5,csRec6};
-            
-            Test.startTest();
-                Database.insert(lstCase);
-            Test.stopTest();
-            List<Case> lstcs = [SELECT Id FROM Case];
-            //System.assertEquals(lstcs.size(),5);
-        }
-
-
     }
 
     /**

@@ -12,7 +12,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -26,7 +25,6 @@
                     <value>linear</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
-                <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -36,7 +34,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-294feb5c-053a-4af7-be44-60e663432a08</name>
@@ -46,7 +43,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-2c400789-d7f5-45b6-8dc0-6cddc12cb466</name>
@@ -68,7 +64,6 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -86,7 +81,6 @@
                     <value>Standard.Tab.feed</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>feedTab</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-ff12bdd0-89b4-4426-b383-ee24ccf04cf6</name>
@@ -100,7 +94,6 @@
                     <value>Facet-ff12bdd0-89b4-4426-b383-ee24ccf04cf6</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>
@@ -122,7 +115,6 @@
                     <value>NONE</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer5</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-700b24a6-8452-4c26-b424-9f3bb3670d4e</name>
@@ -144,7 +136,6 @@
                     <value>NONE</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer4</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-02cccdea-9add-44ca-9d73-53586019bb39</name>
@@ -166,7 +157,6 @@
                     <value>NONE</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-7f6aa0eb-7dee-4168-ac77-905a353de92c</name>
@@ -188,7 +178,6 @@
                     <value>NONE</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-a8rrn1catzs</name>
@@ -210,7 +199,6 @@
                     <value>NONE</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-6c2ab420-3e63-46bb-bc39-757b4004cc34</name>
@@ -232,7 +220,6 @@
                     <value>accordionSection1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
-                <identifier>customSection4</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -250,7 +237,6 @@
                     <value>accordionSection2</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
-                <identifier>customSection3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -268,7 +254,6 @@
                     <value>accordionSection--2esqxgca6k3</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
-                <identifier>customSection2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -286,7 +271,6 @@
                     <value>accordionSection--tqoc1i2i6hb</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
-                <identifier>customSection</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -304,7 +288,6 @@
                     <value>accordionSection--untvm7id4oe</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
-                <identifier>customSection6</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-be5c0e39-b413-473b-9be3-2c6385f905c9</name>
@@ -326,7 +309,6 @@
                     <value>NONE</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer6</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-9a77a3bb-40a8-4e5a-9a21-3c4a61d25ebd</name>
@@ -348,7 +330,6 @@
                     <value>accordionSection1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
-                <identifier>customSection5</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-2d5be445-70b4-4c7a-9a47-d103e24dfbcf</name>
@@ -366,7 +347,6 @@
                     <value>accordionSection1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordion</componentName>
-                <identifier>flexipage_accordion</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -380,7 +360,6 @@
                     <value>accordionSection1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:accordion</componentName>
-                <identifier>flexipage_accordion2</identifier>
             </componentInstance>
         </itemInstances>
         <name>rightsidebar</name>
@@ -394,7 +373,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>support:milestones</componentName>
-                <identifier>support_milestones</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -412,13 +390,11 @@
                     <value>Contact.Update_Contact_BGS</value>
                 </componentInstanceProperties>
                 <componentName>console:relatedRecord</componentName>
-                <identifier>console_relatedRecord</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>leftsidebar</name>

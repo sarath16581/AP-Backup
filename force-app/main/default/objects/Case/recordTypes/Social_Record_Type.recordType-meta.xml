@@ -3,6 +3,7 @@
     <fullName>Social_Record_Type</fullName>
     <active>true</active>
     <businessProcess>SSSW</businessProcess>
+    <description>Social</description>
     <label>Social Record Type</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>

@@ -1,0 +1,13 @@
+<!-- Component to display the map within happy parcel app event messages -->
+<template>
+    <div class={containerClass}>
+        <c-happy-parcel-card title="Map" variant="vanilla-stretch" icon-name="action:map" button-icon="utility:close"
+            button-variant="bare" oncardbuttonclick={handleCardCloseClick}>
+            <div class="slds-border_top slds-grow">
+                <lightning-map map-markers={mapMarkers} zoom-level={zoomLevel} list-view={listView}
+                    onmarkerselect={handleMarkerSelect} selected-marker-value={selectedMarkerValue}
+                    markers-title={markersTitle} show-footer={showFooter}></lightning-map>
+            </div>
+        </c-happy-parcel-card>
+    </div>
+</template>

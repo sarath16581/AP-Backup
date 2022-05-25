@@ -7,6 +7,7 @@
               3. Added error summary markup inside the card layout
  2021-02-04 : Created : AME address validation for address fields on all of the H&S forms
  2021-07-21 : Hara Sahoo : Added field for sentimental value
+ 2022-05-19 : Mahesh Parvathaneni : DDS-7472: When consignment API returns 404, show the warning message
 -->
 <aura:component extends="c:SS_uiWizardPage" controller="ChasEDDServiceEstimates" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" description="Missing Items wizard page 2: Item details (capture details)">
     
@@ -303,6 +304,12 @@
                             </p>
                         </div>
                     </c:ChasBspDeflection>
+                    <!-- Invalid Tracking Number Message -->
+                    <div class="tracking-error">
+                        <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-warn-circle.svg'}">
+                            <p class="message-text">We couldn't find this tracking number in our records. Please <a class="back-link" onclick="{!c.goBack}">go back</a> and check the tracking number and then continue.</p>
+                        </c:ChasBspDeflection>
+                    </div>
                 </aura:if>
                 <div class="form-input-container">
                     <!--<c:ChasFieldset label="Confirm item details">-->

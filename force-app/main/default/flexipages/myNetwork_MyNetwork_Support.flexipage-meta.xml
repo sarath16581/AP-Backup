@@ -13,7 +13,6 @@
                     <value>1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <name>facet-indirection-f199efb8-3246-42bf-89ac-38fd4e5e03fe</name>
@@ -35,7 +34,6 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
-                <identifier>forceCommunity_htmlBlock</identifier>
             </componentInstance>
         </itemInstances>
         <name>9fcb02a1-b6fd-4d62-92d7-24cae69b364a</name>
@@ -56,7 +54,6 @@
                     <value>1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -70,7 +67,6 @@
                     <value>37c30</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -84,7 +80,6 @@
                     <value>206a2</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab4</identifier>
             </componentInstance>
         </itemInstances>
         <name>facet-indirection-787052ef-4bc9-4d5d-a5de-f96f68f1a147</name>
@@ -104,7 +99,6 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
-                <identifier>forceCommunity_htmlBlock2</identifier>
             </componentInstance>
         </itemInstances>
         <name>9df411d9-a43f-4a9f-b342-0ad9205bdcae</name>
@@ -123,7 +117,6 @@
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
-                <identifier>forceCommunity_htmlBlock3</identifier>
             </componentInstance>
         </itemInstances>
         <name>03754dbf-1273-4b23-9f82-3c2b0cef0ccf</name>
@@ -167,7 +160,6 @@
                     <value>80</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:section</componentName>
-                <identifier>forceCommunity_section</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -197,7 +189,6 @@
                     <value>300</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:section</componentName>
-                <identifier>forceCommunity_section2</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -214,7 +205,6 @@
                     <value>MyNetwork Support</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
-                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

@@ -3,6 +3,7 @@
     <fullName>Delivery_1</fullName>
     <active>true</active>
     <compactLayoutAssignment>Network_Compact_Layout</compactLayoutAssignment>
+    <description>AP Deliveries</description>
     <label>Delivery</label>
     <picklistValues>
         <picklist>ANZNSWGovtSchoolBanking__c</picklist>

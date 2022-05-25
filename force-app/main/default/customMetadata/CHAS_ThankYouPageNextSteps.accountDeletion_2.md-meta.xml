@@ -24,7 +24,7 @@
     </values>
     <values>
         <field>Sub_Label__c</field>
-        <value xsi:type="xsd:string">Make sure you write down tracking numbers for parcels you haven&apos;t received yet or want to keep a record of. You can still track them without an account</value>
+        <value xsi:type="xsd:string">Make sure you write down tracking numbers for parcels you haven&apos;t received yet or want to keep a record of. You can still track them without an account.</value>
     </values>
     <values>
         <field>isActive__c</field>

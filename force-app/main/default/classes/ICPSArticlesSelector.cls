@@ -52,7 +52,20 @@ public inherited sharing class ICPSArticlesSelector extends ApplicationSelector 
 	protected override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 				ICPSArticle__c.Id, ICPSArticle__c.Name, ICPSArticle__c.ConsignmentReference__c, ICPSArticle__c.DeclaredValue__c,
-				ICPSArticle__c.Weight__c, ICPSArticle__c.PostageInsurance__c, ICPSArticle__c.ICPS__c
+				ICPSArticle__c.Weight__c, ICPSArticle__c.PostageInsurance__c, ICPSArticle__c.ICPS__c, ICPSArticle__c.ReceiverName__c,
+				ICPSArticle__c.ReceiverEmail__c, ICPSArticle__c.ReceiverMobile__c, ICPSArticle__c.ReceiverStreetLine1__c,
+				ICPSArticle__c.ReceiverStreetLine2__c, ICPSArticle__c.ReceiverCity__c, ICPSArticle__c.ReceiverPostalCode__c,
+				ICPSArticle__c.ReceiverState__c,ICPSArticle__c.SenderName__c, ICPSArticle__c.SenderStreetLine1__c, ICPSArticle__c.SenderStreetLine2__c,
+				ICPSArticle__c.SenderCity__c, ICPSArticle__c.SenderPostalCode__c, ICPSArticle__c.SenderState__c, ICPSArticle__c.SenderCountry__c,
+				ICPSArticle__c.Contents__c
 		};
+	}
+
+	/**
+	* @description Return ICPS Article List by ICPS Id set
+	*/
+	public List<ICPSArticle__c> selectByICPSId(Set<Id> icpsIds) {
+		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(ICPSArticle__c.ICPS__c + ' IN :icpsIds')).endConditions();
+		return (List<ICPSArticle__c>) Database.query(qb.toSoqlString());
 	}
 }

@@ -69,6 +69,10 @@ td.align-center {
 	padding-top: var(--lwc-spacingXSmall,0.5rem);
 }
 
+.em-card__container {
+    max-width:90vw;
+}
+
 @media screen and (max-width: 60em) {
 	.maxWidth{
 		max-width:100px;

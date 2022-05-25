@@ -12,7 +12,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>brideas_IdeaDetail</componentName>
-                <identifier>brideas_IdeaDetail</identifier>
             </componentInstance>
         </itemInstances>
         <name>Content</name>
