@@ -42,6 +42,8 @@ $RECYCLE.BIN/
 # Jetbrains / Illuminated Cloud
 IlluminatedCloud/
 .idea/
+manifest/
+package.xml
 
 # pipeline retrieval
 src/
