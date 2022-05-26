@@ -10,7 +10,7 @@ History:
 2021-06-22 Naveen Rajanna Changed APT_LPD_Frequency__c picklist to APT_LPD_Multiple_Frequency__c  multi-picklist field
 2021-10-28 Sautul Mehta - CI-96 Changes for APPC Contract Template Document Generation.
 2022-04-26 Pradeep Jaiswal - CI-224 Populated Cubic Status, Cubic Factor and Existing APPC Customer Attributes
-2022-05-23 Chaitanya Doshi - Added NULL CHECK For Product Code as for "Premium - STE" has blank Productcode, which causing issue after APPC Live.
+2022-05-23 Chaitanya Doshi - Changed condition to exact match Product code as "Premium - STE" has blank Productcode and "contains" is causing issue in PROD.
 **************************************************/
 
 public with sharing class APT_AgreementLineItemTriggerHandler{
@@ -31,39 +31,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
         } catch(system.exception ex) {
             return ex.getMessage();
         }
-    }
-    
-     /**
-        This method will copy agreement lodgement point from quote and also creates agreement rate card.
-        @params -
-        aliList- list of Agreement line items        
-     */
-    /*
-    public static void createAgreementChildRecords(List<Apttus__AgreementLineItem__c> aliList){
-        try {
-            Set<ID> agreementIDs = new Set<ID>();
-            
-            for(Apttus__AgreementLineItem__c ali : aliList){
-                if(!ali.APT_Contract_Type__c){
-                    agreementIDs.add(ali.Apttus__AgreementId__c);
-                }
-                system.Debug(ali.APT_Contract_Type__c + '--->ali');
-                
-            }
-            
-            //Map<ID, Apttus__APTS_Agreement__c> agreementMap = new Map<ID, Apttus__APTS_Agreement__c>([select id,RecordType.DeveloperName from Apttus__APTS_Agreement__c 
-            //                                                                where id in: agreementIDs
-            //                                                                And (RecordType.DeveloperName != 'APT_Community_Update_Pack') ]);
-            //createALIChildRecords(agreementMap.keySet());
-            //createALIChildRecords(agreementIDs);
-            if(agreementIDs.size() > 0){
-                //ID jobID = System.enqueueJob(new APT_AgreementLineItemChildQueueable(agreementIDs));
-            }
-        } catch (exception ex) {
-            system.debug('Exception'+ ex.getMessage());
-        }
-    }
-    */
+    }    
     
     /**
      * after insert agreement line item
@@ -177,8 +145,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     && null != ali.Apttus__AgreementId__r.Operational_Schedule__c 
                     && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c)
                     ) || ( 
-                        // Chaitanya 23-05-2022: Added NULL CHECK For Product Code as for "Premium - STE" has blank Productcode, which causing issue after APPC Live.
-                        ali.Apttus__ProductId__r.ProductCode != null && ali.Apttus__ProductId__r.ProductCode.contains(APT_Constants.PRODUCT_CODE_APPC) 
+                        // Chaitanya 23-05-2022: 2022-05-23 Chaitanya Doshi - Changed condition to exact match Product code as "Premium - STE" has blank Productcode and "contains" is causing issue in PROD.
+                        ali.Apttus__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_APPC 
                     ))                   
                 	{                    
                     os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;

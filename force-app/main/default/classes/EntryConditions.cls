@@ -16,6 +16,9 @@ public inherited sharing class EntryConditions {
 
 	// String literal for the "Any" condition (see conditionRquirements below)
 	private static final String ANY_REQUIRED = 'Any';
+    // String literal for comparison types
+    private static final String CONTAINS = 'contains';
+    private static final String NOT_CONTAINS = 'notContains';
     
     // Maps a specified conditions Name to Entry Conditions 
     // (example a particular survey to its entry conditions)
@@ -69,15 +72,23 @@ public inherited sharing class EntryConditions {
         public Conditions(Map<String, Object> entryConditionsFieldValueMap, String conditionRequirements) {
         	this.conditionRequirements = conditionRequirements;
 			entryConditions = new List<Condition>();
-			addEntryConditions(entryConditionsFieldValueMap);
+            for (String currentConditionType : entryConditionsFieldValueMap.keySet()) {
+                Object value = entryConditionsFieldValueMap.get(currentConditionType);
+                if (value instanceOf Map<String,Object>) {
+                    // Conditon type is a comparison : Map of field-value set
+                	addEntryConditions((Map<String,Object>)value, currentConditionType); 
+                }
+                // Conditon type is a field-value set
+                else entryConditions.add(new Condition(currentConditionType, entryConditionsFieldValueMap.get(currentConditionType)));
+            }
         }
         /*
         * Appends a list of Conditions from a Map of fields and their requisite values.
         * @param entryConditionsFieldValueMap Maps a Field Name to the desired Value(s) which can be either a String or a List<String>
         */
-        private void addEntryConditions(Map<String, Object> entryConditionsFieldValueMap) {
+        private void addEntryConditions(Map<String, Object> entryConditionsFieldValueMap, string comparison) {
             for (String currentFieldName : entryConditionsFieldValueMap.keySet()) {
-                entryConditions.add(new Condition(currentFieldName, entryConditionsFieldValueMap.get(currentFieldName)));
+                entryConditions.add(new Condition(currentFieldName, entryConditionsFieldValueMap.get(currentFieldName),comparison));
             }
         }
         
@@ -90,7 +101,7 @@ public inherited sharing class EntryConditions {
             Boolean anyRequired = conditionRequirements == ANY_REQUIRED;
             for (Condition currentCondition : entryConditions) {
                 
-                if (currentCondition.isMetOnEquality(record) == anyRequired) {
+                if (currentCondition.isMet(record) == anyRequired) {
                     return anyRequired;
                 }
             }
@@ -119,16 +130,32 @@ public inherited sharing class EntryConditions {
 
 		// The name of the field to test against specified values
 		private String fieldName { get; set; }
+        
+        private String comparison {get; set;}
 
 		// a list of requeiste values that the field is tested against
 		private List<String> fieldValues { get; set; }
 
-		// Constructor
-		public Condition(String name, Object values) {
-            
-			fieldName = name;
+		// Constructors
+        public Condition (String name, Object values, String comparison) {
 
-            if (values instanceof List<Object>) {
+            this.comparison = comparison;
+            fieldName = name;
+            setFieldValues(values);
+        }
+		public Condition(String name, Object values) {
+
+			fieldName = name;
+			setFieldValues(values);
+
+		}
+       
+       /*
+		* sets the requred value(s) that the field is tested against
+		* @param values either a string  or a List<string>
+		*/
+        private void setFieldValues(Object values) {
+        	if (values instanceof List<Object>) {
                 
                 fieldValues = new List<String>();
                 for (Object currentItem :(List<Object>) values) fieldValues.add((String)currentItem);
@@ -139,19 +166,48 @@ public inherited sharing class EntryConditions {
                 fieldValues = new List<String>{(String) values};
                     
             }  
-		}
+        }
 		
 		/*
-		* Determines if a record field meets the requisite condition for "Equals".
+		* Determines if a record field meets the requisite condition.
 		* @param condition the Condition under test
 		* @param record the SObject data record being tested against the requisite value(s)
 		*/
-		public Boolean isMetOnEquality(SObject record) {
+		public Boolean isMet(SObject record) {
 
             string fieldValue = String.valueOf(record.get(fieldName));
             if (fieldValue == null) fieldValue = 'null';
-            return fieldValues.contains(fieldValue);
+            
+            if (comparison == CONTAINS) {
+                return isMetOnContains(fieldValue);
+            }
+            else if (comparison == NOT_CONTAINS) {
+                return !isMetOnContains(fieldValue);
+            }
+            else return isMetOnEquality(fieldValue);
 		
+        }
+        /*
+		* Determines if a record field meets the requisite condition for "Equals".
+		* @param value the value under test
+		*/
+        private Boolean isMetOnEquality (string value) {
+
+            return fieldValues.contains(value);
+        }
+        /*
+		* Determines if a record field meets the requisite condition for "contains" or "notContains".
+		* @param value the value under test
+		* @param isContains whether the value under test should be contained or not contained by the field values
+		*/
+        private Boolean isMetOnContains(String value) {
+            for (String currentValue : fieldValues) {
+
+                if (value.contains(currentValue)) {
+                    return true;
+                }
+            }
+            return false;
         }
 	}
 }

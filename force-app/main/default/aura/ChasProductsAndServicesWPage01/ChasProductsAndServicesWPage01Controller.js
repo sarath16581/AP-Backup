@@ -1,6 +1,7 @@
 /*
  * * 2020-07-28 hara.sahoo@auspost.com.au Reset the showErrorSummary flag, to display the error summary.
  * * 2020-09-17 hara.sahoo@auspost.com.au Push analytics for direct link redirection from chatbots, faq pages.
+ * * 2022-05-25 mahesh.parvathaneni@auspost.com.au DDS-7397 Set the recipient WCID
  */
 ({    
     doInit :function(cmp, event, helper) {
@@ -101,6 +102,10 @@
         var selectedPostOfficeAddress= selectedPostOffice.location.address;
         var previousSelectedPostOffice = component.get('v.previousSelectedPO');
         component.set('v.wizardData.selectedPostOffice',selectedPostOfficeAddress);
+        //DDS-7397 Set the recipient WCID
+        if (!$A.util.isUndefinedOrNull(selectedPostOffice.location.wcid)) {
+            component.set('v.wizardData.wcid', selectedPostOffice.location.wcid);
+        }
         //Check if the previous address selected was changed
         if(!$A.util.isEmpty(previousSelectedPostOffice) &&  previousSelectedPostOffice != selectedPostOfficeAddress)
         {

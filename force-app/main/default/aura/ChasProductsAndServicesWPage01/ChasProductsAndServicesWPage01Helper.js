@@ -1,7 +1,7 @@
 /**
  * Created by nmain on 31/10/2017.
  */
-({
+ ({
     setRadioName: function(cmp, radioGroupName, selectedRadioId, selectedRadioName) { 
         var selectedRadio = cmp.get(selectedRadioId)
         var radioList = cmp.get(radioGroupName)
@@ -173,9 +173,11 @@
                 if (state === "SUCCESS") {
                     var returnObj =  JSON.parse((JSON.stringify(response.getReturnValue())));
                     var returnCode = returnObj["trackingNumSerachStatusCode"];
-                    cmp.set('v.wizardData.wcid', returnObj["wcid"]);
-                    cmp.set('v.wizardData.isParcelAwaitingCollection', returnObj["isParcelAwaitingCollection"]);
-                    cmp.set('v.wizardData.subProductId', returnObj["subProductId"]);
+                    //refactored the code to bind the response based on list of trackingNumberDetails
+                    if (!$A.util.isUndefinedOrNull(returnObj["trackingNumberDetails"])) {
+                        cmp.set('v.wizardData.isParcelAwaitingCollection', returnObj["trackingNumberDetails"][0].isParcelAwaitingCollection);
+                        cmp.set('v.wizardData.subProductId', returnObj["trackingNumberDetails"][0].subProductId);
+                    }
                     // for return code other than 200 Success OK
                     if (returnObj["trackingNumSerachStatusCode"] != 200) {
                         trackingNumInputCmp.set("v.error", "Unconfirmed number. It may be incorrect, or not in our system yet.");

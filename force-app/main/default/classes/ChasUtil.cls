@@ -6,6 +6,7 @@
  * 2021-12-03 edgarallan.castillo3@auspost.com.au Updated case comment creation to use list of comments
  * 2021-12-06 alex.volkov@auspost.com.au Added support for mocks
  * 2022-01-27 hasantha.liyanage@auspost.com.au added null check for convertToDateWithTimezoneFormat()
+ * 2022-05-25 hasantha.liyanage@auspost.com.au changed addDays method DDS-9786
  * */
 public without sharing class ChasUtil {
 
@@ -47,26 +48,22 @@ public without sharing class ChasUtil {
     /**
      * Add business days to a given date based on the parameters passed
      * */
-    public static Datetime addDays(Datetime startDate, Integer days)
-    {
+    public static Datetime addDays(Datetime startDate, Integer days) {
         Id bHours = getBusinessHours().Id;
-        //If startdate is not within working days, take next working day
-        startDate = BusinessHours.nextStartDate(bHours, startDate);
 
-        for (Integer elapsed = 0; elapsed < days; elapsed++)
-        {
+        for (Integer elapsed = 0; elapsed < days; elapsed++) {
             //Add 1 day
             startDate = startDate.addDays(1);
 
             //Check if new date is within working days
-            if (!BusinessHours.isWithin(bHours, startDate))
-            {
+            if (!BusinessHours.isWithin(bHours, startDate)) {
                 //If new date is not within working days, get new working day
                 startDate = BusinessHours.nextStartDate(bHours, startDate);
             }
         }
         return startDate;
     }
+
     /**
      * Check if the current date is within EDD and EDD+Business days
      * */

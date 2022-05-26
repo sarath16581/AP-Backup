@@ -18192,11 +18192,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Product__kav.Time_To_Remind__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Product__kav.Website_information__c</field>
         <readable>true</readable>
     </fieldPermissions>

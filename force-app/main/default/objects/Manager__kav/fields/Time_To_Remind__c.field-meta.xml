@@ -4,7 +4,7 @@
     <description>A reminder date for reminding/updating the article</description>
     <externalId>false</externalId>
     <label>Time To Remind</label>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Date</type>
