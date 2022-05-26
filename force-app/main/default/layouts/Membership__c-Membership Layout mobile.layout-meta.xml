@@ -18,11 +18,11 @@
                 <field>Name</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>Member_Type__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>Licensee_Type__c</field>
             </layoutItems>
             <layoutItems>
@@ -34,7 +34,7 @@
                 <field>APLAC_MembershipDate__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>Date_Signed__c</field>
             </layoutItems>
         </layoutColumns>
@@ -44,11 +44,11 @@
                 <field>Status__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>ABN__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>WCC__c</field>
             </layoutItems>
             <layoutItems>
@@ -56,11 +56,7 @@
                 <field>Account__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Ineligible__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Ineligible_reason__c</field>
             </layoutItems>
         </layoutColumns>
