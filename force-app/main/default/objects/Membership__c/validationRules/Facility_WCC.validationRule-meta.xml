@@ -3,8 +3,11 @@
     <fullName>Facility_WCC</fullName>
     <active>true</active>
     <description>WCC should match the account license&apos;s parent facility WCC</description>
-    <errorConditionFormula>(RecordType.DeveloperName =&apos;APLAC_Membership&apos;  || RecordTypeId = null) &amp;&amp;
-WCC__c   &lt;&gt;   Parent_Lic_Facility_WCC__c</errorConditionFormula>
+    <errorConditionFormula>AND(
+ OR(RecordType.DeveloperName = &apos;APLAC_Membership&apos;, RecordTypeId = null),
+ NOT(TEXT(Status__c) == &apos;Ineligible&apos;),
+ WCC__c &lt;&gt; Parent_Lic_Facility_WCC__c
+)</errorConditionFormula>
     <errorDisplayField>WCC__c</errorDisplayField>
     <errorMessage>Error: Entered WCC should match the account license&apos;s facility WCIS Code.Please try again.</errorMessage>
 </ValidationRule>

@@ -3,8 +3,11 @@
     <fullName>Account_License_validation</fullName>
     <active>true</active>
     <description>Contact and Account License should be under the same organization</description>
-    <errorConditionFormula>(RecordType.DeveloperName = &apos;APLAC_Membership&apos; ||  RecordTypeId = null) &amp;&amp;
-Account__r.ParentId   &lt;&gt;    Contact__r.AccountId</errorConditionFormula>
+    <errorConditionFormula>AND(
+ OR(RecordType.DeveloperName = &apos;APLAC_Membership&apos;, RecordTypeId = null),
+ NOT(TEXT(Status__c) == &apos;Ineligible&apos;),
+ Account__r.ParentId &lt;&gt; Contact__r.AccountId
+)</errorConditionFormula>
     <errorDisplayField>Account__c</errorDisplayField>
     <errorMessage>Member Name (Contact) and Account License should be under the same organization</errorMessage>
 </ValidationRule>
