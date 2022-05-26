@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SObjectTypeGroup__c</fullName>
+    <description>Async workers can grouped together to be processed in the same queueable instance. We sequentially move through the enqueued async workers and where this field and the Unit of Work SObject Types field are the same, then we combine those requests into a single queueable.
+
+If this combined with the Unit of Work SObject Types
+
+Denotes the specific group this worker falls into.</description>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>SObject Type Group</label>
+    <length>50</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

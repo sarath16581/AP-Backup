@@ -1,6 +1,9 @@
 {
   "packageDirectories": [
     {
+      "path": "src/frameworks/enterprise"
+    },
+    {
       "path": "force-app",
       "default": true
     }
