@@ -12,7 +12,7 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>Air</fullName>
                 <default>false</default>
@@ -27,6 +27,11 @@
                 <fullName>SAL</fullName>
                 <default>false</default>
                 <label>SAL</label>
+            </value>
+            <value>
+                <fullName>Sea</fullName>
+                <default>false</default>
+                <label>Sea</label>
             </value>
             <value>
                 <fullName>Sea Mail</fullName>
