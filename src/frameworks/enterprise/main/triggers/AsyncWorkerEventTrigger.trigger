@@ -5,6 +5,7 @@
  * @author Nathan Franklin
  * @date 2020-04-10
  * @group Core
+ * @test ApplicationUnitOfWorkAsyncEvent_Test, ApplicationUnitOfWork_Test, ApplicationUnitOfWorkBase_Test
  * @changelog
  */
 trigger AsyncWorkerEventTrigger on AsyncWorkerEvent__e (after insert) {
