@@ -1,5 +1,10 @@
 {
   "trailingComma": "none",
+  "tabWidth": 4,
+  "useTabs": true,
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "singleAttributePerLine": false,
   "overrides": [
     {
       "files": "**/lwc/**/*.html",
