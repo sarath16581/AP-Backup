@@ -6,6 +6,7 @@
   * Modifield by Hara Sahoo - 11/01/2020 - Changes made as part of enquiry submission in an unauthenticated user context 
   * Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form 
   * Modified by Mahesh Parvathaneni - 03/05/2022 - Added disclaimer section on Delete MyPost account enquiry and changed to MyPost general enquiries
+  * Modified by Hasantha Liyanage - 30/05/2022 DDS-10809: - Accessibility categories - Preselect functionality on product & services
 -->
 <aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Products and Services wizard page 1: Issue Details">
     
@@ -17,7 +18,8 @@
                              {'label':'Post Office', image:'/chas-icons/pngs/Selection-icons/post-office.png','id':'secondRadio'},
                              {'label':'ID, documents &amp; accounts', image:'/chas-icons/pngs/Selection-icons/id-documents-accounts.png','id':'thirdRadio'},
                              {'label':'Online Shop', image:'/chas-icons/pngs/Selection-icons/online-shop.png','id':'fourthRadio'},
-                             {'label':'Money', image:'/chas-icons/pngs/Selection-icons/money.png','id':'fifthRadio'}
+                             {'label':'Money', image:'/chas-icons/pngs/Selection-icons/money.png','id':'fifthRadio'},
+                             {'label':'Accessibility or disability', image:'/chas-icons/pngs/Selection-icons/accessibility.png','id':'tenthRadio'}
                              ]"/>
     <aura:attribute name="mailProductsEnquiryTypes" type="List"
                     default="[
@@ -49,6 +51,13 @@
                     default="[
                              {'label':'Bank@Post', 'id':'eigthRadio'},
                              {'label':'Post Billpay', 'id':'ninthRadio'}
+                             ]"/>
+    <aura:attribute name="accessibilityIssueTypeRadioGroup" type="List"
+                    default="[
+                             {'label':'Post Office', 'id':'postOfficeRadio'},
+                             {'label':'Delivery', 'id':'deliveryRadio'},
+                             {'label':'Website or app', 'id':'WebOrAppRadio'},
+                             {'label':'Other issue type', 'id':'OtherIssueRadio'}
                              ]"/>
     <aura:attribute name="helptext" type="String" />
     <!-- Guest login attributes-->
@@ -234,14 +243,27 @@
                                             options="{! v.moneyEnquiryTypeRadioGroup }"
                                             value="{! v.wizardData.selectedRadio3 }" />
                     </aura:if>
-                    
-                    
-                    <!-- Enquiry details -->
-                    <!-- DDS-10265 Hide the details section when Delete Mypost account is selected -->
-                    <aura:if isTrue="{! !and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account')}">
-                        <c:chasTextArea aura:id="chasInput" name="enquiryDetails" required="true" label="Please provide details" value="{!v.wizardData.enquiryDetails}" helptext="{! v.helptext }" />
+
+                    <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility or disability' }">
+                        <!-- DDS-10809  What kind of issue is it? radio buttons on accessibility selection-->
+                        <c:ChasRadioButtons aura:id="chasInput"
+                                            name="accessibilityIssueTypeRadioButtons"
+                                            required="true"
+                                            label="What kind of issue is it?"
+                                            options="{! v.accessibilityIssueTypeRadioGroup }"
+                                            value="{! v.wizardData.accessibilityIssueType }" />
                     </aura:if>
                     
+                    {!v.wizardData.selectedRadio1Name}
+                    <!-- Enquiry details -->
+                    <!-- DDS-10265 Hide the details section when Delete Mypost account is selected -->
+                    <!-- DDS-10809 Hide the details section when Accessibility or disability selected NOTE: aura only supports 2 parameters in and() function,
+                    hence moved the idDocumentsAccountsEnquiryType to a second if condition -->
+                    <aura:if isTrue="{! !and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.selectedRadio1Name == 'Accessibility or disability')}">
+                        <aura:if isTrue="{! v.wizardData.idDocumentsAccountsEnquiryType != 'Delete MyPost account'}">
+                            <c:chasTextArea aura:id="chasInput" name="enquiryDetails" required="true" label="Please provide details" value="{!v.wizardData.enquiryDetails}" helptext="{! v.helptext }" />
+                        </aura:if>
+                    </aura:if>
                     <aura:if isTrue="{! and(v.wizardData.selectedRadio1Name == 'Online Shop', v.wizardData.selectedRadio2Name == 'Yes') }">
                         <div id="AMEOnlineDeliveryAddress" name="AMEOnlineDeliveryAddress" class="AMEAddress">
                             <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
