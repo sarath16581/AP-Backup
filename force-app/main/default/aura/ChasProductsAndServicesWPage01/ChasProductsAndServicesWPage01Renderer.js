@@ -24,7 +24,7 @@
 
         // DDS-10809 preselect Accessibility option and the issue type
         if(BASE_URL.includes("accessibilitydelivery") && $A.util.isEmpty(cmp.get("v.wizardData.selectedRadio1"))) {
-            cmp.set("v.wizardData.selectedRadio1", "tenthRadio");
+            cmp.set("v.wizardData.selectedRadio1", "accessibilityOption");
             cmp.set("v.wizardData.selectedRadio1Name", 'Accessibility or disability');
             cmp.set("v.wizardData.accessibilityIssueType",'deliveryRadio');
         }
