@@ -44,6 +44,8 @@ IlluminatedCloud/
 .idea/
 manifest/
 package.xml
+workspace/
+.vscode/
 
 # metadata specific
 force-app/main/default/staticresources/Cognition_StaticRes/css/Icon\r
