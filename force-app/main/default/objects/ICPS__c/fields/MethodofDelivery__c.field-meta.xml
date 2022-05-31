@@ -44,9 +44,14 @@
                 <label>ENTRY PICK UP</label>
             </value>
             <value>
-                <fullName>Entry Post On</fullName>
+                <fullName>ENTRY POST ON</fullName>
                 <default>false</default>
-                <label>Entry Post On</label>
+                <label>ENTRY POST ON</label>
+            </value>
+            <value>
+                <fullName>MISC/INVENTORY</fullName>
+                <default>false</default>
+                <label>MISC/INVENTORY</label>
             </value>
             <value>
                 <fullName>RE- EXPORT</fullName>
@@ -97,6 +102,31 @@
                 <fullName>Seized</fullName>
                 <default>false</default>
                 <label>Seized</label>
+            </value>
+            <value>
+                <fullName>SEIZED BY ACS</fullName>
+                <default>false</default>
+                <label>SEIZED BY ACS</label>
+            </value>
+            <value>
+                <fullName>SEIZURE CUSTOMS</fullName>
+                <default>false</default>
+                <label>SEIZURE CUSTOMS</label>
+            </value>
+            <value>
+                <fullName>SEIZURE QUARANT</fullName>
+                <default>false</default>
+                <label>SEIZURE QUARANT</label>
+            </value>
+            <value>
+                <fullName>TRANS TO PPC6</fullName>
+                <default>false</default>
+                <label>TRANS TO PPC6</label>
+            </value>
+            <value>
+                <fullName>UNCL/RTS/AIR</fullName>
+                <default>false</default>
+                <label>UNCL/RTS/AIR</label>
             </value>
             <value>
                 <fullName>UNCL/RTS/EMS</fullName>

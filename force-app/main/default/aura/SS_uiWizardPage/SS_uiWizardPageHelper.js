@@ -1,8 +1,10 @@
 /*
- * @changelog : 2020-07-06 : Modified the JS file for additional logic to the navigation screens in gotoNextPage() and gotoPrevPage() method.
-                2020-08-31 : Catered for the safari browser date format issue
-                2020-10-28 : INC1657584 : Snigdha : Update for the IE date format issue
-                2020-01-14 : Hara Sahoo: Changes made as part of enquiry submission in an unauthenticated user context- Added storeEncryPtWizardDataAndNavigateToMyPost
+ * @changelog : 
+    * Modified by   : 2020-07-06 : Modified the JS file for additional logic to the navigation screens in gotoNextPage() and gotoPrevPage() method.
+    * Modified by   : 2020-08-31 : Catered for the safari browser date format issue
+    * Modified by   : 2020-10-28 : INC1657584 : Snigdha : Update for the IE date format issue
+    * Modified by   : 2020-01-14 : Hara Sahoo: Changes made as part of enquiry submission in an unauthenticated user context- Added storeEncryPtWizardDataAndNavigateToMyPost
+    * Modified by   : 2022-05-30 : Thang Nguyen : [DDS-10785] Added navigatePage parameter for gotoPage function
  */
 ({
     gotoNextPage : function(cmp) {
@@ -59,11 +61,17 @@
         wizardPageEvent.fire();
     },
     
-    gotoPage : function(cmp) {
+    gotoPage : function(cmp, navigatePage) {
         var navigateTo = cmp.get('v.gotoPages');
+        var urlPage = '';
+        if($A.util.isEmpty(navigatePage) || $A.util.isUndefined(navigatePage)){
+            urlPage = navigateTo.missingItemPage;
+        }else{
+            urlPage = navigateTo[navigatePage];
+        }
         var urlEvent = $A.get("e.force:navigateToURL");
         urlEvent.setParams({
-            "url": navigateTo.missingItemPage
+            "url": urlPage
         });
         urlEvent.fire();
     },

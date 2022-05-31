@@ -142,11 +142,7 @@
             <value></value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Charter</milestoneName>
-        <minutesToComplete>3000</minutesToComplete>
-        <timeTriggers>
-            <timeLength>-1</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
+        <minutesToComplete>1200</minutesToComplete>
         <timeTriggers>
             <actions>
                 <name>SSSW_Set_Case_as_Escalated</name>
