@@ -256,12 +256,8 @@
 
                     <!-- Enquiry details -->
                     <!-- DDS-10265 Hide the details section when Delete Mypost account is selected -->
-                    <!-- DDS-10809 Hide the details section when Accessibility or disability selected NOTE: aura only supports 2 parameters in and() function,
-                    hence moved the idDocumentsAccountsEnquiryType to a second if condition -->
-                    <aura:if isTrue="{! !and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.selectedRadio1Name == 'Accessibility or disability')}">
-                        <aura:if isTrue="{! v.wizardData.idDocumentsAccountsEnquiryType != 'Delete MyPost account'}">
-                            <c:chasTextArea aura:id="chasInput" name="enquiryDetails" required="true" label="Please provide details" value="{!v.wizardData.enquiryDetails}" helptext="{! v.helptext }" />
-                        </aura:if>
+                    <aura:if isTrue="{! !and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account')}">
+                        <c:chasTextArea aura:id="chasInput" name="enquiryDetails" required="true" label="Please provide details" value="{!v.wizardData.enquiryDetails}" helptext="{! v.helptext }" />
                     </aura:if>
                     <aura:if isTrue="{! and(v.wizardData.selectedRadio1Name == 'Online Shop', v.wizardData.selectedRadio2Name == 'Yes') }">
                         <div id="AMEOnlineDeliveryAddress" name="AMEOnlineDeliveryAddress" class="AMEAddress">
