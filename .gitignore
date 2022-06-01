@@ -14,6 +14,10 @@ deploy-options.json
 # LWC Jest coverage reports
 coverage/
 
+# scripts dummy files
+**/scripts/soql/query_builder.soql
+**/scripts/apex/execute_anonymous.apex
+
 # Logs
 logs
 *.log
