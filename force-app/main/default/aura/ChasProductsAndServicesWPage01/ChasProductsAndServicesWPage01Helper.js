@@ -77,6 +77,13 @@
             isValid = false;
         }
         }
+
+        if (cmp.get('v.wizardData.selectedRadio1Name') === 'Accessibility and disability' &&
+            cmp.get('v.wizardData.accessibilityIssueTypeName') === 'Delivery') {
+            if ($A.util.isEmpty(selectedDeliveryAddress) || $A.util.isUndefined(selectedDeliveryAddress)) {
+                isValid = false;
+            }
+        }
         return isValid;
     },
     
@@ -120,6 +127,13 @@
             errors.push({name: 'AMEOnlineDeliveryAddress', label: 'Delivery address', error: ''});
         }
         }
+
+        if (cmp.get('v.wizardData.selectedRadio1Name') === 'Accessibility and disability' &&
+            cmp.get('v.wizardData.accessibilityIssueTypeName') === 'Delivery') {
+            if ($A.util.isEmpty(selectedDeliveryAddress) || $A.util.isUndefined(selectedDeliveryAddress)) {
+                errors.push({name: 'AMEOnlineDeliveryAddress', label: 'Delivery address', error: ''});
+            }
+        }
         cmp.set('v.errors', errors);
     },
     validateRadioButtons: function(cmp, showError) {
@@ -149,6 +163,12 @@
             'city': this.validateCity,
             'state': this.validateState,
             'postcode': this.validatePostcode,
+            'issueType': this.validateSelect,
+            'accessibilityIssueTypeRadioButtons': this.validateRadioButtons,
+            'parcelOrLetterRadioButtons': this.validateRadioButtons,
+            'medicationRadioButtons': this.validateRadioButtons,
+            'issueRadioButtons': this.validateRadioButtons,
+            'issueDate': this.validateDate,
         };
     },
     searchTrackingNumber : function(cmp, event, helper) {
