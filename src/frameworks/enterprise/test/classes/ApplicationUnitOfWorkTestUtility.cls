@@ -8,12 +8,10 @@
  */
 @IsTest
 public class ApplicationUnitOfWorkTestUtility {
-
 	public static Integer asyncWorkerCount = 0;
 	public static List<String> asyncStack = new List<String>();
 
 	public class MyAsyncWorker1 extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorker1');
 
@@ -31,7 +29,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	}
 
 	public class MyAsyncWorker1a extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorker1a');
 
@@ -48,7 +45,7 @@ public class ApplicationUnitOfWorkTestUtility {
 		}
 	}
 
-	public class MyAsyncWorker2 extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts{
+	public class MyAsyncWorker2 extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts {
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorker2');
 
@@ -126,7 +123,10 @@ public class ApplicationUnitOfWorkTestUtility {
 			asyncStack.add('MyAsyncWorker5');
 			asyncWorkerCount++;
 
-			ApplicationUnitOfWork.AsyncStagingWorker stagingWorker5 = new ApplicationUnitOfWork.AsyncStagingWorker(MyAsyncWorker5.class, new Map<String, Object>{'key1' => 'value1'});
+			ApplicationUnitOfWork.AsyncStagingWorker stagingWorker5 = new ApplicationUnitOfWork.AsyncStagingWorker(
+				MyAsyncWorker5.class,
+				new Map<String, Object>{ 'key1' => 'value1' }
+			);
 			uow.registerAsyncWork(stagingWorker5);
 		}
 
@@ -150,11 +150,16 @@ public class ApplicationUnitOfWorkTestUtility {
 			asyncWorkerCount++;
 
 			// this one will be forced into a new async container
-			ApplicationUnitOfWork.AsyncStagingWorker stagingWorker = new ApplicationUnitOfWork.AsyncStagingWorker(MyAsyncWorkerForcedAsyncWorker.class);
+			ApplicationUnitOfWork.AsyncStagingWorker stagingWorker = new ApplicationUnitOfWork.AsyncStagingWorker(
+				MyAsyncWorkerForcedAsyncWorker.class
+			);
 			uow.registerAsyncWork(stagingWorker);
 
 			// this one will be processed in the existing container
-			ApplicationUnitOfWork.AsyncStagingWorker stagingWorker2 = new ApplicationUnitOfWork.AsyncStagingWorker(MyAsyncWorker1.class, new Map<String, Object>{'key1' => 'value1'});
+			ApplicationUnitOfWork.AsyncStagingWorker stagingWorker2 = new ApplicationUnitOfWork.AsyncStagingWorker(
+				MyAsyncWorker1.class,
+				new Map<String, Object>{ 'key1' => 'value1' }
+			);
 			uow.registerAsyncWork(stagingWorker2);
 		}
 
@@ -164,7 +169,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	}
 
 	public class MyAsyncWorkerForcedAsyncWorker extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorkerForcedAsyncWorker');
 
@@ -183,11 +187,9 @@ public class ApplicationUnitOfWorkTestUtility {
 		public override ApplicationUnitOfWork.ASYNC_MAX_DEPTH_ENQUEUE_ACTION getMaxDepthAction() {
 			return ApplicationUnitOfWork.ASYNC_MAX_DEPTH_ENQUEUE_ACTION.FORCE_ASYNC;
 		}
-
 	}
 
 	public class MyAsyncWorkerDeserialisesParams extends ApplicationUnitOfWork.AsyncWorker {
-
 		public MyAsyncWorkerDeserialisesParamsParameters myParams;
 
 		public override void execute(ApplicationUnitOfWork uow) {
@@ -212,12 +214,14 @@ public class ApplicationUnitOfWorkTestUtility {
 		}
 
 		public override void deserialiseParams(String serialisedParams) {
-			myParams = (MyAsyncWorkerDeserialisesParamsParameters)JSON.deserialize(serialisedParams, MyAsyncWorkerDeserialisesParamsParameters.class);
+			myParams = (MyAsyncWorkerDeserialisesParamsParameters) JSON.deserialize(
+				serialisedParams,
+				MyAsyncWorkerDeserialisesParamsParameters.class
+			);
 		}
 	}
 
 	public class MyAsyncWorkerThrowsExceptions extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorkerThrowsExceptions');
 
@@ -237,7 +241,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	}
 
 	public class MyAsyncWorkerIsDiscarded extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorkerIsDiscarded');
 
@@ -261,7 +264,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	}
 
 	public class MyAsyncWorkerIsProcessedInSync1 extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorkerIsProcessedInSync1');
 
@@ -283,7 +285,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	}
 
 	public class MyAsyncWorkerIsProcessedInSync2 extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorkerIsProcessedInSync2');
 
@@ -314,7 +315,7 @@ public class ApplicationUnitOfWorkTestUtility {
 			asyncStack.add('MyAsyncWorkerThrowDMLLockExceptionError');
 			asyncWorkerCount++;
 
-			if(asyncWorkerCount < 2) {
+			if (asyncWorkerCount < 2) {
 				// Simulate the record locking result if a record is locked for update
 				DmlException e = new DmlException();
 				e.setMessage('UNABLE_TO_LOCK_ROW');
@@ -328,7 +329,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	}
 
 	public class MyAsyncWorkerWithLargeRetryAttempts extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorkerWithLargeRetryAttempts');
 
@@ -354,7 +354,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	 * This method would throw a CalloutException if not invoked with AllowCallouts
 	 */
 	public class AsyncWorkerThatDoesCallout extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('AsyncWorkerThatDoesCallout');
 
@@ -368,7 +367,6 @@ public class ApplicationUnitOfWorkTestUtility {
 			http.send(req);
 
 			markCalloutSavepoint(Database.setSavepoint());
-
 		}
 
 		public override Type getClassType() {
@@ -381,7 +379,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	 * This method would throw a CalloutException if not invoked with AllowCallouts
 	 */
 	public class MyAsyncWorkerDoesCalloutsButIsntConfiguredTo extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			System.debug('MyAsyncWorkerDoesCalloutsButIsntConfiguredTo');
 
@@ -393,7 +390,6 @@ public class ApplicationUnitOfWorkTestUtility {
 			req.setEndpoint('dummyEndpoint');
 			Http http = new Http();
 			http.send(req);
-
 		}
 
 		public override Type getClassType() {
@@ -406,7 +402,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	 * This method would throw a CalloutException if not invoked with AllowCallouts
 	 */
 	public class MyAsyncWorkerFailsAfterSuccessfulCallout extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			asyncStack.add('MyAsyncWorkerFailsAfterSuccessfulCallout');
 
@@ -423,7 +418,6 @@ public class ApplicationUnitOfWorkTestUtility {
 			insert acc;
 
 			throw new WorkerThrowsException('Failed');
-
 		}
 
 		public override Type getClassType() {
@@ -432,13 +426,11 @@ public class ApplicationUnitOfWorkTestUtility {
 	}
 
 	public class MyAsyncWorkerInsertsAnAccount extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			asyncStack.add('MyAsyncWorkerInsertsAnAccount');
 
 			Account acc = new Account(Name = 'MyAsyncWorkerInsertsAnAccount');
 			insert acc;
-
 		}
 
 		public override Type getClassType() {
@@ -447,7 +439,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	}
 
 	public class MyAsyncWorkerInsertsAnAccountThenThrowsAnError extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			asyncStack.add('MyAsyncWorkerInsertsAnAccountThenThrowsAnError');
 
@@ -455,7 +446,6 @@ public class ApplicationUnitOfWorkTestUtility {
 			insert acc;
 
 			throw new WorkerThrowsException('Failed');
-
 		}
 
 		public override Type getClassType() {
@@ -467,7 +457,6 @@ public class ApplicationUnitOfWorkTestUtility {
 	 * Throws a DML Lock error that should be caught and cause the job to be reenqueued
 	 */
 	public class MyAsyncWorkerThrowsLockErrors extends ApplicationUnitOfWork.AsyncWorker {
-
 		public override void execute(ApplicationUnitOfWork uow) {
 			asyncStack.add('MyAsyncWorkerThrowsLockErrors');
 
@@ -485,7 +474,7 @@ public class ApplicationUnitOfWorkTestUtility {
 		public HttpResponse respond(HttpRequest request) {
 			HttpResponse response = new HttpResponse();
 			List<String> idsInBody = request.getBody().split(',');
-			if(idsInBody.size() == 5) {
+			if (idsInBody.size() == 5) {
 				// we only send a successful response if the API was invoked with the expected number of Id's
 				response.setStatusCode(200);
 			} else {
@@ -499,7 +488,7 @@ public class ApplicationUnitOfWorkTestUtility {
 	public class AsyncAPISuccessHttpMock implements HttpCalloutMock {
 		public HttpResponse respond(HttpRequest request) {
 			HttpResponse response = new HttpResponse();
-			if(request.getBody().length() == 18) {
+			if (request.getBody().length() == 18) {
 				// we only send a successful response if the API was invoked with the expected number of Id's
 				response.setStatusCode(200);
 			} else {
@@ -526,12 +515,12 @@ public class ApplicationUnitOfWorkTestUtility {
 		}
 	}
 
-	public class WorkerThrowsException extends Exception { }
+	public class WorkerThrowsException extends Exception {
+	}
 
 	public class MyAsyncWorkerDeserialisesParamsParameters {
 		public String MyParam1;
 		public String MyParam2;
 		public String MyParam3;
 	}
-
 }
