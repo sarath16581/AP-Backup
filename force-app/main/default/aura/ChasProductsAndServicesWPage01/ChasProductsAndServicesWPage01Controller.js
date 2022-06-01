@@ -104,7 +104,7 @@
         component.set('v.wizardData.selectedPostOffice',selectedPostOfficeAddress);
         //DDS-7397 Set the recipient WCID
         if (!$A.util.isUndefinedOrNull(selectedPostOffice.location.wcid)) {
-            component.set('v.wizardData.wcid', selectedPostOffice.location.wcid);
+            component.set('v.wizardData.toWcid', selectedPostOffice.location.wcid);
         }
         //Check if the previous address selected was changed
         if(!$A.util.isEmpty(previousSelectedPostOffice) &&  previousSelectedPostOffice != selectedPostOfficeAddress)

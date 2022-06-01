@@ -175,6 +175,7 @@
                     var returnCode = returnObj["trackingNumSerachStatusCode"];
                     //refactored the code to bind the response based on list of trackingNumberDetails
                     if (!$A.util.isUndefinedOrNull(returnObj["trackingNumberDetails"])) {
+                        cmp.set('v.wizardData.wcid', returnObj["trackingNumberDetails"][0].wcid);
                         cmp.set('v.wizardData.isParcelAwaitingCollection', returnObj["trackingNumberDetails"][0].isParcelAwaitingCollection);
                         cmp.set('v.wizardData.subProductId', returnObj["trackingNumberDetails"][0].subProductId);
                     }
