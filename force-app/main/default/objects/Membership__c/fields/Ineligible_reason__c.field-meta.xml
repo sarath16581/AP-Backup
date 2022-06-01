@@ -11,6 +11,7 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Status__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -30,5 +31,17 @@
                 <label>Not primary outlet for entity</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Ineligible</controllingFieldValue>
+            <valueName>Licensee does not work at outlet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ineligible</controllingFieldValue>
+            <valueName>Managed by Council</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Ineligible</controllingFieldValue>
+            <valueName>Not primary outlet for entity</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

@@ -26,6 +26,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Albania</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Algeria</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Andorra</fullName>
             <default>false</default>
         </values>
@@ -43,6 +51,10 @@
         </values>
         <values>
             <fullName>Belgium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Benin</fullName>
             <default>false</default>
         </values>
         <values>
@@ -102,7 +114,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Ghana</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gibraltar</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Greece</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grenada</fullName>
             <default>false</default>
         </values>
         <values>
@@ -254,6 +278,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Sudan</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Suriname</fullName>
             <default>false</default>
         </values>
@@ -263,10 +291,6 @@
         </values>
         <values>
             <fullName>Switzerland</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>TPE</fullName>
             <default>false</default>
         </values>
         <values>
@@ -506,14 +530,6 @@
     <picklistValues>
         <picklist>MailCategory__c</picklist>
         <values>
-            <fullName>EMS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Express</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Insured</fullName>
             <default>false</default>
         </values>
@@ -525,21 +541,9 @@
             <fullName>Registered</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Small Packet</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>MethodofDelivery__c</picklist>
-        <values>
-            <fullName>ABANDONED</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>CANCELLED</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>COUNTER</fullName>
             <default>false</default>
@@ -549,27 +553,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>CUSTOMS CPO</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>ENTRY PICK UP</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Entry Post On</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RE- EXPORT</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>REFUSED%2FRTS%2FAIR</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RETURN TO SENDER</fullName>
+            <fullName>ENTRY POST ON</fullName>
             <default>false</default>
         </values>
         <values>
@@ -581,31 +569,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>RTS%2FREFUSED</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RTS%2FREG</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RTS%2FSEA MAIL</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RTS%2FUNCLAIMED</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Seized</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>UNCL%2FRTS%2FEMS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>UNCL%2FRTS%2FSURFAC</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -657,10 +621,6 @@
         </values>
         <values>
             <fullName>Restricted</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Seized</fullName>
             <default>false</default>
         </values>
         <values>

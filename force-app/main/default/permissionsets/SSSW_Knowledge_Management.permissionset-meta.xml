@@ -27,11 +27,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Critical_Incident__kav.Time_To_Remind__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Critical_Incident__kav.What_do_I_tell_customers__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -167,11 +162,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product__kav.Time_To_Remind__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Product__kav.Website_information__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -238,11 +228,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Support__kav.Support_information__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Support__kav.Time_To_Remind__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

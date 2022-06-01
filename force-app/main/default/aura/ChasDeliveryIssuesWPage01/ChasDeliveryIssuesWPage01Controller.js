@@ -8,6 +8,7 @@
  * 2020-10-29 madhuri.awasthi@auspost.com.au - INC1644977 - Consumer Help and Support "Delivery Issues" form content changes. 
 												Note chasDevliveryIssuesWPage01.cmp and ChasApexController.apxc changes are also required as the Label values are used.
  * 2020-10-26 hara.sahoo@auspost.com.au Modified : Prepopulate track id and options passed in the url for auto-progression of the forms
+ * 2022-05-30 : Thang Nguyen : [DDS-10785] update selectedIssueHandler to redirect to productServicePage
 */
 ({
     
@@ -66,7 +67,9 @@
             'issue details: ' + issueVal
         );
         if(issueVal == 'Late or missing item') {
-            helper.gotoPage(cmp);
+            helper.gotoPage(cmp, 'missingItemPage');
+        }else if (issueVal == 'Accessibility or disability issue'){
+            helper.gotoPage(cmp, 'productServicePage');
         }else{
             cmp.set('v.showIssuesList',false);
         }

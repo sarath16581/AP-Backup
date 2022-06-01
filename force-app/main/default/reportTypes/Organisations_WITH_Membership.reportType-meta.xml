@@ -2690,11 +2690,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Ineligible__c</field>
-            <table>Account.Memberships__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Ineligible_reason__c</field>
             <table>Account.Memberships__r</table>
         </columns>

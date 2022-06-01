@@ -1735,6 +1735,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             
             //-- Getting all wizard data details
             String wcid = (String) wizardData.get('wcid');
+            String toWcid = (String) wizardData.get('toWcid');
             String subProductId = 'SUB-PROD-ID-' + (String) wizardData.get('subProductId');
             String transferToPoProductExclusions = ChasConstants.TRANSFER_TO_PO_PROD_SUBTYPE_ID_EXCLUSIONS;
             String issueDetailsType =  (String) wizardData.get('selectedRadio1Name');
@@ -1943,9 +1944,9 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                     caseDescription = selectedPostOffice;
                 }
                 caseDescription = caseDescription + '\n' + originalDeliveryAddress;
-                if(isEligibleForMyNetworkAssignment == 'true')
+                if(isEligibleForMyNetworkAssignment == 'true' && !String.isEmpty(toWcid))
                 {
-                    caseDescription = caseDescription + '\n' + 'WCC ID: ' + wcid;
+                    caseDescription = caseDescription + '\n' + 'WCC ID: ' + toWcid;
                     //--The flag denotes an evaluation of the network assignment, based on factors evaluated from the service.
                     //19-08-2021: this is now being set only if network assignment actually happens
                     //toBeCreateCase.Automated_Network_Assignment__c = true;

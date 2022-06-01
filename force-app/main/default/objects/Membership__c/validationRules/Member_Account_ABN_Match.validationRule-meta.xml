@@ -3,8 +3,11 @@
     <fullName>Member_Account_ABN_Match</fullName>
     <active>true</active>
     <description>Validates a member record if its ABN matches with the contact&apos;s parent account ABN</description>
-    <errorConditionFormula>(RecordType.DeveloperName =&apos;APLAC_Membership&apos; || RecordTypeId = null) &amp;&amp;
-ABN__c &lt;&gt; Parent_Organisation_ABN__c</errorConditionFormula>
+    <errorConditionFormula>AND(
+ OR(RecordType.DeveloperName = &apos;APLAC_Membership&apos;, RecordTypeId = null),
+ NOT(TEXT(Status__c) == &apos;Ineligible&apos;),
+ ABN__c &lt;&gt; Parent_Organisation_ABN__c
+)</errorConditionFormula>
     <errorDisplayField>ABN__c</errorDisplayField>
     <errorMessage>Error: Member&apos;s ABN should match the ABN of an Organisation it belongs to. Please check again.</errorMessage>
 </ValidationRule>

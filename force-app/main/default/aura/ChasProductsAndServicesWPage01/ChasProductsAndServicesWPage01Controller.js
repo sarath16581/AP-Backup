@@ -1,6 +1,8 @@
 /*
  * * 2020-07-28 hara.sahoo@auspost.com.au Reset the showErrorSummary flag, to display the error summary.
  * * 2020-09-17 hara.sahoo@auspost.com.au Push analytics for direct link redirection from chatbots, faq pages.
+ * * 2022-05-25 mahesh.parvathaneni@auspost.com.au DDS-7397 Set the recipient WCID
+ * * 2022-05-31 mahesh.parvathaneni@auspost.com.au Changes for Accessbility and disability enquiries
  */
 ({    
     doInit :function(cmp, event, helper) {
@@ -72,6 +74,14 @@
             helper.setRadioName(cmp, 'v.madeAnOrderRadioGroup', 'v.wizardData.selectedRadio2', 'v.wizardData.selectedRadio2Name');
         } else if (fieldName === 'moneyEnquiryTypeRadioButtons') {
             helper.setRadioName(cmp, 'v.moneyEnquiryTypeRadioGroup', 'v.wizardData.selectedRadio3', 'v.wizardData.selectedRadio3Name');
+        } else if (fieldName == 'accessibilityIssueTypeRadioButtons') {
+            helper.setRadioName(cmp, 'v.accessibilityIssueTypeRadioGroup', 'v.wizardData.accessibilityIssueType', 'v.wizardData.accessibilityIssueTypeName');
+        } else if (fieldName == 'parcelOrLetterRadioButtons') {
+            helper.setRadioName(cmp, 'v.parcelOrLetterRadioGroup', 'v.wizardData.selectedItemType', 'v.wizardData.selectedItemTypeName');
+        } else if (fieldName == 'medicationRadioButtons') {
+            helper.setRadioName(cmp, 'v.medicationRadioGroup', 'v.wizardData.selectedMedicationType', 'v.wizardData.selectedMedicationTypeName');
+        } else if (fieldName == 'issueRadioButtons') {
+            helper.setRadioName(cmp, 'v.issueRadioGroup', 'v.wizardData.selectedIssueType', 'v.wizardData.selectedIssueTypeName');
         }
         
         helper.checkInputs([srcCmp], true);
@@ -101,6 +111,10 @@
         var selectedPostOfficeAddress= selectedPostOffice.location.address;
         var previousSelectedPostOffice = component.get('v.previousSelectedPO');
         component.set('v.wizardData.selectedPostOffice',selectedPostOfficeAddress);
+        //DDS-7397 Set the recipient WCID
+        if (!$A.util.isUndefinedOrNull(selectedPostOffice.location.wcid)) {
+            component.set('v.wizardData.toWcid', selectedPostOffice.location.wcid);
+        }
         //Check if the previous address selected was changed
         if(!$A.util.isEmpty(previousSelectedPostOffice) &&  previousSelectedPostOffice != selectedPostOfficeAddress)
         {

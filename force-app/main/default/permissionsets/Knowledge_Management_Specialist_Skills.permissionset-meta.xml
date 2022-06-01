@@ -16,11 +16,6 @@
         <field>Specialist_Skill__kav.Overview__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Specialist_Skill__kav.Time_To_Remind__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Knowledge Management Specialist Skills</label>
     <objectPermissions>

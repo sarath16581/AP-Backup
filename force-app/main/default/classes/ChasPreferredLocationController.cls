@@ -6,6 +6,7 @@
 --------------------------------------- History --------------------------------------------------
 23.03.2020    arjun.singh@auspost.com.au    Created : Change made for roll out of Transfer to another PO
 19.01.2021    hara.sahoo@auspost.com.au     Modified : Add query parameter to the endpoint URL, to filter out only Post offices
+25.05.2022    mahesh.parvathaneni@auspost.com.au Modified : DDS - 7397 Added WCID from the Locations service
  */
 public without sharing class ChasPreferredLocationController {
     /**
@@ -38,7 +39,7 @@ public without sharing class ChasPreferredLocationController {
         res = h.send(req);
         AddressDetailsList = parseResponse(res.getbody(), currentLocationVar);
     }catch (Exception e){
-        AddressDetailsList.add(new AddressDetails(false,null, null, null, null));
+        AddressDetailsList.add(new AddressDetails(false,null, null, null, null, null));
     }
         return AddressDetailsList;
     }
@@ -68,6 +69,7 @@ public without sharing class ChasPreferredLocationController {
      *                3. Distance between user and PO location
      *                4. Boolean to confirm that PO exist
      *                5. business hour details corresponding to each post f
+     *                6. work center id
      */
     public class AddressDetails{
         @AuraEnabled
@@ -80,12 +82,15 @@ public without sharing class ChasPreferredLocationController {
         public Decimal distanceBetweenLocation{get;set;}
         @AuraEnabled
         public list<hoursDetails> hoursDetailsList{get;set;}
-        public AddressDetails(Boolean postOfficeAvailableVar, String titleVar, String addressVar, Decimal distanceBetweenLocationVar, list<hoursDetails> hoursDetailsListVar){
+        @AuraEnabled
+        public String wcid{get;set;}
+        public AddressDetails(Boolean postOfficeAvailableVar, String titleVar, String addressVar, Decimal distanceBetweenLocationVar, list<hoursDetails> hoursDetailsListVar, String wcidVar){
             address = addressVar;
             title =  titleVar;
             postOfficeAvailable = postOfficeAvailableVar;
             distanceBetweenLocation = distanceBetweenLocationVar;
             hoursDetailsList = hoursDetailsListVar;
+            wcid = wcidVar;
         }
         
     }
@@ -107,6 +112,7 @@ public without sharing class ChasPreferredLocationController {
                 String fullAddressDetails ;
                 Decimal distanceInKM ;
                 list<hoursDetails> hoursDetailsList = new list<hoursDetails>();
+                String wcid;
                 if(objValue.containsKey('geo_location')){
                     object geoLocationValue = objValue.get('geo_location'); 
                     Map<string,object> geoLocationMap = (Map<string,object>) geoLocationValue ;
@@ -125,6 +131,10 @@ public without sharing class ChasPreferredLocationController {
                     hoursData = (list<object>)objValue.get('hours');
                     hoursDetailsList = getHoursDetails(hoursData);
                 }
+                //added wcid from the repsonse
+                if (objValue.containsKey('work_centre_id') && String.isNotBlank(String.valueOf(objValue.get('work_centre_id')))) {
+                    wcid = String.valueOf(objValue.get('work_centre_id'));
+                }
                 if(objValue.containsKey('address')){
                     object addressValue = objValue.get('address');
                     Map<string,object> addressMap = (Map<string,object>) addressValue ;
@@ -135,13 +145,13 @@ public without sharing class ChasPreferredLocationController {
                     String title = (String)objValue.get('name');
                 
                     fullAddressDetails = addressLine + ', ' + suburbStr + ', ' + stateStr + ', ' + postcode;
-                    AddressDetailsList.add(new AddressDetails(true,title, fullAddressDetails, distanceInKM, hoursDetailsList));
+                    AddressDetailsList.add(new AddressDetails(true,title, fullAddressDetails, distanceInKM, hoursDetailsList, wcid));
                 }else{
-                    AddressDetailsList.add(new AddressDetails(false,null, null, null, null));
+                    AddressDetailsList.add(new AddressDetails(false,null, null, null, null, null));
                 }
             }
         }else{
-            AddressDetailsList.add(new AddressDetails(false,null, null, null, null));
+            AddressDetailsList.add(new AddressDetails(false,null, null, null, null, null));
         }
         return AddressDetailsList ;
     }

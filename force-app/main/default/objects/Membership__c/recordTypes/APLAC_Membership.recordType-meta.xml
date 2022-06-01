@@ -67,6 +67,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Ineligible</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Pending</fullName>
             <default>false</default>
         </values>

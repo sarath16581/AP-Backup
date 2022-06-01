@@ -16,11 +16,6 @@
         <field>Manager__kav.Overview__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Manager__kav.Time_To_Remind__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Knowledge Management Manager Article Permisssions</label>
     <objectPermissions>
