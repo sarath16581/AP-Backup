@@ -4,6 +4,7 @@
   * Modified by   : Hara Sahoo
   * @description  : 1. Added Back Button and a card layout outer-box
   * Modified by Mahesh Parvathaneni - 10/05/2022 - Hide details section on Delete MyPost account enquiry
+  * Modified by Thang Nguyen - 02/06/2022 - DDS-10805 Add "Accessibility and disability" and "Delivery" issue section
 -->
 <aura:component extends="c:CHAS_reviewAndSubmit" description="Products and Services wizard page 3: Review and Submit">
     
@@ -18,15 +19,32 @@
             <h2 class="chas-header">Review and submit</h2>
             
             <!-- Enquiry Details Heading -->
-            <h3 class="sub-header">Enquiry details</h3>
+            <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Mail products' }">            
+                <h3 class="sub-header">Enquiry details</h3>
+            </aura:if>    
             
+            <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }">            
+                    <h3 class="sub-header">Enquiry details - Accessibility or disability issue</h3>
+                <aura:set attribute="else">
+                    <h3 class="sub-header">Enquiry details</h3>
+                </aura:set>
+            </aura:if>
+
             <div class="review-container">
                 <dl>
-                    <div>
-                        <dt>Product or service</dt>
-                        <dd>{! v.wizardData.selectedRadio1Name }</dd>
-                    </div>
-                    
+                    <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }">            
+                        <div>
+                            <dt>Issue category</dt>
+                            <dd>{! v.wizardData.accessibilityIssueTypeName }</dd>
+                        </div>
+                        <aura:set attribute="else">
+                            <div>
+                                <dt>Product or service</dt>
+                                <dd>{! v.wizardData.selectedRadio1Name }</dd>
+                            </div>
+                        </aura:set>
+                    </aura:if>
+
                     <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Mail products' }">
                         <div>
                             <dt>Enquiry type</dt>
@@ -70,7 +88,7 @@
                     </aura:if>
                     
                     <!-- DDS-10265 Hide the details section when Delete Mypost account is selected -->
-                    <aura:if isTrue="{! !and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account')}">
+                    <aura:if isTrue="{! !or(and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account'),v.wizardData.selectedRadio1Name == 'Accessibility and disability')}">
                         <div>
                             <dt>Details</dt>
                             <dd>{! v.wizardData.enquiryDetails }</dd>
@@ -121,6 +139,47 @@
                             <dd>{! v.wizardData.selectedPostOffice}</dd>
                         </div>
                     </aura:if>
+
+                    <!-- DDS-10805 -->
+                    <aura:if isTrue="{! and(v.wizardData.selectedRadio1Name == 'Accessibility and disability', v.wizardData.accessibilityIssueTypeName == 'Delivery')}">
+                        <div>
+                            <dt>Tracking number</dt>
+                            <dd>{! v.wizardData.orderTrackingNumber }</dd>
+                        </div>
+                        <div>
+                            <dt>Item type</dt>
+                            <dd>{! v.wizardData.selectedItemTypeName }</dd>
+                        </div>
+                        <div>
+                            <dt>Does the item contain essential medication?</dt>
+                            <dd>{! v.wizardData.selectedMedicationTypeName }</dd>
+                        </div>
+                        <div>
+                            <dt>Tracking number</dt>
+                            <dd>{! v.wizardData.orderTrackingNumber }</dd>
+                        </div>
+                        <div>
+                            <dt>Issue type</dt>
+                            <dd>{! v.wizardData.issueType }</dd>
+                        </div>
+                        <div>
+                            <dt>When did the issue occur ?</dt>
+                            <dd>{! v.wizardData.issueDate }</dd>
+                        </div>
+                        <div>
+                            <dt>Your feedback or enquiry</dt>
+                            <dd>{! v.wizardData.enquiryDetails }</dd>
+                        </div>
+                        <div>
+                            <dt>Has this issue occured before ?</dt>
+                            <dd>{! v.wizardData.selectedIssueTypeName }</dd>
+                        </div>
+                        <div>
+                            <dt>Delivery address</dt>
+                            <dd>{! v.wizardData.selectedDeliveryAddress }</dd>
+                        </div>                                                
+                    </aura:if>
+
                 </dl>
             </div>
             <!-- Section separator-->
