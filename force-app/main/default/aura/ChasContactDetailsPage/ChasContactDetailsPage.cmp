@@ -29,19 +29,15 @@
             <div style="margin-top:32px">
                 
             </div>
-            
             <!-- Input fields........-->
             <div class="form-input-container">
-                <c:ChasInput type='text' aura:id='chasInput' name='ChasGivenName' required='false' label='Given name' value='{! v.wizardData.givenName }' />
-                <c:ChasInput type='text' aura:id='chasInput' name='ChasSurname' required='false' label='Surname' value='{! v.wizardData.surname }' />
+                <c:ChasInput type='text' aura:id='chasInput' name='ChasGivenName' required='false' label='Given name1' value='{! v.wizardData.givenName }' />
+                <c:ChasInput type='text' aura:id='chasInput' name='ChasSurname' required='false' label='Surname1' value='{! v.wizardData.surname }' />
                 <c:ChasInput type='email' aura:id='chasInput' name='ChasEmail' required='false' label='Email address' value='{! v.wizardData.emailId }' />
                 <c:ChasInput type='tel' aura:id='chasInput' name='userPhoneNumber' required="false" label='Phone number' value='{!v.wizardData.phone}' >
                     <p class="chas-body_small">Please include the area code if entering a landline</p>
                 </c:ChasInput>
-                <!-- Section separator-->
-                <div class="separator-gap">
-                    <hr/>
-                </div>
+    
                 <c:ChasSelect name='ChasContactPreferrence' label='Contact Preference' options="{!v.contactPreferrenceOptions}" value='{!v.wizardData.contactPreferrence}' short="true" /> 
                 <aura:if isTrue="{!v.wizardData.contactPreferrence == 'Email'}">
                     <c:ChasBspDeflection heading='' animate="true" borderStyle="info-box-left-bar bottom-gap">
@@ -51,6 +47,26 @@
                     </c:ChasBspDeflection>
                 </aura:if>   
             </div>
+            <!-- Section separator-->
+            <div class="separator-gap">
+                <hr/>
+            </div>
+            <!-- Accessibility or disability assistance check boxes -->
+            <aura:if isTrue="{!v.wizardData.selectedRadio1 == 'accessibilityOption'}">
+                <c:ChasFieldset>
+                    <c:ChasInputLabel  label="Accessibility or disability assistance" subLabel="(optional)" />
+                    <p class="">Share your accessibility needs to help us assist with your enquiry.</p>
+                    <div class="input-checkbox-grouped_label">
+                        <c:ChasInputCheckbox aura:id="auditoryOption" required="false"  label="Auditory (For example: hearing difficulties)"  name="auditoryOption"/>
+                        <c:ChasInputCheckbox aura:id="LearningOrCognitiveOption" required="false"  label="Learning or cognitive (For example: anxiety or dyslexia)"  name="LearningOrCognitiveOption"/>
+                        <c:ChasInputCheckbox aura:id="mobilityOption" required="false"  label="Mobility (For example: movement difficulties or a wheelchair)"  name="mobilityOption"/>
+                        <c:ChasInputCheckbox aura:id="seizuresOption" required="false"  label="Seizures (For example: photosensitive epilepsy)"  name="seizuresOption"/>
+                        <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption"/>
+                        <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption"/>
+                    </div>
+                    <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' />
+                </c:ChasFieldset>
+            </aura:if>
             <div>
                 <lightning:button label="Continue" variant="brand" onclick="{!c.goForwardAsGuest}" class="{! 'chas-button chas-input-search-button'}" />
             </div>
@@ -82,10 +98,6 @@
                             <c:ChasInput type='tel' aura:id='chasInput' name='userPhoneNumber' required="true" label='Phone number' value='{!v.authUserData.userContactPhone}' >
                                 <p class="chas-body_small">Please include the area code if entering a landline</p>
                             </c:ChasInput>
-                            <!-- Section separator-->
-                            <div class="separator-gap">
-                                <hr/>
-                            </div>
                             <!-- Contact Preference, added by Edmarco on July 2019 -->
                             <c:ChasSelect name='ChasContactPreferrence' label='Contact Preference' options="{!v.contactPreferrenceOptions}" value='{!v.wizardData.contactPreferrence}' short="true" /> 
                             <aura:if isTrue="{!v.wizardData.contactPreferrence == 'Email'}">
@@ -97,10 +109,25 @@
                             </aura:if>
                         </aura:if>
                     </c:ChasFieldset>
-                    <!--<c:ChasNavButtons submit="true" nextAction="{! c.goForward }" backAction="{! c.goBack }" disabled="{! not(v.formValid) }" />-->
-                    <div>
-                        <lightning:button label="Continue" variant="brand" onclick="{!c.goForward}" class="{! 'chas-button chas-input-search-button'}" />
+                    <!-- Section separator-->
+                    <div class="separator-gap">
+                        <hr/>
                     </div>
+                    <!-- Accessibility or disability assistance check boxes -->
+                    <c:ChasFieldset>
+                        <c:ChasInputLabel  label="Accessibility or disability assistance" subLabel="(optional)" />
+                        <p class="">Share your accessibility needs to help us assist with your enquiry.</p>
+                        <div class="input-checkbox-grouped_label">
+                            <c:ChasInputCheckbox aura:id="auditoryOption" required="false"  label="Auditory (For example: hearing difficulties)"  name="auditoryOption"/>
+                            <c:ChasInputCheckbox aura:id="LearningOrCognitiveOption" required="false"  label="Learning or cognitive (For example: anxiety or dyslexia)"  name="LearningOrCognitiveOption"/>
+                            <c:ChasInputCheckbox aura:id="mobilityOption" required="false"  label="Mobility (For example: movement difficulties or a wheelchair)"  name="mobilityOption"/>
+                            <c:ChasInputCheckbox aura:id="seizuresOption" required="false"  label="Seizures (For example: photosensitive epilepsy)"  name="seizuresOption"/>
+                            <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption"/>
+                            <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption"/>
+                        </div>
+                        <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' />
+                    </c:ChasFieldset>
+                    <!--<c:ChasNavButtons submit="true" nextAction="{! c.goForward }" backAction="{! c.goBack }" disabled="{! not(v.formValid) }" />-->
                 </div>
             </c:ChasForm>
         </aura:set>

@@ -3,3 +3,18 @@
     padding-top:0px !important;
     flex-direction: row;
 }
+
+.THIS .input-checkbox-grouped_label .slds-form-element__label{
+    font-size: 0.9rem !important;
+    font-weight: normal;
+    display: inline;
+}
+
+.THIS .input-checkbox-grouped_label .chas-input{
+    margin-bottom: 12px !important;
+}
+
+.THIS .input-checkbox-grouped_label{
+    margin-bottom: 32px !important;
+    margin-top: 16px !important;
+}
