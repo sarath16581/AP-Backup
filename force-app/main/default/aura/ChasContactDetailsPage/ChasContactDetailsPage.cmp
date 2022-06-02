@@ -2,7 +2,8 @@
   * @changeLog :
   * @date         : 19/06/2020
   * Modified by   : Hara Sahoo
-  * @description  : Change made for roll out of Safe Drop feature on Missing Items form 
+  * Modified by   : Hasantha Liyanage 02/06/2022 DDS-10799 Accessibility categories - UI Layout - Contact details
+  * @description  : Change made for roll out of Safe Drop feature on Missing Items form
                      1. Added a card layout outer-box
                      2. Back button
 -->
@@ -51,18 +52,18 @@
             <div class="separator-gap">
                 <hr/>
             </div>
-            <!-- Accessibility or disability assistance check boxes -->
+            <!-- DDS-10799 Accessibility or disability assistance check boxes guest user-->
             <aura:if isTrue="{!v.wizardData.selectedRadio1 == 'accessibilityOption'}">
                 <c:ChasFieldset>
                     <c:ChasInputLabel  label="Accessibility or disability assistance" subLabel="(optional)" />
                     <p class="">Share your accessibility needs to help us assist with your enquiry.</p>
                     <div class="input-checkbox-grouped_label">
-                        <c:ChasInputCheckbox aura:id="auditoryOption" required="false"  label="Auditory (For example: hearing difficulties)"  name="auditoryOption"/>
-                        <c:ChasInputCheckbox aura:id="LearningOrCognitiveOption" required="false"  label="Learning or cognitive (For example: anxiety or dyslexia)"  name="LearningOrCognitiveOption"/>
-                        <c:ChasInputCheckbox aura:id="mobilityOption" required="false"  label="Mobility (For example: movement difficulties or a wheelchair)"  name="mobilityOption"/>
-                        <c:ChasInputCheckbox aura:id="seizuresOption" required="false"  label="Seizures (For example: photosensitive epilepsy)"  name="seizuresOption"/>
-                        <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption"/>
-                        <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption"/>
+                        <c:ChasInputCheckbox aura:id="auditoryOption" required="false"  label="Auditory (For example: hearing difficulties)"  name="auditoryOption" value="{!v.wizardData.accessibilityAuditoryOption}"/>
+                        <c:ChasInputCheckbox aura:id="LearningOrCognitiveOption" required="false"  label="Learning or cognitive (For example: anxiety or dyslexia)"  name="learningOrCognitiveOption" value="{!v.wizardData.accessibilityLearningOrCognitiveOption}"/>
+                        <c:ChasInputCheckbox aura:id="mobilityOption" required="false"  label="Mobility (For example: movement difficulties or a wheelchair)"  name="mobilityOption" value="{!v.wizardData.accessibilityMobilityOption}"/>
+                        <c:ChasInputCheckbox aura:id="seizuresOption" required="false"  label="Seizures (For example: photosensitive epilepsy)"  name="seizuresOption" value="{!v.wizardData.accessibilitySeizuresOption}"/>
+                        <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption" value="{!v.wizardData.accessibilityVisualOption}"/>
+                        <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption" value="{!v.wizardData.accessibilityOtherOption}"/>
                     </div>
                     <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' />
                 </c:ChasFieldset>
@@ -113,21 +114,26 @@
                     <div class="separator-gap">
                         <hr/>
                     </div>
-                    <!-- Accessibility or disability assistance check boxes -->
-                    <c:ChasFieldset>
-                        <c:ChasInputLabel  label="Accessibility or disability assistance" subLabel="(optional)" />
-                        <p class="">Share your accessibility needs to help us assist with your enquiry.</p>
-                        <div class="input-checkbox-grouped_label">
-                            <c:ChasInputCheckbox aura:id="auditoryOption" required="false"  label="Auditory (For example: hearing difficulties)"  name="auditoryOption"/>
-                            <c:ChasInputCheckbox aura:id="LearningOrCognitiveOption" required="false"  label="Learning or cognitive (For example: anxiety or dyslexia)"  name="LearningOrCognitiveOption"/>
-                            <c:ChasInputCheckbox aura:id="mobilityOption" required="false"  label="Mobility (For example: movement difficulties or a wheelchair)"  name="mobilityOption"/>
-                            <c:ChasInputCheckbox aura:id="seizuresOption" required="false"  label="Seizures (For example: photosensitive epilepsy)"  name="seizuresOption"/>
-                            <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption"/>
-                            <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption"/>
-                        </div>
-                        <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' />
-                    </c:ChasFieldset>
+                    <!-- DDS-10799 Accessibility or disability assistance check boxes authenticatied users -->
+                    <aura:if isTrue="{!v.wizardData.selectedRadio1 == 'accessibilityOption'}">
+                        <c:ChasFieldset>
+                            <c:ChasInputLabel  label="Accessibility or disability assistance" subLabel="(optional)" />
+                            <p class="">Share your accessibility needs to help us assist with your enquiry.</p>
+                            <div class="input-checkbox-grouped_label">
+                                <c:ChasInputCheckbox aura:id="auditoryOption" required="false"  label="Auditory (For example: hearing difficulties)"  name="auditoryOption" value="{!v.wizardData.accessibilityAuditoryOption}"/>
+                                <c:ChasInputCheckbox aura:id="LearningOrCognitiveOption" required="false"  label="Learning or cognitive (For example: anxiety or dyslexia)"  name="learningOrCognitiveOption" value="{!v.wizardData.accessibilityLearningOrCognitiveOption}"/>
+                                <c:ChasInputCheckbox aura:id="mobilityOption" required="false"  label="Mobility (For example: movement difficulties or a wheelchair)"  name="mobilityOption" value="{!v.wizardData.accessibilityMobilityOption}"/>
+                                <c:ChasInputCheckbox aura:id="seizuresOption" required="false"  label="Seizures (For example: photosensitive epilepsy)"  name="seizuresOption" value="{!v.wizardData.accessibilitySeizuresOption}"/>
+                                <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption" value="{!v.wizardData.accessibilityVisualOption}"/>
+                                <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption" value="{!v.wizardData.accessibilityOtherOption}"/>
+                            </div>
+                            <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' />
+                        </c:ChasFieldset>
+                    </aura:if>
                     <!--<c:ChasNavButtons submit="true" nextAction="{! c.goForward }" backAction="{! c.goBack }" disabled="{! not(v.formValid) }" />-->
+                    <div>
+                        <lightning:button label="Continue" variant="brand" onclick="{!c.goForward}" class="{! 'chas-button chas-input-search-button'}" />
+                    </div>
                 </div>
             </c:ChasForm>
         </aura:set>
