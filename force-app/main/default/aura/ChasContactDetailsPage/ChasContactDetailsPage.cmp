@@ -32,8 +32,8 @@
             </div>
             <!-- Input fields........-->
             <div class="form-input-container">
-                <c:ChasInput type='text' aura:id='chasInput' name='ChasGivenName' required='false' label='Given name1' value='{! v.wizardData.givenName }' />
-                <c:ChasInput type='text' aura:id='chasInput' name='ChasSurname' required='false' label='Surname1' value='{! v.wizardData.surname }' />
+                <c:ChasInput type='text' aura:id='chasInput' name='ChasGivenName' required='false' label='Given name' value='{! v.wizardData.givenName }' />
+                <c:ChasInput type='text' aura:id='chasInput' name='ChasSurname' required='false' label='Surname' value='{! v.wizardData.surname }' />
                 <c:ChasInput type='email' aura:id='chasInput' name='ChasEmail' required='false' label='Email address' value='{! v.wizardData.emailId }' />
                 <c:ChasInput type='tel' aura:id='chasInput' name='userPhoneNumber' required="false" label='Phone number' value='{!v.wizardData.phone}' >
                     <p class="chas-body_small">Please include the area code if entering a landline</p>
