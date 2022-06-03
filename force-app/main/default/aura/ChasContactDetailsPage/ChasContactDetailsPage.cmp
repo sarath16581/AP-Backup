@@ -65,7 +65,9 @@
                         <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption" value="{!v.wizardData.accessibilityVisualOption}"/>
                         <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption" value="{!v.wizardData.accessibilityOtherOption}"/>
                     </div>
-                    <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' />
+                    <aura:if isTrue="{!v.wizardData.accessibilityOtherOption}">
+                        <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' value="{!v.wizardData.accessibilityOtherReason}"/>
+                    </aura:if>
                 </c:ChasFieldset>
             </aura:if>
             <div>
@@ -127,7 +129,9 @@
                                 <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption" value="{!v.wizardData.accessibilityVisualOption}"/>
                                 <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption" value="{!v.wizardData.accessibilityOtherOption}"/>
                             </div>
-                            <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' />
+                            <aura:if isTrue="{!v.wizardData.accessibilityOtherOption}">
+                                <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' value="{!v.wizardData.accessibilityOtherReason}"/>
+                            </aura:if>
                         </c:ChasFieldset>
                     </aura:if>
                     <!--<c:ChasNavButtons submit="true" nextAction="{! c.goForward }" backAction="{! c.goBack }" disabled="{! not(v.formValid) }" />-->
