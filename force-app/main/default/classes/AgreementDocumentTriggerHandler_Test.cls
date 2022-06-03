@@ -8,6 +8,7 @@
     Date:          Author:                  Description:
     03/10/2016     Lyndon Lavapie			Created
     04/10/2019     disha.kariya@auspost.com.au  Added test method for new Update Method in handler
+    03/06/2022     Talib Raza               REQ2801136: Test method changed to verify Assignment_Effective_To_Date__c to 4 years
     
 *******************************************************************************************/
 @isTest
@@ -143,8 +144,8 @@ private class AgreementDocumentTriggerHandler_Test {
 
             Update agreementDocument;
             Account licenceUpdated = [SELECT id,Assignment_Effective_To_Date__c from account where id=:agreementDocument.Licence__c limit 1];
-        //Verify if Assignment Effective From has been updated to be after 3 years
-        System.assertEquals(System.Today().addYears(3), licenceUpdated.Assignment_Effective_To_Date__c);
+        //Verify if Assignment Effective From has been updated to be after 4 (Previously was 3 three) years
+        System.assertEquals(System.Today().addYears(4), licenceUpdated.Assignment_Effective_To_Date__c);
         Test.stopTest();
 
     }

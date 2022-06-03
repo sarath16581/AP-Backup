@@ -8,6 +8,7 @@ Change Log:
 Date:          Author:                  Description:
 03/10/2016     Lyndon Lavapie			Created
 17/09/2019     Disha Kariya             Added updateAccount method to add 3 years to Assignment Effective To Date when Renewal agreement document is signed and Active.
+03/06/2022     Talib Raza               REQ2801136: Changed updateAccount method to add 4 years to Assignment Effective To Date when Renewal agreement document is signed and Active.
     
 *******************************************************************************************/
 public class AgreementDocumentTriggerHandler {
@@ -59,7 +60,7 @@ public class AgreementDocumentTriggerHandler {
         //Get the licence details
         for(Account licence : [SELECT Id, Assignment_Effective_To_Date__c, Licence_Status__c, Approval_Status__c FROM Account WHERE Id IN :parentAccountIds AND RecordTypeId IN :licenceRTs.keySet()]){
             //Add 3 years to Assignment Effective To Date as Renew is signed and Active
-            licence.Assignment_Effective_To_Date__c = licence.Assignment_Effective_To_Date__c.addYears(3);
+            licence.Assignment_Effective_To_Date__c = licence.Assignment_Effective_To_Date__c.addYears(4);
             mapParentAccounts.put(licence.Id, licence);
         }
         try {
