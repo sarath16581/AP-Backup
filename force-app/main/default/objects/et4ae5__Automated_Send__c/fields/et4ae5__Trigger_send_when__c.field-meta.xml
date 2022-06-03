@@ -4,7 +4,7 @@
     <deprecated>false</deprecated>
     <description>Object event that will trigger the evaluation of the Triggered Send.  Options are for when a new record for respective object is created, existing record is updated, or both created and updated</description>
     <externalId>false</externalId>
-    <formula>IF( et4ae5__Action__c == &apos;Insert&apos;,  $Label.et4ae5__recins , IF( et4ae5__Action__c == &apos;Update&apos;,  $Label.et4ae5__recupdt , IF(et4ae5__Action__c == &apos;Either&apos;, $Label.et4ae5__recups , IF(et4ae5__Action__c == &apos;EitherSubsequently&apos;, $Label.et4ae5__recupdtsub,&apos;&apos;))))</formula>
+    <formula>IF( et4ae5__Action__c == &apos;Insert&apos;,  $Label.et4ae5__recIns , IF( et4ae5__Action__c == &apos;Update&apos;,  $Label.et4ae5__recUpdt , IF(et4ae5__Action__c == &apos;Either&apos;, $Label.et4ae5__recUps , IF(et4ae5__Action__c == &apos;EitherSubsequently&apos;, $Label.et4ae5__recUpdtSub,&apos;&apos;))))</formula>
     <inlineHelpText>Object event that will trigger the evaluation of the Triggered Send.  Options are for when a new record for respective object is created, existing record is updated, or both created and updated</inlineHelpText>
     <label>Trigger send when</label>
     <required>false</required>

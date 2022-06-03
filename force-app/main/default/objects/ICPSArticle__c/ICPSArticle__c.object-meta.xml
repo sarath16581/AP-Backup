@@ -156,7 +156,7 @@
     <enableHistory>true</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
-    <enableSearch>false</enableSearch>
+    <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
@@ -167,7 +167,14 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>ICPS Articles</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>ICPS__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ReceiverName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Contents__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>DeclaredValue__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Weight__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>PostageInsurance__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <startsWith>Vowel</startsWith>
     <visibility>Public</visibility>
