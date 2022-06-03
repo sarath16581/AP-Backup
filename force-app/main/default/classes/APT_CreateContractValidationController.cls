@@ -2,6 +2,7 @@
  * Description: Main controller for APT_CreateContractValidation page
  * Date: 17/08/2017
  * 2021-10-28 Sautul Mehta - CI-96 Changes for APPC Contract Template Document Generation.
+ * 2022-06-03 - Seth Heang - Hot Fix for validateDOVPresent not executing, bring validateDOVPresent into class constructor
 */
 public with sharing class APT_CreateContractValidationController {
     public Boolean IsError{get; set;}
@@ -14,8 +15,9 @@ public with sharing class APT_CreateContractValidationController {
         IsError = false;
         apConId = ApexPages.currentPage().getParameters().get('Id');
         appcCount = Integer.valueOf(ApexPages.currentPage().getParameters().get('count'));
-        apConVar=[select id,Contract_Expiration_Date__c from Apttus__APTS_Agreement__c WHERE Id = :apConId];
-        validateExpDate(apConVar);
+        apConVar = [SELECT Id, APT_Contract_Type__c, APT_Is_Create_Contract_Batch_Job_Running__c, APT_APPC_Count__c,Contract_Expiration_Date__c, (Select Id from DoV_Languages__r) FROM Apttus__APTS_Agreement__c WHERE Id = :apConId]; 
+        validateDOVPresent(apConVar); // Call DOV validation
+        validateExpDate(apConVar); //validate expdate
     }
     
     /**
@@ -26,9 +28,7 @@ public with sharing class APT_CreateContractValidationController {
     */
     public PageReference generateAPPCContractDocument(){    
         
-        apConVar = [SELECT Id, APT_Contract_Type__c, APT_Is_Create_Contract_Batch_Job_Running__c, APT_APPC_Count__c,Contract_Expiration_Date__c, (Select Id from DoV_Languages__r) FROM Apttus__APTS_Agreement__c WHERE Id = :apConId]; 
-        validateDOVPresent(apConVar); // Call DOV validation
-         //validate expdate
+
         if(apConVar.APT_APPC_Count__c > 0){
             IsAPPC = true;   
 
@@ -49,8 +49,9 @@ public with sharing class APT_CreateContractValidationController {
         Boolean mergeDocuments = false; 
         Boolean deleteGenDocs = false;
         createContract(apConId, listTemplateId, templatepLevelMap, templateOutputFormatMap, mergeDocuments, deleteGenDocs, UserInfo.getSessionId(), UserInfo.getOrganizationId());
-       
+        
         return new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH + apConId);
+        
     } 
     
     public void validateDOVPresent(Apttus__APTS_Agreement__c apConLocVar){
@@ -67,7 +68,7 @@ public with sharing class APT_CreateContractValidationController {
       {
        IsError = true;
        system.debug('show exception'+IsError);
-            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'Cannot present the expired Contract. To present this contract please update the contract expiration date.'));
+            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,APT_Constants.ERROR_MESSAGE_CANNOT_CREATE_CONTRACT));
       }
     
     }
