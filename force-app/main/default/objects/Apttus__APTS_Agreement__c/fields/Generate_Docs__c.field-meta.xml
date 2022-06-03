@@ -39,10 +39,9 @@
 		),
 		NOT(APT_Is_Create_Contract_Batch_Job_Running__c)		 
 	),
-	
-	HYPERLINK(&quot;/apex/APT_ValidateContract?id=&quot;&amp;Id &amp; &quot;&amp;count=&quot;&amp; 
-	IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;),&quot;1&quot;,&quot;0&quot;),
-	/* TEXT(APT_APPC_Count__c) */ IMAGE(&quot;/resource/APT_Create_Green&quot;, &quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;), 
+	HYPERLINK(&quot;/apex/APT_CreateContractValidation?id=&quot;&amp;Id &amp; &quot;&amp;count=&quot;&amp;
+        IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;),&quot;1&quot;,&quot;0&quot;), 
+        IMAGE(&quot;/resource/APT_Create_Green&quot;, &quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;), 
 	IF 
 	(
 		AND
