@@ -18,8 +18,6 @@ pipelines:
                       - sh /tmp/pipelines/pipeline-orchestrator/feature-build.sh
                   artifacts:
                       - dist/**
-                  caches:
-                      - dist
             - step:
                   trigger: manual
                   name: Deploy/Validate
