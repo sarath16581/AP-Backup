@@ -85,6 +85,14 @@
                                  {'label':'Delivery driver\'s service', value:'Delivery driver\'s service'},
                                  {'label':'Other', value:'Other'}
                                  ]"/>
+    <aura:attribute name="poFinder" type="String" default="https://auspost.com.au/locate/"/>
+    <aura:attribute name="poIssueTypes" type="List"
+                        default="[
+                                 {'label':'Access', value:'Access'},
+                                 {'label':'Product or service', value:'Product or service'},
+                                 {'label':'Staff service or behaviour', value:'Staff service or behaviour'},
+                                 {'label':'Something else', value:'Something else'}
+                                 ]"/>
     <!-- Guest login attributes-->
     <aura:handler name="chasmyPostLogin" event="c:ChasMyPostLogin" action="{!c.displaymyPostLoginForm}"/>
     <aura:attribute name="authenticatedURL" type="String" />
@@ -278,6 +286,35 @@
                                             value="{! v.wizardData.accessibilityIssueType }" />
 
                         <aura:if isTrue="{! v.wizardData.accessibilityIssueType}">
+                            <!-- Post office -->
+                            <aura:if isTrue="{! v.wizardData.accessibilityIssueTypeName == 'Post Office' }">
+                                <!-- Post office -->
+                                <c:ChasInput type="text" aura:id="chasInput" name="postOffice" required="true" label="Post Office" value="{! v.wizardData.postOffice }">
+                                    <p class="chas-body_small">To look up a Post Office name, you can <a class="poFinder" href="{!v.poFinder}" target="_blank">find a Post Office</a></p>
+                                </c:ChasInput>
+
+                                <!-- Issue type Select -->
+                                <c:ChasSelect aura:id="chasInput" name="poIssueType" required="true" label="Issue type" options="{!v.poIssueTypes}" value="{!v.wizardData.poIssueType}" />
+
+                                <!-- Issue date -->
+                                <c:ChasInput type="date" aura:id="chasInput" name="issueDate" required="true"
+                                            label='When did the issue occur?' value="{! v.wizardData.issueDate }" short="true"
+                                            placeholder="DD/MM/YYYY"/>
+
+                                <!-- Feedback or enquiry -->
+                                <c:chasTextArea aura:id="chasInput" name="enquiryDetails" required="true" label="Your feedback or enquiry" value="{!v.wizardData.enquiryDetails}" helptext="{! v.helptext }">
+                                    <p class="chas-body_small">Let us know what went wrong or could be improved</p>
+                                </c:chasTextArea>
+
+                                <!-- Issue Radio Buttons -->
+                                <c:ChasRadioButtons aura:id="chasInput"
+                                                    name="issueRadioButtons"
+                                                    required="true"
+                                                    label="Has this issue occured before?"
+                                                    options="{! v.issueRadioGroup }"
+                                                    value="{! v.wizardData.selectedIssueType }"/>
+                            </aura:if>
+
                             <!-- Delivery issue -->
                             <aura:if isTrue="{! v.wizardData.accessibilityIssueTypeName == 'Delivery' }">
                                 <!-- Order Tracking Number -->
