@@ -20,6 +20,17 @@ pipelines:
                       - dist/**
                   caches:
                       - dist
+            - step:
+                  trigger: manual
+                  name: Deploy/Validate
+                  script:
+                      - apt-get update && apt-get install --no-install-recommends -y git
+                      - cd /tmp && mkdir pipelines && cd /tmp/pipelines && git clone https://$PIPELINE_REPO_USER:$PIPELINE_REPO_PASS@bitbucket.org/customersystemsteam/pipeline-tools-sfdx.git .
+                      - sh /tmp/pipelines/pipeline-orchestrator/feature-deploy.sh
+                  artifacts:
+                      - dist/**
+                  caches:
+                      - dist
     custom:
         get-ptest:
             - step:
