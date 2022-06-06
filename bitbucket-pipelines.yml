@@ -29,8 +29,6 @@ pipelines:
                       - sh /tmp/pipelines/pipeline-orchestrator/feature-deploy.sh
                   artifacts:
                       - dist/**
-                  caches:
-                      - dist
     custom:
         get-ptest:
             - step:
@@ -42,7 +40,3 @@ pipelines:
                       - export access_token=$(curl -s -X POST -u "${BITBUCKET_OAUTH_CLIENT_ID}:${BITBUCKET_OAUTH_CLIENT_SECRET}" https://bitbucket.org/site/oauth2/access_token -d grant_type=client_credentials -d scopes="repository"| jq --raw-output '.access_token')
                       - cd $BITBUCKET_CLONE_DIR && git remote set-url origin "https://x-token-auth:${access_token}@bitbucket.org/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}"
                       - cd /tmp/pipelines/pipeline-orchestrator/ && chmod +x get-env.sh && ./get-env.sh -n "${PTEST_BRANCH_MAPPING}" -c "${PTEST_CLIENT_ID}" -s "${PTEST_CLIENT_SECRET}" -u "${PTEST_USERNAME}" -p "${PTEST_PASSWORD}" -l "${PTEST_LOGIN_URL}" -b "${PTEST_BRANCH_MAPPING}" -d "${BITBUCKET_CLONE_DIR}"
-
-definitions:
-    caches:
-        dist: dist
