@@ -26,7 +26,8 @@ public with sharing class ICPSServiceController {
 			ICPS__c.ItemType__c,
 			ICPS__c.ReceiverName__c,
 			ICPS__c.CountryofOrigin__c,
-			ICPS__c.NumberofArticles__c
+			ICPS__c.NumberofArticles__c,
+			ICPS__c.Status__c
 	};
 
 	/**

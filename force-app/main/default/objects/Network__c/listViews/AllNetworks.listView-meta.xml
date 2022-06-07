@@ -10,11 +10,6 @@
     <columns>LAST_UPDATE</columns>
     <columns>Post_Code__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>Network__c.Other_8</value>
-    </filters>
     <label>All Networks</label>
     <sharedTo>
         <group>AllUsers</group>

@@ -2,7 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_BAND_5_OR_6__c</fullName>
     <externalId>false</externalId>
-    <formula>if (OR(((TEXT(Apttus_Config2__AttributeValueId__r.Revenue_Committment__c)) = &apos;35,000 - 50,000&apos;), ((TEXT(Apttus_Config2__AttributeValueId__r.Revenue_Committment__c)) = &apos;Above 50,000&apos;)),&apos;YES&apos;,&apos;NO&apos;)</formula>
+    <formula>/** REQ2840328 - Approval not required for 35-50k
+if (OR(((TEXT(Apttus_Config2__AttributeValueId__r.Revenue_Committment__c)) = &apos;35,000 - 50,000&apos;), ((TEXT(Apttus_Config2__AttributeValueId__r.Revenue_Committment__c)) = &apos;Above 50,000&apos;)),&apos;YES&apos;,&apos;NO&apos;)**/
+
+if (OR(((TEXT(Apttus_Config2__AttributeValueId__r.Revenue_Committment__c)) = &apos;Above 50,000&apos;)),&apos;YES&apos;,&apos;NO&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is BAND 5 OR 6</label>
     <required>false</required>
