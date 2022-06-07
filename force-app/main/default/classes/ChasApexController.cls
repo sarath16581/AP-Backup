@@ -2099,10 +2099,6 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
 
     // refactoring notes , due to a know issue following variables are duplicated in both this class and the ChasBase
     // https://trailblazer.salesforce.com/issues_view?id=a1p3A000000ENHXQA4
-
-    public static Boolean noNetworkIdFound = false;                // flag for no network ID found in setDirectRoutingValues
-    public static String unavailableOrgId;                         // org ID that is unavailable
-    public static Boolean noNetworkGroupFound = false;             // flag for no network group found in setDirectRoutingValues
     /**
      * check if there is any exception on network assigning and create corresponding case comment
      * the comment will be private by default
@@ -2118,13 +2114,13 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             SharingBypass helper = new SharingBypass();
 
             // create case comment if no network id found on network assigning
-            if (noNetworkIdFound) {
-                comments.add(helper.generateCaseComment('Unable to find network with requested org ID: ' + unavailableOrgId, false));
+            if (ChasBase.noNetworkIdFound) {
+                comments.add(helper.generateCaseComment('Unable to find network with requested org ID: ' + ChasBase.unavailableOrgId, false));
             }
 
             // create case comment if no network group found in network assigning
-            if (noNetworkGroupFound) {
-                comments.add(helper.generateCaseComment('Unable to find network queue for the requested org ID: ' + unavailableOrgId, false));
+            if (ChasBase.noNetworkGroupFound) {
+                comments.add(helper.generateCaseComment('Unable to find network queue for the requested org ID: ' + ChasBase.unavailableOrgId, false));
                 // helper.createCaseComment(iCase.Id, comment, false, true);
             }
         }
