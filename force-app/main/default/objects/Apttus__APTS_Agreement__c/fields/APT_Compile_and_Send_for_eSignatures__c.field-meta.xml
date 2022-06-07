@@ -8,31 +8,74 @@ HYPERLINK(&quot;/apex/APT_ValidateContracteSignature?id=&quot;&amp;Id &amp;&quot
 
 IF( 
 AND( 
+	AND( 
+		OR( 
+			ISPICKVAL( Apttus_Approval__Approval_Status__c , &apos;None&apos;) , 
+			ISPICKVAL( Apttus_Approval__Approval_Status__c , &apos;Approved&apos;) 
+		), 
+		OR( 
+			ISPICKVAL( Apttus_Approval__Term_Exception_Approval_Status__c , &apos;None&apos;) , 
+			ISPICKVAL( Apttus_Approval__Term_Exception_Approval_Status__c , &apos;Approved&apos;) 
+		) 
+	), 
+	OR( 
+		ISPICKVAL(Apttus__Status_Category__c,&quot;In Authoring&quot;), 
+		(
+			AND(
+				ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), 
+				ISPICKVAL(Apttus__Status__c,&quot;Ready for Signatures&quot;)
+			)
+		), 
+		(
+			AND(
+				ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), 
+				ISPICKVAL(Apttus__Status__c,&quot;Signature Declined&quot;)
+			)
+		) 
+	), 
+	OR( 
+		NOT(INCLUDES(Included_Product_Lines__c,&apos;Workforce Verification&apos;)), 
+		AND(
+			INCLUDES(Included_Product_Lines__c,&apos;Workforce Verification&apos;),
+			Apttus_QPComply__RelatedProposalId__r.ACIC_Request_Approved__c
+		) 
+	), 
 
-AND( 
-OR( ISPICKVAL( Apttus_Approval__Approval_Status__c , &apos;None&apos;) , 
-ISPICKVAL( Apttus_Approval__Approval_Status__c , &apos;Approved&apos;) 
-), 
-OR( ISPICKVAL( Apttus_Approval__Term_Exception_Approval_Status__c , &apos;None&apos;) , 
-ISPICKVAL( Apttus_Approval__Term_Exception_Approval_Status__c , &apos;Approved&apos;) 
-) 
-), 
-OR( 
-ISPICKVAL(Apttus__Status_Category__c,&quot;In Authoring&quot;), 
-(AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), 
-ISPICKVAL(Apttus__Status__c,&quot;Ready for Signatures&quot;))), 
-(AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), 
-ISPICKVAL(Apttus__Status__c,&quot;Signature Declined&quot;))) 
-), 
-OR( 
-NOT(INCLUDES(Included_Product_Lines__c,&apos;Workforce Verification&apos;)), 
-AND(INCLUDES(Included_Product_Lines__c,&apos;Workforce Verification&apos;),Apttus_QPComply__RelatedProposalId__r.ACIC_Request_Approved__c) 
-), 
-
-IF(OR(Record_Type_Name__c =&quot;Community Update Pack&quot;,Record_Type_Name__c =&quot;MSA &amp; Service Schedule&quot;), 
-IF(AND(ISPICKVAL(Apttus__Related_Opportunity__r.Type, &quot;Existing Customer&quot;), OR(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;Charge Account&quot;),ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;Charge Account + Sub Account&quot;)), AND(NOT(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment_Status__c,&quot;Approved&quot;)),NOT(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment_Status__c,&quot;Auto-Approved&quot;)))),FALSE, 
-IF(AND(ISPICKVAL(Apttus__Related_Opportunity__r.Type, &quot;New Customer&quot;),OR(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;&quot;) , AND(OR(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;Charge Account&quot;),ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;Charge Account + Sub Account&quot;)),AND(NOT(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment_Status__c,&quot;Approved&quot;)),NOT(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment_Status__c,&quot;Auto-Approved&quot;)))))),FALSE,TRUE)), TRUE) 
-
+	IF(
+		OR(Record_Type_Name__c =&quot;Community Update Pack&quot;,Record_Type_Name__c =&quot;MSA &amp; Service Schedule&quot;), 
+		IF(
+			AND(
+				OR(
+					ISBLANK(TEXT(Apttus__Related_Opportunity__r.Type)),
+					ISPICKVAL(Apttus__Related_Opportunity__r.Type, &quot;Existing Customer&quot;)
+				),
+				OR(
+					ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;Charge Account&quot;),
+					ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;Charge Account + Sub Account&quot;)
+				), 
+				AND(
+					NOT(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment_Status__c,&quot;Approved&quot;)),
+					NOT(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment_Status__c,&quot;Auto-Approved&quot;))
+				)
+			),FALSE, 
+			IF(
+				AND(
+					ISPICKVAL(Apttus__Related_Opportunity__r.Type, &quot;New Customer&quot;),
+					OR(
+						ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;&quot;) , 
+						AND(
+							OR(
+								ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;Charge Account&quot;),
+								ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c,&quot;Charge Account + Sub Account&quot;)
+							),
+							AND(
+								NOT(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment_Status__c,&quot;Approved&quot;)),
+								NOT(ISPICKVAL(Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment_Status__c,&quot;Auto-Approved&quot;))
+							)
+						)
+					)
+				),FALSE,TRUE)
+	), TRUE) 
 ), 
 HYPERLINK(&quot;/apex/APT_ValidateContracteSignature?id=&quot;&amp;Id &amp;&quot;&amp;text&quot; &amp; &quot;&amp;name=&quot;&amp;Name, IMAGE(&quot;/resource/Apttus_DocuApi__eSignature&quot;,&quot;Send For eSignatures&quot;), &quot;_self&quot;), 
 NULL 
