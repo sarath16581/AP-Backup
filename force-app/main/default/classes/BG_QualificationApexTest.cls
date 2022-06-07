@@ -7,6 +7,7 @@ History:
 05.03.2020      Jansi (CRMIT Solutions)            Test class created
 17.08.2020      arjun.singh@auspost.com.au         test a method to fetch the configured estimated revnue used in lead qualification flow
 08.03.2022      seth.heang@auspost.com.au          update query on qualification template question to retrieve new validation related fields in test methods 
+30.05.2022      seth.heang@auspost.com.au          update test method getPicklistvalues to cover exception scenario
 *****************************************************************************************/
 @isTest
 public class BG_QualificationApexTest {
@@ -98,15 +99,27 @@ public class BG_QualificationApexTest {
         q.Total_Estimate__c = 1000;
         insert q;
     }
-    /**
-	* Test method to get picklist values
+	/**
+	* Test method to get picklist label and api values via Schema.
+	* The tests cover positive scenario where retrieval is sucessful and negative scenario where retrieval is resulted in exception.
 	* */
-    @isTest
-    static void getPicklistvalues() {
-        Boolean isTrue = true;
-        Map<String, String> leadStatusPicklistValues = BG_QualificationApex.getPickListValuesBoth('Lead','status','values');
-        System.assert(isTrue);
-    }
+	@isTest
+	static void getPicklistvalues() {
+		// positive scenario where picklist value are successfully retrieved
+		Map<String, String> leadStatusPicklistValues = BG_QualificationApex.getPickListValuesBoth('Lead','status','values');
+		System.assertNotEquals(leadStatusPicklistValues, null, 'Picklist retrieval should be sucessful');
+
+		// negative scenario where exception occurs when retrieving picklist values
+		try{
+			// provide non-existent field api name
+			Map<String, String> leadStatusPicklistValuesFails = BG_QualificationApex.getPickListValuesBoth('Lead','non_existing_field__c','values');
+			System.assert(False, 'Picklist retrieval should result in exception');            
+		}catch(AuraHandledException auraEx){
+			// AuraHandledException is expected while retrieving picklist value
+		}catch(Exception ex){
+			System.assert(False, 'Expected type of exception is not thrown');
+		}
+	}
     
     /**
 	* Test method to get 'Discovery' category questions

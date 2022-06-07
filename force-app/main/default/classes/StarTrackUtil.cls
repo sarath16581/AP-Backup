@@ -10,6 +10,7 @@ July 18, 2016 - David Catindoy - Reason for Without Sharing: Users need access t
 March 08, 2017 - David Catindoy - Transferred closeRelatedTasksAndWFEmails method from CaseCommonUtility class to let user close the tasks that they don't own when the parent case record was closed.
 2019-02-23  nathan.franklin@auspost.com.au  Small refactoring of closeRelatedTasksAndWFEmails to minimise additional DML operations
 2022-02-22  naveen.rajanna@auspost.com.au   REQ2723199  Added  updateSTCaseFields, getCaseSTCalcEmailAddress and updateSTCaseFields methods
+2022-06-03  naveen.rajanna@auspost.com.au   REQ2859167 Modify the Startrack DueDate logic for Normal priority case
 ------------------------------------------------------------*/
 public without sharing class StarTrackUtil {
 
@@ -538,10 +539,10 @@ public without sharing class StarTrackUtil {
         StarTrack_Settings__c cs = StarTrack_Settings__c.getOrgDefaults();
         List<Case> caseList = [SELECT Id, CaseNumber, CreatedDate, Due_Date__c, Priority, Status, BusinessHoursId FROM Case WHERE Id IN :caseIds];
         for(Case caseRec : caseList){
-            if(caseRec.BusinessHoursId != null){
+            if(caseRec.BusinessHoursId != null){ 
                 Datetime dtDueDate = System.now();
                 if(StarTrack_Constants.PRIORITY_NORMAL.equals(caseRec.Priority)){
-                   dtDueDate = BusinessHours.add(caseRec.BusinessHoursId, caseRec.CreatedDate, (3600000 * Integer.valueOf(cs.Number_of_Hours_per_Business_Days__c*5)));
+                   dtDueDate = BusinessHours.add(caseRec.BusinessHoursId, caseRec.CreatedDate, (3600000 * Integer.valueOf(cs.Number_of_Hours_per_Business_Days__c*4)));//REQ2859167
                 } else if(StarTrack_Constants.PRIORITY_HIGH.equals(caseRec.Priority)){
                     dtDueDate = BusinessHours.add(caseRec.BusinessHoursId, caseRec.CreatedDate, (3600000 * Integer.valueOf(cs.Number_of_Hours_per_Business_Days__c*3)));
                 } else if(StarTrack_Constants.PRIORITY_URGENT.equals(caseRec.Priority)){

@@ -148,6 +148,9 @@
     validatePostOffice: function(cmp, showError) {
         return this.validateNotNull(cmp, showError, "Enter preferred post office for collection");
     },
+    validateAccessibilityPostOffice: function(cmp, showError) {
+        return this.validateNotNull(cmp, showError, "Enter Post Office");
+    },
     validationMap: function() {
         return {
             'enquiryDetailsRadioButtons': this.validateRadioButtons,
@@ -169,6 +172,8 @@
             'medicationRadioButtons': this.validateRadioButtons,
             'issueRadioButtons': this.validateRadioButtons,
             'issueDate': this.validateDate,
+            'poIssueType': this.validateSelect,
+            'postOffice': this.validateAccessibilityPostOffice
         };
     },
     searchTrackingNumber : function(cmp, event, helper) {
