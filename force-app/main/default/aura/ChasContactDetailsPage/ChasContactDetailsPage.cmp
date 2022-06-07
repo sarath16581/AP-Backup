@@ -38,7 +38,10 @@
                 <c:ChasInput type='tel' aura:id='chasInput' name='userPhoneNumber' required="false" label='Phone number' value='{!v.wizardData.phone}' >
                     <p class="chas-body_small">Please include the area code if entering a landline</p>
                 </c:ChasInput>
-    
+                <!-- Section separator-->
+                <div class="separator-gap">
+                    <hr/>
+                </div>
                 <c:ChasSelect name='ChasContactPreferrence' label='Contact Preference' options="{!v.contactPreferrenceOptions}" value='{!v.wizardData.contactPreferrence}' short="true" /> 
                 <aura:if isTrue="{!v.wizardData.contactPreferrence == 'Email'}">
                     <c:ChasBspDeflection heading='' animate="true" borderStyle="info-box-left-bar bottom-gap">
@@ -48,10 +51,7 @@
                     </c:ChasBspDeflection>
                 </aura:if>   
             </div>
-            <!-- Section separator-->
-            <div class="separator-gap">
-                <hr/>
-            </div>
+
             <!-- DDS-10799 Accessibility or disability assistance check boxes guest user-->
             <aura:if isTrue="{!v.wizardData.selectedRadio1 == 'accessibilityOption'}">
                 <c:ChasFieldset>
@@ -101,6 +101,10 @@
                             <c:ChasInput type='tel' aura:id='chasInput' name='userPhoneNumber' required="true" label='Phone number' value='{!v.authUserData.userContactPhone}' >
                                 <p class="chas-body_small">Please include the area code if entering a landline</p>
                             </c:ChasInput>
+                            <!-- Section separator-->
+                            <div class="separator-gap">
+                                <hr/>
+                            </div>
                             <!-- Contact Preference, added by Edmarco on July 2019 -->
                             <c:ChasSelect name='ChasContactPreferrence' label='Contact Preference' options="{!v.contactPreferrenceOptions}" value='{!v.wizardData.contactPreferrence}' short="true" /> 
                             <aura:if isTrue="{!v.wizardData.contactPreferrence == 'Email'}">
@@ -112,10 +116,6 @@
                             </aura:if>
                         </aura:if>
                     </c:ChasFieldset>
-                    <!-- Section separator-->
-                    <div class="separator-gap">
-                        <hr/>
-                    </div>
                     <!-- DDS-10799 Accessibility or disability assistance check boxes authenticatied users -->
                     <aura:if isTrue="{!v.wizardData.selectedRadio1 == 'accessibilityOption'}">
                         <c:ChasFieldset>
