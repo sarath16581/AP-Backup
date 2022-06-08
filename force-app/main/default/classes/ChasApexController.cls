@@ -51,7 +51,7 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the method searchTrackingNumber() to handle multiple articles
 * 2022-05-04 mahesh.parvathaneni@auspost.com.au DDS-10119 Changed to Mypost general enquiries from Mypost
 */
-public with sharing class ChasApexController {
+public virtual with sharing class ChasApexController {
 
     public static ChasApexController getInstance() {
         return (ChasApexController)Application.Utilities.getInstance(ChasApexController.class);
@@ -1707,7 +1707,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
 * This method will create Case for Products and services
 * */
     @AuraEnabled
-    public static CaseWrapper createCaseFromProductsAndServices( Map <String,String> wizardData, Map <String,String> authUserData ){
+    /*public static CaseWrapper createCaseFromProductsAndServices( Map <String,String> wizardData, Map <String,String> authUserData ){
         CaseWrapper caseWrapper = new CaseWrapper();
         caseWrapper.caseStatus = 'SUCCESS';
         
@@ -1984,8 +1984,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             if(!String.isEmpty(wcid) && !String.isEmpty(wizardData.get('isParcelAwaitingCollection')) && 'true'.equalsIgnoreCase(wizardData.get('isParcelAwaitingCollection'))
                     && !transferToPoProductExclusions.containsIgnoreCase(subProductId)) {
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
-              /*  ChasCaseAssignment caseAssignment = new ChasCaseAssignment(toBeCreateCase, wcid);
-                Id jobId = System.enqueueJob(caseAssignment);*/
+              *//*  ChasCaseAssignment caseAssignment = new ChasCaseAssignment(toBeCreateCase, wcid);
+                Id jobId = System.enqueueJob(caseAssignment);*//*
 
             }
 			Database.SaveResult[] results;
@@ -2005,11 +2005,11 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
             // checkNetworkAssigningResult(toBeCreateCase);
             
-            /*Case routing logic : Route the case to the myNetwork queue if:
+            *//*Case routing logic : Route the case to the myNetwork queue if:
 1. Parcel awaiting collection
 2. Workcenter id on the corresponding parcel awaiting collection event is not null
 3. Exclude certain article sub products
-*/
+*//*
 
             
         }catch(Exception ex){
@@ -2017,14 +2017,14 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             System.debug('*** - Error while in createCaseFromProductandServices method ==='+ex);
         }
         return caseWrapper;
-    }
+    }*/
     
     /**
 * @description     get the Contact Id of the provided User Id
 * @param           Id i.e. User Id 
 * @return          Id i.e. Contact Id for the user
 */
-    private static Id getContactId(Id userId) {
+    public static Id getContactId(Id userId) {
         return [SELECT ContactId FROM User WHERE Id = :userId]?.ContactId;
     }
 
@@ -2426,12 +2426,12 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
     }
 
 
-    private enum RoutingBypass{NETWORK, HOLD}
+    public enum RoutingBypass{NETWORK, HOLD}
 
     /**
      * @description Helper class containing methods that need to bypass sharing settings
      */
-    private without sharing class SharingBypass {
+    public without sharing class SharingBypass {
         /**
          * @description Method querying network Id by Org Id and Contact Facility
 		 * @param orgId Organisation Id
@@ -2501,7 +2501,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
      * @param pBypass Type of bypass
      * @param pOrgId Organisation Id for network cases
      */
-    private static void setDirectRoutingValues(Case pCase, final RoutingBypass pBypass, final String pOrgId){
+    public static void setDirectRoutingValues(Case pCase, final RoutingBypass pBypass, final String pOrgId){
         if (pBypass == RoutingBypass.NETWORK){
             pCase.Automated_Network_Assignment__c = true;
             SharingBypass vSharingBypass = new SharingBypass();
