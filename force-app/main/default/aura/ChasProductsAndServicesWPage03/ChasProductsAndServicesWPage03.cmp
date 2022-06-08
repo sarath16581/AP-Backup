@@ -4,7 +4,7 @@
   * Modified by   : Hara Sahoo
   * @description  : 1. Added Back Button and a card layout outer-box
   * Modified by Mahesh Parvathaneni - 10/05/2022 - Hide details section on Delete MyPost account enquiry
-  * Modified by Thang Nguyen - 02/06/2022 - DDS-10805 Add "Accessibility and disability" and "Delivery" issue section
+  * Modified by Thang Nguyen - DDS-10805/10945 Add "Accessibility and disability" issue sections
 -->
 <aura:component
 	extends="c:CHAS_reviewAndSubmit"
@@ -213,10 +213,6 @@
 							</dd>
 						</div>
 						<div>
-							<dt>Tracking number</dt>
-							<dd>{! v.wizardData.orderTrackingNumber }</dd>
-						</div>
-						<div>
 							<dt>Issue type</dt>
 							<dd>{! v.wizardData.issueType }</dd>
 						</div>
@@ -235,6 +231,31 @@
 						<div>
 							<dt>Delivery address</dt>
 							<dd>{! v.wizardData.selectedDeliveryAddress }</dd>
+						</div>
+					</aura:if>
+					<!-- DDS-10945 -->
+					<aura:if
+						isTrue="{! and(v.wizardData.selectedRadio1Name == 'Accessibility and disability', v.wizardData.accessibilityIssueTypeName == 'Post Office')}"
+					>
+						<div>
+							<dt>Post office</dt>
+							<dd>{! v.wizardData.postOffice }</dd>
+						</div>
+						<div>
+							<dt>Issue type</dt>
+							<dd>{! v.wizardData.poIssueType }</dd>
+						</div>
+						<div>
+							<dt>When did the issue occur ?</dt>
+							<dd>{! v.wizardData.issueDate }</dd>
+						</div>
+						<div>
+							<dt>Your feedback or enquiry</dt>
+							<dd>{! v.wizardData.enquiryDetails }</dd>
+						</div>
+						<div>
+							<dt>Has this issue occured before ?</dt>
+							<dd>{! v.wizardData.selectedIssueTypeName }</dd>
 						</div>
 					</aura:if>
 				</dl>
