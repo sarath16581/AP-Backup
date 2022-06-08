@@ -12,6 +12,7 @@ March-16  kalpita.talwadekar@auspost.com.au   updated the class to add the codes
 26/02/2018 nanda.kothamasu@auspost.com.au       to fix Case Error "Maximum View State Size Limit..." used transient on vairables
 26/11/2018 saiswetha.pingali@auspost.com.au     Added new field container_Id__c for REQ1469903
 2021-10-14 - Nathan Franklin - Changed attach safe drop image to delivery proof pdf
+2022-06-06 - Talib Raza - INC1979490: condition added for cc email address
 *******************************  History ************************************************/
 public with sharing class CaseRelatedListPanelContExt {
 
@@ -159,7 +160,7 @@ public with sharing class CaseRelatedListPanelContExt {
 
 	private List<EmailMessage> getEmails(Id caseId) {
 
-		String query = 'SELECT Id, Status, HtmlBody, textBody, Subject, FromAddress, ToAddress, MessageDate, incoming FROM EmailMessage WHERE ParentId = :caseId ORDER BY MessageDate DESC';
+		String query = 'SELECT Id, Status, HtmlBody, textBody, Subject, FromAddress, ToAddress, CcAddress, MessageDate, incoming FROM EmailMessage WHERE ParentId = :caseId ORDER BY MessageDate DESC';
 
 		List<EmailMessage> tempList = Database.query(query);
 		List<EmailMessage> emailList = new List<EmailMessage>();
@@ -181,7 +182,8 @@ public with sharing class CaseRelatedListPanelContExt {
 
 
 			for (EmailMessage em : emails) {
-				if (em.ToAddress != null && em.ToAddress.containsIgnoreCase(networkValue)) {
+				// INC1979490: condition added for cc email address
+				if (em.ToAddress != null && (em.ToAddress.containsIgnoreCase(networkValue) || em.CcAddress.containsIgnoreCase(networkValue))) {
 					emailsNetworkResp.add(em);
 				}
 			}
@@ -436,7 +438,8 @@ public with sharing class CaseRelatedListPanelContExt {
 		public AttachmentWrapper(FeedItem fi, String ft) {
 			id = fi.Id;
 			fileName = fi.Title;
-			fileSize = fi.ContentSize;
+			// INC1979490 ContentSize field was removed in API version 35.0 
+			// fileSize = fi.ContentSize;
 			lastModified = fi.LastModifiedDate;
 			createdById = fi.InsertedById;
 			createByName = fi.InsertedBy.Name;
