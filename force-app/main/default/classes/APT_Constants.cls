@@ -1637,4 +1637,6 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String PSR_STAGE_COMPLETE = 'Completed';
   public static final String PSR_APPC_STANDARD_DELEGATED_PRICING = 'Delegated Pricing';
   public static final String PSR_APPC_CUSTOM_PRICING = 'Customised Pricing';
+
+  public static final string PRICING_CATEGORY_STANDARD = 'Standard';
 }
