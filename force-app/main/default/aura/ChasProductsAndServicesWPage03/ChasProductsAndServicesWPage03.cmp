@@ -8,7 +8,6 @@
 -->
 <aura:component
 		extends="c:CHAS_reviewAndSubmit"
-		controller = "ChasProductsAndServicesController"
 		description="Products and Services wizard page 3: Review and Submit"
 >
 	<div class="component">

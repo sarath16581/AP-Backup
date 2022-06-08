@@ -8,7 +8,7 @@
  * 2022-01-27 hasantha.liyanage@auspost.com.au added null check for convertToDateWithTimezoneFormat()
  * 2022-05-25 hasantha.liyanage@auspost.com.au changed addDays method DDS-9786
  * */
-public without sharing class ChasUtil {
+public without sharing class ChasUtil extends ChasBase{
 
     public static ChasUtil getInstance() {
         return (ChasUtil)Application.Utilities.getInstance(ChasUtil.class);
@@ -280,7 +280,7 @@ public without sharing class ChasUtil {
     /**
 * Create Parse Case inserted results and create case comment
 * */
-    public static ChasApexController.CaseWrapper parseInsertedCaseResultsAndCreateComment(Database.SaveResult[] results, ChasApexController.CaseWrapper caseWrapperObj, List<CaseComment> comments) {
+    public static CaseWrapper parseInsertedCaseResultsAndCreateComment(Database.SaveResult[] results, CaseWrapper caseWrapperObj, List<CaseComment> comments) {
         Set<Id> vCaseIds = new Set<Id>();
         for (Integer i = 0; i < results.size(); i++) {
             if (results[i].isSuccess()) {
