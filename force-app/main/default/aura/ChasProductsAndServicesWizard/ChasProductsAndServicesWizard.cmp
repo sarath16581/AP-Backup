@@ -1,4 +1,4 @@
-<aura:component implements="forceCommunity:availableForAllPageTypes" extends="c:SS_uiWizard" access="global" description="Wizard navigation unique to Products and Services">
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="ChasApexPOCController" extends="c:SS_uiWizard" access="global" description="Wizard navigation unique to Products and Services">
     
     <aura:attribute name="name" type="String" default="ProductsAndServices" />
     

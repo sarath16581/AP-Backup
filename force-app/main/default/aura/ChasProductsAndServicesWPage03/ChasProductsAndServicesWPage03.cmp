@@ -7,21 +7,22 @@
   * Modified by Thang Nguyen - 02/06/2022 - DDS-10805 Add "Accessibility and disability" and "Delivery" issue section
 -->
 <aura:component
-	extends="c:CHAS_reviewAndSubmit"
-	description="Products and Services wizard page 3: Review and Submit"
+		extends="c:CHAS_reviewAndSubmit"
+		controller = "ChasProductsAndServicesController"
+		description="Products and Services wizard page 3: Review and Submit"
 >
 	<div class="component">
 		<!--Go back button-->
 		<div class="left-padding">
 			<img
-				src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png"
-				alt="Go back"
+					src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png"
+					alt="Go back"
 			/><label>&nbsp;</label>
 			<lightning:button
-				label="BACK"
-				variant="base"
-				onclick="{!c.goBackHandler}"
-				class="goBack"
+					label="BACK"
+					variant="base"
+					onclick="{!c.goBackHandler}"
+					class="goBack"
 			/>
 		</div>
 		<div class="outer-box">
@@ -30,7 +31,7 @@
 
 			<!-- Enquiry Details Heading -->
 			<aura:if
-				isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
+					isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
 			>
 				<h3 class="sub-header">
 					Enquiry details - Accessibility or disability issue
@@ -43,7 +44,7 @@
 			<div class="review-container">
 				<dl>
 					<aura:if
-						isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
+							isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
 					>
 						<div>
 							<dt>Issue category</dt>
@@ -60,7 +61,7 @@
 					</aura:if>
 
 					<aura:if
-						isTrue="{! v.wizardData.selectedRadio1Name == 'Mail products' }"
+							isTrue="{! v.wizardData.selectedRadio1Name == 'Mail products' }"
 					>
 						<div>
 							<dt>Enquiry type</dt>
@@ -68,7 +69,7 @@
 						</div>
 
 						<aura:if
-							isTrue="{! v.wizardData.mailProductsEnquiryType == 'Transfer to another post office' }"
+								isTrue="{! v.wizardData.mailProductsEnquiryType == 'Transfer to another post office' }"
 						>
 							<div>
 								<dt>Tracking number</dt>
@@ -78,7 +79,7 @@
 					</aura:if>
 
 					<aura:if
-						isTrue="{! v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts' }"
+							isTrue="{! v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts' }"
 					>
 						<div>
 							<dt>Enquiry type</dt>
@@ -89,10 +90,10 @@
 					</aura:if>
 
 					<aura:if
-						isTrue="{! v.wizardData.selectedRadio1Name == 'Online Shop' }"
+							isTrue="{! v.wizardData.selectedRadio1Name == 'Online Shop' }"
 					>
 						<aura:if
-							isTrue="{! v.wizardData.selectedRadio2Name == 'Yes' }"
+								isTrue="{! v.wizardData.selectedRadio2Name == 'Yes' }"
 						>
 							<div>
 								<dt>Order no</dt>
@@ -107,7 +108,7 @@
 					</aura:if>
 
 					<aura:if
-						isTrue="{! v.wizardData.selectedRadio1Name == 'Money' }"
+							isTrue="{! v.wizardData.selectedRadio1Name == 'Money' }"
 					>
 						<div>
 							<dt>Enquiry type</dt>
@@ -117,7 +118,7 @@
 
 					<!-- DDS-10265 Hide the details section when Delete Mypost account is selected -->
 					<aura:if
-						isTrue="{! !or(and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account'),v.wizardData.selectedRadio1Name == 'Accessibility and disability')}"
+							isTrue="{! !or(and(v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts', v.wizardData.idDocumentsAccountsEnquiryType == 'Delete MyPost account'),v.wizardData.selectedRadio1Name == 'Accessibility and disability')}"
 					>
 						<div>
 							<dt>Details</dt>
@@ -126,30 +127,30 @@
 					</aura:if>
 
 					<aura:if
-						isTrue="{! and(v.wizardData.selectedRadio1Name == 'Online Shop', v.wizardData.selectedRadio2Name == 'Yes') }"
+							isTrue="{! and(v.wizardData.selectedRadio1Name == 'Online Shop', v.wizardData.selectedRadio2Name == 'Yes') }"
 					>
 						<div>
 							<dt>Delivery address</dt>
 							<dd>
 								{! v.wizardData.deliveryAddressLine1 + ', ' }
 								<aura:if
-									isTrue="{! v.wizardData.deliveryAddressLine2 }"
+										isTrue="{! v.wizardData.deliveryAddressLine2 }"
 								>
 									{! v.wizardData.deliveryAddressLine2 + ', '
 									}
 								</aura:if>
 								<aura:if
-									isTrue="{! v.wizardData.deliveryCity }"
+										isTrue="{! v.wizardData.deliveryCity }"
 								>
 									{! v.wizardData.deliveryCity + ' ' }
 								</aura:if>
 								<aura:if
-									isTrue="{! v.wizardData.deliveryState }"
+										isTrue="{! v.wizardData.deliveryState }"
 								>
 									{! v.wizardData.deliveryState + ' ' }
 								</aura:if>
 								<aura:if
-									isTrue="{! v.wizardData.deliveryPostcode }"
+										isTrue="{! v.wizardData.deliveryPostcode }"
 								>
 									{! v.wizardData.deliveryPostcode }
 								</aura:if>
@@ -158,30 +159,30 @@
 					</aura:if>
 					<!-- Original delivery addresss -->
 					<aura:if
-						isTrue="{! and(v.wizardData.selectedRadio1Name =='Mail products',v.wizardData.mailProductsEnquiryType == 'Transfer to another post office') }"
+							isTrue="{! and(v.wizardData.selectedRadio1Name =='Mail products',v.wizardData.mailProductsEnquiryType == 'Transfer to another post office') }"
 					>
 						<div>
 							<dt>Original delivery address</dt>
 							<dd>
 								{! v.wizardData.deliveryAddressLine1 + ', ' }
 								<aura:if
-									isTrue="{! v.wizardData.deliveryAddressLine2 }"
+										isTrue="{! v.wizardData.deliveryAddressLine2 }"
 								>
 									{! v.wizardData.deliveryAddressLine2 + ', '
 									}
 								</aura:if>
 								<aura:if
-									isTrue="{! v.wizardData.deliveryCity }"
+										isTrue="{! v.wizardData.deliveryCity }"
 								>
 									{! v.wizardData.deliveryCity + ' ' }
 								</aura:if>
 								<aura:if
-									isTrue="{! v.wizardData.deliveryState }"
+										isTrue="{! v.wizardData.deliveryState }"
 								>
 									{! v.wizardData.deliveryState + ' ' }
 								</aura:if>
 								<aura:if
-									isTrue="{! v.wizardData.deliveryPostcode }"
+										isTrue="{! v.wizardData.deliveryPostcode }"
 								>
 									{! v.wizardData.deliveryPostcode }
 								</aura:if>
@@ -196,7 +197,7 @@
 
 					<!-- DDS-10805 -->
 					<aura:if
-						isTrue="{! and(v.wizardData.selectedRadio1Name == 'Accessibility and disability', v.wizardData.accessibilityIssueTypeName == 'Delivery')}"
+							isTrue="{! and(v.wizardData.selectedRadio1Name == 'Accessibility and disability', v.wizardData.accessibilityIssueTypeName == 'Delivery')}"
 					>
 						<div>
 							<dt>Tracking number</dt>
@@ -254,11 +255,11 @@
 						<dd>
 							{!or(v.wizardData.givenName,v.authUserData.userContactFirstName)+'
 							'+or(v.wizardData.surname,v.authUserData.userContactLastName)}
-						</dd>
-					</div>
-					<div>
-						<dt>Email</dt>
-						<!--<dd>{!v.authUserData.userContactEmail}</dd>-->
+							</dd>
+							</div>
+							<div>
+							<dt>Email</dt>
+							<!--<dd>{!v.authUserData.userContactEmail}</dd>-->
 						<dd>
 							{!or(v.wizardData.emailId,v.authUserData.userContactEmail)}
 						</dd>
@@ -284,10 +285,10 @@
             </ul> -->
 			</div>
 			<c:ChasNavButtons
-				nextLabel="Continue"
-				disabled="false"
-				nextAction="{! c.goForward }"
-				loading="{! v.showSpinner }"
+					nextLabel="Continue"
+					disabled="false"
+					nextAction="{! c.goForward }"
+					loading="{! v.showSpinner }"
 			/>
 			<!--<c:ChasNavButtons nextLabel="Submit" nextAction="{! c.goForward }" backAction="{! c.goBack }" disabled="false"  />-->
 		</div>
