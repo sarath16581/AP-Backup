@@ -213,17 +213,17 @@
 
             if(el.id == sender_line1.attr('id') || j$(el).hasClass('Address1__c')) {
                 j$('.Address1__c').val(j$(el).val());
-                sender_dpid.val('');
-                sender_hfdpid.val('');
+                //sender_dpid.val('');
+                //sender_hfdpid.val('');
             } else if(el.id == addressee_line1.attr('id') || j$(el).hasClass('Address2__c')) {
                 j$('.Address2__c').val(j$(el).val());
-                addressee_dpid.val('');
-                addressee_hfdpid.val('');
+                //addressee_dpid.val('');
+                //addressee_hfdpid.val('');
             } else if(el.id == mlsaddress_line1.attr('id') || j$(el).hasClass('mls_Address__c') || el.id == mlsaddress_line2.attr('id')
                 || el.id == mlsaddress_suburb.attr('id') || el.id == mlsaddress_state.attr('id') || el.id == mlsaddress_postcode.attr('id')) {
                 j$('.mls_Address__c').val(j$(el).val());
-                mlsaddress_dpid.val('');
-                mlsaddress_hfdpid.val('');
+                //mlsaddress_dpid.val('');
+                //mlsaddress_hfdpid.val('');
             }
         }
 
