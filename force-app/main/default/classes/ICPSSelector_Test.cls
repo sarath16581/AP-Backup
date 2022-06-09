@@ -117,6 +117,7 @@ public with sharing class ICPSSelector_Test {
 		searchParams.put('recipient_name', 'recipient name');
 		searchParams.put('article_number', '8888');
 		searchParams.put('stored_location', 'Large');
+		searchParams.put('status', 'delivered');
 		searchParams.put('from_first_notice_date', '2022-02-22');
 		searchParams.put('to_first_notice_date', '2022-02-22');
 		searchParams.put('from_final_notice_date', '2022-02-22');

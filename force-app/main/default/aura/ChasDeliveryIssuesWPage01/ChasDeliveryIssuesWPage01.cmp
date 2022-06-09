@@ -23,6 +23,7 @@
                              {label:'Late or missing item', value:'Late or missing item'},
                              {label:'Item was left in an unsafe place', value:'Item was left in an unsafe place'},
                              {label:'Item was taken to an inconvenient Post Office', value:'Item was taken to an inconvenient Post Office'},
+                             {label:'Accessibility or disability issue', value:'Accessibility or disability issue'},
                              {label:'Item was damaged', value:'Item was damaged'},
                              {label:'Incorrect delivery address needs fixing', value:'Incorrect delivery address needs fixing'},
                              {label:'Something else', value:'Something else'}

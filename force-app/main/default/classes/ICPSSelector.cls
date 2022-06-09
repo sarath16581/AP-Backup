@@ -62,12 +62,12 @@ public inherited sharing class ICPSSelector extends ApplicationSelector {
 	}
 
 	/**
-	 * This method is used to search on ICPS objecs given search parameters as a map and a match option
+	 * This method is used to search on ICPS object given search parameters as a map and a match option
 	 * note: This method only supports at most 9 search criteria as in searchParams
 	 * @param searchParams Search Parameters as Field-to-Value map, Supported Search Params:
-	 * reference - extract match
+	 * reference - exact match on ICPS Name or Migrated ICPS Reference
 	 * recipient_name - %wildcard% match
-	 * stored_location - extract match
+	 * stored_location - exact match
 	 * (from_first_notice_date, to_first_notice_date) - date range match
 	 * (from_final_notice_date, to_final_notice_date) - date range match
 	 * (from_holding_date, to_holding_date) - date range match
@@ -85,13 +85,16 @@ public inherited sharing class ICPSSelector extends ApplicationSelector {
 			if (!String.isBlank((String) fieldValue)) {
 				if (field == 'reference') {
 					String reference = fieldValue.toString();
-					conditions.add(new QueryBuilder.SimpleCondition('Name = :reference'));
+					conditions.add(new QueryBuilder.SimpleCondition('(Name = :reference OR MigratedICPSReference__c = :reference)'));
 				} else if (field == 'recipient_name') {
 					String recipientName = '%' + fieldValue + '%';
 					conditions.add(new QueryBuilder.SimpleCondition('ReceiverName__c LIKE :recipientName'));
 				} else if (field == 'stored_location') {
 					String storedLocation = fieldValue.toString();
 					conditions.add(new QueryBuilder.SimpleCondition('StoredLocation__c = :storedLocation'));
+				} else if (field == 'status') {
+					String status = fieldValue.toString();
+					conditions.add(new QueryBuilder.SimpleCondition('Status__c = :status'));
 				} else if (field == 'article_number') {
 					String articleNumber = fieldValue.toString();
 					QueryBuilder subQueryBuilder = ICPSArticlesSelector.newInstance(0, new Set<SObjectField>{ICPSArticle__c.ICPS__c})

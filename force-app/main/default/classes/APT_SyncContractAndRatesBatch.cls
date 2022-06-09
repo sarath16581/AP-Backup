@@ -53,6 +53,9 @@ Last Modified Date - 31st July, 2020 | SOQL 50001 fix on SAP Rate objects
 
 Last Modified By - Seth Heang
 Last Modified Date - 31st August, 2020 | STP-2246 - Update CSV filename to swap Case Number with Contract Number
+
+@changelog:
+2022-06-06 - Seth Heang - MW0004945 Update Transit cover rate, maximum transit cover mapping with correct data source displayed on the proposal template and uplift API version to 52
 **/ 
 global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject>, Database.Stateful, Database.AllowsCallouts {
     
@@ -447,7 +450,7 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
                     map<Id, Apttus_Proposal__Proposal_Line_Item__c> mapPLI = new map<Id, Apttus_Proposal__Proposal_Line_Item__c>();
                     map<String, Apttus_Proposal__Proposal_Line_Item__c> mapPrimaryPLI = new map<String, Apttus_Proposal__Proposal_Line_Item__c>();
                     map<String, list<Apttus_Proposal__Proposal_Line_Item__c>> mapOptionPLI = new map<String, list<Apttus_Proposal__Proposal_Line_Item__c>>();
-                    for(Apttus_Proposal__Proposal_Line_Item__c pli : [SELECT Id, Name, APT_Charge_Code_Formula__c,
+                    for(Apttus_Proposal__Proposal_Line_Item__c pli : [SELECT Id, Name, APT_Charge_Code_Formula__c, APT_Transit_Cover_Perc__c, APT_Transit_Cover_Max_Value__c,
                                                                 Apttus_Proposal__Proposal__c,
                                                                 Apttus_Proposal__Proposal__r.Name,
                                                                 Apttus_Proposal__Proposal__r.Apttus_Proposal__Approval_Stage__c,
@@ -2891,31 +2894,37 @@ global class APT_SyncContractAndRatesBatch implements Database.Batchable<sObject
         return FeaturesDetails;
     }
     
-    /**
-        This method will populate transit cover details
-     */
-    public static APT_SAP_SyncContractAndRatesService.TransitCoverDetailsType populateTransitCoverDetails(String rateCardType, Apttus_Proposal__Proposal_Line_Item__c parentPLI, APT_R2T_System_Properties__c r2tSystemProperties) {
-        APT_SAP_SyncContractAndRatesService.TransitCoverDetailsType TransitCoverDetails = new APT_SAP_SyncContractAndRatesService.TransitCoverDetailsType();
-        
-        //TransitCoverDetails.TransitCover = Missing Mapping
-        TransitCoverDetails.MinimumTransitCover = parentPLI.Apttus_QPConfig__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c;
-        
-        if(r2tSystemProperties != null) {
-            if(!String.isEmpty(rateCardType) && rateCardType.equalsIgnoreCase(APT_Constants.RATE_CARD_TYPE_DOMESTIC) && r2tSystemProperties.APT_Maximum_Transit_Cover__c != null) {
-                TransitCoverDetails.MaximumTransitCover = r2tSystemProperties.APT_Maximum_Transit_Cover__c;
-            }
-            
-            if(TransitCoverDetails.MinimumTransitCover != null) {
-                if(TransitCoverDetails.MinimumTransitCover == 0 && r2tSystemProperties.APT_Transit_Cover_Percentage_Non_Bundled__c != null) {
-                    TransitCoverDetails.Percentage = r2tSystemProperties.APT_Transit_Cover_Percentage_Non_Bundled__c / 100; 
-                } else if(TransitCoverDetails.MinimumTransitCover != 0 && r2tSystemProperties.APT_Transit_Cover_Percentage_Bundled__c != null) {
-                    TransitCoverDetails.Percentage = r2tSystemProperties.APT_Transit_Cover_Percentage_Bundled__c / 100; 
-                } else {}                
-            }
-        }
-        
-        return TransitCoverDetails;
-    }
+	/**
+		@description	This method will populate transit cover details
+					MW0004945 - Update Transit cover rate, maximum transit cover mapping with correct data source displayed on the proposal template
+		@param	String rateCardType
+		@param	Apttus_Proposal__Proposal_Line_Item__c parentPLI
+		@param	APT_R2T_System_Properties__c r2tSystemProperties
+		@return	APT_SAP_SyncContractAndRatesService.TransitCoverDetailsType
+	 */
+	public static APT_SAP_SyncContractAndRatesService.TransitCoverDetailsType populateTransitCoverDetails(String rateCardType, Apttus_Proposal__Proposal_Line_Item__c parentPLI, APT_R2T_System_Properties__c r2tSystemProperties) {
+		APT_SAP_SyncContractAndRatesService.TransitCoverDetailsType TransitCoverDetails = new APT_SAP_SyncContractAndRatesService.TransitCoverDetailsType();
+
+		TransitCoverDetails.TransitCover = parentPLI.APT_Transit_Cover_Perc__c;
+
+		TransitCoverDetails.MinimumTransitCover = parentPLI.Apttus_QPConfig__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c;
+
+		if(r2tSystemProperties != null) {
+			if(!String.isEmpty(rateCardType) && rateCardType.equalsIgnoreCase(APT_Constants.RATE_CARD_TYPE_DOMESTIC) && r2tSystemProperties.APT_Maximum_Transit_Cover__c != null) {
+		    	TransitCoverDetails.MaximumTransitCover = parentPLI.APT_Transit_Cover_Max_Value__c;
+			}
+
+			if(TransitCoverDetails.MinimumTransitCover != null) {
+				if(TransitCoverDetails.MinimumTransitCover == 0 && r2tSystemProperties.APT_Transit_Cover_Percentage_Non_Bundled__c != null) {
+					TransitCoverDetails.Percentage = r2tSystemProperties.APT_Transit_Cover_Percentage_Non_Bundled__c / 100; 
+				} else if(TransitCoverDetails.MinimumTransitCover != 0 && r2tSystemProperties.APT_Transit_Cover_Percentage_Bundled__c != null) {
+					TransitCoverDetails.Percentage = r2tSystemProperties.APT_Transit_Cover_Percentage_Bundled__c / 100; 
+				} else {}
+			}
+		}
+
+		return TransitCoverDetails;
+	}
     
     /**
         This method will populate standard charges

@@ -1,3 +1,7 @@
+<!--
+  * @changeLog :
+  * Modified by   : 2022-05-30 : Thang Nguyen : [DDS-10785] Added the productServicePage to gotoPages attribute
+-->
 <aura:component implements="forceCommunity:availableForAllPageTypes" extends="c:SS_uiWizard" access="global" description="Wizard navigation unique to Delivery Issues">
     
     <aura:attribute name="name" type="String" default="DeliveryIssues" />
@@ -13,7 +17,8 @@
                                     'currentStepName': 'Issue details',
                                     'stage': 'start',
                                     'gotoPages': {
-                                        'missingItemPage' :'/missing-or-lost-item'
+                                        'missingItemPage' :'/missing-or-lost-item',
+                                        'productServicePage' :'/products-and-services?service=accessibilitydelivery'
                                      },
                                     'attributes': {
                                         'authenticatedURL': '/delivery-issue-authenticated'

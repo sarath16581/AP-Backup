@@ -77,6 +77,13 @@
             isValid = false;
         }
         }
+
+        if (cmp.get('v.wizardData.selectedRadio1Name') === 'Accessibility and disability' &&
+            cmp.get('v.wizardData.accessibilityIssueTypeName') === 'Delivery') {
+            if ($A.util.isEmpty(selectedDeliveryAddress) || $A.util.isUndefined(selectedDeliveryAddress)) {
+                isValid = false;
+            }
+        }
         return isValid;
     },
     
@@ -120,6 +127,13 @@
             errors.push({name: 'AMEOnlineDeliveryAddress', label: 'Delivery address', error: ''});
         }
         }
+
+        if (cmp.get('v.wizardData.selectedRadio1Name') === 'Accessibility and disability' &&
+            cmp.get('v.wizardData.accessibilityIssueTypeName') === 'Delivery') {
+            if ($A.util.isEmpty(selectedDeliveryAddress) || $A.util.isUndefined(selectedDeliveryAddress)) {
+                errors.push({name: 'AMEOnlineDeliveryAddress', label: 'Delivery address', error: ''});
+            }
+        }
         cmp.set('v.errors', errors);
     },
     validateRadioButtons: function(cmp, showError) {
@@ -133,6 +147,9 @@
     },
     validatePostOffice: function(cmp, showError) {
         return this.validateNotNull(cmp, showError, "Enter preferred post office for collection");
+    },
+    validateAccessibilityPostOffice: function(cmp, showError) {
+        return this.validateNotNull(cmp, showError, "Enter Post Office");
     },
     validationMap: function() {
         return {
@@ -149,6 +166,14 @@
             'city': this.validateCity,
             'state': this.validateState,
             'postcode': this.validatePostcode,
+            'issueType': this.validateSelect,
+            'accessibilityIssueTypeRadioButtons': this.validateRadioButtons,
+            'parcelOrLetterRadioButtons': this.validateRadioButtons,
+            'medicationRadioButtons': this.validateRadioButtons,
+            'issueRadioButtons': this.validateRadioButtons,
+            'issueDate': this.validateDate,
+            'poIssueType': this.validateSelect,
+            'postOffice': this.validateAccessibilityPostOffice
         };
     },
     searchTrackingNumber : function(cmp, event, helper) {
@@ -175,6 +200,7 @@
                     var returnCode = returnObj["trackingNumSerachStatusCode"];
                     //refactored the code to bind the response based on list of trackingNumberDetails
                     if (!$A.util.isUndefinedOrNull(returnObj["trackingNumberDetails"])) {
+                        cmp.set('v.wizardData.wcid', returnObj["trackingNumberDetails"][0].wcid);
                         cmp.set('v.wizardData.isParcelAwaitingCollection', returnObj["trackingNumberDetails"][0].isParcelAwaitingCollection);
                         cmp.set('v.wizardData.subProductId', returnObj["trackingNumberDetails"][0].subProductId);
                     }

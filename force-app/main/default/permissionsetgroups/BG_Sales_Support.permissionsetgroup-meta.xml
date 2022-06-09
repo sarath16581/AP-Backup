@@ -6,6 +6,7 @@
     <permissionSets>BG_Sales</permissionSets>
     <permissionSets>BG_Sales_Operations</permissionSets>
     <permissionSets>KFSell_TempPerm_AMLCTF_Audit_Program_c</permissionSets>
+    <permissionSets>MaritzCX__MaritzCX_SM_User</permissionSets>
     <permissionSets>Marketing_Feedback_Account_Contact_Assignment</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
