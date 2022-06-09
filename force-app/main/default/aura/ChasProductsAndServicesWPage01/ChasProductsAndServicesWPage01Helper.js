@@ -236,7 +236,11 @@
 		);
 	},
 	validateAccessibilityPostOffice: function (cmp, showError) {
-		return this.validateNotNull(cmp, showError, "Enter Post Office");
+		return this.validateNotNull(
+			cmp,
+			showError,
+			"Enter post office details"
+		);
 	},
 	validateWebpageURL: function (cmp, showError) {
 		return this.validateNotNull(
