@@ -18,8 +18,6 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
         DealSupportRequestMilestonesTrackModule module = DealSupportRequestMilestonesTrackModule.newInstance();
 
         //prepare data
-        Id dsrMilestoneStageGateRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('DealSupportRequestMilestones__c', new Set<String>{'Stage_Gates'}).values()[0].Id;
-
         List<Account> organisations = ApplicationTestDataFactory.getAccounts(1, true);
         List<Deal_Support_Request__c> dealSupportRequests = ApplicationTestDataFactory.getDealSupportRequests(1, null, organisations[0].Id, true);
         dealSupportRequests[0].Implementation_Stage__c = 'Idea - Sales';
@@ -59,8 +57,6 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
         DealSupportRequestMilestonesTrackModule module = DealSupportRequestMilestonesTrackModule.newInstance();
 
         //prepare data
-        Id dsrMilestoneStageGateRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('DealSupportRequestMilestones__c', new Set<String>{'Stage_Gates'}).values()[0].Id;
-
         List<Account> organisations = ApplicationTestDataFactory.getAccounts(1, true);
         List<Deal_Support_Request__c> newDealSupportRequests = ApplicationTestDataFactory.getDealSupportRequests(1, null, organisations[0].Id, true);
         newDealSupportRequests[0].Implementation_Stage__c = 'Idea - Sales';
@@ -82,7 +78,7 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
     }
 
     @IsTest
-    static void testOnAfterUpdate_existingMilestoneRecord(){
+    static void testOnAfterUpdateExistingMilestoneRecord(){
         MockUtility.disableTriggerExecution();
         
         DealSupportRequestMilestonesTrackModule module = DealSupportRequestMilestonesTrackModule.newInstance();
@@ -104,6 +100,7 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
         DealSupportRequestMilestones__c newDsrMilestone = newDsrMilestones[0];
         newDsrMilestone.Time_in_minutes__c = 400;
         newDsrMilestone.Stage__c = 'Idea - Sales';
+        newDsrMilestone.RecordTypeId = dsrMilestoneStageGateRecordTypeId;
 
 
         Map<Id, Deal_Support_Request__c> existingRecords = new Map<Id, Deal_Support_Request__c>{ dealSupportRequests[0].Id =>  dealSupportRequests[0]};
@@ -113,7 +110,6 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
 
         //set selectors and mock unit of work and database
         DealSupportRequestMilestonesSelector dsrMilestoneSelector = (DealSupportRequestMilestonesSelector)MockUtility.mockSelector(DealSupportRequestMilestonesSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 
@@ -128,20 +124,14 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
         module.onAfterUpdate(updatedDSRlist, existingRecords, mockUow);
         Test.stopTest();
 
-        system.debug('MockUtility.mockDMLInsertedRecords: '+MockUtility.mockDMLInsertedRecords);
-        system.debug('MockUtility.mockDMLUpdatedRecords: '+MockUtility.mockDMLUpdatedRecords);
-        system.debug('MockUtility.mockUnitOfWorkDMLs: '+MockUtility.mockUnitOfWorkDMLs[0]);
-        
-
         System.assertEquals(1, MockUtility.mockUnitOfWorkDMLs.size());
 
         //asserting time in minutes changed after DSR Implementation stage is updated.
-        
         System.assertNotEquals(newDsrMilestone.Time_in_minutes__c,(  (DealSupportRequestMilestones__c)MockUtility.mockUnitOfWorkDMLs[0]).Time_in_minutes__c);
     }
 
     @IsTest
-    static void testOnAfterUpdate_newMilestoneRecord(){
+    static void testOnAfterUpdateNewMilestoneRecord(){
         MockUtility.disableTriggerExecution();
         
         DealSupportRequestMilestonesTrackModule module = DealSupportRequestMilestonesTrackModule.newInstance();
@@ -162,7 +152,6 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
 
         //set selectors and mock unit of work and database
         DealSupportRequestMilestonesSelector dsrMilestoneSelector = (DealSupportRequestMilestonesSelector)MockUtility.mockSelector(DealSupportRequestMilestonesSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 

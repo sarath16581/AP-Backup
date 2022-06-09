@@ -62,7 +62,6 @@ public with sharing class DealSupportRequestMilestonesSelector extends Applicati
         .add(new QueryBuilder.SimpleCondition(DealSupportRequestMilestones__c.Deal_Support_Request__c + ' in :ids'))
 		.add(new QueryBuilder.CompareCondition(DealSupportRequestMilestones__c.RecordTypeId).eq(stageGatesRecordTypeId))
         .endConditions();
-        System.debug('Query for DSR Milestone Selector: '+qb.toSoqlString());
         return new Map<Id, DealSupportRequestMilestones__c>((List<DealSupportRequestMilestones__c>)Database.query(qb.toSoqlString()));
     } 
 

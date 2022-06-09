@@ -32,6 +32,7 @@
  * 2022-02-17 - Asha - added email message methods
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Added caseStarTransitWarrantyClaimRecordType, getter for MilestoneType and CaseMilestones
  * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
+ * 2022-06-04 - Dattaraj Deshmukh - SM604 Added getDealSupportRequestMilestones method
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
