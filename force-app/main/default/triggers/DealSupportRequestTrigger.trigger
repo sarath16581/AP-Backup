@@ -5,6 +5,7 @@
 History:
 -----------------------------------------------------------------------------------------
 10/12/2020   	seth.heang@auspost.com.au			                created
+
 *****************************************************************************************/
 trigger DealSupportRequestTrigger on Deal_Support_Request__c (after update) {
     if(Trigger.isAfter){
