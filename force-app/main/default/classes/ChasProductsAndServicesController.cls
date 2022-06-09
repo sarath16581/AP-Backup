@@ -2,7 +2,7 @@
  * Created by hasan on 6/06/2022.
  */
 
-public with sharing class ChasProductsAndServicesController extends ChasApexController{
+public with sharing class ChasProductsAndServicesController extends ChasBase{
 
     /**
 * This method will create Case for Products and services
