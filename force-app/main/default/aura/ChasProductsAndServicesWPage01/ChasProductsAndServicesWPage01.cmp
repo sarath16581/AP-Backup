@@ -734,6 +734,49 @@
 									</p>
 								</c:chasTextArea>
 							</aura:if>
+
+							<!-- Other issue type -->
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityIssueTypeName == 'Other issue type' }"
+							>
+								<!-- Order Tracking Number -->
+								<c:ChasInput
+									type="text"
+									aura:id="chasInput"
+									name="orderTrackingNumber"
+									required="false"
+									label="Tracking number"
+									subLabel="(optional)"
+									value="{! v.wizardData.orderTrackingNumber }"
+								/>
+
+								<!-- Issue date -->
+								<c:ChasInput
+									type="date"
+									aura:id="chasInput"
+									name="issueDate"
+									required="true"
+									label="When did the issue occur?"
+									value="{! v.wizardData.issueDate }"
+									short="true"
+									placeholder="DD/MM/YYYY"
+								/>
+
+								<!-- Feedback or enquiry -->
+								<c:chasTextArea
+									aura:id="chasInput"
+									name="enquiryDetails"
+									required="true"
+									label="Your feedback or enquiry"
+									value="{!v.wizardData.enquiryDetails}"
+									helptext="{! v.helptext }"
+								>
+									<p class="chas-body_small">
+										Let us know what went wrong or could be
+										improved
+									</p>
+								</c:chasTextArea>
+							</aura:if>
 						</aura:if>
 					</aura:if>
 				</aura:if>
