@@ -1,5 +1,5 @@
 <apex:page standardController="Apttus__APTS_Agreement__c" extensions="APT_HelptotheSellerController" action="{!donext}" sidebar="false">
-	<apex:form>
+	<apex:form >
 		<apex:pageMessages rendered="{!isError}"></apex:pageMessages>
 		<apex:outputPanel rendered="{!Message}" id="mainpanel">
 			<apex:pageBlock rendered="{!displayNextButton}">

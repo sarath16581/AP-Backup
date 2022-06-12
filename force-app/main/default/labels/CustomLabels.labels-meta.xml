@@ -7538,4 +7538,20 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Happy Parcel Scan Help Text</shortDescription>
         <value>Parcel scanned within 100m range of manifested location</value>
     </labels>
+    <labels>
+        <fullName>ICPSAddArticlesInvalidInputs</fullName>
+        <categories>ICPS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ICPSAddArticlesInvalidInputs</shortDescription>
+        <value>Please update the invalid entries and try again.</value>
+    </labels>
+    <labels>
+        <fullName>ICPSAddArticlesManualFieldMandatory</fullName>
+        <categories>ICPS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ICPSAddArticlesManualFieldMandatory</shortDescription>
+        <value>For articles not found in SAP EM, ensure that the Recipient, Sender, Contents, Declaration Value and Weight are specified.</value>
+    </labels>
 </CustomLabels>
