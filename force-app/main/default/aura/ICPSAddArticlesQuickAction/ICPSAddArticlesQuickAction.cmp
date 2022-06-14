@@ -1,0 +1,24 @@
+<!--
+	2022-06-06 Harry Wang Created
+-->
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <aura:html tag="style">
+        .slds-p-around--medium {
+            padding: 0rem !important;
+        }
+        .slds-modal__content {
+            height:unset !important;
+            max-height:unset !important;
+        }
+        .slds-modal__container {
+            max-width:80rem
+            !important; width:80% !important;
+        }
+    </aura:html>
+    <aura:attribute name="recordId" type="Id"></aura:attribute>
+    <c:icpsAddArticles
+            recordId="{!v.recordId}"
+            onmodalclose="{!c.handleClose}"
+            onmodalrefresh="{!c.handleRefresh}"
+    ></c:icpsAddArticles>
+</aura:component>

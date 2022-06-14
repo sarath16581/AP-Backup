@@ -14,6 +14,11 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
+                <fullName>Express</fullName>
+                <default>false</default>
+                <label>Express</label>
+            </value>
+            <value>
                 <fullName>Insured</fullName>
                 <default>false</default>
                 <label>Insured</label>
@@ -27,6 +32,11 @@
                 <fullName>Registered</fullName>
                 <default>false</default>
                 <label>Registered</label>
+            </value>
+            <value>
+                <fullName>Small Packet</fullName>
+                <default>false</default>
+                <label>Small Packet</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -187,6 +187,7 @@ public with sharing class CaseRelatedListPanelContExt {
 					emailsNetworkResp.add(em);
 				}
 			}
+			System.debug('emailsNetworkResp: '+emailsNetworkResp);
 		}
 	}
 
@@ -439,7 +440,7 @@ public with sharing class CaseRelatedListPanelContExt {
 			id = fi.Id;
 			fileName = fi.Title;
 			// INC1979490 ContentSize field was removed in API version 35.0 
-			// fileSize = fi.ContentSize;
+			//fileSize = fi.ContentSize;
 			lastModified = fi.LastModifiedDate;
 			createdById = fi.InsertedById;
 			createByName = fi.InsertedBy.Name;
