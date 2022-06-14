@@ -174,7 +174,7 @@ public virtual with sharing class ChasApexController extends ChasBase{
             //-- Parse Case results and create Case Comment
             List<CaseComment> comments = new List<CaseComment>();
             comments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
+            caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
             
         }catch(Exception ex){
             caseWrapper.caseStatus = 'ERROR';
@@ -846,7 +846,7 @@ public virtual with sharing class ChasApexController extends ChasBase{
         //temporarily removed due to inability to make case comment private in authenticated community user context
         //checkNetworkAssigningResult(toBeCreateCase, vComments);
       //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+            caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
 
             // checkNetworkAssigningResult(toBeCreateCase);
             
@@ -1320,7 +1320,7 @@ commentBody = commentBody  + 'False';
             List<CaseComment> vComments = new List<CaseComment>();
             vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
             //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+            caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
             
         }catch(Exception ex){
             caseWrapper.caseStatus = 'ERROR';
@@ -1683,7 +1683,7 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
         //checkNetworkAssigningResult(toBeCreateCase, vComments);
 
             //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+            caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
 
             //-- Case routing based on the boolean isEligibleForMyNetworkAssignment
             // 17-08-2021 switched to direct routing

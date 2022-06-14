@@ -40,7 +40,7 @@ public class ChasCustomCaseListAndDetailTest {
              //-- Crating Case
             Database.SaveResult[] results = Database.insert(new SObject[] {toBeCreateCase });
             //-- Parse Case results and create Case Comment
-            ChasUtil.parseInsertedCaseResultsAndCreateComment(results, new ChasApexController.CaseWrapper(), new List<CaseComment>{new CaseComment(CommentBody = 'Test comment Body')});
+            ChasBase.parseInsertedCaseResultsAndCreateComment(results, new ChasBase.CaseWrapper(), new List<CaseComment>{new CaseComment(CommentBody = 'Test comment Body')});
             //-- Create Case Comment
         }catch(Exception ex){
             System.debug(LoggingLevel.ERROR, 'ChasCustomCaseListAndDetailTest::dataSetUp() ==>Error occoured while creating Case/Case comment in data setup of test class==>'+ex);
