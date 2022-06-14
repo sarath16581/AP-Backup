@@ -10,7 +10,6 @@
 
 
 public with sharing class DealSupportRequestMilestonesTrackModule extends ApplicationDomain.Module{
-	static final String BUSINESS_HOURS_NAME = 'Service Delivery VIC';
 
     public static DealSupportRequestMilestonesTrackModule newInstance() {
 		return (DealSupportRequestMilestonesTrackModule)Application.Utilities.newInstance(DealSupportRequestMilestonesTrackModule.class);
@@ -21,6 +20,11 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 		getTriggerEvents().enableAfterUpdate().enableBeforeInsert().enableBeforeUpdate();
 	}
 
+	/**
+    * Called when a new deal support request is being inserted.
+    * Checks if Implementation_Stage__c picklist is populated or not and if its populated   
+    * then update Last_Implementation_Stage_Update__c timestamp.
+    */
 	public override void onBeforeInsert(List<SObject> records,  ApplicationUnitOfWork uow){
 		try {
 			updateImplementationStageTimestamp((List<Deal_Support_Request__c>)records, null);
@@ -29,6 +33,12 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(),'DealSupportRequestTriggerHandler2', 'DealSupportRequestMilestonesTrackModule', 'onBeforeInsert', 'DealSupportRequestTrigger', LoggingLevel.ERROR);
 		}
 	}
+
+	/**
+    * Called when a deal support request is being updated.
+    * Checks if Implementation_Stage__c picklist is updated or not and if its updated   
+    * then update Last_Implementation_Stage_Update__c timestamp.
+    */
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
 		try {
 			updateImplementationStageTimestamp((List<Deal_Support_Request__c>)records, (Map<Id,Deal_Support_Request__c>)existingRecords);
@@ -37,8 +47,14 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(),'DealSupportRequestTriggerHandler2', 'DealSupportRequestMilestonesTrackModule', 'onBeforeUpdate', 'DealSupportRequestTrigger', LoggingLevel.ERROR);
 		}
 	}
+
+
+
 	/**
-	 * called after DSR record is updated.
+	 * Called after deal support request record is updated.
+	 * Performs below operations:
+	 * 1. Creates new deal support request milestones record. AND/OR
+	 * 2. Updates existing deal support milestones records.
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
@@ -59,6 +75,9 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 	}
 
 
+	/**
+    * Called from beforeInsert() and beforeUpdate(), updates Last_Implementation_Stage_Update__c timestamps/
+    */
 	@testVisible
 	private void updateImplementationStageTimestamp(List<Deal_Support_Request__c> newRecords, Map<Id, Deal_Support_Request__c> existingRecords){
 		for(Deal_Support_Request__c dsr: newRecords){
@@ -79,66 +98,73 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 		}
 	}
 
+	/**
+    * Called from afterUpdate(). Creates new deal support request milestone records or update existing 
+	* records based on matching implementation_stage__c values to track 
+	* time taken for deal support requests to move across implementation stages.
+    */
 	@testVisible
 	private void trackDealSupportRequestMilestones(List<Deal_Support_Request__c> newDSRList, Map<Id, Deal_Support_Request__c> oldDSRMap,
 														ApplicationUnitOfWork uow){
-		Map<Id,Deal_Support_Request__c> IdVsDSRlistWithImplementationStageUpdated = new Map<Id,Deal_Support_Request__c>();
+
+		Map<Id,Deal_Support_Request__c> idVsDSRlistWithImplementationStageUpdated = new Map<Id,Deal_Support_Request__c>();
 
             for(Deal_Support_Request__c dsr: newDSRList){
                 //checking if Implementation_Stage__c value is changed or not.
                 //all other updates are bypassed.
                 if(oldDSRMap.get(dsr.id).Implementation_Stage__c != dsr.Implementation_Stage__c){
-                    IdVsDSRlistWithImplementationStageUpdated.put(dsr.Id, dsr);
+                    idVsDSRlistWithImplementationStageUpdated.put(dsr.Id, dsr);
                 }
             }
 
-            if(IdVsDSRlistWithImplementationStageUpdated.isEmpty()){
+            if(idVsDSRlistWithImplementationStageUpdated.isEmpty()){
                 return;
             }
 
             //storing DSR ID vs Existing milestones records
-            Map<Id, List<DealSupportRequestMilestones__c>> DSRIdsVsDSRMilestones = new Map<Id, List<DealSupportRequestMilestones__c>>();
+            Map<Id, List<DealSupportRequestMilestone__c>> dsrIdsVsDSRMilestones = new Map<Id, List<DealSupportRequestMilestone__c>>();
             
             //map to store dsr id vs set of strings (implementation stage values).
             //This map avoids looping through existing milestones to determine creation of new Milestone based on implementation stage.
-            Map<Id, Set<String>> DSRIdsVsExistingMilestoneStages = new Map<Id, Set<String>>();
+            Map<Id, Set<String>> dsrIdsVsExistingMilestoneStages = new Map<Id, Set<String>>();
 
 
             //collection to update and create new DSR Milestone records
-            List<DealSupportRequestMilestones__c> dsrMilestonesToUpdate = new List<DealSupportRequestMilestones__c>();
-            List<DealSupportRequestMilestones__c> newMilestoneRecordsToCreate = new List<DealSupportRequestMilestones__c>();
+            List<DealSupportRequestMilestone__c> dsrMilestonesToUpdate = new List<DealSupportRequestMilestone__c>();
+            List<DealSupportRequestMilestone__c> newMilestoneRecordsToCreate = new List<DealSupportRequestMilestone__c>();
 
-            //Business Hours
-            List<BusinessHours> businessHrs = BusinessHoursSelector.newInstance().selectByName(new Set<String>{BUSINESS_HOURS_NAME});
+            //get default business hours
+			Id defaultBusinessHoursId = Utility.getDefaultBussinessHour();
+
 
             //setting list of milestones for each DSR record.
-            for(Id DSRId : IdVsDSRlistWithImplementationStageUpdated.keySet()){
-                DSRIdsVsDSRMilestones.put(dsrId, new List<DealSupportRequestMilestones__c>());
-                DSRIdsVsExistingMilestoneStages.put(dsrId, new Set<String>());
-            }
+            for(Id DSRId : idVsDSRlistWithImplementationStageUpdated.keySet()){
+                dsrIdsVsDSRMilestones.put(dsrId, new List<DealSupportRequestMilestone__c>());
+                dsrIdsVsExistingMilestoneStages.put(dsrId, new Set<String>());
+            } 
 
-            for(DealSupportRequestMilestones__c dsrMilestones : DealSupportRequestMilestonesSelector.newInstance().
-                                                    selectByDSRId(IdVsDSRlistWithImplementationStageUpdated.keySet(), new Set<Object>{DealSupportRequestMilestonesSelector.Options.WITH_RECORDTYPE, DealSupportRequestMilestonesSelector.Options.WITH_DEAL_SUPPORT_REQUEST }).values()){
+            for(DealSupportRequestMilestone__c dsrMilestones : DealSupportRequestMilestonesSelector.newInstance().
+                                                    selectByDSRId(idVsDSRlistWithImplementationStageUpdated.keySet(), new Set<Object>{DealSupportRequestMilestonesSelector.Options.WITH_RECORDTYPE, DealSupportRequestMilestonesSelector.Options.WITH_DEAL_SUPPORT_REQUEST })){
 				
                 //populating existing dsr milestones for each DSR    
-                if(DSRIdsVsDSRMilestones.containsKey(dsrMilestones.Deal_Support_Request__c)){
-                    DSRIdsVsDSRMilestones.get(dsrMilestones.Deal_Support_Request__c).add(dsrMilestones);
-                    DSRIdsVsExistingMilestoneStages.get(dsrMilestones.Deal_Support_Request__c).add(dsrMilestones.Stage__c);
+                if(dsrIdsVsDSRMilestones.containsKey(dsrMilestones.DealSupportRequest__c)){
+                    dsrIdsVsDSRMilestones.get(dsrMilestones.DealSupportRequest__c).add(dsrMilestones);
+                    dsrIdsVsExistingMilestoneStages.get(dsrMilestones.DealSupportRequest__c).add(dsrMilestones.Stage__c);
                 }
             }
 
 
-            for(Deal_Support_Request__c newDSR : IdVsDSRlistWithImplementationStageUpdated.values()){
+            for(Deal_Support_Request__c newDSR : idVsDSRlistWithImplementationStageUpdated.values()){
 
                 //check if Milestone record exists for updated implementation stage.
-                if(DSRIdsVsExistingMilestoneStages.get(newDSR.Id).contains(oldDSRMap.get(newDSR.Id).Implementation_Stage__c)){
-                    for(DealSupportRequestMilestones__c dsrMilestones : DSRIdsVsDSRMilestones.get(newDSR.Id)){
+                if(dsrIdsVsExistingMilestoneStages.get(newDSR.Id).contains(oldDSRMap.get(newDSR.Id).Implementation_Stage__c)){
+                    for(DealSupportRequestMilestone__c dsrMilestones : dsrIdsVsDSRMilestones.get(newDSR.Id)){
 
-                        if(dsrMilestones.Stage__c == oldDSRMap.get(dsrMilestones.Deal_Support_Request__c).Implementation_Stage__c){
+                        if(dsrMilestones.Stage__c == oldDSRMap.get(dsrMilestones.DealSupportRequest__c).Implementation_Stage__c){
                             DateTime businessHrsStartDate = oldDSRMap.get(newDSR.Id).Last_Implementation_Stage_Update__c != null ? oldDSRMap.get(newDSR.Id).Last_Implementation_Stage_Update__c : oldDSRMap.get(newDSR.Id).CreatedDate;
-                            DealSupportRequestMilestones__c dsrMilestoneRecordToUpdate = new DealSupportRequestMilestones__c();
+                            DealSupportRequestMilestone__c dsrMilestoneRecordToUpdate = new DealSupportRequestMilestone__c();
 							dsrMilestoneRecordToUpdate.Id = dsrMilestones.Id;
-							dsrMilestoneRecordToUpdate.Time_in_minutes__c = dsrMilestones.Time_in_minutes__c + BusinessHours.diff(businessHrs[0].Id, businessHrsStartDate , System.now())/(1000*60);
+							dsrMilestoneRecordToUpdate.Timeinminutes__c = dsrMilestones.Timeinminutes__c + BusinessHours.diff(defaultBusinessHoursId, businessHrsStartDate , System.now())/(1000*60);
 							
 							dsrMilestonesToUpdate.add(dsrMilestoneRecordToUpdate);
                         }
@@ -146,15 +172,15 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
                 }
                 else{
                     //create a new Milestone record.
-                    DealSupportRequestMilestones__c newMilestoneRecord = new DealSupportRequestMilestones__c();
-                    newMilestoneRecord.Deal_Support_Request__c = newDSR.Id;
+                    DealSupportRequestMilestone__c newMilestoneRecord = new DealSupportRequestMilestone__c();
+                    newMilestoneRecord.DealSupportRequest__c = newDSR.Id;
 
 					//checking stage value as different record types may not have stage value populated for OLD records.
 					//If null checks are not done then Deal Support Milestone will be created without stage value.
 					if(oldDSRMap.get(newDSR.Id).Implementation_Stage__c != null){
 						newMilestoneRecord.Stage__c = oldDSRMap.get(newDSR.Id).Implementation_Stage__c;
 						DateTime businessHrsStartDate = oldDSRMap.get(newDSR.Id).Last_Implementation_Stage_Update__c != null ? oldDSRMap.get(newDSR.Id).Last_Implementation_Stage_Update__c : oldDSRMap.get(newDSR.Id).CreatedDate;
-						newMilestoneRecord.Time_in_minutes__c = BusinessHours.diff(businessHrs[0].Id, businessHrsStartDate, System.now())/(1000*60);
+						newMilestoneRecord.Timeinminutes__c = BusinessHours.diff(defaultBusinessHoursId, businessHrsStartDate, System.now())/(1000*60);
 
 						newMilestoneRecordsToCreate.add(newMilestoneRecord);
 					}
@@ -169,7 +195,4 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 				uow.registerNew(newMilestoneRecordsToCreate);
             }
 	}
-
-	
-
 }

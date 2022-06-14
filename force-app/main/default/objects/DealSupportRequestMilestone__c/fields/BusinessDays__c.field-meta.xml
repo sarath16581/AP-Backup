@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BusinessDays__c</fullName>
+    <description>This field is used to calculate business days spent to move across implementation stages for a deal support request.</description>
+    <externalId>false</externalId>
+    <formula>Timeinminutes__c / (8*60)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This field is used to calculate business days spent to move across implementation stages for a deal support request.</inlineHelpText>
+    <label>Business Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

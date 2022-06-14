@@ -545,9 +545,9 @@ public with sharing class ApplicationTestDataFactory {
 			Deal_Support_Request__c.Organisation__c => organisationId
 		}, count), generateIds);
 	}
-	public static List<DealSupportRequestMilestones__c> getDealSupportRequestMilestones(integer count, Id dealSupportRequestId, Boolean generateIds){
-		return (List<DealSupportRequestMilestones__c>)maybeGenerateIds(populateSObjects(DealSupportRequestMilestones__c.SObjectType, new Map<SObjectField, Object> {
-			DealSupportRequestMilestones__c.Deal_Support_Request__c => dealSupportRequestId
+	public static List<DealSupportRequestMilestone__c> getDealSupportRequestMilestones(integer count, Id dealSupportRequestId, Boolean generateIds){
+		return (List<DealSupportRequestMilestone__c>)maybeGenerateIds(populateSObjects(DealSupportRequestMilestone__c.SObjectType, new Map<SObjectField, Object> {
+			DealSupportRequestMilestone__c.DealSupportRequest__c => dealSupportRequestId
 		}, count), generateIds);
 	}
 	public static List<BAMExternalOnboardingRequest__c> getBAMExternalOnboardingRequests(integer count, Id requestObjId, String objectName, Boolean generateIds){

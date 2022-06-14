@@ -101,7 +101,6 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
         }
         
         if(selectorOptions.contains(Options.WITH_CREDIT_ASSESSMENT)) {
-            System.debug('here');
             builder.addRelatedFields(CreditsAssessmentSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r');
         }
         

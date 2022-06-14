@@ -20,9 +20,7 @@ public with sharing class DealSupportRequestTriggerHandler2 extends ApplicationD
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
             Deal_Support_Request__c.SObjectType,
-			DealSupportRequestMilestones__c.SObjectType
+			DealSupportRequestMilestone__c.SObjectType
 		};
 	}
-
-
 }

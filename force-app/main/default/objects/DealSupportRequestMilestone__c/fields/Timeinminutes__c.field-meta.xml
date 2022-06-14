@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Timeinminutes__c</fullName>
+    <description>This field is used to calculate time spent to move across implementation stages for a deal support request. Time is calculate as per business days.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is used to calculate time spent to move across implementation stages for a deal support request.  Time is calculate as per business days.</inlineHelpText>
+    <label>Time in minutes</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

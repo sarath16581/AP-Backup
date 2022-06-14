@@ -23,46 +23,45 @@ public with sharing class DealSupportRequestMilestonesSelector extends Applicati
     public static DealSupportRequestMilestonesSelector newInstance(Integer recordLimit) {
         return (DealSupportRequestMilestonesSelector)Application.Selectors.newInstance(DealSupportRequestMilestonesSelector.class).setLimit(recordLimit);
     }
-
-      
+  
     public virtual override SObjectType getSObjectType() {
-        return DealSupportRequestMilestones__c.getSObjectType();
+        return DealSupportRequestMilestone__c.getSObjectType();
     }    
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
-            DealSupportRequestMilestones__c.Id, DealSupportRequestMilestones__c.Deal_Support_Request__c, 
-            DealSupportRequestMilestones__c.Stage__c, DealSupportRequestMilestones__c.Time_in_minutes__c,DealSupportRequestMilestones__c.RecordTypeId
+            DealSupportRequestMilestone__c.Id, DealSupportRequestMilestone__c.DealSupportRequest__c, 
+            DealSupportRequestMilestone__c.Stage__c, DealSupportRequestMilestone__c.Timeinminutes__c,DealSupportRequestMilestone__c.RecordTypeId
         };
     }
 
     /**
      * @description Run a simple query to get records based on Id's
      */
-    public virtual Map<Id, DealSupportRequestMilestones__c> selectById(Set<Id> ids) {
+    public virtual List<DealSupportRequestMilestone__c> selectById(Set<Id> ids) {
         return selectById(ids, new Set<Object>());
     }
 
     /**
      * @description Run a simple query to get records based on  Id's
      */
-    public virtual Map<Id, DealSupportRequestMilestones__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(DealSupportRequestMilestones__c.Id + ' in :ids')).endConditions();
-        return new Map<Id, DealSupportRequestMilestones__c>((List<DealSupportRequestMilestones__c>)Database.query(qb.toSoqlString()));
+    public virtual List<DealSupportRequestMilestone__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(DealSupportRequestMilestone__c.Id + ' in :ids')).endConditions();
+        return (List<DealSupportRequestMilestone__c>)Database.query(qb.toSoqlString());
     }
 
     /**
      * @description Run a simple query to get records based on DSR Ids
      */
-    public virtual Map<Id, DealSupportRequestMilestones__c> selectByDSRId(Set<Id> ids, Set<Object> selectorOptions) {
+    public virtual List<DealSupportRequestMilestone__c> selectByDSRId(Set<Id> ids, Set<Object> selectorOptions) {
 
-        Id stageGatesRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('DealSupportRequestMilestones__c', new Set<String>{'Stage_Gates'}).values()[0].Id;
+        Id stageGatesRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('DealSupportRequestMilestone__c', new Set<String>{'StageGates'}).values()[0].Id;
 
 
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-        .add(new QueryBuilder.SimpleCondition(DealSupportRequestMilestones__c.Deal_Support_Request__c + ' in :ids'))
-		.add(new QueryBuilder.CompareCondition(DealSupportRequestMilestones__c.RecordTypeId).eq(stageGatesRecordTypeId))
+        .add(new QueryBuilder.SimpleCondition(DealSupportRequestMilestone__c.DealSupportRequest__c + ' in :ids'))
+		.add(new QueryBuilder.CompareCondition(DealSupportRequestMilestone__c.RecordTypeId).eq(stageGatesRecordTypeId))
         .endConditions();
-        return new Map<Id, DealSupportRequestMilestones__c>((List<DealSupportRequestMilestones__c>)Database.query(qb.toSoqlString()));
+        return (List<DealSupportRequestMilestone__c>)Database.query(qb.toSoqlString());
     } 
 
 
@@ -74,11 +73,11 @@ public with sharing class DealSupportRequestMilestonesSelector extends Applicati
         QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
         if(selectorOptions.contains(Options.WITH_RECORDTYPE)) {
-            builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(), 'RecordType');
+            builder.addRelatedFields(RecordTypesSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'RecordType');
         }
 
         if(selectorOptions.contains(Options.WITH_DEAL_SUPPORT_REQUEST)) {
-            builder.addRelatedFields(DealSupportRequestsSelector.newInstance().newQueryBuilder(), 'Deal_Support_Request__r');
+            builder.addRelatedFields(DealSupportRequestsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'DealSupportRequest__r');
         }
        
         return builder;

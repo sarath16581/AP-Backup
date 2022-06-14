@@ -15,6 +15,22 @@ public with sharing class DealSupportRequstMilestoneSelector_Test {
     @IsTest
     static void testEnsureQueryBuilderProducesCorrectString(){
         
+
+         // =====================================
+        // Data Preparation
+        // =====================================
+        // None!
+
+        // =====================================
+        // Stubbing
+        // =====================================
+        // None!
+
+        // =====================================
+        // Testing
+        // =====================================
+
+
          /**
          * Test:
          *  Ensures that the selectors QueryBuilder is generating the correct output
@@ -25,7 +41,7 @@ public with sharing class DealSupportRequstMilestoneSelector_Test {
         QueryBuilder qb = selector.newQueryBuilder();
         String soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?ism)\\bfrom DealSupportRequestMilestones__c\\b').matcher(soql).find(), 'Resulting query does not select from DealSupportRequestMilestones');
+        System.assertEquals(true, Pattern.compile('(?ism)\\bfrom DealSupportRequestMilestone__c\\b').matcher(soql).find(), 'Resulting query does not select from DealSupportRequestMilestones');
 
         Test.stopTest();
     }
@@ -51,12 +67,12 @@ public with sharing class DealSupportRequstMilestoneSelector_Test {
         DealSupportRequestMilestonesSelector selector = DealSupportRequestMilestonesSelector.newInstance();
         QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{DealSupportRequestMilestonesSelector.Options.WITH_RECORDTYPE});
         String soql = qb.toSoqlString();
-        System.assertEquals(true, Pattern.compile('(?ism)RecordType\\..*?\\bfrom DealSupportRequestMilestones__c\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields');
+        System.assertEquals(true, Pattern.compile('(?ism)RecordType\\..*?\\bfrom DealSupportRequestMilestone__c\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields');
 
           
         qb = selector.newQueryBuilder(new Set<Object>{DealSupportRequestMilestonesSelector.Options.WITH_DEAL_SUPPORT_REQUEST});
 		soql = qb.toSoqlString();
-        System.assertEquals(true, Pattern.compile('(?is)Deal_Support_Request__r\\..*?\\bfrom DealSupportRequestMilestones__c\\b').matcher(soql).find(), 'Resulting query does not select Primary Contact fields');
+        System.assertEquals(true, Pattern.compile('(?is)DealSupportRequest__r\\..*?\\bfrom DealSupportRequestMilestone__c\\b').matcher(soql).find(), 'Resulting query does not select deal support request fields');
 
         
         Test.stopTest();
@@ -74,7 +90,7 @@ public with sharing class DealSupportRequstMilestoneSelector_Test {
         // Data Preparation
         // =====================================
         MockUtility.disableTriggerExecution();
-        Id dsrMilestoneStageGateRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('DealSupportRequestMilestones__c', new Set<String>{'Stage_Gates'}).values()[0].Id;
+        Id dsrMilestoneStageGateRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('DealSupportRequestMilestone__c', new Set<String>{'StageGates'}).values()[0].Id;
 
 
         List<Account> accountList = ApplicationTestDataFactory.getAccounts(1, false);
@@ -85,7 +101,7 @@ public with sharing class DealSupportRequstMilestoneSelector_Test {
         dealSupportRequest.Implementation_Stage__c = 'Idea - Sales';
         insert dealSupportRequest;
 
-        List<DealSupportRequestMilestones__c> newDsrMilestones = ApplicationTestDataFactory.getDealSupportRequestMilestones(1, dealSupportRequest.Id, false);
+        List<DealSupportRequestMilestone__c> newDsrMilestones = ApplicationTestDataFactory.getDealSupportRequestMilestones(1, dealSupportRequest.Id, false);
         newDsrMilestones[0].RecordTypeId=dsrMilestoneStageGateRecordTypeId;
         insert newDsrMilestones;
 
@@ -108,15 +124,15 @@ public with sharing class DealSupportRequstMilestoneSelector_Test {
         
         DealSupportRequestMilestonesSelector selector = DealSupportRequestMilestonesSelector.newInstance(1);
         
-        Map<Id, DealSupportRequestMilestones__c> results = selector.selectByDSRId(mappedDealSupports.keySet(), new Set<Object>{DealSupportRequestMilestonesSelector.Options.WITH_RECORDTYPE, DealSupportRequestMilestonesSelector.Options.WITH_DEAL_SUPPORT_REQUEST});
+        List<DealSupportRequestMilestone__c> results = selector.selectByDSRId(mappedDealSupports.keySet(), new Set<Object>{DealSupportRequestMilestonesSelector.Options.WITH_RECORDTYPE, DealSupportRequestMilestonesSelector.Options.WITH_DEAL_SUPPORT_REQUEST});
         
 
         System.assertEquals(1, results.size(), 'Result count was wrong');
-        System.assertNotEquals(null, results.values()[0].RecordType, 'Expected RecordType object');
+        System.assertNotEquals(null, results[0].RecordType, 'Expected RecordType object');
 
-        Map<Id, DealSupportRequestMilestones__c>  queriedDsrMilestones = selector.selectById(dsrMilestonesIds);
+        List<DealSupportRequestMilestone__c>  queriedDsrMilestones = selector.selectById(dsrMilestonesIds);
         System.assertEquals(1, queriedDsrMilestones.size(), 'Result count was wrong');
-        System.assertEquals(dsrMilestoneStageGateRecordTypeId, queriedDsrMilestones.values()[0].RecordTypeId, 'Result count was wrong');
+        System.assertEquals(dsrMilestoneStageGateRecordTypeId, queriedDsrMilestones[0].RecordTypeId, 'Result count was wrong');
 
 
         Test.stopTest();
