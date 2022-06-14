@@ -68,7 +68,6 @@ public with sharing class CaseRelatedListPanelContExtTest {
      * Scenario:
      * Case has a safe drop image linked via event messages...
      */
-    @IsTest
     public static testMethod void testCoverageTest() {
         // article to be assigned to the case
         List<Article__c> articles = TestDataProvider.createArticle('My Article', 1, null);

@@ -29,7 +29,7 @@ My name is {!User_FirstName}, how may I help you?</autoGreeting>
     <enableNotifications>true</enableNotifications>
     <enableRequestSound>true</enableRequestSound>
     <enableSneakPeek>false</enableSneakPeek>
-    <enableVisitorBlocking>false</enableVisitorBlocking>
+    <enableVisitorBlocking>true</enableVisitorBlocking>
     <enableWhisperMessage>false</enableWhisperMessage>
     <label>SSSW-BSP Live Agent</label>
     <supervisorDefaultAgentStatusFilter>Online</supervisorDefaultAgentStatusFilter>

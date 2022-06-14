@@ -26,6 +26,8 @@ Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract In
 
 Last Modified By - Neha Mehta
 Last Modified Date -  28th January, 2022 | REQ2493838
+
+2022-06-08 - Naveen Rajanna - REQ2595048 - Reset Pricing Category to 'Standard' after Agreement Clone upon amend or renewal and upgrade api version to 52
 */
 public without sharing class APT_AmendRenewUtility {
     
@@ -763,7 +765,9 @@ public without sharing class APT_AmendRenewUtility {
             //1084
             renewedAgreement.APT_Mark_All_Agreement_Line_Items_as_Old__c = false;
             //1084
-            
+
+            renewedAgreement.APT_Pricing_Category__c = APT_Constants.PRICING_CATEGORY_STANDARD; //REQ2595048
+
             return renewedAgreement;
         } catch (System.Exception ex) {            
             system.debug(Logginglevel.ERROR, 'Exception msg : ' + ex.getMessage());
@@ -1108,6 +1112,8 @@ public without sharing class APT_AmendRenewUtility {
                     amendedAgreement.APT_Ratecards_Created__c = true;
                 } else  {}
             }
+
+            amendedAgreement.APT_Pricing_Category__c = APT_Constants.PRICING_CATEGORY_STANDARD; //REQ2595048
             
             return amendedAgreement;
         } catch (System.Exception ex) {            

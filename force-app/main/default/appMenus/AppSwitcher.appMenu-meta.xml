@@ -764,4 +764,8 @@
         <name>revcult__Cloud_Security_Cockpit</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>GitPipelinesApp</name>
+        <type>ConnectedApp</type>
+    </appMenuItems>
 </AppMenu>

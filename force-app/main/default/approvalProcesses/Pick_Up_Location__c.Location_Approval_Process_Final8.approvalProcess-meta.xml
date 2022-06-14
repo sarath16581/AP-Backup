@@ -87,7 +87,7 @@
                 <type>user</type>
             </approver>
             <approver>
-                <name>james.barns@startrack.com.au</name>
+                <name>christopher.lambert@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -144,6 +144,14 @@
         </approvalActions>
         <assignedApprover>
             <approver>
+                <name>con.makris@startrack.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>nat.perrotta@startrack.com.au.community</name>
+                <type>user</type>
+            </approver>
+            <approver>
                 <name>rob.miles@startrack.com.au</name>
                 <type>user</type>
             </approver>
@@ -195,6 +203,10 @@
                 <type>user</type>
             </approver>
             <approver>
+                <name>kane.george@startrack.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
                 <name>peter.vermeiren@startrack.com.au</name>
                 <type>user</type>
             </approver>
@@ -228,7 +240,11 @@
         <allowDelegate>false</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>danielle.crawford@startrack.com.au</name>
+                <name>christopher.settembri@startrack.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>kane.george@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -265,7 +281,7 @@
         <allowDelegate>false</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>danielle.crawford@startrack.com.au</name>
+                <name>naomi.vink@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -307,6 +323,10 @@
             </action>
         </approvalActions>
         <assignedApprover>
+            <approver>
+                <name>elizabeth.smith@startrack.com.au</name>
+                <type>user</type>
+            </approver>
             <approver>
                 <name>kane.george@startrack.com.au</name>
                 <type>user</type>
@@ -365,7 +385,7 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>peter.vermeiren@startrack.com.au</name>
+                <name>glenn.payne@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -421,6 +441,10 @@
             </action>
         </approvalActions>
         <assignedApprover>
+            <approver>
+                <name>aaron.lonergan@startrack.com.au</name>
+                <type>user</type>
+            </approver>
             <approver>
                 <name>brad.chippendale@startrack.com.au</name>
                 <type>user</type>
@@ -479,7 +503,11 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>ray.steer@startrack.com.au</name>
+                <name>frazer.greenwood@startrack.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>steven.zahra@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

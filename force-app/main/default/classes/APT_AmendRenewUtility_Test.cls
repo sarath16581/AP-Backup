@@ -6,6 +6,7 @@ History:
                         
                   
 2019-01-31  nathan.franklin@auspost.com.au Modified testMethod2 to fix an an issue with the Too Many SOQL error with the deployment of MW0003089 - Opportunity Complexity rating in Salesforce
+2022-06-08 - Naveen Rajanna - REQ2595048 - upgrade api version to 52
 **************************************************/
 @isTest
 private with sharing class APT_AmendRenewUtility_Test{ 

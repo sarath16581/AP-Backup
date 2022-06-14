@@ -6,11 +6,6 @@
     </applicationVisibilities>
     <description>This permission set has been created for an ICPS National or ICPS Super user that gives them access to all ICPS record types</description>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>ICPSArticle__c.ConsignmentReference__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>ICPSArticle__c.Contents__c</field>
         <readable>true</readable>
@@ -36,12 +31,22 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ICPSArticle__c.ReceiverCity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
+        <field>ICPSArticle__c.ReceiverEmail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ICPSArticle__c.ReceiverMobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ICPSArticle__c.ReceiverName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -51,7 +56,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ICPSArticle__c.ReceiverState__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -86,12 +91,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ICPSArticle__c.SenderName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ICPSArticle__c.SenderPostalCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -101,12 +106,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ICPSArticle__c.SenderStreetLine1__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ICPSArticle__c.SenderStreetLine2__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -128,6 +133,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ICPS__c.ABFReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.Age__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -241,6 +251,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.ReceiverAddressLastLineNotice__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>ICPS__c.ReceiverCareOf__c</field>
         <readable>true</readable>
@@ -331,6 +346,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.StoreLocationReporting__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>ICPS__c.StoredLocation__c</field>
         <readable>true</readable>
@@ -398,19 +418,11 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
-        <name>CreateReportFolders</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
         <name>CreateReportInLightning</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
         <name>EditMyDashboards</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>EditMyReports</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -427,9 +439,5 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>RunReports</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>ViewPublicReports</name>
     </userPermissions>
 </PermissionSet>
