@@ -2,7 +2,7 @@
  * Created by hasan on 6/06/2022.
  */
 
-public virtual without sharing class ChasBase {
+public virtual with sharing class ChasBase {
 
     public enum RoutingBypass {
         NETWORK, HOLD
@@ -62,6 +62,39 @@ public virtual without sharing class ChasBase {
         public CaseComment generateCaseComment(String pBody, Boolean pPublicFlag) {
             return new CaseComment(CommentBody = pBody, IsPublished = pPublicFlag);
         }
+
+        /**
+    * Create Parse Case inserted results and create case comment
+    * */
+        public CaseWrapper parseInsertedCaseResultsAndCreateComment(Database.SaveResult[] results, CaseWrapper caseWrapperObj, List<CaseComment> comments) {
+            Set<Id> vCaseIds = new Set<Id>();
+            for (Integer i = 0; i < results.size(); i++) {
+                if (results[i].isSuccess()) {
+                    try {
+                        Id lObjectId = Id.valueOf(results[i].getId());
+                        String objName = lObjectId.getSobjectType().getDescribe().getName();
+                        //-- Creating Case Comment for inserted Case
+                        if (objName.equalsIgnoreCase('Case')) {
+                            createCaseComment(lObjectId, comments);
+                            vCaseIds.add(lObjectId);
+                        }
+
+                    } catch (Exception ex) {
+                        System.debug('*** - Error while retrieving Case Number/Creating Case Comment ===' + ex);
+                    }
+
+                } else {
+                    caseWrapperObj.caseStatus = 'ERROR';
+                    System.debug('Error: could not create sobject ' + 'for array element ' + i + '.');
+                    System.debug('The error reported was: ' + results[i].getErrors()[0].getMessage() + '\n');
+
+                }
+            }
+
+            caseWrapperObj.caseNumber = CasesSelector.newInstance().selectById(vCaseIds).get(new List<Id>(vCaseIds)[0]).CaseNumber;
+
+            return caseWrapperObj;
+        }
     }
 
     public static Boolean noNetworkIdFound = false;                // flag for no network ID found in setDirectRoutingValues
@@ -120,8 +153,8 @@ public virtual without sharing class ChasBase {
     }
 
     /**
-* Create Parse Case inserted results and create case comment
-* */
+    * Create Parse Case inserted results and create case comment
+    * */
     public static CaseWrapper parseInsertedCaseResultsAndCreateComment(Database.SaveResult[] results, CaseWrapper caseWrapperObj, List<CaseComment> comments) {
         Set<Id> vCaseIds = new Set<Id>();
         for (Integer i = 0; i < results.size(); i++) {

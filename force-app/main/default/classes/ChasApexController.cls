@@ -51,7 +51,7 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the method searchTrackingNumber() to handle multiple articles
 * 2022-05-04 mahesh.parvathaneni@auspost.com.au DDS-10119 Changed to Mypost general enquiries from Mypost
 */
-public virtual with sharing class ChasApexController extends ChasBase{
+public with sharing class ChasApexController extends ChasBase{
 
     public static ChasApexController getInstance() {
         return (ChasApexController)Application.Utilities.getInstance(ChasApexController.class);
@@ -174,7 +174,8 @@ public virtual with sharing class ChasApexController extends ChasBase{
             //-- Parse Case results and create Case Comment
             List<CaseComment> comments = new List<CaseComment>();
             comments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
-            caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
+            SharingBypass lSharingBypass = new SharingBypass();
+            caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
             
         }catch(Exception ex){
             caseWrapper.caseStatus = 'ERROR';
@@ -832,9 +833,9 @@ public virtual with sharing class ChasApexController extends ChasBase{
                  toBeCreateCase.Description = toBeCreateCase.Description + '\n' + consignmentSearchComments;
              }
 
-			Database.SaveResult[] results;
-			if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
-				SharingBypass lSharingBypass = new SharingBypass();
+			 Database.SaveResult[] results;
+             SharingBypass lSharingBypass = new SharingBypass();
+             if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
 				results = lSharingBypass.insertSObjects(new SObject[] {toBeCreateCase});
 			}
 			else {
@@ -846,7 +847,7 @@ public virtual with sharing class ChasApexController extends ChasBase{
         //temporarily removed due to inability to make case comment private in authenticated community user context
         //checkNetworkAssigningResult(toBeCreateCase, vComments);
       //-- Parse Case results and create Case Comment
-            caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+             caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
 
             // checkNetworkAssigningResult(toBeCreateCase);
             
@@ -1320,7 +1321,8 @@ commentBody = commentBody  + 'False';
             List<CaseComment> vComments = new List<CaseComment>();
             vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
             //-- Parse Case results and create Case Comment
-            caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+            SharingBypass lSharingBypass = new SharingBypass();
+            caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
             
         }catch(Exception ex){
             caseWrapper.caseStatus = 'ERROR';
@@ -1669,8 +1671,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             toBeCreateCase.Preferred_Communication_Method__c=contactPreferrence;  // Contact Preference, added by Edmarco on July 2019
             
 			Database.SaveResult[] results;
+            SharingBypass lSharingBypass = new SharingBypass();
 			if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
-				SharingBypass lSharingBypass = new SharingBypass();
 				results = lSharingBypass.insertSObjects(new SObject[] {toBeCreateCase});
 			}
 			else {
@@ -1683,7 +1685,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
         //checkNetworkAssigningResult(toBeCreateCase, vComments);
 
             //-- Parse Case results and create Case Comment
-            caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+
+            caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
 
             //-- Case routing based on the boolean isEligibleForMyNetworkAssignment
             // 17-08-2021 switched to direct routing

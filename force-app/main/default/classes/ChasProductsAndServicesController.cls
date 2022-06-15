@@ -287,8 +287,8 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 
             }
             Database.SaveResult[] results;
+            SharingBypass lSharingBypass = new SharingBypass();
             if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null) {
-                SharingBypass lSharingBypass = new SharingBypass();
                 results = lSharingBypass.insertSObjects(new SObject[]{
                         toBeCreateCase
                 });
@@ -303,7 +303,8 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             //checkNetworkAssigningResult(toBeCreateCase, vComments);
 
             //-- Parse Case results and create Case Comment
-            caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
+            //caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
+            caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
             // checkNetworkAssigningResult(toBeCreateCase);
 
             /*Case routing logic : Route the case to the myNetwork queue if:
