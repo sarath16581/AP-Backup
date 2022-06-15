@@ -23,7 +23,7 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 	/**
     * Called when a new deal support request is being inserted.
     * Checks if Implementation_Stage__c picklist is populated or not and if its populated   
-    * then update Last_Implementation_Stage_Update__c timestamp.
+    * then update LastImplementationStageUpdate__c timestamp.
     */
 	public override void onBeforeInsert(List<SObject> records,  ApplicationUnitOfWork uow){
 		try {
@@ -37,7 +37,7 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 	/**
     * Called when a deal support request is being updated.
     * Checks if Implementation_Stage__c picklist is updated or not and if its updated   
-    * then update Last_Implementation_Stage_Update__c timestamp.
+    * then update LastImplementationStageUpdate__c timestamp.
     */
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
 		try {
@@ -76,7 +76,7 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 
 
 	/**
-    * Called from beforeInsert() and beforeUpdate(), updates Last_Implementation_Stage_Update__c timestamps/
+    * Called from beforeInsert() and beforeUpdate(), updates LastImplementationStageUpdate__c timestamps/
     */
 	@testVisible
 	private void updateImplementationStageTimestamp(List<Deal_Support_Request__c> newRecords, Map<Id, Deal_Support_Request__c> existingRecords){
@@ -85,14 +85,14 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 			//check if method is called for before insert trigger.
 			if(existingRecords == null){
 				if(dsr.Implementation_Stage__c != null){
-					dsr.Last_Implementation_Stage_Update__c = System.now();
+					dsr.LastImplementationStageUpdate__c = System.now();
 				}
 			}
 			else{
 				//if Implementation_Stage__c value is changed then record timestamp.
 				//all other updates are bypassed.
 				if(existingRecords.get(dsr.id).Implementation_Stage__c != dsr.Implementation_Stage__c){
-					dsr.Last_Implementation_Stage_Update__c = System.now();
+					dsr.LastImplementationStageUpdate__c = System.now();
 				}
 			}
 		}
@@ -161,7 +161,7 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
                     for(DealSupportRequestMilestone__c dsrMilestones : dsrIdsVsDSRMilestones.get(newDSR.Id)){
 
                         if(dsrMilestones.Stage__c == oldDSRMap.get(dsrMilestones.DealSupportRequest__c).Implementation_Stage__c){
-                            DateTime businessHrsStartDate = oldDSRMap.get(newDSR.Id).Last_Implementation_Stage_Update__c != null ? oldDSRMap.get(newDSR.Id).Last_Implementation_Stage_Update__c : oldDSRMap.get(newDSR.Id).CreatedDate;
+                            DateTime businessHrsStartDate = oldDSRMap.get(newDSR.Id).LastImplementationStageUpdate__c != null ? oldDSRMap.get(newDSR.Id).LastImplementationStageUpdate__c : oldDSRMap.get(newDSR.Id).CreatedDate;
                             DealSupportRequestMilestone__c dsrMilestoneRecordToUpdate = new DealSupportRequestMilestone__c();
 							dsrMilestoneRecordToUpdate.Id = dsrMilestones.Id;
 							dsrMilestoneRecordToUpdate.Timeinminutes__c = dsrMilestones.Timeinminutes__c + BusinessHours.diff(defaultBusinessHoursId, businessHrsStartDate , System.now())/(1000*60);
@@ -179,7 +179,7 @@ public with sharing class DealSupportRequestMilestonesTrackModule extends Applic
 					//If null checks are not done then Deal Support Milestone will be created without stage value.
 					if(oldDSRMap.get(newDSR.Id).Implementation_Stage__c != null){
 						newMilestoneRecord.Stage__c = oldDSRMap.get(newDSR.Id).Implementation_Stage__c;
-						DateTime businessHrsStartDate = oldDSRMap.get(newDSR.Id).Last_Implementation_Stage_Update__c != null ? oldDSRMap.get(newDSR.Id).Last_Implementation_Stage_Update__c : oldDSRMap.get(newDSR.Id).CreatedDate;
+						DateTime businessHrsStartDate = oldDSRMap.get(newDSR.Id).LastImplementationStageUpdate__c != null ? oldDSRMap.get(newDSR.Id).LastImplementationStageUpdate__c : oldDSRMap.get(newDSR.Id).CreatedDate;
 						newMilestoneRecord.Timeinminutes__c = BusinessHours.diff(defaultBusinessHoursId, businessHrsStartDate, System.now())/(1000*60);
 
 						newMilestoneRecordsToCreate.add(newMilestoneRecord);

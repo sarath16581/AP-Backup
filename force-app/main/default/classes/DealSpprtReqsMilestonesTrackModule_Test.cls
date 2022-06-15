@@ -29,7 +29,7 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
         List<Account> organisations = ApplicationTestDataFactory.getAccounts(1, true);
         List<Deal_Support_Request__c> dealSupportRequests = ApplicationTestDataFactory.getDealSupportRequests(1, null, organisations[0].Id, true);
         dealSupportRequests[0].Implementation_Stage__c = 'Idea - Sales';
-        dealSupportRequests[0].Last_Implementation_Stage_Update__c = System.now().addMinutes(-60);
+        dealSupportRequests[0].LastImplementationStageUpdate__c = System.now().addMinutes(-60);
 
 
         //update existing record and change implementation stage
@@ -56,7 +56,7 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
         Test.stopTest();
 
         //assert that Last Implementation Stage Update field is updated.
-        system.assertNotEquals(dealSupportRequests[0].Last_Implementation_Stage_Update__c, updatedDSR.Last_Implementation_Stage_Update__c);
+       system.assertNotEquals(dealSupportRequests[0].LastImplementationStageUpdate__c, updatedDSR.LastImplementationStageUpdate__c);
 
         //beforeUpdate does not perform any DML hence not testing register methods.
     }
@@ -96,8 +96,8 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
         module.onBeforeInsert(newDealSupportRequests, mockUow);
         Test.stopTest();
 
-        //assert that Last_Implementation_Stage_Update__c is populated when a new record is being created
-        system.assertNotEquals(null, newDealSupportRequests[0].Last_Implementation_Stage_Update__c);
+        //assert that LastImplementationStageUpdate__c is populated when a new record is being created
+       system.assertNotEquals(null, newDealSupportRequests[0].LastImplementationStageUpdate__c);
 
         //beforeInsert does not perform any DML hence not testing register methods.
 
@@ -123,14 +123,14 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
         List<Account> organisations = ApplicationTestDataFactory.getAccounts(1, true);
         List<Deal_Support_Request__c> dealSupportRequests = ApplicationTestDataFactory.getDealSupportRequests(1, null, organisations[0].Id, true);
         dealSupportRequests[0].Implementation_Stage__c = 'Idea - Sales';
-        dealSupportRequests[0].Last_Implementation_Stage_Update__c = System.now().addDays(-1);
+        dealSupportRequests[0].LastImplementationStageUpdate__c = System.now().addDays(-1);
 
         Deal_Support_Request__c updatedDSR = dealSupportRequests[0].clone(true, true, false, true);
         updatedDSR.Implementation_Stage__c = 'Scope - Onboarding';
-        updatedDSR.Last_Implementation_Stage_Update__c = System.now();
+        updatedDSR.LastImplementationStageUpdate__c = System.now();
 
         //expected record to be updated
-        List<DealSupportRequestMilestone__c> newDsrMilestones = ApplicationTestDataFactory.getDealSupportRequestMilestones(1, dealSupportRequests[0].Id, true);
+        List<DealSupportRequestMilestone__c> newDsrMilestones = ApplicationTestDataFactorySales.getDealSupportRequestMilestones(1, dealSupportRequests[0].Id, true);
         DealSupportRequestMilestone__c newDsrMilestone = newDsrMilestones[0];
         newDsrMilestone.Timeinminutes__c = 400;
         newDsrMilestone.Stage__c = 'Idea - Sales';
@@ -196,11 +196,11 @@ public with sharing class DealSpprtReqsMilestonesTrackModule_Test {
         List<Account> organisations = ApplicationTestDataFactory.getAccounts(1, true);
         List<Deal_Support_Request__c> dealSupportRequests = ApplicationTestDataFactory.getDealSupportRequests(1, null, organisations[0].Id, true);
         dealSupportRequests[0].Implementation_Stage__c = 'Idea - Sales';
-        dealSupportRequests[0].Last_Implementation_Stage_Update__c = System.now().addDays(-1);
+        dealSupportRequests[0].LastImplementationStageUpdate__c = System.now().addDays(-1);
 
         Deal_Support_Request__c updatedDSR = dealSupportRequests[0].clone(true, true, false, true);
         updatedDSR.Implementation_Stage__c = 'Scope - Onboarding';
-        updatedDSR.Last_Implementation_Stage_Update__c = System.now();
+        updatedDSR.LastImplementationStageUpdate__c = System.now();
 
         Map<Id, Deal_Support_Request__c> existingRecords = new Map<Id, Deal_Support_Request__c>{ dealSupportRequests[0].Id =>  dealSupportRequests[0]};
         List<Deal_Support_Request__c> updatedDSRlist = new List<Deal_Support_Request__c>{updatedDSR};

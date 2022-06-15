@@ -101,7 +101,7 @@ public with sharing class DealSupportRequstMilestoneSelector_Test {
         dealSupportRequest.Implementation_Stage__c = 'Idea - Sales';
         insert dealSupportRequest;
 
-        List<DealSupportRequestMilestone__c> newDsrMilestones = ApplicationTestDataFactory.getDealSupportRequestMilestones(1, dealSupportRequest.Id, false);
+        List<DealSupportRequestMilestone__c> newDsrMilestones = ApplicationTestDataFactorySales.getDealSupportRequestMilestones(1, dealSupportRequest.Id, false);
         newDsrMilestones[0].RecordTypeId=dsrMilestoneStageGateRecordTypeId;
         insert newDsrMilestones;
 
