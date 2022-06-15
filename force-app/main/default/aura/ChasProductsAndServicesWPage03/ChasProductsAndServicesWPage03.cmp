@@ -4,7 +4,7 @@
   * Modified by   : Hara Sahoo
   * @description  : 1. Added Back Button and a card layout outer-box
   * Modified by Mahesh Parvathaneni - 10/05/2022 - Hide details section on Delete MyPost account enquiry
-  * Modified by Thang Nguyen - DDS-10805/10945 Add "Accessibility and disability" issue sections
+  * Modified by Thang Nguyen - DDS-10805/10945/DDS-10946 Add "Accessibility and disability" issue sections
 -->
 <aura:component
 	extends="c:CHAS_reviewAndSubmit"
@@ -256,6 +256,33 @@
 						<div>
 							<dt>Has this issue occured before ?</dt>
 							<dd>{! v.wizardData.selectedIssueTypeName }</dd>
+						</div>
+					</aura:if>
+					<!-- DDS-10946 -->
+					<aura:if
+						isTrue="{! and(v.wizardData.selectedRadio1Name == 'Accessibility and disability', v.wizardData.accessibilityIssueTypeName == 'Website or app')}"
+					>
+						<div>
+							<dt>What is the webpage URL or app name?</dt>
+							<dd>{! v.wizardData.webpageURL }</dd>
+						</div>
+						<div>
+							<dt>Where was the issue on the webpage or app?</dt>
+							<dd>{! v.wizardData.webpageIssue }</dd>
+						</div>
+						<div>
+							<dt>Are you using assistive technology?</dt>
+							<dd>{! v.wizardData.selectedAssistiveTypeName }</dd>
+						</div>
+						<div>
+							<dt>
+								What kind of assistive technology are you using?
+							</dt>
+							<dd>{! v.wizardData.assistiveTechnology }</dd>
+						</div>
+						<div>
+							<dt>Your feedback or enquiry</dt>
+							<dd>{! v.wizardData.enquiryDetails }</dd>
 						</div>
 					</aura:if>
 				</dl>
