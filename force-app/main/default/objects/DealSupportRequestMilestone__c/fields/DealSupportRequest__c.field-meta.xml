@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DealSupportRequest__c</fullName>
-    <businessOwnerUser>matthew.xerri@auspost.com.au.devdatt</businessOwnerUser>
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>Id of deal support request related to this deal support request milestone record.</description>
