@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Is_Async_Salesforce_Object__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field is set to True if the Salesforce Object set on this GDR, is one of the defined in the &quot;asyncObjects2ProcessByGRAX&quot; list of the &quot;GRAXUtils&quot; APEX Class</description>
+    <externalId>false</externalId>
+    <label>Is Async Salesforce Object</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

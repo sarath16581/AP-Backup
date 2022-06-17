@@ -154,6 +154,14 @@
      onChange(event) {
          console.log('Search term changed'+event.target.value);
          this.searchTerm = event.target.value;
+         this.searchObject = {
+            searchTerm: this.searchTerm,
+            fieldList: this.displayFields,
+            sobjectName: this.objName,
+            fieldsToSearch: this.fieldsToSearch,
+            filterMap: this.filters,
+            maxResults: 50
+         };
      }
  
      /*

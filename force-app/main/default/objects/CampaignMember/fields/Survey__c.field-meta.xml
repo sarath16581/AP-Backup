@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Survey__c</fullName>
     <externalId>false</externalId>
-    <formula>IF( NOT( ISBLANK( ContactId ) ),HYPERLINK( Campaign.Customer_Feedback_Base_URL__c&amp;&quot;&amp;contactid=&quot;&amp;ContactId&amp;&quot;&amp;first_name=&quot;&amp;Contact.FirstName , &quot;Record  Customer Feedback&quot;,&apos;_blank&apos;), &quot;&quot;)</formula>
+    <formula>IF( NOT( ISBLANK( ContactId ) ),HYPERLINK( Campaign_Contact_Assignment__r.Survey_Url__c&amp;&quot;&amp;contact_id=&quot;&amp;ContactId, &quot;Record  Customer Feedback&quot;,&apos;_blaNK&apos;), &quot;&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Customer Feedback</label>
     <required>false</required>

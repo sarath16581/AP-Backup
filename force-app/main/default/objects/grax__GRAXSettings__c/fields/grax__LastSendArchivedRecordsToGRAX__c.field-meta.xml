@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__LastSendArchivedRecordsToGRAX__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The last date, and, time, when &quot;GRAXBatchToSetAsArchivedDeletedData&quot; APEX Class&apos; process, succesfully ran, sending archived records, to GRAX.</description>
+    <externalId>false</externalId>
+    <label>LastSendArchivedRecordsToGRAX</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

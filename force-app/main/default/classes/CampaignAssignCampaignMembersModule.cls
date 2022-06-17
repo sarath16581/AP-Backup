@@ -11,6 +11,7 @@
  * 2021-12-21 - Mathew Jose - Added the saveCampaignMembers method for after insert and after update events
  * 2022-02-17 - Mathew Jose - Updated the saveCampaignMembers to faciliate the description to be set on Campaign Member record getting created.
  * 2022-02-17 - Mathew Jose - Updated the createTask to use dmlOptions so that task email notification is fired.
+ * 2022-05-16 - Prerna Rahangdale - Modified the code to assign the task to the CCA Contact Owner field if present.
 
  */
 public inherited sharing class CampaignAssignCampaignMembersModule extends ApplicationDomain.Module {
@@ -25,7 +26,6 @@ public inherited sharing class CampaignAssignCampaignMembersModule extends Appli
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			System.debug('CampaignSurveyModule:onAfterInsert');
 
 			// ensures that account managers are assigned a task when there is work for them to do
 			// additionally will update an existing task to In Progress if needed
@@ -40,9 +40,9 @@ public inherited sharing class CampaignAssignCampaignMembersModule extends Appli
 		}
 	}
 
+
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			System.debug('CampaignSurveyModule:onAfterUpdate');
 
 			// ensures that account managers are assigned a task when there is work for them to do
 			// additionally will update an existing task to In Progress if needed
@@ -64,6 +64,8 @@ public inherited sharing class CampaignAssignCampaignMembersModule extends Appli
 	public void createTask(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
 
 		List<CampaignContactAssignment__c> processable = new List<CampaignContactAssignment__c>();
+		// Set to store the owner Ids of the CCA record custom field
+		Map<Id,Id> ccaOtherOwner = new Map<Id,Id>();
 
 		//To capture records where contact was updated
 		Map<Id, Set<SObjectField>> changedRecords = new Map<Id, Set<SObjectField>>();
@@ -72,13 +74,20 @@ public inherited sharing class CampaignAssignCampaignMembersModule extends Appli
 		if(existingRecords == null || existingRecords.isEmpty()) {
 			isInsert = true;
 		} else {
-			changedRecords = getIsChanged(records, existingRecords, new Set<SObjectField>{CampaignContactAssignment__c.Organisation__c, CampaignContactAssignment__c.Contact__c});
+			changedRecords = getIsChanged(records, existingRecords, new Set<SObjectField>{CampaignContactAssignment__c.Organisation__c,
+					CampaignContactAssignment__c.Contact__c,CampaignContactAssignment__c.Campaign_Contact_Owner__c});
 		}
 
 		// ensure that we can actually action the records passed on
 		for(CampaignContactAssignment__c campaignContactAssignmentRecord : (List<CampaignContactAssignment__c>) records){
-			if(CampaignContactAssignment__c.Organisation__c != null && (isInsert || (changedRecords.get(campaignContactAssignmentRecord.Id) != null && (changedRecords.get(campaignContactAssignmentRecord.Id).contains(CampaignContactAssignment__c.Organisation__c) || changedRecords.get(campaignContactAssignmentRecord.Id).contains(CampaignContactAssignment__c.Contact__c))))) {
+			if(CampaignContactAssignment__c.Organisation__c != null && (isInsert || (changedRecords.get(campaignContactAssignmentRecord.Id) != null && (changedRecords.get(campaignContactAssignmentRecord.Id).contains(CampaignContactAssignment__c.Organisation__c)
+					|| changedRecords.get(campaignContactAssignmentRecord.Id).contains(CampaignContactAssignment__c.Contact__c) || changedRecords.get(campaignContactAssignmentRecord.Id).contains(CampaignContactAssignment__c.Campaign_Contact_Owner__c))))) {
 				processable.add(campaignContactAssignmentRecord);
+			}
+			if(campaignContactAssignmentRecord.Campaign_Contact_Owner__c  != null && (isInsert ||  (changedRecords.get(campaignContactAssignmentRecord.Id) != null
+					&& changedRecords.get(campaignContactAssignmentRecord.Id).contains(CampaignContactAssignment__c.Campaign_Contact_Owner__c)
+					|| changedRecords.get(campaignContactAssignmentRecord.Id).contains(CampaignContactAssignment__c.Contact__c)))){
+				ccaOtherOwner.put(campaignContactAssignmentRecord.Organisation__c,campaignContactAssignmentRecord.Campaign_Contact_Owner__c);
 			}
 		}
 		
@@ -120,11 +129,18 @@ public inherited sharing class CampaignAssignCampaignMembersModule extends Appli
 				accountOwnersMap.put(acc.Id, acc.OwnerId);
 			}
 
+
+
 			// grab a list of all the non complete tasks so that we can 'synchronise' the state and map the tasks based on owner
 			// NOTE: This logic assumes only 1 'open' task exists for a user.
 			// multiple tasks for a single user against the campaign
 			Map<String, Object> searchParams = new Map<String, Object>();
-			searchParams.put('ownerIds', new Set<Id>(accountOwnersMap.values()));
+
+			Set<Id> taskOwnerIds = new Set<Id>();
+			taskOwnerIds.addAll(accountOwnersMap.values());
+			taskOwnerIds.addAll(ccaOtherOwner.values());
+			// Check existing task record for the campaign with either accountowner or, CCA.CCA owner field.
+			searchParams.put('ownerIds', taskOwnerIds);
 			searchParams.put('whatIds', campaignAccounts.keySet());
 			searchParams.put('isClosed', false);
 			searchParams.put('subjects', new Set<String>{CampaignContactAssignmentConstants.TASK_SUBJECT});
@@ -143,7 +159,6 @@ public inherited sharing class CampaignAssignCampaignMembersModule extends Appli
 
 			// iterate through each campaign and it's associated account assignments (in the transaction) in order to work our whether to create tasks or not
 			for(Id campaignId : campaignAccounts.keySet()) {
-
 				// a list of all the account ids associated to the campaign
 				Set<Id> campaignAccountIds = campaignAccounts.get(campaignId).keySet();
 
@@ -155,8 +170,10 @@ public inherited sharing class CampaignAssignCampaignMembersModule extends Appli
 					// check if the account id is in the list of accounts for the campaign in question
 					// this means there should be a task for the account owner linked to the campaign
 					// if it's not in the list when we skip it for this campaign
+
+
 					if(campaignAccountIds.contains(accountId)) {
-						Id ownerId = accountOwnersMap.get(accountId);
+						Id ownerId  = ccaOtherOwner.get(accountId) != null ? ccaOtherOwner.get(accountId) : accountOwnersMap.get(accountId);
 
 						if(ownerTaskWithStatusMappings.get(ownerId) == null || ownerTaskWithStatusMappings.get(ownerId) != true) {
 							// the owner has not already been added to the list to be processed
@@ -178,14 +195,15 @@ public inherited sharing class CampaignAssignCampaignMembersModule extends Appli
 						// an open task already exists for the account manager against the current campaign
 						// check whether we need to change the status
 						// the status of this task depends on whether the Contact__c field is populated and whether the record was inserted OR Contact__c was changed
-						if(accountOwnersTaskShouldBeInProgress && !CampaignContactAssignmentConstants.TASK_INPROGRESS.equalsIgnoreCase(existingTask.Status)) {
+
+						if(accountOwnersTaskShouldBeInProgress && !CampaignContactAssignmentConstants.TASK_INPROGRESS.equalsIgnoreCase(existingTask.Status)){
 							tasksUpdateable.add(new Task(Id = existingTask.Id, Status = CampaignContactAssignmentConstants.TASK_INPROGRESS));
 						}
 					} else {
 						// no 'open' task exists for this user so a new task record will need to be created
 						// the status of this task depends on whether the Contact__c field is populated and whether the record was inserted OR Contact__c was changed
 						// Trigger task assignment email notification leveraging dml options.
-						Task tNew = new Task(OwnerId = ownerId, WhatId = campaignId, Subject = CampaignContactAssignmentConstants.TASK_SUBJECT, Status = (accountOwnersTaskShouldBeInProgress ? CampaignContactAssignmentConstants.TASK_INPROGRESS : CampaignContactAssignmentConstants.TASK_NOTSTARTED),Description=label.CampaignAssignContactTaskContent);
+						Task tNew = new Task(OwnerId = ownerId, WhatId = campaignId, Subject = CampaignContactAssignmentConstants.TASK_SUBJECT, Status = (accountOwnersTaskShouldBeInProgress ? CampaignContactAssignmentConstants.TASK_INPROGRESS : CampaignContactAssignmentConstants.TASK_NOTSTARTED), Description = label.CampaignAssignContactTaskContent);
 						tNew.setOptions(dmo);
 						tasksInsertable.add(tNew);
 					}
@@ -270,12 +288,15 @@ public inherited sharing class CampaignAssignCampaignMembersModule extends Appli
 				// if a contact does not exist then we create
 				for(Id contactId : campaignContactsMap.get(campaignId)) {
 					if(existingContactIds.contains(contactId) && CampaignContactAssignmentConstants.CONTACT_ASSIGNMENT_CHANGED.equalsIgnoreCase(existingCampaignMembers.get(campaignId).get(contactId).Status)) {
-						// contact exists with a 'cancelled' state, so we need to update the status of the record back to the default status
-						updateableCampaignMembers.add(new CampaignMember(Id = existingCampaignMembers.get(campaignId).get(contactId).Id, Status = campaignsMap.get(campaignId)?.ContactAssignmentDefaultStatus__c));
+						// contact exists with a 'cancelled' state, so we need to update the status of the record back to the default status and reinstate the new CCA records.
+						updateableCampaignMembers.add(new CampaignMember(Id = existingCampaignMembers.get(campaignId).get(contactId).Id, Status = campaignsMap.get(campaignId)?.ContactAssignmentDefaultStatus__c
+								,Campaign_Contact_Assignment__c = contactIdAssignmentMap.get(contactId).Id));
 					} else if(!existingContactIds.contains(contactId)) {
 						// the campaign member record does not exist yet so we create it
 						// ensure description is copied from the CCA description field
-						insertableCampaignMembers.add(new CampaignMember(CampaignId = campaignId, ContactId = contactId, Status = campaignsMap.get(campaignId)?.ContactAssignmentDefaultStatus__c, Campaign_Member_Notes__c=contactIdAssignmentMap.get(contactId).Description__c));
+						// storing the value of campaign contact assignment field value which created the Campaign member record.
+						insertableCampaignMembers.add(new CampaignMember(CampaignId = campaignId, ContactId = contactId, Status = campaignsMap.get(campaignId)?.ContactAssignmentDefaultStatus__c,
+								Campaign_Member_Notes__c=contactIdAssignmentMap.get(contactId).Description__c,Campaign_Contact_Assignment__c=contactIdAssignmentMap.get(contactId).Id));
 					}
 				}
 			}

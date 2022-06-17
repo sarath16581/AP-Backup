@@ -7,6 +7,8 @@
  * @date 2022-01-15
  * @group Domain
  * @domain CampaignMembersDomain
+ * 18-05-2022 prerna.rahangdale@auspost.com.au added the beforeupdate to remove the Campaign Contact assignment lookup from
+ * 	the Campaign member.
  * @changelog
  */
 public inherited sharing class CampaignMemberSurveysModule extends ApplicationDomain.Module {
@@ -16,7 +18,7 @@ public inherited sharing class CampaignMemberSurveysModule extends ApplicationDo
 	
 	// Setup which triggers this module should respond to
 	public CampaignMemberSurveysModule() {
-		getTriggerEvents().enableAfterUpdate().enableAfterInsert();
+		getTriggerEvents().enableAfterUpdate().enableAfterInsert().enableBeforeUpdate();
 	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
@@ -37,7 +39,16 @@ public inherited sharing class CampaignMemberSurveysModule extends ApplicationDo
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), CampaignContactAssignmentConstants.APP_NAME, CampaignMemberSurveysModule.class.getName(), 'onAfterUpdate', CampaignContactAssignmentConstants.TRIGGER_NAME, LoggingLevel.ERROR);
 		}
-	} 
+	}
+
+	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		try {
+			System.debug('CampaignMemberSurveysModule:onBeforeUpdate');
+			unLinkCampaignContactAssignment(records, (Map<Id, CampaignMember>)existingRecords, uow);
+		} catch (Exception ex){
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), CampaignContactAssignmentConstants.APP_NAME, CampaignMemberSurveysModule.class.getName(), 'onBeforeUpdate', CampaignContactAssignmentConstants.TRIGGER_NAME, LoggingLevel.ERROR);
+		}
+	}
 
 	/**
 	 * Remove contact assignment if the campaign member status is updated to status cancelled / removed.
@@ -97,6 +108,31 @@ public inherited sharing class CampaignMemberSurveysModule extends ApplicationDo
     }
 
 	/**
+	 * Remove contact assignment lookup on the  Campaign Member assignment the campaign member status is updated to status cancelled / removed.
+	 *
+	 * @param records  list of new records.
+	 * @param existingRecords  Trigger.oldMap.
+	 */
+	public void unLinkCampaignContactAssignment(List<CampaignMember> records, Map<Id, CampaignMember> existingRecords, ApplicationUnitOfWork uow) {
+
+		Map<Id, Set<SObjectField>> changedRecords = new Map<Id, Set<SObjectField>>();
+		List<CampaignMember> updateable  = new List<CampaignMember>();
+		changedRecords = getIsChanged(records, existingRecords, new Set<SObjectField>{CampaignMember.Status});
+
+		for(CampaignMember campaignMemberRecord : records){
+			Set<SObjectField> changed = changedRecords.get(campaignMemberRecord.Id);
+			if(changed == null) changed = new Set<SObjectField>();
+
+			if (campaignMemberRecord.Campaign_Contact_Assignment__c != null && CampaignContactAssignmentConstants.CONTACT_ASSIGNMENT_CHANGED.equalsIgnoreCase(campaignMemberRecord.Status)
+					&& changed.contains(CampaignMember.Status)) {
+
+				// Update the Campaign Member to unlink the Campaign Contact Assignment lookup field.
+				campaignMemberRecord.Campaign_Contact_Assignment__c = null;
+			}
+		}
+	}
+
+	/**
 	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
 	 */
 	public class Constructor implements ApplicationDomain.IConstructableModule {
@@ -104,5 +140,4 @@ public inherited sharing class CampaignMemberSurveysModule extends ApplicationDo
 			return (ApplicationDomain.Module) CampaignMemberSurveysModule.newInstance();
 		}
 	}    
-
 }

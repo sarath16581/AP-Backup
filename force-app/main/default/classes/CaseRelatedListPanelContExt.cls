@@ -165,11 +165,13 @@ public with sharing class CaseRelatedListPanelContExt {
 		List<EmailMessage> tempList = Database.query(query);
 		List<EmailMessage> emailList = new List<EmailMessage>();
 
-		for (EmailMessage em : tempList) {
+		// INC1979490: Removed the condition to exclude emails if 'ToAddress' and 'FromAddress' are equal
+		emailList.addall(tempList);
+		/*for (EmailMessage em : tempList) {
 			if (em.ToAddress != em.FromAddress) {
 				emailList.add(em);
 			}
-		}
+		}*/
 
 		return emailList.isEmpty() ? null : emailList;
 	}
@@ -183,11 +185,10 @@ public with sharing class CaseRelatedListPanelContExt {
 
 			for (EmailMessage em : emails) {
 				// INC1979490: condition added for cc email address
-				if (em.ToAddress != null && (em.ToAddress.containsIgnoreCase(networkValue) || em.CcAddress.containsIgnoreCase(networkValue))) {
+				if (em.ToAddress != null && em.CcAddress != null && (em.ToAddress.containsIgnoreCase(networkValue) || em.CcAddress.containsIgnoreCase(networkValue))) {
 					emailsNetworkResp.add(em);
 				}
 			}
-			System.debug('emailsNetworkResp: '+emailsNetworkResp);
 		}
 	}
 

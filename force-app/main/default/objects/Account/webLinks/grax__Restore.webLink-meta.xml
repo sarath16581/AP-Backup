@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Restore</fullName>
+    <availability>online</availability>
+    <description>Button to be used to view backed up/archived records via GRAX</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Restore</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/apex/grax__GRAXRestore?Id={!Account.Id}&amp;recordName={!Account.Name}</url>
+</WebLink>

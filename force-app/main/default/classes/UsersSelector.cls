@@ -1,18 +1,18 @@
 /**
- * @author Nathan Franklin
- * @date 2020-04-10
- * @group Selector
- * @tag Selector
- * @tag User SObject
- * @domain Core
- * @description A very simple selector class that sits in the base domain
- * @changelog
- * 2020-04-10 - Nathan Franklin - Created
- * 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId,selectbyUserName and selectByContactId Methods
- * 2021-03-02 - Alvin Zhou - Updated - selectActiveuserByProfileName and add the Current_Owner_Role__c to the related list
+* @author Nathan Franklin
+* @date 2020-04-10
+* @group Selector
+* @tag Selector
+* @tag User SObject
+* @domain Core
+* @description A very simple selector class that sits in the base domain
+* @changelog
+* 2020-04-10 - Nathan Franklin - Created
+* 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId,selectbyUserName and selectByContactId Methods
+* 2021-03-02 - Alvin Zhou - Updated - selectActiveuserByProfileName and add the Current_Owner_Role__c to the related list
  * 2022-02-24 - Nathan Franklin - Added a field override capability
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
- */
+*/
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
 
 	public enum Options {
@@ -42,7 +42,7 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-				User.Id, User.Username, User.FirstName, User.LastName, User.Email, User.FederationIdentifier, User.ProfileId, User.UserRoleId, User.UserPermissionsLiveAgentUser,
+				User.Id,User.Name, User.Username, User.FirstName, User.LastName, User.Email, User.FederationIdentifier, User.ProfileId, User.UserRoleId, User.UserPermissionsLiveAgentUser,
 				User.OID_ID__c, User.UserType, User.Current_Owner_Role__c, User.LocaleSidKey, User.LanguageLocaleKey, User.TimeZoneSidKey, User.TimeZoneSidKey, User.Alias, User.IsActive,
 				User.ContactId, User.APCN__c, User.EmployeeNumber
 		};
@@ -59,7 +59,7 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public Map<Id, User> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Id + ' in :ids')).endConditions();
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Id + ' in :ids')).endConditions();
 		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
 	}
 
@@ -81,7 +81,7 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	 * @description Run a simple query to get records based on usernames
 	 */
 	public Map<Id, User> selectByUsername(Set<String> usernames, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames')).endConditions();
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames')).endConditions();
 		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
 	}
 
@@ -96,7 +96,7 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	 * @description Run a simple query to get records based on Username.ContactId
 	 */
 	public Map<Id, User> selectByContactId(Set<Id> contactIds, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.ContactId + ' in :contactIds')).endConditions();
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.ContactId + ' in :contactIds')).endConditions();
 		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
 	}
 

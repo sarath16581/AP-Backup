@@ -2,9 +2,10 @@
  * @description Contact assignments screen for Account managers to facilitate campaign feedback survey
  * @author Mathew Jose
  * @date 2021-12-21
- * @group 
+ * @group
  * @changelog
  * 2021-12-21 - Mathew Jose - Created.
+ * 2022-05-16 - Prerna Rahangdale - Modified to only bring Active Contacts.
  */
 import { LightningElement, track, api , wire} from 'lwc';
 import loadData from '@salesforce/apex/CampaignAssignmentController.getCampaignContactAssignments';
@@ -43,7 +44,7 @@ export default class CampaignContactAssignment extends LightningElement {
 				label: 'Organisation',
 				fieldName: 'accountUrl',
 				type: 'url',
-				typeAttributes:  {label: { fieldName: 'accountName' }, 
+				typeAttributes:  {label: { fieldName: 'accountName' },
 								target: '_blank'},
 				sortable: true
 			},
@@ -59,32 +60,34 @@ export default class CampaignContactAssignment extends LightningElement {
 					filters: {fieldName: 'campaignContactFilter'},
 					valueId: { fieldName: 'campaignContactId' },
 					readOnly: { fieldName: 'campaignContactReadonly' },
-					fieldsToSearch: "Name"
+					fieldsToSearch: "Name",
+					maxResults: 50
 				}
 			},
-			
+
 			{
 				label: 'View Campaign Member',
 				fieldName: 'campaignMemberUrl',
 				type: 'url',
-				typeAttributes: {label: 'View Campaign Member', 
+				typeAttributes: {label: 'View Campaign Member',
 								target: '_blank'},
 				sortable: true
 			},
-			
+
 			{ label: 'Current Status', fieldName: 'campaignMemberStatus', editable: false },
-			{ label: 'Description', fieldName: 'campaignContactDescription', editable: false, type: 'text', wrapText: true , initialWidth: 680}	   
+			{ label: 'Description', fieldName: 'campaignContactDescription', editable: false, type: 'text', wrapText: true , initialWidth: 680}
+
 		];
 
-	}	
+	}
 
 	@wire(loadData, { campaignId: '$recordId' })
 	wiredCampaignData(result) {
 		this.wiredData = result;
-		if (result.data) {		  
+		if (result.data) {
 			this.data = this.pushColumnValue(result.data);
 			//keep the last retrieved data
-			this.lastSavedData = JSON.parse(JSON.stringify(this.data));						
+			this.lastSavedData = JSON.parse(JSON.stringify(this.data));
 			this.error = undefined;
 			this.isSpinning = false;
 		} else if (result.error) {
@@ -92,17 +95,17 @@ export default class CampaignContactAssignment extends LightningElement {
 		   //this.error = result.error;
 			this.error = result.error.body.message;
 			this.data = undefined;
-			this.isSpinning = false; 
+			this.isSpinning = false;
 		}
 	}
-	
-	//Setting the specific column values which require logical calculation. 
+
+	//Setting the specific column values which require logical calculation.
 	pushColumnValue(items) {
 		return items.map(item => {
 			//generate a filter map with the filters to be used for contact lookup for each row.
-			//Default the Id if the existing rows already have contact.
-			let filterMap = item.campaignContactId ? {Id : `${item.campaignContactId}`, AccountId : `${item.accountId}`} : {AccountId : `${item.accountId}`};
-			const col = {...item, 
+			//Default the Id if the existing rows already have contact, and bring only Active contacts.
+			let filterMap = item.campaignContactId ? {Id : `${item.campaignContactId}`, AccountId : `${item.accountId}`} : {AccountId : `${item.accountId}` ,Status__c : `Active`};
+			const col = {...item,
 							accountUrl: item.accountId ? `/${item.accountId }`: "",
 							//campaignContactReadonly: item.campaignMemberStatus && item.campaignMemberStatus != 'Sent' ? true : false,
 							//Lock contact selection as long as there is a campaign member associated with the contact.
@@ -114,15 +117,15 @@ export default class CampaignContactAssignment extends LightningElement {
 			return col;
 		});
 
-	};	
- 
-	//Handles the selection of the look up values. This will update the data values and draft values.	
+	};
+
+	//Handles the selection of the look up values. This will update the data values and draft values.
 	handleSelection(event) {
 		event.stopPropagation();
 		let dataRecieved = event.detail.data;
 		let updatedItem = { assignmentId: dataRecieved.key, campaignContactId: dataRecieved.selectedId };
 		this.updateDraftValues(updatedItem);
-		this.updateDataValues(updatedItem);		
+		this.updateDataValues(updatedItem);
 	}
 
 	//Update data values on lookup selection.
@@ -133,8 +136,8 @@ export default class CampaignContactAssignment extends LightningElement {
 			if (item.assignmentId === updateItem.assignmentId) {
 				for (let field in updateItem) {
 					if(field != 'assignmentId' ){
-						item[field] = updateItem[field] ? updateItem[field] : ""; 
-					}					
+						item[field] = updateItem[field] ? updateItem[field] : "";
+					}
 				}
 				let filterMap = item.campaignContactId ? {Id : `${item.campaignContactId}`, AccountId : `${item.accountId}`} : {AccountId : `${item.accountId}`};
 				console.log('filterMap:::'+filterMap);
@@ -161,7 +164,7 @@ export default class CampaignContactAssignment extends LightningElement {
 				for (let field in updateItem) {
 					if(field != 'assignmentId'){
 						//item[field] = updateItem[field];
-						item[field] = updateItem[field] ? updateItem[field] : "";						
+						item[field] = updateItem[field] ? updateItem[field] : "";
 					}
 				}
 				draftValueChanged = true;
@@ -174,7 +177,7 @@ export default class CampaignContactAssignment extends LightningElement {
 			this.draftValues = [...copyDraftValues, updateItem];
 			console.log('Draft Values Final:'+this.draftValues);
 		}
-	} 
+	}
 
 	handleSave(event) {
 		console.log('Updated items', this.draftValues);
@@ -201,22 +204,22 @@ export default class CampaignContactAssignment extends LightningElement {
 				this.draftValues = [];
 				// Refresh data in the datatable with below command
 				//as the datatable is being loaded with wired function
-				return refreshApex(this.wiredData);				
+				return refreshApex(this.wiredData);
 			})
 			.catch((error) => {
 				this.message = undefined;
-				//this.error = error;				
+				//this.error = error;
 				this.error = error.body.message;
 				this.isSpinning = false;
-			});		
+			});
 
-	}	
-	
+	}
+
 	handleCancel(event) {
 		//remove draftValues & revert data changes
 		this.data = JSON.parse(JSON.stringify(this.lastSavedData));
 		this.draftValues = [];
 	}
-	  
+
 
 }

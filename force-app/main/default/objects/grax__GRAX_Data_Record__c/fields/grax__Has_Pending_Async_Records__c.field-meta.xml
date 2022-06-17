@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Has_Pending_Async_Records__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Field Used for Internal Auditing</description>
+    <externalId>false</externalId>
+    <formula>grax__Num_Records_To_Process__c &gt; grax__Num_Records_Sent_to_GRAX__c</formula>
+    <label>Has Pending Async Records</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

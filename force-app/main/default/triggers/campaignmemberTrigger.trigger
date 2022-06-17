@@ -10,7 +10,7 @@
  * 2022-01-21 - Mathew Jose - Added the logic to remove contact assignments corresponding to campaign members and also implemented domain / modue uplift
  */
 
-trigger campaignmemberTrigger on CampaignMember (after insert, after update) {
+trigger campaignmemberTrigger on CampaignMember (after insert, after update,before update) {
 	//Using the domain/module pattern for the changes added as part of campaign feedback replacement.
 	if (!TriggerHelper.isTriggerDisabled(String.valueOf(CampaignMember.SObjectType))) {     // verify if triggers are disabled
 		// New domain based trigger dispatch

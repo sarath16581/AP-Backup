@@ -1110,23 +1110,27 @@
     <picklistValues>
         <picklist>Implementation_Stage__c</picklist>
         <values>
-            <fullName>Build Solution - Onboarding</fullName>
+            <fullName>Closed - Disengaged</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Handover - Onboarding to Service</fullName>
+            <fullName>Closed - Maintained</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Idea - Sales</fullName>
+            <fullName>Closed - Rejected</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Scope - Onboarding</fullName>
+            <fullName>Implement</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Trading%2FGo Live - Onboarding</fullName>
+            <fullName>Plan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stabalise</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1467,6 +1471,10 @@
         <picklist>Product__c</picklist>
         <values>
             <fullName>3PL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>APGL Commercial Outbound</fullName>
             <default>false</default>
         </values>
         <values>

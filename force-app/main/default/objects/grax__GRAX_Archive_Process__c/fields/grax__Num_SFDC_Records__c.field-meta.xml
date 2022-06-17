@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Num_SFDC_Records__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Total # of records backed up from Scheduled Process</description>
+    <externalId>false</externalId>
+    <formula>grax__Num_SFDC_Records_Lkp__r.grax__Total__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Num Total SFDC Records</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

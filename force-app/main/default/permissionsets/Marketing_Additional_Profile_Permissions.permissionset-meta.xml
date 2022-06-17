@@ -197,17 +197,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CampaignContactAssignment__c.Campaign_Contact_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>CampaignContactAssignment__c.Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CampaignContactAssignment__c.Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>CampaignContactAssignment__c.Organisation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>CampaignContactAssignment__c.Survey_Url__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CampaignMember.Campaign_Contact_Assignment__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -587,7 +602,7 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
-        <allowCreate>false</allowCreate>
+        <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>

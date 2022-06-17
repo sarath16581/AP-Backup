@@ -9,7 +9,6 @@
     <columns>OwnerName__c</columns>
     <columns>CREATED_DATE</columns>
     <columns>CountryofOrigin__c</columns>
-    <columns>HoldUntilDate__c</columns>
     <columns>DemurrageStartDate__c</columns>
     <filterScope>Mine</filterScope>
     <filters>

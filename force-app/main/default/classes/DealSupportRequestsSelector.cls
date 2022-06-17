@@ -9,7 +9,6 @@
  * 2020-11-18 - arjun.singh@austpost.com.au - Created
  * 2020-11-18 - Shashwat.nath@auspost.com.au - updated to add related fields with primary contact and Charge Account Request
  * 2021-06-08 - Seth.Heang@auspost.com.au - updated to add related lookup fields with opportunity
- * 2022-06-02 - dattaraj.deshmukh@slalom.com - updated to add LastImplementationStageUpdate__c field. 
  */
 public with sharing class DealSupportRequestsSelector extends ApplicationSelector{
     public enum Options {
@@ -44,7 +43,7 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
         return new Set<SObjectField> {
             Deal_Support_Request__c.Id,Deal_Support_Request__c.Name, Deal_Support_Request__c.APT_Contract__c, Deal_Support_Request__c.Integration_Status__c , Deal_Support_Request__c.Work_Type__c,
             Deal_Support_Request__c.Billing_Account_Change_of_Details_Type__c, Deal_Support_Request__c.OwnerId, Deal_Support_Request__c.Credit_Work_Type__c, Deal_Support_Request__c.Lodgement_Point_to_Work_Centre_Code__c,
-            Deal_Support_Request__c.Sub_Accounts__c , Deal_Support_Request__c.Requestor__c, Deal_Support_Request__c.LastImplementationStageUpdate__c 
+            Deal_Support_Request__c.Sub_Accounts__c , Deal_Support_Request__c.Requestor__c
         };
     }
     /**
@@ -101,6 +100,7 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
         }
         
         if(selectorOptions.contains(Options.WITH_CREDIT_ASSESSMENT)) {
+            System.debug('here');
             builder.addRelatedFields(CreditsAssessmentSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r');
         }
         

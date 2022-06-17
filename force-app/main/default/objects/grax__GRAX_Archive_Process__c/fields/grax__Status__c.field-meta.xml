@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Overall Status of the Archive Process</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(grax__GRAX_Schedule_Process__r.grax__Status__c, &apos;Starting Archive Process&apos;) &amp;&amp; ($Setup.grax__GRAXSettings__c.grax__Use_Bulk_API__c == true || (grax__Num_Records_To_Process__c &gt; 0 &amp;&amp; grax__Num_Records_Successfully_Sent__c = grax__Num_Records_To_Process__c &amp;&amp; grax__Num_Async_Records_Successfully_Sent__c = grax__Num_Async_Records_to_Process__c &amp;&amp; grax__Num_SFDC_Records_Deleted__c = 0 &amp;&amp; grax__Num_SFDC_Records_Failed_to_Delete__c = 0)),
+  &apos;Ready to Delete&apos;,
+  IF((grax__Num_SFDC_Records__c &gt; 0 &amp;&amp; grax__Num_SFDC_Records__c = grax__Num_SFDC_Records_Deleted__c + grax__Num_SFDC_Records_Failed_to_Delete__c) || (ISPICKVAL(grax__GRAX_Schedule_Process__r.grax__Status__c, &apos;Completed&apos;) &amp;&amp; grax__Num_Records_To_Process__c = 0),
+    &apos;Delete Process Completed&apos;,
+    IF((grax__Num_SFDC_Records__c &gt; 0 &amp;&amp; grax__Num_SFDC_Records__c != grax__Num_SFDC_Records_Deleted__c + grax__Num_SFDC_Records_Failed_to_Delete__c &amp;&amp; (grax__Num_SFDC_Records_Deleted__c &gt; 0 || grax__Num_SFDC_Records_Failed_to_Delete__c &gt; 0)) || ISPICKVAL(grax__GRAX_Schedule_Process__r.grax__Status__c, &apos;Deleting Salesforce records&apos;),
+      &apos;Delete Process Started&apos;,
+      &apos;Waiting Backup to Complete&apos;
+    )
+  )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
