@@ -40,6 +40,15 @@ public with sharing class AsyncWorkerSelector_Test {
 			'Resulting query does not select from AsyncWorker__c'
 		);
 
+		selector = AsyncWorkerSelector.newInstance(0, new Set<SObjectField>{ AsyncWorker__c.ClassType__c, AsyncWorker__c.Id });
+		qb = selector.newQueryBuilder();
+		soql = qb.toSoqlString();
+		System.assertEquals(
+			true,
+			Pattern.compile('(?ism)ClassType__c.*?\\bfrom AsyncWorker__c\\b').matcher(soql).find(),
+			'Resulting query does not select ClassType__c field: ' + soql
+		);
+
 		Test.stopTest();
 	}
 
