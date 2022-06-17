@@ -36,13 +36,17 @@
                                                  class="slds-m-around_xx-small search-input"></lightning-input>
                                 <lightning-input type="text" label="Article Number" data-id="article_number"
                                                  class="slds-m-around_xx-small search-input"></lightning-input>
-                                <lightning-input-field field-name="StoredLocation__c" data-id="stored_location"
-                                                       class="search-input"></lightning-input-field>
                                 <lightning-combobox data-id="stored_location"
                                                     class="slds-m-around_xx-small search-input"
                                                     label="Stored Location"
                                                     placeholder="--None--"
                                                     options={storedLocations}>
+                                </lightning-combobox>
+                                <lightning-combobox data-id="status"
+                                                    class="slds-m-around_xx-small search-input"
+                                                    label="Status"
+                                                    placeholder="--None--"
+                                                    options={status}>
                                 </lightning-combobox>
                             </lightning-layout-item>
                             <lightning-layout-item size="12" padding="around-medium" medium-device-size="4">
@@ -92,7 +96,10 @@
                     key-field="id"
                     data={searchResults}
                     columns={columns}
-                    hide-checkbox-column="true">
+                    hide-checkbox-column="true"
+                    sorted-direction={sortDirection}
+                    sorted-by={sortedBy}
+                    onsort={onHandleSort}>
             </lightning-datatable>
             <template if:true = {noDataToDisplay}>
                 <div class=slds-m-around_x-small>No data to display</div>

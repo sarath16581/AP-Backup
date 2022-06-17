@@ -2,6 +2,7 @@
  * Created by nmain on 31/10/2017.
  * Modified Ba: Hasantha 12/09/2019 :  added lateOrMissingRadioButtons for validations
  * 2020-10-26 hara.sahoo@auspost.com.au Modified : Prepopulate track id and options passed in the url for auto-progression of the forms
+ * 2022-06-08 mahesh.parvathaneni@auspost.com.au Modified : DDS-10987 Delivery issue form network assignment fix in searchTrackingNumber
  */
 ({
     searchTrackingNumber : function(cmp, event, helper) {
@@ -27,11 +28,14 @@
                 if (state === "SUCCESS") {
                     var returnObj =  JSON.parse((JSON.stringify(response.getReturnValue())));
                     var returnCode = returnObj["trackingNumSerachStatusCode"];
-                    cmp.set('v.wizardData.latestDeliveredScanWcid', returnObj["latestDeliveredScanWcid"]);
-                    cmp.set('v.wizardData.previousDeliveredScanWcid', returnObj["previousDeliveredScanWcid"]);
-                    cmp.set('v.wizardData.duplicateCase', returnObj["duplicateCase"]);
-                    cmp.set('v.wizardData.isReturnToSender', returnObj["isReturnToSender"]);
-                    cmp.set('v.wizardData.isParcelAwaitingCollection', returnObj["isParcelAwaitingCollection"]);
+                    //refactored the code to bind the response based on list of trackingNumberDetails
+                    if (!$A.util.isUndefinedOrNull(returnObj["trackingNumberDetails"])) {
+                        cmp.set('v.wizardData.latestDeliveredScanWcid', returnObj["trackingNumberDetails"][0].latestDeliveredScanWcid);
+                        cmp.set('v.wizardData.previousDeliveredScanWcid', returnObj["trackingNumberDetails"][0].previousDeliveredScanWcid);
+                        cmp.set('v.wizardData.duplicateCase', returnObj["trackingNumberDetails"][0].duplicateCase);
+                        cmp.set('v.wizardData.isReturnToSender', returnObj["trackingNumberDetails"][0].isReturnToSender);
+                        cmp.set('v.wizardData.isParcelAwaitingCollection', returnObj["trackingNumberDetails"][0].isParcelAwaitingCollection);
+                    }
                     this.checkNetworkEligibility(cmp,event,helper);
                     // for return code other than 200 Success OK
                     if (returnObj["trackingNumSerachStatusCode"] != 200) {

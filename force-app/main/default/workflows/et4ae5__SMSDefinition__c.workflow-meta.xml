@@ -33,7 +33,7 @@
     <fieldUpdates>
         <fullName>et4ae5__FailBackupSMSWorkflowM</fullName>
         <field>et4ae5__Messages__c</field>
-        <formula>$Label.et4ae5__errornores</formula>
+        <formula>$Label.et4ae5__errorNoRes</formula>
         <name>FailBackupSMSWorkflowM</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>

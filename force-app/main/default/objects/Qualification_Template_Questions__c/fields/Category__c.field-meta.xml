@@ -36,7 +36,7 @@
             <value>
                 <fullName>APPC Domestic Parcels (B2C)</fullName>
                 <default>false</default>
-                <label>Domestic Parcels (B2C)</label>
+                <label>APPC - Pilot only</label>
             </value>
             <value>
                 <fullName>Fulfilment</fullName>
@@ -76,7 +76,7 @@
             <value>
                 <fullName>Domestic Parcels (B2C)</fullName>
                 <default>false</default>
-                <label>Domestic Parcels (B2C) Legacy</label>
+                <label>Domestic Parcels (B2C)</label>
             </value>
         </valueSetDefinition>
     </valueSet>

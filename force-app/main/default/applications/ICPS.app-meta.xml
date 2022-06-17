@@ -14,6 +14,7 @@
     <tabs>ICPS__c</tabs>
     <tabs>Search_ICPS</tabs>
     <tabs>standard-report</tabs>
+    <tabs>ICPSArticle__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>ICPS_UtilityBar</utilityBar>
 </CustomApplication>

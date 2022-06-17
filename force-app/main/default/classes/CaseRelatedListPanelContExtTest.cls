@@ -6,6 +6,7 @@
  * @changelog
  * 2017-10-11 - boris.bachovski@auspost.com.au - Merged code from CaseRelatedListSafeDropController_Test (deleted)
  * 2020-08-14 - Nathan Franklin - Update failing tests from refactoring
+ * 2022-06-07 - Talib Raza - INC1979490: testGeneral - due to version uplift changed FeedItem and added contentversion and feedattachment
  */
 @isTest
 public with sharing class CaseRelatedListPanelContExtTest {
@@ -37,13 +38,24 @@ public with sharing class CaseRelatedListPanelContExtTest {
         att.Name = 'test';
         insert att;
 
+        // INC1979490: testGeneral - due to version uplift changed FeedItem and added contentversion and feedattachment
         FeedItem fi = new FeedItem();
         fi.ParentId = testCase.Id;
-        fi.Type = 'ContentPost';
+        fi.Body = 'HelloThere';
         fi.Title = 'test';
-        fi.ContentFileName = 'test';
-        fi.ContentData = Blob.valueOf('test');
         insert fi;
+        
+        ContentVersion cv = new ContentVersion();
+        cv.Title = 'Test';
+        cv.PathOnClient = 'test';
+        cv.VersionData = EncodingUtil.base64Decode('Unit Test Attachment Body');
+        insert cv;
+        FeedAttachment feedAttachment = new FeedAttachment();
+        feedAttachment.FeedEntityId = fi.Id;
+        feedAttachment.RecordId = cv.Id;
+        //feedAttachment.Title = 'FileName';
+        feedAttachment.Type = 'CONTENT';
+        insert feedAttachment;
 
         ApexPages.StandardController stdCtrl = new ApexPages.StandardController(testCase);
         CaseRelatedListPanelContExt ext = new CaseRelatedListPanelContExt(stdCtrl);
@@ -75,6 +87,7 @@ public with sharing class CaseRelatedListPanelContExtTest {
         newEmail.add(new EmailMessage(FromAddress = 'test@test.com',
         FromName = 'test@test.com',
         ToAddress = 'test2@test.com',
+        CcAddress = 'test3@test.com',
         Subject = 'Test',
         TextBody = 'Test',
         HtmlBody = 'test',

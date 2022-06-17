@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReceiverAddressLastLineNotice__c</fullName>
+    <description>Formula field that concatenates Suburb, State and Postcode for First and Final Notice</description>
+    <externalId>false</externalId>
+    <formula>ReceiverCity__c + &quot; &quot; + ReceiverState__c + &quot; &quot; + ReceiverPostalCode__c</formula>
+    <inlineHelpText>Formula field that concatenates Suburb, State and Postcode for First and Final Notice</inlineHelpText>
+    <label>ReceiverAddressLastLineNotice</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

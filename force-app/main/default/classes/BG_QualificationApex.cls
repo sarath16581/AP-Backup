@@ -7,30 +7,30 @@ History:
 20.02.2020      Jansi (CRMIT Solutions)             created
 17.08.2020      arjun.singh@auspost.com.au          Added a method to fetch the configured estimated revnue used in lead qualification flow
 07.03.2022      seth.heang@auspost.com.au           Added new fields to Qualification Template Question query and update search filter from Category API name to Category Label
+20.05.2022      seth.heang@auspost.com.au           Fix CNA mapping to Lead.products__c and refactor the method retrieving picklist value and label via Schema
 *****************************************************************************************/
 public class BG_QualificationApex {
-    /**
-    * Get picklist values for a field
-    * */
-    @AuraEnabled
-    public static Map<String, String> getPickListValuesBoth(String sObjectApiName, String fieldApiName, String valuesOrApiNames){
-        Map<String, String> picklistValuesMap = new Map<String, String>();
-        try{
-            Map<String, Schema.SObjectType> schemaMap = Schema.getGlobalDescribe();
-            Map<String, Schema.SObjectField> fieldMap = schemaMap.get(sObjectApiName).getDescribe().fields.getMap();
-            
-            // Get the list of picklist values of field.
-            list < Schema.PicklistEntry > picklistEntries =
-                fieldMap.get(fieldApiName).getDescribe().getPickListValues();
-            
-            for (Schema.PicklistEntry entry: picklistEntries) {
-                picklistValuesMap.put(entry.getValue(), entry.getLabel());
-            }
-        }catch(Exception ex){
-            System.debug('Error occured while getting case picklist values :: '+ex.getStackTraceString());
-        }
-        return picklistValuesMap; 
-    }
+	/**
+	 * @description Aura Method call to return a map of the picklist value and picklist label of inputted Sobject and picklist field
+	 * @param		String sObjectApiName: specify sObject API name
+	 * @param		String fieldApiName: specify picklist field API name
+	 * @param		String valuesOrApiNames: specify if API name or Label is passed
+	 * @return		Map<String,String>
+	 */
+	@AuraEnabled
+	public static Map<String, String> getPickListValuesBoth(String sObjectApiName, String fieldApiName, String valuesOrApiNames){
+		Map<String, String> picklistValuesMap = new Map<String, String>();
+		try{
+			// get picklist value and label from Schema via below method
+			picklistValuesMap = getPickListValuesFromSchema(sObjectApiName, fieldApiName, true);
+		}catch(Exception e){
+			String errMsg = 'Error occurred while retrieving picklist values' + e.getMessage()+ ' at ' + e.getStacktraceString();
+			AuraHandledException ex = new AuraHandledException(errMsg);
+			ex.setMessage(errMsg);
+			throw ex;
+		}
+		return picklistValuesMap; 
+	}
     @AuraEnabled
     public static String getExistingResponseId(String recordId){
         String SelectString = 'Select Id From ';
@@ -594,90 +594,138 @@ public class BG_QualificationApex {
         }
         return null; 
     }
-    private static void updateOpportunityDetails(String oppId, String status, String selectedProducts){
-        Boolean updateOpp = false;
-        List<String> prodList = new List<String>();
-        for(String s :( List<String>)System.JSON.deserialize(selectedProducts, List<String>.class)){
-            if(s !='Discovery'){
-                prodList.add(s);
-            }
-        }
-        Opportunity existingOppRecord = [Select Id , CNA_Status__c, CNA_Start_Date__c, CNA_Complete_Date__c From Opportunity where Id =: oppId];
+	/**
+	 * @description Method to update many fields on Opportunity record
+	 * @param		String oppId: specify the Opportunity Id
+	 * @param		String selectedProducts: specify product(s) selected from CNA
+	 * @param		String status: specify the CNA status
+	 * @return		void
+	 */
+	private static void updateOpportunityDetails(String oppId, String status, String selectedProducts){
+		Boolean updateOpp = false;
+		List<String> prodList = new List<String>();
+		Map<String, String> picklistCategoryValuesMap = new Map<String, String>();
 
-        Opportunity oppRecord = new Opportunity();
-        oppRecord.Id = oppId;
+		try{
+			// set picklist label as key, to retrieve its API Name value
+			picklistCategoryValuesMap = getPickListValuesFromSchema('Qualification_Template_Questions__c', 'Category__c', false);
+		}catch(Exception e){
+			String errMsg = 'Error occurred while retrieving picklist values' + e.getMessage()+ ' at ' + e.getStacktraceString();
+			AuraHandledException ex = new AuraHandledException(errMsg);
+			ex.setMessage(errMsg);
+			throw ex;
+		}
 
-        String cnaStatus = existingOppRecord.CNA_Status__c;
-        if(( String.isEmpty(cnaStatus) || cnaStatus.equalsIgnoreCase('Not Started')) && status =='In Progress'){
-            oppRecord.CNA_Status__c = 'In Progress';
-            oppRecord.CNA_Start_Date__c = System.now();
-            updateOpp = true;
-        }else if (cnaStatus == 'In Progress' && status =='Completed'){
-            oppRecord.CNA_Status__c = 'Completed';
-            oppRecord.CNA_Complete_Date__c = System.now();
-            updateOpp = true;
-        }else if (cnaStatus == 'Not Started' && status =='Completed'){
-            oppRecord.CNA_Status__c = 'Completed';
-            oppRecord.CNA_Start_Date__c = System.now();
-            oppRecord.CNA_Complete_Date__c = System.now();
-            updateOpp = true;
-        }
-        if(prodList != null && prodList.size() > 0){  
-            oppRecord.Service_Interested__c = String.join(prodList,';');
-            updateOpp = true;
-        }
+		for(String s :( List<String>)System.JSON.deserialize(selectedProducts, List<String>.class)){
+			if(s !='Discovery' && !picklistCategoryValuesMap.isEmpty()){
+				// get API name from map value for the update DML
+				prodList.add(picklistCategoryValuesMap.get(s));
+			}
+		}
+		Opportunity existingOppRecord = [Select Id , CNA_Status__c, CNA_Start_Date__c, CNA_Complete_Date__c From Opportunity where Id =: oppId];
 
-        try{
-            if(updateOpp)
-                update oppRecord;
-        }Catch(Exception ex){
-            System.debug(LoggingLevel.ERROR, 'Error while updating Opporutnity ==>'+ex.getCause());
-        }
+		Opportunity oppRecord = new Opportunity();
+		oppRecord.Id = oppId;
 
-    }
-    private static void updateLeadDetails(String leadId,String selectedProducts,String primaryProduct, Decimal totalEstimateValue, String status ){
-        List<String> prodList = new List<String>();
-        for(String s :( List<String>)System.JSON.deserialize(selectedProducts, List<String>.class)){
-            if(s !='Discovery'){
-                prodList.add(s);
-            }
-        }
-        Lead existingLeadRecord = [Select Id , CNA_Status__c, CNA_Start_Date__c, CNA_Complete_Date__c From Lead where Id =: leadId];
-        Lead l = new Lead();
-        l.Id = leadId;
-        Boolean updateLead = false;
-        /*if(primaryProduct != null && !String.isEmpty(primaryProduct)){
-            l.Product__c = primaryProduct;
-            updateLead = true;
-        }*/
-        if(prodList != null && prodList.size() > 0){  
-            l.Products__c = String.join(prodList,';');
-            updateLead = true;
-        }
-        l.Qualification_Completed__c = true;
-        l.Opportunity_Initial_Estimate__c= totalEstimateValue;
-        String cnaStatus = existingLeadRecord.CNA_Status__c;
-        if(( String.isEmpty(cnaStatus) || cnaStatus.equalsIgnoreCase('Not Started')) && status =='In Progress'){
-            l.CNA_Status__c = 'In Progress';
-            l.CNA_Start_Date__c = System.now();
-            updateLead = true;
-        }else if (cnaStatus == 'In Progress' && status =='Completed'){
-            l.CNA_Status__c = 'Completed';
-            l.CNA_Complete_Date__c = System.now();
-            updateLead = true;
-        }else if (cnaStatus == 'Not Started' && status =='Completed'){
-            l.CNA_Status__c = 'Completed';
-            l.CNA_Start_Date__c = System.now();
-            l.CNA_Complete_Date__c = System.now();
-            updateLead = true;
-        }
-        try{
-            if(updateLead)
-                update l;
-        }Catch(Exception ex){
-            System.debug(LoggingLevel.ERROR, 'Error while updating Lead ==>'+ex.getCause());
-        }
-    }
+		String cnaStatus = existingOppRecord.CNA_Status__c;
+		if(( String.isEmpty(cnaStatus) || cnaStatus.equalsIgnoreCase('Not Started')) && status =='In Progress'){
+			oppRecord.CNA_Status__c = 'In Progress';
+			oppRecord.CNA_Start_Date__c = System.now();
+			updateOpp = true;
+		}else if (cnaStatus == 'In Progress' && status =='Completed'){
+			oppRecord.CNA_Status__c = 'Completed';
+			oppRecord.CNA_Complete_Date__c = System.now();
+			updateOpp = true;
+		}else if (cnaStatus == 'Not Started' && status =='Completed'){
+			oppRecord.CNA_Status__c = 'Completed';
+			oppRecord.CNA_Start_Date__c = System.now();
+			oppRecord.CNA_Complete_Date__c = System.now();
+			updateOpp = true;
+		}
+		if(prodList != null && prodList.size() > 0){  
+			oppRecord.Service_Interested__c = String.join(prodList,';');
+			updateOpp = true;
+		}
+
+		try{
+			if(updateOpp)
+				update oppRecord;
+		}Catch(Exception e){
+			String errMsg = 'Error occurred while updating Opporutnity' + e.getMessage()+ ' at ' + e.getStacktraceString();
+			AuraHandledException ex = new AuraHandledException(errMsg);
+			ex.setMessage(errMsg);
+			throw ex;
+		}
+
+	}
+	/**
+	 * @description Method to update many fields on Lead record
+	 * @param		String leadId: specify the Lead Id
+	 * @param		String selectedProducts: specify product(s) selected from CNA
+	 * @param		String primaryProduct: specify the primary product from CNA
+	 * @param		Decimal totalEstimateValue: specify the total estimate value from CNA
+	 * @param		String status: specify the CNA status
+	 * @return		void
+	 */
+	private static void updateLeadDetails(String leadId,String selectedProducts,String primaryProduct, Decimal totalEstimateValue, String status ){
+		List<String> prodList = new List<String>();
+		Map<String, String> picklistCategoryValuesMap = new Map<String, String>();
+
+		try{
+			// set picklist label as key, to retrieve its API Name value
+			picklistCategoryValuesMap = getPickListValuesFromSchema('Qualification_Template_Questions__c', 'Category__c', false);
+		}catch(Exception e){
+			String errMsg = 'Error occurred while retrieving picklist values' + e.getMessage()+ ' at ' + e.getStacktraceString();
+			AuraHandledException ex = new AuraHandledException(errMsg);
+			ex.setMessage(errMsg);
+			throw ex;
+		}
+		
+		for(String s :( List<String>)System.JSON.deserialize(selectedProducts, List<String>.class)){
+			if(s !='Discovery' && !picklistCategoryValuesMap.isEmpty()){
+				// get API name from map value for the update DML
+				prodList.add(picklistCategoryValuesMap.get(s));
+			}
+		}
+		Lead existingLeadRecord = [Select Id , CNA_Status__c, CNA_Start_Date__c, CNA_Complete_Date__c From Lead where Id =: leadId];
+		Lead l = new Lead();
+		l.Id = leadId;
+		Boolean updateLead = false;
+		/*if(primaryProduct != null && !String.isEmpty(primaryProduct)){
+			l.Product__c = primaryProduct;
+			updateLead = true;
+		}*/
+		if(prodList != null && prodList.size() > 0){  
+			l.Products__c = String.join(prodList,';');
+			updateLead = true;
+		}
+		l.Qualification_Completed__c = true;
+		l.Opportunity_Initial_Estimate__c= totalEstimateValue;
+		String cnaStatus = existingLeadRecord.CNA_Status__c;
+		if(( String.isEmpty(cnaStatus) || cnaStatus.equalsIgnoreCase('Not Started')) && status =='In Progress'){
+			l.CNA_Status__c = 'In Progress';
+			l.CNA_Start_Date__c = System.now();
+			updateLead = true;
+		}else if (cnaStatus == 'In Progress' && status =='Completed'){
+			l.CNA_Status__c = 'Completed';
+			l.CNA_Complete_Date__c = System.now();
+			updateLead = true;
+		}else if (cnaStatus == 'Not Started' && status =='Completed'){
+			l.CNA_Status__c = 'Completed';
+			l.CNA_Start_Date__c = System.now();
+			l.CNA_Complete_Date__c = System.now();
+			updateLead = true;
+		}
+		try{
+			if(updateLead)
+				update l;
+		}Catch(Exception e){
+			String errMsg = 'Error occurred while updating Lead' + e.getMessage()+ ' at ' + e.getStacktraceString();
+			AuraHandledException ex = new AuraHandledException(errMsg);
+			ex.setMessage(errMsg);
+			throw ex;
+		}
+	}
     /**
      * @description Return the configured estimate revenue . This will be used for lead qualification flow 
      *              to fetch the primary product and update lead primary product attribute
@@ -774,4 +822,35 @@ public class BG_QualificationApex {
        }
         return isClosed ;
     }
+
+	/**
+	 * @description Return a map of the picklist value and picklist label of inputted Sobject and picklist field via Schema Class
+	 * 				The returned map can be configured with a booleam param, to have Picklist API name as key and label as value, or vice versa
+	 * @param		String sObjectApiName: specify sObject API name
+	 * @param		String fieldApiName: specify picklist field API name
+	 * @param		Boolean apiAsKey: specify if API name or Label is created as Key for the return map
+	 * @return		Map<String,String>
+	 */
+	public static Map<String,String> getPickListValuesFromSchema(String sObjectApiName, String fieldApiName, Boolean apiAsKey){
+		Map<String, String> picklistValuesMap = new Map<String, String>();
+		Map<String, Schema.SObjectType> schemaMap = Schema.getGlobalDescribe();
+		Map<String, Schema.SObjectField> fieldMap = schemaMap.get(sObjectApiName).getDescribe().fields.getMap();
+
+		// Get the list of picklist values of field.
+		list < Schema.PicklistEntry > picklistEntries =
+			fieldMap.get(fieldApiName).getDescribe().getPickListValues();
+
+		if(apiAsKey){
+			for (Schema.PicklistEntry entry: picklistEntries) {
+				picklistValuesMap.put(entry.getValue(), entry.getLabel());
+				// add the category api name as key and label as value to the class variable map
+			}
+		}else{
+			for (Schema.PicklistEntry entry: picklistEntries) {
+				// add the category label as key and apiname as value to the class variable map
+				picklistValuesMap.put(entry.getLabel(), entry.getValue());
+			}
+		}
+		return picklistValuesMap; 
+	}
 }

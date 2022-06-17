@@ -38,6 +38,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ICPSArticle__c.ReceiverEmail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPSArticle__c.ReceiverMobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ICPSArticle__c.ReceiverName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -124,6 +134,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ICPS__c.ABFReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.Age__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -238,6 +253,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ICPS__c.ReceiverAddressLastLineNotice__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ICPS__c.ReceiverCareOf__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -328,6 +348,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ICPS__c.StoreLocationReporting__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ICPS__c.StoredLocation__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -356,8 +381,4 @@
         <object>ICPS__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <tabSettings>
-        <tab>ICPS__c</tab>
-        <visibility>Available</visibility>
-    </tabSettings>
 </PermissionSet>
