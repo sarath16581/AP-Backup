@@ -1354,6 +1354,547 @@ deliveryIssue_Somethingelse
 		System.assert(isSuccess);
 	}
 
+	@IsTest
+	public static void productIssue_DeleteMyPostAccount() {
+		Boolean isSuccess = true;
+
+		try{
+
+			TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','Delete MyPost account');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_Letter()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_MailProducts_24By7ParcelLocker() {
+		Boolean isSuccess = true;
+
+		try{
+
+			TestData vTestData = wizardDataSetUp();
+
+			// vTestData.productAndSrvWizardData.put('selectedRadio1Name','Item not left in a safe location');
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_24By7ParcelLocker()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_MailProducts_ExpressPost() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType','Express Post');
+			//-- more than 255 chars of issue details text
+			vTestData.productAndSrvWizardData.put('enquiryDetails','complaintDetails complaintDetails complaintDetailscomplaintDetailscomplaintDetailscomplaintDetails '+
+					'complaintDetails complaintDetails complaintDetails complaintDetailscomplaintDetailscomplaintDetailscomplaintDetails'+
+					'complaintDetails complaintDetails complaintDetailscomplaintDetailscomplaintDetailscomplaintDetails complaintDetails '+
+					'complaintDetails complaintDetailscomplaintDetailscomplaintDetailscomplaintDetails complaintDetails complaintDetails'+
+					'complaintDetailscomplaintDetailscomplaintDetailscomplaintDetails');
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_ExpressPost()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_MailProducts_Letter() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType','Letter');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_Letter()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_MailProducts_Parcel() {
+		Boolean isSuccess = true;
+
+		try{
+
+			TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType','Parcel');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_Parcel()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_MailProducts_ParcelCollect() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType','Parcel Collect');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_ParcelCollect()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_MailProducts_POBoxAndPrivateBag() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType','PO Box and Private Bag');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_POBoxAndPrivateBag()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_MailProducts_Tracking() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType','Tracking');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_Tracking()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_MailProducts_Transfer() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType','Transfer');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_MailProducts_Transfer()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_PostOffice() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','Post office');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_PostOffice()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_IdDocuments() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_IdDocuments()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_IdDocuments_Idheck() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','ID check');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_IdDocuments_Idheck()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_IdDocuments_LandTitle() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','Land title');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_IdDocuments_LandTitle()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_IdDocuments_Letter() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','Letter');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_IdDocuments_Letter()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_IdDocuments_MyPost() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','MyPost');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_IdDocuments_MyPost()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_IdDocuments_Passport() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','Passport');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_IdDocuments_Passport()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_IdDocuments_PoliceCheck() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','Police check');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_IdDocuments_PoliceCheck()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_IdDocuments_TFN() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','Tax file number (TFN)');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_IdDocuments_TFN()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_IdDocuments_Other() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','ID, documents & accounts');
+			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType','Other');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_IdDocuments_Other()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_OnlineShop() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','Online shop');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_OnlineShop()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_Money_BankPost() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','Money');
+			vTestData.productAndSrvWizardData.put('selectedRadio3Name','Bank@Post');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_Money_BankPost()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
+	/**
+* Success Case for : Procu Issue 
+* */
+	@IsTest
+	public static void productIssue_Money_PostBillPay() {
+		Boolean isSuccess = true;
+
+		try{
+
+			 TestData vTestData = wizardDataSetUp();
+
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name','Money');
+			vTestData.productAndSrvWizardData.put('selectedRadio3Name','Post Billpay');
+
+			Test.startTest();
+			ChasApexController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+			Test.stopTest();
+
+		}catch(Exception e){
+			System.debug('productIssue_Money_PostBillPay()::error==>'+e.getMessage());
+			isSuccess = false;
+		}
+		System.assert(isSuccess);
+	}
+
 	public static  ChasApexController.ConsignmentDetails testsearchTrackingNumberSetup(StaticResourceCalloutMock mock, String consType) {
 
 		List< Consumer_Help_and_Support__c> customSettingList = new List< Consumer_Help_and_Support__c>();

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Records_Successfully_Deleted__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Field Used for Internal Auditing</description>
+    <externalId>false</externalId>
+    <label># Records Successfully Deleted</label>
+    <summaryFilterItems>
+        <field>grax__GRAX_Data_Record_Id__c.grax__Status__c</field>
+        <operation>equals</operation>
+        <value>Deleted with Master Parent, Successfully Deleted, Parent Object - Not Delete</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>grax__GRAX_Data_Record_Id__c.grax__Pending_Set_As_Archived__c</field>
+        <operation>equals</operation>
+        <value>False</value>
+    </summaryFilterItems>
+    <summaryForeignKey>grax__GRAX_Data_Record_Id__c.grax__GRAX_Data_Record__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

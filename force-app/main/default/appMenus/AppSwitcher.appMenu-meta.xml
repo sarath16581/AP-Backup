@@ -768,4 +768,12 @@
         <name>GitPipelinesApp</name>
         <type>ConnectedApp</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>grax__GRAX_Classic</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>grax__GRAX</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

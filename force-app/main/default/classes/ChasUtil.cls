@@ -8,7 +8,7 @@
  * 2022-01-27 hasantha.liyanage@auspost.com.au added null check for convertToDateWithTimezoneFormat()
  * 2022-05-25 hasantha.liyanage@auspost.com.au changed addDays method DDS-9786
  * */
-public without sharing class ChasUtil{
+public without sharing class ChasUtil {
 
     public static ChasUtil getInstance() {
         return (ChasUtil)Application.Utilities.getInstance(ChasUtil.class);
@@ -277,7 +277,60 @@ public without sharing class ChasUtil{
 
         return (String)(caseCommentFlow.getVariableValue('CaseCommentID'));
     }
- 
+    /**
+* Create Parse Case inserted results and create case comment
+* */
+    public static ChasApexController.CaseWrapper parseInsertedCaseResultsAndCreateComment(Database.SaveResult[] results, ChasApexController.CaseWrapper caseWrapperObj, List<CaseComment> comments) {
+        Set<Id> vCaseIds = new Set<Id>();
+        for (Integer i = 0; i < results.size(); i++) {
+            if (results[i].isSuccess()) {
+                try{
+                    Id lObjectId = Id.valueOf(results[i].getId());
+                    String objName = lObjectId.getSobjectType().getDescribe().getName();
+                    //-- Creating Case Comment for inserted Case
+                    if( objName.equalsIgnoreCase('Case')) {
+                        ChasUtil.createCaseComment(lObjectId, comments);
+                        vCaseIds.add(lObjectId);
+                    }
+
+                }catch(Exception ex) {
+                    System.debug('*** - Error while retrieving Case Number/Creating Case Comment ==='+ex);
+                }
+
+            } else {
+                caseWrapperObj.caseStatus = 'ERROR';
+                System.debug('Error: could not create sobject '+ 'for array element ' + i + '.');
+                System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() + '\n');
+
+            }
+        }
+
+        caseWrapperObj.caseNumber = CasesSelector.newInstance().selectById(vCaseIds).get(new List<Id>(vCaseIds)[0]).CaseNumber;
+
+        return caseWrapperObj;
+    }
+
+    /**
+     * create a case comment with publish option
+     * @author: edgarallan.castillo3@auspost.com.au
+     * @param caseId: target case Id
+     * @param commentBody: list of comments to create
+     */
+    public static void createCaseComment(Id caseId, List<CaseComment> comments)
+    {
+        for (CaseComment cc: comments) {
+            cc.CommentBody = '---Enquiry Details---' + '\n' + cc.CommentBody;
+            cc.ParentId = caseId;
+        }
+        try
+        {
+            ApplicationDatabase.getInstance().dmlInsert(comments);
+        }
+        catch (Exception e)
+        {
+            UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'CHAS', 'ChasApexController', 'createCaseComment', '', LoggingLevel.ERROR);
+        }
+    }
 
     /**
      * @param data sanitise a string passed in with html and javascript escapes

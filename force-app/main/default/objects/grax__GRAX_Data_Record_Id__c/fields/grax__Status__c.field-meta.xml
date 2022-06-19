@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Status of the process</description>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>To be Deleted</fullName>
+                <default>false</default>
+                <label>To be Deleted</label>
+            </value>
+            <value>
+                <fullName>Parent Object - Not Delete</fullName>
+                <default>false</default>
+                <label>Parent Object - Not Delete</label>
+            </value>
+            <value>
+                <fullName>Deleted with Master Parent</fullName>
+                <default>false</default>
+                <label>Deleted with Master Parent</label>
+            </value>
+            <value>
+                <fullName>Successfully Deleted</fullName>
+                <default>false</default>
+                <label>Successfully Deleted</label>
+            </value>
+            <value>
+                <fullName>Delete Error</fullName>
+                <default>false</default>
+                <label>Delete Error</label>
+            </value>
+            <value>
+                <fullName>Sent to GRAX</fullName>
+                <default>false</default>
+                <label>Sent to GRAX</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

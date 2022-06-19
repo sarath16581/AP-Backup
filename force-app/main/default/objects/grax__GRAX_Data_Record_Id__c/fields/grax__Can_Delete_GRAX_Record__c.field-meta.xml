@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Can_Delete_GRAX_Record__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Field Used for Internal Auditing</description>
+    <externalId>false</externalId>
+    <formula>grax__GRAX_Data_Record__r.grax__GRAX_Schedule_Process__c = null ||
+    grax__GDRI_Status_Helper__c != grax__GRAX_Data_Record__r.grax__GDRI_Status_Helper__c ||
+  (
+    $Setup.grax__GRAXSettings__c.grax__Use_Bulk_API__c == false &amp;&amp;
+    (
+      (
+        NOT(grax__GRAX_Data_Record__r.grax__GRAX_Schedule_Process__r.grax__Is_Running__c) &amp;&amp;
+        DATEVALUE(CreatedDate) &lt; TODAY() - 15
+      ) ||
+      (
+        grax__GRAX_Data_Record__r.grax__GRAX_Schedule_Process__r.grax__Execution_Unique_Key__c != grax__Execution_Unique_Key__c
+      ) ||
+      (
+        /* This block main condition is that the GDR is Sent Successful */
+        ISPICKVAL(grax__GRAX_Data_Record__r.grax__Status__c, &apos;Sent Successful&apos;) &amp;&amp;
+        (
+          /* Additionally, any of the following conditions should meet:
+            - Is a normal Salesforce Object (not Async File object)
+            - GDRI is Sent to GRAX (specific condition for Async File objects, when it is not an Archive process)
+            - The related Archive Process has the Can Delete GRAX Record flag set to True (specific condition for Async Files on an Archive process)
+          */
+          NOT(grax__GRAX_Data_Record__r.grax__Is_Async_Salesforce_Object__c) ||
+          ISPICKVAL(grax__Status__c, &apos;Sent to GRAX&apos;) ||
+          grax__GRAX_Data_Record__r.grax__GRAX_Archive_Process__r.grax__Can_Delete_GRAX_Record__c
+        ) &amp;&amp;
+        (
+          /*
+            If it is a Multi-Object process, we can delete the GDRI if previous conditions met */
+          NOT(ISPICKVAL(grax__GRAX_Data_Record__r.grax__GRAX_Schedule_Process__r.grax__type__c, &apos;Hierarchy&apos;)) ||
+          (
+            /*
+              If it is a Hierarchy process, and, previous conditions met, we still need to verify the following conditions, in order to delete the GDRI record:
+                - If is not an Archive process, then check that GSP is not running
+                - If is an Archive process, then check that the related Archive Process record has the Can Delete GRAX Record flag set to True, and, GDRI is not Delete Error
+            */
+            (
+              ISBLANK(grax__GRAX_Data_Record__r.grax__GRAX_Archive_Process__c) &amp;&amp;
+              NOT(ISPICKVAL(grax__GRAX_Data_Record__r.grax__GRAX_Schedule_Process__r.grax__Status__c, &apos;Finding Data&apos;))
+            ) ||
+            (
+              NOT(ISBLANK(grax__GRAX_Data_Record__r.grax__GRAX_Archive_Process__c)) &amp;&amp;
+              grax__GRAX_Data_Record__r.grax__GRAX_Archive_Process__r.grax__Can_Delete_GRAX_Record__c &amp;&amp;
+              NOT(ISPICKVAL(grax__Status__c, &apos;Delete Error&apos;))
+            )
+          )
+        )
+      )
+    )
+  )</formula>
+    <label>Can Delete GRAX Record?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

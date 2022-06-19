@@ -6,6 +6,7 @@
  * @tags mocking, apex mocks, tests, data factory, test data
  * @changelog
  * 2022-01-27 - Ashapriya Gadi - Added getCampaigns and getCampaignContactAssignments for campaignSurveyModule
+ * 2022-06-11 - Prerna Rahangdale - Added the New method for generating the campaign Contact
  */
 @IsTest
 public with sharing class ApplicationTestDataFactoryCampaigns {
@@ -29,7 +30,15 @@ public with sharing class ApplicationTestDataFactoryCampaigns {
             CampaignMember.CampaignId => campaignId,
             CampaignMember.ContactId => contactId
         }, count), generateIds);
-    }	
+    }
+
+	public static List<CampaignContactAssignment__c> getCampaignContactAssignments(integer count,Set<Id> accountIds,Id campaignId, Boolean generateIds){
+		return (List<CampaignContactAssignment__c>)maybeGenerateIds(populateSObjects(CampaignContactAssignment__c.SObjectType, new Map<SObjectField, Object> {
+				CampaignContactAssignment__c.Organisation__c => accountIds,
+				CampaignContactAssignment__c.Campaign__c => campaignId
+		}, count), generateIds);
+	}
+
 	public static List<SObject> maybeGenerateIds(List<SObject> records, Boolean generateIds) {
 		if(generateIds) {
 			generateRecordIds(records);

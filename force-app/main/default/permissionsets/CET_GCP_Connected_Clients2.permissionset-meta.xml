@@ -11438,11 +11438,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ICPS__c.HoldUntilDate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ICPS__c.ItemType__c</field>
         <readable>true</readable>
     </fieldPermissions>

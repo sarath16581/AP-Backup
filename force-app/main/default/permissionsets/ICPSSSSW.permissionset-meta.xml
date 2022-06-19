@@ -203,11 +203,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ICPS__c.HoldUntilDate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ICPS__c.ItemType__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -381,4 +376,12 @@
         <object>ICPS__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>ICPSArticle__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>ICPS__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
 </PermissionSet>

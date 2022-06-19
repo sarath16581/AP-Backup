@@ -1104,6 +1104,33 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Implementation_Stage__c</picklist>
+        <values>
+            <fullName>Closed - Disengaged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed - Maintained</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed - Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Implement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stabalise</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Initial_Contract_Term__c</picklist>
         <values>
             <fullName>1</fullName>

@@ -13,29 +13,34 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Idea - Sales</fullName>
+                <fullName>Plan</fullName>
                 <default>false</default>
-                <label>Idea - Sales</label>
+                <label>Plan</label>
             </value>
             <value>
-                <fullName>Scope - Onboarding</fullName>
+                <fullName>Implement</fullName>
                 <default>false</default>
-                <label>Scope - Onboarding</label>
+                <label>Implement</label>
             </value>
             <value>
-                <fullName>Build Solution - Onboarding</fullName>
+                <fullName>Closed - Disengaged</fullName>
                 <default>false</default>
-                <label>Build Solution - Onboarding</label>
+                <label>Closed - Disengaged</label>
             </value>
             <value>
-                <fullName>Trading/Go Live - Onboarding</fullName>
+                <fullName>Closed - Maintained</fullName>
                 <default>false</default>
-                <label>Trading/Go Live - Onboarding</label>
+                <label>Closed - Maintained</label>
             </value>
             <value>
-                <fullName>Handover - Onboarding to Service</fullName>
+                <fullName>Closed - Rejected</fullName>
                 <default>false</default>
-                <label>Handover - Onboarding to Service</label>
+                <label>Closed - Rejected</label>
+            </value>
+            <value>
+                <fullName>Stabalise</fullName>
+                <default>false</default>
+                <label>Stabilise</label>
             </value>
         </valueSetDefinition>
     </valueSet>

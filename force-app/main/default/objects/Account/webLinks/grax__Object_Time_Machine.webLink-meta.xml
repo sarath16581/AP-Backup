@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Object_Time_Machine</fullName>
+    <availability>online</availability>
+    <description>Button to view records updated via Object Time Machine</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Object Time Machine</masterLabel>
+    <openType>noSidebar</openType>
+    <protected>false</protected>
+    <url>/apex/grax__GRAXTimeMachine?Id={!Account.Id}&amp;recordName={!Account.Name}</url>
+</WebLink>

@@ -98,7 +98,7 @@ private class AgreementDocumentTriggerHandler_Test {
                 recordtypeid=LICENCE_CMA_RECORD_TYPE,
                 Facility__c =facilityCMA.id,
                 Licence_Status__c= 'Draft',
-                Assignment_Effective_From_Date__c = System.Today().addYears(-3),
+                Assignment_Effective_From_Date__c = System.Today().addYears(-4),
                 ParentId = parentAccount.id );
         listLicences.add(licenceCMA);
         insert listLicences;

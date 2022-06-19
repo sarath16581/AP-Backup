@@ -13,7 +13,7 @@ public virtual inherited sharing class CampaignsSelector extends ApplicationSele
 	public enum Options {
 		WITH_CAMPAIGNMEMBERS, WITH_CONTACTASSIGMENTS
 	}
-	
+
 	public static CampaignsSelector newInstance() {
 		return (CampaignsSelector)Application.Selectors.newInstance(CampaignsSelector.class);
 	}
@@ -25,7 +25,7 @@ public virtual inherited sharing class CampaignsSelector extends ApplicationSele
 	/**
 	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	* This approach removes data consistency and prevents possible caching of results
-	*/	
+	*/
 	public static CampaignsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
 		CampaignsSelector selector = (CampaignsSelector)Application.Selectors.newInstance(CampaignsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
@@ -37,7 +37,7 @@ public virtual inherited sharing class CampaignsSelector extends ApplicationSele
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-			Campaign.Id, Campaign.ContactAssignmentDefaultStatus__c	   
+				Campaign.Id, Campaign.ContactAssignmentDefaultStatus__c,Campaign.OwnerId
 		};
 	}
 	/**
@@ -70,10 +70,10 @@ public virtual inherited sharing class CampaignsSelector extends ApplicationSele
 		}
 
 		if(selectorOptions.contains(Options.WITH_CONTACTASSIGMENTS)) {
-			builder.addSubQuery(CampaignContactAssignmentsSelector.newInstance().newQueryBuilder(new Set<Object>{CampaignContactAssignmentsSelector.Options.WITH_ORGANISATION}), 'Campaign_Contact_Assignments__r');
+			builder.addSubQuery(CampaignContactAssignmentsSelector.newInstance().newQueryBuilder(new Set<Object>{CampaignContactAssignmentsSelector.Options.WITH_ORGANISATION,CampaignContactAssignmentsSelector.Options.WITH_CAMPAIGN,CampaignContactAssignmentsSelector.Options.WITH_USERS}), 'Campaign_Contact_Assignments__r');
 		}
 
 		return builder;
-	}	
-	
+	}
+
 }

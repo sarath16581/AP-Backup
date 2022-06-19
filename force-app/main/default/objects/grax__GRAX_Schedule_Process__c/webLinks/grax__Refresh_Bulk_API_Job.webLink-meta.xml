@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Refresh_Bulk_API_Job</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Refresh Bulk API Job</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!requireScript(&quot;/soap/ajax/46.0/connection.js&quot;)}
+            {!requireScript(&quot;/soap/ajax/46.0/apex.js&quot;)}
+            var result = sforce.apex.execute(&quot;grax/GRAXJSWSButtons&quot;,&quot;refreshSingleBulkAPIJob&quot;,{jobId:&quot;{!grax__GRAX_Schedule_Process__c.Id}&quot;});
+            if(result == &quot;&quot;){
+                location.reload(true);
+            }else{
+                alert(result);
+                console.error(result);
+            }</url>
+</WebLink>

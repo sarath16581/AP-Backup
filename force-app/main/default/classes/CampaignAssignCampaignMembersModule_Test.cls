@@ -9,6 +9,9 @@
 * @changelog
 * 2021-12-21 - Ashapriya Gadi - Created
 * 2021-01-22 - Mathew Jose - Added test methods for saveCampaignMembers methods.
+ * 02-06-2022 - Prerna Rahangdale -  Test Method to test the Usecase - When a new CCA record is created and has the
+ * 									 Campaign_Contact_Owner__c populated then assign the task to the
+	                                 Campaign_Contact_Owner__c field user.
 */
 @IsTest
 private class CampaignAssignCampaignMembersModule_Test {
@@ -498,6 +501,7 @@ private class CampaignAssignCampaignMembersModule_Test {
 		newCampaignContactAssignments[0].Contact__c = contacts[0].Id;
 		newCampaignContactAssignments[1].Contact__c = contacts[1].Id;	
 		
+		
 		List<CampaignMember> campaignMembers = new List<CampaignMember>{ApplicationTestDataFactoryCampaigns.getCampaignMembers(1, true, campaigns[0].Id, contacts[0].Id)[0],
 														ApplicationTestDataFactoryCampaigns.getCampaignMembers(1, true, campaigns[1].Id, contacts[1].Id)[0]};
 		campaignMembers[0] = (CampaignMember)ApplicationTestDataFactory.setUnwritableFields(CampaignMembers[0], new Map<String, Object>{'Contact' => contacts[0]});	
@@ -529,7 +533,8 @@ private class CampaignAssignCampaignMembersModule_Test {
 		((CampaignsSelector)MockUtility.Mocks.verify(CampaignsSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.anyObject());
 		((CampaignMembersSelector)MockUtility.Mocks.verify(CampaignMembersSelector, MockUtility.Mocks.times(1))).search((Map<String, Set<Id>>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject(),fflib_Match.anyBoolean());
 		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerNew((List<SObject>)fflib_Match.anyObject());
-		System.assertEquals(0, MockUtility.mockUnitOfWorkDMLs.size());		
+		System.assertEquals(0, MockUtility.mockUnitOfWorkDMLs.size());
+		
 	}
 
 	/**
@@ -651,6 +656,75 @@ private class CampaignAssignCampaignMembersModule_Test {
 		System.assertEquals('Test', cmbrList[0].Campaign_Member_Notes__c, 'Expected campaign member description matches the description provided on assignment');
 		System.assertEquals('Test', cmbrList[1].Campaign_Member_Notes__c, 'Expected campaign member description matches the description provided on assignment');	
 	
+
+	}
+
+	/**
+	 * Test:
+	 *  When a new CCA record is created and has the Campaign_Contact_Owner__c populated then assign the task to the
+	 *  Campaign_Contact_Owner__c field user.
+	 */
+	@IsTest
+	private static void testCCAOwnerisAssignedTest() {
+		MockUtility.disableTriggerExecution();
+		// Users for Contact and CCA Owners.
+		List<User> users = ApplicationTestDataFactory.getUsers(2,true);
+		//Two accounts
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, true);
+		accounts[0].ownerId = users[0].Id;
+		accounts[1].ownerId = users[0].Id;
+
+		// Contacts
+		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1,accounts[0].Id,true);
+
+		//Two campaigns
+		List<Campaign> campaigns = ApplicationTestDataFactoryCampaigns.getCampaigns(1, true);
+
+		List<CampaignContactAssignment__c> campAssign= ApplicationTestDataFactoryCampaigns.getCampaignContactAssignments(2,new Set<Id>{accounts[0].Id,accounts[1].Id},campaigns[0].Id, true);
+
+
+		campAssign[1].Campaign_Contact_Owner__c = users[1].Id;
+		campAssign[1].Contact__c = contacts[0].Id;
+
+		// Expected Result
+		List<Task>tasks = new List<Task>{ApplicationTestDataFactory.getTasks(1, campaigns[0].Id,  true)[0],ApplicationTestDataFactory.getTasks(1, campaigns[0].Id,  true)[0]};
+		tasks[0].ownerId = users[0].Id;
+		tasks[0].Subject = CampaignContactAssignmentConstants.TASK_SUBJECT;
+		tasks[0].status = CampaignContactAssignmentConstants.TASK_NOTSTARTED;
+		tasks[1].ownerId = users[1].Id;
+		tasks[1].Subject = CampaignContactAssignmentConstants.TASK_SUBJECT;
+		tasks[1].status = CampaignContactAssignmentConstants.TASK_INPROGRESS;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		AccountsSelector accountsSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
+		TasksSelector tasksSelector = (TasksSelector)MockUtility.mockSelector(TasksSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(accountsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Account>(accounts));
+		MockUtility.Mocks.when(tasksSelector.search((Map<String, Set<Id>>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject(),fflib_Match.anyBoolean())).thenReturn(new Map<Id, Task>());
+		MockUtility.Mocks.when(mockUow.registerNew((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		CampaignAssignCampaignMembersModule module = CampaignAssignCampaignMembersModule.newInstance();
+		module.createTask( (List<SObject>)campAssign,null, mockUow);
+		Test.stopTest();
+		((AccountsSelector)MockUtility.Mocks.verify(AccountsSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.anyObject());
+		((TasksSelector)MockUtility.Mocks.verify(TasksSelector, MockUtility.Mocks.times(1))).search((Map<String, Set<Id>>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject(),fflib_Match.anyBoolean());
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerNew((List<SObject>)fflib_Match.anyObject());
+		System.assertEquals(users[0].Id, ((Task)MockUtility.mockUnitOfWorkDMLs[0]).OwnerId, 'Expected task to be created for the account owner');
+		System.assertEquals(users[1].Id, ((Task)MockUtility.mockUnitOfWorkDMLs[1]).OwnerId, 'Expected task to be created for the CCA owner');
+		System.assertEquals(CampaignContactAssignmentConstants.TASK_NOTSTARTED, ((Task)MockUtility.mockUnitOfWorkDMLs[0]).Status, 'Expected task to be created with No Started for the account owner');
+		System.assertEquals(CampaignContactAssignmentConstants.TASK_INPROGRESS, ((Task)MockUtility.mockUnitOfWorkDMLs[1]).Status, 'Expected one new tasks  be created with Not Started for the CCA owner');
 
 	}
 
