@@ -84,19 +84,25 @@ public virtual with sharing class ChasBase {
                         String objName = lObjectId.getSobjectType().getDescribe().getName();
                         //-- Creating Case Comment for inserted Case
                         if (objName.equalsIgnoreCase('Case')) {
-                            createCaseComment(lObjectId, comments);
+                            // create comment body
+                            for (CaseComment cc : comments) {
+                                cc.CommentBody = '---Enquiry Details---' + '\n' + cc.CommentBody;
+                                cc.ParentId = lObjectId;
+                            }
+                            // create case comment record
+                            ApplicationDatabase.getInstance().dmlInsert(comments);
                             vCaseIds.add(lObjectId);
                         }
 
                     } catch (Exception ex) {
                         System.debug('*** - Error while retrieving Case Number/Creating Case Comment ===' + ex);
+                        UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'CHAS', 'ChasBase', 'parseInsertedCaseResultsAndCreateComment', '', LoggingLevel.ERROR);
                     }
 
                 } else {
                     caseWrapperObj.caseStatus = 'ERROR';
                     System.debug('Error: could not create sobject ' + 'for array element ' + i + '.');
                     System.debug('The error reported was: ' + results[i].getErrors()[0].getMessage() + '\n');
-
                 }
             }
 
@@ -158,57 +164,6 @@ public virtual with sharing class ChasBase {
                 pCase.ByPassRoutingRulesOnCreation__c = true;
                 pCase.AllocateToQueue__c = false;
             }
-        }
-    }
-
-    /**
-    * Create Parse Case inserted results and create case comment
-    * */
-    public static CaseWrapper parseInsertedCaseResultsAndCreateComment(Database.SaveResult[] results, CaseWrapper caseWrapperObj, List<CaseComment> comments) {
-        Set<Id> vCaseIds = new Set<Id>();
-        for (Integer i = 0; i < results.size(); i++) {
-            if (results[i].isSuccess()) {
-                try {
-                    Id lObjectId = Id.valueOf(results[i].getId());
-                    String objName = lObjectId.getSobjectType().getDescribe().getName();
-                    //-- Creating Case Comment for inserted Case
-                    if (objName.equalsIgnoreCase('Case')) {
-                        createCaseComment(lObjectId, comments);
-                        vCaseIds.add(lObjectId);
-                    }
-
-                } catch (Exception ex) {
-                    System.debug('*** - Error while retrieving Case Number/Creating Case Comment ===' + ex);
-                }
-
-            } else {
-                caseWrapperObj.caseStatus = 'ERROR';
-                System.debug('Error: could not create sobject ' + 'for array element ' + i + '.');
-                System.debug('The error reported was: ' + results[i].getErrors()[0].getMessage() + '\n');
-
-            }
-        }
-
-        caseWrapperObj.caseNumber = CasesSelector.newInstance().selectById(vCaseIds).get(new List<Id>(vCaseIds)[0]).CaseNumber;
-
-        return caseWrapperObj;
-    }
-
-    /**
-     * create a case comment with publish option
-     * @author: edgarallan.castillo3@auspost.com.au
-     * @param caseId: target case Id
-     * @param commentBody: list of comments to create
-     */
-    public static void createCaseComment(Id caseId, List<CaseComment> comments) {
-        for (CaseComment cc : comments) {
-            cc.CommentBody = '---Enquiry Details---' + '\n' + cc.CommentBody;
-            cc.ParentId = caseId;
-        }
-        try {
-            ApplicationDatabase.getInstance().dmlInsert(comments);
-        } catch (Exception e) {
-            UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'CHAS', 'ChasApexController', 'createCaseComment', '', LoggingLevel.ERROR);
         }
     }
 }
