@@ -3,6 +3,7 @@
  * @changelog
  * 2022-02-17 - Alex Volkov - Updated data setup to reflect changes to case comment creation
  *                            Commented out redundant dataSetUp calls
+ * 2022-06-15 - Hasantha Liyanage - DDS-10974 change of how the parseInsertedCaseResultsAndCreateComment is accessed as per the refactoring
  */
 
 @IsTest
@@ -40,7 +41,8 @@ public class ChasCustomCaseListAndDetailTest {
              //-- Crating Case
             Database.SaveResult[] results = Database.insert(new SObject[] {toBeCreateCase });
             //-- Parse Case results and create Case Comment
-            ChasUtil.parseInsertedCaseResultsAndCreateComment(results, new ChasApexController.CaseWrapper(), new List<CaseComment>{new CaseComment(CommentBody = 'Test comment Body')});
+            ChasBase.SharingBypass lSharingBypass = new ChasBase.SharingBypass();
+            lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, new ChasBase.CaseWrapper(), new List<CaseComment>{new CaseComment(CommentBody = 'Test comment Body')});
             //-- Create Case Comment
         }catch(Exception ex){
             System.debug(LoggingLevel.ERROR, 'ChasCustomCaseListAndDetailTest::dataSetUp() ==>Error occoured while creating Case/Case comment in data setup of test class==>'+ex);

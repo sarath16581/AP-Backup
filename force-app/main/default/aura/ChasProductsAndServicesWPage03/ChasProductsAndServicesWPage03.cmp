@@ -7,8 +7,9 @@
   * Modified by Thang Nguyen - DDS-10805/10945/DDS-10946 Add "Accessibility and disability" issue sections
 -->
 <aura:component
-	extends="c:CHAS_reviewAndSubmit"
-	description="Products and Services wizard page 3: Review and Submit"
+		extends="c:CHAS_reviewAndSubmit"
+		description="Products and Services wizard page 3: Review and Submit"
+		controller = "ChasProductsAndServicesController"
 >
 	<div class="component">
 		<!--Go back button-->

@@ -50,8 +50,11 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-02-07 alex.volkov@auspost.com.au Temporarily removed network assignment failure comment until approach to creation of automatic private comments is confirmed
 * 2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the method searchTrackingNumber() to handle multiple articles
 * 2022-05-04 mahesh.parvathaneni@auspost.com.au DDS-10119 Changed to Mypost general enquiries from Mypost
+* 2022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 refactor of CreateCasefromProductandServices method,
+*                                                       this has been moved to a new class 'ChasProductsAndServicesController' and the ChasBase class is created and extended here.
+*                                                       some of the common shared methods are moved to ChasBase
 */
-public with sharing class ChasApexController {
+public with sharing class ChasApexController extends ChasBase{
 
     public static ChasApexController getInstance() {
         return (ChasApexController)Application.Utilities.getInstance(ChasApexController.class);
@@ -174,7 +177,8 @@ public with sharing class ChasApexController {
             //-- Parse Case results and create Case Comment
             List<CaseComment> comments = new List<CaseComment>();
             comments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
+            SharingBypass lSharingBypass = new SharingBypass();
+            caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
             
         }catch(Exception ex){
             caseWrapper.caseStatus = 'ERROR';
@@ -832,9 +836,9 @@ public with sharing class ChasApexController {
                  toBeCreateCase.Description = toBeCreateCase.Description + '\n' + consignmentSearchComments;
              }
 
-			Database.SaveResult[] results;
-			if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
-				SharingBypass lSharingBypass = new SharingBypass();
+			 Database.SaveResult[] results;
+             SharingBypass lSharingBypass = new SharingBypass();
+             if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
 				results = lSharingBypass.insertSObjects(new SObject[] {toBeCreateCase});
 			}
 			else {
@@ -846,7 +850,7 @@ public with sharing class ChasApexController {
         //temporarily removed due to inability to make case comment private in authenticated community user context
         //checkNetworkAssigningResult(toBeCreateCase, vComments);
       //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+             caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
 
             // checkNetworkAssigningResult(toBeCreateCase);
             
@@ -1320,7 +1324,8 @@ commentBody = commentBody  + 'False';
             List<CaseComment> vComments = new List<CaseComment>();
             vComments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
             //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+            SharingBypass lSharingBypass = new SharingBypass();
+            caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
             
         }catch(Exception ex){
             caseWrapper.caseStatus = 'ERROR';
@@ -1669,8 +1674,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             toBeCreateCase.Preferred_Communication_Method__c=contactPreferrence;  // Contact Preference, added by Edmarco on July 2019
             
 			Database.SaveResult[] results;
+            SharingBypass lSharingBypass = new SharingBypass();
 			if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
-				SharingBypass lSharingBypass = new SharingBypass();
 				results = lSharingBypass.insertSObjects(new SObject[] {toBeCreateCase});
 			}
 			else {
@@ -1683,7 +1688,8 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
         //checkNetworkAssigningResult(toBeCreateCase, vComments);
 
             //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
+
+            caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, vComments);
 
             //-- Case routing based on the boolean isEligibleForMyNetworkAssignment
             // 17-08-2021 switched to direct routing
@@ -1700,334 +1706,6 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
         }
         return caseWrapper;
     }
-    
-    
-    
-    /**
-* This method will create Case for Products and services
-* */
-    @AuraEnabled
-    public static CaseWrapper createCaseFromProductsAndServices( Map <String,String> wizardData, Map <String,String> authUserData ){
-        CaseWrapper caseWrapper = new CaseWrapper();
-        caseWrapper.caseStatus = 'SUCCESS';
-        
-        try{
-            //-- Getting recordType Ids
-            String SSSWGeneralRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-                .get(ChasConstants.CASE_RECORDTYPE_SSSWGENERALDELIVERY).getRecordTypeId();
-            
-            String sswDeleveryRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().
-                get(ChasConstants.CASE_RECORDTYPE_SSSWDELIVERY).getRecordTypeId();
-            
-            //-- defaulting the values
-            String recordTypeId = SSSWGeneralRecordTypeId;
-            String typeVal = 'General Enquiry';
-            String enquirySubType= 'Product & service information';
-            String origin = 'Portal';
-            String CHASEnquiryType = 'Products & services';
-            
-            String typeAndProduct = null;
-            String productCategory = null;
-            String productSubCategory = null;
-            String subject = null;
-            
-            String isEligibleForMyNetworkAssignment = '';
-            
-            //-- Getting all wizard data details
-            String wcid = (String) wizardData.get('wcid');
-            String toWcid = (String) wizardData.get('toWcid');
-            String subProductId = 'SUB-PROD-ID-' + (String) wizardData.get('subProductId');
-            String transferToPoProductExclusions = ChasConstants.TRANSFER_TO_PO_PROD_SUBTYPE_ID_EXCLUSIONS;
-            String issueDetailsType =  (String) wizardData.get('selectedRadio1Name');
-            String mailProductsEnquiryType =  (String) wizardData.get('mailProductsEnquiryType');
-            String transferTrackingNumber =  (String) wizardData.get('trackingId');
-            String idDocumentsAccountsEnquiryType =  (String) wizardData.get('idDocumentsAccountsEnquiryType');
-            
-            String orderNumber =  (String) wizardData.get('orderNumber');
-            String orderTrackingNumber =  (String) wizardData.get('orderTrackingNumber');
-            String enquiryType =  (String) wizardData.get('selectedRadio3Name');
-            String madeAndOrder = (String) wizardData.get('selectedRadio2Name');
-            
-            //--  delivery address
-            String deliveryAddressLine1 =  (String) wizardData.get('deliveryAddressLine1') !=null ? (String) wizardData.get('deliveryAddressLine1'):'';
-            String deliveryAddressLine2 =  (String) wizardData.get('deliveryAddressLine2') !=null ? (String) wizardData.get('deliveryAddressLine2'):'';
-            String deliveryCity =  (String) wizardData.get('deliveryCity') !=null ? (String) wizardData.get('deliveryCity'):'';
-            String deliveryState =  (String) wizardData.get('deliveryState') !=null ? (String) wizardData.get('deliveryState'):'';
-            String deliveryPostcode =  (String) wizardData.get('deliveryPostcode') !=null ? (String) wizardData.get('deliveryPostcode'):'';
-            
-            //-- authenticated user details
-            String userContactEmail = authUserData.get('userContactEmail');
-            String userContactFirstName =  authUserData.get('userContactFirstName');
-            String userContactLastName =  authUserData.get('userContactLastName');
-            String userContactPhone =  authUserData.get('userContactPhone');
-            //-- guest user details
-            String givenName =  (String)wizardData.get('givenName');
-            String surname =  (String)wizardData.get('surname');
-            String email =  (String)wizardData.get('emailId');
-            String phone =  (String)wizardData.get('phone');
-            //-- ENQUIRY DETAILS
-            String enquiryDetails = (String) wizardData.get('enquiryDetails');
-            
-            String contactPreferrence =  (String)wizardData.get('contactPreferrence');  // Contact Preference, added by Edmarco on July 2019
-            
-            //-- Subject : Trimming the issueDetails details to 255 chars 
-            if(enquiryDetails != null){
-                if(enquiryDetails.trim().length() > 255){
-                    subject = enquiryDetails.substring(0, 255);
-                }else{
-                    subject = enquiryDetails;
-                }
-            }
-            //-- Check network eligibility
-            if(!String.isEmpty(wcid) && !String.isEmpty(wizardData.get('isParcelAwaitingCollection')) && 'true'.equalsIgnoreCase(wizardData.get('isParcelAwaitingCollection'))
-               && !transferToPoProductExclusions.containsIgnoreCase(subProductId)) {
-                   isEligibleForMyNetworkAssignment = 'true';
-               }
-            String selectedPostOffice = (String) wizardData.get('selectedPostOffice')!=null ? 'Please transfer item to : ' + (String) wizardData.get('selectedPostOffice'): null;
-            String originalDeliveryAddress = 'Original delivery address : ' + deliveryAddressLine1 + ' ' + deliveryAddressLine2 + ', ' + deliveryCity + ', ' + deliveryState + ', ' + deliveryPostcode;
-            //Spingali - Get user contact details to set contactId on case
-            //String userId = UserInfo.getUserId();
-            //User userContact = [SELECT contactId FROM User WHERE Id= :userId LIMIT 1];
-            
-            //-- Building Comment Body
-            String commentBody ='Enquiry details : '  + issueDetailsType ;
-            if(commentBody != null)
-               //Removing this logic as Mail Products will add Details to Subject and Case Comments
-               // if(issueDetailsType != 'Mail products'){
-                    commentBody = commentBody+ '\n' +'Details : '+enquiryDetails;
-             //   }
-            commentBody = commentBody + '\n' + 'Contact Preference : ' + contactPreferrence;  // Contact Preference, added by Edmarco on July 2019
-            if(issueDetailsType == 'Online Shop' && madeAndOrder == 'Yes')
-                commentBody = commentBody+ '\n' +'Order Number : '+orderNumber + '\n' +
-                'Contact Preference : ' + contactPreferrence;   // Contact Preference, added by Edmarco on July 2019
-            if(selectedPostOffice != null){
-                commentBody = commentBody+ '\n' + selectedPostOffice ; 
-            }
-            //-- Change made for roll out of Products and services uplift
-            if(transferTrackingNumber != null)
-            {
-                commentBody = commentBody+ '\n' + 'Tracking Id: ' + transferTrackingNumber; 
-            }
-            if(issueDetailsType == 'Mail products' && mailProductsEnquiryType == 'Transfer to another post office'){
-                commentBody = commentBody+ '\n' + originalDeliveryAddress;
-            }
-
-            if(issueDetailsType == 'ID, documents & accounts' && idDocumentsAccountsEnquiryType == 'Delete MyPost account') {
-                commentBody = commentBody+ '\n' + 'MyPost account closure request, please check customer product holdings, refer SOP 05.06. MyPost Account – Cancel or merge MyPost account requests';
-            }
-            
-            if(issueDetailsType == 'Mail products'){
-                if(mailProductsEnquiryType == '24/7 Parcel Locker'){
-                    typeAndProduct = 'General Enquiry|Web & Apps|Parcel Lockers';
-                    productCategory = 'Web & Apps';
-                    productSubCategory = 'Parcel lockers';
-                }else if(mailProductsEnquiryType == 'Express Post'){
-                    typeAndProduct = 'General Enquiry|Domestic Parcels|Express';
-                    productCategory = 'Domestic Parcels';
-                    productSubCategory = 'Express';
-                }else if(mailProductsEnquiryType == 'Letter'){
-                    typeAndProduct = 'General Enquiry|Domestic Letters|Regular Mail';
-                    productCategory = 'Domestic Parcels';
-                    productSubCategory = 'Regular Mail';
-                }else if(mailProductsEnquiryType == 'Parcel'){
-                    typeAndProduct = 'General Enquiry|Domestic Parcels|Parcel Post';
-                    productCategory = 'Domestic Parcels';
-                    productSubCategory = 'Parcel Post';
-                }else if(mailProductsEnquiryType == 'Parcel Collect'){
-                    typeAndProduct = 'General Enquiry|Web & Apps|Parcel Collect';
-                    productCategory = 'Web & Apps';
-                    productSubCategory = 'Parcel Collect';
-                }else if(mailProductsEnquiryType == 'PO Box and Private Bag'){
-                    typeAndProduct = 'General Enquiry|Post Office & Business Hub Services|PO Boxes & Bags';
-                    productCategory = 'Post Office & Business Hub Services';
-                    productSubCategory = 'PO Boxes & Bags';
-                }else if(mailProductsEnquiryType == 'Tracking'){
-                    typeAndProduct = 'General Enquiry|Domestic Parcels|Parcel Post';
-                    productCategory = 'Domestic Parcels';
-                    productSubCategory = 'Parcel Post';
-                    enquirySubType = 'Tracking';
-                }else if(mailProductsEnquiryType == 'Transfer to another post office'){
-                    typeAndProduct = 'General Enquiry|Web & Apps|Parcel Lockers';
-                    productCategory = 'Domestic Parcels';
-                    productSubCategory = 'Parcel Post';
-                    enquirySubType = 'Item Transfer';
-                    recordTypeId = sswDeleveryRecordTypeId;
-                }
-            }else if(issueDetailsType == 'Post office'){
-                typeAndProduct = 'General Enquiry|Post Office & Business Hub Services|Mail Redirection';
-                productCategory = 'Post Office & Business Hub Services';
-                productSubCategory = 'Mail Redirection';
-            }else if(issueDetailsType == 'ID, documents & accounts'){
-                if(idDocumentsAccountsEnquiryType == 'ID check'){
-                    typeAndProduct = 'General Enquiry|Travel & ID|Identity & document services';
-                    productCategory = 'Travel & ID';
-                    productSubCategory = 'Identity & document services';
-                }else if(idDocumentsAccountsEnquiryType == 'Land title'){
-                    typeAndProduct = 'General Enquiry|Travel & ID|Land titles check';
-                    productCategory = 'Travel & ID';
-                    productSubCategory = 'Land titles check';
-                }else if(idDocumentsAccountsEnquiryType == 'Letter'){
-                    typeAndProduct = 'General Enquiry|Travel & ID|Land titles check';
-                    productCategory = 'Travel & ID';
-                    productSubCategory = 'Land titles check';
-                }else if(idDocumentsAccountsEnquiryType == 'MyPost general enquiries'){ //DDS-10119 Changed to Mypost general enquires
-                    typeAndProduct = 'General Enquiry|Travel & ID|My Post ID card';
-                    productCategory = 'Travel & ID';
-                    productSubCategory = 'My Post ID card';
-                }else if(idDocumentsAccountsEnquiryType == 'Passport'){
-                    typeAndProduct = 'General Enquiry|Travel & ID|Passport';
-                    productCategory = 'Travel & ID';
-                    productSubCategory = 'Passport';
-                }else if(idDocumentsAccountsEnquiryType == 'Police check'){
-                    typeAndProduct = 'General Enquiry|Travel & ID|Identity & document services';
-                    productCategory = 'Travel & ID';
-                    productSubCategory = 'Identity & document services';
-                }else if(idDocumentsAccountsEnquiryType == 'Tax file number (TFN)'){
-                    typeAndProduct = 'General Enquiry|Travel & ID|Tax file number';
-                    productCategory = 'Travel & ID';
-                    productSubCategory = 'Tax file number';
-                }else if(idDocumentsAccountsEnquiryType == 'Delete MyPost account'){
-                    typeVal = 'Investigation';
-                    typeAndProduct = 'Investigation|Web & Apps|MyPost Deliveries';
-                    productCategory = 'Web & Apps';
-                    productSubCategory = 'MyPost Deliveries';
-                    enquirySubType = 'Account Enquiry';
-                }else if(idDocumentsAccountsEnquiryType == 'Other'){
-                    typeAndProduct = 'General Enquiry|Travel & ID|Identity & document services';
-                    productCategory = 'Travel & ID';
-                    productSubCategory = 'Identity & document services';
-                }
-            }else if(issueDetailsType == 'Online shop'){
-                typeAndProduct = 'General Enquiry|Web & Apps|Online shop';
-                productCategory = 'Web & Apps';
-                productSubCategory = 'Online shop';
-            }else if(issueDetailsType == 'Money'){
-                productCategory = 'Money & Insurance';
-                if(enquiryType == 'Bank@Post'){
-                    typeAndProduct = 'General Enquiry|Money & Insurance|Bank@Post';
-                    productSubCategory = 'Bank@Post';
-                }else if(enquiryType == 'Post Billpay'){
-                    typeAndProduct = 'General Enquiry|Money & Insurance|Post BillPay';
-                    productSubCategory = 'Post BillPay';
-                }
-            }
-            //-- Building Case object
-            Case toBeCreateCase = new Case();
-            toBeCreateCase.RecordTypeId =recordTypeId;
-            toBeCreateCase.Type=typeVal;
-            toBeCreateCase.EnquirySubType__c = enquirySubType;
-            toBeCreateCase.Type_and_Product__c=typeAndProduct;
-            toBeCreateCase.ProductCategory__c=productCategory;
-            toBeCreateCase.ProductSubCategory__c=productSubCategory;
-            toBeCreateCase.Subject=subject;
-            toBeCreateCase.Origin = origin;
-            toBeCreateCase.AllocateToQueue__c = true;
-            toBeCreateCase.CHASEnquiryType__c=CHASEnquiryType;
-            //Added for guest users
-            toBeCreateCase.First_Name__c = givenName;
-            toBeCreateCase.Last_Name__c=surname;
-            toBeCreateCase.SuppliedEmail=email;
-            toBeCreateCase.SuppliedPhone=phone;
-            toBeCreateCase.Preferred_Communication_Method__c=contactPreferrence;  // Contact Preference, added by Edmarco on July 2019
-            toBeCreateCase.Description = selectedPostOffice ; 
-            if(transferTrackingNumber != null && issueDetailsType == 'Mail products' && mailProductsEnquiryType == 'Transfer to another post office'){
-                toBeCreateCase.ReferenceID__c=transferTrackingNumber;
-            }else if(orderTrackingNumber != null && issueDetailsType == 'Online Shop' && madeAndOrder == 'Yes'){
-                toBeCreateCase.ReferenceID__c=orderTrackingNumber;
-            }
-            //-- Change made for roll out of Products and services uplift : defaulting the case type to Feedback, added selectedPostOffice and originalDeliveryAddress to the case description
-            if(issueDetailsType == 'Mail products' && mailProductsEnquiryType == 'Transfer to another post office'){
-                toBeCreateCase.Type=ChasConstants.FEEDBACK;
-                String caseDescription = '';
-                if(selectedPostOffice !=null)
-                {
-                    caseDescription = selectedPostOffice;
-                }
-                caseDescription = caseDescription + '\n' + originalDeliveryAddress;
-                if(isEligibleForMyNetworkAssignment == 'true' && !String.isEmpty(toWcid))
-                {
-                    caseDescription = caseDescription + '\n' + 'WCC ID: ' + toWcid;
-                    //--The flag denotes an evaluation of the network assignment, based on factors evaluated from the service.
-                    //19-08-2021: this is now being set only if network assignment actually happens
-                    //toBeCreateCase.Automated_Network_Assignment__c = true;
-                }
-                toBeCreateCase.Description = caseDescription;
-            }
-            
-            if(deliveryAddressLine1 != null)
-                toBeCreateCase.Address4__c = deliveryAddressLine1;
-            if(deliveryAddressLine2 !=null)
-                toBeCreateCase.Address4Line2__c = deliveryAddressLine2;
-            if(deliveryCity !=null)
-                toBeCreateCase.Address4Suburb__c =deliveryCity;
-            if(deliveryState !=null)
-                toBeCreateCase.Address4State__c = deliveryState;
-            if(deliveryPostcode !=null)
-                toBeCreateCase.Address4Postcode__c = deliveryPostcode;
-            
-            //Spingali - ContactId on case is cleared due to routing rules being applied with AllocatetoQueue=true.Explicity set the contactId on case when allocatetoQueue=true
-            //if(userContact !=null)
-            //toBeCreateCase.ContactId = userContact.ContactId;
-            toBeCreateCase.ContactId = getContactId(UserInfo.getUserId()); 
-            //-- mapping Logged in user details
-            if(userContactFirstName !=null)
-                toBeCreateCase.First_Name__c=userContactFirstName;
-            if(userContactLastName !=null)
-                toBeCreateCase.Last_Name__c=userContactLastName;
-            if(userContactEmail !=null)
-                toBeCreateCase.SuppliedEmail=userContactEmail;
-            if(userContactPhone !=null)
-                toBeCreateCase.SuppliedPhone=userContactPhone;
-
-            //-- Get the wizarddata for product and services conditional case routing
-            // 17-08-2021 switched to direct routing
-            if(!String.isEmpty(wcid) && !String.isEmpty(wizardData.get('isParcelAwaitingCollection')) && 'true'.equalsIgnoreCase(wizardData.get('isParcelAwaitingCollection'))
-                    && !transferToPoProductExclusions.containsIgnoreCase(subProductId)) {
-                setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
-              /*  ChasCaseAssignment caseAssignment = new ChasCaseAssignment(toBeCreateCase, wcid);
-                Id jobId = System.enqueueJob(caseAssignment);*/
-
-            }
-			Database.SaveResult[] results;
-			if (toBeCreateCase.Automated_Network_Assignment__c && toBeCreateCase.Network__c != null){
-				SharingBypass lSharingBypass = new SharingBypass();
-				results = lSharingBypass.insertSObjects(new SObject[] {toBeCreateCase});
-			}
-			else {
-				results = Database.insert(new SObject[] {toBeCreateCase });
-			}
-            List<CaseComment> comments = new List<CaseComment>();
-            comments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
-        //temporarily removed due to inability to make case comment private in authenticated community user context
-        //checkNetworkAssigningResult(toBeCreateCase, vComments);
-
-            //-- Parse Case results and create Case Comment
-            caseWrapper = ChasUtil.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
-            // checkNetworkAssigningResult(toBeCreateCase);
-            
-            /*Case routing logic : Route the case to the myNetwork queue if:
-1. Parcel awaiting collection
-2. Workcenter id on the corresponding parcel awaiting collection event is not null
-3. Exclude certain article sub products
-*/
-
-            
-        }catch(Exception ex){
-            caseWrapper.caseStatus = 'ERROR';
-            System.debug('*** - Error while in createCaseFromProductandServices method ==='+ex);
-        }
-        return caseWrapper;
-    }
-    
-    /**
-* @description     get the Contact Id of the provided User Id
-* @param           Id i.e. User Id 
-* @return          Id i.e. Contact Id for the user
-*/
-    private static Id getContactId(Id userId) {
-        return [SELECT ContactId FROM User WHERE Id = :userId]?.ContactId;
-    }
-
 
     /**
      * @description passing the tracking number will response with all the articles and tracking details linked to the
@@ -2425,56 +2103,14 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
         return hex;
     }
 
-
-    private enum RoutingBypass{NETWORK, HOLD}
-
-    /**
-     * @description Helper class containing methods that need to bypass sharing settings
-     */
-    private without sharing class SharingBypass {
-        /**
-         * @description Method querying network Id by Org Id and Contact Facility
-		 * @param orgId Organisation Id
-		 * @return Id Network Id
-		 */
-        public Id getNetworkIdByOrgId(String orgId)
-        {
-            List<Network__c> networks = [SELECT Id FROM Network__c WHERE Org_ID__c =: orgId
-                                            AND Contact_Facility__c = 'MyNetwork' LIMIT 1];
-            return networks.isEmpty() ? null : networks[0].Id;
-        }
-
-        /**
-        * @description Method inserting SObjects
-        * @param pSObjects SObject List of SObject records to insert
-        * @return List<Database.SaveResult> DML results
-        */
-        public List<Database.SaveResult> insertSObjects(List<SObject> pSObjects)
-        {
-            return Database.insert(pSObjects);
-        }
-
-        /**
-        * @description Method generating a case comment with required visibility
-        * @param pBody comment body
-        * @param pPublicFlag public visibility flag
-        * @return CaseComment resulting case comment
-        */
-        public CaseComment generateCaseComment(String pBody, Boolean pPublicFlag)
-        {
-            return new CaseComment(CommentBody = pBody, IsPublished = pPublicFlag);
-        }
-    }
-
-    private static Boolean noNetworkIdFound = false;                // flag for no network ID found in setDirectRoutingValues
-    private static String unavailableOrgId;                         // org ID that is unavailable
-    private static Boolean noNetworkGroupFound = false;             // flag for no network group found in setDirectRoutingValues
-
+    // refactoring notes , due to a know issue following variables are duplicated in both this class and the ChasBase
+    // https://trailblazer.salesforce.com/issues_view?id=a1p3A000000ENHXQA4
     /**
      * check if there is any exception on network assigning and create corresponding case comment
      * the comment will be private by default
      * @author: phap.mai@auspost.com.au
      * @param iCase: target case
+     * @deprecated checkNetworkAssigningResult method seems deprecated
      */
     private static void checkNetworkAssigningResult(Case iCase, List<CaseComment> comments)
     {
@@ -2484,73 +2120,17 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             SharingBypass helper = new SharingBypass();
 
             // create case comment if no network id found on network assigning
-            if (noNetworkIdFound) {
-                comments.add(helper.generateCaseComment('Unable to find network with requested org ID: ' + unavailableOrgId, false));
+            if (ChasBase.noNetworkIdFound) {
+                comments.add(helper.generateCaseComment('Unable to find network with requested org ID: ' + ChasBase.unavailableOrgId, false));
             }
 
             // create case comment if no network group found in network assigning
-            if (noNetworkGroupFound) {
-                comments.add(helper.generateCaseComment('Unable to find network queue for the requested org ID: ' + unavailableOrgId, false));
+            if (ChasBase.noNetworkGroupFound) {
+                comments.add(helper.generateCaseComment('Unable to find network queue for the requested org ID: ' + ChasBase.unavailableOrgId, false));
                 // helper.createCaseComment(iCase.Id, comment, false, true);
             }
         }
     }
-    /**
-     * @description Sets case owner, status and flags when routing rules need to be bypassed
-     * @param pCase Case to route directly bypassing the routing engine
-     * @param pBypass Type of bypass
-     * @param pOrgId Organisation Id for network cases
-     */
-    private static void setDirectRoutingValues(Case pCase, final RoutingBypass pBypass, final String pOrgId){
-        if (pBypass == RoutingBypass.NETWORK){
-            pCase.Automated_Network_Assignment__c = true;
-            SharingBypass vSharingBypass = new SharingBypass();
-            Id vNetworkId = vSharingBypass.getNetworkIdByOrgId(pOrgId);
-            if (vNetworkId != null){
-
-                pCase.Status = SSSWConstants.STAT_AWAITING_NTWRK_RESPONSE;
-                pCase.Network__c = vNetworkId;
-                Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{SSSWConstants.QUEUE_DEV_NAME_SSSWNETWORKQUEUE});
-                if (!vGroups.isEmpty()) {
-                    pCase.OwnerId = vGroups.values()[0].Id;
-	                pCase.Sent_To_Network_Date__c = System.now();
-                    pCase.ByPassRoutingRulesOnCreation__c = true;
-                    pCase.AllocateToQueue__c = false;
-                }
-                else
-                {
-                    // set the flag for case comment after case inserted
-                    noNetworkGroupFound = true;
-                }
-                //Need to explicitly add description from rules due to routing bypass
-                SSSW_Routing.populateCaseDescriptionFromDescriptionRules(new List<Case>{pCase}, null);
-            } else
-            {
-                // set the flag for case comment after case inserted
-                noNetworkIdFound = true;
-                unavailableOrgId = pOrgId;
-            }
-        }
-        else if (pBypass == RoutingBypass.HOLD){
-            Map<Id, Group> vGroups = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{SSSWConstants.QUEUE_NAME_REOPEN_Q});
-            if (!vGroups.isEmpty()) {
-                pCase.OwnerId = vGroups.values()[0].Id;
-                Date reopenDate = ChasUtil.calculateNextBusinessDay(pCase.EstimatedDelivery__c, Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c != null ? Integer.valueOf(Consumer_Help_and_Support__c.getInstance().nextUpdateInForLateItems__c) : 0);
-                pCase.Status = SSSWConstants.CASE_STATUS_INPROGRESS;
-                pCase.Case_Reopen_Date__c = reopenDate;
-                pCase.HeldToOpenOn__c = reopenDate;
-                pCase.ByPassRoutingRulesOnCreation__c = true;
-                pCase.AllocateToQueue__c = false;
-            }
-        }
-    }
-    
-    //-- Case Wrapper Class
-    public class CaseWrapper{
-        @AuraEnabled public String caseNumber{get;set;}
-        @AuraEnabled public String caseStatus{get;set;}
-    }
-
 
     /**
      * DTO to transfer consignment details,
