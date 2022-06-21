@@ -1,0 +1,29 @@
+<!--
+ - Created by Kamil Szyc on 17/6/2022.
+ -->
+
+<apex:component id="PUD_JobsHeader">
+    <apex:attribute name="Route" type="String" description="Job route"/>
+    <apex:attribute name="Depot" type="String" description="Depot name"/>
+    <apex:attribute name="Effective" type="Date" description="Effective Date"/>
+    <apex:attribute name="Expiry" type="Date" description="Expiry Date"/>
+    <table style="width:100%">
+        <tr>
+            <td rowspan="2"><img src="{!$Resource.auspost_logo}"/></td>
+            <td><b>{! Route}</b></td>
+            <td><b><u>{! Depot}</u></b></td>
+            <td>Page</td>
+            <td><span class="pagenumber"/> of <span class="pagecount"/></td>
+        </tr>
+        <tr>
+            <td>Effective Date: {!Effective}</td>
+            <td>Expiry Date: {!Expiry}</td>
+            <td>Printed Date:</td>
+            <td>
+                <apex:outputText value="{0, date, d MMM yyyy}">
+                    <apex:param value="{!NOW()}"/>
+                </apex:outputText>
+            </td>
+        </tr>
+    </table>
+</apex:component>
