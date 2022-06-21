@@ -82,18 +82,18 @@
             <apex:pageBlockTable value="{! jobTemplateList }" var="jt"
                                  style="vertical-align:Top font:Calibri; font-size: 12pt" headerClass="table-header">
 
-                <apex:column headerValue="Arrive" style="vertical-align:Top font:Calibri; font-size: 11pt" width="80px"
+                <apex:column headerValue="Arrive" style="vertical-align:Top font:Calibri; font-size: 11pt;" width="80px"
                              headerClass="job-headers">
                     <b>
-                        <apex:outputField value="{! jt.Display_Start_Time__c}" rendered="{!!adhoc}"/>
-                        <apex:outputField value="{! jt.Start_Time__c}" rendered="{!adhoc}"/>
+                        <apex:outputField value="{! jt.Display_Start_Time__c}" rendered="{!!adhoc}" style="vertical-align:top"/>
+                        <apex:outputField value="{! jt.Start_Time__c}" rendered="{!adhoc}" style="vertical-align:top"/>
                     </b>
                 </apex:column>
                 <apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size:12pt"
                              width="430px" headerClass="job-headers">
                     <b>
                         <apex:outputField value="{!jt.Location_Information__c}"/>
-                    </b>
+                    </b><br/>
                     <apex:outputField value="{!jt.Job_Information__c}"/>
                     <apex:outputField value="{!jt.Booking_Comments__c}"/>
                 </apex:column>
