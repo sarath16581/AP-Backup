@@ -8,8 +8,18 @@
  * @description DDS-10974 This class seperated the create case functionality for product and services.
  * @changelog
  * 2022-06-06 - Hasantha Liyanage - Created
+ * 2022-06-21 - Hasantha Liyanage - modified: DDS-11103 Accessibility categories - Integration - Click on continue create the case record
+ *
  */
 public with sharing class ChasProductsAndServicesController extends ChasBase {
+
+    /**
+     * Grabs an instance of this class
+     * Using Application.Utilities allows us to override this interface with a mock class for unit testing
+     */
+    public static ChasProductsAndServicesController getInstance() {
+        return (ChasProductsAndServicesController)Application.Utilities.getInstance(ChasProductsAndServicesController.class);
+    }
 
     /**
 * This method will create Case for Products and services
@@ -40,6 +50,9 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             String subject = null;
 
             String isEligibleForMyNetworkAssignment = '';
+            Boolean isContainsPharma = false;
+            String complaint = '';  // DDS-11103 setting up the value to blank as when there is no value, the agent will fill this in console.
+                                    // setting this only when Accessibility and disability option selected
 
             //-- Getting all wizard data details
             String wcid = (String) wizardData.get('wcid');
@@ -77,6 +90,8 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             String enquiryDetails = (String) wizardData.get('enquiryDetails');
 
             String contactPreferrence = (String) wizardData.get('contactPreferrence');  // Contact Preference, added by Edmarco on July 2019
+
+            String accessibilityIssueTypeName = (String) wizardData.get('accessibilityIssueTypeName');  // Contact Preference, added by Edmarco on July 2019
 
             //-- Subject : Trimming the issueDetails details to 255 chars
             if (enquiryDetails != null) {
@@ -217,6 +232,25 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
                     typeAndProduct = 'General Enquiry|Money & Insurance|Post BillPay';
                     productSubCategory = 'Post BillPay';
                 }
+            } else if (issueDetailsType == 'Accessibility and disability') { // DDS-11103 adding the Accessibility and disability feature support
+                // common parameters are set here for Accessibility and disability
+                typeVal = ChasConstants.INVESTIGATION;
+                enquirySubType = 'Customer Care Escalation';
+                complaint = 'No';
+                if (accessibilityIssueTypeName == 'Post Office') {
+                    typeAndProduct = 'General Enquiry|Post Office & Business Hub Services|Post office locator';
+                    productCategory = 'Post Office & Business Hub Services';
+                    productSubCategory = 'Post office locator';
+                    isContainsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedMedicationTypeName')));
+                } else if (accessibilityIssueTypeName == 'Delivery' || accessibilityIssueTypeName == 'Other issue type') {
+                    typeAndProduct = 'General Enquiry|Domestic Parcels|Parcel Post';
+                    productCategory = 'Domestic Parcels';
+                    productSubCategory = 'Parcel Post';
+                } else if (accessibilityIssueTypeName == 'Website or app') {
+                    typeAndProduct = 'General Enquiry|Web & Apps|Website';
+                    productCategory = 'Web & Apps';
+                    productSubCategory = 'Website';
+                }
             }
             //-- Building Case object
             Case toBeCreateCase = new Case();
@@ -236,7 +270,14 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             toBeCreateCase.SuppliedEmail = email;
             toBeCreateCase.SuppliedPhone = phone;
             toBeCreateCase.Preferred_Communication_Method__c = contactPreferrence;  // Contact Preference, added by Edmarco on July 2019
-            toBeCreateCase.Description = selectedPostOffice ;
+            toBeCreateCase.Description = selectedPostOffice;
+
+            // DDS-11103 adding complaint
+            toBeCreateCase.complaint__c = complaint;
+            if(isContainsPharma) {
+                toBeCreateCase.Priority = 'High';
+            }
+
             if (transferTrackingNumber != null && issueDetailsType == 'Mail products' && mailProductsEnquiryType == 'Transfer to another post office') {
                 toBeCreateCase.ReferenceID__c = transferTrackingNumber;
             } else if (orderTrackingNumber != null && issueDetailsType == 'Online Shop' && madeAndOrder == 'Yes') {
@@ -274,6 +315,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             //if(userContact !=null)
             //toBeCreateCase.ContactId = userContact.ContactId;
             toBeCreateCase.ContactId = getContactId(UserInfo.getUserId());
+
             //-- mapping Logged in user details
             if (userContactFirstName != null)
                 toBeCreateCase.First_Name__c = userContactFirstName;
@@ -304,6 +346,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
                         toBeCreateCase
                 });
             }
+
             List<CaseComment> comments = new List<CaseComment>();
             comments.add(new CaseComment(CommentBody = commentBody, IsPublished = true));
             //temporarily removed due to inability to make case comment private in authenticated community user context
