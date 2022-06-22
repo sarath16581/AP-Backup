@@ -589,4 +589,95 @@ public with sharing class ChasProductsAndServicesControllerTest {
         }
         System.assert(isSuccess);
     }
+
+    /**
+     * Accessibility and disability - when Post office is selected
+     */
+    @IsTest
+    public static void productIssue_Accessibility_PostOffice() {
+        Boolean isSuccess = true;
+
+        try {
+
+            TestData vTestData = wizardDataSetUp();
+
+            vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Accessibility and disability');
+            vTestData.productAndSrvWizardData.put('accessibilityIssueTypeName', 'Post Office');
+
+            Test.startTest();
+            ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+            Test.stopTest();
+
+
+        } catch (Exception e) {
+            System.debug('productIssue_Accessibility_PostOffice()::error==>' + e.getMessage());
+            isSuccess = false;
+        }
+        System.assertEquals(
+                isSuccess
+                , true
+                , 'Case should be created for Accessibility and disability - Post Office'
+        );
+    }
+
+    /**
+     * Accessibility and disability - when Delivery is selected
+     */
+    @IsTest
+    public static void productIssue_Accessibility_Delivery() {
+        Boolean isSuccess = true;
+
+        try {
+
+            TestData vTestData = wizardDataSetUp();
+
+            vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Accessibility and disability');
+            vTestData.productAndSrvWizardData.put('accessibilityIssueTypeName', 'Delivery');
+
+            Test.startTest();
+            ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+            Test.stopTest();
+
+
+        } catch (Exception e) {
+            System.debug('productIssue_Accessibility_Delivery()::error==>' + e.getMessage());
+            isSuccess = false;
+        }
+
+        System.assertEquals(
+                isSuccess
+                , true
+                , 'Case should be created for Accessibility and disability - Delivery'
+        );
+    }
+
+    /**
+     * Accessibility and disability - when Website or app is selected
+     */
+    @IsTest
+    public static void productIssue_Accessibility_WebsiteOrApp() {
+        Boolean isSuccess = true;
+
+        try {
+
+            TestData vTestData = wizardDataSetUp();
+
+            vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Accessibility and disability');
+            vTestData.productAndSrvWizardData.put('accessibilityIssueTypeName', 'Website or app');
+
+            Test.startTest();
+            ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
+            Test.stopTest();
+
+
+        } catch (Exception e) {
+            System.debug('productIssue_Accessibility_WebsiteOrApp()::error==>' + e.getMessage());
+            isSuccess = false;
+        }
+        System.assertEquals(
+                isSuccess
+                , true
+                , 'Case should be created for Accessibility and disability - Website or app'
+        );
+    }
 }
