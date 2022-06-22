@@ -4,7 +4,7 @@
   * Modified by   : Hara Sahoo
   * @description  : 1. Added Back Button and a card layout outer-box
   * Modified by Mahesh Parvathaneni - 10/05/2022 - Hide details section on Delete MyPost account enquiry
-  * Modified by Thang Nguyen - DDS-10805/DDS-10945/DDS-10946/DDS-10947 Add "Accessibility and disability" issue sections
+  * Modified by Thang Nguyen - DDS-10805/DDS-10945/DDS-10946/DDS-10947/DDS-10986 Add "Accessibility and disability" issue sections
 -->
 <aura:component
 		extends="c:CHAS_reviewAndSubmit"
@@ -349,6 +349,70 @@
                 <li>{! v.authUserData.userContactPhone }</li>
             </ul> -->
 			</div>
+
+			<!-- DDS-10986 -->
+			<aura:if
+				isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
+			>
+				<aura:if
+					isTrue="{! or(v.wizardData.accessibilityAuditoryOption, v.wizardData.accessibilityLearningOrCognitiveOption, v.wizardData.accessibilityMobilityOption, v.wizardData.accessibilitySeizuresOption, v.wizardData.accessibilityVisualOption, v.wizardData.accessibilityOtherOption)}"
+				>
+					<!-- Section separator-->
+					<div class="separator-gap">
+						<hr />
+					</div>
+					<!-- Contact Details Heading -->
+					<h3 class="chas-header_small">Accessibility or disability assistance</h3>
+
+					<div class="review-container">
+						<dl>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityAuditoryOption}"
+							>
+								<div>
+									Auditory (For example: hearing difficulties)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityLearningOrCognitiveOption}"
+							>
+								<div>
+									Learning or cognitive (For example: anxiety or dyslexia)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityMobilityOption}"
+							>
+								<div>
+									Mobility (For example: movement difficulties or a wheelchair)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilitySeizuresOption}"
+							>
+								<div>
+									Seizures (For example: photosensitive epilepsy)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityVisualOption}"
+							>
+								<div>
+									Visual (For example: impaired vision, colour blindness)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityOtherOption}"
+							>
+								<div>
+									<dt>Other</dt>
+									<dd>{! v.wizardData.accessibilityOtherReason }</dd>
+								</div>
+							</aura:if>
+						</dl>
+					</div>			
+				</aura:if>						
+			</aura:if>
 			<c:ChasNavButtons
 				nextLabel="Continue"
 				disabled="false"
