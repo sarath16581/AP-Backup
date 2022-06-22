@@ -355,7 +355,8 @@
 				isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
 			>
 				<aura:if
-					isTrue="{! or(v.wizardData.accessibilityAuditoryOption, v.wizardData.accessibilityLearningOrCognitiveOption, v.wizardData.accessibilityMobilityOption, v.wizardData.accessibilitySeizuresOption, v.wizardData.accessibilityVisualOption, v.wizardData.accessibilityOtherOption)}"
+					isTrue="{! v.wizardData.accessibilityAuditoryOption || v.wizardData.accessibilityLearningOrCognitiveOption || v.wizardData.accessibilityMobilityOption 
+							|| v.wizardData.accessibilitySeizuresOption || v.wizardData.accessibilityVisualOption || v.wizardData.accessibilityOtherOption}"
 				>
 					<!-- Section separator-->
 					<div class="separator-gap">
