@@ -50,6 +50,10 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 * 2022-02-07 alex.volkov@auspost.com.au Temporarily removed network assignment failure comment until approach to creation of automatic private comments is confirmed
 * 2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the method searchTrackingNumber() to handle multiple articles
 * 2022-05-04 mahesh.parvathaneni@auspost.com.au DDS-10119 Changed to Mypost general enquiries from Mypost
+* 2022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 refactor of CreateCasefromProductandServices method,
+*                                                       this has been moved to a new class 'ChasProductsAndServicesController' and the ChasBase class is created and extended here.
+*                                                       some of the common shared methods are moved to ChasBase
+* 2022-06-20 mahesh.parvathaneni@auspost.com.au DDS-6293 Fix for customer seen safe drop text in case description
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -695,23 +699,26 @@ public with sharing class ChasApexController extends ChasBase{
             // 2019/10/09 - Issue Description to be set as Case Description, warning message to case reader is added if the user entered something in the issue details section
             if(!String.isEmpty(complaintDetails)) {
                 toBeCreateCase.Description = Label.HS_Issue_Details_Warning +'\n\n'+ complaintDetails + '\n\n';
-                // Change made for roll out of Safe Drop feature on Missing Items form : add reason for enquiry to the case description
-                if(String.IsNotEmpty(reasonForEnquiry))
+            }
+
+            // DDS-6293 Fix for customer seen safe drop text in case description
+            // Change made for roll out of Safe Drop feature on Missing Items form : add reason for enquiry to the case description
+            if(String.IsNotEmpty(reasonForEnquiry))
+            {
+                String description = toBeCreateCase.Description != null ? toBeCreateCase.Description : '';
+                toBeCreateCase.Description = description + 'Reason for enquiry : ' + reasonForEnquiry + '\n';
+            }
+            // Change made for roll out of Safe Drop feature on Missing Items form : has customer seen safe drop image to the case description
+            if(isEligibleForMyNetwork)
+            {
+                String description = toBeCreateCase.Description != null ? toBeCreateCase.Description : '';
+                if(wizardData.get('hasCustomerSeenSafeDrop') == 'true')
                 {
-                    toBeCreateCase.Description = toBeCreateCase.Description + 'Reason for enquiry : ' + reasonForEnquiry + '\n';
-                }
-                // Change made for roll out of Safe Drop feature on Missing Items form : has customer seen safe drop image to the case description
-                if(isEligibleForMyNetwork)
+                    toBeCreateCase.Description = description +'Has customer seen safedrop image : ' + 'Yes' + '\n';
+                } else
                 {
-                    if(wizardData.get('hasCustomerSeenSafeDrop') == 'true')
-                    {
-                        toBeCreateCase.Description = toBeCreateCase.Description +'Has customer seen safedrop image : ' + 'Yes' + '\n';
-                    } else
-                    {
-                        toBeCreateCase.Description = toBeCreateCase.Description +'Has customer seen safedrop image : ' + 'No' + '\n';
-                    }
-                    
-                }
+                    toBeCreateCase.Description = description +'Has customer seen safedrop image : ' + 'No' + '\n';
+                } 
             }
             
             if(convertedPostedDate !=null){

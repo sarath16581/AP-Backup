@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Delete_Children_Only__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>On an &quot;Archive&quot; process, when this field is checked, the Parent record would not be deleted from Salesforce, but would be backed up with the other records in the hierarchy.</description>
+    <externalId>false</externalId>
+    <label>Delete Children Only</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

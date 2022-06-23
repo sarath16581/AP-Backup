@@ -1,5 +1,13 @@
 /**
- * Created by hasan on 9/06/2022.
+ * @author Hasantha Liyanage
+ * @date 2022-06-06
+ * @group Chas
+ * @tag productAndServices
+ * @tag DDS-10974
+ * @domain Help & Support
+ * @description DDS-10974 Testing the create case functionality for product and services.
+ * @changelog
+ * 2022-06-06 - Hasantha Liyanage - Created
  */
 @IsTest(IsParallel=true)
 public with sharing class ChasProductsAndServicesControllerTest {

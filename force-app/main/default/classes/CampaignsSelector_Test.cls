@@ -84,10 +84,16 @@ private class CampaignsSelector_Test {
 		// =====================================
 		Test.startTest();
 		CampaignsSelector selector = CampaignsSelector.newInstance(1);
-		List<Campaign> resultList = selector.selectById(new Set<Id>{campaigns[0].Id});
+		List<Campaign> resultList = selector.selectById(new Set<Id>{campaigns[0].Id},new Set<Object>{
+				CampaignsSelector.Options.WITH_CAMPAIGNMEMBERS,
+				CampaignsSelector.Options.WITH_CONTACTASSIGMENTS,
+				CampaignMembersSelector.Options.FILTER_CONTACTS_ONLY,
+				CampaignMembersSelector.Options.WITH_CONTACT});
 		Test.stopTest();
 		System.assertEquals(1, resultList.size(), 'Campaign is not returned');
 	}
+
+
      /**
      * Test:
      *  Ensures that the selectors QueryBuilder is generating the correct output

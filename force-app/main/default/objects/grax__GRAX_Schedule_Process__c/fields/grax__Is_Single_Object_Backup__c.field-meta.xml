@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Is_Single_Object_Backup__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Checkbox to allow the user to select only one object on the table in the &quot;Object(s) Backup&quot; tab. When this checkbox is in true and the user selects an object from the table the other checkboxes will remain disabled until the current object is unselected.</description>
+    <externalId>false</externalId>
+    <label>Is Single Object Backup</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

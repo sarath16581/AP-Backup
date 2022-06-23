@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Num_SFDC_Records_Deleted_Lkp__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Num Total SFDC Records Deleted Lkp</label>
+    <referenceTo>grax__GRAX_Helper__c</referenceTo>
+    <relationshipLabel>Num Total SFDC Records Deleted Lkps</relationshipLabel>
+    <relationshipName>Num_SFDC_Records_Deleted_Lkps</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

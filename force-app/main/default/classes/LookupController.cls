@@ -5,16 +5,37 @@
 --------------------------------------- History --------------------------------------------------
 01.04.2019    Sameed Khan(Mav3rik)    Created
 10.02.2020    alex.volkov@auspost.com.au    Added filterMap parameter to hard filter records
+01.06.2022    prerna.rahangdale@auspost.com.au Added a wrapper to take the maxResults parameter.
 **/
 public with sharing class LookupController
 {
 	private static final Integer MAX_RESULTS = 10;
 
-	@AuraEnabled(Cacheable=true)
-	public static List<SObject> getSearchResults(String searchTerm, String fieldList, String sobjectName, String fieldsToSearch, Map<String, String> filterMap)
-	{
-		String query = getQueryString(searchTerm, fieldList, sobjectName, fieldsToSearch, filterMap);
-		System.debug(query);
+	@TestVisible
+	public class SearchWrapper {
+		@AuraEnabled
+		public String searchTerm { get; set; }
+		@AuraEnabled
+		public String fieldList { get; set; }
+		@AuraEnabled
+		public String sobjectName { get; set; }
+		@AuraEnabled
+		public String fieldsToSearch { get; set; }
+		@AuraEnabled
+		public Map<String, String> filterMap { get; set; }
+		@AuraEnabled
+		public Integer maxResults { get; set; }
+
+	}
+
+	@AuraEnabled(cacheable=true)
+	public static List<SObject> lookUpObjects(SearchWrapper wrapper) {
+		// The values are based on the data that is defined in the
+		// lookup datatable Lightning web component.
+		System.Debug('The parameters are'+wrapper.searchTerm+wrapper.fieldList+wrapper.maxResults);
+		String query = getQueryString(wrapper.searchTerm, wrapper.fieldList, wrapper.sobjectName, wrapper.fieldsToSearch, wrapper.filterMap,wrapper.maxResults);
+
+		System.Debug('The query is'+query);
 		try
 		{
 			return Database.query(query);
@@ -24,11 +45,28 @@ public with sharing class LookupController
 		}
 	}
 
-	private static String getQueryString(String searchTerm, String fieldList, String sobjectName, String fieldsToSearch, Map<String, String> filterMap)
+	@AuraEnabled(Cacheable=true)
+	public static List<SObject> getSearchResults(String searchTerm, String fieldList, String sobjectName, String fieldsToSearch, Map<String, String> filterMap)
+	{
+		String query = getQueryString(searchTerm, fieldList, sobjectName, fieldsToSearch, filterMap,MAX_RESULTS);
+
+		try
+		{
+			return Database.query(query);
+		} catch (Exception ex)
+		{
+			throw new AuraHandledException(ex.getMessage());
+		}
+	}
+
+
+	private static String getQueryString(String searchTerm, String fieldList, String sobjectName, String fieldsToSearch, Map<String, String> filterMap,Integer maxResults)
 	{
 		fieldList = String.isBlank(fieldList) ? 'Id' : fieldList;
 		List<String> listOfFieldsToSearch = String.isBlank(fieldsToSearch) ? new List<String>() : fieldsToSearch.split(',');
 		String whereClause;
+
+
 		if (!'Network__c'.equalsIgnoreCase(sobjectName))
 		{
 			whereClause = getWhereClause(searchTerm, listOfFieldsToSearch, filterMap);
@@ -43,7 +81,7 @@ public with sharing class LookupController
 				+ ' FROM '
 				+ sobjectName
 				+ whereClause
-				+ ' LIMIT ' + MAX_RESULTS;
+				+ ' LIMIT ' + maxResults;
 		return query;
 	}
 

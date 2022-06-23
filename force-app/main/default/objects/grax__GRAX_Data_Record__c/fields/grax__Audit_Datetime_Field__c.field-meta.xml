@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Audit_Datetime_Field__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Name of the Date/Time field for the current Salesforce&apos;s Object</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Name of the Date/Time field for the current Salesforce&apos;s Object</inlineHelpText>
+    <label>Audit Datetime Field</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -16,10 +16,35 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
-        <fullName>Campaign_Contact_Assignment_Sales_Managers</fullName>
+        <fullName>Campaign_Contact_Assingments_Marketing</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Setup to ensure campaigns created by Marketing users can be edited by Sales Managers</description>
-        <label>Campaign Contact Assignment Sales Managers</label>
+        <description>Setup to allow Campaigns to be edited by Marketing users when created by other Marketing users</description>
+        <label>Campaign Contact Assingments Marketing</label>
+        <sharedTo>
+            <role>Marketing</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Marketing</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Non_Marketing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Currently there are sharing rules in place which allow Sales users to add Contacts to Campaigns, where users are assigned the Marketing role are the owners of the Campaign.
+However, other users within the Marketing team do not have the Marketing role assigned and are indeed responsible for the creation of Campaigns which need to be editable by the Sales teams.</description>
+        <label>Non Marketing Role</label>
+        <sharedTo>
+            <group>Sales_Managers</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Campaign_Contact_Assignment_Group</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_with_Account_Managers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This would Share the Campaigns created by Marketing with Account Managers</description>
+        <label>Share with Account Managers</label>
         <sharedTo>
             <group>Account_Managers</group>
         </sharedTo>
@@ -28,24 +53,11 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>Campaign_Contact_Assignments_Sales</fullName>
+        <fullName>Share_with_Sales_Manager</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Designed to share Campaign Read/Write access to Sales Managers when created by Marketing users.</description>
-        <label>Campaign Contact Assignments Sales</label>
+        <label>Share with Sales Manager</label>
         <sharedTo>
             <group>Sales_Managers</group>
-        </sharedTo>
-        <sharedFrom>
-            <role>Marketing</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>Campaign_Contact_Assingments_Marketing</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Setup to allow Campaigns to be edited by Marketing users when created by other Marketing users</description>
-        <label>Campaign Contact Assingments Marketing</label>
-        <sharedTo>
-            <role>Marketing</role>
         </sharedTo>
         <sharedFrom>
             <role>Marketing</role>

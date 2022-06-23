@@ -1,7 +1,14 @@
 /**
- * Created by hasan on 6/06/2022.
+ * @author Hasantha Liyanage
+ * @date 2022-06-06
+ * @group Chas
+ * @tag productAndServices
+ * @tag DDS-10974
+ * @domain Help & Support
+ * @description DDS-10974 This class seperated the create case functionality for product and services.
+ * @changelog
+ * 2022-06-06 - Hasantha Liyanage - Created
  */
-
 public with sharing class ChasProductsAndServicesController extends ChasBase {
 
     /**

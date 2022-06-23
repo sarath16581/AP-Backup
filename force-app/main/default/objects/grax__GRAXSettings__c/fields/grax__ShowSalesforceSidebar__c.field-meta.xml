@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__ShowSalesforceSidebar__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If false, the Salesforce&apos;s sidebar will be hidden. If true, the Salesforce&apos;s sidebar will show up. This is a workaround for customers having issues with the &quot;GRAX&quot; Application&apos;s Setup page&apos;s performance, when the Salesforce&apos;s sidebar is present.</description>
+    <externalId>false</externalId>
+    <label>Show Salesforce Sidebar</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

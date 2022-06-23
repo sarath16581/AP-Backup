@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Last_Run_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Last Date this process successfully ran</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Last time this Scheduled Process was run</inlineHelpText>
+    <label>Last Run Date</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

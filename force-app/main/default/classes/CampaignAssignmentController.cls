@@ -5,6 +5,8 @@
  * @description Controller for Campaign contact assignments to facilitate campaign feedback survey.
  * @changelog
  * 2021-08-02 - Mathew Jose - Created
+ * 2022-05-16 - Prerna Rahangdale - Modified to show the Campaign Contact Assginment records to the CCA owner user field
+ *              value from the CCA record.
 */
 public with sharing class CampaignAssignmentController {
 	
@@ -42,7 +44,9 @@ public with sharing class CampaignAssignmentController {
 		if(campaignConAssignments != null){
 			Map<String, AccountCampaignContactWrapper> accountIdToCampaignContactWrapperMap = new Map<String, AccountCampaignContactWrapper>();
 			for(CampaignContactAssignment__c cca : campaignConAssignments){
-				if(cca.Organisation__r.OwnerId == UserInfo.getUserId()) {
+				// Show the records if the logged in user is a campaign Owner or a user in the CCA record. Else Follow back to AccountManager Owner
+				if((cca.Campaign_Contact_Owner__c != null && cca.Campaign_Contact_Owner__c == UserInfo.getUserId())
+						|| cca.Organisation__r.OwnerId == UserInfo.getUserId() || cca.Campaign__r.OwnerId == UserInfo.getUserId()) {
 					AccountCampaignContactWrapper acw = new AccountCampaignContactWrapper();
 					acw.assignmentId = cca.Id;
 					acw.assignmentDefaultStatus = campaignWithContactAssignmentsAndMembers?.ContactAssignmentDefaultStatus__c;
@@ -52,6 +56,7 @@ public with sharing class CampaignAssignmentController {
 					acw.campaignContactDescription = cca.Description__c;
 					acw.campaignMemberStatus = contactCampaignMemberMap.get(cca.Contact__c)?.Status;
 					acw.campaignMemberId = contactCampaignMemberMap.get(cca.Contact__c)?.Id;
+					acw.campaignContactOwner = cca.Campaign_Contact_Owner__r.Name;
 					accountIdToCampaignContactWrapperMap.put(cca.Organisation__c,acw);
 				}
 			}
@@ -107,7 +112,7 @@ public with sharing class CampaignAssignmentController {
 		@AuraEnabled public String campaignMemberId {get;set;}
 		@AuraEnabled public String campaignMemberStatus {get;set;}
 		@AuraEnabled public String campaignContactDescription {get;set;}
+		@AuraEnabled public String campaignContactOwner{get;set;}
 	}
-
 
 }

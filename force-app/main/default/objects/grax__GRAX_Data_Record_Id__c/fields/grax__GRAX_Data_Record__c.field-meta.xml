@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__GRAX_Data_Record__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Relationship to related GRAX_Data_Record</description>
+    <externalId>false</externalId>
+    <label>GRAX Data Record</label>
+    <referenceTo>grax__GRAX_Data_Record__c</referenceTo>
+    <relationshipLabel>GRAX Data Record Ids</relationshipLabel>
+    <relationshipName>GRAX_Data_Record_Ids</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

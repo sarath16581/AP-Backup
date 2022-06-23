@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Can_Delete_GRAX_Record__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Field Used for Internal Auditing</description>
+    <externalId>false</externalId>
+    <formula>(grax__Records_To_Process__c = 0 || grax__Records_To_Process__c = null) &amp;&amp;
+(
+  grax__GRAX_Schedule_Process__c = null &amp;&amp; grax__Execution_Unique_Key__c = null &amp;&amp; grax__of_Times_Sent__c &gt;= 24 ||
+  grax__GRAX_Schedule_Process__c = null &amp;&amp; grax__Execution_Unique_Key__c != null ||
+  (
+    (
+      NOT(grax__GRAX_Schedule_Process__r.grax__Is_Running__c) &amp;&amp;
+      DATEVALUE(CreatedDate) &lt; TODAY() - 15
+    ) ||
+    (
+      grax__GRAX_Schedule_Process__r.grax__Execution_Unique_Key_Helper__c != grax__Execution_Unique_Key__c &amp;&amp;
+      NOT(grax__GRAX_Schedule_Process__r.grax__Is_Running__c)
+    ) ||
+    (
+      (grax__Num_Records_Failed_To_Delete__c = 0 || ISBLANK(grax__Num_Records_Failed_To_Delete__c)) &amp;&amp;
+      grax__GRAX_Schedule_Process__r.grax__Can_Delete_GRAX_Records__c &amp;&amp;
+      (
+        ISPICKVAL(grax__Status__c, &apos;Sent Successful&apos;) ||
+        (
+          ISPICKVAL(grax__Status__c, &apos;Not Sent&apos;) &amp;&amp;
+          NOT(grax__GRAX_Schedule_Process__r.grax__Is_Running__c)
+        )
+      ) &amp;&amp;
+      (
+         ISBLANK(grax__GRAX_Archive_Process__c) ||
+         grax__GRAX_Archive_Process__r.grax__Can_Delete_GRAX_Record__c
+      )
+    )
+  )
+)</formula>
+    <label>Can Delete GRAX Record?</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

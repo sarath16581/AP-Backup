@@ -7,8 +7,9 @@
  * 2021-12-06 alex.volkov@auspost.com.au Added support for mocks
  * 2022-01-27 hasantha.liyanage@auspost.com.au added null check for convertToDateWithTimezoneFormat()
  * 2022-05-25 hasantha.liyanage@auspost.com.au changed addDays method DDS-9786
+ * 2022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 moved RoutingBypass, getContactId, parseInsertedCaseResultsAndCreateComment, createCaseComment and some other few minor functionalities to ChasBase
  * */
-public without sharing class ChasUtil{
+public without sharing class ChasUtil {
 
     public static ChasUtil getInstance() {
         return (ChasUtil)Application.Utilities.getInstance(ChasUtil.class);
@@ -277,7 +278,7 @@ public without sharing class ChasUtil{
 
         return (String)(caseCommentFlow.getVariableValue('CaseCommentID'));
     }
- 
+
 
     /**
      * @param data sanitise a string passed in with html and javascript escapes

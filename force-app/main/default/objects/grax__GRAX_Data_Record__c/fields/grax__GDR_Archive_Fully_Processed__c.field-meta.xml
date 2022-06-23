@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__GDR_Archive_Fully_Processed__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Determines that the GDR has completed all the potential actions, and, will not longer processed by any batch process</description>
+    <externalId>false</externalId>
+    <formula>grax__Num_Records_To_Process__c = grax__Num_Records_Successfully_Deleted__c + grax__Num_Records_Failed_To_Delete__c</formula>
+    <label>GDR Archive Fully Processed?</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

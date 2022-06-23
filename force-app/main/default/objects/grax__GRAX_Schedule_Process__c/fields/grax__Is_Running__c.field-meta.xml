@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>grax__Is_Running__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Field used to determine if the current Scheduled Process is in a &quot;running&quot; state</description>
+    <externalId>false</externalId>
+    <formula>ISPICKVAL (grax__Status__c, &quot;Running&quot;) ||
+ISPICKVAL (grax__Status__c, &quot;Finding Data&quot;) ||
+ISPICKVAL (grax__Status__c, &quot;Backing Up Data&quot;) ||
+ISPICKVAL (grax__Status__c, &quot;Aborting&quot;) ||
+ISPICKVAL (grax__Status__c, &quot;Sending data to GRAX&quot;)  ||
+ISPICKVAL (grax__Status__c, &quot;Waiting Files Backup to Complete&quot;)  ||
+ISPICKVAL (grax__Status__c, &quot;Deleting Salesforce records&quot;)  ||
+ISPICKVAL (grax__Status__c, &quot;Pending send data to GRAX&quot;)  ||
+ISPICKVAL (grax__Status__c, &quot;Starting Archive Process&quot;)</formula>
+    <label>Is Running</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

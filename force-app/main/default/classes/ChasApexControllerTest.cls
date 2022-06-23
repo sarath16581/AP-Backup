@@ -10,6 +10,8 @@
                										 The class should be overhauled to use stubbing and test data factory and lower number of test methods
                2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the method searchTrackingNumber() to handle multiple articles
                												Adapting the unit tests to support the coverage.
+               022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 moved the createCaseFromProductsAndServices method to ChasProductsAndServicesControllerTest.
+
 **/
 @IsTest(IsParallel=true)
 private class ChasApexControllerTest {

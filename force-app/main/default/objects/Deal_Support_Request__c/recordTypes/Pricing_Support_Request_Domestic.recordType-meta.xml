@@ -1110,27 +1110,23 @@
     <picklistValues>
         <picklist>Implementation_Stage__c</picklist>
         <values>
-            <fullName>Closed - Disengaged</fullName>
+            <fullName>Build Solution - Onboarding</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Closed - Maintained</fullName>
+            <fullName>Handover - Onboarding to Service</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Closed - Rejected</fullName>
+            <fullName>Idea - Sales</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Implement</fullName>
+            <fullName>Scope - Onboarding</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Plan</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Stabalise</fullName>
+            <fullName>Trading%2FGo Live - Onboarding</fullName>
             <default>false</default>
         </values>
     </picklistValues>
