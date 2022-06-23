@@ -1,0 +1,32 @@
+/*****************************************************************************************
+@description:   Handler Class for PUD_Container__c object.
+@author: Dattaraj Deshmukh
+History:
+-----------------------------------------------------------------------------------------
+23/06/2022      created    dattaraj.deshmukh@slalom.com      
+
+*****************************************************************************************/
+
+public with sharing class PUDContainerTriggerHandler extends ApplicationDomainTriggerHandler {
+    public override SObjectType getSObjectType() {
+		return PUD_Container__c.SObjectType;
+	}
+
+	public override List<Type> registerDomains() {
+		return new List<Type>{
+		};
+	}
+
+	/**
+	 * Unit of work that encapsulates all the required objects for each domain within this SObject
+	 */
+	public override ApplicationUnitOfWork newUnitOfWork() {
+		return ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
+	}
+
+	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
+		return new List<SObjectType>{
+            PUD_Container__c.SObjectType
+		};
+	}
+}
