@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description
-	>This permission set is used by the Coveo integration user to access the required permissions in Salesforce</description>
+    <description>This permission set is used by the Coveo integration user to access the required permissions in Salesforce</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>FAQ__kav.AP_Website_URL__c</field>

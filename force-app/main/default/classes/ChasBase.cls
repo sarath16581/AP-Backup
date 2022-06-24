@@ -11,7 +11,7 @@
  * @changelog
  * 2022-06-06 - Hasantha Liyanage - Created
  */
-public virtual with sharing class ChasBase {
+public virtual inherited sharing class ChasBase {
 
     /**
      * Grabs an instance of this class

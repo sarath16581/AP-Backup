@@ -289,6 +289,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ApptBundlePropagatePolicy.DateValue</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ApptBundlePropagatePolicy.ShouldAddConstantValue</field>
         <readable>true</readable>
     </fieldPermissions>

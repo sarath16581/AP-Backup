@@ -49,7 +49,7 @@
                 <field>ToPhoneNumber</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>CallDurationInSeconds</field>
             </layoutItems>
         </layoutColumns>

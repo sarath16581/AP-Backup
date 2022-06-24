@@ -776,4 +776,8 @@
         <name>grax__GRAX</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>Coveo_Search</name>
+        <type>ConnectedApp</type>
+    </appMenuItems>
 </AppMenu>
