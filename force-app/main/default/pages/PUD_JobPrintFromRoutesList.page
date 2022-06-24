@@ -1,0 +1,137 @@
+<!--
+ - Created by Kamil Szyc on 24/6/2022.
+ -->
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_RoutesPrintController"
+           recordSetVar="routes"
+           renderAs="pdf" applyBodyTag="false" id="PUD_JobPrintFromRoutesList">
+    <!--Page to allow printing of Duty for driver a backup to the mobile device -->
+    <head>
+        <style type="text/css" media="print">
+            @page {
+                @top-center {
+                    content: element(header);
+                }
+            }
+           @page {
+                size: A4 portrait;
+                margin-top:28mm;
+           }
+            div.header {
+            padding: 5px;
+            font-size: small;
+            position:running(header);
+            }
+           table {
+    			-fs-table-paginate: paginate;
+			}
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+            .pagecount:before {
+                content: counter(pages);
+            }
+            .table-header{
+                border-bottom: 1px solid black;
+            }
+            table.info{
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+                border-spacing:1px;
+            }
+
+            td {
+                padding: 5px;
+            }
+            td.bold{
+                font-weight:bold;
+            }
+            td.italic{
+                font-style:italic;
+            }
+            .job-headers {
+                font-weight:normal;
+            }
+
+
+
+        </style>
+
+    </head>
+    <apex:repeat value="{!routes}" var="route" id="selectedRoutes">
+        <div style="page-break-after:always;">
+            <div class="header">
+                <br/>
+                <c:PUD_JobsHeader Route="{! route}"/>
+                <br/>
+            </div>
+
+            <div class="content">
+                <table class="info">
+                    <tr>
+                        <td class="italic" style="width:100%">
+                            PTO’s are to familiarize themselves with duty statement at the commencement of their shift.
+                            Departures or alterations from these duties must be advised in writing and authorized by the
+                            O.I.C.<br/>
+                            The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at
+                            the
+                            cessation of use of any Aust. Post Vehicle.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold"><span class="left-align">
+                                <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
+                                <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
+                                <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
+                                <apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
+                                <apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
+                                <apex:outputField value="{! route.Start_Time__c}"/>
+                                <apex:outputField value="{! route.End_Time__c}"/>
+                            </span><span
+                                    style="float:right">Rest Break: #TBA</span></td>
+                    </tr>
+                </table>
+                <apex:pageBlock>
+                    <apex:pageBlockTable value="{! route.Bookings__r }" var="booking"
+                                         style="vertical-align:Top font:Calibri; font-size: 12pt"
+                                         headerClass="table-header">
+
+                        <apex:column headerValue="Arrive" style="vertical-align:Top !important; font:Calibri; font-size: small;"
+                                     width="80px"
+                                     headerClass="job-headers">
+                                <b>
+                                    <apex:outputField value="{! booking.Start_Time__c}"/>
+                                </b>
+                        </apex:column>
+                        <apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size:12pt"
+                                     width="430px" headerClass="job-headers">
+                            <div style="font-size: small;">
+                                <b>
+
+                                    <apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
+                                    (
+                                    <apex:outputField value="{!booking.Booking_Location_Address__c}"/>
+                                    )
+
+                                </b>
+                                <apex:outputField value="{!booking.Comments__c}"/>
+                                <br/>
+                                <apex:outputField value="{!booking.Key_Number__c}"/>
+                            </div>
+                        </apex:column>
+                        <b>
+                            <apex:column headerValue="Docks" style="vertical-align:Top" width="35px"
+                                         headerClass="job-headers">
+                                <apex:outputField value="{! booking.Dock_Number__c}"/>
+                            </apex:column>
+                            <apex:column headerValue="Depart" style="vertical-align:Top" width="0px"
+                                         headerClass="job-headers">
+                            </apex:column>
+
+                        </b>
+                    </apex:pageBlockTable>
+                </apex:pageBlock>
+            </div>
+        </div>
+    </apex:repeat>
+</apex:page>
