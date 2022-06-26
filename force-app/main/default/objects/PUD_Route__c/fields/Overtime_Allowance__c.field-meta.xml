@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Overtime_Allowance__c</fullName>
+    <businessStatus>Active</businessStatus>
     <description>Displaying the amount of overtime acknowledges that the driver is not expected to complete all pickups/deliveries within their designated shift hours and will be compensated for the additional time taken to complete the route.</description>
+    <inlineHelpText>Displaying the amount of overtime acknowledges that the driver is not expected to complete all pickups/deliveries within their designated shift hours and will be compensated for the additional time taken to complete the route.</inlineHelpText>
     <externalId>false</externalId>
     <label>Overtime Allowance</label>
     <length>50</length>
