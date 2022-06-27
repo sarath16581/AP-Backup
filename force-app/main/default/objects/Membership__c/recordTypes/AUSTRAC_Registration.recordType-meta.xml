@@ -18,13 +18,13 @@
         <values>
             <fullName>Did not assign</fullName>
             <default>false</default>
-        </values>
+        </values>        
         <values>
-            <fullName>No longer required</fullName>
+            <fullName>Non-Participation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Non-Participation</fullName>
+            <fullName>Western Union Withdrawn</fullName>
             <default>false</default>
         </values>
     </picklistValues>
