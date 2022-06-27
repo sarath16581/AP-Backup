@@ -54,6 +54,12 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             String complaint = '';  // DDS-11103 setting up the value to blank as when there is no value, the agent will fill this in console.
                                     // setting this only when Accessibility and disability option selected
 
+            //-- authenticated user details
+            String userContactEmail = authUserData.get('userContactEmail');
+            String userContactFirstName = authUserData.get('userContactFirstName');
+            String userContactLastName = authUserData.get('userContactLastName');
+            String userContactPhone = authUserData.get('userContactPhone');
+
             //-- Getting all wizard data details
             String wcid = (String) wizardData.get('wcid');
             String toWcid = (String) wizardData.get('toWcid');
@@ -76,11 +82,6 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             String deliveryState = (String) wizardData.get('deliveryState') != null ? (String) wizardData.get('deliveryState') : '';
             String deliveryPostcode = (String) wizardData.get('deliveryPostcode') != null ? (String) wizardData.get('deliveryPostcode') : '';
 
-            //-- authenticated user details
-            String userContactEmail = authUserData.get('userContactEmail');
-            String userContactFirstName = authUserData.get('userContactFirstName');
-            String userContactLastName = authUserData.get('userContactLastName');
-            String userContactPhone = authUserData.get('userContactPhone');
             //-- guest user details
             String givenName = (String) wizardData.get('givenName');
             String surname = (String) wizardData.get('surname');
@@ -88,10 +89,8 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             String phone = (String) wizardData.get('phone');
             //-- ENQUIRY DETAILS
             String enquiryDetails = (String) wizardData.get('enquiryDetails');
-
-            String contactPreferrence = (String) wizardData.get('contactPreferrence');  // Contact Preference, added by Edmarco on July 2019
-
-            String accessibilityIssueTypeName = (String) wizardData.get('accessibilityIssueTypeName');  // Contact Preference, added by Edmarco on July 2019
+            String contactPreferrence = (String) wizardData.get('contactPreferrence') != null ? (String) wizardData.get('contactPreferrence') : '';
+            String accessibilityIssueTypeName = (String) wizardData.get('accessibilityIssueTypeName');
 
             //-- Subject : Trimming the issueDetails details to 255 chars
             if (enquiryDetails != null) {
@@ -137,6 +136,12 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             if (issueDetailsType == 'ID, documents & accounts' && idDocumentsAccountsEnquiryType == 'Delete MyPost account') {
                 commentBody = commentBody + '\n' + 'MyPost account closure request, please check customer product holdings, refer SOP 05.06. MyPost Account – Cancel or merge MyPost account requests';
             }
+
+            if (issueDetailsType == 'Accessibility and disability') {
+                // end building Accessibility and Disablity comments
+                commentBody = commentBody + '\n' + getAccessibilityComments(wizardData);
+            }
+
 
             if (issueDetailsType == 'Mail products') {
                 if (mailProductsEnquiryType == '24/7 Parcel Locker') {
@@ -370,6 +375,99 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             System.debug('*** - Error while in createCaseFromProductandServices method ===' + ex.getStackTraceString());
         }
         return caseWrapper;
+    }
+
+    /**
+     * Formatting the case comments for Accessibility or Disability
+     * Details , Contact Preference, Enquiry details and the header are populated outside this method with existing functionality,
+     * and the orderTrackingNumber will be displayed if only if the value is available in it. All the other fields are mandatory in the UI
+     * @param wizardData passing all the info received from frontend
+     *
+     * @return formatted Accessibility or Disability case comment
+     */
+
+    private static String getAccessibilityComments(Map<String, String> wizardData) {
+        String postOffice = (String) wizardData.get('postOffice');
+        String poIssueType = (String) wizardData.get('poIssueType');
+        String issueType = (String) wizardData.get('issueType');
+        String selectedIssueTypeName = (String) wizardData.get('selectedIssueTypeName');
+        String issueDate = ChasUtil.convertToSFDateStrFormat(String.isNotBlank(wizardData.get('issueDate')) ? wizardData.get('issueDate'):'');
+        String enquiryDetails = (String) wizardData.get('enquiryDetails');
+        String accessibilityIssueTypeName = (String) wizardData.get('accessibilityIssueTypeName');
+        String orderTrackingNumber = (String) wizardData.get('orderTrackingNumber');
+        String selectedItemTypeName = (String) wizardData.get('selectedItemTypeName');
+        String selectedMedicationTypeName = (String) wizardData.get('selectedMedicationTypeName');
+        String selectedDeliveryAddress = (String) wizardData.get('selectedDeliveryAddress');
+        String webpageURL = (String) wizardData.get('webpageURL');
+        String webpageIssue = (String) wizardData.get('webpageIssue');
+        String assistiveTechnology = (String) wizardData.get('assistiveTechnology');
+        String selectedAssistiveType = (String) wizardData.get('selectedAssistiveType');
+        String accessibilityOptions = getAccessibilityOrDisabilityAssistanceOptions(wizardData); // read the options here
+
+        // start building Accessibility and Disability comments
+        String accessibilityComments = '';
+
+        if (accessibilityIssueTypeName == 'Post Office') {
+            accessibilityComments +=
+                    'Issue Category - ' + accessibilityIssueTypeName + '\n'+
+                    'Post office - ' + postOffice + '\n' +
+                    'Issue type - ' + poIssueType + '\n' + //Display option selected by customer from the list of values
+                    'When did the issue occur? - ' + issueDate + '\n' + //Display the date selected by customer
+                    'Has this issue occurred before? - ' + enquiryDetails + '\n'+ //Display option selected by customer
+                    'Accessibility or disability assistance - ' + accessibilityOptions + '\n'; // Display all options if multiple options selected by customer
+        } else if (accessibilityIssueTypeName == 'Delivery') {
+            accessibilityComments +=
+                    'Issue Category - ' + accessibilityIssueTypeName + '\n'+
+                     (String.isNotBlank(orderTrackingNumber) ? 'Tracking number  - ' + orderTrackingNumber + '\n' : '')+
+                    'Item type - ' + selectedItemTypeName + '\n' + //Display tacking number if entered by customer
+                    'Does this items contain essential medication ?  - ' + selectedMedicationTypeName + '\n' + //Display option selected by customer
+                    'Issue type - ' + issueType + '\n'+ //Display option selected by customer from the list of values
+                    'When did the issue occur? - ' + issueDate + '\n'+ //Display the date selected by the customer
+                    'Has this issue occurred before? - ' + selectedIssueTypeName + '\n'+ //Display option selected by customer
+                    'Delivery address - ' + selectedDeliveryAddress + '\n'+ //Display option selected by customer from the list of values
+                    'Accessibility or disability assistance - ' + accessibilityOptions + '\n'; // Display all options if multiple options selected by customer
+        } else if (accessibilityIssueTypeName == 'Website or app') {
+            accessibilityComments +=
+                    'Issue Category - ' + accessibilityIssueTypeName + '\n'+
+                    'Webpage URL or app name - ' + webpageURL + '\n'+ //Display text from the input field
+                    'Where was the issue on the webpage or app? - ' + webpageIssue + '\n'+ //Display text from the input field
+                    'Assistive technology - ' + assistiveTechnology + '\n'+ //Display option selected by customer
+                    'Assistive technology type - ' + selectedAssistiveType + '\n'+ //Display text from input field
+                    'Accessibility or disability assistance - ' + accessibilityOptions + '\n'; // Display all options if multiple options selected by customer
+        } else if (accessibilityIssueTypeName == 'Other issue type') {
+            accessibilityComments +=
+                    'Issue Category - ' + accessibilityIssueTypeName + '\n'+
+                     (String.isNotBlank(orderTrackingNumber) ? 'Tracking number  - ' + orderTrackingNumber + '\n' : '')+
+                    'When did the issue occur? - ' + issueDate + '\n'+ //Display the date selected by the customer
+                    'Accessibility or disability assistance - ' + accessibilityOptions + '\n'; // Display all options if multiple options selected by customer
+        }
+
+        return accessibilityComments;
+    }
+
+    /**
+     * format assistance options selected by the user
+     * @param wizardData passing all the info received from frontend
+     *
+     * @return formatted assistance options selected by the user
+     */
+    private static String getAccessibilityOrDisabilityAssistanceOptions(Map<String, String> wizardData) {
+        String auditory = (String) wizardData.get('accessibilityAuditoryOption');
+        String lLearningOrCognitive = (String) wizardData.get('accessibilityLearningOrCognitiveOption');
+        String mobility = (String) wizardData.get('accessibilityMobilityOption');
+        String seizures = (String) wizardData.get('accessibilitySeizuresOption');
+        String visual = (String) wizardData.get('accessibilityVisualOption');
+        String other = (String) wizardData.get('accessibilityOtherOption');
+        String otherReason = (String) wizardData.get('accessibilityOtherReason');
+
+
+        String accessibilityOptions = auditory != null && auditory.equalsIgnoreCase('true') ? ' Auditory,' : '';
+        accessibilityOptions += lLearningOrCognitive != null && lLearningOrCognitive.equalsIgnoreCase('true') ? ' Learning Or Cognitive,' : '';
+        accessibilityOptions += mobility != null && mobility.equalsIgnoreCase('true') ? ' Mobility,' : '';
+        accessibilityOptions += seizures != null && seizures.equalsIgnoreCase('true') ? ' Seizures,' : '';
+        accessibilityOptions += visual != null && visual.equalsIgnoreCase('true') ? ' Visual,' : '';
+        accessibilityOptions += other != null && other.equalsIgnoreCase('true') ? ' Other assistance'  + (otherReason != null ? ' : '+otherReason : '') : '';
+        return accessibilityOptions.removeEnd(',');
     }
 
 }
