@@ -2,10 +2,10 @@
 Author:   :      Jeoffrey Palmero
 Date Created:    07/29/2019
 Description:     Handles logic related to the Opportunity Line Item
-
 History
 <Date>           <Authors Name>     <Brief Description of Change>
 07/29/2019        JPalmero           Created
+28/06/2022		  KMcGuire			 Modified for including related account sales in OPC classification
 ------------------------------------------------------------*/
 public class OpportunityLineItemService {
     public static final String CLASSNAME = 'OpportunityLineItemService';
@@ -15,7 +15,6 @@ public class OpportunityLineItemService {
     private static final String currentProfileName = [SELECT Name FROM Profile WHERE Id = :userId].Name;
     private static final Set<String> salesAdminProfiles = Constants.salesAdminProfiles();
     private static final Set<String> salesUserProfiles = Constants.salesUserProfiles();
-
     /*****************************
      * Description: Populate the classification field upon update
      * Author: JPalmero
@@ -35,7 +34,6 @@ public class OpportunityLineItemService {
         Set<Id> productIdSet = new Set<Id>();
         Set<Id> tradedAcctSet = new Set<Id>();
         Set<Id> tradedProductSet = new Set<Id>();
-        Set<Id> accountIdSet = new Set<Id>();
         Set<Id> optyIdSet = new Set<Id>();
         Map<Id, Id> optyOrgMap = new Map<Id, Id>();
         Map<Id, String> acctRevenueMap = new Map<Id, String>();
@@ -51,7 +49,7 @@ public class OpportunityLineItemService {
                 productIdSet.add(optyLine.Product2Id);//saves the product Id to the list
                 optyIdSet.add(optyLine.OpportunityId);
             }
-            
+            Set<String> accountIdSet = new Set<String>();
             if(optyIdSet != NULL){
                 for(Opportunity optyObj : [SELECT Id, AccountId, StageName 
                                            FROM Opportunity 
@@ -62,109 +60,42 @@ public class OpportunityLineItemService {
                 }
             }
             if(accountIdSet != NULL){
-                for (Budget_and_Revenue__c bar : [SELECT Organisation__c, Product__c, Financial_Year__c, 
-                                                  Jan_Revenue_Amount__c, Feb_Revenue_Amount__c, Mar_Revenue_Amount__c,
-                                                  Apr_Revenue_Amount__c, May_Revenue_Amount__c, Jun_Revenue_Amount__c,
-                                                  Jul_Revenue_Amount__c, Aug_Revenue_Amount__c, Sep_Revenue_Amount__c,
-                                                  Oct_Revenue_Amount__c, Nov_Revenue_Amount__c, Dec_Revenue_Amount__c,
-                                                  Total_Revenue_Amount__c
-                                                  FROM Budget_and_Revenue__c
-                                                  WHERE Organisation__c IN : accountIdSet
-                                                  AND Financial_Year__c != NULL
-                                                  ORDER BY Financial_Year__c DESC
-                                                  LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())])
-                {  
-                    tradedProductSet.add(bar.Product__c);//products that have been traded with AuPost
-                    tradedAcctSet.add(bar.Organisation__c);//accounts in this set have traded any product
+                List<OPCUtility.ParentAccountRevenue> revenue = OPCUtility.getParentAccountRevenueMaP(accountIdSet).values();
+                revenue.sort();
+                for (OPCUtility.ParentAccountRevenue bar : revenue) {
+                    bar.group();             					
+                    tradedProductSet.add(bar.Product);//products that have been traded with AuPost
+                    tradedAcctSet.add(bar.Organisation);//accounts in this set have traded any product
+                    //saves the monthly revenue of a product for the current and previous fiscal year
                     // January
-                    if(bar.Jan_Revenue_Amount__c > 0 || bar.Jan_Revenue_Amount__c != NULL){//saves the monthly revenue of a product for the current and previous fiscal year
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '1' + String.valueOf(bar.Financial_Year__c), bar.Jan_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '1' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '1' + String.valueOf(bar.Financial_Year), bar.Jan_Revenue_Amount);
                     // February
-                    if(bar.Feb_Revenue_Amount__c > 0 || bar.Feb_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '2' + String.valueOf(bar.Financial_Year__c), bar.Feb_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '2' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+					fyProductMap.put(String.valueOf(bar.Product) + '2' + String.valueOf(bar.Financial_Year), bar.Feb_Revenue_Amount);
                     // March
-                    if(bar.Mar_Revenue_Amount__c > 0 || bar.Mar_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '3' + String.valueOf(bar.Financial_Year__c), bar.Mar_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '3' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '3' + String.valueOf(bar.Financial_Year), bar.Mar_Revenue_Amount);
                     // April
-                    if(bar.Apr_Revenue_Amount__c > 0 || bar.Apr_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '4' + String.valueOf(bar.Financial_Year__c), bar.Apr_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '4' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+					fyProductMap.put(String.valueOf(bar.Product) + '4' + String.valueOf(bar.Financial_Year), bar.Apr_Revenue_Amount);
                     // May
-                    if(bar.May_Revenue_Amount__c > 0 || bar.May_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '5' + String.valueOf(bar.Financial_Year__c), bar.May_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '5' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+					fyProductMap.put(String.valueOf(bar.Product) + '5' + String.valueOf(bar.Financial_Year), bar.May_Revenue_Amount);
                     // June
-                    if(bar.Jun_Revenue_Amount__c > 0 || bar.Jun_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '6' + String.valueOf(bar.Financial_Year__c), bar.Jun_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '6' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '6' + String.valueOf(bar.Financial_Year), bar.Jun_Revenue_Amount);
                     // July
-                    if(bar.Jul_Revenue_Amount__c > 0 || bar.Jul_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '7' + String.valueOf(bar.Financial_Year__c), bar.Jul_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '7' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '7' + String.valueOf(bar.Financial_Year), bar.Jul_Revenue_Amount);
                     // August
-                    if(bar.Aug_Revenue_Amount__c > 0 || bar.Aug_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '8' + String.valueOf(bar.Financial_Year__c), bar.Aug_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '8' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                   	fyProductMap.put(String.valueOf(bar.Product) + '8' + String.valueOf(bar.Financial_Year), bar.Aug_Revenue_Amount);
                     // September
-                    if(bar.Sep_Revenue_Amount__c > 0 || bar.Sep_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '9' + String.valueOf(bar.Financial_Year__c), bar.Sep_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '9' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                   	fyProductMap.put(String.valueOf(bar.Product) + '9' + String.valueOf(bar.Financial_Year), bar.Sep_Revenue_Amount);
                     // October
-                    if(bar.Oct_Revenue_Amount__c > 0 || bar.Oct_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '10' + String.valueOf(bar.Financial_Year__c), bar.Oct_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '10' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '10' + String.valueOf(bar.Financial_Year), bar.Oct_Revenue_Amount);
                     // November
-                    if(bar.Nov_Revenue_Amount__c > 0 || bar.Nov_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '11' + String.valueOf(bar.Financial_Year__c), bar.Nov_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '11' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '11' + String.valueOf(bar.Financial_Year), bar.Nov_Revenue_Amount);
                     // December
-                    if(bar.Dec_Revenue_Amount__c > 0 || bar.Dec_Revenue_Amount__c != NULL){ 
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '12' + String.valueOf(bar.Financial_Year__c), bar.Dec_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '12' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '12' + String.valueOf(bar.Financial_Year), bar.Dec_Revenue_Amount);
                     
-                    if(bar.Total_Revenue_Amount__c > ntAmount.Amount__c){//if Total Revenue exceeds the NTA, save the id
-                        barTotalRevMap.put(bar.Organisation__c, bar.Total_Revenue_Amount__c);
-                        productTotalRevMap.put(bar.Product__c, bar.Total_Revenue_Amount__c);
-                        orgProductMap.put(bar.Organisation__c, bar.Product__c);
+                    if(bar.Total_Revenue_Amount > ntAmount.Amount__c){//if Total Revenue exceeds the NTA, save the id
+                        barTotalRevMap.put(bar.Organisation, bar.Total_Revenue_Amount);
+                        productTotalRevMap.put(bar.Product, bar.Total_Revenue_Amount);
+                        orgProductMap.put(bar.Organisation, bar.Product);
                     }
 
                 }//end BaR for
@@ -435,6 +366,8 @@ public class OpportunityLineItemService {
             }
             
         }catch(exception excp){
+            system.debug('********* '+excp.getMessage());
+            system.debug('********* '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'populateClassification', triggerName, LoggingLevel.ERROR);
         }
     }
@@ -458,7 +391,7 @@ public class OpportunityLineItemService {
         Set<Id> productIdSet = new Set<Id>();
         Set<Id> tradedAcctSet = new Set<Id>();
         Set<Id> tradedProductSet = new Set<Id>();
-        Set<Id> accountIdSet = new Set<Id>();
+        Set<String> accountIdSet = new Set<String>();
         Set<Id> optyIdSet = new Set<Id>();
         List<OpportunityLineItem> newOptyProdList = new List<OpportunityLineItem>();
         List<OpportunityLineItem> optyLIToUpdate = new List<OpportunityLineItem>();
@@ -508,108 +441,40 @@ public class OpportunityLineItemService {
                 }
             }
             if(accountIdSet != NULL){//get all T&R records from the organisation
-                for (Budget_and_Revenue__c bar : [SELECT Organisation__c, Product__c, Financial_Year__c, 
-                                                  Jan_Revenue_Amount__c, Feb_Revenue_Amount__c, Mar_Revenue_Amount__c,
-                                                  Apr_Revenue_Amount__c, May_Revenue_Amount__c, Jun_Revenue_Amount__c,
-                                                  Jul_Revenue_Amount__c, Aug_Revenue_Amount__c, Sep_Revenue_Amount__c,
-                                                  Oct_Revenue_Amount__c, Nov_Revenue_Amount__c, Dec_Revenue_Amount__c,
-                                                  Total_Revenue_Amount__c
-                                                  FROM Budget_and_Revenue__c
-                                                  WHERE Organisation__c IN : accountIdSet
-                                                  AND Financial_Year__c != NULL
-                                                  LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())])
+				for(OPCUtility.ParentAccountRevenue bar : OPCUtility.getParentAccountRevenueMap(accountIdSet).values())
                 {  
-                    tradedProductSet.add(bar.Product__c);//products that have been traded with AuPost
-                    tradedAcctSet.add(bar.Organisation__c);//accounts in this set have traded any product
-                    // January
-                    if(bar.Jan_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '1' + String.valueOf(bar.Financial_Year__c), bar.Jan_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '1' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    bar.group();
+                    tradedProductSet.add(bar.Product);//products that have been traded with AuPost
+                    tradedAcctSet.add(bar.Organisation);//accounts in this set have traded any product
+                     // January
+                    fyProductMap.put(String.valueOf(bar.Product) + '1' + String.valueOf(bar.Financial_Year), bar.Jan_Revenue_Amount);
                     // February
-                    if(bar.Feb_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '2' + String.valueOf(bar.Financial_Year__c), bar.Feb_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '2' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+					fyProductMap.put(String.valueOf(bar.Product) + '2' + String.valueOf(bar.Financial_Year), bar.Feb_Revenue_Amount);
                     // March
-                    if(bar.Mar_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '3' + String.valueOf(bar.Financial_Year__c), bar.Mar_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '3' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '3' + String.valueOf(bar.Financial_Year), bar.Mar_Revenue_Amount);
                     // April
-                    if(bar.Apr_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '4' + String.valueOf(bar.Financial_Year__c), bar.Apr_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '4' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+					fyProductMap.put(String.valueOf(bar.Product) + '4' + String.valueOf(bar.Financial_Year), bar.Apr_Revenue_Amount);
                     // May
-                    if(bar.May_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '5' + String.valueOf(bar.Financial_Year__c), bar.May_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '5' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+					fyProductMap.put(String.valueOf(bar.Product) + '5' + String.valueOf(bar.Financial_Year), bar.May_Revenue_Amount);
                     // June
-                    if(bar.Jun_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '6' + String.valueOf(bar.Financial_Year__c), bar.Jun_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '6' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '6' + String.valueOf(bar.Financial_Year), bar.Jun_Revenue_Amount);
                     // July
-                    if(bar.Jul_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '7' + String.valueOf(bar.Financial_Year__c), bar.Jul_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '7' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '7' + String.valueOf(bar.Financial_Year), bar.Jul_Revenue_Amount);
                     // August
-                    if(bar.Aug_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '8' + String.valueOf(bar.Financial_Year__c), bar.Aug_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '8' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                   	fyProductMap.put(String.valueOf(bar.Product) + '8' + String.valueOf(bar.Financial_Year), bar.Aug_Revenue_Amount);
                     // September
-                    if(bar.Sep_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '9' + String.valueOf(bar.Financial_Year__c), bar.Sep_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '9' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                   	fyProductMap.put(String.valueOf(bar.Product) + '9' + String.valueOf(bar.Financial_Year), bar.Sep_Revenue_Amount);
                     // October
-                    if(bar.Oct_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '10' + String.valueOf(bar.Financial_Year__c), bar.Oct_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '10' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '10' + String.valueOf(bar.Financial_Year), bar.Oct_Revenue_Amount);
                     // November
-                    if(bar.Nov_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '11' + String.valueOf(bar.Financial_Year__c), bar.Nov_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '11' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '11' + String.valueOf(bar.Financial_Year), bar.Nov_Revenue_Amount);
                     // December
-                    if(bar.Dec_Revenue_Amount__c > 0){ 
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '12' + String.valueOf(bar.Financial_Year__c), bar.Dec_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '12' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
+                    fyProductMap.put(String.valueOf(bar.Product) + '12' + String.valueOf(bar.Financial_Year), bar.Dec_Revenue_Amount);
                     
-                    if(bar.Total_Revenue_Amount__c > ntAmount.Amount__c){//if total revenue exceeds the NTA, save the id
-                        barTotalRevMap.put(bar.Organisation__c, bar.Total_Revenue_Amount__c);
-                        productTotalRevMap.put(bar.Product__c, bar.Total_Revenue_Amount__c);
-                        orgProductMap.put(bar.Organisation__c, bar.Product__c);
+                    if(bar.Total_Revenue_Amount > ntAmount.Amount__c){//if Total Revenue exceeds the NTA, save the id
+                        barTotalRevMap.put(bar.Organisation, bar.Total_Revenue_Amount);
+                        productTotalRevMap.put(bar.Product, bar.Total_Revenue_Amount);
+                        orgProductMap.put(bar.Organisation, bar.Product);
                     }
                 }//end BaR for
             }
@@ -814,7 +679,6 @@ public class OpportunityLineItemService {
                                     totalRevenue += 0;
                                 }
                             }
-                            
                             //Example: Gets the revenue from Feb to June FY2018
                             for(Integer countRev = startMonth; countRev < 7; countRev++){//computes from January to June of the CFY
                                 if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
@@ -824,7 +688,7 @@ public class OpportunityLineItemService {
                                     totalRevenue += 0;
                                 }
                             }
-                            
+
                             if(totalRevenue == 0 && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId)) && !productTotalRevMap.containsKey(optyLine.Product2Id)){
                                 optyLine.Classification__c = Constants.CLSS_CROSSSELL;
                             }
@@ -838,6 +702,7 @@ public class OpportunityLineItemService {
                             else if(ntAmount.Amount__c > totalRevenue && ntAmount.Amount__c > totalOutsideRevenue && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){//total 12 months revenue && outside revenue is less than NTA
                                 optyLine.Classification__c = Constants.CLSS_CROSSSELL;
                             }
+
                             else if(ntAmount.Amount__c < totalRevenue){//if the total revenue exceeds the NTA, it can either be Renewal or Growth depending on the Growth? field
                                 if(Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
                                     optyLine.Classification__c = Constants.CLSS_RENEWAL;
@@ -852,6 +717,8 @@ public class OpportunityLineItemService {
             }
             
         }catch(exception excp){
+            system.debug('********* '+excp.getMessage());
+            system.debug('********* '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'updateClassification', triggerName, LoggingLevel.ERROR);
         }
     }
@@ -885,6 +752,8 @@ public class OpportunityLineItemService {
                 }
             }
         }catch(exception excp){
+            system.debug('********* '+excp.getMessage());
+            system.debug('********* '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'beforeDeleteValidation', triggerName, LoggingLevel.ERROR);
         }
     }
@@ -917,7 +786,12 @@ public class OpportunityLineItemService {
                 }
             }
         }catch(exception excp){
+       		system.debug('********* '+excp.getMessage());
+            system.debug('******** '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'changeClassification', triggerName, LoggingLevel.ERROR);
         }
     }
+    
+
+  
 }

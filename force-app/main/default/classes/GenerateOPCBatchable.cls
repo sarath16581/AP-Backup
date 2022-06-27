@@ -15,6 +15,7 @@ History:
 11.10.2012  M. Isidro (Cloud Sherpas)   Added filter to exclude OPC records under review by Sales Manager
 15.10.2012  R. Enojas (Salesforce)      Added code to clear OPCs whose Revenue Schedules have been deleted due to 'Product Error' (CR 27)
 19.12.2012	R. Enojas (Salesforce)		Changed date criteria on batch scope to start from July 1st of the CFY
+28/06/2022 KMcGuire	Modified for including related account sales in OPC classification
 **************************************************/
 
 global class GenerateOPCBatchable implements Database.Batchable<SObject> {
@@ -22,24 +23,6 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
     public Boolean testRun = false;
 
     global String query;
-    
-/*  
-    global Map<String, Opp_Product_Classification__c> idOPCMap = new Map<String, Opp_Product_Classification__c>();
-    global Map<String, Budget_and_Revenue__c> idBARMap = new Map<String, Budget_and_Revenue__c>();
-    global Map<String, Revenue_Schedule__c> idRSMap = new Map<String, Revenue_Schedule__c>();
-    global Map<String, Id> uniqueIdopcIdMap = new Map<String, Id>();
-    global Map<String, String> renewalUpsellMap = new Map<String, String>();
-    global Map<String, Revenue_Schedule__c> opcIdRSMap = new Map<String, Revenue_Schedule__c>();
-    global List<Opp_Product_Classification__c> opcList = new List<Opp_Product_Classification__c>();
-    global List<Case> caseList = new List<Case>();  
-    
-    global Map<String, Opp_Product_Classification__c> idOPCExistingMap = new Map<String, Opp_Product_Classification__c>();
-    global List<Opp_Product_Classification__c> insertOPCList = new List<Opp_Product_Classification__c>();
-    global List<Opp_Product_Classification__c> updateOPCList = new List<Opp_Product_Classification__c>();    
-    global List<Opp_Product_Classification__c> requeryOPCList = new List<Opp_Product_Classification__c>();
-    
-    global String rtId = [SELECT Id FROM RecordType WHERE IsActive = true AND SobjectType='Case' AND Name='OPC Exception' Limit 1].Id;  
-*/    
     
     global GenerateOPCBatchable() {
     }
@@ -104,9 +87,9 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
         system.debug('### EXECUTE:');
         system.debug('***getLimitHeapSize: ' + Limits.getLimitHeapSize());
         system.debug('***getHeapSize: ' + Limits.getHeapSize());        
-
+        
         Map<String, Opp_Product_Classification__c> idOPCMap = new Map<String, Opp_Product_Classification__c>();
-        Map<String, Budget_and_Revenue__c> idBARMap = new Map<String, Budget_and_Revenue__c>();
+        Map<String, OPCUtility.ParentAccountRevenue> idBARMap = new Map<String, OPCUtility.ParentAccountRevenue>();
         Map<String, Revenue_Schedule__c> idRSMap = new Map<String, Revenue_Schedule__c>();
         Map<String, Id> uniqueIdopcIdMap = new Map<String, Id>();
         Map<String, String> renewalUpsellMap = new Map<String, String>();
@@ -127,16 +110,7 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
         List<String> opcIdList = new List<String>();        
         
         String rtId = [SELECT Id FROM RecordType WHERE IsActive = true AND SobjectType='Case' AND Name='OPC Exception' Limit 1].Id;  
-/*      
-        Map<String, Opp_Product_Classification__c> idOPCMap = new Map<String, Opp_Product_Classification__c>();
-        Map<String, Budget_and_Revenue__c> idBARMap = new Map<String, Budget_and_Revenue__c>();
-        Map<String, Revenue_Schedule__c> idRSMap = new Map<String, Revenue_Schedule__c>();
-        Map<String, Id> uniqueIdopcIdMap = new Map<String, Id>();
-        Map<String, String> renewalUpsellMap = new Map<String, String>();
-        Map<String, Revenue_Schedule__c> opcIdRSMap = new Map<String, Revenue_Schedule__c>();
-        List<Opp_Product_Classification__c> opcList = new List<Opp_Product_Classification__c>();
-        List<Case> caseList = new List<Case>(); 
-*/
+
 
         // Get OPC Id to be deleted from Revenue Schedule records   
         system.debug('### scope: ' + scope);
@@ -309,16 +283,7 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 
             system.debug('***getHeapSize: After NULLING: REDUCED: ' + Limits.getHeapSize());    
         }
-    
-        
-/*      
-        caseList.clear();
-        if (!updateOPCList.isEmpty()) {
-            requeryOPCList = OPCUtility.requeryOPCList(updateOPCList, requeryOPCList);
-            system.debug('***requeryOPCList: ' + requeryOPCList);
-            OPCUtility.checkForException(requeryOPCList, idBARMap, opcIdRSMap, caseList, rtId, rsList);         
-        }
-*/                      
+                  
     }
 
     
@@ -326,13 +291,5 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
         system.debug('*** FINISH:');    
     }   
     
-/*
-    @isTest(seeAllData=true)
-    private static void testGenerateOPCBatchable() {
-        test.startTest();
-        GenerateOPCBatchable gob = new GenerateOPCBatchable();
-        Database.executeBatch(gob, 1000);
-        test.stopTest();
-    }   
-*/
+
 }

@@ -7,6 +7,7 @@ History:
 --------------------------------------------------
 13.08.2012  M. Isidro (Cloud Sherpas)   Created
 04.09.2012  M. Isidro (Cloud Sherpas)   Added test coverage
+28/06/2022 KMcGuire	Modified for including related account sales in OPC classification
 **************************************************/
 @istest
 global class OPCBatchableSchedulable implements Schedulable {
