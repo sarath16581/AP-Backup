@@ -11,10 +11,10 @@
 public with sharing class PUD_RoutesPrintController {
     List<PUD_Route__c> routes {get;set;}
     //Constructor
-    public PUD_RoutesPrintController(ApexPages.StandardSetController ssc){
+    public PUD_RoutesPrintController(ApexPages.StandardSetController ssc) {
         //Identify the selected records from Listview
         Set<Id> selectedRouteIDs = new Set<Id>();
-        for(PUD_Route__c rts : (PUD_Route__c[])ssc.getSelected()){
+        for (PUD_Route__c rts : (PUD_Route__c[]) ssc.getSelected()) {
             selectedRouteIDs.add(rts.Id);
         }
         routes = getSelectedRoutesWithBookings(selectedRouteIDs);

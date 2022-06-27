@@ -55,6 +55,7 @@
 
 
 
+
         </style>
 
     </head>
@@ -85,8 +86,15 @@
                                 <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
                                 <apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
                                 <apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
-                                <apex:outputField value="{! route.Start_Time__c}"/>
-                                <apex:outputField value="{! route.End_Time__c}"/>
+                                {!HOUR(route.Start_Time__c)}
+                                <apex:outputText value="{0,number,00}">
+                                        <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
+                                    </apex:outputText>
+                                -&nbsp;
+                                {!HOUR(route.End_Time__c)}
+                                <apex:outputText value="{0,number,00}">
+                                        <apex:param value="{!MINUTE(route.End_Time__c)}"/>
+                                    </apex:outputText>
                             </span><span
                                     style="float:right">Rest Break: #TBA</span></td>
                     </tr>
@@ -96,12 +104,16 @@
                                          style="vertical-align:Top font:Calibri; font-size: 12pt"
                                          headerClass="table-header">
 
-                        <apex:column headerValue="Arrive" style="vertical-align:Top !important; font:Calibri; font-size: small;"
+                        <apex:column headerValue="Arrive"
+                                     style="vertical-align:Top !important; font:Calibri; font-size: small;"
                                      width="80px"
                                      headerClass="job-headers">
-                                <b>
-                                    <apex:outputField value="{! booking.Start_Time__c}"/>
-                                </b>
+                            <b>
+                                {!HOUR(booking.Start_Time__c)}
+                                <apex:outputText value="{0,number,00}">
+                                    <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
+                                </apex:outputText>
+                            </b>
                         </apex:column>
                         <apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size:12pt"
                                      width="430px" headerClass="job-headers">
@@ -110,13 +122,14 @@
 
                                     <apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
                                     (
-                                    <apex:outputField value="{!booking.Booking_Location_Address__c}"/>
+                                    <apex:outputField value="{!booking.Booking_Location_Street__c}"/>
+                                    <apex:outputField value="{!booking.Booking_Location_City__c}"/>
                                     )
 
                                 </b>
-                                <apex:outputField value="{!booking.Comments__c}"/>
+                                <apex:outputField value="{!booking.Comments__c}" style="vertical-align:Top; font: Calibri; font-size:small"/>
                                 <br/>
-                                <apex:outputField value="{!booking.Key_Number__c}"/>
+                                <apex:outputField value="{!booking.Key_Number__c}" style="vertical-align:Top; font: Calibri; font-size:small"/>
                             </div>
                         </apex:column>
                         <b>
@@ -124,8 +137,15 @@
                                          headerClass="job-headers">
                                 <apex:outputField value="{! booking.Dock_Number__c}"/>
                             </apex:column>
-                            <apex:column headerValue="Depart" style="vertical-align:Top" width="0px"
+                            <apex:column headerValue="Depart" style="vertical-align:Top; font: Calibri; font-size:small"
+                                         width="0px"
                                          headerClass="job-headers">
+                                <b>
+                                    {!HOUR(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)}
+                                    <apex:outputText value="{0,number,00}">
+                                        <apex:param value="{!MINUTE(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)}"/>
+                                    </apex:outputText>
+                                </b>
                             </apex:column>
 
                         </b>

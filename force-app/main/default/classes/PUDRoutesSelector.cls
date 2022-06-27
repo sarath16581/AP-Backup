@@ -63,7 +63,7 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 
 	protected override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField>{
-				PUD_Route__c.Id, PUD_Route__c.Name, PUD_Route__c.Depot__c, PUD_Route__c.Monday__c, PUD_Route__c.Tuesday__c, PUD_Route__c.Wednesday__c, PUD_Route__c.Thursday__c, PUD_Route__c.Friday__c
+				PUD_Route__c.Id, PUD_Route__c.Name, PUD_Route__c.Depot__c, PUD_Route__c.Monday__c, PUD_Route__c.Tuesday__c, PUD_Route__c.Wednesday__c, PUD_Route__c.Thursday__c, PUD_Route__c.Friday__c, PUD_Route__c.Start_Time__c, PUD_Route__c.End_Time__c
 		};
 	}
 
