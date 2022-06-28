@@ -9,17 +9,15 @@
  */
 public with sharing class ChasEDDServiceEstimates {
     @AuraEnabled
-    public static ChasApexController.TrackingNumberDetails getEDDEstimates(Map <String,String> wizardData){
+    public static ChasApexController.TrackingNumberDetails getEDDEstimates(String articleId, String recipientPostcode){
         HttpResponse httpRes = new HttpResponse();
         String jsonString='';
         //Initializing the return wrapper obj
         ChasApexController.TrackingNumberDetails trackingNumDetailsWrapperObj = new ChasApexController.TrackingNumberDetails();
-        String articleId = wizardData.get('trackingId');
-        String deliveryOrRecipientPostcode = wizardData.get('recipientPostcode');
         // when no EDD returned from consignment service, call the shipment edd service to get delivery estimates
-        if(!String.isEmpty(articleId) && !String.isEmpty(deliveryOrRecipientPostcode))
+        if(!String.isEmpty(articleId) && !String.isEmpty(recipientPostcode))
             {
-                httpRes = ChasCallout.requestEDDEstimates(articleId,deliveryOrRecipientPostcode);
+                httpRes = ChasCallout.requestEDDEstimates(articleId,recipientPostcode);
                 jsonString = httpRes.getBody();
             }
             // status code 200 is success and the response body is not empty
