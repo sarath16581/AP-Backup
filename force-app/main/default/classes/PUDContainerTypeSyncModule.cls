@@ -1,17 +1,5 @@
-/**
- * @description
- * Domain Module to handle sync when container types on Bookings/Jobs are added/updated.
- * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
- * @author Dattaraj Deshmukh
- * @date 2022-06-23
- * @group Domain
- * @domain PUD
- * @changelog
- * 2021-08-12 - Dattaraj Deshmukh - Created.
- */
-public with sharing class PUBContainerTypeSyncModule extends ApplicationDomain.Module{
-
-	private static final Set<SObjectField> MONITORED_FIELDS_FOR_UPDATES {
+public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.Module{
+    private static final Set<SObjectField> MONITORED_FIELDS_FOR_UPDATES {
 		get {
 			if (MONITORED_FIELDS_FOR_UPDATES == null) {
 				MONITORED_FIELDS_FOR_UPDATES = new Set<SObjectField>{
@@ -23,12 +11,12 @@ public with sharing class PUBContainerTypeSyncModule extends ApplicationDomain.M
 		set;
 	}
 
-    public static PUBContainerTypeSyncModule newInstance() {
-		return (PUBContainerTypeSyncModule) Application.Utilities.newInstance(PUBContainerTypeSyncModule.class);
+    public static PUDContainerTypeSyncModule newInstance() {
+		return (PUDContainerTypeSyncModule) Application.Utilities.newInstance(PUDContainerTypeSyncModule.class);
 	}
 
 	// Setup which trigger events this module should respond to
-	public PUBContainerTypeSyncModule() {
+	public PUDContainerTypeSyncModule() {
 		getTriggerEvents().enableAfterUpdate().enableAfterInsert();
 	}
 
@@ -37,25 +25,32 @@ public with sharing class PUBContainerTypeSyncModule extends ApplicationDomain.M
 	 */
 	public class Constructor implements ApplicationDomain.IConstructableModule {
 		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module)PUBContainerTypeSyncModule.newInstance();
+			return (ApplicationDomain.Module)PUDContainerTypeSyncModule.newInstance();
 		}
 	}
 
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
-
+        system.debug('in after update: ');
+        processContainerUpdatesOnBookings((List<PUD_Container__c> )records, (Map<Id, PUD_Container__c> ) existingRecords, uow);
     }
 
 
     public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow){
-
+		system.debug('in after insert: ');
+        processContainerUpdatesOnBookings((List<PUD_Container__c> )records, null, uow);
 
     }
 
 
 	private void processContainerUpdatesOnBookings(List<PUD_Container__c> records, Map<Id, PUD_Container__c> existingRecords, ApplicationUnitOfWork uow){
 
-		//check if records are updated and updated via booking
-		Map<Id, Set<SObjectField>> changedRecords = getIsChanged(records, existingRecords, MONITORED_FIELDS_FOR_UPDATES);
+		Map<Id, Set<SObjectField>> changedRecords;
+
+		//check null as existingRecords will be unavailable for AfterInsert trigger.
+		if(existingRecords != null){
+			//check if records are updated and updated via booking
+			changedRecords = getIsChanged(records, existingRecords, MONITORED_FIELDS_FOR_UPDATES);
+		}
 		Set<Id> bookingIdSet = new Set<Id>();
 		for(PUD_Container__c container : records){
 
@@ -65,17 +60,17 @@ public with sharing class PUBContainerTypeSyncModule extends ApplicationDomain.M
 		}
 
 
-		//query jobs related to bookings.
+		//query booking records
 		List<PUD_Booking__c> bookings = PUDBookingsSelector.newInstance().selectById(bookingIdSet);
 
 		//call utility method to refreshJobs.
 		try{
-			PUDUtility.getInstance().refreshJobs(bookings);
+			PUDUtility.getInstance().processContainers(records, bookings);
 		} catch(Exception exp) {
+            system.debug('Exp: '+exp);
 			//Log error to Exception object for analysis
-			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), PUDConstants.PICKUP_BOOKING_APP, PUBContainerTypeSyncModule.class.getName(), 'refreshContainerTypesSync', 'PUDContainerTrigger', LoggingLevel.ERROR);
+			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), PUDConstants.PICKUP_BOOKING_APP, PUDContainerTypeSyncModule.class.getName(), 'refreshContainerTypesSync', 'PUDContainerTrigger', LoggingLevel.ERROR);
 		}
 	}
-
 
 }

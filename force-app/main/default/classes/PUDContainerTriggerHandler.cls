@@ -14,6 +14,7 @@ public with sharing class PUDContainerTriggerHandler extends ApplicationDomainTr
 
 	public override List<Type> registerDomains() {
 		return new List<Type>{
+			PUDContainersDomain.class
 		};
 	}
 
@@ -26,7 +27,9 @@ public with sharing class PUDContainerTriggerHandler extends ApplicationDomainTr
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-            PUD_Container__c.SObjectType
+            PUD_Container__c.SObjectType,
+			PUD_Booking__c.SObjectType,
+			PUD_Job__c.SObjectType			
 		};
 	}
 }

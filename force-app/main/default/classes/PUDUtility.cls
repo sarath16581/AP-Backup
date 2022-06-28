@@ -213,6 +213,7 @@ public with sharing class PUDUtility {
 	//Refresh compares existing jobs with new jobs based on any changes to bookings, and either inserts records (if new), updates records (if modified), or deletes records (if not valid)
 	public void refreshJobs(List<PUD_Booking__c> bookingList){
 
+
 		List<PUD_Job__c> jobsNewList = new List<PUD_Job__c>();
 		List<PUD_Job__c> jobInsertList = new List<PUD_Job__c>();
 		List<PUD_Job__c> jobUpdateList = new List<PUD_Job__c>();   //consider merge insert and update to upsert
@@ -375,15 +376,22 @@ public with sharing class PUDUtility {
 			}
 		}//end jobExisting loop
 
+		//Savepoint - here
 		//insert update and cancel/delete jobs
 		if(jobInsertList.size() > 0){
-			insert jobInsertList;
+			insert jobInsertList;	
+
+			//add save point
+			//insert containers
 		}
 		if(jobUpdateList.size() > 0){
 			update jobUpdateList;
 		}
 		if(jobDeleteList.size() > 0){
 			delete jobDeleteList;
+
+			//add save point
+			//delete containers
 		}
 	}
 
@@ -886,6 +894,172 @@ public with sharing class PUDUtility {
 		return null;
 	}
 	
+	/**
+	 * Called from refreshJobs/createJobs. Whenever new jobs are created/deleted then containers will be created/update accordingly.
+	 * @param: NewJobs/DeletedJobs.
+	 */
+	private void processJobContainersOnBookingUpdates(List<PUD_Job__c> jobRecords, Boolean isDelete){
+		//get all container types related to jobs.
+		
+		//get booking ids
+		Set<Id> bookingIds = new Set<Id>();
+		for(PUD_Job__c job : jobRecords){
+			bookingIds.add(job.Booking__c);			
+		}
+
+		Map<Id, List<PUD_Container__c>> bookingIdVsContainers = new Map<Id, List<PUD_Container__c>>();
+		Map<Id, List<PUD_Container__c>> jobIdVsContainers = new Map<Id, List<PUD_Container__c>>();
+
+		//query container types at Booking and Job level.
+		for(PUD_Container__c container : [Select Id, Type__c, Booking__c, Job__c from PUD_Container__c where Booking__c IN : bookingIds]){
+
+
+			//containers at Booking level will always have Job__c = NULL.
+			if(container.Job__c == null){
+				if(!bookingIdVsContainers.containsKey(container.Booking__c)){
+					bookingIdVsContainers.put(container.Booking__c, new List<PUD_Container__c>());
+				}
+				bookingIdVsContainers.get(container.Booking__c).add(container);
+			}
+			//populate containers under JOB
+			else{
+				if(!jobIdVsContainers.containsKey(container.Job__c)){
+					jobIdVsContainers.put(container.Job__c, new List<PUD_Container__c>());
+				}
+				jobIdVsContainers.get(container.Job__c).add(container);
+			}
+		}	
+		
+											
+	} 
+
+	/**
+	 * Called from PUDContainerTypeSyncModule to add/update container records under jobs when containers under bookgins are updated.
+	 * 
+	 */
+	 public void processContainers(List<PUD_Container__c> records, List<PUD_Booking__c> relatedBookings){
+		Set<String> jobStatus = new Set<String>{PUDConstants.PUD_JOB_STATUS_NEW, PUDConstants.PUD_JOB_STATUS_SCHEDULE, PUDConstants.PUD_JOB_STATUS_ACCEPTED};
+
+		//booking ids set 
+		Set<Id> bookingIds = new Set<Id>();
+		for(PUD_Booking__c pBooking : relatedBookings){
+			bookingIds.add(pBooking.Id);
+		}
+
+		//if today: JOB stat
+		List<PUD_Job__c> jobs = PUDJobsSelector.newInstance().selectByBookingIdStatusAndFromDate(bookingIds, Date.today(), jobStatus);
+
+		Set<Id> jobIds = new Set<Id>();
+		Map<Id, List<PUD_Job__c>> bookingVsJobsMap = new Map<Id, List<PUD_Job__c>>();
+
+		for(PUD_Job__c job : jobs){
+			jobIds.add(job.Id);
+
+			if(!bookingVsJobsMap.containsKey(job.Booking__c)){
+				bookingVsJobsMap.put(job.Booking__c, new List<PUD_Job__c>{job});
+			}
+			else{
+				bookingVsJobsMap.get(job.Booking__c).add(job);
+			}
+		}
+
+		List<PUD_Container__c> containers = PUDContainersSelector.newInstance().selectByJobIds(jobIds, new Set<Object>());//[Select Id, Type__c, Job__c from PUD_Container__c where Job__c IN : jobIds];
+
+		//if containers is null/empty, that means there are jobs without containers.
+		//This could happen when jobs are created for the first time.
+		List<PUD_Container__c> containersToCreate = new List<PUD_Container__c>();
+		List<PUD_Container__c> containersToUpdate = new List<PUD_Container__c>();
+
+		if(containers.isEmpty()){
+			//create containers against jobs.
+			system.debug('creating new containers');
+			for(PUD_Container__c newRecord : records){
+
+				List<PUD_Job__c> relatedJobs = bookingVsJobsMap.get(newRecord.Booking__c);
+				
+				for(PUD_Job__c currentJob : relatedJobs){
+					PUD_Container__c newContainer = new PUD_Container__c();
+					newContainer.Type__c = newRecord.Type__c;
+					newContainer.Job__c = currentJob.Id;
+					newContainer.Booking__c = newRecord.Booking__c;
+					newContainer.Actual_Quantity__c = newRecord.Actual_Quantity__c;
+					newContainer.Expected_Quantity__c = newRecord.Expected_Quantity__c;
+					newContainer.Condition__c = newRecord.Condition__c;
+
+					containersToCreate.add(newContainer);
+				}
+			}
+		}
+		else{
+			Map<Id, List<PUD_Container__c>> jobVsExistingContainersMap = new Map<Id, List<PUD_Container__c>>();
+
+			for(PUD_Container__c container : containers){
+				if(!jobVsExistingContainersMap.containsKey(container.Job__c)){
+					jobVsExistingContainersMap.put(container.Job__c, new List<PUD_Container__c>{container});
+				}
+				else{
+					jobVsExistingContainersMap.get(container.Job__c).add(container);
+				}
+			}
+
+
+			for(PUD_Container__c newRecord : records){
+
+				List<PUD_Job__c> relatedJobs = bookingVsJobsMap.get(newRecord.Booking__c);
+				
+				for(PUD_Job__c currentJob : relatedJobs){
+					List<PUD_Container__c> jobContainers = new List<PUD_Container__c>();
+					Boolean isMatchingContainerFound = false;
+
+					if(jobVsExistingContainersMap.containsKey(currentJob.Id)){
+						jobContainers = jobVsExistingContainersMap.get(currentJob.Id);
+					}
+					
+					system.debug('Checking containers for Job: '+currentJob.Id);
+					system.debug('Containers size: '+jobContainers.size());
+
+					
+					for(PUD_Container__c currentContainer : jobContainers){
+						system.debug('Updated record Type:  '+newRecord.Type__c);
+						system.debug('Existing Type:  '+currentContainer.Type__c);
+						if( newRecord.Type__c == currentContainer.Type__c){
+							isMatchingContainerFound = true;
+							
+							currentContainer.Actual_Quantity__c = newRecord.Actual_Quantity__c;
+							currentContainer.Expected_Quantity__c = newRecord.Expected_Quantity__c;
+							currentContainer.Condition__c = newRecord.Condition__c;
+							
+							containersToUpdate.add(currentContainer);
+						}
+					}
+
+					//if container does not exists against a job, then add a container against a job.
+					if(!isMatchingContainerFound){
+						PUD_Container__c newContainer = new PUD_Container__c();
+						newContainer.Type__c = newRecord.Type__c;
+						newContainer.Job__c = currentJob.Id;
+						newContainer.Booking__c = newRecord.Booking__c;
+						newContainer.Actual_Quantity__c = newRecord.Actual_Quantity__c;
+						newContainer.Expected_Quantity__c = newRecord.Expected_Quantity__c;
+						newContainer.Condition__c = newRecord.Condition__c;
+
+						containersToCreate.add(newContainer);
+					}
+
+				}
+			}
+		}
+
+		if(!containersToCreate.isEmpty()){
+			insert containersToCreate;
+		}
+		if(!containersToUpdate.isEmpty()){
+			update containersToUpdate;
+		}
+	 }
+
+
+
 	/**
 	* The class stores container related information such as Name, Quantity and Condition.
 	* The classed is used to be serialised into a list in JSON format and value to be populated to the Containers Payload Long Text field.

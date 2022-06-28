@@ -9,7 +9,7 @@ public with sharing class PUDContainersDomain extends ApplicationDomain {
 	 */
 	public override void registerModules() {
 		// these module will be available for domain operations and trigger execution
-		registerModule(PUBContainerTypeSyncModule.class);
+		registerModule(PUDContainerTypeSyncModule.class);
 	}
 
 	/**
