@@ -64,8 +64,9 @@
         </style>
 
     </head>
+    <apex:variable var="pageCounter" value="{!0}" />
     <apex:repeat value="{!routes}" var="route" id="selectedRoutes">
-        <div style="page-break-after:always;">
+        <div style="{!if(pageCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
             <div class="header">
                 <br/>
                 <c:PUD_JobsHeader Route="{! route}"/>
@@ -158,5 +159,6 @@
                 </apex:pageBlock>
             </div>
         </div>
+        <apex:variable var="pageCounter" value="{!pageCounter+1}"/>
     </apex:repeat>
 </apex:page>
