@@ -9,7 +9,7 @@
  * @changelog
  * 2022-06-06 - Hasantha Liyanage - Created
  * 2022-06-21 - Hasantha Liyanage - modified: DDS-11103 Accessibility categories - Integration - Click on continue create the case record
- *
+ * 2022-06-28 - Thang Nguyen - modified: DDS-11430: add Bypass Workflow Rules On Creation flag to true
  */
 public with sharing class ChasProductsAndServicesController extends ChasBase {
 
@@ -91,6 +91,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             String enquiryDetails = (String) wizardData.get('enquiryDetails');
             String contactPreferrence = (String) wizardData.get('contactPreferrence') != null ? (String) wizardData.get('contactPreferrence') : '';
             String accessibilityIssueTypeName = (String) wizardData.get('accessibilityIssueTypeName');
+            Boolean byPassWorkflowRulesOnCreation = false;
 
             //-- Subject : Trimming the issueDetails details to 255 chars
             if (enquiryDetails != null) {
@@ -242,6 +243,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
                 typeVal = ChasConstants.INVESTIGATION;
                 enquirySubType = 'Customer Care Escalation';
                 complaint = 'No';
+                byPassWorkflowRulesOnCreation = true;
                 if (accessibilityIssueTypeName == 'Post Office') {
                     typeAndProduct = 'General Enquiry|Post Office & Business Hub Services|Post office locator';
                     productCategory = 'Post Office & Business Hub Services';
@@ -282,6 +284,9 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
             if(isContainsPharma) {
                 toBeCreateCase.Priority = 'High';
             }
+
+            //DDS-11430 adding the ByPassWorkflowRulesOnCreation flag
+            toBeCreateCase.ByPassWorkflowRulesOnCreation__c = byPassWorkflowRulesOnCreation;
 
             if (transferTrackingNumber != null && issueDetailsType == 'Mail products' && mailProductsEnquiryType == 'Transfer to another post office') {
                 toBeCreateCase.ReferenceID__c = transferTrackingNumber;
