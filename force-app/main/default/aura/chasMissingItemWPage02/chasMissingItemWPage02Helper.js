@@ -162,7 +162,11 @@
         // call server method to invoke the EDD service
         var action = component.get("c.getEDDEstimates");
         // set method parameters
-        action.setParams({ "wizardData" : component.get("v.wizardData") });
+        var objParams = {
+            'trackingId': component('v.wizardData').get('trackingId'),
+            'recipientPostcode': component('v.wizardData').get('recipientPostcode')
+        };
+        action.setParams(objParams);
         // server side return
         action.setCallback(this, function(response)
         {
