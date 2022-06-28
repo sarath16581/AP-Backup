@@ -92,12 +92,12 @@
                                 <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
                                 <apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
                                 <apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
-                                {!HOUR(route.Start_Time__c)}
+                                {! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
                                 <apex:outputText value="{0,number,00}">
                                         <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
                                     </apex:outputText>
                                 -&nbsp;
-                                {!HOUR(route.End_Time__c)}
+                                {! IF(LEN(TEXT(HOUR(route.End_Time__c)))<2 , '0'+ TEXT(HOUR(route.End_Time__c)), HOUR(route.End_Time__c))}
                                 <apex:outputText value="{0,number,00}">
                                         <apex:param value="{!MINUTE(route.End_Time__c)}"/>
                                     </apex:outputText>
@@ -115,7 +115,7 @@
                                      width="80px"
                                      headerClass="job-headers">
                             <b>
-                                {!HOUR(booking.Start_Time__c)}
+                                {! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
                                 <apex:outputText value="{0,number,00}">
                                     <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
                                 </apex:outputText>
@@ -147,7 +147,7 @@
                                          width="0px"
                                          headerClass="job-headers">
                                 <b>
-                                    {!HOUR(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)}
+                                    {! IF(LEN(TEXT(HOUR(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)), HOUR(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000))}
                                     <apex:outputText value="{0,number,00}">
                                         <apex:param value="{!MINUTE(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)}"/>
                                     </apex:outputText>

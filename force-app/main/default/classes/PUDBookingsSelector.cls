@@ -59,7 +59,8 @@ public virtual inherited sharing class PUDBookingsSelector extends ApplicationSe
 				PUD_Booking__c.Route_Lookup__c, PUD_Booking__c.Start_Time__c, PUD_Booking__c.Booking_Comments__c,
 				PUD_Booking__c.Display_Start_Time__c, PUD_Booking__c.Dwell_Time_Planned__c, PUD_Booking__c.Street__c,
 				PUD_Booking__c.City__c, PUD_Booking__c.State__c, PUD_Booking__c.Post_Code__c, PUD_Booking__c.Booking_Type__c,
-				PUD_Booking__c.RecordTypeId, PUD_Booking__c.Location__c, PUD_Booking__c.Booking_Location_Street__c, PUD_Booking__c.Booking_Location_City__c
+				PUD_Booking__c.RecordTypeId, PUD_Booking__c.Location__c, PUD_Booking__c.Booking_Location_Street__c, PUD_Booking__c.Booking_Location_City__c,
+				PUD_Booking__c.Booking_Location_Name_LU__c, PUD_Booking__c.Comments__c,PUD_Booking__c.Key_Number__c, PUD_Booking__c.Dock_Number__c
 		};
 	}
 
