@@ -15,15 +15,15 @@ Reference number {!Case.CaseNumber}
 
 Hi {!Contact.FirstName},
 
-Your item {!Case.ReferenceID__c} is due for delivery today
+Your parcel {!Case.ReferenceID__c} is due for delivery today.
 
-Hang on, what if I’m not home? Here’s what will happen:
+What if you&apos;re not home?
 
-If nobody’s home we’ll still deliver your item, provided we can leave it in a safe place. Otherwise it will be dropped at a Post Office for your collection.
+If nobody’s home we’ll still deliver your item, provided we can leave it in a safe place. Otherwise we&apos;ll take it to a Post Office for you to collect.
 
-For information on your how you can control your deliveries in future, please see here.
+As your parcel is due for delivery today, we&apos;ll close your enquiry. If you have any questions about your parcel delivery, please reply to this email and we&apos;ll be happy to help.
 
-If you have any further questions about the delivery of your article, please reply to this email and we will be happy to assist you.
+To find out more about your options for future deliveries, see Delivery options.
 
 
 Thank you,
