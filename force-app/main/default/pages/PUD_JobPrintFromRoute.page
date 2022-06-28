@@ -1,0 +1,158 @@
+<!--
+ - Created by Kamil Szyc on 28/6/2022.
+ -->
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_RoutesPrintController"
+           renderAs="pdf" applyBodyTag="false" id="PUD_JobPrintFromRoute">
+    <!--Page to allow printing of Duty for driver a backup to the mobile device -->
+    <head>
+        <style type="text/css" media="print">
+            @page {
+                @top-center {
+                    content: element(header);
+                }
+            }
+           @page {
+                size: A4 portrait;
+                margin-top:28mm;
+           }
+            div.header {
+            padding: 5px;
+            font-size: small;
+            position:running(header);
+            }
+           table {
+    			-fs-table-paginate: paginate;
+			}
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+            .pagecount:before {
+                content: counter(pages);
+            }
+            .table-header{
+                border-bottom: 1px solid black;
+            }
+            table.info{
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+                border-spacing:1px;
+            }
+            .contents{
+                vertical-align:Top;
+                font: Calibri;
+                font-size:small;
+            }
+
+            td {
+                padding: 5px;
+            }
+            td.bold{
+                font-weight:bold;
+            }
+            td.italic{
+                font-style:italic;
+            }
+            .job-headers {
+                font-weight:normal;
+            }
+
+        </style>
+    </head>
+    <apex:variable var="pageCounter" value="{!0}"/>
+    <div style="{!if(pageCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+        <div class="header">
+            <br/>
+            <c:PUD_JobsHeader Route="{! route}"/>
+            <br/>
+        </div>
+
+        <div class="content">
+            <table class="info">
+                <tr>
+                    <td class="italic" style="width:100%">
+                        PTO’s are to familiarize themselves with duty statement at the commencement of their shift.
+                        Departures or alterations from these duties must be advised in writing and authorized by the
+                        O.I.C.<br/>
+                        The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at
+                        the
+                        cessation of use of any Aust. Post Vehicle.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold"><span class="left-align">
+                                <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
+                                <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
+                                <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
+                                <apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
+                                <apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
+                            {!HOUR(route.Start_Time__c)}
+                            <apex:outputText value="{0,number,00}">
+                                        <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
+                                    </apex:outputText>
+                                -&nbsp;
+                            {!HOUR(route.End_Time__c)}
+                            <apex:outputText value="{0,number,00}">
+                                        <apex:param value="{!MINUTE(route.End_Time__c)}"/>
+                                    </apex:outputText>
+                            </span><span
+                                style="float:right">Rest Break: #TBA</span></td>
+                </tr>
+            </table>
+            <apex:pageBlock>
+                <apex:pageBlockTable value="{! route.Bookings__r }" var="booking"
+                                     style="vertical-align:Top font:Calibri; font-size: 12pt"
+                                     headerClass="table-header">
+
+                    <apex:column headerValue="Arrive"
+                                 style="vertical-align:Top !important; font:Calibri; font-size: small;"
+                                 width="80px"
+                                 headerClass="job-headers">
+                        <b>
+                            {!HOUR(booking.Start_Time__c)}
+                            <apex:outputText value="{0,number,00}">
+                                <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
+                            </apex:outputText>
+                        </b>
+                    </apex:column>
+                    <apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size:12pt"
+                                 width="430px" headerClass="job-headers">
+                        <div style="font-size: small;">
+                            <b>
+
+                                <apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
+                                (
+                                <apex:outputField value="{!booking.Booking_Location_Street__c}"/>
+                                <apex:outputField value="{!booking.Booking_Location_City__c}"/>
+                                )
+
+                            </b>
+                            <apex:outputField value="{!booking.Comments__c}" styleClass="contents"/>
+                            <br/>
+                            <apex:outputField value="{!booking.Key_Number__c}" styleClass="contents"/>
+                        </div>
+                    </apex:column>
+                    <b>
+                        <apex:column headerValue="Docks" style="vertical-align:Top" width="35px"
+                                     headerClass="job-headers">
+                            <apex:outputField value="{! booking.Dock_Number__c}" style="font-size:small"/>
+                        </apex:column>
+                        <apex:column headerValue="Depart" styleClass="contents"
+                                     width="0px"
+                                     headerClass="job-headers">
+                            <b>
+                                {!HOUR(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)}
+                                <apex:outputText value="{0,number,00}">
+                                    <apex:param
+                                            value="{!MINUTE(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)}"/>
+                                </apex:outputText>
+                            </b>
+                        </apex:column>
+
+                    </b>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+        </div>
+        <apex:variable var="pageCounter" value="{!pageCounter+1}"/>
+    </div>
+</apex:page>
