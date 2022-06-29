@@ -227,7 +227,7 @@
 							<dd>{! v.wizardData.enquiryDetails }</dd>
 						</div>
 						<div>
-							<dt>Has this issue occured before ?</dt>
+							<dt>Has this issue occurred before ?</dt>
 							<dd>{! v.wizardData.selectedIssueTypeName }</dd>
 						</div>
 						<div>
@@ -256,7 +256,7 @@
 							<dd>{! v.wizardData.enquiryDetails }</dd>
 						</div>
 						<div>
-							<dt>Has this issue occured before ?</dt>
+							<dt>Has this issue occurred before ?</dt>
 							<dd>{! v.wizardData.selectedIssueTypeName }</dd>
 						</div>
 					</aura:if>
