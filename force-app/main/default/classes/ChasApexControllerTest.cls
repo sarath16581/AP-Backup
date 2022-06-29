@@ -10,7 +10,8 @@
                										 The class should be overhauled to use stubbing and test data factory and lower number of test methods
                2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the method searchTrackingNumber() to handle multiple articles
                												Adapting the unit tests to support the coverage.
-               022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 moved the createCaseFromProductsAndServices method to ChasProductsAndServicesControllerTest.
+               2022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 moved the createCaseFromProductsAndServices method to ChasProductsAndServicesControllerTest.
+               2022-06-29 hasantha.liyanage@auspost.com.au Modified : DDS-11414 alteration of unit tests for changed method params for getEDDEstimates
 
 **/
 @IsTest(IsParallel=true)
@@ -1544,7 +1545,7 @@ deliveryIssue_Somethingelse
 		Map <String,String> missingItemWizardData = new Map <String,String>();
 		missingItemWizardData.put('trackingId','33LPL000061903000605008');
 		missingItemWizardData.put('recipientPostcode','3000');
-		System.assertNotEquals(null, ChasEDDServiceEstimates.getEDDEstimates(missingItemWizardData));
+		System.assertNotEquals(null, ChasEDDServiceEstimates.getEDDEstimates('33LPL000061903000605008', '3000'));
 		Test.stopTest();
 	}
 	// CHAS_DeliveredLeftInASafePlaceMailRedirected

@@ -4,6 +4,8 @@
  * --------------------------------------------------
  * 2020-04-03 rufus.solomon@auspost.com.au Added support for essential pharma
  * 2021-07-20 hara.sahoo@auspost.com.au Added validation for sentimental value field
+ * 2022-06-29 hasantha.liyanage@auspost.com.au Modified : DDS-11414 changed method params for getEDDEstimates
+ *                                                        method only requires 2 params, no need to pass whole wizard data
  */
 ({
     validateRadioButtons: function(cmp, showError) {
@@ -159,46 +161,47 @@
     },
     getEDDServiceEstimates : function (component,event, helper)
     {
-        // call server method to invoke the EDD service
-        var action = component.get("c.getEDDEstimates");
-        // set method parameters
-        var objParams = {
-            'trackingId': component('v.wizardData').get('trackingId'),
-            'recipientPostcode': component('v.wizardData').get('recipientPostcode')
-        };
-        action.setParams(objParams);
-        // server side return
-        action.setCallback(this, function(response)
-        {
-            let status = response.getState();
-            if (status === 'SUCCESS')
-            {
-                var returnObj =  JSON.parse((JSON.stringify(response.getReturnValue())));
-                // update the wizard with the response data, else use the previous copy of the wizard data
-                component.set('v.wizardData.deliveredByDateOrEDD', $A.util.isEmpty(returnObj["deliveredByDateOrEDD"]) ? component.get('v.wizardData.deliveredByDateOrEDD') : returnObj["deliveredByDateOrEDD"]);
-                component.set('v.wizardData.deliveredByDateFrom', $A.util.isEmpty(returnObj["deliveredByDateFrom"]) ? component.get('v.wizardData.deliveredByDateFrom') : returnObj["deliveredByDateFrom"]);
-                component.set('v.wizardData.deliveredByDateTo', $A.util.isEmpty(returnObj["deliveredByDateTo"]) ? component.get('v.wizardData.deliveredByDateTo') : returnObj["deliveredByDateTo"]);
-                component.set('v.wizardData.deliveredByDateToUntil', $A.util.isEmpty(returnObj["deliveredByDateToUntil"]) ? component.get('v.wizardData.deliveredByDateToUntil') : returnObj["deliveredByDateToUntil"]);
-                component.set('v.wizardData.isEnquiryDateWithinEDD', $A.util.isEmpty(returnObj["isEnquiryDateWithinEDD"]) ? component.get('v.wizardData.isEnquiryDateWithinEDD') : returnObj["isEnquiryDateWithinEDD"]);
-                component.set('v.wizardData.isEnquiryDateWithinEDDPlusBusinessdays', $A.util.isEmpty(returnObj["isEnquiryDateWithinEDDPlusBusinessdays"]) ? component.get('v.wizardData.isEnquiryDateWithinEDDPlusBusinessdays') : returnObj["isEnquiryDateWithinEDDPlusBusinessdays"]);
-                component.set('v.wizardData.isEnquiryDatePastEDDPlusBusinessdays', $A.util.isEmpty(returnObj["isEnquiryDatePastEDDPlusBusinessdays"]) ? component.get('v.wizardData.isEnquiryDatePastEDDPlusBusinessdays') : returnObj["isEnquiryDatePastEDDPlusBusinessdays"]);
-                component.set('v.wizardData.deliveredByDatePlusBusinessDays', $A.util.isEmpty(returnObj["deliveredByDatePlusBusinessDays"]) ? component.get('v.wizardData.deliveredByDatePlusBusinessDays') : returnObj["deliveredByDatePlusBusinessDays"]);
-                component.set('v.wizardData.isEDDEstimated', $A.util.isEmpty(returnObj["isEDDEstimated"]) ? component.get('v.wizardData.isEDDEstimated') : returnObj["isEDDEstimated"]);
-                component.set('v.wizardData.isNoEddReturned', $A.util.isEmpty(returnObj["isNoEddReturned"]) ? component.get('v.wizardData.isNoEddReturned') : returnObj["isNoEddReturned"]);
-            } else if (state === "INCOMPLETE") {
-                // Enable debugging if required
-            } else if(state === "ERROR")
-            {
-                var errors = response.getError();
-                if (errors) {
-                if (errors[0] && errors[0].message) {
+        try {
+            // call server method to invoke the EDD service
+            var action = component.get("c.getEDDEstimates");
+            // set method parameters
+            var objParams = {
+                'articleId': component.get('v.wizardData.trackingId'),
+                'recipientPostcode': component.get('v.wizardData.recipientPostcode')
+            };
+            action.setParams(objParams);
+            // server side return
+            action.setCallback(this, function (response) {
+                let status = response.getState();
+                if (status === 'SUCCESS') {
+                    var returnObj = JSON.parse((JSON.stringify(response.getReturnValue())));
+                    // update the wizard with the response data, else use the previous copy of the wizard data
+                    component.set('v.wizardData.deliveredByDateOrEDD', $A.util.isEmpty(returnObj["deliveredByDateOrEDD"]) ? component.get('v.wizardData.deliveredByDateOrEDD') : returnObj["deliveredByDateOrEDD"]);
+                    component.set('v.wizardData.deliveredByDateFrom', $A.util.isEmpty(returnObj["deliveredByDateFrom"]) ? component.get('v.wizardData.deliveredByDateFrom') : returnObj["deliveredByDateFrom"]);
+                    component.set('v.wizardData.deliveredByDateTo', $A.util.isEmpty(returnObj["deliveredByDateTo"]) ? component.get('v.wizardData.deliveredByDateTo') : returnObj["deliveredByDateTo"]);
+                    component.set('v.wizardData.deliveredByDateToUntil', $A.util.isEmpty(returnObj["deliveredByDateToUntil"]) ? component.get('v.wizardData.deliveredByDateToUntil') : returnObj["deliveredByDateToUntil"]);
+                    component.set('v.wizardData.isEnquiryDateWithinEDD', $A.util.isEmpty(returnObj["isEnquiryDateWithinEDD"]) ? component.get('v.wizardData.isEnquiryDateWithinEDD') : returnObj["isEnquiryDateWithinEDD"]);
+                    component.set('v.wizardData.isEnquiryDateWithinEDDPlusBusinessdays', $A.util.isEmpty(returnObj["isEnquiryDateWithinEDDPlusBusinessdays"]) ? component.get('v.wizardData.isEnquiryDateWithinEDDPlusBusinessdays') : returnObj["isEnquiryDateWithinEDDPlusBusinessdays"]);
+                    component.set('v.wizardData.isEnquiryDatePastEDDPlusBusinessdays', $A.util.isEmpty(returnObj["isEnquiryDatePastEDDPlusBusinessdays"]) ? component.get('v.wizardData.isEnquiryDatePastEDDPlusBusinessdays') : returnObj["isEnquiryDatePastEDDPlusBusinessdays"]);
+                    component.set('v.wizardData.deliveredByDatePlusBusinessDays', $A.util.isEmpty(returnObj["deliveredByDatePlusBusinessDays"]) ? component.get('v.wizardData.deliveredByDatePlusBusinessDays') : returnObj["deliveredByDatePlusBusinessDays"]);
+                    component.set('v.wizardData.isEDDEstimated', $A.util.isEmpty(returnObj["isEDDEstimated"]) ? component.get('v.wizardData.isEDDEstimated') : returnObj["isEDDEstimated"]);
+                    component.set('v.wizardData.isNoEddReturned', $A.util.isEmpty(returnObj["isNoEddReturned"]) ? component.get('v.wizardData.isNoEddReturned') : returnObj["isNoEddReturned"]);
+                } else if (state === "INCOMPLETE") {
+                    // Enable debugging if required
+                } else if (state === "ERROR") {
+                    var errors = response.getError();
+                    if (errors) {
+                        if (errors[0] && errors[0].message) {
                             // Enable debugging if required
                         }
+                    }
                 }
-            }
-        })
+            })
 
-        $A.enqueueAction(action);
+            $A.enqueueAction(action);
+        } catch (err) {
+            console.log('ERROR EDD service estimates: '+err);
+        }
     },
 
         // Must use single '&' so that it runs through all functions.

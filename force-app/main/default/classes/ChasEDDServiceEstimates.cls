@@ -6,6 +6,8 @@
  * @domain Help and Support
  * @changelog
  * 2021-07-04 hara.sahoo@auspost.com.au Created
+ * 2022-06-29 hasantha.liyanage@auspost.com.au Modified : DDS-11414 changed method params for getEDDEstimates
+ *                                                        method only requires 2 params, no need to pass whole wizard data
  */
 public with sharing class ChasEDDServiceEstimates {
     @AuraEnabled
