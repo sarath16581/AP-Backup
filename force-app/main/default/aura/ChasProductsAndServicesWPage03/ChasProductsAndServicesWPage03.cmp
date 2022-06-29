@@ -5,6 +5,7 @@
   * @description  : 1. Added Back Button and a card layout outer-box
   * Modified by Mahesh Parvathaneni - 10/05/2022 - Hide details section on Delete MyPost account enquiry
   * Modified by Thang Nguyen - DDS-10805/DDS-10945/DDS-10946/DDS-10947/DDS-10986 Add "Accessibility and disability" issue sections
+  * Modified by Thang Nguyen - 29/06/2022 Update date format of "Accessibility and disability" issue sections
 -->
 <aura:component
 		extends="c:CHAS_reviewAndSubmit"
@@ -219,14 +220,14 @@
 						</div>
 						<div>
 							<dt>When did the issue occur ?</dt>
-							<dd>{! v.wizardData.issueDate }</dd>
+							<dd><ui:outputDate value="{! v.wizardData.issueDate }" /></dd>
 						</div>
 						<div>
 							<dt>Your feedback or enquiry</dt>
 							<dd>{! v.wizardData.enquiryDetails }</dd>
 						</div>
 						<div>
-							<dt>Has this issue occured before ?</dt>
+							<dt>Has this issue occurred before ?</dt>
 							<dd>{! v.wizardData.selectedIssueTypeName }</dd>
 						</div>
 						<div>
@@ -248,14 +249,14 @@
 						</div>
 						<div>
 							<dt>When did the issue occur ?</dt>
-							<dd>{! v.wizardData.issueDate }</dd>
+							<dd><ui:outputDate value="{! v.wizardData.issueDate }" /></dd>
 						</div>
 						<div>
 							<dt>Your feedback or enquiry</dt>
 							<dd>{! v.wizardData.enquiryDetails }</dd>
 						</div>
 						<div>
-							<dt>Has this issue occured before ?</dt>
+							<dt>Has this issue occurred before ?</dt>
 							<dd>{! v.wizardData.selectedIssueTypeName }</dd>
 						</div>
 					</aura:if>
@@ -275,12 +276,16 @@
 							<dt>Are you using assistive technology?</dt>
 							<dd>{! v.wizardData.selectedAssistiveTypeName }</dd>
 						</div>
-						<div>
-							<dt>
-								What kind of assistive technology are you using?
-							</dt>
-							<dd>{! v.wizardData.assistiveTechnology }</dd>
-						</div>
+						<aura:if
+							isTrue="{! v.wizardData.selectedAssistiveTypeName == 'Yes'}"
+						>
+							<div>
+								<dt>
+									What kind of assistive technology are you using?
+								</dt>
+								<dd>{! v.wizardData.assistiveTechnology }</dd>
+							</div>
+						</aura:if>
 						<div>
 							<dt>Your feedback or enquiry</dt>
 							<dd>{! v.wizardData.enquiryDetails }</dd>
@@ -296,7 +301,7 @@
 						</div>
 						<div>
 							<dt>When did the issue occur ?</dt>
-							<dd>{! v.wizardData.issueDate }</dd>
+							<dd><ui:outputDate value="{! v.wizardData.issueDate }" /></dd>
 						</div>
 						<div>
 							<dt>Your feedback or enquiry</dt>
