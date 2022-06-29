@@ -276,12 +276,16 @@
 							<dt>Are you using assistive technology?</dt>
 							<dd>{! v.wizardData.selectedAssistiveTypeName }</dd>
 						</div>
-						<div>
-							<dt>
-								What kind of assistive technology are you using?
-							</dt>
-							<dd>{! v.wizardData.assistiveTechnology }</dd>
-						</div>
+						<aura:if
+							isTrue="{! v.wizardData.selectedAssistiveTypeName == 'Yes'}"
+						>
+							<div>
+								<dt>
+									What kind of assistive technology are you using?
+								</dt>
+								<dd>{! v.wizardData.assistiveTechnology }</dd>
+							</div>
+						</aura:if>
 						<div>
 							<dt>Your feedback or enquiry</dt>
 							<dd>{! v.wizardData.enquiryDetails }</dd>
