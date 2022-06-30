@@ -427,7 +427,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 	 *
 	 * @return formatted Accessibility and Disability case comment
 	 */
-
+	@TestVisible
 	private static String getAccessibilityComments(Map<String, String> wizardData) {
 		String postOffice = (String) wizardData.get('postOffice');
 		String poIssueType = (String) wizardData.get('poIssueType');
