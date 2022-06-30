@@ -9,7 +9,7 @@
  */
 
 public with sharing class PUD_RoutesPrintController {
-    List<PUD_Route__c> routes { get; set; }
+    public List<PUD_Route__c> routes { get; set; }
     public PUD_Route__c route { get; set; }
     //Constructor
     public PUD_RoutesPrintController(ApexPages.StandardSetController ssc) {
@@ -18,15 +18,13 @@ public with sharing class PUD_RoutesPrintController {
         for (PUD_Route__c rts : (PUD_Route__c[]) ssc.getSelected()) {
             selectedRouteIDs.add(rts.Id);
         }
-        routes = getSelectedRoutesWithBookings(selectedRouteIDs,new Set<Object>());
+        routes = getSelectedRoutesWithBookings(selectedRouteIDs,new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT});
     }
     public PUD_RoutesPrintController(ApexPages.StandardController sc) {
         //Identify the selected records from Listview
         Set<Id> selectedRouteIDs = new Set<Id>();
         selectedRouteIDs.add(sc.getId());
         route = getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT})[0];
-        System.debug('Route bookings: '+route.Bookings__r);
-        System.debug('Route Id: '+route.Id);
     }
     @TestVisible private static List<PUD_Route__c> getSelectedRoutesWithBookings(Set<Id> routeIds,Set<Object>selectorOptions) {
         return PUDRoutesSelector.newInstance().selectByIdWithActiveBookings(

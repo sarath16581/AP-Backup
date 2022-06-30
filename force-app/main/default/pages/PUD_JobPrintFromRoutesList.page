@@ -2,7 +2,7 @@
  - Created by Kamil Szyc on 24/6/2022.
  -->
 <apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_RoutesPrintController"
-           recordSetVar="routes"
+           recordSetVar="routesVar"
            renderAs="pdf" applyBodyTag="false" id="PUD_JobPrintFromRoutesList">
     <!--Page to allow printing of Duty for driver a backup to the mobile device -->
     <head>
@@ -17,7 +17,7 @@
                 margin-top:28mm;
            }
             div.header {
-            padding: 5px;
+            padding: 15px;
             font-size: small;
             position:running(header);
             }
@@ -40,7 +40,7 @@
                 border-spacing:1px;
             }
             .contents{
-                vertical-align:Top;
+                vertical-align:Top !important;
                 font: Calibri;
                 font-size:small;
             }
@@ -60,23 +60,25 @@
 
 
 
-
         </style>
 
     </head>
-    <apex:variable var="pageCounter" value="{!0}" />
+    <!--page counter used to truncate blank pages and the end of the pdf document -->
+    <apex:variable var="routeCounter" value="{!0}"/>
+    <apex:variable var="showDaysActive" value="true"/>
     <apex:repeat value="{!routes}" var="route" id="selectedRoutes">
-        <div style="{!if(pageCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+        <div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
             <div class="header">
                 <br/>
-                <c:PUD_JobsHeader Route="{! route}"/>
+                <!--repeatable header-->
+                <c:PUD_JobsHeader Route="{! route}" showDaysActive="{! showDaysActive}"/>
                 <br/>
             </div>
 
-            <div class="content">
+            <div class="content" style="padding-top:15px;">
                 <table class="info">
                     <tr>
-                        <td class="italic" style="width:100%">
+                        <td class="italic" style="width:100%; font-size:12px;">
                             PTO’s are to familiarize themselves with duty statement at the commencement of their shift.
                             Departures or alterations from these duties must be advised in writing and authorized by the
                             O.I.C.<br/>
@@ -86,12 +88,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="bold"><span class="left-align">
+                        <!-- days and times the route is active -->
+                        <td class="bold"><span class="left-align" style="font-size:12px">
                                 <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
                                 <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
                                 <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
                                 <apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
                                 <apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
+                                <!-- display time in hhmm format -->
                                 {! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
                                 <apex:outputText value="{0,number,00}">
                                         <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
@@ -101,55 +105,97 @@
                                 <apex:outputText value="{0,number,00}">
                                         <apex:param value="{!MINUTE(route.End_Time__c)}"/>
                                     </apex:outputText>
-                            </span><span
-                                    style="float:right">Rest Break: #TBA</span></td>
+                            </span>
+
+                            <!-- rest breaks -->
+                            <div style="float:right; font-size:12px">
+                                Rest Break:
+                                <apex:variable var="breaksNumber" value="{!0}"/>
+                                <apex:repeat value="{!route.Bookings__r}" var="booking">
+                                    <apex:outputText rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}">
+                                        <br/>
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
+                                        {!booking.Booking_Location_Name_LU__c} &nbsp;
+                                        {! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
+                                    </apex:outputText>
+                                    <apex:outputText value="{0,number,00}"
+                                                     rendered="{! booking.Booking_Type__c='Meal Break'}">
+                                        <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
+                                    </apex:outputText>
+                                    <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
+                                        -
+                                        {! IF(LEN(TEXT(HOUR(booking.Latest_End_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Latest_End_Time__c)), HOUR(booking.Latest_End_Time__c))}
+                                    </apex:outputText>
+                                    <apex:outputText value="{0,number,00}"
+                                                     rendered="{! booking.Booking_Type__c='Meal Break'}">
+                                        <apex:param value="{!MINUTE(booking.Latest_End_Time__c)}"/>
+                                    </apex:outputText>
+                                    <apex:outputText
+                                            rendered="{!  booking.Booking_Type__c='Meal Break'}">
+                                        <apex:variable var="breaksNumber" value="{!breaksNumber+1}"/>
+                                    </apex:outputText>
+                                </apex:repeat>
+                            </div>
+                        </td>
                     </tr>
                 </table>
                 <apex:pageBlock>
+                    <!-- bookings table -->
                     <apex:pageBlockTable value="{! route.Bookings__r }" var="booking"
-                                         style="vertical-align:Top font:Calibri; font-size: 12pt"
+                                         styleClass="contents"
                                          headerClass="table-header">
-
                         <apex:column headerValue="Arrive"
-                                     style="vertical-align:Top !important; font:Calibri; font-size: small;"
+                                     styleClass="contents"
                                      width="80px"
-                                     headerClass="job-headers">
+                                     headerClass="job-headers" rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                             <b>
+                                <!-- display time in hhmm format -->
                                 {! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
                                 <apex:outputText value="{0,number,00}">
                                     <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
                                 </apex:outputText>
                             </b>
                         </apex:column>
-                        <apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size:12pt"
-                                     width="430px" headerClass="job-headers">
+                        <apex:column headerValue="Job Details" styleClass="contents"
+                                     width="430px" headerClass="job-headers"
+                                     rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                             <div style="font-size: small;">
                                 <b>
-
                                     <apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
-                                    (
-                                    <apex:outputField value="{!booking.Booking_Location_Street__c}"/>
-                                    <apex:outputField value="{!booking.Booking_Location_City__c}"/>
-                                    )
-
+                                    <apex:outputText
+                                            rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
+                                        (
+                                        <apex:outputField value="{!booking.Booking_Location_Street__c}"/>
+                                        &nbsp;
+                                        <apex:outputField value="{!booking.Booking_Location_City__c}"/>
+                                        )<br/>
+                                    </apex:outputText>
                                 </b>
-                                <apex:outputField value="{!booking.Comments__c}" styleClass="contents"/>
-                                <br/>
+                                <apex:outputField value="{!booking.Booking_Comments__c}" styleClass="contents"/>
+                                <apex:outputText rendered="{! !ISBLANK(booking.Booking_Comments__c)}">
+                                    <br/>
+                                </apex:outputText>
                                 <apex:outputField value="{!booking.Key_Number__c}" styleClass="contents"/>
+                                <br/>
                             </div>
                         </apex:column>
                         <b>
-                            <apex:column headerValue="Docks" style="vertical-align:Top" width="35px"
-                                         headerClass="job-headers" >
+                            <apex:column headerValue="Docks" styleClass="contents" width="35px"
+                                         headerClass="job-headers"
+                                         rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                                 <apex:outputField value="{! booking.Dock_Number__c}" style="font-size:small"/>
                             </apex:column>
                             <apex:column headerValue="Depart" styleClass="contents"
                                          width="0px"
-                                         headerClass="job-headers">
+                                         headerClass="job-headers"
+                                         rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                                 <b>
+                                    <!-- display time in hhmm format -->
                                     {! IF(LEN(TEXT(HOUR(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)), HOUR(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000))}
                                     <apex:outputText value="{0,number,00}">
-                                        <apex:param value="{!MINUTE(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)}"/>
+                                        <apex:param
+                                                value="{!MINUTE(booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000)}"/>
                                     </apex:outputText>
                                 </b>
                             </apex:column>
@@ -159,6 +205,7 @@
                 </apex:pageBlock>
             </div>
         </div>
-        <apex:variable var="pageCounter" value="{!pageCounter+1}"/>
+        <apex:variable var="routeCounter" value="{!routeCounter+1}"/>
+        <!--<apex:variable var="showDaysActive" value="false"/>-->
     </apex:repeat>
 </apex:page>

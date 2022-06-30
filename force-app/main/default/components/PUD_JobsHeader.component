@@ -3,7 +3,8 @@
  -->
 
 <apex:component id="PUD_JobsHeader">
-    <apex:attribute name="Route" type="PUD_Route__c" description="Job route"/>
+    <apex:attribute name="Route" type="PUD_Route__c" description="parent route"/>
+    <apex:attribute name="showDaysActive" type="Boolean" description="flag to indicate if route active days need to be displayed"/>
     <table style="width:100%">
         <tr>
             <td rowspan="2"><img src="{!$Resource.auspost_logo}"/></td>
@@ -27,4 +28,25 @@
             </td>
         </tr>
     </table>
+    <div style="text-align:center;">
+        <!-- days the route is active repeated on every subsequent page -->
+        <apex:outputText rendered="{! showDaysActive}">
+            <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
+            <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
+            <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
+            <apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
+            <apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
+
+            <!-- display time in hhmm format -->
+            {! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
+            <apex:outputText value="{0,number,00}">
+                <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
+            </apex:outputText>
+            -&nbsp;
+            {! IF(LEN(TEXT(HOUR(route.End_Time__c)))<2 , '0'+ TEXT(HOUR(route.End_Time__c)), HOUR(route.End_Time__c))}
+            <apex:outputText value="{0,number,00}">
+                <apex:param value="{!MINUTE(route.End_Time__c)}"/>
+            </apex:outputText>
+        </apex:outputText>
+    </div>
 </apex:component>
