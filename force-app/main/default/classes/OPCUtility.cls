@@ -1653,7 +1653,8 @@ public class OPCUtility {
                Jan_Revenue_Amount__c, Feb_Revenue_Amount__c, Mar_Revenue_Amount__c,
                Apr_Revenue_Amount__c, May_Revenue_Amount__c, Jun_Revenue_Amount__c,
                Jul_Revenue_Amount__c, Aug_Revenue_Amount__c, Sep_Revenue_Amount__c,
-               Oct_Revenue_Amount__c, Nov_Revenue_Amount__c, Dec_Revenue_Amount__c
+               Oct_Revenue_Amount__c, Nov_Revenue_Amount__c, Dec_Revenue_Amount__c,
+               Total_Revenue_Amount__c
                From Budget_and_Revenue__c
                Where Organisation__c <> null
                And Product__c <> null
