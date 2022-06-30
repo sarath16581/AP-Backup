@@ -31,22 +31,19 @@
 			<h2 class="chas-header">Review and submit</h2>
 
 			<!-- Enquiry Details Heading -->
-			<aura:if
-				isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
-			>
-				<h3 class="sub-header">
-					Enquiry details - Accessibility or disability issue
-				</h3>
-				<aura:set attribute="else">
-					<h3 class="sub-header">Enquiry details</h3>
-				</aura:set>
-			</aura:if>
+			<h3 class="sub-header">Enquiry details</h3>
 
 			<div class="review-container">
 				<dl>
 					<aura:if
 						isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
 					>
+						<div>
+							<dt>Enquiry type</dt>
+							<dd>
+								Accessibility and disability
+							</dd>
+						</div>					
 						<div>
 							<dt>Issue category</dt>
 							<dd>
@@ -220,7 +217,7 @@
 						</div>
 						<div>
 							<dt>When did the issue occur ?</dt>
-							<dd><ui:outputDate value="{! v.wizardData.issueDate }" /></dd>
+							<dd><ui:outputDate format = "MMM d, ''yyyy" value="{! v.wizardData.issueDate }" /></dd>
 						</div>
 						<div>
 							<dt>Your feedback or enquiry</dt>
@@ -249,7 +246,7 @@
 						</div>
 						<div>
 							<dt>When did the issue occur ?</dt>
-							<dd><ui:outputDate value="{! v.wizardData.issueDate }" /></dd>
+							<dd><ui:outputDate format = "MMM d, ''yyyy" value="{! v.wizardData.issueDate }" /></dd>
 						</div>
 						<div>
 							<dt>Your feedback or enquiry</dt>
@@ -301,7 +298,7 @@
 						</div>
 						<div>
 							<dt>When did the issue occur ?</dt>
-							<dd><ui:outputDate value="{! v.wizardData.issueDate }" /></dd>
+							<dd><ui:outputDate format = "MMM d, ''yyyy" value="{! v.wizardData.issueDate }" /></dd>
 						</div>
 						<div>
 							<dt>Your feedback or enquiry</dt>
