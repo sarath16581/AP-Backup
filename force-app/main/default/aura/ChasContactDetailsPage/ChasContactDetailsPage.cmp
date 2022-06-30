@@ -52,10 +52,10 @@
                 </aura:if>   
             </div>
 
-            <!-- DDS-10799 Accessibility or disability assistance check boxes guest user-->
+            <!-- DDS-10799 Accessibility and disability assistance check boxes guest user-->
             <aura:if isTrue="{!v.wizardData.selectedRadio1 == 'accessibilityOption'}">
                 <c:ChasFieldset>
-                    <c:ChasInputLabel  label="Accessibility or disability assistance" subLabel="(optional)" />
+                    <c:ChasInputLabel  label="Accessibility and disability assistance" subLabel="(optional)" />
                     <p class="">Share your accessibility needs to help us assist with your enquiry.</p>
                     <div class="input-checkbox-grouped_label">
                         <c:ChasInputCheckbox aura:id="auditoryOption" required="false"  label="Auditory (For example: hearing difficulties)"  name="auditoryOption" value="{!v.wizardData.accessibilityAuditoryOption}"/>
@@ -63,10 +63,10 @@
                         <c:ChasInputCheckbox aura:id="mobilityOption" required="false"  label="Mobility (For example: movement difficulties or a wheelchair)"  name="mobilityOption" value="{!v.wizardData.accessibilityMobilityOption}"/>
                         <c:ChasInputCheckbox aura:id="seizuresOption" required="false"  label="Seizures (For example: photosensitive epilepsy)"  name="seizuresOption" value="{!v.wizardData.accessibilitySeizuresOption}"/>
                         <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption" value="{!v.wizardData.accessibilityVisualOption}"/>
-                        <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption" value="{!v.wizardData.accessibilityOtherOption}"/>
+                        <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility and disability assistance"  name="otherOption" value="{!v.wizardData.accessibilityOtherOption}"/>
                     </div>
                     <aura:if isTrue="{!v.wizardData.accessibilityOtherOption}">
-                        <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' value="{!v.wizardData.accessibilityOtherReason}"/>
+                        <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility and disability assistance' value="{!v.wizardData.accessibilityOtherReason}"/>
                     </aura:if>
                 </c:ChasFieldset>
             </aura:if>
@@ -116,10 +116,10 @@
                             </aura:if>
                         </aura:if>
                     </c:ChasFieldset>
-                    <!-- DDS-10799 Accessibility or disability assistance check boxes authenticatied users -->
+                    <!-- DDS-10799 Accessibility and disability assistance check boxes authenticatied users -->
                     <aura:if isTrue="{!v.wizardData.selectedRadio1 == 'accessibilityOption'}">
                         <c:ChasFieldset>
-                            <c:ChasInputLabel  label="Accessibility or disability assistance" subLabel="(optional)" />
+                            <c:ChasInputLabel  label="Accessibility and disability assistance" subLabel="(optional)" />
                             <p class="">Share your accessibility needs to help us assist with your enquiry.</p>
                             <div class="input-checkbox-grouped_label">
                                 <c:ChasInputCheckbox aura:id="auditoryOption" required="false"  label="Auditory (For example: hearing difficulties)"  name="auditoryOption" value="{!v.wizardData.accessibilityAuditoryOption}"/>
@@ -127,10 +127,10 @@
                                 <c:ChasInputCheckbox aura:id="mobilityOption" required="false"  label="Mobility (For example: movement difficulties or a wheelchair)"  name="mobilityOption" value="{!v.wizardData.accessibilityMobilityOption}"/>
                                 <c:ChasInputCheckbox aura:id="seizuresOption" required="false"  label="Seizures (For example: photosensitive epilepsy)"  name="seizuresOption" value="{!v.wizardData.accessibilitySeizuresOption}"/>
                                 <c:ChasInputCheckbox aura:id="visualOption" required="false"  label="Visual (For example: impaired vision, colour blindness)"  name="visualOption" value="{!v.wizardData.accessibilityVisualOption}"/>
-                                <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility or disability assistance"  name="otherOption" value="{!v.wizardData.accessibilityOtherOption}"/>
+                                <c:ChasInputCheckbox aura:id="otherOption" required="false"  label="Other accessibility and disability assistance"  name="otherOption" value="{!v.wizardData.accessibilityOtherOption}"/>
                             </div>
                             <aura:if isTrue="{!v.wizardData.accessibilityOtherOption}">
-                                <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility or disability assistance' value="{!v.wizardData.accessibilityOtherReason}"/>
+                                <c:ChasInput type='text' aura:id='otherAssistance' name='otherAssistance' subLabel='(optional)' required='false' label='Other accessibility and disability assistance' value="{!v.wizardData.accessibilityOtherReason}"/>
                             </aura:if>
                         </c:ChasFieldset>
                     </aura:if>
