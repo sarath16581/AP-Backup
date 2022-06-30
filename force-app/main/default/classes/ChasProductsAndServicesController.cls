@@ -18,7 +18,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 	public static final String ACCESSIBILITY_MOBILITY_OPTION = 'Mobility (For example: movement difficulties or a wheelchair)';
 	public static final String ACCESSIBILITY_SEIZURES_OPTION = 'Seizures (For example: photosensitive epilepsy)';
 	public static final String ACCESSIBILITY_VISUAL_OPTION = 'Visual (For example: impaired vision, colour blindness)';
-	public static final String ACCESSIBILITY_OTHER_OPTION = 'Other accessibility or disability assistance';
+	public static final String ACCESSIBILITY_OTHER_OPTION = 'Other accessibility and disability assistance';
 
 	/**
 	 * Grabs an instance of this class
@@ -420,12 +420,12 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 	}
 
 	/**
-	 * Formatting the case comments for Accessibility or Disability
+	 * Formatting the case comments for Accessibility and Disability
 	 * Details , Contact Preference, Enquiry details and the header are populated outside this method with existing functionality,
 	 * and the orderTrackingNumber will be displayed if only if the value is available in it. All the other fields are mandatory in the UI
 	 * @param wizardData passing all the info received from frontend
 	 *
-	 * @return formatted Accessibility or Disability case comment
+	 * @return formatted Accessibility and Disability case comment
 	 */
 
 	private static String getAccessibilityComments(Map<String, String> wizardData) {
@@ -474,7 +474,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 
 			//accessbility or disability assistance
 			accessibilityComments += String.isNotBlank(accessibilityOptions)
-				? 'Accessibility or disability assistance -' + '\n' + accessibilityOptions + '\n'
+				? 'Accessibility and disability assistance -' + '\n' + accessibilityOptions + '\n'
 				: ''; // Display all options if multiple options selected by customer
 		} else if (accessibilityIssueTypeName == 'Delivery') {
 			accessibilityComments +=
@@ -502,7 +502,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 				'\n'; //Display option selected by customer from the list of values
 			//accessbility or disability assistance
 			accessibilityComments += String.isNotBlank(accessibilityOptions)
-				? 'Accessibility or disability assistance -' + '\n' + accessibilityOptions + '\n'
+				? 'Accessibility and disability assistance -' + '\n' + accessibilityOptions + '\n'
 				: ''; // Display all options if multiple options selected by customer
 		} else if (accessibilityIssueTypeName == 'Website or app') {
 			accessibilityComments +=
@@ -524,7 +524,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 				: ''; //Display text from input field
 			//accessbility or disability assistance
 			accessibilityComments += String.isNotBlank(accessibilityOptions)
-				? 'Accessibility or disability assistance -' + '\n' + accessibilityOptions + '\n'
+				? 'Accessibility and disability assistance -' + '\n' + accessibilityOptions + '\n'
 				: ''; // Display all options if multiple options selected by customer
 		} else if (accessibilityIssueTypeName == 'Other issue type') {
 			accessibilityComments +=
@@ -537,7 +537,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 				'\n'; //Display the date selected by the customer
 			//accessbility or disability assistance
 			accessibilityComments += String.isNotBlank(accessibilityOptions)
-				? 'Accessibility or disability assistance -' + '\n' + accessibilityOptions + '\n'
+				? 'Accessibility and disability assistance -' + '\n' + accessibilityOptions + '\n'
 				: ''; // Display all options if multiple options selected by customer
 		}
 

@@ -68,7 +68,7 @@
         );
         if(issueVal == 'Late or missing item') {
             helper.gotoPage(cmp, 'missingItemPage');
-        }else if (issueVal == 'Accessibility or disability issue'){
+        }else if (issueVal == 'Accessibility and disability issue'){
             helper.gotoPage(cmp, 'productServicePage');
         }else{
             cmp.set('v.showIssuesList',false);
