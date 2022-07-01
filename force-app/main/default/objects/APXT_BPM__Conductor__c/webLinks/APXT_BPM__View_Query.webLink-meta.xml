@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APXT_BPM__View_Query</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>View Query</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>if( &quot;{!APXT_BPM__Conductor__c.APXT_BPM__Query_Id__c}&quot; == &quot;&quot; )
+alert(&quot;Please paste a Query Id.&quot;);
+else
+window.open( &quot;/&quot; + &quot;{!APXT_BPM__Conductor__c.APXT_BPM__Query_Id__c}&quot; );</url>
+</WebLink>

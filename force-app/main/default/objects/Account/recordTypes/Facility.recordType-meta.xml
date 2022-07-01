@@ -1317,6 +1317,10 @@
     <picklistValues>
         <picklist>Licence_Type__c</picklist>
         <values>
+            <fullName>BC</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CMA</fullName>
             <default>false</default>
         </values>
@@ -1645,10 +1649,6 @@
     </picklistValues>
     <picklistValues>
         <picklist>Sales_Segment__c</picklist>
-        <values>
-            <fullName>Federal Government</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>Holding Sales Team</fullName>
             <default>true</default>

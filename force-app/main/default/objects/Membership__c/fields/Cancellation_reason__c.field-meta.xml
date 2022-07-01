@@ -31,6 +31,12 @@
                 <label>Did not assign</label>
             </value>
             <value>
+                <fullName>No longer required</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>No longer required</label>
+            </value>
+            <value>
                 <fullName>Non-Participation</fullName>
                 <default>false</default>
                 <label>Non-Participation</label>
@@ -52,7 +58,7 @@
         <valueSettings>
             <controllingFieldValue>Cancelled</controllingFieldValue>
             <valueName>Did not assign</valueName>
-        </valueSettings>        
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Cancelled</controllingFieldValue>
             <valueName>Non-Participation</valueName>

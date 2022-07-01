@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>S_ParentId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Parent ID</label>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>OLD Archive Case Comments (S_ParentId__c)</relationshipLabel>
+    <relationshipName>A_Case_CaseComments</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

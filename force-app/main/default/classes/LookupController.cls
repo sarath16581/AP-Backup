@@ -11,29 +11,11 @@ public with sharing class LookupController
 {
 	private static final Integer MAX_RESULTS = 10;
 
-	@TestVisible
-	public class SearchWrapper {
-		@AuraEnabled
-		public String searchTerm { get; set; }
-		@AuraEnabled
-		public String fieldList { get; set; }
-		@AuraEnabled
-		public String sobjectName { get; set; }
-		@AuraEnabled
-		public String fieldsToSearch { get; set; }
-		@AuraEnabled
-		public Map<String, String> filterMap { get; set; }
-		@AuraEnabled
-		public Integer maxResults { get; set; }
-
-	}
-
 	@AuraEnabled(cacheable=true)
-	public static List<SObject> lookUpObjects(SearchWrapper wrapper) {
+	public static List<SObject> lookUpObjects(String searchTerm, String fieldList, String sobjectName, String fieldsToSearch, Map<String, String> filterMap,Integer maxResults) {
 		// The values are based on the data that is defined in the
 		// lookup datatable Lightning web component.
-		System.Debug('The parameters are'+wrapper.searchTerm+wrapper.fieldList+wrapper.maxResults);
-		String query = getQueryString(wrapper.searchTerm, wrapper.fieldList, wrapper.sobjectName, wrapper.fieldsToSearch, wrapper.filterMap,wrapper.maxResults);
+		String query = getQueryString(searchTerm, fieldList, sobjectName, fieldsToSearch, filterMap,maxResults);
 
 		System.Debug('The query is'+query);
 		try
