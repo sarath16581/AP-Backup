@@ -166,6 +166,7 @@
     <pluralLabel>Routes</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <listViewButtons>Print_Full_Duty_Board</listViewButtons>
         <listViewButtons>Print_All_Jobs</listViewButtons>
         <listViewButtons>Print_Adhoc_Jobs</listViewButtons>
         <listViewButtons>Print_All_No_Pickups</listViewButtons>

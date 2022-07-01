@@ -56,6 +56,7 @@
             .job-headers {
                 font-weight:normal;
             }
+
         </style>
     </head>
     <!--page counter used to truncate blank pages and the end of the pdf document -->
@@ -69,16 +70,13 @@
             <br/>
         </div>
 
-        <div class="content" style="padding-top:15px;">
+        <div class="content" style="padding-top:5px;">
             <table class="info">
                 <tr>
                     <td class="italic" style="width:100%; font-size:12px;">
-                        PTO’s are to familiarize themselves with duty statement at the commencement of their shift.
-                        Departures or alterations from these duties must be advised in writing and authorized by the
-                        O.I.C.<br/>
-                        The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at
-                        the
-                        cessation of use of any Aust. Post Vehicle.
+                        <apex:outputText value="{! $Label.Route_Printing_Static_Text_Top}"/>
+                        <br/>
+                        <apex:outputText value="{! $Label.Route_Printing_Static_Text_Bottom}"/>
                     </td>
                 </tr>
                 <tr>
@@ -103,10 +101,11 @@
 
                         <!-- rest breaks -->
                         <div style="float:right; font-size:12px">
-                            Rest Break:
+                            Rest Break:<br/>
                             <apex:variable var="breaksNumber" value="{!0}"/>
                             <apex:repeat value="{!route.Bookings__r}" var="booking">
-                                <apex:outputText rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}">
+                                <apex:outputText
+                                        rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}">
                                     <br/>
                                 </apex:outputText>
                                 <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
@@ -115,9 +114,10 @@
                                 </apex:outputText>
                                 <apex:outputText value="{0,number,00}"
                                                  rendered="{! booking.Booking_Type__c='Meal Break'}">
-                                    <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
+                                    <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
                                 </apex:outputText>
-                                <apex:variable var="breakEndTime" value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
+                                <apex:variable var="breakEndTime"
+                                               value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
                                 <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
                                     -
                                     {! IF(LEN(TEXT(HOUR(breakEndTime)))<2 , '0'+ TEXT(HOUR(breakEndTime)), HOUR(breakEndTime))}
@@ -155,25 +155,27 @@
                     <apex:column headerValue="Job Details" styleClass="contents"
                                  width="430px" headerClass="job-headers"
                                  rendered="{!booking.Booking_Type__c != 'Meal Break'}">
-                        <div style="font-size: small;">
-                            <b>
-                                <apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
-                                <apex:outputText
-                                        rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
-                                    (
-                                    <apex:outputField value="{!booking.Booking_Location_Street__c}"/>
-                                    &nbsp;
-                                    <apex:outputField value="{!booking.Booking_Location_City__c}"/>
-                                    )<br/>
-                                </apex:outputText>
-                            </b>
-                            <apex:outputField value="{!booking.Booking_Comments__c}" styleClass="contents"/>
-                            <apex:outputText rendered="{! !ISBLANK(booking.Booking_Comments__c)}">
-                                <br/>
+                        <b>
+                            <apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
+                            <apex:outputText
+                                    rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
+                                (
+                                <apex:outputField value="{!booking.Booking_Location_Street__c}"/>
+                                &nbsp;
+                                <apex:outputField value="{!booking.Booking_Location_City__c}"/>
+                                )<br/>
                             </apex:outputText>
-                            <apex:outputField value="{!booking.Key_Number__c}" styleClass="contents"/>
-                            <br/>
-                        </div>
+                        </b>
+                        <apex:outputText value="{! booking.Booking_Type__c}"/>
+                        <span style="margin-left: 40px; display: block;">
+                            <apex:outputField value="{!booking.Booking_Comments__c}"/>
+                        </span>
+                        <apex:outputText rendered="{! !ISBLANK(booking.Booking_Comments__c)}">
+                        </apex:outputText>
+                        <span style="margin-left: 40px;">
+                        <apex:outputField value="{!booking.Key_Number__c}" styleClass="contents"/>
+                        </span>
+                        <br/>
                     </apex:column>
                     <b>
                         <apex:column headerValue="Docks" styleClass="contents" width="35px"
@@ -186,7 +188,8 @@
                                      headerClass="job-headers"
                                      rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                             <b>
-                                <apex:variable var="bookingEndTime" value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
+                                <apex:variable var="bookingEndTime"
+                                               value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
                                 <!-- display time in hhmm format -->
                                 {! IF(LEN(TEXT(HOUR(bookingEndTime)))<2 , '0'+ TEXT(HOUR(bookingEndTime)), HOUR(bookingEndTime))}
                                 <apex:outputText value="{0,number,00}">
