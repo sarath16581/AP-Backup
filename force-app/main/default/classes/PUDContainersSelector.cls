@@ -62,6 +62,14 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 	}
 	
     
+	/**
+	* @description Run a simple query to get records based on Job__c Id's
+	*/
+    public virtual List<PUD_Container__c> selectByBookingIds(Set<Id> ids, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Container__c.Booking__c + ' in :ids')).endConditions();       
+        return (List<PUD_Container__c>)Database.query(qb.toSoqlString());
+	}
 	
+    
 	
 }
