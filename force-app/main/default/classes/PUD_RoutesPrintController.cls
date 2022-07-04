@@ -29,7 +29,7 @@ public with sharing class PUD_RoutesPrintController {
     @TestVisible private static List<PUD_Route__c> getSelectedRoutesWithBookings(Set<Id> routeIds,Set<Object>selectorOptions) {
         return PUDRoutesSelector.newInstance().selectByIdWithActiveBookings(
                 routeIds,
-                null,
+                new Set<Id>(),
                 selectorOptions
         );
     }

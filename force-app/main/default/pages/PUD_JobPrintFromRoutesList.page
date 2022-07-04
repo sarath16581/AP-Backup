@@ -99,7 +99,7 @@
                             </span>
                         </td>
                         <td class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:200px;">
-                            Overtime Allowance: <apex:outputText value="{!route.Overtime_Allowance__c}"/>
+                            Overtime: <apex:outputText value="{!route.Overtime_Allowance__c}"/>
                         </td>
                         <td  class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:100px;">
                             <!-- rest breaks -->
@@ -143,6 +143,9 @@
                     <apex:pageBlockTable value="{! route.Bookings__r }" var="booking"
                                          styleClass="contents"
                                          headerClass="table-header">
+                        <apex:variable var="showDaysActive" value="{!booking.Id != route.Bookings__r[0].Id}"/>
+                        <apex:outputText value="Current booking Id: {! booking.Id}"/>
+                        <apex:outputText value="First booking Id: {!route.Bookings__r[0].Id}"/>
                         <apex:column headerValue="Arrive"
                                      styleClass="contents"
                                      width="50px"
