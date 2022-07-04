@@ -14,7 +14,7 @@
             }
            @page {
                 size: A4 portrait;
-                margin-top:18mm;
+                margin-top:13mm;
            }
             div.header {
             font-size: small;
@@ -98,7 +98,10 @@
                                     </apex:outputText>
                             </span>
                         </td>
-                        <td  class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:320px;">
+                        <td class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:200px;">
+                            Overtime Allowance: <apex:outputText value="{!route.Overtime_Allowance__c}"/>
+                        </td>
+                        <td  class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:100px;">
                             <!-- rest breaks -->
                             Rest Break:
                         </td>

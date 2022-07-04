@@ -8,13 +8,13 @@
                     description="flag to indicate if route active days need to be displayed"/>
     <table style="width:100%; font-family:Arial;">
         <tr>
-            <td rowspan="2"><img src="{!$Resource.auspost_logo}" width="125" alt="AusPost Logo"/></td>
+            <td rowspan="2"><img src="{!$Resource.auspost_logo}" width="110" alt="AusPost Logo"/></td>
             <td><b>{! Route.Name}</b></td>
             <td><b><u>{! Route.Depot__r.Name}</u></b></td>
             <td>Page</td>
             <td><span class="pagenumber"/> of <span class="pagecount"/></td>
         </tr>
-        <tr>
+        <tr style="vertical-align:bottom;">
             <td>Effective Date:
                 <apex:outputField value="{! Route.Start_Date__c}"/>
             </td>

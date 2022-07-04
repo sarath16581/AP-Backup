@@ -1,107 +1,83 @@
-<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_JobsPrintFutureControllerX"
-           renderAs="pdf" applyBodyTag="false">
-    <!--apex:page docType="html-5.0" Controller="PUD_JobsPrintFutureControllerX" renderAs="pdf" applyBodyTag="false"-->
-    <!--Page to allow printing of Duty for driver a backup to the mobile device -->
-    <!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->
-    <!--Created 26-11-19 Dheeraj Mandavilli-->
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_JobsPrintFutureControllerX" renderAs="pdf" applyBodyTag="false">
+<!--apex:page docType="html-5.0" Controller="PUD_JobsPrintFutureControllerX" renderAs="pdf" applyBodyTag="false"-->
+<!--Page to allow printing of Duty for driver a backup to the mobile device -->
+<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->
+<!--Created 26-11-19 Dheeraj Mandavilli-->
     <head>
         <style type="text/css" media="print">
             @page {
                 @top-center {
                     content: element(header);
                 }
+                @bottom-center {
+                    content: element(footer);
+                }
             }
-           @page {
-                size: A4 portrait;
-                margin-top:28mm;
-           }
+           @page { size: A4 potrait; }
             div.header {
-            padding: 5px;
-            font-size: small;
-            position:running(header);
+                padding: 5px;
+            	position: running(header);
             }
            table {
     			-fs-table-paginate: paginate;
 			} 
-
+            div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+            }
             .pagenumber:before {
                 content: counter(page);
             }
             .pagecount:before {
                 content: counter(pages);
             }
-            .table-header{
-                border-bottom: 1px solid black;
-            }
-            table.info{
-                border-top: 1px solid black;
-                border-bottom: 1px solid black;
-                border-spacing:1px;
-            }
-
-            td {
-                padding: 5px;
-            }
-            td.bold{
-                font-weight:bold;
-            }
-            td.italic{
-                font-style:italic;
-            }
-            .job-headers {
-                font-weight:normal;
-            }
-
-
-
         </style>
     </head>
     <div class="header">
-        <br/>
-        <c:PUD_JobsHeader Route="{!routeName}" Depot="{!depotName}" Effective="" Expiry=""/>
-        <br/>
+    <b>Route Name : {!routeName}</b><br/>
+  	</div>
+    <div class="footer">
+        <div>
+            <center>
+                Page <span class="pagenumber"/> of <span class="pagecount"/>
+                (
+                <apex:outputText value="{0, date, d MMM yyyy}">
+                    <apex:param value="{!NOW()}" />
+                </apex:outputText>
+                )
+            </center>
+        </div>
     </div>
-
     <div class="content">
-        <table class="info">
-            <tr>
-                <td class="italic" style="width:100%">
-                    PTO’s are to familiarize themselves with duty statement at the commencement of their shift.
-                    Departures or alterations from these duties must be advised in writing and authorized by the
-                    O.I.C.<br/>
-                    The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the
-                    cessation of use of any Aust. Post Vehicle.
-                </td>
-            </tr>
-            <tr>
-                <td class="bold"><span class="left-align">Days of the week Route applies to</span><span
-                            style="float:right">Rest Break: #TBA</span></td>
-            </tr>
-        </table>
-        <apex:pageBlock>
-            <apex:pageBlockTable value="{! jobTemplateList }" var="jt"
-                                 style="vertical-align:Top font:Calibri; font-size: 12pt" headerClass="table-header">
+        <apex:pageBlock >
+            <center>
+            		<img src="{!$Resource.auspost_logo}" width="15%"/>
+            		<br/><br/>
+                	<b>Driver Run Sheet for {!depotName}</b>
+        			</center><br/>
+            		<b>Date: {!sdate}</b><br/>
+                    <br/>
 
-                <apex:column headerValue="Arrive" style="vertical-align:Top font:Calibri; font-size: 11pt;" width="80px"
-                             headerClass="job-headers">
-                    <b>
-                        <apex:outputField value="{! jt.Display_Start_Time__c}" rendered="{!!adhoc}" style="vertical-align:top"/>
-                        <apex:outputField value="{! jt.Start_Time__c}" rendered="{!adhoc}" style="vertical-align:top"/>
-                    </b>
-                </apex:column>
-                <apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size:12pt"
-                             width="430px" headerClass="job-headers">
-                    <b>
-                        <apex:outputField value="{!jt.Location_Information__c}"/>
-                    </b><br/>
-                    <apex:outputField value="{!jt.Job_Information__c}"/>
-                    <apex:outputField value="{!jt.Booking_Comments__c}"/>
-                </apex:column>
-                <b>
-                    <apex:column headerValue="Docks" style="vertical-align:Top" width="35px" headerClass="job-headers"/>
-                    <apex:column headerValue="Depart" style="vertical-align:Top" width="0px" headerClass="job-headers"/>
-                </b>
+           <apex:pageBlockTable value="{! jobTemplateList }" var="jt" border="1" style="vertical-align:Top font:Calibri; font-size: 12pt">
+           <apex:column headerValue="Start Time" style="vertical-align:Top font:Calibri; font-size: 11pt" width="80px">
+                <b><apex:outputField value="{! jt.Display_Start_Time__c}" rendered="{!!adhoc}"/></b>
+               	<b><apex:outputField value="{! jt.Start_Time__c}" rendered="{!adhoc}"/></b>
+            </apex:column>
+            <apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size:12pt" width="430px">
+                <b><apex:outputField value="{!jt.Location_Information__c}"/></b><br/>
+                <apex:outputField value="{!jt.Job_Information__c}" /><br/>
+                <b><apex:outputField value="{!jt.Booking_Comments__c}"/></b>
+    		</apex:column>
+            <apex:column value="{! jt.Deliver_Product__c}" style="vertical-align:Top font-family: Calibri; font-size: 12pt" width="200px"/>
+        	 <apex:column headerValue="Rev Chk" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
+                <apex:outputField value="{!jt.Revenue_Check__c}" /> <br></br><br></br>
+    		</apex:column>
+        	 <apex:column headerValue="Stop Credit" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
+                <apex:outputField value="{!jt.Stop_Credit__c}" />
+    		</apex:column>
+        	<apex:column headerValue="MS/E/P_F" style="vertical-align:Top" width="0px"/>
             </apex:pageBlockTable>
         </apex:pageBlock>
-    </div>
+	</div>
 </apex:page>
