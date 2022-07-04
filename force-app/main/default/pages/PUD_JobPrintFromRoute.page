@@ -1,7 +1,7 @@
 <!--
  - Created by Kamil Szyc on 28/6/2022.
  -->
-<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_RoutesPrintController"
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_PrintRouteController"
            renderAs="pdf" applyBodyTag="false" id="PUD_JobPrintFromRoute">
     <!--Page to allow printing of Duty for driver a backup to the mobile device -->
     <head>
@@ -13,12 +13,11 @@
             }
            @page {
                 size: A4 portrait;
-                margin-top:13mm;
+                margin-top:14mm;
            }
             div.header {
             font-size: small;
             position:running(header);
-            font-family:Arial;
             }
            table {
     			-fs-table-paginate: paginate;
@@ -32,25 +31,39 @@
             }
             .table-header{
                 border-bottom: 1px solid black;
+                font-family:Arial Unicode MS;
+                font-size: 10px;
             }
             table.info{
                 border-top: 1px solid black;
                 border-bottom: 1px solid black;
                 border-spacing:1px;
             }
-            .contents{
-                vertical-align:Top !important;
-                font-family: Arial;
-                font-size:small;
-            }
             td.bold{
                 font-weight:bold;
+                font-family:sans-serif;
+            }
+            .boldcell {
+                font-size: 10pt;
+                font-weight: bold;
+                font-family: sans-serif;
+                vertical-align: Top;
+                padding-left: 5px;
+                padding-top: 5px;
+            }
+            .normalcell {
+                font-size: 10pt;
+                font-family: "Arial Unicode MS";
+                vertical-align: Top;
+                padding-left: 5px;
+                padding-top: 5px;
             }
             td.italic{
                 font-style:italic;
             }
             .job-headers {
                 font-weight:normal;
+                font-size:small;
             }
 
         </style>
@@ -58,14 +71,13 @@
     </head>
     <!--page counter used to truncate blank pages and the end of the pdf document -->
     <apex:variable var="routeCounter" value="{!0}"/>
-    <apex:variable var="showDaysActive" value="false"/>
     <div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
         <div class="header">
             <!--repeatable header-->
-            <c:PUD_JobsHeader Route="{! route}" showDaysActive="{! showDaysActive}"/>
+            <c:PUD_JobsHeader Route="{! route}"/>
         </div>
         <div class="content">
-            <table class="info">
+            <table class="info" style="background-color:white;">
                 <tr>
                     <td class="italic" style="width:100%; font-size:12px;">
                         <apex:outputText value="{! $Label.Route_Printing_Static_Text_Top}"/>
@@ -75,8 +87,8 @@
                 </tr>
                 <tr>
                     <!-- days and times the route is active -->
-                    <td class="bold" style="display:inline-block; width:150px;">
-                        <span class="left-align" style="font-size:12px">
+                    <td class="boldcell" style="display:inline-block; width:150px; vertical-align:top !important; font-size:12px;" >
+                        <span class="left-align">
                                 <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
                                 <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
                                 <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
@@ -99,7 +111,7 @@
                     <td class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:200px;">
                         Overtime: <apex:outputText value="{!route.Overtime_Allowance__c}"/>
                     </td>
-                    <td  class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:100px;">
+                    <td  class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:90px;">
                         <!-- rest breaks -->
                         Rest Break:
                     </td>
@@ -139,24 +151,25 @@
             <apex:pageBlock>
                 <!-- bookings table -->
                 <apex:pageBlockTable value="{! route.Bookings__r }" var="booking"
-                                     styleClass="contents"
+                                     styleClass="normalcell"
                                      headerClass="table-header">
                     <apex:column headerValue="Arrive"
-                                 styleClass="contents"
+                                 styleClass="normalcell"
                                  width="50px"
                                  headerClass="job-headers" rendered="{!booking.Booking_Type__c != 'Meal Break'}">
-                        <b>
+                        <div class="boldcell">
                             <!-- display time in hhmm format -->
                             {! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
                             <apex:outputText value="{0,number,00}">
                                 <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
                             </apex:outputText>
-                        </b>
+                        </div>
                     </apex:column>
-                    <apex:column headerValue="Job Details" styleClass="contents"
+                    <apex:column headerValue="Job Details" styleClass="normalcell"
                                  width="500px" headerClass="job-headers"
                                  rendered="{!booking.Booking_Type__c != 'Meal Break'}">
-                        <b>
+                        <div class="boldcell">
+                            <apex:variable var="showDaysActive" value="{!booking.Id != route.Bookings__r[0].Id}"/>
                             <apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
                             <apex:outputText
                                     rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
@@ -166,26 +179,25 @@
                                 <apex:outputField value="{!booking.Booking_Location_City__c}"/>
                                 )<br/>
                             </apex:outputText>
-                        </b>
-                        <apex:outputText value="{! booking.Booking_Type__c}"/>
+                        </div>
+                        <apex:outputText value="{! booking.Booking_Type__c}" styleClass="normalcell"/>
                         <span style="margin-left: 40px; display: block;">
-                            <apex:outputField value="{!booking.Booking_Comments__c}"/>
+                            <apex:outputField value="{!booking.Booking_Comments__c}" styleClass="normalcell"/>
                         </span>
                         <apex:outputText rendered="{! !ISBLANK(booking.Booking_Comments__c)}">
                         </apex:outputText>
                         <span style="margin-left: 40px;">
-                        <apex:outputField value="{!booking.Key_Number__c}" styleClass="contents"/>
+                        <apex:outputField value="{!booking.Key_Number__c}" styleClass="normalcell"/>
                         </span>
                         <br/>
-
                     </apex:column>
                     <b>
-                        <apex:column headerValue="Docks" styleClass="contents" width="50px"
+                        <apex:column headerValue="Docks" styleClass="normalcell" width="50px"
                                      headerClass="job-headers"
                                      rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                             <apex:outputField value="{! booking.Dock_Number__c}" style="font-size:small"/>
                         </apex:column>
-                        <apex:column headerValue="Depart" styleClass="contents"
+                        <apex:column headerValue="Depart" styleClass="boldcell"
                                      width="50px"
                                      headerClass="job-headers"
                                      rendered="{!booking.Booking_Type__c != 'Meal Break'}">
@@ -200,7 +212,6 @@
                                 </apex:outputText>
                             </b>
                         </apex:column>
-
                     </b>
                 </apex:pageBlockTable>
             </apex:pageBlock>

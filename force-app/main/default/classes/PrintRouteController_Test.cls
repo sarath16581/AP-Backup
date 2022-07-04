@@ -37,7 +37,7 @@ private class PrintRouteController_Test {
         PageReference pageRef = Page.PUD_JobPrintFromRoutesList;
         Test.setCurrentPage(pageRef);
 
-        PUD_RoutesPrintController testRoutesPrint = new PUD_RoutesPrintController(new ApexPages.StandardSetController(routeList));
+        PUD_PrintRouteController testRoutesPrint = new PUD_PrintRouteController(new ApexPages.StandardSetController(routeList));
         Test.stopTest();
         System.assertNotEquals(null, testRoutesPrint.routes, 'The selector has not returned a list of routes');
         System.assert(!testRoutesPrint.routes.isEmpty(), 'Expected routes were not returned by the controller');
@@ -68,7 +68,7 @@ private class PrintRouteController_Test {
         PageReference pageRef = Page.PUD_JobPrintFromRoutesList;
         Test.setCurrentPage(pageRef);
 
-        PUD_RoutesPrintController testRoutesPrint = new PUD_RoutesPrintController(new ApexPages.StandardController(route1));
+        PUD_PrintRouteController testRoutesPrint = new PUD_PrintRouteController(new ApexPages.StandardController(route1));
         Test.stopTest();
         System.assertNotEquals(null, testRoutesPrint.route, 'The selector has not returned a route');
     }

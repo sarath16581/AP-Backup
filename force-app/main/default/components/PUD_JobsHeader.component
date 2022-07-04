@@ -4,13 +4,11 @@
 
 <apex:component id="PUD_JobsHeader">
     <apex:attribute name="Route" type="PUD_Route__c" description="parent route"/>
-    <apex:attribute name="showDaysActive" type="Boolean"
-                    description="flag to indicate if route active days need to be displayed"/>
-    <table style="width:100%; font-family:Arial;">
+    <table style="width:100%; font-family:Arial Unicode MS;">
         <tr>
             <td rowspan="2"><img src="{!$Resource.auspost_logo}" width="110" alt="AusPost Logo"/></td>
-            <td><b>{! Route.Name}</b></td>
-            <td><b><u>{! Route.Depot__r.Name}</u></b></td>
+            <td style="font-family: sans-serif; font-weight:bold;">{! Route.Name}</td>
+            <td style="font-family: sans-serif; font-weight:bold;"><u>{! Route.Depot__r.Name}</u></td>
             <td>Page</td>
             <td><span class="pagenumber"/> of <span class="pagecount"/></td>
         </tr>
@@ -29,9 +27,10 @@
             </td>
         </tr>
     </table>
-    <div style="text-align:center;">
+
+    <div style="text-align:center; font-family:Arial Unicode MS">
         <!-- days the route is active repeated on every subsequent page-->
-        <apex:outputText rendered="{! showDaysActive}">
+            <br/>
             <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
             <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
             <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
@@ -48,6 +47,5 @@
             <apex:outputText value="{0,number,00}">
                 <apex:param value="{!MINUTE(route.End_Time__c)}"/>
             </apex:outputText>
-        </apex:outputText>
     </div>
 </apex:component>

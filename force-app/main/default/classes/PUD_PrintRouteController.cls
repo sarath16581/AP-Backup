@@ -8,11 +8,11 @@
 * @description Controller class to for printing CCP routes.
  */
 
-public with sharing class PUD_RoutesPrintController {
+public with sharing class PUD_PrintRouteController {
     public List<PUD_Route__c> routes { get; set; }
     public PUD_Route__c route { get; set; }
     //Constructor
-    public PUD_RoutesPrintController(ApexPages.StandardSetController ssc) {
+    public PUD_PrintRouteController(ApexPages.StandardSetController ssc) {
         //Identify the selected records from Listview
         Set<Id> selectedRouteIDs = new Set<Id>();
         for (PUD_Route__c rts : (PUD_Route__c[]) ssc.getSelected()) {
@@ -20,7 +20,7 @@ public with sharing class PUD_RoutesPrintController {
         }
         routes = getSelectedRoutesWithBookings(selectedRouteIDs,new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT});
     }
-    public PUD_RoutesPrintController(ApexPages.StandardController sc) {
+    public PUD_PrintRouteController(ApexPages.StandardController sc) {
         //Identify the selected records from Listview
         Set<Id> selectedRouteIDs = new Set<Id>();
         selectedRouteIDs.add(sc.getId());
