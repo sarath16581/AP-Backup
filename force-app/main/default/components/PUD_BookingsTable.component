@@ -1,0 +1,74 @@
+<!--
+ - Created by kamilszyc on 5/7/2022.
+ -->
+
+<apex:component id="PUD_BookingsTable">
+    <apex:attribute name="route" type="PUD_Route__c" required="true" description="Bookings parent route"/>
+    <apex:pageBlock>
+        <!-- bookings table -->
+        <apex:pageBlockTable value="{! route.Bookings__r }" var="booking"
+                             styleClass="normalcell"
+                             headerClass="table-header">
+            <apex:column headerValue="Arrive"
+                         styleClass="normalcell"
+                         width="50px"
+                         headerClass="job-headers" rendered="{!booking.Booking_Type__c != 'Meal Break'}">
+                <div class="boldcell">
+                    <!-- display time in hhmm format -->
+                    {! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
+                    <apex:outputText value="{0,number,00}">
+                        <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
+                    </apex:outputText>
+                </div>
+            </apex:column>
+            <apex:column headerValue="Job Details" styleClass="normalcell"
+                         width="500px" headerClass="job-headers"
+                         rendered="{!booking.Booking_Type__c != 'Meal Break'}">
+                <div class="boldcell">
+                    <apex:variable var="showDaysActive" value="{!booking.Id != route.Bookings__r[0].Id}"/>
+                    <apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
+                    <apex:outputText
+                            rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
+                        (
+                        <apex:outputField value="{!booking.Booking_Location_Street__c}"/>
+                        &nbsp;
+                        <apex:outputField value="{!booking.Booking_Location_City__c}"/>
+                        )<br/>
+                    </apex:outputText>
+                </div>
+                <apex:outputText value="{! booking.Booking_Type__c}" styleClass="normalcell"/>
+                <span style="margin-left: 40px; display: block;">
+                            <apex:outputField value="{!booking.Booking_Comments__c}" styleClass="normalcell"/>
+                        </span>
+                <apex:outputText rendered="{! !ISBLANK(booking.Booking_Comments__c)}">
+                </apex:outputText>
+                <span style="margin-left: 40px;">
+                        <apex:outputField value="{!booking.Key_Number__c}" styleClass="normalcell"/>
+                        </span>
+                <br/>
+            </apex:column>
+            <b>
+                <apex:column headerValue="Docks" styleClass="normalcell" width="50px"
+                             headerClass="job-headers"
+                             rendered="{!booking.Booking_Type__c != 'Meal Break'}">
+                    <apex:outputField value="{! booking.Dock_Number__c}" style="font-size:small"/>
+                </apex:column>
+                <apex:column headerValue="Depart" styleClass="boldcell"
+                             width="50px"
+                             headerClass="job-headers"
+                             rendered="{!booking.Booking_Type__c != 'Meal Break'}">
+                    <b>
+                        <apex:variable var="bookingEndTime"
+                                       value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
+                        <!-- display time in hhmm format -->
+                        {! IF(LEN(TEXT(HOUR(bookingEndTime)))<2 , '0'+ TEXT(HOUR(bookingEndTime)), HOUR(bookingEndTime))}
+                        <apex:outputText value="{0,number,00}">
+                            <apex:param
+                                    value="{!MINUTE(bookingEndTime)}"/>
+                        </apex:outputText>
+                    </b>
+                </apex:column>
+            </b>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:component>
