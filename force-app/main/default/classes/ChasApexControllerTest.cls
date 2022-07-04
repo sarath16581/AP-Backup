@@ -12,6 +12,7 @@
                												Adapting the unit tests to support the coverage.
                2022-06-06 hasantha.liyanage@auspost.com.au DDS-10974 moved the createCaseFromProductsAndServices method to ChasProductsAndServicesControllerTest.
                2022-06-29 hasantha.liyanage@auspost.com.au Modified : DDS-11414 alteration of unit tests for changed method params for getEDDEstimates
+			   2022-07-04 hasantha.liyanage@auspost.com.au Modified : DDS-11414 getEDDEstimates unit tests moved to it's own class
 
 **/
 @IsTest(IsParallel=true)
@@ -1533,21 +1534,7 @@ deliveryIssue_Somethingelse
 
 		Test.stopTest();
 	}
-	// CHAS_NoEDD- EDD Service Estimates
-	@IsTest
-	public static void testEDDServiceEstimates_NoEDDFound() {
-		StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
-		testsearchTrackingNumberSetup(mock,'CHAS_NoEDD');
-		Test.startTest();
-		// Set the mock callout mode
-		Test.setMock(HttpCalloutMock.class, mock);
-		ChasApexController.searchTrackingNumber('33LPL000061903000605008');
-		Map <String,String> missingItemWizardData = new Map <String,String>();
-		missingItemWizardData.put('trackingId','33LPL000061903000605008');
-		missingItemWizardData.put('recipientPostcode','3000');
-		System.assertNotEquals(null, ChasEDDServiceEstimates.getEDDEstimates('33LPL000061903000605008', '3000'));
-		Test.stopTest();
-	}
+
 	// CHAS_DeliveredLeftInASafePlaceMailRedirected
 	@IsTest
 	public static void testsearchTrackingNumber_CHAS_DeliveredLeftInASafePlaceMailRedirected() {
