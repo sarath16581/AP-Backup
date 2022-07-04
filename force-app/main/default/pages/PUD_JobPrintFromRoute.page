@@ -13,12 +13,12 @@
             }
            @page {
                 size: A4 portrait;
-                margin-top:28mm;
+                margin-top:18mm;
            }
             div.header {
-            padding: 5px;
             font-size: small;
             position:running(header);
+            font-family:Arial;
             }
            table {
     			-fs-table-paginate: paginate;
@@ -39,13 +39,9 @@
                 border-spacing:1px;
             }
             .contents{
-                vertical-align:Top;
-                font: Calibri;
+                vertical-align:Top !important;
+                font-family: Arial;
                 font-size:small;
-            }
-
-            td {
-                padding: 5px;
             }
             td.bold{
                 font-weight:bold;
@@ -58,19 +54,17 @@
             }
 
         </style>
+
     </head>
     <!--page counter used to truncate blank pages and the end of the pdf document -->
     <apex:variable var="routeCounter" value="{!0}"/>
-    <apex:variable var="showDaysActive" value="true"/>
+    <apex:variable var="showDaysActive" value="false"/>
     <div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
         <div class="header">
-            <br/>
             <!--repeatable header-->
             <c:PUD_JobsHeader Route="{! route}" showDaysActive="{! showDaysActive}"/>
-            <br/>
         </div>
-
-        <div class="content" style="padding-top:5px;">
+        <div class="content">
             <table class="info">
                 <tr>
                     <td class="italic" style="width:100%; font-size:12px;">
@@ -81,12 +75,15 @@
                 </tr>
                 <tr>
                     <!-- days and times the route is active -->
-                    <td class="bold"><span class="left-align" style="font-size:12px">
+                    <td class="bold" style="display:inline-block; width:150px;">
+                        <span class="left-align" style="font-size:12px">
                                 <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
                                 <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
                                 <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
                                 <apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
                                 <apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
+                                <apex:outputText rendered="{! route.Saturday__c}" value="Sat "/>
+                                <apex:outputText rendered="{! route.Sunday__c}" value="Sun "/>
                             <!-- display time in hhmm format -->
                             {! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
                             <apex:outputText value="{0,number,00}">
@@ -98,40 +95,41 @@
                                         <apex:param value="{!MINUTE(route.End_Time__c)}"/>
                                     </apex:outputText>
                             </span>
-
+                    </td>
+                    <td  class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:320px;">
                         <!-- rest breaks -->
-                        <div style="float:right; font-size:12px">
-                            Rest Break:<br/>
-                            <apex:variable var="breaksNumber" value="{!0}"/>
-                            <apex:repeat value="{!route.Bookings__r}" var="booking">
-                                <apex:outputText
-                                        rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}">
-                                    <br/>
-                                </apex:outputText>
-                                <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
-                                    {!booking.Booking_Location_Name_LU__c} &nbsp;
-                                    {! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
-                                </apex:outputText>
-                                <apex:outputText value="{0,number,00}"
-                                                 rendered="{! booking.Booking_Type__c='Meal Break'}">
-                                    <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
-                                </apex:outputText>
-                                <apex:variable var="breakEndTime"
-                                               value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
-                                <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
-                                    -
-                                    {! IF(LEN(TEXT(HOUR(breakEndTime)))<2 , '0'+ TEXT(HOUR(breakEndTime)), HOUR(breakEndTime))}
-                                </apex:outputText>
-                                <apex:outputText value="{0,number,00}"
-                                                 rendered="{! booking.Booking_Type__c='Meal Break'}">
-                                    <apex:param value="{!MINUTE(breakEndTime)}"/>
-                                </apex:outputText>
-                                <apex:outputText
-                                        rendered="{!  booking.Booking_Type__c='Meal Break'}">
-                                    <apex:variable var="breaksNumber" value="{!breaksNumber+1}"/>
-                                </apex:outputText>
-                            </apex:repeat>
-                        </div>
+                        Rest Break:
+                    </td>
+                    <td class="bold" style="font-size:12px; display:inline-block; vertical-align:top;">
+                        <apex:variable var="breaksNumber" value="{!0}"/>
+                        <apex:repeat value="{!route.Bookings__r}" var="booking">
+                            <apex:outputText
+                                    rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}">
+                                <br/>
+                            </apex:outputText>
+                            <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
+                                {!booking.Booking_Location_Name_LU__c} &nbsp;
+                                {! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
+                            </apex:outputText>
+                            <apex:outputText value="{0,number,00}"
+                                             rendered="{! booking.Booking_Type__c='Meal Break'}">
+                                <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
+                            </apex:outputText>
+                            <apex:variable var="breakEndTime"
+                                           value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
+                            <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
+                                -
+                                {! IF(LEN(TEXT(HOUR(breakEndTime)))<2 , '0'+ TEXT(HOUR(breakEndTime)), HOUR(breakEndTime))}
+                            </apex:outputText>
+                            <apex:outputText value="{0,number,00}"
+                                             rendered="{! booking.Booking_Type__c='Meal Break'}">
+                                <apex:param value="{!MINUTE(breakEndTime)}"/>
+                            </apex:outputText>
+                            <apex:outputText
+                                    rendered="{!  booking.Booking_Type__c='Meal Break'}">
+                                <apex:variable var="breaksNumber" value="{!breaksNumber+1}"/>
+                            </apex:outputText>
+                        </apex:repeat>
                     </td>
                 </tr>
             </table>
@@ -142,7 +140,7 @@
                                      headerClass="table-header">
                     <apex:column headerValue="Arrive"
                                  styleClass="contents"
-                                 width="80px"
+                                 width="50px"
                                  headerClass="job-headers" rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                         <b>
                             <!-- display time in hhmm format -->
@@ -153,7 +151,7 @@
                         </b>
                     </apex:column>
                     <apex:column headerValue="Job Details" styleClass="contents"
-                                 width="430px" headerClass="job-headers"
+                                 width="500px" headerClass="job-headers"
                                  rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                         <b>
                             <apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
@@ -176,15 +174,16 @@
                         <apex:outputField value="{!booking.Key_Number__c}" styleClass="contents"/>
                         </span>
                         <br/>
+
                     </apex:column>
                     <b>
-                        <apex:column headerValue="Docks" styleClass="contents" width="35px"
+                        <apex:column headerValue="Docks" styleClass="contents" width="50px"
                                      headerClass="job-headers"
                                      rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                             <apex:outputField value="{! booking.Dock_Number__c}" style="font-size:small"/>
                         </apex:column>
                         <apex:column headerValue="Depart" styleClass="contents"
-                                     width="0px"
+                                     width="50px"
                                      headerClass="job-headers"
                                      rendered="{!booking.Booking_Type__c != 'Meal Break'}">
                             <b>
