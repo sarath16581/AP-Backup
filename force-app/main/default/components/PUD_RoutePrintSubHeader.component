@@ -40,17 +40,17 @@
                                     </apex:outputText>
                             </span>
             </td>
-            <td class="bold"
+            <td class="boldcell"
                 style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:200px;">
                 Overtime:
                 <apex:outputText value="{!route.Overtime_Allowance__c}"/>
             </td>
-            <td class="bold"
+            <td class="boldcell"
                 style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:90px;">
                 <!-- rest breaks -->
                 Rest Break:
             </td>
-            <td class="bold" style="font-size:12px; display:inline-block; vertical-align:top;">
+            <td class="boldcell" style="font-size:12px;  vertical-align:top; width:210px; display:inline-block">
                 <apex:variable var="breaksNumber" value="{!0}"/>
                 <apex:repeat value="{!route.Bookings__r}" var="booking">
                     <apex:outputText

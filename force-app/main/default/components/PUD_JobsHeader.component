@@ -28,24 +28,28 @@
         </tr>
     </table>
 
-    <div style="text-align:center; font-family:Arial Unicode MS">
+    <div style="text-align:center; font-family:Arial Unicode MS; padding-top:10px;">
         <!-- days the route is active repeated on every subsequent page-->
-            <br/>
             <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
             <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
             <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
             <apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
             <apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
-
-            <!-- display time in hhmm format-->
-            {! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
-            <apex:outputText value="{0,number,00}">
-                <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
+            <apex:outputText rendered="{! route.Saturday__c}" value="Sat "/>
+            <apex:outputText rendered="{! route.Sunday__c}" value="Sun "/>
+            <apex:outputText rendered="{! !ISBLANK(route.Start_Time__c)}">
+                <!-- display time in hhmm format-->
+                {! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
+                <apex:outputText value="{0,number,00}">
+                    <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
+                </apex:outputText>
             </apex:outputText>
-            -&nbsp;
-            {! IF(LEN(TEXT(HOUR(route.End_Time__c)))<2 , '0'+ TEXT(HOUR(route.End_Time__c)), HOUR(route.End_Time__c))}
-            <apex:outputText value="{0,number,00}">
-                <apex:param value="{!MINUTE(route.End_Time__c)}"/>
+            <apex:outputText rendered="{! !ISBLANK(route.End_Time__c)}">
+                -&nbsp;
+                {! IF(LEN(TEXT(HOUR(route.End_Time__c)))<2 , '0'+ TEXT(HOUR(route.End_Time__c)), HOUR(route.End_Time__c))}
+                <apex:outputText value="{0,number,00}">
+                    <apex:param value="{!MINUTE(route.End_Time__c)}"/>
+                </apex:outputText>
             </apex:outputText>
     </div>
 </apex:component>
