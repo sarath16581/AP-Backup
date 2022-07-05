@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sunday__c</fullName>
+    <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>Indicates if the route is active on Sunday.</description>
+    <inlineHelpText>Indicates if the route is active on Sunday.</inlineHelpText>
     <externalId>false</externalId>
     <label>Sunday</label>
     <trackHistory>false</trackHistory>
