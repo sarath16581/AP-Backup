@@ -80,7 +80,7 @@
             </div>
             <div class="content">
                 <c:PUD_RoutePrintSubHeader route="{!route}"/>
-                <c:PUD_BookingsTable route="{!route}"/>
+                <c:PUD_BookingsTable bookings="{!route.Bookings__r}"/>
             </div>
         </div>
         <apex:variable var="routeCounter" value="{!routeCounter+1}"/>

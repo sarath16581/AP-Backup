@@ -26,7 +26,7 @@ private class PrintRouteController_Test {
         // set up responses
         MockUtility.Mocks.startStubbing();
 
-        MockUtility.Mocks.when(routesSelector.selectByIdWithActiveBookings((Set<Id>) fflib_Match.anyObject(), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject()))
+        MockUtility.Mocks.when(routesSelector.selectByIdWithAllBookings((Set<Id>) fflib_Match.anyObject(), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject()))
                 .thenReturn(routeList
                 );
         MockUtility.Mocks.stopStubbing();
@@ -57,7 +57,7 @@ private class PrintRouteController_Test {
         // set up responses
         MockUtility.Mocks.startStubbing();
 
-        MockUtility.Mocks.when(routesSelector.selectByIdWithActiveBookings((Set<Id>) fflib_Match.anyObject(), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject()))
+        MockUtility.Mocks.when(routesSelector.selectByIdWithAllBookings((Set<Id>) fflib_Match.anyObject(), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject()))
                 .thenReturn(new List<PUD_Route__c>{route1}
                 );
         MockUtility.Mocks.stopStubbing();

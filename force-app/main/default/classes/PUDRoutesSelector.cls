@@ -138,6 +138,25 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 
         return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
     }
+    /**
+     * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
+     *
+     * @param ids route ids to query
+     * @param bookingRecordTypeIds booking record type ids to filter active bookings (Optional). include all active bookings
+     *							 if not supplied.
+     * @param selectorOptions additional selector options
+     *
+     * @return list of route records. result set include active child bookings matching the record type ids passed in.
+     */
+    public virtual List<PUD_Route__c> selectByIdWithAllBookings(Set<Id> ids, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
+        qb.addSubQuery(getChildBookingsSubQueryBuilder(new Set<String>(), bookingRecordTypeIds, selectorOptions), 'Bookings__r');
+        if(selectorOptions.contains(Options.WITH_DEPOT)){
+            qb.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
+        }
+
+        return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
+    }
 
     /**
      * Returns a Query Builder for child bookings based on the record types, status and selector options passed in.
@@ -153,7 +172,9 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
         QueryBuilder subQueryBuilder = PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions);
 
         QueryBuilder.ConditionsManager subQueryConditions = subQueryBuilder.addConditions();
-        subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.Status_Calc__c + ' in :status'));
+        if(status != null && !status.isEmpty()) {
+            subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.Status_Calc__c + ' in :status'));
+        }
         if (bookingRecordTypeIds != null && !bookingRecordTypeIds.isEmpty()) {
             subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.RecordTypeId + ' in :bookingRecordTypeIds'));
         }

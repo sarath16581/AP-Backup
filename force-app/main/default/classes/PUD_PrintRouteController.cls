@@ -27,7 +27,7 @@ public with sharing class PUD_PrintRouteController {
         route = getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT})[0];
     }
     @TestVisible private static List<PUD_Route__c> getSelectedRoutesWithBookings(Set<Id> routeIds,Set<Object>selectorOptions) {
-        return PUDRoutesSelector.newInstance().selectByIdWithActiveBookings(
+        return PUDRoutesSelector.newInstance().selectByIdWithAllBookings(
                 routeIds,
                 new Set<Id>(),
                 selectorOptions

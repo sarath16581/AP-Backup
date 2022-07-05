@@ -14,7 +14,8 @@
         </tr>
         <tr>
             <!-- days and times the route is active -->
-            <td class="boldcell" style="display:inline-block; width:150px; vertical-align:top !important; font-size:12px;" >
+            <td class="boldcell"
+                style="display:inline-block; width:150px; vertical-align:top !important; font-size:12px;">
                         <span class="left-align">
                                 <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
                                 <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
@@ -24,21 +25,28 @@
                                 <apex:outputText rendered="{! route.Saturday__c}" value="Sat "/>
                                 <apex:outputText rendered="{! route.Sunday__c}" value="Sun "/>
                             <!-- display time in hhmm format -->
-                            {! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
-                            <apex:outputText value="{0,number,00}">
+                            <apex:outputText rendered="{! !ISBLANK(route.Start_Time__c)}">
+                                {! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
+                            </apex:outputText>
+                            <apex:outputText value="{0,number,00}" rendered="{! !ISBLANK(route.Start_Time__c)}">
                                         <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
                                     </apex:outputText>
+                            <apex:outputText rendered="{! !ISBLANK(route.End_Time__c)}">
                                 -&nbsp;
-                            {! IF(LEN(TEXT(HOUR(route.End_Time__c)))<2 , '0'+ TEXT(HOUR(route.End_Time__c)), HOUR(route.End_Time__c))}
-                            <apex:outputText value="{0,number,00}">
+                                {! IF(LEN(TEXT(HOUR(route.End_Time__c)))<2 , '0'+ TEXT(HOUR(route.End_Time__c)), HOUR(route.End_Time__c))}
+                                </apex:outputText>
+                            <apex:outputText value="{0,number,00}" rendered="{! !ISBLANK(route.End_Time__c)}">
                                         <apex:param value="{!MINUTE(route.End_Time__c)}"/>
                                     </apex:outputText>
                             </span>
             </td>
-            <td class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:200px;">
-                Overtime: <apex:outputText value="{!route.Overtime_Allowance__c}"/>
+            <td class="bold"
+                style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:200px;">
+                Overtime:
+                <apex:outputText value="{!route.Overtime_Allowance__c}"/>
             </td>
-            <td  class="bold" style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:90px;">
+            <td class="bold"
+                style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:90px;">
                 <!-- rest breaks -->
                 Rest Break:
             </td>
@@ -54,18 +62,20 @@
                         {! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
                     </apex:outputText>
                     <apex:outputText value="{0,number,00}"
-                                     rendered="{! booking.Booking_Type__c='Meal Break'}">
+                                     rendered="{! AND(booking.Booking_Type__c='Meal Break', !ISBLANK(booking.Start_Time__c))}">
                         <apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
                     </apex:outputText>
-                    <apex:variable var="breakEndTime"
-                                   value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
-                    <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
-                        -
-                        {! IF(LEN(TEXT(HOUR(breakEndTime)))<2 , '0'+ TEXT(HOUR(breakEndTime)), HOUR(breakEndTime))}
-                    </apex:outputText>
-                    <apex:outputText value="{0,number,00}"
-                                     rendered="{! booking.Booking_Type__c='Meal Break'}">
-                        <apex:param value="{!MINUTE(breakEndTime)}"/>
+                    <apex:outputText rendered="{! AND(!ISBLANK(booking.Start_Time__c),!ISBLANK(booking.Dwell_Time_Planned__c))}">
+                        <apex:variable var="breakEndTime"
+                                       value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
+                        <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
+                            -
+                            {! IF(LEN(TEXT(HOUR(breakEndTime)))<2 , '0'+ TEXT(HOUR(breakEndTime)), HOUR(breakEndTime))}
+                        </apex:outputText>
+                        <apex:outputText value="{0,number,00}"
+                                         rendered="{! booking.Booking_Type__c='Meal Break'}">
+                            <apex:param value="{!MINUTE(breakEndTime)}"/>
+                        </apex:outputText>
                     </apex:outputText>
                     <apex:outputText
                             rendered="{!  booking.Booking_Type__c='Meal Break'}">
