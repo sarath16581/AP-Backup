@@ -5,7 +5,8 @@
  * @group Tracking
  * @changelog
  * 2021-05-18 - Disha Kariya - Added a method to set a search string for notification preferences
- */
+ * 2022-07-05 - Snigdha Sahu - REQ2851358 - Added MLID for Sender Details
+*/
 import {LightningElement, api, track, wire} from "lwc";
 import { CONSTANTS, get, getPreferences } from "c/happyParcelService";
 import HappyParcelBase from "c/happyParcelBase";
@@ -68,7 +69,7 @@ export default class HappyParcelCustomerDetails extends HappyParcelBase {
 			this.doGetNotificationPreferences();
 		}
 	}
-
+	
 	doGetNotificationPreferences = async () => {
         this.loadingNotificationPreferences = true;
         // perform the actual callout to the api
@@ -148,7 +149,7 @@ export default class HappyParcelCustomerDetails extends HappyParcelBase {
 	}
 
 	get detailsExist() {
-		return this.details && (this.details.name || this.details.address || this.details.email);
+		return this.details && (this.details.name || this.details.address || this.details.email || this.details.mlid);
 	}
 
 	get showHyphen() {
@@ -210,6 +211,7 @@ export default class HappyParcelCustomerDetails extends HappyParcelBase {
 	get details() {
 		const article = get(this.trackingApiResult, 'article', {});
 		const output = {};
+		//console.log(json.stringify(article));
 
 		// TODO use 'import' on these fields to prevent the ability to delete theme without first removing them from here
 		// the are the attributes we will send to the address details components from the article search results
@@ -230,7 +232,8 @@ export default class HappyParcelCustomerDetails extends HappyParcelBase {
 				'SenderCountry__c': 'country',
 				'SenderCountryName__c': 'countryName',
 				'SenderEmail__c': 'email',
-				'Sender_APCN__c': 'apcn'
+				'Sender_APCN__c': 'apcn',
+				'MLID__c': 'mlid'				
 			};
 		} else {
 			attributeMappings = {
@@ -248,6 +251,7 @@ export default class HappyParcelCustomerDetails extends HappyParcelBase {
 				'ReceiverEmail__c': 'email',
 				'Receiver_APCN__c': 'apcn'
 			};
+			
 		}
 
 		// map all the details to a generic object based on what detailType we are displaying
