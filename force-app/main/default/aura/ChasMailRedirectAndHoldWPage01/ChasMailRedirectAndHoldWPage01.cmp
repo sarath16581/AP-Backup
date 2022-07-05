@@ -92,6 +92,12 @@
                 <c:ChasRadioButtons aura:id="chasInput" name="enquiryTypeRadioButtons" required="true" label="Enquiry type" variant="label-hidden" options="{!v.enquiryTypeRadioGroup}" value="{!v.wizardData.selectedRadio1}"/>
                 
                 <aura:if isTrue="{!v.wizardData.selectedRadio1}">
+                    <aura:if isTrue="{!v.wizardData.selectedRadio1 == 'firstRadio'}">
+                        <c:ChasBspDeflection animate="true" borderStyle="info-box-on-body-border">
+                            <p>Use this form to request help with your existing Mail Redirection. If you want to redirect an item that's already on its way, visit
+                                <a href="https://auspost.com.au/receiving/manage-deliveries-in-transit/redirect-parcels-in-transit" target="blank">Redirect parcels in transit</a> instead.</p>
+                        </c:ChasBspDeflection>
+                    </aura:if>
                     <!--<c:ChasFieldset label="Original application details" small="true">-->
                     <legend class="sub-header">
                         <h3>Original application details</h3>
