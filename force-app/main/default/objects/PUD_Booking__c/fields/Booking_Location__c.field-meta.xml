@@ -8,7 +8,7 @@
 Please navigate to the Location screen to create a Location and set it&apos;s address.</inlineHelpText>
     <label>Location</label>
     <lookupFilter>
-        <active>true</active>
+        <active>false</active>
         <errorMessage>The Selected Booking Location does not have address. Please select a valid booking location with address</errorMessage>
         <filterItems>
             <field>PUD_Booking_Location__c.Street__c</field>

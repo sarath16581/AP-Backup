@@ -34,6 +34,10 @@
                 <behavior>Edit</behavior>
                 <field>Display_Start_Time__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Dwell_Time_Planned__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
