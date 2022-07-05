@@ -9,6 +9,7 @@
  2020-07-06 : Created : Change made for roll out of Safe Drop feature on Missing Items form
  2020-11-26 : Added   : hara.sahoo@auspost.com.au Added click tracking for adobe analytics
  09/03/2021 : hara.sahoo@auspost.com.au : Changes made as part of tracking id and dpid url paramteres and auto-progression
+ 05/07/2022 : mahesh.parvathaneni@auspost.com.au : DDS-11041 Kill Safe drop image feed survey
 -->
 
 <aura:component extends="c:SS_uiWizardPage" controller="ChasSafeDropController" description="Missing Items wizard page 1: Address validation from AME">
@@ -225,17 +226,13 @@
                     </div>
                 </aura:if>
                 
-                <!--Feedback survey-->
                 <aura:if isTrue="{!and(v.imageExists ,v.didItHelp)}">
                     <legend class="slds-form-element__label">
-                        <h3 style="letter-spacing: .8px;">We're glad to hear it!</h3>
+                        <h3 style="letter-spacing: .8px;">We're glad to hear this photo was helpful.</h3>
                     </legend>
                     <legend>
-                        <h4 style="color: #4D4D54;letter-spacing: .8px;">Showing the photo here is something new for us, so we'd love to hear your feedback. Otherwise, you can simply leave this page.</h4>
+                        <h4 style="color: #4D4D54;letter-spacing: .8px;">You can now leave this page.</h4>
                     </legend>
-                    <div class="chas-button-box">
-                        <lightning:button label="Give feedback" variant="neutral" class="chas-button" onclick="{!c.giveFeedback}"/>
-                    </div>
                 </aura:if>
             </div>
         </div>

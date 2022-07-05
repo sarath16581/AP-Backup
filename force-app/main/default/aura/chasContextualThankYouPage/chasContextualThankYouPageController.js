@@ -95,8 +95,5 @@
         
         // DDS-5820: retrieve next steps configuration from metadata
         helper.retrieveNextStepsConfigurations(component);
-    },
-    requestSurvey: function(component, event, helper) {
-        window.open("https://survey.auspost.com.au/cgi-bin/qwebcorporate.dll?idx=AENCHY&n_Trigger=thankyou",'_blank');
     }
 })

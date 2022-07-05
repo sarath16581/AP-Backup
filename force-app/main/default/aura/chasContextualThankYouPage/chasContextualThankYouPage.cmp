@@ -3,13 +3,13 @@
   * @date         : 12/03/2021 - Created - Hara Sahoo
   * @date         : 20/07/2021 - Added - Hara Sahoo : Content change to indicate that EDD was estimated
   * @date         : 08/11/2021 - Modified - Phap Mai: set no EDD as baseline variation
+  * @date         : 05/07/2022 - Modified - Mahesh Parvathaneni: DDS-11041 Kill Safe drop image feed survey
 -->
 <aura:component extends="c:SS_uiWizardPage" description="Header including the unique Case Number" controller="ChasApexController">
     <aura:attribute name="tiles" type="List" default="['digital-id', 'safe-drop', 'my-post', 'extra-cover', 'po-boxes']" />
     <aura:attribute name="header" type="String" default="Thanks for your enquiry" /> 
     <aura:attribute name='caseNumber' type='String' default="XXXXXXXXX"/>
     <aura:attribute name='isUrgent' type='Boolean' default="false"/>
-    <aura:attribute name='caseThankYouMessage' type='String' default="Showing the delivery photo is something new for us, so we’d love to know what you think."/>
     <aura:attribute name='isWithinEDD' type='Boolean' default="false"/>
     <aura:attribute name='isDefault' type='Boolean' default="false"/>
     <aura:attribute name='isWithinEDDPlusBusinessDays' type='Boolean' default="false"/>
@@ -77,17 +77,6 @@
                                     </aura:if>
                                 </aura:if>
                                 <c:chasNextSteps header="What happens next" options="{!v.nextStepsConfiguration}" hasTimeframe="{!v.hasTimeframe}" timeframeEDD="{!v.timeframeEDD}"/>
-                                <aura:if isTrue="{!v.pageVariation == 'nextStepsSafeDropDelivered'}">
-                                    <div class="separator-gap">
-                                        <hr/>
-                                    </div>
-                                    <p>
-                                        {! v.caseThankYouMessage}
-                                    </p>
-                                    <p style="padding-top:16px;">
-                                        <lightning:button label="Give feedback" variant="neutral" class="chas-button" onclick="{!c.requestSurvey}"/>
-                                    </p>
-                                </aura:if>
                             </div>
                             <aura:if isTrue="{!or(v.pageVariation == 'nextStepsWithinEDDPlusBusinessDays', v.pageVariation == 'withinEDD')}">
                                 <div class="indicative">
