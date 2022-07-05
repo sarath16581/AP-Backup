@@ -149,7 +149,7 @@ export default class HappyParcelCustomerDetails extends HappyParcelBase {
 	}
 
 	get detailsExist() {
-		return this.details && (this.details.name || this.details.address || this.details.email || this.details.mlid);
+		return this.details && (this.details.name || this.details.address || this.details.email );
 	}
 
 	get showHyphen() {
