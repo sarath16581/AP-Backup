@@ -50,9 +50,7 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 		
 		Date finalDate = date.newInstance(finalYear, 7, 1);
 		
-		system.debug('Final Date: ' + finalDate);
-		
-		
+
         query = 'Select Id '
         + ' From Revenue_Schedule__c'
         + ' Where'
@@ -83,11 +81,7 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
         return Database.getQueryLocator(query);
     }
     
-    global void execute(Database.BatchableContext BC, List<SObject> scope) {
-        system.debug('### EXECUTE:');
-        system.debug('***getLimitHeapSize: ' + Limits.getLimitHeapSize());
-        system.debug('***getHeapSize: ' + Limits.getHeapSize());        
-        
+    global void execute(Database.BatchableContext BC, List<SObject> scope) {   
         Map<String, Opp_Product_Classification__c> idOPCMap = new Map<String, Opp_Product_Classification__c>();
         Map<String, OPCUtility.ParentAccountRevenue> idBARMap = new Map<String, OPCUtility.ParentAccountRevenue>();
         Map<String, Revenue_Schedule__c> idRSMap = new Map<String, Revenue_Schedule__c>();
@@ -113,14 +107,12 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 
 
         // Get OPC Id to be deleted from Revenue Schedule records   
-        system.debug('### scope: ' + scope);
         
         if (!scope.isEmpty()) {
             for (SObject rs : scope) {
                 rsIdList.add( String.valueOf(rs.get('Id')) );   
             }
             
-            system.debug('### rsIdList: ' + rsIdList);
             
             rsList =
             [Select Id, Opportunity__r.AccountId, Product__c, Classification_c__c, CalendarYear__c, 
@@ -142,24 +134,22 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
             Order By Opportunity__r.AccountId, Product__c, Classification_c__c, Financial_Year__c];
         }       
         
-        system.debug('### rsList: ' + rsList);
-        system.debug('***getHeapSize: After rsList: ' + Limits.getHeapSize());
         
         for (Revenue_Schedule__c rs : rsList) {
             String opcId = rs.Opportunity_Product_Classification__c;
-            system.debug('***opcId: ' + opcId);
+
             if (opcId != '' && opcId != null) {
                 opcIdList.add( opcId );
             }
             
             String accountId = rs.Opportunity__r.AccountId;
-            system.debug('***accountId: ' + accountId);
+
             if (accountId != '' && accountId != null) {
                 acctIdList.add( accountId );
             }   
             
             String prodId = rs.Product__c;
-            system.debug('***prodId: ' + prodId);
+
             if (prodId != '' && prodId != null) {
                 prodIdList.add( prodId );
             }                       
@@ -167,10 +157,8 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
         
         // Delete all OPC records related to the Revenue Schedule records in scope
         if (!opcIdList.isEmpty()) {
-            system.debug('*** opcIdList Not Empty: ' + opcIdList);
             OPCUtility.deleteOPCList(opcIdList);
         }
-        system.debug('***getHeapSize: After deleteOPCList: ' + Limits.getHeapSize());
         
         // For CR 27, delete all OPC records related to Revenue Schedule records that have been deleted due to 'Product Error'
         // Only delete OPCs in the context of the Organisations within scope and those that do not have any Revenue Schedules 
@@ -184,64 +172,42 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
                 addlOPCList.add(addlOPC.Id);
         
         if (!addlOPCList.isEmpty()) {
-            system.debug('*** addlOPCList Not Empty: ' + addlOPCList);
+
             OPCUtility.deleteOPCList(addlOPCList);
         }
-        system.debug('***getHeapSize: After deleteOPCList for addlOPCList: ' + Limits.getHeapSize()); 
+
         
         
         OPCUtility.createMapGrowthClassification(rsList, renewalUpsellMap);
-        system.debug('***getHeapSize: After createMapGrowthClassification: ' + Limits.getHeapSize());       
+  
         
         // Create OPC from Revenue Schedule/s
         OPCUtility.createOPCMap(rsList, idOPCMap, idRSMap, renewalUpsellMap);
-        system.debug('***getHeapSize: After createOPCMap: ' + Limits.getHeapSize());        
+    
         // After this method is executed, input parameters should be updated
         
         // Check if OPC records already exist
         // New OPCs will be inserted and existing OPCs will be aggregated
         OPCUtility.checkIfOPCExist(idOPCMap, idOPCExistingMap, insertOPCList, updateOPCList);
-        system.debug('***getHeapSize: After checkIfOPCExist: ' + Limits.getHeapSize()); 
+
         
         // After this method is executed, input parameters should be updated 
         
         // Relate the related Revenue Schedule to the new OPC records
         OPCUtility.relateRevenueScheduleToOPC(insertOPCList, rsList, uniqueIdopcIdMap, opcIdRSMap);
-        system.debug('***getHeapSize: After relateRevenueScheduleToOPC:' + Limits.getHeapSize());   
+
         
         // Create Budget and Revenue Map
-        OPCUtility.createBARMap(idBARMap, acctIdList, prodIdList);
-        system.debug('***getHeapSize: After createBARMap: ' + Limits.getHeapSize());    
+       	///////////
+        idBARMap = OPCUtility.createBARMap(idBARMap, acctIdList, prodIdList);
+		
 
         // Check for exceptions
         if (!insertOPCList.isEmpty()) {
             requeryOPCList = OPCUtility.requeryOPCList(insertOPCList, requeryOPCList);
-            system.debug('***requeryOPCList: ' + requeryOPCList);
-            system.debug('***getHeapSize: After requeryOPCList: ' + Limits.getHeapSize());  
             
             OPCUtility.checkForException(requeryOPCList, idBARMap, opcIdRSMap, caseList, rtId, rsList);
-            system.debug('***getHeapSize: After checkForException: ' + Limits.getHeapSize());       
             
-            
-            system.debug('@@@ Size of idOPCMap: ' + idOPCMap.size());   
-            system.debug('@@@ Size of idBARMap: ' + idBARMap.size());
-            system.debug('@@@ Size of idRSMap: ' + idRSMap.size());
-            system.debug('@@@ Size of uniqueIdopcIdMap: ' + uniqueIdopcIdMap.size());
-            system.debug('@@@ Size of renewalUpsellMap: ' + renewalUpsellMap.size());
-            system.debug('@@@ Size of opcIdRSMap: ' + opcIdRSMap.size());
-            system.debug('@@@ Size of opcList: ' + opcList.size());
-            system.debug('@@@ Size of caseList: ' + caseList.size());
-            system.debug('@@@ Size of idOPCExistingMap: ' + idOPCExistingMap.size());
-            system.debug('@@@ Size of insertOPCList: ' + insertOPCList.size());
-            system.debug('@@@ Size of updateOPCList: ' + updateOPCList.size());
-            system.debug('@@@ Size of requeryOPCList: ' + requeryOPCList.size());
-            system.debug('@@@ Size of rsIdList: ' + rsIdList.size());
-            system.debug('@@@ Size of rsList: ' + rsList.size());
-            system.debug('@@@ Size of acctIdList: ' + acctIdList.size());
-            system.debug('@@@ Size of prodIdList: ' + prodIdList.size());
-            system.debug('@@@ Size of opcIdList: ' + opcIdList.size());
-            
-        
             idOPCMap.clear();
             idBARMap.clear();
             idRSMap.clear();
@@ -259,8 +225,7 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
             acctIdList.clear();
             prodIdList.clear();
             opcIdList.clear();
-            
-            system.debug('***getHeapSize: After checkForException: REDUCED: ' + Limits.getHeapSize());  
+
 
             idOPCMap = null;
             idBARMap = null;
@@ -280,8 +245,7 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
             prodIdList = null;
             opcIdList = null;
             addlOPCList = null;
-
-            system.debug('***getHeapSize: After NULLING: REDUCED: ' + Limits.getHeapSize());    
+ 
         }
                   
     }
@@ -289,7 +253,4 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
     
     global void finish(Database.BatchableContext BC) {
         system.debug('*** FINISH:');    
-    }   
-    
-
-}
+    }  

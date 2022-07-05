@@ -27,7 +27,6 @@ History:
 public class OPCUtility {
 
     public static void deleteOPCList(List<String> opcIdList) {
-        system.debug('*** deleteOPCList: ' + opcIdList);
         
         List<Opp_Product_Classification__c> delOPCList = [SELECT Id FROM Opp_Product_Classification__c where Under_Review_by_Sales_Manager__c = false and Id in : opcIdList];
         if (!delOPCList.isEmpty()) {
@@ -48,7 +47,6 @@ public class OPCUtility {
 
     public static void createMapGrowthClassification(List<Revenue_Schedule__c> rsList, Map<String, String> renewalUpsellMap) {
         
-        system.debug('*** createMapGrowthClassification: ' + rsList);
         // Create a Map for the Growth
         for (Revenue_Schedule__c rs : rsList) {
             if (rs.Classification_c__c == 'Growth') {                    /* Changed 'Up Sell' to 'Growth' */
@@ -66,7 +64,7 @@ public class OPCUtility {
 
     public static void createOPCMap(List<Revenue_Schedule__c> rsList, Map<String, Opp_Product_Classification__c> idOPCMap, Map<String, Revenue_Schedule__c> idRSMap, Map<String, String> renewalUpsellMap) {
         
-        system.debug('*** createOPCMap: ' + rsList);
+
         // Create OPC Map: UniqueId = Customer:Product:Classification:FY
         for (Revenue_Schedule__c rs : rsList) {
             String uniqueId = rs.Opportunity__r.AccountId + ':'
@@ -75,13 +73,12 @@ public class OPCUtility {
             +   rs.CalendarYear__c; 
             
             if (idOPCMap.containsKey(uniqueId)) {
-                system.debug('***uniqueId: ' + uniqueId);
-                system.debug('***idOPCMap: ' + idOPCMap);
+
                 Opp_Product_Classification__c opc = new Opp_Product_Classification__c();
                 opc = idOPCMap.get(uniqueId);   
-                system.debug('***opc BEFORE: ' + opc);
+
                 opc = addOPC(opc, rs, renewalUpsellMap);
-                system.debug('***opc AFTER: ' + opc);
+
                 idOPCMap.put(uniqueId, opc);
             } else {
                 Opp_Product_Classification__c opc = new Opp_Product_Classification__c();
@@ -95,16 +92,13 @@ public class OPCUtility {
             } else {
                 idRSMap.put(uniqueId, rs);
             }    
-            
-            system.debug('***idRSMap: ' + idRSMap);           
+   
         }       
     }
     
     
     public static void checkIfOPCExist(Map<String, Opp_Product_Classification__c> idOPCMap, Map<String, Opp_Product_Classification__c> idOPCExistingMap, List<Opp_Product_Classification__c> insertOPCList, List<Opp_Product_Classification__c> updateOPCList) {
 
-        system.debug('***getHeapSize: Inside checkIfOPCExist Before query of OPC Existing TODAY: ' + Limits.getHeapSize());   
-        system.debug('***idOPCExistingMap: ' + idOPCExistingMap.size());
         
         Set<String> sAccount = new Set<String>();
         Set<String> sProduct = new Set<String>();
@@ -117,12 +111,7 @@ public class OPCUtility {
             sClass.add(opcNew.Classification__c);
             sFY.add(opcNew.Financial_Year__c); 
         }
-            
-        system.debug('@@@sAccounts: ' + sAccount);
-        system.debug('@@@sProduct: ' + sProduct);
-        system.debug('@@@sClass: ' + sClass);
-        system.debug('@@@sFY: ' + sFY);
-                       
+
             
         for (Opp_Product_Classification__c opcExisting : 
 
@@ -145,7 +134,7 @@ public class OPCUtility {
             
             ) {
                 
-            system.debug('@@@opcExisting: ' + opcExisting); 
+
                 
             if (opcExisting != null) {
                 String uniqueId = opcExisting.Account__c + ':'
@@ -159,9 +148,7 @@ public class OPCUtility {
             }   
         }    
         
-        system.debug('***getHeapSize: Inside checkIfOPCExist After query of OPC Existing TODAY: ' + Limits.getHeapSize());   
-        system.debug('***idOPCExistingMap: ' + idOPCExistingMap.size());
-            
+
 
         // Compare New OPC Map and Existing OPC Map (idOPCMap - New OPC records)
         for (Opp_Product_Classification__c opcNew : idOPCMap.values()) {
@@ -267,9 +254,7 @@ public class OPCUtility {
     }   
 */  
     public static Opp_Product_Classification__c addOPC(Opp_Product_Classification__c opc, Revenue_Schedule__c rs, Map<String, String> renewalUpsellMap) {
-        system.debug('*** addOPC');
-        system.debug('***opc: ' + opc);
-        system.debug('***rs: ' + rs);
+
 
         opc.Account__c = rs.Opportunity__r.AccountId;   
         opc.Product__c = rs.Product__c; 
@@ -317,11 +302,7 @@ public class OPCUtility {
     
         
     public static Opp_Product_Classification__c populateOPC(Opp_Product_Classification__c opc, Revenue_Schedule__c rs, Map<String, String> renewalUpsellMap) {
-        system.debug('*** populateOPC');
-        system.debug('***opc: ' + opc);
-        system.debug('***rs: ' + rs);
-        system.debug('***rs Exception Override: ' + rs.Exception_Override__c);
-        
+
 
         
         opc.Account__c = rs.Opportunity__r.AccountId;   
@@ -402,12 +383,6 @@ public class OPCUtility {
     
     
     public static Opp_Product_Classification__c populateGrowthField(Opp_Product_Classification__c opc, Map<String, ParentAccountRevenue> idBARMap, Integer iCurrentFY, Integer iLastFY, Map<String, Revenue_Schedule__c> opcIdRSMap) {
-        system.debug('*** populateGrowthField');
-        system.debug('***opc: ' + opc);
-        system.debug('***idBARMap: ' + idBARMap); 
-        if (opc.Account__c == '001N0000003HBvSIAW') {
-            system.debug('@@@SUZUKI !!!');
-        }
         
         Date dateToday = Date.today();  
         Integer iTodayYear = dateToday.year();
@@ -441,19 +416,14 @@ public class OPCUtility {
     
         String sYear = opc.Financial_Year__c;
         Integer nYear = Integer.valueOf(sYear);
+		String currentRevenueKey = constructRevenueKey(opc.Account__c , opc.Product__c,String.ValueOf(nYear));
+        if ( idBARMap.containsKey(currentRevenueKey) ) {
+            String lastRevenueKey = constructRevenueKey(opc.Account__c , opc.Product__c,String.ValueOf(nYear-1));
+            if ( idBARMap.containsKey(lastRevenueKey)) {
+                ParentAccountRevenue barCurrent =  idBARMap.get(currentRevenueKey).ungroup();
+                ParentAccountRevenue barLast = idBARMap.get(lastRevenueKey).ungroup();
+                
 
-        if ( idBARMap.containsKey(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear)) ) {
-            if ( idBARMap.containsKey(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear - 1)) ) {
-                ParentAccountRevenue barCurrent =  idBARMap.get(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear)).ungroup();
-                ParentAccountRevenue barLast = idBARMap.get(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear - 1)).ungroup();
-                
-                system.debug('$$$ INSIDE GROWTH WITH CFY and LFY');
-                system.debug('$$$barCurrent: ' + barCurrent);
-                system.debug('$$$barLast: ' + barLast);
-                
-                system.debug('$$$ sYear: ' + sYear + ' and strTodayYearMonth: ' + strTodayYearMonth);
-                system.debug('*** CONTRACT START: ' + conStartYear + conStartMonth);
-                system.debug('*** CONTRACT END: ' + conEndYear + conEndMonth);
                 
                 if ( ( (conStartYear + conStartMonth) <= (sYear + '01') ) && ( (conEndYear + conEndMonth) >= (sYear + '01') ) ){
                     system.debug('JAN - within the contract');
@@ -562,27 +532,11 @@ public class OPCUtility {
                     }
                 }
 
-                system.debug('$$$opc.Jan_Growth__c: ' + opc.Jan_Growth__c);
-                system.debug('$$$opc.Feb_Growth__c: ' + opc.Feb_Growth__c);
-                system.debug('$$$opc.Mar_Growth__c: ' + opc.Mar_Growth__c);
-                
-                system.debug('$$$opc.Apr_Growth__c: ' + opc.Apr_Growth__c);
-                system.debug('$$$opc.May_Growth__c: ' + opc.May_Growth__c);
-                system.debug('$$$opc.Jun_Growth__c: ' + opc.Jun_Growth__c);                
-
-                system.debug('$$$opc.Jul_Growth__c: ' + opc.Jul_Growth__c);
-                system.debug('$$$opc.Aug_Growth__c: ' + opc.Aug_Growth__c);
-                system.debug('$$$opc.Sep_Growth__c: ' + opc.Sep_Growth__c);
-                
-                system.debug('$$$opc.Oct_Growth__c: ' + opc.Oct_Growth__c);
-                system.debug('$$$opc.Nov_Growth__c: ' + opc.Nov_Growth__c);
-                system.debug('$$$opc.Dec_Growth__c: ' + opc.Dec_Growth__c);                
+         
 
             } else {
                 ParentAccountRevenue barCurrent =  idBARMap.get(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear)).ungroup();
 
-                system.debug('$$$ INSIDE GROWTH WITH CFY only');
-                system.debug('$$$barCurrent: ' + barCurrent);
 
                 
                 if ( ( (conStartYear + conStartMonth) <= (sYear + '01') ) && ( (conEndYear + conEndMonth) >= (sYear + '01') ) ){
@@ -639,12 +593,6 @@ public class OPCUtility {
     }
     // Added this method to calculate values for new group fields
      public static Opp_Product_Classification__c populateGroupGrowthField(Opp_Product_Classification__c opc, Map<String, ParentAccountRevenue> idBARMap, Integer iCurrentFY, Integer iLastFY, Map<String, Revenue_Schedule__c> opcIdRSMap) {
-        system.debug('*** populateGrowthField');
-        system.debug('***opc: ' + opc);
-        system.debug('***idBARMap: ' + idBARMap); 
-        if (opc.Account__c == '001N0000003HBvSIAW') {
-            system.debug('@@@SUZUKI !!!');
-        }
         
         Date dateToday = Date.today();  
         Integer iTodayYear = dateToday.year();
@@ -678,19 +626,14 @@ public class OPCUtility {
     
         String sYear = opc.Financial_Year__c;
         Integer nYear = Integer.valueOf(sYear);
+		string revenueKeyCurrent = constructRevenueKey(opc.Account__c,opc.Product__c,String.ValueOf(nYear));
+        if ( idBARMap.containsKey(revenueKeyCurrent)) {
+            string revenueKeyLast = constructRevenueKey(opc.Account__c,opc.Product__c,String.ValueOf(nYear-1));
+            if ( idBARMap.containsKey(revenueKeyLast)) {
+                ParentAccountRevenue barCurrent =  idBARMap.get(revenueKeyCurrent).group();
+                ParentAccountRevenue barLast = idBARMap.get(revenueKeyLast).group();
+                
 
-        if ( idBARMap.containsKey(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear)) ) {
-            if ( idBARMap.containsKey(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear - 1)) ) {
-                ParentAccountRevenue barCurrent =  idBARMap.get(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear)).group();
-                ParentAccountRevenue barLast = idBARMap.get(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear - 1)).group();
-                
-                system.debug('$$$ INSIDE GROWTH WITH CFY and LFY');
-                system.debug('$$$barCurrent: ' + barCurrent);
-                system.debug('$$$barLast: ' + barLast);
-                
-                system.debug('$$$ sYear: ' + sYear + ' and strTodayYearMonth: ' + strTodayYearMonth);
-                system.debug('*** CONTRACT START: ' + conStartYear + conStartMonth);
-                system.debug('*** CONTRACT END: ' + conEndYear + conEndMonth);
                 
                 if ( ( (conStartYear + conStartMonth) <= (sYear + '01') ) && ( (conEndYear + conEndMonth) >= (sYear + '01') ) ){
                     system.debug('JAN - within the contract');
@@ -799,27 +742,11 @@ public class OPCUtility {
                     }
                 }
 
-                system.debug('$$$opc.Jan_Growth__c: ' + opc.Jan_Growth__c);
-                system.debug('$$$opc.Feb_Growth__c: ' + opc.Feb_Growth__c);
-                system.debug('$$$opc.Mar_Growth__c: ' + opc.Mar_Growth__c);
-                
-                system.debug('$$$opc.Apr_Growth__c: ' + opc.Apr_Growth__c);
-                system.debug('$$$opc.May_Growth__c: ' + opc.May_Growth__c);
-                system.debug('$$$opc.Jun_Growth__c: ' + opc.Jun_Growth__c);                
-
-                system.debug('$$$opc.Jul_Growth__c: ' + opc.Jul_Growth__c);
-                system.debug('$$$opc.Aug_Growth__c: ' + opc.Aug_Growth__c);
-                system.debug('$$$opc.Sep_Growth__c: ' + opc.Sep_Growth__c);
-                
-                system.debug('$$$opc.Oct_Growth__c: ' + opc.Oct_Growth__c);
-                system.debug('$$$opc.Nov_Growth__c: ' + opc.Nov_Growth__c);
-                system.debug('$$$opc.Dec_Growth__c: ' + opc.Dec_Growth__c);                
+       
 
             } else {
                 ParentAccountRevenue barCurrent =  idBARMap.get(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear)).group();
 
-                system.debug('$$$ INSIDE GROWTH WITH CFY only');
-                system.debug('$$$barCurrent: ' + barCurrent);
 
                 
                 if ( ( (conStartYear + conStartMonth) <= (sYear + '01') ) && ( (conEndYear + conEndMonth) >= (sYear + '01') ) ){
@@ -876,16 +803,11 @@ public class OPCUtility {
     }
     
     public static Opp_Product_Classification__c populateActualAmounts(Opp_Product_Classification__c opc, Map<String, ParentAccountRevenue> idBARMap, Integer iCurrentFY, Map<String, Revenue_Schedule__c> opcIdRSMap) {
-        system.debug('*** populateActualAmounts');
-        system.debug('***opc: ' + opc);
-        system.debug('***idBARMap: ' + idBARMap);
-        system.debug('***opcIdRSMap: ' + opcIdRSMap);          
 
         Revenue_Schedule__c rs = new Revenue_Schedule__c(); 
         
         rs = opcIdRSMap.get(opc.Id);
-        
-        system.debug('***RS: ' + rs);
+
         
         Date conStart = rs.Contract_Start_Date__c;
         String conStartMonth;
@@ -905,17 +827,12 @@ public class OPCUtility {
         }
         String conEndYear = String.valueOf(conEnd.year());
         
-        system.debug('### ConStart: ' + conStart);
-        system.debug('### ConStartMonth: ' + conStartMonth);
-        system.debug('### ConEnd: ' + conEnd);
-        system.debug('### ConEndMonth: ' + conEndMonth);
-        system.debug('### ConEndYear: ' + conEndYear);
 
         String sYear = opc.Financial_Year__c;
         Integer nYear = Integer.valueOf(sYear);
-                
-        if (idBARMap.containsKey(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear))) {
-            ParentAccountRevenue bar = idBARMap.get(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear)).ungroup();
+        String currentRevenueKey = constructRevenueKey(opc.Account__c , opc.Product__c ,String.ValueOf(nYear));        
+        if (idBARMap.containsKey(currentRevenueKey)) {
+            ParentAccountRevenue bar = idBARMap.get(currentRevenueKey).ungroup();
             
 
 
@@ -985,16 +902,12 @@ public class OPCUtility {
     }
     
      public static Opp_Product_Classification__c populateGroupActualAmounts(Opp_Product_Classification__c opc, Map<String, ParentAccountRevenue> idBARMap, Integer iCurrentFY, Map<String, Revenue_Schedule__c> opcIdRSMap) {
-        system.debug('*** populateActualAmounts');
-        system.debug('***opc: ' + opc);
-        system.debug('***idBARMap: ' + idBARMap);
-        system.debug('***opcIdRSMap: ' + opcIdRSMap);          
+       
 
         Revenue_Schedule__c rs = new Revenue_Schedule__c(); 
         
         rs = opcIdRSMap.get(opc.Id);
         
-        system.debug('***RS: ' + rs);
         
         Date conStart = rs.Contract_Start_Date__c;
         String conStartMonth;
@@ -1014,17 +927,12 @@ public class OPCUtility {
         }
         String conEndYear = String.valueOf(conEnd.year());
         
-        system.debug('### ConStart: ' + conStart);
-        system.debug('### ConStartMonth: ' + conStartMonth);
-        system.debug('### ConEnd: ' + conEnd);
-        system.debug('### ConEndMonth: ' + conEndMonth);
-        system.debug('### ConEndYear: ' + conEndYear);
 
         String sYear = opc.Financial_Year__c;
         Integer nYear = Integer.valueOf(sYear);
-                
-        if (idBARMap.containsKey(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear))) {
-            ParentAccountRevenue bar = idBARMap.get(opc.Account__c + ':' + opc.Product__c + ':' + String.ValueOf(nYear)).group();
+         String currentRevenueKey = constructRevenueKey(opc.Account__c , opc.Product__c ,String.ValueOf(nYear));         
+        if (idBARMap.containsKey(currentRevenueKey)) {
+            ParentAccountRevenue bar = idBARMap.get(currentRevenueKey).group();
             
 
 
@@ -1101,7 +1009,6 @@ public class OPCUtility {
             uniqueIdopcIdMap.put(opc.Account__c + ':' + opc.Product__c + ':' + opc.Classification__c + ':' + opc.Financial_Year__c, opc.Id);        
         }
         
-        system.debug('***getHeapSize: Before query of OPC inserted:' + Limits.getHeapSize());   
         // Query OPC records to include related fields
         if (!opcIdList.isEmpty()) {
             opcList = [Select Id, Product__r.Name, Product__r.Id, Opportunity__r.OwnerId, Opportunity__r.Id, Opportunity__c, Account__r.Name, Account__r.Id, 
@@ -1121,7 +1028,6 @@ public class OPCUtility {
                 From Opp_Product_Classification__c
                 Where Id in :opcIdList];    
         }
-        system.debug('***getHeapSize: After query of OPC inserted:' + Limits.getHeapSize());
         
         // Update Revenue Schedule records with the corresponding OPC Ids for reference
         for (Revenue_Schedule__c rs : rsList) {
@@ -1130,18 +1036,15 @@ public class OPCUtility {
             +   rs.Classification_c__c + ':'
             +   rs.CalendarYear__c; 
             
-            system.debug('@@@uniqueId: ' + uniqueId);
             
             if (uniqueIdopcIdMap.containsKey(uniqueId)) {
                 rs.Opportunity_Product_Classification__c = uniqueIdopcIdMap.get(uniqueId);
             }   
         }
         
-        system.debug('***getHeapSize: Before updating rsList:' + Limits.getHeapSize());
         if (!rsList.isEmpty()) {
             //update rsList;
-            Database.SaveResult[] SR = Database.update(rsList, false);
-            system.debug('***SR: ' + SR);    
+            Database.SaveResult[] SR = Database.update(rsList, false);  
             
             SR.clear();           
             
@@ -1153,10 +1056,7 @@ public class OPCUtility {
                         opcIdRSMap.put(rs.Opportunity_Product_Classification__c, rs);   
                     } 
                 }
-                system.debug('@@@opcIdRSMap: ' + opcIdRSMap);
             }
-            system.debug('@@@opcIdRSMap Size: ' + opcIdRSMap.size());
-            system.debug('***getHeapSize: After mapping opcIdRSMap:' + Limits.getHeapSize());
         } 
                
         
@@ -1194,7 +1094,8 @@ public class OPCUtility {
     
     
     public static String getNoLFYClassifications() {
-        String sNoLFY = BatchJobSettings__c.getInstance().No_LFY__c;    
+        String sNoLFY = BatchJobSettings__c.getInstance().No_LFY__c;
+
         return (sNoLFY);    
     }   
 
@@ -1207,33 +1108,40 @@ public class OPCUtility {
            This function originally contained code to calculate OPC amounts and growth - this has been left untouched to
            reduce the need for broad re-testing.  */
         
-        system.debug('!!!opcList: ' + opcList);
-        system.debug('!!!rsList: ' + rsList);
-        
+		System.debug('**** checking exception for list '+opcList);
         for (Opp_Product_Classification__c opc : opcList) {
             
             String sYear = opc.Financial_Year__c;
             Integer nYear = Integer.valueOf(sYear);   
             String sWithLFYClassifications = getWithLFYClassifications();   
             String sNoLFYClassifications = getNoLFYClassifications();   
-            system.debug('***sNoLFYClassifications: ' + sNoLFYClassifications);   
+
 
             //if (opc.Classification__c == 'New Customer' || opc.Classification__c == 'One Off' || opc.Classification__c == 'Cross Sell' || opc.Classification__c == 'Winback') {         /*** Changed from 'New Product' to 'Cross Sell' ***/
+            System.debug('######### SART CALC FOR OPC ID ' + opc.Id);
+            System.debug('**** opc.Classification__c '+opc.Classification__c);
+             System.debug('*** sWithLFYClassifications '+sWithLFYClassifications);
+            System.debug('*** sNoLFYClassifications '+sNoLFYClassifications);
+             System.debug('*** sWithLFYClassifications.contains(opc.Classification__c) '+sWithLFYClassifications.contains(opc.Classification__c));
+            System.debug('*** sNoLFYClassifications.contains(opc.Classification__c)) '+sNoLFYClassifications.contains(opc.Classification__c));
             if (sNoLFYClassifications.contains(opc.Classification__c)) {    
                 // Is there Billed Revenue for this customer in the LFY?
                 // Org:Prod:FY
-                system.debug('***sClassifications: ' + sNoLFYClassifications + ' contains  opc.Classification__c: ' + opc.Classification__c);
-                if (idBARMap.containsKey(opc.Account__c + ':' + opc.Product__c + ':' + String.valueOf(nYear - 1))) {
+         		String lastRevenueKey = constructRevenueKey(opc.Account__c , opc.Product__c ,String.ValueOf(nYear-1));    
+                if (idBARMap.containsKey(lastRevenueKey)) {
                     
                     //if ( (opc.Classification__c == 'New Customer' || opc.Classification__c == 'One Off' || opc.Classification__c == 'Cross Sell' || opc.Classification__c == 'Winback') ) {
-                    if (sNoLFYClassifications.contains(opc.Classification__c)) {                                
+                    if (sNoLFYClassifications.contains(opc.Classification__c)) {
+                         System.debug('**** checkIfMultiYear(opc, rsList) '+checkIfMultiYear(opc, rsList));
                         if( checkIfMultiYear(opc, rsList) ) {
+                             System.debug('**** opc.Hidden_1st_of_Multi_Year__c '+opc.Hidden_1st_of_Multi_Year__c);
                             if (opc.Hidden_1st_of_Multi_Year__c) {
                                 // Do nothing.
                             }
                             else {
                                 //Multi-Year scenario, but not the first therefore valid OPC
-                                system.debug('NOT the 1st of Multi-Year!!!');
+                                
+								System.debug('*** Multi-Year scenario, but not the first therefore valid OPC');
                                 opc = populateActualAmounts(opc, idBARMap, nYear, opcIdRSMap);
                                 opc = populateGroupActualAmounts(opc, idBARMap, nYear, opcIdRSMap);
                             }
@@ -1242,50 +1150,56 @@ public class OPCUtility {
                 } 
                 else {
                     // Populate Actual Amount from Billed 
+                    System.debug('*** Populate Actual Amount from Billed');
                     opc = populateActualAmounts(opc, idBARMap, nYear, opcIdRSMap);
                     opc = populateGroupActualAmounts(opc, idBARMap, nYear, opcIdRSMap);
                 }
                 
                 // Populate Growth Field for all classifications except Renewal
+                 System.debug('*** Populate Growth Field for all classifications except Renewal');
                 opc = populateGrowthField(opc, idBARMap, nYear, nYear - 1, opcIdRSMap);
                 opc = populateGroupGrowthField(opc, idBARMap, nYear, nYear - 1, opcIdRSMap);
                 
             } 
+
             else if (sWithLFYClassifications.contains(opc.Classification__c)) {               
                 // Is there Billed Revenue for this product? 
-                if (idBARMap.containsKey(opc.Account__c + ':' + opc.Product__c + ':' + String.valueOf(nYear - 1))) {
+                System.debug('*** sWithLFYClassifications '+sWithLFYClassifications);
+				String lastRevenueKey = constructRevenueKey(opc.Account__c , opc.Product__c ,String.ValueOf(nYear-1));   
+                if (idBARMap.containsKey(lastRevenueKey)) {
                     // Populate Actual Amount from Billed 
                     opc = populateActualAmounts(opc, idBARMap, nYear, opcIdRSMap);
+                    opc = populateGroupActualAmounts(opc, idBARMap, nYear, opcIdRSMap);
                 } 
             } 
             else if (opc.Classification__c == 'Growth') {          /*** Changed from 'Up Sell' to 'Growth' ***/
                 // Find record that is the same product AND “Existing Customer (Renewal)” or “Existing Customer (New Product)” or “New Customer” revenue schedule classification exists for the customer
-                if (idBARMap.containsKey(opc.Account__c + ':' + opc.Product__c + ':' + String.valueOf(nYear - 1))) {
+				String lastRevenueKey = constructRevenueKey(opc.Account__c , opc.Product__c ,String.ValueOf(nYear-1));   
+                if (idBARMap.containsKey(lastRevenueKey)) {
                     opc = populateGrowthField(opc, idBARMap, nYear, nYear - 1, opcIdRSMap);
+                    opc = populateGroupGrowthField(opc, idBARMap, nYear, nYear - 1, opcIdRSMap);
                 } 
             }
         }
         //update opcList;
         Database.SaveResult[] SR = Database.update(opcList, false);
-        system.debug('***SR: ' + SR);        
+      
     }  
     
     
     public static List<Opp_Product_Classification__c> requeryOPCList(List<Opp_Product_Classification__c> opcList, List<Opp_Product_Classification__c> requeryOPCList) {
-        system.debug('@@@opcList: ' + opcList);
-        system.debug('@@@requeryOPCList: ' + requeryOPCList);
+
         
         List<String> opcIds = new List<String>();
         if (!opcList.isEmpty()) {
             for (Opp_Product_Classification__c opc : opcList) {
                 
-                system.debug('@@@opcList is not EMPTY:');
+
                 
                 opcIds.add(opc.Id);
             }
             
-            system.debug('@@@opcList Size : ' + opcList.size());
-            system.debug('***getHeapSize: Before requeryOPCList: ' + Limits.getHeapSize()); 
+
             
             requeryOPCList = [Select Id, Product__r.Name, Product__r.Id, Opportunity__r.OwnerId, Opportunity__r.Id, Opportunity__c, Account__r.Name, Account__r.Id, 
                 Account__c, Product__c, Classification__c, Financial_Year__c, Hidden_Under_Review__c, Hidden_1st_of_Multi_Year__c, Hidden_Renewal_Missing_Growth__c,
@@ -1303,9 +1217,7 @@ public class OPCUtility {
                 
                 From Opp_Product_Classification__c
                 Where Id in :opcIds]; 
-                
-            system.debug('***getHeapSize: After requeryOPCList: ' + Limits.getHeapSize());      
-            system.debug('***requeryOPCList Size: ' + requeryOPCList.size());               
+
                 
             return requeryOPCList;                          
         } else {
@@ -1608,6 +1520,7 @@ public class OPCUtility {
     }
     
     public static Map<String,ParentAccountRevenue> getParentAccountRevenueMap(List<String> acctIdList, List<String> prodIdList) {
+
         Set<String> accountIdSet = new Set<String>(acctIdList);
         Map<String,String> parentChildAccountIdMap = getParentChildAccountIdMap(accountIdSet);
         accountIdSet.addAll(parentChildAccountIdMap.keySet());
@@ -1615,20 +1528,25 @@ public class OPCUtility {
     }
     
     public static Map<String,ParentAccountRevenue> getParentAccountRevenueMap(Set<String> accountIdSet) {
+
         Map<String,String> parentChildAccountIdMap = getParentChildAccountIdMap(accountIdSet);
         accountIdSet.addAll(parentChildAccountIdMap.keySet());
         return getParentAccountRevenueMap(parentChildAccountIdMap,getBudgetAndRevenue(accountIdSet));
     }
 
     private static Map<String,ParentAccountRevenue> getParentAccountRevenueMap(Map<String,String> parentChildAccountIdMap,List<Budget_and_Revenue__c> budgetAndRevenue) {
+
         Map<String,ParentAccountRevenue> revenueMap = new Map<String,ParentAccountRevenue>();
         for (Budget_and_Revenue__c bar : budgetAndRevenue) {
             boolean isChildAccount = parentChildAccountIdMap.containsKey(bar.Organisation__c);
             Id parentAccountId = isChildAccount ? parentChildAccountIdMap.get(bar.Organisation__c) : bar.Organisation__c;    
-            String revenueKey = constructRevenueKey(parentAccountId, bar);
+            String revenueKey = constructRevenueKey(parentAccountId, bar.Product__c,bar.Financial_Year__c);
+
             if (revenueMap.containsKey(revenueKey)) {
+
               revenueMap.get(revenueKey).add(bar,isChildAccount);  
             } else {
+
               revenueMap.put(revenueKey,new ParentAccountRevenue(parentAccountId,bar,isChildAccount));
             } 
         }
@@ -1636,6 +1554,7 @@ public class OPCUtility {
     }
     
    private static List<Budget_and_Revenue__c> getBudgetAndRevenue(Set<String> accountIdSet) {
+
         return [SELECT Organisation__c, Product__c, Financial_Year__c, 
                 Jan_Revenue_Amount__c, Feb_Revenue_Amount__c, Mar_Revenue_Amount__c,
                 Apr_Revenue_Amount__c, May_Revenue_Amount__c, Jun_Revenue_Amount__c,
@@ -1653,8 +1572,7 @@ public class OPCUtility {
                Jan_Revenue_Amount__c, Feb_Revenue_Amount__c, Mar_Revenue_Amount__c,
                Apr_Revenue_Amount__c, May_Revenue_Amount__c, Jun_Revenue_Amount__c,
                Jul_Revenue_Amount__c, Aug_Revenue_Amount__c, Sep_Revenue_Amount__c,
-               Oct_Revenue_Amount__c, Nov_Revenue_Amount__c, Dec_Revenue_Amount__c,
-               Total_Revenue_Amount__c
+               Oct_Revenue_Amount__c, Nov_Revenue_Amount__c, Dec_Revenue_Amount__c,Total_Revenue_Amount__c
                From Budget_and_Revenue__c
                Where Organisation__c <> null
                And Product__c <> null
@@ -1687,8 +1605,8 @@ public class OPCUtility {
      * @returns a string identifier.
      */
                      
-    private static String constructRevenueKey(Id parentAccountId, Budget_and_Revenue__c record) {
-            return String.valueOf(parentAccountId) + String.valueOf(record.Product__c) + record.Financial_Year__c;
+    private static String constructRevenueKey(String parentAccountId, string ProductId, String financialYear ) {
+            return parentAccountId +':'+ ProductId + ':'+ financialYear;
     }
     
     /*
