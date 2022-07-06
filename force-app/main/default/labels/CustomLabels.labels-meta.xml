@@ -7556,6 +7556,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
     </labels>
     <labels>
         <fullName>Route_Printing_Static_Text_Top</fullName>
+        <categories>PUD Pickup Booking</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Route Printing Static Text Top</shortDescription>
@@ -7563,6 +7564,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
     </labels>
     <labels>
         <fullName>Route_Printing_Static_Text_Bottom</fullName>
+        <categories>PUD Pickup Booking</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Route Printing Static Text Bottom</shortDescription>
