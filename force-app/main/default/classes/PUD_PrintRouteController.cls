@@ -14,10 +14,7 @@ public with sharing class PUD_PrintRouteController {
     //Constructor
     public PUD_PrintRouteController(ApexPages.StandardSetController ssc) {
         //Identify the selected records from Listview
-        Set<Id> selectedRouteIDs = new Set<Id>();
-        for (PUD_Route__c rts : (PUD_Route__c[]) ssc.getSelected()) {
-            selectedRouteIDs.add(rts.Id);
-        }
+        Set<Id> selectedRouteIDs = new Map<Id,PUD_Route__c>(ssc.getSelected()).keySet();
         routes = getSelectedRoutesWithBookings(selectedRouteIDs,new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT});
     }
     public PUD_PrintRouteController(ApexPages.StandardController sc) {
