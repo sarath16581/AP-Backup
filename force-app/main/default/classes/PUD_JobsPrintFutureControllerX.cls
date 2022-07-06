@@ -31,7 +31,7 @@ public with sharing class PUD_JobsPrintFutureControllerX {
     private DateTime myDate = null;
 
 
-    // Constructor    
+    // Constructor
     public PUD_JobsPrintFutureControllerX(ApexPages.standardController sc){
 
         //Get Id from Url
