@@ -1,73 +1,27 @@
-
 <apex:component >
-    <apex:attribute name="jobs" type="PUD_Job__c[]" description="List of jobs for a given route"/>
 
-    <apex:pageBlock>
-        <!-- bookings table -->
-        <apex:pageBlockTable value="{! jobs  }" var="job" style="padding-top:10px;"
-                             styleClass="normalcell"
-                             headerClass="table-header">
-            <apex:column headerValue="Arrive"
-                         styleClass="normalcell"
-                         width="50px"
-                         headerClass="job-headers" rendered="{!job.Booking_Type__c != 'Meal Break'}">
-                <div class="boldcell">
-                   <!--<apex:outputText rendered="{! !ISNULL(job.Start_Time__c)}">
-                        {! IF(LEN(TEXT(HOUR(job.Start_Time__c)))<2 , '0'+ TEXT(HOUR(job.Start_Time__c)), HOUR(job.Start_Time__c))}
-                        <apex:outputText value="{0,number,00}">
-                            <apex:param value="{!MINUTE(job.Start_Time__c)}"/>
-                        </apex:outputText>
-                    </apex:outputText>-->
-                </div>
+    <apex:attribute name="Route" type="String" description="Key: RouteName"/>
+    <apex:attribute name="Jobs" type="PUD_Job__c[]" description="Key: RouteName"/>
+
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!Jobs}" var="jt" border="1" style="vertical-align:Top font:Calibri; font-size: 12pt">
+            <apex:column headerValue="Start Time" style="vertical-align:Top font:Calibri; font-size: 11pt" width="80px">
+                    <b><apex:outputField value="{! jt.Start_Time__c}"/></b>
             </apex:column>
-            <apex:column headerValue="Job Details" styleClass="normalcell"
-                         width="500px" headerClass="job-headers"
-                         rendered="{!job.Booking_Type__c != 'Meal Break'}">
-                <div class="boldcell">
-                    <apex:outputField value="{!job.Location__c}"/>
-                    <apex:outputText
-                            rendered="{! OR(!ISBLANK(job.Street__c),!ISBLANK(job.City__c))}">
-                        (
-                        <apex:outputField value="{!job.Street__c}"/>
-                        <apex:outputField value="{!job.City__c}"/>
-                        ) &nbsp;<apex:outputField value="{!job.Key_Number__c}"/> &nbsp;
-                        <apex:outputText rendered="{! job.Booking__r.Monday__c}" value="Mon "/>
-                        <apex:outputText rendered="{! job.Booking__r.Tuesday__c}" value="Tue "/>
-                        <apex:outputText rendered="{! job.Booking__r.Wednesday__c}" value="Wed "/>
-                        <apex:outputText rendered="{! job.Booking__r.Thursday__c}" value="Thu "/>
-                        <apex:outputText rendered="{! job.Booking__r.Friday__c}" value="Fri "/>
-                        <apex:outputText rendered="{! job.Booking__r.Saturday__c}" value="Sat "/>
-                        <apex:outputText rendered="{! job.Booking__r.Sunday__c}" value="Sun "/>
-                        <br/>
-                    </apex:outputText>
-                </div>
-                <apex:outputText value="{! job.Booking_Type__c}" styleClass="normalcell"/>
-                <span style="margin-left: 40px; display: block;">
-                            <apex:outputField value="{!job.Booking_Comments__c}" styleClass="normalcell"/>
-                        </span>
-                <apex:outputText rendered="{! !ISBLANK(job.Booking_Comments__c)}">
-                </apex:outputText>
-                <br/>
-            </apex:column>
-            <apex:column headerValue="Docks" styleClass="normalcell" width="50px"
-                         headerClass="job-headers"
-                         rendered="{!job.Booking_Type__c != 'Meal Break'}">
-                <apex:outputField value="{! job.Booking__r.Dock_Number__c}" style="font-size:small"/>
-            </apex:column>
-            <apex:column headerValue="Depart" styleClass="boldcell"
-                         width="50px"
-                         headerClass="job-headers"
-                         rendered="{!job.Booking_Type__c != 'Meal Break'}">
-                <!--<apex:outputText rendered="{! !ISBLANK(job.Start_Time__c)}">
-                    <apex:variable var="bookingEndTime"
-                                   value="{! job.Start_Time__c+job.Dwell_Time_Planned__c*60000}"/>
-                    {! IF(LEN(TEXT(HOUR(bookingEndTime)))<2 , '0'+ TEXT(HOUR(bookingEndTime)), HOUR(bookingEndTime))}
-                    <apex:outputText value="{0,number,00}">
-                        <apex:param
-                                value="{!MINUTE(bookingEndTime)}"/>
-                    </apex:outputText>
-                </apex:outputText>-->
-            </apex:column>
-        </apex:pageBlockTable>
-    </apex:pageBlock>
+         	<apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size: 12pt" width="430px">
+                <b><apex:outputField value="{!jt.Location_Information__c}"/></b><br/>
+                <apex:outputField value="{!jt.Job_Information__c}" /><br/>
+                <b><apex:outputField value="{!jt.Booking_Comments__c}"/></b>
+    		</apex:column>
+            <apex:column value="{! jt.Deliver_Product__c}" style="vertical-align:Top font-family: Calibri; font-size: 12pt" width="200px"/>
+        	 <apex:column headerValue="Rev Chk" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
+                <apex:outputField value="{!jt.Revenue_Check__c}" /> <br></br><br></br>
+    		</apex:column>
+        	 <apex:column headerValue="Stop Credit" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
+                <apex:outputField value="{!jt.Stop_Credit__c}" />
+    		</apex:column>
+        	<apex:column headerValue="MS/E/P_F" style="vertical-align:Top" width="0px"/>
+</apex:pageBlockTable>
+</apex:pageBlock>
+
 </apex:component>
