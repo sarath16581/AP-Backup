@@ -8,13 +8,8 @@ private class PrintRouteController_Test {
     static void testGetBookingsForMultipleRoutes() {
 
         //Create test Depot
-        Network__c networkDepot = PUDTestUtility.createNetwork ('Kew Van Services', 'Business_Hub_3');
-        List<PUD_Route__c> routeList = new List<PUD_Route__c>();
-        //Create routes
-        PUD_Route__c route1 = PUDTestUtility.createRoute ('DT61', networkDepot.Id);
-        routeList.add(route1);
-        PUD_Route__c route2 = PUDTestUtility.createRoute ('DT62', networkDepot.Id);
-        routeList.add(route2);
+        Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1,true)[0];
+        List<PUD_Route__c> routeList = PUDTestDataFactory.getPUDRoutes(2,networkDepot.Id, true);
 
         ApplicationTestDataFactory.generateRecordIds(routeList);//I don't think I need this
 
@@ -45,9 +40,8 @@ private class PrintRouteController_Test {
     @IsTest
     static void testGetBookingsForSingleRoute() {
         //Create test Depot
-        Network__c networkDepot = PUDTestUtility.createNetwork ('Kew Van Services', 'Business_Hub_3');
-        //Create a route
-        PUD_Route__c route1 = PUDTestUtility.createRoute ('DT61', networkDepot.Id);
+        Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1,true)[0];
+        PUD_Route__c route1 = PUDTestDataFactory.getPUDRoutes(1,networkDepot.Id, true)[0];
 
         // =====================================
         // Stubbing
