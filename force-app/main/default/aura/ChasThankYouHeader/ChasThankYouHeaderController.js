@@ -37,8 +37,5 @@
            caseThankYouMessage = $A.get('$Label.c.TransferToPoThankYouMessage');
             component.set('v.caseThankYouMessage', caseThankYouMessage);
         }
-    },
-    requestSurvey: function(component, event, helper) {
-        window.open("https://survey.auspost.com.au/cgi-bin/qwebcorporate.dll?idx=AENCHY&n_Trigger=thankyou",'_blank');
     }
 })
