@@ -1,11 +1,13 @@
 /**
 * @author Kamil Szyc
 * @date 2022-06-24
-* @group PUD Project
+* @group PUD
 * @tag Controller
-* @tag PUD_Job__c
-* @domain Interoperability PUD Project
-* @description Controller class to for printing CCP routes.
+* @tag PUD_Route__c
+* @domain PUD
+* @description Controller class to for printing CCP routes with bookings.
+ * @changelog
+ * 2022-06-24 - created
  */
 
 public with sharing class PUD_PrintRouteController {
