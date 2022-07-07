@@ -7,9 +7,9 @@
  -->
 <apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_PrintRouteController"
            renderAs="pdf" applyBodyTag="false" id="PUD_JobPrintFromRoute">
-    <!--Page to allow printing of Duty for driver a backup to the mobile device -->
-    <head>
-        <style type="text/css" media="print">
+	<!--Page to allow printing of Duty for driver a backup to the mobile device -->
+	<head>
+		<style type="text/css" media="print">
             @page {
                 @top-center {
                     content: element(header);
@@ -72,18 +72,18 @@
 
         </style>
 
-    </head>
-    <!--page counter used to truncate blank pages and the end of the pdf document -->
-    <apex:variable var="routeCounter" value="{!0}"/>
-    <div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
-        <div class="header">
-            <!--repeatable header-->
-            <c:PUD_JobsHeader Route="{! route}"/>
-        </div>
-        <div class="content">
-            <c:PUD_RoutePrintSubHeader route="{!route}"/>
-          <c:PUD_BookingsTable bookings="{!route.Bookings__r}"/>
-        </div>
-    </div>
-    <apex:variable var="routeCounter" value="{!routeCounter+1}"/>
+	</head>
+	<!--page counter used to truncate blank pages and the end of the pdf document -->
+	<apex:variable var="routeCounter" value="{!0}"/>
+	<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+		<div class="header">
+			<!--repeatable header-->
+			<c:PUD_JobsHeader Route="{! route}"/>
+		</div>
+		<div class="content">
+			<c:PUD_RoutePrintSubHeader route="{!route}"/>
+			<c:PUD_BookingsTable bookings="{!route.Bookings__r}"/>
+		</div>
+	</div>
+	<apex:variable var="routeCounter" value="{!routeCounter+1}"/>
 </apex:page>

@@ -8,124 +8,122 @@
  * @description A very simple selector class that sits in PUD domain
  * @changelog
  * 2022-03-18 - Ranjeewa Silva - Created
+ * 2022-07-06 - Kamil Szyc added selectByIdWithAllBookings method for printing full duty board
  */
 public virtual inherited sharing class PUDRoutesSelector extends ApplicationSelector {
 
-    public enum Options {
-        WITH_DEPOT
-    }
-    public static PUDRoutesSelector newInstance() {
-        return (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class);
-    }
+	public enum Options {
+		WITH_DEPOT
+	}
+	public static PUDRoutesSelector newInstance() {
+		return (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class);
+	}
 
-    public static PUDRoutesSelector newInstance(Integer recordLimit) {
-        return (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setLimit(recordLimit);
-    }
+	public static PUDRoutesSelector newInstance(Integer recordLimit) {
+		return (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setLimit(recordLimit);
+	}
 
-    /**
-     * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-     * This approach removes data consistency and prevents possible caching of results
-     */
-    public static PUDRoutesSelector newInstance(Set<SObjectField> fieldOverrides) {
-        PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class);
-        selector.setFieldOverrides(fieldOverrides);
-        return selector;
-    }
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static PUDRoutesSelector newInstance(Set<SObjectField> fieldOverrides) {
+		PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class);
+		selector.setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 
-    /**
-     * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-     * This approach removes data consistency and prevents possible caching of results
-     */
-    public static PUDRoutesSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
-        PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setLimit(recordLimit);
-        selector.setFieldOverrides(fieldOverrides);
-        return selector;
-    }
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static PUDRoutesSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setLimit(recordLimit);
+		selector.setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 
-    /**
-     * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-     *						  This approach removes data consistency and prevents possible caching of results
-     */
-    public static PUDRoutesSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-        PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setFieldOverrides(fieldOverrides);
-        return selector;
-    }
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *						  This approach removes data consistency and prevents possible caching of results
+	 */
+	public static PUDRoutesSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 
-    /**
-     * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-     *						  This approach removes data consistency and prevents possible caching of results
-     */
-    public static PUDRoutesSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-        PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-        return selector;
-    }
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *						  This approach removes data consistency and prevents possible caching of results
+	 */
+	public static PUDRoutesSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 
-    protected override SObjectType getSObjectType() {
-        return PUD_Route__c.getSObjectType();
-    }
+	protected override SObjectType getSObjectType() {
+		return PUD_Route__c.getSObjectType();
+	}
 
-    protected override Set<SObjectField> getSObjectFieldList() {
-        return new Set<SObjectField>{
-                PUD_Route__c.Id, PUD_Route__c.Name, PUD_Route__c.Depot__c,
-                PUD_Route__c.Monday__c, PUD_Route__c.Tuesday__c, PUD_Route__c.Wednesday__c, PUD_Route__c.Thursday__c, PUD_Route__c.Friday__c,
-                PUD_Route__c.Saturday__c, PUD_Route__c.Sunday__c, PUD_Route__c.Overtime_Allowance__c,
-                PUD_Route__c.Start_Time__c, PUD_Route__c.End_Time__c, PUD_Route__c.Start_Date__c, PUD_Route__c.End_Date__c
-        };
-    }
+	protected override Set<SObjectField> getSObjectFieldList() {
+		return new Set<SObjectField>{
+				PUD_Route__c.Id, PUD_Route__c.Name, PUD_Route__c.Depot__c
+		};
+	}
 
-    public override List<QueryBuilder.Order> getOrderBy() {
-        return new List<QueryBuilder.Order>{
-                new QueryBuilder.Order('Name', 'Asc')
-        };
-    }
+	public override List<QueryBuilder.Order> getOrderBy() {
+		return new List<QueryBuilder.Order>{
+				new QueryBuilder.Order('Name', 'Asc')
+		};
+	}
 
-    /**
-     * Run a simple query to get records based on Id's
-     * @param ids route ids
-     *
-     * @return list of route records
-     */
-    public virtual List<PUD_Route__c> selectById(Set<Id> ids) {
-        return selectById(ids, new Set<Object>());
-    }
+	/**
+	 * Run a simple query to get records based on Id's
+	 * @param ids route ids
+	 *
+	 * @return list of route records
+	 */
+	public virtual List<PUD_Route__c> selectById(Set<Id> ids) {
+		return selectById(ids, new Set<Object>());
+	}
 
-    /**
-     * Run a simple query to get records based on Id's
-     * @param ids route ids
-     * @param selectorOptions additional selector options
-     *
-     * @return list of route records
-     */
-    public virtual List<PUD_Route__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
-        return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
-    }
+	/**
+	 * Run a simple query to get records based on Id's
+	 * @param ids route ids
+	 * @param selectorOptions additional selector options
+	 *
+	 * @return list of route records
+	 */
+	public virtual List<PUD_Route__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
+		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
+	}
 
-    /**
-     * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
-     *
-     * @param ids route ids to query
-     * @param bookingRecordTypeIds booking record type ids to filter active bookings (Optional). include all active bookings
-     *							 if not supplied.
-     *
-     * @return list of route records. result set include active child bookings matching the record type ids passed in.
-     */
-    public virtual List<PUD_Route__c> selectByIdWithActiveBookings(Set<Id> ids, Set<Id> bookingRecordTypeIds) {
-        return selectByIdWithActiveBookings(ids, bookingRecordTypeIds, new Set<Object>());
-    }
+	/**
+	 * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
+	 *
+	 * @param ids route ids to query
+	 * @param bookingRecordTypeIds booking record type ids to filter active bookings (Optional). include all active bookings
+	 *							 if not supplied.
+	 *
+	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
+	 */
+	public virtual List<PUD_Route__c> selectByIdWithActiveBookings(Set<Id> ids, Set<Id> bookingRecordTypeIds) {
+		return selectByIdWithActiveBookings(ids, bookingRecordTypeIds, new Set<Object>());
+	}
 
-    /**
-     * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
-     *
-     * @param ids route ids to query
-     * @param bookingRecordTypeIds booking record type ids to filter active bookings (Optional). include all active bookings
-     *							 if not supplied.
-     * @param selectorOptions additional selector options
-     *
-     * @return list of route records. result set include active child bookings matching the record type ids passed in.
-     */
-    public virtual List<PUD_Route__c> selectByIdWithActiveBookings(Set<Id> ids, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
+	/**
+	 * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
+	 *
+	 * @param ids route ids to query
+	 * @param bookingRecordTypeIds booking record type ids to filter active bookings (Optional). include all active bookings
+	 *							 if not supplied.
+	 * @param selectorOptions additional selector options
+	 *
+	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
+	 */
+	public virtual List<PUD_Route__c> selectByIdWithActiveBookings(Set<Id> ids, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
 
         // we need t filter the bookings by record type ids passed in.
         Set<String> status = new Set<String>{
@@ -136,27 +134,31 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
             qb.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
         }
 
-        return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
-    }
-    /**
-     * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
-     *
-     * @param ids route ids to query
-     * @param bookingRecordTypeIds booking record type ids to filter active bookings (Optional). include all active bookings
-     *							 if not supplied.
-     * @param selectorOptions additional selector options
-     *
-     * @return list of route records. result set include active child bookings matching the record type ids passed in.
-     */
-    public virtual List<PUD_Route__c> selectByIdWithAllBookings(Set<Id> ids, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
-        qb.addSubQuery(getChildBookingsSubQueryBuilder(new Set<String>(), bookingRecordTypeIds, selectorOptions), 'Bookings__r');
-        if(selectorOptions.contains(Options.WITH_DEPOT)){
-            qb.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
-        }
+		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
+	}
+	/**
+	 * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
+	 *
+	 * @param ids route ids to query
+	 * @param bookingRecordTypeIds booking record type ids to filter active bookings (Optional). include all active bookings
+	 *							 if not supplied.
+	 * @param selectorOptions additional selector options
+	 *
+	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
+	 */
+	public virtual List<PUD_Route__c> selectByIdWithAllBookings(Set<Id> ids, Set<Object> selectorOptions, Map<SObjectType, Set<SObjectField>> bookingFieldOverrides) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids'))
+				.endConditions();
+		qb.addSubQuery(
+				PUDBookingsSelector.newInstance(bookingFieldOverrides).newQueryBuilder(selectorOptions), 'Bookings__r');
+		if (selectorOptions.contains(Options.WITH_DEPOT)) {
+			qb.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
+		}
 
-        return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
-    }
+		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
+	}
 
     /**
      * Returns a Query Builder for child bookings based on the record types, status and selector options passed in.
@@ -169,17 +171,17 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
      */
     private QueryBuilder getChildBookingsSubQueryBuilder(Set<String> status, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
 
-        QueryBuilder subQueryBuilder = PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions);
+		QueryBuilder subQueryBuilder = PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions);
 
-        QueryBuilder.ConditionsManager subQueryConditions = subQueryBuilder.addConditions();
-        if(status != null && !status.isEmpty()) {
-            subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.Status_Calc__c + ' in :status'));
-        }
-        if (bookingRecordTypeIds != null && !bookingRecordTypeIds.isEmpty()) {
-            subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.RecordTypeId + ' in :bookingRecordTypeIds'));
-        }
-        subQueryConditions.endConditions();
+		QueryBuilder.ConditionsManager subQueryConditions = subQueryBuilder.addConditions();
+		if (status != null && !status.isEmpty()) {
+			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.Status_Calc__c + ' in :status'));
+		}
+		if (bookingRecordTypeIds != null && !bookingRecordTypeIds.isEmpty()) {
+			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.RecordTypeId + ' in :bookingRecordTypeIds'));
+		}
+		subQueryConditions.endConditions();
 
-        return subQueryBuilder;
-    }
+		return subQueryBuilder;
+	}
 }

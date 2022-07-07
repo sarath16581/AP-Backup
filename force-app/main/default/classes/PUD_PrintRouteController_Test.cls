@@ -1,5 +1,12 @@
 /**
- * Created by kamilszyc on 1/7/2022.
+* @author Kamil Szyc
+* @date 2022-06-24
+* @group PUD
+* @tag PUD_Route__c
+* @domain PUD
+* @description Controller test class to for printing CCP routes with bookings.
+ * @changelog
+ * 2022-06-24 - created
  */
 
 @IsTest
@@ -30,14 +37,12 @@ private class PUD_PrintRouteController_Test {
 				);
 		MockUtility.Mocks.stopStubbing();
 
-
 		Test.startTest();
-
 		PageReference pageRef = Page.PUD_JobPrintFromRoutesList;
 		Test.setCurrentPage(pageRef);
-
-		PUD_PrintRouteController testRoutesPrint = new PUD_PrintRouteController(new ApexPages.StandardSetController(routeList));
+		PUD_PrintRouteController testRoutesPrint = new PUD_PrintRouteController(new ApexPages.StandardSetController(new List<PUD_Route__c>(routeList)));
 		Test.stopTest();
+		
 		System.assertNotEquals(null, testRoutesPrint.routes, 'The selector has not returned a list of routes');
 		System.assert(!testRoutesPrint.routes.isEmpty(), 'Expected routes were not returned by the controller');
 	}
