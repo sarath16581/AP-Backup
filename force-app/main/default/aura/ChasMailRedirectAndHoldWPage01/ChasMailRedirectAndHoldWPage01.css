@@ -1,5 +1,6 @@
 /*
-@changelog: 23-07-2010 hara.sahoo@auspost.com.au Added new styling as per the Help and Support form uplift 
+@changelog: 23-07-2010 hara.sahoo@auspost.com.au Added new styling as per the Help and Support form uplift
+        05-07-2022 hara.sahoo@auspost.com.au DDS-11014: added the redirect message styles
 */
 .THIS .add-remove-person {
 	margin-top: -20px;
@@ -55,9 +56,20 @@
 .THIS .form-input-container{
     max-width:none;
 }
-@media (min-width: 680px)
-    {
+@media (min-width: 680px) {
     .THIS .cChasBspDeflection {
-    width: 656px;
+        width: 656px;
+    }
+    .THIS .info-box-on-body-border {
+        width: 616px!important;
+    }
 }
+.THIS .info-box-on-body-border {
+    border-left: 3px solid #009ed9;
+    border-radius: 3px;
+    background: white;
+    padding: 16px 15px 19px;
+    position: relative;
+    margin-right: 32px;
+    margin-bottom: 32px;
 }
