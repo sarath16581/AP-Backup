@@ -4,7 +4,7 @@
   * @description  : Component that searches SAP EM for articles
 --------------------------------------- History --------------------------------------------------
 01.04.2019    Sameed Khan(Mav3rik)    Created
-07.07.2022    Talib Raza - REQ2859463: Auto capitalised the value in handleArticleNumberChange
+07.07.2022    Talib Raza - REQ2859463: Auto capitalised the value in handleArticleNumberChange and uplifted API version to 52
 **/
 import { LightningElement, track, api } from 'lwc'
 import { showNotification } from 'c/utils'
