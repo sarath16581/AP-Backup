@@ -125,14 +125,9 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 	public virtual List<PUD_Route__c> selectByIdWithActiveBookings(Set<Id> ids, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
 
-        // we need t filter the bookings by record type ids passed in.
-        Set<String> status = new Set<String>{
-                PUDConstants.PUD_BOOKING_STATUS_ACTIVE
-        };
-        qb.addSubQuery(getChildBookingsSubQueryBuilder(status, bookingRecordTypeIds, selectorOptions), 'Bookings__r');
-        if(selectorOptions.contains(Options.WITH_DEPOT)){
-            qb.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
-        }
+		// we need t filter the bookings by record type ids passed in.
+		Set<String> status = new Set<String>{PUDConstants.PUD_BOOKING_STATUS_ACTIVE};
+		qb.addSubQuery(getChildBookingsSubQueryBuilder(status, bookingRecordTypeIds, selectorOptions), 'Bookings__r');
 
 		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
 	}
