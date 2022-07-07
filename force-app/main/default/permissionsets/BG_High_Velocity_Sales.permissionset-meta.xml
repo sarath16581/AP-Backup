@@ -7,6 +7,26 @@
     <description>Provide access to the High Velocity Sales Console to be used by specific B&amp;G Sales users.</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>AccountRelationship__c.EndDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>AccountRelationship__c.ParentAccount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>AccountRelationship__c.RelatedAccount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>AccountRelationship__c.Relationship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Network__c.AMP_F__c</field>
         <readable>true</readable>
     </fieldPermissions>
