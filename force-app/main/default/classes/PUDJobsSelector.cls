@@ -30,7 +30,7 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 	/**
 	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	* This approach removes data consistency and prevents possible caching of results
-	*/
+	*/	
 	public static PUDJobsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		PUDJobsSelector selector = (PUDJobsSelector)Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
@@ -60,7 +60,7 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 	* @description Run a simple query to get records based on Id's
 	*/
 	public virtual List<PUD_Job__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Id + ' in :ids')).endConditions();
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Id + ' in :ids')).endConditions();       
         return (List<PUD_Job__c>)Database.query(qb.toSoqlString());
 	}
 
@@ -68,7 +68,7 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 		QueryBuilder qb = selectJobsByDateAndStatusQueryLocator(dateVar,  statusVar, new Set<Object>());
         return Database.getQueryLocator(qb.toSoqlString());
 	}
-
+	
 	/**
     * @description : simple query to get records based on date flag, status flag and send to dispatch system flag
     */
@@ -78,8 +78,8 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 		.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' = :dateVar'))
 		.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Status__c + ' = :statusVar'))
 		.endConditions();
-
-        return qb;
+		
+        return qb;        
     }
 
 	/**
@@ -111,8 +111,8 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 							.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Booking__c + ' in :bookingIds'))
 							.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' >= :fromDate'))
 							.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Status__c + ' = :jobStatus'))
-							.endConditions();
+							.endConditions();       
         return (List<PUD_Job__c>)Database.query(qb.toSoqlString());
 	}
-
+	
 }
