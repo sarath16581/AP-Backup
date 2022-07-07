@@ -1,9 +1,7 @@
 <!--
- - @author: Kamil Szyc
- - @description: page used to print pdf with routes and related bookings, generated from the route list view
- - @domain: PUD
+ - page used to print pdf with routes and related bookings, generated from the route list view
  - @changelog:
- - 24/6/2022 - created
+ - 24/6/2022 - Kamil Szyc- created
  -->
 <apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_PrintRouteController"
            recordSetVar="routesVar"

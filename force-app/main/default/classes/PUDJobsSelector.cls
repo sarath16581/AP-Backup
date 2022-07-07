@@ -18,14 +18,14 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 		return (PUDJobsSelector)Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit);
     }
 
-    /**
-    * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-    * This approach removes data consistency and prevents possible caching of results
-    */
-    public static PUDJobsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
-        PUDJobsSelector selector = (PUDJobsSelector) Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-        return selector;
-    }
+	/**
+	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	* This approach removes data consistency and prevents possible caching of results
+	*/	
+	public static PUDJobsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		PUDJobsSelector selector = (PUDJobsSelector)Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
 
 	/**
 	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.

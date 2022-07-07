@@ -1,9 +1,7 @@
 <!--
- - @author: Kamil Szyc
- - @description: component used to generate a header for printing routes pdf
- - @domain: PUD
+ - component used to generate a header for printing routes pdf
  - @changelog:
- - 24/6/2022 - created
+ - 24/6/2022 - Kamil Szyc- created
  -->
 
 <apex:component id="PUD_JobsHeader">

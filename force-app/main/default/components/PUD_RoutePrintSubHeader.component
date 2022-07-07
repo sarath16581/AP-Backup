@@ -1,9 +1,7 @@
 <!--
- - @author: Kamil Szyc
- - @description: component to contain information in the first page of the route pdf
- - @domain: PUD
+ - component to contain information in the first page of the route pdf
  - @changelog:
- - 24/6/2022 - created
+ - 24/6/2022 - Kamil Szyc- created
  -->
 
 <apex:component id="PUD_RoutePrintSubHeader">

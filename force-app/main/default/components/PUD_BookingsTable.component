@@ -1,9 +1,7 @@
 <!--
- - @author: Kamil Szyc
- - @description: component for bookings used in route pdf printing
- - @domain: PUD
+ -  component for bookings used in route pdf printing
  - @changelog:
- - 24/6/2022 - created
+ - 24/6/2022 - Kamil Szyc- created
  -->
 
 <apex:component id="PUD_BookingsTable">
