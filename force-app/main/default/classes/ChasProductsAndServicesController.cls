@@ -10,6 +10,7 @@
  * 2022-06-06 - Hasantha Liyanage - Created
  * 2022-06-21 - Hasantha Liyanage - modified: DDS-11103 Accessibility categories - Integration - Click on continue create the case record
  * 2022-06-28 - Thang Nguyen - modified: DDS-11430: add Bypass Workflow Rules On Creation flag to true
+ * 2022-07-08 - Mahesh Parvathaneni - modified: DDS-11191 Network name on transfer requests
  */
 public with sharing class ChasProductsAndServicesController extends ChasBase {
 	//constants
@@ -336,17 +337,16 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 			//-- Change made for roll out of Products and services uplift : defaulting the case type to Feedback, added selectedPostOffice and originalDeliveryAddress to the case description
 			if (issueDetailsType == 'Mail products' && mailProductsEnquiryType == 'Transfer to another post office') {
 				toBeCreateCase.Type = ChasConstants.FEEDBACK;
-				String caseDescription = '';
-				if (selectedPostOffice != null) {
-					caseDescription = selectedPostOffice;
-				}
-				caseDescription = caseDescription + '\n' + originalDeliveryAddress;
+				//DDS-11191 Network name on transfer requests
+				String caseDescription = 'Please transfer item to :';
+				String selectedPOName = (String) wizardData.get('selectedPostOfficeName');
+				String selectedPOAddress = (String) wizardData.get('selectedPostOffice');
+				caseDescription += String.isNotBlank(selectedPOName) ? '\n' + selectedPOName : '';
 				if (isEligibleForMyNetworkAssignment == 'true' && !String.isEmpty(toWcid)) {
-					caseDescription = caseDescription + '\n' + 'WCC ID: ' + toWcid;
-					//--The flag denotes an evaluation of the network assignment, based on factors evaluated from the service.
-					//19-08-2021: this is now being set only if network assignment actually happens
-					//toBeCreateCase.Automated_Network_Assignment__c = true;
+					caseDescription += '\n' + 'WCC ID: ' + toWcid;
 				}
+				caseDescription += String.isNotBlank(selectedPOAddress) ? '\n' + selectedPOAddress : '';
+				caseDescription += '\n' + originalDeliveryAddress;
 				toBeCreateCase.Description = caseDescription;
 			}
 
