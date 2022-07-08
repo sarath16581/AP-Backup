@@ -3,6 +3,12 @@
     <fullName>Relationship__c</fullName>
     <externalId>false</externalId>
     <label>Relationship</label>
+    <description>The type of relationship between the Parent and Related Accouunt.</description>
+    <inlineHelpText>The account relationship type</inlineHelpText>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <businessOwnerGroup></businessOwnerGroup>
+    <securityClassification>INTERNAL</securityClassification>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

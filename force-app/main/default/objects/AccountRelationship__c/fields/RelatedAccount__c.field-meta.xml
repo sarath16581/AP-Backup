@@ -5,6 +5,12 @@
     <description>The child side of the relationship</description>
     <externalId>false</externalId>
     <label>Related Account</label>
+    <description>The account which is related to the Parent Account.</description>
+    <inlineHelpText>Choose the Account which is related to the Parent Account.</inlineHelpText>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <businessOwnerGroup></businessOwnerGroup>
+    <securityClassification>INTERNAL</securityClassification>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Parent Accounts</relationshipLabel>
     <relationshipName>ChildAccountRelationships</relationshipName>
