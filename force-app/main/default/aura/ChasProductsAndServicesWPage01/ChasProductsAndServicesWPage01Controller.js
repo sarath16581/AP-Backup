@@ -3,6 +3,7 @@
  * * 2020-09-17 hara.sahoo@auspost.com.au Push analytics for direct link redirection from chatbots, faq pages.
  * * 2022-05-25 mahesh.parvathaneni@auspost.com.au DDS-7397 Set the recipient WCID
  * * 2022-05-31 mahesh.parvathaneni@auspost.com.au Changes for Accessbility and disability enquiries
+ * * 2022-07-08 mahesh.parvathaneni@auspost.com.au DDS-11191 Network name on transfer requests
  */
 ({
 	doInit: function (cmp, event, helper) {
@@ -188,6 +189,13 @@
 			component.set(
 				"v.wizardData.toWcid",
 				selectedPostOffice.location.wcid
+			);
+		}
+		//DDS-11191 Network name on transfer requests
+		if (!$A.util.isUndefinedOrNull(selectedPostOffice.location.title)) {
+			component.set(
+				"v.wizardData.selectedPostOfficeName",
+				selectedPostOffice.location.title
 			);
 		}
 		//Check if the previous address selected was changed
