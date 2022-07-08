@@ -4,7 +4,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>SSSW Wine Damages Action Taken Closed Case Notification</name>
     <style>none</style>
-    <subject>Australia Post reference number: {!Case.CaseNumber} {!Case.Thread_Id}</subject>
+    <subject>Australia Post reference number: {!Case.CaseNumber} | Article ID: {!Case.ReferenceID__c} | {!Case.Thread_Id}</subject>
     <textOnly>Hi {!Contact.FirstName}
 
 We regret to advise that article {!Case.ReferenceID__c} has been damaged in transit..
