@@ -86,7 +86,7 @@ public with sharing class LeadUtil {
             insert cmpgnRec; 
                         
         Lead leadRec = new Lead( LastName='Lead Record', FirstName='First Name',   Email='x@x.com', Street='Street',    
-                City='City',    State='State',  Country='AU',PostalCode='1000',    Parcels_per_week__c='1-9', LeadSource='Campaign X');            
+                City='City',    State='State',  Country='AU',PostalCode='1000',    Parcels_per_week__c='1-9', LeadSource='Campaign X', Phone='0123456789');            
         insert leadRec; 
         test.stopTest();
         }
@@ -110,7 +110,8 @@ public with sharing class LeadUtil {
             State='State',
             Country='AU',
             PostalCode='1000',
-            Parcels_per_week__c='1-9'            
+            Parcels_per_week__c='1-9',
+            Phone='0123456789'            
         );
         insert leadRec; 
         leadRec.PostalCode = '2000';
@@ -140,7 +141,8 @@ public with sharing class LeadUtil {
                 LD.City = 'NY';
                 LD.State= 'NY';
                 LD.PostalCode='789000';
-                LD.OwnerId= '00590000000ils5AAA';           
+                LD.OwnerId= '00590000000ils5AAA';
+                LD.phone='0123456789';           
                 ldList.add (LD);
             }
         insert ldList;          
