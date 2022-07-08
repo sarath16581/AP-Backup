@@ -777,11 +777,11 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Coveo_Search</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>APXT_BPM__Conga_Conductor</name>
         <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>GRAX_OAuth</name>
+        <type>ConnectedApp</type>
     </appMenuItems>
 </AppMenu>

@@ -13,8 +13,7 @@
  * 2021-10-26 - Nathan Franklin - add safeToUpper
  * 2021-06-15 - Prerna Rahangdale - Added the warning to show for the VODV Articles.
  * 2022-04-12 - Mahesh Parvathaneni - Added custom lables and location icon SVG path to use in the lightning map marker
- * 2022-07-05 - Snigdha Sahu - REQ2851358 - Added MLID for SenderDetails
-*/
+ */
 
 //continuations
 import queryAnalyticsApi from '@salesforce/apexContinuation/HappyParcelController.queryAnalyticsApi';
@@ -60,8 +59,6 @@ import SENDER_COUNTRY from '@salesforce/schema/Article__c.SenderCountry__c';
 import SENDER_COUNTRYNAME from '@salesforce/schema/Article__c.SenderCountryName__c';
 import SENDER_EMAIL from '@salesforce/schema/Article__c.SenderEmail__c';
 import SENDER_APCN from '@salesforce/schema/Article__c.Sender_APCN__c';
-import SENDER_MLID from '@salesforce/schema/Article__c.MLID__c'; //snigdha
-
 import EXTERNAL_TRACKING_ID from '@salesforce/schema/Article__c.ExternalTrackingID__c';
 import EXTERNAL_TRACKING_URL from '@salesforce/schema/Article__c.ExternalTrackingURL__c';
 //Case field mappings
@@ -137,7 +134,6 @@ export const CONSTANTS = {
 	FIELD_SENDER_COUNTRYNAME: SENDER_COUNTRYNAME.fieldApiName,
 	FIELD_SENDER_EMAIL: SENDER_EMAIL.fieldApiName,
 	FIELD_SENDER_APCN: SENDER_APCN.fieldApiName,
-	FIELD_SENDER_MLID: SENDER_MLID.fieldApiName, //Snigdha
 	FIELD_EXTERNAL_TRACKING_ID: EXTERNAL_TRACKING_ID.fieldApiName,
 	FIELD_EXTERNAL_TRACKING_URL: EXTERNAL_TRACKING_URL.fieldApiName,
     //Case Fields
@@ -248,8 +244,7 @@ export const getCustomerArticleFields = () => {
 		CONSTANTS.FIELD_SENDER_COUNTRY,
 		CONSTANTS.FIELD_SENDER_COUNTRYNAME,
 		CONSTANTS.FIELD_SENDER_EMAIL,
-		CONSTANTS.FIELD_SENDER_APCN,
-		CONSTANTS.FIELD_SENDER_MLID
+		CONSTANTS.FIELD_SENDER_APCN
 	];
 }
 

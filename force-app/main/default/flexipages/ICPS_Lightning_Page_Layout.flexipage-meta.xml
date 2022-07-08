@@ -10,10 +10,10 @@
                             <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>ICPS__c.Add_Articles</value>
+                            <value>ICPS__c.ICPS_Clone</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>ICPS__c.ICPS_Clone</value>
+                            <value>ICPS__c.Add_Articles</value>
                         </valueListItems>
                         <valueListItems>
                             <value>CustomButton.ICPS__c.PrintFirstNotice</value>
@@ -31,6 +31,12 @@
                         <valueListItems>
                             <value>CustomButton.ICPS__c.EmailFirstNotice</value>
                             <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.IsEmailEnabled__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
                                 <criteria>
                                     <leftValue>{!Record.ReceiverEmail__c}</leftValue>
                                     <operator>NE</operator>
@@ -38,17 +44,22 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>CustomButton.ICPS__c.EmailFinalNotice</value>
+                            <value>CustomButton.ICPS__c.Email_Final_Notice</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
                                 <criteria>
-                                    <leftValue>{!Record.FirstNoticeGenerated__c}</leftValue>
+                                    <leftValue>{!Record.IsEmailEnabled__c}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!Record.ReceiverEmail__c}</leftValue>
                                     <operator>NE</operator>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.FirstNoticeGenerated__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -72,7 +83,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
-                    <value>6</value>
+                    <value>10</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
             </componentInstance>

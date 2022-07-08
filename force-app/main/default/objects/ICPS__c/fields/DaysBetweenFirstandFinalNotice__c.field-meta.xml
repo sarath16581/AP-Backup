@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DaysBetweenFirstandFinalNotice__c</fullName>
+    <description>This is a backend field that counts the number of days between the first notice date and today. This will be used in the Conga Batch solution as it needs to automatically retrieve records where the final notice date is empty and 21 days have gone by since the First Notice Date</description>
+    <externalId>false</externalId>
+    <formula>IF (
+     AND (
+        NOT( ISBLANK( FirstNoticeDate__c )),
+        ISBLANK( FinalNoticeDate__c ),
+        OR (
+            ISPICKVAL( Status__c, &quot;Held&quot; ),
+            ISPICKVAL( Status__c, &quot;In Store&quot; ),
+            ISPICKVAL( Status__c, &quot;Unknown&quot; )
+        )
+
+     ), TODAY()- FirstNoticeDate__c, 0 )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This is a backend field that counts the number of days between the first notice date and today. This will be used in the Conga Batch solution as it needs to automatically retrieve records where the final notice date is empty and 21 days have gone by since the First Notice Date</inlineHelpText>
+    <label>Days Between First and Final Notice</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

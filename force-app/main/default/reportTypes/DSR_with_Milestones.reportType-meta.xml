@@ -1895,6 +1895,11 @@
             <field>LastImplementationStageUpdate__c</field>
             <table>Deal_Support_Request__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Pricing_Directory__c</field>
+            <table>Deal_Support_Request__c</table>
+        </columns>
         <masterLabel>Deal Support Request</masterLabel>
     </sections>
     <sections>
