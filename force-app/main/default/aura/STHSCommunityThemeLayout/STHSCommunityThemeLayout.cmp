@@ -1,0 +1,18 @@
+<aura:component
+	implements="forceCommunity:themeLayout"
+	access="global"
+	description="StarTrack Help and Support Community Theme Layout">
+
+	<div>
+		<!-- Header -->
+		<div class="header">
+			<c:sthsCommunityHeader></c:sthsCommunityHeader>
+		</div>
+		<!-- Body -->
+		<div class="mainContentArea">{!v.body}</div>
+		<!-- Footer -->
+		<div class="footer">
+			<c:sthsCommunityFooter></c:sthsCommunityFooter>
+		</div>
+	</div>
+</aura:component>
