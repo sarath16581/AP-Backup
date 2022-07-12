@@ -8,6 +8,10 @@
  * 2022-06-28 - Dattaraj Deshmukh - Created
  */
 public with sharing class PUDContainersSelector extends ApplicationSelector{
+	public enum Options {
+        WITH_RECORDTYPE
+    }
+
     public static PUDContainersSelector newInstance() {
 		return (PUDContainersSelector)Application.Selectors.newInstance(PUDContainersSelector.class);
 	}
@@ -57,7 +61,13 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 	* @description Run a simple query to get records based on Job__c Id's
 	*/
     public virtual List<PUD_Container__c> selectByJobIds(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Container__c.Job__c + ' in :ids')).endConditions();       
+        Id jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
+
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+		.add(new QueryBuilder.SimpleCondition(PUD_Container__c.Job__c + ' in :ids'))
+		.add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(jobContainerRecordTypeId))
+        .endConditions();   
+
         return (List<PUD_Container__c>)Database.query(qb.toSoqlString());
 	}
 	
@@ -66,7 +76,13 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 	* @description Run a simple query to get records based on Job__c Id's
 	*/
     public virtual List<PUD_Container__c> selectByBookingIds(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Container__c.Booking__c + ' in :ids')).endConditions();       
+		Id bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Booking_Container'}).values()[0].Id;
+
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().
+		add(new QueryBuilder.SimpleCondition(PUD_Container__c.Booking__c + ' in :ids'))
+		.add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(bookingContainerRecordTypeId))
+        .endConditions();   
+    
         return (List<PUD_Container__c>)Database.query(qb.toSoqlString());
 	}
 	

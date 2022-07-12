@@ -154,6 +154,25 @@ public virtual inherited sharing class ApplicationDomain {
 		}
 	}
 
+	/**
+	 * @description :added to handle after delete
+	 * @author Sreenish Krishnan | 06-29-2022
+	 * @param existingRecords
+	 * @param uow
+	 **/
+	public void onAfterDelete(List<SObject> existingRecords, ApplicationUnitOfWork uow) {
+		Map<Type, Object> modules = cachedModules.get(className);
+		if (modules != null) {
+			for (Object module : modules.values()) {
+				//System.debug('Module: ' + module);
+				IModule instance = (IModule) module;
+				if (instance.getTriggerEvents().afterDeleteEnabled) {
+					instance.onAfterDelete(existingRecords, uow);
+				}
+			}
+		}
+	}
+
 	// TODO: delete handlers
 	//	public override void onBeforeDelete(Map<Id,SObject> existingRecords) {}
 	//	public override void onAfterDelete(Map<Id,SObject> existingRecords) {}

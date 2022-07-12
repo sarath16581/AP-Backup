@@ -45,7 +45,7 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 			PUD_Job__c.Id, PUD_Job__c.Date__c, PUD_Job__c.Depot__c, PUD_Job__c.Name, PUD_Job__c.Send_to_Dispatch_System__c,
 			PUD_Job__c.Status__c, PUD_Job__c.Stop_Credit__c,PUD_Job__c.Booking__c, PUD_Job__c.Schedule_Request_Timestamp__c,
 			PUD_Job__c.Cancellation_Request_Timestamp__c, PUD_Job__c.Schedule_Confirmed_Timestamp__c, PUD_Job__c.Last_Pushed_to_Dispatch_System__c,
-			PUD_Job__c.Cancellation_Confirmed_Timestamp__c
+			PUD_Job__c.Cancellation_Confirmed_Timestamp__c, PUD_Job__c.Containers_Payload__c
 		};
 	}
 

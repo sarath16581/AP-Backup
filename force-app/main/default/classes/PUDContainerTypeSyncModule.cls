@@ -1,5 +1,6 @@
 public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.Module{
-    private static final Set<SObjectField> MONITORED_FIELDS_FOR_UPDATES {
+    
+	private static final Set<SObjectField> MONITORED_FIELDS_FOR_UPDATES {
 		get {
 			if (MONITORED_FIELDS_FOR_UPDATES == null) {
 				MONITORED_FIELDS_FOR_UPDATES = new Set<SObjectField>{
@@ -17,7 +18,7 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 
 	// Setup which trigger events this module should respond to
 	public PUDContainerTypeSyncModule() {
-		getTriggerEvents().enableAfterUpdate().enableAfterInsert().enableBeforeInsert();
+		getTriggerEvents().enableAfterUpdate().enableAfterInsert().enableBeforeInsert().enableAfterDelete();
 	}
 
     /**
@@ -27,6 +28,12 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 		public ApplicationDomain.Module construct() {
 			return (ApplicationDomain.Module)PUDContainerTypeSyncModule.newInstance();
 		}
+	}
+
+	public override void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow){
+		system.debug('in after Delete: ');
+
+		processContainerDeletionOnBookings((List<PUD_Container__c> )records, uow);
 	}
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow){
@@ -45,6 +52,37 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 
     }
 
+	private void processContainerDeletionOnBookings(List<PUD_Container__c> deletedRecords, ApplicationUnitOfWork uow){
+		//get Booking Container record type ID
+		Id bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Booking_Container'}).values()[0].Id;
+		Boolean isDelete = true;
+
+		Set<Id> bookingIdSet = new Set<Id>();
+		for(PUD_Container__c container : deletedRecords){
+
+			//Check if container's record type id = Container_Booking.
+			//Also, container is updated only for monitored fields. In case of new containers, changedRecordIdsVsFields == NULL.
+			if(container.RecordTypeId == bookingContainerRecordTypeId){
+				bookingIdSet.add(container.Booking__c);
+			}
+		}
+
+		//if Booking Containers are not updated then return.
+		//Todo: Job Containers are processed separately.
+		if(bookingIdSet.isEmpty()){
+			return;
+		}
+
+		try{
+			//call utility method to add containers against jobs.
+			PUDUtility.getInstance().processContainers(deletedRecords, null, bookingIdSet, isDelete);
+		} catch(Exception exp) {
+            system.debug('Exp: '+exp);
+			//Log error to Exception object for analysis
+			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), PUDConstants.PICKUP_BOOKING_APP, PUDContainerTypeSyncModule.class.getName(), 'refreshContainerTypesSync', 'PUDContainerTrigger', LoggingLevel.ERROR);
+		}
+
+	}
 
 	private void preventNewContainersCreation(List<PUD_Container__c> records){
 		if(System.isBatch()){
@@ -83,30 +121,39 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 
 	private void processContainerUpdatesOnBookings(List<PUD_Container__c> records, Map<Id, PUD_Container__c> existingRecords, ApplicationUnitOfWork uow){
 
-		if(System.isBatch()) return;
-		
-		Map<Id, Set<SObjectField>> changedRecords;
+		//get Booking Container record type ID
+		Id bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Booking_Container'}).values()[0].Id;
+		Boolean isDelete = false;
+		//if(System.isBatch()) return;
+
+		Map<Id, Set<SObjectField>> changedRecordIdsVsFields;
 
 		//check null as existingRecords will be unavailable for AfterInsert trigger.
 		if(existingRecords != null){
 			//check if records are updated and updated via booking
-			changedRecords = getIsChanged(records, existingRecords, MONITORED_FIELDS_FOR_UPDATES);
+			changedRecordIdsVsFields = getIsChanged(records, existingRecords, MONITORED_FIELDS_FOR_UPDATES);
 		}
+		
 		Set<Id> bookingIdSet = new Set<Id>();
 		for(PUD_Container__c container : records){
 
-			if(container.Booking__c != null && container.job__c == null){
+			//Check if container's record type id = Container_Booking.
+			//Also, container is updated only for monitored fields. In case of new containers, changedRecordIdsVsFields == NULL.
+			if(container.RecordTypeId == bookingContainerRecordTypeId 
+				&& (changedRecordIdsVsFields == null || changedRecordIdsVsFields.keySet().contains(container.Id))){
 				bookingIdSet.add(container.Booking__c);
 			}
 		}
 
+		//if Booking Containers are not updated then return.
+		//Todo: Job Containers are processed separately.
+		if(bookingIdSet.isEmpty()){
+			return;
+		}
 
-		//query booking records
-		List<PUD_Booking__c> bookings = PUDBookingsSelector.newInstance().selectById(bookingIdSet);
-
-		//call utility method to refreshJobs.
 		try{
-			PUDUtility.getInstance().processContainers(records, existingRecords, bookings);
+			//call utility method to add containers against jobs.
+			PUDUtility.getInstance().processContainers(records, existingRecords, bookingIdSet, isDelete);
 		} catch(Exception exp) {
             system.debug('Exp: '+exp);
 			//Log error to Exception object for analysis

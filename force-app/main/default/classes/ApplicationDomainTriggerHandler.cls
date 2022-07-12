@@ -78,6 +78,9 @@ public abstract inherited sharing class ApplicationDomainTriggerHandler {
 				} else if(isUpdate) {
 					instance.onAfterUpdate(oldRecordsMap, unitOfWork);
 				}
+				else if(isDelete){
+					instance.onAfterDelete(oldRecordsMap.values(), unitOfWork);
+				}
 				// TODO
 				//			else if(isDelete) domainObject.handleAfterDelete();
 				//			else if(isUndelete) domainObject.handleAfterUndelete();
