@@ -1284,10 +1284,10 @@ public class OPCUtility {
                 StageName = 'Identify',
                 Contract_Number__c='CN12345', 
                 Probability = 3,
-                closedate = date.today(),
+                closedate = Date.newInstance(System.Today().year(), 5, 4), // date.today(),
                 Closed_Reason__c='Reason',
-                Contract_Start_Date__c=date.today() - 100,
-                Contract_End_Date__c=date.today() + 100,
+                Contract_Start_Date__c= Date.newInstance(System.Today().year(), 1, 4),  //date.today() - 100,
+                Contract_End_Date__c= Date.newInstance(System.Today().year(), 9, 4),  //date.today() + 100,
                 Type='New Customer',
                 accountid=bacct.id
             );
@@ -1304,11 +1304,11 @@ public class OPCUtility {
                 name='Opportunity', 
                 StageName = 'Identify',
                 Contract_Number__c='CN12345', 
-                closedate = date.today(),
+                closedate = Date.newInstance(System.Today().year(), 5, 4), // date.today(),
                 Probability = 3,
                 Closed_Reason__c='Reason',
-                Contract_Start_Date__c=date.today() - 500,
-                Contract_End_Date__c=date.today() + 500,
+                Contract_Start_Date__c=Date.newInstance(System.Today().year()-1, 1, 4),
+                Contract_End_Date__c= Date.newInstance(System.Today().year()+1 , 9, 4),
                 Type='Existing Customer',
                 accountid=bacct.id
             );
@@ -1366,8 +1366,8 @@ public class OPCUtility {
                     PriceBookEntryId = pbeList[Math.mod(i, 2)].Id,
                     Quantity = 100,
                     TotalPrice = 1000,
-                    Contract_Start_Date__c=date.today() - 100,
-                    Contract_End_Date__c=date.today() + 100,
+                Contract_Start_Date__c= Date.newInstance(System.Today().year(), 2, 4),  //date.today() - 100,
+                Contract_End_Date__c= Date.newInstance(System.Today().year(), 5, 4),  //date.today() + 100,
                     Contract_Number__c='99999'
                 );
                 oliList.add(oli);        
@@ -1379,8 +1379,8 @@ public class OPCUtility {
                     PriceBookEntryId = pbeList[Math.mod(i, 2)].Id,
                     Quantity = 100,
                     TotalPrice = 1000,
-                    Contract_Start_Date__c=date.today() - 300,
-                    Contract_End_Date__c=date.today() + 300,
+                Contract_Start_Date__c= Date.newInstance(System.Today().year(), 1, 4),  //date.today() - 300,
+                Contract_End_Date__c= Date.newInstance(System.Today().year(), 6, 4),  //date.today() + 300,
                     Contract_Number__c='99999'
                 );
                 oliList2.add(oli2); 
