@@ -1254,6 +1254,7 @@ public class OPCUtility {
                                     
         BatchJobSettings__c batchSetting = new BatchJobSettings__c(SetupOwnerId=UserInfo.getOrganizationId());
         batchSetting.No_LFY__c = 'New Business,New Business - One Off,Cross Sell,Win Back';
+        batchSetting.With_LFY__c = 'Renewal';    
         Database.insert(batchSetting);                       
             
             //create account
@@ -1369,19 +1370,7 @@ public class OPCUtility {
                     Contract_End_Date__c=date.today() + 100,
                     Contract_Number__c='99999'
                 );
-                oliList.add(oli);
-                
-                OpportunityLineItem oli3 = new OpportunityLineItem(
-                    OpportunityId = oppty.id,
-                    Classification__c = strList[Math.mod(i, 4)],
-                    PriceBookEntryId = pbeList[Math.mod(i, 2)].Id,
-                    Quantity = 100,
-                    TotalPrice = 1000,
-                    Contract_Start_Date__c=date.today() - 150,
-                    Contract_End_Date__c=date.today() + 150,
-                    Contract_Number__c='99999'
-                );
-                oliList.add(oli3);            
+                oliList.add(oli);        
                 
                 OpportunityLineItem oli2 = new OpportunityLineItem(
                     OpportunityId = oppty2.id,
@@ -1395,19 +1384,7 @@ public class OPCUtility {
                     Contract_Number__c='99999'
                 );
                 oliList2.add(oli2); 
-                
-                OpportunityLineItem oli4 = new OpportunityLineItem(
-                    OpportunityId = oppty2.id,
-                    Classification__c = strList2[Math.mod(i, 2)],
-                    Sub_Classification__c = 'Up Sell',
-                    PriceBookEntryId = pbeList[Math.mod(i, 2)].Id,
-                    Quantity = 100,
-                    TotalPrice = 1000,
-                    Contract_Start_Date__c=date.today() - 500,
-                    Contract_End_Date__c=date.today() + 500,
-                    Contract_Number__c='99999'
-                );
-                oliList2.add(oli4);       
+                  
             }
             insert oliList;    
             insert oliList2;     
