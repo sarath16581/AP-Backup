@@ -1156,8 +1156,9 @@ public with sharing class PUDUtility {
 					List<PUD_Container__c> containersToKeep = new List<PUD_Container__c>();
 					
 					for(PUD_Container__c jobContainer : jobContainers){
-						if(jobContainer.Type__c == cRecord.Type__c){
-							//skip
+						//Type and Condition must be matched.
+						//Pallets, Empty and Pallets, Full are considered as two different containers.
+						if(jobContainer.Type__c == cRecord.Type__c && jobContainer.Condition__c == cRecord.Condition__c){
 							containersToDelete.add(jobContainer);
 						}
 						else{
@@ -1301,9 +1302,11 @@ public with sharing class PUDUtility {
 						system.debug('Updated record Type:  '+newRecord.Type__c);
 						system.debug('Existing Type:  '+currentContainer.Type__c);
 
-						//if type is same then copy updated fields in existing records.
-						if( newRecord.Type__c == currentContainer.Type__c || (oldRecordsMap != null && 
-											oldRecordsMap.get(newRecord.Id).Type__c == currentContainer.Type__c)){
+						//if type and condition is same then copy updated fields in existing records.
+
+						if( (newRecord.Type__c == currentContainer.Type__c  && newRecord.Condition__c == currentContainer.Condition__c ) || (oldRecordsMap != null && 
+											oldRecordsMap.get(newRecord.Id).Type__c == currentContainer.Type__c && 
+											oldRecordsMap.get(newRecord.Id).Condition__c == currentContainer.Condition__c)){
 							isMatchingContainerFound = true;
 							
 							currentContainer.Type__c = newRecord.Type__c;
@@ -1314,13 +1317,15 @@ public with sharing class PUDUtility {
 							containersToUpdate.add(currentContainer);
 							
 							//container payload has value as per old type.
-							//update container payload value with new and updated type.
+							//update container payload value with new and updated type and condition.
+							
 							for(ContainerPayload cPayload : existingContainerPayloadList){
 								System.debug('cPayload Name: '+cPayload.Name);
 
-								if(cPayload.Name == oldRecordsMap.get(newRecord.Id).Type__c){
+								if(cPayload.Name == oldRecordsMap.get(newRecord.Id).Type__c && 
+									cPayload.Condition == oldRecordsMap.get(newRecord.Id).Condition__c){
 
-									System.debug('Type found');
+									System.debug('Type and condition matched');
 
 									cPayload.Name = newRecord.Type__c;
 									cPayload.Condition = newRecord.Condition__c;

@@ -137,7 +137,7 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 		Set<Id> bookingIdSet = new Set<Id>();
 		for(PUD_Container__c container : records){
 
-			//Check if container's record type id = Container_Booking.
+			//Check if container's record type id = Booking_Container.
 			//Also, container is updated only for monitored fields. In case of new containers, changedRecordIdsVsFields == NULL.
 			if(container.RecordTypeId == bookingContainerRecordTypeId 
 				&& (changedRecordIdsVsFields == null || changedRecordIdsVsFields.keySet().contains(container.Id))){
