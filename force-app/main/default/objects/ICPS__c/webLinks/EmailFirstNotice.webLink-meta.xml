@@ -5,10 +5,10 @@
     <displayType>button</displayType>
     <encodingKey>UTF-8</encodingKey>
     <hasMenubar>false</hasMenubar>
-    <hasScrollbars>true</hasScrollbars>
+    <hasScrollbars>false</hasScrollbars>
     <hasToolbar>false</hasToolbar>
-    <height>800</height>
-    <isResizable>true</isResizable>
+    <height>660</height>
+    <isResizable>false</isResizable>
     <linkType>url</linkType>
     <masterLabel>Email First Notice</masterLabel>
     <openType>newWindow</openType>
@@ -26,9 +26,14 @@
 &amp;EmailFromId=0D290000000PCzfCAG
 &amp;EmailSubject=First+Notice
 &amp;EmailTemplateAttachments=1
+&amp;OFN=FirstNotice+-+{!ICPS__c.Name}
 &amp;CongaEmailTemplateID=a480p000000CjheAAC
 &amp;DefaultPDF=1
 &amp;DS7=12
 &amp;UF0=1
+&amp;MFTS0=FirstNoticeDate__c
+&amp;MFTSValue0={!TEXT( TODAY() )}
+&amp;MFTSId0={!ICPS__c.Id}
 &amp;NETId=a480p000000CjheAAC</url>
+    <width>900</width>
 </WebLink>

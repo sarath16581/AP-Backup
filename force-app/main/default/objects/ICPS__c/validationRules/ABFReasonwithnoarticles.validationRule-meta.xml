@@ -4,9 +4,9 @@
     <active>true</active>
     <description>The ABF Reason cannot have a value if there are no articles linked with this ICPS record</description>
     <errorConditionFormula>AND (
-            NOT( ISBLANK( TEXT( ABFReason__c ))),
-            NumberofArticles__c = 0
-            )</errorConditionFormula>
+       NOT( ISBLANK( TEXT( ABFReason__c ))),
+       NumberofArticles__c = 0
+)</errorConditionFormula>
     <errorDisplayField>ABFReason__c</errorDisplayField>
     <errorMessage>The ABF Reason cannot have a value if there are no articles linked with this ICPS record</errorMessage>
 </ValidationRule>

@@ -21,11 +21,14 @@
 &amp;id={!ICPS__c.Id}
 &amp;TemplateId=a4H0p000000CelDEAS
 &amp;QueryId=a490p000000D1ZxAAK?&amp;pv0={!ICPS__c.Id}
-&amp;OFN=FinalNotice
+&amp;OFN=FinalNotice+-+{!ICPS__c.Name}
 &amp;DefaultPDF=1
 &amp;SC0=1
 &amp;SC1=SalesforceFile
 &amp;PS1=1
 &amp;DS7=3
-&amp;UF0=1</url>
+&amp;UF0=1
+&amp;MFTS0=FinalNoticeDate__c
+&amp;MFTSValue0={!TEXT( TODAY() )}
+&amp;MFTSId0={!ICPS__c.Id}</url>
 </WebLink>

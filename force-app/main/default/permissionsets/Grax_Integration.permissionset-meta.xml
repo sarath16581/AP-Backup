@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Permission set for Grax Integration containing View All Data, Modify All Data, View Encrypted Data, Query All Files</description>
+    <description>Permission set for Grax Integration containing View All Data, Modify All Data, View Encrypted Data, Query All Files, Bulk API Hard Delete</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>GRAX - Integration</label>
     <objectPermissions>
@@ -10876,6 +10876,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>AssignTopics</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>BulkApiHardDelete</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
