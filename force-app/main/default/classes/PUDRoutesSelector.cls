@@ -141,30 +141,25 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 	 *
 	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
 	 */
-	public virtual List<PUD_Route__c> selectByIdWithAllBookings(Set<Id> ids, Set<Object> selectorOptions, Map<SObjectType, Set<SObjectField>> bookingFieldOverrides) {
+	public virtual List<PUD_Route__c> selectByIdWithAllBookings(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids'))
 				.endConditions();
-		qb.addSubQuery(
-				PUDBookingsSelector.newInstance(bookingFieldOverrides).newQueryBuilder(selectorOptions), 'Bookings__r');
-		if (selectorOptions.contains(Options.WITH_DEPOT)) {
-			qb.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
-		}
-
+		qb.addSubQuery(PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions), 'Bookings__r');
 		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
 	}
 
-    /**
-     * Returns a Query Builder for child bookings based on the record types, status and selector options passed in.
-     *
-     * @param status status to filter bookings
-     * @param bookingRecordTypeIds record type ids to filter the bookings. optional.
-     * @param selectorOptions set of additional selector options to augment the child bookings result set
-     *
-     * @return query builder instance for child bookings.
-     */
-    private QueryBuilder getChildBookingsSubQueryBuilder(Set<String> status, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
+	/**
+	 * Returns a Query Builder for child bookings based on the record types, status and selector options passed in.
+	 *
+	 * @param status status to filter bookings
+	 * @param bookingRecordTypeIds record type ids to filter the bookings. optional.
+	 * @param selectorOptions set of additional selector options to augment the child bookings result set
+	 *
+	 * @return query builder instance for child bookings.
+	 */
+	private QueryBuilder getChildBookingsSubQueryBuilder(Set<String> status, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
 
 		QueryBuilder subQueryBuilder = PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions);
 
@@ -178,5 +173,19 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 		subQueryConditions.endConditions();
 
 		return subQueryBuilder;
+	}
+
+	/**
+	 * Grabs a new QueryBuilder based on the selector options passed in
+	 *
+	 * @param selectorOptions set of additional selector options to augment the result set
+	 * @return new QueryBuilder instance
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+		if (selectorOptions.contains(Options.WITH_DEPOT)) {
+			builder.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
+		}
+		return builder;
 	}
 }
