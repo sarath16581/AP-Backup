@@ -16,9 +16,7 @@ private class PUD_PrintRouteController_Test {
 
 		//Create test Depot
 		Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1,true)[0];
-		List<PUD_Route__c> routeList = PUDTestDataFactory.getPUDRoutes(2,networkDepot.Id, true);
-
-		ApplicationTestDataFactory.generateRecordIds(routeList);//I don't think I need this
+		List<PUD_Route__c> routeList = PUDTestDataFactory.getPUDRoutes(2,networkDepot.Id, false);
 
 		// =====================================
 		// Stubbing
@@ -50,7 +48,7 @@ private class PUD_PrintRouteController_Test {
 	static void testGetBookingsForSingleRoute() {
 		//Create test Depot
 		Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1,true)[0];
-		PUD_Route__c route1 = PUDTestDataFactory.getPUDRoutes(1,networkDepot.Id, true)[0];
+		PUD_Route__c route1 = PUDTestDataFactory.getPUDRoutes(1,networkDepot.Id, false)[0];
 
 		// =====================================
 		// Stubbing
