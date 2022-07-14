@@ -22,6 +22,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>AccountRelationship__c.Connection__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>AccountRelationship__c.EndDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
