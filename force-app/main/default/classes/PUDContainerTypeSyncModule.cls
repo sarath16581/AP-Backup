@@ -1,3 +1,15 @@
+/**
+ * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
+ * @author Dattaraj Deshmukh (dattaraj.deshmukh@slalom.com)
+ * @date 2022-06-23
+ * @tag Container Types
+ * @domain Container Booking
+ * @description Module class to process a business logic when Implementation stage is update on DSR record..
+ * @changelog
+ * 2022-06-23 - Dattaraj Deshmukh - Created
+ */
+
+
 public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.Module{
     
 	private static final Set<SObjectField> MONITORED_FIELDS_FOR_UPDATES {

@@ -1,4 +1,5 @@
 
+
 public with sharing class PUDContainersDomain extends ApplicationDomain {
     public static PUDContainersDomain newInstance(List<SObject> sObjectList) {
 		return (PUDContainersDomain)ApplicationDomain.newInstance(PUDContainersDomain.class, sObjectList);

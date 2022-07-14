@@ -1,11 +1,14 @@
-/*****************************************************************************************
-@description:   Handler Class for PUD_Container__c object.
-@author: Dattaraj Deshmukh
-History:
------------------------------------------------------------------------------------------
-23/06/2022      created    dattaraj.deshmukh@slalom.com      
-
-*****************************************************************************************/
+/**
+ * @author Dattaraj Deshmukh
+ * @date 2022-06-23
+ * @group TriggerHandler
+ * @tag Handler
+ * @tag Container Types
+ * @domain Booking
+ * @description Trigger Handler class for PUD_Container__c object
+ * @changelog
+ * 2022-06-23 - Dattaraj Deshmukh - Created
+ */
 
 public with sharing class PUDContainerTriggerHandler extends ApplicationDomainTriggerHandler {
     public override SObjectType getSObjectType() {

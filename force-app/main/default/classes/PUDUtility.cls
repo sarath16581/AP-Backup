@@ -482,14 +482,11 @@ public with sharing class PUDUtility {
 		}
 
 		//Get all containers under bookgins
-		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectByBookingIds(bookingIdSet, new Set<Object>())){ // [Select Id, Type__c, Booking__c, Job__c from PUD_Container__c where Booking__c IN : bookingIds]){
-			//containers at Booking level will always have Job__c = NULL.
-			if(container.Job__c == null){
-				if(!bookingIdVsContainers.containsKey(container.Booking__c)){
-					bookingIdVsContainers.put(container.Booking__c, new List<PUD_Container__c>());
-				}
-				bookingIdVsContainers.get(container.Booking__c).add(container);
+		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectBookingContainersByBookingIds(bookingIdSet, new Set<Object>())){
+			if(!bookingIdVsContainers.containsKey(container.Booking__c)){
+				bookingIdVsContainers.put(container.Booking__c, new List<PUD_Container__c>());
 			}
+			bookingIdVsContainers.get(container.Booking__c).add(container);
 		}
 
 		//#Get all Booking Exceptions for date range, for bookings being processed
@@ -1050,7 +1047,7 @@ public with sharing class PUDUtility {
 		Map<Id, List<PUD_Container__c>> jobIdVsContainers = new Map<Id, List<PUD_Container__c>>();
 
 		//query container types at Booking and Job level.
-		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectByBookingIds(bookingIds, new Set<Object>())){ // [Select Id, Type__c, Booking__c, Job__c from PUD_Container__c where Booking__c IN : bookingIds]){
+		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectBookingContainersByBookingIds(bookingIds, new Set<Object>())){ // [Select Id, Type__c, Booking__c, Job__c from PUD_Container__c where Booking__c IN : bookingIds]){
 
 
 			//containers at Booking level will always have Job__c = NULL.
