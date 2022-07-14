@@ -741,7 +741,6 @@ public with sharing class PUDUtility {
 
 								// call method to serialise payload to json format and populate Containers Payload long text field
 								//jobRec.Containers_Payload__c = generateContainerTypePayload(jobRec);
-								system.debug('Booking containers list size: '+bookingIdVsContainers.size());
 								
 								List<PUD_Container__c> bookingContainers = new List<PUD_Container__c>();
 								if(bookingIdVsContainers.containsKey(booking.Id)){
@@ -1279,8 +1278,6 @@ public with sharing class PUDUtility {
 				
 				for(PUD_Job__c currentJob : relatedJobs){
 
-					System.debug('Existing container payload: '+currentJob.Containers_Payload__c);
-
 					//get existing container payload of current job
 					List<ContainerPayload> existingContainerPayloadList = new List<ContainerPayload>();
 					if(currentJob.Containers_Payload__c != null){
@@ -1294,16 +1291,9 @@ public with sharing class PUDUtility {
 						jobContainers = jobVsExistingContainersMap.get(currentJob.Id);
 					}
 					
-					system.debug('Checking containers for Job: '+currentJob.Id);
-					system.debug('Containers size: '+jobContainers.size());
-
-					
 					for(PUD_Container__c currentContainer : jobContainers){
-						system.debug('Updated record Type:  '+newRecord.Type__c);
-						system.debug('Existing Type:  '+currentContainer.Type__c);
 
 						//if type and condition is same then copy updated fields in existing records.
-
 						if( (newRecord.Type__c == currentContainer.Type__c  && newRecord.Condition__c == currentContainer.Condition__c ) || (oldRecordsMap != null && 
 											oldRecordsMap.get(newRecord.Id).Type__c == currentContainer.Type__c && 
 											oldRecordsMap.get(newRecord.Id).Condition__c == currentContainer.Condition__c)){
@@ -1320,12 +1310,9 @@ public with sharing class PUDUtility {
 							//update container payload value with new and updated type and condition.
 							
 							for(ContainerPayload cPayload : existingContainerPayloadList){
-								System.debug('cPayload Name: '+cPayload.Name);
 
 								if(cPayload.Name == oldRecordsMap.get(newRecord.Id).Type__c && 
 									cPayload.Condition == oldRecordsMap.get(newRecord.Id).Condition__c){
-
-									System.debug('Type and condition matched');
 
 									cPayload.Name = newRecord.Type__c;
 									cPayload.Condition = newRecord.Condition__c;
@@ -1335,16 +1322,12 @@ public with sharing class PUDUtility {
 						}
 					}
 
-					System.debug('existingContainerPayloadList updated: '+existingContainerPayloadList);
-
 					//update job
 					if(isMatchingContainerFound && !existingContainerPayloadList.isEmpty()){
 						PUD_Job__c jobToUpdate = new PUD_Job__c();
 						jobToUpdate.Id = currentJob.Id;
 						jobToUpdate.Containers_Payload__c = JSON.serialize(existingContainerPayloadList, true);
 						jobsToBeUpdated.add(jobToUpdate);
-
-						System.debug('Changed container payload: '+jobToUpdate.Containers_Payload__c);
 					}
 					
 
@@ -1380,8 +1363,6 @@ public with sharing class PUDUtility {
 						}
 
 						jobsToBeUpdated.add(jobToUpdate);
-						System.debug('Adding Container payload to job: '+currentJob.Id + '==> Payload : ' +jobToUpdate.Containers_Payload__c);
-
 					}
 				}
 

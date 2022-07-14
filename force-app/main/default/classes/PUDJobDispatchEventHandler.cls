@@ -120,9 +120,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 		if (!containersToUpsert.isEmpty()) {
 			// attempt to upsert the containers.
-			upsert containersToUpsert;
-			//ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, idField);
-			//ApplicationDatabase.getInstance().dmlUpsert(new List<Account>{}, Account.Id);
+			ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, PUD_Container__c.Id);
 		}
 		
 	}

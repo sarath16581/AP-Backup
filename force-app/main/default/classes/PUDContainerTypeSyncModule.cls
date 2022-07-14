@@ -84,39 +84,39 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 
 	}
 
-	private void preventNewContainersCreation(List<PUD_Container__c> records){
-		if(System.isBatch()){
-			//allow
-		}
-		else{
-			//prevent
+	// private void preventNewContainersCreation(List<PUD_Container__c> records){
+	// 	if(System.isBatch()){
+	// 		//allow
+	// 	}
+	// 	else{
+	// 		//prevent
 
-			Set<Id> jobIds = new Set<Id>();
-			for(PUD_Container__c container : records){
-				jobIds.add(container.Job__c);
-			}
+	// 		Set<Id> jobIds = new Set<Id>();
+	// 		for(PUD_Container__c container : records){
+	// 			jobIds.add(container.Job__c);
+	// 		}
 
 
-			//query jobs where date = TODAY.
-			List<PUD_Job__c> jobs = [Select Id, Date__c from PUD_Job__c where ID IN : jobIds];
+	// 		//query jobs where date = TODAY.
+	// 		List<PUD_Job__c> jobs = [Select Id, Date__c from PUD_Job__c where ID IN : jobIds];
 
-			Map<Id, PUD_Job__c> jobIdVsJob = new Map<Id, PUD_Job__c>();
+	// 		Map<Id, PUD_Job__c> jobIdVsJob = new Map<Id, PUD_Job__c>();
 
-			for(PUD_Job__c job : jobs){
-				jobIdVsJob.put(job.Id, job);
-			}
-			Date TODAYS_Date = Date.today();
+	// 		for(PUD_Job__c job : jobs){
+	// 			jobIdVsJob.put(job.Id, job);
+	// 		}
+	// 		Date TODAYS_Date = Date.today();
 
-			for(PUD_Container__c newRecord : records){
-				if(newRecord.Job__c != null && 
-						jobIdVsJob.containsKey(newRecord.Job__c) && 
-							jobIdVsJob.get(newRecord.Job__c).Date__c  != TODAYS_Date){
+	// 		for(PUD_Container__c newRecord : records){
+	// 			if(newRecord.Job__c != null && 
+	// 					jobIdVsJob.containsKey(newRecord.Job__c) && 
+	// 						jobIdVsJob.get(newRecord.Job__c).Date__c  != TODAYS_Date){
 
-					newRecord.addError('You can create containers against future or historical jobs');
-				}
-			}
-		}
-	}
+	// 				newRecord.addError('You can create containers against future or historical jobs');
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 
 	private void processContainerUpdatesOnBookings(List<PUD_Container__c> records, Map<Id, PUD_Container__c> existingRecords, ApplicationUnitOfWork uow){
