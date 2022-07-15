@@ -487,7 +487,35 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Dead Weight Greater Than 32kg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dead Weight Greater Than 800kg</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Documentation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Height Greater Than 1800mm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplete Packaging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Length Greater Than 3000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overhang Greater than 100mm</fullName>
             <default>false</default>
         </values>
         <values>
@@ -533,6 +561,10 @@
         <picklist>Product_Type__c</picklist>
         <values>
             <fullName>Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pallets - Startrack</fullName>
             <default>false</default>
         </values>
         <values>
@@ -729,6 +761,26 @@
     </picklistValues>
     <picklistValues>
         <picklist>Resolution__c</picklist>
+        <values>
+            <fullName>Customer has confirmed will not send product Via ST</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer requires %22X%22 period to find another carrier%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer will change presentation%2Fpackaging to be compliant%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer will move all freight if we do not move their incompatible freight %E2%80%93 Full customer review required%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer will present product as per the freight specifications - Pallets%2E</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>System Error Message</fullName>
             <default>false</default>

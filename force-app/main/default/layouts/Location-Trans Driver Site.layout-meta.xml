@@ -108,19 +108,6 @@
         <relatedList>AssociatedLocations</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>NAME</fields>
-        <fields>Activity_Type__c</fields>
-        <fields>Start_Time__c</fields>
-        <fields>Earliest_Start_Time__c</fields>
-        <fields>Latest_Start_Time__c</fields>
-        <fields>Route_Template__c</fields>
-        <fields>Duty_Template_Status__c</fields>
-        <fields>Active_Route_Days__c</fields>
-        <relatedList>Job_Template__c.Location__c</relatedList>
-        <sortField>Duty_Template_Status__c</sortField>
-        <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
         <relatedList>RelatedFileList</relatedList>
     </relatedLists>
     <relatedLists>

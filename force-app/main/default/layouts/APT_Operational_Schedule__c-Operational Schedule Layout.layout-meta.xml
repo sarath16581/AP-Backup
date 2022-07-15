@@ -337,6 +337,10 @@
                 <behavior>Edit</behavior>
                 <field>APT_IP_Servcs_Exprss_Courier_Internatnal__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_International_Returns__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

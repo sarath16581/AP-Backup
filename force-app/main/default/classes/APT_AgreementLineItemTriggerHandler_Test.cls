@@ -1,5 +1,7 @@
 /**
  * This apex class is test class for agreement line item trigger and trigger handler. 
+ * changelog: 
+ * 2022-05-26 - Pradeep Jaiswal - CI-379 Added test method to cover for International Return product
  * 
 */
 @isTest

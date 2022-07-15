@@ -670,21 +670,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DutyStartTime__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Fit_For_Duty__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__GanttLabel__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>IsOptimizationCapable</field>
             <table>User.ServiceResources</table>
         </columns>
@@ -726,16 +711,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Online_Offset__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Priority__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>RecordType</field>
             <table>User.ServiceResources</table>
         </columns>
@@ -747,16 +722,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ResourceType</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Travel_Speed__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Vehicle__c</field>
             <table>User.ServiceResources</table>
         </columns>
         <masterLabel>Service Resources (User)</masterLabel>
@@ -799,11 +764,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s</field>
-            <table>User.ServiceResources.ServiceTerritories</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedBy</field>
             <table>User.ServiceResources.ServiceTerritories</table>
         </columns>
@@ -830,11 +790,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CreatedBy</field>
-            <table>User.ServiceResources.ServiceTerritories</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s</field>
             <table>User.ServiceResources.ServiceTerritories</table>
         </columns>
         <columns>

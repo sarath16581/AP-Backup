@@ -30,10 +30,6 @@
                 <behavior>Edit</behavior>
                 <field>OperatingHoursId</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Roster_Record_Duty__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
@@ -46,10 +42,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>EffectiveStartDate</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Roster_Record__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

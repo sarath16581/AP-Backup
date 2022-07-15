@@ -432,11 +432,6 @@
             <field>Location</field>
             <table>WorkOrder.WorkOrderLineItems</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Capacity_Exceeded__c</field>
-            <table>WorkOrder.WorkOrderLineItems</table>
-        </columns>
         <masterLabel>Work Order Line Items</masterLabel>
     </sections>
     <sections>

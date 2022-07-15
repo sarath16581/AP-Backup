@@ -13,6 +13,7 @@
 26.05.2021    Naveen Rajanna           REQ2513603 Show Print button when submitted and hide few tags upon print
 18.08.2021    Naveen Rajanna           REQ2588480 Introduce Copy to buttons and logic to Copy customer details to sender/addressee
 10.01.2022    SaiSwetha Pingali        REQ2689571 Add custom validity on "Type of Damage" field on 'Damaged/Missing Contents form'. 
+07.07.2022    Talib Raza               REQ2859463: Changed the label for article-search to "Article ID" from Tracking number
 **/
 
 import { track } from 'lwc'

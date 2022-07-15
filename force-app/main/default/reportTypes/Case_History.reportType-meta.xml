@@ -4062,11 +4062,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Event_Type__c</field>
-            <table>Case.Activities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>CaseStatus__c</field>
             <table>Case.Activities__r</table>
         </columns>
@@ -4102,17 +4097,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Count_of_Events__c</field>
-            <table>Case.Activities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Create_to_Finished_Time__c</field>
-            <table>Case.Activities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Count_of_Tasks__c</field>
             <table>Case.Activities__r</table>
         </columns>
         <columns>
