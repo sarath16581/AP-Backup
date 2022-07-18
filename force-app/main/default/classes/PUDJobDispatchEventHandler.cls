@@ -32,6 +32,17 @@ public inherited sharing class PUDJobDispatchEventHandler {
 		private set;
 	}
 
+	//get Job Container record type ID
+	private static Id jobContainerRecordTypeId {
+		get {
+			if(jobContainerRecordTypeId == null){
+				return RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
+			}
+		}
+		private set;
+	} 
+		
+
 	/**
      * Creates a new instance. This allows use to use dependency injection for mocking
      * @return the new instance
@@ -64,22 +75,13 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				PUD_Job__c.Schedule_Request_Timestamp__c, PUD_Job__c.Cancellation_Request_Timestamp__c,
 				PUD_Job__c.Schedule_Confirmed_Timestamp__c, PUD_Job__c.Last_Pushed_to_Dispatch_System__c,
 				PUD_Job__c.Cancellation_Confirmed_Timestamp__c, PUD_Job__c.Failed_Timestamp__c, PUD_Job__c.Accepted_Timestamp__c,
-				PUD_Job__c.Completed_Timestamp__c, PUD_Job__c.Cancelled_Timestamp__c, PUD_Job__c.Containers_Payload_From_MobileStar__c
+				PUD_Job__c.Completed_Timestamp__c, PUD_Job__c.Cancelled_Timestamp__c, PUD_Job__c.Container_Actuals_Payload__c
 		}).selectById(parentJobIds));
 
 
-		Map<Id, List<PUD_Container__c>> jobIdVsContainers = new Map<Id, List<PUD_Container__c>>();
-		
 		//get all containers under jobs.
-		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectByJobIds(parentJobIds, new Set<Object>())){
-			if(!jobIdVsContainers.containsKey(container.Job__c)){
-				jobIdVsContainers.put(container.Job__c, new List<PUD_Container__c>{container});
-			}
-			else{
-				jobIdVsContainers.get(container.Job__c).add(container);
-			}
-		}
-
+		Map<Id, List<PUD_Container__c>> jobIdVsContainers = populateJobContainers(parentJobIds);
+		
 		//containers to upsert with actual numbers.
 		//Update: existing containers with actual numbers sent from MobileStar
 		//Insert: MobileStar sends containers which does not exists under a job in Salesforce.
@@ -88,6 +90,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 		// process each event to determine the list of updatable jobs
 		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>();
+		
 		for (PUD_Job_Dispatch_Event__e event: events) {
 			Id jobId = getParentJobId(event.Parent_Id__c);
 			if (jobId != null && jobs.containsKey(jobId)) {
@@ -126,6 +129,21 @@ public inherited sharing class PUDJobDispatchEventHandler {
 		
 	}
 
+	private Map<Id, List<PUD_Container__c>> populateJobContainers(Set<Id> parentJobIds){
+		Map<Id, List<PUD_Container__c>> jobIdVsContainers = new Map<Id, List<PUD_Container__c>>();
+
+		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectByJobIds(parentJobIds, new Set<Object>())){
+			if(!jobIdVsContainers.containsKey(container.Job__c)){
+				jobIdVsContainers.put(container.Job__c, new List<PUD_Container__c>{container});
+			}
+			else{
+				jobIdVsContainers.get(container.Job__c).add(container);
+			}
+		}
+
+		return jobIdVsContainers;
+	}
+
 	/**
 	 * Process the event and update relevant details on the Job record passed in.
 	 *
@@ -152,7 +170,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				job.Status__c = jobStatus;
 
 				//populate container payload received from MobileStar
-				job.Containers_Payload_From_MobileStar__c = event.Containers_Payload__c;
+				job.Container_Actuals_Payload__c	= event.Containers_Payload__c;
 
 				if (mapping.Is_Scheduled_Confirmation__c && job.Schedule_Confirmed_Timestamp__c == null) {
 					// event is considered a confirmation for a schedule request. populate Schedule_Confirmed_Timestamp__c
@@ -186,8 +204,6 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				// already been processed - only update the event timestamp for the 'Accepted' event.
 				job.Accepted_Timestamp__c = event.Event_Timestamp__c;
 
-				//populate container payload received from MobileStar
-				job.Containers_Payload_From_MobileStar__c = event.Containers_Payload__c;
 				return true;
 			}
 		}
@@ -205,8 +221,6 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	 */
 	private List<PUD_Container__c> populateActualsOnContainers(String eventContainerPayload, List<PUD_Container__c> containers) {
 		List<PUD_Container__c> containersToUpsert = new List<PUD_Container__c>();
-		//get Job Container record type ID
-		Id jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
 				
 		List<ContainersPayload> containerPayloadObjects = (List<ContainersPayload>) JSON.deserialize(eventContainerPayload, List<ContainersPayload>.class);
 		Id bookingId; Id jobId;
