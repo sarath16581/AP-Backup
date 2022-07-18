@@ -470,13 +470,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>MPB_BSP_Enquiry_Type__c</picklist>
-        <values>
-            <fullName>Delivery Enquiry</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Non_Compliance_Issue__c</picklist>
         <values>
             <fullName>Addressing</fullName>
