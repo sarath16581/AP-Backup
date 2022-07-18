@@ -9,6 +9,7 @@
  * 2021-10-11 - Ranjeewa Silva - Implemented special handling for receiving "Accepted" job action out of order.
  * 2021-11-11 - Ranjeewa Silva - Fixed an issue where cancellation confirmed timestamp was not getting populated.
  * 2022-01-18 - Ranjeewa Silva - Populate dispatch event timestamp on job.
+ * 2022-03-14 - Seth Heang - Add 'Photo_GUID__c' to the list of PUD Job fields to be updated, for Failed job returned from dispatch system
  */
 
 public inherited sharing class PUDJobDispatchEventHandler {
@@ -162,10 +163,11 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				}
 
 				if (job.Status__c == PUDConstants.PUD_JOB_STATUS_FAILED) {
-					// populate failure reason and comments for Failed jobs.
+					// populate failure reason, comments, timestamp and Photo GUID for Failed jobs.
 					job.Failure_Reason__c = event.Reason__c;
 					job.Driver_Comments__c = event.Comments__c;
 					job.Failed_Timestamp__c = event.Event_Timestamp__c;
+					job.Photo_GUID__c = event.Photo_GUID__c;
 				} else if (job.Status__c == PUDConstants.PUD_JOB_STATUS_CANCELLED) {
 					// event is confirmation for a cancel request
 					// if Cancellation_Confirmed_Timestamp__c is already populated, that means we had already received a cancellation
