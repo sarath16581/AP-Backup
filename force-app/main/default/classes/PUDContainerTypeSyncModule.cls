@@ -50,6 +50,7 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow){
 		//preventNewContainersCreation(records);
+		preventDuplicateContainerRecords(records);
 	}
 
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
@@ -96,6 +97,69 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 
 	}
 
+	private void preventDuplicateContainerRecords(List<PUD_Container__c> newRecords){
+		Set<Id> bookingIds = new Set<Id>();
+		Set<Id> jobIds = new Set<Id>();
+		
+		//map to store existing containers under a booking.
+		//Container Type + Condition is a criteria to identify uniqueness.
+		//e.g. Pallets, Empty and Pallets, Full are considered as two different containers.
+		//Duplicates will be checked against Type + Condition uniqueness.
+		Map<Id, Set<String>> bookingIdVsContainerUniqueKey = new Map<Id, Set<String>>();
+		Map<Id, Set<String>> jobIdVsContainerUniqueKey = new Map<Id, Set<String>>();
+		
+		Id bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Booking_Container'}).values()[0].Id;
+
+		//get job and booking ids
+		for(PUD_Container__c container : newRecords){
+
+			if(container.RecordTypeId == bookingContainerRecordTypeId){
+				bookingIds.add(container.Booking__c);
+			}
+			else{
+				jobIds.add(container.Job__c);
+			}
+			
+			
+		}
+
+		//get booking container
+		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectBookingContainersByBookingIds(bookingIds, new Set<Object>())){
+			String uniqueKey = container.Type__c+container.Condition__c;
+
+			if(!bookingIdVsContainerUniqueKey.containsKey(container.Booking__c)){
+				bookingIdVsContainerUniqueKey.put(container.Booking__c, new Set<String> {uniqueKey});
+			}
+			else{
+				bookingIdVsContainerUniqueKey.get(container.Booking__c).add(uniqueKey);
+			}
+		}
+
+		//get job containers
+		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectByJobIds(jobIds, new Set<Object>())){
+			String uniqueKey = container.Type__c+container.Condition__c;
+
+			if(!jobIdVsContainerUniqueKey.containsKey(container.Job__c)){
+				jobIdVsContainerUniqueKey.put(container.Job__c, new Set<String> {uniqueKey});
+			}
+			else{
+				jobIdVsContainerUniqueKey.get(container.Job__c).add(uniqueKey);
+			}
+		}
+		
+
+		for(PUD_Container__c newContainer : newRecords){
+			String uniqueKey = newContainer.Type__c+newContainer.Condition__c;
+
+			if(bookingIdVsContainerUniqueKey.containsKey(newContainer.Booking__c) && bookingIdVsContainerUniqueKey.get(newContainer.Booking__c).contains(uniqueKey)){
+				newContainer.addError('Container type: '+newContainer.Type__c+ ' with condition: '+ newContainer.Condition__c+ ' already exists under a booking. Please update existing container type.');
+			}
+
+			if(jobIdVsContainerUniqueKey.containsKey(newContainer.Job__c) && jobIdVsContainerUniqueKey.get(newContainer.Job__c).contains(uniqueKey)){
+				newContainer.addError('Container type: '+newContainer.Type__c+ ' with condition: '+ newContainer.Condition__c+ ' already exists under a job. Please update existing container type.');
+			}
+		}
+	}
 	// private void preventNewContainersCreation(List<PUD_Container__c> records){
 	// 	if(System.isBatch()){
 	// 		//allow

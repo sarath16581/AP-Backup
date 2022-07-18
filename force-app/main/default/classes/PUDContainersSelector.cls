@@ -73,6 +73,9 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 	public virtual List<PUD_Container__c> selectByJobIds(Set<Id> ids, Set<Object> selectorOptions) {
 		Id jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
 
+		System.debug('Job Ids: '+ids);
+		System.debug('jobContainerRecordTypeId: '+jobContainerRecordTypeId);
+		
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
 		.add(new QueryBuilder.SimpleCondition(PUD_Container__c.Job__c + ' in :ids'))
 		.add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(jobContainerRecordTypeId))
