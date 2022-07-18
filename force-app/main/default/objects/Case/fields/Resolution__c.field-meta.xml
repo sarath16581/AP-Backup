@@ -3,7 +3,7 @@
     <fullName>Resolution__c</fullName>
     <description>This is a custom field for the user support case queue.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Select a value for resolution</inlineHelpText>
+    <inlineHelpText>Select a value for resolution,</inlineHelpText>
     <label>Resolution</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
