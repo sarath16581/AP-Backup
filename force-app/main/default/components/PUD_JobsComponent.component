@@ -5,7 +5,7 @@
 		<!-- jobs table -->
 		<apex:pageBlockTable value="{! jobs  }" var="job"
 		                     styleClass="normalcell"
-		                     style="page-break-inside:avoid;"
+		                     style="page-break-inside:avoid; border-top: 1px solid black;"
 		                     headerClass="table-header">
 			<apex:column headerValue="Arrive"
 			             styleClass="normalcell"
