@@ -38,6 +38,11 @@
                 <default>false</default>
                 <label>RP</label>
             </value>
+            <value>
+                <fullName>BC</fullName>
+                <default>false</default>
+                <label>BC</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

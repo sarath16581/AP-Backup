@@ -7,7 +7,7 @@
  * 2021-12-21 - Mathew Jose - Created.
  */
  import { api, LightningElement, track, wire } from 'lwc';
- import getSearchResults from '@salesforce/apex/LookupController.getSearchResults'
+ import getSearchResults from '@salesforce/apex/LookupController.lookUpObjects'
  export default class CampaignAssignmentTableLookup extends LightningElement {
      //record Id selected
      @api valueId;
@@ -37,10 +37,11 @@
      //Default value based on value Id.
      @track defaultValue;
      //keyword being searched
+
      searchTerm='';
      //Link to the record.
      href;
- 
+
      //css
      @track boxClass = 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-has-focus';
      @track inputClass = '';
@@ -52,11 +53,12 @@
          if (!this.displayFormat) {
              let splitFields = this.displayFields.split(',');
              this.displayFormat = splitFields[0];
-         } 
+         }
+
      }
- 
+
      /*Wire methods - using c-lookup controller*/
-     @wire(getSearchResults, { searchTerm: '$searchTerm', fieldList: '$displayFields', sobjectName: '$objName', fieldsToSearch: '$fieldsToSearch', filterMap: '$filters'})
+     @wire(getSearchResults, { searchTerm: '$searchTerm', fieldList: '$displayFields', sobjectName: '$objName', fieldsToSearch: '$fieldsToSearch', filterMap: '$filters',maxResults: 50})
      wiredRecords({ error, data }) {
          console.log('Entered serach results here'+JSON.stringify(data));
          if (data) {
@@ -66,8 +68,8 @@
                  this.selectItem(data[0]);
                  this.options = undefined;
              }else{
-                //Set value to false if values are cancelled in the data table.  
-                 this.isValue = false;              
+                //Set value to false if values are cancelled in the data table.
+                 this.isValue = false;
                  data.forEach(item => {
                      let option = { ...item };
                      option.label = this.generateLabel(option);
@@ -77,15 +79,15 @@
          } else if (error) {
              this.error = error;
          }
-     }    
- 
-     
+     }
+
+
      handleClick() {
          this.searchTerm = '';
          this.inputClass = 'slds-has-focus';
          this.boxClass = 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-has-focus slds-is-open';
      }
- 
+
      /*
      Used to set the selected Id and key based on the record selected by the user from the drop down.
      Event is fired so that the parent components can sense the selection of a value.
@@ -104,14 +106,14 @@
                  data: { selectedId, key },
              }
          }));
- 
+
          this.options.forEach(option => {
              if (option.Id === selectedId) {
                  this.selectItem(option);
              }
          });
      }
- 
+
      /*
      Used show selection value on screen with the content and styling.
      */
@@ -122,7 +124,7 @@
          this.isValue = true;
          this.options = undefined;
      }
- 
+
      /*
      Used to generate the label for the lookup based on the display fields specified.
      */
@@ -133,7 +135,7 @@
          splitFields.forEach(field => {
              field = field.trim();
              let value;
- 
+
              //logic to handle relationhships in queries
              if (field.indexOf('.') > -1) {
                  let splitRelations = field.split('.');
@@ -147,21 +149,14 @@
          });
          return label;
      }
- 
+
      /*
       For tracking the search term in the lightning input.
      */
      onChange(event) {
+         this.searchTerm ='';
          console.log('Search term changed'+event.target.value);
          this.searchTerm = event.target.value;
-         this.searchObject = {
-            searchTerm: this.searchTerm,
-            fieldList: this.displayFields,
-            sobjectName: this.objName,
-            fieldsToSearch: this.fieldsToSearch,
-            filterMap: this.filters,
-            maxResults: 50
-         };
      }
  
      /*

@@ -33,6 +33,7 @@ History
 25.01.2020  SaiSwetha Pingali                   Fix for guest user access issues to avoid duplicate Holding Role references being created after the activation of CRUD "Secure Guest users Sharing settings and record access"
 03.02.2021  SaiSwetha Pingali                  INC1727549 - Moved the logic to create customer role to a inner class without sharing as guest users doesn't have access to accounts.
 22.02.2021  L. Serafico (Mav3rik)               Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
+19.06.2022  SaiSwetha Pingali                  REQ2872123- Added logic to consider 'Business Centres' to be able to use LBP community.
 ------------------------------------------------------------**/ 
 public with sharing class AccountTriggerUtility {
     public  static final set<string> LICENCE_APPROVAL_STATUSES = LICENCE_APPROVAL_STATUSES__c.getAll().keySet();
@@ -1284,7 +1285,7 @@ public with sharing class AccountTriggerUtility {
                 AND RecordType.Name = 'Facility'
             ]) {
 
-                if ('RP'.equalsIgnoreCase(a.Licence_Type__c) && a.ParentId == null) {
+                if (('RP'.equalsIgnoreCase(a.Licence_Type__c) || 'BC'.equalsIgnoreCase(a.Licence_Type__c)) && a.ParentId == null) {
                     // this is too accommodate the CPO scenario where a facility record will exist, however no License or Organisation record
                     // the contacts in the scenario will exist on the Facility record directly
                     partnerAcctsToOrgId.put(a.Id, a.WCIS_Code__c);

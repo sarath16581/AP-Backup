@@ -34,6 +34,9 @@ Last Modified Date: 15th Feb, 2017 | 1550 | Credit Assessment Status - Completed
 @ModifiedBy: Sriharsha
 @ModifiedOn: 22 Apr, 2022
 @Description: Added constants for Contract validation.
+
+@changelog:
+2022-05-26 - Pradeep Jaiswal - CI-379 Added constant for International Return product
 **/
 public with sharing class APT_Constants {
   //label
@@ -281,6 +284,7 @@ public with sharing class APT_Constants {
   public static final String PRODUCT_CODE_INTERNATIONAL_BUNDLE_new = 'International Bundle';
   public static final String PRODUCT_CODE_PriorityProd_RegularSpeedService='RSS9999';
   public static final String PRODUCT_CODE_PriorityProd_PremExpSpeedService='PESS12345';
+  public static final String PRODUCT_CODE_INTERNATIONAL_RETURNS='RAX400000';
 
   
 

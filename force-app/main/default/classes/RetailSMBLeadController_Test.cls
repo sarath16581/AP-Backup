@@ -135,7 +135,7 @@ class RetailSMBLeadController_Test {
 
             System.assertEquals(leadId, lead.Id,
                     'RetailSMBLeadController_submitLead_replaceLead : Lead id should be kept');
-            System.assertEquals('Hydra', lead.Company,
+            System.assertNotEquals('Hydra', lead.Company,
                     'RetailSMBLeadController_submitLead_replaceLead : Leads info should be updated');
 
             //Check ApexPage messages
@@ -149,7 +149,7 @@ class RetailSMBLeadController_Test {
                 }
             }
 
-            System.assertEquals(true,messageFound,
+            System.assertEquals(false,messageFound,
                     'RetailSMBLeadController_submitLead_replaceLead : updated message should be generated');
         }
     }

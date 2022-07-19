@@ -148,7 +148,7 @@
                 <type>user</type>
             </approver>
             <approver>
-                <name>nat.perrotta@startrack.com.au.community</name>
+                <name>nat.perrotta@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -504,6 +504,10 @@
         <assignedApprover>
             <approver>
                 <name>frazer.greenwood@startrack.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>luisa.decampo@auspost.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -1606,6 +1610,10 @@
         </approvalActions>
         <assignedApprover>
             <approver>
+                <name>glen.hall@startrack.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
                 <name>kane.george@startrack.com.au</name>
                 <type>user</type>
             </approver>
@@ -1662,6 +1670,10 @@
             </action>
         </approvalActions>
         <assignedApprover>
+            <approver>
+                <name>glenn.payne@startrack.com.au</name>
+                <type>user</type>
+            </approver>
             <approver>
                 <name>rick.dunst@startrack.com.au</name>
                 <type>user</type>

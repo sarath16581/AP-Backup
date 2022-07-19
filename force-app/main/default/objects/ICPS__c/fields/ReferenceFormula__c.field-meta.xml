@@ -3,12 +3,12 @@
     <fullName>ReferenceFormula__c</fullName>
     <externalId>false</externalId>
     <formula>CASE( RecordType.DeveloperName,
-            &quot;VIC&quot;, &quot;V-&quot; + Name,
-            &quot;NSW&quot;, &quot;N-&quot; + Name,
-            &quot;QLD&quot;, &quot;Q-&quot; + Name,
-            &quot;WA&quot;,  &quot;W-&quot; + Name,
-            Name
-            )</formula>
+      &quot;VIC&quot;, &quot;V-&quot; + Name,
+      &quot;NSW&quot;, &quot;N-&quot; + Name,
+      &quot;QLD&quot;, &quot;Q-&quot; + Name,
+      &quot;WA&quot;,  &quot;W-&quot; + Name,
+      Name
+)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Reference</label>
     <required>false</required>

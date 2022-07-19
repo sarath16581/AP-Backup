@@ -11,6 +11,7 @@ History:
 2021-10-28 Sautul Mehta - CI-96 Changes for APPC Contract Template Document Generation.
 2022-04-26 Pradeep Jaiswal - CI-224 Populated Cubic Status, Cubic Factor and Existing APPC Customer Attributes
 2022-05-23 Chaitanya Doshi - Changed condition to exact match Product code as "Premium - STE" has blank Productcode and "contains" is causing issue in PROD.
+2022-05-26 Pradeep Jaiswal - CI-379 Added condition for International Return product
 **************************************************/
 
 public with sharing class APT_AgreementLineItemTriggerHandler{
@@ -19,7 +20,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
      * before insert trigger event
      */
     public static String beforeInsertEvent(List<Apttus__AgreementLineItem__c> aliList) {
-       try {
+        try {
             //1084
             for(Apttus__AgreementLineItem__c ali : aliList) {
                 if(ali.APT_Mark_All_Agreement_Line_Items_as_Old__c) {
@@ -31,7 +32,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
         } catch(system.exception ex) {
             return ex.getMessage();
         }
-    }    
+    }
     
     /**
      * after insert agreement line item
@@ -144,11 +145,11 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.CONFIG_TYPE_STAND_ALONE)
                     && null != ali.Apttus__AgreementId__r.Operational_Schedule__c 
                     && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c)
-                    ) || ( 
-                        // Chaitanya 23-05-2022: 2022-05-23 Chaitanya Doshi - Changed condition to exact match Product code as "Premium - STE" has blank Productcode and "contains" is causing issue in PROD.
-                        ali.Apttus__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_APPC 
+                   ) || ( 
+                        // Chaitanya 23-05-2022: Changed condition to exact match Product code as "Premium - STE" has blank Productcode and "contains" is causing issue in PROD.
+                        ali.Apttus__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_APPC
                     ))                   
-                	{                    
+                	{         
                     os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
                     if(isInsert) {
                         os.APT_Parcel__c = true; //US-126
@@ -228,7 +229,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                   ) {
                     
                     os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
-                    if(isInsert) {
+                    if(isInsert) {                        
                         os.APT_Parcel_Services_eParcel__c = true;
                         os.APT_Parcel__c = true;
                     } 
@@ -411,7 +412,6 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                 }
                 
                 //air mail
-                //updated by spingali to use AIRMAIL_INTERNATIONAL_PRODUCT
                 if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT) 
                     && String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
                     && null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
@@ -423,6 +423,23 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     
                     if(isDelete) {
                         os.APT_IP_Services_Airmail__c = false;
+                    }
+                    
+                    mapOS.put(os.Id, os);
+                }
+                  //US-379               
+                  //International Returns 
+                if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_RETURNS) 
+                    && String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
+                    && null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
+                    
+                    os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+                    if(isInsert) {  
+                        os.APT_International_Returns__c = true;
+                    } 
+                    
+                    if(isDelete) {
+                        os.APT_International_Returns__c = false;
                     }
                     
                     mapOS.put(os.Id, os);
@@ -513,7 +530,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
             }
             
             return APT_Constants.SUCCESS_LABEL;
-         } catch(system.exception ex) {
+        } catch(system.exception ex) {
             return ex.getMessage();
         }
     }

@@ -10,7 +10,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>Acquisition Business</fullName>
                 <default>false</default>
@@ -87,11 +87,6 @@
                 <label>Business Sales WA</label>
             </value>
             <value>
-                <fullName>Enterprise &amp; Strategic Financial &amp; Insurance</fullName>
-                <default>false</default>
-                <label>Enterprise &amp; Strategic Financial &amp; Insurance</label>
-            </value>
-            <value>
                 <fullName>Enterprise &amp; Strategic - Not Active</fullName>
                 <default>false</default>
                 <label>Enterprise &amp; Strategic - Not Active</label>
@@ -127,9 +122,9 @@
                 <label>Enterprise &amp; Strategic VIC 3</label>
             </value>
             <value>
-                <fullName>Federal Government</fullName>
+                <fullName>Financial Services</fullName>
                 <default>false</default>
-                <label>Federal Government</label>
+                <label>Financial Services</label>
             </value>
             <value>
                 <fullName>Government North</fullName>
@@ -227,6 +222,16 @@
                 <label>Key Retail NSW</label>
             </value>
             <value>
+                <fullName>LBP Northern 1</fullName>
+                <default>false</default>
+                <label>LBP Northern 1</label>
+            </value>
+            <value>
+                <fullName>LBP Northern 1 CPO/BC</fullName>
+                <default>false</default>
+                <label>LBP Northern 1 CPO/BC</label>
+            </value>
+            <value>
                 <fullName>LBP Post Offices NSW/ACT &amp; QLD/NT</fullName>
                 <default>false</default>
                 <label>LBP Post Offices NSW/ACT &amp; QLD/NT</label>
@@ -307,6 +312,16 @@
                 <label>LBP Sales Manager WA 2</label>
             </value>
             <value>
+                <fullName>LBP Southern 1</fullName>
+                <default>false</default>
+                <label>LBP Southern 1</label>
+            </value>
+            <value>
+                <fullName>LBP Southern 1 CPO/BC</fullName>
+                <default>false</default>
+                <label>LBP Southern 1 CPO/BC</label>
+            </value>
+            <value>
                 <fullName>Market Development Business</fullName>
                 <default>false</default>
                 <label>Market Development Business</label>
@@ -342,9 +357,9 @@
                 <label>Other Business and Government</label>
             </value>
             <value>
-                <fullName>Platforms and Marketplaces</fullName>
+                <fullName>Platforms &amp; Partners</fullName>
                 <default>false</default>
-                <label>Platforms and Marketplaces</label>
+                <label>Platforms &amp; Partners</label>
             </value>
             <value>
                 <fullName>Small Business - Not Active</fullName>

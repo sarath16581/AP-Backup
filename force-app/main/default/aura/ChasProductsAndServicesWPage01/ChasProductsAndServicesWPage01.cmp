@@ -118,7 +118,7 @@
 		default="[
                                  {'label':'Postie didn\'t wait long enough', value:'Postie didn\'t wait long enough'},
                                  {'label':'Postie didn\'t knock before leaving a card', value:'Postie didn\'t knock before leaving a card'},
-                                 {'label':'Delivery location doesn't meet my accessibility needs', value:'Delivery location doesn't meet my accessibility needs'},
+                                 {'label':'Delivery location doesn\'t meet my accessibility needs', value:'Delivery location doesn\'t meet my accessibility needs'},
                                  {'label':'Item was taken to an inconvenient post office', value:'Item was taken to an inconvenient post office'},
                                  {'label':'Delivery driver\'s service', value:'Delivery driver\'s service'},
                                  {'label':'Other', value:'Other'}
@@ -547,7 +547,7 @@
 									aura:id="chasInput"
 									name="issueRadioButtons"
 									required="true"
-									label="Has this issue occured before?"
+									label="Has this issue occurred before?"
 									options="{! v.issueRadioGroup }"
 									value="{! v.wizardData.selectedIssueType }"
 								/>
@@ -630,7 +630,7 @@
 									aura:id="chasInput"
 									name="issueRadioButtons"
 									required="true"
-									label="Has this issue occured before?"
+									label="Has this issue occurred before?"
 									options="{! v.issueRadioGroup }"
 									value="{! v.wizardData.selectedIssueType }"
 								/>

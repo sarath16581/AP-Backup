@@ -15,16 +15,14 @@ Reference number {!Case.CaseNumber}
 
 Hi {!Contact.FirstName},
 
-Your item {!Case.ReferenceID__c} has been delivered.
+Your parcel {!Case.ReferenceID__c} has been delivered.
 
+{!IF(ISPICKVAL(Case.EnquirySubType__c,&apos;Delivery request&apos;),&apos;Thanks for contacting us with your delivery request.&apos;,&apos;&apos;)}
+{!IF(ISPICKVAL(Case.ProductSubCategory__c, &apos;Registered Post International&apos;),&apos; Our scans indicate your item has been delivered &apos;,&apos;, Our scans indicate your item has been delivered as you can see on Track.&apos; )}
 
-{!IF(ISPICKVAL(Case.EnquirySubType__c,&apos;Delivery request&apos;),&apos;Thanks for contacting us with your delivery request.&apos;,&apos;&apos;)} Our scans indicate your item has been delivered{!IF(ISPICKVAL(Case.ProductSubCategory__c, &apos;Registered Post International&apos;),&apos;&apos;,&apos;, as you can see here&apos;)}.
+As your parcel delivered, we&apos;ll close this enquiry. If you have any questions about your parcel delivery, please reply to this email and we&apos;ll be happy to help.
 
-For information on your how you can control your deliveries in future, please see here.
-
-In the meantime, we will close this enquiry.
-
-If you have any further questions about the delivery of your item, please reply to this email and we will be happy to assist you.
+To find out more about your options for future deliveries, see Delivery options.
 
 Thank you,
 
@@ -32,7 +30,7 @@ Australia Post
 {!Case.Thread_Id}
 
 This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
-Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+Help &amp; support | Terms &amp; conditions | Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

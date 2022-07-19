@@ -2147,7 +2147,7 @@ IF(ISPICKVAL(ProductSubCategory__c, &apos;Premium Unaddressed Mail&apos;), 70,
 			
 IF(Account.IsVIP__c, 100, IF( ISPICKVAL(Priority,&apos;High&apos;), 90,
 
-IF(AND (Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Platinum&quot;,  ISPICKVAL(Status,&apos;Customer Responded&apos;)), 80,
+IF(AND (Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Platinum&quot;,  ISPICKVAL(Status,&apos;Customer Responded&apos;)), 60,
 
 IF(ISPICKVAL(EnquirySubType__c,&quot;Facility Reported Damages&quot;), 70,
 
@@ -2167,7 +2167,7 @@ IF(AND (Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Plat
 
 IF(Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Platinum&quot;, 60,
 
-(IF( AND (Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, ISPICKVAL(Status,&apos;Customer Responded&apos;)), 50,
+(IF( AND (Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, ISPICKVAL(Status,&apos;Customer Responded&apos;)), 40,
 
 (IF( AND (Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, ISPICKVAL(Status,&apos;Network Responded&apos;)), 40,
 
@@ -2175,7 +2175,7 @@ IF(Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, 40,
 
 IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
 
-(IF(AND (Customer_Type__c =&quot;Consumer&quot; || Customer_Type__c =&quot;Silver&quot; || Customer_Type__c = &quot;MyPost Business&quot;, ISPICKVAL(Status,&apos;Customer Responded&apos;)), 30,
+(IF(AND (Customer_Type__c =&quot;Consumer&quot; || Customer_Type__c =&quot;Silver&quot; || Customer_Type__c = &quot;MyPost Business&quot;, ISPICKVAL(Status,&apos;Customer Responded&apos;)), 10,
 
 (IF(AND (Customer_Type__c =&quot;Consumer&quot; || Customer_Type__c =&quot;Silver&quot; || Customer_Type__c = &quot;MyPost Business&quot;, ISPICKVAL(Status,&apos;Network Responded&apos;)), 10,
 
@@ -3502,7 +3502,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         </actions>
         <active>true</active>
         <description>BGS - This Workflow will email the Customer if the Case has been closed and they send a new email into the system.</description>
-        <formula>AND( NOT(ISBLANK(  LastIncomingEmailAddress__c  )), ISCHANGED(LastIncomingEmailAddress__c), RecordType.DeveloperName = &quot;Sales_Ops_Delivery&quot;, ISPICKVAL(Status, &apos;Closed&apos;), NOT( ISCHANGED(Status) ) )</formula>
+        <formula>AND( NOT(ISBLANK(  LastIncomingEmailAddress__c  )), RecordType.DeveloperName = &quot;Sales_Ops_Delivery&quot;, ISPICKVAL(Status, &apos;Closed&apos;), NOT( ISCHANGED(Status) ) )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -4373,6 +4373,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>contains</operation>
@@ -4395,6 +4396,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
         </criteriaItems>
         <criteriaItems>
             <field>Case.ByPassRoutingRulesOnCreation__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.ByPassWorkflowRulesOnCreation__c</field>
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>
@@ -4588,7 +4594,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND (3 OR 4 OR 5) AND 6 AND 7</booleanFilter>
+        <booleanFilter>1 AND 2 AND (3 OR 4 OR 5) AND 6 AND 7 AND 8</booleanFilter>
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>contains</operation>
@@ -4621,6 +4627,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
         </criteriaItems>
         <criteriaItems>
             <field>Case.ByPassRoutingRulesOnCreation__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.ByPassWorkflowRulesOnCreation__c</field>
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>

@@ -1880,16 +1880,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Count_of_Events__c</field>
-            <table>Opportunity.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Count_of_Tasks__c</field>
-            <table>Opportunity.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>CreatedBy</field>
             <table>Opportunity.Activities</table>
         </columns>
@@ -1976,11 +1966,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>EventSubtype</field>
-            <table>Opportunity.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Event_Type__c</field>
             <table>Opportunity.Activities</table>
         </columns>
         <columns>

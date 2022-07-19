@@ -4,38 +4,13 @@
     <booleanFilter>(1 OR 2) AND 3 AND 4 AND 5</booleanFilter>
     <columns>Name</columns>
     <columns>ParentWorkOrder</columns>
-    <columns>Record_Type_Name__c</columns>
-    <columns>Vehicle__c</columns>
-    <columns>Trailer_Reg_No_A__c</columns>
-    <columns>Trailer_Reg_No_B__c</columns>
     <columns>Status</columns>
     <columns>LastModifiedBy</columns>
-    <columns>Actual_Start__c</columns>
-    <columns>Duty_Board__c</columns>
-    <columns>Duty_Day__c</columns>
-    <columns>PDC_Road_Worthy__c</columns>
-    <columns>Truck_Check_Status__c</columns>
-    <columns>A_Trailer_Check_Status__c</columns>
-    <columns>B_Trailer_Check_Status__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>Record_Type_Name__c</field>
-        <operation>equals</operation>
-        <value>PDC - Rigid</value>
-    </filters>
-    <filters>
-        <field>Record_Type_Name__c</field>
-        <operation>equals</operation>
-        <value>PDC - PrimeMover</value>
-    </filters>
     <filters>
         <field>Status</field>
         <operation>equals</operation>
         <value>Completed</value>
-    </filters>
-    <filters>
-        <field>Vehicle__c</field>
-        <operation>equals</operation>
     </filters>
     <filters>
         <field>CreatedDate</field>

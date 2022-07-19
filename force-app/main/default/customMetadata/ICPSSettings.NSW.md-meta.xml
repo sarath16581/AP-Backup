@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>NSW</label>
+    <protected>false</protected>
+    <values>
+        <field>BusinessHours__c</field>
+        <value xsi:type="xsd:string">9:00am- 5:00pm Monday to Friday (EST)</value>
+    </values>
+    <values>
+        <field>Email__c</field>
+        <value xsi:type="xsd:string">postimports@abf.gov.au</value>
+    </values>
+    <values>
+        <field>Fax__c</field>
+        <value xsi:type="xsd:string">(02) 8339 6708</value>
+    </values>
+    <values>
+        <field>HoldingDateDays__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>IsEmailEnabled__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Telephone__c</field>
+        <value xsi:type="xsd:string">131 881</value>
+    </values>
+</CustomMetadata>

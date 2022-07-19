@@ -1,3 +1,0 @@
-<apex:page standardController="Job_Template__c" extensions="TDF_JobTemplateDeepCloneControllerX" action="{!deepCloneJobTemplate}">
-    <apex:pageMessages id="pgMsg"/>
-</apex:page>

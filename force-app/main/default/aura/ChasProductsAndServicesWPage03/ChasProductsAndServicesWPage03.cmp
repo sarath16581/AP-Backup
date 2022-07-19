@@ -4,7 +4,8 @@
   * Modified by   : Hara Sahoo
   * @description  : 1. Added Back Button and a card layout outer-box
   * Modified by Mahesh Parvathaneni - 10/05/2022 - Hide details section on Delete MyPost account enquiry
-  * Modified by Thang Nguyen - DDS-10805/DDS-10945/DDS-10946/DDS-10947 Add "Accessibility and disability" issue sections
+  * Modified by Thang Nguyen - DDS-10805/DDS-10945/DDS-10946/DDS-10947/DDS-10986 Add "Accessibility and disability" issue sections
+  * Modified by Thang Nguyen - 29/06/2022 Update date format of "Accessibility and disability" issue sections
 -->
 <aura:component
 		extends="c:CHAS_reviewAndSubmit"
@@ -30,22 +31,19 @@
 			<h2 class="chas-header">Review and submit</h2>
 
 			<!-- Enquiry Details Heading -->
-			<aura:if
-				isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
-			>
-				<h3 class="sub-header">
-					Enquiry details - Accessibility or disability issue
-				</h3>
-				<aura:set attribute="else">
-					<h3 class="sub-header">Enquiry details</h3>
-				</aura:set>
-			</aura:if>
+			<h3 class="sub-header">Enquiry details</h3>
 
 			<div class="review-container">
 				<dl>
 					<aura:if
 						isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
 					>
+						<div>
+							<dt>Enquiry type</dt>
+							<dd>
+								Accessibility and disability
+							</dd>
+						</div>					
 						<div>
 							<dt>Issue category</dt>
 							<dd>
@@ -219,14 +217,14 @@
 						</div>
 						<div>
 							<dt>When did the issue occur ?</dt>
-							<dd>{! v.wizardData.issueDate }</dd>
+							<dd><ui:outputDate format = "MMM d, ''yyyy" value="{! v.wizardData.issueDate }" /></dd>
 						</div>
 						<div>
 							<dt>Your feedback or enquiry</dt>
 							<dd>{! v.wizardData.enquiryDetails }</dd>
 						</div>
 						<div>
-							<dt>Has this issue occured before ?</dt>
+							<dt>Has this issue occurred before ?</dt>
 							<dd>{! v.wizardData.selectedIssueTypeName }</dd>
 						</div>
 						<div>
@@ -248,14 +246,14 @@
 						</div>
 						<div>
 							<dt>When did the issue occur ?</dt>
-							<dd>{! v.wizardData.issueDate }</dd>
+							<dd><ui:outputDate format = "MMM d, ''yyyy" value="{! v.wizardData.issueDate }" /></dd>
 						</div>
 						<div>
 							<dt>Your feedback or enquiry</dt>
 							<dd>{! v.wizardData.enquiryDetails }</dd>
 						</div>
 						<div>
-							<dt>Has this issue occured before ?</dt>
+							<dt>Has this issue occurred before ?</dt>
 							<dd>{! v.wizardData.selectedIssueTypeName }</dd>
 						</div>
 					</aura:if>
@@ -275,12 +273,16 @@
 							<dt>Are you using assistive technology?</dt>
 							<dd>{! v.wizardData.selectedAssistiveTypeName }</dd>
 						</div>
-						<div>
-							<dt>
-								What kind of assistive technology are you using?
-							</dt>
-							<dd>{! v.wizardData.assistiveTechnology }</dd>
-						</div>
+						<aura:if
+							isTrue="{! v.wizardData.selectedAssistiveTypeName == 'Yes'}"
+						>
+							<div>
+								<dt>
+									What kind of assistive technology are you using?
+								</dt>
+								<dd>{! v.wizardData.assistiveTechnology }</dd>
+							</div>
+						</aura:if>
 						<div>
 							<dt>Your feedback or enquiry</dt>
 							<dd>{! v.wizardData.enquiryDetails }</dd>
@@ -296,7 +298,7 @@
 						</div>
 						<div>
 							<dt>When did the issue occur ?</dt>
-							<dd>{! v.wizardData.issueDate }</dd>
+							<dd><ui:outputDate format = "MMM d, ''yyyy" value="{! v.wizardData.issueDate }" /></dd>
 						</div>
 						<div>
 							<dt>Your feedback or enquiry</dt>
@@ -349,6 +351,71 @@
                 <li>{! v.authUserData.userContactPhone }</li>
             </ul> -->
 			</div>
+
+			<!-- DDS-10986 -->
+			<aura:if
+				isTrue="{! v.wizardData.selectedRadio1Name == 'Accessibility and disability' }"
+			>
+				<aura:if
+					isTrue="{! v.wizardData.accessibilityAuditoryOption || v.wizardData.accessibilityLearningOrCognitiveOption || v.wizardData.accessibilityMobilityOption 
+							|| v.wizardData.accessibilitySeizuresOption || v.wizardData.accessibilityVisualOption || v.wizardData.accessibilityOtherOption}"
+				>
+					<!-- Section separator-->
+					<div class="separator-gap">
+						<hr />
+					</div>
+					<!-- Contact Details Heading -->
+					<h3 class="chas-header_small">Accessibility and disability assistance</h3>
+
+					<div class="review-container">
+						<dl>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityAuditoryOption}"
+							>
+								<div>
+									Auditory (For example: hearing difficulties)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityLearningOrCognitiveOption}"
+							>
+								<div>
+									Learning or cognitive (For example: anxiety or dyslexia)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityMobilityOption}"
+							>
+								<div>
+									Mobility (For example: movement difficulties or a wheelchair)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilitySeizuresOption}"
+							>
+								<div>
+									Seizures (For example: photosensitive epilepsy)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityVisualOption}"
+							>
+								<div>
+									Visual (For example: impaired vision, colour blindness)
+								</div>
+							</aura:if>
+							<aura:if
+								isTrue="{! v.wizardData.accessibilityOtherOption}"
+							>
+								<div>
+									<dt>Other</dt>
+									<dd>{! v.wizardData.accessibilityOtherReason }</dd>
+								</div>
+							</aura:if>
+						</dl>
+					</div>			
+				</aura:if>						
+			</aura:if>
 			<c:ChasNavButtons
 				nextLabel="Continue"
 				disabled="false"

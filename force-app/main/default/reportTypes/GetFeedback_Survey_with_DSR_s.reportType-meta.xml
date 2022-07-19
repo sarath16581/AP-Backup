@@ -1848,6 +1848,11 @@
             <field>Delivery_Address_State__c</field>
             <table>GetFeedback_Survey__c.Deal_Support_Request__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Pricing_Directory__c</field>
+            <table>GetFeedback_Survey__c.Deal_Support_Request__r</table>
+        </columns>
         <masterLabel>Deal Support Request</masterLabel>
     </sections>
 </ReportType>

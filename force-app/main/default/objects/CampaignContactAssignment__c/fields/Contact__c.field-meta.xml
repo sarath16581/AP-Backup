@@ -5,6 +5,20 @@
     <description>Facilitate the selection of contacts associated with each account owned by account managed to whom campaign feedback survey needs to be sent.</description>
     <externalId>false</externalId>
     <label>Contact</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Contact.AccountId</field>
+            <operation>equals</operation>
+            <valueField>$Source.Organisation__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>Contact.Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Campaign Contact Assignments</relationshipLabel>
     <relationshipName>Campaign_Contact_Assignments</relationshipName>

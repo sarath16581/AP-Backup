@@ -128,8 +128,8 @@ public with sharing class ICPSSelector_Test {
 		// Search Scenario 2
 		searchParams.clear();
 		searchParams.put('stored_location', 'Bulk I');
-		searchParams.put('from_holding_date', '2022-02-22');
-		searchParams.put('to_holding_date', '2022-02-22');
+		searchParams.put('from_holding_date', String.valueOf(Date.today().addDays(40)));
+		searchParams.put('to_holding_date',  String.valueOf(Date.today().addDays(40)));
 		searchParams.put('from_release_date', '2022-02-22');
 		searchParams.put('to_release_date', '2022-02-22');
 		searchResults = ICPSSelector.newInstance().search(searchParams, true);

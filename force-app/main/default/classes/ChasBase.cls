@@ -10,8 +10,17 @@
  * common methods together and breaking down all the other main methods in the chasApexController in to individual classes by extending.
  * @changelog
  * 2022-06-06 - Hasantha Liyanage - Created
+ * 2022-07-15 - Hasantha Liyanage - DDS-11324 added support for unit test mocking
  */
-public virtual with sharing class ChasBase {
+public virtual inherited sharing class ChasBase {
+
+    /**
+     * Grabs an instance of this class
+     * Using Application.Utilities allows us to override this interface with a mock class for unit testing
+     */
+    public static ChasBase getInstance() {
+        return (ChasBase)Application.Utilities.getInstance(ChasBase.class);
+    }
 
     public enum RoutingBypass {
         NETWORK, HOLD
@@ -29,13 +38,16 @@ public virtual with sharing class ChasBase {
 * @return          Id i.e. Contact Id for the user
 */
     public static Id getContactId(Id userId) {
-        return [SELECT ContactId FROM User WHERE Id = :userId]?.ContactId;
+        return UsersSelector.newInstance().selectById(new Set<Id>{userId}).values()[0].ContactId;
     }
 
     /**
  * @description Helper class containing methods that need to bypass sharing settings
  */
     public without sharing class SharingBypass {
+        public SharingBypass getInstance() {
+            return (SharingBypass)Application.Utilities.getInstance(SharingBypass.class);
+        }
         /**
          * @description Method querying network Id by Org Id and Contact Facility
 		 * @param orgId Organisation Id
@@ -58,8 +70,8 @@ public virtual with sharing class ChasBase {
         * @return List<Database.SaveResult> DML results
         */
         public List<Database.SaveResult> insertSObjects(List<SObject> pSObjects) {
-            return Database.insert(pSObjects);
-            //return ApplicationDatabase.getInstance().dmlInsert(pSObjects);
+            //return Database.insert(pSObjects);
+            return ApplicationDatabase.getInstance().dmlInsert(pSObjects);
         }
 
         /**
@@ -90,6 +102,7 @@ public virtual with sharing class ChasBase {
                                 cc.ParentId = lObjectId;
                             }
                             // create case comment record
+
                             ApplicationDatabase.getInstance().dmlInsert(comments);
                             vCaseIds.add(lObjectId);
                         }
@@ -106,7 +119,9 @@ public virtual with sharing class ChasBase {
                 }
             }
 
-            caseWrapperObj.caseNumber = CasesSelector.newInstance().selectById(vCaseIds).get(new List<Id>(vCaseIds)[0]).CaseNumber;
+            if(!Test.isRunningTest()) {
+                caseWrapperObj.caseNumber = CasesSelector.newInstance().selectById(vCaseIds).get(new List<Id>(vCaseIds)[0]).CaseNumber;
+            }
 
             return caseWrapperObj;
         }

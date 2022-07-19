@@ -92,18 +92,34 @@
 					<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
 						<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
-								<td style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;"><br/><p>Hi {!Contact.FirstName},</p></td>
+								<td style="padding:0 0 0px; font:16px/18px Arial, Helvetica, sans-serif; color:#807370;"><br/><p>Hi {!Contact.FirstName},</p></td>
 							</tr>				
 							<tr>
-								<td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Your item {!Case.ReferenceID__c} is now awaiting collection</td>
+								<td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Your parcel {!Case.ReferenceID__c} is ready for you to collect.</td>
+							</tr>
+								<td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Please collect your parcel within 10 business days.</td>
+							<tr>
+								<td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Collecting your parcel</td>							
+							</tr>							
+							<tr>
+								<td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">
+									{!IF(ISPICKVAL(Case.ProductSubCategory__c, 'Registered Post International'),' When you come to collect your parcel, please bring <a href="https://auspost.com.au/help-and-support/answers?s=000010251" target="_blank" style="text-decoration:none; color:#dc1928">suitable ID</a>. ','To confirm where to collect your parcel, visit <a href="https://auspost.com.au/mypost/track/#/search" target="_blank" style="text-decoration:none; color:#dc1928">Track</a>. When you come to collect, please bring <a href="https://auspost.com.au/help-and-support/answers?s=000010251" target="_blank" style="text-decoration:none; color:#dc1928">suitable ID</a>.' )}
+								</td>
+							</tr>
+							
+							<tr>
+								<td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Other Collection Options</td>								
 							</tr>
 							<tr>
-								<td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:1px solid #cdc6c5;">
-									<p><br><span style="color:#807370">Your item is ready for collection{!IF(ISPICKVAL(Case.ProductSubCategory__c, 'Registered Post International'),' and will be held with Australia Post for 10 business days. ',', please click <a href="https://auspost.com.au/mypost/track/#/search" target="_blank" style="text-decoration:none; color:#dc1928">here</a> to confirm its current location. It will be held with Australia Post for 10 business days.' )} </span></p>
-									<p>It is recommended you also bring Photo ID. For instructions on how to collect your item, please see <a href="https://auspost.com.au/receiving/collecting-missed-deliveries" target="_blank" style="text-decoration:none; color:#dc1928">here</a>.<br/><br/>
-									If you have any further questions about the delivery of your item, please reply to this email and we will be happy to assist you.</p><br/>
-								</td>
-							</tr>								
+								<td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">If you can't collect your parcel yourself, or want more collection options, visit <a href="https://auspost.com.au/receiving/collecting-missed-deliveries" target="_blank" style="text-decoration:none; color:#dc1928">Collecting missed deliveries</a>.</td>
+							</tr>
+							<tr>
+							   <td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">As your parcel is ready for you to collect, we'll close your enquiry. If you have any questions about collecting your parcel, please reply to this email and we'll be happy to help.</td>
+							
+							</tr>
+							<tr>
+							   <td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">To find out about your options for future deliveries, see <a href="https://auspost.com.au/delivery-options" target="_blank" style="text-decoration:none; color:#dc1928">Delivery options</a>.</td>							
+							</tr>	
 							<tr>
 								<td class="flexible" style="padding:0 13px 0 0;">
 									<table width="100%" cellpadding="0" cellspacing="0">

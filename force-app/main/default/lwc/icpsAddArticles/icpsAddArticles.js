@@ -182,7 +182,7 @@ export default class IcpsAddArticles extends LightningElement {
 			return;
 		}
 		if (newOrUpdatedArticles.length > 0) {
-			if (confirm("Are you sure to add these articles to the ICPS?")) {
+			if (confirm("The article(s) you have added will be saved to the ICPS record.")) {
 				this.isSaving = true;
 				saveArticles({
 					articles: newOrUpdatedArticles,
