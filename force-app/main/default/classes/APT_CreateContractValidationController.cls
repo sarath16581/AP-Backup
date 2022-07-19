@@ -3,6 +3,7 @@
  * Date: 17/08/2017
  * 2021-10-28 Sautul Mehta - CI-96 Changes for APPC Contract Template Document Generation.
  * 2022-06-03 - Seth Heang - Hot Fix for validateDOVPresent not executing, bring validateDOVPresent into class constructor
+ * 2022-07-19 - Talib Raza - REQ2862281: Condition added for 'DoV From ST Revision' in validateDOVPresent
 */
 public with sharing class APT_CreateContractValidationController {
     public Boolean IsError{get; set;}
@@ -56,7 +57,7 @@ public with sharing class APT_CreateContractValidationController {
     
     public void validateDOVPresent(Apttus__APTS_Agreement__c apConLocVar){
         // DOV is required before contract creation
-        if(apConLocVar.DoV_Languages__r.size()==0 && apConLocVar.APT_Contract_Type__c=='DoV Contract'){
+        if(apConLocVar.DoV_Languages__r.size()==0 && (apConLocVar.APT_Contract_Type__c=='DoV Contract' && apConLocVar.APT_Contract_Type__c=='DoV From ST Revision')){
             IsError = true;
             ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'DOV Language is required before contract creation.'));
         }
