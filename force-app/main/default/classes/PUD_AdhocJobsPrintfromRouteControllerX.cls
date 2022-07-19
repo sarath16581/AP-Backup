@@ -14,13 +14,14 @@
 */
 public with sharing class PUD_AdhocJobsPrintfromRouteControllerX {
 	public PUD_Route__c route { get; set; }
+	public Date effectiveDate {get;set;}
 	public static Map<SObjectType,Set<SObjectField>> jobFields = new Map<SObjectType,Set<SObjectField>>{
 			PUD_Job__c.getSObjectType() => new Set<SObjectField> {PUD_Job__c.Start_Time__c, PUD_Job__c.Location_Information__c, PUD_Job__c.Booking_Type_Fx__c, PUD_Job__c.Booking_Comments__c,
 			PUD_Job__c.Deliver_Product__c, PUD_Job__c.Key_Number__c}
 	};
 	// Constructor    
 	public PUD_AdhocJobsPrintfromRouteControllerX(ApexPages.standardController sc) {
-		
+		effectiveDate = Date.today();
 		//Get list of jobs with anything other than permanent record type
 		route = PUDRoutesSelector.newInstance(PUD_PrintRouteController.routeFields).selectByIdWithJobs(
 				new Set <Id>{
@@ -31,7 +32,7 @@ public with sharing class PUD_AdhocJobsPrintfromRouteControllerX {
 						PUDConstants.PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY
 
 				}, new Set<Date>{
-						Date.today()
+						effectiveDate
 				},
 				new Set<Id>(),
 				new Set<Object>{

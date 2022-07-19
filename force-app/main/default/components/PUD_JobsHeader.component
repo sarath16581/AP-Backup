@@ -5,7 +5,8 @@
  -->
 
 <apex:component id="PUD_JobsHeader">
-	<apex:attribute name="Route" type="PUD_Route__c" description="parent route"/>
+	<apex:attribute name="Route" type="PUD_Route__c" description="parent route" required="true"/>
+	<apex:attribute name="effectiveDate" type="Date" description="effective date" required="false"/>
 	<table style="width:100%; font-family:Arial Unicode MS; margin-top:40px; border-bottom: 1px solid black;">
 		<tr style="padding-bottom:5px; vertical-align:top;">
 			<td rowspan="2"><img src="{!$Resource.auspost_logo}" width="70" alt="AusPost Logo"/></td>
@@ -16,7 +17,10 @@
 		</tr>
 		<tr style="vertical-align:top; padding-bottom:10px;">
 			<td colspan="2" >Effective Date:
-				<br/><apex:outputField value="{! Route.Start_Date__c}"/>
+				<br/><apex:outputField value="{! Route.Start_Date__c}" rendered="{! ISBLANK(effectiveDate)}"/>
+				<apex:outputText value="{0, date, dd/MM/yyyy}" rendered="{! !ISBLANK(effectiveDate)}">
+					<apex:param value="{!effectiveDate}"/>
+				</apex:outputText>
 			</td>
 			<td style="vertical-align-align:top; text-align:right;">Printed Date:</td>
 			<td style="text-align:top;">

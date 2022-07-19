@@ -15,9 +15,10 @@
 
 public with sharing class PUD_JobsPrintFutureControllerX {
 	public PUD_Route__c route { get; set; }
+	public Date effectiveDate {get;set;}
 	// Constructor    
 	public PUD_JobsPrintFutureControllerX(ApexPages.StandardController sc){
-
+		effectiveDate = Date.valueOf(ApexPages.currentPage().getParameters().get('date'));
 		String printType = ApexPages.currentPage().getParameters().get('type');
 
 		Set<String> bookingTypes = new Set<String>();
@@ -33,7 +34,7 @@ public with sharing class PUD_JobsPrintFutureControllerX {
 				},
 				bookingTypes,
 				new Set<Date>{
-						Date.valueOf(ApexPages.currentPage().getParameters().get('date'))
+						effectiveDate
 				},
 				new Set<Id>(),
 				new Set<Object>{
