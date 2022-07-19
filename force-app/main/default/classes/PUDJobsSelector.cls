@@ -7,23 +7,32 @@
  * @changelog
  * 2021-07-27 - Arjun Sing - Created
  * 2021-11-11 - Ranjeewa Silva - Added more fields to the set of selected fields.
+ * 2022-07-08 - Kamil Szyc - add newInstance method with fieldOverrides only and a method to retrieve today's ad-hoc jobs
  */
-public virtual inherited sharing class PUDJobsSelector extends ApplicationSelector{
+public virtual inherited sharing class PUDJobsSelector extends ApplicationSelector {
 
 	public static PUDJobsSelector newInstance() {
-		return (PUDJobsSelector)Application.Selectors.newInstance(PUDJobsSelector.class);
+		return (PUDJobsSelector) Application.Selectors.newInstance(PUDJobsSelector.class);
 	}
 
 	public static PUDJobsSelector newInstance(Integer recordLimit) {
-		return (PUDJobsSelector)Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit);
-    }
+		return (PUDJobsSelector) Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit);
+	}
 
 	/**
 	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	* This approach removes data consistency and prevents possible caching of results
 	*/	
 	public static PUDJobsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
-		PUDJobsSelector selector = (PUDJobsSelector)Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		PUDJobsSelector selector = (PUDJobsSelector) Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+	/**
+	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	* This approach removes data consistency and prevents possible caching of results
+	*/
+	public static PUDJobsSelector newInstance( Set<SObjectField> fieldOverrides) {
+		PUDJobsSelector selector = (PUDJobsSelector) Application.Selectors.newInstance(PUDJobsSelector.class).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -32,7 +41,7 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 	* This approach removes data consistency and prevents possible caching of results
 	*/	
 	public static PUDJobsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-		PUDJobsSelector selector = (PUDJobsSelector)Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		PUDJobsSelector selector = (PUDJobsSelector) Application.Selectors.newInstance(PUDJobsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -60,27 +69,27 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 	* @description Run a simple query to get records based on Id's
 	*/
 	public virtual List<PUD_Job__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Id + ' in :ids')).endConditions();       
-        return (List<PUD_Job__c>)Database.query(qb.toSoqlString());
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Id + ' in :ids')).endConditions();
+		return (List<PUD_Job__c>) Database.query(qb.toSoqlString());
 	}
 
-    public virtual Database.QueryLocator selectJobsByDateAndStatusQueryLocator(Date dateVar, String statusVar) {
-		QueryBuilder qb = selectJobsByDateAndStatusQueryLocator(dateVar,  statusVar, new Set<Object>());
-        return Database.getQueryLocator(qb.toSoqlString());
+	public virtual Database.QueryLocator selectJobsByDateAndStatusQueryLocator(Date dateVar, String statusVar) {
+		QueryBuilder qb = selectJobsByDateAndStatusQueryLocator(dateVar, statusVar, new Set<Object>());
+		return Database.getQueryLocator(qb.toSoqlString());
 	}
-	
+
 	/**
     * @description : simple query to get records based on date flag, status flag and send to dispatch system flag
     */
 	public virtual QueryBuilder selectJobsByDateAndStatusQueryLocator(Date dateVar, String statusVar, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
-		.addConditions()
-		.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' = :dateVar'))
-		.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Status__c + ' = :statusVar'))
-		.endConditions();
-		
-        return qb;        
-    }
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' = :dateVar'))
+				.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Status__c + ' = :statusVar'))
+				.endConditions();
+
+		return qb;
+	}
 
 	/**
 	 * @description Run a simple query to get records based on Booking Id's and the from date and status
@@ -106,13 +115,39 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 	 * @return list of jobs
 	 */
 	public List<PUD_Job__c> selectByBookingIdStatusAndFromDate(Set<Id> bookingIds, Date fromDate, Set<String> jobStatus, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions)
-						 	.addConditions()
-							.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Booking__c + ' in :bookingIds'))
-							.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' >= :fromDate'))
-							.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Status__c + ' = :jobStatus'))
-							.endConditions();       
-        return (List<PUD_Job__c>)Database.query(qb.toSoqlString());
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Booking__c + ' in :bookingIds'))
+				.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' >= :fromDate'))
+				.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Status__c + ' = :jobStatus'))
+				.endConditions();
+		return (List<PUD_Job__c>) Database.query(qb.toSoqlString());
+	}
+
+	/* @description Run a query to get today's ad-hoc jobs
+	*
+	* @param selectorOptions selector options
+	*
+	* @return list of jobs
+	*/
+	public QueryBuilder selectJobsByBookingRecordTypesJobDatesAndDepotIds(Set<String> bookingRecordTypes, Set<Date> jobDates, Set<Id>depotIds, Set<Object> selectorOptions) {
+		//prevent default sorting by CreatedDate
+		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		
+		if(jobDates != null && !jobDates.isEmpty()){
+			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' IN :jobDates')).endConditions();
+		}
+		if(bookingRecordTypes != null && !bookingRecordTypes.isEmpty()){
+			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Booking_Record_Type__c + ' IN :bookingRecordTypes')).endConditions();
+		}
+		if(depotIds != null && !depotIds.isEmpty()){
+			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Network__c + ' IN :depotIds')).endConditions();
+		}
+		qb.addOrderAsc(PUD_Job__c.Date__c);
+		qb.addOrderAsc(PUD_Job__c.Start_Time__c);
+		return qb;
 	}
 	
+
 }

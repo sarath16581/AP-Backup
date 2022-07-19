@@ -7,6 +7,7 @@
 * 2021-08-10 - Ranjeewa Silva - Created.
 * 2021-10-13 - Ranjeewa Silva - Added new constant values.
 * 2022-03-16 - Ranjeewa Silva - Added new constant PUD_BOOKING_STATUS_ACTIVE.
+ * 2022-07-08 - Kamil Szyc - Added booking record type names
 */
 public inherited sharing class PUDConstants {
 
@@ -16,6 +17,11 @@ public inherited sharing class PUDConstants {
 	public static final String PUD_BOOKING_STATUS_EXPIRED = 'Expired';
 	public static final String PUD_BOOKING_STATUS_ACTIVE = 'Active';
 
+	//PUD Booking record types
+	public static final String PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY = 'Adhoc Pickup/Delivery';
+	public static final String PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY = 'Permanent Pickup/Delivery';
+	public static final String PUD_BOOKING_RECORD_TYPE_OTHER = 'Other';
+	
 	//PUD Job status
 	// jobs are created in 'New' status. they are not yet pushed to dispatch system
 	public static final String PUD_JOB_STATUS_NEW = 'New';

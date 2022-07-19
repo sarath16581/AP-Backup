@@ -1,27 +1,52 @@
-<apex:component >
-    
-    <apex:attribute name="Route" type="String" description="Key: RouteName"/>
-    <apex:attribute name="Jobs" type="PUD_Job__c[]" description="Key: RouteName"/>
-    
-    <apex:pageBlock >  
-        <apex:pageBlockTable value="{!Jobs}" var="jt" border="1" style="vertical-align:Top font:Calibri; font-size: 12pt">
-            <apex:column headerValue="Start Time" style="vertical-align:Top font:Calibri; font-size: 11pt" width="80px">
-                    <b><apex:outputField value="{! jt.Start_Time__c}"/></b>
-            </apex:column>
-         	<apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size: 12pt" width="430px">
-                <b><apex:outputField value="{!jt.Location_Information__c}"/></b><br/>
-                <apex:outputField value="{!jt.Job_Information__c}" /><br/>
-                <b><apex:outputField value="{!jt.Booking_Comments__c}"/></b>
-    		</apex:column> 
-            <apex:column value="{! jt.Deliver_Product__c}" style="vertical-align:Top font-family: Calibri; font-size: 12pt" width="200px"/>
-        	 <apex:column headerValue="Rev Chk" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
-                <apex:outputField value="{!jt.Revenue_Check__c}" /> <br></br><br></br>
-    		</apex:column>
-        	 <apex:column headerValue="Stop Credit" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
-                <apex:outputField value="{!jt.Stop_Credit__c}" />
-    		</apex:column>
-        	<apex:column headerValue="MS/E/P_F" style="vertical-align:Top" width="0px"/>
-</apex:pageBlockTable>
-</apex:pageBlock>
+<apex:component>
+	<apex:attribute name="jobs" type="PUD_Job__c[]" description="List of jobs for a given route"/>
 
+	<apex:pageBlock>
+		<!-- jobs table -->
+		<apex:pageBlockTable value="{! jobs  }" var="job"
+		                     styleClass="normalcell"
+		                     style="page-break-inside:avoid;"
+		                     headerClass="table-header">
+			<apex:column headerValue="Arrive"
+			             styleClass="normalcell"
+			             width="50px"
+			             style="padding-bottom:20px;"
+			             headerClass="job-headers">
+				<apex:outputText rendered="{! !ISNULL(job.Start_Time__c)}">
+					{! IF(LEN(TEXT(HOUR(job.Start_Time__c)))<2 , '0'+ TEXT(HOUR(job.Start_Time__c)), HOUR(job.Start_Time__c))}:
+					<apex:outputText value="{0,number,00}">
+						<apex:param value="{!MINUTE(job.Start_Time__c)}"/>
+					</apex:outputText>
+				</apex:outputText>
+			</apex:column>
+			<apex:column headerValue="Job Details" 
+			             styleClass="normalcell"
+			             width="400px" 
+			             style="padding-bottom:20px;"
+			             headerClass="job-headers" >
+				<div class="boldcell">
+					<apex:outputText rendered="{! !ISBLANK(job.Location_Information__c)}">
+						<apex:outputField value="{!job.Location_Information__c}"/>
+						<br/>
+					</apex:outputText>
+				</div>
+				<apex:outputText value="{! job.Booking_Type_Fx__c}" styleClass="normalcell"/>
+				<br/>
+				<apex:outputField value="{!job.Booking_Comments__c}" styleClass="normalcell"/>
+				<br/>
+			</apex:column>
+			<apex:column headerValue="Deliver Product" 
+			             styleClass="normalcell" 
+			             width="150px"
+			             headerClass="job-headers">
+				<apex:outputField value="{! job.Deliver_Product__c}" style="font-size:small"/>
+			</apex:column>
+			<apex:column headerValue="Key" styleClass="normalcell" style="vertical-align:bottom;"
+			             width="50px"
+			             headerClass="job-headers">
+				<apex:outputText styleClass="normalcell" value="{!job.Key_Number__c}"/>
+
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
 </apex:component>

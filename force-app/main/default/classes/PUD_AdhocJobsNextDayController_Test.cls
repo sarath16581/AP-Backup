@@ -8,130 +8,56 @@
 * @description Test class for PUD_AdhocJobsNextDayController class.
 * NOTE: This test class is used to test the PUD_AdhocJobsNextDay VF Page upon clicking "Adhoc Jobs-Next Day" from Routes List View. 
 * 2020-08-10 - Dheeraj Mandavilli - Created
+* 2022-07-12 - Kamil Szyc - refactor tests to reflect changes to the controller. Add mocks for selector classes related tests.
 */
-@isTest
-public with sharing class PUD_AdhocJobsNextDayController_Test {
-    static testmethod void validateAdhocJobPrintControllerXMethodOne(){
-        
-        
-        //Create User
-        User user1 = PUDTestUtility.createUser('AusPost Depot Supervisor');
-        insert user1;
-        
-        //Create test Depot
-        Network__c networkDepot = PUDTestUtility.createNetwork ('Kew Van Services', 'Business_Hub_3');
-        insert networkDepot;
-        List<PUD_Route__c> routeList = new List<PUD_Route__c>();
-        //Create a Route
-        PUD_Route__c route1 = PUDTestUtility.createRoute ('DT61', networkDepot.Id);
-        insert route1;
-        routeList.add(route1);
-        PUD_Route__c route2 = PUDTestUtility.createRoute ('DT62', networkDepot.Id);
-        insert route2;
-        routeList.add(route2);
-        
-        Map<String,List<PUD_Job__c>> routeMap = new Map<String,List<PUD_Job__c>>();
-        
-        List<PUD_Job__c> jobsList = new List<PUD_Job__c> ();
-        date reportdate;
-        string depotname;
-        Set<String> routeKeys = new Set<String>();
-        
-        Test.StartTest(); 
-        
-        PageReference pageRef = Page.PUD_JobPrint; 
-        Test.setCurrentPage(pageRef);
-        
-        PUD_AdhocJobsNextDayController testJobsPrint = new PUD_AdhocJobsNextDayController(new ApexPages.StandardSetController(routeList));
-        testJobsPrint.depotName = networkDepot.Name;
-        testJobsPrint.depotId = networkDepot.Id;
-        jobsList = testJobsPrint.jobTemplateList;
-        
-        routeMap= testJobsPrint.routeJobMap;
-        routeKeys = testJobsPrint.routeKeys;
-        testJobsPrint.reportdate = String.valueOf(System.today());
-        
-        Test.StopTest();
-        system.assertNotEquals(null,testJobsPrint,'Test Passed');
-    } 
-    
-    static testmethod void validateAdhocJobPrintControllerXMethodCreateMap(){
-        
-        //Create test Depot
-        Network__c networkDepot = PUDTestUtility.createNetwork ('Kew Van Services', 'Business_Hub_3');
-        insert networkDepot;
-        List<PUD_Route__c> routeList = new List<PUD_Route__c>();
-        //Create a Route
-        PUD_Route__c route1 = PUDTestUtility.createRoute ('DT61', networkDepot.Id);
-        insert route1;
-        routeList.add(route1);
-        PUD_Route__c route2 = PUDTestUtility.createRoute ('DT62', networkDepot.Id);
-        insert route2;
-        routeList.add(route2);
-        
-        Map<String, Id> recordIdMap = new Map<String,Id>();
-        
-        recordIdMap = PUDTestUtility.createPUDBasicRecords();
-        //Create a Booking
-        PUD_Booking__c booking1= PUDTestUtility.createBooking('AP_Permanent_Pickup', recordIdMap.get('blNetLPO'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
-        insert booking1;
-        
-        PUD_Booking__c booking2= PUDTestUtility.createBooking('AP_Adhoc_Pickup', recordIdMap.get('blNetLPO'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
-        insert booking2;
-        
-        PUD_Booking__c booking3= PUDTestUtility.createBooking('Other', recordIdMap.get('blNetLPO'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
-        booking3.Booking_Type__c = 'Meal Break';
-        insert booking3;
-        
-        //Create jobs
-        List<PUD_Job__c> jobsList = new List<PUD_Job__c> ();
-        PUD_Job__c job1= new PUD_Job__c();
-        job1.Booking__c = booking1.Id;
-        job1.Bags_Quantity__c = 10;
-        job1.Revenue_Check__c = true;
-        insert job1;
-        jobsList.add(job1);
-        
-        PUD_Job__c job2= new PUD_Job__c();
-        job2.Booking__c = booking1.Id;
-        job2.Bags_Quantity__c = 20;
-        insert job2;
-        jobsList.add(job2);
-        
-        PUD_Job__c job3= new PUD_Job__c();
-        job3.Booking__c = booking2.Id;
-        job3.Bags_Quantity__c = 15;
-        insert job3;
-        jobsList.add(job3);
-        
-        PUD_Job__c job4= new PUD_Job__c();
-        job4.Booking__c = booking1.Id;
-        job4.Bags_Quantity__c = 10;
-        job4.Stop_Credit__c = true;
-        insert job4;
-        jobsList.add(job4);
-        
-        PUD_Job__c job5= new PUD_Job__c();
-        job5.Booking__c = booking3.Id;	
-        insert job5;
-        jobsList.add(job5);
-        
-        PUD_Job__c job6= new PUD_Job__c();
-        job6.Booking__c = booking1.Id;
-        job6.Bags_Quantity__c = 10;
-        job6.Revenue_Check__c = false;
-        job6.Stop_Credit__c = false;
-        insert job6;
-        jobsList.add(job6);
-        
-        Map<String,List<PUD_Job__c>> routeMap = new Map<String,List<PUD_Job__c>>();
-        
-        
-        Test.StartTest();        
-        
-        routeMap = PUD_AdhocJobsNextDayController.createMap(jobsList,routeMap);
-        
-        Test.StopTest(); 
-        system.assertNotEquals(null,routeMap,'Test Passed');
-    }
+@IsTest
+private with sharing class PUD_AdhocJobsNextDayController_Test {
+	@IsTest
+	static void testPUD_AdhocJobsNextDayController(){
+
+		Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1, true)[0];
+		List<PUD_Route__c> routeList = PUDTestDataFactory.getPUDRoutes(2, networkDepot.Id, true);
+		List<PUD_Booking_Location__c> bookingLocations = PUDTestDataFactory.getPUDNetworkBookingLocations(1, networkDepot.Id, true);
+		List<PUD_Booking__c> bookings = PUDTestDataFactory.getPUDAdhocPickupDeliveryBookings(2, bookingLocations[0].Id, networkDepot.Id, Date.today(), Date.today().addYears(1), new List<String>{
+				'Monday', 'Friday'
+		}, true);
+		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(3, bookings[0].Id, PUDConstants.PUD_JOB_STATUS_ACCEPTED, true);
+		//
+		// =====================================
+		// Stubbing
+		// =====================================
+		//
+		PUDRoutesSelector routesSelector = (PUDRoutesSelector) MockUtility.mockSelector(PUDRoutesSelector.class);
+		PUDJobsSelector jobsSelector = (PUDJobsSelector) MockUtility.mockSelector(PUDJobsSelector.class);
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(routesSelector.selectByIdWithJobs(
+				(Set<Id>) fflib_Match.anyObject(),
+				(Set<String>) fflib_Match.anyObject(),
+				(Set<Date>) fflib_Match.anyObject(),
+				(Set<Id>) fflib_Match.anyObject(),
+				(Set<Object>) fflib_Match.anyObject(),
+				(Map<SObjectType,Set<SObjectField>>) fflib_Match.anyObject())
+		)
+		.thenReturn(routeList
+		);
+		MockUtility.Mocks.when(jobsSelector.selectJobsByBookingRecordTypesJobDatesAndDepotIds(
+				(Set<String>) fflib_Match.anyObject(),
+				(Set<Date>) fflib_Match.anyObject(),
+				(Set<Id>) fflib_Match.anyObject(),
+				(Set<Object>) fflib_Match.anyObject()
+		))
+				.thenReturn(jobs);
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+		PageReference pageRef = Page.PUD_JobPrint;
+		Test.setCurrentPage(pageRef);
+
+		PUD_AdhocJobsNextDayController testDTPrint = new PUD_AdhocJobsNextDayController(new ApexPages.StandardSetController(new List<PUD_Route__c>(routeList)));
+
+		Test.stopTest();
+		System.assertNotEquals(null, testDTPrint.routes, 'Routes records were not instantiated correctly');
+		System.assert(!testDTPrint.routes.isEmpty(), 'Routes in the controller were not populated correctly');
+	}
 }
