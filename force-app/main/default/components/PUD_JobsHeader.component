@@ -11,14 +11,14 @@
 			<td rowspan="2"><img src="{!$Resource.auspost_logo}" width="70" alt="AusPost Logo"/></td>
 			<td style="font-family: sans-serif; font-weight:bold;">{! Route.Name}</td>
 			<td style="font-family: sans-serif; text-align:center; "><u>{! Route.Depot__r.Name}</u></td>
-			<td>Page</td>
+			<td style="vertical-align-align:top; text-align:right;">Page</td>
 			<td><span class="pagenumber"/> of <span class="pagecount"/></td>
 		</tr>
 		<tr style="vertical-align:top; padding-bottom:10px;">
-			<td colspan="2">Effective Date:
+			<td colspan="2" >Effective Date:
 				<br/><apex:outputField value="{! Route.Start_Date__c}"/>
 			</td>
-			<td style="text-align:top;">Printed Date:</td>
+			<td style="vertical-align-align:top; text-align:right;">Printed Date:</td>
 			<td style="text-align:top;">
 				<apex:outputText value="{0, date, dd/MM/yyyy}">
 					<apex:param value="{!TODAY()}"/>
