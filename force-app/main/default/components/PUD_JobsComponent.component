@@ -5,7 +5,11 @@
 		<!-- jobs table -->
 		<apex:pageBlockTable value="{! jobs  }" var="job"
 		                     styleClass="normalcell"
-		                     style="page-break-inside:avoid; border-top: 1px solid black;"
+		                     style="page-break-inside:avoid; 
+                                border-top: 1px solid black; 
+                                border-bottom: 1px solid black;
+                                font-family:Arial Unicode MS;
+                                font-size: 10px;"
 		                     headerClass="table-header">
 			<apex:column headerValue="Arrive"
 			             styleClass="normalcell"
@@ -19,11 +23,11 @@
 					</apex:outputText>
 				</apex:outputText>
 			</apex:column>
-			<apex:column headerValue="Job Details" 
+			<apex:column headerValue="Job Details"
 			             styleClass="normalcell"
-			             width="400px" 
+			             width="400px"
 			             style="padding-bottom:20px;"
-			             headerClass="job-headers" >
+			             headerClass="job-headers">
 				<div class="boldcell">
 					<apex:outputText rendered="{! !ISBLANK(job.Location_Information__c)}">
 						<apex:outputField value="{!job.Location_Information__c}"/>
@@ -35,8 +39,8 @@
 				<apex:outputField value="{!job.Booking_Comments__c}" styleClass="normalcell"/>
 				<br/>
 			</apex:column>
-			<apex:column headerValue="Deliver Product" 
-			             styleClass="normalcell" 
+			<apex:column headerValue="Deliver Product"
+			             styleClass="normalcell"
 			             width="150px"
 			             headerClass="job-headers">
 				<apex:outputField value="{! job.Deliver_Product__c}" style="font-size:small"/>
