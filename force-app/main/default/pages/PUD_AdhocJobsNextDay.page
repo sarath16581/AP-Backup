@@ -64,7 +64,7 @@
 		<apex:repeat value="{!route.Jobs__r}" var="job">
 			<apex:variable var="jobsCount" value="{!jobsCount +1}"/>
 		</apex:repeat>
-		<apex:pageBlockSection rendered="{!jobsCount > 0}">
+		<apex:pageBlock rendered="{!jobsCount > 0}">
 			<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
 				<div class="header">
 					<!--repeatable header-->
@@ -74,7 +74,7 @@
 					<c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>
 				</div>
 			</div>
-		</apex:pageBlockSection>
+		</apex:pageBlock>
 		<apex:variable var="routeCounter" value="{!routeCounter+1}"/>
 	</apex:repeat>
 </apex:page>

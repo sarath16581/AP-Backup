@@ -64,7 +64,7 @@
 	</head>
 	<!--page counter used to truncate blank pages and the end of the pdf document -->
 	<apex:variable var="routeCounter" value="{!0}"/>
-	<apex:pageBlockSection rendered="{! route.Jobs__r.size != 0}">
+	<apex:pageBlock rendered="{! route.Jobs__r.size > 0}">
 		<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
 			<div class="header">
 				<!--repeatable header-->
@@ -75,5 +75,5 @@
 			</div>
 		</div>
 		<apex:variable var="routeCounter" value="{!routeCounter+1}"/>
-	</apex:pageBlockSection>
+	</apex:pageBlock>
 </apex:page>
