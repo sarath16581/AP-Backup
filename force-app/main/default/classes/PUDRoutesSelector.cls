@@ -9,6 +9,7 @@
  * @changelog
  * 2022-03-18 - Ranjeewa Silva - Created
  * 2022-07-06 - Kamil Szyc added selectByIdWithAllBookings method for printing full duty board
+ * 2022-07-14 - Kamil Szyc added selectByIdWithJobs for selecting routes with jobs
  */
 public virtual inherited sharing class PUDRoutesSelector extends ApplicationSelector {
 
