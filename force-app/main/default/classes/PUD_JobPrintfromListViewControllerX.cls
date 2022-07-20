@@ -24,7 +24,7 @@ public with sharing class PUD_JobPrintfromListViewControllerX {
 			groupNameSet.add(objCGM.Group.Name);
 		}
 
-		routes = PUDRoutesSelector.newInstance(PUD_PrintRouteController.routeFields).selectByIdWithJobs(
+		routes = PUDRoutesSelector.newInstance(PUD_AdhocJobsPrintfromRouteControllerX.jobPrintFieldOverrides).selectByIdWithJobs(
 				new Map<Id, PUD_Route__c>( (PUD_Route__c[])ssc.getSelected()).keySet(),
 				new Set<String>(),
 				new Set<Date>{
@@ -33,7 +33,7 @@ public with sharing class PUD_JobPrintfromListViewControllerX {
 				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT, PUDJobsSelector.Options.LIMIT_TO_MY_GROUPS_ONLY
-				}, PUD_AdhocJobsPrintfromRouteControllerX.jobFields);
+				});
 		
 	}
 

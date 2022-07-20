@@ -37,9 +37,8 @@ public with sharing class PUD_JobsPrintFutureControllerX_Test {
 				(Set<String>) fflib_Match.anyObject(),
 				(Set<Date>) fflib_Match.anyObject(),
 				(Set<Id>) fflib_Match.anyObject(),
-				(Set<Object>) fflib_Match.anyObject(),
-				(Map<SObjectType,Set<SObjectField>>) fflib_Match.anyObject())
-		)
+				(Set<Object>) fflib_Match.anyObject()
+		))
 				.thenReturn(routeList
 				);
 		MockUtility.Mocks.when(jobsSelector.selectJobsByBookingRecordTypesJobDatesAndDepotIds(

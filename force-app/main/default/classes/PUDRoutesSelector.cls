@@ -181,7 +181,7 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 	 *
 	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
 	 */
-	public virtual List<PUD_Route__c> selectByIdWithJobs(Set<Id> ids, Set<String> bookingRecordTypes, Set<Date> jobDates, Set<Id> depotIds, Set<Object> selectorOptions, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+	public virtual List<PUD_Route__c> selectByIdWithJobs(Set<Id> ids, Set<String> bookingRecordTypes, Set<Date> jobDates, Set<Id> depotIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids'))
