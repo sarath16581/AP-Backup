@@ -78,7 +78,7 @@
         <div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
             <div class="header">
                 <!--repeatable header-->
-                <c:PUD_JobsHeader Route="{! route}"/>
+                <c:PUD_BookingsHeader Route="{! route}"/>
             </div>
             <div class="content">
                 <c:PUD_RoutePrintSubHeader route="{!route}"/>
