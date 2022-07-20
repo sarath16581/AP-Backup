@@ -1,11 +1,12 @@
 <!--Page to allow printing of Duty for driver a backup to the mobile device -->
-<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->  
+<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->
 <!--Created 26-11-19 Dheeraj Mandavilli-->
 <!--2022-07-12 - Kamil Szyc - Updated format to resemble FSL -->
 
-<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_AdhocJobsfromListViewControllerX" recordSetVar="routes" renderAs="pdf" applyBodyTag="false" >
-    <head>
-        <style type="text/css" media="print">
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_AdhocJobsfromListViewControllerX"
+           recordSetVar="routes" renderAs="pdf" applyBodyTag="false">
+	<head>
+		<style type="text/css" media="print">
             @page {
                 padding-top:80px;
                 @top-center {
@@ -55,21 +56,28 @@
                 font-size:small;
             }
 
-        </style>
+        
+		</style>
 
-    </head>
-    <!--page counter used to truncate blank pages and the end of the pdf document -->
-    <apex:variable var="routeCounter" value="{!0}"/>
-    <apex:repeat value="{!routes}" var="route" id="selectedRoutes">
-        <div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
-            <div class="header">
-                <!--repeatable header-->
-                <c:PUD_JobsHeader Route="{! route}"/>
-            </div>
-            <div class="content">
-                <c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>
-            </div>
-        </div>
-        <apex:variable var="routeCounter" value="{!routeCounter+1}"/>
-    </apex:repeat>
+	</head>
+	<!--page counter used to truncate blank pages and the end of the pdf document -->
+	<apex:variable var="routeCounter" value="{!0}"/>
+	<apex:repeat value="{!routes}" var="route" id="selectedRoutes">
+		<apex:variable var="jobsCount" value="{!0}"/>
+		<apex:repeat value="{!route.Jobs__r}" var="job">
+			<apex:variable var="jobsCount" value="{!jobsCount +1}"/>
+		</apex:repeat>
+		<apex:pageBlockSection rendered="{!jobsCount > 0}">
+			<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+				<div class="header">
+					<!--repeatable header-->
+					<c:PUD_JobsHeader Route="{! route}"/>
+				</div>
+				<div class="content">
+					<c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>
+				</div>
+			</div>
+		</apex:pageBlockSection>
+		<apex:variable var="routeCounter" value="{!routeCounter+1}"/>
+	</apex:repeat>
 </apex:page>

@@ -2,7 +2,8 @@
 <!--Uses controller extension to retrieve data. Controller required to retrieve long field and allow sort on Day Start Time-->
 <!--Created 26-11-19 Dheeraj Mandavilli-->
 <!-- 11-07-2022 - Kamil Szyc - rebuilt the page to meet new design requirements-->
-<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_AdhocJobsPrintfromRouteControllerX" renderAs="pdf" applyBodyTag="false" >
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_AdhocJobsPrintfromRouteControllerX"
+           renderAs="pdf" applyBodyTag="false">
 	<!--Page to allow printing of Duty for driver a backup to the mobile device -->
 	<head>
 		<style type="text/css" media="print">
@@ -55,19 +56,22 @@
                 font-size:small;
             }
 
-        </style>
+        
+		</style>
 
 	</head>
 	<!--page counter used to truncate blank pages and the end of the pdf document -->
 	<apex:variable var="routeCounter" value="{!0}"/>
-	<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
-		<div class="header">
-			<!--repeatable header-->
-			<c:PUD_JobsHeader Route="{! route}" effectiveDate="{!effectiveDate}"/>
+	<apex:pageBlockSection rendered="{!route.Jobs__r.size > 0}">
+		<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+			<div class="header">
+				<!--repeatable header-->
+				<c:PUD_JobsHeader Route="{! route}" effectiveDate="{!effectiveDate}"/>
+			</div>
+			<div class="content">
+				<c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>
+			</div>
 		</div>
-		<div class="content">
-			<c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>
-		</div>
-	</div>
+	</apex:pageBlockSection>
 	<apex:variable var="routeCounter" value="{!routeCounter+1}"/>
 </apex:page>

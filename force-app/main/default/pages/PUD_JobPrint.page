@@ -55,21 +55,27 @@
                 font-size:small;
             }
 
-        </style>
+		</style>
 
 	</head>
 	<!--page counter used to truncate blank pages and the end of the pdf document -->
 	<apex:variable var="routeCounter" value="{!0}"/>
 	<apex:repeat value="{!routes}" var="route" id="selectedRoutes">
-		<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
-			<div class="header">
-				<!--repeatable header-->
-				<c:PUD_JobsHeader Route="{! route}"/>
+		<apex:variable var="jobsCount" value="{!0}"/>
+		<apex:repeat value="{!route.Jobs__r}" var="job">
+			<apex:variable var="jobsCount" value="{!jobsCount +1}"/>
+		</apex:repeat>
+		<apex:pageBlockSection rendered="{!jobsCount > 0}">
+			<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+				<div class="header">
+					<!--repeatable header-->
+					<c:PUD_JobsHeader Route="{! route}"/>
+				</div>
+				<div class="content">
+					<c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>
+				</div>
 			</div>
-			<div class="content">
-				<c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>
-			</div>
-		</div>
+		</apex:pageBlockSection>
 		<apex:variable var="routeCounter" value="{!routeCounter+1}"/>
 	</apex:repeat>
 </apex:page>
