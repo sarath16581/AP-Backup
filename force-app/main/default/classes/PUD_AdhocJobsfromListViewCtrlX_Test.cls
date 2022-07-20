@@ -13,7 +13,7 @@
 @IsTest
 private with sharing class PUD_AdhocJobsfromListViewCtrlX_Test {
 	@IsTest
-	static void testPUD_AdhocJobsfromListViewControllerX(){
+	static void testPrintAdHocJobsFromListViewController(){
 
 		Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1, true)[0];
 		List<PUD_Route__c> routeList = PUDTestDataFactory.getPUDRoutes(2, networkDepot.Id, true);

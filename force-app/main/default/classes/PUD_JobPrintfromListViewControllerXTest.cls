@@ -14,7 +14,7 @@
 private with sharing class PUD_JobPrintfromListViewControllerXTest {
 
 	@IsTest
-	static void testPUD_JobPrintfromListViewControllerXTest(){
+	static void testPrintJobsFromListViewController(){
 
 		Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1, true)[0];
 		List<PUD_Route__c> routeList = PUDTestDataFactory.getPUDRoutes(2, networkDepot.Id, true);

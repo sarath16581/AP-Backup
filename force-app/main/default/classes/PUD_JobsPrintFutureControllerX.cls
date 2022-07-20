@@ -18,8 +18,8 @@ public with sharing class PUD_JobsPrintFutureControllerX {
 	public Date effectiveDate {get;set;}
 	// Constructor    
 	public PUD_JobsPrintFutureControllerX(ApexPages.StandardController sc){
-		effectiveDate = Date.valueOf(ApexPages.currentPage().getParameters().get('date'));
-		String printType = ApexPages.currentPage().getParameters().get('type');
+		effectiveDate = Date.valueOf(ApexPages.currentPage().getParameters().get('date').escapeHtml4());
+		String printType = ApexPages.currentPage().getParameters().get('type').escapeHtml4();
 
 		Set<String> bookingTypes = new Set<String>();
 		if(printType == 'Perm'){

@@ -14,7 +14,7 @@
 public with sharing class PUD_JobsPrintFutureControllerX_Test {
 
 	@IsTest
-	static void testController() {
+	static void testJobsPrintFutureController() {
 
 		//Create test Depot
 		Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1, true)[0];
