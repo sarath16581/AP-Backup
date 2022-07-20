@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>APXTConga4__CongaMerge</application>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
+        <application>APXT_BPM__Conga_Conductor</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <customMetadataTypeAccesses>
         <enabled>true</enabled>
         <name>APXT_BPM__Conductor_Region__mdt</name>

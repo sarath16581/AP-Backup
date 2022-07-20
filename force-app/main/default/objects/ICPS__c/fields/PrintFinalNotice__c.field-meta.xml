@@ -4,12 +4,15 @@
     <description>##Conga created button:00b0w000001WjWd</description>
     <externalId>false</externalId>
     <formula>&quot;&amp;id=&quot; + Id +
-&quot;&amp;templateid=a4H0w0000007GB4EAM&quot; +
-&quot;&amp;queryid=a490w000000LhhQAAS?&amp;pv0=&quot; + Id +
+&quot;&amp;templateid=a4H0p000000CelDEAS&quot; +
+&quot;&amp;queryid=a490p000000D1ZxAAK?&amp;pv0=&quot; + Id +
 &quot;&amp;defaultpdf=1&quot; +
 &quot;&amp;ps1=1&quot; +
 &quot;&amp;qmode=Download&quot; +
-&quot;&amp;uf0=1&quot;</formula>
+&quot;&amp;uf0=1&quot;+
+&quot;&amp;mfts0=FinalNoticeDate__c&quot; +
+&quot;&amp;mftsvalue0=&quot; + TEXT( TODAY() ) +
+&quot;&amp;mftsid0=&quot; + Id</formula>
     <label>PrintFinalNotice</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

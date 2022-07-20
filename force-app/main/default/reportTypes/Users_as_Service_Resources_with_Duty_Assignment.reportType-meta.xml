@@ -5,10 +5,6 @@
     <deployed>true</deployed>
     <description>Users set up as Service Resources with their assigned Duty Templates</description>
     <join>
-        <join>
-            <outerJoin>true</outerJoin>
-            <relationship>AssignedRoutes__r</relationship>
-        </join>
         <outerJoin>false</outerJoin>
         <relationship>ServiceResources</relationship>
     </join>
@@ -670,21 +666,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DutyStartTime__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Fit_For_Duty__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__GanttLabel__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>IsOptimizationCapable</field>
             <table>User.ServiceResources</table>
         </columns>
@@ -726,16 +707,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Online_Offset__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Priority__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>RecordType</field>
             <table>User.ServiceResources</table>
         </columns>
@@ -749,112 +720,6 @@
             <field>ResourceType</field>
             <table>User.ServiceResources</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Travel_Speed__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Vehicle__c</field>
-            <table>User.ServiceResources</table>
-        </columns>
         <masterLabel>Service Resources (User)</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Active_Route_Days__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Duty_Board__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Name</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Duty_Service_Territory__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>End_Date__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Owner</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Service_Resource__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Start_Date__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Start_Week__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Duty_Board__c.Active_Route_Days__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <displayNameOverride>Duty Assignments: Duty: Duty Status</displayNameOverride>
-            <field>Duty_Board__c.Status__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <displayNameOverride>Duty Assignments: Duty: Duty Effective Date</displayNameOverride>
-            <field>Duty_Board__c.Effective_Date__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <displayNameOverride>Duty Assignments: Duty: Duty Expiry Date</displayNameOverride>
-            <field>Duty_Board__c.Expiry_Date__c</field>
-            <table>User.ServiceResources.AssignedRoutes__r</table>
-        </columns>
-        <masterLabel>Duty Assignments</masterLabel>
     </sections>
 </ReportType>

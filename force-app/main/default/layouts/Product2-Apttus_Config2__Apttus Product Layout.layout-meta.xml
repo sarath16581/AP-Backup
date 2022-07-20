@@ -272,11 +272,6 @@
         <relatedList>Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__ComponentProductId__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>Name</fields>
-        <fields>WorkOrder</fields>
-        <relatedList>WorkOrderLineItem.Product__c</relatedList>
-    </relatedLists>
-    <relatedLists>
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Apttus_Config2__Sequence__c</fields>

@@ -762,16 +762,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Count_of_Events__c</field>
-            <table>Public_Holiday__c.Work_Day_Adjustments__r.Activities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Count_of_Tasks__c</field>
-            <table>Public_Holiday__c.Work_Day_Adjustments__r.Activities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>CreatedBy</field>
             <table>Public_Holiday__c.Work_Day_Adjustments__r.Activities__r</table>
         </columns>
@@ -853,11 +843,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>EventSubtype</field>
-            <table>Public_Holiday__c.Work_Day_Adjustments__r.Activities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Event_Type__c</field>
             <table>Public_Holiday__c.Work_Day_Adjustments__r.Activities__r</table>
         </columns>
         <columns>

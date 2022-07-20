@@ -4,13 +4,7 @@
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
-        <quickActionLayoutColumns>
-            <quickActionLayoutItems>
-                <emptySpace>false</emptySpace>
-                <field>User_Remark__c</field>
-                <uiBehavior>Edit</uiBehavior>
-            </quickActionLayoutItems>
-        </quickActionLayoutColumns>
+        <quickActionLayoutColumns/>
         <quickActionLayoutColumns/>
     </quickActionLayout>
     <type>Update</type>

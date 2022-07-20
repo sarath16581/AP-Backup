@@ -726,11 +726,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Event_Type__c</field>
-            <table>Case.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>TaskSubtype</field>
             <table>Case.Activities</table>
         </columns>

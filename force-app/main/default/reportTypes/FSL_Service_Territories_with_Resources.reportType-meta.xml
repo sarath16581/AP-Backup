@@ -57,21 +57,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Hide_Emergency_Map__c</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Internal_SLR_Geolocation__Latitude__s</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Internal_SLR_Geolocation__Longitude__s</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedBy</field>
             <table>ServiceTerritory</table>
         </columns>
@@ -97,11 +82,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__NumberOfServicesToDripFeed__c</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>OperatingHours</field>
             <table>ServiceTerritory</table>
         </columns>
@@ -112,42 +92,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Service_Cluster_Min_Size__c</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Service_Cluster_Proximity__c</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>State</field>
             <table>ServiceTerritory</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__System_Jobs__c</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>TerritoryDispatcher__c</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Territory_Hours__c</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Id</field>
-            <table>ServiceTerritory</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__TerritoryLevel__c</field>
             <table>ServiceTerritory</table>
         </columns>
         <columns>
@@ -210,16 +160,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s</field>
-            <table>ServiceTerritory.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s</field>
-            <table>ServiceTerritory.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedBy</field>
             <table>ServiceTerritory.ServiceResources</table>
         </columns>
@@ -251,16 +191,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Id</field>
-            <table>ServiceTerritory.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Roster_Record__c</field>
-            <table>ServiceTerritory.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Roster_Record_Duty__c</field>
             <table>ServiceTerritory.ServiceResources</table>
         </columns>
         <columns>

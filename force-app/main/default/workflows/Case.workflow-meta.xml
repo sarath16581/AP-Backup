@@ -3502,7 +3502,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         </actions>
         <active>true</active>
         <description>BGS - This Workflow will email the Customer if the Case has been closed and they send a new email into the system.</description>
-        <formula>AND( NOT(ISBLANK(  LastIncomingEmailAddress__c  )), ISCHANGED(LastIncomingEmailAddress__c), RecordType.DeveloperName = &quot;Sales_Ops_Delivery&quot;, ISPICKVAL(Status, &apos;Closed&apos;), NOT( ISCHANGED(Status) ) )</formula>
+        <formula>AND( NOT(ISBLANK(  LastIncomingEmailAddress__c  )), RecordType.DeveloperName = &quot;Sales_Ops_Delivery&quot;, ISPICKVAL(Status, &apos;Closed&apos;), NOT( ISCHANGED(Status) ) )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

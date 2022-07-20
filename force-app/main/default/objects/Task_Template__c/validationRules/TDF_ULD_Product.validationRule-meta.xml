@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>TDF_ULD_Product</fullName>
-    <active>true</active>
-    <description>A ULD collect or deliver task must use either &apos;ULD - Empty&apos; or &apos;ULD - Full&apos; as the product, not ULD.</description>
-    <errorConditionFormula>AND( OR (TEXT(Task__c) = &apos;Collect Product&apos;,TEXT(Task__c) = &apos;Deliver Product&apos;),    Product__r.Name  = &apos;ULD&apos;)</errorConditionFormula>
-    <errorMessage>A ULD collect or deliver task must use either &apos;ULD - Empty&apos; or &apos;ULD - Full&apos; as the product, not ULD.</errorMessage>
-</ValidationRule>
