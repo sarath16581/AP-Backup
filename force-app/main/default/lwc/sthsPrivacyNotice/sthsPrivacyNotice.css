@@ -1,0 +1,20 @@
+.privacy-heading-text {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+	line-height: 1.5rem;
+	color: #212129;
+}
+
+.privacy-content-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.875rem;
+	line-height: 1.25rem;
+	color: #212129;
+}
+
+.privacy-link {
+    color: #212129;
+    text-decoration: underline;
+}
