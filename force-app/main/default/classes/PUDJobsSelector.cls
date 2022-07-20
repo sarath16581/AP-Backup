@@ -7,8 +7,13 @@
  * @changelog
  * 2021-07-27 - Arjun Sing - Created
  * 2021-11-11 - Ranjeewa Silva - Added more fields to the set of selected fields.
+ * 2022-07-19 - Dattaraj Deshmukh - Added Options enum. Added overriden QueryBuilder method.
  */
 public virtual inherited sharing class PUDJobsSelector extends ApplicationSelector{
+
+	public enum Options {
+		WITH_CONTAINERS
+	}
 
 	public static PUDJobsSelector newInstance() {
 		return (PUDJobsSelector)Application.Selectors.newInstance(PUDJobsSelector.class);
@@ -61,7 +66,8 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 	*/
 	public virtual List<PUD_Job__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Id + ' in :ids')).endConditions();       
-        return (List<PUD_Job__c>)Database.query(qb.toSoqlString());
+        system.debug('SOQL Query: '+qb.toSoqlString());
+		return (List<PUD_Job__c>)Database.query(qb.toSoqlString());
 	}
 
     public virtual Database.QueryLocator selectJobsByDateAndStatusQueryLocator(Date dateVar, String statusVar) {
@@ -113,6 +119,24 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 							.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Status__c + ' = :jobStatus'))
 							.endConditions();       
         return (List<PUD_Job__c>)Database.query(qb.toSoqlString());
+	}
+
+	public virtual override QueryBuilder newQueryBuilder() {
+		return newQueryBuilder(new Set<Object>());
+	}
+
+	/**
+	 * Grabs a new QueryBuilder based on the selector options passed in
+	 *
+	 * @param selectorOptions set of additional selector options to augment the result set
+	 * @return new QueryBuilder instance
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+		if (selectorOptions.contains(Options.WITH_CONTAINERS)) {
+			builder.addSubQuery(PUDContainersSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Containers__r');
+		}
+		return builder;
 	}
 	
 }

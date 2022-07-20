@@ -67,7 +67,7 @@ public with sharing class PUDUtility {
 						PUD_Job__c.Confidence__c, PUD_Job__c.Stop_Credit__c, PUD_Job__c.Key_Number__c, PUD_Job__c.Article_Count__c,
 						PUD_Job__c.Location_Frontage_Geo__Latitude__s, PUD_Job__c.Location_Frontage_Geo__Longitude__s,
 						PUD_Job__c.Location_Side_Of_Street_Code__c, PUD_Job__c.Location_DPID__c, PUD_Job__c.Regular_Product__c, PUD_Job__c.Express_Product__c, 
-						PUD_Job__c.International_Product__c, PUD_Job__c.Empty_Aircan__c, PUD_Job__c.Empty_Cage__c, PUD_Job__c.Empty_CardULD__c, PUD_Job__c.Empty_Colby__c, 
+						PUD_Job__c.International_Product__c, PUD_Job__c.Empty_Aircan__c, PUD_Job__c.Empty_Cage__c, PUD_Job__c.Empty_CardULD__c, PUD_Job__c.Empty_Colby__c,
 						PUD_Job__c.Empty_Pallets__c, PUD_Job__c.Empty_Trailer__c, PUD_Job__c.Empty_ULD__c, PUD_Job__c.Full_Aircan__c, PUD_Job__c.Full_Cage__c,
 						PUD_Job__c.Full_CardULD__c, PUD_Job__c.Full_Colby__c, PUD_Job__c.Full_Pallets__c, PUD_Job__c.Full_Trailer__c, PUD_Job__c.Full_ULD__c, PUD_Job__c.Containers_Payload__c
 				};
@@ -126,6 +126,28 @@ public with sharing class PUDUtility {
 		private set;
 	}
 
+	// get record type id for job containers
+	public static Id jobContainerRecordTypeId {
+		get {
+			if (jobContainerRecordTypeId == null) {
+				jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{ 'Job_Container' }).values()[0].Id;
+			}
+			return jobContainerRecordTypeId;
+		}
+		private set;
+	}
+
+	// get record type id for booking containers
+	public static Id bookingContainerRecordTypeId {
+		get {
+			if (bookingContainerRecordTypeId == null) {
+				bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{ 'Booking_Container' }).values()[0].Id;
+			}
+			return bookingContainerRecordTypeId;
+		}
+		private set;
+	}
+
 	/**
 	 * Creates a new instance. This allows use to use dependency injection for mocking
 	 * @return the new instance
@@ -140,7 +162,16 @@ public with sharing class PUDUtility {
 	//Note that data type of booking and job fields must be the same
 	public void createJobs(Set<Id> bookingIdSet, Boolean bolRefreshAll){
 
+		// note that this is a stopgap until the pattern for using Unit of Work for service operations are endorsed.
+		// using Unit Of Work allows to gain some of the benefits of ApplicationUnitOfWork such as austomatically
+		// resolving dependencies among related records during the commit phase.
+		ApplicationUnitOfWork uow = newUnitOfWork();
+
 		List<PUD_Booking__c> bookingList = new List<PUD_Booking__c>();
+		
+		//Todo: Call booking selector with field overrides
+		//PUDBookingsSelector.newInstance().selectById(bookingIdSet, new Set<Object>{PUDBookingsSelector.Options.WITH_CONTAINERS});
+
 		bookingList = [SELECT Id, Name, Effective_Date__c, Expiry_Date__c, Sunday__c, Monday__c, Tuesday__c, Wednesday__c, Thursday__c, Friday__c, Saturday__c,
 				Street__c, City__c, Post_Code__c, State__c, Start_Time__c, Earliest_Start_Time__c, Latest_End_Time__c, Booking_Location__c, Depot__c, Route_Lookup__c,
 				Contact_Name__c, Contact_Phone_Number__c, Contact_Email__c, Hazards__c, Site_Instructions__c, Comments__c, Dwell_Time_Planned__c,
@@ -154,18 +185,24 @@ public with sharing class PUDUtility {
 				Route_Lookup__r.Name,Stop_Credit__c,Key_Number__c,Display_Start_Time__c,Article_Count__c,
 				Frontage_Geo__Latitude__s, Frontage_Geo__Longitude__s, DPID__c, Side_Of_Street_Code__c, Regular_Product__c, Express_Product__c, International_Product__c,
 				Empty_Aircan__c, Empty_Cage__c, Empty_CardULD__c, Empty_Colby__c, Empty_Pallets__c, Empty_Trailer__c, Empty_ULD__c,
-				Full_Aircan__c, Full_Cage__c, Full_CardULD__c, Full_Colby__c, Full_Pallets__c, Full_Trailer__c, Full_ULD__c
+				Full_Aircan__c, Full_Cage__c, Full_CardULD__c, Full_Colby__c, Full_Pallets__c, Full_Trailer__c, Full_ULD__c,
+				(SELECT Id, Actual_Quantity__c, Booking__c, Condition__c, Expected_Quantity__c, Job__c, Type__c, RecordTypeId, Name 
+					FROM Containers__r WHERE RecordTypeId =: bookingContainerRecordTypeId ORDER BY CreatedDate Desc) 
+				
 		FROM PUD_Booking__c WHERE Id IN:bookingIdSet];
 
 		//Call function depending on input parameter
 		//Refresh will update all existing jobs from now into future
 		//Add New will assume all existing jobs are in correct state, and only insert jobs that are not present
 		if(bolRefreshAll){
-			refreshJobs(bookingList);
+			refreshJobs(bookingList, uow);
 		}
 		else{
-			addNewJobs(bookingList);
+			addNewJobs(bookingList, uow);
 		}
+
+		// ensure Unit of Work is committed.
+		uow.commitWork();
 	}
 
 	//*****1. ADD NEW JOBS - Primary Function*****
@@ -173,22 +210,17 @@ public with sharing class PUDUtility {
 	//Adds new jobs to list of bookings passed in.
 	//Assumes that if booking has a job for a particular day, then this day can be skipped.
 	//Primarily called from scheduled PUDCreateJobBatch to add the next days of jobs to the future schedule.
-	public void addNewJobs(List<PUD_Booking__c> bookingList){
+	private void addNewJobs(List<PUD_Booking__c> bookingList, ApplicationUnitOfWork uow){
 
-		Set<Id> bookingIdSet = new Set<Id>();
+		Map<Id, PUD_Booking__c> bookings = new Map<Id, PUD_Booking__c>(bookingList);
 		Set<String> jobExistingBookingDateSet = new Set<String>(); //key BookingId-Date for existing job for booking: assumes booking has either 0 or 1 job for each day.
 		List<PUD_Job__c> jobsExistingList = new List<PUD_Job__c>();
 		List<PUD_Job__c> jobsNewList = new List<PUD_Job__c>();
 
-		//#Build set of booking Ids
-		for(PUD_Booking__c booking : bookingList){
-			bookingIdSet.add(booking.Id);
-		}
-
 		//Get list of of all existing jobs in future.
 		jobsExistingList = [SELECT Id, Date__c, Booking__c
 		FROM PUD_Job__c
-		WHERE Booking__c IN:bookingIdSet
+		WHERE Booking__c IN :bookings.keySet()
 		AND Date__c >= :DATE_FROM];
 
 		//#Build key set of job by BookingId-Date (e.g. <Id>-2019-08-28) : assumes booking has either 0 or 1 job for each day.
@@ -199,34 +231,22 @@ public with sharing class PUDUtility {
 		System.debug('job Existing count = ' + jobExistingBookingDateSet.size());
 
 		//Call function to get list of new jobs
-		//jobsNewList = getNewJobList(bookingList, jobExistingBookingDateSet);
+		jobsNewList = getNewJobList(bookingList, jobExistingBookingDateSet);
 
-		//Call function to get list of new jobs and containers to be created under those jobs.
-		JobsAndContainers jobsAndContainersWrappers = getNewJobList(bookingList, jobExistingBookingDateSet);
-		
-		System.debug('Insert Job count = ' + jobsAndContainersWrappers.newJobs);
-		if(jobsAndContainersWrappers.newJobs != null && !jobsAndContainersWrappers.newJobs.isEmpty()){
-			
-			//insert jobs
-			insert jobsAndContainersWrappers.newJobs;
-
-			//associated Job IDs with associated container types
-			List<PUD_Container__c> allContainersAgainstAllNewJobs = handleContainers(jobsAndContainersWrappers);
-
-			//insert containers
-			if(!allContainersAgainstAllNewJobs.isEmpty()){
-				system.debug('Containers size: '+allContainersAgainstAllNewJobs.size());
-				insert allContainersAgainstAllNewJobs;
-			}
+		//insert jobs
+		System.debug('Insert Job count = ' + jobsNewList.size());
+		if(jobsNewList.size() > 0){
+			//insert jobsNewList;
+			uow.registerNew(jobsNewList, true, 'PUDUtility.addNewJobs');
 		}
+		refreshContainerTypes(bookings, jobsNewList, uow);
 	}
 
 	//*****2. REFRESH JOBS - Primary Function*****
 	//Description:
 	//This function refreshes all jobs for bookings in list passed in.
 	//Refresh compares existing jobs with new jobs based on any changes to bookings, and either inserts records (if new), updates records (if modified), or deletes records (if not valid)
-	public void refreshJobs(List<PUD_Booking__c> bookingList){
-
+	public void refreshJobs(List<PUD_Booking__c> bookingList, ApplicationUnitOfWork uow){
 
 		List<PUD_Job__c> jobsNewList = new List<PUD_Job__c>();
 		List<PUD_Job__c> jobInsertList = new List<PUD_Job__c>();
@@ -236,18 +256,12 @@ public with sharing class PUDUtility {
 		Map<String,PUD_Job__c> jobsNewMap = new Map<String, PUD_Job__c>();
 		Map<String,PUD_Job__c> jobsExistingMap = new Map<String, PUD_Job__c>();
 
-		Set<Id> bookingIdSet = new Set<Id>(); //Ids of valid bookings based on date range
-		List<PUD_Job__c> jobsExistingList = new List<PUD_Job__c>();
-
-		//#Build Booking Id Set
-		for(PUD_Booking__c booking : bookingList){
-			bookingIdSet.add(booking.Id);
-		}
+		Map<Id, PUD_Booking__c> bookingsMap = new Map<Id, PUD_Booking__c>(bookingList); //Ids of valid bookings based on date range
 
 		//#Get all future Jobs for bookings in set. Note SOQL must match statement in PUDUtility (used for jobsNewList) for compare
 		// retrieve all existing Jobs independent of status.
 		//!!!---WARNING - Fields below must be an IDENTICAL match to jobsNewList record create in getNewJobList below ---!!!
-		jobsExistingList = [SELECT
+		List<PUD_Job__c> jobsExistingList = [SELECT
 				Booking__c,
 				Date__c,
 				Street__c,
@@ -321,16 +335,14 @@ public with sharing class PUDUtility {
 				Full_ULD__c,
 				Containers_Payload__c
 		FROM PUD_Job__c
-		WHERE Booking__c IN:bookingIdSet
+		WHERE Booking__c IN:bookingsMap.keySet()
 		AND Date__c >= :DATE_FROM];
 
 		//System.debug('jobsExistingList = ' + jobsExistingList);
 
 		//#Call function to return new list of jobs based on changed booking $$$MOVED HERE FROM BELOW
-		//jobsNewList = getNewJobList(bookingList, jobExistingBookingDateSet);
+		jobsNewList = getNewJobList(bookingList, jobExistingBookingDateSet);
 
-		//Call function to get list of new jobs and containers to be created under those jobs.
-		JobsAndContainers jobsAndContainersWrappers = getNewJobList(bookingList, jobExistingBookingDateSet);
 
 		bookingList.clear();
 
@@ -341,12 +353,9 @@ public with sharing class PUDUtility {
 		jobsExistingList.clear(); //no longer required as loaded into map
 
 		//#Build new job map (keystring[bookingid-date],Job Record) : assumes booking has either 0 or 1 job for each day.
-		if(jobsAndContainersWrappers.newJobs != null && !jobsAndContainersWrappers.newJobs.isEmpty()){
-			for(PUD_Job__c job : jobsAndContainersWrappers.newJobs){
-				jobsNewMap.put(job.Booking__c + job.Date__c.format(),job);
-			}
+		for(PUD_Job__c job : jobsNewList){
+			jobsNewMap.put(job.Booking__c + job.Date__c.format(),job);
 		}
-		
 		jobsNewList.clear(); //no longer required as loaded into map
 
 		//#Loop thru new jobs and compare with a clone of matching existing job to determine if Insert or Update is required
@@ -397,35 +406,21 @@ public with sharing class PUDUtility {
 			}
 		}//end jobExisting loop
 
-		//Savepoint - here
 		//insert update and cancel/delete jobs
 		if(jobInsertList.size() > 0){
-			
-			//insert new jobs
-			insert jobInsertList;	
-			
-			//associate newly created job ids with container types
-			List<PUD_Container__c> allContainersAgainstAllNewJobs = handleContainers(jobsAndContainersWrappers);
-			
-			//insert new containers
-			if(!allContainersAgainstAllNewJobs.isEmpty()){
-				system.debug('allContainersAgainstAllNewJobs: '+allContainersAgainstAllNewJobs.isEmpty());
-				insert allContainersAgainstAllNewJobs;
-			}
+			//insert jobInsertList;
+			uow.registerNew(jobInsertList, true, 'PUDUtility.refreshJobs');
+			refreshContainerTypes(bookingsMap, jobInsertList, uow);
 		}
-
 		if(jobUpdateList.size() > 0){
-			update jobUpdateList;
+			//update jobUpdateList;
+			uow.registerDirty(jobUpdateList, true, 'PUDUtility.refreshJobs');
 		}
 		if(jobDeleteList.size() > 0){
-			delete jobDeleteList;
-
-			//after deletion of jobs, delete containers against them.
-			//processJobContainersOnBookingUpdates(jobInsertList, true);
-			
-			//add save point
-			//delete containers
+			//delete jobDeleteList;
+			uow.registerDeleted(jobDeleteList, true, 'PUDUtility.refreshJobs');
 		}
+
 	}
 
 	//*****3. GET NEW JOB LIST - Sub Function*****
@@ -433,7 +428,7 @@ public with sharing class PUDUtility {
 	//This function returns a list of jobs required for a list of bookings passed in.
 	//The input argument jobBookingDateSet is for the Batch Generation call context - it exludes any job record in list returned where a job already exists for a particular date.
 	//This function is called from addNewJobs and refreshJobs
-	public static JobsAndContainers getNewJobList(List<PUD_Booking__c> bookingList, Set<String> jobExistingBookingDateSet){
+	public static List<PUD_Job__c> getNewJobList(List<PUD_Booking__c> bookingList, Set<String> jobExistingBookingDateSet){
 
 		Date dateSunday = Date.newInstance(1900, 1, 7);
 		Date dateProcess;
@@ -457,12 +452,6 @@ public with sharing class PUDUtility {
 		List<PUD_Booking_Exception__c> bookingExceptionParentList = new List<PUD_Booking_Exception__c>();
 		List<PUD_Job__c> jobsNewList = new List<PUD_Job__c>();
 
-		//Map to hold bookings and its containers.
-		Map<Id, List<PUD_Container__c>> bookingIdVsContainers = new Map<Id, List<PUD_Container__c>>();
-		Map<String, List<PUD_Container__c>> uniqueJobIdVsNewContainers = new Map<String, List<PUD_Container__c>>(); //map to store new containers against new jobs.
-		Id jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
-
-
 		//#Build Booking Id and Parent Booking Id sets
 		for(PUD_Booking__c booking : bookingList){
 			//Add id of booking to set
@@ -479,14 +468,6 @@ public with sharing class PUDUtility {
 				tempChildSet.add(booking.Id); //add this child to the set
 				bookingParentIdToChildIdSetMap.put(booking.Parent_Booking__c,tempChildSet);
 			}
-		}
-
-		//Get all containers under bookgins
-		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectBookingContainersByBookingIds(bookingIdSet, new Set<Object>())){
-			if(!bookingIdVsContainers.containsKey(container.Booking__c)){
-				bookingIdVsContainers.put(container.Booking__c, new List<PUD_Container__c>());
-			}
-			bookingIdVsContainers.get(container.Booking__c).add(container);
 		}
 
 		//#Get all Booking Exceptions for date range, for bookings being processed
@@ -517,7 +498,7 @@ public with sharing class PUDUtility {
 			//For each date (from From to To)
 			while(dateProcess <= DATE_TO){
 				//If exception is valid for date range
-				If(bookex.Start_Date__c <= dateProcess && bookex.End_Date__c >= dateProcess){
+				if(bookex.Start_Date__c <= dateProcess && bookex.End_Date__c >= dateProcess){
 
 					//Get day value of date being evaluated
 					intProcessDay = Math.Mod(dateSunday.daysBetween(dateProcess), 7); //0-Sunday -> 6-Saturday
@@ -737,37 +718,8 @@ public with sharing class PUDUtility {
 								jobRec.Full_ULD__c              = booking.Full_ULD__c;
 
 								// call method to serialise payload to json format and populate Containers Payload long text field
-								//jobRec.Containers_Payload__c = generateContainerTypePayload(jobRec);
-								
-								List<PUD_Container__c> bookingContainers = new List<PUD_Container__c>();
-								if(bookingIdVsContainers.containsKey(booking.Id)){
-									//get list of containers related to  booking
-									bookingContainers = bookingIdVsContainers.get(booking.Id);
-								}
-
-								//create containers for each job.
-								List<PUD_Container__c> containersToCreate = new List<PUD_Container__c>();
-
-								for(PUD_Container__c bookingContainer : bookingContainers){
-									PUD_Container__c newContainer = new PUD_Container__c();
-									newContainer.Type__c = bookingContainer.Type__c;
-									newContainer.Booking__c = bookingContainer.Booking__c;
-									newContainer.Actual_Quantity__c = bookingContainer.Actual_Quantity__c;
-									newContainer.Expected_Quantity__c = bookingContainer.Expected_Quantity__c;
-									newContainer.Condition__c = bookingContainer.Condition__c;
-									newContainer.RecordTypeId = jobContainerRecordTypeId;
-									containersToCreate.add(newContainer);
-								}
-
-								//generate container payload for a job being created.
-								//Note: This is a potential payload assuming that jobs and its containers creation will be successfull.
-								//In the event of DML fails, container payload will need to be recalculated as per available containers.
-								//Payload is calculated ahead of container creations, to avoid updating jobs after containers are created.
-								jobRec.Containers_Payload__c = generateContainerTypePayloadBasedOnContainers(bookingContainers);
+								jobRec.Containers_Payload__c = generateContainerTypePayload(jobRec);
 								jobsNewList.add(jobRec);
-
-								
-								uniqueJobIdVsNewContainers.put(booking.Id + dateProcess.format(), containersToCreate);
 							}
 						}
 					}
@@ -777,10 +729,7 @@ public with sharing class PUDUtility {
 			}
 		}
 		//Return jobNew List
-		//return jobsNewList;
-
-		//Return wrapper
-		return new JobsAndContainers(jobsNewList, uniqueJobIdVsNewContainers);
+		return jobsNewList;
 	}
 
 
@@ -945,10 +894,6 @@ public with sharing class PUDUtility {
 		return false;
 	}
 
-
-
-
-
 	/**
 	 * Generate the JSON payload representing container type data on the Job record.
 	 * @param jobRec job instance for which the payload is generated
@@ -978,40 +923,22 @@ public with sharing class PUDUtility {
 	}
 
 	/**
-	 * Associate containers to newly created job.
-	 * @param Wrapper instance containing new job list and their containers.
-	 * @return List of containers after populating Job Ids
-	 */
-
-	private List<PUD_Container__c> handleContainers(JobsAndContainers jobsAndContainersWrappers){
-		List<PUD_Container__c> allContainersAgainstAllNewJobs = new List<PUD_Container__c>();
-		for(PUD_Job__c newJob : jobsAndContainersWrappers.newJobs){
-
-			if(jobsAndContainersWrappers.jobUniqueKeyVsNewContainers.containsKey(newJob.Booking__c+newJob.Date__c.format())){
-
-				for(PUD_Container__c container : jobsAndContainersWrappers.jobUniqueKeyVsNewContainers.get(newJob.Booking__c+newJob.Date__c.format())){
-					container.Job__c = newJob.Id;
-					allContainersAgainstAllNewJobs.add(container);
-				}
-			}
-		}
-		return allContainersAgainstAllNewJobs;
-	}
-
-	/**
 	 * Generate the JSON payload representing container type data on the Job record.
 	 * @param list of containers under a new job.
 	 * @return container types JSON payload (JSON array)
 	 */
-	private static String generateContainerTypePayloadBasedOnContainers(List<PUD_Container__c> containers){
+	private static String generateContainerTypePayload(List<PUD_Container__c> containers){
 
-		List<ContainerPayload> payloads = new List<ContainerPayload>();
+		if (containers != null && !containers.isEmpty()) {
+			List<ContainerPayload> payloads = new List<ContainerPayload>();
 
-		// generate container payloads based on the configuration in CONTAINER_TYPE_MAPPINGS
-		for (PUD_Container__c container : containers) {
-				payloads.add(new ContainerPayload(container.Type__c, (Decimal) container.Expected_Quantity__c, container.Condition__c));
-		}
-		if (!payloads.isEmpty()) {
+			// generate container payloads based on the configuration in CONTAINER_TYPE_MAPPINGS
+			for (PUD_Container__c container : containers) {
+				payloads.add(new ContainerPayload(container));
+			}
+
+			payloads.sort();
+
 			// Serialise container payload and suppress null value
 			return JSON.serialize(payloads, true);
 		}
@@ -1164,7 +1091,7 @@ public with sharing class PUDUtility {
 
 					if(!containersToKeep.isEmpty()){
 						PUD_Job__c jToUpdate = new PUD_Job__c(Id = currentJob.Id);
-						jToUpdate.Containers_Payload__c = generateContainerTypePayloadBasedOnContainers(containersToKeep);
+						jToUpdate.Containers_Payload__c = generateContainerTypePayload(containersToKeep);
 						jobsToUpdateMap.put(jToUpdate.Id, jToUpdate);
 					}
 
@@ -1181,205 +1108,116 @@ public with sharing class PUDUtility {
 			update jobsToUpdateMap.values();
 		}
 	}
+
+	public void refreshContainerTypes(Set<Id> bookingIds, ApplicationUnitOfWork uow) {
+		Set<String> jobStatus = new Set<String>{PUDConstants.PUD_JOB_STATUS_NEW, PUDConstants.PUD_JOB_STATUS_SCHEDULE, PUDConstants.PUD_JOB_STATUS_ACCEPTED};
+		
+		//query bookings with booking containers
+		Map<Id, PUD_Booking__c> bookings = new Map<Id, PUD_Booking__c> (PUDBookingsSelector.newInstance().selectById(bookingIds, new Set<Object>{PUDBookingsSelector.Options.WITH_CONTAINERS}));
+
+		//query current/future Jobs with Job containers.
+		List<PUD_Job__c> jobs = new List<PUD_Job__c>(); 
+
+		jobs = PUDJobsSelector.newInstance().selectByBookingIdStatusAndFromDate(bookingIds, Date.today(), jobStatus, new Set<Object>{PUDJobsSelector.Options.WITH_CONTAINERS});
+		
+		refreshContainerTypes(bookings,jobs, uow);
+	}
+
+	public void refreshContainerTypes(Map<Id, PUD_Booking__c> bookings, List<PUD_Job__c> jobs, ApplicationUnitOfWork uow) {
+
+		Map<String, PUD_Container__c> bookingContainersByUniqueKeyMap = getBookingContainersMapByUniqueKey(bookings.values());
+
+		for (PUD_Job__c job: jobs) {
+			Map<String, PUD_Container__c> jobContainersByUniqueKeyMap = getContainersMapByUniqueKey(job.Booking__c, job.Containers__r);
+
+			List<PUD_Container__c> bookingContainers = bookings.get(job.Booking__c).Containers__r;
+			if (bookingContainers != null && !bookingContainers.isEmpty()) {
+				for (PUD_Container__c bookingContainer: bookingContainers) {
+					String key = job.Booking__c + '-' + bookingContainer.Type__c + '-' + bookingContainer.Condition__c;
+					if (jobContainersByUniqueKeyMap.containsKey(key)) {
+						// existing job container - update
+						PUD_Container__c jobContainer = jobContainersByUniqueKeyMap.get(key);
+						jobContainer.Expected_Quantity__c = bookingContainer.Expected_Quantity__c;
+						uow.registerDirty(jobContainer, new List<SObjectField>{PUD_Container__c.Expected_Quantity__c});
+					} else {
+						// new job container
+						PUD_Container__c newContainer = newJobContainer(job, bookingContainer);
+						uow.registerNew(newContainer, PUD_Container__c.Job__c, job, true, 'PUDUtility.refreshContainerTypes');
+					}
+				}
+
+				job.Containers_Payload__c = generateContainerTypePayload(bookingContainers);
+
+				system.debug('Jobs updated Payload: '+ job.Containers_Payload__c);
+				system.debug('Job: '+ job.Id);
+				
+				if (job.Id != null) {
+					uow.registerDirty(job);
+				}
+
+			} else if (String.isNotBlank(job.Containers_Payload__c)) {
+				// update containers payload on job if not blank
+				job.Containers_Payload__c = null;
+				if (job.Id != null) {
+					uow.registerDirty(job);
+				}
+			}
+
+			if (job.Containers__r != null && !job.Containers__r.isEmpty()) {
+				for (PUD_Container__c jobContainer: job.Containers__r) {
+					String key = job.Booking__c + '-' + jobContainer.Type__c + '-' + jobContainer.Condition__c;
+					if (!bookingContainersByUniqueKeyMap.containsKey(key)) {
+						// delete
+						uow.registerDeleted(jobContainer, true, 'PUDUtility.refreshContainerTypes');
+					}
+				}
+			}
+		}
+	}
+
+	private Map<String, PUD_Container__c> getBookingContainersMapByUniqueKey(List<PUD_Booking__c> bookings) {
+		Map<String, PUD_Container__c> bookingContainersMapByUniqueKey = new Map<String, PUD_Container__c>();
+		for (PUD_Booking__c booking: bookings) {
+			if (!booking.Containers__r.isEmpty()) {
+				bookingContainersMapByUniqueKey.putAll(getContainersMapByUniqueKey(booking.Id, booking.Containers__r));
+			}
+		}
+		return bookingContainersMapByUniqueKey;
+	}
+
+	private Map<String, PUD_Container__c> getContainersMapByUniqueKey(Id parentId, List<PUD_Container__c> containers) {
+		Map<String, PUD_Container__c> containersMapByUniqueKey = new Map<String, PUD_Container__c>();
+		for (PUD_Container__c container: containers) {
+			String key = parentId + '-' + container.Type__c + '-' + container.Condition__c;
+			containersMapByUniqueKey.put(key, container);
+		}
+		return containersMapByUniqueKey;
+	}
 	
 
+	
 	/**
-	 * Called from PUDContainerTypeSyncModule to add/update container records under jobs when containers under bookgins are updated.
-	 * @param: 1. New Container records, 
-	 * 		   2. Old map of containers (in case of update ONLY. In case of New records, this is null).
-	 *         3. List of bookings for which new containers are created.  
-	 * @desc: This method is called from Container trigger whenever new containers are added against Bookings. 
-	 */
-	 public void processContainers(List<PUD_Container__c> records, Map<Id, PUD_Container__c> oldRecordsMap, Set<Id> bookingIds, Boolean isDelete){
+     * Unit of work that encapsulates all the required objects for this Service.
+     * Note that this is a stopgap until the pattern for using Unit of Work for service operations are defined.
+     *
+     * @return unit or work instance
+     */
+	private ApplicationUnitOfWork newUnitOfWork() {
+		return ApplicationUnitOfWork.newInstance(new List<SObjectType>{
+				PUD_Job__c.SObjectType,
+				PUD_Container__c.SObjectType
+		});
+	}
 
-		Set<String> jobStatus = new Set<String>{PUDConstants.PUD_JOB_STATUS_NEW, PUDConstants.PUD_JOB_STATUS_SCHEDULE, PUDConstants.PUD_JOB_STATUS_ACCEPTED};
-        Id jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
-
-		
-		List<PUD_Job__c> jobs = PUDJobsSelector.newInstance().selectByBookingIdStatusAndFromDate(bookingIds, Date.today(), jobStatus);
-
-		Set<Id> jobIds = new Set<Id>();
-		Map<Id, List<PUD_Job__c>> bookingVsJobsMap = new Map<Id, List<PUD_Job__c>>();
-
-		for(PUD_Job__c job : jobs){
-			jobIds.add(job.Id);
-
-			if(!bookingVsJobsMap.containsKey(job.Booking__c)){
-				bookingVsJobsMap.put(job.Booking__c, new List<PUD_Job__c>{job});
-			}
-			else{
-				bookingVsJobsMap.get(job.Booking__c).add(job);
-			}
-		}
-
-		List<PUD_Container__c> containers = PUDContainersSelector.newInstance().selectByJobIds(jobIds, new Set<Object>());//[Select Id, Type__c, Job__c from PUD_Container__c where Job__c IN : jobIds];
-
-		//if containers is null/empty, that means there are jobs without containers.
-		//This could happen when jobs are created for the first time.
-		List<PUD_Container__c> containersToCreate = new List<PUD_Container__c>();
-		List<PUD_Container__c> containersToUpdate = new List<PUD_Container__c>();
-		List<PUD_Container__c> containersToDelete = new List<PUD_Container__c>();
-		
-		//list of jobs to be updated with Container Payload data 
-		//when a new container is added or existing is updated under a job via booking.
-		List<PUD_Job__c> jobsToBeUpdated = new List<PUD_Job__c>();
-
-		if(containers.isEmpty() && !isDelete){
-			//create containers against jobs.
-			system.debug('creating new containers');
-			for(PUD_Container__c newRecord : records){
-
-				system.debug('bookingVsJobsMap: '+bookingVsJobsMap);
-				system.debug('bookingVsJobsMap.get Booking: '+bookingVsJobsMap.get(newRecord.Booking__c));
-				
-				List<PUD_Job__c> relatedJobs = bookingVsJobsMap.get(newRecord.Booking__c);
-				if(relatedJobs != null){
-					for(PUD_Job__c currentJob : relatedJobs){
-
-						
-						PUD_Container__c newContainer = new PUD_Container__c();
-						newContainer.Type__c = newRecord.Type__c;
-						newContainer.Job__c = currentJob.Id;
-						newContainer.Booking__c = newRecord.Booking__c;
-						newContainer.Actual_Quantity__c = newRecord.Actual_Quantity__c;
-						newContainer.Expected_Quantity__c = newRecord.Expected_Quantity__c;
-						newContainer.Condition__c = newRecord.Condition__c;
-						newContainer.RecordTypeId = jobContainerRecordTypeId;
-						containersToCreate.add(newContainer);
-
-						//updating corresponding JOb's container payload on creation.
-						PUD_Job__c jobToUpdate = new PUD_Job__c(Id = currentJob.Id);
-						jobToUpdate.Containers_Payload__c = generateContainerTypePayloadBasedOnContainers(new List<PUD_Container__c>{newContainer});
-						jobsToBeUpdated.add(jobToUpdate);
-					}
-				}
-			}
-		}
-		else if(!containers.isEmpty() && !isDelete){
-			Map<Id, List<PUD_Container__c>> jobVsExistingContainersMap = new Map<Id, List<PUD_Container__c>>();
-
-			for(PUD_Container__c container : containers){
-				if(!jobVsExistingContainersMap.containsKey(container.Job__c)){
-					jobVsExistingContainersMap.put(container.Job__c, new List<PUD_Container__c>{container});
-				}
-				else{
-					jobVsExistingContainersMap.get(container.Job__c).add(container);
-				}
-			}
-
-			for(PUD_Container__c newRecord : records){
-
-				List<PUD_Job__c> relatedJobs = bookingVsJobsMap.get(newRecord.Booking__c);
-				if(relatedJobs != null){
-
-				
-				for(PUD_Job__c currentJob : relatedJobs){
-
-					//get existing container payload of current job
-					List<ContainerPayload> existingContainerPayloadList = new List<ContainerPayload>();
-					if(currentJob.Containers_Payload__c != null){
-						existingContainerPayloadList = (List<ContainerPayload>) JSON.deserialize(currentJob.Containers_Payload__c, List<ContainerPayload>.class);
-					}
-
-					List<PUD_Container__c> jobContainers = new List<PUD_Container__c>();
-					Boolean isMatchingContainerFound = false;
-
-					if(jobVsExistingContainersMap.containsKey(currentJob.Id)){
-						jobContainers = jobVsExistingContainersMap.get(currentJob.Id);
-					}
-					
-					for(PUD_Container__c currentContainer : jobContainers){
-
-						//if type and condition is same then copy updated fields in existing records.
-						if( (newRecord.Type__c == currentContainer.Type__c  && newRecord.Condition__c == currentContainer.Condition__c ) || (oldRecordsMap != null && 
-											oldRecordsMap.get(newRecord.Id).Type__c == currentContainer.Type__c && 
-											oldRecordsMap.get(newRecord.Id).Condition__c == currentContainer.Condition__c)){
-							isMatchingContainerFound = true;
-							
-							currentContainer.Type__c = newRecord.Type__c;
-							currentContainer.Actual_Quantity__c = newRecord.Actual_Quantity__c;
-							currentContainer.Expected_Quantity__c = newRecord.Expected_Quantity__c;
-							currentContainer.Condition__c = newRecord.Condition__c;
-							
-							containersToUpdate.add(currentContainer);
-							
-							//container payload has value as per old type.
-							//update container payload value with new and updated type and condition.
-							
-							for(ContainerPayload cPayload : existingContainerPayloadList){
-
-								if(cPayload.Name == oldRecordsMap.get(newRecord.Id).Type__c && 
-									cPayload.Condition == oldRecordsMap.get(newRecord.Id).Condition__c){
-
-									cPayload.Name = newRecord.Type__c;
-									cPayload.Condition = newRecord.Condition__c;
-									cPayload.Quantity = newRecord.Expected_Quantity__c;
-								}
-							}
-						}
-					}
-
-					//update job
-					if(isMatchingContainerFound && !existingContainerPayloadList.isEmpty()){
-						PUD_Job__c jobToUpdate = new PUD_Job__c();
-						jobToUpdate.Id = currentJob.Id;
-						jobToUpdate.Containers_Payload__c = JSON.serialize(existingContainerPayloadList, true);
-						jobsToBeUpdated.add(jobToUpdate);
-					}
-					
-
-					//if container does not exists against a job, then add a container against a job.
-					//Also, update the job's container_payload__c for newly added container
-					if(!isMatchingContainerFound){
-						PUD_Container__c newContainer = new PUD_Container__c();
-						newContainer.Type__c = newRecord.Type__c;
-						newContainer.Job__c = currentJob.Id;
-						newContainer.Booking__c = newRecord.Booking__c;
-						newContainer.Actual_Quantity__c = newRecord.Actual_Quantity__c;
-						newContainer.Expected_Quantity__c = newRecord.Expected_Quantity__c;
-						newContainer.Condition__c = newRecord.Condition__c;
-						newContainer.RecordTypeId = jobContainerRecordTypeId;
-
-						containersToCreate.add(newContainer);
-						
-
-						PUD_Job__c jobToUpdate = new PUD_Job__c();
-						jobToUpdate.Id = currentJob.Id;
-
-						//if this is first containers then set payload 
-						if(currentJob.Containers_Payload__c == null){
-							jobToUpdate.Containers_Payload__c = JSON.serialize(new List<ContainerPayload>
-								{ new ContainerPayload(newRecord.Type__c, newRecord.Expected_Quantity__c, newRecord.Condition__c)}, true);
-						}
-						//if payload exists then update existing payload with newly added container
-						else{
-							List<ContainerPayload> payloadList = (List<ContainerPayload>) JSON.deserialize(currentJob.Containers_Payload__c, List<ContainerPayload>.class);
-							payloadList.add(new ContainerPayload(newRecord.Type__c, newRecord.Expected_Quantity__c, newRecord.Condition__c));
-
-							jobToUpdate.Containers_Payload__c = JSON.serialize(payloadList, true);
-						}
-
-						jobsToBeUpdated.add(jobToUpdate);
-					}
-				}
-
-				}
-			}
-		}
-		else if(isDelete){
-			deleteJobContainers (records, containers, bookingVsJobsMap);
-		}
-
-		if(!containersToCreate.isEmpty()){
-			insert containersToCreate;
-		}
-		if(!containersToUpdate.isEmpty()){
-			update containersToUpdate;
-		}
-		if(!jobsToBeUpdated.isEmpty()){
-			update jobsToBeUpdated;
-		}
-	 }
+	private PUD_Container__c newJobContainer(PUD_Job__c job, PUD_Container__c bookingContainer) {
+		PUD_Container__c jobContainer = new PUD_Container__c();
+		jobContainer.RecordTypeId = jobContainerRecordTypeId;
+		jobContainer.Booking__c = job.Booking__c;
+		jobContainer.Type__c = bookingContainer.Type__c;
+		jobContainer.Condition__c = bookingContainer.Condition__c;
+		jobContainer.Expected_Quantity__c = bookingContainer.Expected_Quantity__c;
+		return jobContainer;
+	}
 
 
 	
@@ -1389,7 +1227,7 @@ public with sharing class PUDUtility {
 	* The classed is used to be serialised into a list in JSON format and value to be populated to the Containers Payload Long Text field.
 	* Containers Payload will then send out to TIBCO, and then dispatch system
 	*/
-	@TestVisible private class ContainerPayload{
+	@TestVisible private class ContainerPayload implements Comparable {
 		public String Name {get; private set;}
 		public Decimal Quantity {get; private set;}
 		public String Condition {get; private set;}
@@ -1401,6 +1239,19 @@ public with sharing class PUDUtility {
 		public ContainerPayload(String Name, String Condition){
 			this.Name = Name;
 			this.Condition = Condition;
+		}
+		public ContainerPayload(PUD_Container__c c) {
+			this.Name = c.Type__c;
+			this.Condition = c.Condition__c;
+			this.Quantity = c.Expected_Quantity__c;
+		}
+
+		public Integer compareTo(Object compareTo) {
+			ContainerPayload compareToContainer = (ContainerPayload)compareTo;
+			return (this.Name > compareToContainer.Name ? 1 :
+						(this.Name < compareToContainer.Name ? -1 :
+							(this.Condition > compareToContainer.Condition ? 1 :
+			                    (this.Condition < compareToContainer.Condition ? -1 : 0))));
 		}
 	}
 
@@ -1417,18 +1268,5 @@ public with sharing class PUDUtility {
 			this.emptyQuantityField = emptyQuantityField;
 			this.fullQuantityField = fullQuantityField;
 		}
-	}
-
-
-	private class JobsAndContainers {
-		List<PUD_Job__c> newJobs;
-		Map<String, List<PUD_Container__c>> jobUniqueKeyVsNewContainers;
-		
-		JobsAndContainers(List<PUD_Job__c> newJobs, Map<String, List<PUD_Container__c>>  jobUniqueKeyVsNewContainers){
-			this.newJobs = newJobs;
-			this.jobUniqueKeyVsNewContainers = jobUniqueKeyVsNewContainers;
-		}
-
-
 	}
 }

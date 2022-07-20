@@ -9,7 +9,29 @@
  */
 public with sharing class PUDContainersSelector extends ApplicationSelector{
 	public enum Options {
-		WITH_RECORDTYPE
+		WITH_RECORDTYPE, FILTER_BOOKING_CONTAINERS
+	}
+
+	// get record type id for booking containers
+	public static Id bookingContainerRecordTypeId {
+		get {
+			if (bookingContainerRecordTypeId == null) {
+				bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{ 'Booking_Container' }).values()[0].Id;
+			}
+			return bookingContainerRecordTypeId;
+		}
+		private set;
+	}
+
+	// get record type id for booking containers
+	public static Id jobContainerRecordTypeId {
+		get {
+			if (jobContainerRecordTypeId == null) {
+				jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{ 'Job_Container' }).values()[0].Id;
+			}
+			return jobContainerRecordTypeId;
+		}
+		private set;
 	}
 
 	public static PUDContainersSelector newInstance() {
@@ -33,8 +55,8 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 *						  This approach removes data consistency and prevents possible caching of results
 	 */
-	public static PUDRoutesSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-		PUDRoutesSelector selector = (PUDRoutesSelector)Application.Selectors.newInstance(PUDRoutesSelector.class).setFieldOverrides(fieldOverrides);
+	public static PUDContainersSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		PUDContainersSelector selector = (PUDContainersSelector)Application.Selectors.newInstance(PUDContainersSelector.class).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -48,7 +70,7 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 			PUD_Container__c.Id, PUD_Container__c.Actual_Quantity__c, PUD_Container__c.Booking__c, PUD_Container__c.Condition__c, PUD_Container__c.Expected_Quantity__c,
-			PUD_Container__c.Job__c, PUD_Container__c.Type__c,PUD_Container__c.RecordTypeId
+			PUD_Container__c.Job__c, PUD_Container__c.Type__c,PUD_Container__c.RecordTypeId, PUD_Container__c.RecordType.Name
 		};
 	}
 
@@ -102,10 +124,6 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 
-		//add(new QueryBuilder.SimpleCondition(PUD_Container__c.Booking__c + ' in :bookingIds'))
-		//.add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(bookingContainerRecordTypeId))
-		//.endConditions();   
-
 		conditions.add(new QueryBuilder.SimpleCondition(PUD_Container__c.Booking__c  + ' in :bookingIds'));
 
 		if (recordTypeIds != null && !recordTypeIds.isEmpty()) {
@@ -114,10 +132,27 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 		} 
 
 		String soql = conditions.endConditions().toSoqlString();
-		//return new Map<Id, Case>((List<Case>)Database.query(soql));
-
-	
 		return (List<PUD_Container__c>)Database.query(soql);
+	}
+
+	public virtual override QueryBuilder newQueryBuilder() {
+		return newQueryBuilder(new Set<Object>());
+	}
+
+	/**
+	 * Grabs a new QueryBuilder based on the selector options passed in
+	 *
+	 * @param selectorOptions set of additional selector options to augment the result set
+	 * @return new QueryBuilder instance
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+        if (selectorOptions.contains(Options.FILTER_BOOKING_CONTAINERS)) {
+            builder.addConditions().add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(bookingContainerRecordTypeId)).endConditions();
+        }
+
+        return builder;
 	}
 
 	
