@@ -15,15 +15,20 @@ Reference number {!Case.CaseNumber}
 
 Hi {!Contact.FirstName},
 
-Your item {!Case.ReferenceID__c} is now awaiting collection
+Your parcel {!Case.ReferenceID__c} is ready for you to collect.
+Please collect your parcel within 10 business days.
 
+Collecting your parcel
 
-Your item is ready for collection {!IF(ISPICKVAL(Case.ProductSubCategory__c, &apos;Registered Post International&apos;),&apos;&apos;,&apos;, please click here: https://auspost.com.au/mypost/track/#/search to confirm its current location&apos;)}.It will be held with Australia Post for 10 business days.
+{!IF(ISPICKVAL(Case.ProductSubCategory__c, &apos;Registered Post International&apos;),&apos; When you come to collect your parcel, please bring suitable ID. &apos;,&apos;To confirm where to collect your parcel, visit Track. When you come to collect, please bring suitable ID.&apos; )}
 
-It is recommended you also bring Photo ID. For instructions on how to collect your item, please see here.
+Other Collection Options
 
-If you have any further questions about the delivery of your item, please reply to this email and we will be happy to assist you.
+If you can&apos;t collect your parcel yourself, or want more collection options, visit Collecting missed deliveries.
 
+As your parcel is ready for you to collect, we&apos;ll close your enquiry. If you have any questions about collecting your parcel, please reply to this email and we&apos;ll be happy to help.
+
+To find out about your options for future deliveries, see Delivery options.
 
 Thank you,
 
@@ -31,7 +36,7 @@ Australia Post
 {!Case.Thread_Id}
 
 This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
-Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+Help &amp; support | Terms &amp; conditions | Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

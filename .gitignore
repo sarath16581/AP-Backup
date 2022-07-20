@@ -8,6 +8,9 @@
 .localdevserver/
 deploy-options.json
 
+# Salesforce project json
+sfdx-project.json
+
 # LWC VSCode autocomplete
 **/lwc/jsconfig.json
 
@@ -50,6 +53,7 @@ manifest/
 package.xml
 workspace/
 .vscode/
+.vscode/settings.json
 
 # metadata specific
 force-app/main/default/staticresources/Cognition_StaticRes/css/Icon\r

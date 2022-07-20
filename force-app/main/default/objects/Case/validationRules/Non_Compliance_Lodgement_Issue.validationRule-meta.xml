@@ -2,12 +2,14 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Non_Compliance_Lodgement_Issue</fullName>
     <active>true</active>
-    <description>Please complete the Resolution Plan Date</description>
-    <errorConditionFormula>CONTAINS(RecordType.DeveloperName, &quot;Non_compliance_Lodgement_Issue&quot;) 
-&amp;&amp; 
-ISPICKVAL(Status, &apos;Resolution Plan&apos;) 
-&amp;&amp; 
-ISBLANK(Resolution_Plan_Date__c)</errorConditionFormula>
+    <description>Resolution to be filled in if case is closed &amp; Resolution Plan date to be filled in if Status is Resolution Plan</description>
+    <errorConditionFormula>IF($Profile.Name = &quot;System Administrator&quot;, FALSE,
+OR(
+AND(CONTAINS(RecordType.DeveloperName, &quot;Non_compliance_Lodgement_Issue&quot;) ,ISPICKVAL(Status, &apos;Resolution Plan&apos;) ,ISBLANK(Resolution_Plan_Date__c))
+,
+AND(ISBLANK(TEXT(Resolution__c)),ISPICKVAL(Status,&quot;Closed&quot;))
+)
+)</errorConditionFormula>
     <errorDisplayField>Status</errorDisplayField>
-    <errorMessage>Please complete the Resolution Plan Date</errorMessage>
+    <errorMessage>Resolution cannot be blank when case is closed and Resolution Plan Date cannot be blank when status is Resolution Plan</errorMessage>
 </ValidationRule>

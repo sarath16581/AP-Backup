@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NoticeFax__c</fullName>
+    <description>This is the Fax Number to be printed on the First and Final Notice</description>
+    <externalId>false</externalId>
+    <formula>CASE(RecordType.DeveloperName,
+    &apos;VIC&apos;, $CustomMetadata.ICPSSettings__mdt.VIC.Fax__c ,
+    &apos;NSW&apos;, $CustomMetadata.ICPSSettings__mdt.NSW.Fax__c,
+    &apos;QLD&apos;, $CustomMetadata.ICPSSettings__mdt.QLD.Fax__c,
+    &apos;WA&apos;, $CustomMetadata.ICPSSettings__mdt.WA.Fax__c,
+    NULL)</formula>
+    <inlineHelpText>This is the Fax Number to be printed on the First and Final Notice</inlineHelpText>
+    <label>Notice Fax</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

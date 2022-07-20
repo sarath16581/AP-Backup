@@ -1,8 +1,0 @@
-<aura:documentation>
-	<aura:description>
-		The application is used for the Lightning out feature to embed the tdf_serviceAppointments in the visualforce page TDF_ReassignColectDeliver
-		In FSL Gantt setting, only the visualforce page is allowed to be the customized tool.
-
-	</aura:description>
-	
-</aura:documentation>

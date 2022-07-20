@@ -3,23 +3,7 @@
     <fullName>FieldServiceMobile</fullName>
     <booleanFilter>(1 AND 2 AND 3)</booleanFilter>
     <columns>SchedStartTime</columns>
-    <columns>Subject_with_WO_Status__c</columns>
     <filterScope>AssignedToMe</filterScope>
-    <filters>
-        <field>SchedStartHrsFromNow__c</field>
-        <operation>greaterThan</operation>
-        <value>-14</value>
-    </filters>
-    <filters>
-        <field>SchedStartHrsFromNow__c</field>
-        <operation>lessThan</operation>
-        <value>14</value>
-    </filters>
-    <filters>
-        <field>Display_On_Mobile__c</field>
-        <operation>equals</operation>
-        <value>1</value>
-    </filters>
     <label>FieldServiceMobile</label>
     <language>en_US</language>
 </ListView>

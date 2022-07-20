@@ -71,7 +71,7 @@ public with sharing class FeedCommentTriggerHandler{
             StarTrackTaskHandler.updateTaskUpdateField((List<FeedComment>)Trigger.new);
 
             //TDF Enhance 20.08.2020: Add call to process comment posts on Work Orders
-            TDF_UpdateServiceAppointmentOnMessage.updateOnComment((List<FeedComment>)Trigger.new);
+            //TDF_UpdateServiceAppointmentOnMessage.updateOnComment((List<FeedComment>)Trigger.new);
 
         }
         else if(Trigger.isUpdate){

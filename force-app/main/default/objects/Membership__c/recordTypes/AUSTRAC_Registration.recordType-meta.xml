@@ -18,7 +18,7 @@
         <values>
             <fullName>Did not assign</fullName>
             <default>false</default>
-        </values>        
+        </values>
         <values>
             <fullName>Non-Participation</fullName>
             <default>false</default>

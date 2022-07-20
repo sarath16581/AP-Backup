@@ -365,14 +365,6 @@
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
-        <name>FSL__FieldService</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>FSL__FieldService_Admin</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>Salesforce_Field_Service_for_Android</name>
         <type>ConnectedApp</type>
     </appMenuItems>
@@ -777,7 +769,19 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Coveo_Search</name>
+        <name>APXT_BPM__Conga_Conductor</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>GRAX_OAuth</name>
         <type>ConnectedApp</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>Coveo</name>
+        <type>ConnectedApp</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>StarTrack Help and Support</name>
+        <type>Network</type>
     </appMenuItems>
 </AppMenu>

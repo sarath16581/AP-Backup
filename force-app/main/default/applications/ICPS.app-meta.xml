@@ -15,6 +15,7 @@
     <tabs>Search_ICPS</tabs>
     <tabs>standard-report</tabs>
     <tabs>ICPSArticle__c</tabs>
+    <tabs>APXT_BPM__Conductor__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>ICPS_UtilityBar</utilityBar>
 </CustomApplication>

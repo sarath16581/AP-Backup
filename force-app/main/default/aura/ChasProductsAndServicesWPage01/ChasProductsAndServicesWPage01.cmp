@@ -547,7 +547,7 @@
 									aura:id="chasInput"
 									name="issueRadioButtons"
 									required="true"
-									label="Has this issue occured before?"
+									label="Has this issue occurred before?"
 									options="{! v.issueRadioGroup }"
 									value="{! v.wizardData.selectedIssueType }"
 								/>
@@ -630,7 +630,7 @@
 									aura:id="chasInput"
 									name="issueRadioButtons"
 									required="true"
-									label="Has this issue occured before?"
+									label="Has this issue occurred before?"
 									options="{! v.issueRadioGroup }"
 									value="{! v.wizardData.selectedIssueType }"
 								/>
