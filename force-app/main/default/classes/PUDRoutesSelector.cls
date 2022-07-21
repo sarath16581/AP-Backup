@@ -178,6 +178,8 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 	 * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
 	 *
 	 * @param ids route ids to query
+	 * @param bookingRecordTypes set of booking record types of the jobs to be returned
+	 * @param jobDates set of dates
 	 * @param selectorOptions additional selector options
 	 *
 	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
