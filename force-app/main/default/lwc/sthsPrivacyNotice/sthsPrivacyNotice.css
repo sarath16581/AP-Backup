@@ -3,7 +3,7 @@
     font-weight: 700;
     font-size: 1rem;
 	line-height: 1.5rem;
-	color: #212129;
+	color: var(--text-color);
 }
 
 .privacy-content-text {
@@ -11,10 +11,10 @@
     font-weight: 400;
     font-size: 0.875rem;
 	line-height: 1.25rem;
-	color: #212129;
+	color: var(--text-color);
 }
 
 .privacy-link {
-    color: #212129;
+    color: var(--text-color);
     text-decoration: underline;
 }
