@@ -10,6 +10,8 @@
  * 2021-11-11 - Ranjeewa Silva - Fixed an issue where cancellation confirmed timestamp was not getting populated.
  * 2022-01-18 - Ranjeewa Silva - Populate dispatch event timestamp on job.
  * 2022-03-14 - Seth Heang - Add 'Photo_GUID__c' to the list of PUD Job fields to be updated, for Failed job returned from dispatch system
+ * 2022-07-18 - Dattaraj Deshmukh -  Added container types logic to containers when jobs are created.
+ * 
  */
 
 public inherited sharing class PUDJobDispatchEventHandler {
@@ -36,8 +38,9 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	private static Id jobContainerRecordTypeId {
 		get {
 			if(jobContainerRecordTypeId == null){
-				return RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
+				jobContainerRecordTypeId= RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
 			}
+			return jobContainerRecordTypeId;
 		}
 		private set;
 	} 
@@ -58,6 +61,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	 */
 	public void processJobActionEvents(List<PUD_Job_Dispatch_Event__e> events) {
 
+		Map<Id, List<PUD_Container__c>> jobIdVsNewContainers =  new Map<Id, List<PUD_Container__c>>();
+
 		// iterate through each event and collect all parent job ids.
 		Set<Id> parentJobIds = new Set<Id>();
 		for (PUD_Job_Dispatch_Event__e event : events) {
@@ -75,18 +80,17 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				PUD_Job__c.Schedule_Request_Timestamp__c, PUD_Job__c.Cancellation_Request_Timestamp__c,
 				PUD_Job__c.Schedule_Confirmed_Timestamp__c, PUD_Job__c.Last_Pushed_to_Dispatch_System__c,
 				PUD_Job__c.Cancellation_Confirmed_Timestamp__c, PUD_Job__c.Failed_Timestamp__c, PUD_Job__c.Accepted_Timestamp__c,
-				PUD_Job__c.Completed_Timestamp__c, PUD_Job__c.Cancelled_Timestamp__c, PUD_Job__c.Container_Actuals_Payload__c
-		}).selectById(parentJobIds));
+				PUD_Job__c.Completed_Timestamp__c, PUD_Job__c.Cancelled_Timestamp__c, PUD_Job__c.Container_Actuals_Payload__c, PUD_Job__c.Booking__c
+		}).selectById(parentJobIds, new Set<Object>{PUDJobsSelector.Options.WITH_CONTAINERS}));
 
 
 		//get all containers under jobs.
-		Map<Id, List<PUD_Container__c>> jobIdVsContainers = populateJobContainers(parentJobIds);
+		Map<Id, List<PUD_Container__c>> jobIdVsContainers = populateJobContainers(jobs.values());
 		
 		//containers to upsert with actual numbers.
 		//Update: existing containers with actual numbers sent from MobileStar
 		//Insert: MobileStar sends containers which does not exists under a job in Salesforce.
 		List<PUD_Container__c> containersToUpsert = new List<PUD_Container__c>();
-
 
 		// process each event to determine the list of updatable jobs
 		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>();
@@ -100,20 +104,16 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				PUD_Job__c updatableJob = updatableJobs.containsKey(jobId) ? updatableJobs.get(jobId): jobs.get(jobId);
 
 				// process the event and update job if required.
-				Boolean isUpdated = processJobActionEvent(event, updatableJob);
+				Boolean isUpdated = processJobActionEvent(event, updatableJob, jobIdVsContainers.get(updatableJob.Id));
+
+				system.debug('event '+ event);
+				system.debug('Containers updated/created'+ jobIdVsContainers.get(updatableJob.Id));
+				
 				if (isUpdated && !updatableJobs.containsKey(jobId)) {
 					// job has been updated as a result of processing current event.
 					// add job instance into 'updatableJobs' map if not already in it.
 					updatableJobs.put(updatableJob.Id, updatableJob);
 				}
-
-				if(event.Containers_Payload__c != null && jobIdVsContainers.containsKey(updatableJob.Id)){
-					List<PUD_Container__c> containersWithActuals = populateActualsOnContainers(event.Containers_Payload__c, jobIdVsContainers.get(updatableJob.Id));
-					if(!containersWithActuals.isEmpty()){
-						containersToUpsert.addAll(containersWithActuals);
-					}
-				}
-
 			}
 		}
 
@@ -122,27 +122,42 @@ public inherited sharing class PUDJobDispatchEventHandler {
 			ApplicationDatabase.getInstance().dmlUpdate(updatableJobs.values());
 		}
 
-		if (!containersToUpsert.isEmpty()) {
+		if (!jobIdVsContainers.isEmpty()) {
 			// attempt to upsert the containers.
-			ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, PUD_Container__c.Id);
+			for(Id jobId : jobIdVsContainers.keySet()){
+				containersToUpsert.addAll(jobIdVsContainers.get(jobId));
+			}
+
+			if(!containersToUpsert.isEmpty()){
+				ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, PUD_Container__c.Id);
+			}
 		}
 		
 	}
 
-	private Map<Id, List<PUD_Container__c>> populateJobContainers(Set<Id> parentJobIds){
+	/**
+	 * Process the event and update relevant details on the Job record passed in.
+	 *
+	 * @param jobIds job ids to query containers
+	 *
+	 * @return map of job ids and their list of containers. 
+	 */
+	private Map<Id, List<PUD_Container__c>> populateJobContainers(List<PUD_Job__c> jobs){
 		Map<Id, List<PUD_Container__c>> jobIdVsContainers = new Map<Id, List<PUD_Container__c>>();
 
-		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectByJobIds(parentJobIds, new Set<Object>())){
-			if(!jobIdVsContainers.containsKey(container.Job__c)){
-				jobIdVsContainers.put(container.Job__c, new List<PUD_Container__c>{container});
-			}
-			else{
-				jobIdVsContainers.get(container.Job__c).add(container);
-			}
+		for(PUD_Job__c job: jobs){
+			for(PUD_Container__c container : job.Containers__r){
+				if(!jobIdVsContainers.containsKey(job.Id)){
+					jobIdVsContainers.put(job.Id, new List<PUD_Container__c>{container});
+				}
+				else{
+					jobIdVsContainers.get(job.Id).add(container);
+				}
+			}	
 		}
-
 		return jobIdVsContainers;
 	}
+
 
 	/**
 	 * Process the event and update relevant details on the Job record passed in.
@@ -152,11 +167,13 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	 *
 	 * @return true if job has been updated as a result of processing the event. false otherwise.
 	 */
-	private Boolean processJobActionEvent(PUD_Job_Dispatch_Event__e event, PUD_Job__c job) {
+	private Boolean processJobActionEvent(PUD_Job_Dispatch_Event__e event, PUD_Job__c job, List<PUD_Container__c> jobsContainers) {
 
 		// check if the mapping is available for the status in the event.
 		if (jobDispatchStatusMappings.containsKey(event.Status__c)) {
 			PUD_Job_Dispatch_Status_Mapping__mdt mapping = jobDispatchStatusMappings.get(event.Status__c);
+			
+			List<PUD_Container__c> containersToUpsert = new List<PUD_Container__c>();
 
 			// determine job status based on the mapping.
 			String jobStatus = (String.isNotBlank(mapping.Job_Status__c) ? mapping.Job_Status__c: job.Status__c);
@@ -171,6 +188,42 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 				//populate container payload received from MobileStar
 				job.Container_Actuals_Payload__c	= event.Containers_Payload__c;
+				
+				if(event.Containers_Payload__c != null && !String.isNotBlank(event.Containers_Payload__c)){
+
+				
+					//populate actuals for containers on the job.
+					List<ContainersPayload> containerPayloadObjects = (List<ContainersPayload>) JSON.deserialize(event.Containers_Payload__c, List<ContainersPayload>.class);
+					for(ContainersPayload containerWrapper : containerPayloadObjects){
+						Boolean isMatchingContainerFound = false;
+
+						for(PUD_Container__c pContainer : jobsContainers){
+			
+							//if type and condition is matched, update the actuals.
+							//Note: Pallets, Empty and Pallets, Full are considered as two different containers.
+							//Checking Id as new containers to be created are also added in existing jobContainers list.
+							//If there are two events with same job id and with same container details then this would avoid creating
+							//duplicate containers.
+							if(pContainer.Id != null && pContainer.Type__c == containerWrapper.Name && pContainer.Condition__c == containerWrapper.Condition){
+								pContainer.Actual_Quantity__c = containerWrapper.ActualQuantity;
+								containersToUpsert.add(pContainer);
+								isMatchingContainerFound = true;
+							}
+						}
+			
+						//if MobileStar sends container type which does not exist under a job in Salesforce, then create a container type.
+						if(!isMatchingContainerFound){
+							containersToUpsert.add(newJobContainer(job, containerWrapper));
+						}
+					}
+
+					//clear existing job containers.
+					//this is important as job containers are passed by reference. If we do not clear existing containers then
+					//update call will fail stating Duplicate records for update operation.
+					jobsContainers.clear();
+					jobsContainers.addAll(containersToUpsert);
+					
+				}
 
 				if (mapping.Is_Scheduled_Confirmation__c && job.Schedule_Confirmed_Timestamp__c == null) {
 					// event is considered a confirmation for a schedule request. populate Schedule_Confirmed_Timestamp__c
@@ -212,61 +265,17 @@ public inherited sharing class PUDJobDispatchEventHandler {
 		return false;
 	}
 
-	/**
-	 * Get list of container Ids under a job to update with actuals quantity
-	 * @param event the event to process
-	 * @param job parent Job related to this event
-	 *
-	 * @return list of container ids and their actual numbers
-	 */
-	private List<PUD_Container__c> populateActualsOnContainers(String eventContainerPayload, List<PUD_Container__c> containers) {
-		List<PUD_Container__c> containersToUpsert = new List<PUD_Container__c>();
-				
-		List<ContainersPayload> containerPayloadObjects = (List<ContainersPayload>) JSON.deserialize(eventContainerPayload, List<ContainersPayload>.class);
-		Id bookingId; Id jobId;
-
-		for(ContainersPayload containerWrapper : containerPayloadObjects){
-			Boolean isMatchingContainerFound = false;
-
-			System.debug('Matching: '+containerWrapper.Name+' and Condition: '+containerWrapper.Condition);
-
-			for(PUD_Container__c pContainer : containers){
-
-				//storing booking id and job id in case a new container type need to be created under a job.
-				//This avoid additional SOQL to get booking id from container.
-				bookingId = pContainer.Booking__c;
-				jobId = pContainer.Job__c;
-
-				//if type and condition is matched, update the actuals.
-				//Note: Pallets, Empty and Pallets, Full are considered as two different containers.
-
-				System.debug('With Name: '+pContainer.Type__c+' and Condition: '+pContainer.Condition__c);
-				
-				if(pContainer.Type__c == containerWrapper.Name && pContainer.Condition__c == containerWrapper.Condition){
-					containersToUpsert.add(New PUD_Container__c(Id = pContainer.Id, Actual_Quantity__c = containerWrapper.ActualQuantity));
-					isMatchingContainerFound = true;
-
-					system.debug('Match Found');
-				}
-			}
-
-			System.debug('Match Not Found for : '+containerWrapper.Name + ' Boolean value: '+isMatchingContainerFound);
-
-			//if MobileStar sends container type which does not exist under a job in Salesforce, then create a container type.
-			if(!isMatchingContainerFound){
-				PUD_Container__c newContainer =  new PUD_Container__c();
-				newContainer.Booking__c = bookingId;
-				newContainer.Job__c = jobId;
-				newContainer.Type__c = containerWrapper.Name;
-				newContainer.Actual_Quantity__c = containerWrapper.ActualQuantity;
-				newContainer.Condition__c = containerWrapper.Condition;
-				newContainer.Expected_Quantity__c = containerWrapper.Quantity;
-				newContainer.RecordTypeId = jobContainerRecordTypeId;
-				containersToUpsert.add(newContainer);
-			}
-		}
-
-		return containersToUpsert;
+	
+	private PUD_Container__c newJobContainer(PUD_Job__c job, ContainersPayload containerWrapper) {
+		PUD_Container__c jobContainer =  new PUD_Container__c();
+		jobContainer.Booking__c = job.Booking__c;
+		jobContainer.Job__c =  job.Id;
+		jobContainer.Type__c = containerWrapper.Name;
+		jobContainer.Actual_Quantity__c = containerWrapper.ActualQuantity;
+		jobContainer.Condition__c = containerWrapper.Condition;
+		jobContainer.Expected_Quantity__c = containerWrapper.Quantity;
+		jobContainer.RecordTypeId = jobContainerRecordTypeId;
+		return jobContainer;
 	}
 
 	/**

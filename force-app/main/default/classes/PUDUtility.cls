@@ -99,18 +99,7 @@ public with sharing class PUDUtility {
 		set;
 	}
 
-	// container type mappings used for generating container type payload (JSON format) for a Job. Container type payload
-	// is included in the Job dispatch interface (outbound message).
-	private static final Map<String, ContainerTypeMapping> CONTAINER_TYPE_MAPPINGS = new Map<String, ContainerTypeMapping>{
-			'Aircan' => new ContainerTypeMapping('Aircan', PUD_Job__c.Empty_Aircan__c, PUD_Job__c.Full_Aircan__c),
-			'Cage' =>  new ContainerTypeMapping('Cage', PUD_Job__c.Empty_Cage__c, PUD_Job__c.Full_Cage__c),
-			'CardULD' => new ContainerTypeMapping('CardULD', PUD_Job__c.Empty_CardULD__c, PUD_Job__c.Full_CardULD__c),
-			'Colby' => new ContainerTypeMapping('Colby', PUD_Job__c.Empty_Colby__c, PUD_Job__c.Full_Colby__c),
-			'Pallets' => new ContainerTypeMapping('Pallets', PUD_Job__c.Empty_Pallets__c, PUD_Job__c.Full_Pallets__c),
-			'Trailer' => new ContainerTypeMapping('Trailer', PUD_Job__c.Empty_Trailer__c, PUD_Job__c.Full_Trailer__c),
-			'ULD' => new ContainerTypeMapping('ULD', PUD_Job__c.Empty_ULD__c, PUD_Job__c.Full_ULD__c)
-	};
-
+	
 	// container type conditions
 	private static final String CONTAINER_CONDITION_EMPTY = 'Empty';
 	private static final String CONTAINER_CONDITION_FULL = 'Full';
@@ -717,8 +706,6 @@ public with sharing class PUDUtility {
 								jobRec.Full_Trailer__c          = booking.Full_Trailer__c;
 								jobRec.Full_ULD__c              = booking.Full_ULD__c;
 
-								// call method to serialise payload to json format and populate Containers Payload long text field
-								jobRec.Containers_Payload__c = generateContainerTypePayload(jobRec);
 								jobsNewList.add(jobRec);
 							}
 						}
@@ -896,34 +883,6 @@ public with sharing class PUDUtility {
 
 	/**
 	 * Generate the JSON payload representing container type data on the Job record.
-	 * @param jobRec job instance for which the payload is generated
-	 * @return container types JSON payload (JSON array)
-	 */
-	private static String generateContainerTypePayload(PUD_Job__c jobRec){
-
-		List<ContainerPayload> payloads = new List<ContainerPayload>();
-
-		// generate container payloads based on the configuration in CONTAINER_TYPE_MAPPINGS
-		for (String containerType: CONTAINER_TYPE_MAPPINGS.keySet()) {
-			ContainerTypeMapping mapping = CONTAINER_TYPE_MAPPINGS.get(containerType);
-			if (jobRec.get(mapping.emptyQuantityField) != null) {
-				payloads.add(new ContainerPayload(containerType, (Decimal) jobRec.get(mapping.emptyQuantityField), CONTAINER_CONDITION_EMPTY));
-			}
-			if (jobRec.get(mapping.fullQuantityField) != null) {
-				payloads.add(new ContainerPayload(containerType, (Decimal) jobRec.get(mapping.fullQuantityField), CONTAINER_CONDITION_FULL));
-			}
-		}
-
-		if (!payloads.isEmpty()) {
-			// Serialise container payload and suppress null value
-			return JSON.serialize(payloads, true);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Generate the JSON payload representing container type data on the Job record.
 	 * @param list of containers under a new job.
 	 * @return container types JSON payload (JSON array)
 	 */
@@ -946,169 +905,7 @@ public with sharing class PUDUtility {
 		return null;
 	}
 
-
 	
-
-	
-	/**
-	 * Called from refreshJobs/createJobs. Whenever new jobs are created/deleted then containers will be created/update accordingly.
-	 * @param: NewJobs/DeletedJobs.
-	 */
-	private void processJobContainersOnBookingUpdates(List<PUD_Job__c> jobRecords, Boolean isDelete){
-		Id jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
-
-		
-		//get all container types related to jobs.
-		Map<Id, PUD_Job__c> jobIdVsJobs = new Map<Id, PUD_Job__c>();
-
-		//get booking ids
-		Set<Id> bookingIds = new Set<Id>();
-		for(PUD_Job__c job : jobRecords){
-			bookingIds.add(job.Booking__c);		
-			jobIdVsJobs.put(job.Id, job);	
-		}
-
-		
-
-		Map<Id, List<PUD_Container__c>> bookingIdVsContainers = new Map<Id, List<PUD_Container__c>>();
-		Map<Id, List<PUD_Container__c>> jobIdVsContainers = new Map<Id, List<PUD_Container__c>>();
-
-		//query container types at Booking and Job level.
-		for(PUD_Container__c container : PUDContainersSelector.newInstance().selectBookingContainersByBookingIds(bookingIds, new Set<Object>())){ // [Select Id, Type__c, Booking__c, Job__c from PUD_Container__c where Booking__c IN : bookingIds]){
-
-
-			//containers at Booking level will always have Job__c = NULL.
-			if(container.Job__c == null){
-				if(!bookingIdVsContainers.containsKey(container.Booking__c)){
-					bookingIdVsContainers.put(container.Booking__c, new List<PUD_Container__c>());
-				}
-				bookingIdVsContainers.get(container.Booking__c).add(container);
-			}
-			//populate containers under JOB
-			else{
-				if(!jobIdVsContainers.containsKey(container.Job__c)){
-					jobIdVsContainers.put(container.Job__c, new List<PUD_Container__c>());
-				}
-				jobIdVsContainers.get(container.Job__c).add(container);
-			}
-		}
-		
-		List<PUD_Container__c> containersToCreate = new List<PUD_Container__c>();
-		List<PUD_Container__c> containersToDelete = new List<PUD_Container__c>();
-
-		//get applicable containers under a booking.
-		for(Id jobId : jobIdVsJobs.keySet()){
-
-			List<PUD_Container__c> bookingContainers;
-
-			if(bookingIdVsContainers.containsKey(jobIdVsJobs.get(jobId).Booking__c)){
-				
-				//get list of containers related to job's booking
-				bookingContainers = bookingIdVsContainers.get(jobIdVsJobs.get(jobId).Booking__c);
-
-				//for delete operation, delete all containers under a job
-				if(isDelete){
-
-					//if job being deleted exists in a map then delete list associated with its Id.
-					//jobIdVsContainers will always have containers associated with job being deleted.
-					if(jobIdVsContainers.containsKey(jobId)){
-						containersToDelete.addAll(jobIdVsContainers.get(jobId));
-					}
-				}
-				else{
-					for(PUD_Container__c bookingContainer : bookingContainers){
-						PUD_Container__c newContainer = new PUD_Container__c();
-						newContainer.Type__c = bookingContainer.Type__c;
-						newContainer.Job__c = jobId;
-						newContainer.Booking__c = bookingContainer.Booking__c;
-						newContainer.Actual_Quantity__c = bookingContainer.Actual_Quantity__c;
-						newContainer.Expected_Quantity__c = bookingContainer.Expected_Quantity__c;
-						newContainer.Condition__c = bookingContainer.Condition__c;
-
-						containersToCreate.add(newContainer);
-					}
-				}
-			}
-		}
-
-		if(!containersToCreate.isEmpty()){
-			insert containersToCreate;
-		}
-		if(!containersToDelete.isEmpty()){
-			delete containersToDelete;
-		}
-					
-	} 
-
-
-	private void deleteJobContainers(List<PUD_Container__c> deletedRecords, List<PUD_Container__c> existingJobContainers, Map<Id, List<PUD_Job__c>> bookingVsJobsMap){
-		Map<Id, List<PUD_Container__c>> jobVsExistingContainersMap = new Map<Id, List<PUD_Container__c>>();
-
-		for(PUD_Container__c container : existingJobContainers){
-			if(!jobVsExistingContainersMap.containsKey(container.Job__c)){
-				jobVsExistingContainersMap.put(container.Job__c, new List<PUD_Container__c>{container});
-			}
-			else{
-				jobVsExistingContainersMap.get(container.Job__c).add(container);
-			}
-		}
-
-		Map<Id, PUD_Job__c> jobsToUpdateMap = new Map<Id, PUD_Job__c>();
-		List<PUD_Container__c> containersToDelete = new List<PUD_Container__c>();
-
-		//iterate deleted booking containers
-		for(PUD_Container__c cRecord : deletedRecords){
-
-			List<PUD_Job__c> relatedJobs;
-			if(bookingVsJobsMap.containsKey(cRecord.Booking__c)){
-				
-				//get jobs against  a booking
-				relatedJobs = bookingVsJobsMap.get(cRecord.Booking__c);
-
-
-				//iterate through each job under a booking
-				for(PUD_Job__c currentJob : relatedJobs){
-					List<PUD_Container__c> jobContainers = new List<PUD_Container__c>();
-					
-					Boolean isMatchingContainerFound = false;
-
-					//get all containers under a given job.
-					if(jobVsExistingContainersMap.containsKey(currentJob.Id)){
-						jobContainers = jobVsExistingContainersMap.get(currentJob.Id);
-					}
-					List<PUD_Container__c> containersToKeep = new List<PUD_Container__c>();
-					
-					for(PUD_Container__c jobContainer : jobContainers){
-						//Type and Condition must be matched.
-						//Pallets, Empty and Pallets, Full are considered as two different containers.
-						if(jobContainer.Type__c == cRecord.Type__c && jobContainer.Condition__c == cRecord.Condition__c){
-							containersToDelete.add(jobContainer);
-						}
-						else{
-							containersToKeep.add(jobContainer);
-						}
-					}
-
-					if(!containersToKeep.isEmpty()){
-						PUD_Job__c jToUpdate = new PUD_Job__c(Id = currentJob.Id);
-						jToUpdate.Containers_Payload__c = generateContainerTypePayload(containersToKeep);
-						jobsToUpdateMap.put(jToUpdate.Id, jToUpdate);
-					}
-
-				}
-
-			}
-			
-		}
-
-		if(!containersToDelete.isEmpty()){
-			delete containersToDelete;
-		}
-		if(!jobsToUpdateMap.isEmpty()){
-			update jobsToUpdateMap.values();
-		}
-	}
-
 	public void refreshContainerTypes(Set<Id> bookingIds, ApplicationUnitOfWork uow) {
 		Set<String> jobStatus = new Set<String>{PUDConstants.PUD_JOB_STATUS_NEW, PUDConstants.PUD_JOB_STATUS_SCHEDULE, PUDConstants.PUD_JOB_STATUS_ACCEPTED};
 		
@@ -1255,18 +1052,4 @@ public with sharing class PUDUtility {
 		}
 	}
 
-	/**
-	 * Mapping for a container type. Each container type has an empty and full quantity captured on PUD_Job__c
-	 */
-	private class ContainerTypeMapping {
-		String name;
-		SObjectField emptyQuantityField;
-		SObjectField fullQuantityField;
-
-		ContainerTypeMapping(String name, SObjectField emptyQuantityField, SObjectField fullQuantityField) {
-			this.name = name;
-			this.emptyQuantityField = emptyQuantityField;
-			this.fullQuantityField = fullQuantityField;
-		}
-	}
 }
