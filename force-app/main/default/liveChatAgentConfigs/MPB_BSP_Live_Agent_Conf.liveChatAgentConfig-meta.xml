@@ -28,7 +28,7 @@ My name is {!User_FirstName}, how may I help you?</autoGreeting>
     <enableNotifications>true</enableNotifications>
     <enableRequestSound>true</enableRequestSound>
     <enableSneakPeek>true</enableSneakPeek>
-    <enableVisitorBlocking>false</enableVisitorBlocking>
+    <enableVisitorBlocking>true</enableVisitorBlocking>
     <enableWhisperMessage>true</enableWhisperMessage>
     <label>MPB BSP Live Agent Conf</label>
     <transferableSkills>

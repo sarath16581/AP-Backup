@@ -33,12 +33,18 @@
             <value>
                 <fullName>No longer required</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>No longer required</label>
             </value>
             <value>
                 <fullName>Non-Participation</fullName>
                 <default>false</default>
                 <label>Non-Participation</label>
+            </value>
+            <value>
+                <fullName>Western Union Withdrawn</fullName>
+                <default>false</default>
+                <label>Western Union Withdrawn</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -55,11 +61,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Cancelled</controllingFieldValue>
-            <valueName>No longer required</valueName>
+            <valueName>Non-Participation</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Cancelled</controllingFieldValue>
-            <valueName>Non-Participation</valueName>
+            <valueName>Western Union Withdrawn</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

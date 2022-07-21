@@ -8,6 +8,7 @@
   * @Modified by Hara 04/11/2020: Consignment search API integration, as part of the delivery issue automation
   * @Modifield by Hara Sahoo - 11/01/2021 - Changes made as part of enquiry submission in an unauthenticated user context
   * @Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form 
+  * @Modifield by Thang Nguyen - 30/06/2022 - add Accessibility and disability issue
 -->
 <aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Delivery Issues wizard page 1: Issue Details">
     
@@ -23,7 +24,7 @@
                              {label:'Late or missing item', value:'Late or missing item'},
                              {label:'Item was left in an unsafe place', value:'Item was left in an unsafe place'},
                              {label:'Item was taken to an inconvenient Post Office', value:'Item was taken to an inconvenient Post Office'},
-                             {label:'Accessibility or disability issue', value:'Accessibility or disability issue'},
+                             {label:'Accessibility and disability issue', value:'Accessibility and disability issue'},
                              {label:'Item was damaged', value:'Item was damaged'},
                              {label:'Incorrect delivery address needs fixing', value:'Incorrect delivery address needs fixing'},
                              {label:'Something else', value:'Something else'}

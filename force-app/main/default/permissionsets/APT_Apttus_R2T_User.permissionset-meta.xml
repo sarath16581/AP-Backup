@@ -4477,6 +4477,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>APT_Operational_Schedule__c.APT_International_Returns__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>APT_Operational_Schedule__c.APT_Interstate_Distribution__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -17217,6 +17222,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>APT_Domestic_Price_Data__c.APT_Star_Track</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>APT_Operational_Schedule__c.Australia_Post_Parcel_Contract</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

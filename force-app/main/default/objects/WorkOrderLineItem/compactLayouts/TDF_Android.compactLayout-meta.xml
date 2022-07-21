@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TDF_Android</fullName>
-    <fields>Task__c</fields>
-    <fields>Product__c</fields>
-    <fields>Requested_Quantity__c</fields>
     <label>TDF_Android</label>
 </CompactLayout>

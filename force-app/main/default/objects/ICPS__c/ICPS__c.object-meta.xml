@@ -190,6 +190,7 @@
         <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>
         <searchFilterFields>NAME</searchFilterFields>
         <searchFilterFields>ReferenceFormula__c</searchFilterFields>
+        <searchFilterFields>Articles__c</searchFilterFields>
         <searchFilterFields>MigratedICPSReference__c</searchFilterFields>
         <searchFilterFields>OrderNumber__c</searchFilterFields>
         <searchFilterFields>ReceiverName__c</searchFilterFields>

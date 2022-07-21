@@ -3,7 +3,7 @@
     <fullName>Resolution__c</fullName>
     <description>This is a custom field for the user support case queue.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Select a value for resolution</inlineHelpText>
+    <inlineHelpText>Select a value for resolution,</inlineHelpText>
     <label>Resolution</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -817,6 +817,31 @@
                 <fullName>Technical Assistance</fullName>
                 <default>false</default>
                 <label>Technical Assistance</label>
+            </value>
+            <value>
+                <fullName>Customer has confirmed will not send product Via ST</fullName>
+                <default>false</default>
+                <label>Customer has confirmed will not send product Via ST</label>
+            </value>
+            <value>
+                <fullName>Customer will present product as per the freight specifications - Pallets.</fullName>
+                <default>false</default>
+                <label>Customer will present product as per the freight specifications - Pallets.</label>
+            </value>
+            <value>
+                <fullName>Customer will change presentation/packaging to be compliant.</fullName>
+                <default>false</default>
+                <label>Customer will change presentation/packaging to be compliant.</label>
+            </value>
+            <value>
+                <fullName>Customer will move all freight if we do not move their incompatible freight – Full customer review required.</fullName>
+                <default>false</default>
+                <label>Customer will move all freight if we do not move their incompatible freight – Full customer review required.</label>
+            </value>
+            <value>
+                <fullName>Customer requires &quot;X&quot; period to find another carrier.</fullName>
+                <default>false</default>
+                <label>Customer requires &quot;X&quot; period to find another carrier.</label>
             </value>
         </valueSetDefinition>
     </valueSet>

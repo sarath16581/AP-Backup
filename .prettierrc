@@ -3,6 +3,7 @@
 	"tabWidth": 4,
 	"useTabs": true,
 	"bracketSpacing": true,
+	"bracketSameLine": true,
 	"arrowParens": "always",
 	"singleAttributePerLine": false,
 	"overrides": [
@@ -13,7 +14,7 @@
 		{
 			"files": "**/*.{cls,trigger,apex}",
 			"options": {
-				"apexInsertFinalNewline": true,
+				"apexInsertFinalNewline": false,
 				"printWidth": 140
 			}
 		},

@@ -89,6 +89,11 @@ Used by Integration User (Einstein Analytics)</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Approval_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>

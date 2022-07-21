@@ -60,8 +60,7 @@ export default class CampaignContactAssignment extends LightningElement {
 					filters: {fieldName: 'campaignContactFilter'},
 					valueId: { fieldName: 'campaignContactId' },
 					readOnly: { fieldName: 'campaignContactReadonly' },
-					fieldsToSearch: "Name",
-					maxResults: 50
+					fieldsToSearch: "Name"
 				}
 			},
 

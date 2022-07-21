@@ -51,14 +51,6 @@
                 <behavior>Readonly</behavior>
                 <field>CreatedById</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>TerritoryDispatcher__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Territory_Hours__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -160,17 +152,6 @@
         <fields>OperatingHours</fields>
         <fields>IsActive</fields>
         <relatedList>ChildServiceTerritories</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Active_Route_Days__c</fields>
-        <relatedList>Route_Template__c.Service_Territory__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>FSL__UserSetting__c.FSL__User__c</fields>
-        <relatedList>FSL__User_Setting_Territory__c.FSL__Service_Territory__c</relatedList>
-        <sortField>FSL__UserSetting__c.FSL__User__c</sortField>
-        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>

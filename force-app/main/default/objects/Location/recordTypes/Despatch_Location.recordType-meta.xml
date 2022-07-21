@@ -5,41 +5,6 @@
     <description>Used to store location information for Contract Lodgement.  Contact: Clark, Michael (IT) &lt;Michael.Clark@auspost.com.au&gt;</description>
     <label>Despatch Location</label>
     <picklistValues>
-        <picklist>Capital_City__c</picklist>
-        <values>
-            <fullName>Australia%2FAdelaide</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australia%2FBrisbane</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australia%2FBroken_Hill</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australia%2FDarwin</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australia%2FHobart</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australia%2FMelbourne</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australia%2FPerth</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australia%2FSydney</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>LocationType</picklist>
         <values>
             <fullName>Plant</fullName>

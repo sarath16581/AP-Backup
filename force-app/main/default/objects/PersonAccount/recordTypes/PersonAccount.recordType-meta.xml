@@ -1658,10 +1658,6 @@
     <picklistValues>
         <picklist>Sales_Segment__c</picklist>
         <values>
-            <fullName>Federal Government</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Holding Sales Team</fullName>
             <default>false</default>
         </values>

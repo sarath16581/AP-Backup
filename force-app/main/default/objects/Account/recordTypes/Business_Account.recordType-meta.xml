@@ -1871,10 +1871,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Enterprise %26 Strategic Financial %26 Insurance</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Enterprise %26 Strategic NSW 1</fullName>
             <default>false</default>
         </values>
@@ -1899,7 +1895,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Federal Government</fullName>
+            <fullName>Financial Services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1924,6 +1920,14 @@
         </values>
         <values>
             <fullName>Intermediaries - Not Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Northern 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Northern 1 CPO%2FBC</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1988,6 +1992,14 @@
         </values>
         <values>
             <fullName>LBP Sales Manager WA 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Southern 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Southern 1 CPO%2FBC</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2059,7 +2071,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Platforms and Marketplaces</fullName>
+            <fullName>Platforms %26 Partners</fullName>
             <default>false</default>
         </values>
         <values>
