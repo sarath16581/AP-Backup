@@ -1,4 +1,6 @@
 .THIS {
+    --text-color: #212129;
+    --error-color: #BD152E;
     background-color: #F5F5F5;
 }
 
@@ -14,7 +16,7 @@
     font-size: 1.5rem;
     line-height: 1.875rem;
     letter-spacing: 0.8px;
-    color: #212129;
+    color: var(--text-color);
 }
 
 .THIS .form-sub-heading {
@@ -49,7 +51,7 @@
 
 /* Form labels */
 .THIS .sths-guest-user-form .slds-form-element__label {
-    color: #212129;
+    color: var(--text-color);
     font-size: 1rem;
     font-style: normal;
     line-height: 1.5rem;
@@ -69,9 +71,11 @@
     border-radius: 6px;
 }
 
+.THIS .sths-guest-user-form .slds-input,
+.THIS .sths-guest-user-form .slds-textarea,
 .THIS .sths-guest-user-form .form-dropdown .slds-dropdown, 
 .THIS .sths-guest-user-form .form-dropdown .slds-input_faux {
-    color: #212129;
+    color: var(--text-color);
     font-size: 1rem;
     font-style: normal;
     line-height: 1.5rem;
@@ -109,13 +113,13 @@
 
 /* Form errors */
 .THIS .sths-guest-user-form .slds-has-error {
-    --slds-c-input-color-border: #BD152E;
-    --slds-c-input-shadow: #BD152E 0 0 0 1px inset;
-    --lwc-colorBorderError: #BD152E;
+    --slds-c-input-color-border: var(--error-color);
+    --slds-c-input-shadow: var(--error-color) 0 0 0 1px inset;
+    --lwc-colorBorderError: var(--error-color);
 }
 
 .THIS .sths-guest-user-form .slds-has-error .slds-form-element__help {
-    --lwc-colorTextError: #BD152E;
+    --lwc-colorTextError: var(--error-color);
     font-style: normal;
     font-weight: 400;
     font-size: 0.875rem;
@@ -154,7 +158,7 @@
 }
 
 .THIS .sths-guest-user-form .form-dropdown.slds-has-error .slds-input_faux:not(.slds-combobox__input-value) {
-    color: #BD152E;
+    color: var(--error-color);
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
