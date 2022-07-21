@@ -12,16 +12,16 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Full</fullName>
-                <default>false</default>
-                <label>Full</label>
-            </value>
+            <sorted>true</sorted>
             <value>
                 <fullName>Empty</fullName>
                 <default>false</default>
                 <label>Empty</label>
+            </value>
+            <value>
+                <fullName>Full</fullName>
+                <default>false</default>
+                <label>Full</label>
             </value>
         </valueSetDefinition>
     </valueSet>

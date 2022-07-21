@@ -12,16 +12,11 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
-                <fullName>Pallets</fullName>
+                <fullName>Aircan</fullName>
                 <default>false</default>
-                <label>Pallets</label>
-            </value>
-            <value>
-                <fullName>ULD</fullName>
-                <default>false</default>
-                <label>ULD</label>
+                <label>Aircan</label>
             </value>
             <value>
                 <fullName>Cage</fullName>
@@ -29,14 +24,19 @@
                 <label>Cage</label>
             </value>
             <value>
+                <fullName>CardULD</fullName>
+                <default>false</default>
+                <label>CardULD</label>
+            </value>
+            <value>
                 <fullName>Colby</fullName>
                 <default>false</default>
                 <label>Colby</label>
             </value>
             <value>
-                <fullName>Aircan</fullName>
+                <fullName>Pallets</fullName>
                 <default>false</default>
-                <label>Aircan</label>
+                <label>Pallets</label>
             </value>
             <value>
                 <fullName>Trailer</fullName>
@@ -44,9 +44,9 @@
                 <label>Trailer</label>
             </value>
             <value>
-                <fullName>CardULD</fullName>
+                <fullName>ULD</fullName>
                 <default>false</default>
-                <label>CardULD</label>
+                <label>ULD</label>
             </value>
         </valueSetDefinition>
     </valueSet>

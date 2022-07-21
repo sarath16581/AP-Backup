@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Job_Container</fullName>
     <active>true</active>
+    <compactLayoutAssignment>Container_Compact_Layout</compactLayoutAssignment>
     <description>Containers related jobs. These are created and synchronised with containers at Booking level.</description>
     <label>Job Container</label>
     <picklistValues>
