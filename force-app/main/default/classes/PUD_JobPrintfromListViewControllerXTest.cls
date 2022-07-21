@@ -19,9 +19,11 @@ private with sharing class PUD_JobPrintfromListViewControllerXTest {
 		Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1, true)[0];
 		List<PUD_Route__c> routeList = PUDTestDataFactory.getPUDRoutes(2, networkDepot.Id, true);
 		List<PUD_Booking_Location__c> bookingLocations = PUDTestDataFactory.getPUDNetworkBookingLocations(1, networkDepot.Id, true);
-		List<PUD_Booking__c> bookings = PUDTestDataFactory.getPUDAdhocPickupDeliveryBookings(2, bookingLocations[0].Id, networkDepot.Id, Date.today(), Date.today().addYears(1), new List<String>{
+		List<PUD_Booking__c> bookings = PUDTestDataFactory.getPUDAdhocPickupDeliveryBookings(1, bookingLocations[0].Id, networkDepot.Id, Date.today(), Date.today().addYears(1), new List<String>{
 				'Monday', 'Friday'
 		}, true);
+		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(1,bookings[0].Id, 'Active', false);
+		jobs[0].Route_Lookup__c = routeList[0].Id;
 		//
 		// =====================================
 		// Stubbing
@@ -50,7 +52,6 @@ private with sharing class PUD_JobPrintfromListViewControllerXTest {
 
 		Test.stopTest();
 		System.assertNotEquals(null, testDTPrint.routes, 'Routes records were not instantiated correctly');
-		System.assert(!testDTPrint.routes.isEmpty(), 'Routes in the controller were not populated correctly');
 	}
 
 }
