@@ -20,7 +20,7 @@ public with sharing class PUD_JobPrintfromListViewControllerX {
 
 		Set<String> groupNameSet = new Set<String>();
 		
-		for(GroupMember objCGM : (List<GroupMember>) GroupMembersSelector.newInstance().getMyGroups(new List<String>(),new Set<Object>(),false)){
+		for(GroupMember objCGM : (List<GroupMember>) GroupMembersSelector.newInstance().getMyGroups(new List<String>(),new Set<Object>{GroupMembersSelector.Options.WITH_GROUP},false)){
 			groupNameSet.add(objCGM.Group.Name);
 		}
 
