@@ -10,10 +10,7 @@
  * 2022-07-08 - Kamil Szyc - add newInstance method with fieldOverrides only and a method to retrieve today's ad-hoc jobs
  */
 public virtual inherited sharing class PUDJobsSelector extends ApplicationSelector {
-
-	public enum Options {
-		LIMIT_TO_MY_GROUPS_ONLY
-	}
+	
 	public static PUDJobsSelector newInstance() {
 		return (PUDJobsSelector) Application.Selectors.newInstance(PUDJobsSelector.class);
 	}
@@ -126,31 +123,4 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 				.endConditions();
 		return (List<PUD_Job__c>) Database.query(qb.toSoqlString());
 	}
-
-	/* @description Run a query to get today's ad-hoc jobs
-	*
-	* @param selectorOptions selector options
-	*
-	* @return list of jobs
-	*/
-	public QueryBuilder selectJobsByBookingRecordTypesJobDatesAndDepotIds(Set<String> bookingRecordTypes, Set<Date> jobDates, Set<Id>depotIds, Set<Object> selectorOptions) {
-		//prevent default sorting by CreatedDate
-		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
-		QueryBuilder qb = newQueryBuilder(selectorOptions);
-		
-		if(jobDates != null && !jobDates.isEmpty()){
-			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' IN :jobDates')).endConditions();
-		}
-		if(bookingRecordTypes != null && !bookingRecordTypes.isEmpty()){
-			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Booking_Record_Type__c + ' IN :bookingRecordTypes')).endConditions();
-		}
-		if((depotIds != null && !depotIds.isEmpty()) || selectorOptions.contains(Options.LIMIT_TO_MY_GROUPS_ONLY)){
-			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Depot__c + ' IN :depotIds')).endConditions();
-		}
-		qb.addOrderAsc(PUD_Job__c.Date__c);
-		qb.addOrderAsc(PUD_Job__c.Start_Time__c);
-		return qb;
-	}
-	
-
 }

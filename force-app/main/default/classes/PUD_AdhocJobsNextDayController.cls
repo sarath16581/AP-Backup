@@ -29,7 +29,7 @@ public with sharing class PUD_AdhocJobsNextDayController {
 				},
 				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				new Set<Object>{
-						PUDRoutesSelector.Options.WITH_DEPOT, PUDJobsSelector.Options.LIMIT_TO_MY_GROUPS_ONLY
+						PUDRoutesSelector.Options.WITH_DEPOT, PUDRoutesSelector.Options.LIMIT_TO_MY_GROUPS_ONLY
 				})){
 			if(!route.Jobs__r.isEmpty()){
 				routes.add(route);

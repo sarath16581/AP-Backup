@@ -22,14 +22,12 @@ private with sharing class PUD_JobPrintfromListViewControllerXTest {
 		List<PUD_Booking__c> bookings = PUDTestDataFactory.getPUDAdhocPickupDeliveryBookings(2, bookingLocations[0].Id, networkDepot.Id, Date.today(), Date.today().addYears(1), new List<String>{
 				'Monday', 'Friday'
 		}, true);
-		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(3, bookings[0].Id, PUDConstants.PUD_JOB_STATUS_ACCEPTED, true);
 		//
 		// =====================================
 		// Stubbing
 		// =====================================
 		//
 		PUDRoutesSelector routesSelector = (PUDRoutesSelector) MockUtility.mockSelector(PUDRoutesSelector.class);
-		PUDJobsSelector jobsSelector = (PUDJobsSelector) MockUtility.mockSelector(PUDJobsSelector.class);
 		// set up responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(routesSelector.selectByIdWithJobs(
@@ -41,13 +39,7 @@ private with sharing class PUD_JobPrintfromListViewControllerXTest {
 		))
 				.thenReturn(routeList
 				);
-		MockUtility.Mocks.when(jobsSelector.selectJobsByBookingRecordTypesJobDatesAndDepotIds(
-				(Set<String>) fflib_Match.anyObject(),
-				(Set<Date>) fflib_Match.anyObject(),
-				(Set<Id>) fflib_Match.anyObject(),
-				(Set<Object>) fflib_Match.anyObject()
-		))
-				.thenReturn(jobs);
+
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();

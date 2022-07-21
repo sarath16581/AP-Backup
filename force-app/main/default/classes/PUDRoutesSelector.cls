@@ -10,11 +10,11 @@
  * 2022-03-18 - Ranjeewa Silva - Created
  * 2022-07-06 - Kamil Szyc added selectByIdWithAllBookings method for printing full duty board
  * 2022-07-14 - Kamil Szyc added selectByIdWithJobs for selecting routes with jobs
+ * 2022-07-21 - Kamil Szyc added getChildJobsSubQueryBuilder for building jobs query
  */
 public virtual inherited sharing class PUDRoutesSelector extends ApplicationSelector {
-
 	public enum Options {
-		WITH_DEPOT
+		WITH_DEPOT, LIMIT_TO_MY_GROUPS_ONLY
 	}
 	public static PUDRoutesSelector newInstance() {
 		return (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class);
@@ -127,7 +127,9 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
 
 		// we need t filter the bookings by record type ids passed in.
-		Set<String> status = new Set<String>{PUDConstants.PUD_BOOKING_STATUS_ACTIVE};
+		Set<String> status = new Set<String>{
+				PUDConstants.PUD_BOOKING_STATUS_ACTIVE
+		};
 		qb.addSubQuery(getChildBookingsSubQueryBuilder(status, bookingRecordTypeIds, selectorOptions), 'Bookings__r');
 
 		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
@@ -187,13 +189,38 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 	public virtual List<PUD_Route__c> selectByIdWithJobs(Set<Id> ids, Set<String> bookingRecordTypes, Set<Date> jobDates, Set<Id> depotIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
-				.add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids'))
+				.add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' IN :ids'))
 				.endConditions();
-		qb.addSubQuery(
-				PUDJobsSelector.newInstance(0,fieldOverrides).selectJobsByBookingRecordTypesJobDatesAndDepotIds(bookingRecordTypes, jobDates, depotIds, selectorOptions), 'Jobs__r');
-
+		qb.addSubQuery(getChildJobsSubQueryBuilder(jobDates, bookingRecordTypes, selectorOptions)
+				, 'Jobs__r');
 		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
 	}
+	/**
+	 * Returns a Query Builder for child jobs based on the record types, status and selector options passed in.
+	 *
+	 * @param dates jobs dates
+	 * @param bookingRecordTypes record type ids to filter the jobs. optional.
+	 * @param selectorOptions set of additional selector options to augment the child bookings result set
+	 *
+	 * @return query builder instance for child bookings.
+	 */
+	private QueryBuilder getChildJobsSubQueryBuilder(Set<Date> dates, Set<String> bookingRecordTypes, Set<Object> selectorOptions) {
+		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+		QueryBuilder jobsQb = PUDJobsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager subQueryConditions = jobsQb.addConditions();
+		if (!bookingRecordTypes.isEmpty()) {
+			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Booking_Type__c + ' IN :bookingRecordTypes'));
+		}
+		if (!dates.isEmpty()) {
+			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' IN :jobDates'));
+		}
+		subQueryConditions.endConditions();
+		jobsQb.addOrderAsc(PUD_Job__c.Date__c)
+				.addOrderAsc(PUD_Job__c.Start_Time__c);
+
+		return jobsQb;
+	}
+
 	/**
 	 * Grabs a new QueryBuilder based on the selector options passed in
 	 *
@@ -204,6 +231,9 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 		if (selectorOptions.contains(Options.WITH_DEPOT)) {
 			builder.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
+		}
+		if (selectorOptions.contains(Options.LIMIT_TO_MY_GROUPS_ONLY)) {
+			builder.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Depot__c + ' IN :depotIds')).endConditions();
 		}
 		return builder;
 	}
