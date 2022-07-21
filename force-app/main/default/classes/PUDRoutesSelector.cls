@@ -209,7 +209,7 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 		QueryBuilder jobsQb = PUDJobsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager subQueryConditions = jobsQb.addConditions();
 		if (!bookingRecordTypes.isEmpty()) {
-			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Booking_Type__c + ' IN :bookingRecordTypes'));
+			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Booking_Record_Type__c + ' IN :bookingRecordTypes'));
 		}
 		if (!dates.isEmpty()) {
 			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' IN :jobDates'));
