@@ -7,7 +7,6 @@
 		                     styleClass="normalcell"
 		                     style="page-break-inside:avoid; 
                                 border-top: 1px solid black; 
-                                border-bottom: 1px solid black;
                                 font-family:Arial Unicode MS;
                                 font-size: 10px;"
 		                     headerClass="table-header">
