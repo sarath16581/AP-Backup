@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <formula>IF (ISBLANK( Location__c ),&quot;&quot;,Location__c +&quot; &quot;+ &quot;- &quot; + Street__c +&quot; &quot;+ City__c +&quot; &quot;+ State__c +&quot; &quot;+ Post_Code__c +&quot;&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <businessStatus>Active</businessStatus>
     <label>Location Information</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
