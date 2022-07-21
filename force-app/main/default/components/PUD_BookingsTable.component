@@ -16,8 +16,10 @@
 			             width="50px"
 			             headerClass="job-headers" rendered="{!booking.Booking_Type__c != 'Meal Break'}">
 				<div class="boldcell">
+					<apex:outputText rendered="{! !ISBLANK(booking.Start_Time__c)}">
 					{! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
-					<apex:outputText value="{0,number,00}">
+					</apex:outputText>
+					<apex:outputText value="{0,number,00}" rendered="{! !ISBLANK(booking.Start_Time__c)}">
 						<apex:param value="{!MINUTE(booking.Start_Time__c)}"/>
 					</apex:outputText>
 				</div>
@@ -59,11 +61,13 @@
 			<apex:column headerValue="Depart" styleClass="boldcell"
 			             width="50px"
 			             headerClass="job-headers"
-			             rendered="{!booking.Booking_Type__c != 'Meal Break'}">
+			             rendered="{! booking.Booking_Type__c != 'Meal Break'}">
 				<apex:variable var="bookingEndTime"
-				               value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
+				               value="{! booking.Start_Time__c + booking.Dwell_Time_Planned__c*60000}" rendered="{! !ISBLANK(booking.Start_Time__c)}"/>
+				<apex:outputText rendered="{! !ISBLANK(booking.Start_Time__c)}">
 				{! IF(LEN(TEXT(HOUR(bookingEndTime)))<2 , '0'+ TEXT(HOUR(bookingEndTime)), HOUR(bookingEndTime))}
-				<apex:outputText value="{0,number,00}">
+				</apex:outputText>
+				<apex:outputText value="{0,number,00}" rendered="{! !ISBLANK(booking.Start_Time__c)}">
 					<apex:param
 							value="{!MINUTE(bookingEndTime)}"/>
 				</apex:outputText>
