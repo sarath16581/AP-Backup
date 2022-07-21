@@ -145,7 +145,7 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Booking_Record_Type__c + ' IN :bookingRecordTypes')).endConditions();
 		}
 		if((depotIds != null && !depotIds.isEmpty()) || selectorOptions.contains(Options.LIMIT_TO_MY_GROUPS_ONLY)){
-			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Network__c + ' IN :depotIds')).endConditions();
+			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Depot__c + ' IN :depotIds')).endConditions();
 		}
 		qb.addOrderAsc(PUD_Job__c.Date__c);
 		qb.addOrderAsc(PUD_Job__c.Start_Time__c);
