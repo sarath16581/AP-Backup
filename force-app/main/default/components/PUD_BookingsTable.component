@@ -8,7 +8,7 @@
 	<apex:attribute name="bookings" type="PUD_Booking__c[]" required="true" description="Bookings of the parent route"/>
 	<apex:pageBlock>
 		<!-- bookings table -->
-		<apex:pageBlockTable value="{! bookings }" var="booking" style="padding-top:10px;"
+		<apex:pageBlockTable value="{! bookings }" var="booking" style="padding-top:10px; page-break-inside:avoid;"
 		                     styleClass="normalcell"
 		                     headerClass="table-header">
 			<apex:column headerValue="Arrive"
