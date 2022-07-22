@@ -49,6 +49,18 @@
     padding: 1.5rem 1rem;
 }
 
+.THIS .sths-guest-user-form .form-top-padding {
+    padding-top: 1.5rem;
+}
+
+.THIS .sths-guest-user-form .box-background {
+    background-color: #FFFFFF;
+}
+
+.THIS .sths-guest-user-form .line-border {
+    border: 1px solid #E2E2E2;
+}
+
 /* Form labels */
 .THIS .sths-guest-user-form .slds-form-element__label {
     color: var(--text-color);
@@ -165,5 +177,9 @@
 @media only screen and (min-width: 768px) {
     .THIS .form-elements-padding {
         padding: 2rem;
+    }
+
+    .THIS .sths-guest-user-form .form-top-padding {
+        padding-top: 2rem;
     }
 }
