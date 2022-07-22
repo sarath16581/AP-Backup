@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ForcedIntoCurrentContext__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field is used to indicate the current worker was forced into the current transaction context since the stack depth would have been exceeded and the worker instruction was to process in sync. This is used to ensure the stack depth isn&apos;t incremented when this worker is handed off for processing.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is used to indicate the current worker was forced into the current transaction context since the stack depth would have been exceeded and the worker instruction was to process in sync. This is used to ensure the stack depth isn&apos;t incremented when this worker is handed off for processing.</inlineHelpText>
+    <label>Forced Into Current Context</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
