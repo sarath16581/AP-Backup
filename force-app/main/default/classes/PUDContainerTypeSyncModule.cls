@@ -59,6 +59,10 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 		processContainers((List<PUD_Container__c> )records, uow);
     }
 
+	/**
+	 * @param: new container records
+	 * @desc: This methods prevent duplicate Booking Containers being created under bookings.
+	 */
 	private void preventDuplicateContainerRecords(List<PUD_Container__c> newRecords){
 		Set<Id> bookingIds = new Set<Id>();
 		Set<Id> jobIds = new Set<Id>();
@@ -103,6 +107,9 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 		}
 	}
 
+	/**
+	 * @param: new/updated container records
+	 */
 	private void processContainers(List<PUD_Container__c> records, ApplicationUnitOfWork uow){
 		Id bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Booking_Container'}).values()[0].Id;
 

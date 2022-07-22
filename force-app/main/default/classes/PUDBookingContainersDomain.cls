@@ -12,6 +12,8 @@ public with sharing class PUDBookingContainersDomain extends ApplicationDomain{
 		return (PUDBookingContainersDomain)ApplicationDomain.newInstance(PUDBookingContainersDomain.class, sObjectList);
 	}
 
+    //records are filtered by booking containers.
+    //only filtered records are passed to domain.
     public override List<SObject> filter(List<SObject> sObjectList){
         Id bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Booking_Container'}).values()[0].Id;
         List<SObject> filteredRecords = new List<SObject>();
