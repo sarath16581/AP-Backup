@@ -5,10 +5,12 @@
  * @tag APT_Agreement_Lodgement_Point__c
  * @domain Core
  * @description A very simple selector class that sits in the base domain
+ * 2022-07-07 - madhuri.awasthi@auspost.com. - REQ2800825 Filtering Status for LP before sending in SAP
  */
 public virtual inherited sharing class APT_AgreementLodgementPointsSelector extends ApplicationSelector {
 	public enum Options {
-        WITH_NETWORK
+        WITH_NETWORK,
+        FILTER_ACTIVE_STATUS
     }
 
     public static APT_AgreementLodgementPointsSelector newInstance() {
@@ -56,6 +58,9 @@ public virtual inherited sharing class APT_AgreementLodgementPointsSelector exte
         
         if(selectorOptions.contains(Options.WITH_NETWORK)) {
             builder.addRelatedFields(NetworksSelector.newInstance().newQueryBuilder(), 'APT_Lodgement_Point_Lookup__r');
+        }
+        if(selectorOptions.contains(Options.FILTER_ACTIVE_STATUS)) {
+            builder.addConditions().add(new QueryBuilder.CompareCondition(APT_Agreement_Lodgement_Point__c.APT_Status__c).eq(true)).endConditions();
         }
         
         return builder;
