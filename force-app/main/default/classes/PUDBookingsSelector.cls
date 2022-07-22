@@ -7,6 +7,7 @@
  * @changelog
  * 2021-08-13 - arjun.singh@austpost.com.au - Created
  * 2022-03-13 - Ranjeewa Silva - Added support for more selector options.
+ * 2022-07-18 - Dattaraj Deshmukh - Added subquery for containers.
  */
 public virtual inherited sharing class PUDBookingsSelector extends ApplicationSelector {
 
