@@ -3221,6 +3221,12 @@
             <valueName>Reissue MyPost card</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|Online shop</controllingFieldValue>
+            <controllingFieldValue>Feedback|Web &amp; Apps|Online shop</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|Online shop</controllingFieldValue>
+            <valueName>Customised Packaging</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eBay Store</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|eParcel Online</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|Mobile apps</controllingFieldValue>
