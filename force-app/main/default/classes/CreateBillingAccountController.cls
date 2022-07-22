@@ -294,7 +294,7 @@ public with sharing class CreateBillingAccountController {
                         }
                         
                         // Query "Agreement Lodgement Point" junction record which related to Apttus Contract, and retrieve the Network record
-                        List<APT_Agreement_Lodgement_Point__c> contractLodgementPointList = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(new set<id>{contractRecord.Id}, new set<object>{APT_AgreementLodgementPointsSelector.Options.WITH_NETWORK,APT_AgreementLodgementPointsSelector.FILTER_ACTIVE_STATUS}).values();
+                        List<APT_Agreement_Lodgement_Point__c> contractLodgementPointList = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(new set<id>{contractRecord.Id}, new set<object>{APT_AgreementLodgementPointsSelector.Options.WITH_NETWORK,APT_AgreementLodgementPointsSelector.Options.FILTER_ACTIVE_STATUS}).values();
                         // New Set to store unique Work Centre Code, as Apttus Lodgement point can have duplicate entries for same product (e.g. eParcel)
                         Set<String> uniqueWorkCentreCode = new Set<String>();
                         // Map work centre code into LodgementPointId from the Agreement Lodgement Point

@@ -34,6 +34,9 @@
 &amp;MFTS0=FirstNoticeDate__c
 &amp;MFTSValue0={!TEXT( TODAY() )}
 &amp;MFTSId0={!ICPS__c.Id}
+&amp;MFTS1=DemurrageStartDate__c
+&amp;MFTSValue1={!TEXT(TODAY()+40)}
+&amp;MFTSId1={!ICPS__c.Id}
 &amp;NETId=a480p000000CjheAAC</url>
     <width>900</width>
 </WebLink>

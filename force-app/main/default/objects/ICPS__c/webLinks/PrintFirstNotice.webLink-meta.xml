@@ -29,6 +29,9 @@
 &amp;DS7=3
 &amp;UF0=1
 &amp;MFTS0=FirstNoticeDate__c
-&amp;MFTSValue0={!TEXT( TODAY() )}
-&amp;MFTSId0={!ICPS__c.Id}</url>
+&amp;MFTSValue0={!TEXT( TODAY()+40 )}
+&amp;MFTSId0={!ICPS__c.Id}
+&amp;MFTS1=DemurrageStartDate__c
+&amp;MFTSValue1={!TEXT(TODAY()+40)}
+&amp;MFTSId1={!ICPS__c.Id}</url>
 </WebLink>
