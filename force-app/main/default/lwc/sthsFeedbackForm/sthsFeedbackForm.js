@@ -70,7 +70,6 @@ export default class SthsTrackingForm extends LightningElement {
 
 	//handle form submit click
 	handleSubmitClick(event) {
-
 		let isFormValid = this.validateForm();
 		if (isFormValid) {
 			//submit the form
