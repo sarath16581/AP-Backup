@@ -633,39 +633,39 @@ public with sharing class PUDUtility {
 								jobRec.Date__c 					= dateProcess;
 								jobRec.Street__c 				= booking.Street__c;
 								jobRec.City__c 					= booking.City__c;
-								jobRec.Post_Code__c 				= booking.Post_Code__c;
-								jobRec.State__c 					= booking.State__c;
+								jobRec.Post_Code__c 			= booking.Post_Code__c;
+								jobRec.State__c 				= booking.State__c;
 								jobRec.Start_Time__c 			= booking.Start_Time__c;
 								jobRec.Display_Start_Time__c 	= booking.Display_Start_Time__c;
 								jobRec.Earliest_Start_Time__c 	= booking.Earliest_Start_Time__c;
 								jobRec.Latest_End_Time__c 		= booking.Latest_End_Time__c;
 								jobRec.Route_Lookup__c 			= strRoute;
 								jobRec.Booking_Location__c 		= booking.Booking_Location__c;
-								jobRec.Depot__c 					= booking.Depot__c;
+								jobRec.Depot__c 				= booking.Depot__c;
 								jobRec.Contact_Name__c 			= booking.Contact_Name__c;
 								jobRec.Contact_Phone_Number__c 	= booking.Contact_Phone_Number__c;
-								jobRec.Contact_Email__c 			= booking.Contact_Email__c;
+								jobRec.Contact_Email__c 		= booking.Contact_Email__c;
 								jobRec.Hazards__c 				= booking.Hazards__c;
-								jobRec.Site_Instructions__c 		= booking.Site_Instructions__c;
+								jobRec.Site_Instructions__c 	= booking.Site_Instructions__c;
 								jobRec.Comments__c 				= booking.Comments__c;
-								jobRec.Dwell_Time_Planned__c		= booking.Dwell_Time_Planned__c;
+								jobRec.Dwell_Time_Planned__c	= booking.Dwell_Time_Planned__c;
 								jobRec.Location__c 				= booking.Location__c;
 								jobRec.Customer__c 				= booking.Customer__c;
 								jobRec.Network__c 				= booking.Network__c;
 								jobRec.Booking_Id__c 			= booking.Name;
 								jobRec.Geo__Latitude__s			= booking.Geo__Latitude__s;
-								jobRec.Geo__Longitude__s			= booking.Geo__Longitude__s;
+								jobRec.Geo__Longitude__s		= booking.Geo__Longitude__s;
 								jobRec.Pallets_Quantity__c		= booking.Pallets_Quantity__c;
 								jobRec.Tubs_Quantity__c			= booking.Tubs_Quantity__c;
 								jobRec.Bags_Quantity__c			= booking.Bags_Quantity__c;
-								jobRec.Trays_Quantity__c			= booking.Trays_Quantity__c;
-								jobRec.Volume_Cubic_Metre__c		= booking.Volume_Cubic_Metre__c;
+								jobRec.Trays_Quantity__c		= booking.Trays_Quantity__c;
+								jobRec.Volume_Cubic_Metre__c	= booking.Volume_Cubic_Metre__c;
 								jobRec.Large_Letter_Tubs__c		= booking.Large_Letter_Tubs__c;
-								jobRec.Small_Letter_Trays__c		= booking.Small_Letter_Trays__c;
-								jobRec.White_Bags__c				= booking.White_Bags__c;
+								jobRec.Small_Letter_Trays__c	= booking.Small_Letter_Trays__c;
+								jobRec.White_Bags__c			= booking.White_Bags__c;
 								jobRec.Express_Bags__c			= booking.Express_Bags__c;
 								jobRec.Blue_Bags__c			    = booking.Blue_Bags__c;
-								jobRec.Red_Tubs__c			    = booking.Red_Tubs__c;
+								jobRec.Red_Tubs__c				= booking.Red_Tubs__c;
 								jobRec.Booking_Comments__c		= booking.Booking_Comments__c;
 								jobRec.Revenue_Check__c			= booking.Revenue_Check__c;
 								jobRec.Article_Info__c			= booking.Article_Info__c;
@@ -674,31 +674,31 @@ public with sharing class PUDUtility {
 								jobRec.Source_City__c			= booking.Source_City__c;
 								jobRec.Source_Post_Code__c		= booking.Source_Post_Code__c;
 								jobRec.Source_State__c			= booking.Source_State__c;
-								jobRec.Confidence__c				= booking.Confidence__c;
+								jobRec.Confidence__c			= booking.Confidence__c;
 								jobRec.Stop_Credit__c			= booking.Stop_Credit__c;
-								jobRec.Key_Number__c				= booking.Key_Number__c;
-								jobRec.Article_Count__c          = booking.Article_Count__c;
+								jobRec.Key_Number__c			= booking.Key_Number__c;
+								jobRec.Article_Count__c		    = booking.Article_Count__c;
 								jobRec.Location_Frontage_Geo__Latitude__s = booking.Frontage_Geo__Latitude__s;
 								jobRec.Location_Frontage_Geo__Longitude__s = booking.Frontage_Geo__Longitude__s;
 								jobRec.Location_Side_Of_Street_Code__c = booking.Side_Of_Street_Code__c;
-								jobRec.Location_DPID__c          = booking.DPID__c;
-								jobRec.Regular_Product__c       = booking.Regular_Product__c;
-								jobRec.Express_Product__c       = booking.Express_Product__c;
+								jobRec.Location_DPID__c		    = booking.DPID__c;
+								jobRec.Regular_Product__c	    = booking.Regular_Product__c;
+								jobRec.Express_Product__c	    = booking.Express_Product__c;
 								jobRec.International_Product__c = booking.International_Product__c;
-								jobRec.Empty_Aircan__c          = booking.Empty_Aircan__c;
-								jobRec.Empty_Cage__c            = booking.Empty_Cage__c;
-								jobRec.Empty_CardULD__c         = booking.Empty_CardULD__c;
-								jobRec.Empty_Colby__c           = booking.Empty_Colby__c;
-								jobRec.Empty_Pallets__c         = booking.Empty_Pallets__c;
-								jobRec.Empty_Trailer__c         = booking.Empty_Trailer__c;
-								jobRec.Empty_ULD__c             = booking.Empty_ULD__c;
-								jobRec.Full_Aircan__c           = booking.Full_Aircan__c;
-								jobRec.Full_Cage__c             = booking.Full_Cage__c;
-								jobRec.Full_CardULD__c          = booking.Full_CardULD__c;
-								jobRec.Full_Colby__c            = booking.Full_Colby__c;
-								jobRec.Full_Pallets__c          = booking.Full_Pallets__c;
-								jobRec.Full_Trailer__c          = booking.Full_Trailer__c;
-								jobRec.Full_ULD__c              = booking.Full_ULD__c;
+								jobRec.Empty_Aircan__c		    = booking.Empty_Aircan__c;
+								jobRec.Empty_Cage__c			= booking.Empty_Cage__c;
+								jobRec.Empty_CardULD__c		    = booking.Empty_CardULD__c;
+								jobRec.Empty_Colby__c		    = booking.Empty_Colby__c;
+								jobRec.Empty_Pallets__c		    = booking.Empty_Pallets__c;
+								jobRec.Empty_Trailer__c		    = booking.Empty_Trailer__c;
+								jobRec.Empty_ULD__c			    = booking.Empty_ULD__c;
+								jobRec.Full_Aircan__c		    = booking.Full_Aircan__c;
+								jobRec.Full_Cage__c			    = booking.Full_Cage__c;
+								jobRec.Full_CardULD__c		    = booking.Full_CardULD__c;
+								jobRec.Full_Colby__c			= booking.Full_Colby__c;
+								jobRec.Full_Pallets__c		    = booking.Full_Pallets__c;
+								jobRec.Full_Trailer__c		    = booking.Full_Trailer__c;
+								jobRec.Full_ULD__c			    = booking.Full_ULD__c;
 
 								jobsNewList.add(jobRec);
 							}
@@ -929,9 +929,9 @@ public with sharing class PUDUtility {
 	public void refreshContainerTypes(Map<Id, PUD_Booking__c> bookings, List<PUD_Job__c> jobs, ApplicationUnitOfWork uow) {
 
 		// generate a map of booking container data indexed by a unique key. unique key is made up of:
-		//      - Parent booking id
-		//      - Type
-		//      - Condition
+		//	  - Parent booking id
+		//	  - Type
+		//	  - Condition
 		// this is to facilitate matching containers between booking and it's child jobs.
 		Map<String, PUD_Container__c> bookingContainersByUniqueKeyMap = getBookingContainersMapByUniqueKey(bookings.values());
 
@@ -1022,11 +1022,11 @@ public with sharing class PUDUtility {
 
 	
 	/**
-     * Unit of work that encapsulates all the required objects for this Service.
-     * Note that this is a stopgap until the pattern for using Unit of Work for service operations are defined.
-     *
-     * @return unit or work instance
-     */
+	 * Unit of work that encapsulates all the required objects for this Service.
+	 * Note that this is a stopgap until the pattern for using Unit of Work for service operations are defined.
+	 *
+	 * @return unit or work instance
+	 */
 	private ApplicationUnitOfWork newUnitOfWork() {
 		return ApplicationUnitOfWork.newInstance(new List<SObjectType>{
 				PUD_Job__c.SObjectType,
@@ -1080,7 +1080,7 @@ public with sharing class PUDUtility {
 			return (this.Name > compareToContainer.Name ? 1 :
 						(this.Name < compareToContainer.Name ? -1 :
 							(this.Condition > compareToContainer.Condition ? 1 :
-			                    (this.Condition < compareToContainer.Condition ? -1 : 0))));
+								(this.Condition < compareToContainer.Condition ? -1 : 0))));
 		}
 	}
 
