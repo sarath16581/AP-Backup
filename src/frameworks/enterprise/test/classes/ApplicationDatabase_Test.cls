@@ -1,0 +1,31 @@
+/***
+ * @author Nathan Franklin
+ * @date 2020-04-10
+ * @group Tests
+ * @tag Test
+ * @domain Core
+ * @description Test class to cover ApplicationDatabase
+ * @changelog
+ * 2020-04-10 - Nathan Franklin - Created
+ * 2020-08-16 - arjun.singh@auspost.com.au - Added methods for  rollback and savepoint
+ */
+@IsTest
+private with sharing class ApplicationDatabase_Test {
+
+	/**
+	 * This is a bit of a nothing test as it doesn't contribute any value
+	 */
+	@IsTest
+	private static void testInsertAndUpdateAndDelete() {
+		MockUtility.disableTriggerExecution();
+
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, false);
+		ApplicationDatabase.getInstance().dmlInsert(accounts);
+		ApplicationDatabase.getInstance().dmlUpdate(accounts);
+		ApplicationDatabase.getInstance().dmlDelete(accounts);		
+		ApplicationDatabase.getInstance().dmlSetSavePoint();
+		ApplicationDatabase.getInstance().dmlRollback(ApplicationDatabase.getInstance().dmlSetSavePoint());
+		System.assert(true, 'Not Completed');
+	}
+
+}

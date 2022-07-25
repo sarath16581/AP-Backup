@@ -166,7 +166,8 @@
                                     (recContact.contact.HomePhone == null ? '' : 'Home: ' + recContact.contact.HomePhone +' </br>') +
                                     (recContact.contact.VerifiedMobile__c == null ? '' : 'Verified Mobile: ' + recContact.contact.VerifiedMobile__c +' </br>') +
                                     (recContact.contact.MobilePhone == null ? '' : 'Mobile: ' + recContact.contact.MobilePhone +' </br>') +
-                                    (recContact.contact.Email == null ? '' : 'Email: ' + recContact.contact.Email +' </br>') ),
+                                    (recContact.contact.Email == null ? '' : 'Email: ' + recContact.contact.Email +' </br>')  +
+                                    (recContact.contact.VerifiedEmail__c == null ? '' : 'Verified Email: ' + recContact.contact.VerifiedEmail__c +' </br>')),
                             j$('<td class="dataCell">').append((recContact.contact.Unique_Mobile__c)?'<span class="slds-icon_container slds-icon-utility-phone_portrait" title="Unique Mobile"> <svg aria-hidden="true" class="slds-icon slds-icon_xx-small" height="20" width="15"> <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#phone_portrait')}"></use> </svg> </span>':null),
                             j$('<td class="dataCell">').append('<span>' + (recContact.contact.MailingStreet == null ? '' : recContact.contact.MailingStreet + '&nbsp') + (recContact.contact.MailingStreet2__c == null ? '' : recContact.contact.MailingStreet2__c + '&nbsp </br>') + (recContact.contact.MailingCity == null ? '' : recContact.contact.MailingCity + '&nbsp') +
                                     (recContact.contact.MailingState == null ? '' : recContact.contact.MailingState + '&nbsp') + (recContact.contact.MailingPostalCode == null ? '' : recContact.contact.MailingPostalCode + '&nbsp </br>') +
@@ -1068,6 +1069,9 @@
                     </apex:outputText>
                     <apex:outputText rendered="{!IF(ISBLANK(o.contact.Email), false, true)}"
                                      value="Email: {!HTMLENCODE(o.contact.Email)}<br />"
+                                     escape="false" />
+                    <apex:outputText rendered="{!IF(ISBLANK(o.contact.VerifiedEmail__c), false, true)}"
+                                     value="Verified Email: {!HTMLENCODE(o.contact.VerifiedEmail__c)}<br />"
                                      escape="false" />
                 </apex:column>
                 <apex:column style="vertical-align:top;">
