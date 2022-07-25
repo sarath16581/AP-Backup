@@ -59,8 +59,10 @@
                             rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}">
                         <br/>
                     </apex:outputText>
-                    <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
+                    <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break' && !ISBLANK(booking.Booking_Location_Name_LU__c)}">
                         {!booking.Booking_Location_Name_LU__c} &nbsp;
+                    </apex:outputText>
+                    <apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
                         {! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
                     </apex:outputText>
                     <apex:outputText value="{0,number,00}"
