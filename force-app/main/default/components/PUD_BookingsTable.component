@@ -61,7 +61,7 @@
 			</apex:column>
 			<apex:column headerValue="Depart" styleClass="boldcell"
 			             width="50px"
-			             style="padding-top:9px;"
+			             style="padding-top:11px;"
 			             headerClass="job-headers"
 			             rendered="{! booking.Booking_Type__c != 'Meal Break'}">
 				<apex:variable var="bookingEndTime"
