@@ -76,12 +76,13 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 		// retrieve all parent jobs
 		Map<Id, PUD_Job__c> jobs = new Map<Id, PUD_Job__c>(PUDJobsSelector.newInstance(0, new Set<SObjectField>{
-				PUD_Job__c.Id, PUD_Job__c.Status__c, PUD_Job__c.Failure_Reason__c, PUD_Job__c.Driver_Comments__c,
-				PUD_Job__c.Schedule_Request_Timestamp__c, PUD_Job__c.Cancellation_Request_Timestamp__c,
-				PUD_Job__c.Schedule_Confirmed_Timestamp__c, PUD_Job__c.Last_Pushed_to_Dispatch_System__c,
-				PUD_Job__c.Cancellation_Confirmed_Timestamp__c, PUD_Job__c.Failed_Timestamp__c, PUD_Job__c.Accepted_Timestamp__c,
-				PUD_Job__c.Completed_Timestamp__c, PUD_Job__c.Cancelled_Timestamp__c, PUD_Job__c.Container_Actuals_Payload__c, PUD_Job__c.Booking__c
-		}).selectById(parentJobIds, new Set<Object>{PUDJobsSelector.Options.WITH_CONTAINERS}));
+			PUD_Job__c.Id, PUD_Job__c.Status__c, PUD_Job__c.Failure_Reason__c, PUD_Job__c.Driver_Comments__c,
+			PUD_Job__c.Schedule_Request_Timestamp__c, PUD_Job__c.Cancellation_Request_Timestamp__c,
+			PUD_Job__c.Schedule_Confirmed_Timestamp__c, PUD_Job__c.Last_Pushed_to_Dispatch_System__c,
+			PUD_Job__c.Cancellation_Confirmed_Timestamp__c, PUD_Job__c.Failed_Timestamp__c, PUD_Job__c.Accepted_Timestamp__c,
+			PUD_Job__c.Completed_Timestamp__c, PUD_Job__c.Cancelled_Timestamp__c, PUD_Job__c.Container_Actuals_Payload__c, PUD_Job__c.Booking__c
+	}).selectById(parentJobIds, new Set<Object>{PUDJobsSelector.Options.WITH_CONTAINERS}));
+
 
 
 		//get all containers under jobs.
@@ -105,10 +106,6 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 				// process the event and update job if required.
 				Boolean isUpdated = processJobActionEvent(event, updatableJob, jobIdVsContainers.get(updatableJob.Id));
-
-				system.debug('event '+ event);
-				system.debug('Containers updated/created'+ jobIdVsContainers.get(updatableJob.Id));
-				
 				if (isUpdated && !updatableJobs.containsKey(jobId)) {
 					// job has been updated as a result of processing current event.
 					// add job instance into 'updatableJobs' map if not already in it.
@@ -144,7 +141,6 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	 */
 	private Map<Id, List<PUD_Container__c>> populateJobContainers(List<PUD_Job__c> jobs){
 		Map<Id, List<PUD_Container__c>> jobIdVsContainers = new Map<Id, List<PUD_Container__c>>();
-
 		for(PUD_Job__c job: jobs){
 			for(PUD_Container__c container : job.Containers__r){
 				if(!jobIdVsContainers.containsKey(job.Id)){
@@ -189,7 +185,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				//populate container payload received from MobileStar
 				job.Container_Actuals_Payload__c	= event.Containers_Payload__c;
 				
-				if(event.Containers_Payload__c != null && !String.isNotBlank(event.Containers_Payload__c)){
+				if(String.isNotBlank(event.Containers_Payload__c)){
 
 				
 					//populate actuals for containers on the job.

@@ -148,11 +148,11 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
-        if (selectorOptions.contains(Options.FILTER_BOOKING_CONTAINERS)) {
-            builder.addConditions().add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(bookingContainerRecordTypeId)).endConditions();
-        }
+		if (selectorOptions.contains(Options.FILTER_BOOKING_CONTAINERS)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(bookingContainerRecordTypeId)).endConditions();
+		}
 
-        return builder;
+		return builder;
 	}
 
 	

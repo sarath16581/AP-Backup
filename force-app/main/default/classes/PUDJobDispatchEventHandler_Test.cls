@@ -15,6 +15,7 @@
 @IsTest
 private class PUDJobDispatchEventHandler_Test {
 
+
 	/**
 	 * Tests the outcome of receiving all the different Job Action events from dispatch system.
 	 */
@@ -23,6 +24,9 @@ private class PUDJobDispatchEventHandler_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
+
+		List<PUD_Booking__c> pudBookingList = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(2, null, null, Date.today(), Date.today().addDays(30), null, true);
+		
 		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, null, PUDConstants.PUD_JOB_STATUS_NEW, true);
 		//jobs[0] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
 		jobs[0].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
@@ -43,11 +47,18 @@ private class PUDJobDispatchEventHandler_Test {
 		//jobs[5] is in status 'Cancel'. Job Cancellation request has been pushed to dispatch system but awaiting confirmation.
 		jobs[5].Status__c = PUDConstants.PUD_JOB_STATUS_CANCEL;
 
+		PUD_Container__c c1 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[1].Id, 'Pallets', 'Empty', true )[0];
+		c1.Expected_Quantity__c = 10;
+		PUD_Container__c c2 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[1].Id, 'Aircan', 'Empty', true )[0];
+		c2.Expected_Quantity__c = 30;
+
+
 		List<PUD_Job_Dispatch_Event__e> events = new List<PUD_Job_Dispatch_Event__e>();
 		//'Accepted' event for jobs[0]. Confirming the job has been accepted by the driver.
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[0].Id, Status__c='Accepted', Event_Timestamp__c = System.now().addHours(-2)));
 		//'Completed' event for jobs[1]. Confirming the job has been completed by the driver.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1)));
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1), 
+		Containers_Payload__c = '[{"Name":"Aircan","Quantity":30,"ActualQuantity":52,"Condition":"Empty"},{"Name":"Colby","Quantity":3,"ActualQuantity":2,"Condition":"Full"}, {"Name":"Pallets","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]'));
 		//'Completed' event for jobs[2]. Confirming the job has been completed by the driver.
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1)));
 		//exception scenario - invalid status in event.
@@ -59,6 +70,11 @@ private class PUDJobDispatchEventHandler_Test {
 		//'Cancelled' event for jobs[5]. Confirming the job has been cancelled in dispatch system.
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[5].Id, Status__c='Cancelled', Event_Timestamp__c = System.now().addHours(-1)));
 
+
+		//associating containers with jobs.
+		// Two containers are set as childs to a job.
+		jobs[1] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[1], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{c1, c2}});
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -67,8 +83,16 @@ private class PUDJobDispatchEventHandler_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(jobs);
+
+		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(jobs);
+		
+		//ApplicationDatabase does not have a class to return MOCK answer() for DML Upsert.
+		//This is a temporary mock Answer for DML Upsert.
+		MockUtility.Mocks.when(mockDatabase.dmlUpsert((List<SObject>)fflib_Match.anyObject(), (SObjectField)fflib_Match.anyObject())).thenAnswer(new AnswerContainerDMLUpserted());
+
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+
+
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -82,8 +106,24 @@ private class PUDJobDispatchEventHandler_Test {
 
 		fflib_ArgumentCaptor updatableJobsCaptor = fflib_ArgumentCaptor.forClass(List<PUD_Job__c>.class);
 
+		//define insert containers Captor
+		fflib_ArgumentCaptor upsertableContainersCaptor = fflib_ArgumentCaptor.forClass(List<PUD_Container__c>.class);
+
 		//verify that PUDUtility is called once with expected list of jobs
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<PUD_Job__c>) updatableJobsCaptor.capture());
+
+		//verify that PUDUtility is called once with expected list of containers
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpsert((List<PUD_Container__c>) upsertableContainersCaptor.capture(), (SObjectField) fflib_Match.eq(PUD_Container__c.Id));
+
+		Map<Id, PUD_Container__c> upsertedContainers = new Map<Id, PUD_Container__c>((List<PUD_Container__c>) upsertableContainersCaptor.getValue());
+		
+		//assert actual quantities are updated against a already existing containers.
+		//System.assert(upsertedContainers.containsKey(c1.Id));
+		System.assertEquals(3, upsertedContainers.size(), 'Expected to upsert 3 container for a job. 2 Updates and 1 insert.');
+		system.assertEquals(12, upsertedContainers.get(c1.Id).Actual_Quantity__c, 'Expected to update Actual Quantity for container');
+		system.assertEquals(52, upsertedContainers.get(c2.Id).Actual_Quantity__c, 'Expected to update Actual Quantity for container');
+		system.assertNotEquals(null, upsertedContainers.get(c1.Id).Actual_Quantity__c, 'Expected to update Actual Quantity for container');
+		
 
 		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>((List<PUD_Job__c>) updatableJobsCaptor.getValue());
 		System.assertEquals(5, updatableJobs.size(), 'Expected to update 5 job records from Dispatch System Job Action events.');
@@ -161,7 +201,7 @@ private class PUDJobDispatchEventHandler_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(jobs);
+		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(jobs);
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 
@@ -195,5 +235,38 @@ private class PUDJobDispatchEventHandler_Test {
 		System.assertEquals(events[3].Event_Timestamp__c, updatableJobs.get(jobs[2].Id).Completed_Timestamp__c, 'Completed timestamp not updated on receiving \'Completed\' action');
 		System.assertEquals(events[4].Event_Timestamp__c, updatableJobs.get(jobs[2].Id).Accepted_Timestamp__c, 'Accepted timestamp not updated on receiving \'Accepted\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[2].Id).Schedule_Confirmed_Timestamp__c, '\'Schedule Confirmed Timestamp\' not updated on receiving both \'Accepted\' and \'Completed\' actions out of order in same batch');
+	}
+
+
+	/**
+	 * A simple Answer class to set an Id on the record to simulate a DML upsert operation
+	 */
+	public class AnswerContainerDMLUpserted implements fflib_Answer {
+		List<SObject> mockDMLUpsertedRecords = new List<SObject>();
+
+		public Object answer(fflib_InvocationOnMock invocation) {
+			List<Map<String, Object>> upsertResults = new List<Map<String, Object>>();
+			List<SObject> records = (List<SObject>)invocation.getArgument(0);
+			for(SObject record : records) {
+				
+				//only in case of insert, set record id.
+				//This allows us to check if records are updated in case of updates.
+				if(record.Id == null){
+					record.Id = fflib_IDGenerator.generate(record.getSObjectType());
+				}
+
+				Map<String, Object> result = new Map<String, Object> {
+						'success' => true,
+						'id' => record.Id
+				};
+				upsertResults.add(result);
+			}
+
+			// store a list of the records that were updated when this answer is invoked.
+			mockDMLUpsertedRecords.addAll(records);
+
+			List<Database.UpsertResult> result = (List<Database.UpsertResult>)JSON.deserialize(JSON.serialize(upsertResults), List<Database.UpsertResult>.class);
+			return result;
+		}
 	}
 }
