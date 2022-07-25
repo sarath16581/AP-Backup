@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AsyncFrameworkMaxStackDepth__c</fullName>
+    <description>Determines the maximum &apos;soft&apos; stack depth in the async framework. After this limit is reached it will start to take instructions from the async worker&apos;s getMaxDepthAction method. NOTE: This should be a small number ranging from 3-6 usually.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Determines the maximum &apos;soft&apos; stack depth in the async framework. After this limit is reached it will start to take instructions from the async worker&apos;s getMaxDepthAction method. NOTE: This should be a small number ranging from 3-6 usually.</inlineHelpText>
+    <label>Async Framework Max Stack Depth</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

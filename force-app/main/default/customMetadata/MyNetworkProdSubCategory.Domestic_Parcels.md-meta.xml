@@ -4,6 +4,6 @@
     <protected>false</protected>
     <values>
         <field>Product_Sub_Category__c</field>
-        <value xsi:type="xsd:string">Cash on Delivery, eParcel- Express, eParcel- Regular,StarTrack (Next Flight Premium &amp; Express),StarTrack Courier,Secure Accept and Collect, Mail hold, Mail redirection,Standard Parcel</value>
+        <value xsi:type="xsd:string">Cash on Delivery,eParcel- Express,eParcel- Regular,StarTrack (Next Flight Premium &amp; Express),StarTrack Courier,Secure Accept and Collect,Mail hold,Mail redirection,Standard Parcel,Premium Express Parcel</value>
     </values>
 </CustomMetadata>

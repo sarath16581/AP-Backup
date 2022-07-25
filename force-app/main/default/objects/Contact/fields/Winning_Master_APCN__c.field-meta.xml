@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Winning_Master_APCN__c</fullName>
+    <description>This field will be populated by SAP CRM and will be used when a consumer record is to be merged.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field will be populated by SAP CRM and will be used when a consumer record is to be merged.</inlineHelpText>
+    <label>Winning Master APCN</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

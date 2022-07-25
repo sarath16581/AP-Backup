@@ -15,6 +15,16 @@ History
 ------------------------------------------------------------------------------*/
 
 trigger ContactTrigger on Contact (before insert, before update, after insert, after update, before Delete) {
+
+    if(!TriggerHelper.isTriggerDisabled(String.valueOf(Contact.SObjectType))) {
+		(new ContactDomainTriggerHandler()).dispatch();
+	}
+
+    // ************************************************* WARNING *************************************************************
+    // WARNING: Please do not use the approach below. All new functionalities should be done using the Handler method above. 
+    // ************************************************* WARNING *************************************************************
+
+
     system.debug('####################################### Contact trigger: ' + SystemSettings__c.getInstance().Disable_Triggers__c + '#######################################');
     if (!SystemSettings__c.getInstance().Disable_Triggers__c) 
     {       

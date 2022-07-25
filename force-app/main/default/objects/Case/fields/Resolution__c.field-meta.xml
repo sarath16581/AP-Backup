@@ -3,7 +3,7 @@
     <fullName>Resolution__c</fullName>
     <description>This is a custom field for the user support case queue.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Select a value for resolution,</inlineHelpText>
+    <inlineHelpText>Select a value for resolution</inlineHelpText>
     <label>Resolution</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -839,9 +839,9 @@
                 <label>Customer will move all freight if we do not move their incompatible freight – Full customer review required.</label>
             </value>
             <value>
-                <fullName>Customer requires &quot;X&quot; period to find another carrier.</fullName>
+                <fullName>Customer requires agreed period to find another carrier.</fullName>
                 <default>false</default>
-                <label>Customer requires &quot;X&quot; period to find another carrier.</label>
+                <label>Customer requires agreed period to find another carrier.</label>
             </value>
         </valueSetDefinition>
     </valueSet>

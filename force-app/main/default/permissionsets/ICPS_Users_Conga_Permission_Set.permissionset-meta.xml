@@ -622,6 +622,30 @@
         <apexPage>APXTConga4__SMComposer8Launcher</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
+    <pageAccesses>
+        <apexPage>APXT_BPM__ConductorDashboardButtonPage</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APXT_BPM__ConductorDashboardPage</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APXT_BPM__ConductorSetupPage</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APXT_BPM__Conductor_Launch</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APXT_BPM__Conductor_Schedule</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>APXT_BPM__FormulaBuilderPage</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
     <tabSettings>
         <tab>APXT_BPM__Conductor__c</tab>
         <visibility>Visible</visibility>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ICPSLetterhead</letterhead>
+    <name>ICPS_Released_for_Delivery_Notification</name>
+    <style>freeForm</style>
+    <subject>ATTENTION:  Your item/s have been {!ICPS__c.ABFReason__c}</subject>
+    <textOnly>Dear {!ICPS__c.ReceiverName__c}
+
+Australian Border Force has advised that your item {!ICPS__c.Name} is now {!ICPS__c.ABFReason__c}.
+
+Please contact 131 881 if any further questions.
+
+Yours faithfully,
+
+Australia Post</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
