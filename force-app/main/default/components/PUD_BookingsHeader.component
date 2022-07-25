@@ -28,7 +28,7 @@
 		</tr>
 	</table>
 
-	<div style="text-align:center; font-family:Arial Unicode MS; padding-top:10px;">
+	<div style="text-align:center; font-family:Arial Unicode MS; padding-top:10px; padding-right:5px;">
 		<!-- days the route is active repeated on every subsequent page-->
 		<apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
 		<apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
