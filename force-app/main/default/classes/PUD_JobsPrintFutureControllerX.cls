@@ -21,6 +21,12 @@ public with sharing class PUD_JobsPrintFutureControllerX {
 		effectiveDate = Date.valueOf(ApexPages.currentPage().getParameters().get('date').escapeHtml4());
 		String printType = ApexPages.currentPage().getParameters().get('type').escapeHtml4();
 
+		Set<String> groupNameSet = new Set<String>();
+
+		for(GroupMember objCGM : (List<GroupMember>) GroupMembersSelector.newInstance().getMyGroups(new List<String>(),new Set<Object>{GroupMembersSelector.Options.WITH_GROUP},false)){
+			groupNameSet.add(objCGM.Group.Name);
+		}
+
 		Set<String> bookingTypes = new Set<String>();
 		if(printType == 'Perm'){
 			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY);
@@ -36,7 +42,7 @@ public with sharing class PUD_JobsPrintFutureControllerX {
 				new Set<Date>{
 						effectiveDate
 				},
-				new Set<Id>(),
+				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT
 				})[0];
