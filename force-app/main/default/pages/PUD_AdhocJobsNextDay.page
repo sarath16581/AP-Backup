@@ -68,7 +68,7 @@
 			<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
 				<div class="header">
 					<!--repeatable header-->
-					<c:PUD_JobsHeader Route="{! route}"/>
+					<c:PUD_JobsHeader Route="{! route}" effectiveDate="{! effectiveDate}"/>
 				</div>
 				<div class="content">
 					<c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>

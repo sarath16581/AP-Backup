@@ -12,10 +12,13 @@
 */
 public with sharing class PUD_AdhocJobsNextDayController {
 	public List<PUD_Route__c> routes {get;set;}
+	public Date effectiveDate {get;set;}
 
 	// Constructor    
 	public PUD_AdhocJobsNextDayController(ApexPages.StandardSetController ssc){
 		routes = new List<PUD_Route__c>();
+		effectiveDate = Date.today().addDays(1);
+		
 		Set<String> groupNameSet = new Set<String>();
 
 		for(GroupMember objCGM : (List<GroupMember>) GroupMembersSelector.newInstance().getMyGroups(new List<String>(),new Set<Object>{GroupMembersSelector.Options.WITH_GROUP},false)){
@@ -25,7 +28,7 @@ public with sharing class PUD_AdhocJobsNextDayController {
 				new Map<Id, PUD_Route__c>( (PUD_Route__c[])ssc.getSelected()).keySet(),
 				new Set<String>{PUDConstants.PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY},
 				new Set<Date>{
-						Date.today().addDays(1)
+						effectiveDate
 				},
 				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				new Set<Object>{
