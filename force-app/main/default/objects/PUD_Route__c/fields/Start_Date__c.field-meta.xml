@@ -3,7 +3,8 @@
     <fullName>Start_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Rute start date</description>
-    <inlineHelpText>Rute start date</inlineHelpText>
+    <inlineHelpText>This is the date that the route becomes active.
+        Sourced from Adam.</inlineHelpText>
     <externalId>false</externalId>
     <label>Start Date</label>
     <required>false</required>

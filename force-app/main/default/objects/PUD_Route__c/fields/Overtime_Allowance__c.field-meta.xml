@@ -3,7 +3,8 @@
     <fullName>Overtime_Allowance__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Displaying the amount of overtime acknowledges that the driver is not expected to complete all pickups/deliveries within their designated shift hours and will be compensated for the additional time taken to complete the route.</description>
-    <inlineHelpText>Displaying the amount of overtime acknowledges that the driver is not expected to complete all pickups/deliveries within their designated shift hours and will be compensated for the additional time taken to complete the route.</inlineHelpText>
+    <inlineHelpText>The amount of overtime included on the route for the delivery driver.
+    </inlineHelpText>
     <externalId>false</externalId>
     <label>Overtime Allowance</label>
     <length>50</length>
