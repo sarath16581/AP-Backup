@@ -12,8 +12,8 @@
 			<td rowspan="2"><img src="{!$Resource.auspost_logo}" width="70" alt="AusPost Logo"/></td>
 			<td style="font-family: sans-serif; font-weight:bold;">{! Route.Name}</td>
 			<td style="font-family: sans-serif; text-align:center; "><u>{! Route.Depot__r.Name}</u></td>
-			<td style="vertical-align-align:top; text-align:right;">Page</td>
-			<td><span class="pagenumber"/> of <span class="pagecount"/></td>
+			<td style="vertical-align-align:top; text-align:right;">Page:</td>
+			<td style="vertical-align-align:top; text-align:right;" width="67"><span class="pagenumber"/> of <span class="pagecount"/></td>
 		</tr>
 		<tr style="vertical-align:top; padding-bottom:10px;">
 			<td colspan="2" >Effective Date:
@@ -22,8 +22,8 @@
 					<apex:param value="{!effectiveDate}"/>
 				</apex:outputText>
 			</td>
-			<td style="vertical-align-align:top; text-align:right;">Printed Date:</td>
-			<td style="text-align:top;">
+			<td style="vertical-align-align:top; text-align:right;" >Printed Date:</td>
+			<td style="text-align:top;text-align:right;" width="67">
 				<apex:outputText value="{0, date, dd/MM/yyyy}">
 					<apex:param value="{!TODAY()}"/>
 				</apex:outputText>
