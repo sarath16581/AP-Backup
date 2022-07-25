@@ -490,7 +490,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>ShippingAddress</field>
             </layoutItems>
             <layoutItems>
