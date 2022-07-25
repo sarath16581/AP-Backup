@@ -55,11 +55,13 @@
 			</apex:column>
 			<apex:column headerValue="Docks" styleClass="normalcell" width="50px"
 			             headerClass="job-headers"
+			             style="padding-top:9px;"
 			             rendered="{!booking.Booking_Type__c != 'Meal Break'}">
 				<apex:outputField value="{! booking.Dock_Number__c}" style="font-size:small"/>
 			</apex:column>
 			<apex:column headerValue="Depart" styleClass="boldcell"
 			             width="50px"
+			             style="padding-top:9px;"
 			             headerClass="job-headers"
 			             rendered="{! booking.Booking_Type__c != 'Meal Break'}">
 				<apex:variable var="bookingEndTime"
