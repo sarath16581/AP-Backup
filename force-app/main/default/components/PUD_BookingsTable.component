@@ -32,7 +32,7 @@
 					<apex:outputText
 							rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
 						(
-						<apex:outputField value="{!booking.Booking_Location_Street__c}"/>
+						<apex:outputField value="{!booking.Booking_Location_Street__c}"/>&nbsp;
 						<apex:outputField value="{!booking.Booking_Location_City__c}"/>
 						) &nbsp;<apex:outputField value="{!booking.Key_Number__c}"/> &nbsp;
 						<apex:outputText rendered="{! booking.Monday__c}" value="Mon "/>
