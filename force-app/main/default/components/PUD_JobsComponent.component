@@ -48,7 +48,8 @@
 			             width="50px"
 			             headerClass="job-headers">
 				<apex:outputText styleClass="normalcell" value="{!job.Key_Number__c}"/>
-
+				<br/>
+				<br/>
 			</apex:column>
 		</apex:pageBlockTable>
 	</apex:pageBlock>
