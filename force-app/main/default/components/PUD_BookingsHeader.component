@@ -4,7 +4,7 @@
 
 <apex:component id="PUD_BookingsHeader">
 	<apex:attribute name="Route" type="PUD_Route__c" description="parent route"/>
-	<table style="width:100%; font-family:Arial Unicode MS;">
+	<table style="width:100%; font-family:Arial Unicode MS; margin-top:10px;">
 		<tr>
 			<td rowspan="2"><img src="{!$Resource.auspost_logo}" width="110" alt="AusPost Logo"/></td>
 			<td style="font-family: sans-serif; font-weight:bold;">{! Route.Name}</td>
@@ -28,7 +28,7 @@
 		</tr>
 	</table>
 
-	<div style="text-align:center; font-family:Arial Unicode MS; padding-top:10px; padding-right:5px;">
+	<div style="text-align:center; font-family:Arial Unicode MS; padding-top:16px; padding-right:5px;">
 		<!-- days the route is active repeated on every subsequent page-->
 		<apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
 		<apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
