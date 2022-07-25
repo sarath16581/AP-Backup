@@ -34,7 +34,7 @@
 						(
 						<apex:outputField value="{!booking.Booking_Location_Street__c}"/>&nbsp;
 						<apex:outputField value="{!booking.Booking_Location_City__c}"/>
-						) &nbsp;<apex:outputField value="{!booking.Key_Number__c}"/> &nbsp;
+						)<br/><apex:outputField value="{!booking.Key_Number__c}"/><br/>
 						<apex:outputText rendered="{! booking.Monday__c}" value="Mon "/>
 						<apex:outputText rendered="{! booking.Tuesday__c}" value="Tue "/>
 						<apex:outputText rendered="{! booking.Wednesday__c}" value="Wed "/>
