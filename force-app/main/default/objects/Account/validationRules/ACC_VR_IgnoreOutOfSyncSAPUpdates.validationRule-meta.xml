@@ -3,7 +3,7 @@
     <fullName>ACC_VR_IgnoreOutOfSyncSAPUpdates</fullName>
     <active>true</active>
     <description>Ignores out of sync updates from SAP CRM based off Integration_Service_Mod_Date__c</description>
-    <errorConditionFormula>AND(NOT(ISNEW()),IsPersonAccount,  NOT(ISNULL(Integration_Service_Mod_Date__c)),  NOT(ISNULL(PRIORVALUE(Integration_Service_Mod_Date__c))), Integration_Service_Mod_Date__c &lt; PRIORVALUE(Integration_Service_Mod_Date__c))</errorConditionFormula>
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; AND(NOT(ISNEW()),IsPersonAccount,  NOT(ISNULL(Integration_Service_Mod_Date__c)),  NOT(ISNULL(PRIORVALUE(Integration_Service_Mod_Date__c))), Integration_Service_Mod_Date__c &lt; PRIORVALUE(Integration_Service_Mod_Date__c))</errorConditionFormula>
     <errorDisplayField>Integration_Service_Mod_Date__c</errorDisplayField>
     <errorMessage>The new Integration_Service_Mod_Date__c is older than the existing value</errorMessage>
 </ValidationRule>

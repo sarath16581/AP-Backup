@@ -24,6 +24,7 @@
  * 2021-10-01 - Nathan Franklin - Refactor transient attributes
  * 2021-10-20 - prerna.rahangdale@auspost.com.au added VODV_Redirect__c to article SOQL.
  * 2022-04-11 - Mahesh Parvathaneni - added Outside_Delivery_Radius__c, Geo_Precision__c to event message SOQL
+ * 2022-07-05 - Snigdha Sahu - REQ2851358 - added MLID to Article Query
 **/
 public class TIBCOArticleService {
 
@@ -151,7 +152,7 @@ public class TIBCOArticleService {
 						ContentsItems__c, ContentsItemsPayload__c, InsuranceRequired__c, InsuranceAmount__c, InsuranceChargeAmount__c, InsuranceSDR__c,CTCDollarAmount__c,
 						AdditionalServices__c, AdditionalServicesPayload__c, CustCommDecisionCode__c, CustCommDecisionDescription__c, CustDelPrefOptionCode__c, CustDelPrefDescription__c, Notification__c,
 						Billing_Account__c, Billing_Account__r.Name, Billing_Account__r.LEGACY_ID__c, Billing_Account__r.Organisation__c, Billing_Account__r.Organisation__r.Name, Billing_Account__r.Organisation__r.LEGACY_ID__c,
-						RecordTypeId, RecordType.Name, Delivered__c, TrackingID__c, ExternalTrackingID__c, ExternalTrackingURL__c, ConsignmentTrackingNumber__c, CaptureID_receiveronly__c, CaptureID_anyoneataddress__c,VODV_Redirect__c
+						RecordTypeId, RecordType.Name, Delivered__c, TrackingID__c, ExternalTrackingID__c, ExternalTrackingURL__c, ConsignmentTrackingNumber__c, CaptureID_receiveronly__c, CaptureID_anyoneataddress__c,VODV_Redirect__c,MLID__c
 				FROM Article__c
 				WHERE ArticleID__c IN :articleIds or TrackingID__c in :articleIds
 		];
@@ -172,7 +173,7 @@ public class TIBCOArticleService {
 						AdditionalServices__c, AdditionalServicesPayload__c, CustCommDecisionCode__c, CustCommDecisionDescription__c, CustDelPrefOptionCode__c, CustDelPrefDescription__c, Notification__c,
 						Consignment__r.ArticleID__c,
 						Billing_Account__c, Billing_Account__r.Name, Billing_Account__r.LEGACY_ID__c, Billing_Account__r.Organisation__c, Billing_Account__r.Organisation__r.Name, Billing_Account__r.Organisation__r.LEGACY_ID__c,
-						RecordTypeId, RecordType.Name, Delivered__c, TrackingID__c, ProductID__c, SubProductID__c, ConsignmentTrackingNumber__c, CaptureID_receiveronly__c, CaptureID_anyoneataddress__c,VODV_Redirect__c
+						RecordTypeId, RecordType.Name, Delivered__c, TrackingID__c, ProductID__c, SubProductID__c, ConsignmentTrackingNumber__c, CaptureID_receiveronly__c, CaptureID_anyoneataddress__c,VODV_Redirect__c,MLID__c
 				FROM Article__c
 				WHERE Consignment__c IN :consignmentsAndArticles or TrackingID__c in :articleIds
 		]) {

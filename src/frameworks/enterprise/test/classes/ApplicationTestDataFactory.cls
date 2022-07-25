@@ -193,6 +193,27 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
+	public static List<ContactPointAddress> getContactPointAddresses(Integer count, Id accountId, Boolean generateIds) {
+		return (List<ContactPointAddress>)maybeGenerateIds(populateSObjects(ContactPointAddress.SObjectType, new Map<SObjectField, Object> {
+			ContactPointAddress.Street => '%count%',
+			ContactPointAddress.ParentId => accountId
+		}, count), generateIds);
+	}
+
+	public static List<ContactPointPhone> getContactPointPhones(Integer count, Id accountId, Boolean generateIds) {
+		return (List<ContactPointPhone>)maybeGenerateIds(populateSObjects(ContactPointPhone.SObjectType, new Map<SObjectField, Object> {
+			ContactPointPhone.TelephoneNumber => '%count%',
+			ContactPointPhone.ParentId => accountId
+		}, count), generateIds);
+	}
+
+	public static List<ContactPointEmail> getContactPointEmails(Integer count, Id accountId, Boolean generateIds) {
+		return (List<ContactPointEmail>)maybeGenerateIds(populateSObjects(ContactPointEmail.SObjectType, new Map<SObjectField, Object> {
+			ContactPointEmail.EmailAddress => 'ZZtest%count%@test%count%.test%count%.com',
+			ContactPointEmail.ParentId => accountId
+		}, count), generateIds);
+	}
+
 	public static List<Lead> getLeads(Integer count, Boolean generateIds) {
 		return (List<Lead>)maybeGenerateIds(populateSObjects(Lead.SObjectType, new Map<SObjectField, Object> {
 				Lead.FirstName => 'First Name %count%',

@@ -12,7 +12,10 @@
 &quot;&amp;uf0=1&quot; +
 &quot;&amp;mfts0=FirstNoticeDate__c&quot; +
 &quot;&amp;mftsvalue0=&quot; + TEXT( TODAY() ) +
-&quot;&amp;mftsid0=&quot; + Id</formula>
+&quot;&amp;mftsid0=&quot; + Id +
+&quot;&amp;mfts1=DemurrageStartDate__c&quot; +
+&quot;&amp;mftsvalue1=&quot; + TEXT( TODAY()+40 ) +
+&quot;&amp;mftsid1=&quot; + Id</formula>
     <label>PrintFirstNotice</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

@@ -8,7 +8,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>ExceptionLogs</relationshipName>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

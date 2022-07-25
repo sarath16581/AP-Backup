@@ -5,6 +5,9 @@
   */
 trigger AccountTriggerClass on Account (before insert, before delete, before update,after insert, after update, after delete, after undelete ) {
     
+    if(!TriggerHelper.isTriggerDisabled(String.valueOf(Account.SObjectType))) {
+		  (new PersonAccountDomainTriggerHandler()).dispatch();
+	  }
 
     AccountTriggerHandler.execute();  // Case handler dispatches appropriate event
 }

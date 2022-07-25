@@ -5,7 +5,7 @@
     <description>To define whether the Exception logged is a Handled Exception or Unhandled Exception.</description>
     <externalId>false</externalId>
     <label>Is Handled</label>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

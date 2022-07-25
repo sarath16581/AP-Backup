@@ -5,7 +5,8 @@
     <description>Phase 1 - Only Customer Data Management Team can change the customer name, ABN and ACN numbers
 BG 29/11: Validation rule updated to allow Data Management Team Supers Users
 BG 15/02: Validation rule updated to stop users updating Customer core fields</description>
-    <errorConditionFormula>IF(
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp;
+IF(
 (Role_Type_Roll_Up__c = &quot;Customer&quot;) &amp;&amp;
 (((ISCHANGED(Name) ||
 ISCHANGED(ABN__c) ||

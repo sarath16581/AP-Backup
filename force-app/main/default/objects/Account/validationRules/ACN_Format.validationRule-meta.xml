@@ -5,7 +5,7 @@
     <description>Ensures that the ACN is only 9 digits for Customer type only.
 SC May2019 - Reactivated rule as per Alice Lo request
 PS Aug 2019 REQ1919573 - added Sys adm to exclude from rule</description>
-    <errorConditionFormula>IF( $Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; NOT(AND(ISNUMBER( ACN__c ), LEN(ACN__c) = 9)) &amp;&amp;  NOT(ISBLANK( ACN__c )) , true, false)</errorConditionFormula>
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; IF( $Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; NOT(AND(ISNUMBER( ACN__c ), LEN(ACN__c) = 9)) &amp;&amp;  NOT(ISBLANK( ACN__c )) , true, false)</errorConditionFormula>
     <errorDisplayField>ACN__c</errorDisplayField>
     <errorMessage>Please enter a valid ACN of 9 digits without any spaces.</errorMessage>
 </ValidationRule>

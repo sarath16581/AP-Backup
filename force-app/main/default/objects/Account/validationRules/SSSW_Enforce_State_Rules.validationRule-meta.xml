@@ -3,7 +3,7 @@
     <fullName>SSSW_Enforce_State_Rules</fullName>
     <active>true</active>
     <description>Enforces State Rules for SAPCRM integration</description>
-    <errorConditionFormula>IsPersonAccount
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; IsPersonAccount
 &amp;&amp;
 ((
  PersonMailingCountry = &apos;AU&apos;

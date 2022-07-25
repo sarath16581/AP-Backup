@@ -3,7 +3,7 @@
     <fullName>Holding_User_With_Role</fullName>
     <active>true</active>
     <description>Must have a Holding Role if Holding User is the Account Manager</description>
-    <errorConditionFormula>IF(
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; IF(
 
 AND(OwnerId = &quot;00590000000im7B&quot;, IsPersonAccount=False,
 ( Holding_Role_Reference__c = &quot;&quot;), 

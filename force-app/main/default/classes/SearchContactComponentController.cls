@@ -61,6 +61,7 @@ public with sharing class SearchContactComponentController {
 	private static final String ACCName_FLD = 'Account.Name';
 	private static final String BILLACCNAME_FLD = 'BillingAccount__r.Name';
 	private static final String EMAIL_FLD = 'Email';
+	private static final String VERIFIED_EMAIL_FLD = 'VerifiedEmail__c';
 	private static final String REV_PHONE_FLD = 'ReversePhoneFields__c';
 	private static final String SOCIAL_KEY_FLD = 'SocialKeys__c';
 	private static final String MAIL_STREET_FLD = 'MailingStreet';
@@ -316,7 +317,7 @@ public with sharing class SearchContactComponentController {
 	  */
 
 	private String buildSOQL(String whereClause) {
-		return 'SELECT Id, Name, Preferred_Name__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, Is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c, SocialKeys__c, ReversePhoneFields__c, Salutation, CRMCSSOID__c, IsDuplicate__c, Phone, HomePhone, OtherPhone, MobilePhone,VerifiedMobile__c,LevelOfAssurance__c, Email, ServiceType__c, MailingStreet, MailingStreet2__c, MailingCity, MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name, Account.IsPersonAccount, Account.RecordTypeId, Account.RecordType.Name, Account.ABN__c,Account.Role_Type_Roll_Up__c, Account.ServiceSLA__c, Account.IsVIP__c, BillingAccount__r.Id, BillingAccount__r.Name, BillingAccount__r.LEGACY_ID__c, Unique_Mobile__c, (SELECT Id,IsClosed FROM Cases) FROM Contact' +
+		return 'SELECT Id, Name, VerifiedEmail__c, Preferred_Name__c, OtherStreet, OtherStreet2__c, OtherCity, OtherState, OtherPostalCode, Is_Inactive_Customer__c, Account.isCustomerPortal, OtherCountry, OtherDPID__c, MailingDPID__c, SocialKeys__c, ReversePhoneFields__c, Salutation, CRMCSSOID__c, IsDuplicate__c, Phone, HomePhone, OtherPhone, MobilePhone,VerifiedMobile__c,LevelOfAssurance__c, Email, ServiceType__c, MailingStreet, MailingStreet2__c, MailingCity, MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name, Account.IsPersonAccount, Account.RecordTypeId, Account.RecordType.Name, Account.ABN__c,Account.Role_Type_Roll_Up__c, Account.ServiceSLA__c, Account.IsVIP__c, BillingAccount__r.Id, BillingAccount__r.Name, BillingAccount__r.LEGACY_ID__c, Unique_Mobile__c, (SELECT Id,IsClosed FROM Cases) FROM Contact' +
 				(String.isNotBlank(whereClause) ? ' WHERE ' + whereClause : '') + ' ORDER BY Unique_Mobile__c DESC, Name LIMIT ' + ROW_LIMIT;
 	}
 
@@ -371,9 +372,10 @@ public with sharing class SearchContactComponentController {
 		{
 			whereClause += '(';
 
-			whereClause = String.isNotBlank(strEmail) ?
-					(whereClause + addCondition(EMAIL_FLD, LIKE_SQL, strEmail) + OR_SQL) : whereClause;			  
-			
+			if(String.isNotBlank(strEmail)) {
+				whereClause += addCondition(EMAIL_FLD, LIKE_SQL, strEmail) + OR_SQL;		  
+				whereClause += addCondition(VERIFIED_EMAIL_FLD, LIKE_SQL, strEmail) + OR_SQL;
+			}
 		
 
 			if (!ckbExcludePhoneFromSearch && String.isNotBlank(strPhone)) {

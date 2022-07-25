@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>ICPSReleasedforDeliveryNotification</fullName>
+        <description>ICPS Released for Delivery Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ReceiverEmail__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ICPS_Email_Templates/ICPSReleasedforDeliveryNotification</template>
+    </alerts>
+    <rules>
+        <fullName>ICPS Released for Delivery Notification</fullName>
+        <actions>
+            <name>ICPSReleasedforDeliveryNotification</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>ICPS__c.ABFReason__c</field>
+            <operation>equals</operation>
+            <value>Released for Delivery,Returned to Sender</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ICPS__c.ReceiverEmail__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ICPS__c.NotificationsEnabled__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Email notification will be sent to the email address on the ICPS record when the ABF Reason on the ICPS record is set.  The email will only be sent if the Notification switch has been turned on in the ICPS Settings custom metadata type.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

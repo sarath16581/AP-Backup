@@ -138,6 +138,10 @@
                 <field>Email</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>VerifiedEmail__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>SocialKeys__c</field>
             </layoutItems>
