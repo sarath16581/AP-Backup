@@ -1,5 +1,5 @@
 <!--Page to allow printing of Duty for driver a backup to the mobile device -->
-<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->
+<!--Uses controller extension to retrieve data. Controller required to retrieve long field and allow sort on Day Start Time-->
 <!--Created 2020-08-10 Dheeraj Mandavilli-->
 <!--2022-07-12 - Kamil Szyc - Updated format to resemble FSL -->
 <apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_AdhocJobsNextDayController"
