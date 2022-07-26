@@ -7,7 +7,7 @@
 * @changelog
 * 2021-08-12 -  Dattaraj Deshmukh - Created.
 */
-public with sharing class PUDBookingContainersDomain extends ApplicationDomain{
+public inherited sharing class PUDBookingContainersDomain extends ApplicationDomain{
 	public static PUDBookingContainersDomain newInstance(List<SObject> sObjectList) {
 		return (PUDBookingContainersDomain)ApplicationDomain.newInstance(PUDBookingContainersDomain.class, sObjectList);
 	}
@@ -15,7 +15,7 @@ public with sharing class PUDBookingContainersDomain extends ApplicationDomain{
 	//records are filtered by booking containers.
 	//only filtered records are passed to domain.
 	public override List<SObject> filter(List<SObject> sObjectList){
-		Id bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Booking_Container'}).values()[0].Id;
+		Id bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{PUDConstants.PUD_BOOKING_CONTAINER_RECORD_TYPE}).values()[0].Id;
 		List<SObject> filteredRecords = new List<SObject>();
 
 		for(SObject bContainer : sObjectList){

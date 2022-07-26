@@ -7,9 +7,9 @@
  * @changelog
  * 2022-06-28 - Dattaraj Deshmukh - Created
  */
-public with sharing class PUDContainersSelector extends ApplicationSelector{
+public inherited sharing class PUDContainersSelector extends ApplicationSelector{
 	public enum Options {
-		WITH_RECORDTYPE, FILTER_BOOKING_CONTAINERS
+		FILTER_BOOKING_CONTAINERS
 	}
 
 	// get record type id for booking containers
@@ -93,14 +93,11 @@ public with sharing class PUDContainersSelector extends ApplicationSelector{
 	* @description Run a simple query to get records based on Job__c Id's
 	*/
 	public virtual List<PUD_Container__c> selectByJobIds(Set<Id> ids, Set<Object> selectorOptions) {
-		Id jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
-
-		System.debug('Job Ids: '+ids);
-		System.debug('jobContainerRecordTypeId: '+jobContainerRecordTypeId);
-		
+		//Id jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
+	
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
 		.add(new QueryBuilder.SimpleCondition(PUD_Container__c.Job__c + ' in :ids'))
-		.add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(jobContainerRecordTypeId))
+		//.add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(jobContainerRecordTypeId))
 		.endConditions();   
 
 		return (List<PUD_Container__c>)Database.query(qb.toSoqlString());

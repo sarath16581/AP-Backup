@@ -66,7 +66,6 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 	*/
 	public virtual List<PUD_Job__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Job__c.Id + ' in :ids')).endConditions();       
-        system.debug('SOQL Query: '+qb.toSoqlString());
 		return (List<PUD_Job__c>)Database.query(qb.toSoqlString());
 	}
 

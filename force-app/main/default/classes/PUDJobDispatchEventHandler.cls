@@ -61,8 +61,6 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	 */
 	public void processJobActionEvents(List<PUD_Job_Dispatch_Event__e> events) {
 
-		Map<Id, List<PUD_Container__c>> jobIdVsNewContainers =  new Map<Id, List<PUD_Container__c>>();
-
 		// iterate through each event and collect all parent job ids.
 		Set<Id> parentJobIds = new Set<Id>();
 		for (PUD_Job_Dispatch_Event__e event : events) {

@@ -11,7 +11,7 @@
  */
 
 public with sharing class PUDContainerTriggerHandler extends ApplicationDomainTriggerHandler {
-    public override SObjectType getSObjectType() {
+	public override SObjectType getSObjectType() {
 		return PUD_Container__c.SObjectType;
 	}
 
@@ -30,7 +30,7 @@ public with sharing class PUDContainerTriggerHandler extends ApplicationDomainTr
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-            PUD_Container__c.SObjectType,
+			PUD_Container__c.SObjectType,
 			PUD_Job__c.SObjectType			
 		};
 	}

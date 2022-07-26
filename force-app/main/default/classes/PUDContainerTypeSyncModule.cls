@@ -10,9 +10,9 @@
  */
 
 
-public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.Module{
-    
-    public static PUDContainerTypeSyncModule newInstance() {
+public inherited sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.Module{
+	
+	public static PUDContainerTypeSyncModule newInstance() {
 		return (PUDContainerTypeSyncModule) Application.Utilities.newInstance(PUDContainerTypeSyncModule.class);
 	}
 
@@ -21,7 +21,7 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 		getTriggerEvents().enableAfterUpdate().enableAfterInsert().enableBeforeInsert().enableAfterDelete();
 	}
 
-    /**
+	/**
 	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
 	 */
 	public class Constructor implements ApplicationDomain.IConstructableModule {
@@ -38,14 +38,14 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 		preventDuplicateContainerRecords(records);
 	}
 
-    public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
+	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
 		processContainers((List<PUD_Container__c> )records, uow);
-    }
+	}
 
 
-    public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow){
+	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow){
 		processContainers((List<PUD_Container__c> )records, uow);
-    }
+	}
 
 	/**
 	 * @param: new container records
@@ -53,8 +53,7 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 	 */
 	private void preventDuplicateContainerRecords(List<PUD_Container__c> newRecords){
 		Set<Id> bookingIds = new Set<Id>();
-		Set<Id> jobIds = new Set<Id>();
-		
+
 		//map to store existing containers under a booking.
 		//Container Type + Condition is a criteria to identify uniqueness.
 		//e.g. Pallets, Empty and Pallets, Full are considered as two different containers.
@@ -90,7 +89,7 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 			String uniqueKey = newContainer.Type__c+newContainer.Condition__c;
 
 			if(bookingIdVsContainerUniqueKey.containsKey(newContainer.Booking__c) && bookingIdVsContainerUniqueKey.get(newContainer.Booking__c).contains(uniqueKey)){
-				newContainer.addError('Container type: '+newContainer.Type__c+ ' with condition: '+ newContainer.Condition__c+ ' already exists under a booking. Please update existing container type.');
+				newContainer.addError(String.format(Label.PUDJobDispatchSystemSyncRestrictedStatusErrorMessage, new List<String>{newContainer.Type__c, newContainer.Condition__c}));
 			}
 		}
 	}
@@ -103,10 +102,7 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 
 		Set<Id> bookingIds = new Set<Id>();
 		for(PUD_Container__c container : records){
-			//Check if container's record type id = Booking_Container.
-			if(container.RecordTypeId == bookingContainerRecordTypeId){
-				bookingIds.add(container.Booking__c);
-			}
+			bookingIds.add(container.Booking__c);
 		}
 
 		//if Booking Containers are not updated then return.
@@ -119,7 +115,6 @@ public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.
 			//call utility method to sycn containers.
 			PUDUtility.getInstance().refreshContainerTypes(bookingIds, uow);
 		} catch(Exception exp) {
-            system.debug('Exp: '+exp);
 			//Log error to Exception object for analysis
 			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), PUDConstants.PICKUP_BOOKING_APP, PUDContainerTypeSyncModule.class.getName(), 'refreshContainerTypesSync', 'PUDContainerTrigger', LoggingLevel.ERROR);
 		}
