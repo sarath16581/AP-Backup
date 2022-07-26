@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Job__c</fullName>
+    <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>Job associated with containers</description>
+    <description>Job associated with containers. This field is populated when containers are added under a job.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Job associated with containers</inlineHelpText>
+    <inlineHelpText>Job associated with containers. This field is populated when containers are added under a job.</inlineHelpText>
     <label>Job</label>
     <referenceTo>PUD_Job__c</referenceTo>
     <relationshipLabel>Containers</relationshipLabel>
