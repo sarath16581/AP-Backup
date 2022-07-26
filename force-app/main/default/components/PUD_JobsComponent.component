@@ -25,7 +25,7 @@
 			<apex:column headerValue="Job Details"
 			             styleClass="normalcell"
 			             width="400px"
-			             style="padding-bottom:20px;"
+			             style="padding-bottom:20px; padding-right:10px;"
 			             headerClass="job-headers">
 				<div class="boldcell">
 					<apex:outputText rendered="{! !ISBLANK(job.Location_Information__c)}">
