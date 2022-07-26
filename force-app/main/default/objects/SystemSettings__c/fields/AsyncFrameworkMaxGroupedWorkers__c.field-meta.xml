@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AsyncFrameworkMaxGroupedWorkers__c</fullName>
+    <description>This determines how many individual workers can be grouped together into a single execution (assuming the workers are groupable in the first place)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This determines how many individual workers can be grouped together into a single execution (assuming the workers are groupable in the first place)</inlineHelpText>
+    <label>Async Framework Max Grouped Workers</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

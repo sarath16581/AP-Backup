@@ -5,7 +5,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>BGS Case Closure</name>
     <style>none</style>
-    <subject>Australia Post Case {!Case.CaseNumber} Closed</subject>
+    <subject>We&apos;ve closed your case.</subject>
     <textOnly>Dear {!Contact.FirstName},
 
 Case #{!Case.CaseNumber} has been updated to resolved/closed.

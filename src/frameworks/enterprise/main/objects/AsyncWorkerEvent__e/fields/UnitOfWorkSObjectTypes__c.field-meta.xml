@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UnitOfWorkSObjectTypes__c</fullName>
+    <description>A serialised List&lt;SObjectType&gt; which will be deserialised and into a new UOW and passed into this async workers execute method. This also help determine grouping and whether we can group this worker to the next worker (used in conjunction with SObjectTypeGroup__c field)</description>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Unit of Work SObject Types</label>
+    <length>131072</length>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

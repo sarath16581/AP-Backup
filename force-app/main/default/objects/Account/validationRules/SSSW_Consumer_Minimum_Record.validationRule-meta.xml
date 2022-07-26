@@ -3,7 +3,7 @@
     <fullName>SSSW_Consumer_Minimum_Record</fullName>
     <active>true</active>
     <description>Enforces 1 minimum data element per record</description>
-    <errorConditionFormula>IsPersonAccount
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; IsPersonAccount
 &amp;&amp;
 (
 (

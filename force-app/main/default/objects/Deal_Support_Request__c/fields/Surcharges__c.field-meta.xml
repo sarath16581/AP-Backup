@@ -11,16 +11,11 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
-                <fullName>Manual handling surcharge</fullName>
+                <fullName>Administrative fee</fullName>
                 <default>false</default>
-                <label>Manual handling surcharge</label>
-            </value>
-            <value>
-                <fullName>Security management surcharge</fullName>
-                <default>false</default>
-                <label>Security management surcharge</label>
+                <label>Administrative fee</label>
             </value>
             <value>
                 <fullName>Fuel surcharge</fullName>
@@ -28,14 +23,24 @@
                 <label>Fuel surcharge</label>
             </value>
             <value>
+                <fullName>Manual handling surcharge</fullName>
+                <default>false</default>
+                <label>Manual handling surcharge</label>
+            </value>
+            <value>
+                <fullName>Return to sender</fullName>
+                <default>false</default>
+                <label>Return to sender</label>
+            </value>
+            <value>
+                <fullName>Security management charge</fullName>
+                <default>false</default>
+                <label>Security management charge</label>
+            </value>
+            <value>
                 <fullName>Unmanifested article</fullName>
                 <default>false</default>
                 <label>Unmanifested article</label>
-            </value>
-            <value>
-                <fullName>Administrative fee</fullName>
-                <default>false</default>
-                <label>Administrative fee</label>
             </value>
         </valueSetDefinition>
     </valueSet>

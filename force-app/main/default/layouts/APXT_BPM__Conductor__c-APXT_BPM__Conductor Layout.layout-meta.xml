@@ -6,6 +6,7 @@
     <customButtons>APXT_BPM__Schedule</customButtons>
     <customButtons>APXT_BPM__Launch</customButtons>
     <customButtons>APXT_BPM__View_Conga_Conductor_Dashboard</customButtons>
+    <customButtons>APXT_BPM__Launch_C8</customButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -115,7 +116,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h80000002nZ40</masterLabel>
+        <masterLabel>00h0p000001inHP</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
