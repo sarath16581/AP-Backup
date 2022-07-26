@@ -13,7 +13,6 @@
 		                     style="padding-top:28px; page-break-inside:avoid;"
 		                     styleClass="normalcell"
 		                     headerClass="table-header">
-			<!-- the empty column below is required to prevent "Pdf generation error, please check your markup" issue -->
 			<apex:column headerValue="Arrive"
 			             styleClass="normalcell"
 			             width="50px"
