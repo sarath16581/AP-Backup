@@ -40,6 +40,7 @@ public with sharing class PUD_AdhocJobsPrintfromRouteControllerX {
 						effectiveDate
 				},
 				new Set<Id>(),
+				false,
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT
 				})[0];

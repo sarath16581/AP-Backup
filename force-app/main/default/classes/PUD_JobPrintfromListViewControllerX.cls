@@ -29,8 +29,9 @@ public with sharing class PUD_JobPrintfromListViewControllerX {
 				new Set<String>(),
 				new Set<Date>{effectiveDate},
 				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
+				false,
 				new Set<Object>{
-						PUDRoutesSelector.Options.WITH_DEPOT, PUDRoutesSelector.Options.LIMIT_TO_MY_GROUPS_ONLY
+						PUDRoutesSelector.Options.WITH_DEPOT
 				})){
 			if(!route.Jobs__r.isEmpty()){
 				

@@ -5,7 +5,7 @@
 * @tag Controller
 * @tag PUD_Job__c
 * @domain Interoperability PUD Project
-* @description Controller class to fectch adhoc job records from PUD_Job__c object.
+* @description Controller class to fetch adhoc job records from PUD_Job__c object.
 * NOTE: This class is used by PUD_AdhocJobsPrint VF Page upon clicking "Print Adhoc Jobs" from Routes List View Page. 
 * 2019-11-28 - Dheeraj Mandavilli - Created
 * 2020-05-25 - Dheeraj Mandavilli - Refactored the Logic to Fetch Depot Id from Logged in User
@@ -29,8 +29,9 @@ public with sharing class PUD_AdhocJobsfromListViewControllerX {
 				new Set<Date>{Date.today()
 				},
 				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
+				true,
 				new Set<Object>{
-						PUDRoutesSelector.Options.WITH_DEPOT, PUDRoutesSelector.Options.LIMIT_TO_MY_GROUPS_ONLY
+						PUDRoutesSelector.Options.WITH_DEPOT
 				})){
 			if(!route.Jobs__r.isEmpty()){
 				routes.add(route);

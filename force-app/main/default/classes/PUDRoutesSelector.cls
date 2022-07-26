@@ -14,7 +14,7 @@
  */
 public virtual inherited sharing class PUDRoutesSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_DEPOT, LIMIT_TO_MY_GROUPS_ONLY
+		WITH_DEPOT
 	}
 	public static PUDRoutesSelector newInstance() {
 		return (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class);
@@ -187,11 +187,14 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 	 *
 	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
 	 */
-	public virtual List<PUD_Route__c> selectByIdWithJobs(Set<Id> ids, Set<String> bookingRecordTypes, Set<Date> jobDates, Set<Id> depotIds, Set<Object> selectorOptions) {
+	public virtual List<PUD_Route__c> selectByIdWithJobs(Set<Id> ids, Set<String> bookingRecordTypes, Set<Date> jobDates, Set<Id> depotIds, Boolean limitToMyGroupsOnly, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' IN :ids'))
 				.endConditions();
+		if (limitToMyGroupsOnly) {
+			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Depot__c + ' IN :depotIds')).endConditions();
+		}
 		qb.addSubQuery(getChildJobsSubQueryBuilder(jobDates, bookingRecordTypes, selectorOptions)
 				, 'Jobs__r');
 		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
@@ -232,9 +235,6 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 		if (selectorOptions.contains(Options.WITH_DEPOT)) {
 			builder.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
-		}
-		if (selectorOptions.contains(Options.LIMIT_TO_MY_GROUPS_ONLY)) {
-			builder.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Depot__c + ' IN :depotIds')).endConditions();
 		}
 		return builder;
 	}
