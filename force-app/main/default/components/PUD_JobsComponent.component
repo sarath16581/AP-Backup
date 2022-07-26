@@ -6,7 +6,6 @@
 		<apex:pageBlockTable value="{! jobs  }" var="job"
 		                     styleClass="normalcell"
 		                     style="page-break-inside:avoid; 
-                                border-top: 1px solid black; 
                                 font-family:Arial Unicode MS;
                                 font-size: 10px;"
 		                     headerClass="table-header">
@@ -51,7 +50,6 @@
 			             width="50px"
 			             headerClass="job-headers">
 				<apex:outputText styleClass="normalcell" value="{!job.Key_Number__c}"/>
-				<br/>
 				<br/>
 			</apex:column>
 		</apex:pageBlockTable>
