@@ -34,7 +34,6 @@ private with sharing class PUD_AdhocJobsPrintfromRouteCtrlX_Test {
 				(Set<String>) fflib_Match.anyObject(),
 				(Set<Date>) fflib_Match.anyObject(),
 				(Set<Id>) fflib_Match.anyObject(),
-				(Boolean) fflib_Match.anyObject(),
 				(Set<Object>) fflib_Match.anyObject()
 		))
 				.thenReturn(routeList

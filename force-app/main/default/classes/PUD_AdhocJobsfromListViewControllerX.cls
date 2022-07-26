@@ -29,7 +29,6 @@ public with sharing class PUD_AdhocJobsfromListViewControllerX {
 				new Set<Date>{Date.today()
 				},
 				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
-				true,
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT
 				})){

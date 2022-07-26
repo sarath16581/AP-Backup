@@ -44,7 +44,6 @@ public with sharing class PUD_JobsPrintFutureControllerX {
 						effectiveDate
 				},
 				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
-				true,
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT
 				});

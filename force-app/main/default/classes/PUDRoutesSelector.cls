@@ -178,21 +178,21 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 
 	/**
 	 * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
-	 *
+	 * NOTE: To avoid enforcing filtering by groups to which the user belongs, provide null value for depotIds
 	 * @param ids route ids to query
 	 * @param bookingRecordTypes set of booking record types of the jobs to be returned
 	 * @param jobDates set of dates
-	 * @param depotIds ids of the parent depot records
+	 * @param depotIds ids of the parent depot records. Set to NULL if the method should not filter the results by public groups to which user belongs to
 	 * @param selectorOptions additional selector options
 	 *
 	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
 	 */
-	public virtual List<PUD_Route__c> selectByIdWithJobs(Set<Id> ids, Set<String> bookingRecordTypes, Set<Date> jobDates, Set<Id> depotIds, Boolean limitToMyGroupsOnly, Set<Object> selectorOptions) {
+	public virtual List<PUD_Route__c> selectByIdWithJobs(Set<Id> ids, Set<String> bookingRecordTypes, Set<Date> jobDates, Set<Id> depotIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' IN :ids'))
 				.endConditions();
-		if (limitToMyGroupsOnly) {
+		if (depotIds != null) {
 			qb.addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Depot__c + ' IN :depotIds')).endConditions();
 		}
 		qb.addSubQuery(getChildJobsSubQueryBuilder(jobDates, bookingRecordTypes, selectorOptions)
