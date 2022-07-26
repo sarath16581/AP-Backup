@@ -24,11 +24,18 @@ public with sharing class PUD_AdhocJobsPrintfromRouteControllerX {
 					PUD_Route__c.Saturday__c, PUD_Route__c.Sunday__c, PUD_Route__c.Overtime_Allowance__c,
 					PUD_Route__c.Start_Time__c, PUD_Route__c.End_Time__c, PUD_Route__c.Start_Date__c, PUD_Route__c.End_Date__c}
 	};
+	
 	// Constructor    
 	public PUD_AdhocJobsPrintfromRouteControllerX(ApexPages.standardController sc) {
 		effectiveDate = Date.today();
+		route = new PUD_Route__c();
+		Set<String> groupNameSet = new Set<String>();
+
+		for(GroupMember objCGM : (List<GroupMember>) GroupMembersSelector.newInstance().getMyGroups(new List<String>(),new Set<Object>{GroupMembersSelector.Options.WITH_GROUP},false)){
+			groupNameSet.add(objCGM.Group.Name);
+		}
 		//Get list of jobs with anything other than permanent record type
-		route = PUDRoutesSelector.newInstance(jobPrintFieldOverrides).selectByIdWithJobs(
+		List<PUD_Route__c> routes = PUDRoutesSelector.newInstance(jobPrintFieldOverrides).selectByIdWithJobs(
 				new Set <Id>{
 						sc.getId()
 				},
@@ -39,11 +46,15 @@ public with sharing class PUD_AdhocJobsPrintfromRouteControllerX {
 				}, new Set<Date>{
 						effectiveDate
 				},
-				new Set<Id>(),
-				false,
+				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
+				true,
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT
-				})[0];
+				});
+		
+		if(routes != null && !routes.isEmpty()){
+			route = routes[0];
+		}
 
 	}
 }
