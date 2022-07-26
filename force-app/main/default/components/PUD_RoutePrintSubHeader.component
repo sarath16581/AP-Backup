@@ -59,11 +59,9 @@
 							rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}">
 						<br/>
 					</apex:outputText>
-					<apex:outputText rendered="{! booking.Booking_Type__c='Meal Break' && !ISBLANK(booking.Booking_Location_Name_LU__c)}">
-						{!booking.Booking_Location_Name_LU__c} &nbsp;
+					<apex:outputText rendered="{! booking.Booking_Type__c='Meal Break' && !ISBLANK(booking.Booking_Location_Name_LU__c)}">{!booking.Booking_Location_Name_LU__c} &nbsp;
 					</apex:outputText>
-					<apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
-						{! IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
+					<apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">{!IF(LEN(TEXT(HOUR(booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(booking.Start_Time__c)), HOUR(booking.Start_Time__c))}
 					</apex:outputText>
 					<apex:outputText value="{0,number,00}"
 					                 rendered="{! AND(booking.Booking_Type__c='Meal Break', !ISBLANK(booking.Start_Time__c))}">
@@ -74,7 +72,7 @@
 						               value="{! booking.Start_Time__c+booking.Dwell_Time_Planned__c*60000}"/>
 						<apex:outputText rendered="{! booking.Booking_Type__c='Meal Break'}">
 							-
-							{! IF(LEN(TEXT(HOUR(breakEndTime)))<2 , '0'+ TEXT(HOUR(breakEndTime)), HOUR(breakEndTime))}
+							{!IF(LEN(TEXT(HOUR(breakEndTime)))<2 , '0'+ TEXT(HOUR(breakEndTime)), HOUR(breakEndTime))}
 						</apex:outputText>
 						<apex:outputText value="{0,number,00}"
 						                 rendered="{! booking.Booking_Type__c='Meal Break'}">
@@ -82,7 +80,7 @@
 						</apex:outputText>
 					</apex:outputText>
 					<apex:outputText
-							rendered="{!  booking.Booking_Type__c='Meal Break'}">
+							rendered="{!booking.Booking_Type__c='Meal Break'}">
 						<apex:variable var="breaksNumber" value="{!breaksNumber+1}"/>
 					</apex:outputText>
 				</apex:repeat>
