@@ -30,13 +30,16 @@
 				<div class="boldcell">
 					<apex:outputText rendered="{! !ISBLANK(job.Location_Information__c)}">
 						<apex:outputField value="{!job.Location_Information__c}"/>
-						<br/>
 					</apex:outputText>
 				</div>
-				<apex:outputText value="{! job.Booking_Type_Fx__c}" styleClass="normalcell"/>
-				<br/>
-				<apex:outputField value="{!job.Booking_Comments__c}" styleClass="normalcell"/>
-				<br/>
+				<apex:outputText rendered="{!!ISBLANK(job.Booking_Type_Fx__c)}" styleClass="normalcell">
+					<apex:outputField value="{! job.Booking_Type_Fx__c}"/>
+					
+				</apex:outputText>
+				<apex:outputText rendered="{! !ISBLANK(job.Booking_Comments__c)}">
+					<br/><apex:outputField value="{!job.Booking_Comments__c}" styleClass="normalcell"/>
+					
+				</apex:outputText>
 			</apex:column>
 			<apex:column headerValue="Deliver Product"
 			             styleClass="normalcell"
