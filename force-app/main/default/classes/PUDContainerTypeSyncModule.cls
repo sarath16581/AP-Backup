@@ -4,7 +4,7 @@
  * @date 2022-06-23
  * @tag Container Types
  * @domain Container Booking
- * @description Module class to process a business logic when Implementation stage is update on DSR record..
+ * @description Module class to process a business logic when Containers are created under bookgings.
  * @changelog
  * 2022-06-23 - Dattaraj Deshmukh - Created
  */
@@ -12,18 +12,6 @@
 
 public with sharing class PUDContainerTypeSyncModule  extends ApplicationDomain.Module{
     
-	private static final Set<SObjectField> MONITORED_FIELDS_FOR_UPDATES {
-		get {
-			if (MONITORED_FIELDS_FOR_UPDATES == null) {
-				MONITORED_FIELDS_FOR_UPDATES = new Set<SObjectField>{
-					PUD_Container__c.Type__c, PUD_Container__c.Actual_Quantity__c, PUD_Container__c.Expected_Quantity__c, PUD_Container__c.Condition__c 
-				};
-			}
-			return MONITORED_FIELDS_FOR_UPDATES;
-		}
-		set;
-	}
-
     public static PUDContainerTypeSyncModule newInstance() {
 		return (PUDContainerTypeSyncModule) Application.Utilities.newInstance(PUDContainerTypeSyncModule.class);
 	}
