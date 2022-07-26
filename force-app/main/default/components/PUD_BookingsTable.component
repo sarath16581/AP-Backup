@@ -35,10 +35,8 @@
 					<apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
 					<apex:outputText
 							rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
-						(
-						<apex:outputField value="{!booking.Booking_Location_Street__c}"/>&nbsp;
-						<apex:outputField value="{!booking.Booking_Location_City__c}"/>
-						)<br/>
+						(<apex:outputField value="{!booking.Booking_Location_Street__c}"/>&nbsp;
+						<apex:outputField value="{!booking.Booking_Location_City__c}"/>)<br/>
 					</apex:outputText>
 					<apex:outputText rendered="{! !ISBLANK(booking.Key_Number__c)}">
 						<apex:outputField value="{!booking.Key_Number__c}"/>
