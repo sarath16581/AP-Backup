@@ -44,7 +44,7 @@ public with sharing class PUD_JobsPrintFutureControllerX {
 				},
 				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				new Set<Object>{
-						PUDRoutesSelector.Options.WITH_DEPOT
+						PUDRoutesSelector.Options.WITH_DEPOT, PUDRoutesSelector.Options.LIMIT_TO_MY_GROUPS_ONLY
 				})[0];
 
 	}
