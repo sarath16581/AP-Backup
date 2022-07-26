@@ -35,18 +35,19 @@ public with sharing class PUD_JobsPrintFutureControllerX {
 			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY);
 			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY);
 		}
-		List<PUD_Route__c> routes = PUDRoutesSelector.newInstance(PUD_AdhocJobsPrintfromRouteControllerX.jobPrintFieldOverrides).selectByIdWithJobs(
+		List<PUD_Route__c> routes = PUDRoutesSelector.newInstance(PUDConstants.PUD_JOB_PRINT_FIELDS).selectByIdAndDepotWithJobs(
 				new Set<Id>{
 						sc.getId()
 				},
+				new Map<Id, Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				bookingTypes,
 				new Set<Date>{
 						effectiveDate
 				},
-				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT
-				});
+				}
+		);
 
 		if(routes != null && !routes.isEmpty()){
 			route = routes[0];

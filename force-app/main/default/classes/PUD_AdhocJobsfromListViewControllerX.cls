@@ -23,15 +23,19 @@ public with sharing class PUD_AdhocJobsfromListViewControllerX {
 			groupNameSet.add(objCGM.Group.Name);
 		}
 
-		for(PUD_Route__c route :  PUDRoutesSelector.newInstance(PUD_AdhocJobsPrintfromRouteControllerX.jobPrintFieldOverrides).selectByIdWithJobs(
-				new Map<Id, PUD_Route__c>( (PUD_Route__c[])ssc.getSelected()).keySet(),
-				new Set<String>{PUDConstants.PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY},
-				new Set<Date>{Date.today()
+		for(PUD_Route__c route :  PUDRoutesSelector.newInstance(PUDConstants.PUD_JOB_PRINT_FIELDS).selectByIdAndDepotWithJobs(
+				new Map<Id, PUD_Route__c>((PUD_Route__c[]) ssc.getSelected()).keySet(),
+				new Map<Id, Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
+				new Set<String>{
+						PUDConstants.PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY
 				},
-				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
+				new Set<Date>{
+						Date.today()
+				},
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT
-				})){
+				}
+		)){
 			if(!route.Jobs__r.isEmpty()){
 				routes.add(route);
 			}

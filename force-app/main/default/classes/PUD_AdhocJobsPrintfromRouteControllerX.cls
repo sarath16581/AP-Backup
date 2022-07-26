@@ -15,15 +15,7 @@
 public with sharing class PUD_AdhocJobsPrintfromRouteControllerX {
 	public PUD_Route__c route { get; set; }
 	public Date effectiveDate {get;set;}
-	public static Map<SObjectType,Set<SObjectField>> jobPrintFieldOverrides = new Map<SObjectType,Set<SObjectField>>{
-			PUD_Job__c.getSObjectType() => new Set<SObjectField> {PUD_Job__c.Start_Time__c, PUD_Job__c.Location_Information__c, PUD_Job__c.Booking_Type_Fx__c, PUD_Job__c.Booking_Comments__c,
-			PUD_Job__c.Deliver_Product__c, PUD_Job__c.Key_Number__c},
-			PUD_Route__c.getSObjectType() => new Set <SObjectField>{
-					PUD_Route__c.Name, PUD_Route__c.Depot__c,
-					PUD_Route__c.Monday__c, PUD_Route__c.Tuesday__c, PUD_Route__c.Wednesday__c, PUD_Route__c.Thursday__c, PUD_Route__c.Friday__c,
-					PUD_Route__c.Saturday__c, PUD_Route__c.Sunday__c, PUD_Route__c.Overtime_Allowance__c,
-					PUD_Route__c.Start_Time__c, PUD_Route__c.End_Time__c, PUD_Route__c.Start_Date__c, PUD_Route__c.End_Date__c}
-	};
+	
 	
 	// Constructor    
 	public PUD_AdhocJobsPrintfromRouteControllerX(ApexPages.standardController sc) {
@@ -35,21 +27,23 @@ public with sharing class PUD_AdhocJobsPrintfromRouteControllerX {
 			groupNameSet.add(objCGM.Group.Name);
 		}
 		//Get list of jobs with anything other than permanent record type
-		List<PUD_Route__c> routes = PUDRoutesSelector.newInstance(jobPrintFieldOverrides).selectByIdWithJobs(
+		List<PUD_Route__c> routes = PUDRoutesSelector.newInstance(PUDConstants.PUD_JOB_PRINT_FIELDS).selectByIdAndDepotWithJobs(
 				new Set <Id>{
 						sc.getId()
 				},
+				new Map<Id, Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				new Set<String>{
 						PUDConstants.PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY,
 						PUDConstants.PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY
 
-				}, new Set<Date>{
+				},
+				new Set<Date>{
 						effectiveDate
 				},
-				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT
-				});
+				}
+		);
 		
 		if(routes != null && !routes.isEmpty()){
 			route = routes[0];

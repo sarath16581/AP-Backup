@@ -24,14 +24,17 @@ public with sharing class PUD_JobPrintfromListViewControllerX {
 		for(GroupMember objCGM : (List<GroupMember>) GroupMembersSelector.newInstance().getMyGroups(new List<String>(),new Set<Object>{GroupMembersSelector.Options.WITH_GROUP},false)){
 			groupNameSet.add(objCGM.Group.Name);
 		}
-		for(PUD_Route__c route :  PUDRoutesSelector.newInstance(PUD_AdhocJobsPrintfromRouteControllerX.jobPrintFieldOverrides).selectByIdWithJobs(
-				new Map<Id, PUD_Route__c>( (PUD_Route__c[])ssc.getSelected()).keySet(),
+		for(PUD_Route__c route :  PUDRoutesSelector.newInstance(PUDConstants.PUD_JOB_PRINT_FIELDS).selectByIdAndDepotWithJobs(
+				new Map<Id, PUD_Route__c>((PUD_Route__c[]) ssc.getSelected()).keySet(),
+				new Map<Id, Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
 				new Set<String>(),
-				new Set<Date>{effectiveDate},
-				new Map<Id,Network__c>(NetworksSelector.newInstance().selectByName(groupNameSet)).keySet(),
+				new Set<Date>{
+						effectiveDate
+				},
 				new Set<Object>{
 						PUDRoutesSelector.Options.WITH_DEPOT
-				})){
+				}
+		)){
 			if(!route.Jobs__r.isEmpty()){
 				
 				routes.add(route);

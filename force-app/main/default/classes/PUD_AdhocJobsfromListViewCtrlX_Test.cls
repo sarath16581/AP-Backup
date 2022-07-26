@@ -31,11 +31,11 @@ private with sharing class PUD_AdhocJobsfromListViewCtrlX_Test {
 		PUDRoutesSelector routesSelector = (PUDRoutesSelector) MockUtility.mockSelector(PUDRoutesSelector.class);
 		// set up responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(routesSelector.selectByIdWithJobs(
+		MockUtility.Mocks.when(routesSelector.selectByIdAndDepotWithJobs(
+				(Set<Id>) fflib_Match.anyObject(),
 				(Set<Id>) fflib_Match.anyObject(),
 				(Set<String>) fflib_Match.anyObject(),
 				(Set<Date>) fflib_Match.anyObject(),
-				(Set<Id>) fflib_Match.anyObject(),
 				(Set<Object>) fflib_Match.anyObject()
 		))
 				.thenReturn(routeList
