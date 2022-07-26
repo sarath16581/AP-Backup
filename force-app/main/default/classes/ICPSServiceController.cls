@@ -132,6 +132,30 @@ public with sharing class ICPSServiceController {
 	}
 
 	/**
+	 * This method is used to send request to label print service
+	 * @param icpsId ID of the ICPS record
+	 * @return LabelPrintDetail wrapper of the PDF stream in base64 and ICPS Name
+	 */
+	@AuraEnabled
+	public static LabelPrintDetail printLabel(String icpsId) {
+		try {
+			ICPS__c icps = ICPSSelector.newInstance(1).selectById(new Set<Id>{icpsId})[0];
+
+			String icpsName = icps.Name;
+			String pdfStream =  ICPSService.getInstance().retrieveBase64Labels(icps, UserInfo.getUserName());
+
+			LabelPrintDetail labelPrintDetail = new LabelPrintDetail();
+			labelPrintDetail.icpsName = icpsName;
+			labelPrintDetail.pdfStream = pdfStream;
+
+			return labelPrintDetail;
+		} catch (Exception e) {
+            System.debug('ERROR: ' + e.getMessage() + ' ==> ' + e.getStackTraceString());
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
 	 * This method is used to map Tracking result from TIBCO Service to ICPSArticleTrackingResult
 	 * @param articleNumber Article number or tracking Id
 	 * @param searchResult TIBCOSearchResult from TIBCO Service
@@ -196,5 +220,12 @@ public with sharing class ICPSServiceController {
 	public class ConsignmentDetail {
 		@AuraEnabled
 		public Article__c consignmentArticle { get; set; }
+	}
+
+	public class LabelPrintDetail {
+		@AuraEnabled
+		public String icpsName { get; set; }
+		@AuraEnabled
+		public String pdfStream { get; set; }
 	}
 }

@@ -8,7 +8,6 @@
  * @description DDS-10974 Testing the create case functionality for product and services.
  * @changelog
  * 2022-06-06 - Hasantha Liyanage - Created
- * 2022-07-15 - Hasantha Liyanage - DDS-11324 added mocking basics as a part of refactor phase 2
  */
 @IsTest(IsParallel=true)
 public with sharing class ChasProductsAndServicesControllerTest {
@@ -59,19 +58,12 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'Delete MyPost account');
-            
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-
 
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-        
 		} catch (Exception e) {
-			System.debug('productIssue_DeleteMyPostAccount()::error==>' + e.getMessage());
+			System.debug('productIssue_MailProducts_Letter()::error==>' + e.getMessage());
 			isSuccess = false;
 		}
 		System.assert(isSuccess);
@@ -87,15 +79,10 @@ public with sharing class ChasProductsAndServicesControllerTest {
 		try {
 			TestData vTestData = wizardDataSetUp();
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
+			// vTestData.productAndSrvWizardData.put('selectedRadio1Name','Item not left in a safe location');
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_MailProducts_24By7ParcelLocker()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -122,16 +109,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 				'complaintDetails complaintDetailscomplaintDetailscomplaintDetailscomplaintDetails complaintDetails complaintDetails' +
 				'complaintDetailscomplaintDetailscomplaintDetailscomplaintDetails'
 			);
-
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_MailProducts_ExpressPost()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -150,16 +130,10 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			TestData vTestData = wizardDataSetUp();
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'Letter');
-            
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
 
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_MailProducts_Letter()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -177,16 +151,10 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			TestData vTestData = wizardDataSetUp();
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'Parcel');
-            
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
 
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_MailProducts_Parcel()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -204,16 +172,10 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			TestData vTestData = wizardDataSetUp();
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'Parcel Collect');
-            
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
 
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_MailProducts_ParcelCollect()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -232,16 +194,10 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			TestData vTestData = wizardDataSetUp();
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'PO Box and Private Bag');
-            
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
 
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_MailProducts_POBoxAndPrivateBag()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -261,15 +217,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'Tracking');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_MailProducts_Tracking()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -289,15 +239,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'Transfer');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_MailProducts_Transfer()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -317,14 +261,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Post office');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_PostOffice()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -344,15 +283,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_IdDocuments()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -373,15 +306,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'ID check');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_IdDocuments_Idheck()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -402,15 +329,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'Land title');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_IdDocuments_LandTitle()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -430,15 +351,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'Letter');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_IdDocuments_Letter()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -459,15 +374,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'MyPost');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_IdDocuments_MyPost()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -488,15 +397,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'Passport');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_IdDocuments_Passport()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -517,15 +420,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'Police check');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-
-            Test.startTest();
+			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_IdDocuments_PoliceCheck()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -545,15 +442,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'Tax file number (TFN)');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_IdDocuments_TFN()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -574,15 +465,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'Other');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_IdDocuments_Other()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -602,15 +487,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Online shop');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_OnlineShop()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -631,15 +510,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Money');
 			vTestData.productAndSrvWizardData.put('selectedRadio3Name', 'Bank@Post');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_Money_BankPost()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -660,15 +533,9 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Money');
 			vTestData.productAndSrvWizardData.put('selectedRadio3Name', 'Post Billpay');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_Money_PostBillPay()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -681,29 +548,24 @@ public with sharing class ChasProductsAndServicesControllerTest {
 	 */
 	@IsTest
 	public static void productIssue_Accessibility_PostOffice() {
-        Boolean isSuccess = true;
+		Boolean isSuccess = true;
 
-        try {
+		try {
+			TestData vTestData = wizardDataSetUp();
 
-            TestData vTestData = wizardDataSetUp();
+			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Accessibility and disability');
+			vTestData.productAndSrvWizardData.put('accessibilityIssueTypeName', 'Post Office');
 
-            vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Money');
-            vTestData.productAndSrvWizardData.put('accessibilityIssueTypeName', 'Post Office');
-
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
-            Test.startTest();
-            ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
-            Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
-        } catch (Exception e) {
-            System.debug('productIssue_Money_PostBillPay()::error==>' + e.getMessage());
-            System.debug('productIssue_Money_PostBillPay()::error==>' + e.getStackTraceString());
-            isSuccess = false;
-        }
+			Test.startTest();
+			ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(
+				vTestData.productAndSrvWizardData,
+				vTestData.authUserData
+			);
+			Test.stopTest();
+		} catch (Exception e) {
+			System.debug('productIssue_Accessibility_PostOffice()::error==>' + e.getMessage());
+			isSuccess = false;
+		}
 		System.assertEquals(isSuccess, true, 'Case should be created for Accessibility and disability - Post Office');
 	}
 
@@ -720,21 +582,14 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Accessibility and disability');
 			vTestData.productAndSrvWizardData.put('accessibilityIssueTypeName', 'Delivery');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(
 				vTestData.productAndSrvWizardData,
 				vTestData.authUserData
 			);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_Accessibility_Delivery()::error==>' + e.getMessage());
-			System.debug('productIssue_Accessibility_Delivery()::error==>' + e.getStackTraceString());
 			isSuccess = false;
 		}
 
@@ -754,18 +609,12 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'Accessibility and disability');
 			vTestData.productAndSrvWizardData.put('accessibilityIssueTypeName', 'Website or app');
 
-            // mocking and stubbing common data
-			ApplicationDatabase mockDatabase = mockTestData();
-            
 			Test.startTest();
 			ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(
 				vTestData.productAndSrvWizardData,
 				vTestData.authUserData
 			);
 			Test.stopTest();
-
-            ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-
 		} catch (Exception e) {
 			System.debug('productIssue_Accessibility_WebsiteOrApp()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -912,45 +761,4 @@ public with sharing class ChasProductsAndServicesControllerTest {
 		}
 		System.assertEquals(isSuccess, true, 'productIssue_Accessibility_Case_Comments_OtherIssueType');
 	}
-
-	/**
-	 * Keeping the mocking related common stubbing in a one place
-     * @return mockDatabase to be used for verification
-     */
-    private static ApplicationDatabase mockTestData() {
-        // =====================================
-        // Data Preparation
-        // =====================================
-        Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
-        Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
-        personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{'PersonContactId' => personContact.Id});
-        ProfilesSelector profilesSelector = ProfilesSelector.newInstance(1);
-        Id profileID = profilesSelector.selectByName(new Set<String>{'Consumer Help and Support Profile'}).values()[0].Id;
-
-        User user = ApplicationTestDataFactory.getCommunityUsers(1, new List<Id>{personContact.Id} ,profileID,true)[0];
-        user = (User)ApplicationTestDataFactory.setUnwritableFields(user, new Map<String, Object>{'ContactId' => personContact.Id});
-
-        Case caseRecord = ApplicationTestDataFactory.getCases(1, true)[0];
-        caseRecord = (Case)ApplicationTestDataFactory.setUnwritableFields(caseRecord, new Map<String, Object>{'CaseNumber' => '1002938'});
-
-        // =====================================
-        // Stubbing
-        // =====================================
-
-        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-        CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
-        UsersSelector mockUsersSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
-        ContactsSelector mockContactsSelector = (ContactsSelector)MockUtility.mockSelector(ContactsSelector.class);
-        AccountsSelector mockAccountsSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
-
-        // set up our responses
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockUsersSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, User>{user.Id => user});
-        MockUtility.Mocks.when(mockAccountsSelector.selectById(new Set<Id>{personAccount.Id})).thenReturn(new Map<Id, Account>{personAccount.Id => personAccount});
-        MockUtility.Mocks.when(mockContactsSelector.selectById(new Set<Id>{personContact.Id})).thenReturn(new Map<Id, Contact>{personContact.Id => personContact});
-        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
-
-        MockUtility.Mocks.stopStubbing();
-        return mockDatabase;
-    }
 }

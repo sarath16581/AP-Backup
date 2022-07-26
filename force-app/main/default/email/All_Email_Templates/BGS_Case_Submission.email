@@ -255,12 +255,18 @@
           <!-- Text -->
           <div style="Margin-left: 20px;Margin-right: 20px;Margin-bottom: 24px;">
             <p style="Margin-top: 16px;Margin-bottom: 0;font-size: 16px;line-height: 20px;text-align: left;" lang="x-size-16">
-              Hi {!Contact.FirstName}
-               <br/><br/>
-               Thank you for contacting Australia Post.<br /><br /> 
-We have received your enquiry: {!Case.Subject}<br /><br />
-A case has been created and your <b>Case Reference Number is {!Case.CaseNumber}</b>.<br /><br />
-A member of our support team will be in touch shortly.
+         
+<br/><br/>
+Hi {!Contact.FirstName},
+ <br/><br/>
+Thanks for contacting Australia Post. We've received your enquiry and we'll be in touch between 8am and 6pm on a weekday. <br/><br/>
+
+So that we can quickly check the progress of your enquiry, please mention your case number #{!Case.CaseNumber}) in any future emails about your case.<br/><br/>
+
+We look forward to helping you.<br/><br/>
+
+Regards,<br/><br/>
+Australia Post’s Service Advisor Team 
             </p>
           </div>
 

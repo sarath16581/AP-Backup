@@ -7570,4 +7570,84 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Route Printing Static Text Bottom</shortDescription>
         <value>The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the cessation of use of any Aust. Post Vehicle.</value>
     </labels>
+    <labels>
+        <fullName>Sths_Description_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Description Validation Message</shortDescription>
+        <value>Please provide as much information as possible, this will assist us with your enquiry</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Email_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Email Validation Message</shortDescription>
+        <value>Please enter a valid email address. For example: name@emailaddress.com.au</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Enquiry_Selection_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Enquiry Selection Validation Message</shortDescription>
+        <value>Please select what your enquiry is about</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Enquiry_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Enquiry Validation Message</shortDescription>
+        <value>Please enter your enquiry</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Firstname_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Firstname Validation Message</shortDescription>
+        <value>Please enter your first name</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Lastname_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Lastname Validation Message</shortDescription>
+        <value>Please enter your last name</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Max_Characters_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Max Characters Validation Message</shortDescription>
+        <value>Maximum 40 characters allowed</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Phone_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Phone Validation Message</shortDescription>
+        <value>Please enter a phone number with area code (For example, 0298765432), or a mobile (For example, 0400111222)</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Reference_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Reference Validation Message</shortDescription>
+        <value>Please enter a reference</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Support_URL</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Support URL</shortDescription>
+        <value>https://startrack.com.au/support</value>
+    </labels>
 </CustomLabels>

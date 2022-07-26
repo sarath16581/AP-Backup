@@ -3,7 +3,7 @@
     <fullName>StarTrack_Preferred_Method_of_Contact</fullName>
     <active>true</active>
     <description>This will validate if all necessary field/s was populated appropriately prior to saving contact record.</description>
-    <errorConditionFormula>AND(
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; AND(
     ISPICKVAL(Contact_Type__c, &apos;StarTrack Service&apos;),
     CASE(
          TEXT(Pref_Method_of_Contact__c),

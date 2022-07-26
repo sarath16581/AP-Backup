@@ -3,7 +3,7 @@
     <fullName>SubCategory_Required_If_Job_Category</fullName>
     <active>true</active>
     <description>A Job Sub-Category is required if there is a value in the Job Category</description>
-    <errorConditionFormula>AND(NOT(ISPICKVAL(  Job_Category__c  ,&quot;&quot;)),ISPICKVAL(  Job_Sub_Category__c ,&quot;&quot;))</errorConditionFormula>
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; AND(NOT(ISPICKVAL(  Job_Category__c  ,&quot;&quot;)),ISPICKVAL(  Job_Sub_Category__c ,&quot;&quot;))</errorConditionFormula>
     <errorDisplayField>Job_Sub_Category__c</errorDisplayField>
     <errorMessage>Must have a Job Sub-Category with a Job Category</errorMessage>
 </ValidationRule>
