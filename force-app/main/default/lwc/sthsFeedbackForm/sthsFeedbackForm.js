@@ -15,7 +15,7 @@ import stSupportURL from "@salesforce/label/c.Sths_Support_URL";
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
 	showReference = false;
-	REFERENCE_REQUIRED_FEEDBACK_TYPES = [
+	referenceRequiredFeedbackTypes = [
 		"Product & Sales",
 		"Pick Up",
 		"On-Road",
@@ -53,11 +53,13 @@ export default class SthsTrackingForm extends LightningElement {
 	//handle enquiry dropdown change
 	handleEnquiryChange(event) {
 		const feedbackType = event.target.value;
-		if (this.REFERENCE_REQUIRED_FEEDBACK_TYPES.includes(feedbackType)) {
+		if (this.referenceRequiredFeedbackTypes.includes(feedbackType)) {
 			this.showReference = true;
 		} else {
 			this.showReference = false;
 		}
+		//save to formdata
+		this.handleInputChange(event);
 	}
 
 	//handler for input type fields
