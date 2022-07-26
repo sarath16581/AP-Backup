@@ -227,8 +227,8 @@ public with sharing class PUDUtility {
 		if(jobsNewList.size() > 0){
 			//insert jobsNewList;
 			uow.registerNew(jobsNewList, true, 'PUDUtility.addNewJobs');
+			refreshContainerTypes(bookings, jobsNewList, uow);
 		}
-		refreshContainerTypes(bookings, jobsNewList, uow);
 	}
 
 	//*****2. REFRESH JOBS - Primary Function*****
@@ -331,8 +331,6 @@ public with sharing class PUDUtility {
 
 		//#Call function to return new list of jobs based on changed booking $$$MOVED HERE FROM BELOW
 		jobsNewList = getNewJobList(bookingList, jobExistingBookingDateSet);
-
-
 		bookingList.clear();
 
 		//#Build existing job map (keystring[bookingid-date],Job Record) : assumes booking has either 0 or 1 job for each day.
@@ -397,19 +395,15 @@ public with sharing class PUDUtility {
 
 		//insert update and cancel/delete jobs
 		if(jobInsertList.size() > 0){
-			//insert jobInsertList;
 			uow.registerNew(jobInsertList, true, 'PUDUtility.refreshJobs');
 			refreshContainerTypes(bookingsMap, jobInsertList, uow);
 		}
 		if(jobUpdateList.size() > 0){
-			//update jobUpdateList;
 			uow.registerDirty(jobUpdateList, true, 'PUDUtility.refreshJobs');
 		}
 		if(jobDeleteList.size() > 0){
-			//delete jobDeleteList;
 			uow.registerDeleted(jobDeleteList, true, 'PUDUtility.refreshJobs');
 		}
-
 	}
 
 	//*****3. GET NEW JOB LIST - Sub Function*****
@@ -639,39 +633,39 @@ public with sharing class PUDUtility {
 								jobRec.Date__c 					= dateProcess;
 								jobRec.Street__c 				= booking.Street__c;
 								jobRec.City__c 					= booking.City__c;
-								jobRec.Post_Code__c 				= booking.Post_Code__c;
-								jobRec.State__c 					= booking.State__c;
+								jobRec.Post_Code__c 			= booking.Post_Code__c;
+								jobRec.State__c 				= booking.State__c;
 								jobRec.Start_Time__c 			= booking.Start_Time__c;
 								jobRec.Display_Start_Time__c 	= booking.Display_Start_Time__c;
 								jobRec.Earliest_Start_Time__c 	= booking.Earliest_Start_Time__c;
 								jobRec.Latest_End_Time__c 		= booking.Latest_End_Time__c;
 								jobRec.Route_Lookup__c 			= strRoute;
 								jobRec.Booking_Location__c 		= booking.Booking_Location__c;
-								jobRec.Depot__c 					= booking.Depot__c;
+								jobRec.Depot__c 				= booking.Depot__c;
 								jobRec.Contact_Name__c 			= booking.Contact_Name__c;
 								jobRec.Contact_Phone_Number__c 	= booking.Contact_Phone_Number__c;
-								jobRec.Contact_Email__c 			= booking.Contact_Email__c;
+								jobRec.Contact_Email__c 		= booking.Contact_Email__c;
 								jobRec.Hazards__c 				= booking.Hazards__c;
-								jobRec.Site_Instructions__c 		= booking.Site_Instructions__c;
+								jobRec.Site_Instructions__c 	= booking.Site_Instructions__c;
 								jobRec.Comments__c 				= booking.Comments__c;
-								jobRec.Dwell_Time_Planned__c		= booking.Dwell_Time_Planned__c;
+								jobRec.Dwell_Time_Planned__c	= booking.Dwell_Time_Planned__c;
 								jobRec.Location__c 				= booking.Location__c;
 								jobRec.Customer__c 				= booking.Customer__c;
 								jobRec.Network__c 				= booking.Network__c;
 								jobRec.Booking_Id__c 			= booking.Name;
 								jobRec.Geo__Latitude__s			= booking.Geo__Latitude__s;
-								jobRec.Geo__Longitude__s			= booking.Geo__Longitude__s;
+								jobRec.Geo__Longitude__s		= booking.Geo__Longitude__s;
 								jobRec.Pallets_Quantity__c		= booking.Pallets_Quantity__c;
 								jobRec.Tubs_Quantity__c			= booking.Tubs_Quantity__c;
 								jobRec.Bags_Quantity__c			= booking.Bags_Quantity__c;
-								jobRec.Trays_Quantity__c			= booking.Trays_Quantity__c;
-								jobRec.Volume_Cubic_Metre__c		= booking.Volume_Cubic_Metre__c;
+								jobRec.Trays_Quantity__c		= booking.Trays_Quantity__c;
+								jobRec.Volume_Cubic_Metre__c	= booking.Volume_Cubic_Metre__c;
 								jobRec.Large_Letter_Tubs__c		= booking.Large_Letter_Tubs__c;
-								jobRec.Small_Letter_Trays__c		= booking.Small_Letter_Trays__c;
-								jobRec.White_Bags__c				= booking.White_Bags__c;
+								jobRec.Small_Letter_Trays__c	= booking.Small_Letter_Trays__c;
+								jobRec.White_Bags__c			= booking.White_Bags__c;
 								jobRec.Express_Bags__c			= booking.Express_Bags__c;
 								jobRec.Blue_Bags__c			    = booking.Blue_Bags__c;
-								jobRec.Red_Tubs__c			    = booking.Red_Tubs__c;
+								jobRec.Red_Tubs__c				= booking.Red_Tubs__c;
 								jobRec.Booking_Comments__c		= booking.Booking_Comments__c;
 								jobRec.Revenue_Check__c			= booking.Revenue_Check__c;
 								jobRec.Article_Info__c			= booking.Article_Info__c;
@@ -680,31 +674,31 @@ public with sharing class PUDUtility {
 								jobRec.Source_City__c			= booking.Source_City__c;
 								jobRec.Source_Post_Code__c		= booking.Source_Post_Code__c;
 								jobRec.Source_State__c			= booking.Source_State__c;
-								jobRec.Confidence__c				= booking.Confidence__c;
+								jobRec.Confidence__c			= booking.Confidence__c;
 								jobRec.Stop_Credit__c			= booking.Stop_Credit__c;
-								jobRec.Key_Number__c				= booking.Key_Number__c;
-								jobRec.Article_Count__c          = booking.Article_Count__c;
+								jobRec.Key_Number__c			= booking.Key_Number__c;
+								jobRec.Article_Count__c		    = booking.Article_Count__c;
 								jobRec.Location_Frontage_Geo__Latitude__s = booking.Frontage_Geo__Latitude__s;
 								jobRec.Location_Frontage_Geo__Longitude__s = booking.Frontage_Geo__Longitude__s;
 								jobRec.Location_Side_Of_Street_Code__c = booking.Side_Of_Street_Code__c;
-								jobRec.Location_DPID__c          = booking.DPID__c;
-								jobRec.Regular_Product__c       = booking.Regular_Product__c;
-								jobRec.Express_Product__c       = booking.Express_Product__c;
+								jobRec.Location_DPID__c		    = booking.DPID__c;
+								jobRec.Regular_Product__c	    = booking.Regular_Product__c;
+								jobRec.Express_Product__c	    = booking.Express_Product__c;
 								jobRec.International_Product__c = booking.International_Product__c;
-								jobRec.Empty_Aircan__c          = booking.Empty_Aircan__c;
-								jobRec.Empty_Cage__c            = booking.Empty_Cage__c;
-								jobRec.Empty_CardULD__c         = booking.Empty_CardULD__c;
-								jobRec.Empty_Colby__c           = booking.Empty_Colby__c;
-								jobRec.Empty_Pallets__c         = booking.Empty_Pallets__c;
-								jobRec.Empty_Trailer__c         = booking.Empty_Trailer__c;
-								jobRec.Empty_ULD__c             = booking.Empty_ULD__c;
-								jobRec.Full_Aircan__c           = booking.Full_Aircan__c;
-								jobRec.Full_Cage__c             = booking.Full_Cage__c;
-								jobRec.Full_CardULD__c          = booking.Full_CardULD__c;
-								jobRec.Full_Colby__c            = booking.Full_Colby__c;
-								jobRec.Full_Pallets__c          = booking.Full_Pallets__c;
-								jobRec.Full_Trailer__c          = booking.Full_Trailer__c;
-								jobRec.Full_ULD__c              = booking.Full_ULD__c;
+								jobRec.Empty_Aircan__c		    = booking.Empty_Aircan__c;
+								jobRec.Empty_Cage__c			= booking.Empty_Cage__c;
+								jobRec.Empty_CardULD__c		    = booking.Empty_CardULD__c;
+								jobRec.Empty_Colby__c		    = booking.Empty_Colby__c;
+								jobRec.Empty_Pallets__c		    = booking.Empty_Pallets__c;
+								jobRec.Empty_Trailer__c		    = booking.Empty_Trailer__c;
+								jobRec.Empty_ULD__c			    = booking.Empty_ULD__c;
+								jobRec.Full_Aircan__c		    = booking.Full_Aircan__c;
+								jobRec.Full_Cage__c			    = booking.Full_Cage__c;
+								jobRec.Full_CardULD__c		    = booking.Full_CardULD__c;
+								jobRec.Full_Colby__c			= booking.Full_Colby__c;
+								jobRec.Full_Pallets__c		    = booking.Full_Pallets__c;
+								jobRec.Full_Trailer__c		    = booking.Full_Trailer__c;
+								jobRec.Full_ULD__c			    = booking.Full_ULD__c;
 
 								jobsNewList.add(jobRec);
 							}
@@ -883,7 +877,7 @@ public with sharing class PUDUtility {
 
 	/**
 	 * Generate the JSON payload representing container type data on the Job record.
-	 * @param list of containers under a new job.
+	 * @param containers list of containers under a new job.
 	 * @return container types JSON payload (JSON array)
 	 */
 	private static String generateContainerTypePayload(List<PUD_Container__c> containers){
@@ -905,37 +899,60 @@ public with sharing class PUDUtility {
 		return null;
 	}
 
-	
+	/**
+	 * Refresh container types on child jobs for supplied booking ids.
+	 * Container types on all current day and future dated jobs for those bookings in New, Schedule and Accepted statuses
+	 * are refreshed. No change to historical jobs related to supplied booking ids.
+	 * @param bookingIds set of booking ids to refresh job containers
+	 * @param uow unit of work parameter
+	 */
 	public void refreshContainerTypes(Set<Id> bookingIds, ApplicationUnitOfWork uow) {
-		Set<String> jobStatus = new Set<String>{PUDConstants.PUD_JOB_STATUS_NEW, PUDConstants.PUD_JOB_STATUS_SCHEDULE, PUDConstants.PUD_JOB_STATUS_ACCEPTED};
-		
-		//query bookings with booking containers
+
+		//query bookings with booking containers for supplied booking ids.
 		Map<Id, PUD_Booking__c> bookings = new Map<Id, PUD_Booking__c> (PUDBookingsSelector.newInstance().selectById(bookingIds, new Set<Object>{PUDBookingsSelector.Options.WITH_CONTAINERS}));
 
-		//query current/future Jobs with Job containers.
-		List<PUD_Job__c> jobs = new List<PUD_Job__c>(); 
+		//query current/future Jobs for the bookings in New, Schedule, Accepted status. Also retrieve Job Containers with Jobs.
+		Set<String> jobStatus = new Set<String>{PUDConstants.PUD_JOB_STATUS_NEW, PUDConstants.PUD_JOB_STATUS_SCHEDULE, PUDConstants.PUD_JOB_STATUS_ACCEPTED};
+		List<PUD_Job__c> jobs = PUDJobsSelector.newInstance().selectByBookingIdStatusAndFromDate(bookingIds, Date.today(), jobStatus, new Set<Object>{PUDJobsSelector.Options.WITH_CONTAINERS});
 
-		jobs = PUDJobsSelector.newInstance().selectByBookingIdStatusAndFromDate(bookingIds, Date.today(), jobStatus, new Set<Object>{PUDJobsSelector.Options.WITH_CONTAINERS});
-		
+		// refresh container types on selected jobs
 		refreshContainerTypes(bookings,jobs, uow);
 	}
 
+	/**
+	 * Refresh container types from supplied bookings onto the child jobs passed in.
+	 *
+	 * @param bookings collection of bookings containing container types to be synchronised onto child jobs
+	 * @param jobs list of jobs where container types are to be refreshed from parent booking.
+	 * @param uow unit of work
+	 */
 	public void refreshContainerTypes(Map<Id, PUD_Booking__c> bookings, List<PUD_Job__c> jobs, ApplicationUnitOfWork uow) {
 
+		// generate a map of booking container data indexed by a unique key. unique key is made up of:
+		//	  - Parent booking id
+		//	  - Type
+		//	  - Condition
+		// this is to facilitate matching containers between booking and it's child jobs.
 		Map<String, PUD_Container__c> bookingContainersByUniqueKeyMap = getBookingContainersMapByUniqueKey(bookings.values());
 
 		for (PUD_Job__c job: jobs) {
+			// generate a map of job container data indexed by a unique key (booking id, type and condition).
+			// this is to facilitate matching containers between booking and it's child jobs.
 			Map<String, PUD_Container__c> jobContainersByUniqueKeyMap = getContainersMapByUniqueKey(job.Booking__c, job.Containers__r);
 
 			List<PUD_Container__c> bookingContainers = bookings.get(job.Booking__c).Containers__r;
 			if (bookingContainers != null && !bookingContainers.isEmpty()) {
+				// iterate through the booking containers and match them against the existing job containers based on the
+				// unique key. if a match is found, ensure job container record is synchronised with booking containers.
 				for (PUD_Container__c bookingContainer: bookingContainers) {
 					String key = job.Booking__c + '-' + bookingContainer.Type__c + '-' + bookingContainer.Condition__c;
 					if (jobContainersByUniqueKeyMap.containsKey(key)) {
-						// existing job container - update
+						// existing job container - update if quantities does not match
 						PUD_Container__c jobContainer = jobContainersByUniqueKeyMap.get(key);
-						jobContainer.Expected_Quantity__c = bookingContainer.Expected_Quantity__c;
-						uow.registerDirty(jobContainer, new List<SObjectField>{PUD_Container__c.Expected_Quantity__c});
+						if (jobContainer.Expected_Quantity__c != bookingContainer.Expected_Quantity__c) {
+							jobContainer.Expected_Quantity__c = bookingContainer.Expected_Quantity__c;
+							uow.registerDirty(jobContainer, new List<SObjectField>{PUD_Container__c.Expected_Quantity__c});
+						}
 					} else {
 						// new job container
 						PUD_Container__c newContainer = newJobContainer(job, bookingContainer);
@@ -943,11 +960,9 @@ public with sharing class PUDUtility {
 					}
 				}
 
+				// generate container type payload and populate on the Job. This gets sent to dispatch system via Outbound Message interface.
+				// if the job is an existing job mark it as dirty after container payload is updated.
 				job.Containers_Payload__c = generateContainerTypePayload(bookingContainers);
-
-				system.debug('Jobs updated Payload: '+ job.Containers_Payload__c);
-				system.debug('Job: '+ job.Id);
-				
 				if (job.Id != null) {
 					uow.registerDirty(job);
 				}
@@ -961,6 +976,9 @@ public with sharing class PUDUtility {
 			}
 
 			if (job.Containers__r != null && !job.Containers__r.isEmpty()) {
+
+				// iterate through the existing job containers and delete if any of them are no longer required based on the
+				// current set of booking containers.
 				for (PUD_Container__c jobContainer: job.Containers__r) {
 					String key = job.Booking__c + '-' + jobContainer.Type__c + '-' + jobContainer.Condition__c;
 					if (!bookingContainersByUniqueKeyMap.containsKey(key)) {
@@ -972,6 +990,16 @@ public with sharing class PUDUtility {
 		}
 	}
 
+	/**
+	 * Return a map of booking containers indexed by unique key. unique key is made up of:
+	 * - Parent booking id
+	 * - Type
+	 * - Condition
+	 *
+	 * @param bookings bookings with child containers
+	 *
+	 * @return map of booking containers
+	 */
 	private Map<String, PUD_Container__c> getBookingContainersMapByUniqueKey(List<PUD_Booking__c> bookings) {
 		Map<String, PUD_Container__c> bookingContainersMapByUniqueKey = new Map<String, PUD_Container__c>();
 		for (PUD_Booking__c booking: bookings) {
@@ -994,11 +1022,11 @@ public with sharing class PUDUtility {
 
 	
 	/**
-     * Unit of work that encapsulates all the required objects for this Service.
-     * Note that this is a stopgap until the pattern for using Unit of Work for service operations are defined.
-     *
-     * @return unit or work instance
-     */
+	 * Unit of work that encapsulates all the required objects for this Service.
+	 * Note that this is a stopgap until the pattern for using Unit of Work for service operations are defined.
+	 *
+	 * @return unit or work instance
+	 */
 	private ApplicationUnitOfWork newUnitOfWork() {
 		return ApplicationUnitOfWork.newInstance(new List<SObjectType>{
 				PUD_Job__c.SObjectType,
@@ -1006,6 +1034,13 @@ public with sharing class PUDUtility {
 		});
 	}
 
+	/**
+	 * Returns a new Job Container that replicate the booking container supplied.
+	 * @param job parent Job for the Job Container
+	 * @param bookingContainer booking container
+	 *
+	 * @return Job container instance
+	 */
 	private PUD_Container__c newJobContainer(PUD_Job__c job, PUD_Container__c bookingContainer) {
 		PUD_Container__c jobContainer = new PUD_Container__c();
 		jobContainer.RecordTypeId = jobContainerRecordTypeId;
@@ -1015,9 +1050,6 @@ public with sharing class PUDUtility {
 		jobContainer.Expected_Quantity__c = bookingContainer.Expected_Quantity__c;
 		return jobContainer;
 	}
-
-
-	
 
 	/**
 	* The class stores container related information such as Name, Quantity and Condition.
@@ -1048,7 +1080,7 @@ public with sharing class PUDUtility {
 			return (this.Name > compareToContainer.Name ? 1 :
 						(this.Name < compareToContainer.Name ? -1 :
 							(this.Condition > compareToContainer.Condition ? 1 :
-			                    (this.Condition < compareToContainer.Condition ? -1 : 0))));
+								(this.Condition < compareToContainer.Condition ? -1 : 0))));
 		}
 	}
 
