@@ -7586,6 +7586,23 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Sths Enquiry Validation Message</shortDescription>
         <value>Please enter your enquiry</value>
     </labels>
+
+    <labels>
+        <fullName>Sths_Feedback_Selection_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Feedback Selection Validation Message</shortDescription>
+        <value>Please select what your feedback is about</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Feedback_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Feedback Validation Message</shortDescription>
+        <value>Please enter your feedback</value>
+    </labels>
     <labels>
         <fullName>Sths_Firstname_Validation_Message</fullName>
         <categories>StarTrack Help and Support</categories>
