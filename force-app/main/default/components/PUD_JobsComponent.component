@@ -46,7 +46,7 @@
 			             headerClass="job-headers">
 				<apex:outputField value="{! job.Deliver_Product__c}" style="font-size:small"/>
 			</apex:column>
-			<apex:column headerValue="Key" styleClass="normalcell" style="vertical-align:bottom;"
+			<apex:column headerValue="Key" styleClass="normalcell" style="vertical-align:top; padding-bottom:20px;"
 			             width="50px"
 			             headerClass="job-headers">
 				<apex:outputText styleClass="normalcell" value="{!job.Key_Number__c}"/>
