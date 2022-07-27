@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>RFS_Escalation_to_Team_Leader</name>
+        <label>RFS - Escalation to Team Leader</label>
+        <locationX>308</locationX>
+        <locationY>528</locationY>
+        <actionName>Case.RFCC_Escalation_to_Team_Leader_48hrs</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Set_Case_Escalated</name>
+        <label>Set Case Escalated</label>
+        <locationX>308</locationX>
+        <locationY>288</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.IsEscalated</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Case_Record</targetReference>
+        </connector>
+    </assignments>
+    <description>Schedule Path for Retail Fulfilment &amp; Support Case Escalation</description>
+    <environments>Default</environments>
+    <interviewLabel>CaseScheduled_RFSEscalation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CaseScheduled RFSEscalation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Case_Record</name>
+        <label>Update Case Record</label>
+        <locationX>308</locationX>
+        <locationY>408</locationY>
+        <connector>
+            <targetReference>RFS_Escalation_to_Team_Leader</targetReference>
+        </connector>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+ {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_RFS},
+ ISPICKVAL({!$Record.Status},&apos;New&apos;),
+ OR(
+  ISPICKVAL({!$Record.Origin},&apos;Web&apos;),
+  ISPICKVAL({!$Record.Origin},&apos;Phone&apos;)
+ )
+)</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>X2_Days_after_Created</name>
+            <connector>
+                <targetReference>Set_Case_Escalated</targetReference>
+            </connector>
+            <label>2 Days after Created</label>
+            <offsetNumber>2</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
