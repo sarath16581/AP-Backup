@@ -324,8 +324,7 @@ public with sharing class APT_AgreementTriggerHandler{
             }
              //Adding ContentDocument query to fetch the file type from Content Document in lightning 
             
-             for(contentDocumentLink contDocLink : [Select id, contentdocumentId,LinkedEntityId,
-             contentdocument.title from contentdocumentlink where LinkedEntityId IN : setAgIds]){         
+             for(ContentDocumentLink contDocLink :ContentDocumentLinksSelector.newInstance().search(new Map<String, Object>{'entityIds' => setAgIds}, true).values()){              
                  mapAgIds.put(contDocLink.LinkedEntityId,contDocLink.contentdocumentId);                                   
              }
             list<String> activateDocIds;
