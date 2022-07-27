@@ -1,0 +1,58 @@
+{
+  "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "3c7703dc-b7ef-41bc-9ee4-ccfc7042e849",
+  "label" : "bamUsers",
+  "regions" : [ {
+    "id" : "c48ebbfc-5083-4c84-be05-2a5374d910e3",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bamUserTableWrapper",
+      "id" : "94de4b4a-1e7b-46d4-abc3-e3aa377914f0",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "681905bc-524a-40a9-b58d-95ee105db467",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageCategory" : "user list",
+        "pageDescription" : "landing",
+        "sitePrefix" : "business access",
+        "trackingType" : "page-navigate"
+      },
+      "componentName" : "c:BamAdobeAnalyticsPageView",
+      "id" : "d7c29b02-d473-4214-a59f-c1fb8beb1742",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2b115be3-7a99-48c7-91c9-d84783b0051b",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Australia Post - Merchant Portal - Access Management"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "f8051f7e-fb1e-4a9d-99f8-db9b7a5bd78b",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "30dc4ea8-1083-48ec-b565-7e1abf0897ec",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "dfzvJHGXnstjc7UWZpHKxjto4JkaiE",
+  "type" : "view",
+  "viewType" : "custom-bamusers"
+}
