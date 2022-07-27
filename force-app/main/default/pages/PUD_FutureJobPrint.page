@@ -1,14 +1,14 @@
 <apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_JobsPrintFutureControllerX" renderAs="pdf" applyBodyTag="false">
-<!--apex:page docType="html-5.0" Controller="PUD_JobsPrintFutureControllerX" renderAs="pdf" applyBodyTag="false"-->   
+<!--apex:page docType="html-5.0" Controller="PUD_JobsPrintFutureControllerX" renderAs="pdf" applyBodyTag="false"-->
 <!--Page to allow printing of Duty for driver a backup to the mobile device -->
-<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->  
-<!--Created 26-11-19 Dheeraj Mandavilli-->  
+<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->
+<!--Created 26-11-19 Dheeraj Mandavilli-->
     <head>
         <style type="text/css" media="print">
             @page {
                 @top-center {
                     content: element(header);
-                }       
+                }
                 @bottom-center {
                     content: element(footer);
                 }
@@ -49,7 +49,7 @@
             </center>
         </div>
     </div>
-    <div class="content">     
+    <div class="content">
         <apex:pageBlock >
             <center>
             		<img src="{!$Resource.auspost_logo}" width="15%"/>
@@ -58,7 +58,7 @@
         			</center><br/>
             		<b>Date: {!sdate}</b><br/>
                     <br/>
-            		
+
            <apex:pageBlockTable value="{! jobTemplateList }" var="jt" border="1" style="vertical-align:Top font:Calibri; font-size: 12pt">
            <apex:column headerValue="Start Time" style="vertical-align:Top font:Calibri; font-size: 11pt" width="80px">
                 <b><apex:outputField value="{! jt.Display_Start_Time__c}" rendered="{!!adhoc}"/></b>
@@ -68,7 +68,7 @@
                 <b><apex:outputField value="{!jt.Location_Information__c}"/></b><br/>
                 <apex:outputField value="{!jt.Job_Information__c}" /><br/>
                 <b><apex:outputField value="{!jt.Booking_Comments__c}"/></b>
-    		</apex:column> 
+    		</apex:column>
             <apex:column value="{! jt.Deliver_Product__c}" style="vertical-align:Top font-family: Calibri; font-size: 12pt" width="200px"/>
         	 <apex:column headerValue="Rev Chk" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
                 <apex:outputField value="{!jt.Revenue_Check__c}" /> <br></br><br></br>
@@ -76,7 +76,7 @@
         	 <apex:column headerValue="Stop Credit" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
                 <apex:outputField value="{!jt.Stop_Credit__c}" />
     		</apex:column>
-        	<apex:column headerValue="MS/E/P_F" style="vertical-align:Top" width="0px"/>    
+        	<apex:column headerValue="MS/E/P_F" style="vertical-align:Top" width="0px"/>
             </apex:pageBlockTable>
         </apex:pageBlock>
 	</div>
