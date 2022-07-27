@@ -99,11 +99,6 @@ public with sharing class PUDUtility {
 		set;
 	}
 
-	
-	// container type conditions
-	private static final String CONTAINER_CONDITION_EMPTY = 'Empty';
-	private static final String CONTAINER_CONDITION_FULL = 'Full';
-
 	// grab settings configured in custom setting
 	private static Pickup_Booking_Settings__c pickupBookingSettings {
 		get {
@@ -145,16 +140,35 @@ public with sharing class PUDUtility {
 		return (PUDUtility) Application.Utilities.getInstance(PUDUtility.class);
 	}
 
+	/**
+	 * Create jobs for supplied booking ids. Refresh all existing current and future dated jobs if 'refreshAll' is true.
+	 * Manages the Unit of Work and delegate to overladed 'createJobs' method to do the actual work.
+	 *
+	 * NOTE: Intended to be used by callers which does not use ApplicationUnitOfWork for DML. Ensures the Unit of Work
+	 * is committed before returning.
+	 *
+	 * @param bookingIdSet set of booking ids to create jobs
+	 * @param refreshAll if true, refresh existing current and future dated jobs in addition to create any new jobs.
+	 *                  only create new jobs if false.
+	 */
+	public void createJobs(Set<Id> bookingIdSet, Boolean refreshAll) {
+		// note that this is a stopgap until the pattern for using Unit of Work for service operations are endorsed.
+		// using Unit Of Work allows to gain some of the benefits of ApplicationUnitOfWork such as automatically
+		// resolving dependencies among related records during the commit phase.
+		ApplicationUnitOfWork uow = newUnitOfWork();
+
+		createJobs(bookingIdSet, refreshAll, uow);
+
+		// ensure Unit of Work is committed.
+		uow.commitWork();
+	}
+
 	//****0. Primary function called from PUDCreateJobBatch
 	//Note that this is required to ensure the values in the sobj compare are identical
 	//Using List from Database.getQueryLocator results in some subtle differences (e.g. number in Dwell_Time_Planned__c = 0.0, c.f. 0)
 	//Note that data type of booking and job fields must be the same
-	public void createJobs(Set<Id> bookingIdSet, Boolean bolRefreshAll){
+	public void createJobs(Set<Id> bookingIdSet, Boolean bolRefreshAll, ApplicationUnitOfWork uow){
 
-		// note that this is a stopgap until the pattern for using Unit of Work for service operations are endorsed.
-		// using Unit Of Work allows to gain some of the benefits of ApplicationUnitOfWork such as austomatically
-		// resolving dependencies among related records during the commit phase.
-		ApplicationUnitOfWork uow = newUnitOfWork();
 
 		List<PUD_Booking__c> bookingList = new List<PUD_Booking__c>();
 		
@@ -189,9 +203,6 @@ public with sharing class PUDUtility {
 		else{
 			addNewJobs(bookingList, uow);
 		}
-
-		// ensure Unit of Work is committed.
-		uow.commitWork();
 	}
 
 	//*****1. ADD NEW JOBS - Primary Function*****
@@ -901,6 +912,28 @@ public with sharing class PUDUtility {
 
 	/**
 	 * Refresh container types on child jobs for supplied booking ids.
+	 * Manages the Unit of Work and delegate to overladed 'refreshContainerTypes' method to do the actual work.
+	 *
+	 * NOTE: Intended to be used by callers which does not use ApplicationUnitOfWork for DML. Ensures the Unit of Work
+	 * is committed before returning.
+	 *
+	 * @param bookingIds set of booking ids to refresh job containers
+	 */
+	public void refreshContainerTypes(Set<Id> bookingIds) {
+
+		// note that this is a stopgap until the pattern for using Unit of Work for service operations are endorsed.
+		// using Unit Of Work allows to gain some of the benefits of ApplicationUnitOfWork such as automatically
+		// resolving dependencies among related records during the commit phase.
+		ApplicationUnitOfWork uow = newUnitOfWork();
+
+		refreshContainerTypes(bookingIds, uow);
+
+		// commit unit of work
+		uow.commitWork();
+	}
+
+	/**
+	 * Refresh container types on child jobs for supplied booking ids.
 	 * Container types on all current day and future dated jobs for those bookings in New, Schedule and Accepted statuses
 	 * are refreshed. No change to historical jobs related to supplied booking ids.
 	 * @param bookingIds set of booking ids to refresh job containers
@@ -926,7 +959,7 @@ public with sharing class PUDUtility {
 	 * @param jobs list of jobs where container types are to be refreshed from parent booking.
 	 * @param uow unit of work
 	 */
-	public void refreshContainerTypes(Map<Id, PUD_Booking__c> bookings, List<PUD_Job__c> jobs, ApplicationUnitOfWork uow) {
+	@TestVisible private void refreshContainerTypes(Map<Id, PUD_Booking__c> bookings, List<PUD_Job__c> jobs, ApplicationUnitOfWork uow) {
 
 		// generate a map of booking container data indexed by a unique key. unique key is made up of:
 		//	  - Parent booking id
