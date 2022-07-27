@@ -35,6 +35,7 @@ Last Modified Date - 23rd Feb, 2021 | STP-4289 STPAC - DLWT: Ability to generate
 2021-03-02 - Mathew Jose - Amended Local pick & delivery service's automation on DOS to be based on included product lines
 2021-08-31 - Naveen Rajanna - REQ2542972 - Set term to 'Fixed Term' when UMS or print Post
 2022-04-14 -Sri Harsha-CI-128- Updated trigger code to populate expiration date.
+2022-07-21 - INC1993350 Adding ContentDocument query to get the notes and attachment in lightning.
 **/
 public with sharing class APT_AgreementTriggerHandler{
 
@@ -321,6 +322,12 @@ public with sharing class APT_AgreementTriggerHandler{
             for(attachment att : [select id,parentID from attachment where parentId IN: setAgIds ORDER BY LastModifiedDate ASC]){
                 mapAgIds.put(att.parentID,att.Id);
             }
+             //Adding ContentDocument query to fetch the file type from Content Document in lightning 
+            
+             for(contentDocumentLink contDocLink : [Select id, contentdocumentId,LinkedEntityId,
+             contentdocument.title from contentdocumentlink where LinkedEntityId IN : setAgIds]){         
+                 mapAgIds.put(contDocLink.LinkedEntityId,contDocLink.contentdocumentId);                                   
+             }
             list<String> activateDocIds;
             for(Id agreementId:setAgIds){
                 if(String.isEmpty(mapAgIds.get(agreementId))){
