@@ -26,8 +26,11 @@
 					</apex:outputText>
 				</div>
 			</apex:column>
-			<apex:column headerValue="Job Details" styleClass="normalcell"
-			             width="500px" headerClass="job-headers">
+			<apex:column headerValue="Job Details" 
+			             styleClass="normalcell"
+			             style="padding-right:5px;"
+			             width="500px" 
+			             headerClass="job-headers">
 				<div class="boldcell">
 					<apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
 					<apex:outputText
@@ -57,7 +60,7 @@
 				</apex:outputText>
 				<br/>
 			</apex:column>
-			<apex:column headerValue="Docks" styleClass="normalcell" width="50px"
+			<apex:column headerValue="Docks" styleClass="normalcell" width="55"
 			             headerClass="job-headers"
 			             style="padding-top:9px;">
 				<apex:outputField value="{! booking.Dock_Number__c}" style="font-size:small"/>

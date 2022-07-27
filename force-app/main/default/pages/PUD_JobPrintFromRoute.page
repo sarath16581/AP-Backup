@@ -50,15 +50,15 @@
                 font-weight: bold;
                 font-family: sans-serif;
                 vertical-align: Top;
-                padding-left: 5px;
+                text-align: left;
                 padding-top: 5px;
             }
             .normalcell {
                 font-size: 10pt;
                 font-family: "Arial Unicode MS";
                 vertical-align: Top;
-                padding-left: 5px;
                 padding-top: 5px;
+                text-align: left;
             }
             td.italic{
                 font-style:italic;
