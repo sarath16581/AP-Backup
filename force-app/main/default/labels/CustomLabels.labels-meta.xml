@@ -7603,7 +7603,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Please enter your enquiry</value>
     </labels>
     <labels>
-        <fullName>Sths_Error_State_Message</fullName>
+        <fullName>Sths_Feedback_Error_State_Message</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>

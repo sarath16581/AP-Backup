@@ -10,7 +10,7 @@ import invalidLastName from "@salesforce/label/c.Sths_Lastname_Validation_Messag
 import invalidCharacters from "@salesforce/label/c.Sths_Max_Characters_Validation_Message";
 import invalidPhone from "@salesforce/label/c.Sths_Phone_Validation_Message";
 import invalidReference from "@salesforce/label/c.Sths_Reference_Validation_Message";
-import errorStateMessage from "@salesforce/label/c.Sths_Error_State_Message";
+import errorStateMessage from "@salesforce/label/c.Sths_Feedback_Error_State_Message";
 import stSupportURL from "@salesforce/label/c.Sths_Support_URL";
 
 export default class SthsTrackingForm extends LightningElement {
@@ -93,7 +93,6 @@ export default class SthsTrackingForm extends LightningElement {
 	}
 
 	handleErrorClose = (event) => {
-		alert(1)
 		this.showError = false;
 	};
 
