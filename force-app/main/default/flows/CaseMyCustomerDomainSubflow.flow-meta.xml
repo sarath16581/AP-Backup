@@ -21,8 +21,8 @@
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_BSP_Bulk_Upload</name>
         <label>SSSW - Closed Case - Email for BSP Bulk Upload</label>
-        <locationX>1854</locationX>
-        <locationY>950</locationY>
+        <locationX>2052</locationX>
+        <locationY>830</locationY>
         <actionName>Case.SSSW_Send_Customer_Closure_Email_for_BSP_Bulk_Upload</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -90,8 +90,8 @@
     <actionCalls>
         <name>SSSW_Email_when_Case_Permanently_Closed</name>
         <label>SSSW - Email when Case Permanently Closed</label>
-        <locationX>1590</locationX>
-        <locationY>950</locationY>
+        <locationX>1788</locationX>
+        <locationY>830</locationY>
         <actionName>Case.Send_an_Email_to_the_Customer_if_they_are_sending_an_Email_to_a_Case_that_has_be</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -108,6 +108,24 @@
         <locationX>842</locationX>
         <locationY>398</locationY>
         <actionName>Case.SSSW_New_Case_Notification_for_Delivery_Issue_automatic_network_assignment</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>MyCustomer_scenarios</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</name>
+        <label>SSSW - New Case Notification for Delete Account Web Portal</label>
+        <locationX>2162</locationX>
+        <locationY>398</locationY>
+        <actionName>Case.SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</actionName>
         <actionType>emailAlert</actionType>
         <connector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -178,7 +196,7 @@
     <decisions>
         <name>Is_new_or_existing</name>
         <label>Is new or existing</label>
-        <locationX>1722</locationX>
+        <locationX>1920</locationX>
         <locationY>158</locationY>
         <defaultConnector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -203,7 +221,7 @@
     <decisions>
         <name>MyCustomer_create_only_scenarios</name>
         <label>MyCustomer create only scenarios</label>
-        <locationX>1106</locationX>
+        <locationX>1238</locationX>
         <locationY>278</locationY>
         <defaultConnector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -329,12 +347,27 @@
             </connector>
             <label>New Case Within EDD+Business Days</label>
         </rules>
+        <rules>
+            <name>New_Case_Delete_Account_Web_Portal</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vNewCaseDeleteAccountWebPortal</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</targetReference>
+            </connector>
+            <label>New Case Delete Account Web Portal</label>
+        </rules>
     </decisions>
     <decisions>
         <name>MyCustomer_scenarios</name>
         <label>MyCustomer scenarios</label>
-        <locationX>1722</locationX>
-        <locationY>830</locationY>
+        <locationX>1920</locationX>
+        <locationY>710</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Carded_Case</name>
@@ -431,6 +464,8 @@
             <label>Case Closed BSP BulkUpload</label>
         </rules>
     </decisions>
+    <description>subflow for MyCustomerDomain triggerred from CaseCommon AfterSave flow</description>
+    <environments>Default</environments>
     <formulas>
         <name>vCaseClosed</name>
         <dataType>Boolean</dataType>
@@ -462,9 +497,14 @@
         <expression>AND({!vCase.TypeofDamage__c} = &apos;Wine Damage&apos;, ISPICKVAL({!vCase.ResolutionCode__c}, &apos;MyNetwork Resolution&apos;), ISPICKVAL({!vCase.EnquirySubType__c},&apos;Facility reported damages&apos;), {!vCase.RecordType.DeveloperName} = &apos;SSSWDelivery&apos;, {!vCase.ContactId} &lt;&gt; Null, {!vCase.IsClosedOnCreate} )</expression>
     </formulas>
     <formulas>
+        <name>vNewCaseDeleteAccountWebPortal</name>
+        <dataType>Boolean</dataType>
+        <expression>TEXT({!vCase.CHASEnquiryType__c})==&apos;Products &amp; services&apos; &amp;&amp; TEXT({!vCase.EnquirySubType__c})==&apos;Account Enquiry&apos; &amp;&amp; (TEXT({!vCase.Origin}) = &apos;Web&apos; || TEXT({!vCase.Origin}) = &apos;Portal&apos;) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;)) &amp;&amp; {!vCase.Automated_Network_Assignment__c} == false</expression>
+    </formulas>
+    <formulas>
         <name>vNewCaseEmail</name>
         <dataType>Boolean</dataType>
-        <expression>TEXT({!vCase.Origin}) = &apos;Email&apos; &amp;&amp; NOT(ISBLANK({!vCase.SuppliedEmail})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; (ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c}) ||(NOT(ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c})) &amp;&amp; NOT(CONTAINS({!$Setup.QM__c.NoAutoreplyQueue__c},RIGHT({!vCase.SuppliedEmail},(LEN({!vCase.SuppliedEmail})-FIND(&quot;@&quot;,{!vCase.SuppliedEmail})-1))))))</expression>
+        <expression>TEXT({!vCase.Origin}) = &apos;Email&apos; &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; NOT(ISBLANK({!vCase.SuppliedEmail})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; (ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c}) ||(NOT(ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c})) &amp;&amp; NOT(CONTAINS({!$Setup.QM__c.NoAutoreplyQueue__c},RIGHT({!vCase.SuppliedEmail},(LEN({!vCase.SuppliedEmail})-FIND(&quot;@&quot;,{!vCase.SuppliedEmail})-1))))))</expression>
     </formulas>
     <formulas>
         <name>vNewCaseGeneric</name>
@@ -484,7 +524,7 @@
     <formulas>
         <name>vNewCaseWebPortal</name>
         <dataType>Boolean</dataType>
-        <expression>IF(OR(TEXT( {!vCase.CHASEnquiryType__c})==&apos;Delivery issue&apos;,AND(TEXT( {!vCase.CHASEnquiryType__c})==&apos;Products &amp; services&apos;,TEXT( {!vCase.EnquirySubType__c} )==&apos;Item transfer&apos;)), ( TEXT({!vCase.Origin}) = &apos;Web&apos; || TEXT({!vCase.Origin}) = &apos;Portal&apos; ) &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;)) &amp;&amp; {!vCase.Automated_Network_Assignment__c} == false, ( TEXT({!vCase.Origin}) = &apos;Web&apos; || TEXT({!vCase.Origin}) = &apos;Portal&apos; ) &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;)) &amp;&amp; ISBLANK({!vCase.HeldToOpenOn__c}))</expression>
+        <expression>IF(OR(TEXT({!vCase.CHASEnquiryType__c})==&apos;Delivery issue&apos;,AND(TEXT({!vCase.CHASEnquiryType__c})==&apos;Products &amp; services&apos;,TEXT({!vCase.EnquirySubType__c})==&apos;Item transfer&apos;)), ( TEXT({!vCase.Origin}) = &apos;Web&apos; || TEXT({!vCase.Origin}) = &apos;Portal&apos; ) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;)) &amp;&amp; {!vCase.Automated_Network_Assignment__c} == false , ( TEXT({!vCase.Origin}) = &apos;Web&apos; || TEXT({!vCase.Origin}) = &apos;Portal&apos; ) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;)) &amp;&amp; ISBLANK({!vCase.HeldToOpenOn__c}) &amp;&amp; AND(TEXT( {!vCase.CHASEnquiryType__c})==&apos;Products &amp; services&apos;,TEXT( {!vCase.EnquirySubType__c} ) &lt;&gt; &apos;Account Enquiry&apos;))</expression>
     </formulas>
     <formulas>
         <name>vNewCasewithinEDD</name>
@@ -496,7 +536,6 @@
         <dataType>Boolean</dataType>
         <expression>ISPICKVAL({!vCase.CHASEnquiryType__c}, &apos;Missing or lost item&apos;) &amp;&amp; OR(ISPICKVAL({!vCase.Origin}, &apos;Web&apos;), ISPICKVAL({!vCase.Origin}, &apos;Portal&apos;)) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject}, &apos;Enterprise Contact Registration&apos;)) &amp;&amp; NOT(ISBLANK({!vCase.HeldToOpenOn__c})) &amp;&amp; ({!vCase.EstimatedDelivery__c} &lt; TODAY()) &amp;&amp; (DATEVALUE({!vCase.HeldToOpenOn__c}) &gt;= TODAY())</expression>
     </formulas>
-    <description>subflow for MyCustomerDomain triggerred from CaseCommon AfterSave flow</description>
     <interviewLabel>CaseMyCustomerDomainSubflow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Case MyCustomerDomain Subflow</label>
     <processMetadataValues>
@@ -519,7 +558,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1596</locationX>
+        <locationX>1794</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_new_or_existing</targetReference>
@@ -529,8 +568,8 @@
     <subflows>
         <name>CaseMyCustomer_CardedCaseModule</name>
         <label>Carded Case module</label>
-        <locationX>1326</locationX>
-        <locationY>950</locationY>
+        <locationX>1524</locationX>
+        <locationY>830</locationY>
         <flowName>CaseMyCustomer_CardedCaseModule</flowName>
         <inputAssignments>
             <name>vCase</name>

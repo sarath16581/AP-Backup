@@ -1303,6 +1303,7 @@
             <label>Case already Closed</label>
         </rules>
     </decisions>
+    <description>subflow for CaseDomain triggerred from CaseCommon AfterSave flow</description>
     <formulas>
         <name>vClosedACK</name>
         <dataType>Boolean</dataType>
@@ -1408,7 +1409,6 @@
 NOT(ISNULL( {!vCase.SLATargetDate__c} )), 
 NOT({!vCase.Owner_is_Queue__c}) )</expression>
     </formulas>
-    <description>subflow for CaseDomain triggerred from CaseCommon AfterSave flow</description>
     <interviewLabel>CaseCaseDomainSubflow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Case CaseDomain Subflow</label>
     <processMetadataValues>
