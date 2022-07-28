@@ -1,0 +1,87 @@
+<!--
+ -  page used to print pdf with route and bookings, generated from the route record page
+ - @changelog:
+ - 24/6/2022 - Kamil Szyc- created
+ -->
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_PrintRouteController"
+           renderAs="pdf" applyBodyTag="false" id="PUD_JobPrintFromRoute">
+	<!--Page to allow printing of Duty for driver a backup to the mobile device -->
+	<head>
+		<style type="text/css" media="print">
+            @page {
+                @top-center {
+                    content: element(header);
+                }
+            }
+           @page {
+                size: A4 portrait;
+                margin-top:16mm;
+           }
+            div.header {
+            font-size: small;
+            position:running(header);
+            }
+           table {
+    			-fs-table-paginate: paginate;
+			}
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+            .pagecount:before {
+                content: counter(pages);
+            }
+            .table-header{
+                border-bottom: 1px solid black;
+                font-family:Arial Unicode MS;
+                font-size: 10px;
+            }
+            table.info{
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+                border-spacing:1px;
+            }
+            td.bold{
+                font-weight:bold;
+                font-family:sans-serif;
+            }
+            .boldcell {
+                font-size: 10pt;
+                font-weight: bold;
+                font-family: sans-serif;
+                vertical-align: Top;
+                text-align: left;
+                padding-top: 5px;
+            }
+            .normalcell {
+                font-size: 10pt;
+                font-family: "Arial Unicode MS";
+                vertical-align: Top;
+                padding-top: 5px;
+                text-align: left;
+            }
+            td.italic{
+                font-style:italic;
+            }
+            .job-headers {
+                font-weight:normal;
+                font-size:small;
+            }
+
+        </style>
+
+	</head>
+	<!--page counter used to truncate blank pages and the end of the pdf document -->
+	<apex:variable var="routeCounter" value="{!0}"/>
+	<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+		<div class="header">
+			<!--repeatable header-->
+			<c:PUD_BookingsHeader Route="{! route}"/>
+		</div>
+		<div class="content">
+			<c:PUD_RoutePrintSubHeader route="{!route}"/>
+			<c:PUD_BookingsTable bookings="{!route.Bookings__r}"/>
+		</div>
+	</div>
+	<apex:variable var="routeCounter" value="{!routeCounter+1}"/>
+</apex:page>
