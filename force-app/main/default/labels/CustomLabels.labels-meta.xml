@@ -6327,47 +6327,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>CAR_Request</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_ASH</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Accounting Service Helpdesk</shortDescription>
-        <value>Accounting_Service_Helpdesk</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_ASIC</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of ASIC Request</shortDescription>
-        <value>ACIC_Request</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_BSI</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Business Systems Integration</shortDescription>
-        <value>Business_System_Integration</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_CAR</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Customer Analytics &amp; Reporting Request (CAR)</shortDescription>
-        <value>CAR_Request</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_CIA</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Customer Integration Application</shortDescription>
-        <value>Customer_Integration_Application</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_Dispute_Claim</fullName>
+        <fullName>REC_TYPE_DEV_Dispute_Claim</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6375,7 +6335,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Enterprise_Credit_Dispute_Claim</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_EG_Sales</fullName>
+        <fullName>REC_TYPE_DEV_EG_Sales</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6383,39 +6343,15 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Sales_Implementation_Case</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_NCL</fullName>
+        <fullName>REC_TYPE_DEV_BusSalesImpl</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Non-compliance Lodgement Issue</shortDescription>
-        <value>Non_compliance_Lodgement_Issue</value>
+        <shortDescription>Record Type Developer Name of Business Sales Implementation</shortDescription>
+        <value>Business_Sales_Implementation</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_RFS</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Retail Fulfilment &amp; Support</shortDescription>
-        <value>Retail_Fulfilment_Support</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_SalesCoordinator</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Sales Coordinator</shortDescription>
-        <value>Sales_Coordinator</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_SecurityExpress</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Security Express</shortDescription>
-        <value>Security_Express</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_Service_Delivery</fullName>
+        <fullName>REC_TYPE_DEV_Service_Delivery</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6423,7 +6359,71 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Sales_Ops_Delivery</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_Shipster</fullName>
+        <fullName>REC_TYPE_DEV_ASH</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Accounting Service Helpdesk</shortDescription>
+        <value>Accounting_Service_Helpdesk</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_ASIC</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of ASIC Request</shortDescription>
+        <value>ACIC_Request</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_BSI</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Business Systems Integration</shortDescription>
+        <value>Business_System_Integration</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CIA</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Customer Integration Application</shortDescription>
+        <value>Customer_Integration_Application</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_NCL</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Non-compliance Lodgement Issue</shortDescription>
+        <value>Non_compliance_Lodgement_Issue</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_RFS</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Retail Fulfilment &amp; Support</shortDescription>
+        <value>Retail_Fulfilment_Support</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_SalesCoordinator</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Sales Coordinator</shortDescription>
+        <value>Sales_Coordinator</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_SecurityExpress</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Security Express</shortDescription>
+        <value>Security_Express</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_Shipster</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6431,7 +6431,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Shipster</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_SpecialServices</fullName>
+        <fullName>REC_TYPE_DEV_SpecialServices</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6453,6 +6453,14 @@ We manage your personal information in accordance with our Privacy policy. The p
         <protected>false</protected>
         <shortDescription>Record Type keyword StarTrack</shortDescription>
         <value>StarTrack</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_StarTrack_VOCI</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of StarTrack Voice of Customer Incident</shortDescription>
+        <value>StarTrack_Voice_of_Customer_Incident</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_SOCIAL</fullName>
