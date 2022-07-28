@@ -57,7 +57,7 @@ public inherited sharing class ICPSSelector extends ApplicationSelector {
 				ICPS__c.Id, ICPS__c.Name, ICPS__c.MailCategory__c, ICPS__c.StoredLocation__c,
 				ICPS__c.ItemType__c, ICPS__c.ReceiverName__c, ICPS__c.CountryofOrigin__c, ICPS__c.NumberofArticles__c,
 				ICPS__c.OwnerId, ICPS__c.DemurrageStartDate__c, ICPS__c.Status__c, ICPS__C.DutyStatus__c, ICPS__c.OrderNumber__c,
-				ICPS__c.OtherStorageLocation__c, ICPS__c.RecordTypeId
+				ICPS__c.OtherStorageLocation__c, ICPS__c.RecordTypeId, ICPS__c.Articles__c, ICPS__c.StoreLocationReporting__c
 		};
 	}
 

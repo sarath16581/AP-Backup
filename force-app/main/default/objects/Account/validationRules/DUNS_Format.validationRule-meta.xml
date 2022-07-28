@@ -3,7 +3,7 @@
     <fullName>DUNS_Format</fullName>
     <active>true</active>
     <description>Ensures that the DUNS is only 9 digits for Customer type only.</description>
-    <errorConditionFormula>IF(NOT(AND(ISNUMBER( DUNS_Number__c ), LEN(DUNS_Number__c) = 9)) &amp;&amp;  NOT(ISBLANK(DUNS_Number__c)) , true, false)</errorConditionFormula>
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; IF(NOT(AND(ISNUMBER( DUNS_Number__c ), LEN(DUNS_Number__c) = 9)) &amp;&amp;  NOT(ISBLANK(DUNS_Number__c)) , true, false)</errorConditionFormula>
     <errorDisplayField>DUNS_Number__c</errorDisplayField>
     <errorMessage>Please enter a valid DUNS Number of 9 digits.</errorMessage>
 </ValidationRule>

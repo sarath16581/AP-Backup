@@ -3,6 +3,6 @@
     <fullName>Phase_2_mandate_fields_for_Customer</fullName>
     <active>true</active>
     <description>Shipping City, Post code and State are required for the ERP systems. Country was removed as a Validation 22/10/12.</description>
-    <errorConditionFormula>Role_Type_Roll_Up__c = &quot;Customer&quot;  &amp;&amp; ( ISBLANK(  ShippingCity ) ||  ISBLANK(  ShippingState )   || ISBLANK( ShippingPostalCode) )</errorConditionFormula>
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; Role_Type_Roll_Up__c = &quot;Customer&quot;  &amp;&amp; ( ISBLANK(  ShippingCity ) ||  ISBLANK(  ShippingState )   || ISBLANK( ShippingPostalCode) )</errorConditionFormula>
     <errorMessage>The customer record is missing required fields: Physical City, Physical State and Physical Post Code.</errorMessage>
 </ValidationRule>

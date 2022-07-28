@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Keeps track of references to original records when archiving, deletion dates, error messages etc.</description>
+    <eventType>HighVolume</eventType>
+    <label>Async Worker Event</label>
+    <pluralLabel>Async Worker Events</pluralLabel>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
+</CustomObject>

@@ -4,6 +4,6 @@
     <active>true</active>
     <description>Either the ACN or the ABN and the Organisation Number must be populated.
 BG 26/11: Validation Rule turned on</description>
-    <errorConditionFormula>IF(IF(ISPICKVAL(Type, &apos;Customer&apos;),(IF(ISBLANK(ABN__c) &amp;&amp; (ISBLANK( ACN__c )) , 0, 1)+ IF(ISBLANK(  AccountNumber  ), 0 ,1)),2) &gt; 1, false, true)</errorConditionFormula>
+    <errorConditionFormula>$User.IsExcludedFromValidationRules__c = false &amp;&amp; IF(IF(ISPICKVAL(Type, &apos;Customer&apos;),(IF(ISBLANK(ABN__c) &amp;&amp; (ISBLANK( ACN__c )) , 0, 1)+ IF(ISBLANK(  AccountNumber  ), 0 ,1)),2) &gt; 1, false, true)</errorConditionFormula>
     <errorMessage>For customers you must enter the ACN or ABN number and the Organisation Number</errorMessage>
 </ValidationRule>

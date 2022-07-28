@@ -255,11 +255,18 @@
           <!-- Text -->
           <div style="Margin-left: 20px;Margin-right: 20px;Margin-bottom: 24px;">
             <p style="Margin-top: 16px;Margin-bottom: 0;font-size: 16px;line-height: 20px;text-align: left;" lang="x-size-16">
-Thank you for your email.
+Hi {!Contact.FirstName},
 <br/><br/>
-Case #{!Case.CaseNumber} has been closed.
+We received your email but that case (ref. no #{!Case.CaseNumber}) has already been closed. 
+But don't worry; we can certainly help you.
 <br/><br/>
-Please direct a new request or enquiry to your BGS Service Advisor team.</p>
+If you'd like us to investigate further or have a new enquiry, please create and send a new email to your Service Advisor team.
+<br/><br/>
+Importantly,<b> PLEASE DO NOT REPLY TO THIS EMAIL</b>, as this case is closed and no longer monitored
+<br/><br/>
+Regards,<br/><br/>
+Australia Post’s Service Advisor Team
+</p>
           </div>
 
           <!-- button blue --><!-- Text Small --><!-- Text Sign-off -->

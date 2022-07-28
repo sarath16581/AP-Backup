@@ -168,6 +168,40 @@ private class ICPSServiceController_Test {
 		Test.stopTest();
 	}
 
+	/**
+	* Test:
+	*  Ensures that print label returns expected PDF stream
+	*/
+	@IsTest
+	public static void testPrintLabel() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<ICPS__c> icpsList = ICPSTestDataFactory.getICPS(1, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ICPSSelector mockSelector = (ICPSSelector) MockUtility.mockSelector(ICPSSelector.class);
+		ICPSService service = (ICPSService)MockUtility.mockUtility(ICPSService.class);
+		String mockStream = 'JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwogIC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAvTWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0KPj4KZW5kb2JqCgozIDAgb2JqCjw8CiAgL1R5cGUgL1BhZ2UKICAvUGFyZW50IDIgMCBSCiAgL1Jlc291cmNlcyA8PAogICAgL0ZvbnQgPDwKICAgICAgL0YxIDQgMCBSIAogICAgPj4KICA+PgogIC9Db250ZW50cyA1IDAgUgo+PgplbmRvYmoKCjQgMCBvYmoKPDwKICAvVHlwZSAvRm9udAogIC9TdWJ0eXBlIC9UeXBlMQogIC9CYXNlRm9udCAvVGltZXMtUm9tYW4KPj4KZW5kb2JqCgo1IDAgb2JqICAlIHBhZ2UgY29udGVudAo8PAogIC9MZW5ndGggNDQKPj4Kc3RyZWFtCkJUCjcwIDUwIFRECi9GMSAxMiBUZgooSGVsbG8sIHdvcmxkISkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iagoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4gCjAwMDAwMDAwNzkgMDAwMDAgbiAKMDAwMDAwMDE3MyAwMDAwMCBuIAowMDAwMDAwMzAxIDAwMDAwIG4gCjAwMDAwMDAzODAgMDAwMDAgbiAKdHJhaWxlcgo8PAogIC9TaXplIDYKICAvUm9vdCAxIDAgUgo+PgpzdGFydHhyZWYKNDkyCiUlRU9G';
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockSelector.selectById((set<Id>) fflib_Match.anyObject())).thenReturn(icpsList);
+		MockUtility.Mocks.when(service.retrieveBase64Labels((ICPS__c)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenReturn(mockStream);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		ICPSServiceController.LabelPrintDetail detail = ICPSServiceController.printLabel(icpsList[0].Id);
+		Test.stopTest();
+
+		System.assertEquals(mockStream, detail.pdfStream);
+	}
+
 	public class AnswerSearchArticle implements fflib_Answer {
 		public Object answer(fflib_InvocationOnMock invocation) {
 			TIBCOSearchResult searchResult = new TIBCOSearchResult();
