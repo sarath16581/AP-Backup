@@ -14,7 +14,7 @@ public class ChasCaseAssignment_Test {
                 'SSSW MyPost Business Inbound',
                 'SSSW MyPost Business Back Office',
                 'SSSW Social Media Team',
-                'SSSW E-Parcel Damages Back Office',
+                'SSSW Damages Back Office',
                 'SSSW Load & Go',
                 'SSSW MyPost',
                 'SSSW Consumer Back Office Disputed Del',
