@@ -120,7 +120,12 @@ public inherited sharing class PUDJobDispatchEventHandler {
 		if (!jobIdVsContainers.isEmpty()) {
 			// attempt to upsert the containers.
 			for(Id jobId : jobIdVsContainers.keySet()){
-				containersToUpsert.addAll(jobIdVsContainers.get(jobId));
+
+				//get job containers of ONLY eligible job for updates.
+				//updatableJobs map contains jobs which are need to be updated.
+				if(updatableJobs.containsKey(jobId)){
+					containersToUpsert.addAll(jobIdVsContainers.get(jobId));
+				}
 			}
 
 			if(!containersToUpsert.isEmpty()){
