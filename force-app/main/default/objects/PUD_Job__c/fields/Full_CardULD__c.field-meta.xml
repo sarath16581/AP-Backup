@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Full_CardULD__c</fullName>
-    <description>Number of full Cardboard for pickup/delivery booking, used by Metro Transport fleet.</description>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <description>DEPRECATED. DO NOT USE.
+Number of full Cardboard for pickup/delivery booking, used by Metro Transport fleet.</description>
     <externalId>false</externalId>
-    <label>Full CardULD</label>
+    <label>Full CardULD(DEPRECATED)</label>
     <precision>6</precision>
     <required>false</required>
     <scale>0</scale>

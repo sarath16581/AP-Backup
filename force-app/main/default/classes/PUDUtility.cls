@@ -399,18 +399,13 @@ public with sharing class PUDUtility {
 	}
 
 	
-	@TestVisible private static void cascadeDeleteJobContainers(List<PUD_Job__c> jobDeleteList, ApplicationUnitOfWork uow){
-		Set<Id> jobIds = new Set<Id>();
-
-		for(PUD_Job__c deletedJob : jobDeleteList){
-			jobIds.add(deletedJob.Id);
-		}
-
+	private static void cascadeDeleteJobContainers(List<PUD_Job__c> jobDeleteList, ApplicationUnitOfWork uow){
+		Set<Id> jobIds = new Map<Id, PUD_Job__c>(jobDeleteList).keySet();
+		
 		List<PUD_Container__c> containersToDelete = PUDContainersSelector.newInstance().selectByJobIds(jobIds, new Set<Object>());
 		if(!containersToDelete.isEmpty()){
 			uow.registerDeleted(containersToDelete, true, 'PUDUtility.refreshJobs');
 		}
-		
 	}
 
 	//*****3. GET NEW JOB LIST - Sub Function*****
