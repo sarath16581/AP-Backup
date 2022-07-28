@@ -7602,7 +7602,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Sths Enquiry Validation Message</shortDescription>
         <value>Please enter your enquiry</value>
     </labels>
-
+    <labels>
+        <fullName>Sths_Feedback_Error_State_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Error State validation Message</shortDescription>
+        <value>Your feedback couldn’t be submitted due to an error. Please wait a few moments and try again.</value>
+    </labels>
     <labels>
         <fullName>Sths_Feedback_Selection_Validation_Message</fullName>
         <categories>StarTrack Help and Support</categories>
