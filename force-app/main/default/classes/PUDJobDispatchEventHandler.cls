@@ -101,7 +101,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				// if same job has been previously updated in current batch, get the job from 'updatableJobs' map. otherwise
 				// use the job record returned by selector query.
 				PUD_Job__c updatableJob = updatableJobs.containsKey(jobId) ? updatableJobs.get(jobId): jobs.get(jobId);
-
+				
 				// process the event and update job if required.
 				Boolean isUpdated = processJobActionEvent(event, updatableJob, jobIdVsContainers.get(updatableJob.Id));
 				if (isUpdated && !updatableJobs.containsKey(jobId)) {

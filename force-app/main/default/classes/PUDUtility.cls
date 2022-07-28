@@ -67,9 +67,7 @@ public with sharing class PUDUtility {
 						PUD_Job__c.Confidence__c, PUD_Job__c.Stop_Credit__c, PUD_Job__c.Key_Number__c, PUD_Job__c.Article_Count__c,
 						PUD_Job__c.Location_Frontage_Geo__Latitude__s, PUD_Job__c.Location_Frontage_Geo__Longitude__s,
 						PUD_Job__c.Location_Side_Of_Street_Code__c, PUD_Job__c.Location_DPID__c, PUD_Job__c.Regular_Product__c, PUD_Job__c.Express_Product__c, 
-						PUD_Job__c.International_Product__c, PUD_Job__c.Empty_Aircan__c, PUD_Job__c.Empty_Cage__c, PUD_Job__c.Empty_CardULD__c, PUD_Job__c.Empty_Colby__c,
-						PUD_Job__c.Empty_Pallets__c, PUD_Job__c.Empty_Trailer__c, PUD_Job__c.Empty_ULD__c, PUD_Job__c.Full_Aircan__c, PUD_Job__c.Full_Cage__c,
-						PUD_Job__c.Full_CardULD__c, PUD_Job__c.Full_Colby__c, PUD_Job__c.Full_Pallets__c, PUD_Job__c.Full_Trailer__c, PUD_Job__c.Full_ULD__c, PUD_Job__c.Containers_Payload__c
+						PUD_Job__c.International_Product__c, PUD_Job__c.Containers_Payload__c
 				};
 			}
 			return COMPARABLE_FIELD_SET_NEW_JOBS;
@@ -89,9 +87,7 @@ public with sharing class PUDUtility {
 						PUD_Job__c.Pallets_Quantity__c, PUD_Job__c.Bags_Quantity__c, PUD_Job__c.Volume_Cubic_Metre__c, PUD_Job__c.Tubs_Quantity__c,
 						PUD_Job__c.Trays_Quantity__c, PUD_Job__c.Large_Letter_Tubs__c, PUD_Job__c.White_Bags__c, PUD_Job__c.Blue_Bags__c,
 						PUD_Job__c.Small_Letter_Trays__c, PUD_Job__c.Express_Bags__c, PUD_Job__c.Red_Tubs__c, PUD_Job__c.Start_Time__c, PUD_Job__c.Revenue_Check__c, 
-						PUD_Job__c.Regular_Product__c, PUD_Job__c.Express_Product__c, PUD_Job__c.International_Product__c, PUD_Job__c.Empty_Aircan__c, PUD_Job__c.Empty_Cage__c,
-						PUD_Job__c.Empty_CardULD__c, PUD_Job__c.Empty_Colby__c, PUD_Job__c.Empty_Pallets__c, PUD_Job__c.Empty_Trailer__c, PUD_Job__c.Empty_ULD__c, PUD_Job__c.Full_Aircan__c,
-						PUD_Job__c.Full_Cage__c, PUD_Job__c.Full_CardULD__c, PUD_Job__c.Full_Colby__c, PUD_Job__c.Full_Pallets__c, PUD_Job__c.Full_Trailer__c, PUD_Job__c.Full_ULD__c, PUD_Job__c.Containers_Payload__c
+						PUD_Job__c.Regular_Product__c, PUD_Job__c.Express_Product__c, PUD_Job__c.International_Product__c, PUD_Job__c.Containers_Payload__c
 				};
 			}
 			return COMPARABLE_FIELD_SET_SCHEDULED_JOBS;
@@ -187,8 +183,6 @@ public with sharing class PUDUtility {
 				Source_Street__c, Source_City__c, Source_Post_Code__c, Source_State__c, Confidence__c,
 				Route_Lookup__r.Name,Stop_Credit__c,Key_Number__c,Display_Start_Time__c,Article_Count__c,
 				Frontage_Geo__Latitude__s, Frontage_Geo__Longitude__s, DPID__c, Side_Of_Street_Code__c, Regular_Product__c, Express_Product__c, International_Product__c,
-				Empty_Aircan__c, Empty_Cage__c, Empty_CardULD__c, Empty_Colby__c, Empty_Pallets__c, Empty_Trailer__c, Empty_ULD__c,
-				Full_Aircan__c, Full_Cage__c, Full_CardULD__c, Full_Colby__c, Full_Pallets__c, Full_Trailer__c, Full_ULD__c,
 				(SELECT Id, Actual_Quantity__c, Booking__c, Condition__c, Expected_Quantity__c, Job__c, Type__c, RecordTypeId, Name 
 					FROM Containers__r WHERE RecordTypeId =: bookingContainerRecordTypeId ORDER BY CreatedDate Desc) 
 				
@@ -319,20 +313,6 @@ public with sharing class PUDUtility {
 				Regular_Product__c,
 				Express_Product__c,
 				International_Product__c,
-				Empty_Aircan__c,
-				Empty_Cage__c,
-				Empty_CardULD__c,
-				Empty_Colby__c,
-				Empty_Pallets__c,
-				Empty_Trailer__c,
-				Empty_ULD__c,
-				Full_Aircan__c, 
-				Full_Cage__c, 
-				Full_CardULD__c, 
-				Full_Colby__c, 
-				Full_Pallets__c, 
-				Full_Trailer__c, 
-				Full_ULD__c,
 				Containers_Payload__c
 		FROM PUD_Job__c
 		WHERE Booking__c IN:bookingsMap.keySet()
@@ -414,7 +394,23 @@ public with sharing class PUDUtility {
 		}
 		if(jobDeleteList.size() > 0){
 			uow.registerDeleted(jobDeleteList, true, 'PUDUtility.refreshJobs');
+			cascadeDeleteJobContainers(jobDeleteList, uow);
 		}
+	}
+
+	
+	@TestVisible private static void cascadeDeleteJobContainers(List<PUD_Job__c> jobDeleteList, ApplicationUnitOfWork uow){
+		Set<Id> jobIds = new Set<Id>();
+
+		for(PUD_Job__c deletedJob : jobDeleteList){
+			jobIds.add(deletedJob.Id);
+		}
+
+		List<PUD_Container__c> containersToDelete = PUDContainersSelector.newInstance().selectByJobIds(jobIds, new Set<Object>());
+		if(!containersToDelete.isEmpty()){
+			uow.registerDeleted(containersToDelete, true, 'PUDUtility.refreshJobs');
+		}
+		
 	}
 
 	//*****3. GET NEW JOB LIST - Sub Function*****
@@ -696,21 +692,7 @@ public with sharing class PUDUtility {
 								jobRec.Regular_Product__c	    = booking.Regular_Product__c;
 								jobRec.Express_Product__c	    = booking.Express_Product__c;
 								jobRec.International_Product__c = booking.International_Product__c;
-								jobRec.Empty_Aircan__c		    = booking.Empty_Aircan__c;
-								jobRec.Empty_Cage__c			= booking.Empty_Cage__c;
-								jobRec.Empty_CardULD__c		    = booking.Empty_CardULD__c;
-								jobRec.Empty_Colby__c		    = booking.Empty_Colby__c;
-								jobRec.Empty_Pallets__c		    = booking.Empty_Pallets__c;
-								jobRec.Empty_Trailer__c		    = booking.Empty_Trailer__c;
-								jobRec.Empty_ULD__c			    = booking.Empty_ULD__c;
-								jobRec.Full_Aircan__c		    = booking.Full_Aircan__c;
-								jobRec.Full_Cage__c			    = booking.Full_Cage__c;
-								jobRec.Full_CardULD__c		    = booking.Full_CardULD__c;
-								jobRec.Full_Colby__c			= booking.Full_Colby__c;
-								jobRec.Full_Pallets__c		    = booking.Full_Pallets__c;
-								jobRec.Full_Trailer__c		    = booking.Full_Trailer__c;
-								jobRec.Full_ULD__c			    = booking.Full_ULD__c;
-
+								
 								jobsNewList.add(jobRec);
 							}
 						}
@@ -944,10 +926,11 @@ public with sharing class PUDUtility {
 		//query bookings with booking containers for supplied booking ids.
 		Map<Id, PUD_Booking__c> bookings = new Map<Id, PUD_Booking__c> (PUDBookingsSelector.newInstance().selectById(bookingIds, new Set<Object>{PUDBookingsSelector.Options.WITH_CONTAINERS}));
 
+		system.debug('Bookings: '+bookings);
 		//query current/future Jobs for the bookings in New, Schedule, Accepted status. Also retrieve Job Containers with Jobs.
 		Set<String> jobStatus = new Set<String>{PUDConstants.PUD_JOB_STATUS_NEW, PUDConstants.PUD_JOB_STATUS_SCHEDULE, PUDConstants.PUD_JOB_STATUS_ACCEPTED};
 		List<PUD_Job__c> jobs = PUDJobsSelector.newInstance().selectByBookingIdStatusAndFromDate(bookingIds, Date.today(), jobStatus, new Set<Object>{PUDJobsSelector.Options.WITH_CONTAINERS});
-
+		system.debug('jobs: '+jobs);
 		// refresh container types on selected jobs
 		refreshContainerTypes(bookings,jobs, uow);
 	}
@@ -982,6 +965,9 @@ public with sharing class PUDUtility {
 					if (jobContainersByUniqueKeyMap.containsKey(key)) {
 						// existing job container - update if quantities does not match
 						PUD_Container__c jobContainer = jobContainersByUniqueKeyMap.get(key);
+						system.debug('Job container'+jobContainer);
+						system.debug('bookingContainer container'+bookingContainer);
+						
 						if (jobContainer.Expected_Quantity__c != bookingContainer.Expected_Quantity__c) {
 							jobContainer.Expected_Quantity__c = bookingContainer.Expected_Quantity__c;
 							uow.registerDirty(jobContainer, new List<SObjectField>{PUD_Container__c.Expected_Quantity__c});
@@ -996,6 +982,7 @@ public with sharing class PUDUtility {
 				// generate container type payload and populate on the Job. This gets sent to dispatch system via Outbound Message interface.
 				// if the job is an existing job mark it as dirty after container payload is updated.
 				job.Containers_Payload__c = generateContainerTypePayload(bookingContainers);
+				system.debug('Updating jobs payload:: '+job.Containers_Payload__c);
 				if (job.Id != null) {
 					uow.registerDirty(job);
 				}
@@ -1093,15 +1080,7 @@ public with sharing class PUDUtility {
 		public String Name {get; private set;}
 		public Decimal Quantity {get; private set;}
 		public String Condition {get; private set;}
-		public ContainerPayload(String Name, Decimal Quantity, String Condition){
-			this.Name = Name;
-			this.Quantity = Quantity;
-			this.Condition = Condition;
-		}
-		public ContainerPayload(String Name, String Condition){
-			this.Name = Name;
-			this.Condition = Condition;
-		}
+		
 		public ContainerPayload(PUD_Container__c c) {
 			this.Name = c.Type__c;
 			this.Condition = c.Condition__c;

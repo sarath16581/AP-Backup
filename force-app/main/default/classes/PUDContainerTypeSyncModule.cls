@@ -68,9 +68,9 @@ public inherited sharing class PUDContainerTypeSyncModule  extends ApplicationDo
 			//this additional record type check is required even though containers being created are filtered by booking record types at Domain.
 			//When Job containers are added as part of trigger/batch, then containers will have same type and condition across jobs. 
 			//Thus filtering allows to only  prevent duplicate booking containers ONLY.
-			if(container.RecordTypeId == bookingContainerRecordTypeId){
+			//if(container.RecordTypeId == bookingContainerRecordTypeId){
 				bookingIds.add(container.Booking__c);
-			}
+			//}
 		}
 
 		//get booking container

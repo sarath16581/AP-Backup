@@ -1,5 +1,77 @@
+/**
+ * @description Test class for PUDContainerTypeSyncModule
+ * @author Dattaraj Deshmukh
+ * @date 2022-07-25
+ * @group Tests
+ * @domain PUD
+ * @changelog
+ * 2022-07-25 - Dattaraj Deshmukh - Created
+  */
+
 @IsTest
 private class PUDContainerTypeSyncModule_Test {
+	
+	
+	@IsTest
+	public static void testEnsureAfterDeleteContainer() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(PUDContainerTriggerHandler.getUnitOfWorkSObjectTypes());
+
+		List<PUD_Booking__c> pudBookingList = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(1, null, null, Date.today(), Date.today().addDays(30), null, true);
+		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, pudBookingList[0].Id, PUDConstants.PUD_JOB_STATUS_NEW, true);
+		
+		//associate jobs with bookings
+		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Jobs__r' => jobs});
+
+		//create a booking container
+		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+
+		//associating containers with bookings.
+		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{bookingContainer}});
+
+		//create a job container and associated it with jobs
+		PUD_Container__c jobContainer = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[0].Id, 'Pallets', 'Empty', true )[0];
+		jobs[0] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{jobContainer}});
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		PUDUtility mockPUDUtil = (PUDUtility) MockUtility.mockUtility(PUDUtility.class);
+		PUDBookingsSelector mockBookingSelector = (PUDBookingsSelector)MockUtility.mockSelector(PUDBookingsSelector.class);
+		PUDJobsSelector mockJobSelector = (PUDJobsSelector)MockUtility.mockSelector(PUDJobsSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockBookingSelector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(pudBookingList);
+		MockUtility.Mocks.when(mockJobSelector.selectByBookingIdStatusAndFromDate((Set<Id>) fflib_Match.anyObject(), fflib_Match.anyDate(), (Set<String>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(jobs);
+		
+		//mocking PUDUtility method call.
+		((PUDUtility)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).refreshContainerTypes((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		
+		PUDContainerTypeSyncModule module = PUDContainerTypeSyncModule.newInstance();
+
+		module.onAfterDelete(new List<PUD_Container__c>{bookingContainer}, uow);
+
+		Test.stopTest();
+
+		//verify that PUDUtility is called once with expected list of jobs
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id}, uow);
+
+		//verify that correct params are being passed to PUDUtility method.
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes((Set<Id>)fflib_Match.eq(new Set<Id>{pudBookingList[0].Id}), (ApplicationUnitOfWork) fflib_Match.eq(uow));
+
+	}
 	
 	@IsTest
 	public static void testEnsureAfterUpdateContainer() {
@@ -15,10 +87,10 @@ private class PUDContainerTypeSyncModule_Test {
 		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Jobs__r' => jobs});
 
 		//create a booking container
-		PUD_Container__c c1 = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
 
 		//associating containers with bookings.
-		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{c1}});
+		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{bookingContainer}});
 
 		//create a job container
 		PUD_Container__c jobContainer = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[0].Id, 'Pallets', 'Empty', true )[0];
@@ -37,8 +109,9 @@ private class PUDContainerTypeSyncModule_Test {
 
 		MockUtility.Mocks.when(mockBookingSelector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(pudBookingList);
 		MockUtility.Mocks.when(mockJobSelector.selectByBookingIdStatusAndFromDate((Set<Id>) fflib_Match.anyObject(), fflib_Match.anyDate(), (Set<String>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(jobs);
+		//mocking PUDUtility method call.
+		((PUDUtility)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).refreshContainerTypes((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 
-		// MockUtility.Mocks.when(mockPUDUtil.refreshContainerTypes((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject())).thenReturn(new List<PUD_Container__c>{c1});
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -47,19 +120,22 @@ private class PUDContainerTypeSyncModule_Test {
 		// =====================================
 		Test.startTest();
 		//updating type for booking container.
-		c1.Type__c = 'Aircan';
+		bookingContainer.Type__c = 'Aircan';
 
 		PUDContainerTypeSyncModule module = PUDContainerTypeSyncModule.newInstance();
 
-		module.onAfterUpdate(new List<PUD_Container__c>{c1}, null, uow);
+		module.onAfterUpdate(new List<PUD_Container__c>{bookingContainer}, null, uow);
 
 		Test.stopTest();
 
-		fflib_ArgumentCaptor containersCaptor = fflib_ArgumentCaptor.forClass(List<PUD_Container__c>.class);
+		//verify that PUDUtility is called once with expected list of jobs
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id}, uow);
 
-		 //verify that PUDUtility is called once with expected list of jobs
-		 ((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id}, uow);
+		//verify that correct params are being passed to PUDUtility method.
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes((Set<Id>)fflib_Match.eq(new Set<Id>{pudBookingList[0].Id}), (ApplicationUnitOfWork) fflib_Match.eq(uow));
+
 	}
+
 	@IsTest
 	public static void testEnsureAfterInsertContainer() {
 		// =====================================
@@ -85,8 +161,9 @@ private class PUDContainerTypeSyncModule_Test {
 
 		MockUtility.Mocks.when(mockBookingSelector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(pudBookingList);
 		MockUtility.Mocks.when(mockJobSelector.selectByBookingIdStatusAndFromDate((Set<Id>) fflib_Match.anyObject(), fflib_Match.anyDate(), (Set<String>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(jobs);
-
-		// MockUtility.Mocks.when(mockPUDUtil.refreshContainerTypes((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject())).thenReturn(new List<PUD_Container__c>{c1});
+		
+		//mocking PUDUtility method call.
+		((PUDUtility)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).refreshContainerTypes((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -101,14 +178,14 @@ private class PUDContainerTypeSyncModule_Test {
 
 		Test.stopTest();
 
-		fflib_ArgumentCaptor containersCaptor = fflib_ArgumentCaptor.forClass(List<PUD_Container__c>.class);
+		//verify that PUDUtility is called once with expected list of jobs
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id}, uow);
 
-		 //verify that PUDUtility is called once with expected list of jobs
-		 ((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id}, uow);
+		//verify that correct params are being passed to PUDUtility method.
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes((Set<Id>)fflib_Match.eq(new Set<Id>{pudBookingList[0].Id}), (ApplicationUnitOfWork) fflib_Match.eq(uow));
 
-		List<PUD_Container__c> containersForDispatch = (List<PUD_Container__c>) containersCaptor.getValue();
-		// System.assertNotEquals(null, containersForDispatch, 'Expected a list of pud containers to be passed in for sync; but passed null.');
-		// System.assertEquals(1, containersForDispatch.size(), 'Expected only one pud container to be passed in for dispatch');
+
+		
 	}
 
 	@IsTest
@@ -156,8 +233,9 @@ private class PUDContainerTypeSyncModule_Test {
 		Test.stopTest();
 	}
 
+	
 	@IsTest
-	static void testEndToEndTriggerIntegration() {
+	static void testEndToEndTriggerIntegrationForInsert() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -201,8 +279,8 @@ private class PUDContainerTypeSyncModule_Test {
 
 		System.assertEquals(jobContainers[0].Type__c, bookingContainer.Type__c, 'Expected job containers type to match booking containers type.');
 		System.assertEquals(jobContainers[0].Condition__c, bookingContainer.Condition__c, 'Expected job containers type to match booking containers type.');
-		System.assertEquals(jobContainers[0].Booking__c, pudBooking.Id);
-		System.assertEquals(jobContainers[0].Job__c, pudJob.Id);
+		System.assertEquals(jobContainers[0].Booking__c, pudBooking.Id, 'Expected job container to be created under same booking where booking container was created.');
+		System.assertEquals(jobContainers[0].Job__c, pudJob.Id,'Expected job container is created under a job');
 		System.assertEquals(1, jobContainers.size(),' There should be only 1 job container created');
 	}
 }
