@@ -150,7 +150,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>52.0</apiVersion>
     <decisions>
         <description>Identify Blue Post Network State and accordingly send Email Alert</description>
         <name>Identify_Blue_Post_Network_State</name>
@@ -411,9 +411,9 @@
             <label>Red SA NT</label>
         </rules>
     </decisions>
-    <description>This sub flow is triggered from AP Domain Flow - Record Triggered After Save Flow</description>
-    <interviewLabel>Carded Case Notification Sub Flow {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Carded Case Notification Sub Flow</label>
+    <description>subflow for Carded Case Notification triggered from MyCustomerDomain subflow</description>
+    <interviewLabel>CaseMyCustomer_CardedCaseModule {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case MyCustomer CardedCaseModule</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -441,7 +441,7 @@
             <targetReference>Identify_Post</targetReference>
         </connector>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <description>Contains Case Record Id</description>
         <name>vCase</name>

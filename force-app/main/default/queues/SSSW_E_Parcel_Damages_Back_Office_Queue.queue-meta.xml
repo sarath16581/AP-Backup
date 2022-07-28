@@ -2,7 +2,7 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
-    <name>SSSW E-Parcel Damages Back Office</name>
+    <name>SSSW Damages Back Office</name>
     <queueMembers>
         <users>
             <user>belinda.fransdonk@auspost.com.au</user>

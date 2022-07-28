@@ -17,7 +17,7 @@
         <operation>notEqual</operation>
         <value>Closed</value>
     </filters>
-    <label>SSSW E-Parcel Damages Back Office</label>
+    <label>SSSW Damages Back Office</label>
     <queue>SSSW_E_Parcel_Damages_Back_Office_Queue</queue>
     <sharedTo>
         <group>SSSWAgents</group>

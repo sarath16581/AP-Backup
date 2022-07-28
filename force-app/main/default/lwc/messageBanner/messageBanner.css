@@ -1,0 +1,39 @@
+.banner-container {
+	padding: 18px 48px 18px 18px;
+	position: relative;
+	border-radius: 3px 6px 6px 3px;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+}
+
+.message-text {
+	display: inline-flex;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 20px;
+	font-style: normal;
+}
+
+.close-icon {
+	position: absolute;
+	cursor: pointer;
+	top: 20px;
+	right: 18px;
+	--sds-c-icon-color-foreground-default: #31313d;
+}
+
+.warning {
+	border-left: 3px solid #eda51f;
+	background-color: #fbedd2;
+}
+
+.error {
+	border-left: 3px solid #d61834;
+	background-color: #f2d0d5;
+}
+
+.info {
+	border-left: 3px solid #009ed9;
+	background-color: #ceebf6;
+}
