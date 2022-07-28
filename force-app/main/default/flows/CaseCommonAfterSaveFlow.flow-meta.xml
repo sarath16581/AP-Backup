@@ -116,7 +116,7 @@
             <label>Update Incident</label>
         </rules>
     </decisions>
-    <description>record triggered flow upon After save on Case which invokes multiple sub flows</description>
+    <description>record triggered flow upon After save on Case which invokes multiple subflows</description>
     <formulas>
         <name>vSSSWUpdateIncident</name>
         <dataType>Boolean</dataType>
