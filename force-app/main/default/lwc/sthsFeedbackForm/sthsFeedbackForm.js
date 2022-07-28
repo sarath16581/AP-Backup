@@ -1,4 +1,4 @@
-import { LightningElement } from "lwc";
+import {LightningElement} from "lwc";
 import { validateInputComponents } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
 import invalidDescription from "@salesforce/label/c.Sths_Description_Validation_Message";
@@ -10,11 +10,14 @@ import invalidLastName from "@salesforce/label/c.Sths_Lastname_Validation_Messag
 import invalidCharacters from "@salesforce/label/c.Sths_Max_Characters_Validation_Message";
 import invalidPhone from "@salesforce/label/c.Sths_Phone_Validation_Message";
 import invalidReference from "@salesforce/label/c.Sths_Reference_Validation_Message";
+import errorStateMessage from "@salesforce/label/c.Sths_Error_State_Message";
 import stSupportURL from "@salesforce/label/c.Sths_Support_URL";
 
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
+	errorIcon = STHS_ICONS + "/sths_icons/svgs/forms/error_input.svg";
 	showReference = false;
+	showError = false;
 	referenceRequiredFeedbackTypes = [
 		"Product & Sales",
 		"Pick Up",
@@ -34,7 +37,8 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidCharacters,
 		invalidPhone,
 		invalidReference,
-		stSupportURL
+		stSupportURL,
+		errorStateMessage
 	};
 
 	get enquiryOptions() {
@@ -51,7 +55,7 @@ export default class SthsTrackingForm extends LightningElement {
 	}
 
 	//handle enquiry dropdown change
-	handleEnquiryChange(event) {
+	handleEnquiryChange = (event) => {
 		const feedbackType = event.target.value;
 		if (this.referenceRequiredFeedbackTypes.includes(feedbackType)) {
 			this.showReference = true;
@@ -63,7 +67,7 @@ export default class SthsTrackingForm extends LightningElement {
 	}
 
 	//handler for input type fields
-	handleInputChange(event) {
+	handleInputChange = (event) => {
 		this.formData = {
 			...this.formData,
 			[event.target.dataset.fieldName]: event.detail.value
@@ -71,8 +75,9 @@ export default class SthsTrackingForm extends LightningElement {
 	}
 
 	//handle form submit click
-	handleSubmitClick(event) {
+	handleSubmitClick = (event) => {
 		let isFormValid = this.validateForm();
+		this.showError = true;
 		if (isFormValid) {
 			//submit the form
 			console.log(JSON.parse(JSON.stringify(this.formData)));
@@ -80,10 +85,16 @@ export default class SthsTrackingForm extends LightningElement {
 	}
 
 	//validate the form
-	validateForm() {
+	validateForm = () => {
 		let inputElements = this.template.querySelectorAll(
 			'[data-validation="feedbackForm"]'
 		);
 		return validateInputComponents([...inputElements], true);
 	}
+
+	handleErrorClose = (event) => {
+		alert(1)
+		this.showError = false;
+	};
+
 }
