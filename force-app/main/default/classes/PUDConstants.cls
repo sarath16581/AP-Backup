@@ -37,7 +37,7 @@ public inherited sharing class PUDConstants {
 	public static final String PUD_JOB_STATUS_CANCELLED = 'Cancelled';
 
 	// driver couldn't complete the job (for example no one at the address)
-    public static final String PUD_JOB_STATUS_FAILED = 'Failed';
+	public static final String PUD_JOB_STATUS_FAILED = 'Failed';
 
 	//Booking Container Record Type
 	public static final String PUD_BOOKING_CONTAINER_RECORD_TYPE = 'Booking_Container';

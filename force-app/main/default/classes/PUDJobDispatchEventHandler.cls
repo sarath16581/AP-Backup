@@ -34,18 +34,6 @@ public inherited sharing class PUDJobDispatchEventHandler {
 		private set;
 	}
 
-	//get Job Container record type ID
-	private static Id jobContainerRecordTypeId {
-		get {
-			if(jobContainerRecordTypeId == null){
-				jobContainerRecordTypeId= RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
-			}
-			return jobContainerRecordTypeId;
-		}
-		private set;
-	} 
-		
-
 	/**
      * Creates a new instance. This allows use to use dependency injection for mocking
      * @return the new instance
@@ -273,7 +261,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 		jobContainer.Actual_Quantity__c = containerWrapper.ActualQuantity;
 		jobContainer.Condition__c = containerWrapper.Condition;
 		jobContainer.Expected_Quantity__c = containerWrapper.Quantity;
-		jobContainer.RecordTypeId = jobContainerRecordTypeId;
+		jobContainer.RecordTypeId = PUDUtility.jobContainerRecordTypeId;
 		return jobContainer;
 	}
 

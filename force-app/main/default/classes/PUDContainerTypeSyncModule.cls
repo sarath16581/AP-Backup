@@ -112,12 +112,31 @@ public inherited sharing class PUDContainerTypeSyncModule  extends ApplicationDo
 		}
 
 		try{
-			//call utility method to sycn containers.
-			PUDUtility.getInstance().refreshContainerTypes(bookingIds, uow);
+			//If this is being called from a future or batch method (e.g. Booking Location update), then call createJobs directly
+			if(System.IsBatch() == true || System.isFuture() == true){
+				//call utility method to sycn containers.
+				PUDUtility.getInstance().refreshContainerTypes(bookingIds, uow);
+			} else {
+				//Else call Async method to refresh jobs for bookings
+				refreshContainersAsync(bookingIds);
+			}
 		} catch(Exception exp) {
 			//Log error to Exception object for analysis
 			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), PUDConstants.PICKUP_BOOKING_APP, PUDContainerTypeSyncModule.class.getName(), 'refreshContainerTypesSync', 'PUDContainerTrigger', LoggingLevel.ERROR);
 		}
+
+		
+	}
+
+	@future
+	//Async method to add/update/delete containers associated with bookings
+	public static void refreshContainersAsync(Set<Id> bookingIdSet){
+	try{
+		PUDUtility.getInstance().refreshContainerTypes(bookingIdSet);
+	} catch(Exception exp) {
+		//Log error to Exception object for analysis
+		UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), PUDConstants.PICKUP_BOOKING_APP, PUDContainerTypeSyncModule.class.getName(), 'refreshContainerTypesSync', 'PUDContainerTrigger', LoggingLevel.ERROR);
+	}
 	}
 
 }
