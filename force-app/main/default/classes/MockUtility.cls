@@ -60,6 +60,15 @@ public class MockUtility {
 	}
 
 	/**
+	 * Use this to mock Domain classes in unit tests
+	 */
+	public static Object mockDomain(Type domainType) {
+		ApplicationDomain domain = (ApplicationDomain)Mocks.mock(domainType);
+		Application.Domains.setMock(domainType, domain);
+		return domain;
+	}
+
+	/**
 	 * Use this to return a stubbed ApplicationDatabase instance
 	 */
 	public static ApplicationDatabase mockDatabase() {

@@ -18,7 +18,6 @@
         </connector>
     </assignments>
     <description>Schedule Path for Business Sales Implementation Case Escalation</description>
-    <environments>Default</environments>
     <interviewLabel>CaseScheduled_BusinessSalesImplEscalation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled BusinessSalesImplEscalation</label>
     <processMetadataValues>
@@ -51,10 +50,6 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterFormula>AND(
- {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_BusSalesImpl},
- ISBLANK({!$Record.Owner:User.Id})
-)</filterFormula>
         <object>Case</object>
         <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>

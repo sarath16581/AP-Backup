@@ -2,7 +2,7 @@
  * @description       : This is a test class for Customer Data Sync Event handler
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 07-18-2022
+ * @last modified on  : 07-22-2022
  * @last modified by  : Sreenish Krishnan
  **/
 @isTest
@@ -437,6 +437,89 @@ private class CustomerDataSyncEventHandler_Test {
 	}
 
 	@isTest
+	static void testsyncContactPointEmailUpdateExistingEmail() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		//Prepare Person Account that exist in database and the a contact point email associated to the Account
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		personAccount.apcn__c = '873337950';
+		personAccount.apcn__pc = '873337950';
+		personAccount.Integration_Service_Mod_Date__c = Datetime.newInstanceGmt(2021, 4, 5, 2, 2, 3);
+		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+
+		ContactPointEmail cpEmail = ApplicationTestDataFactory.getContactPointEmails(1, personAccount.id, true)[0];
+		cpEmail.EmailAddress = 'Laurel_Mertz@hotmail.com';
+		cpEmail.Contact__c = personContact.Id;
+		cpEmail.Verified__c=true;
+
+		//Prepare the Platform Events published from the ESB
+		List<CustomerDataSync__e> events = new List<CustomerDataSync__e>();
+		events.add(
+			new CustomerDataSync__e(
+				apcn__c = '873337950',
+				legalFirstName__c = 'FName Scenario 1',
+				legalLastName__c = 'LName Scenario 1',
+				preferredName__c = 'FNameLNameScenario1',
+				birthDate__c = Date.newInstance(2022, 4, 5),
+				loa__c = 100.23,
+				legalMarketingOptIn__c = true,
+				winningMasterAPCN__c = personAccount.Id,
+				isInactiveCustomer__c = false,
+				integrationServiceModDate__c = Datetime.newInstanceGmt(2022, 4, 5, 2, 2, 3),
+				emails__c = '[ \n {\n \"emailAddress\":\"Laurel_Mertz@hotmail.com\",\n \"isVerified\":\"false\",\n \"isPrimary\":\"false\",\n \"isCredentialEmail\":\"false\"\n },\n {\n \"emailAddress\":\"Dina_Heller@hotmail.com\",\n \"isVerified\":\"false\",\n \"isPrimary\":\"false\",\n \"isCredentialEmail\":\"true\"\n }\n,\n{\n \"emailAddress\":\"mary.test.cust@yopmail.com\",\n \"isVerified\":\"false\",\n \"isPrimary\":\"false\",\n \"isCredentialEmail\":\"false\"\n } ]',
+				phones__c = '[ \n {\n \"phone\":\"0491570156\",\n \"type\":\"MOBILE\",\n \"isVerified\":\"false\",\n \"isUnique\":\"false\",\n \"isPrimary\":\"false\"\n },\n {\n \"phone\":\"0491570159\",\n \"type\":\"MOBILE\",\n \"isVerified\":\"false\",\n \"isUnique\":\"false\",\n \"isPrimary\":\"false\"\n },\n {\n \"phone\":\"08 8888 8888\",\n \"type\":\"HOME\",\n \"isVerified\":\"false\",\n \"isUnique\":\"false\",\n \"isPrimary\":\"false\"\n }\n ]',
+				addresses__c = '[ \n {\n \"type\":\"Other\",\n \"suburb\":\"CROYDON\",\n \"state\":\"NSW\",\n \"postCode\":\"3206\",\n \"country\":\"AU\"\n },\n {\n \"type\":\"Other\",\n \"suburb\":\"CROYDON\",\n \"state\":\"NSW\",\n \"postCode\":\"3206\",\n \"country\":\"AU\"\n }\n ]'
+			)
+		);
+
+		// =====================================
+		// Stubbing (No stubbing required as its a platform event)
+		// =====================================
+		//Mock the Accounts Selector and Database
+		AccountsSelector mockAccountsSelector = (AccountsSelector) MockUtility.mockSelector(AccountsSelector.class);
+		ContactPointEmailSelector mockCpEmailsSelector = (ContactPointEmailSelector) MockUtility.mockSelector(
+			ContactPointEmailSelector.class
+		);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(
+				mockAccountsSelector.selectByAPCNAndIdAndPersonAccount(
+					(Map<String, Object>) fflib_Match.anyObject(),
+					fflib_Match.anyString(),
+					fflib_Match.anySObjectField()
+				)
+			)
+			.thenReturn(new List<Account>{ personAccount });
+
+		MockUtility.Mocks.when(mockDatabase.dmlUpsert((List<SObject>) fflib_Match.anyObject(), (SObjectField) fflib_Match.anyObject()))
+			.thenAnswer(new MockUtility.AnswerGenericDMLUpserted());
+
+		MockUtility.Mocks.when(
+				mockCpEmailsSelector.selectByParentId((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())
+			)
+			.thenReturn(new List<ContactPointEmail>{ cpEmail });
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<Database.SaveResult> srList = EventBus.publish(events);
+
+		Test.stopTest();
+
+		System.assertEquals(true, srList[0].isSuccess(), 'event published');
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
+			.dmlUpsert((List<SObject>) fflib_Match.anyObject(), (SObjectField) fflib_Match.anyObject());
+	}
+
+
+	@isTest
 	static void testsyncContactPointEmailUpsertExistingEmail() {
 		// =====================================
 		// Data Preparation
@@ -539,7 +622,6 @@ private class CustomerDataSyncEventHandler_Test {
 		events.add(
 			new CustomerDataSync__e(
 				apcn__c = '873337950',
-				salesforceRecordID__c = personAccount.Id,
 				legalFirstName__c = 'FName Scenario 1',
 				legalLastName__c = 'LName Scenario 1',
 				preferredName__c = 'FNameLNameScenario1',
@@ -549,7 +631,7 @@ private class CustomerDataSyncEventHandler_Test {
 				winningMasterAPCN__c = personAccount.Id,
 				isInactiveCustomer__c = false,
 				integrationServiceModDate__c = Datetime.newInstanceGmt(2022, 4, 5, 2, 2, 3),
-				emails__c = '[ \n {\n \"emailAddress\":\"Laurel_Mertz@hotmail.com\",\n \"isVerified\":\"true\",\n \"isPrimary\":\"true\",\n \"isCredentialEmail\":\"false\"\n },\n {\n \"emailAddress\":\"Dina_Heller@hotmail.com\",\n \"isVerified\":\"false\",\n \"isPrimary\":\"false\",\n \"isCredentialEmail\":\"true\"\n }\n,\n{\n \"emailAddress\":\"mary.test.cust@yopmail.com\",\n \"isVerified\":\"false\",\n \"isPrimary\":\"false\",\n \"isCredentialEmail\":\"false\"\n } ]',
+				emails__c = '[]',
 				phones__c = '[ \n {\n \"phone\":\"0491570156\",\n \"type\":\"MOBILE\",\n \"isVerified\":\"false\",\n \"isUnique\":\"false\",\n \"isPrimary\":\"false\"\n },\n {\n \"phone\":\"0491570159\",\n \"type\":\"MOBILE\",\n \"isVerified\":\"false\",\n \"isUnique\":\"false\",\n \"isPrimary\":\"false\"\n },\n {\n \"phone\":\"08 8888 8888\",\n \"type\":\"HOME\",\n \"isVerified\":\"false\",\n \"isUnique\":\"false\",\n \"isPrimary\":\"false\"\n }\n ]',
 				addresses__c = '[ \n {\n \"type\":\"Other\",\n \"suburb\":\"CROYDON\",\n \"state\":\"NSW\",\n \"postCode\":\"3206\",\n \"country\":\"AU\"\n },\n {\n \"type\":\"Other\",\n \"suburb\":\"CROYDON\",\n \"state\":\"NSW\",\n \"postCode\":\"3206\",\n \"country\":\"AU\"\n }\n ]'
 			)
@@ -580,9 +662,6 @@ private class CustomerDataSyncEventHandler_Test {
 				mockCpEmailsSelector.selectByParentId((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())
 			)
 			.thenReturn(new List<ContactPointEmail>{ cpEmail });
-
-		MockUtility.Mocks.when(mockDatabase.dmlUpsert((List<SObject>) fflib_Match.anyObject(), (SObjectField) fflib_Match.anyObject()))
-			.thenAnswer(new MockUtility.AnswerGenericDMLUpserted());
 
 		MockUtility.Mocks.when(mockDatabase.dmlDelete((List<SObject>) fflib_Match.anyObject()))
 			.thenAnswer(new MockUtility.AnswerGenericDMLDeleted());
@@ -803,7 +882,7 @@ private class CustomerDataSyncEventHandler_Test {
 				isInactiveCustomer__c = false,
 				integrationServiceModDate__c = Datetime.newInstanceGmt(2022, 4, 5, 2, 2, 3),
 				emails__c = '[ \n {\n \"emailAddress\":\"Laurel_Mertz@hotmail.com\",\n \"isVerified\":\"false\",\n \"isPrimary\":\"false\",\n \"isCredentialEmail\":\"false\"\n },\n {\n \"emailAddress\":\"Dina_Heller@hotmail.com\",\n \"isVerified\":\"false\",\n \"isPrimary\":\"false\",\n \"isCredentialEmail\":\"true\"\n }\n,\n{\n \"emailAddress\":\"mary.test.cust@yopmail.com\",\n \"isVerified\":\"false\",\n \"isPrimary\":\"false\",\n \"isCredentialEmail\":\"false\"\n } ]',
-				phones__c = '[ \n {\n \"phone\":\"0491570156\",\n \"type\":\"MOBILE\",\n \"isVerified\":\"false\",\n \"isUnique\":\"false\",\n \"isPrimary\":\"false\"\n },\n {\n \"phone\":\"0491570159\",\n \"type\":\"MOBILE\",\n \"isVerified\":\"false\",\n \"isUnique\":\"false\",\n \"isPrimary\":\"false\"\n },\n {\n \"phone\":\"08 8888 8888\",\n \"type\":\"HOME\",\n \"isVerified\":\"false\",\n \"isUnique\":\"false\",\n \"isPrimary\":\"false\"\n }\n ]',
+				phones__c = '[]',
 				addresses__c = '[ \n {\n \"type\":\"Other\",\n \"suburb\":\"CROYDON\",\n \"state\":\"NSW\",\n \"postCode\":\"3206\",\n \"country\":\"AU\"\n },\n {\n \"type\":\"Other\",\n \"suburb\":\"CROYDON\",\n \"state\":\"NSW\",\n \"postCode\":\"3206\",\n \"country\":\"AU\"\n }\n ]'
 			)
 		);

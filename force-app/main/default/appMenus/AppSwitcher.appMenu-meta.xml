@@ -773,10 +773,6 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>GRAX_OAuth</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>Coveo</name>
         <type>ConnectedApp</type>
     </appMenuItems>

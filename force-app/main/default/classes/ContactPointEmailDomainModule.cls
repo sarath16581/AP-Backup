@@ -2,7 +2,7 @@
  * @description       : This is a CP Email domain module that is called by the CP Email Trigger
  * @author            : Sreenish Krishnan
  * @domain            : connected customer
- * @last modified on  : 07-21-2022
+ * @last modified on  : 07-22-2022
  * @last modified by  : Sreenish Krishnan
  **/
 public inherited sharing class ContactPointEmailDomainModule extends ApplicationDomain.Module {
@@ -19,7 +19,6 @@ public inherited sharing class ContactPointEmailDomainModule extends Application
 		List<SObject> recordsToUpdate = new List<SObject>();
 		recordsToUpdate = ContactService.getInstance().syncContactPointEmailToContacts((List<ContactPointEmail>) records, null);
 		
-	//	uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
 		uow.registerDirty(recordsToUpdate);
 		uow.commitWork();
 
@@ -29,8 +28,7 @@ public inherited sharing class ContactPointEmailDomainModule extends Application
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		List<SObject> recordsToUpdate = new List<SObject>();
 		recordsToUpdate = ContactService.getInstance().syncContactPointEmailToContacts((List<ContactPointEmail>) records, null);
-		//TODO this is added for test class fix, need to be looked into
-	//	uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+		
 		uow.registerDirty(recordsToUpdate);
 		uow.commitWork();
 
@@ -40,8 +38,7 @@ public inherited sharing class ContactPointEmailDomainModule extends Application
 	public override void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {
 		List<SObject> recordsToUpdate = new List<SObject>();
 		recordsToUpdate = ContactService.getInstance().syncContactPointEmailToContacts(null, (List<ContactPointEmail>) records);
-		//TODO this is added for test class fix, need to be looked into
-	//	uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+		
 		uow.registerDirty(recordsToUpdate);
 		uow.commitWork();
 	}
