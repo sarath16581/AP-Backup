@@ -5,6 +5,7 @@
  * @domain PUD
  * @description A very simple selector class.
  * @changelog
+ * @test PUDContainersSelector_Test
  * 2022-06-28 - Dattaraj Deshmukh - Created
  */
 public inherited sharing class PUDContainersSelector extends ApplicationSelector{
