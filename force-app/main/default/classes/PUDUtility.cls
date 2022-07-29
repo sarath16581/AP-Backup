@@ -927,11 +927,10 @@ public with sharing class PUDUtility {
 		//query bookings with booking containers for supplied booking ids.
 		Map<Id, PUD_Booking__c> bookings = new Map<Id, PUD_Booking__c> (PUDBookingsSelector.newInstance().selectById(bookingIds, new Set<Object>{PUDBookingsSelector.Options.WITH_BOOKING_CONTAINERS}));
 
-		system.debug('Bookings: '+bookings);
 		//query current/future Jobs for the bookings in New, Schedule, Accepted status. Also retrieve Job Containers with Jobs.
 		Set<String> jobStatus = new Set<String>{PUDConstants.PUD_JOB_STATUS_NEW, PUDConstants.PUD_JOB_STATUS_SCHEDULE, PUDConstants.PUD_JOB_STATUS_ACCEPTED};
 		List<PUD_Job__c> jobs = PUDJobsSelector.newInstance().selectByBookingIdStatusAndFromDate(bookingIds, Date.today(), jobStatus, new Set<Object>{PUDJobsSelector.Options.WITH_CONTAINERS});
-		system.debug('jobs: '+jobs);
+		
 		// refresh container types on selected jobs
 		refreshContainerTypes(bookings,jobs, uow);
 	}
@@ -966,8 +965,6 @@ public with sharing class PUDUtility {
 					if (jobContainersByUniqueKeyMap.containsKey(key)) {
 						// existing job container - update if quantities does not match
 						PUD_Container__c jobContainer = jobContainersByUniqueKeyMap.get(key);
-						system.debug('Job container'+jobContainer);
-						system.debug('bookingContainer container'+bookingContainer);
 						
 						if (jobContainer.Expected_Quantity__c != bookingContainer.Expected_Quantity__c) {
 							jobContainer.Expected_Quantity__c = bookingContainer.Expected_Quantity__c;
@@ -983,7 +980,6 @@ public with sharing class PUDUtility {
 				// generate container type payload and populate on the Job. This gets sent to dispatch system via Outbound Message interface.
 				// if the job is an existing job mark it as dirty after container payload is updated.
 				job.Containers_Payload__c = generateContainerTypePayload(bookingContainers);
-				system.debug('Updating jobs payload:: '+job.Containers_Payload__c);
 				if (job.Id != null) {
 					uow.registerDirty(job);
 				}

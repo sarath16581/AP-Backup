@@ -8,8 +8,8 @@
  */
 
 trigger PUDContainerTrigger on PUD_Container__c (after update, after insert, before insert, after delete) {
-    if(!TriggerHelper.isTriggerDisabled(String.valueOf(PUD_Container__c.SObjectType))) {
+	if(!TriggerHelper.isTriggerDisabled(String.valueOf(PUD_Container__c.SObjectType))) {
 		(new PUDContainerTriggerHandler()).dispatch();
 	}
-    
+	
 }
