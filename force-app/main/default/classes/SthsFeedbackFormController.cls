@@ -1,0 +1,40 @@
+/**
+ * @File Name          : SthsFeedbackFormController.cls
+ * @Description        : Controller class for StarTrack Feedback form
+ * @Author             : Mahesh Parvathaneni
+ **/
+
+public without sharing class SthsFeedbackFormController {
+
+	@AuraEnabled
+	public static String createFeedbackFormCase(Map<Object,String> formData) {
+		try {
+			//build case object
+			Case caseObj = new Case();
+			//get feedback form case default values
+			getFeedbackCaseDefaultValues(caseObj);
+			//get case default values
+			SthsCommunityUtility.getCaseDefaultValues(caseObj);
+			//get case data from form
+			SthsCommunityUtility.getFormCaseData(caseObj, formData);
+			//insert case
+			ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{caseObj});
+
+			//build related contact object
+			AuthorisedContacts__c relContact = new AuthorisedContacts__c();
+			relContact.Case__c = caseObj.Id;
+			//get related contact from form data
+			SthsCommunityUtility.getFormRelatedContactData(relContact, formData);
+			//insert related contact
+			ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{relContact});
+			return caseObj.Id;
+		} catch (Exception ex) {
+			throw new AuraHandledException(ex.getMessage());
+		}
+	}
+
+	private static void getFeedbackCaseDefaultValues(Case caseObj) {
+        caseObj.Subject = SthsConstants.CASE_SUBJECT_FEEDBACK_ENQUIRY;
+		caseObj.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SthsConstants.CASE_RECORDTYPE_VOC_ENQUIRY).getRecordTypeId();
+    }
+}
