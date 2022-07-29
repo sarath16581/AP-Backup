@@ -19,6 +19,7 @@
 * 2022-02-10 - Seth Heang - Added test method for updating booking location details to also flow to booking and job details where job status is schedule or accepted
 * 2022-02-28 - Seth Heang - Update test methods to test containers and product types for the booking-job sync validation for jobs with status 'New', 'Schedule', 'Accept' and 'Completed'
 * 2022-04-11 - Seth Heang - Added test method to test booking's before insert trigger and validate booking's default depot from route's depot
+* 2022-07-23 - Dattaraj Deshmukh - Added test methods for container types, removed references OLD Empty_/Full_ fields for containers from PUD_JOb__c object.
 */
 @isTest
 public with sharing class PUDUtility_Test {
@@ -1193,6 +1194,71 @@ public with sharing class PUDUtility_Test {
 		system.assertEquals(null, ((PUD_Job__c)jobDMlAnswerMockInstance.mockJobDMLUpdatedRecords[0]).Containers_Payload__c, 'Expected to update Job\'s container payload and set to null upon all container deletion.');
 	}
 
+	testMethod static void validateCascadeDeleteOfContainerTypesUponJobDeletion(){
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		List<PUD_Booking__c> pudBookingList = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(1, null, null, Date.today(), Date.today().addDays(7), null, true);
+		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, pudBookingList[0].Id, PUDConstants.PUD_JOB_STATUS_NEW, true);
+
+		//keeping booking containers list empty.
+		//This will simulate deletion of booking containers under a booking.
+		//Jobs will have containers but its booking will not have any containers.
+		//Upon successfull tests, job containers should be deleted as its booking doesn't have any containers.
+
+		//create job containers.
+		List<PUD_Container__c> containers = PUDTestDataFactory.getPUDJobContainers(6, pudBookingList[0].Id, null, 'Pallets', 'Empty', true );
+		containers[0].Job__c = jobs[0].Id;
+		containers[0].Expected_Quantity__c = 10; 
+		containers[1].Job__c = jobs[1].Id;
+		containers[1].Expected_Quantity__c = 10;
+		containers[2].Job__c = jobs[2].Id;
+		containers[2].Expected_Quantity__c = 10;
+		containers[3].Job__c = jobs[3].Id;
+		containers[3].Expected_Quantity__c = 10;
+		containers[4].Job__c = jobs[4].Id;
+		containers[4].Expected_Quantity__c = 10;
+		containers[5].Job__c = jobs[5].Id;
+		containers[5].Expected_Quantity__c = 10;
+
+		//associate child job containers
+		jobs[0] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{containers[0]}});
+		jobs[1] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[1], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{containers[1]}});
+		jobs[2] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[2], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{containers[2]}});
+		jobs[3] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[3], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{containers[3]}});
+		jobs[4] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[4], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{containers[4]}});
+		jobs[5] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[5], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{containers[5]}});
+		
+		// Stubbing
+		// =====================================
+		//PUDUtility mockPUDUtil = (PUDUtility) MockUtility.mockUtility(PUDUtility.class);
+		PUDContainersSelector mockContainerSelector = (PUDContainersSelector)MockUtility.mockSelector(PUDContainersSelector.class);
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockContainerSelector.selectByJobIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(containers);
+		((ApplicationUnitOfWork)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockUow)).registerDeleted((List<SObject>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject());
+
+
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+
+		PUDUtility.getInstance().cascadeDeleteJobContainers(jobs, mockUow);
+
+		Test.stopTest();
+
+		//verify containers are updated
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDeleted((List<SObject>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject());
+		//As UnitOfWork is used and we are not committing actual DML operations, asserting deletion operation not possible.
+		//Above verify() method asserts that delete will be called in actual transaction.
+		//Also, Mock framework does not return any list for registerDeleted(). 
+
+
+	}
 
 	/**
 	 * A simple Answer class to set an Id on the record to simulate a DML insert operation

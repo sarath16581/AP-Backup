@@ -398,8 +398,14 @@ public with sharing class PUDUtility {
 		}
 	}
 
+	/**
+	 * Method accepts jobs being deleted as part of batch job and delete all its associated job containers.
+	 * @param  pudJobs,ApplicationUnitOfWork 
+	 *
+	 * @return void
+	 */
 	
-	private static void cascadeDeleteJobContainers(List<PUD_Job__c> jobDeleteList, ApplicationUnitOfWork uow){
+	@testVisible private void cascadeDeleteJobContainers(List<PUD_Job__c> jobDeleteList, ApplicationUnitOfWork uow){
 		Set<Id> jobIds = new Map<Id, PUD_Job__c>(jobDeleteList).keySet();
 		
 		List<PUD_Container__c> containersToDelete = PUDContainersSelector.newInstance().selectByJobIds(jobIds, new Set<Object>());
