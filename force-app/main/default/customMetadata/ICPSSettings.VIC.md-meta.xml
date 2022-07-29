@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>VIC</label>
+    <protected>false</protected>
+    <values>
+        <field>BusinessHours__c</field>
+        <value xsi:type="xsd:string">8.30 AM to 4.00 PM (Mon-Fri)</value>
+    </values>
+    <values>
+        <field>Email__c</field>
+        <value xsi:type="xsd:string">postimports@abf.gov.au</value>
+    </values>
+    <values>
+        <field>Fax__c</field>
+        <value xsi:type="xsd:string">(03) 9920 1164</value>
+    </values>
+    <values>
+        <field>GroupTypeLayout__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>GroupTypeLeftOffset__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>GroupTypeTopOffset__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>HoldingDateDays__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>IsEmailEnabled__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>LabelTypeTemplateName__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>NotificationsEnabled__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>ServiceHeaderLabelMessage__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ServiceHeaderRequestType__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Telephone__c</field>
+        <value xsi:type="xsd:string">131 881</value>
+    </values>
+</CustomMetadata>

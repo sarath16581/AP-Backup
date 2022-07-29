@@ -3,8 +3,6 @@
     <fullName>AJ_Drivers_Dandenong</fullName>
     <columns>Name</columns>
     <columns>ServiceCrew</columns>
-    <columns>DutyStartTime__c</columns>
-    <columns>FSL__GanttLabel__c</columns>
     <columns>IsActive</columns>
     <columns>Description</columns>
     <columns>ResourceType</columns>

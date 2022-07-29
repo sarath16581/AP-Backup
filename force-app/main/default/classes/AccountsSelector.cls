@@ -14,7 +14,8 @@
  * 2021-08-06 - Seth Heang - Added selectByLikedNameAndPersonAccountOrderByName
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-03-16 - Naveen Rajanna - REQ2656153 - Included missing fields to avoid SObjectException
-*/
+ * 2022-06-12 - Sreenish Krishnan - Added new selector query based on APCN and Id
+ */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
     public enum Options {
         WITH_RECORDTYPE, WITH_OWNER, WITH_ACTIVE_MEMBERSHIPS , WITH_ORGANISATION_ROLES , WITH_ORGANISATION_ROLES_PROSPECT_KNOWN , WITH_HOLDINGROLE , 
@@ -27,7 +28,6 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	public static AccountsSelector newInstance(Integer recordLimit) {
 		return (AccountsSelector)Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit);
 	}
-
 	/**
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 * This approach removes data consistency and prevents possible caching of results
@@ -57,7 +57,8 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
                 Account.BillingPostalCode, Account.Phone, Account.Email__c , Account.ABN__c,
                 Account.ACN__c , Account.Primary_Business_Solutions_Contact__c , Account.BillingCountry , Account.Role_Type_Roll_Up__c,
 				Account.ShippingStreet, Account.ShippingCity, Account.ShippingState,  Account.ShippingPostalCode, Account.ShippingCountry ,
-				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount, Account.Business_Solutions_Customer__c, Account.Exclude_Notification_Automation__c, Account.Exclude_Subscription_Automation__c, Account.Sales_Director__c
+				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount, Account.Business_Solutions_Customer__c, Account.Exclude_Notification_Automation__c, Account.Exclude_Subscription_Automation__c, Account.Sales_Director__c,
+				Account.APCN__c,Account.APCN__pc,Account.Integration_Service_Mod_Date__c,Account.PersonContactId
         };
     }
 
@@ -111,6 +112,61 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		return new Map<Id, Account>((List<Account>)Database.query(qb.toSoqlString()));
 	}
 
+	/**
+	 * @description Run a SOQL based on the search parameters passed
+	 */
+	public List<Account> selectByAPCNAndIdAndPersonAccount(
+		Map<String, Object> searchParams,
+		String searchConditions,
+		Schema.SobjectField orderByField
+	) {
+		return search(searchParams, new Set<Object>{}, searchConditions, orderByField);
+	}
+
+	public List<Account> search(
+		Map<String, Object> searchParams,
+		Set<Object> selectorOptions,
+		String searchConditions,
+		Schema.SobjectField orderByField
+	) {
+		QueryBuilder builder = newQueryBuilder(selectorOptions);
+
+		System.debug('searchParams: ' + searchParams);
+		QueryBuilder.ConditionsManager conditions = builder.addConditions();
+
+		Set<String> apcns = (Set<String>) (searchParams.get('apcn') == null
+			? new Set<String>()
+			: (searchParams.get('apcn') instanceof Set<String> ? searchParams.get('apcn') : new Set<Id>{ (Id) searchParams.get('apcn') }));
+		Set<Id> accIds = (Set<Id>) (searchParams.get('accId') == null
+			? new Set<Id>()
+			: (searchParams.get('accId') instanceof Set<Id> ? searchParams.get('accId') : new Set<Id>{ (Id) searchParams.get('accId') }));
+		Boolean isPersonAccount = (Boolean) (searchParams.get('isPersonAccount') == null
+			? null
+			: (searchParams.get('isPersonAccount') instanceof Boolean
+					? searchParams.get('isPersonAccount')
+					: (Boolean) (searchParams.get('isPersonAccount'))));
+
+		conditions.add(new QueryBuilder.SimpleCondition(Account.apcn__pc + ' IN :apcns'));
+		conditions.add(new QueryBuilder.SimpleCondition(Account.Id + ' IN :accIds'));
+
+		if (isPersonAccount != null) {
+			conditions.add(new QueryBuilder.CompareCondition(Account.isPersonAccount).eq(isPersonAccount));
+		}
+
+		// ensure that the conditions order is the same as specified in Query Builder framework
+		//an example: (1 OR 2) AND 3
+		if (!String.isEmpty(searchConditions)) {
+			conditions.setConditionOrder(searchConditions);
+		}
+		//note that this only caters to desc at the moment, if you need to use asc, then this method will need to be enhanced
+		if (orderByField != null) {
+			builder.addOrderDesc(orderByField);
+		}
+
+		String soql = conditions.endConditions().toSoqlString();
+		System.debug(soql);
+		return (List<Account>) Database.query(soql);
+	}
 
 	/**
 	 * @description Grabs a new QueryBuilder based on the selector options passed in
@@ -118,39 +174,54 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
-		if(selectorOptions.contains(Options.WITH_RECORDTYPE)) {
+		if (selectorOptions.contains(Options.WITH_RECORDTYPE)) {
 			builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(), 'RecordType');
 		}
 
-		if(selectorOptions.contains(Options.WITH_OWNER)) {
+		if (selectorOptions.contains(Options.WITH_OWNER)) {
 			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
 		}
 
-        if(selectorOptions.contains(Options.WITH_HOLDINGROLE)) {
+		if (selectorOptions.contains(Options.WITH_HOLDINGROLE)) {
 			builder.addRelatedFields(HoldingReferenceRoleSelector.newInstance().newQueryBuilder(), 'Holding_Role_Reference__r');
 		}
 
-		if(selectorOptions.contains(Options.WITH_ACTIVE_MEMBERSHIPS)) {
-            builder.addSubQuery(MembershipsSelector.newInstance().newQueryBuilder(new Set<Object>{MembershipsSelector.Options.FILTER_ACTIVE_STATUS}), 'Memberships__r');
+		if (selectorOptions.contains(Options.WITH_ACTIVE_MEMBERSHIPS)) {
+			builder.addSubQuery(
+				MembershipsSelector.newInstance().newQueryBuilder(new Set<Object>{ MembershipsSelector.Options.FILTER_ACTIVE_STATUS }),
+				'Memberships__r'
+			);
 		}
-		
-		if(selectorOptions.contains(Options.WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS)) {
-			builder.addSubQuery(BillingAccountsSelector.newInstance().newQueryBuilder(new Set<Object>{BillingAccountsSelector.Options.FILTER_CUST_TYPE, BillingAccountsSelector.Options.FILTER_ACTIVE}), 'Billing_Accounts__r');
-		}
-        
-        if(selectorOptions.contains(Options.WITH_ORGANISATION_ROLES)) {
-            builder.addSubQuery(OrganisationRoleSelector.newInstance().newQueryBuilder(), 'Organisation_Roles__r');
-        }
-        
-        if(selectorOptions.contains(Options.WITH_ORGANISATION_ROLES_PROSPECT_KNOWN)) {
-            builder.addSubQuery(OrganisationRoleSelector.newInstance().newQueryBuilder(new Set<Object>{OrganisationRoleSelector.Options.FILTER_PROSPECT_KNOWN}), 'Organisation_Roles__r');
-        }
 
-		if(selectorOptions.contains(Options.WITH_RECENT_CREATED_CREDIT_ASSESMENT)) {
-			builder.addSubQuery(CreditsAssessmentSelector.newInstance('CreatedDate', 'Desc', 1).newQueryBuilder(new Set<Object>{}), 'Credit_Assessments__r');
+		if (selectorOptions.contains(Options.WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS)) {
+			builder.addSubQuery(
+				BillingAccountsSelector.newInstance()
+					.newQueryBuilder(
+						new Set<Object>{ BillingAccountsSelector.Options.FILTER_CUST_TYPE, BillingAccountsSelector.Options.FILTER_ACTIVE }
+					),
+				'Billing_Accounts__r'
+			);
+		}
+
+		if (selectorOptions.contains(Options.WITH_ORGANISATION_ROLES)) {
+			builder.addSubQuery(OrganisationRoleSelector.newInstance().newQueryBuilder(), 'Organisation_Roles__r');
+		}
+
+		if (selectorOptions.contains(Options.WITH_ORGANISATION_ROLES_PROSPECT_KNOWN)) {
+			builder.addSubQuery(
+				OrganisationRoleSelector.newInstance()
+					.newQueryBuilder(new Set<Object>{ OrganisationRoleSelector.Options.FILTER_PROSPECT_KNOWN }),
+				'Organisation_Roles__r'
+			);
+		}
+
+		if (selectorOptions.contains(Options.WITH_RECENT_CREATED_CREDIT_ASSESMENT)) {
+			builder.addSubQuery(
+				CreditsAssessmentSelector.newInstance('CreatedDate', 'Desc', 1).newQueryBuilder(new Set<Object>{}),
+				'Credit_Assessments__r'
+			);
 		}
 
 		return builder;
 	}
-
 }

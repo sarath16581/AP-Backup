@@ -4,9 +4,9 @@
     <active>true</active>
     <description>If the Stored Location is set to &quot;Other&quot;, more information is required to be specified in the Other Storage Location field</description>
     <errorConditionFormula>AND (
-            ISPICKVAL( StoredLocation__c, &quot;Other&quot; ),
-            ISBLANK( OtherStorageLocation__c )
-            )</errorConditionFormula>
+   ISPICKVAL( StoredLocation__c, &quot;Other&quot; ),
+   ISBLANK( OtherStorageLocation__c )
+)</errorConditionFormula>
     <errorDisplayField>OtherStorageLocation__c</errorDisplayField>
     <errorMessage>If the Stored Location is set to &quot;Other&quot;, more information is required to be specified in the Other Storage Location field</errorMessage>
 </ValidationRule>

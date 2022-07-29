@@ -818,6 +818,31 @@
                 <default>false</default>
                 <label>Technical Assistance</label>
             </value>
+            <value>
+                <fullName>Customer has confirmed will not send product Via ST</fullName>
+                <default>false</default>
+                <label>Customer has confirmed will not send product Via ST</label>
+            </value>
+            <value>
+                <fullName>Customer will present product as per the freight specifications - Pallets</fullName>
+                <default>false</default>
+                <label>Customer will present product as per the freight specifications - Pallets</label>
+            </value>
+            <value>
+                <fullName>Customer will change presentation/packaging to be compliant</fullName>
+                <default>false</default>
+                <label>Customer will change presentation/packaging to be compliant</label>
+            </value>
+            <value>
+                <fullName>Customer will move all freight if we do not move their incompatible freight – Full customer review required</fullName>
+                <default>false</default>
+                <label>Customer will move all freight if we do not move their incompatible freight – Full customer review required</label>
+            </value>
+            <value>
+                <fullName>Customer requires agreed period to find another carrier</fullName>
+                <default>false</default>
+                <label>Customer requires agreed period to find another carrier</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

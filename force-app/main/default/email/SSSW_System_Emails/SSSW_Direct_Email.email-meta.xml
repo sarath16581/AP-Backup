@@ -5,7 +5,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>SSSW Direct Email</name>
     <style>none</style>
-    <subject>Australia Post - Auto Reply - Please visit Help &amp; Support</subject>
+    <subject>Australia Post - Auto Reply - Please visit Help &amp; Support | Case number: {!Case.CaseNumber}</subject>
     <textOnly>Australia Post
 
 Help &amp; Support

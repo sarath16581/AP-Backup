@@ -5,7 +5,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>BGS Closed Case Bounce</name>
     <style>none</style>
-    <subject>Australia Post Case {!Case.CaseNumber} is already Closed</subject>
+    <subject>Looks like your email was about a closed case.  Here&apos;s what to do.</subject>
     <textOnly>Thank you for your email.
 
 Case #{!Case.CaseNumber} has been closed.

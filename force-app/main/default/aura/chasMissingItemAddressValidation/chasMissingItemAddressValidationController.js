@@ -251,15 +251,6 @@
         cmp.set("v.didItHelp", true);
         //push analytics for 'helpsupport-form-navigate' for self-help
         helper.pushAnalytics(cmp,'item details:safe drop:it helped');
-    },
-    giveFeedback : function(cmp,event,helper) {
-        window.open("https://survey.auspost.com.au/cgi-bin/qwebcorporate.dll?idx=AENCHY&n_Trigger=self-serve",'_blank');
-        //Click tracking - push analytics for site-interact
-        window.AP_ANALYTICS_HELPER.analyticsTrackInteraction(
-            'site-interact',
-            'form:' + cmp.get('v.pageTitle'),
-            'item details: ' + 'safe drop:it helped:give feedback'
-        );
     }
     
     

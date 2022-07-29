@@ -7,6 +7,7 @@
   * Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form
   * Modifield by Phap Mai - 04/28/2021 - DDS-4885: Add "Both" option
   * Modifield by Phap Mai - 04/29/2021 - DDS-5880: Handle error when Mail Redirect to Overseas address
+  * Modifield by Hasantha Liyanage - 05/07/2022 - DDS-11014: added the redirect message
 -->
 <aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Mail Redirection wizard page 1: Enquiry Details">
     
@@ -92,6 +93,12 @@
                 <c:ChasRadioButtons aura:id="chasInput" name="enquiryTypeRadioButtons" required="true" label="Enquiry type" variant="label-hidden" options="{!v.enquiryTypeRadioGroup}" value="{!v.wizardData.selectedRadio1}"/>
                 
                 <aura:if isTrue="{!v.wizardData.selectedRadio1}">
+                    <aura:if isTrue="{!v.wizardData.selectedRadio1 == 'firstRadio'}">
+                        <c:ChasBspDeflection animate="true" borderStyle="info-box-on-body-border">
+                            <p>Use this form to request help with your existing Mail Redirection. If you want to redirect an item that's already on its way, visit
+                                <a href="https://auspost.com.au/receiving/manage-deliveries-in-transit/redirect-parcels-in-transit" target="blank">Redirect parcels in transit</a> instead.</p>
+                        </c:ChasBspDeflection>
+                    </aura:if>
                     <!--<c:ChasFieldset label="Original application details" small="true">-->
                     <legend class="sub-header">
                         <h3>Original application details</h3>

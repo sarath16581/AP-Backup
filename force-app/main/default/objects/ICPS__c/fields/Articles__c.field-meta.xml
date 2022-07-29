@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Articles__c</fullName>
+    <description>A concatenation of all the article numbers linked to the ICPS record that will be used on the Notices and for searching purposes</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A concatenation of all the article numbers linked to the ICPS record that will be used on the Notices and for searching purposes</inlineHelpText>
+    <label>Article/s</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

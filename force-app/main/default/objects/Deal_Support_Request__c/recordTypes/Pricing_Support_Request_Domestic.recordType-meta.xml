@@ -1470,10 +1470,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>APGL Commercial Outbound</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>AaE</fullName>
             <default>false</default>
         </values>
@@ -3235,7 +3231,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Security management surcharge</fullName>
+            <fullName>Security management charge</fullName>
             <default>false</default>
         </values>
         <values>

@@ -105,106 +105,6 @@
             <field>Account</field>
             <table>ServiceResource</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__GanttLabel__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Online_Offset__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Priority__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Travel_Speed__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Fit_For_Duty__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Vehicle__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Efficiency__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Picture_Link__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Fit_For_Duty_Hrs_Since_Passed__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Fit_For_Duty_Passed__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Rest_Break_In_Progress__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Duty_End__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Fit_For_Duty_Work_Order__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Rest_Break_1_End__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Time_Since_Duty_End__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Auto_Generate_Work__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DutyStartTime__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>External_Name__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>GanttSort1__c</field>
-            <table>ServiceResource</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Is_Adhoc__c</field>
-            <table>ServiceResource</table>
-        </columns>
         <masterLabel>Service Resources</masterLabel>
     </sections>
     <sections>
@@ -216,11 +116,6 @@
         <columns>
             <checkedByDefault>true</checkedByDefault>
             <field>Name</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>RecordType</field>
             <table>ServiceResource.ResourceAbsences</table>
         </columns>
         <columns>
@@ -306,71 +201,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>GeocodeAccuracy</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__EstTravelTimeFrom__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__EstTravelTime__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__EstimatedTravelDistanceFrom__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__EstimatedTravelDistanceTo__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__GanttLabel__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Gantt_Color__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__InternalSLRGeolocation__Latitude__s</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__InternalSLRGeolocation__Longitude__s</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Approved__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Estimated_Travel_Time_From_Source__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Estimated_Travel_Time_To_Source__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Scheduling_Policy_Used__c</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Duration_In_Minutes__c</field>
             <table>ServiceResource.ResourceAbsences</table>
         </columns>
         <masterLabel>Resource Absences</masterLabel>

@@ -4,10 +4,6 @@
     <category>other</category>
     <deployed>true</deployed>
     <description>Locations (Vehicles) with or without Vehicle Inspection Issues</description>
-    <join>
-        <outerJoin>true</outerJoin>
-        <relationship>Vehicle_Checks__r</relationship>
-    </join>
     <label>Vehicles and Vehicle Inspection Issues</label>
     <sections>
         <columns>
@@ -326,73 +322,5 @@
             <table>Location</table>
         </columns>
         <masterLabel>Locations</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>Name</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Inspection_Information__c</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Item__c</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Repair_Order_No__c</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Severity__c</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Status__c</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Vehicle__c</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Work_Order__c</field>
-            <table>Location.Vehicle_Checks__r</table>
-        </columns>
-        <masterLabel>Vehicle Checks</masterLabel>
     </sections>
 </ReportType>

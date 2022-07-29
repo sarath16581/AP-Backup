@@ -4,11 +4,11 @@
     <active>true</active>
     <description>If the ABF Reason is specified, you must also specify values for the fields ABF Authoriser and ABF Instruction Date</description>
     <errorConditionFormula>AND(
-            NOT(ISBLANK(TEXT( ABFReason__c ))),
-            OR (
-            ISBLANK( ABFInstructionDate__c ),
-            ISBLANK( ABFAuthoriser__c )
-            )
-            )</errorConditionFormula>
+   NOT(ISBLANK(TEXT( ABFReason__c ))),
+   OR (
+      ISBLANK( ABFInstructionDate__c ),
+      ISBLANK( ABFAuthoriser__c )
+   )
+)</errorConditionFormula>
     <errorMessage>If the ABF Reason is specified, you must also specify values for the fields ABF Authoriser and ABF Instruction Date</errorMessage>
 </ValidationRule>

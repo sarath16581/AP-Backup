@@ -127,7 +127,11 @@ export default class IcpsAddArticles extends LightningElement {
 						article.icpsArticle = this.newICPSArticle(result.articles[0]);
 						article.isNew = true;
 						article.isDirty = false;
-						article.error = result.articles[0].error;
+						if (result.errors != null && result.errors.length > 0) {
+							article.error = result.errors[0];
+						} else {
+							article.error = result.articles[0].error;
+						}
 						if (article.error != null) {
 							article.icpsArticle.ArticleNotInSAPEM__c = true;
 						}
@@ -182,7 +186,7 @@ export default class IcpsAddArticles extends LightningElement {
 			return;
 		}
 		if (newOrUpdatedArticles.length > 0) {
-			if (confirm("Are you sure to add these articles to the ICPS?")) {
+			if (confirm("The article(s) you have added will be saved to the ICPS record.")) {
 				this.isSaving = true;
 				saveArticles({
 					articles: newOrUpdatedArticles,
@@ -308,8 +312,11 @@ export default class IcpsAddArticles extends LightningElement {
      */
     newICPSArticle(trackingArticle) {
         let icpsArticle = {'sobjectType': OBJECT_ICPS_ARTICLE.objectApiName};
-        icpsArticle[FIELD_NAME.fieldApiName] = trackingArticle.trackingId;
-        icpsArticle[FIELD_ICPS.fieldApiName] = this.recordId;
+	    icpsArticle[FIELD_ICPS.fieldApiName] = this.recordId;
+		if (trackingArticle === undefined) {
+			return icpsArticle;
+		}
+        icpsArticle[FIELD_NAME.fieldApiName] = get(trackingArticle, 'trackingId', null);
         icpsArticle[FIELD_CONTENTS.fieldApiName] = get(trackingArticle, 'article.ContentsItems__c', null);
         icpsArticle[FIELD_WEIGHT.fieldApiName] = get(trackingArticle, 'article.ActualWeight__c', null);
         icpsArticle[FIELD_DECLARED_VALUE.fieldApiName] = get(trackingArticle, 'article.ArticleTransitAmountValue__c', null);

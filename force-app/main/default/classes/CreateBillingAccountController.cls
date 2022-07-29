@@ -10,6 +10,7 @@
  * 2021-05-11 - avula.jansirani@auspost.com.au - updated (for BCA billing account creation)
  * 2021-05-28 - ankur.gandhi@auspost.com.au - removing special chars from BSB number
  * 2021-06-08 - seth.heang@auspost.com.au - STP-5386 map sender name field from opportunity and to same field on DSR's New Billing Account Request Modal Popup 
+ * 2022-07-07 - madhuri.awasthi@auspost.com. - REQ2800825 Filtering Status for LP before sending in SAP
  */
 public with sharing class CreateBillingAccountController {
     @TestVisible private static final String DSR_OBJECT = 'Deal_Support_Request__c';
@@ -293,7 +294,7 @@ public with sharing class CreateBillingAccountController {
                         }
                         
                         // Query "Agreement Lodgement Point" junction record which related to Apttus Contract, and retrieve the Network record
-                        List<APT_Agreement_Lodgement_Point__c> contractLodgementPointList = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(new set<id>{contractRecord.Id}, new set<object>{APT_AgreementLodgementPointsSelector.Options.WITH_NETWORK}).values();
+                        List<APT_Agreement_Lodgement_Point__c> contractLodgementPointList = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(new set<id>{contractRecord.Id}, new set<object>{APT_AgreementLodgementPointsSelector.Options.WITH_NETWORK,APT_AgreementLodgementPointsSelector.Options.FILTER_ACTIVE_STATUS}).values();
                         // New Set to store unique Work Centre Code, as Apttus Lodgement point can have duplicate entries for same product (e.g. eParcel)
                         Set<String> uniqueWorkCentreCode = new Set<String>();
                         // Map work centre code into LodgementPointId from the Agreement Lodgement Point

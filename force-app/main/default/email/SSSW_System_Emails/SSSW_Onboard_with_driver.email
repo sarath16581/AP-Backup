@@ -92,16 +92,21 @@
 					<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
 						<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
-								<td style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;"><br/><p>Hi {!Contact.FirstName},</p></td>
+								<td style="padding:0 0 0px; font:16px/18px Arial, Helvetica, sans-serif; color:#807370;"><br/><p>Hi {!Contact.FirstName},</p></td>
 							</tr>				
 							<tr>
-								<td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Your item {!Case.ReferenceID__c} is due for delivery today</td>
+								<td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Your parcel {!Case.ReferenceID__c} is due for delivery today</td>
+							</tr>
+							
+							<tr>
+								<td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">What if you're not home?</td>							
 							</tr>
 							<tr>
-								<td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:1px solid #cdc6c5;">
-									<br><p><span style="color:#dc1928">Hang on, what if I’m not home? Here’s what will happen:</span><br/><br/>
-									If nobody’s home we’ll still deliver your item, provided we can leave it in a safe place. Otherwise it will be dropped at a Post Office for your collection.<br/><br/>
-									For information on your how you can control your deliveries in future, please see  <a href="https://auspost.com.au/delivery-options" target="_blank" style="text-decoration:none; color:#dc1928">here</a>.</span></a></p><p>If you have any further questions about the delivery of your article, please reply to this email and we will be happy to assist you.</p><br/>
+								<td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">									
+									If nobody’s home we’ll still deliver your item, provided we can leave it in a safe place. Otherwise we'll take it to a Post Office for you to collect.<br/><br/>
+									As your parcel is due for delivery today, we'll close your enquiry. If you have any questions about your parcel delivery, please reply to this email and we'll be happy to help.<br></br>
+									
+									To find out more about your options for future deliveries, see <a href="https://auspost.com.au/delivery-options" target="_blank" style="text-decoration:none; color:#dc1928">Delivery options</a>.</p><br/>
 								</td>
 							</tr>								
 							<tr>

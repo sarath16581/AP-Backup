@@ -28,11 +28,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Capital_City__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>City__c</field>
             <table>Location</table>
         </columns>

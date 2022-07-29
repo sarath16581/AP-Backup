@@ -17,6 +17,9 @@ public inherited sharing class PUDConstants {
 	public static final String PUD_BOOKING_STATUS_EXPIRED = 'Expired';
 	public static final String PUD_BOOKING_STATUS_ACTIVE = 'Active';
 
+	//PUD Booking type
+	public static final String PUD_BOOKING_TYPE_MEAL_BREAK = 'Meal Break';
+
 	//PUD Job status
 	// jobs are created in 'New' status. they are not yet pushed to dispatch system
 	public static final String PUD_JOB_STATUS_NEW = 'New';

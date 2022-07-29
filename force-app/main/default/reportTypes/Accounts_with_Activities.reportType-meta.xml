@@ -2710,11 +2710,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Count_of_Events__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Count__c</field>
             <table>Account.Activities</table>
         </columns>
@@ -2820,11 +2815,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Count_of_Tasks__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Network__c</field>
             <table>Account.Activities</table>
         </columns>
@@ -2896,11 +2886,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Operations_Outcome__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FSL__Event_Type__c</field>
             <table>Account.Activities</table>
         </columns>
         <columns>

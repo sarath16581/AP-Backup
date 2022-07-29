@@ -441,7 +441,7 @@
             <targetReference>Identify_Post</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <description>Contains Case Record Id</description>
         <name>vCase</name>

@@ -54,6 +54,16 @@ Used by Integration User (Einstein Analytics)</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Product_names__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Products__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Proposal_Accepted_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -85,6 +95,11 @@ Used by Integration User (Einstein Analytics)</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.Apttus_Proposal__Presented_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

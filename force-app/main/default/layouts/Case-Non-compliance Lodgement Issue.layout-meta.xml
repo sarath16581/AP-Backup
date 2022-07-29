@@ -39,6 +39,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Resolution__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Resolution_Plan_Date__c</field>
             </layoutItems>
             <layoutItems>

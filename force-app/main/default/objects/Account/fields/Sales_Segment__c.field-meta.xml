@@ -11,16 +11,11 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>AP Global eCommerce Solutions</fullName>
                 <default>false</default>
                 <label>AP Global eCommerce Solutions</label>
-            </value>
-            <value>
-                <fullName>Enterprise &amp; Strategic Financial &amp; Insurance</fullName>
-                <default>false</default>
-                <label>Enterprise &amp; Strategic Financial &amp; Insurance</label>
             </value>
             <value>
                 <fullName>Enterprise &amp; Strategic - Not Active</fullName>
@@ -58,9 +53,9 @@
                 <label>Enterprise &amp; Strategic VIC 3</label>
             </value>
             <value>
-                <fullName>Federal Government</fullName>
+                <fullName>Financial Services</fullName>
                 <default>false</default>
-                <label>Federal Government</label>
+                <label>Financial Services</label>
             </value>
             <value>
                 <fullName>Government North</fullName>
@@ -91,6 +86,16 @@
                 <fullName>Intermediaries - Not Active</fullName>
                 <default>false</default>
                 <label>Intermediaries - Not Active</label>
+            </value>
+            <value>
+                <fullName>LBP Northern 1</fullName>
+                <default>false</default>
+                <label>LBP Northern 1</label>
+            </value>
+            <value>
+                <fullName>LBP Northern 1 CPO/BC</fullName>
+                <default>false</default>
+                <label>LBP Northern 1 CPO/BC</label>
             </value>
             <value>
                 <fullName>LBP Post Offices NSW/ACT &amp; QLD/NT</fullName>
@@ -171,6 +176,16 @@
                 <fullName>LBP Sales Manager WA 2</fullName>
                 <default>false</default>
                 <label>LBP Sales Manager WA 2</label>
+            </value>
+            <value>
+                <fullName>LBP Southern 1</fullName>
+                <default>false</default>
+                <label>LBP Southern 1</label>
+            </value>
+            <value>
+                <fullName>LBP Southern 1 CPO/BC</fullName>
+                <default>false</default>
+                <label>LBP Southern 1 CPO/BC</label>
             </value>
             <value>
                 <fullName>Medium Business - Not Active</fullName>
@@ -258,9 +273,9 @@
                 <label>Other Business and Government</label>
             </value>
             <value>
-                <fullName>Platforms and Marketplaces</fullName>
+                <fullName>Platforms &amp; Partners</fullName>
                 <default>false</default>
-                <label>Platforms and Marketplaces</label>
+                <label>Platforms &amp; Partners</label>
             </value>
             <value>
                 <fullName>Small Business - Not Active</fullName>

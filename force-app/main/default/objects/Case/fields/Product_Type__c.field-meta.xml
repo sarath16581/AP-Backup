@@ -288,6 +288,11 @@
                 <label>Others</label>
             </value>
             <value>
+                <fullName>Pallets - Startrack</fullName>
+                <default>false</default>
+                <label>Pallets - Startrack</label>
+            </value>
+            <value>
                 <fullName>Parcel</fullName>
                 <default>false</default>
                 <label>Parcel</label>

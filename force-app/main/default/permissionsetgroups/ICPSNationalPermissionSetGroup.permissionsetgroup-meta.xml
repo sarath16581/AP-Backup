@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set group provides the ICPS user with the ICPS Conga functionality as well as access to all ICPS records.
+29</description>
+    <label>ICPS National Permission Set Group</label>
+    <permissionSets>ICPSNational</permissionSets>
+    <permissionSets>ICPS_Users_Conga_Permission_Set</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

@@ -590,6 +590,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Customised Packaging</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Damage to property</fullName>
             <default>false</default>
         </values>
@@ -1780,6 +1784,10 @@
         </values>
         <values>
             <fullName>Online Returns Portal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Online shop</fullName>
             <default>false</default>
         </values>
         <values>

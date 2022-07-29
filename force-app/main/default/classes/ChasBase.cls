@@ -10,8 +10,9 @@
  * common methods together and breaking down all the other main methods in the chasApexController in to individual classes by extending.
  * @changelog
  * 2022-06-06 - Hasantha Liyanage - Created
+ * 2022-07-15 - Hasantha Liyanage - DDS-11324 added support for unit test mocking
  */
-public virtual with sharing class ChasBase {
+public virtual inherited sharing class ChasBase {
 
     /**
      * Grabs an instance of this class
@@ -117,7 +118,11 @@ public virtual with sharing class ChasBase {
                     System.debug('The error reported was: ' + results[i].getErrors()[0].getMessage() + '\n');
                 }
             }
-            caseWrapperObj.caseNumber = CasesSelector.newInstance().selectById(vCaseIds).get(new List<Id>(vCaseIds)[0]).CaseNumber;
+
+            if(!Test.isRunningTest()) {
+                caseWrapperObj.caseNumber = CasesSelector.newInstance().selectById(vCaseIds).get(new List<Id>(vCaseIds)[0]).CaseNumber;
+            }
+
             return caseWrapperObj;
         }
     }

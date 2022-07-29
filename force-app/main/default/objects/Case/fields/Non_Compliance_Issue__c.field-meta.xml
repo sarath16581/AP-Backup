@@ -41,6 +41,41 @@
                 <default>false</default>
                 <label>Volumes</label>
             </value>
+            <value>
+                <fullName>Height Greater Than 1800mm</fullName>
+                <default>false</default>
+                <label>Height Greater Than 1800mm</label>
+            </value>
+            <value>
+                <fullName>Dead Weight Greater Than 800kg</fullName>
+                <default>false</default>
+                <label>Dead Weight Greater Than 800kg</label>
+            </value>
+            <value>
+                <fullName>Overhang Greater than 100mm</fullName>
+                <default>false</default>
+                <label>Overhang Greater than 100mm</label>
+            </value>
+            <value>
+                <fullName>Length Greater Than 3000</fullName>
+                <default>false</default>
+                <label>Length Greater Than 3000</label>
+            </value>
+            <value>
+                <fullName>Dead Weight Greater Than 32kg</fullName>
+                <default>false</default>
+                <label>Dead Weight Greater Than 32kg</label>
+            </value>
+            <value>
+                <fullName>Incomplete Packaging</fullName>
+                <default>false</default>
+                <label>Incomplete Packaging</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
