@@ -50,7 +50,7 @@ private class PUDContainerTypeSyncModule_Test {
 		MockUtility.Mocks.when(mockJobSelector.selectByBookingIdStatusAndFromDate((Set<Id>) fflib_Match.anyObject(), fflib_Match.anyDate(), (Set<String>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(jobs);
 		
 		//mocking PUDUtility method call.
-		((PUDUtility)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).refreshContainerTypes((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
+		((PUDUtility)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).refreshContainerTypes((Set<Id>)fflib_Match.anyObject());
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -66,10 +66,10 @@ private class PUDContainerTypeSyncModule_Test {
 		Test.stopTest();
 
 		//verify that PUDUtility is called once with expected list of jobs
-		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id}, uow);
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id});
 
 		//verify that correct params are being passed to PUDUtility method.
-		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes((Set<Id>)fflib_Match.eq(new Set<Id>{pudBookingList[0].Id}), (ApplicationUnitOfWork) fflib_Match.eq(uow));
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes((Set<Id>)fflib_Match.eq(new Set<Id>{pudBookingList[0].Id}));
 
 	}
 	
@@ -110,7 +110,7 @@ private class PUDContainerTypeSyncModule_Test {
 		MockUtility.Mocks.when(mockBookingSelector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(pudBookingList);
 		MockUtility.Mocks.when(mockJobSelector.selectByBookingIdStatusAndFromDate((Set<Id>) fflib_Match.anyObject(), fflib_Match.anyDate(), (Set<String>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(jobs);
 		//mocking PUDUtility method call.
-		((PUDUtility)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).refreshContainerTypes((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
+		((PUDUtility)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).refreshContainerTypes((Set<Id>)fflib_Match.anyObject());
 
 
 		MockUtility.Mocks.stopStubbing();
@@ -129,10 +129,10 @@ private class PUDContainerTypeSyncModule_Test {
 		Test.stopTest();
 
 		//verify that PUDUtility is called once with expected list of jobs
-		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id}, uow);
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id});
 
 		//verify that correct params are being passed to PUDUtility method.
-		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes((Set<Id>)fflib_Match.eq(new Set<Id>{pudBookingList[0].Id}), (ApplicationUnitOfWork) fflib_Match.eq(uow));
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes((Set<Id>)fflib_Match.eq(new Set<Id>{pudBookingList[0].Id}));
 
 	}
 
@@ -163,7 +163,7 @@ private class PUDContainerTypeSyncModule_Test {
 		MockUtility.Mocks.when(mockJobSelector.selectByBookingIdStatusAndFromDate((Set<Id>) fflib_Match.anyObject(), fflib_Match.anyDate(), (Set<String>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(jobs);
 		
 		//mocking PUDUtility method call.
-		((PUDUtility)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).refreshContainerTypes((Set<Id>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
+		((PUDUtility)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).refreshContainerTypes((Set<Id>)fflib_Match.anyObject());
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -179,10 +179,10 @@ private class PUDContainerTypeSyncModule_Test {
 		Test.stopTest();
 
 		//verify that PUDUtility is called once with expected list of jobs
-		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id}, uow);
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes(new Set<Id>{pudBookingList[0].Id});
 
 		//verify that correct params are being passed to PUDUtility method.
-		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes((Set<Id>)fflib_Match.eq(new Set<Id>{pudBookingList[0].Id}), (ApplicationUnitOfWork) fflib_Match.eq(uow));
+		((PUDUtility) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).refreshContainerTypes((Set<Id>)fflib_Match.eq(new Set<Id>{pudBookingList[0].Id}));
 
 
 		
