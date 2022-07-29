@@ -169,7 +169,7 @@
             <targetReference>Check_CAR_Case_Status</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <description>contains true or false accordingly if case status has changed</description>
         <name>hasCaseStatusChanged</name>

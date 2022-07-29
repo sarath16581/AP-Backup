@@ -8,9 +8,13 @@
  * @description A very simple selector class that sits in PUD domain
  * @changelog
  * 2022-03-18 - Ranjeewa Silva - Created
+ * 2022-07-06 - Kamil Szyc added selectByIdWithAllBookings method for printing full duty board
  */
 public virtual inherited sharing class PUDRoutesSelector extends ApplicationSelector {
 
+	public enum Options {
+		WITH_DEPOT
+	}
 	public static PUDRoutesSelector newInstance() {
 		return (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class);
 	}
@@ -44,7 +48,7 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 	 *						  This approach removes data consistency and prevents possible caching of results
 	 */
 	public static PUDRoutesSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-		PUDRoutesSelector selector = (PUDRoutesSelector)Application.Selectors.newInstance(PUDRoutesSelector.class).setFieldOverrides(fieldOverrides);
+		PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -53,7 +57,7 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 	 *						  This approach removes data consistency and prevents possible caching of results
 	 */
 	public static PUDRoutesSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-		PUDRoutesSelector selector = (PUDRoutesSelector)Application.Selectors.newInstance(PUDRoutesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		PUDRoutesSelector selector = (PUDRoutesSelector) Application.Selectors.newInstance(PUDRoutesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -127,6 +131,24 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 
 		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
 	}
+	/**
+	 * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
+	 *
+	 * @param ids route ids to query
+	 * @param bookingRecordTypeIds booking record type ids to filter active bookings (Optional). include all active bookings
+	 *							 if not supplied.
+	 * @param selectorOptions additional selector options
+	 *
+	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
+	 */
+	public virtual List<PUD_Route__c> selectByIdWithAllBookings(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids'))
+				.endConditions();
+		qb.addSubQuery(PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions), 'Bookings__r');
+		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
+	}
 
 	/**
 	 * Returns a Query Builder for child bookings based on the record types, status and selector options passed in.
@@ -142,12 +164,28 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 		QueryBuilder subQueryBuilder = PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions);
 
 		QueryBuilder.ConditionsManager subQueryConditions = subQueryBuilder.addConditions();
-		subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.Status_Calc__c + ' in :status'));
+		if (status != null && !status.isEmpty()) {
+			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.Status_Calc__c + ' in :status'));
+		}
 		if (bookingRecordTypeIds != null && !bookingRecordTypeIds.isEmpty()) {
 			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.RecordTypeId + ' in :bookingRecordTypeIds'));
 		}
 		subQueryConditions.endConditions();
 
 		return subQueryBuilder;
+	}
+
+	/**
+	 * Grabs a new QueryBuilder based on the selector options passed in
+	 *
+	 * @param selectorOptions set of additional selector options to augment the result set
+	 * @return new QueryBuilder instance
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+		if (selectorOptions.contains(Options.WITH_DEPOT)) {
+			builder.addRelatedFields(PUDNetworksSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Depot__r');
+		}
+		return builder;
 	}
 }
