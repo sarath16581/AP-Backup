@@ -925,7 +925,7 @@ public with sharing class PUDUtility {
 	public void refreshContainerTypes(Set<Id> bookingIds, ApplicationUnitOfWork uow) {
 
 		//query bookings with booking containers for supplied booking ids.
-		Map<Id, PUD_Booking__c> bookings = new Map<Id, PUD_Booking__c> (PUDBookingsSelector.newInstance().selectById(bookingIds, new Set<Object>{PUDBookingsSelector.Options.WITH_CONTAINERS}));
+		Map<Id, PUD_Booking__c> bookings = new Map<Id, PUD_Booking__c> (PUDBookingsSelector.newInstance().selectById(bookingIds, new Set<Object>{PUDBookingsSelector.Options.WITH_BOOKING_CONTAINERS}));
 
 		system.debug('Bookings: '+bookings);
 		//query current/future Jobs for the bookings in New, Schedule, Accepted status. Also retrieve Job Containers with Jobs.

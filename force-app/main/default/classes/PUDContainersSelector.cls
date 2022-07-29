@@ -12,28 +12,6 @@ public inherited sharing class PUDContainersSelector extends ApplicationSelector
 		FILTER_BOOKING_CONTAINERS
 	}
 
-	// get record type id for booking containers
-	public static Id bookingContainerRecordTypeId {
-		get {
-			if (bookingContainerRecordTypeId == null) {
-				bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{ 'Booking_Container' }).values()[0].Id;
-			}
-			return bookingContainerRecordTypeId;
-		}
-		private set;
-	}
-
-	// get record type id for booking containers
-	public static Id jobContainerRecordTypeId {
-		get {
-			if (jobContainerRecordTypeId == null) {
-				jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{ 'Job_Container' }).values()[0].Id;
-			}
-			return jobContainerRecordTypeId;
-		}
-		private set;
-	}
-
 	public static PUDContainersSelector newInstance() {
 		return (PUDContainersSelector)Application.Selectors.newInstance(PUDContainersSelector.class);
 	}
@@ -57,6 +35,15 @@ public inherited sharing class PUDContainersSelector extends ApplicationSelector
 	 */
 	public static PUDContainersSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		PUDContainersSelector selector = (PUDContainersSelector)Application.Selectors.newInstance(PUDContainersSelector.class).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
+	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	* This approach removes data consistency and prevents possible caching of results
+	*/
+	public static PUDContainersSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		PUDContainersSelector selector = (PUDContainersSelector) Application.Selectors.newInstance(PUDContainersSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -93,11 +80,8 @@ public inherited sharing class PUDContainersSelector extends ApplicationSelector
 	* @description Run a simple query to get records based on Job__c Id's
 	*/
 	public virtual List<PUD_Container__c> selectByJobIds(Set<Id> ids, Set<Object> selectorOptions) {
-		//Id jobContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Job_Container'}).values()[0].Id;
-	
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
 		.add(new QueryBuilder.SimpleCondition(PUD_Container__c.Job__c + ' in :ids'))
-		//.add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(jobContainerRecordTypeId))
 		.endConditions();   
 
 		return (List<PUD_Container__c>)Database.query(qb.toSoqlString());
@@ -107,24 +91,23 @@ public inherited sharing class PUDContainersSelector extends ApplicationSelector
 	* @description Run a simple query to get records based on Job__c Id's
 	*/
 	public virtual List<PUD_Container__c> selectBookingContainersByBookingIds(Set<Id> ids, Set<Object> selectorOptions) {
-		Id bookingContainerRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('PUD_Container__c', new Set<String>{'Booking_Container'}).values()[0].Id;
-		
-		return selectByBookingIds(ids, new Set<Id> {bookingContainerRecordTypeId}, new Set<Object>());
+		return selectByBookingIds(ids, new Set<String> {PUDConstants.PUD_BOOKING_CONTAINER_RECORD_TYPE}, new Set<Object>());
 	}
 	
 
 	/**
 	* @description Run a simple query to get records based on Job__c Id's
 	*/
-	public virtual List<PUD_Container__c> selectByBookingIds(Set<Id> bookingIds, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
+	public virtual List<PUD_Container__c> selectByBookingIds(Set<Id> bookingIds, Set<String> recordTypes, Set<Object> selectorOptions) {
 
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 
 		conditions.add(new QueryBuilder.SimpleCondition(PUD_Container__c.Booking__c  + ' in :bookingIds'));
 
-		if (recordTypeIds != null && !recordTypeIds.isEmpty()) {
-			conditions.add(new QueryBuilder.SimpleCondition(PUD_Container__c.RecordTypeId + ' in :recordTypeIds'));
+		if (recordTypes != null && !recordTypes.isEmpty()) {
+			
+			conditions.add(new QueryBuilder.SimpleCondition('PUD_Container__c.RecordType.DeveloperName '+ ' in :recordTypes'));
 			conditions.setConditionOrder('1 AND 2');
 		} 
 
@@ -146,9 +129,8 @@ public inherited sharing class PUDContainersSelector extends ApplicationSelector
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if (selectorOptions.contains(Options.FILTER_BOOKING_CONTAINERS)) {
-			builder.addConditions().add(new QueryBuilder.CompareCondition(PUD_Container__c.RecordTypeId).eq(bookingContainerRecordTypeId)).endConditions();
+			builder.addConditions().add(new QueryBuilder.CompareCondition('RecordType.DeveloperName').eq(PUDConstants.PUD_BOOKING_CONTAINER_RECORD_TYPE)).endConditions();
 		}
-
 		return builder;
 	}
 

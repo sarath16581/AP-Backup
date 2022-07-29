@@ -12,7 +12,7 @@
 public virtual inherited sharing class PUDBookingsSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_RECORDTYPE, WITH_ROUTE, WITH_PARENT_BOOKING, WITH_CONTAINERS
+		WITH_RECORDTYPE, WITH_ROUTE, WITH_PARENT_BOOKING, WITH_BOOKING_CONTAINERS
 	}
 
 	public static PUDBookingsSelector newInstance() {
@@ -125,7 +125,7 @@ public virtual inherited sharing class PUDBookingsSelector extends ApplicationSe
 		if (selectorOptions.contains(Options.WITH_PARENT_BOOKING)) {
 			builder.addRelatedFields(PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Parent_Booking__r');
 		}
-		if (selectorOptions.contains(Options.WITH_CONTAINERS)) {
+		if (selectorOptions.contains(Options.WITH_BOOKING_CONTAINERS)) {
 			builder.addSubQuery(PUDContainersSelector.newInstance(fieldOverrides).newQueryBuilder(new Set<Object>{PUDContainersSelector.Options.FILTER_BOOKING_CONTAINERS}), 'Containers__r');
 		}
 		return builder;

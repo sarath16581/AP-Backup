@@ -208,7 +208,6 @@ private class PUDContainerTypeSyncModule_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		PUDUtility mockPUDUtil = (PUDUtility) MockUtility.mockUtility(PUDUtility.class);
 		PUDContainersSelector mockContainerSelector = (PUDContainersSelector)MockUtility.mockSelector(PUDContainersSelector.class);
 
 		// set up our responses
