@@ -35,9 +35,9 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	}
 
 	/**
-     * Creates a new instance. This allows use to use dependency injection for mocking
-     * @return the new instance
-     */
+	 * Creates a new instance. This allows use to use dependency injection for mocking
+	 * @return the new instance
+	 */
 	public static PUDJobDispatchEventHandler getInstance() {
 		return (PUDJobDispatchEventHandler) Application.Utilities.getInstance(PUDJobDispatchEventHandler.class);
 	}
@@ -187,7 +187,21 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				
 					//populate actuals for containers on the job.
 					List<ContainersPayload> containerPayloadObjects = (List<ContainersPayload>) JSON.deserialize(event.Containers_Payload__c, List<ContainersPayload>.class);
-					for(ContainersPayload containerWrapper : containerPayloadObjects){
+					
+					//map to store unique container payload.
+					Map<String, ContainersPayload> uniqueKeyVsContainerPayload = new Map<String, ContainersPayload>();
+
+					//iterate through received containers payload and store only unique payload.
+					//This removes duplicate payload received as a part of event.
+					//e.g. [{"Name":"CardULD","Quantity":3,"ActualQuantity":2,"Condition":"Empty"}, 
+					//		{"Name":"CardULD","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]
+					//In this scenario, only last payload will be considered for upsert for a job.
+					for(ContainersPayload payload : containerPayloadObjects){
+						String uniqueyKey = event.Parent_Id__c+'-'+payload.Name+'-'+payload.Condition;
+						uniqueKeyVsContainerPayload.put(uniqueyKey, payload);
+					}
+
+					for(ContainersPayload containerWrapper : uniqueKeyVsContainerPayload.values()){
 						Boolean isMatchingContainerFound = false;
 
 						//iterating through job containers
