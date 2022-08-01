@@ -3,9 +3,8 @@
     <fullName>End_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Route end date.</description>
-    <inlineHelpText>This is the date that the route becomes inactive.
-        Sourced from Adam.</inlineHelpText>
     <externalId>false</externalId>
+    <inlineHelpText>This is the date that the route becomes inactive. Sourced from Adam.</inlineHelpText>
     <label>End Date</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

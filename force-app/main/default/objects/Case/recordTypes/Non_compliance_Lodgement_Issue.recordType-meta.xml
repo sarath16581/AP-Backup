@@ -766,19 +766,19 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer requires agreed period to find another carrier</fullName>
+            <fullName>Customer requires agreed period to find another carrier%2E</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer will change presentation%2Fpackaging to be compliant</fullName>
+            <fullName>Customer will change presentation%2Fpackaging to be compliant%2E</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer will move all freight if we do not move their incompatible freight %E2%80%93 Full customer review required</fullName>
+            <fullName>Customer will move all freight if we do not move their incompatible freight %E2%80%93 Full customer review required%2E</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer will present product as per the freight specifications - Pallets</fullName>
+            <fullName>Customer will present product as per the freight specifications - Pallets%2E</fullName>
             <default>false</default>
         </values>
     </picklistValues>

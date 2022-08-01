@@ -2,7 +2,7 @@
  * @description       : This method maps the deserialises the payload from the field addressess__c in the Platform Event and then maps it to ContactPointAddress records 
  * @author            : George Nguyen
  * @domain            : Connected Customer
- * @last modified on  : 07-20-2022
+ * @last modified on  : 07-22-2022
  * @Test CustomerDataSyncEventCPAddrHlpr_Test
  * @last modified by  : Sreenish Krishnan
  **/

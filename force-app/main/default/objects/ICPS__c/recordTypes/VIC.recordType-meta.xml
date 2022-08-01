@@ -505,7 +505,7 @@
         </values>
         <values>
             <fullName>DDU</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>

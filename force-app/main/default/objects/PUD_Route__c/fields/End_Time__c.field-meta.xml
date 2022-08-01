@@ -3,9 +3,8 @@
     <fullName>End_Time__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Route end time.</description>
-    <inlineHelpText>This is the time of the day that the route finishes.
-        Sourced from Adam.</inlineHelpText>
     <externalId>false</externalId>
+    <inlineHelpText>This is the time of the day that the route finishes. Sourced from Adam.</inlineHelpText>
     <label>End Time</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

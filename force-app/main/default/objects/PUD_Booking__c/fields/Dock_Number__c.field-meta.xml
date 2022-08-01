@@ -2,9 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Dock_Number__c</fullName>
     <description>Informs the driver of the dock at the location for that booking</description>
-    <inlineHelpText>To inform the driver of the dock that should be used at the location for the job.
-    </inlineHelpText>
     <externalId>false</externalId>
+    <inlineHelpText>To inform the driver of the dock that should be used at the location for the job.</inlineHelpText>
     <label>Dock Number</label>
     <length>20</length>
     <required>false</required>

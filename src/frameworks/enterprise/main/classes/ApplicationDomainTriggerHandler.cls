@@ -8,12 +8,16 @@
  * @date 2020-07-27
  * @group Core
  * @domain Core
+ * @changelog : After Delete handler added by Sreenish Krishnan on 20th July 2022
  * @changelog
  * 2022-02-24 - Nathan Franklin - added logic for async and features
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  */
 public abstract inherited sharing class ApplicationDomainTriggerHandler {
-	private enum TriggerState {BEFORE, AFTER}
+	private enum TriggerState {
+		BEFORE,
+		AFTER
+	}
 
 	private List<Type> domains = new List<Type>();
 
@@ -53,21 +57,57 @@ public abstract inherited sharing class ApplicationDomainTriggerHandler {
 
 	public void dispatch() {
 		// Process the runtime Apex Trigger context
-		dispatch(Trigger.isBefore, Trigger.isAfter, Trigger.isInsert, Trigger.isUpdate, Trigger.isDelete, Trigger.isUndelete, Trigger.new, Trigger.oldMap);
+		dispatch(
+			Trigger.isBefore,
+			Trigger.isAfter,
+			Trigger.isInsert,
+			Trigger.isUpdate,
+			Trigger.isDelete,
+			Trigger.isUndelete,
+			Trigger.new,
+			Trigger.oldMap
+		);
 	}
 
 	// execute the trigger handler
 	@TestVisible
-	private void dispatch(Boolean isBefore, Boolean isAfter, Boolean isInsert, Boolean isUpdate, Boolean isDelete, Boolean isUndelete, List<SObject> newRecords, Map<Id, SObject> oldRecordsMap) {
-		System.debug('Dispatch: ' + getSObjectType() + ', isAfter:  ' + isAfter + ', isBefore: ' + isBefore + ', isInsert: ' + isInsert + ', isUpdate: ' + isUpdate + ', isDelete: ' + isDelete + ', isUnDelete: ' + isUndelete);
+	private void dispatch(
+		Boolean isBefore,
+		Boolean isAfter,
+		Boolean isInsert,
+		Boolean isUpdate,
+		Boolean isDelete,
+		Boolean isUndelete,
+		List<SObject> newRecords,
+		Map<Id, SObject> oldRecordsMap
+	) {
+		System.debug(
+			'Dispatch: ' +
+			getSObjectType() +
+			', isAfter:  ' +
+			isAfter +
+			', isBefore: ' +
+			isBefore +
+			', isInsert: ' +
+			isInsert +
+			', isUpdate: ' +
+			isUpdate +
+			', isDelete: ' +
+			isDelete +
+			', isUnDelete: ' +
+			isUndelete
+		);
 
 		// grab instances of the domains
-		List<ApplicationDomain> instances = getDomainInstances((isDelete ? oldRecordsMap.values() : newRecords), (isBefore ? TriggerState.BEFORE : TriggerState.AFTER));
+		List<ApplicationDomain> instances = getDomainInstances(
+			(isDelete ? oldRecordsMap.values() : newRecords),
+			(isBefore ? TriggerState.BEFORE : TriggerState.AFTER)
+		);
 
 		// grab a new unit of work to be passed throughout the different domains
 		ApplicationUnitOfWork unitOfWork = newUnitOfWork();
 
-		for(ApplicationDomain instance : instances) {
+		for (ApplicationDomain instance : instances) {
 			// TODO at some point
 			//	if(isUpdate) {
 			//	    instance.registerTriggerChangedState(oldRecordsMap);
@@ -78,7 +118,7 @@ public abstract inherited sharing class ApplicationDomainTriggerHandler {
 				// NOTE: currentAsyncStack does not need to be modified here since registerAsyncWork is not allowed in these methods
 				if(isInsert) {
 					instance.onBeforeInsert(unitOfWork);
-				} else if(isUpdate) {
+				} else if (isUpdate) {
 					instance.onBeforeUpdate(oldRecordsMap, unitOfWork);
 				}
 
@@ -113,9 +153,9 @@ public abstract inherited sharing class ApplicationDomainTriggerHandler {
 					// since the currentAsyncStack is a static, we need to remove the item that was just added
 					ApplicationUnitOfWork.currentAsyncStack.remove(stackElement);
 				}
-				// TODO
-				//			else if(isDelete) domainObject.handleAfterDelete();
-				//			else if(isUndelete) domainObject.handleAfterUndelete();
+				else if (isDelete) {
+					instance.onAfterDelete(oldRecordsMap.values(), unitOfWork);
+				}
 			}
 		}
 
@@ -125,7 +165,6 @@ public abstract inherited sharing class ApplicationDomainTriggerHandler {
 		//          If throwOnException is not set, any database errors will be logged in Application_Log__c
 		// NOTE: If an exception is thrown the entire operation will be rolled back and the user will be presented with an error on screen
 		unitOfWork.commitWork();
-
 	}
 
 	public List<ApplicationDomain> getDomainInstances(List<SObject> newRecords, TriggerState stateEnum) {

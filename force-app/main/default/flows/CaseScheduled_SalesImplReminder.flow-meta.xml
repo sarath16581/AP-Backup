@@ -17,7 +17,6 @@
     </actionCalls>
     <apiVersion>55.0</apiVersion>
     <description>Schedule Path for E&amp;G Sales Implementation Case Reminder</description>
-    <environments>Default</environments>
     <interviewLabel>CaseScheduled_SalesImplReminder {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled SalesImplReminder</label>
     <processMetadataValues>
@@ -43,16 +42,6 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterFormula>AND(
- {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_EG_Sales},
- ISPICKVAL({!$Record.Origin},&apos;Salesforce&apos;),
- NOT(ISPICKVAL({!$Record.Stage__c},&apos;Plan&apos;)),
- NOT(ISPICKVAL({!$Record.Stage__c},&apos;Implement&apos;)),
- NOT(ISPICKVAL({!$Record.Stage__c},&apos;Stabalise&apos;)),
- NOT(ISPICKVAL({!$Record.Stage__c},&apos;Closed - Disengaged&apos;)),
- NOT(ISPICKVAL({!$Record.Stage__c},&apos;Closed - Maintained&apos;)),
- NOT(ISPICKVAL({!$Record.Stage__c},&apos;Closed - Rejected&apos;))
-)</filterFormula>
         <object>Case</object>
         <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>

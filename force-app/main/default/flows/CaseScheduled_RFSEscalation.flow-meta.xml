@@ -33,7 +33,6 @@
         </connector>
     </assignments>
     <description>Schedule Path for Retail Fulfilment &amp; Support Case Escalation</description>
-    <environments>Default</environments>
     <interviewLabel>CaseScheduled_RFSEscalation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled RFSEscalation</label>
     <processMetadataValues>
@@ -69,14 +68,6 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterFormula>AND(
- {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_RFS},
- ISPICKVAL({!$Record.Status},&apos;New&apos;),
- OR(
-  ISPICKVAL({!$Record.Origin},&apos;Web&apos;),
-  ISPICKVAL({!$Record.Origin},&apos;Phone&apos;)
- )
-)</filterFormula>
         <object>Case</object>
         <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>

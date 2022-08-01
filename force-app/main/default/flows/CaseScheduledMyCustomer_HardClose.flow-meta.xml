@@ -25,7 +25,6 @@
         </connector>
     </assignments>
     <description>Schedule Path for SSSW Case hard closure</description>
-    <environments>Default</environments>
     <interviewLabel>CaseScheduledMyCustomer_HardClose {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled MyCustomer HardClose</label>
     <processMetadataValues>
@@ -58,11 +57,6 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterFormula>AND(
- CONTAINS({!$Record.RecordType.DeveloperName}, {!$Label.REC_TYPE_DEV_KEYWORD_SSSW}),
- {!$Record.IsClosed},
- NOT({!$Record.Permanent_Close__c})
-)</filterFormula>
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>
