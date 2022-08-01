@@ -132,29 +132,6 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	/**
 	 * Process the event and update relevant details on the Job record passed in.
 	 *
-	 * @param jobIds job ids to query containers
-	 *
-	 * @return map of job ids and their list of containers. 
-	 */
-	private Map<Id, List<PUD_Container__c>> populateJobContainers(List<PUD_Job__c> jobs){
-		Map<Id, List<PUD_Container__c>> jobIdVsContainers = new Map<Id, List<PUD_Container__c>>();
-		for(PUD_Job__c job: jobs){
-			for(PUD_Container__c container : job.Containers__r){
-				if(!jobIdVsContainers.containsKey(job.Id)){
-					jobIdVsContainers.put(job.Id, new List<PUD_Container__c>{container});
-				}
-				else{
-					jobIdVsContainers.get(job.Id).add(container);
-				}
-			}	
-		}
-		return jobIdVsContainers;
-	}
-
-
-	/**
-	 * Process the event and update relevant details on the Job record passed in.
-	 *
 	 * @param event the event to process
 	 * @param job parent Job related to this event
 	 *
@@ -166,7 +143,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 		if (jobDispatchStatusMappings.containsKey(event.Status__c)) {
 			PUD_Job_Dispatch_Status_Mapping__mdt mapping = jobDispatchStatusMappings.get(event.Status__c);
 			
-			List<PUD_Container__c> containersToUpsert = new List<PUD_Container__c>();
+			Map<String, PUD_Container__c> uniqueKeyVsContainersToUpsert = new Map<String, PUD_Container__c>();
 
 			// determine job status based on the mapping.
 			String jobStatus = (String.isNotBlank(mapping.Job_Status__c) ? mapping.Job_Status__c: job.Status__c);
@@ -188,21 +165,15 @@ public inherited sharing class PUDJobDispatchEventHandler {
 					//populate actuals for containers on the job.
 					List<ContainersPayload> containerPayloadObjects = (List<ContainersPayload>) JSON.deserialize(event.Containers_Payload__c, List<ContainersPayload>.class);
 					
-					//map to store unique container payload.
-					Map<String, ContainersPayload> uniqueKeyVsContainerPayload = new Map<String, ContainersPayload>();
-
-					//iterate through received containers payload and store only unique payload.
-					//This removes duplicate payload received as a part of event.
-					//e.g. [{"Name":"CardULD","Quantity":3,"ActualQuantity":2,"Condition":"Empty"}, 
-					//		{"Name":"CardULD","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]
-					//In this scenario, only last payload will be considered for upsert for a job.
-					for(ContainersPayload payload : containerPayloadObjects){
-						String uniqueyKey = event.Parent_Id__c+'-'+payload.Name+'-'+payload.Condition;
-						uniqueKeyVsContainerPayload.put(uniqueyKey, payload);
-					}
-
-					for(ContainersPayload containerWrapper : uniqueKeyVsContainerPayload.values()){
+					for(ContainersPayload containerWrapper : containerPayloadObjects){
 						Boolean isMatchingContainerFound = false;
+
+						//Create a key to store only unique payload.
+						//This is required to remove duplicate payload received as a part of same event.
+						//e.g. [{"Name":"CardULD","Quantity":3,"ActualQuantity":2,"Condition":"Empty"}, 
+						//		{"Name":"CardULD","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]
+						//In this scenario, only last payload will be considered for upsert for a job.
+						String uniqueyKey = event.Parent_Id__c+'-'+containerWrapper.Name+'-'+containerWrapper.Condition;
 
 						//iterating through job containers
 						for(PUD_Container__c pContainer : job.Containers__r){
@@ -214,7 +185,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 							//duplicate containers.
 							if(pContainer.Id != null && pContainer.Type__c == containerWrapper.Name && pContainer.Condition__c == containerWrapper.Condition){
 								pContainer.Actual_Quantity__c = containerWrapper.ActualQuantity;
-								containersToUpsert.add(pContainer);
+								uniqueKeyVsContainersToUpsert.put(uniqueyKey, pContainer);
 								isMatchingContainerFound = true;
 								break;
 							}
@@ -222,7 +193,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 			
 						//if MobileStar sends container type which does not exist under a job in Salesforce, then create a container type.
 						if(!isMatchingContainerFound){
-							containersToUpsert.add(newJobContainer(job, containerWrapper));
+							uniqueKeyVsContainersToUpsert.put(uniqueyKey, newJobContainer(job, containerWrapper));
 						}
 					}
 
@@ -230,7 +201,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 					//this is important as job containers are passed by reference. If we do not clear existing containers then
 					//update call will fail stating Duplicate records for update operation.
 					jobsContainers.clear();
-					jobsContainers.addAll(containersToUpsert);
+					jobsContainers.addAll(uniqueKeyVscontainersToUpsert.values());
 					
 				}
 

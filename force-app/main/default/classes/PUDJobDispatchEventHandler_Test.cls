@@ -15,19 +15,22 @@
 @IsTest
 private class PUDJobDispatchEventHandler_Test {
 
-
 	/**
-	 * Tests the outcome of receiving all the different Job Action events from dispatch system.
+	 * Tests the outcome of receiving all the different Job Action events from dispatch system with container payload.
+	 * Testing scenarios for containers:
+	 * 1. Updates to existing containers with Actual Quantity
+	 * 2. Inserts of new containers received from dispatch system.
+	 * 3. Inserts of unique containers in case duplicate containers are passed as a Containers Payload for a same event.
 	 */
 	@IsTest
-	static void testProcessJobActionEventsFromDispatchSystem() {
+	static void testProcessJobActionEventsFromDispatchSystemForContainerTypes() {
 		// =====================================
 		// Data Preparation
 		// =====================================
 
-		List<PUD_Booking__c> pudBookingList = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(2, null, null, Date.today(), Date.today().addDays(30), null, true);
+		List<PUD_Booking__c> pudBookingList = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(1, null, null, Date.today(), Date.today().addDays(30), null, true);
 		
-		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, null, PUDConstants.PUD_JOB_STATUS_NEW, true);
+		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(3, null, PUDConstants.PUD_JOB_STATUS_NEW, true);
 		//jobs[0] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
 		jobs[0].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
 
@@ -35,17 +38,9 @@ private class PUDJobDispatchEventHandler_Test {
 		jobs[1].Status__c = PUDConstants.PUD_JOB_STATUS_ACCEPTED;
 		jobs[1].Schedule_Confirmed_Timestamp__c = System.now().addHours(-1);
 
-		//jobs[2] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
 		jobs[2].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
 
-		//jobs[3] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
-		jobs[3].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
-
-		//jobs[4] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
-		jobs[4].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
-
-		//jobs[5] is in status 'Cancel'. Job Cancellation request has been pushed to dispatch system but awaiting confirmation.
-		jobs[5].Status__c = PUDConstants.PUD_JOB_STATUS_CANCEL;
+		
 
 		PUD_Container__c c1 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[1].Id, 'Pallets', 'Empty', true )[0];
 		c1.Expected_Quantity__c = 10;
@@ -55,22 +50,20 @@ private class PUDJobDispatchEventHandler_Test {
 
 		List<PUD_Job_Dispatch_Event__e> events = new List<PUD_Job_Dispatch_Event__e>();
 		//'Accepted' event for jobs[0]. Confirming the job has been accepted by the driver.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[0].Id, Status__c='Accepted', Event_Timestamp__c = System.now().addHours(-2)));
+		//Setting blank container payload
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[0].Id, Status__c='Accepted', Event_Timestamp__c = System.now().addHours(-2), 
+		Containers_Payload__c ='[]'));
+		
 		//'Completed' event for jobs[1]. Confirming the job has been completed by the driver.
+		//Setting container payload with existing and new container types.
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1), 
 		Containers_Payload__c = '[{"Name":"Aircan","Quantity":30,"ActualQuantity":52,"Condition":"Empty"},{"Name":"Colby","Quantity":3,"ActualQuantity":2,"Condition":"Full"}, {"Name":"Pallets","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]'));
+		
 		//'Completed' event for jobs[2]. Confirming the job has been completed by the driver.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1)));
-		//exception scenario - invalid status in event.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[3].Id, Status__c='invalid', Event_Timestamp__c = System.now().addHours(-1)));
-		//exception scenario - invalid parent id in event.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c='invalid', Status__c='Accepted', Event_Timestamp__c = System.now().addHours(-1)));
-		//'Failed' event for jobs[4]. Confirming the driver was not able to complete the job and PhotoGUID is supplied
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[4].Id, Status__c='Failed', Reason__c='No Access', Comments__c='driver comments', Photo_GUID__c='777123456', Event_Timestamp__c = System.now().addHours(-1)));
-		//'Cancelled' event for jobs[5]. Confirming the job has been cancelled in dispatch system.
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[5].Id, Status__c='Cancelled', Event_Timestamp__c = System.now().addHours(-1)));
-
-
+		//Setting duplicate container payload from MobileStar
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1),
+		Containers_Payload__c ='[{"Name":"Aircan","Quantity":30,"ActualQuantity":52,"Condition":"Empty"}, {"Name":"Aircan","Quantity":30,"ActualQuantity":52,"Condition":"Empty"}]'));
+		
 		//associating containers with jobs.
 		// Two containers are set as childs to a job.
 		jobs[1] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[1], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{c1, c2}});
@@ -118,11 +111,99 @@ private class PUDJobDispatchEventHandler_Test {
 		Map<Id, PUD_Container__c> upsertedContainers = new Map<Id, PUD_Container__c>((List<PUD_Container__c>) upsertableContainersCaptor.getValue());
 		
 		//assert actual quantities are updated against a already existing containers.
-		//System.assert(upsertedContainers.containsKey(c1.Id));
-		System.assertEquals(3, upsertedContainers.size(), 'Expected to upsert 3 container for a job. 2 Updates and 1 insert.');
+		System.assertEquals(4, upsertedContainers.size(), 'Expected to upsert 4 container for a job. 2 Updates and 2 inserts.');
 		system.assertEquals(12, upsertedContainers.get(c1.Id).Actual_Quantity__c, 'Expected to update Actual Quantity for container');
 		system.assertEquals(52, upsertedContainers.get(c2.Id).Actual_Quantity__c, 'Expected to update Actual Quantity for container');
 		system.assertNotEquals(null, upsertedContainers.get(c1.Id).Actual_Quantity__c, 'Expected to update Actual Quantity for container');
+		
+
+		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>((List<PUD_Job__c>) updatableJobsCaptor.getValue());
+		System.assertEquals(3, updatableJobs.size(), 'Expected to update 3 job records from Dispatch System Job Action events.');
+
+	}
+
+
+	/**
+	 * Tests the outcome of receiving all the different Job Action events from dispatch system.
+	 */
+	@IsTest
+	static void testProcessJobActionEventsFromDispatchSystem() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		List<PUD_Booking__c> pudBookingList = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(2, null, null, Date.today(), Date.today().addDays(30), null, true);
+		
+		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, null, PUDConstants.PUD_JOB_STATUS_NEW, true);
+		//jobs[0] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
+		jobs[0].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
+
+		//jobs[1] has previously been updated by job action events from dispatch system.
+		jobs[1].Status__c = PUDConstants.PUD_JOB_STATUS_ACCEPTED;
+		jobs[1].Schedule_Confirmed_Timestamp__c = System.now().addHours(-1);
+
+		//jobs[2] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
+		jobs[2].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
+
+		//jobs[3] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
+		jobs[3].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
+
+		//jobs[4] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
+		jobs[4].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
+
+		//jobs[5] is in status 'Cancel'. Job Cancellation request has been pushed to dispatch system but awaiting confirmation.
+		jobs[5].Status__c = PUDConstants.PUD_JOB_STATUS_CANCEL;
+
+	
+
+
+		List<PUD_Job_Dispatch_Event__e> events = new List<PUD_Job_Dispatch_Event__e>();
+		//'Accepted' event for jobs[0]. Confirming the job has been accepted by the driver.
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[0].Id, Status__c='Accepted', Event_Timestamp__c = System.now().addHours(-2)));
+		//'Completed' event for jobs[1]. Confirming the job has been completed by the driver.
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1)));
+		//'Completed' event for jobs[2]. Confirming the job has been completed by the driver.
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[2].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1)));
+		//exception scenario - invalid status in event.
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[3].Id, Status__c='invalid', Event_Timestamp__c = System.now().addHours(-1)));
+		//exception scenario - invalid parent id in event.
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c='invalid', Status__c='Accepted', Event_Timestamp__c = System.now().addHours(-1)));
+		//'Failed' event for jobs[4]. Confirming the driver was not able to complete the job and PhotoGUID is supplied
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[4].Id, Status__c='Failed', Reason__c='No Access', Comments__c='driver comments', Photo_GUID__c='777123456', Event_Timestamp__c = System.now().addHours(-1)));
+		//'Cancelled' event for jobs[5]. Confirming the job has been cancelled in dispatch system.
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[5].Id, Status__c='Cancelled', Event_Timestamp__c = System.now().addHours(-1)));
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		PUDJobsSelector mockSelector = (PUDJobsSelector)MockUtility.mockSelector(PUDJobsSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(jobs);
+		
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		PUDJobDispatchEventHandler.getInstance().processJobActionEvents(events);
+
+		Test.stopTest();
+
+		fflib_ArgumentCaptor updatableJobsCaptor = fflib_ArgumentCaptor.forClass(List<PUD_Job__c>.class);
+
+		//verify that PUDUtility is called once with expected list of jobs
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<PUD_Job__c>) updatableJobsCaptor.capture());
+
 		
 
 		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>((List<PUD_Job__c>) updatableJobsCaptor.getValue());
