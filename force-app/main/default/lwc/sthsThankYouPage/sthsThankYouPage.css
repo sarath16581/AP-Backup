@@ -1,0 +1,20 @@
+.thank-you-header-text {
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+    letter-spacing: 0.8px;
+    color: var(--primary-text-color);
+}
+
+.thank-you-body-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--primary-text-color);
+}
+
+.thank-you-icon {
+    height: 48px;
+    width: 48px;
+}
