@@ -131,8 +131,6 @@ private class PUDJobDispatchEventHandler_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-
-		List<PUD_Booking__c> pudBookingList = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(2, null, null, Date.today(), Date.today().addDays(30), null, true);
 		
 		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, null, PUDConstants.PUD_JOB_STATUS_NEW, true);
 		//jobs[0] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
