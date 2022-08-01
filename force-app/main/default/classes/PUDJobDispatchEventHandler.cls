@@ -77,6 +77,9 @@ public inherited sharing class PUDJobDispatchEventHandler {
 		//Insert: MobileStar sends containers which does not exists under a job in Salesforce.
 		List<PUD_Container__c> containersToUpsert = new List<PUD_Container__c>();
 
+		//map to store job id and its containers.
+		//This map contains containers which needs to be updated/inserted when an event is received for a job.
+		//If there are duplicate events received for the same job then containers will be upserted as per latest event.
 		Map<Id, List<PUD_Container__c>> containersToProcess = new Map<Id, List<PUD_Container__c>>();
 		
 		// process each event to determine the list of updatable jobs
@@ -90,6 +93,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				// use the job record returned by selector query.
 				PUD_Job__c updatableJob = updatableJobs.containsKey(jobId) ? updatableJobs.get(jobId): jobs.get(jobId);
 
+				//If containers are already calculated for a given job then process same list of containers.
+				//this ensures that if multiple events are received for a same job then we process containers as per latest event.
 				List<PUD_Container__c> jobContainers = containersToProcess.containsKey(jobId) ? containersToProcess.get(jobId) : new List<PUD_Container__c>();
 				
 				// process the event and update job if required.
@@ -100,6 +105,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 					updatableJobs.put(updatableJob.Id, updatableJob);
 				}
 
+				//update map as per event received and replace job containers list.
+				//As jobContainers list is passed by reference, it will have updated values of containers.
 				if (isUpdated && !jobContainers.isEmpty()) {
 					containersToProcess.put(jobId, jobContainers);
 				}
@@ -111,6 +118,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 			ApplicationDatabase.getInstance().dmlUpdate(updatableJobs.values());
 		}
 		if(!containersToProcess.isEmpty()){
+
+			//getting list of containers from a map.
 			for(Id jobId : containersToProcess.keySet()){
 				containersToUpsert.addAll(containersToProcess.get(jobId));
 			}
@@ -181,6 +190,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 					for(ContainersPayload containerWrapper : containerPayloadObjects){
 						Boolean isMatchingContainerFound = false;
 
+						//iterating through job containers
 						for(PUD_Container__c pContainer : job.Containers__r){
 			
 							//if type and condition is matched, update the actuals.
