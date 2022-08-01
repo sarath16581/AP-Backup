@@ -71,14 +71,14 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 
 
-		//get all containers under jobs.
-		Map<Id, List<PUD_Container__c>> jobIdVsContainers = populateJobContainers(jobs.values());
 		
 		//containers to upsert with actual numbers.
 		//Update: existing containers with actual numbers sent from MobileStar
 		//Insert: MobileStar sends containers which does not exists under a job in Salesforce.
 		List<PUD_Container__c> containersToUpsert = new List<PUD_Container__c>();
 
+		Map<Id, List<PUD_Container__c>> containersToProcess = new Map<Id, List<PUD_Container__c>>();
+		
 		// process each event to determine the list of updatable jobs
 		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>();
 		
@@ -89,13 +89,19 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				// if same job has been previously updated in current batch, get the job from 'updatableJobs' map. otherwise
 				// use the job record returned by selector query.
 				PUD_Job__c updatableJob = updatableJobs.containsKey(jobId) ? updatableJobs.get(jobId): jobs.get(jobId);
+
+				List<PUD_Container__c> jobContainers = containersToProcess.containsKey(jobId) ? containersToProcess.get(jobId) : new List<PUD_Container__c>();
 				
 				// process the event and update job if required.
-				Boolean isUpdated = processJobActionEvent(event, updatableJob, jobIdVsContainers.get(updatableJob.Id));
+				Boolean isUpdated = processJobActionEvent(event, updatableJob, jobContainers);
 				if (isUpdated && !updatableJobs.containsKey(jobId)) {
 					// job has been updated as a result of processing current event.
 					// add job instance into 'updatableJobs' map if not already in it.
 					updatableJobs.put(updatableJob.Id, updatableJob);
+				}
+
+				if (isUpdated && !jobContainers.isEmpty()) {
+					containersToProcess.put(jobId, jobContainers);
 				}
 			}
 		}
@@ -104,23 +110,14 @@ public inherited sharing class PUDJobDispatchEventHandler {
 			// attempt to update the jobs. any dml failures result in an exception being thrown
 			ApplicationDatabase.getInstance().dmlUpdate(updatableJobs.values());
 		}
-
-		if (!jobIdVsContainers.isEmpty()) {
-			// attempt to upsert the containers.
-			for(Id jobId : jobIdVsContainers.keySet()){
-
-				//get job containers of ONLY eligible job for updates.
-				//updatableJobs map contains jobs which are need to be updated.
-				if(updatableJobs.containsKey(jobId)){
-					containersToUpsert.addAll(jobIdVsContainers.get(jobId));
-				}
+		if(!containersToProcess.isEmpty()){
+			for(Id jobId : containersToProcess.keySet()){
+				containersToUpsert.addAll(containersToProcess.get(jobId));
 			}
 
-			if(!containersToUpsert.isEmpty()){
-				ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, PUD_Container__c.Id);
-			}
+			ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, PUD_Container__c.Id);
 		}
-		
+
 	}
 
 	/**
@@ -184,7 +181,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 					for(ContainersPayload containerWrapper : containerPayloadObjects){
 						Boolean isMatchingContainerFound = false;
 
-						for(PUD_Container__c pContainer : jobsContainers){
+						for(PUD_Container__c pContainer : job.Containers__r){
 			
 							//if type and condition is matched, update the actuals.
 							//Note: Pallets, Empty and Pallets, Full are considered as two different containers.
@@ -195,6 +192,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 								pContainer.Actual_Quantity__c = containerWrapper.ActualQuantity;
 								containersToUpsert.add(pContainer);
 								isMatchingContainerFound = true;
+								break;
 							}
 						}
 			

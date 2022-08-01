@@ -82,7 +82,7 @@ public inherited sharing class PUDContainerTypeSyncModule  extends ApplicationDo
 			String uniqueKey = newContainer.Type__c+newContainer.Condition__c;
 
 			if(bookingIdVsContainerUniqueKey.containsKey(newContainer.Booking__c) && bookingIdVsContainerUniqueKey.get(newContainer.Booking__c).contains(uniqueKey)){
-				newContainer.addError(String.format(Label.PUDJobDispatchSystemSyncRestrictedStatusErrorMessage, new List<String>{newContainer.Type__c, newContainer.Condition__c}));
+				newContainer.addError(String.format(Label.PUDDuplicateBookingContainerErrorMessage, new List<String>{newContainer.Type__c, newContainer.Condition__c}));
 			}
 		}
 	}
