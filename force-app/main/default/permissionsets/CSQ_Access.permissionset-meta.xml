@@ -533,7 +533,7 @@
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>Customer_Scoping_Questionnaire__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -542,7 +542,7 @@
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>Dangerous_Goods__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -551,7 +551,7 @@
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>Freight_Offering__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -569,7 +569,7 @@
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>Pick_Up_Location__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>

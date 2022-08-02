@@ -2,7 +2,7 @@
  * @description       : This is a test class for CustomerDataSyncEventCPAddressHelper
  * @author            : George Nguyen
  * @domain            : Connecetd Customer
- * @last modified on  : 07-21-2022
+ * @last modified on  : 07-22-2022
  * @last modified by  : Sreenish Krishnan
  **/
 @IsTest

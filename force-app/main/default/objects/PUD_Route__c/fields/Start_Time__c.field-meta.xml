@@ -3,9 +3,8 @@
     <fullName>Start_Time__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Route start time</description>
-    <inlineHelpText>This is the time of the day that the route becomes active.
-        Sourced from Adam.</inlineHelpText>
     <externalId>false</externalId>
+    <inlineHelpText>This is the time of the day that the route becomes active. Sourced from Adam.</inlineHelpText>
     <label>Start Time</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

@@ -2,7 +2,7 @@
  * @description       :Domain class to handle Contact Point Email triger logic
  * @author            : Sreenish Krishnan
  * @domain            :
- * @last modified on  : 07-18-2022
+ * @last modified on  : 07-22-2022
  * @last modified by  : Sreenish Krishnan
  **/
 public inherited sharing class ContactPointEmailDomain extends ApplicationDomain {

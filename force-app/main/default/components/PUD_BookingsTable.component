@@ -6,7 +6,7 @@
 
 <apex:component id="PUD_BookingsTable">
 	<apex:attribute name="bookings" type="PUD_Booking__c[]" required="true" description="Bookings of the parent route"/>
-	<apex:pageBlock>
+	<apex:pageBlock >
 		<!-- bookings table -->
 		<apex:pageBlockTable value="{! bookings }" 
 		                     var="booking" 
@@ -33,8 +33,7 @@
 			             headerClass="job-headers">
 				<div class="boldcell">
 					<apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
-					<apex:outputText
-							rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
+					<apex:outputText rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
 						(<apex:outputField value="{!booking.Booking_Location_Street__c}"/>&nbsp;
 						<apex:outputField value="{!booking.Booking_Location_City__c}"/>)<br/>
 					</apex:outputText>
@@ -76,8 +75,7 @@
 					{! IF(LEN(TEXT(HOUR(bookingEndTime)))<2 , '0'+ TEXT(HOUR(bookingEndTime)), HOUR(bookingEndTime))}
 				</apex:outputText>
 				<apex:outputText value="{0,number,00}" rendered="{! !ISBLANK(booking.Start_Time__c)}">
-					<apex:param
-							value="{!MINUTE(bookingEndTime)}"/>
+					<apex:param value="{!MINUTE(bookingEndTime)}"/>
 				</apex:outputText>
 			</apex:column>
 		</apex:pageBlockTable>

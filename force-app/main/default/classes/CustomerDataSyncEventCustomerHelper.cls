@@ -2,7 +2,7 @@
  * @description       : Helper Class to perform Customer related logic for Connected Customer
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 07-12-2022
+ * @last modified on  : 07-22-2022
  * @last modified by  : Sreenish Krishnan
  **/
 public inherited sharing class CustomerDataSyncEventCustomerHelper {

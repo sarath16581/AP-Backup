@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Container_Actuals_Payload__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>This field captures containers payload received from MobileStar. This field will help debug issues in future to identify what was received from MobileStar.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field captures containers payload received from MobileStar. This field will help debug issues in future to identify what was received from MobileStar.</inlineHelpText>
+    <label>Container Actuals Payload</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

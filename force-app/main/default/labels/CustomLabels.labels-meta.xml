@@ -7690,4 +7690,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Sths Support URL</shortDescription>
         <value>https://startrack.com.au/support</value>
     </labels>
+    <labels>
+        <fullName>PUDDuplicateBookingContainerErrorMessage</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PUDDuplicateBookingContainerErrorMessage</shortDescription>
+        <value>Container type: {0} with condition: {1} already exists under a booking. Please update existing container type.</value>
+    </labels>
 </CustomLabels>

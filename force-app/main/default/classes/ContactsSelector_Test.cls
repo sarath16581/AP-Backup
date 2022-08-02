@@ -55,7 +55,7 @@ private with sharing class ContactsSelector_Test {
 		QueryBuilder qb2 = selector2.newQueryBuilder();
 		String soql2 = qb2.toSoqlString();
 
-		//System.assertEquals(true, Pattern.compile('(?is)\\bname\\b').matcher(soql2).find(), 'Resulting query does not do filter overrides');
+		System.assertEquals(true, Pattern.compile('(?is)\\bid\\b').matcher(soql2).find(), 'Resulting query does not do filter overrides');
 
 		Test.stopTest();
 
@@ -122,8 +122,8 @@ private with sharing class ContactsSelector_Test {
 
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(2, acc.Id, false);
         contacts[0].FirstName = 'Sim';
-        contacts[0].Phone = '0440123456';
-        contacts[1].MobilePhone = '0440123456';
+        contacts[0].Phone = '+61440123456';
+        contacts[1].MobilePhone = '+61440123456';
 		insert contacts;
         System.debug('---name: ' + contacts[0].Name);
 

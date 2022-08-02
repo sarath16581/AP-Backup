@@ -4,11 +4,11 @@
     <protected>false</protected>
     <values>
         <field>BusinessHours__c</field>
-        <value xsi:type="xsd:string">8.30 AM to 4.00 PM (Mon-Fri)</value>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Email__c</field>
-        <value xsi:type="xsd:string">postimports@abf.gov.au</value>
+        <value xsi:type="xsd:string">postimportsnsw@abf.gov.au</value>
     </values>
     <values>
         <field>Fax__c</field>

@@ -55,8 +55,7 @@
 			<td class="boldcell" style="font-size:12px;  vertical-align:top; width:210px; display:inline-block">
 				<apex:variable var="breaksNumber" value="{!0}"/>
 				<apex:repeat value="{!route.Bookings__r}" var="booking">
-					<apex:outputText
-							rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}">
+					<apex:outputText rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}">
 						<br/>
 					</apex:outputText>
 					<apex:outputText rendered="{! booking.Booking_Type__c='Meal Break' && !ISBLANK(booking.Booking_Location_Name_LU__c)}">{!booking.Booking_Location_Name_LU__c} &nbsp;
@@ -79,8 +78,7 @@
 							<apex:param value="{!MINUTE(breakEndTime)}"/>
 						</apex:outputText>
 					</apex:outputText>
-					<apex:outputText
-							rendered="{!booking.Booking_Type__c='Meal Break'}">
+					<apex:outputText rendered="{!booking.Booking_Type__c='Meal Break'}">
 						<apex:variable var="breaksNumber" value="{!breaksNumber+1}"/>
 					</apex:outputText>
 				</apex:repeat>

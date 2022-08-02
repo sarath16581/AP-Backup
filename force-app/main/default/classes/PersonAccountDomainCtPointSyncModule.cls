@@ -35,10 +35,10 @@ public inherited sharing class PersonAccountDomainCtPointSyncModule extends Appl
     }
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		syncPersonAccountsToContactPoints((List<Account>)records, (Map<Id, Account>)existingRecords);
+		syncPersonAccountsToContactPoints((List<Account>)records, (Map<Id, Account>)existingRecords, uow);
     }
 	
-    private void syncPersonAccountsToContactPoints(List<Account> records, Map<Id, Account> existingRecords) {
+    private void syncPersonAccountsToContactPoints(List<Account> records, Map<Id, Account> existingRecords, ApplicationUnitOfWork uow) {
 
         Map<Id, String> contactIdsVsHomePhones = new Map<Id, String>();        
         Map<Id, String> contactIdsVsMobilePhones = new Map<Id, String>();
@@ -74,6 +74,7 @@ public inherited sharing class PersonAccountDomainCtPointSyncModule extends Appl
         if(contactIdsVsEmails.isEmpty() == false) {
             result.addAll(generateContactPointEmails(contacts, contactIdsVsEmails));
         }
+        system.debug('>>>>>>>>>>>>>>>>> result: ' + result);
 		ApplicationDatabase.getInstance().dmlInsert(result);
     }
     

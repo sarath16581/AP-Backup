@@ -18,7 +18,6 @@
         </connector>
     </assignments>
     <description>Schedule Path for SSSW Case to reset Customer Tier Milestone Time</description>
-    <environments>Default</environments>
     <formulas>
         <name>NullDateTime</name>
         <dataType>DateTime</dataType>
@@ -56,11 +55,6 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterFormula>AND(
- ISNULL({!$Record.CustomerTierSLA__c}),
- NOT(ISNULL({!$Record.Previous_Milestone_Time__c})),
- ISPICKVAL({!$Record.Status}, &apos;Awaiting Customer Response&apos;)
-)</filterFormula>
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>
