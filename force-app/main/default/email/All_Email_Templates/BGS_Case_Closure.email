@@ -249,16 +249,19 @@
           <!-- Heading-1 -->
           <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 50px;">
             <h1 style="Margin-top: 0;Margin-bottom: 20px;font-style: normal;font-weight: normal;color: #37a0dc;font-size: 24px;line-height: 32px;font-family: Arial, sans-serif;" lang="x-size-24">
-              Dear {!Contact.FirstName},
+              Hi {!Contact.FirstName},
             </h1>
           </div>
           <!-- Text -->
           <div style="Margin-left: 20px;Margin-right: 20px;Margin-bottom: 24px;">
             <p style="Margin-top: 16px;Margin-bottom: 0;font-size: 16px;line-height: 20px;text-align: left;" lang="x-size-16">
+We've closed your enquiry - case reference number #({!Case.CaseNumber}).  <br/><br/>
+If you'd like us to investigate further or have a new enquiry, <b>PLEASE DO NOT REPLY TO THIS EMAIL </b>as this case is closed and no longer monitored. Please create and send a new email request to your Service Advisor Team. <br/><br/>
 
-               <b>Case # {!Case.CaseNumber}</b> has been updated to resolved/closed.
-               <br/><br/>Please direct any further requests or enquiries to your BGS Service Advisor team
-               <br/><br/>We value your feedback - A survey may be sent to you regarding your experience. We would appreciate if you could take the time to tell us about your experience with our Service Advisor team.
+If you'd like to give us feedback about how your case was handled, please complete the short survey which will be sent to you in a separate email. We'd really appreciate your comments, as they help us to review and improve our service.<br/><br/>
+
+Regards,<br/><br/>
+Australia Post’s Service Advisor Team 
             </p>
           </div>
 

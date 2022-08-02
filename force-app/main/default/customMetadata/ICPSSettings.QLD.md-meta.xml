@@ -4,14 +4,26 @@
     <protected>false</protected>
     <values>
         <field>BusinessHours__c</field>
-        <value xsi:type="xsd:string">8:45am - 4:00pm Monday to Friday</value>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Email__c</field>
-        <value xsi:type="xsd:string">postimports@abf.gov.au</value>
+        <value xsi:type="xsd:string">postimportsnsw@abf.gov.au</value>
     </values>
     <values>
         <field>Fax__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>GroupTypeLayout__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>GroupTypeLeftOffset__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>GroupTypeTopOffset__c</field>
         <value xsi:nil="true"/>
     </values>
     <values>
@@ -21,6 +33,22 @@
     <values>
         <field>IsEmailEnabled__c</field>
         <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>LabelTypeTemplateName__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>NotificationsEnabled__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>ServiceHeaderLabelMessage__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ServiceHeaderRequestType__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Telephone__c</field>

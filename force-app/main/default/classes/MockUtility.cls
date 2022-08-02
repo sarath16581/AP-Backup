@@ -17,6 +17,7 @@ public class MockUtility {
 	 */
 	public static List<SObject> mockDMLInsertedRecords = new List<SObject>();
 	public static List<SObject> mockDMLUpdatedRecords = new List<SObject>();
+	public static List<SObject> mockDMLUpsertedRecords = new List<SObject>();
 	public static List<SObject> mockUnitOfWorkDMLs = new List<SObject>();
 
 	public static fflib_ApexMocks Mocks {
@@ -56,6 +57,15 @@ public class MockUtility {
 		Object utility = Mocks.mock(utilityType);
 		Application.Utilities.setMock(utilityType, utility);
 		return utility;
+	}
+
+	/**
+	 * Use this to mock Domain classes in unit tests
+	 */
+	public static Object mockDomain(Type domainType) {
+		ApplicationDomain domain = (ApplicationDomain)Mocks.mock(domainType);
+		Application.Domains.setMock(domainType, domain);
+		return domain;
 	}
 
 	/**
@@ -187,6 +197,31 @@ public class MockUtility {
 			return result;
 		}
 	}
+
+	/**
+	 * A simple Answer class to set an Id on the record to simulate a DML upsert operation
+	 */
+	public class AnswerGenericDMLUpserted implements fflib_Answer {
+		public Object answer(fflib_InvocationOnMock invocation) {
+			List<Map<String, Object>> upsertResults = new List<Map<String, Object>>();
+			List<SObject> records = (List<SObject>)invocation.getArgument(0);
+			for(SObject record : records) {
+				Map<String, Object> result = new Map<String, Object> {
+						'success' => true,
+						'id' => record.Id
+				};
+				upsertResults.add(result);
+			}
+
+			// store a list of the records that were upserted when this answer is invoked.
+			mockDMLUpsertedRecords.addAll(records);
+
+			List<Database.UpsertResult> result = (List<Database.UpsertResult>)JSON.deserialize(JSON.serialize(upsertResults), List<Database.UpsertResult>.class);
+			return result;
+		}
+	}
+
+
 
 	/**
 	 * A simple Answer class to set an Id on the record to simulate a DML delete operation

@@ -35,7 +35,9 @@
             </containers>
         </subtabComponents>
     </customConsoleComponents>
+    <excludeButtons>DataDotComClean</excludeButtons>
     <excludeButtons>RequestUpdate</excludeButtons>
+    <excludeButtons>RequestUseSfdc</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -136,6 +138,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Email</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>VerifiedEmail__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -468,6 +474,36 @@
         <fields>MaritzCX__Metric_1__c</fields>
         <fields>MaritzCX__Comments_1__c</fields>
         <relatedList>MaritzCX__Survey_Response__c.MaritzCX__Contact_Id__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>PhoneType</fields>
+        <fields>TelephoneNumber</fields>
+        <fields>Verified__c</fields>
+        <fields>Preferred__c</fields>
+        <fields>UniqueMobile__c</fields>
+        <fields>CreatedDate</fields>
+        <relatedList>ContactPointPhone.Contact__c</relatedList>
+        <sortField>Preferred__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <fields>EmailAddress</fields>
+        <fields>Verified__c</fields>
+        <fields>Preferred__c</fields>
+        <fields>IsCredential__c</fields>
+        <fields>CreatedDate</fields>
+        <relatedList>ContactPointEmail.Contact__c</relatedList>
+        <sortField>Preferred__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>AddressType</fields>
+        <fields>ADDRESS.STREET</fields>
+        <fields>CreatedDate</fields>
+        <relatedList>ContactPointAddress.Contact__c</relatedList>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedObjects>AccountId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

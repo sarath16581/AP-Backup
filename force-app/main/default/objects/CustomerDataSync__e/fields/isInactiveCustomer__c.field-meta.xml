@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>isInactiveCustomer__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field will be set to TRUE when SAP CRM has archived the consumer record.  When this record is set to TRUE, the consumer must go through the Salesforce Archive proces</description>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>isInactiveCustomer</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actual_Quantity__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Actual Quantity of containers. This field is captured in dispatch system by the drivers and pushed into Salesforce via Job Actions interface from MobileStar/Tibco.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Actual Quantity of containers. This field is captured in dispatch system by the drivers and pushed into Salesforce via Job Actions interface from MobileStar/Tibco.</inlineHelpText>
+    <label>Actual Quantity</label>
+    <precision>6</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

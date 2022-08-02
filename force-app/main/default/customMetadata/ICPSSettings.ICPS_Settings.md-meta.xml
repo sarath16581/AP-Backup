@@ -15,12 +15,40 @@
         <value xsi:nil="true"/>
     </values>
     <values>
+        <field>GroupTypeLayout__c</field>
+        <value xsi:type="xsd:string">THERMAL LABEL-A6-1PP_LANDSCAPE</value>
+    </values>
+    <values>
+        <field>GroupTypeLeftOffset__c</field>
+        <value xsi:type="xsd:double">0.0</value>
+    </values>
+    <values>
+        <field>GroupTypeTopOffset__c</field>
+        <value xsi:type="xsd:double">0.0</value>
+    </values>
+    <values>
         <field>HoldingDateDays__c</field>
         <value xsi:type="xsd:double">40.0</value>
     </values>
     <values>
         <field>IsEmailEnabled__c</field>
-        <value xsi:type="xsd:boolean">false</value>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>LabelTypeTemplateName__c</field>
+        <value xsi:type="xsd:string">ICPS</value>
+    </values>
+    <values>
+        <field>NotificationsEnabled__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>ServiceHeaderLabelMessage__c</field>
+        <value xsi:type="xsd:string">ICPS Label</value>
+    </values>
+    <values>
+        <field>ServiceHeaderRequestType__c</field>
+        <value xsi:type="xsd:string">PDF</value>
     </values>
     <values>
         <field>Telephone__c</field>

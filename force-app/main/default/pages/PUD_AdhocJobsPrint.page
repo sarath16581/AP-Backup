@@ -1,5 +1,5 @@
 <!--Page to allow printing of Duty for driver a backup to the mobile device -->
-<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->  
+<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->
 <!--Created 26-11-19 Dheeraj Mandavilli-->
 <apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_AdhocJobsPrintfromRouteControllerX" renderAs="pdf" applyBodyTag="false" >
     <head>
@@ -34,7 +34,7 @@
         </style>
     </head>
     <div class="header">
-        <b>Route Name : {!routeName}</b><br/> 
+        <b>Route Name : {!routeName}</b><br/>
     </div>
     <div class="footer">
         <div>
@@ -48,7 +48,7 @@
             </center>
         </div>
     </div>
-    <div class="content">  
+    <div class="content">
         <apex:pageBlock >
             <center>
                 <img src="{!$Resource.auspost_logo}" width="15%"/>
@@ -65,7 +65,7 @@
                     <b><apex:outputField value="{!jt.Location_Information__c}"/></b><br/>
                     <apex:outputField value="{!jt.Job_Information__c}" /><br/>
                     <b><apex:outputField value="{!jt.Booking_Comments__c}"/></b>
-                </apex:column> 
+                </apex:column>
                 <apex:column value="{! jt.Deliver_Product__c}" style="vertical-align:Top font-family: Calibri; font-size: 12pt" width="200px"/>
                 <apex:column headerValue="Rev Chk" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
                     <apex:outputField value="{!jt.Revenue_Check__c}" /> <br></br><br></br>
@@ -73,7 +73,7 @@
         <apex:column headerValue="Stop Credit" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
             <apex:outputField value="{!jt.Stop_Credit__c}" />
         </apex:column>
-        <apex:column headerValue="MS/E/P_F" style="vertical-align:Top" width="0px"/>    
+        <apex:column headerValue="MS/E/P_F" style="vertical-align:Top" width="0px"/>
     </apex:pageBlockTable>
 </apex:pageBlock>
 

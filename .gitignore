@@ -55,6 +55,10 @@ workspace/
 .vscode/
 .vscode/settings.json
 
+#npm
+package-lock.json
+package.json
+
 # metadata specific
 force-app/main/default/staticresources/Cognition_StaticRes/css/Icon\r
 force-app/main/default/staticresources/Cognition_StaticRes/images/Icon\r

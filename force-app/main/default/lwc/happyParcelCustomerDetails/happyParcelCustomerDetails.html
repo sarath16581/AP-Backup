@@ -12,7 +12,7 @@
 					<div class="slds-text-heading_medium slds-m-bottom_small slds-text-title_bold">
 						<template if:true={details.companyName}>
 							{details.companyName}<br/>
-						</template>
+						</template>											
 						<template if:true={loadingNotificationPreferences}>
 							<div class="slds-p-around_medium slds-is-relative slds-align_absolute-center">
 								<lightning-spinner variant="brand" size="small"
@@ -93,6 +93,9 @@
 <!--								</template>-->
 							</template>
 						</p>
+						<template if:true={details.mlid}>
+							<br/><span class="notbold">MLID {details.mlid}<br/></span>
+						</template>	
 						<p class="slds-truncate" title={details.mobile}>{details.mobile}
 							<template if:true={mobileFound}>
 <!--								<template if:false={prefs.mobile}>-->

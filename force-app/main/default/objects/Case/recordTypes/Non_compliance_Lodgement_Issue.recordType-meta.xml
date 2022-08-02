@@ -470,6 +470,13 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>MPB_BSP_Enquiry_Type__c</picklist>
+        <values>
+            <fullName>Delivery Enquiry</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Non_Compliance_Issue__c</picklist>
         <values>
             <fullName>Addressing</fullName>
@@ -759,7 +766,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer requires %22X%22 period to find another carrier%2E</fullName>
+            <fullName>Customer requires agreed period to find another carrier%2E</fullName>
             <default>false</default>
         </values>
         <values>
@@ -772,10 +779,6 @@
         </values>
         <values>
             <fullName>Customer will present product as per the freight specifications - Pallets%2E</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>System Error Message</fullName>
             <default>false</default>
         </values>
     </picklistValues>

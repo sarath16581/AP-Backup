@@ -6,6 +6,7 @@
 01.04.2019    Sameed Khan(Mav3rik)    Created
 22.08.2019    Gunith Devasurendra     Added ausPhoneNumberRegEx (REQ1886690)
 13.08.2019    Gunith Devasurendra     Added getOrEmpty(..)
+21.07.2022    Mahesh Parvathaneni     Added validateInputComponents
 **/
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -113,3 +114,24 @@ export const getOrEmpty = (object, path, defaultVal) => {
 
 export const DAMAGE_MISSING_CONTENTS_ERROR_MESSAGE = 'Scroll up and select either damaged article or missing contents.';
 export const REQUIRED_ERROR_MESSAGE = 'Complete this field';
+
+/**
+ * function to validate the input elements
+ * https://developer.salesforce.com/docs/component-library/bundle/lightning-input/documentation
+ * @param {array} inputComponentList
+ * @param {boolean} reportValidity
+ * @returns {boolean}
+ */
+ export const validateInputComponents = (inputComponentList, reportValidity) => {
+    let inputList = [];
+    if (!Array.isArray(inputComponentList)) inputList.push(inputComponentList);
+    else inputList = inputComponentList;
+    return inputList.reduce((validSoFar, inputCmp) => {
+        inputCmp.setCustomValidity('');
+        if (reportValidity) {
+            inputCmp.reportValidity();
+            inputCmp.showHelpMessageIfInvalid();
+        }
+        return validSoFar && inputCmp.checkValidity();
+    }, true);
+};

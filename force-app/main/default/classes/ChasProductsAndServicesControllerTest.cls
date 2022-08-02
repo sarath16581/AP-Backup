@@ -59,7 +59,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
 			vTestData.productAndSrvWizardData.put('selectedRadio1Name', 'ID, documents & accounts');
 			vTestData.productAndSrvWizardData.put('idDocumentsAccountsEnquiryType', 'Delete MyPost account');
-            
+
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
 
@@ -69,7 +69,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			Test.stopTest();
 
             ((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>) fflib_Match.anyObject());
-        
+
 		} catch (Exception e) {
 			System.debug('productIssue_DeleteMyPostAccount()::error==>' + e.getMessage());
 			isSuccess = false;
@@ -89,7 +89,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -150,7 +150,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			TestData vTestData = wizardDataSetUp();
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'Letter');
-            
+
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
 
@@ -177,7 +177,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			TestData vTestData = wizardDataSetUp();
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'Parcel');
-            
+
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
 
@@ -204,7 +204,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			TestData vTestData = wizardDataSetUp();
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'Parcel Collect');
-            
+
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
 
@@ -232,7 +232,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 			TestData vTestData = wizardDataSetUp();
 
 			vTestData.productAndSrvWizardData.put('mailProductsEnquiryType', 'PO Box and Private Bag');
-            
+
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
 
@@ -404,7 +404,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -432,7 +432,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -461,7 +461,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -490,7 +490,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -547,7 +547,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -576,7 +576,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -604,7 +604,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -633,7 +633,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -662,7 +662,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
 			Test.stopTest();
@@ -692,7 +692,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
             Test.startTest();
             ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(vTestData.productAndSrvWizardData, vTestData.authUserData);
             Test.stopTest();
@@ -722,7 +722,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(
 				vTestData.productAndSrvWizardData,
@@ -756,7 +756,7 @@ public with sharing class ChasProductsAndServicesControllerTest {
 
             // mocking and stubbing common data
 			ApplicationDatabase mockDatabase = mockTestData();
-            
+
 			Test.startTest();
 			ChasBase.CaseWrapper caseWrapper = ChasProductsAndServicesController.createCaseFromProductsAndServices(
 				vTestData.productAndSrvWizardData,

@@ -6327,47 +6327,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>CAR_Request</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_ASH</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Accounting Service Helpdesk</shortDescription>
-        <value>Accounting_Service_Helpdesk</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_ASIC</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of ASIC Request</shortDescription>
-        <value>ACIC_Request</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_BSI</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Business Systems Integration</shortDescription>
-        <value>Business_System_Integration</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_CAR</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Customer Analytics &amp; Reporting Request (CAR)</shortDescription>
-        <value>CAR_Request</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_CIA</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Customer Integration Application</shortDescription>
-        <value>Customer_Integration_Application</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_Dispute_Claim</fullName>
+        <fullName>REC_TYPE_DEV_Dispute_Claim</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6375,7 +6335,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Enterprise_Credit_Dispute_Claim</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_EG_Sales</fullName>
+        <fullName>REC_TYPE_DEV_EG_Sales</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6383,39 +6343,15 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Sales_Implementation_Case</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_NCL</fullName>
+        <fullName>REC_TYPE_DEV_BusSalesImpl</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Non-compliance Lodgement Issue</shortDescription>
-        <value>Non_compliance_Lodgement_Issue</value>
+        <shortDescription>Record Type Developer Name of Business Sales Implementation</shortDescription>
+        <value>Business_Sales_Implementation</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_RFS</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Retail Fulfilment &amp; Support</shortDescription>
-        <value>Retail_Fulfilment_Support</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_SalesCoordinator</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Sales Coordinator</shortDescription>
-        <value>Sales_Coordinator</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_SecurityExpress</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Security Express</shortDescription>
-        <value>Security_Express</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_CASE_Service_Delivery</fullName>
+        <fullName>REC_TYPE_DEV_Service_Delivery</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6423,7 +6359,71 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Sales_Ops_Delivery</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_Shipster</fullName>
+        <fullName>REC_TYPE_DEV_ASH</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Accounting Service Helpdesk</shortDescription>
+        <value>Accounting_Service_Helpdesk</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_ASIC</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of ASIC Request</shortDescription>
+        <value>ACIC_Request</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_BSI</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Business Systems Integration</shortDescription>
+        <value>Business_System_Integration</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_CIA</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Customer Integration Application</shortDescription>
+        <value>Customer_Integration_Application</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_NCL</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Non-compliance Lodgement Issue</shortDescription>
+        <value>Non_compliance_Lodgement_Issue</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_RFS</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Retail Fulfilment &amp; Support</shortDescription>
+        <value>Retail_Fulfilment_Support</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_SalesCoordinator</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Sales Coordinator</shortDescription>
+        <value>Sales_Coordinator</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_SecurityExpress</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Security Express</shortDescription>
+        <value>Security_Express</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_Shipster</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6431,7 +6431,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Shipster</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_CASE_SpecialServices</fullName>
+        <fullName>REC_TYPE_DEV_SpecialServices</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -6453,6 +6453,14 @@ We manage your personal information in accordance with our Privacy policy. The p
         <protected>false</protected>
         <shortDescription>Record Type keyword StarTrack</shortDescription>
         <value>StarTrack</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_StarTrack_VOCI</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of StarTrack Voice of Customer Incident</shortDescription>
+        <value>StarTrack_Voice_of_Customer_Incident</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_SOCIAL</fullName>
@@ -7553,5 +7561,133 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>ICPSAddArticlesManualFieldMandatory</shortDescription>
         <value>For articles not found in SAP EM, ensure that the Recipient, Sender, Contents, Declaration Value and Weight are specified.</value>
+    </labels>
+    <labels>
+        <fullName>Route_Printing_Static_Text_Top</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Route Printing Static Text Top</shortDescription>
+        <value>PTO’s are to familiarize themselves with duty statement at the commencement of their shift. Departures or alterations from these duties must be advised in writing and authorized by the O.I.C.</value>
+    </labels>
+    <labels>
+        <fullName>Route_Printing_Static_Text_Bottom</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Route Printing Static Text Bottom</shortDescription>
+        <value>The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the cessation of use of any Aust. Post Vehicle.</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Description_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Description Validation Message</shortDescription>
+        <value>Please provide as much information as possible, this will assist us with your enquiry</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Email_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Email Validation Message</shortDescription>
+        <value>Please enter a valid email address. For example: name@emailaddress.com.au</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Enquiry_Selection_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Enquiry Selection Validation Message</shortDescription>
+        <value>Please select what your enquiry is about</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Enquiry_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Enquiry Validation Message</shortDescription>
+        <value>Please enter your enquiry</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Feedback_Error_State_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Error State validation Message</shortDescription>
+        <value>Your feedback couldn’t be submitted due to an error. Please wait a few moments and try again.</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Feedback_Selection_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Feedback Selection Validation Message</shortDescription>
+        <value>Please select what your feedback is about</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Feedback_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Feedback Validation Message</shortDescription>
+        <value>Please enter your feedback</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Firstname_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Firstname Validation Message</shortDescription>
+        <value>Please enter your first name</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Lastname_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Lastname Validation Message</shortDescription>
+        <value>Please enter your last name</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Max_Characters_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Max Characters Validation Message</shortDescription>
+        <value>Maximum 40 characters allowed</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Phone_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Phone Validation Message</shortDescription>
+        <value>Please enter a phone number with area code (For example, 0298765432), or a mobile (For example, 0400111222)</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Reference_Validation_Message</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Reference Validation Message</shortDescription>
+        <value>Please enter a reference</value>
+    </labels>
+    <labels>
+        <fullName>Sths_Support_URL</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sths Support URL</shortDescription>
+        <value>https://startrack.com.au/support</value>
+    </labels>
+    <labels>
+        <fullName>PUDDuplicateBookingContainerErrorMessage</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PUDDuplicateBookingContainerErrorMessage</shortDescription>
+        <value>Container type: {0} with condition: {1} already exists under a booking. Please update existing container type.</value>
     </labels>
 </CustomLabels>

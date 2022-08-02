@@ -403,8 +403,10 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 			//checkNetworkAssigningResult(toBeCreateCase, vComments);
 
 			//-- Parse Case results and create Case Comment
+			//caseWrapper = parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
 			caseWrapper = lSharingBypass.parseInsertedCaseResultsAndCreateComment(results, caseWrapper, comments);
 			// checkNetworkAssigningResult(toBeCreateCase);
+
 			/*Case routing logic : Route the case to the myNetwork queue if:
             1. Parcel awaiting collection
             2. Workcenter id on the corresponding parcel awaiting collection event is not null

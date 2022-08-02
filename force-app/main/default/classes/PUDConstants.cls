@@ -7,6 +7,7 @@
 * 2021-08-10 - Ranjeewa Silva - Created.
 * 2021-10-13 - Ranjeewa Silva - Added new constant values.
 * 2022-03-16 - Ranjeewa Silva - Added new constant PUD_BOOKING_STATUS_ACTIVE.
+* 2022-07-26 - Dattaraj Deshmukh - Added Booking and Job container record types.
 */
 public inherited sharing class PUDConstants {
 
@@ -15,6 +16,9 @@ public inherited sharing class PUDConstants {
 	// PUD Booking status
 	public static final String PUD_BOOKING_STATUS_EXPIRED = 'Expired';
 	public static final String PUD_BOOKING_STATUS_ACTIVE = 'Active';
+
+	//PUD Booking type
+	public static final String PUD_BOOKING_TYPE_MEAL_BREAK = 'Meal Break';
 
 	//PUD Job status
 	// jobs are created in 'New' status. they are not yet pushed to dispatch system
@@ -36,6 +40,12 @@ public inherited sharing class PUDConstants {
 	public static final String PUD_JOB_STATUS_CANCELLED = 'Cancelled';
 
 	// driver couldn't complete the job (for example no one at the address)
-    public static final String PUD_JOB_STATUS_FAILED = 'Failed';
+	public static final String PUD_JOB_STATUS_FAILED = 'Failed';
 
+	//Booking Container Record Type
+	public static final String PUD_BOOKING_CONTAINER_RECORD_TYPE = 'Booking_Container';
+
+	//Booking Container Record Type
+	public static final String PUD_JOB_CONTAINER_RECORD_TYPE = 'Job_Container';
+	
 }
