@@ -76,6 +76,13 @@
                 <stringValue>Approved by SM</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Related_Organisation__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
         <object>At_Risk_Business__c</object>
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
