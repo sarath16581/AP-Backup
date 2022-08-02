@@ -7,17 +7,17 @@
 public inherited sharing class SthsCommunityUtility {
 
     // case assignment rule to execute on case insert
-    private static final AssignmentRule caseAssignmentRule {
+    private static final AssignmentRule CASE_ASSIGNMENT_RULE {
         get {
-            if (caseAssignmentRule == null) {
-                List<AssignmentRule> assignmentRules = AssignmentRulesSelector.newInstance(1).selectActiveRulesBySObjectType(SthsConstants.CASE_OBJ).values(); 
+            if (CASE_ASSIGNMENT_RULE == null) {
+                List<AssignmentRule> assignmentRules = AssignmentRulesSelector.newInstance(1).selectActiveRulesBySObjectType(SthsConstants.CASE_OBJ).values();
                 if (assignmentRules.size() == 1) {
-                    caseAssignmentRule = assignmentRules[0];
+                    CASE_ASSIGNMENT_RULE = assignmentRules[0];
                 } else {
-                    caseAssignmentRule = new AssignmentRule();
+                    CASE_ASSIGNMENT_RULE = new AssignmentRule();
                 }
             }
-            return caseAssignmentRule;
+            return CASE_ASSIGNMENT_RULE;
         }
         private set;
     }
@@ -34,9 +34,9 @@ public inherited sharing class SthsCommunityUtility {
 
 
         // if there is an active case assignment rule set the DML Options to ensure assignment rule is executed on case insert
-        if (caseAssignmentRule.Id != null) {
+        if (CASE_ASSIGNMENT_RULE.Id != null) {
             Database.DMLOptions dmlOptions = new Database.DMLOptions();
-            dmlOptions.assignmentRuleHeader.assignmentRuleId = caseAssignmentRule.Id;
+            dmlOptions.assignmentRuleHeader.assignmentRuleId = CASE_ASSIGNMENT_RULE.Id;
             caseObj.setOptions(dmlOptions);
         }
     }
