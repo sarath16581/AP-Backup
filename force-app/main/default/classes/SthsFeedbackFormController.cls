@@ -26,15 +26,17 @@ public without sharing class SthsFeedbackFormController {
 			//get related contact from form data
 			SthsCommunityUtility.getFormRelatedContactData(relContact, formData);
 			//insert related contact
-			ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{relContact});
-			return caseObj.Id;
+			//ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{relContact});
+			//return case number
+			String caseNumber = CasesSelector.newInstance().selectById(new Set<Id> {caseObj.Id}).get(caseObj.Id).CaseNumber;
+			return caseNumber;
 		} catch (Exception ex) {
 			throw new AuraHandledException(ex.getMessage());
 		}
 	}
 
 	private static void getFeedbackCaseDefaultValues(Case caseObj) {
-        caseObj.Subject = SthsConstants.CASE_SUBJECT_FEEDBACK_ENQUIRY;
+        caseObj.Subject = caseObj.Call_Purpose__c = caseObj.Initial_Call_Purpose__c = SthsConstants.CASE_SUBJECT_FEEDBACK_ENQUIRY;
 		caseObj.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SthsConstants.CASE_RECORDTYPE_VOC_ENQUIRY).getRecordTypeId();
     }
 }

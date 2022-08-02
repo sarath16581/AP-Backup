@@ -20,4 +20,7 @@ public with sharing class SthsConstants {
     public static final String FORM_DATA_LNAME = 'lastName';
     public static final String FORM_DATA_REFERENCE = 'reference';
     public static final String CASE_OBJ = 'Case';
+    public static final String CASE_CONTYPE_SENDER = 'Sender';
+    public static final String PREF_CONTACT_METHOD_EMAIL = 'Email';
+    public static final String CASE_DIRECTION_INBOUND = 'Inbound';
 }

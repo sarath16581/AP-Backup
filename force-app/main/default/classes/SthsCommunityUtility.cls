@@ -10,7 +10,7 @@ public inherited sharing class SthsCommunityUtility {
     private static final AssignmentRule CASE_ASSIGNMENT_RULE {
         get {
             if (CASE_ASSIGNMENT_RULE == null) {
-                List<AssignmentRule> assignmentRules = [select Id from AssignmentRule where SobjectType =:SthsConstants.CASE_OBJ and Active = true limit 1];
+                List<AssignmentRule> assignmentRules = AssignmentRulesSelector.newInstance(1).selectActiveRulesBySObjectType(SthsConstants.CASE_OBJ).values(); // [select Id from AssignmentRule where SobjectType =:SthsConstants.CASE_OBJ and Active = true limit 1];
                 if (assignmentRules.size() == 1) {
                     CASE_ASSIGNMENT_RULE = assignmentRules[0];
                 } else {
@@ -27,6 +27,11 @@ public inherited sharing class SthsCommunityUtility {
         caseObj.Status = SthsConstants.CASE_STATUS_NEW;
         caseObj.Priority = SthsConstants.CASE_PRIOIRITY_NORMAL;
         caseObj.Origin = SthsConstants.CASE_ORIGIN_WEB;
+        caseObj.Direction__c = SthsConstants.CASE_DIRECTION_INBOUND;
+        caseObj.Notification_Required__c = true;
+        caseObj.Recent_Caller_Pref_Method_of_Contact__c = caseObj.Initical_CallPreferred_method_of_contact__c = SthsConstants.PREF_CONTACT_METHOD_EMAIL;
+        caseObj.Recent_Caller_Type__c = SthsConstants.CASE_CONTYPE_SENDER;
+
 
         // if there is an active case assignment rule set the DML Options to ensure assignment rule is executed on case insert
         if (CASE_ASSIGNMENT_RULE.Id != null) {
@@ -39,6 +44,16 @@ public inherited sharing class SthsCommunityUtility {
     public static void getFormCaseData(Case caseObj, Map<Object,String> formData) {
         caseObj.Description = formData.get(SthsConstants.FORM_DATA_ENQUIRY);
         caseObj.SuppliedEmail = formData.get(SthsConstants.FORM_DATA_EMAIL);
+        caseObj.Recent_Caller_First_Name__c = formData.get(SthsConstants.FORM_DATA_FNAME);
+        caseObj.Recent_Caller_Last_Name__c = formData.get(SthsConstants.FORM_DATA_LNAME);
+        String phNumber = formData.get(SthsConstants.FORM_DATA_PHONE);
+        //check mobile or landline number
+        if (isMobileNumber(phNumber)) {
+            caseObj.Recent_Contact_Mobile_Number__c = phNumber;
+        } else {
+            caseObj.Recent_Caller_Phone_Number__c = phNumber;
+        }
+        caseObj.Recent_Caller_Email__c = caseObj.Initial_Caller_Email__c = formData.get(SthsConstants.FORM_DATA_EMAIL);
     }
 
     public static void getFormRelatedContactData(AuthorisedContacts__c relContact, Map<Object,String> formData) {

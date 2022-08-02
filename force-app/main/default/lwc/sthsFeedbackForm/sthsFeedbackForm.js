@@ -1,4 +1,4 @@
-import {LightningElement} from "lwc";
+import { LightningElement } from "lwc";
 import { validateInputComponents } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
 import invalidDescription from "@salesforce/label/c.Sths_Description_Validation_Message";
@@ -12,19 +12,22 @@ import invalidPhone from "@salesforce/label/c.Sths_Phone_Validation_Message";
 import invalidReference from "@salesforce/label/c.Sths_Reference_Validation_Message";
 import errorStateMessage from "@salesforce/label/c.Sths_Feedback_Error_State_Message";
 import stSupportURL from "@salesforce/label/c.Sths_Support_URL";
+import createFeedbackFormCase from "@salesforce/apex/SthsFeedbackFormController.createFeedbackFormCase";
 
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
-	errorIcon = STHS_ICONS + "/sths_icons/svgs/forms/error_input.svg";
-	showReference = false;
-	showError = false;
+	errorIcon = STHS_ICONS + "/sths_icons/svgs/forms/error_input.svg"; //error icon
+	showReference = false; //flag to show/hide the reference field
+	showError = false; //flag to show/hide the error message
 	referenceRequiredFeedbackTypes = [
 		"Product & Sales",
 		"Pick Up",
 		"On-Road",
 		"Delivery"
-	];
+	]; // reference field required feedback types
 	formData = {}; //form data to capture
+	isLoading = false; //flag to show/hide the spinner
+	caseNumber; //case number created for feedback form
 
 	//labels
 	label = {
@@ -64,7 +67,7 @@ export default class SthsTrackingForm extends LightningElement {
 		}
 		//save to formdata
 		this.handleInputChange(event);
-	}
+	};
 
 	//handler for input type fields
 	handleInputChange = (event) => {
@@ -72,17 +75,40 @@ export default class SthsTrackingForm extends LightningElement {
 			...this.formData,
 			[event.target.dataset.fieldName]: event.detail.value
 		};
-	}
+	};
 
 	//handle form submit click
 	handleSubmitClick = (event) => {
+		this.resetForm();
+		//validate the form
 		let isFormValid = this.validateForm();
-		this.showError = true;
 		if (isFormValid) {
 			//submit the form
-			console.log(JSON.parse(JSON.stringify(this.formData)));
+			this.isLoading = true;
+			//create case and related contact
+			createFeedbackFormCase({
+				formData: this.formData
+			})
+				.then((response) => {
+					if (response !== null) {
+						this.caseNumber = response;
+						//show thank you message
+					} else {
+						this.showError = true;
+						window.scrollTo(0, 0); //scroll to top
+					}
+					this.isLoading = false;
+				})
+				.catch((error) => {
+					this.isLoading = false;
+					this.showError = true;
+					window.scrollTo(0, 0); //scroll to top
+					console.error(
+						"createFeedbackFormCase call failed: " + error
+					);
+				});
 		}
-	}
+	};
 
 	//validate the form
 	validateForm = () => {
@@ -90,10 +116,15 @@ export default class SthsTrackingForm extends LightningElement {
 			'[data-validation="feedbackForm"]'
 		);
 		return validateInputComponents([...inputElements], true);
-	}
+	};
 
-	handleErrorClose = (event) => {
+	//reset the form
+	resetForm = () => {
 		this.showError = false;
 	};
 
+	//handler for error close event
+	handleErrorClose = (event) => {
+		this.showError = false;
+	};
 }

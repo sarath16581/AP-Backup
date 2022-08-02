@@ -21,7 +21,7 @@
 						message={label.errorStateMessage}
 						banner-type="error"
 						img-link={errorIcon}
-						dispatch-close-event=true
+						dispatch-close-event="true"
 						onclosebanner={handleErrorClose}></c-message-banner>
 				</lightning-layout-item>
 			</template>
@@ -153,14 +153,6 @@
 					</lightning-layout-item>
 					<lightning-layout-item
 						size="12"
-						class="slds-var-p-top_x-large">
-						<lightning-input
-							data-field-name="allowToContact"
-							type="checkbox"
-							label="Tick if you don’t want us to contact you about your feedback"></lightning-input>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
 						medium-device-size="4"
 						class="slds-var-p-top_x-large">
 						<lightning-button
@@ -178,5 +170,11 @@
 				</lightning-layout>
 			</lightning-layout-item>
 		</lightning-layout>
+
+		<template if:true={isLoading}>
+            <!--LOAD SPINNER-->
+            <lightning-spinner variant="brand" size="large" alternative-text="Loading"></lightning-spinner>
+        </template>
+
 	</div>
 </template>
