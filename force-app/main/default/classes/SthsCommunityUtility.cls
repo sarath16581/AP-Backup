@@ -56,22 +56,6 @@ public inherited sharing class SthsCommunityUtility {
         caseObj.Recent_Caller_Email__c = caseObj.Initial_Caller_Email__c = formData.get(SthsConstants.FORM_DATA_EMAIL);
     }
 
-    public static void getFormRelatedContactData(AuthorisedContacts__c relContact, Map<Object,String> formData) {
-        relContact.Contact_Email__c = formData.get(SthsConstants.FORM_DATA_EMAIL);
-        String phNumber = formData.get(SthsConstants.FORM_DATA_PHONE);
-        //check mobile or landline number
-        if (isMobileNumber(phNumber)) {
-            relContact.Contact_Mobile_Number__c = phNumber;
-        } else {
-            relContact.Contact_Phone_Number__c = phNumber;
-        }
-        relContact.First_Name__c = formData.get(SthsConstants.FORM_DATA_FNAME);
-        relContact.Last_Name__c = formData.get(SthsConstants.FORM_DATA_LNAME);
-        relContact.Initial_Contact__c = true;
-        relContact.Notification_Required__c = true;
-        relContact.RecordTypeId = Schema.SObjectType.AuthorisedContacts__c.getRecordTypeInfosByDeveloperName().get(SthsConstants.REL_CONTACT_RECORDTYPE_ST).getRecordTypeId();
-    }
-
     //function to check mobile number
     private static Boolean isMobileNumber(String phNumber){
         return (phNumber.startsWith('04') || phNumber.startsWith('05'));

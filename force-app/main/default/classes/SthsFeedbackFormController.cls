@@ -19,14 +19,6 @@ public without sharing class SthsFeedbackFormController {
 			SthsCommunityUtility.getFormCaseData(caseObj, formData);
 			//insert case
 			ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{caseObj});
-
-			//build related contact object
-			AuthorisedContacts__c relContact = new AuthorisedContacts__c();
-			relContact.Case__c = caseObj.Id;
-			//get related contact from form data
-			SthsCommunityUtility.getFormRelatedContactData(relContact, formData);
-			//insert related contact
-			//ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{relContact});
 			//return case number
 			String caseNumber = CasesSelector.newInstance().selectById(new Set<Id> {caseObj.Id}).get(caseObj.Id).CaseNumber;
 			return caseNumber;

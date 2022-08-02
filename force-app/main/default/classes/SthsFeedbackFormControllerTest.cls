@@ -59,8 +59,8 @@ public with sharing class SthsFeedbackFormControllerTest {
 
         System.assertNotEquals(null, result, 'Expected CaseNumber of the newly inserted case to be populated but instead got null.');
 
-        // should have inserted a new case and related contact
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlInsert((List<SObject>)fflib_Match.anyObject());
+        // should have inserted a new case
+        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
 	}
 
     /**
@@ -115,11 +115,7 @@ public with sharing class SthsFeedbackFormControllerTest {
 			List<Map<String, Object>> saveResults = new List<Map<String, Object>>();
 			List<SObject> records = (List<SObject>)invocation.getArgument(0);
 			for(SObject record : records) {
-				if (this.caseId != null && record.getSObjectType() == Case.getSObjectType()) {
-					record.Id = this.caseId;
-				} else {
-					record.Id = fflib_IDGenerator.generate(record.getSObjectType());
-				}
+				record.Id = this.caseId;
 
 				Map<String, Object> result = new Map<String, Object> {
 						'success' => true,

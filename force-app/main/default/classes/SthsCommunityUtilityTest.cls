@@ -55,36 +55,6 @@ public with sharing class SthsCommunityUtilityTest {
 	}
 
     /**
-	 * Scenario: Testing to set the default related contact object values
-	 */
-	@IsTest
-	private static void testGetFormRelatedContactData() {
-
-		// =====================================
-		// Data Preparation
-		// =====================================
-        Map<Object, String> formData = formDataSetup();
-
-		// =====================================
-		// Stubbing
-		// =====================================
-        // None
-
-		// =====================================
-		// Testing
-		// =====================================
-        Test.startTest();
-        
-        AuthorisedContacts__c conObj = new AuthorisedContacts__c();
-        SthsCommunityUtility.getFormRelatedContactData(conObj, formData);
-
-        Test.stopTest();
-
-        System.assertNotEquals(null, conObj.Contact_Email__c, 'Expected Contact Email of the case to be populated but instead got null.');
-
-	}
-
-    /**
 	 * Scenario: Testing to set the default case object values from form data
 	 */
 	@IsTest
