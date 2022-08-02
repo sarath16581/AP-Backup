@@ -8,7 +8,7 @@
 					<span class="back-text">BACK</span>
 				</a>
 			</lightning-layout-item>
-			<template if:false={showThankYou}>
+			<template if:false={isCaseCreatedSuccessfully}>
 				<lightning-layout-item size="12">
 					<!-- Form Header -->
 					<h2 class="form-heading slds-var-p-top_large">
@@ -183,11 +183,11 @@
 				</lightning-layout-item>
 			</template>
 		</lightning-layout>
-		<template if:true={showThankYou}>
+		<template if:true={isCaseCreatedSuccessfully}>
 			<lightning-layout
 					>
 				<lightning-layout-item size="12" class="slds-box box-background form-elements-padding slds-var-p-top_large">
-					<c-sths-thank-you-page>
+					<c-sths-confirmation-page>
 						<span slot="header">
 							<h2>Thanks for your feedback</h2>
 						</span>
@@ -203,7 +203,7 @@
 								we can.
 							</p>
 						</span>
-					</c-sths-thank-you-page>
+					</c-sths-confirmation-page>
 				</lightning-layout-item>
 			</lightning-layout>
 		</template>

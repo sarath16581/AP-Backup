@@ -1,4 +1,4 @@
-.thank-you-header-text {
+.confirmation-header-text {
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 1.875rem;
@@ -6,7 +6,7 @@
     color: var(--primary-text-color);
 }
 
-.thank-you-body-text {
+.confirmation-body-text {
     font-style: normal;
     font-weight: 400;
     font-size: 0.875rem;
@@ -14,7 +14,7 @@
     color: var(--primary-text-color);
 }
 
-.thank-you-icon {
+.confirmation-icon {
     height: 48px;
     width: 48px;
 }
