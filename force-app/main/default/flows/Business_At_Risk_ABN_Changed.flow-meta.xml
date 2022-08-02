@@ -36,13 +36,13 @@
         <inputAssignments>
             <field>ParentAccount__c</field>
             <value>
-                <elementReference>$Record.Legal_Entity_Name__c</elementReference>
+                <elementReference>$Record.Related_Organisation__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>RelatedAccount__c</field>
             <value>
-                <elementReference>$Record.Related_Organisation__c</elementReference>
+                <elementReference>$Record.Legal_Entity_Name__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
