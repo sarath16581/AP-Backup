@@ -1,0 +1,17 @@
+@import 'abstracts/variables';
+
+/*=============================================
+=            Begin _form-labels.scss            =
+=============================================*/
+
+/* Form labels */
+.THIS .sths-guest-user-form .slds-form-element__label {
+  color: $primary-text-color;
+  font-size: 1rem;
+  font-style: normal;
+  line-height: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/*=====  End of  _form-labels.scss  ======*/

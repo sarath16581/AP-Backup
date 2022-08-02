@@ -1,0 +1,39 @@
+@import 'abstracts/variables';
+/*=============================================
+=            Begin _form-inputs.scss            =
+=============================================*/
+
+/* Form inputs */
+.THIS .sths-guest-user-form lightning-input:not(.slds-has-error) .slds-input,
+.THIS .sths-guest-user-form lightning-combobox:not(.slds-has-error) .slds-combobox__input,
+.THIS .sths-guest-user-form lightning-textarea:not(.slds-has-error) .slds-textarea {
+    border: 2px solid #919194;
+    border-radius: 6px;
+}
+
+.THIS .sths-guest-user-form .slds-input,
+.THIS .sths-guest-user-form .slds-textarea,
+.THIS .sths-guest-user-form .form-dropdown .slds-dropdown, 
+.THIS .sths-guest-user-form .form-dropdown .slds-input_faux {
+    color: $primary-text-color;
+    font-size: 1rem;
+    font-style: normal;
+    line-height: 1.5rem;
+    font-weight: 400;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.THIS .sths-guest-user-form .slds-input {
+    min-height: 44px;
+}
+
+.THIS .sths-guest-user-form .slds-textarea {
+    min-height: 142px;
+}
+
+.THIS .sths-guest-user-form .slds-combobox .slds-icon-text-default {
+    --slds-c-icon-color-foreground: #31313D; /* icon color */
+}
+
+/*=====  End of _form-inputs.scss  ======*/

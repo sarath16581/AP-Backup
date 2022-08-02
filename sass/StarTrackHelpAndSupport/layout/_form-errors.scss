@@ -1,0 +1,56 @@
+@import 'abstracts/variables';
+
+/*=====  Start of _form-errors.scss  ======*/
+
+/* Form errors */
+.THIS .sths-guest-user-form .slds-has-error {
+  --slds-c-input-color-border: #{$error-color};
+  --slds-c-input-shadow: #{$error-color} 0 0 0 1px inset;
+  --lwc-colorBorderError: #{$error-color};
+}
+
+.THIS .sths-guest-user-form .slds-has-error .slds-form-element__help {
+  --lwc-colorTextError: #{$error-color};
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.THIS .sths-guest-user-form .slds-required {
+  display: none;
+}
+
+.THIS .sths-guest-user-form div.slds-form-element__help:before {
+  content:"";
+  background: url('/sfsites/c/resource/STHS_Icons/sths_icons/svgs/forms/error_input.svg') no-repeat;
+  margin-right: 0.5rem;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.THIS .sths-guest-user-form .slds-has-error {
+  display: flex;
+  flex-direction: column;
+}
+
+.THIS .sths-guest-user-form .slds-has-error .slds-form-element__label {
+  order: 1;
+}
+
+.THIS .sths-guest-user-form .slds-has-error .slds-form-element__control {
+  order: 3;
+}
+
+.THIS .sths-guest-user-form .slds-has-error .slds-form-element__help {
+  order: 2;
+  margin-bottom: 0.5rem;
+}
+
+.THIS .sths-guest-user-form .form-dropdown.slds-has-error .slds-input_faux:not(.slds-combobox__input-value) {
+  color: #{$error-color};
+}
+
+
+/*=====  End of _form-errors.scss  ======*/
