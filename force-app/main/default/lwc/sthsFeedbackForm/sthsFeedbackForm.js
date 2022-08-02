@@ -18,6 +18,7 @@ export default class SthsTrackingForm extends LightningElement {
 	errorIcon = STHS_ICONS + "/sths_icons/svgs/forms/error_input.svg";
 	showReference = false;
 	showError = false;
+	isCaseCreatedSuccessfully = false;
 	referenceRequiredFeedbackTypes = [
 		"Product & Sales",
 		"Pick Up",
@@ -82,6 +83,7 @@ export default class SthsTrackingForm extends LightningElement {
 			//submit the form
 			console.log(JSON.parse(JSON.stringify(this.formData)));
 		}
+		this.isCaseCreatedSuccessfully = true;// TODO: implement the thank you page with the back end integration
 	}
 
 	//validate the form
