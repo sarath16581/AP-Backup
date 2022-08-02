@@ -1,10 +1,10 @@
-@import 'abstracts/variables';
+@import '../abstracts/variables';
 
 /*=====  Start of _content-layout.scss  ======*/
 .THIS {
     background-color: $background-color;
     position: relative;
-    min-height: 100vh;
+    min-height: 100vh;    
 }
 
 

@@ -1,9 +1,5 @@
-@import 'abstracts/variables';
-
-/*=============================================
-=            Begin _form-buttons.scss            =
-=============================================*/
-/* Form buttons */
+@import '../abstracts/variables';
+/*=====  Start of _form-buttons.scss  ======*/
 .THIS .sths-guest-user-form lightning-button.submitBtn .slds-button_brand {
   width: 100%;
   background-color: $button-primary-color;

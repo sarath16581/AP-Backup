@@ -1,9 +1,5 @@
-@import 'abstracts/variables';
-/*=============================================
-=            Begin _form-inputs.scss            =
-=============================================*/
-
-/* Form inputs */
+@import '../abstracts/variables';
+/*=====  Start of _form-inputs.scss  ======*/
 .THIS .sths-guest-user-form lightning-input:not(.slds-has-error) .slds-input,
 .THIS .sths-guest-user-form lightning-combobox:not(.slds-has-error) .slds-combobox__input,
 .THIS .sths-guest-user-form lightning-textarea:not(.slds-has-error) .slds-textarea {
