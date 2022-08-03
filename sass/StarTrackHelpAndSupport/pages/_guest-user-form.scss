@@ -1,0 +1,28 @@
+/*=====  Start of _guest-user-form.scss  ======*/
+
+.THIS .sths-guest-user-form .form-top-padding {
+    padding-top: 1.5rem;
+}
+
+.THIS .sths-guest-user-form .box-background {
+    background-color: $white-background;
+}
+
+.THIS .sths-guest-user-form .line-border {
+    border: 1px solid #E2E2E2;
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+    .THIS .form-elements-padding {
+        padding: 2rem;
+    }
+
+    .THIS .sths-guest-user-form .form-top-padding {
+        padding-top: 2rem;
+    }
+
+}
+
+/*=====  End of _guest-user-form.scss  ======*/
