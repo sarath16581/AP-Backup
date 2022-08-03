@@ -19,6 +19,7 @@
     <aura:attribute name="isMultipleArticles" type="Boolean" default="false"/>
     <aura:attribute name="showSelectionError" type="Boolean" default="false"/>
     <aura:attribute name="showInvalidMessage" type="Boolean" default="false"/>
+    <aura:attribute name="showInvalidWithinEDDMessage" type="Boolean" default="false"/>
     <!-- Guest login attributes-->
     <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
     <aura:handler name="chasmyPostLogin" event="c:ChasMyPostLogin" action="{!c.displaymyPostLoginForm}"/>
@@ -69,6 +70,15 @@
                 <div class="tracking-error">
                     <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-warn-circle.svg'}">
                         <p class="message-text">We couldn't find this tracking number in our records. Please check the tracking number and then continue.</p>
+                    </c:ChasBspDeflection>
+                </div>
+            </aura:if>
+            <!-- Invalid Tracking number message -->
+            <aura:if isTrue="{!(v.showInvalidMessage)}">
+                <div class="tracking-info">
+                    <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}">
+                        <p class="message-text">This parcel is on track to be de livered {!v.wizardData.deliveredByDateFrom} - {!v.wizardData.deliveredByDateTo}. <br/>
+                            You can only enquire about a late or missing item after the expected delivery date. For essential medication enquiries, please contact us by phone.</p>
                     </c:ChasBspDeflection>
                 </div>
             </aura:if>

@@ -33,6 +33,12 @@
     background-color: #FBEDD2;
 }
 
+.THIS .tracking-info .info-box {
+    border: none;
+    border-left: 3px solid #3587DA;
+    background-color: #D7E7F7;
+}
+
 .THIS .message-text {
     display: inline-flex;
     font-weight: 400;
