@@ -157,14 +157,6 @@
 						</lightning-layout-item>
 						<lightning-layout-item
 							size="12"
-							class="slds-var-p-top_x-large">
-							<lightning-input
-								data-field-name="allowToContact"
-								type="checkbox"
-								label="Tick if you don’t want us to contact you about your feedback"></lightning-input>
-						</lightning-layout-item>
-						<lightning-layout-item
-							size="12"
 							medium-device-size="4"
 							class="slds-var-p-top_x-large">
 							<lightning-button
@@ -183,10 +175,12 @@
 				</lightning-layout-item>
 			</template>
 		</lightning-layout>
+		<!-- Confirmation message -->
 		<template if:true={isCaseCreatedSuccessfully}>
-			<lightning-layout
-					>
-				<lightning-layout-item size="12" class="slds-box box-background form-elements-padding slds-var-p-top_large">
+			<lightning-layout class="slds-var-p-top_x-large">
+				<lightning-layout-item
+					size="12"
+					class="slds-box box-background form-elements-padding">
 					<c-sths-confirmation-page>
 						<span slot="header">
 							<h2>Thanks for your feedback</h2>
@@ -194,11 +188,10 @@
 						<span slot="body">
 							<p>
 								We’ve sent you a confirmation email with all the
-								details,<br />
-								including your reference number:
-								<b>12345678</b>.
-								<br />
-								<br />
+								details, including your reference number:
+								<b> {caseNumber}.</b>
+							</p>
+							<p class="slds-var-p-top_large">
 								We’ll review your feedback and respond as soon
 								we can.
 							</p>
@@ -206,6 +199,14 @@
 					</c-sths-confirmation-page>
 				</lightning-layout-item>
 			</lightning-layout>
+		</template>
+
+		<template if:true={isLoading}>
+			<!--LOAD SPINNER-->
+			<lightning-spinner
+				variant="brand"
+				size="large"
+				alternative-text="Loading"></lightning-spinner>
 		</template>
 	</div>
 </template>

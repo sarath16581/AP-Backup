@@ -1,18 +1,16 @@
-<!-- Sths Thank You Page -->
+<!-- Sths Confirmation Page -->
 <template>
 	<div>
 		<div class="slds-align_absolute-center">
-			<img src={thankIcon} class="confirmation-icon" />
+			<img src={thankIcon} />
 		</div>
-		<div
-			class="confirmation-header-text slds-text-align_center slds-var-p-top_large">
-			<h1>
+		<div class="slds-text-align_center slds-var-p-top_large">
+			<h1 class="form-heading">
 				<slot name="header"></slot>
 			</h1>
 		</div>
-		<div
-			class="confirmation-body-text slds-text-align_center slds-var-p-top_large">
-			<p>
+		<div class="slds-text-align_center slds-var-p-top_large body-padding">
+			<p class="confirmation-body-text">
 				<slot name="body"></slot>
 			</p>
 		</div>
