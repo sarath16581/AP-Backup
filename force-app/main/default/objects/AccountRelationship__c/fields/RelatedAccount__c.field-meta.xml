@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RelatedAccount__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>The child side of the relationship</description>
     <externalId>false</externalId>
     <label>Related Account</label>
     <description>The account which is related to the Parent Account.</description>
