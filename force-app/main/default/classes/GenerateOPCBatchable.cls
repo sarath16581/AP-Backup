@@ -255,3 +255,4 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
     global void finish(Database.BatchableContext BC) {
         system.debug('*** FINISH:');    
     }  
+}
