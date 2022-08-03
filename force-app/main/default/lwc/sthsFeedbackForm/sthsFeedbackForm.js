@@ -28,6 +28,7 @@ export default class SthsTrackingForm extends LightningElement {
 	formData = {}; //form data to capture
 	isLoading = false; //flag to show/hide the spinner
 	caseNumber; //case number created for feedback form
+	isCaseCreatedSuccessfully = false; //flag to show/hide the layout when case created successfully
 
 	//labels
 	label = {
@@ -92,7 +93,8 @@ export default class SthsTrackingForm extends LightningElement {
 				.then((response) => {
 					if (response !== null) {
 						this.caseNumber = response;
-						//show thank you message
+						//show confirmation message
+						this.isCaseCreatedSuccessfully = true;
 					} else {
 						this.showError = true;
 						window.scrollTo(0, 0); //scroll to top
@@ -121,6 +123,7 @@ export default class SthsTrackingForm extends LightningElement {
 	//reset the form
 	resetForm = () => {
 		this.showError = false;
+		this.isCaseCreatedSuccessfully = false;
 	};
 
 	//handler for error close event
