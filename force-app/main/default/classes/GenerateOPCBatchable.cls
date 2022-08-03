@@ -84,7 +84,6 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
     
     global void execute(Database.BatchableContext BC, List<SObject> scope) {   
         Map<String, Opp_Product_Classification__c> idOPCMap = new Map<String, Opp_Product_Classification__c>();
-        Map<String, OPCUtility.ParentAccountRevenue> idBARMap = new Map<String, OPCUtility.ParentAccountRevenue>();
         Map<String, Revenue_Schedule__c> idRSMap = new Map<String, Revenue_Schedule__c>();
         Map<String, Id> uniqueIdopcIdMap = new Map<String, Id>();
         Map<String, String> renewalUpsellMap = new Map<String, String>();
@@ -200,17 +199,17 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
         
         // Create Budget and Revenue Map
        	///////////
-        idBARMap = OPCUtility.createBARMap(idBARMap, acctIdList, prodIdList);
+        OPCUtility.calculateParentAccountRevenueMap(acctIdList,prodIdList);
 		
 
         // Check for exceptions
         if (!insertOPCList.isEmpty()) {
             requeryOPCList = OPCUtility.requeryOPCList(insertOPCList, requeryOPCList);
             
-            OPCUtility.checkForException(requeryOPCList, idBARMap, opcIdRSMap, caseList, rtId, rsList);
+            OPCUtility.checkForException(requeryOPCList,OPCUtility.parentAccountRevenueMap,opcIdRSMap, caseList, rtId, rsList);
             
             idOPCMap.clear();
-            idBARMap.clear();
+            OPCUtility.parentAccountRevenueMap.clear();
             idRSMap.clear();
             uniqueIdopcIdMap.clear();   
             renewalUpsellMap.clear();   
@@ -229,7 +228,7 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
 
 
             idOPCMap = null;
-            idBARMap = null;
+            OPCUtility.parentAccountRevenueMap = null;
             idRSMap = null;
             uniqueIdopcIdMap = null;    
             renewalUpsellMap = null;    
@@ -251,8 +250,8 @@ global class GenerateOPCBatchable implements Database.Batchable<SObject> {
                   
     }
 
-    
     global void finish(Database.BatchableContext BC) {
         system.debug('*** FINISH:');    
-    }  
+    }   
+    
 }

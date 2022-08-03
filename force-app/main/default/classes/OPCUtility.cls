@@ -26,6 +26,7 @@ History:
 28/06/2022 KMcGuire			 Modified for including related account sales in OPC classification
 **************************************************/
 public class OPCUtility {
+    public static Map<String,ParentAccountRevenue> parentAccountRevenueMap;
 
     public static void deleteOPCList(List<String> opcIdList) {
         
@@ -38,11 +39,6 @@ public class OPCUtility {
             
             delOPCList.clear();
         }
-    }
-
-   public static  Map<String,ParentAccountRevenue> createBARMap( Map<String,ParentAccountRevenue> idBARMap, List<String> acctIdList, List<String> prodIdList) {
-            
-        return getParentAccountRevenueMap(acctIdList,prodIdList);    
     }
 
 
@@ -214,9 +210,6 @@ public class OPCUtility {
     }   
 
     public static void updateExistingOPC(Opp_Product_Classification__c opcExisting, Opp_Product_Classification__c opcNew) {
-      
-        
-
         opcExisting.Jan_Schedule_Amount__c = checkAddends(opcExisting.Jan_Schedule_Amount__c, opcNew.Jan_Schedule_Amount__c);      
         opcExisting.Feb_Schedule_Amount__c = checkAddends(opcExisting.Feb_Schedule_Amount__c, opcNew.Feb_Schedule_Amount__c);      
         opcExisting.Mar_Schedule_Amount__c = checkAddends(opcExisting.Mar_Schedule_Amount__c, opcNew.Mar_Schedule_Amount__c);      
@@ -1497,38 +1490,37 @@ public class OPCUtility {
             
     }
     
-    public static Map<String,ParentAccountRevenue> getParentAccountRevenueMap(List<String> acctIdList, List<String> prodIdList) {
-
+    public static void calculateParentAccountRevenueMap(List<String> acctIdList, List<String> prodIdList) {
+		 if (parentAccountRevenueMap != null) return;   
         Set<String> accountIdSet = new Set<String>(acctIdList);
         Map<String,String> parentChildAccountIdMap = getParentChildAccountIdMap(accountIdSet);
         accountIdSet.addAll(parentChildAccountIdMap.keySet());
-        return getParentAccountRevenueMap(parentChildAccountIdMap,getBudgetAndRevenue(accountIdSet,prodIdList));
+        calculateParentAccountRevenueMap(parentChildAccountIdMap,getBudgetAndRevenue(accountIdSet,prodIdList));
     }
     
-    public static Map<String,ParentAccountRevenue> getParentAccountRevenueMap(Set<String> accountIdSet) {
-
+    public static void calculateParentAccountRevenueMap(Set<String> accountIdSet) {
+ 		if (parentAccountRevenueMap != null) return;   
         Map<String,String> parentChildAccountIdMap = getParentChildAccountIdMap(accountIdSet);
         accountIdSet.addAll(parentChildAccountIdMap.keySet());
-        return getParentAccountRevenueMap(parentChildAccountIdMap,getBudgetAndRevenue(accountIdSet));
+        calculateParentAccountRevenueMap(parentChildAccountIdMap,getBudgetAndRevenue(accountIdSet));
     }
 
-    private static Map<String,ParentAccountRevenue> getParentAccountRevenueMap(Map<String,String> parentChildAccountIdMap,List<Budget_and_Revenue__c> budgetAndRevenue) {
-
-        Map<String,ParentAccountRevenue> revenueMap = new Map<String,ParentAccountRevenue>();
+    private static void  calculateParentAccountRevenueMap(Map<String,String> parentChildAccountIdMap,List<Budget_and_Revenue__c> budgetAndRevenue) {
+ 		if (parentAccountRevenueMap != null) return;   
+        parentAccountRevenueMap = new Map<String,ParentAccountRevenue>();
         for (Budget_and_Revenue__c bar : budgetAndRevenue) {
             boolean isChildAccount = parentChildAccountIdMap.containsKey(bar.Organisation__c);
             Id parentAccountId = isChildAccount ? parentChildAccountIdMap.get(bar.Organisation__c) : bar.Organisation__c;    
             String revenueKey = constructRevenueKey(parentAccountId, bar.Product__c,bar.Financial_Year__c);
 
-            if (revenueMap.containsKey(revenueKey)) {
+            if (parentAccountRevenueMap.containsKey(revenueKey)) {
 
-              revenueMap.get(revenueKey).add(bar,isChildAccount);  
+              parentAccountRevenueMap.get(revenueKey).add(bar,isChildAccount);  
             } else {
 
-              revenueMap.put(revenueKey,new ParentAccountRevenue(parentAccountId,bar,isChildAccount));
+              parentAccountRevenueMap.put(revenueKey,new ParentAccountRevenue(parentAccountId,bar,isChildAccount));
             } 
         }
-        return revenueMap;
     }
     
    private static List<Budget_and_Revenue__c> getBudgetAndRevenue(Set<String> accountIdSet) {
@@ -1582,10 +1574,14 @@ public class OPCUtility {
      * @parameter record : the budget and revenue record to associate with the account
      * @returns a string identifier.
      */
-                     
-    private static String constructRevenueKey(String parentAccountId, string ProductId, String financialYear ) {
+    public static String constructRevenueKey(String parentAccountId, string ProductId, String financialYear ) {
             return parentAccountId +':'+ ProductId + ':'+ financialYear;
     }
+    // override
+    public static String constructRevenueKey(Id parentAccountId, Id ProductId, Integer financialYear) {
+        return  constructRevenueKey(String.valueOf(parentAccountId), String.valueOf(ProductId), String.valueOf(financialYear));  
+    }
+
     
     /*
      * Data strucutre for containing sum total revenues for accounts and their children accounts.
@@ -1664,8 +1660,21 @@ public class OPCUtility {
             useGroupedValues = false;
             return this;
         }
-        private Decimal getRevenue(integer monthIndex) {
+        
+        public Boolean totalExceeds(Double value) {
+            return getRevenue(0) > value;
+        }
+        
+        public Decimal getRevenue(integer monthIndex) {
             return  useGroupedValues ? Revenue[monthIndex] + Revenue[monthIndex+groupValueOffset] : Revenue[monthIndex];
+        }
+        
+        public Decimal getRevenue(Integer startMonth, Integer endMonth) {
+            Decimal totalRevenue = 0;
+            for (Integer monthIndex = startMonth; monthIndex <= endMonth; monthIndex++) {
+                totalRevenue += getRevenue(monthIndex);
+            }
+            return totalRevenue;
         }
         
         
