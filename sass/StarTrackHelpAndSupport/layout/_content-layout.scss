@@ -1,0 +1,87 @@
+@import '../abstracts/variables';
+
+/*=====  Start of _content-layout.scss  ======*/
+.THIS {
+    background-color: $background-color;
+    position: relative;
+    min-height: 100vh;    
+}
+
+
+.THIS::after {
+    content: '';
+    display: block;
+    height: 371px; /* Set same as footer's height */
+} 
+
+.THIS .mainContentArea {
+    max-width: 656px;
+    padding: 44px 0px 24px 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.THIS .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 371px;
+    background-color: $white-background;
+}
+
+.THIS .form-heading {
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+    letter-spacing: 0.8px;
+    color: $primary-text-color;
+}
+
+.THIS .form-sub-heading {
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.1px;
+    color: $secondary-text-color;
+}
+
+.THIS .left-arrow {
+    height: 10px;
+    width: 10px;
+}
+
+.THIS a.back-link {
+    text-decoration: none;
+}
+
+.THIS .back-text {
+    color: #003359;
+    font-weight: 500;
+    font-size: 0.625rem;
+    line-height: 0.875rem;
+    padding-left: 0.5rem;
+    letter-spacing: 0.8px;
+}
+
+.THIS .form-elements-padding {
+    padding: 1.5rem 1rem;
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+    .THIS::after {
+        height: 126px; /* Set same as footer's height */
+    }     
+
+    .THIS .footer {
+        height: 126px;
+    }
+
+    .THIS .mainContentArea {
+        padding: 44px 0px 64px 0px;
+    }
+}
+
+
+/*=====  End of _content-layout.scss  ======*/
