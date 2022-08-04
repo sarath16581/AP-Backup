@@ -13,13 +13,13 @@
         cmp.set("v.isLoading", true);
         cmp.set('v.error500', false);
         cmp.set("v.showInvalidWithinEDDMessage", false);
-        cmp.set("v.showInvalidMessage", false);
         //-- checking if Tracking Number is entered
         var isTrackingNumEntered = helper.validateTrackingNumber(cmp.find("ChasTrackingId"), true);
         if (isTrackingNumEntered ) {
            if (cmp.get('v.wizardData.trackingId') != cmp.get('v.wizardData.pretrackingId')) {
                 //-- Trcking number is changed, so make a server call
                 
+                cmp.set("v.showInvalidMessage", false);
                 var action = cmp.get("c.searchTrackingNumber");
                 action.setParams({ "trackingNumber" : cmp.get("v.wizardData.trackingId") });
                 
@@ -100,13 +100,7 @@
                             // DDS-5488: When consignment API returns 404, route the cases to domestic queue
                             cmp.set('v.wizardData.senderOrRecipientType', "Domestic");
                             //Show Invalid Message
-                            if(!cmp.get("v.showInvalidMessage")) {
-                                cmp.set("v.showInvalidMessage", true);                                
-                            } else {
-                                //Proceed to next page
-                                helper.gotoNextPage(cmp);
-                                return;
-                            }                            
+                            cmp.set("v.showInvalidMessage", true);
                         }
                           else if(returnObj["trackingNumSerachStatusCode"] == 500) {
                             cmp.set('v.error500', true);
@@ -195,6 +189,14 @@
               }
               else if (cmp.get("v.wizardData.hasQualifiedForSafeDropFlow")){
                  helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
+              }
+              else if (cmp.get("v.showInvalidMessage")) {
+                let invalidBspCmp = cmp.find("invalidBsp");
+                if ($A.util.hasClass(invalidBspCmp, "slds-hide")) {
+                    $A.util.removeClass(invalidBspCmp, "slds-hide");
+                    $A.util.addClass(invalidBspCmp, "slds-show");
+                }
+                cmp.set("v.isLoading", false);
               }
               else {
                     helper.gotoNextPage(cmp);
