@@ -2,6 +2,7 @@
  * Created by nmain on 31/10/2017.
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
  * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
+ * 2022-08-04 Hasantha Liyanage - DDS-11626: before edd
  */
  ({   
     callTrackingNumberService : function(cmp, event, helper) {
@@ -11,6 +12,8 @@
         // make Spinner attribute true for display loading spinner 
         cmp.set("v.isLoading", true);
         cmp.set('v.error500', false);
+        cmp.set("v.showInvalidWithinEDDMessage", false);
+        cmp.set("v.showInvalidMessage", false);
         //-- checking if Tracking Number is entered
         var isTrackingNumEntered = helper.validateTrackingNumber(cmp.find("ChasTrackingId"), true);
         if (isTrackingNumEntered ) {
@@ -120,9 +123,14 @@
                             if(returnObj["isEligibleForMultipleArticleSelection"]) {
                                 cmp.set('v.isMultipleArticles', true);
                                 cmp.set("v.isLoading", false);
+                            } else if(!cmp.get("v.wizardData.isNoEddReturned") && cmp.get("v.wizardData.isEnquiryDateWithinEDD")){
+                                // when the EDD returned is greater than today, we should not allow the user to raise a case in LOMI form
+                                cmp.set("v.showInvalidWithinEDDMessage", true);
+                                cmp.set("v.isLoading", false);
+                                return;
                             }
                             //safedrop flow - checks for SAFE_DROP, RTS Scan event, DPid, inflight redirection before presenting address validations screen
-                            else if(cmp.get('v.wizardData.eddStatus') == 'SAFE_DROP' && cmp.get('v.wizardData.isReturnToSender') == false && !$A.util.isEmpty(dpidFromOneTrackService) && !isRedirectApplied )
+                        else if(cmp.get('v.wizardData.eddStatus') == 'SAFE_DROP' && cmp.get('v.wizardData.isReturnToSender') == false && !$A.util.isEmpty(dpidFromOneTrackService) && !isRedirectApplied )
                             {
                                 helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
                                 cmp.set("v.wizardData.hasQualifiedForSafeDropFlow","true");
@@ -152,7 +160,7 @@
                             {
                                 helper.gotoNextPage(cmp);
                             }
-                            
+
                             return;
                             
                         } else {
