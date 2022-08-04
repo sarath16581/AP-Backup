@@ -1495,20 +1495,31 @@ public class OPCUtility {
         //populateGrowthField
         String lastRevenueKey = constructRevenueKey(opc.Account__c , opc.Product__c,String.ValueOf(lastFY));
 		String currentRevenueKey = constructRevenueKey(opc.Account__c , opc.Product__c,String.ValueOf(currentFY));
-        parentAccountRevenueMap.put(currentRevenueKey,new ParentAccountRevenue(opc.Account__c, barList[3], false));
-        rsList[0].Contract_Start_Date__c = Date.today();
-        rsList[0].Contract_End_Date__c = Date.today()+365;    
+        Map<String,ParentAccountRevenue> parentAccountRevenueMap1 = new Map<String,ParentAccountRevenue>();
+        Map<String,ParentAccountRevenue> parentAccountRevenueMap2 = new Map<String,ParentAccountRevenue>();
+        parentAccountRevenueMap1.put(currentRevenueKey,new ParentAccountRevenue(opc.Account__c, barList[2], false));   
+ 		parentAccountRevenueMap2.put(lastRevenueKey,new ParentAccountRevenue(opc.Account__c, barList[2], false));   
+        rsList[0].Contract_Start_Date__c = Date.today()-600;
+        rsList[0].Contract_End_Date__c = Date.today()+600;    
         revenueScheduleMap.put(opc.id,rsList[0]);
-        opc = populateGrowthField(new Opp_Product_Classification__c(id=opc.id,Financial_Year__c=String.ValueOf(currentFY+1)),parentAccountRevenueMap, currentFY, lastFY, revenueScheduleMap);
-        opc = populateActualAmounts(new Opp_Product_Classification__c(id=opc.id,Financial_Year__c=String.ValueOf(currentFY+1)),parentAccountRevenueMap, currentFY, revenueScheduleMap);    
-        opc = populateGroupGrowthField(new Opp_Product_Classification__c(id=opc.id,Financial_Year__c=String.ValueOf(currentFY+1)),parentAccountRevenueMap, currentFY, lastFY, revenueScheduleMap);            
-        opc = populateGroupActualAmounts(new Opp_Product_Classification__c(id=opc.id,Financial_Year__c=String.ValueOf(currentFY+1)),parentAccountRevenueMap, currentFY, revenueScheduleMap);
+        opc = populateGrowthField(new Opp_Product_Classification__c(id=opc.id,Account__c = opc.Account__c,Product__c = opc.Product__c, Financial_Year__c=String.ValueOf(currentFY)),parentAccountRevenueMap1, currentFY, lastFY, revenueScheduleMap);
+        opc = populateActualAmounts(new Opp_Product_Classification__c(id=opc.id,Account__c = opc.Account__c,Product__c = opc.Product__c, Financial_Year__c=String.ValueOf(currentFY)),parentAccountRevenueMap2, currentFY, revenueScheduleMap);    
+        opc = populateGroupGrowthField(new Opp_Product_Classification__c(id=opc.id,Account__c = opc.Account__c,Product__c = opc.Product__c, Financial_Year__c=String.ValueOf(currentFY)),parentAccountRevenueMap1, currentFY, lastFY, revenueScheduleMap);            
+        opc = populateGroupActualAmounts(new Opp_Product_Classification__c(id=opc.id,Account__c = opc.Account__c,Product__c = opc.Product__c, Financial_Year__c=String.ValueOf(currentFY)),parentAccountRevenueMap2, currentFY, revenueScheduleMap);
             
-        parentAccountRevenueMap.put(currentRevenueKey,new ParentAccountRevenue(opc.Account__c, barList[3], false));
-        opc = populateGrowthField(new Opp_Product_Classification__c(id=opc.id,Financial_Year__c=String.ValueOf(currentFY+1)),parentAccountRevenueMap, currentFY, lastFY, revenueScheduleMap);
-        opc = populateActualAmounts(new Opp_Product_Classification__c(id=opc.id,Financial_Year__c=String.ValueOf(currentFY+1)),parentAccountRevenueMap, currentFY, revenueScheduleMap);    
-        opc = populateGroupGrowthField(new Opp_Product_Classification__c(id=opc.id,Financial_Year__c=String.ValueOf(currentFY+1)),parentAccountRevenueMap, currentFY, lastFY, revenueScheduleMap);            
-        opc = populateGroupActualAmounts(new Opp_Product_Classification__c(id=opc.id,Financial_Year__c=String.ValueOf(currentFY+1)),parentAccountRevenueMap, currentFY, revenueScheduleMap);
+        parentAccountRevenueMap1.put(lastRevenueKey,new ParentAccountRevenue(opc.Account__c, barList[2], false));   
+ 		parentAccountRevenueMap2.put(currentRevenueKey,new ParentAccountRevenue(opc.Account__c, barList[2], false));   
+        opc = populateGrowthField(new Opp_Product_Classification__c(id=opc.id,Account__c = opc.Account__c,Product__c = opc.Product__c, Financial_Year__c=String.ValueOf(currentFY)),parentAccountRevenueMap1, currentFY, lastFY, revenueScheduleMap);
+        opc = populateActualAmounts(new Opp_Product_Classification__c(id=opc.id,Account__c = opc.Account__c,Product__c = opc.Product__c, Financial_Year__c=String.ValueOf(currentFY)),parentAccountRevenueMap2, currentFY, revenueScheduleMap);    
+        opc = populateGroupGrowthField(new Opp_Product_Classification__c(id=opc.id,Account__c = opc.Account__c,Product__c = opc.Product__c, Financial_Year__c=String.ValueOf(currentFY)),parentAccountRevenueMap1, currentFY, lastFY, revenueScheduleMap);            
+        opc = populateGroupActualAmounts(new Opp_Product_Classification__c(id=opc.id,Account__c = opc.Account__c,Product__c = opc.Product__c, Financial_Year__c=String.ValueOf(currentFY)),parentAccountRevenueMap2, currentFY, revenueScheduleMap);
+        
+         parentAccountRevenueMap1.get(currentRevenueKey).group();
+         parentAccountRevenueMap1.get(currentRevenueKey).ungroup();
+         boolean exceeds =  parentAccountRevenueMap1.get(currentRevenueKey).totalExceeds(10);
+         double amount =     parentAccountRevenueMap1.get(currentRevenueKey).getRevenue(1,12);
+         parentAccountRevenueMap1.values().sort();   
+        boolean check1 = checkIfMultiYear(opc, rsList);
             
         test.stopTest();
         }
