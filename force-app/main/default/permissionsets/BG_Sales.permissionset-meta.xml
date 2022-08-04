@@ -1859,11 +1859,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Task.FSL__Count_of_Events__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Task.FSL__Count_of_Tasks__c</field>
         <readable>true</readable>
     </fieldPermissions>
