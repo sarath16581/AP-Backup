@@ -123,7 +123,7 @@
                             if(returnObj["isEligibleForMultipleArticleSelection"]) {
                                 cmp.set('v.isMultipleArticles', true);
                                 cmp.set("v.isLoading", false);
-                            } else if(!cmp.get("v.wizardData.isNoEddReturned") && cmp.get("v.wizardData.isEnquiryDateWithinEDD")){
+                            } else if(cmp.get("v.wizardData.eddStatus") === 'ON_TIME'){
                                 // when the EDD returned is greater than today, we should not allow the user to raise a case in LOMI form
                                 cmp.set("v.showInvalidWithinEDDMessage", true);
                                 cmp.set("v.isLoading", false);
