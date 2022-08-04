@@ -1,6 +1,7 @@
 <!--
   * @changeLog :
   * @Modifield by Mahesh Parvathaneni - 19/05/2022 - Added iconLink attribute to pass the image from parent
+  * @Modifield by Hasantha Liyanage - 04/08/2022 - added iconLinkStyle
 -->
 <aura:component description="Business Support Portal deflection message AND OTHER DEFLECTION MESSAGES">
     <aura:attribute name="from" type="String" default=""/> 

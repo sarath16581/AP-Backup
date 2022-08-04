@@ -2,6 +2,7 @@
  * Created by nmain on 31/10/2017.
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
  * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
+ * 2022-08-04 Hasantha Liyanage - DDS-11626: before edd
  */
  ({   
     callTrackingNumberService : function(cmp, event, helper) {

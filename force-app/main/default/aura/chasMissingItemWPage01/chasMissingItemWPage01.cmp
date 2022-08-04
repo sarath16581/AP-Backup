@@ -7,6 +7,7 @@
   * Modifield by Hara Sahoo - 09/03/2021 - Changes made as part of tracking id and dpid url paramteres and auto-progression
   * Modified by Phap Mai - 10/05/2021 - DDS-5488: When consignment API returns 404, route the cases to domestic queue
   * Modified by Mahesh Parvathaneni - 19/05/2022 - DDS-7472: When consignment API returns 404, show the warning message
+  * Modified by Hasantha Liyanage - 04/08/2022 - DDS-11626: before edd
 -->
 <aura:component extends="c:SS_uiWizardPage" implements="forceCommunity:searchInterface" controller='ChasApexController' description="Missing Items wizard page 1: Item details (API call)">
     <aura:attribute name="error500" type="Boolean" default="false"/>
@@ -73,7 +74,7 @@
                     </c:ChasBspDeflection>
                 </div>
             </aura:if>
-            <!-- Invalid Tracking number message -->
+            <!-- EDD before date message -->
             <aura:if isTrue="{!(v.showInvalidWithinEDDMessage)}">
                 <div class="tracking-info">
                     <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}" iconLinkStyle="message-icon">
