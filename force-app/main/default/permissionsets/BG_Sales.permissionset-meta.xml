@@ -1857,11 +1857,6 @@
         <field>Opp_Product_Classification__c.Variance_of_Revenue_to_Schedule__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Task.FSL__Count_of_Tasks__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>BG Sales</label>
     <objectPermissions>
