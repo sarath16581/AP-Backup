@@ -10,6 +10,7 @@
     <aura:attribute name="borderStyle" type="String" default="info-box"/>
     <aura:attribute name="noInfoIcon" type="Boolean" default="false"/>
     <aura:attribute name="iconLink" type="String" default=""/>
+    <aura:attribute name="iconLinkStyle" type="String" default=""/>
 
     <div aura:id="bspBox" class="{! 'animate-open-' + v.animate }">
         <div class="{!v.borderStyle}">
@@ -19,7 +20,7 @@
                 </aura:if>
                 <!-- Show Icon passed from parent -->
                 <aura:if isTrue="{!not(empty(v.iconLink))}">
-                    <span><img src="{!v.iconLink}" /></span>
+                    <span><img class="{!v.iconLinkStyle}" src="{!v.iconLink}" /></span>
                 </aura:if>
                 <span class="text">
                     <h3 class="outer-box-fonts">{!v.heading}</h3>

@@ -40,9 +40,19 @@
 }
 
 .THIS .message-text {
-    display: inline-flex;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
     font-style: normal;
+}
+
+.THIS .message-icon {
+    min-width: 20px;
+    width: 20px;
+}
+
+.THIS .link-plain {
+    color: inherit;
+    transition: none;
+    text-decoration: underline;
 }
