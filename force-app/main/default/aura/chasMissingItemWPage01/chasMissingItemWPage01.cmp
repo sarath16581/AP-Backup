@@ -70,8 +70,9 @@
             <!-- Invalid Tracking number message -->
             <aura:if isTrue="{!(v.showInvalidMessage)}">
                 <div class="tracking-error">
-                    <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-warn-circle.svg'}" iconLinkStyle="message-icon">
-                        <p class="message-text">We couldn't find this tracking number in our records. Please check the tracking number and then continue.</p>
+                    <c:ChasBspDeflection aura:id="invalidBsp" noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-warn-circle.svg'}" iconLinkStyle="message-icon">
+                        <p class="message-text">We couldn't find this tracking number in our records. Please check the tracking number and try again.</p>
+                        <p class="message-text slds-var-p-top_medium">You can also check with the sender that they've shared the right tracking number.</p>
                     </c:ChasBspDeflection>
                 </div>
             </aura:if>
