@@ -1139,6 +1139,22 @@
         <fields>Opportunity__c</fields>
         <relatedList>ContractAssistanceForm__c.Legal_Entity__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>CREATED_DATE</fields>
+        <fields>ParentAccount__c</fields>
+        <fields>Relationship__c</fields>
+        <fields>Connection__c</fields>
+        <fields>EndDate__c</fields>
+        <relatedList>AccountRelationship__c.RelatedAccount__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>CREATED_DATE</fields>
+        <fields>RelatedAccount__c</fields>
+        <fields>Relationship__c</fields>
+        <fields>Connection__c</fields>
+        <fields>EndDate__c</fields>
+        <relatedList>AccountRelationship__c.ParentAccount__c</relatedList>
+    </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

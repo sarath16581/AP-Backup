@@ -4,7 +4,7 @@
  * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
  * 2022-08-04 Hasantha Liyanage - DDS-11626: before edd
  */
- ({   
+ ({
     callTrackingNumberService : function(cmp, event, helper) {
         //helper.gotoNextPage(cmp,'chasMissingItemWPage02');
         // Disable button actions if still loading.
@@ -117,10 +117,11 @@
                             if(returnObj["isEligibleForMultipleArticleSelection"]) {
                                 cmp.set('v.isMultipleArticles', true);
                                 cmp.set("v.isLoading", false);
-                            } else if(!cmp.get("v.wizardData.isNoEddReturned") && cmp.get("v.wizardData.isEnquiryDateWithinEDD")){
+                            } else if(cmp.get("v.wizardData.eddStatus") === 'ON_TIME'){
                                 // when the EDD returned is greater than today, we should not allow the user to raise a case in LOMI form
                                 cmp.set("v.showInvalidWithinEDDMessage", true);
                                 cmp.set("v.isLoading", false);
+                                cmp.set('v.eddDisplayDate',helper.getEDDDateString(cmp, event, helper));
                                 return;
                             }
                             //safedrop flow - checks for SAFE_DROP, RTS Scan event, DPid, inflight redirection before presenting address validations screen
@@ -337,5 +338,29 @@
 	        helper.gotoNextPage(cmp);
 	        cmp.set("v.isLoading", false);
 	    }
-	}
+	},
+     /**
+      * get the EDD date formatted for display
+      * If the EDD has a date range show between ranges eg:  Thu 11 - Tue 16 August
+      * otherwise show the on date Tue 16 August
+      * @param cmp
+      * @param event
+      * @param helper
+      * @returns {string}
+      */
+     getEDDDateString: function (cmp, event, helper) {
+         let disDate = '';
+         if (cmp.get('v.wizardData.deliveredByDateTo') != null){
+             const eddFromDate = new Date(cmp.get('v.wizardData.deliveredByDateFrom'));
+             const eddToDate = new Date(cmp.get('v.wizardData.deliveredByDateTo'));
+             // format for weekday day - weekday day month eg: Thu 11 - Tue 16 August
+             disDate = ' ' + eddFromDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddFromDate.toLocaleString("en-US", {day: 'numeric'})
+                 + ' - ' + eddToDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddToDate.toLocaleString("en-US", {day: 'numeric'}) + ' ' +eddToDate.toLocaleString("en-US", {month:'long'});
+         } else {
+             // format for weekday day month eg:Tue 16 August
+             const eddDeliveredByDate = new Date(cmp.get('v.wizardData.deliveredByDateOrEDD'));
+             disDate = ' ' + eddDeliveredByDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddDeliveredByDate.toLocaleString("en-US", {day: 'numeric'}) + ' ' +eddDeliveredByDate.toLocaleString("en-US", {month:'long'});
+         };
+         return disDate;
+     },
 })

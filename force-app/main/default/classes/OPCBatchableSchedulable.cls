@@ -1,4 +1,5 @@
 /**************************************************
+*  @Test OPCBatchableSchedulable
 Type:       Apex Schedulable Batch Job Class for Generation of Opportunity Product Classification (OPC)
 Purpose:    Generates the Opportunity Product Classification (OPC) record from their source revenue schedule(s) and 
             finds any matching actual revenue against it from the current financial year and last financial year
@@ -7,6 +8,7 @@ History:
 --------------------------------------------------
 13.08.2012  M. Isidro (Cloud Sherpas)   Created
 04.09.2012  M. Isidro (Cloud Sherpas)   Added test coverage
+28/06/2022 KMcGuire	Modified for including related account sales in OPC classification
 **************************************************/
 @istest
 global class OPCBatchableSchedulable implements Schedulable {

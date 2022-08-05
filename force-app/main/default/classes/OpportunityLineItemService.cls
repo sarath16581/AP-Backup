@@ -1,11 +1,12 @@
 /*------------------------------------------------------------
+* @Test OpportunityLineItemServiceTest
 Author:   :      Jeoffrey Palmero
 Date Created:    07/29/2019
 Description:     Handles logic related to the Opportunity Line Item
-
 History
 <Date>           <Authors Name>     <Brief Description of Change>
 07/29/2019        JPalmero           Created
+28/06/2022		  KMcGuire			 Modified for including related account sales in OPC classification
 ------------------------------------------------------------*/
 public class OpportunityLineItemService {
     public static final String CLASSNAME = 'OpportunityLineItemService';
@@ -15,15 +16,44 @@ public class OpportunityLineItemService {
     private static final String currentProfileName = [SELECT Name FROM Profile WHERE Id = :userId].Name;
     private static final Set<String> salesAdminProfiles = Constants.salesAdminProfiles();
     private static final Set<String> salesUserProfiles = Constants.salesUserProfiles();
-
-    /*****************************
-     * Description: Populate the classification field upon update
+    // INSERT OF OPPORTUNITY LINE ITEM
+     /*****************************
+     * Description: Populate the classification field upon insertion of new opportunity line item or upon change of opportunity to closed won.
      * Author: JPalmero
      * History:
      * 7/31/2019            Created
+     * 22/07/2022	Ken McGuire	Modified
      ****************************/
     public static void populateClassification(List<OpportunityLineItem> newOptyLineItemList){
-        Integer barMonth;
+        Set<Id> productIdSet = new Set<Id>();
+       	Set<Id> optyIdSet = new Set<Id>();
+        Map<Id, Id> optyOrgMap = new Map<Id, Id>();
+        for(OpportunityLineItem optyLine : newOptyLineItemList){
+            productIdSet.add(optyLine.Product2Id);//saves the product Id to the list
+            optyIdSet.add(optyLine.OpportunityId);
+        }
+        Set<String> accountIdSet = new Set<String>();
+        if(optyIdSet != NULL) {
+            for(Opportunity optyObj : [SELECT Id, AccountId, StageName 
+                                       FROM Opportunity 
+                                       WHERE Id IN: optyIdSet
+                                       LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())]) {
+				optyOrgMap.put(optyObj.Id, optyObj.AccountId);//saves the org in a map for later use
+            	accountIdSet.add(optyObj.AccountId);//gets the opportunity's account id                    
+         	}
+        }
+        updateClassification(newOptyLineItemList,accountIdSet,optyOrgMap);
+    }
+    
+    // INSERT OF OPPORTUNITY LINE ITEM
+    /*****************************
+     * Description: Populate the classification field upon insertion of new opportunity line item or upon change of opportunity to closed won.
+     * Author: JPalmero
+     * History:
+     * 7/31/2019            Created
+     * 22/07/2022	Ken McGuire	Modified
+     ****************************/
+   public static List<OpportunityLineItem> updateClassification(List<OpportunityLineItem> lineItemsToUpdate,Set<String> accountIdSet,Map<Id, Id> optyOrgMap  ){
         Integer barCYear;
         Integer barPYear;
         Integer startMonth;
@@ -32,445 +62,67 @@ public class OpportunityLineItemService {
         Decimal totalRevenue;
         Decimal totalOutsideRevenue;
         OpportunityLineItem oldRec = new OpportunityLineItem();
-        Set<Id> productIdSet = new Set<Id>();
-        Set<Id> tradedAcctSet = new Set<Id>();
-        Set<Id> tradedProductSet = new Set<Id>();
-        Set<Id> accountIdSet = new Set<Id>();
-        Set<Id> optyIdSet = new Set<Id>();
-        Map<Id, Id> optyOrgMap = new Map<Id, Id>();
+
+		List<OpportunityLineItem> updatedLineItems = new List<OpportunityLineItem>();
+
         Map<Id, String> acctRevenueMap = new Map<Id, String>();
         Map<Id, String> optyStageMap = new Map<Id, String>();
-        Map<Id, String> orgProductMap = new Map<Id, String>();
-        Map<Id, Decimal> productTotalRevMap = new Map<Id, Decimal>();
         Map<String, Decimal> fyProductMap = new Map<String, Decimal>();
-        Map<String, Decimal> barTotalRevMap = new Map<String, Decimal>();
         NominalTradeAmount__c ntAmount = NominalTradeAmount__c.getInstance();
         
+        TradingHistoryMaps tradingHistoryMaps = new TradingHistoryMaps();
+        
+        tradingHistoryMaps.optyOrgMap = optyOrgMap;
+        
         try{
-            for(OpportunityLineItem optyLine : newOptyLineItemList){
-                productIdSet.add(optyLine.Product2Id);//saves the product Id to the list
-                optyIdSet.add(optyLine.OpportunityId);
-            }
-            
-            if(optyIdSet != NULL){
-                for(Opportunity optyObj : [SELECT Id, AccountId, StageName 
-                                           FROM Opportunity 
-                                           WHERE Id IN: optyIdSet
-                                           LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())]){
-                    optyOrgMap.put(optyObj.Id, optyObj.AccountId);//saves the org in a map for later use
-                    accountIdSet.add(optyObj.AccountId);//gets the opportunity's account id                    
-                }
-            }
-            if(accountIdSet != NULL){
-                for (Budget_and_Revenue__c bar : [SELECT Organisation__c, Product__c, Financial_Year__c, 
-                                                  Jan_Revenue_Amount__c, Feb_Revenue_Amount__c, Mar_Revenue_Amount__c,
-                                                  Apr_Revenue_Amount__c, May_Revenue_Amount__c, Jun_Revenue_Amount__c,
-                                                  Jul_Revenue_Amount__c, Aug_Revenue_Amount__c, Sep_Revenue_Amount__c,
-                                                  Oct_Revenue_Amount__c, Nov_Revenue_Amount__c, Dec_Revenue_Amount__c,
-                                                  Total_Revenue_Amount__c
-                                                  FROM Budget_and_Revenue__c
-                                                  WHERE Organisation__c IN : accountIdSet
-                                                  AND Financial_Year__c != NULL
-                                                  ORDER BY Financial_Year__c DESC
-                                                  LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())])
-                {  
-                    tradedProductSet.add(bar.Product__c);//products that have been traded with AuPost
-                    tradedAcctSet.add(bar.Organisation__c);//accounts in this set have traded any product
-                    // January
-                    if(bar.Jan_Revenue_Amount__c > 0 || bar.Jan_Revenue_Amount__c != NULL){//saves the monthly revenue of a product for the current and previous fiscal year
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '1' + String.valueOf(bar.Financial_Year__c), bar.Jan_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '1' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // February
-                    if(bar.Feb_Revenue_Amount__c > 0 || bar.Feb_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '2' + String.valueOf(bar.Financial_Year__c), bar.Feb_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '2' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // March
-                    if(bar.Mar_Revenue_Amount__c > 0 || bar.Mar_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '3' + String.valueOf(bar.Financial_Year__c), bar.Mar_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '3' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // April
-                    if(bar.Apr_Revenue_Amount__c > 0 || bar.Apr_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '4' + String.valueOf(bar.Financial_Year__c), bar.Apr_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '4' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // May
-                    if(bar.May_Revenue_Amount__c > 0 || bar.May_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '5' + String.valueOf(bar.Financial_Year__c), bar.May_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '5' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // June
-                    if(bar.Jun_Revenue_Amount__c > 0 || bar.Jun_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '6' + String.valueOf(bar.Financial_Year__c), bar.Jun_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '6' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // July
-                    if(bar.Jul_Revenue_Amount__c > 0 || bar.Jul_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '7' + String.valueOf(bar.Financial_Year__c), bar.Jul_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '7' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // August
-                    if(bar.Aug_Revenue_Amount__c > 0 || bar.Aug_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '8' + String.valueOf(bar.Financial_Year__c), bar.Aug_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '8' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // September
-                    if(bar.Sep_Revenue_Amount__c > 0 || bar.Sep_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '9' + String.valueOf(bar.Financial_Year__c), bar.Sep_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '9' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // October
-                    if(bar.Oct_Revenue_Amount__c > 0 || bar.Oct_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '10' + String.valueOf(bar.Financial_Year__c), bar.Oct_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '10' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // November
-                    if(bar.Nov_Revenue_Amount__c > 0 || bar.Nov_Revenue_Amount__c != NULL){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '11' + String.valueOf(bar.Financial_Year__c), bar.Nov_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '11' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // December
-                    if(bar.Dec_Revenue_Amount__c > 0 || bar.Dec_Revenue_Amount__c != NULL){ 
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '12' + String.valueOf(bar.Financial_Year__c), bar.Dec_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '12' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    
-                    if(bar.Total_Revenue_Amount__c > ntAmount.Amount__c){//if Total Revenue exceeds the NTA, save the id
-                        barTotalRevMap.put(bar.Organisation__c, bar.Total_Revenue_Amount__c);
-                        productTotalRevMap.put(bar.Product__c, bar.Total_Revenue_Amount__c);
-                        orgProductMap.put(bar.Organisation__c, bar.Product__c);
-                    }
-
-                }//end BaR for
-            }
-            for(OpportunityLineItem optyLine : newOptyLineItemList){
-                startMonth = optyLine.Contract_Start_Date__c.MONTH();//get the start month for 12 months computation
-                barCYear = optyLine.Contract_Start_Date__c.YEAR();//to check from which financial year it will be taken from
+            OPCUtility.calculateParentAccountRevenueMaP(accountIdSet);
+            List<OPCUtility.ParentAccountRevenue> revenue = OPCUtility.parentAccountRevenueMap.values();
+            revenue.sort();
+            populateGroupedTradingHistoryMaps(tradingHistoryMaps,revenue,(Double) ntAmount.Amount__c);
+       
+        	for(OpportunityLineItem optyLine : lineItemsToUpdate){
+			
+                string newClassification = getClassification(New TradingHistoryInfo(optyLine,tradingHistoryMaps,(Double)ntAmount.Amount__c)); 
                 
-                //if there hasn't been any trade or the total revenue is <NTA
-                if(!tradedAcctSet.contains(optyOrgMap.get(optyLine.OpportunityId)) || !barTotalRevMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){                
-                    optyLine.Classification__c = Constants.CLSS_NEWBUSINESS;
+                if (optyLine.Classification__c != newClassification) {
+                    optyLine.Classification__c = newClassification;
+                    if(salesUserProfiles.contains(currentProfileName) && !Constants.growthCLSS().contains(optyLine.Classification__c) && Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
+                        optyLine.Change_Classification__c.addError(Label.Not_Renewal);
+                    }
+                    updatedLineItems.add(optyLine);
                 }
-                
-                //if the product has been traded before but is less than the NTA && has no other product that exceeded the NTA
-                else if(tradedProductSet.contains(optyLine.Product2Id) && !productTotalRevMap.containsKey(optyLine.Product2Id) && !orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){
-                    optyLine.Classification__c = Constants.CLSS_NEWBUSINESS;
-                }
-                
-                //if the product has been traded before but is less than the NTA && has no other product that exceeded the NTA
-                else if(tradedProductSet.contains(optyLine.Product2Id) && !productTotalRevMap.containsKey(optyLine.Product2Id) && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){
-                    optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                }
-                
-                //if the product has never been traded and the org has traded other product with Total Revenue > NTA
-                else if(!tradedProductSet.contains(optyLine.Product2Id) && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){
-                    optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                }
-                 
-                else if(startMonth > 6){
-                    //outside the 12 months of trade
-                    for(Integer countRev = startMonth; countRev > 6 ; countRev--){
-                        if(countRev == startMonth){//Start is AUG2019
-                            //AUG2019 to JUL2019
-                            if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                totalOutsideRevenue = fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                            }
-                            else{//if there are no values to be retrieved, sets it to 0
-                                totalOutsideRevenue = 0;
-                            }
-                        }
-                        else{
-                        //System.assertEquals(totalOutsideRevenue, fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear)));
-                            if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                            }
-                            else{//if there are no values to be retrieved, adds 0
-                                totalOutsideRevenue += 0;
-                            }
-                        }
-                    }
-                    
-                    //Example: Gets revenue for June back to January FY2018
-                    for(Integer countRev = 6; countRev > 0; countRev--){//computes from January to June of the PFY
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                            totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                        }
-                        else{//if there are no values to be retrieved, adds 0
-                            totalOutsideRevenue += 0;
-                        }
-                    }
-                    
-                    //Example: Gets revenue for AUG to December FY2018
-                    for(Integer countRev = startMonth; countRev < 13; countRev++){//computes from January to June of the CFY
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                            totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                        }
-                        else{//if there are no values to be retrieved, adds 0
-                            totalOutsideRevenue += 0;
-                        }
-                    }
-                    
-                    //within the 12 months of trade
-                    for(Integer countRev = startMonth; countRev > 6 ; countRev--){
-                        if(countRev == startMonth){//Start month to July for the Next FY
-                            //Example: Start Date: 08/2019
-                            //Gets the revenue for August back to July FY2020
-                            if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear+1))){
-                                totalRevenue = fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear+1));
-                            }
-                            else{//if there are no values to be retrieved, sets it to 0
-                                totalRevenue = 0;
-                            }
-                        }
-                        else{
-                            if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear+1))){
-                                totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear+1));
-                            }
-                            else{//if there are no values to be retrieved, adds 0
-                                totalRevenue += 0;
-                            }
-                        }
-                    }
-                    
-                    //Example: Gets revenue for June back to January FY2019
-                    for(Integer countRev = 6; countRev > 0; countRev--){//computes from January to June of the CFY
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                            totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                        }
-                        else{//if there are no values to be retrieved, adds 0
-                            totalRevenue += 0;
-                        }
-                    }
-                    
-                    //Example: Gets revenue for July to December FY2019
-                    for(Integer countRev = startMonth; countRev < 13; countRev++){//computes from January to June of the CFY
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                            totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                        }
-                        else{//if there are no values to be retrieved, adds 0
-                            totalRevenue += 0;
-                        }
-                    }
-                    /*Example: Gets revenue for July to December FY2019
-                    for(Integer countRev = startMonth; countRev < 13; countRev++){//computes from January to June of the CFY
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                            totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                        }
-                        else{//if there are no values to be retrieved, adds 0
-                            totalRevenue += 0;
-                        }
-                    }*/
-                    if(totalRevenue == 0 && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){//if the 12 months has no revenue and the org has other valid T&Rs
-                        if(!productTotalRevMap.containsKey(optyLine.Product2Id)){//if the product has no valid T&R
-                            optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                        }
-                        else{//if the product has valid T&R from other FYs
-                            optyLine.Classification__c = Constants.CLSS_WINBACK;
-                        }
-                    }
-                    else if(ntAmount.Amount__c > totalRevenue){//if the total revenue is lesser than the NTA...
-                        if(totalOutsideRevenue > ntAmount.Amount__c){//...but the total revenue outside the 12 months exceeds the NTA
-                            optyLine.Classification__c = Constants.CLSS_WINBACK;
-                        }
-                        else if(totalOutsideRevenue < ntAmount.Amount__c && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){
-                            //...but the total revenue outside is less than the NTA and the org has other valid T&Rs
-                            optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                        }
-                    }
-                    else if(ntAmount.Amount__c < totalRevenue){//if the total revenue exceeds the NTA, it can either be Renewal or Growth depending on the Growth? field
-                        if(Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                            optyLine.Classification__c = Constants.CLSS_RENEWAL;
-                        }
-                        else if(Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                            optyLine.Classification__c = Constants.CLSS_GROWTH;
-                        }
-                    }
-                }
-                
-                else if(startMonth < 7){
-                    for(Integer countRev = startMonth; countRev > 0 ; countRev--){//within 12 months of trade
-                        if(countRev == startMonth){
-                            if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                                totalOutsideRevenue = fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                            }
-                            else{//if there are no values to be retrieved, set it to 0
-                                totalOutsideRevenue = 0;
-                            }
-                        }
-                        else{
-                            if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                                totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                            }
-                            else{//if there are no values to be retrieved, add 0
-                                totalOutsideRevenue += 0;
-                            }
-                        }
-                    }
-                    
-                    //Example: Gets the revenue from July to December FY2019
-                    for(Integer countRev = 7; countRev < 13; countRev++){
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                            totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                        }
-                        else{//if there are no values to be retrieved, add 0
-                            totalOutsideRevenue += 0;
-                        }
-                    }
-                    
-                    //Example: Gets the revenue from April to June FY2018
-                    for(Integer countRev = startMonth; countRev < 7; countRev++){
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-2))){
-                            totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-2));
-                        }
-                        else{//if there are no values to be retrieved, add 0
-                            totalOutsideRevenue += 0;
-                        }
-                    }
-                    
-                    //Example Start Date: 04/2019
-                    //Gets the revenue for Apr back to January FY2019
-                    for(Integer countRev = startMonth; countRev > 0 ; countRev--){//within 12 months of trade
-                        if(countRev == startMonth){
-                            if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                totalRevenue = fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                            }
-                            else{//if there are no values to be retrieved, set it to 0
-                                totalRevenue = 0;
-                            }
-                        }
-                        else{
-                            if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                            }
-                            else{//if there are no values to be retrieved, add 0
-                                totalRevenue += 0;
-                            }
-                        }
-                    }
-                    
-                    //Example: Gets the revenue from July to December FY2019
-                    for(Integer countRev = 7; countRev < 13; countRev++){
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                            totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                        }
-                        else{//if there are no values to be retrieved, add 0
-                            totalRevenue += 0;
-                        }
-                    }
-                    
-                    //Example: Gets the revenue from April to June FY2018
-                    for(Integer countRev = startMonth; countRev < 7; countRev++){
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                            totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                        }
-                        else{//if there are no values to be retrieved, add 0
-                            totalRevenue += 0;
-                        }
-                    }
-                    //Example: Gets revenue for July to December FY2019
-                    for(Integer countRev = startMonth; countRev < 13; countRev++){//computes from January to June of the CFY
-                        if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                            totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                        }
-                        else{//if there are no values to be retrieved, adds 0
-                            totalRevenue += 0;
-                        }
-                    }
-                    if(totalRevenue == 0 && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){//if the 12 months has no revenue and the org has other valid T&Rs
-                        if(!productTotalRevMap.containsKey(optyLine.Product2Id)){//if the product has no valid T&R
-                            optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                        }
-                        else{//if the product has valid T&R from other FYs
-                            optyLine.Classification__c = Constants.CLSS_WINBACK;
-                        }
-                    }
-                    else if(ntAmount.Amount__c > totalRevenue){//if the total revenue is lesser than the NTA...
-                        if(totalOutsideRevenue > ntAmount.Amount__c){//...but the total revenue outside the 12 months exceeds the NTA
-                            optyLine.Classification__c = Constants.CLSS_WINBACK;
-                        }
-                        else if(totalOutsideRevenue < ntAmount.Amount__c && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){
-                            //...but the total revenue outside is less than the NTA and the org has other valid T&Rs
-                            optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                        }
-                    }
-                    else if(ntAmount.Amount__c < totalRevenue){//if the total revenue exceeds the NTA, it can either be Renewal or Growth depending on the Growth? field
-                        if(Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                            optyLine.Classification__c = Constants.CLSS_RENEWAL;
-                        }
-                        else if(Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                            optyLine.Classification__c = Constants.CLSS_GROWTH;
-                        }
-                    }
-                    
-                }
-                if(salesUserProfiles.contains(currentProfileName) && !Constants.growthCLSS().contains(optyLine.Classification__c) && Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                    optyLine.Change_Classification__c.addError(Label.Not_Renewal);
-                }
-            }
+        	}
             
         }catch(exception excp){
+            system.debug('********* '+excp.getMessage());
+            system.debug('********* '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'populateClassification', triggerName, LoggingLevel.ERROR);
         }
+        return updatedLineItems;
     }
     
-    /*****************************
-     * Description: Update the classification field based if Opty is changed to Closed Won or upon change of Opty Line Item's Revenue Dates
+    // CHANGE TO OPPORTUNITY LINE ITEM
+    /**********************************
+     * Description: Update the classification field upon change of Opty Line Item's Revenue Dates
      * Author: JPalmero
      * History:
      * 8/19/2019            Created
      ****************************/
     public static void updateClassification(List<OpportunityLineItem> newOptyLineItemList, Map<Id, OpportunityLineItem> oldRecMap){
-        Integer barMonth;
-        Integer barCYear;
-        Integer barPYear;
-        Integer startMonth;
+        Integer contractStartYear;
+        Integer contractStartMonth;
         Decimal orgRev;
         Decimal prodRev;
         Decimal totalRevenue;
         Decimal totalOutsideRevenue;
         OpportunityLineItem oldRec = new OpportunityLineItem();
-        Set<Id> productIdSet = new Set<Id>();
-        Set<Id> tradedAcctSet = new Set<Id>();
-        Set<Id> tradedProductSet = new Set<Id>();
-        Set<Id> accountIdSet = new Set<Id>();
-        Set<Id> optyIdSet = new Set<Id>();
         List<OpportunityLineItem> newOptyProdList = new List<OpportunityLineItem>();
         List<OpportunityLineItem> optyLIToUpdate = new List<OpportunityLineItem>();
-        Map<Id, Id> optyOrgMap = new Map<Id, Id>();
-        Map<Id, String> acctRevenueMap = new Map<Id, String>();
-        Map<Id, String> optyStageMap = new Map<Id, String>();
-        Map<Id, String> orgProductMap = new Map<Id, String>();
-        Map<Id, Decimal> productTotalRevMap = new Map<Id, Decimal>();
-        Map<String, Decimal> fyProductMap = new Map<String, Decimal>();
-        Map<String, Decimal> barTotalRevMap = new Map<String, Decimal>();
         NominalTradeAmount__c ntAmount = NominalTradeAmount__c.getInstance();
-        
+		TradingHistoryMaps tradingHistoryMaps = new TradingHistoryMaps();
+        Set<Id> optyIdSet = new Set<Id>();
+        Set<String> accountIdSet = new Set<String>();
+        Map<Id, String> optyStageMap = new Map<Id, String>();
         try{
             for(OpportunityLineItem optyLine : newOptyLineItemList){
                 oldRec = oldRecMap != NULL && oldRecMap.containsKey(optyLine.Id) ? oldRecMap.get(optyLine.Id) : NULL;
@@ -479,7 +131,6 @@ public class OpportunityLineItemService {
                    ((salesAdminProfiles.contains(currentProfileName)) && (optyLine.Classification__c != oldRec.Classification__c) &&
                     !(Constants.CLSS_GROWTH.equalsIgnoreCase(oldRec.Classification__c) || Constants.CLSS_RENEWAL.equalsIgnoreCase(oldRec.Classification__c))))
                 {//if revenue dates change and Classification shouldn't be Growth
-                       productIdSet.add(optyLine.Product2Id);//saves the product Id to the list
                        optyIdSet.add(optyLine.OpportunityId);//saves the opportunity IDs of Line Items whose Dates changed (10/4/19: ...and Classification too)
                        newOptyProdList.add(optyLine);//saves the Line Items that fits the criteria to specify the values to be looped later
                 }
@@ -502,358 +153,160 @@ public class OpportunityLineItemService {
                                            FROM Opportunity 
                                            WHERE Id IN: optyIdSet
                                            LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())]){
-                    optyOrgMap.put(optyObj.Id, optyObj.AccountId);//saves the Opty's Organisation
+                    tradingHistoryMaps.optyOrgMap.put(optyObj.Id, optyObj.AccountId);//saves the Opty's Organisation
                     optyStageMap.put(optyObj.Id, optyObj.StageName);//saves the Opty's Stage
                     accountIdSet.add(optyObj.AccountId);//gets the opportunity's account id
                 }
             }
             if(accountIdSet != NULL){//get all T&R records from the organisation
-                for (Budget_and_Revenue__c bar : [SELECT Organisation__c, Product__c, Financial_Year__c, 
-                                                  Jan_Revenue_Amount__c, Feb_Revenue_Amount__c, Mar_Revenue_Amount__c,
-                                                  Apr_Revenue_Amount__c, May_Revenue_Amount__c, Jun_Revenue_Amount__c,
-                                                  Jul_Revenue_Amount__c, Aug_Revenue_Amount__c, Sep_Revenue_Amount__c,
-                                                  Oct_Revenue_Amount__c, Nov_Revenue_Amount__c, Dec_Revenue_Amount__c,
-                                                  Total_Revenue_Amount__c
-                                                  FROM Budget_and_Revenue__c
-                                                  WHERE Organisation__c IN : accountIdSet
-                                                  AND Financial_Year__c != NULL
-                                                  LIMIT:(LIMITS.getLimitQueryRows()-LIMITS.getQueryRows())])
-                {  
-                    tradedProductSet.add(bar.Product__c);//products that have been traded with AuPost
-                    tradedAcctSet.add(bar.Organisation__c);//accounts in this set have traded any product
-                    // January
-                    if(bar.Jan_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '1' + String.valueOf(bar.Financial_Year__c), bar.Jan_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '1' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // February
-                    if(bar.Feb_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '2' + String.valueOf(bar.Financial_Year__c), bar.Feb_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '2' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // March
-                    if(bar.Mar_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '3' + String.valueOf(bar.Financial_Year__c), bar.Mar_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '3' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // April
-                    if(bar.Apr_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '4' + String.valueOf(bar.Financial_Year__c), bar.Apr_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '4' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // May
-                    if(bar.May_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '5' + String.valueOf(bar.Financial_Year__c), bar.May_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '5' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // June
-                    if(bar.Jun_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '6' + String.valueOf(bar.Financial_Year__c), bar.Jun_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '6' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // July
-                    if(bar.Jul_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '7' + String.valueOf(bar.Financial_Year__c), bar.Jul_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '7' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // August
-                    if(bar.Aug_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '8' + String.valueOf(bar.Financial_Year__c), bar.Aug_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '8' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // September
-                    if(bar.Sep_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '9' + String.valueOf(bar.Financial_Year__c), bar.Sep_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '9' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // October
-                    if(bar.Oct_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '10' + String.valueOf(bar.Financial_Year__c), bar.Oct_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '10' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // November
-                    if(bar.Nov_Revenue_Amount__c > 0){
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '11' + String.valueOf(bar.Financial_Year__c), bar.Nov_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '11' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    // December
-                    if(bar.Dec_Revenue_Amount__c > 0){ 
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '12' + String.valueOf(bar.Financial_Year__c), bar.Dec_Revenue_Amount__c);
-                    }
-                    else{
-                        fyProductMap.put(String.valueOf(bar.Product__c) + '12' + String.valueOf(bar.Financial_Year__c), 0);
-                    }
-                    
-                    if(bar.Total_Revenue_Amount__c > ntAmount.Amount__c){//if total revenue exceeds the NTA, save the id
-                        barTotalRevMap.put(bar.Organisation__c, bar.Total_Revenue_Amount__c);
-                        productTotalRevMap.put(bar.Product__c, bar.Total_Revenue_Amount__c);
-                        orgProductMap.put(bar.Organisation__c, bar.Product__c);
-                    }
-                }//end BaR for
+            	OPCUtility.calculateParentAccountRevenueMaP(accountIdSet);
+                 populateGroupedTradingHistoryMaps(tradingHistoryMaps,OPCUtility.parentAccountRevenueMap.values(),(Double) ntAmount.Amount__c);
             }
             for(OpportunityLineItem optyLine : newOptyProdList){
                 if(Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){//if the Classification is not Growth, Growth? should be NO
-                    oldRec = oldRecMap != NULL && oldRecMap.containsKey(optyLine.Id) ? oldRecMap.get(optyLine.Id) : NULL;
-                    startMonth = optyLine.Contract_Start_Date__c.MONTH();//get the start month for 12 months computation
-                    barCYear = optyLine.Contract_Start_Date__c.YEAR();//to check which Financial Year it will be taken from
-                    if(!Constants.CLOSED_WON.equalsIgnoreCase(optyStageMap.get(optyLine.OpportunityId))){//skips the whole process if the Opty is Closed Won
-                        //if there hasn't been any trade or the total revenue is <NTA
-                        if(!tradedAcctSet.contains(optyOrgMap.get(optyLine.OpportunityId)) || !barTotalRevMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){                
-                            optyLine.Classification__c = Constants.CLSS_NEWBUSINESS;
-                        }
-                        
-                        //if the product has been traded before but is less than the NTA && has no other product that exceeded the NTA
-                        else if(tradedProductSet.contains(optyLine.Product2Id) && !productTotalRevMap.containsKey(optyLine.Product2Id) && !orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){
-                            optyLine.Classification__c = Constants.CLSS_NEWBUSINESS;
-                        }
-                        
-                        //if the product has been traded before but is less than the NTA && has no other product that exceeded the NTA
-                        else if(tradedProductSet.contains(optyLine.Product2Id) && !productTotalRevMap.containsKey(optyLine.Product2Id) && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){
-                            optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                        }
-                        
-                        //if the product has never been traded and the org has traded other product with Total Revenue > NTA
-                        else if(!tradedProductSet.contains(optyLine.Product2Id) && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){
-                            optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                        }
-                        
-                        else if(startMonth > 6){
-                            //after the 12 months of trade
-                            for(Integer countRev = startMonth; countRev > 6 ; countRev--){
-                                if(countRev == startMonth){//Start is AUG2019
-                                    //AUG2019 to JUL2019
-                                    if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                        totalOutsideRevenue = fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                                    }
-                                    else{//if there are no values to be retrieved, sets it to 0
-                                        totalOutsideRevenue = 0;
-                                    }
-                                }
-                                else{
-                                    if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                        totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                                    }
-                                    else{//if there are no values to be retrieved, adds 0
-                                        totalOutsideRevenue += 0;
-                                    }
-                                }
-                            }
-                            
-                            //Example: Gets revenue for June back to January FY2018
-                            for(Integer countRev = 6; countRev > 0; countRev--){//computes from January to June of the PFY
-                                if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                                    totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                                }
-                                else{//if there are no values to be retrieved, adds 0
-                                    totalOutsideRevenue += 0;
-                                }
-                            }
-                            
-                            //Example: Gets revenue for AUG to December FY2018
-                            for(Integer countRev = startMonth; countRev < 13; countRev++){//computes from January to June of the CFY
-                                if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                                    totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                                }
-                                else{//if there are no values to be retrieved, adds 0
-                                    totalOutsideRevenue += 0;
-                                }
-                            }
-                            //Example Start Date: October 2019
-                            //Gets the revenue for October back to July FY2020
-                            for(Integer countRev = startMonth; countRev > 6 ; countRev--){
-                                if(countRev == startMonth){
-                                    if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear+1))){
-                                        totalRevenue = fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear+1));
-                                    }
-                                    else{//if there are no values to be retreived, set it to 0
-                                        totalRevenue = 0;
-                                    }
-                                }
-                                else{
-                                    if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear+1))){
-                                        totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear+1));
-                                    }
-                                    else{//if there are no values to be retreived, add 0
-                                        totalRevenue += 0;
-                                    }
-                                }
-                            }
-                            
-                            //Example: Gets the revenue for June back to January FY2019
-                            for(Integer countRev = 6; countRev > 0; countRev--){//computes from January to June of the CFY
-                                if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                    totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                                }
-                                else{//if there are no values to be retreived, add 0
-                                    totalRevenue += 0;
-                                }
-                            }
-                            
-                            //example: Gets revenue from October to December FY2019
-                            for(Integer countRev = startMonth; countRev < 13; countRev++){//computes from January to June of the CFY
-                                if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                    totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                                }
-                                else{
-                                    totalRevenue += 0;
-                                }
-                            }
-                            
-                            if(totalRevenue == 0 && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId)) && !productTotalRevMap.containsKey(optyLine.Product2Id)){
-                                optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                            }
-                            else if(totalRevenue == 0 && productTotalRevMap.containsKey(optyLine.Product2Id)){
-                                optyLine.Classification__c = Constants.CLSS_WINBACK;
-                            }
-                            //if the Total Revenue is less than the NTA and the Total Revenue outside the 12 months is greater than the NTA
-                            else if(ntAmount.Amount__c > totalRevenue && totalOutsideRevenue > ntAmount.Amount__c){
-                                optyLine.Classification__c = Constants.CLSS_WINBACK;
-                            }
-                            else if(ntAmount.Amount__c > totalRevenue && ntAmount.Amount__c > totalOutsideRevenue && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){//total 12 months revenue && outside revenue is less than NTA
-                                optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                            }
-                            else if(ntAmount.Amount__c < totalRevenue){//if the total revenue exceeds the NTA, it can either be Renewal or Growth depending on the Growth? field
-                                if(Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                                    optyLine.Classification__c = Constants.CLSS_RENEWAL;
-                                }
-                                else if(Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                                    optyLine.Classification__c = Constants.CLSS_GROWTH;
-                                }
-                            }
-                        }
-                        
-                        else if(startMonth < 7){
-                            for(Integer countRev = startMonth; countRev > 0 ; countRev--){//within 12 months of trade
-                                if(countRev == startMonth){
-                                    if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                                        totalOutsideRevenue = fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                                    }
-                                    else{//if there are no values to be retrieved, set it to 0
-                                        totalOutsideRevenue = 0;
-                                    }
-                                }
-                                else{
-                                    if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                                        totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                                    }
-                                    else{//if there are no values to be retrieved, add 0
-                                        totalOutsideRevenue += 0;
-                                    }
-                                }
-                            }
-                            
-                            //Example: Gets the revenue from July to December FY2019
-                            for(Integer countRev = 7; countRev < 13; countRev++){
-                                if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                                    totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                                }
-                                else{//if there are no values to be retrieved, add 0
-                                    totalOutsideRevenue += 0;
-                                }
-                            }
-                            
-                            //Example: Gets the revenue from April to June FY2018
-                            for(Integer countRev = startMonth; countRev < 7; countRev++){
-                                if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-2))){
-                                    totalOutsideRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-2));
-                                }
-                                else{//if there are no values to be retrieved, add 0
-                                    totalOutsideRevenue += 0;
-                                }
-                            }
-        
-                            //Example Start Date: Feb 2019
-                            //Gets the revenue from Feb back to January FY2019
-                            for(Integer countRev = startMonth; countRev > 0 ; countRev--){
-                                if(countRev == startMonth){
-                                    if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                        totalRevenue = fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                                    }
-                                    else{//if there are no values to be retrieved, set it to 0
-                                        totalRevenue = 0;
-                                    }
-                                }
-                                else{
-                                    if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                        totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                                    }
-                                    else{//if there are no values to be retrieved, add 0
-                                        totalRevenue += 0;
-                                    }
-                                }
-                            }
-                            
-                            //Example: Gets the revenue from July to December FY2019
-                            for(Integer countRev = 7; countRev < 13; countRev++){//computes from January to June of the CFY
-                                if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear))){
-                                    totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear));
-                                }
-                                else{//if there are no values to be retrieved, add 0
-                                    totalRevenue += 0;
-                                }
-                            }
-                            
-                            //Example: Gets the revenue from Feb to June FY2018
-                            for(Integer countRev = startMonth; countRev < 7; countRev++){//computes from January to June of the CFY
-                                if(fyProductMap.containsKey(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1))){
-                                    totalRevenue += fyProductMap.get(String.valueOf(optyLine.Product2Id) + String.valueOf(countRev) + String.valueOf(barCYear-1));
-                                }
-                                else{//if there are no values to be retrieved, add 0
-                                    totalRevenue += 0;
-                                }
-                            }
-                            
-                            if(totalRevenue == 0 && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId)) && !productTotalRevMap.containsKey(optyLine.Product2Id)){
-                                optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                            }
-                            else if(totalRevenue == 0 && productTotalRevMap.containsKey(optyLine.Product2Id)){
-                                optyLine.Classification__c = Constants.CLSS_WINBACK;
-                            }
-                            //if the Total Revenue is less than the NTA and the Total Revenue outside the 12 months is greater than the NTA
-                            else if(ntAmount.Amount__c > totalRevenue && totalOutsideRevenue > ntAmount.Amount__c){
-                                optyLine.Classification__c = Constants.CLSS_WINBACK;
-                            }
-                            else if(ntAmount.Amount__c > totalRevenue && ntAmount.Amount__c > totalOutsideRevenue && orgProductMap.containsKey(optyOrgMap.get(optyLine.OpportunityId))){//total 12 months revenue && outside revenue is less than NTA
-                                optyLine.Classification__c = Constants.CLSS_CROSSSELL;
-                            }
-                            else if(ntAmount.Amount__c < totalRevenue){//if the total revenue exceeds the NTA, it can either be Renewal or Growth depending on the Growth? field
-                                if(Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                                    optyLine.Classification__c = Constants.CLSS_RENEWAL;
-                                }
-                                else if(Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){
-                                    optyLine.Classification__c = Constants.CLSS_GROWTH;
-                                }
-                            }
-                        }
-                    }
+                    optyLine.Classification__c = getClassification(New TradingHistoryInfo(optyLine,TradingHistoryMaps,(Double)ntAmount.Amount__c)); 
                 }
             }
-            
         }catch(exception excp){
+            system.debug('********* '+excp.getMessage());
+            system.debug('********* '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'updateClassification', triggerName, LoggingLevel.ERROR);
         }
+    }
+    
+    private static void populateGroupedTradingHistoryMaps(TradingHistoryMaps tradingHistoryMaps, List<OPCUtility.ParentAccountRevenue> revenue, double ntAmount) {
+         	for (OPCUtility.ParentAccountRevenue bar : revenue ) {
+                bar.group();             					
+                tradingHistoryMaps.addTradedProduct(bar.Organisation,bar.Product);//products that an account has traded with AuPost
+                tradingHistoryMaps.tradedAcctSet.add(bar.Organisation);//accounts in this set have traded any product
+                
+                if(bar.Total_Revenue_Amount > ntAmount) {//if Total Revenue exceeds the NTA, save the id
+                    tradingHistoryMaps.significantTradeAccounts.add(bar.Organisation);
+                    tradingHistoryMaps.addSignificantTradedProduct(bar.Organisation,bar.Product);
+                }
+            }//end BaR for
+    }
+    
+    private static string getClassification(TradingHistoryInfo tradingHistoryInfo) {
+       String classification = salesclassification(tradingHistoryInfo);
+       if (classification == null) classification = getClassificationFromAccountTradingHistory(tradingHistoryInfo);
+        return classification == null ? tradingHistoryInfo.optyLine.Classification__c : classification;
+    }
+    
+    private static string getClassificationFromAccountTradingHistory(TradingHistoryInfo tradingHistoryInfo) {
+        if (tradingHistoryInfo.optyLine.Contract_Start_Date__c == null) return tradingHistoryInfo.optyLine.Classification__c;
+        Integer contractStartMonth = tradingHistoryInfo.optyLine.Contract_Start_Date__c.MONTH();//get the start month for 12 months computation
+        Integer contractStartYear = tradingHistoryInfo.optyLine.Contract_Start_Date__c.YEAR();//to check which Financial Year it will be taken from
+        Double totalRevenue = 0;
+        Double totalOutsideRevenue = 0;
+        
+        if(contractStartMonth > 6) { 
+            
+            String previousYearRevenueKey = OPCUtility.constructRevenueKey(tradingHistoryInfo.parentAccountId,tradingHistoryInfo.optyLine.Product2Id,contractStartYear-1);
+            String currentYearRevenueKey = OPCUtility.constructRevenueKey(tradingHistoryInfo.parentAccountId,tradingHistoryInfo.optyLine.Product2Id,contractStartYear);
+            String subsequentYearRevenueKey = OPCUtility.constructRevenueKey(tradingHistoryInfo.parentAccountId,tradingHistoryInfo.optyLine.Product2Id,contractStartYear+1);
+            
+            // get totals from the previous year
+            if(OPCUtility.parentAccountRevenueMap.containsKey(previousYearRevenueKey)) {
+                // total outside revenue = total revenue for the year less the months betweeen July and the contract start date
+                totalOutsideRevenue += OPCUtility.parentAccountRevenueMap.get(previousYearRevenueKey).getRevenue(1,6);
+                totalOutsideRevenue += OPCUtility.parentAccountRevenueMap.get(previousYearRevenueKey).getRevenue(contractStartMonth,12);
+            }
+            // add totals from the current year
+            if(OPCUtility.parentAccountRevenueMap.containsKey(currentYearRevenueKey)) {
+                
+                totalOutsideRevenue += OPCUtility.parentAccountRevenueMap.get(currentYearRevenueKey).getRevenue(7,contractStartMonth);
+                totalRevenue +=  OPCUtility.parentAccountRevenueMap.get(currentYearRevenueKey).getRevenue(1,6);
+                totalRevenue +=  OPCUtility.parentAccountRevenueMap.get(currentYearRevenueKey).getRevenue(contractStartMonth,12);
+            }
+            // add totals for the subsequent year 
+            if(OPCUtility.parentAccountRevenueMap.containsKey(subsequentYearRevenueKey)) {
+                totalRevenue += OPCUtility.parentAccountRevenueMap.get(subsequentYearRevenueKey).getRevenue(7,contractStartMonth);
+            }
+        }
+        else {
+            String twoYearsAgoRevenueKey = OPCUtility.constructRevenueKey(tradingHistoryInfo.parentAccountId,tradingHistoryInfo.optyLine.Product2Id,contractStartYear-2);
+            String previousYearRevenueKey = OPCUtility.constructRevenueKey(tradingHistoryInfo.parentAccountId,tradingHistoryInfo.optyLine.Product2Id,contractStartYear-1);
+            String currentYearRevenueKey = OPCUtility.constructRevenueKey(tradingHistoryInfo.parentAccountId,tradingHistoryInfo.optyLine.Product2Id,contractStartYear);
+            
+            // get totals from two years ago
+            if(OPCUtility.parentAccountRevenueMap.containsKey(twoYearsAgoRevenueKey)) {
+                // total outside revenue = total revenue for the year less the months betweeen July and the contract start date
+                totalOutsideRevenue += OPCUtility.parentAccountRevenueMap.get(twoYearsAgoRevenueKey).getRevenue(contractStartMonth,6);
+            }
+            // add totals from last year
+            if(OPCUtility.parentAccountRevenueMap.containsKey(previousYearRevenueKey)) {
+                
+                totalOutsideRevenue += OPCUtility.parentAccountRevenueMap.get(previousYearRevenueKey).getRevenue(1,contractStartMonth);
+                totalOutsideRevenue +=  OPCUtility.parentAccountRevenueMap.get(previousYearRevenueKey).getRevenue(7,12);
+                totalRevenue +=  OPCUtility.parentAccountRevenueMap.get(previousYearRevenueKey).getRevenue(contractStartMonth,6);
+            }
+            // add totals for this year
+            if(OPCUtility.parentAccountRevenueMap.containsKey(currentYearRevenueKey)) {
+                totalRevenue += OPCUtility.parentAccountRevenueMap.get(currentYearRevenueKey).getRevenue(1,contractStartMonth);
+                totalRevenue += OPCUtility.parentAccountRevenueMap.get(currentYearRevenueKey).getRevenue(7,12);
+            }
+        } 
+		String classification = salesClassification(tradingHistoryInfo,totalRevenue,totalOutsideRevenue);
+        if (classification == null) {
+           	String debugValues = tradingHistoryInfo.isTradingAccount +','+  
+               					 tradingHistoryInfo.accountTradeExceedsNTA +','+ 
+               					 tradingHistoryInfo.productPreviouslyTraded  +','+  
+               					 tradingHistoryInfo.productTradeExceedsNTA  +','+  
+               					 tradingHistoryInfo.anyTradedProdcutExceedsNTA +','+  
+               					 totalRevenue +','+  
+               					 totalOutsideRevenue;  
+           	OPCException excp = new OPCException(debugValues); 
+        	UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'getClassificationFromAccountTradingHistory', triggerName, LoggingLevel.ERROR);
+        }
+        return classification;
+
+    }
+
+    @testVisible
+    private static string salesclassification(TradingHistoryInfo tradingHistoryInfo) {
+        //if there hasn't been any trade or the total revenue is <NTA
+        if(!tradingHistoryInfo.isTradingAccount || !tradingHistoryInfo.accountTradeExceedsNTA) {
+            return Constants.CLSS_NEWBUSINESS;
+        }
+        
+        //if the product has been traded before but is less than the NTA && has no other product that exceeded the NTA
+        if(tradingHistoryInfo.productPreviouslyTraded && !tradingHistoryInfo.productTradeExceedsNTA && !tradingHistoryInfo.anyTradedProdcutExceedsNTA) {
+            return Constants.CLSS_NEWBUSINESS;
+        }
+        
+        //if the product has never been traded and the org has traded other product with Total Revenue > NTA
+        if(!tradingHistoryInfo.productPreviouslyTraded && tradingHistoryInfo.anyTradedProdcutExceedsNTA) {
+            return Constants.CLSS_CROSSSELL;
+        }
+
+        return null;
+    }
+	@testVisible
+    private static String salesclassification(TradingHistoryInfo tradingHistoryInfo, Double totalRevenue, Double totalOutsideRevenue) {
+        if(totalRevenue == 0 && tradingHistoryInfo.anyTradedProdcutExceedsNTA && !tradingHistoryInfo.productTradeExceedsNTA) {
+            return Constants.CLSS_CROSSSELL;
+        }
+        if(totalRevenue == 0 && tradingHistoryInfo.productTradeExceedsNTA) {
+            return Constants.CLSS_WINBACK;
+        } 
+        //if the Total Revenue is less than the NTA and the Total Revenue outside the 12 months is greater than the NTA
+        if(tradingHistoryInfo.ntAmount > totalRevenue && totalOutsideRevenue > tradingHistoryInfo.ntAmount){
+            return Constants.CLSS_WINBACK;
+        }
+        //total 12 months revenue && outside revenue is less than NTA
+        if(totalRevenue < tradingHistoryInfo.ntAmount && totalOutsideRevenue <  tradingHistoryInfo.ntAmount && tradingHistoryInfo.anyTradedProdcutExceedsNTA) {
+            return Constants.CLSS_CROSSSELL;
+        }
+        //if the total revenue exceeds the NTA, it can either be Renewal or Growth depending on the Growth? field
+        if(totalRevenue > tradingHistoryInfo.ntAmount  && Constants.NO_STRING.equalsIgnoreCase(tradingHistoryInfo.optyLine.Change_Classification__c)) { 
+            return Constants.CLSS_RENEWAL;
+        }
+        if(totalRevenue > tradingHistoryInfo.ntAmount && Constants.YES_STRING.equalsIgnoreCase(tradingHistoryInfo.optyLine.Change_Classification__c)) {
+            return Constants.CLSS_GROWTH;
+        }
+
+        return null;
     }
     
     /*****************************
@@ -880,11 +333,13 @@ public class OpportunityLineItemService {
                 
                 for(OpportunityLineItem optyBuff : newOptyLineItemList){
                     if(Constants.CLOSED_WON.equalsIgnoreCase(optyStageMap.get(optyBuff.OpportunityId))){
-                        optyBuff.addError(Label.Delete_Opty_Line);//if the Opty is Closed Won and the user is attemping to delete the record, an error is displayed
+             			optyBuff.addError(Label.Delete_Opty_Line);//if the Opty is Closed Won and the user is attemping to delete the record, an error is displayed
                     }
                 }
             }
         }catch(exception excp){
+            system.debug('********* '+excp.getMessage());
+            system.debug('********* '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'beforeDeleteValidation', triggerName, LoggingLevel.ERROR);
         }
     }
@@ -908,6 +363,7 @@ public class OpportunityLineItemService {
                        (Constants.NO_STRING.equalsIgnoreCase(oldRec.Change_Classification__c) && Constants.YES_STRING.equalsIgnoreCase(optyLine.Change_Classification__c))){
                            optyLine.Classification__c = Constants.CLSS_GROWTH;
                            //if the Classification is Renewal and the Growth? field is set from NO to YES, Classification will be changed to Growth
+              
                        }
                     //if the Classification is Growth and the Growth? field is set from YES to NO, Classification will be changed to Renewal
                     else if(Constants.CLSS_GROWTH.equalsIgnoreCase(optyLine.Classification__c) && 
@@ -916,8 +372,71 @@ public class OpportunityLineItemService {
                        }
                 }
             }
-        }catch(exception excp){
+        } catch(exception excp){
+       		system.debug('********* '+excp.getMessage());
+            system.debug('******** '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'changeClassification', triggerName, LoggingLevel.ERROR);
         }
     }
+    
+    public class TradingHistoryInfo {
+        public OpportunityLineItem optyLine;
+   		public Boolean isTradingAccount;
+		public Boolean accountTradeExceedsNTA;
+		public Boolean productPreviouslyTraded;
+		public Boolean productTradeExceedsNTA;
+		public Boolean anyTradedProdcutExceedsNTA;
+        public Id parentAccountId;
+        public double ntAmount;
+        public TradingHistoryInfo(){}
+        public TradingHistoryInfo( OpportunityLineItem optyLine,TradingHistoryMaps tradingHistoryMaps, double ntAmount) {
+        	this.optyLine = optyLine;
+            parentAccountId = tradingHistoryMaps.optyOrgMap.get(optyLine.OpportunityId);
+            isTradingAccount = tradingHistoryMaps.tradedAcctSet.contains(parentAccountId) ;
+			accountTradeExceedsNTA = tradingHistoryMaps.significantTradeAccounts.contains(parentAccountId);
+			productPreviouslyTraded = tradingHistoryMaps.productPreviouslyTraded(parentAccountId,optyLine.Product2Id);
+			productTradeExceedsNTA = tradingHistoryMaps.productSignificantlyTraded(parentAccountId,optyLine.Product2Id);
+			anyTradedProdcutExceedsNTA = tradingHistoryMaps.anyProductSignificantlyTraded(parentAccountId);
+            this.ntAmount = ntAmount;
+        }
+    }
+    
+    public class TradingHistoryMaps {
+    
+        public Set<Id> tradedAcctSet = new Set<Id>();
+        public Set<String> significantTradeAccounts = new Set<String>();
+        public Map<Id,Set<Id>> tradedProductSet = new Map<Id,Set<Id>>();
+        public Map<Id, Set<Id>> significantTradedProductSet = new Map<Id, Set<Id>>();
+        public Map<Id, Id> optyOrgMap = new Map<Id, Id>();
+        
+        public void addTradedProduct(Id accountId, Id productId) {
+            if (tradedProductSet.containsKey(accountId)) 
+            	tradedProductSet.get(accountId).add(productId);
+           	else    
+                tradedProductSet.put(accountId,new Set<Id>{productId});
+            
+        }
+        
+        public void addSignificantTradedProduct(Id accountId, Id productId) {
+            if (significantTradedProductSet.containsKey(accountId)) 
+            	significantTradedProductSet.get(accountId).add(productId);
+           	else    
+                significantTradedProductSet.put(accountId,new Set<Id>{productId});
+        }
+        
+        public boolean productPreviouslyTraded(Id accountId, Id productId) {
+            if(!tradedProductSet.containsKey(accountId)) return false;
+            return tradedProductSet.get(accountId).contains(productId);
+        }
+        
+        public boolean productSignificantlyTraded(Id accountId, Id productId) {
+            if(!anyProductSignificantlyTraded(accountId)) return false;
+            return significantTradedProductSet.get(accountId).contains(productId);
+        }
+        
+        public boolean anyProductSignificantlyTraded(Id accountId) {
+            return significantTradedProductSet.containsKey(accountId);
+        }
+    }
+    public class OPCException extends Exception {}
 }

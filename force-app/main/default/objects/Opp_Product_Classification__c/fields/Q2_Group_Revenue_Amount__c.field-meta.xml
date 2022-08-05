@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q2_Group_Revenue_Amount__c</fullName>
+    <externalId>false</externalId>
+    <description>The Revenue Amount for this account and all OPC related child accounts for the second Quarter</description>
+    <inlineHelpText>Q2 OPC Grouped Revenue Amount</inlineHelpText>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <businessOwnerGroup></businessOwnerGroup>
+    <securityClassification>INTERNAL</securityClassification>
+    <formula>Oct_Group_Actual_Amount__c + Nov_Group_Actual_Amount__c + Dec_Group_Actual_Amount__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Q2 Group Revenue Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>
