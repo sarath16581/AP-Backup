@@ -169,6 +169,8 @@
                             <c:ChasDuplicateCaseMessage duplicateCase="{!v.wizardData.duplicateCase}"/>
                         </c:ChasDeflectionMessage>
                     </aura:if>
+<!--                THis has been commented since the user will never be redirected to this deflection according the requirement DDS-11626
+                    DDS-11626 : do not allow the user to proceed to the next step when the EDD is a future date
                     <aura:if isTrue="{!v.wizardData.eddStatus == 'ON_TIME'}">
                         <c:ChasDeflectionMessage trackingId="{!v.wizardData.trackingId}" weNoticed="true">
                             <c:ChasBspDeflection heading='' noInfoIcon="true">
@@ -182,7 +184,7 @@
                             </c:ChasBspDeflection>
                             <c:ChasDuplicateCaseMessage duplicateCase="{!v.wizardData.duplicateCase}"/>
                         </c:ChasDeflectionMessage>
-                    </aura:if>
+                    </aura:if>-->
                     <aura:if isTrue="{!v.wizardData.eddStatus == 'NO_SCANS'}">
                         <c:ChasDeflectionMessage trackingId="{!v.wizardData.trackingId}" weNoticed="false">
                             <c:ChasBspDeflection heading='' noInfoIcon="true" >
