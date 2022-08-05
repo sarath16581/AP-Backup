@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EndDate__c</fullName>
+    <externalId>false</externalId>
+    <label>End Date</label>
+    <description>The date at which this relationship has expired. The relationship is only considered "Active" between the createdDate and endDate values. If no value is specified,  it is assumed that there is no end date.</description>
+    <inlineHelpText>The date which this relationship expired. Leave blank for ongoing active relationships.</inlineHelpText>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <businessOwnerGroup></businessOwnerGroup>
+    <securityClassification>INTERNAL</securityClassification>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>
