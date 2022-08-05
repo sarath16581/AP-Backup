@@ -32,30 +32,39 @@
 			             width="500px" 
 			             headerClass="job-headers">
 				<div class="boldcell">
-					<apex:outputField value="{!booking.Booking_Location_Name_LU__c}"/>
+					<apex:outputText value="{!UPPER(booking.Booking_Location_Name_LU__c)}"/>
 					<apex:outputText rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
-						(<apex:outputField value="{!booking.Booking_Location_Street__c}"/>&nbsp;
-						<apex:outputField value="{!booking.Booking_Location_City__c}"/>)<br/>
+						(<apex:outputText value="{!LOWER(booking.Booking_Location_Street__c)}"/>&nbsp;
+						<apex:outputText value="{!LOWER(booking.Booking_Location_City__c)}"/>)<br/>
 					</apex:outputText>
-					<apex:outputText rendered="{! !ISBLANK(booking.Key_Number__c)}">
-						<apex:outputField value="{!booking.Key_Number__c}"/>
-						<br/>
-					</apex:outputText>
-					<apex:outputText rendered="{! booking.Monday__c}" value="Mon "/>
-					<apex:outputText rendered="{! booking.Tuesday__c}" value="Tue "/>
-					<apex:outputText rendered="{! booking.Wednesday__c}" value="Wed "/>
-					<apex:outputText rendered="{! booking.Thursday__c}" value="Thu "/>
-					<apex:outputText rendered="{! booking.Friday__c}" value="Fri "/>
-					<apex:outputText rendered="{! booking.Saturday__c}" value="Sat "/>
-					<apex:outputText rendered="{! booking.Sunday__c}" value="Sun "/>
-					<br/>
-
 				</div>
-				<apex:outputText value="{! booking.Booking_Type__c}" styleClass="normalcell"/>
+				<apex:outputText rendered="{! !ISBLANK(booking.Key_Number__c)}">
+					<apex:outputLabel value="Key Number: " for="theKeyNumber"/>
+					<apex:outputField label="theKeyNumber" value="{!booking.Key_Number__c}"/>
+					<br/>
+				</apex:outputText>
+				<apex:outputText rendered="{! booking.Monday__c}" value="Mon "/>
+				<apex:outputText rendered="{! booking.Tuesday__c}" value="Tue "/>
+				<apex:outputText rendered="{! booking.Wednesday__c}" value="Wed "/>
+				<apex:outputText rendered="{! booking.Thursday__c}" value="Thu "/>
+				<apex:outputText rendered="{! booking.Friday__c}" value="Fri "/>
+				<apex:outputText rendered="{! booking.Saturday__c}" value="Sat "/>
+				<apex:outputText rendered="{! booking.Sunday__c}" value="Sun "/>
+				<br/>
+
+				<apex:outputText value="{! booking.Booking_Type__c}" styleClass="normalcell"/> <br/>
+
+				<apex:outputLabel value="Booking Comments: " for="bookingComments" rendered="{! !ISBLANK(booking.Booking_Comments__c)}"/> <br/>
 				<span style="margin-left: 40px; display: block;">
-                            <apex:outputField value="{!booking.Booking_Comments__c}" styleClass="normalcell"/>
+					<apex:outputField label="bookingComments" value="{!booking.Booking_Comments__c}" styleClass="normalcell"/>
                         </span>
+				<apex:outputLabel value="Site Instructions: " for="siteInstructions"/> 
+				<span style="margin-left: 40px; display: block;">
+					<apex:outputField label="siteInstructions" value="{!booking.Booking_Comments__c}" styleClass="normalcell"/>
+                        </span>
+				
 				<apex:outputText rendered="{! !ISBLANK(booking.Booking_Comments__c)}">
+					
 				</apex:outputText>
 				<br/>
 			</apex:column>
