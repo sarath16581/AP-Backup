@@ -13,10 +13,16 @@ export default class MessageBanner extends LightningElement {
 	@api imgLink; //image link exposed to parent
 	@api dispatchCloseEvent = false; //dispatch close event to parent
 	bannerClass = "banner-container"; // css class for banner container
+	messages = {};
 
 	connectedCallback() {
 		if (this.bannerType) {
 			this.bannerClass = this.bannerClass + " " + this.bannerType;
+		}
+		if(this.message){
+			console.log(this.message)
+			this.messages = this.message.split("\n");
+			console.log(this.messages)
 		}
 	}
 
