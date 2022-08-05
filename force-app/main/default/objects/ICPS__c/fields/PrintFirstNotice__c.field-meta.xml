@@ -16,7 +16,7 @@
 &quot;&amp;mfts1=DemurrageStartDate__c&quot; +
 &quot;&amp;mftsvalue1=&quot; + TEXT( TODAY()+40 ) +
 &quot;&amp;mftsid1=&quot; + Id</formula>
-    <label>PrintFirstNotice</label>
+    <label>Print First Notice</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

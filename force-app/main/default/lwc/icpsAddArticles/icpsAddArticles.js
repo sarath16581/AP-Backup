@@ -124,7 +124,7 @@ export default class IcpsAddArticles extends LightningElement {
 					if (result.consignments != null && result.consignments.length > 0) {
 						article.error = 'Search failed: consignment found';
 					} else {
-						article.icpsArticle = this.newICPSArticle(result.articles[0]);
+						article.icpsArticle = this.newICPSArticle(result.articles[0], input);
 						article.isNew = true;
 						article.isDirty = false;
 						if (result.errors != null && result.errors.length > 0) {
@@ -310,13 +310,13 @@ export default class IcpsAddArticles extends LightningElement {
     /**
      * returns a new icps article populated from the tracking article received via article search.
      */
-    newICPSArticle(trackingArticle) {
+    newICPSArticle(trackingArticle, searchInput) {
         let icpsArticle = {'sobjectType': OBJECT_ICPS_ARTICLE.objectApiName};
 	    icpsArticle[FIELD_ICPS.fieldApiName] = this.recordId;
+	    icpsArticle[FIELD_NAME.fieldApiName] = searchInput.toUpperCase();
 		if (trackingArticle === undefined) {
 			return icpsArticle;
 		}
-        icpsArticle[FIELD_NAME.fieldApiName] = get(trackingArticle, 'trackingId', null);
         icpsArticle[FIELD_CONTENTS.fieldApiName] = get(trackingArticle, 'article.ContentsItems__c', null);
         icpsArticle[FIELD_WEIGHT.fieldApiName] = get(trackingArticle, 'article.ActualWeight__c', null);
         icpsArticle[FIELD_DECLARED_VALUE.fieldApiName] = get(trackingArticle, 'article.ArticleTransitAmountValue__c', null);
@@ -370,6 +370,7 @@ export default class IcpsAddArticles extends LightningElement {
 			this.ICPS.SenderPostalCode__c = this.getNewOrUpdatedArticles()[0].SenderPostalCode__c;
 			this.ICPS.SenderState__c = this.getNewOrUpdatedArticles()[0].SenderState__c;
 			this.ICPS.SenderCountry__c = this.getNewOrUpdatedArticles()[0].SenderCountry__c;
+			this.ICPS.Contents__c = this.getNewOrUpdatedArticles()[0].Contents__c;
 			return this.ICPS;
 		}
 		return null;

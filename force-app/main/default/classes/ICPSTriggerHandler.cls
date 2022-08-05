@@ -10,6 +10,10 @@
 
 public inherited sharing class ICPSTriggerHandler extends ApplicationDomainTriggerHandler {
 
+	public static ICPSTriggerHandler getInstance() {
+		return (ICPSTriggerHandler)Application.Utilities.getInstance(ICPSTriggerHandler.class);
+	}
+
 	public override SObjectType getSObjectType() {
 		return ICPS__c.SObjectType;
 	}

@@ -11,6 +11,6 @@ trigger ICPSArticleTrigger on ICPSArticle__c (before insert, before update, befo
 		after insert, after update, after delete, after undelete) {
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(ICPSArticle__c.SObjectType))){     // verify if triggers are disabled
 		// New domain based trigger dispatch
-		(new ICPSArticleTriggerHandler()).dispatch();
+		ICPSArticleTriggerHandler.getInstance().dispatch();
 	}
 }

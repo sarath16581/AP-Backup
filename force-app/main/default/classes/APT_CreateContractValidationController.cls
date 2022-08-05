@@ -57,7 +57,7 @@ public with sharing class APT_CreateContractValidationController {
     
     public void validateDOVPresent(Apttus__APTS_Agreement__c apConLocVar){
         // DOV is required before contract creation
-        if(apConLocVar.DoV_Languages__r.size()==0 && (apConLocVar.APT_Contract_Type__c=='DoV Contract' && apConLocVar.APT_Contract_Type__c=='DoV From ST Revision')){
+        if(apConLocVar.DoV_Languages__r.size()==0 && (apConLocVar.APT_Contract_Type__c=='DoV Contract' || apConLocVar.APT_Contract_Type__c=='DoV From ST Revision')){
             IsError = true;
             ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'DOV Language is required before contract creation.'));
         }

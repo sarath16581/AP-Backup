@@ -48,7 +48,7 @@ public inherited sharing class ICPSArticleNoticeGenerationModule extends Applica
 			for (ICPS__c icps: ICPSSelector.newInstance().selectById(icpsIds, new Set<Object>{ICPSSelector.Options.WITH_ICPS_ARTICLES})) {
 				List<String> names = new List<String>();
 				for (ICPSArticle__c a: icps.ICPS_Articles__r) {
-					names.add(a.Name);
+					names.add(a.Name.toUpperCase());
 				}
 				// concatenate article names with comma for each ICPS
 				String concatNames = String.join(names, ', ');
