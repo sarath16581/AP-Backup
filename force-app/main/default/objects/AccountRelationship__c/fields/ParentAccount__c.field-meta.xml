@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ParentAccount__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Parent Account</label>
+    <description>The Parent account in the Parent-Related account relationship.</description>
+    <inlineHelpText>Choose the primary (main) Parent account for this relationship.</inlineHelpText>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <businessOwnerGroup></businessOwnerGroup>
+    <securityClassification>INTERNAL</securityClassification>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Child Accounts</relationshipLabel>
+    <relationshipName>ParentAccountRelationships</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

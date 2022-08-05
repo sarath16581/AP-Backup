@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q2_Group_Growth__c</fullName>
+    <externalId>false</externalId>
+    <description>The Growth Amount for this account and all OPC related child accounts for the second Quarter</description>
+    <inlineHelpText>Q2 OPC Grouped Growth Amount</inlineHelpText>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <businessOwnerGroup></businessOwnerGroup>
+    <securityClassification>INTERNAL</securityClassification>
+    <formula>Oct_Group_Growth__c  +  Nov_Group_Growth__c +  Dec_Group_Growth__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Q2 Group Growth</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>
