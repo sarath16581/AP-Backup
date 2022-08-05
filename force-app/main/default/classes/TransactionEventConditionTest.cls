@@ -20,6 +20,7 @@ public class TransactionEventConditionTest {
      /**
       * Positive test case 1: Evaluate will return true when the user has the "SSSW- Service Agent Profile"
       **/ 
+      @isTest
       static testMethod void testUserWithSSSWProfile() {
           // insert a User for our test which has the SSSW- Service Agent profile
           Profile profile = [SELECT Id FROM Profile WHERE Name='SSSW - Service Agent'];
@@ -36,7 +37,7 @@ public class TransactionEventConditionTest {
       }
 
     //negative test case 1
-      
+    @isTest
      	static testMethod void testUserWithCustomProfile() {
           // insert a User for our test which has the SSSW- Service Agent profile
           Profile profile = [SELECT Id FROM Profile WHERE Name='SSSW - Service Agent'];
@@ -51,6 +52,7 @@ public class TransactionEventConditionTest {
           System.assertEquals(false, eventCondition.evaluate(testEvent));  
       }
       //negative test case 2
+      @isTest
       static testMethod void testUserWithSomeProfile() {
           // insert a User for our test which has the System Admin profile
           Profile profile = [SELECT Id FROM Profile WHERE Name='Standard User'];
