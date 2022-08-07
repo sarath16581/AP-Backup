@@ -14,7 +14,7 @@ public with sharing class CustomerDataSyncEventCPAddrHlpr_Test {
         List<CustomerDataSyncEventCPAddressHelper.AddressPayloadWrapper> payloadWrappers = new List<CustomerDataSyncEventCPAddressHelper.AddressPayloadWrapper>();
         CustomerDataSyncEventCPAddressHelper.AddressPayloadWrapper wr = new CustomerDataSyncEventCPAddressHelper.AddressPayloadWrapper();
 		wr.type = 'Other';
-		wr.street = 'test 1';
+		wr.street1 = 'test 1';
 		wr.street2 = 'test 2';
 		wr.suburb = 'test sub';
 		wr.state = 'test state';
@@ -25,7 +25,7 @@ public with sharing class CustomerDataSyncEventCPAddrHlpr_Test {
         CustomerDataSyncEventCPAddressHelper helper = new CustomerDataSyncEventCPAddressHelper();
         CustomerDataSyncEventCPAddressHelper.AddressPayloadWrapper actual = helper.deserialisePayload(event)[0];
         System.assertEquals(wr.type, actual.type);
-        System.assertEquals(wr.street, actual.street);
+        System.assertEquals(wr.street1, actual.street1);
         System.assertEquals(wr.street2, actual.street2);
         System.assertEquals(wr.suburb, actual.suburb);
         System.assertEquals(wr.state, actual.state);
@@ -41,7 +41,7 @@ public with sharing class CustomerDataSyncEventCPAddrHlpr_Test {
         List<CustomerDataSyncEventCPAddressHelper.AddressPayloadWrapper> payloadWrappers = new List<CustomerDataSyncEventCPAddressHelper.AddressPayloadWrapper>();
         CustomerDataSyncEventCPAddressHelper.AddressPayloadWrapper wr = new CustomerDataSyncEventCPAddressHelper.AddressPayloadWrapper();
 		wr.type = 'Other';
-		wr.street = 'test 1';
+		wr.street1 = 'test 1';
 		wr.street2 = 'test 2';
 		wr.suburb = 'test sub';
 		wr.state = 'test state';
@@ -49,7 +49,7 @@ public with sharing class CustomerDataSyncEventCPAddrHlpr_Test {
 		wr.country = 'AU';
         
         payloadWrappers.add(wr);
-        String name = wr.street + ' ' + (String.isBlank(wr.street2) ? wr.street2 + ' ': '') + wr.suburb + ' ' + wr.state + ' ' + wr.postcode + ' ' + wr.country;
+        String name = wr.street1 + ' ' + (String.isBlank(wr.street2) ? wr.street2 + ' ': '') + wr.suburb + ' ' + wr.state + ' ' + wr.postcode + ' ' + wr.country;
 
         CustomerDataSyncEventCPAddressHelper helper = new CustomerDataSyncEventCPAddressHelper();
         ContactPointAddress cpa = helper.getContactPointAddress(customerData, payloadWrappers)[0];
@@ -57,7 +57,7 @@ public with sharing class CustomerDataSyncEventCPAddrHlpr_Test {
         System.assertEquals(customerData.recId, cpa.ParentId);
         System.assertEquals(customerData.personContactId, cpa.Contact__c);
         System.assertEquals(wr.type, cpa.AddressType);
-        System.assertEquals(wr.street, cpa.Street);
+        System.assertEquals(wr.street1, cpa.Street);
         System.assertEquals(wr.street2, cpa.Street2__c);
         System.assertEquals(wr.suburb, cpa.City);
         System.assertEquals(wr.state, cpa.State);
