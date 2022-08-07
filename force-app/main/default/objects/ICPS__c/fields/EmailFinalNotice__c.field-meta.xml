@@ -19,6 +19,7 @@
 &quot;&amp;mftsvalue0=&quot; + TEXT( TODAY() ) +
 &quot;&amp;mftsid0=&quot; + Id +
 &quot;&amp;netid=a480p000000CjhjAAC&quot;</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Email Final Notice</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

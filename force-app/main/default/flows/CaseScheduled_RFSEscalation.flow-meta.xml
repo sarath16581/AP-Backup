@@ -4,7 +4,7 @@
         <name>RFS_Escalation_to_Team_Leader</name>
         <label>RFS - Escalation to Team Leader</label>
         <locationX>308</locationX>
-        <locationY>528</locationY>
+        <locationY>408</locationY>
         <actionName>Case.RFCC_Escalation_to_Team_Leader_48hrs</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -16,22 +16,6 @@
         </inputParameters>
     </actionCalls>
     <apiVersion>55.0</apiVersion>
-    <assignments>
-        <name>Set_Case_Escalated</name>
-        <label>Set Case Escalated</label>
-        <locationX>308</locationX>
-        <locationY>288</locationY>
-        <assignmentItems>
-            <assignToReference>$Record.IsEscalated</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_Case_Record</targetReference>
-        </connector>
-    </assignments>
     <description>Schedule Path for Retail Fulfilment &amp; Support Case Escalation</description>
     <interviewLabel>CaseScheduled_RFSEscalation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled RFSEscalation</label>
@@ -58,10 +42,16 @@
         <name>Update_Case_Record</name>
         <label>Update Case Record</label>
         <locationX>308</locationX>
-        <locationY>408</locationY>
+        <locationY>288</locationY>
         <connector>
             <targetReference>RFS_Escalation_to_Team_Leader</targetReference>
         </connector>
+        <inputAssignments>
+            <field>IsEscalated</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
@@ -73,7 +63,7 @@
         <scheduledPaths>
             <name>X2_Days_after_Created</name>
             <connector>
-                <targetReference>Set_Case_Escalated</targetReference>
+                <targetReference>Update_Case_Record</targetReference>
             </connector>
             <label>2 Days after Created</label>
             <offsetNumber>2</offsetNumber>

@@ -135,30 +135,23 @@ public inherited sharing class ContactService {
 		//get all the contacts that are associated to the contact point email
 		Set<Id> contactIds = (handleDelete == true ? getContactIds(existing) : getContactIds(records));
 
-		ContactsSelector selectorContacts = ContactsSelector.newInstance();
-		Map<Id, Contact> contactExistingMap = new Map<Id, Contact>();
-		Map<Id, Contact> contactsUpsertMap = new Map<Id, Contact>();
+		Map<Id, Contact> cpEmailsDeleteMap = new Map<Id, Contact>();
+		Map<Id, Contact> cpEmailsUpsertMap = new Map<Id, Contact>();
 		List<Contact> contactList = new List<Contact>();
 
 		//its for delete scenario
 		if (handleDelete) {
-			contactExistingMap = selectorContacts.selectById(contactIds);
+			cpEmailsDeleteMap = handleDeletesForCPESyncWithContact(contactIds);
 		} else {
-			contactsUpsertMap = handleUpsertsForCPESyncWithContact(contactIds);
+			cpEmailsUpsertMap = handleUpsertsForCPESyncWithContact(contactIds);
 		}
 
-		contactList = dedupeContacts(contactsUpsertMap.values());
+		contactList = dedupeContacts(cpEmailsUpsertMap.values());
 
 		//if contactsmap is empty and contactids are not empty, then create a contact list with contact ids and contact records and add to dmlupdate
 		if (handleDelete) {
-			for (Id cId : contactIds) {
-				if (contactExistingMap.containsKey(cId)) {
-					contactList.add(mapContactForNoCPERecords(cId, CPE_FLAGS.NO_RECORDS));
-				}
-			}
+			contactList.addAll(dedupeContacts(cpEmailsDeleteMap.values()));
 		}
-		//this may need to b verified (temp comment)
-		//ApplicationDatabase.getInstance().dmlUpdate(contactList);
 		return contactList;
 	}
 
@@ -171,28 +164,22 @@ public inherited sharing class ContactService {
 		Set<Id> contactIds = (handleDelete == true ? getContactIds(existing) : getContactIds(records));
 
 		ContactsSelector selectorContacts = ContactsSelector.newInstance();
-		Map<Id, Contact> contactExistingMap = new Map<Id, Contact>();
-		Map<Id, Contact> contactsUpsertMap = new Map<Id, Contact>();
+		Map<Id, Contact> cpPhonesDeleteMap = new Map<Id, Contact>();
+		Map<Id, Contact> cpPhonesUpsertMap = new Map<Id, Contact>();
 		List<Contact> contactList = new List<Contact>();
 
 		//its for delete scenario
 		if (handleDelete) {
-			contactExistingMap = selectorContacts.selectById(contactIds);
+			cpPhonesDeleteMap = handleDeletesForCPPSyncWithContact(contactIds);
 		} else {
-			contactsUpsertMap = handleUpsertsForCPPSyncWithContact(contactIds);
+			cpPhonesUpsertMap = handleUpsertsForCPPSyncWithContact(contactIds);
 		}
 
-		contactList = dedupeContacts(contactsUpsertMap.values());
+		contactList = dedupeContacts(cpPhonesUpsertMap.values());
 		//if contactsmap is empty and contactids are not empty, then create a contact list with contact ids and contact records and add to dmlupdate
 		if (handleDelete) {
-			for (Id cId : contactIds) {
-				if (contactExistingMap.containsKey(cId)) {
-					contactList.add(mapContactForNoCPPRecords(cId, CPP_FLAGS.NO_RECORDS));
-				}
-			}
+			contactList.addAll(dedupeContacts(cpPhonesDeleteMap.values()));
 		}
-		//this may need to b verified
-		//ApplicationDatabase.getInstance().dmlUpdate(contactList);
 		return contactList;
 	}
 
@@ -221,6 +208,66 @@ public inherited sharing class ContactService {
 		return contactMap;
 	}
 
+	//helper method to handleDeletesForCPESyncWithContact to handle deletes for CPE
+	private Map<Id, Contact> handleDeletesForCPESyncWithContact(Set<Id> contactIds) {
+		Map<Id, Contact> contactExistingMap = new Map<Id, Contact>();
+		Map<Id, List<ContactPointEmail>> cpEmailsExistingMap = new Map<Id, List<ContactPointEmail>>();
+		Map<Id, Contact> contactMap = new Map<Id, Contact>();
+
+		ContactsSelector selectorContacts = ContactsSelector.newInstance();
+		ContactPointEmailSelector selectorEmails = ContactPointEmailSelector.newInstance();
+		//query all contacts with the contactids
+		contactExistingMap = selectorContacts.selectById(contactIds);
+		//query CPEmails
+		List<ContactPointEmail> cpEmails = selectorEmails.selectByContact(contactIds, new Set<Object>());
+		if (!cpEmails.isEmpty()) {
+			cpEmailsExistingMap = getContactMapFromCPEmails(cpEmails);
+		}
+
+		if (!contactExistingMap.isEmpty()) {
+			for (Id cId : contactExistingMap.keySet()) {
+				if (!cpEmailsExistingMap.containsKey(cId)) {
+					contactMap.put(cId, mapContactForNoCPERecords(cId, CPE_FLAGS.NO_RECORDS));
+				} else {
+					for (ContactPointEmail cpe : cpEmailsExistingMap.get(cId)) {
+						contactMap = prepareContactMap(cpe, contactMap);
+					}
+				}
+			}
+		}
+		return contactMap;
+	}
+
+	//helper method to handleDeletesForCPPSyncWithContact to handle deletes for CPP
+	private Map<Id, Contact> handleDeletesForCPPSyncWithContact(Set<Id> contactIds) {
+		Map<Id, Contact> contactExistingMap = new Map<Id, Contact>();
+		Map<Id, List<ContactPointPhone>> cpPhonesExistingMap = new Map<Id, List<ContactPointPhone>>();
+		Map<Id, Contact> contactMap = new Map<Id, Contact>();
+
+		ContactsSelector selectorContacts = ContactsSelector.newInstance();
+		ContactPointPhoneSelector selectorPhones = ContactPointPhoneSelector.newInstance();
+		//query all contacts with the contactids
+		contactExistingMap = selectorContacts.selectById(contactIds);
+		//query CPPhones
+		List<ContactPointPhone> cpPhones = selectorPhones.selectByContact(contactIds, new Set<Object>());
+		if (!cpPhones.isEmpty()) {
+			cpPhonesExistingMap = getContactMapFromCPPhones(cpPhones);
+		}
+		
+		if (!contactExistingMap.isEmpty()) {
+			for (Id cId : contactExistingMap.keySet()) {
+				if (!cpPhonesExistingMap.containsKey(cId)) {
+					contactMap.put(cId, mapContactForNoCPPRecords(cId, CPP_FLAGS.NO_RECORDS));
+				} else {
+					for (ContactPointPhone cpp : cpPhonesExistingMap.get(cId)) {
+						contactMap = prepareContactMap(cpp, contactMap);
+					}
+				}
+			}
+		}
+		return contactMap;
+	}
+
 	//helper method to syncContactPointPhoneToContacts to handle upserts for CPP
 	private Map<Id, Contact> handleUpsertsForCPPSyncWithContact(Set<Id> contactIds) {
 		Map<Id, Contact> contactMap = new Map<Id, Contact>();
@@ -244,7 +291,6 @@ public inherited sharing class ContactService {
 			//		if there are records in the map for contact in scope
 			//			if there are then, get the existing record from the map and check if the
 
-			System.debug('contactMap>>>' + contactMap);
 			contactMap = prepareContactMap(cpp, contactMap);
 		}
 
@@ -281,7 +327,42 @@ public inherited sharing class ContactService {
 		} else if ((cpp.PhoneType).equalsIgnoreCase(CPP_PHONE_TYPE.HOME.name())) {
 			contactMap = getContactMapForHomeType(cpp, contactMap);
 		}
+		
 		return contactMap;
+	}
+
+	//this method creates a map of existing contact point emails
+	private Map<Id, List<ContactPointEmail>> getContactMapFromCPEmails(List<ContactPointEmail> existing) {
+		Map<Id, List<ContactPointEmail>> contactIdVsCPEmails = new Map<Id, List<ContactPointEmail>>();
+		if (!existing.isEmpty()) {
+			for (ContactPointEmail cpe : existing) {
+				if (contactIdVsCPEmails.containsKey(cpe.contact__c)) {
+					contactIdVsCPEmails.get(cpe.contact__c).add(cpe);
+				} else {
+					List<ContactPointEmail> cpEmails = new List<ContactPointEmail>();
+					cpEmails.add(cpe);
+					contactIdVsCPEmails.put(cpe.contact__c, cpEmails);
+				}
+			}
+		}
+		return contactIdVsCPEmails;
+	}
+
+	//this method creates a map of existing contact point emails
+	private Map<Id, List<ContactPointPhone>> getContactMapFromCPPhones(List<ContactPointPhone> existing) {
+		Map<Id, List<ContactPointPhone>> contactIdVsCPPhones = new Map<Id, List<ContactPointPhone>>();
+		if (!existing.isEmpty()) {
+			for (ContactPointPhone cpe : existing) {
+				if (contactIdVsCPPhones.containsKey(cpe.contact__c)) {
+					contactIdVsCPPhones.get(cpe.contact__c).add(cpe);
+				} else {
+					List<ContactPointPhone> cpPhones = new List<ContactPointPhone>();
+					cpPhones.add(cpe);
+					contactIdVsCPPhones.put(cpe.contact__c, cpPhones);
+				}
+			}
+		}
+		return contactIdVsCPPhones;
 	}
 
 	//logic for dealing with verified flag and prefferd flag in CPPhone fro Mobile
@@ -317,6 +398,7 @@ public inherited sharing class ContactService {
 				);
 			}
 		}
+
 		return contactMap;
 	}
 
@@ -373,7 +455,7 @@ public inherited sharing class ContactService {
 			ct.MobilePhone = null;
 			ct.VerifiedMobile__c = null;
 			ct.HomePhone = null;
-			ct.UniqueMobile__c = false;
+			ct.Unique_Mobile__c = false;
 		}
 		return ct;
 	}
@@ -404,15 +486,15 @@ public inherited sharing class ContactService {
 		if (phoneType == CPP_PHONE_TYPE.MOBILE) {
 			ct.MobilePhone = cpp.TelephoneNumber;
 			ct.VerifiedMobile__c = cpp.TelephoneNumber;
-			ct.UniqueMobile__c = cpp.UniqueMobile__c;
+			ct.Unique_Mobile__c = cpp.UniqueMobile__c;
 
 			if ((flag == CPP_FLAGS.MOBILE_VERIFIED) || (flag == CPP_FLAGS.MOBILE_VERIFIED_AND_PREFFERED)) {
 				return ct;
 			} else if (flag == CPP_FLAGS.MOBILE_UNVERIFIED) {
-				//override VerifiedMobile__c and ct.UniqueMobile__c
+				//override VerifiedMobile__c and ct.Unique_Mobile__c
 				ct.MobilePhone = cpp.TelephoneNumber;
 				ct.VerifiedMobile__c = null;
-				ct.UniqueMobile__c = false;
+				ct.Unique_Mobile__c = false;
 			}
 		} else if (phoneType == CPP_PHONE_TYPE.HOME) {
 			ct.HomePhone = cpp.TelephoneNumber;

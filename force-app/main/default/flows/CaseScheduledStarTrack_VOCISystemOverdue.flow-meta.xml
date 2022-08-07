@@ -4,7 +4,7 @@
         <name>StarTrack_VOC_System_User_Incident_Overdue</name>
         <label>StarTrack VOC System User Incident Overdue</label>
         <locationX>308</locationX>
-        <locationY>528</locationY>
+        <locationY>408</locationY>
         <actionName>Case.StarTrack_VOC_System_User_Incident_Overdue</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -16,22 +16,6 @@
         </inputParameters>
     </actionCalls>
     <apiVersion>55.0</apiVersion>
-    <assignments>
-        <name>Set_Case_Owner_is_Changed_flag</name>
-        <label>Set Case Owner is Changed flag</label>
-        <locationX>308</locationX>
-        <locationY>288</locationY>
-        <assignmentItems>
-            <assignToReference>$Record.Owner_is_Changed__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_Case_Record</targetReference>
-        </connector>
-    </assignments>
     <description>Schedule Path for StarTrack VOC Incident System Overdue</description>
     <interviewLabel>CaseScheduledStarTrack_VOCISystemOverdue {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled StarTrack VOCISystemOverdue</label>
@@ -58,10 +42,16 @@
         <name>Update_Case_Record</name>
         <label>Update Case Record</label>
         <locationX>308</locationX>
-        <locationY>408</locationY>
+        <locationY>288</locationY>
         <connector>
             <targetReference>StarTrack_VOC_System_User_Incident_Overdue</targetReference>
         </connector>
+        <inputAssignments>
+            <field>Owner_is_Changed__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
@@ -71,13 +61,13 @@
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>
-            <name>X0_Days_After_Due_Date</name>
+            <name>X0_Hours_after_Due_Date</name>
             <connector>
-                <targetReference>Set_Case_Owner_is_Changed_flag</targetReference>
+                <targetReference>Update_Case_Record</targetReference>
             </connector>
-            <label>0 Days After Due Date</label>
+            <label>0 Hours after Due Date</label>
             <offsetNumber>0</offsetNumber>
-            <offsetUnit>Days</offsetUnit>
+            <offsetUnit>Hours</offsetUnit>
             <recordField>Due_Date__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>

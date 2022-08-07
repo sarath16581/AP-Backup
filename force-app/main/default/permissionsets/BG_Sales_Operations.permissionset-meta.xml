@@ -6,11 +6,6 @@
     </customPermissions>
     <description>Permissions specific to users who provide support to B&amp;G Sales staff and the Sales process.</description>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.Offline_Contract_Received__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Opp_Product_Classification__c.Apr_Actual_Amount__c</field>
         <readable>true</readable>
@@ -595,6 +590,13 @@
         <field>Opp_Product_Classification__c.Variance_of_Revenue_to_Schedule__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Offline_Contract_Received__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>BG Sales Operations</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -622,8 +624,6 @@
         <object>Opp_Product_Classification__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <hasActivationRequired>false</hasActivationRequired>
-    <label>BG Sales Operations</label>
     <userPermissions>
         <enabled>true</enabled>
         <name>RunReports</name>
