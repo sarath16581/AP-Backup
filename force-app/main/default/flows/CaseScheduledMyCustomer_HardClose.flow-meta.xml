@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
-    <assignments>
-        <name>Set_Case_fields</name>
-        <label>Set Case fields</label>
-        <locationX>308</locationX>
-        <locationY>288</locationY>
-        <assignmentItems>
-            <assignToReference>$Record.LastIncomingEmailAddress__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>null</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>$Record.Permanent_Close__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_Case_Record</targetReference>
-        </connector>
-    </assignments>
     <description>Schedule Path for SSSW Case hard closure</description>
+    <formulas>
+        <name>v30DaysAfterRuleTrigerredDate</name>
+        <dataType>Date</dataType>
+        <expression>Today()+30</expression>
+    </formulas>
     <interviewLabel>CaseScheduledMyCustomer_HardClose {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled MyCustomer HardClose</label>
     <processMetadataValues>
@@ -50,7 +32,16 @@
         <name>Update_Case_Record</name>
         <label>Update Case Record</label>
         <locationX>308</locationX>
-        <locationY>408</locationY>
+        <locationY>288</locationY>
+        <inputAssignments>
+            <field>LastIncomingEmailAddress__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Permanent_Close__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
@@ -60,15 +51,14 @@
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>
-            <name>X1_Day_after_Created</name>
+            <name>X30_Days_after_Created_or_Updated</name>
             <connector>
-                <targetReference>Set_Case_fields</targetReference>
+                <targetReference>Update_Case_Record</targetReference>
             </connector>
-            <label>1 Day after Created</label>
-            <offsetNumber>1</offsetNumber>
+            <label>30 Days after Created or Updated</label>
+            <offsetNumber>30</offsetNumber>
             <offsetUnit>Days</offsetUnit>
-            <recordField>CreatedDate</recordField>
-            <timeSource>RecordField</timeSource>
+            <timeSource>RecordTriggerEvent</timeSource>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>

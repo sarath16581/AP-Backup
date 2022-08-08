@@ -2,8 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Full_Colby__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
-    <description>DEPRECATED. DO NOT USE.
-Number of full Colby for pickup/delivery booking, used by Metro Transport fleet.</description>
+    <description>DEPRECATED. DO NOT USE. Number of full Colby for pickup/delivery booking, used by Metro Transport fleet.</description>
     <externalId>false</externalId>
     <label>Full Colby(DEPRECATED)</label>
     <precision>6</precision>

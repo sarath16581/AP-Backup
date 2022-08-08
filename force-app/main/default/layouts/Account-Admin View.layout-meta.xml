@@ -4,8 +4,7 @@
     <customButtons>MassUpload</customButtons>
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
-    <excludeButtons>DataDotComAccountInsights</excludeButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -1134,6 +1133,25 @@
         <fields>NAME</fields>
         <fields>Opportunity__c</fields>
         <relatedList>ContractAssistanceForm__c.Legal_Entity__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>ParentAccount__c</fields>
+        <fields>Relationship__c</fields>
+        <fields>Connection__c</fields>
+        <fields>CREATEDBY_USER</fields>
+        <fields>CREATED_DATE</fields>
+        <fields>EndDate__c</fields>
+        <relatedList>AccountRelationship__c.RelatedAccount__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>RelatedAccount__c</fields>
+        <fields>Relationship__c</fields>
+        <fields>Connection__c</fields>
+        <fields>CREATEDBY_USER</fields>
+        <fields>EndDate__c</fields>
+        <relatedList>AccountRelationship__c.ParentAccount__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>
