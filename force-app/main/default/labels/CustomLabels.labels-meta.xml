@@ -7624,7 +7624,8 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Sths Feedback Error State Message</shortDescription>
-        <value>Your feedback couldn’t be submitted due to an error. Please wait a few moments and try again.</value>
+        <value>Your feedback couldn’t be submitted due to an error.
+            Please wait a few moments and try again.</value>
     </labels>
     <labels>
         <fullName>Sths_Feedback_Selection_Validation_Message</fullName>
