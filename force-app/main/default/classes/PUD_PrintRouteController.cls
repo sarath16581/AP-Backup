@@ -45,10 +45,7 @@ public with sharing class PUD_PrintRouteController {
 						PUD_Booking__c.Location__c, PUD_Booking__c.Booking_Location_Street__c, PUD_Booking__c.Booking_Location_City__c,
 						PUD_Booking__c.Booking_Location_Name_LU__c, PUD_Booking__c.Comments__c, PUD_Booking__c.Key_Number__c, PUD_Booking__c.Dock_Number__c, PUD_Booking__c.Latest_End_Time__c,
 						PUD_Booking__c.Monday__c, PUD_Booking__c.Tuesday__c, PUD_Booking__c.Wednesday__c, PUD_Booking__c.Thursday__c, PUD_Booking__c.Friday__c,
-						PUD_Booking__c.Saturday__c, PUD_Booking__c.Sunday__c, PUD_Booking__c.Booking_Location__c, PUD_Booking__c.Booking_Location__c
-				},
-				PUD_Booking_Location__c.getSObjectType() => new Set <SObjectField>{
-					PUD_Booking_Location__c.Site_Instructions__c
+						PUD_Booking__c.Saturday__c, PUD_Booking__c.Sunday__c, PUD_Booking__c.Booking_Location__c, PUD_Booking__c.Booking_Location__c, PUD_Booking__c.Site_Instructions__c
 				}
 		};
 		return PUDRoutesSelector.newInstance(fieldOverrides).selectByIdWithAllBookings(routeIds, selectorOptions);

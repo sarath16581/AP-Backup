@@ -32,10 +32,10 @@
 			             width="500px" 
 			             headerClass="job-headers">
 				<div class="boldcell">
-					<apex:outputText value="{!UPPER(booking.Booking_Location_Name_LU__c)}"/>
-					<apex:outputText rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
-						(<apex:outputText value="{!LOWER(booking.Booking_Location_Street__c)}"/>&nbsp;
-						<apex:outputText value="{!LOWER(booking.Booking_Location_City__c)}"/>)<br/>
+					<apex:outputText styleClass="locationName" value="{!booking.Booking_Location_Name_LU__c}" />
+					<apex:outputText  rendered="{! OR(!ISBLANK(booking.Booking_Location_Street__c),!ISBLANK(booking.Booking_Location_City__c))}">
+						(<apex:outputText value="{!booking.Booking_Location_Street__c}" styleClass="locationAddress"/>&nbsp;
+						<apex:outputText value="{!booking.Booking_Location_City__c}" styleClass="locationAddress"/>)<br/>
 					</apex:outputText>
 				</div>
 				<apex:outputText rendered="{! !ISBLANK(booking.Key_Number__c)}">
@@ -58,11 +58,10 @@
 				<span style="margin-left: 40px; display: block;">
 					<apex:outputField label="bookingComments" value="{!booking.Booking_Comments__c}" styleClass="normalcell"/>
                         </span>
-				<apex:outputLabel value="Site Instructions: " for="siteInstructions"/> 
+				<apex:outputLabel value="Site Instructions: " for="siteInstructions" rendered="{! !ISBLANK(booking.Site_Instructions__c)}"/> 
 				<span style="margin-left: 40px; display: block;">
-					<apex:outputField label="siteInstructions" value="{!booking.Booking_Comments__c}" styleClass="normalcell"/>
+					<apex:outputField label="siteInstructions" value="{!booking.Site_Instructions__c}" styleClass="normalcell"/>
                         </span>
-				
 				<apex:outputText rendered="{! !ISBLANK(booking.Booking_Comments__c)}">
 					
 				</apex:outputText>
