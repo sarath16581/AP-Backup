@@ -12,13 +12,13 @@
         // make Spinner attribute true for display loading spinner 
         cmp.set("v.isLoading", true);
         cmp.set('v.error500', false);
-        cmp.set("v.showInvalidWithinEDDMessage", false);
+
         //-- checking if Tracking Number is entered
         var isTrackingNumEntered = helper.validateTrackingNumber(cmp.find("ChasTrackingId"), true);
         if (isTrackingNumEntered ) {
            if (cmp.get('v.wizardData.trackingId') != cmp.get('v.wizardData.pretrackingId')) {
                 //-- Trcking number is changed, so make a server call
-                
+                cmp.set("v.showInvalidWithinEDDMessage", false)
                 cmp.set("v.showInvalidMessage", false);
                 var action = cmp.get("c.searchTrackingNumber");
                 action.setParams({ "trackingNumber" : cmp.get("v.wizardData.trackingId") });
@@ -199,9 +199,12 @@
                 }
                 cmp.set("v.isLoading", false);
               }
-              else {
-                    helper.gotoNextPage(cmp);
-                   }
+              else if(cmp.get("v.showInvalidWithinEDDMessage")){
+                  cmp.set("v.isLoading", false);
+                  return;
+              } else {
+                  helper.gotoNextPage(cmp);
+              }
               }
             
         } else {
