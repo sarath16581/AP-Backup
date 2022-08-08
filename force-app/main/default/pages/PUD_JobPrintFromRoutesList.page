@@ -71,6 +71,12 @@
             .counterReset {
                 -fs-page-sequence: start;
             }
+            .locationName {
+                text-transform: uppercase;
+            }
+            .locationAddress {
+                text-transform: lowercase;
+            }
 
         </style>
 
