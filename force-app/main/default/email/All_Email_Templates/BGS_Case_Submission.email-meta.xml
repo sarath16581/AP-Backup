@@ -5,7 +5,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>BGS Case Submission</name>
     <style>none</style>
-    <subject>We&apos;re looking into your enquiry.</subject>
+    <subject>We&apos;re looking into your enquiry. [{!EmailMessage.ThreadIdentifier}]</subject>
     <textOnly>Hi {!Contact.FirstName}
 
 Thank you for contacting Australia Post.

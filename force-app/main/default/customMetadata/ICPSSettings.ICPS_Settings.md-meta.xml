@@ -32,7 +32,7 @@
     </values>
     <values>
         <field>IsEmailEnabled__c</field>
-        <value xsi:type="xsd:boolean">false</value>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
         <field>LabelTypeTemplateName__c</field>

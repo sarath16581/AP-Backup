@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_My_APRs_2022_FY23_Natview</fullName>
+    <columns>Customer_Number__c</columns>
+    <columns>Legal_Entity_Name__c</columns>
+    <columns>Billing_Account_No__c</columns>
+    <columns>Billing_Account_Name__c</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Sub_Status__c</columns>
+    <columns>Confirmed_Date__c</columns>
+    <columns>Confirmed_Rate__c</columns>
+    <columns>Approval_Status__c</columns>
+    <columns>Comments__c</columns>
+    <columns>Walk_in_Rate__c</columns>
+    <columns>Walk_out_Rate__c</columns>
+    <columns>Customer_Correspondence_Method__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Year__c</field>
+        <operation>equals</operation>
+        <value>2022</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>APR__c.StarTrack</value>
+    </filters>
+    <label>All My APRs (2022 | FY23) - Nat View</label>
+    <language>en_US</language>
+</ListView>

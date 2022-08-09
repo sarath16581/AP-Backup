@@ -2,10 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description__c</fullName>
     <businessStatus>Active</businessStatus>
-    <inlineHelpText>This is used to describe the route details.
-        Sourced from Adam.</inlineHelpText>
     <description>The route description</description>
     <externalId>false</externalId>
+    <inlineHelpText>This is used to describe the route details. Sourced from Adam.</inlineHelpText>
     <label>Description</label>
     <length>100</length>
     <required>false</required>

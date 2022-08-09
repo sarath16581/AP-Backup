@@ -322,11 +322,11 @@ public with sharing class APT_AgreementTriggerHandler{
             for(attachment att : [select id,parentID from attachment where parentId IN: setAgIds ORDER BY LastModifiedDate ASC]){
                 mapAgIds.put(att.parentID,att.Id);
             }
-             //Adding ContentDocument query to fetch the file type from Content Document in lightning 
+            //Adding ContentDocument query to fetch the file type from Content Document in lightning 
             
-             for(ContentDocumentLink contDocLink :ContentDocumentLinksSelector.newInstance().search(new Map<String, Object>{'entityIds' => setAgIds}, true).values()){              
+            for(ContentDocumentLink contDocLink :ContentDocumentLinksSelector.newInstance().search(new Map<String, Object>{'entityIds' => setAgIds}, true).values()){              
                  mapAgIds.put(contDocLink.LinkedEntityId,contDocLink.contentdocumentId);                                   
-             }
+            }
             list<String> activateDocIds;
             for(Id agreementId:setAgIds){
                 if(String.isEmpty(mapAgIds.get(agreementId))){

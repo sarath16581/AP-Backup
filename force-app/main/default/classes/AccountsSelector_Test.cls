@@ -57,9 +57,8 @@ public with sharing class AccountsSelector_Test {
 			Account.getSObjectType() => new Set<SObjectField>{ Account.Id, Account.Name }
 		};
 		AccountsSelector selector2 = AccountsSelector.newInstance(1, fieldOverridesMap);
-		QueryBuilder qb2 = selector1.newQueryBuilder();
+		QueryBuilder qb2 = selector2.newQueryBuilder();
 		String soql2 = qb2.toSoqlString();
-		System.debug('soql2>>' + soql2);
 		System.assertEquals(
 			true,
 			Pattern.compile('(?ism)\\bName\\b').matcher(soql2).find(),

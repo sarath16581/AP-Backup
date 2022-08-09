@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
-    <assignments>
-        <name>Set_Case_Escalated</name>
-        <label>Set Case Escalated</label>
-        <locationX>308</locationX>
-        <locationY>288</locationY>
-        <assignmentItems>
-            <assignToReference>$Record.IsEscalated</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_Case_Record</targetReference>
-        </connector>
-    </assignments>
     <description>Schedule Path for Business Enablement Case Escalation</description>
-    <environments>Default</environments>
     <interviewLabel>CaseScheduled_BusinessEnablementEscalation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled BusinessEnablementEscalation</label>
     <processMetadataValues>
@@ -44,27 +27,25 @@
         <name>Update_Case_Record</name>
         <label>Update Case Record</label>
         <locationX>308</locationX>
-        <locationY>408</locationY>
+        <locationY>288</locationY>
+        <inputAssignments>
+            <field>IsEscalated</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterFormula>AND(
- OR(
-  {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_SalesCoordinator},
-  {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_CAR}
- ),
- ISBLANK({!$Record.Owner:User.Id}), 
- ISPICKVAL({!$Record.Request_Origin__c},&apos;On Demand&apos;) 
-)</filterFormula>
         <object>Case</object>
         <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>
             <name>X1_Day_after_Created</name>
             <connector>
-                <targetReference>Set_Case_Escalated</targetReference>
+                <targetReference>Update_Case_Record</targetReference>
             </connector>
             <label>1 Day after Created</label>
             <offsetNumber>1</offsetNumber>

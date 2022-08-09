@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
-    <assignments>
-        <name>Set_Case_Previous_Milestone_Time</name>
-        <label>Set Case Previous Milestone Time</label>
-        <locationX>308</locationX>
-        <locationY>288</locationY>
-        <assignmentItems>
-            <assignToReference>$Record.Previous_Milestone_Time__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>NullDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_Case_Record</targetReference>
-        </connector>
-    </assignments>
     <description>Schedule Path for SSSW Case to reset Customer Tier Milestone Time</description>
-    <environments>Default</environments>
-    <formulas>
-        <name>NullDateTime</name>
-        <dataType>DateTime</dataType>
-        <expression>null</expression>
-    </formulas>
     <interviewLabel>CaseScheduledMyCustomer_ResetMilestone {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled MyCustomer ResetMilestone</label>
     <processMetadataValues>
@@ -49,24 +27,22 @@
         <name>Update_Case_Record</name>
         <label>Update Case Record</label>
         <locationX>308</locationX>
-        <locationY>408</locationY>
+        <locationY>288</locationY>
+        <inputAssignments>
+            <field>Previous_Milestone_Time__c</field>
+        </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterFormula>AND(
- ISNULL({!$Record.CustomerTierSLA__c}),
- NOT(ISNULL({!$Record.Previous_Milestone_Time__c})),
- ISPICKVAL({!$Record.Status}, &apos;Awaiting Customer Response&apos;)
-)</filterFormula>
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>
             <name>X0_Hours_after_Case_Created_Updated</name>
             <connector>
-                <targetReference>Set_Case_Previous_Milestone_Time</targetReference>
+                <targetReference>Update_Case_Record</targetReference>
             </connector>
             <label>0 Hours after Case Created/Updated</label>
             <offsetNumber>0</offsetNumber>
