@@ -197,21 +197,3 @@ Go Back button now sits on the top of the page with UI changes
     max-width:none;
     margin-bottom:0;
 }
-
-.THIS .tracking-error .info-box {
-    border: none;
-    border-left: 3px solid #EDA51F;
-    background-color: #FBEDD2;
-}
-
-.THIS .message-text {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    font-style: normal;
-}
-
-.THIS .back-link {
-    color: #212129;
-    text-decoration: underline;
-}

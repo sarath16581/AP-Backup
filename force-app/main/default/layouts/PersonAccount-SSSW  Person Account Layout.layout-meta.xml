@@ -29,8 +29,7 @@
             </containers>
         </primaryTabComponents>
     </customConsoleComponents>
-    <excludeButtons>DataDotComClean</excludeButtons>
-    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
+    <excludeButtons>DataDotComAccountInsights</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>EnableSelfService</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -129,6 +128,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>PersonEmail</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>VerifiedEmail__pc</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -410,6 +413,37 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>EmailAddress</fields>
+        <fields>Verified__c</fields>
+        <fields>Preferred__c</fields>
+        <fields>IsCredential__c</fields>
+        <fields>CreatedDate</fields>
+        <relatedList>ContactPointEmails</relatedList>
+        <sortField>Preferred__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <fields>TelephoneNumber</fields>
+        <fields>PhoneType</fields>
+        <fields>Verified__c</fields>
+        <fields>Preferred__c</fields>
+        <fields>UniqueMobile__c</fields>
+        <fields>CreatedDate</fields>
+        <relatedList>ContactPointPhones</relatedList>
+        <sortField>Preferred__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>AddressType</fields>
+        <fields>ADDRESS.STREET</fields>
+        <fields>ADDRESS.CITY</fields>
+        <fields>ADDRESS.STATE</fields>
+        <fields>ADDRESS.ZIP</fields>
+        <fields>ADDRESS.COUNTRY</fields>
+        <relatedList>ContactPointAddresses</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

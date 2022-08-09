@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Relationship__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <description>The type of relationship between the Parent and Related Accouunt.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The account relationship type</inlineHelpText>
+    <label>Relationship</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OPC</fullName>
+                <default>false</default>
+                <label>OPC</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

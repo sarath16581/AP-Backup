@@ -1,8 +1,8 @@
 /**
- * @description       :
+ * @description       : This is Contact Point Email Trigger
  * @author            : Sreenish Krishnan
- * @domain            :
- * @last modified on  : 06-29-2022
+ * @domain            : Connected Customer
+ * @last modified on  : 07-22-2022
  * @last modified by  : Sreenish Krishnan
  **/
 trigger ContactPointEmailTrigger on ContactPointEmail(after insert, after update, after delete) {

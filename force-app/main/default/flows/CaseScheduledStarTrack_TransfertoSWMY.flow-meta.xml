@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
-    <assignments>
-        <name>Set_Case_Owner</name>
-        <label>Set Case Owner</label>
-        <locationX>308</locationX>
-        <locationY>408</locationY>
-        <assignmentItems>
-            <assignToReference>$Record.OwnerId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Get_Queue_Id.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_Case_Record</targetReference>
-        </connector>
-    </assignments>
     <description>Schedule Path for StarTrack case Transfer to SWMY</description>
-    <environments>Default</environments>
     <interviewLabel>CaseScheduledStarTrack_TransfertoSWMY {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled StarTrack TransfertoSWMY</label>
     <processMetadataValues>
@@ -47,7 +30,7 @@
         <locationY>288</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Set_Case_Owner</targetReference>
+            <targetReference>Update_Case_Record</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -72,23 +55,19 @@
         <name>Update_Case_Record</name>
         <label>Update Case Record</label>
         <locationX>308</locationX>
-        <locationY>528</locationY>
+        <locationY>408</locationY>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Queue_Id.Id</elementReference>
+            </value>
+        </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterFormula>AND(
- CONTAINS({!$Record.RecordType.DeveloperName}, {!$Label.REC_TYPE_DEV_KEYWORD_StarTrack}),
- NOT(
-  OR(
-   ISPICKVAL({!$Record.Case_Update__c}, &apos;Waiting on Investigator&apos;),
-   {!$Record.IsClosed}
-  )
- ),
- {!$Record.OwnerId} = {!$Setup.StarTrack_Settings__c.SWMYTempQueue__c}
-)</filterFormula>
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>

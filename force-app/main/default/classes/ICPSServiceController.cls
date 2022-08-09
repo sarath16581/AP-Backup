@@ -17,6 +17,11 @@ public with sharing class ICPSServiceController {
 	private static final Integer SEARCH_LIMIT = 100;
 
 	/**
+	 * Return code if no article found in SAP EM
+	 */
+	private static final String NOT_EXIST_ARTICLE_RETURN_CODE = 'ESB-BUS-DATA-105';
+
+	/**
 	 * Field Overrides for ICPS Search Function
 	 * In case of new fields required to be returned in the future update this field set
 	 */
@@ -150,7 +155,6 @@ public with sharing class ICPSServiceController {
 
 			return labelPrintDetail;
 		} catch (Exception e) {
-            System.debug('ERROR: ' + e.getMessage() + ' ==> ' + e.getStackTraceString());
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
@@ -180,8 +184,12 @@ public with sharing class ICPSServiceController {
 				}
 			} else {
 				if (!tr.Success) {
-					result.errors.add(tr.resultDescription);
-					trackingArticle.error = tr.resultDescription;
+					String errorText = tr.resultDescription;
+					if (tr.returnCode == NOT_EXIST_ARTICLE_RETURN_CODE) {
+						errorText = 'Data for this item is not available.';
+					}
+					result.errors.add(errorText);
+					trackingArticle.error = errorText;
 				}
 			}
 			trackingArticles.add(trackingArticle);

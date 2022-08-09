@@ -15,7 +15,7 @@ private class ICPSTriggerHandler_Test {
 	@IsTest
 	private static void test() {
 
-		ICPSTriggerHandler domain = new ICPSTriggerHandler();
+		ICPSTriggerHandler domain = ICPSTriggerHandler.getInstance();
 		ApplicationUnitOfWork appUOW = domain.newUnitOfWork();
 		List<Type> types = domain.registerDomains();
 

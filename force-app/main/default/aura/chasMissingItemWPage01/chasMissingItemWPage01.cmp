@@ -7,6 +7,7 @@
   * Modifield by Hara Sahoo - 09/03/2021 - Changes made as part of tracking id and dpid url paramteres and auto-progression
   * Modified by Phap Mai - 10/05/2021 - DDS-5488: When consignment API returns 404, route the cases to domestic queue
   * Modified by Mahesh Parvathaneni - 19/05/2022 - DDS-7472: When consignment API returns 404, show the warning message
+  * Modified by Hasantha Liyanage - 04/08/2022 - DDS-11626: before edd
 -->
 <aura:component extends="c:SS_uiWizardPage" implements="forceCommunity:searchInterface" controller='ChasApexController' description="Missing Items wizard page 1: Item details (API call)">
     <aura:attribute name="error500" type="Boolean" default="false"/>
@@ -19,6 +20,8 @@
     <aura:attribute name="isMultipleArticles" type="Boolean" default="false"/>
     <aura:attribute name="showSelectionError" type="Boolean" default="false"/>
     <aura:attribute name="showInvalidMessage" type="Boolean" default="false"/>
+    <aura:attribute name="showInvalidWithinEDDMessage" type="Boolean" default="false"/>
+    <aura:attribute name="eddDisplayDate"  type="String" default="" />
     <!-- Guest login attributes-->
     <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
     <aura:handler name="chasmyPostLogin" event="c:ChasMyPostLogin" action="{!c.displaymyPostLoginForm}"/>
@@ -67,8 +70,21 @@
             <!-- Invalid Tracking number message -->
             <aura:if isTrue="{!(v.showInvalidMessage)}">
                 <div class="tracking-error">
-                    <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-warn-circle.svg'}">
-                        <p class="message-text">We couldn't find this tracking number in our records. Please check the tracking number and then continue.</p>
+                    <c:ChasBspDeflection aura:id="invalidBsp" noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-warn-circle.svg'}" iconLinkStyle="message-icon">
+                        <p class="message-text">We couldn't find this tracking number in our records. Please check the tracking number and try again.</p>
+                        <p class="message-text slds-var-p-top_medium">You can also check with the sender that they've shared the right tracking number.</p>
+                    </c:ChasBspDeflection>
+                </div>
+            </aura:if>
+            <!-- EDD before date message -->
+            <aura:if isTrue="{!(v.showInvalidWithinEDDMessage)}">
+                <div class="tracking-info">
+                    <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}" iconLinkStyle="message-icon">
+                        <p class="message-text">This parcel is on track to be delivered {!if(v.wizardData.deliveredByDateFrom  != null, 'between', 'on')} <b>{!v.eddDisplayDate} </b> </p>
+                        <br/>
+                        <p class="message-text"> You can only enquire about a late or missing item after the expected delivery date. For essential medication enquiries,
+                            <a href="https://auspost.com.au/help-and-support#contact" class="link-plain" target="blank" >please contact us by phone.</a>
+                        </p>
                     </c:ChasBspDeflection>
                 </div>
             </aura:if>

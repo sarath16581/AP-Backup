@@ -465,7 +465,6 @@
         </rules>
     </decisions>
     <description>subflow for MyCustomerDomain triggerred from CaseCommon AfterSave flow</description>
-    <environments>Default</environments>
     <formulas>
         <name>vCaseClosed</name>
         <dataType>Boolean</dataType>

@@ -2,8 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Empty_ULD__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
-    <description>DEPRECATED. DO NO USE. 
-Number of empty ULD for pickup/delivery booking, used by Metro Transport fleet.</description>
+    <description>DEPRECATED. DO NO USE. Number of empty ULD for pickup/delivery booking, used by Metro Transport fleet.</description>
     <externalId>false</externalId>
     <label>Empty ULD (DEPRECATED)</label>
     <precision>6</precision>
