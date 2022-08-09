@@ -3,21 +3,21 @@
  -->
 
 <apex:component id="PUD_BookingsHeader">
-	<apex:attribute name="Route" type="PUD_Route__c" description="parent route"/>
+	<apex:attribute name="routeWrapper" type="PUD_PrintRouteWrapper" description="parent route"/>
 	<table style="width:100%; font-family:Arial Unicode MS; margin-top:10px;">
 		<tr>
 			<td rowspan="2"><img src="{!$Resource.auspost_logo}" width="110" alt="AusPost Logo"/></td>
-			<td style="font-family: sans-serif; font-weight:bold;">{! Route.Name}</td>
-			<td style="font-family: sans-serif; font-weight:bold;"><u>{! Route.Depot__r.Name}</u></td>
+			<td style="font-family: sans-serif; font-weight:bold;">{! routeWrapper.route.Name}</td>
+			<td style="font-family: sans-serif; font-weight:bold;"><u>{! routeWrapper.route.Depot__r.Name}</u></td>
 			<td>Page</td>
 			<td><span class="pagenumber"/> of <span class="pagecount"/></td>
 		</tr>
 		<tr style="vertical-align:bottom;">
 			<td>Effective Date:
-				<apex:outputField value="{! Route.Start_Date__c}"/>
+				<apex:outputField value="{! routeWrapper.route.Start_Date__c}"/>
 			</td>
 			<td>Expiry Date:
-				<apex:outputField value="{! Route.End_Date__c}"/>
+				<apex:outputField value="{! routeWrapper.route.End_Date__c}"/>
 			</td>
 			<td>Printed Date:</td>
 			<td>
@@ -30,25 +30,25 @@
 
 	<div style="text-align:center; font-family:Arial Unicode MS; padding-top:16px; padding-right:5px;">
 		<!-- days the route is active repeated on every subsequent page-->
-		<apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
-		<apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
-		<apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
-		<apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
-		<apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
-		<apex:outputText rendered="{! route.Saturday__c}" value="Sat "/>
-		<apex:outputText rendered="{! route.Sunday__c}" value="Sun "/>
-		<apex:outputText rendered="{! !ISBLANK(route.Start_Time__c)}">
+		<apex:outputText rendered="{! routeWrapper.route.Monday__c}" value="Mon "/>
+		<apex:outputText rendered="{! routeWrapper.route.Tuesday__c}" value="Tue "/>
+		<apex:outputText rendered="{! routeWrapper.route.Wednesday__c}" value="Wed "/>
+		<apex:outputText rendered="{! routeWrapper.route.Thursday__c}" value="Thu "/>
+		<apex:outputText rendered="{! routeWrapper.route.Friday__c}" value="Fri "/>
+		<apex:outputText rendered="{! routeWrapper.route.Saturday__c}" value="Sat "/>
+		<apex:outputText rendered="{! routeWrapper.route.Sunday__c}" value="Sun "/>
+		<apex:outputText rendered="{! !ISBLANK(routeWrapper.route.Start_Time__c)}">
 			<!-- display time in hhmm format-->
-			{! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
+			{! IF(LEN(TEXT(HOUR(routeWrapper.route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(routeWrapper.route.Start_Time__c)), HOUR(routeWrapper.route.Start_Time__c))}
 			<apex:outputText value="{0,number,00}">
-				<apex:param value="{!MINUTE(route.Start_Time__c)}"/>
+				<apex:param value="{!MINUTE(routeWrapper.route.Start_Time__c)}"/>
 			</apex:outputText>
 		</apex:outputText>
-		<apex:outputText rendered="{! !ISBLANK(route.End_Time__c)}">
+		<apex:outputText rendered="{! !ISBLANK(routeWrapper.route.End_Time__c)}">
 			-&nbsp;
-			{! IF(LEN(TEXT(HOUR(route.End_Time__c)))<2 , '0'+ TEXT(HOUR(route.End_Time__c)), HOUR(route.End_Time__c))}
+			{! IF(LEN(TEXT(HOUR(routeWrapper.route.End_Time__c)))<2 , '0'+ TEXT(HOUR(routeWrapper.route.End_Time__c)), HOUR(routeWrapper.route.End_Time__c))}
 			<apex:outputText value="{0,number,00}">
-				<apex:param value="{!MINUTE(route.End_Time__c)}"/>
+				<apex:param value="{!MINUTE(routeWrapper.route.End_Time__c)}"/>
 			</apex:outputText>
 		</apex:outputText>
 	</div>

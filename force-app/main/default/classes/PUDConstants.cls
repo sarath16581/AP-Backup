@@ -8,6 +8,7 @@
 * 2021-10-13 - Ranjeewa Silva - Added new constant values.
 * 2022-03-16 - Ranjeewa Silva - Added new constant PUD_BOOKING_STATUS_ACTIVE.
 * 2022-07-26 - Dattaraj Deshmukh - Added Booking and Job container record types.
+* 2022-07-08 - Kamil Szyc - Added booking record type names
 */
 public inherited sharing class PUDConstants {
 
@@ -19,6 +20,11 @@ public inherited sharing class PUDConstants {
 
 	//PUD Booking type
 	public static final String PUD_BOOKING_TYPE_MEAL_BREAK = 'Meal Break';
+
+	//PUD Booking record types
+	public static final String PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY = 'Adhoc Pickup/Delivery';
+	public static final String PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY = 'Permanent Pickup/Delivery';
+	
 
 	//PUD Job status
 	// jobs are created in 'New' status. they are not yet pushed to dispatch system
@@ -40,7 +46,7 @@ public inherited sharing class PUDConstants {
 	public static final String PUD_JOB_STATUS_CANCELLED = 'Cancelled';
 
 	// driver couldn't complete the job (for example no one at the address)
-	public static final String PUD_JOB_STATUS_FAILED = 'Failed';
+    public static final String PUD_JOB_STATUS_FAILED = 'Failed';
 
 	//Booking Container Record Type
 	public static final String PUD_BOOKING_CONTAINER_RECORD_TYPE = 'Booking_Container';
@@ -48,4 +54,14 @@ public inherited sharing class PUDConstants {
 	//Booking Container Record Type
 	public static final String PUD_JOB_CONTAINER_RECORD_TYPE = 'Job_Container';
 	
+	//list of fields referenced in job print controllers
+	public static final Map<SObjectType,Set<SObjectField>> PUD_JOB_PRINT_FIELDS = new Map<SObjectType,Set<SObjectField>>{
+		PUD_Job__c.getSObjectType() => new Set<SObjectField> {PUD_Job__c.Start_Time__c, PUD_Job__c.Location_Information__c, PUD_Job__c.Booking_Type_Fx__c, PUD_Job__c.Booking_Comments__c,
+				PUD_Job__c.Deliver_Product__c, PUD_Job__c.Key_Number__c},
+		PUD_Route__c.getSObjectType() => new Set <SObjectField>{
+				PUD_Route__c.Name, PUD_Route__c.Depot__c,
+				PUD_Route__c.Monday__c, PUD_Route__c.Tuesday__c, PUD_Route__c.Wednesday__c, PUD_Route__c.Thursday__c, PUD_Route__c.Friday__c,
+				PUD_Route__c.Saturday__c, PUD_Route__c.Sunday__c, PUD_Route__c.Overtime_Allowance__c,
+				PUD_Route__c.Start_Time__c, PUD_Route__c.End_Time__c, PUD_Route__c.Start_Date__c, PUD_Route__c.End_Date__c}
+	};
 }
