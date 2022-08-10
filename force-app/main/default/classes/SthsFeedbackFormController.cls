@@ -1,11 +1,15 @@
 /**
- * @File Name          : SthsFeedbackFormController.cls
+ * @File Name          : STHSFeedbackFormController.cls
  * @Description        : Controller class for StarTrack Feedback form
  * @Author             : Mahesh Parvathaneni
  **/
 
-public without sharing class SthsFeedbackFormController {
+public with sharing class STHSFeedbackFormController {
 
+	/**
+	 * This will create a case from the feedback form data.
+	 * StarTrack Related contact is created from the case trigger.
+	 */
 	@AuraEnabled
 	public static String createFeedbackFormCase(Map<Object,String> formData) {
 		try {
@@ -13,22 +17,29 @@ public without sharing class SthsFeedbackFormController {
 			Case caseObj = new Case();
 			//get feedback form case default values
 			getFeedbackCaseDefaultValues(caseObj);
+			//get instance of STHS community service
+			STHSCommunityService service = STHSCommunityService.getInstance();
 			//get case default values
-			SthsCommunityUtility.getCaseDefaultValues(caseObj);
+			service.getCaseDefaultValues(caseObj);
 			//get case data from form
-			SthsCommunityUtility.getFormCaseData(caseObj, formData);
+			service.getFormCaseData(caseObj, formData);
 			//insert case
-			ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{caseObj});
+			service.insertRecords(new List<SObject>{caseObj});
+			//ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{caseObj});
 			//return case number
-			String caseNumber = CasesSelector.newInstance().selectById(new Set<Id> {caseObj.Id}).get(caseObj.Id).CaseNumber;
-			return caseNumber;
+			return service.getCaseNumber(caseObj.Id);
+			//String caseNumber = CasesSelector.newInstance().selectById(new Set<Id> {caseObj.Id}).get(caseObj.Id).CaseNumber;
+			//return caseNumber;
 		} catch (Exception ex) {
 			throw new AuraHandledException(ex.getMessage());
 		}
 	}
 
+	/**
+	 * Assign the feedback form case default values 
+	 */
 	private static void getFeedbackCaseDefaultValues(Case caseObj) {
-        caseObj.Subject = caseObj.Call_Purpose__c = caseObj.Initial_Call_Purpose__c = SthsConstants.CASE_SUBJECT_FEEDBACK_ENQUIRY;
-		caseObj.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SthsConstants.CASE_RECORDTYPE_VOC_ENQUIRY).getRecordTypeId();
+        caseObj.Subject = caseObj.Call_Purpose__c = caseObj.Initial_Call_Purpose__c = STHSConstants.CASE_SUBJECT_FEEDBACK_ENQUIRY;
+		caseObj.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(STHSConstants.CASE_RECORDTYPE_VOC_ENQUIRY).getRecordTypeId();
     }
 }

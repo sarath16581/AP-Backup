@@ -1,11 +1,11 @@
 /**
- * @File Name          : SthsFeedbackFormControllerTest.cls
- * @Description        : Test class for SthsFeedbackFormController
+ * @File Name          : STHSFeedbackFormControllerTest.cls
+ * @Description        : Test class for STHSFeedbackFormController
  * @Author             : Mahesh Parvathaneni
  **/
 
 @isTest
-public with sharing class SthsFeedbackFormControllerTest {
+public with sharing class STHSFeedbackFormControllerTest {
 
     private static Map<Object, String> formData;
 
@@ -53,7 +53,7 @@ public with sharing class SthsFeedbackFormControllerTest {
 		// =====================================
         Test.startTest();
 
-        String result = SthsFeedbackFormController.createFeedbackFormCase(formData);
+        String result = STHSFeedbackFormController.createFeedbackFormCase(formData);
 
         Test.stopTest();
 
@@ -90,7 +90,7 @@ public with sharing class SthsFeedbackFormControllerTest {
 
 		String result;
 		try {
-			result = SthsFeedbackFormController.createFeedbackFormCase(formData);
+			result = STHSFeedbackFormController.createFeedbackFormCase(formData);
 		} catch (Exception ex) {
 			System.assertEquals(null, result, 'Expected CaseNumber to be null when there is a DML error.');
 		}

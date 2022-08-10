@@ -1,11 +1,11 @@
 /**
- * @File Name          : SthsCommunityUtilityTest.cls
- * @Description        : Test class for SthsCommunityUtility
+ * @File Name          : STHSCommunityService_Test.cls
+ * @Description        : Test class for STHSCommunityService
  * @Author             : Mahesh Parvathaneni
  **/
 
 @isTest
-public with sharing class SthsCommunityUtilityTest {
+public with sharing class STHSCommunityService_Test {
 
     private static Map<Object, String> formData;
 
@@ -46,7 +46,8 @@ public with sharing class SthsCommunityUtilityTest {
         Test.startTest();
         
         Case caseObj = new Case();
-        SthsCommunityUtility.getCaseDefaultValues(caseObj);
+        STHSCommunityService service = STHSCommunityService.getInstance();
+        service.getCaseDefaultValues(caseObj);
 
         Test.stopTest();
 
@@ -76,7 +77,39 @@ public with sharing class SthsCommunityUtilityTest {
         Test.startTest();
         
         Case caseObj = new Case();
-        SthsCommunityUtility.getFormCaseData(caseObj, formData);
+        STHSCommunityService service = STHSCommunityService.getInstance();
+        service.getFormCaseData(caseObj, formData);
+
+        Test.stopTest();
+
+        System.assertNotEquals(null, caseObj.SuppliedEmail, 'Expected Supplied Email of the case to be populated but instead got null.');
+
+	}
+
+    /**
+	 * Scenario: Testing to perform the DML Insert operation
+	 */
+	@IsTest
+	private static void testInsertRecords() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+        Map<Object, String> formData = formDataSetup();
+
+		// =====================================
+		// Stubbing
+		// =====================================
+        // None
+
+		// =====================================
+		// Testing
+		// =====================================
+        Test.startTest();
+        
+        Case caseObj = new Case();
+        STHSCommunityService service = STHSCommunityService.getInstance();
+        service.getFormCaseData(caseObj, formData);
 
         Test.stopTest();
 
