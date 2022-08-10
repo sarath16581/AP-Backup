@@ -6,6 +6,7 @@
  * @description Test Class covering PUDRoutesSelector
  * @changelog
  * 2022-03-23 - Ranjeewa Silva - Created
+ * 2022-07-28 - Kamil Szyc - add tests for selectByIdWithAllBookings and selectByIdAndDepotWithJobs
  */
 @IsTest
 public with sharing class PUDRoutesSelector_Test {
@@ -122,6 +123,11 @@ public with sharing class PUDRoutesSelector_Test {
 		pudBookings[0].Route_Lookup__c = routes[0].Id;
 		pudBookings[1].Route_Lookup__c = routes[0].Id;
 		insert pudBookings;
+		
+		List<PUD_Job__c> pudJobs = PUDTestDataFactory.getPUDJobs(1, pudBookings[0].Id, 'Accepted', false);
+		pudJobs[0].Route_Lookup__c = routes[0].Id;
+		pudJobs[0].Date__c = Date.today();
+		insert pudJobs;
 
 		// =====================================
 		// Stubbing
@@ -145,6 +151,13 @@ public with sharing class PUDRoutesSelector_Test {
 		System.assertEquals(true, resultsMap.containsKey(routes[1].Id), 'Expected route record not returned.');
 		System.assertEquals(2, resultsMap.get(routes[0].Id).Bookings__r.size(), 'Expected active child bookings to be populated on the route.');
 
+		results = selector.selectByIdWithAllBookings(new Set<Id>{routes[0].Id},  new Set<Object>());
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		System.assert(!results[0].Bookings__r.isEmpty(), 'No bookings were returned');
+		
+		results = selector.selectByIdAndDepotWithJobs(new Set<Id>{routes[0].Id}, null, new Set<String>(), new Set<Date>{Date.today()},new Set<Object>());
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		System.assert(!results[0].Jobs__r.isEmpty(), 'No bookings were returned');
 		Test.stopTest();
 	}
 
