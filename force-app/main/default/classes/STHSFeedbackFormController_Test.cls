@@ -1,11 +1,11 @@
 /**
- * @File Name          : STHSFeedbackFormControllerTest.cls
+ * @File Name          : STHSFeedbackFormController_Test.cls
  * @Description        : Test class for STHSFeedbackFormController
  * @Author             : Mahesh Parvathaneni
  **/
 
 @isTest
-public with sharing class STHSFeedbackFormControllerTest {
+public with sharing class STHSFeedbackFormController_Test {
 
     private static Map<Object, String> formData;
 
@@ -34,18 +34,18 @@ public with sharing class STHSFeedbackFormControllerTest {
 		// Data Preparation
 		// =====================================
 		Map<Object, String> formData = formDataSetup();
-		Case caseRecord = ApplicationTestDataFactory.getCases(1, true)[0];
-        caseRecord = (Case)ApplicationTestDataFactory.setUnwritableFields(caseRecord, new Map<String, Object>{'CaseNumber' => '475123'});
 
 		// =====================================
 		// Stubbing
 		// =====================================
-        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
+		STHSCommunityService mockService = (STHSCommunityService)MockUtility.mockUtility(STHSCommunityService.class);
+		
 
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new AnswerGenericDMLInserted(caseRecord.Id));
-		MockUtility.Mocks.when(mockCasesSelector.selectById(new Set<Id>{caseRecord.Id})).thenReturn(new Map<Id, Case>{caseRecord.Id => caseRecord});
+	    ((STHSCommunityService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).getCaseDefaultValues((Case)fflib_Match.anyObject());
+		((STHSCommunityService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).getFormCaseData((Case)fflib_Match.anyObject(), (Map<Object, String>)fflib_Match.eq(formData));
+		((STHSCommunityService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).insertRecords((List<SObject>)fflib_Match.anyObject());
+		MockUtility.Mocks.when(mockService.getCaseNumber((Id)fflib_Match.isNull())).thenReturn('475123');
         MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -59,8 +59,11 @@ public with sharing class STHSFeedbackFormControllerTest {
 
         System.assertNotEquals(null, result, 'Expected CaseNumber of the newly inserted case to be populated but instead got null.');
 
-        // should have inserted a new case
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
+        // should have called STHSCommunityService methods
+        ((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getCaseDefaultValues((Case)fflib_Match.anyObject());
+		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getFormCaseData((Case)fflib_Match.anyObject(), (Map<Object, String>)fflib_Match.eq(formData));
+		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).insertRecords((List<SObject>)fflib_Match.anyObject());
+		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getCaseNumber((Id)fflib_Match.isNull());
 	}
 
     /**
@@ -77,10 +80,10 @@ public with sharing class STHSFeedbackFormControllerTest {
 		// =====================================
 		// Stubbing
 		// =====================================
-        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+        STHSCommunityService mockService = (STHSCommunityService)MockUtility.mockUtility(STHSCommunityService.class);
 
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenThrow(new MockException());
+		((STHSCommunityService)MockUtility.Mocks.doThrowWhen(new MockException(), mockService)).getCaseDefaultValues((Case)fflib_Match.anyObject());
         MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -92,40 +95,13 @@ public with sharing class STHSFeedbackFormControllerTest {
 		try {
 			result = STHSFeedbackFormController.createFeedbackFormCase(formData);
 		} catch (Exception ex) {
-			System.assertEquals(null, result, 'Expected CaseNumber to be null when there is a DML error.');
+			System.assertEquals(null, result, 'Expected CaseNumber to be null when there is an error.');
 		}
 
         Test.stopTest();
 
-        // should have attempted to insert a new case
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
-	}
-
-    /**
-	 * A simple Answer class to set an Id on the record to simulate a DML insert operation
-	 */
-	private class AnswerGenericDMLInserted implements fflib_Answer {
-		private Id caseId;
-
-		public AnswerGenericDMLInserted(Id caseId) {
-			this.caseId = caseId;
-		}
-
-		public Object answer(fflib_InvocationOnMock invocation) {
-			List<Map<String, Object>> saveResults = new List<Map<String, Object>>();
-			List<SObject> records = (List<SObject>)invocation.getArgument(0);
-			for(SObject record : records) {
-				record.Id = this.caseId;
-
-				Map<String, Object> result = new Map<String, Object> {
-						'success' => true,
-						'id' => record.Id
-				};
-				saveResults.add(result);
-			}
-			List<Database.SaveResult> result = (List<Database.SaveResult>)JSON.deserialize(JSON.serialize(saveResults), List<Database.SaveResult>.class);
-			return result;
-		}
+        // should have attempted to call STHSCommunityService
+        ((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getCaseDefaultValues((Case)fflib_Match.anyObject());
 	}
 
     private class MockException extends Exception {

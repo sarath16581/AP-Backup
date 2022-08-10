@@ -25,11 +25,8 @@ public with sharing class STHSFeedbackFormController {
 			service.getFormCaseData(caseObj, formData);
 			//insert case
 			service.insertRecords(new List<SObject>{caseObj});
-			//ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{caseObj});
 			//return case number
 			return service.getCaseNumber(caseObj.Id);
-			//String caseNumber = CasesSelector.newInstance().selectById(new Set<Id> {caseObj.Id}).get(caseObj.Id).CaseNumber;
-			//return caseNumber;
 		} catch (Exception ex) {
 			throw new AuraHandledException(ex.getMessage());
 		}
