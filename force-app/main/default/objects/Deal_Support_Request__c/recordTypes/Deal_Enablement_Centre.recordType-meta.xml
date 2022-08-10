@@ -2028,5 +2028,9 @@
             <fullName>Termination of Contract</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Update proposal%2Foffer expiration date</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
 </RecordType>
