@@ -55,6 +55,10 @@
                 font-weight:normal;
                 font-size:small;
             }
+            .counterReset {
+                -fs-page-sequence: start;
+            }
+            
 
         
 		</style>
@@ -68,7 +72,7 @@
 			<apex:variable var="jobsCount" value="{!jobsCount +1}"/>
 		</apex:repeat>
 		<apex:pageBlock rendered="{!jobsCount > 0}">
-			<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+			<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}" class="counterReset">
 				<div class="header">
 					<!--repeatable header-->
 					<c:PUD_JobsHeader Route="{! route}" effectiveDate="{!TODAY()}"/>
