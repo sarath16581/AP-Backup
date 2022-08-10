@@ -7,7 +7,7 @@
     <hasMenubar>false</hasMenubar>
     <hasScrollbars>true</hasScrollbars>
     <hasToolbar>false</hasToolbar>
-    <height>600</height>
+    <height>800</height>
     <isResizable>true</isResizable>
     <linkType>url</linkType>
     <masterLabel>Print Final Notice</masterLabel>

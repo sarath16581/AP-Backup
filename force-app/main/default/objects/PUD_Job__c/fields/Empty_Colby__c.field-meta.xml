@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Empty_Colby__c</fullName>
-    <description>DEPRECATED. DO NOT USE.
-Number of empty Colby for pickup/delivery booking, used by Metro Transport fleet.</description>
+    <description>DEPRECATED. DO NOT USE. Number of empty Colby for pickup/delivery booking, used by Metro Transport fleet.</description>
     <externalId>false</externalId>
     <label>Empty Colby (DEPRECATED)</label>
     <precision>6</precision>
