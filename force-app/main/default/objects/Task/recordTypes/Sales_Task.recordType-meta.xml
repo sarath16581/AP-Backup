@@ -494,6 +494,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Closed - Not Actioned</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Completed</fullName>
             <default>false</default>
         </values>

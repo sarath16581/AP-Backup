@@ -120,7 +120,7 @@
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <subflows>
         <name>Invoke_CAR_Case_Notification_Sub_Flow</name>
         <label>Invoke CAR Case Notification Sub Flow</label>

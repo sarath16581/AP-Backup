@@ -1,15 +1,14 @@
 /**
-* @description Domain class to handle Contact related capability
-* @author George Nguyen
-* @group Domains
-* @domain Contact
-* @changelog
-* 2022-05-31 - George Nguyen - Created.
-*/
+ * @description Domain class to handle Contact related capability
+ * @author George Nguyen
+ * @group Domains
+ * @domain Contact
+ * @changelog
+ * 2022-05-31 - George Nguyen - Created.
+ */
 public inherited sharing class ContactDomain extends ApplicationDomain {
-
 	public static ContactDomain newInstance(List<SObject> sObjectList) {
-		return (ContactDomain)ApplicationDomain.newInstance(ContactDomain.class, sObjectList);
+		return (ContactDomain) ApplicationDomain.newInstance(ContactDomain.class, sObjectList);
 	}
 
 	/**
@@ -28,5 +27,4 @@ public inherited sharing class ContactDomain extends ApplicationDomain {
 			return ContactDomain.newInstance(sObjectList);
 		}
 	}
-
 }

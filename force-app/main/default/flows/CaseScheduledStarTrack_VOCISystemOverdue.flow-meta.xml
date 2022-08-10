@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>StarTrack_VOC_System_User_Incident_Overdue</name>
+        <label>StarTrack VOC System User Incident Overdue</label>
+        <locationX>308</locationX>
+        <locationY>408</locationY>
+        <actionName>Case.StarTrack_VOC_System_User_Incident_Overdue</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <description>Schedule Path for StarTrack VOC Incident System Overdue</description>
+    <interviewLabel>CaseScheduledStarTrack_VOCISystemOverdue {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CaseScheduled StarTrack VOCISystemOverdue</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Case_Record</name>
+        <label>Update Case Record</label>
+        <locationX>308</locationX>
+        <locationY>288</locationY>
+        <connector>
+            <targetReference>StarTrack_VOC_System_User_Incident_Overdue</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Owner_is_Changed__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>X0_Hours_after_Due_Date</name>
+            <connector>
+                <targetReference>Update_Case_Record</targetReference>
+            </connector>
+            <label>0 Hours after Due Date</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>Due_Date__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Connection__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <description>The type of connection that exists between the two accounts, or the nature of the relationship.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The nature of the relationship between the two accounts.</inlineHelpText>
+    <label>Connection</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

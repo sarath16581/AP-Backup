@@ -7,6 +7,7 @@
 * @changelog
 * 2021-08-31 - Ranjeewa Silva - Created
 * 2022-03-23 - Ranjeewa Silva - Added helper methods to return Adhoc bookings
+* 2022-07-25 - Dattaraj Deshmukh - Added helper method to return Job Containers
 */
 @IsTest
 public class PUDTestDataFactory {
@@ -90,6 +91,26 @@ public class PUDTestDataFactory {
 		}, count), generateIds);
 	}
 
+	public static List<PUD_Container__c> getPUDJobContainers(Integer count, Id bookingId, Id jobId, String type, String condition, Boolean generateIds) {
+		return (List<PUD_Container__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(PUD_Container__c.SObjectType, new Map<SObjectField, Object> {
+			PUD_Container__c.Booking__c => bookingId,
+			PUD_Container__c.Job__c => jobId,
+			PUD_Container__c.Type__c => type,
+			PUD_Container__c.Condition__c => condition,
+			PUD_Container__c.RecordTypeId => jobContainerRecordType
+		}, count), generateIds);
+	}
+
+	public static List<PUD_Container__c> getPUDBookingContainers(Integer count, Id bookingId, String type, String condition, Boolean generateIds) {
+		return (List<PUD_Container__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(PUD_Container__c.SObjectType, new Map<SObjectField, Object> {
+			PUD_Container__c.Booking__c => bookingId,
+			PUD_Container__c.Type__c => type,
+			PUD_Container__c.Condition__c => condition,
+			PUD_Container__c.RecordTypeId => bookingContainerRecordType
+		}, count), generateIds);
+	}
+
+
 	public static Id networkBookingLocationRecordType {
 		get {
 			if(networkBookingLocationRecordType == null) {
@@ -136,6 +157,26 @@ public class PUDTestDataFactory {
 				businessHubNetworkRecordType = Schema.SObjectType.Network__c.getRecordTypeInfosByDeveloperName().get('Business_Hub_3').getRecordTypeId();
 			}
 			return businessHubNetworkRecordType;
+		}
+		private set;
+	}
+
+	public static Id jobContainerRecordType {
+		get {
+			if(jobContainerRecordType == null) {
+				jobContainerRecordType = Schema.SObjectType.PUD_Container__c.getRecordTypeInfosByDeveloperName().get('Job_Container').getRecordTypeId();
+			}
+			return jobContainerRecordType;
+		}
+		private set;
+	}
+
+	public static Id bookingContainerRecordType {
+		get {
+			if(bookingContainerRecordType == null) {
+				bookingContainerRecordType = Schema.SObjectType.PUD_Container__c.getRecordTypeInfosByDeveloperName().get('Booking_Container').getRecordTypeId();
+			}
+			return bookingContainerRecordType;
 		}
 		private set;
 	}

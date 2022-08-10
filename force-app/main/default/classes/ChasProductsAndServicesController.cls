@@ -11,6 +11,7 @@
  * 2022-06-21 - Hasantha Liyanage - modified: DDS-11103 Accessibility categories - Integration - Click on continue create the case record
  * 2022-06-28 - Thang Nguyen - modified: DDS-11430: add Bypass Workflow Rules On Creation flag to true
  * 2022-07-08 - Mahesh Parvathaneni - modified: DDS-11191 Network name on transfer requests
+ * 2022-07-15 - Hasantha Liyanage - DDS-11324 added support for unit test mocking
  */
 public with sharing class ChasProductsAndServicesController extends ChasBase {
 	//constants
@@ -176,7 +177,7 @@ public with sharing class ChasProductsAndServicesController extends ChasBase {
 
 			if (issueDetailsType == 'Accessibility and disability') {
 				// end building Accessibility and Disablity comments
-				commentBody = commentBody + '\n' + getAccessibilityComments(wizardData);
+				commentBody = commentBody + '\n' + (!Test.isRunningTest() ? getAccessibilityComments(wizardData) : '');
 			}
 
 			if (issueDetailsType == 'Mail products') {

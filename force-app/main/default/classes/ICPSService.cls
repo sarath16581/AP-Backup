@@ -16,7 +16,7 @@ public inherited sharing class ICPSService {
 		return instance;
 	}
 
-    public class ICPSException extends Exception{}  
+    public class ICPSException extends Exception{}
 
     /*
     * NOTE: 
@@ -27,7 +27,7 @@ public inherited sharing class ICPSService {
         if(record.NumberofArticles__c == 0) {
             throw new ICPSException('The label cannot be printed because no articles have been added to this ICPS record');
         }
-    
+
         AusPostSettings__c setting = AusPostSettings__c.getValues('ICPS');
         HttpRequest req = new HttpRequest(); 
         req.setEndpoint(setting.URL__c); // e.g. https://callout:LAYER7_CERT/lps/labelPrintingService

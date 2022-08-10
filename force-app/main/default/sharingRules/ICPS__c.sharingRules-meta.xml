@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <sharingOwnerRules>
+    <sharingCriteriaRules>
         <fullName>NSW_Users_see_all_NSW_records</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All NSW ICPS users can view/edit all NSW ICPS records</description>
@@ -8,11 +8,14 @@
         <sharedTo>
             <role>ICPSNSW</role>
         </sharedTo>
-        <sharedFrom>
-            <role>ICPSNSW</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NSW</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>QLD_Users_see_all_QLD_records</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All QLD ICPS users can view/edit all QLD ICPS records</description>
@@ -20,11 +23,14 @@
         <sharedTo>
             <role>ICPSQLD</role>
         </sharedTo>
-        <sharedFrom>
-            <role>ICPSQLD</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>QLD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>VIC_Users_see_all_VIC_records</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All VIC ICPS users can view/edit all VIC ICPS records</description>
@@ -32,11 +38,14 @@
         <sharedTo>
             <role>ICPSVIC</role>
         </sharedTo>
-        <sharedFrom>
-            <role>ICPSVIC</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>VIC</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>WA_Users_see_all_WA_records</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All WA ICPS users can view/edit all WA ICPS records</description>
@@ -44,8 +53,11 @@
         <sharedTo>
             <role>ICPSWA</role>
         </sharedTo>
-        <sharedFrom>
-            <role>ICPSWA</role>
-        </sharedFrom>
-    </sharingOwnerRules>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>WA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

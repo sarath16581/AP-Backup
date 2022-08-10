@@ -20,6 +20,7 @@
     </alerts>
     <alerts>
         <fullName>Email_Alert_Membership_SameDate</fullName>
+        <ccEmails>Aplacmembership@auspost.com.au</ccEmails>
         <description>Email Alert - Membership_SameDate</description>
         <protected>false</protected>
         <recipients>
