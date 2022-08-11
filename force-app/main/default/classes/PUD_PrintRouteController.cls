@@ -6,14 +6,12 @@
 * @tag PUD_Route__c
 * @domain PUD
 * @description Controller class to for printing CCP routes with bookings.
- * @changelog
+* @changelog 
  * 2022-06-24 - created
+ * 2022-08-09- Dattaraj Deshmukh - Updated class to use wrapper classes for Route and Bookings.
  */
 
 public with sharing class PUD_PrintRouteController {
-	//public List<PUD_Route__c> routes { get; set; }
-	//public PUD_Route__c route { get; set; }
-
 	public List<PUD_PrintRouteWrapper> routes {get;set;}
 
 	//Constructor
@@ -29,11 +27,8 @@ public with sharing class PUD_PrintRouteController {
 		for(PUD_Route__c route : getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT})){
 			routes.add(new PUD_PrintRouteWrapper(route));
 		}
-		
-		// routes = getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{
-		// 		PUDRoutesSelector.Options.WITH_DEPOT
-		// });
 	}
+
 	public PUD_PrintRouteController(ApexPages.StandardController sc) {
 		//initialise wrapper list
 		routes = new List<PUD_PrintRouteWrapper>();
@@ -48,10 +43,6 @@ public with sharing class PUD_PrintRouteController {
 		for(PUD_Route__c route : getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT})){
 			routes.add(new PUD_PrintRouteWrapper(route));
 		}
-		
-		// routes = getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{
-		// 		PUDRoutesSelector.Options.WITH_DEPOT
-		// });
 	}
 	@TestVisible private static List<PUD_Route__c> getSelectedRoutesWithBookings(Set<Id> routeIds, Set<Object>selectorOptions) {
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
@@ -71,50 +62,7 @@ public with sharing class PUD_PrintRouteController {
 						PUD_Booking__c.Saturday__c, PUD_Booking__c.Sunday__c, PUD_Booking__c.Booking_Location__c, PUD_Booking__c.Booking_Location__c, PUD_Booking__c.Site_Instructions__c
 				}
 		};
+
 		return PUDRoutesSelector.newInstance(fieldOverrides).selectByIdWithAllBookings(routeIds, selectorOptions);
-
-
-		//return null;
 	}
-
-	public class Route {
-		public PUD_Route__c route {get; private set;}
-		public List<PUD_PrintRouteBookingWrapper> bookings {get; private set;}
-		public List<PUD_PrintRouteBookingWrapper> mealBreaks {get; private set;}
-	 
-		public Route(PUD_Route__c route) {
-			this.route = route;
-			this.bookings = new List<PUD_PrintRouteBookingWrapper>();
-			this.mealBreaks = new List<PUD_PrintRouteBookingWrapper>();
-
-			for(PUD_Booking__c booking: route.Bookings__r) {
-				PUD_PrintRouteBookingWrapper b = new PUD_PrintRouteBookingWrapper(booking);
-				//add bookings
-				this.bookings.add(b);
-				
-				//add meal break bookings			
-				if (b.isMealBreak()) {
-					this.mealBreaks.add(b);
-				}
-			}
-		}
-	}
-	 
-	public class Booking {
-		public PUD_Booking__c booking {get; private set;}
-	 
-		public Booking(PUD_Booking__c booking) {
-			this.booking = booking;
-		}
-	 
-		public Boolean isMealBreak() {
-			return this.booking.Booking_Type__c == PUDConstants.PUD_BOOKING_TYPE_MEAL_BREAK ? true : false;
-		}
-	 
-		// public String getDurationDisplayTimeString() {
-		//    '0800 - 0830'
-		// }
-	 
-	}
-
 }

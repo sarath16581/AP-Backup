@@ -24,39 +24,105 @@ public inherited sharing class PUD_PrintRouteBookingWrapper {
 		this.endTimeString = getDurationDisplayEndTimeString(booking.Start_Time__c, booking.Dwell_Time_Planned__c);
 	}
 	
+	// check if booking is of Meal Type
 	public Boolean isMealBreak() {
 		return this.booking.Booking_Type__c == PUDConstants.PUD_BOOKING_TYPE_MEAL_BREAK ? true : false;
 	}
 
+	
+	/**
+	 * @param Time value.
+	 * @return Time displayed in String.
+	 * @desc time is prefixed with '0'.  
+	 * e.g. If Time is 9 then function returns 09 as a string. If its 12 then returns 12 as a string.
+	 */
 	public String getDurationDisplayStartTimeString(Time displayTime){
-		if( displayTime !=null && (String.valueOf(displayTime.hour())).length() < 2){
-			return ('0'+String.valueOf(displayTime.hour()));
+		
+		String displayTimeString='';
+
+		//return blank string if time is null
+		if(displayTime == null) { return displayTimeString; }
+
+		//if length of hour() component of Time is less than 2, prefix with 0
+		if((String.valueOf(displayTime.hour())).length() < 2){
+			displayTimeString += ('0'+String.valueOf(displayTime.hour()));
 		}
-		return displayTime !=null ? String.valueOf(displayTime.hour()) : '';
+		else{
+			displayTimeString += String.valueOf(displayTime.hour());
+		}
+
+		//if length of minute() component of Time is less than 2, prefix with 0
+		if((String.valueOf(displayTime.minute())).length() < 2){
+			displayTimeString += ('0'+String.valueOf(displayTime.minute()));
+		}
+		else{
+			displayTimeString += (''+String.valueOf(displayTime.minute()));
+		}
+		
+		//if length of hour() & minute() component of Time is equal to, return string representation of time.
+		if((String.valueOf(displayTime.hour())).length() == 2 && (String.valueOf(displayTime.minute())).length() == 2){
+			displayTimeString = String.valueOf(displayTime.hour()) + ''+String.valueOf(displayTime.minute());
+		}
+		
+		return displayTimeString;
 	}
 
+	
+	/**
+	 * @param Start Time value, Dwelled Time.
+	 * @return Time displayed in String.
+	 * @desc Start Time and Dwell Time is passed to calculate end time. 
+	 * End time is prefixed with '0'.  
+	 * e.g. If Time is 9 then function returns 09 as a string. If its 12 then returns 12 as a string.
+	 */
 	public String getDurationDisplayEndTimeString(Time startTime, Decimal dwellTimePlanned ){
 		Time endTime;
-		if( startTime !=null ){
+		String endTimeString='';
+
+		//return blank if startime is null.
+		if(startTime == null){
+			return endTimeString;
+		}
+		
+		//create a new instance of END TIME from start time and dwell time planned
+		if( dwellTimePlanned !=null ){
 			endTime = startTime.addMinutes(Time.newInstance(0,(Integer)dwellTimePlanned,0,0).minute());	
 		}
 
+		//format endtime in HHMM format
+		if(endTime !=null){
+			return getDurationDisplayStartTimeString(endTime);
+		}
 
-		if( endTime !=null && (String.valueOf(endTime.hour())).length() < 2){
-			String endTimeString;
-			endTimeString = '0'+(String.valueOf(endTime.hour()));
-			if(String.valueOf(endTime.minute()).length() < 2 ){
-				endTimeString+= '0'+String.valueOf(endTime.minute());
-			}
-			else {
-				endTimeString+= String.valueOf(endTime.minute());
-			}
-			return endTimeString;
-		}
-		if(endTime !=null && (String.valueOf(endTime.minute())).length() < 2){
-			return (String.valueOf(endTime.hour()) + '0'+String.valueOf(endTime.minute()));
-		}
-		return endTime !=null ? (String.valueOf(endTime.hour()) + ''+String.valueOf(endTime.minute())) : '';
+		//return blank string if endTime is NULL;
+		return endTimeString;
+
+		// //if length of Hour() component of time is less than 2 then prefix it with '0' 
+		// if( endTime !=null && (String.valueOf(endTime.hour())).length() < 2){
+			
+		// 	endTimeString = '0'+(String.valueOf(endTime.hour()));
+			
+		// 	//if minute() component of time is less than 2 then prefix it with '0'
+		// 	//eg. end time will be return as 0705 if 'Hour' and 'Minute' components length is less than 2
+		// 	if(String.valueOf(endTime.minute()).length() < 2 ){
+		// 		endTimeString+= '0'+String.valueOf(endTime.minute());
+		// 	}
+		// 	else {
+		// 		endTimeString+= String.valueOf(endTime.minute());
+		// 	}
+
+		// 	return endTimeString;
+		// }
+
+		// //if length of minute() component of time is less than 2 then prefix it with '0'
+		// //e.g end time will be returned as 1205 if 'Minute' component's length is less than 2
+		// if(endTime !=null && (String.valueOf(endTime.minute())).length() < 2){
+		// 	return (String.valueOf(endTime.hour()) + '0'+String.valueOf(endTime.minute()));
+		// }
+
+		// //if length of Hour() and Minute() components are NOT less than 2 then return end time.
+		// //e.g. endTime will be return as 1215 
+		// return endTime !=null ? (String.valueOf(endTime.hour()) + ''+String.valueOf(endTime.minute())) : '';
 	}
 	
 }

@@ -2,6 +2,7 @@
  -  component for bookings used in route pdf printing
  - @changelog:
  - 24/6/2022 - Kamil Szyc- created
+ - 08/08/2022- Dattaraj Deshmukh - updated to use wrapper object.
  -->
 
 <apex:component id="PUD_BookingsTable">
@@ -9,7 +10,7 @@
 	<apex:pageBlock >
 		<!-- bookings table -->
 		<apex:pageBlockTable value="{! bookings }" 
-		                     var="bookingWrapperRec" 
+		                     var="bookingWrapper" 
 		                     style="padding-top:28px; page-break-inside:avoid;"
 		                     styleClass="normalcell"
 		                     headerClass="table-header">
@@ -18,11 +19,8 @@
 			             width="50px"
 			             headerClass="job-headers">
 				<div class="boldcell">
-					<apex:outputText rendered="{! !ISBLANK(bookingWrapperRec.booking.Start_Time__c)}">
-						{! bookingWrapperRec.startTimeString}
-					</apex:outputText>
-					<apex:outputText value="{0,number,00}" rendered="{! !ISBLANK(bookingWrapperRec.booking.Start_Time__c)}">
-						<apex:param value="{!MINUTE(bookingWrapperRec.booking.Start_Time__c)}"/>
+					<apex:outputText rendered="{! !ISBLANK(bookingWrapper.booking.Start_Time__c)}">
+						{! bookingWrapper.startTimeString}
 					</apex:outputText>
 				</div>
 			</apex:column>
@@ -32,37 +30,37 @@
 			             width="500px" 
 			             headerClass="job-headers">
 				<div class="boldcell">
-					<apex:outputText styleClass="locationName" value="{!bookingWrapperRec.booking.Booking_Location_Name_LU__c}" />
-					<apex:outputText  rendered="{! OR(!ISBLANK(bookingWrapperRec.booking.Booking_Location_Street__c),!ISBLANK(bookingWrapperRec.booking.Booking_Location_City__c))}">
-						(<apex:outputText value="{!bookingWrapperRec.booking.Booking_Location_Street__c}" styleClass="locationAddress"/>&nbsp;
-						<apex:outputText value="{!bookingWrapperRec.booking.Booking_Location_City__c}" styleClass="locationAddress"/>)<br/>
+					<apex:outputText styleClass="locationName" value="{!bookingWrapper.booking.Booking_Location_Name_LU__c}" />
+					<apex:outputText rendered="{! OR(!ISBLANK(bookingWrapper.booking.Booking_Location_Street__c),!ISBLANK(bookingWrapper.booking.Booking_Location_City__c))}">
+						(<apex:outputText value="{!bookingWrapper.booking.Booking_Location_Street__c}" styleClass="locationAddress"/>&nbsp;
+						<apex:outputText value="{!bookingWrapper.booking.Booking_Location_City__c}" styleClass="locationAddress"/>)<br/>
 					</apex:outputText>
 				</div>
-				<apex:outputText rendered="{! !ISBLANK(bookingWrapperRec.booking.Key_Number__c)}">
+				<apex:outputText rendered="{! !ISBLANK(bookingWrapper.booking.Key_Number__c)}">
 					<apex:outputLabel value="Key Number: " for="theKeyNumber"/>
-					<apex:outputField label="theKeyNumber" value="{!bookingWrapperRec.booking.Key_Number__c}"/>
+					<apex:outputField label="theKeyNumber" value="{!bookingWrapper.booking.Key_Number__c}"/>
 					<br/>
 				</apex:outputText>
-				<apex:outputText rendered="{! bookingWrapperRec.booking.Monday__c}" value="Mon "/>
-				<apex:outputText rendered="{! bookingWrapperRec.booking.Tuesday__c}" value="Tue "/>
-				<apex:outputText rendered="{! bookingWrapperRec.booking.Wednesday__c}" value="Wed "/>
-				<apex:outputText rendered="{! bookingWrapperRec.booking.Thursday__c}" value="Thu "/>
-				<apex:outputText rendered="{! bookingWrapperRec.booking.Friday__c}" value="Fri "/>
-				<apex:outputText rendered="{! bookingWrapperRec.booking.Saturday__c}" value="Sat "/>
-				<apex:outputText rendered="{! bookingWrapperRec.booking.Sunday__c}" value="Sun "/>
+				<apex:outputText rendered="{! bookingWrapper.booking.Monday__c}" value="Mon "/>
+				<apex:outputText rendered="{! bookingWrapper.booking.Tuesday__c}" value="Tue "/>
+				<apex:outputText rendered="{! bookingWrapper.booking.Wednesday__c}" value="Wed "/>
+				<apex:outputText rendered="{! bookingWrapper.booking.Thursday__c}" value="Thu "/>
+				<apex:outputText rendered="{! bookingWrapper.booking.Friday__c}" value="Fri "/>
+				<apex:outputText rendered="{! bookingWrapper.booking.Saturday__c}" value="Sat "/>
+				<apex:outputText rendered="{! bookingWrapper.booking.Sunday__c}" value="Sun "/>
 				<br/>
 
-				<apex:outputText value="{! bookingWrapperRec.booking.Booking_Type__c}" styleClass="normalcell"/> <br/>
+				<apex:outputText value="{! bookingWrapper.booking.Booking_Type__c}" styleClass="normalcell"/> <br/>
 
-				<apex:outputLabel value="Booking Comments: " for="bookingComments" rendered="{! !ISBLANK(bookingWrapperRec.booking.Booking_Comments__c)}"/> <br/>
+				<apex:outputLabel value="Booking Comments: " for="bookingComments" rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Comments__c)}"/> <br/>
 				<span style="margin-left: 40px; display: block;">
-					<apex:outputField label="bookingComments" value="{!bookingWrapperRec.booking.Booking_Comments__c}" styleClass="normalcell"/>
+					<apex:outputField label="bookingComments" value="{!bookingWrapper.booking.Booking_Comments__c}" styleClass="normalcell"/>
                         </span>
-				<apex:outputLabel value="Site Instructions: " for="siteInstructions" rendered="{! !ISBLANK(bookingWrapperRec.booking.Site_Instructions__c)}"/> 
+				<apex:outputLabel value="Site Instructions: " for="siteInstructions" rendered="{! !ISBLANK(bookingWrapper.booking.Site_Instructions__c)}"/> 
 				<span style="margin-left: 40px; display: block;">
-					<apex:outputField label="siteInstructions" value="{!bookingWrapperRec.booking.Site_Instructions__c}" styleClass="normalcell"/>
+					<apex:outputField label="siteInstructions" value="{!bookingWrapper.booking.Site_Instructions__c}" styleClass="normalcell"/>
                         </span>
-				<apex:outputText rendered="{! !ISBLANK(bookingWrapperRec.booking.Booking_Comments__c)}">
+				<apex:outputText rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Comments__c)}">
 					
 				</apex:outputText>
 				<br/>
@@ -70,21 +68,15 @@
 			<apex:column headerValue="Docks" styleClass="normalcell" width="55"
 			             headerClass="job-headers"
 			             style="padding-top:9px;">
-				<apex:outputField value="{! bookingWrapperRec.booking.Dock_Number__c}" style="font-size:small"/>
+				<apex:outputField value="{! bookingWrapper.booking.Dock_Number__c}" style="font-size:small"/>
 			</apex:column>
 			<apex:column headerValue="Depart" styleClass="boldcell"
 			             width="50px"
 			             style="padding-top:11px;"
 			             headerClass="job-headers">
-				<!-- <apex:variable var="bookingEndTime"
-				               value="{! bookingWrapperRec.booking.Start_Time__c + bookingWrapperRec.booking.Dwell_Time_Planned__c*60000}"
-				               rendered="{! !ISBLANK(bookingWrapperRec.booking.Start_Time__c)}"/> -->
-				<apex:outputText rendered="{! !ISBLANK(bookingWrapperRec.booking.Start_Time__c)}">
-					{! bookingWrapperRec.endTimeString}
+				<apex:outputText rendered="{! !ISBLANK(bookingWrapper.booking.Start_Time__c)}">
+					{! bookingWrapper.endTimeString}
 				</apex:outputText>
-				<!-- <apex:outputText value="{0,number,00}" rendered="{! !ISBLANK(bookingWrapperRec.booking.Start_Time__c)}">
-					<apex:param value="{!MINUTE(bookingEndTime)}"/>
-				</apex:outputText> -->
 			</apex:column>
 		</apex:pageBlockTable>
 	</apex:pageBlock>

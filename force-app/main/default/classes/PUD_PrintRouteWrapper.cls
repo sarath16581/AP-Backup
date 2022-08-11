@@ -41,11 +41,37 @@ public inherited sharing class PUD_PrintRouteWrapper {
 	}
 
 	
+	/**
+	 * @param Time value.
+	 * @return Time displayed in String.
+	 * @desc Display time in HHMM format.   
+	 * e.g. If Time is 9:5 then function returns 0905 as a string. If its 1215 then returns 1215 as a string.
+	 */
 	public String getDurationDisplayTimeString(Time displayTime){
+		String displayTimeString='';
+
+		//if length of hour() component of Time is less than 2, prefix with 0
 		if(displayTime !=null && (String.valueOf(displayTime.hour())).length() < 2){
-			return ('0'+String.valueOf(displayTime.hour()));
+			displayTimeString += ('0'+String.valueOf(displayTime.hour()));
 		}
-		return displayTime !=null ? String.valueOf(displayTime.hour()) : '';
+		else{
+			displayTimeString += String.valueOf(displayTime.hour());
+		}
+
+		//if length of minute() component of Time is less than 2, prefix with 0
+		if(displayTime !=null && (String.valueOf(displayTime.minute())).length() < 2){
+			displayTimeString += ('0'+String.valueOf(displayTime.minute()));
+		}
+		else{
+			displayTimeString += (''+String.valueOf(displayTime.minute()));
+		}
+		
+		//if length of hour() & minute() component of Time is equal to, return string representation of time.
+		if(displayTime !=null && (String.valueOf(displayTime.hour())).length() == 2 && (String.valueOf(displayTime.minute())).length() == 2){
+			displayTimeString = String.valueOf(displayTime.hour()) + ''+String.valueOf(displayTime.minute());
+		}
+		
+		return displayTimeString;
 	}
 
 

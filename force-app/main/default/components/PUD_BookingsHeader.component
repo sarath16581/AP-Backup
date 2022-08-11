@@ -39,17 +39,11 @@
 		<apex:outputText rendered="{! routeWrapper.route.Sunday__c}" value="Sun "/>
 		<apex:outputText rendered="{! !ISBLANK(routeWrapper.route.Start_Time__c)}">
 			<!-- display time in hhmm format-->
-			{! IF(LEN(TEXT(HOUR(routeWrapper.route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(routeWrapper.route.Start_Time__c)), HOUR(routeWrapper.route.Start_Time__c))}
-			<apex:outputText value="{0,number,00}">
-				<apex:param value="{!MINUTE(routeWrapper.route.Start_Time__c)}"/>
-			</apex:outputText>
+			{!routeWrapper.startTimeString}
 		</apex:outputText>
 		<apex:outputText rendered="{! !ISBLANK(routeWrapper.route.End_Time__c)}">
 			-&nbsp;
-			{! IF(LEN(TEXT(HOUR(routeWrapper.route.End_Time__c)))<2 , '0'+ TEXT(HOUR(routeWrapper.route.End_Time__c)), HOUR(routeWrapper.route.End_Time__c))}
-			<apex:outputText value="{0,number,00}">
-				<apex:param value="{!MINUTE(routeWrapper.route.End_Time__c)}"/>
-			</apex:outputText>
+				{!routeWrapper.endTimeString}
 		</apex:outputText>
 	</div>
 </apex:component>

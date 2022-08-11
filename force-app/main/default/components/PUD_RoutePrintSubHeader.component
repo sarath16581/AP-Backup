@@ -28,23 +28,12 @@
                                 <apex:outputText rendered="{! routeWrapper.route.Sunday__c}" value="Sun "/>
 	                        <!-- display time in hhmm format -->
                             <apex:outputText rendered="{! !ISBLANK(routeWrapper.route.Start_Time__c)}">
-                                <!-- {! IF(LEN(TEXT(HOUR(routeWrapper.route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(routeWrapper.route.Start_Time__c)), HOUR(routeWrapper.route.Start_Time__c))}
-								 -->
-								 {! routeWrapper.startTimeString}
+                                {! routeWrapper.startTimeString}
                             </apex:outputText>
-                            <apex:outputText value="{0,number,00}" rendered="{! !ISBLANK(routeWrapper.route.Start_Time__c)}">
-                                        <apex:param value="{!MINUTE(routeWrapper.route.Start_Time__c)}"/>
-                                    </apex:outputText>
                             <apex:outputText rendered="{! !ISBLANK(routeWrapper.route.End_Time__c)}">
                                 -&nbsp;
-	                            <!-- {! IF(LEN(TEXT(HOUR(routeWrapper.route.End_Time__c)))<2 , '0'+ TEXT(HOUR(routeWrapper.route.End_Time__c)), HOUR(routeWrapper.route.End_Time__c))} -->
-
-								{! routeWrapper.endTimeString}
-
-                                </apex:outputText>
-                            <apex:outputText value="{0,number,00}" rendered="{! !ISBLANK(routeWrapper.route.End_Time__c)}">
-                                        <apex:param value="{!MINUTE(routeWrapper.route.End_Time__c)}"/>
-                                    </apex:outputText>
+	                        	{! routeWrapper.endTimeString}
+						    </apex:outputText>
                             </span>
 			</td>
 			<td class="boldcell"
@@ -59,30 +48,19 @@
 			</td>
 			<td class="boldcell" style="font-size:12px;  vertical-align:top; width:210px; display:inline-block">
 				<apex:variable var="breaksNumber" value="{!0}"/>
+				<!-- iterate through Meal Break bookings -->
 				<apex:repeat value="{!routeWrapper.mealBreaks}" var="bookingWrapper">
-					<apex:outputText > <!--rendered="{! AND(breaksNumber>0, booking.Booking_Type__c='Meal Break')}"-->
-						<br/>
+					<apex:outputText > 						<br/>
 					</apex:outputText>
 					<apex:outputText rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Location_Name_LU__c)}">{!bookingWrapper.booking.Booking_Location_Name_LU__c} &nbsp;
 					</apex:outputText>
 					<apex:outputText >
-						<!-- {!IF(LEN(TEXT(HOUR(bookingWrapper.booking.Start_Time__c)))<2 , '0'+ TEXT(HOUR(bookingWrapper.booking.Start_Time__c)), HOUR(bookingWrapper.booking.Start_Time__c))} -->
 							{! bookingWrapper.startTimeString}
 						</apex:outputText>
-					<apex:outputText value="{0,number,00}"
-					                 rendered="{! !ISBLANK(bookingWrapper.booking.Start_Time__c)}">
-						<apex:param value="{!MINUTE(bookingWrapper.booking.Start_Time__c)}"/>
-					</apex:outputText>
 					<apex:outputText rendered="{! AND(!ISBLANK(bookingWrapper.booking.Start_Time__c),!ISBLANK(bookingWrapper.booking.Dwell_Time_Planned__c))}">
-						<apex:variable var="breakEndTime"
-						               value="{! bookingWrapper.booking.Start_Time__c+bookingWrapper.booking.Dwell_Time_Planned__c*60000}"/>
 						<apex:outputText >
 							-
-							<!-- {!IF(LEN(TEXT(HOUR(breakEndTime)))<2 , '0'+ TEXT(HOUR(breakEndTime)), HOUR(breakEndTime))} -->
 								{! bookingWrapper.endTimeString}
-						</apex:outputText>
-						<apex:outputText value="{0,number,00}" >
-							<apex:param value="{!MINUTE(breakEndTime)}"/>
 						</apex:outputText>
 					</apex:outputText>
 					<apex:outputText >
