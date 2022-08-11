@@ -1711,11 +1711,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.Offline_Contract_Received__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Opp_Product_Classification__c.Apr_Actual_Amount__c</field>
         <readable>true</readable>
@@ -2298,6 +2293,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opp_Product_Classification__c.Variance_of_Revenue_to_Schedule__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Offline_Contract_Received__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

@@ -9,6 +9,7 @@
  * 2021-08-17 - Ranjeewa Silva - Created
  * 2022-02-10 - Seth Heang - Updated test method to detect Revenue Check flag change which triggers the job update to the dispatch system where job status is schedule or accepted
  * 2022-03-08 - Seth Heang - Updated test method to detect Container Payload change which triggers the job update to the dispatch system where job status is schedule or accepted
+ * 2022-08-09 - Dattaraj Deshmukh - Update ContainerPayload to use Container Object.
  */
 
 @IsTest
@@ -110,8 +111,9 @@ private class PUDJobDispatchSystemSyncModule_Test {
 		// construct a sample json structure for container payload
 		jobs[8].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
 		jobs[8].Containers_Payload__c = JSON.serialize(new List<PUDUtility.ContainerPayload>{
-			new PUDUtility.ContainerPayload('Aircan', 5, 'Empty'),
-			new PUDUtility.ContainerPayload('Trailer', 6, 'Full')
+			new PUDUtility.ContainerPayload(new PUD_Container__c(Type__c='Aircan', Expected_Quantity__c=5, Condition__c ='Empty')),
+			new PUDUtility.ContainerPayload(new PUD_Container__c(Type__c='Trailer', Expected_Quantity__c=6, Condition__c ='Full'))
+
 		});
 
 		// clone the jobs - this is used as the old versions
@@ -130,8 +132,9 @@ private class PUDJobDispatchSystemSyncModule_Test {
 		jobs[7].Revenue_Check__c = true;
 		// Update Containers Payload
 		jobs[8].Containers_Payload__c = JSON.serialize(new List<PUDUtility.ContainerPayload>{
-			new PUDUtility.ContainerPayload('Aircan', 10, 'Empty'),
-			new PUDUtility.ContainerPayload('Trailer', 12, 'Full')
+			new PUDUtility.ContainerPayload(new PUD_Container__c(Type__c='Aircan', Expected_Quantity__c=10, Condition__c ='Empty')),
+			new PUDUtility.ContainerPayload(new PUD_Container__c(Type__c='Trailer', Expected_Quantity__c=12, Condition__c ='Full'))
+
 		});
 		// =====================================
 		// Stubbing

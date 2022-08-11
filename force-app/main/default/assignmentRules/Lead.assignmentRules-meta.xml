@@ -185,6 +185,15 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
+            <assignedTo>Driver_Leads_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Lead.LeadSource</field>
+                <operation>equals</operation>
+                <value>Driver Network</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>TSA_LBP_Leads_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>

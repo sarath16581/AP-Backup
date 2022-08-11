@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <name>SMB North Team - NSW/QLD</name>
+    <name>Micro Team</name>
     <queueMembers>
         <publicGroups>
             <publicGroup>SMB_North_Team_NSW_QLD</publicGroup>

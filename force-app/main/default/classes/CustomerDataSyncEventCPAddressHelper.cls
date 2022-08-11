@@ -23,13 +23,13 @@ public inherited sharing class CustomerDataSyncEventCPAddressHelper {
 				ParentId = customerData.recId,
 				Contact__c = customerData.personContactId,
 				AddressType = wr.type,
-				Street = wr.street,
+				Street = wr.street1,
 				Street2__c = wr.street2,
 				City = wr.suburb,
 				State = wr.state,
 				PostalCode = wr.postcode,
 				Country = wr.country,
-				Name = wr.street + ' ' + (String.isBlank(wr.street2) ? wr.street2 + ' ': '') + wr.suburb + ' ' + wr.state + ' ' + wr.postcode + ' ' + wr.country
+				Name = wr.street1 + ' ' + (String.isBlank(wr.street2) ? wr.street2 + ' ': '') + wr.suburb + ' ' + wr.state + ' ' + wr.postcode + ' ' + wr.country
 			));
 		}
 		return result;
@@ -37,7 +37,7 @@ public inherited sharing class CustomerDataSyncEventCPAddressHelper {
 	
 	public class AddressPayloadWrapper {
 		public String type { get; set; }
-		public String street { get; set; }
+		public String street1 { get; set; }
 		public String street2 { get; set; }
 		public String suburb { get; set; }
 		public String state { get; set; }

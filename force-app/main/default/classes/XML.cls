@@ -9,7 +9,7 @@
 public inherited sharing class XML {
 
     public static String serialize(String parentNode, Object objectToSerialize) {
-        return addNode(parentNode, process((Map<String, Object>)JSON.deserializeUntyped(JSON.serialize(objectToSerialize))), false);  
+        return addNode(parentNode, process((Map<String, Object>)JSON.deserializeUntyped(JSON.serialize(objectToSerialize))), false);
     } 
 
     static String process(Map<String, Object> propertyVsObject) {

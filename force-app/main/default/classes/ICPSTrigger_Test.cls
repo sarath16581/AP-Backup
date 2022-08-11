@@ -8,7 +8,7 @@
  */
 @IsTest
 class ICPSTrigger_Test {
-    
+
     @IsTest
     static void verifyDispatchHandlerCall() {
         ICPSTriggerHandler handler = (ICPSTriggerHandler)MockUtility.mockUtility(ICPSTriggerHandler.class);

@@ -5,53 +5,28 @@
  -->
 
 <apex:component id="PUD_JobsHeader">
-    <apex:attribute name="Route" type="PUD_Route__c" description="parent route"/>
-    <table style="width:100%; font-family:Arial Unicode MS;">
-        <tr>
-            <td rowspan="2"><img src="{!$Resource.auspost_logo}" width="110" alt="AusPost Logo"/></td>
-            <td style="font-family: sans-serif; font-weight:bold;">{! Route.Name}</td>
-            <td style="font-family: sans-serif; font-weight:bold;"><u>{! Route.Depot__r.Name}</u></td>
-            <td>Page</td>
-            <td><span class="pagenumber"/> of <span class="pagecount"/></td>
-        </tr>
-        <tr style="vertical-align:bottom;">
-            <td>Effective Date:
-                <apex:outputField value="{! Route.Start_Date__c}"/>
-            </td>
-            <td>Expiry Date:
-                <apex:outputField value="{! Route.End_Date__c}"/>
-            </td>
-            <td>Printed Date:</td>
-            <td>
-                <apex:outputText value="{0, date, d MMM yyyy}">
-                    <apex:param value="{!NOW()}"/>
-                </apex:outputText>
-            </td>
-        </tr>
-    </table>
-
-    <div style="text-align:center; font-family:Arial Unicode MS; padding-top:10px;">
-        <!-- days the route is active repeated on every subsequent page-->
-            <apex:outputText rendered="{! route.Monday__c}" value="Mon "/>
-            <apex:outputText rendered="{! route.Tuesday__c}" value="Tue "/>
-            <apex:outputText rendered="{! route.Wednesday__c}" value="Wed "/>
-            <apex:outputText rendered="{! route.Thursday__c}" value="Thu "/>
-            <apex:outputText rendered="{! route.Friday__c}" value="Fri "/>
-            <apex:outputText rendered="{! route.Saturday__c}" value="Sat "/>
-            <apex:outputText rendered="{! route.Sunday__c}" value="Sun "/>
-            <apex:outputText rendered="{! !ISBLANK(route.Start_Time__c)}">
-                <!-- display time in hhmm format-->
-                {! IF(LEN(TEXT(HOUR(route.Start_Time__c)))<2 , '0'+ TEXT(HOUR(route.Start_Time__c)), HOUR(route.Start_Time__c))}
-                <apex:outputText value="{0,number,00}">
-                    <apex:param value="{!MINUTE(route.Start_Time__c)}"/>
-                </apex:outputText>
-            </apex:outputText>
-            <apex:outputText rendered="{! !ISBLANK(route.End_Time__c)}">
-                -&nbsp;
-                {! IF(LEN(TEXT(HOUR(route.End_Time__c)))<2 , '0'+ TEXT(HOUR(route.End_Time__c)), HOUR(route.End_Time__c))}
-                <apex:outputText value="{0,number,00}">
-                    <apex:param value="{!MINUTE(route.End_Time__c)}"/>
-                </apex:outputText>
-            </apex:outputText>
-    </div>
+	<apex:attribute name="Route" type="PUD_Route__c" description="parent route" required="true"/>
+	<apex:attribute name="effectiveDate" type="Date" description="effective date" required="false"/>
+	<table style="width:100%; font-family:Arial Unicode MS; margin-top:40px; border-bottom: 1px solid black;">
+		<tr style="padding-bottom:5px; vertical-align:top;">
+			<td rowspan="2"><img src="{!$Resource.auspost_logo}" width="70" alt="AusPost Logo"/></td>
+			<td style="font-family: sans-serif; font-weight:bold;">{! Route.Name}</td>
+			<td style="font-family: sans-serif; text-align:center; "><u>{! Route.Depot__r.Name}</u></td>
+			<td style="vertical-align-align:top; text-align:right;" width="67" colspan="2">Page <span class="pagenumber"/> of <span class="pagecount"/></td>
+		</tr>
+		<tr style="vertical-align:top; padding-bottom:10px;">
+			<td colspan="2" >Effective Date:
+				<br/><apex:outputField value="{! Route.Start_Date__c}" rendered="{! ISBLANK(effectiveDate)}"/>
+				<apex:outputText value="{0, date, dd/MM/yyyy}" rendered="{! !ISBLANK(effectiveDate)}">
+					<apex:param value="{!effectiveDate}"/>
+				</apex:outputText>
+			</td>
+			<td style="vertical-align-align:top; text-align:right;" >Printed Date:</td>
+			<td style="text-align:top;text-align:right;" width="67">
+				<apex:outputText value="{0, date, dd/MM/yyyy}">
+					<apex:param value="{!TODAY()}"/>
+				</apex:outputText>
+			</td>
+		</tr>
+	</table>
 </apex:component>

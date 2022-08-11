@@ -14,7 +14,7 @@
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  */
 public abstract inherited sharing class ApplicationDomainTriggerHandler {
-	private enum TriggerState {
+	public enum TriggerState {
 		BEFORE,
 		AFTER
 	}
