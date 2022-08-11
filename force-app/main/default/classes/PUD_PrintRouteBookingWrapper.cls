@@ -96,33 +96,6 @@ public inherited sharing class PUD_PrintRouteBookingWrapper {
 
 		//return blank string if endTime is NULL;
 		return endTimeString;
-
-		// //if length of Hour() component of time is less than 2 then prefix it with '0' 
-		// if( endTime !=null && (String.valueOf(endTime.hour())).length() < 2){
-			
-		// 	endTimeString = '0'+(String.valueOf(endTime.hour()));
-			
-		// 	//if minute() component of time is less than 2 then prefix it with '0'
-		// 	//eg. end time will be return as 0705 if 'Hour' and 'Minute' components length is less than 2
-		// 	if(String.valueOf(endTime.minute()).length() < 2 ){
-		// 		endTimeString+= '0'+String.valueOf(endTime.minute());
-		// 	}
-		// 	else {
-		// 		endTimeString+= String.valueOf(endTime.minute());
-		// 	}
-
-		// 	return endTimeString;
-		// }
-
-		// //if length of minute() component of time is less than 2 then prefix it with '0'
-		// //e.g end time will be returned as 1205 if 'Minute' component's length is less than 2
-		// if(endTime !=null && (String.valueOf(endTime.minute())).length() < 2){
-		// 	return (String.valueOf(endTime.hour()) + '0'+String.valueOf(endTime.minute()));
-		// }
-
-		// //if length of Hour() and Minute() components are NOT less than 2 then return end time.
-		// //e.g. endTime will be return as 1215 
-		// return endTime !=null ? (String.valueOf(endTime.hour()) + ''+String.valueOf(endTime.minute())) : '';
 	}
 	
 }
