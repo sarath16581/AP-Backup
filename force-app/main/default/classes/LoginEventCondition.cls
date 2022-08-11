@@ -31,7 +31,6 @@ global class LoginEventCondition implements TxnSecurity.EventCondition {
 
         id userId = loginEvent.UserId;
         String platform = loginEvent.Platform;
-        list < string > p = platform.split('');
         User user = [select id, name, profile.name from user where id =: userId];
         string currentProfile = user.Profile.id;
         if (!(platform.contains(PERMITTEDPROFILE)) && (PROFILESETID.contains(currentProfile))) {
