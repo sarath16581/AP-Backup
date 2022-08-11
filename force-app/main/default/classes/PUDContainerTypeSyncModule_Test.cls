@@ -26,13 +26,13 @@ private class PUDContainerTypeSyncModule_Test {
 		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Jobs__r' => jobs});
 
 		//create a booking container
-		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallet', 'Empty', true )[0];
 
 		//associating containers with bookings.
 		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{bookingContainer}});
 
 		//create a job container and associated it with jobs
-		PUD_Container__c jobContainer = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c jobContainer = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[0].Id, 'Pallet', 'Empty', true )[0];
 		jobs[0] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{jobContainer}});
 
 
@@ -87,13 +87,13 @@ private class PUDContainerTypeSyncModule_Test {
 		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Jobs__r' => jobs});
 
 		//create a booking container
-		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallet', 'Empty', true )[0];
 
 		//associating containers with bookings.
 		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{bookingContainer}});
 
 		//create a job container
-		PUD_Container__c jobContainer = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c jobContainer = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[0].Id, 'Pallet', 'Empty', true )[0];
 		jobs[0] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{jobContainer}});
 
 
@@ -147,7 +147,7 @@ private class PUDContainerTypeSyncModule_Test {
 		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, pudBookingList[0].Id, PUDConstants.PUD_JOB_STATUS_NEW, true);
 
 		//create a booking container
-		PUD_Container__c c1 = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c c1 = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallet', 'Empty', true )[0];
 
 		// =====================================
 		// Stubbing
@@ -196,10 +196,10 @@ private class PUDContainerTypeSyncModule_Test {
 
 		List<PUD_Booking__c> pudBookingList = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(1, null, null, Date.today(), Date.today().addDays(30), null, true);
 		
-		PUD_Container__c c1 = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c c1 = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallet', 'Empty', true )[0];
 		PUD_Container__c c2 = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Aircan', 'Empty', true )[0];
 
-		PUD_Container__c newDuplicateContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c newDuplicateContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallet', 'Empty', true )[0];
 
 		//associating containers with bookings.
 		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{c1, c2}});
@@ -257,7 +257,7 @@ private class PUDContainerTypeSyncModule_Test {
 		pudJob.Depot__c = network.Id;
 		insert(pudJob);
 
-		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBooking.Id, 'Pallets', 'Empty', false)[0];
+		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBooking.Id, 'Pallet', 'Empty', false)[0];
 
 
 		// =====================================

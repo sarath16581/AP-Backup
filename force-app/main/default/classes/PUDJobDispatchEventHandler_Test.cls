@@ -42,7 +42,7 @@ private class PUDJobDispatchEventHandler_Test {
 
 		
 
-		PUD_Container__c c1 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[1].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c c1 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[1].Id, 'Pallet', 'Empty', true )[0];
 		c1.Expected_Quantity__c = 10;
 		PUD_Container__c c2 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[1].Id, 'Aircan', 'Empty', true )[0];
 		c2.Expected_Quantity__c = 30;
@@ -57,7 +57,7 @@ private class PUDJobDispatchEventHandler_Test {
 		//'Completed' event for jobs[1]. Confirming the job has been completed by the driver.
 		//Setting container payload with existing and new container types.
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1), 
-		Containers_Payload__c = '[{"Name":"Aircan","Quantity":30,"ActualQuantity":52,"Condition":"Empty"},{"Name":"Colby","Quantity":3,"ActualQuantity":2,"Condition":"Full"}, {"Name":"Pallets","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]'));
+		Containers_Payload__c = '[{"Name":"Aircan","Quantity":30,"ActualQuantity":52,"Condition":"Empty"},{"Name":"Colby","Quantity":3,"ActualQuantity":2,"Condition":"Full"}, {"Name":"Pallet","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]'));
 		
 		//'Completed' event for jobs[2]. Confirming the job has been completed by the driver.
 		//Setting duplicate container payload from MobileStar

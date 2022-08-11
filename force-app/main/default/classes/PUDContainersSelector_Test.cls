@@ -199,10 +199,10 @@ private class PUDContainersSelector_Test {
 		pudJobs[2].Date__c = Date.today().addDays(2);
 		insert pudJobs;
 
-		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBooking.Id, 'Pallets', 'Empty', false )[0];
+		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBooking.Id, 'Pallet', 'Empty', false )[0];
         insert bookingContainer;
 
-        List<PUD_Container__c> jobContainers = PUDTestDataFactory.getPUDJobContainers(3, pudBooking.Id, null, 'Pallets', 'Empty', false );
+        List<PUD_Container__c> jobContainers = PUDTestDataFactory.getPUDJobContainers(3, pudBooking.Id, null, 'Pallet', 'Empty', false );
         jobContainers[0].Job__c = pudJobs[0].Id;
         jobContainers[1].Job__c = pudJobs[1].Id;
         jobContainers[2].Job__c = pudJobs[2].Id;
