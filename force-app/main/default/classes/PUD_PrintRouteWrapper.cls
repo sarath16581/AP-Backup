@@ -50,8 +50,11 @@ public inherited sharing class PUD_PrintRouteWrapper {
 	public String getDurationDisplayTimeString(Time displayTime){
 		String displayTimeString='';
 
+		//return blank string if time is null
+		if(displayTime == null) { return displayTimeString; }
+
 		//if length of hour() component of Time is less than 2, prefix with 0
-		if(displayTime !=null && (String.valueOf(displayTime.hour())).length() < 2){
+		if((String.valueOf(displayTime.hour())).length() < 2){
 			displayTimeString += ('0'+String.valueOf(displayTime.hour()));
 		}
 		else{
@@ -59,7 +62,7 @@ public inherited sharing class PUD_PrintRouteWrapper {
 		}
 
 		//if length of minute() component of Time is less than 2, prefix with 0
-		if(displayTime !=null && (String.valueOf(displayTime.minute())).length() < 2){
+		if((String.valueOf(displayTime.minute())).length() < 2){
 			displayTimeString += ('0'+String.valueOf(displayTime.minute()));
 		}
 		else{
@@ -67,7 +70,7 @@ public inherited sharing class PUD_PrintRouteWrapper {
 		}
 		
 		//if length of hour() & minute() component of Time is equal to, return string representation of time.
-		if(displayTime !=null && (String.valueOf(displayTime.hour())).length() == 2 && (String.valueOf(displayTime.minute())).length() == 2){
+		if((String.valueOf(displayTime.hour())).length() == 2 && (String.valueOf(displayTime.minute())).length() == 2){
 			displayTimeString = String.valueOf(displayTime.hour()) + ''+String.valueOf(displayTime.minute());
 		}
 		

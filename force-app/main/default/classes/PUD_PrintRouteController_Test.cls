@@ -94,4 +94,47 @@ private class PUD_PrintRouteController_Test {
 		Test.stopTest();
 		System.assertNotEquals(null, testRoutesPrint.routes, 'The selector has not returned a route');
 	}
+
+	@IsTest
+	static void testRouteBookingWrappers() {
+		//Create test Depot
+		Network__c networkDepot = ApplicationTestDataFactory.getNetworks(1, true)[0];
+		PUD_Route__c route1 = PUDTestDataFactory.getPUDRoutes(1, networkDepot.Id, false)[0];
+
+		//set start and end time for route
+		route1.Start_Time__c = Time.newInstance(7, 0, 0, 0);
+		route1.End_Time__c = Time.newInstance(7, 5, 0, 0);
+		List<PUD_Booking__c> bookings = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(5, null, networkDepot.Id, Date.today(), Date.today().addDays(5), new List<String>{'Monday','Tuesday'}, true);
+		
+		//set 3 bookings as Meal Break bookings, set start time and Dwell Time planned
+		bookings[0].Booking_Type__c = PUDConstants.PUD_BOOKING_TYPE_MEAL_BREAK;
+		bookings[0].Start_Time__c = Time.newInstance(7, 0, 0, 0);
+		bookings[0].Dwell_Time_Planned__c = 5;
+
+		bookings[1].Booking_Type__c = PUDConstants.PUD_BOOKING_TYPE_MEAL_BREAK;
+		bookings[1].Start_Time__c = Time.newInstance(10, 0, 0, 0);
+		bookings[1].Dwell_Time_Planned__c = 15;
+		
+		//associating bookings with a route.
+		route1 = (PUD_Route__c)ApplicationTestDataFactory.setChildRelationships(route1, new Map<String, List<SObject>>{'Bookings__r' => bookings});
+
+		
+		// =====================================
+		// Stubbing - NOT REQUIRED
+		// =====================================
+		
+	
+		Test.startTest();
+
+		PUD_PrintRouteWrapper routeWrapper = new PUD_PrintRouteWrapper(route1);
+
+		Test.stopTest();
+		//assert that bookings are added 
+		System.assertNotEquals(null, routeWrapper.bookings, 'Bookings wrapper is expected to be populated');
+		
+		//assert start and end time are formatted in HHMM format
+		System.assertEquals('0700', routeWrapper.startTimeString, 'Expected to format Start Time in HHMM format');
+		System.assertEquals('0705', routeWrapper.endTimeString, 'Expected to format End Time in HHMM format');
+		
+	}
 }
