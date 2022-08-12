@@ -152,26 +152,32 @@
     public void yesStillWaitingClicked(){
         try {
             if(currentCase.status == CUSTOMER_RESPONDED){
-                currentCase.status = AWAITING_CUSTOMER_RESPONSE;
+                currentCase.status = AWAITING_CUSTOMER_RESPONSE; 
             }
             else {
-                    currentCase.status = NETWORK_RESPONDED;	// 04/08/22 -REQ2910384 Parent case to remain in 'Network responded' status and allocated to 'Awaiting ReOpen queue' 
-                }  
-            // 04/08/22 -REQ2910384 -Case not sent back to network,previously case was being assigned back to network if related child case was awaiting network reponse
-            //   else if(currentCase.status == NETWORK_RESPONDED) {	
-            //  currentCase.status = AWAITING_NETWORK_RESPONSE;}
-            // currentCase.Root_cause__c = AWAITING_NETWORK_RESPONSE; 
-                ExpectedResponseQueueManagement__c setting = ExpectedResponseQueueManagement__c.getValues(currentCase.status);
-                if(setting != null) {
-                    currentCase.OwnerId = setting.QueueID__c;
-                    currentCase.Bypass_Data_enforcement__c = true;
-                    update currentCase;
-                }
+                currentCase.status = NETWORK_RESPONDED;	// 04/08/22 -REQ2910384 Parent case to remain in 'Network responded' status and allocated to 'Awaiting ReOpen queue' 
+        	}  
+        
+          // previously case was being assigned back to network if related child case was awaiting network reponse
+          //   else if(currentCase.status == NETWORK_RESPONDED) {	
+           //	currentCase.status = AWAITING_NETWORK_RESPONSE;}
+               
+                // 04/08/22 -REQ2910384 -Case not sent back to network	
+           // currentCase.Root_cause__c = AWAITING_NETWORK_RESPONSE; 
+            ExpectedResponseQueueManagement__c setting = ExpectedResponseQueueManagement__c.getValues(currentCase.status);
+            if(setting != null) {
+                currentCase.OwnerId = setting.QueueID__c;
+                currentCase.Bypass_Data_enforcement__c = true;
+                update currentCase;
+           
+            }
             
-        } catch(Exception ex) {
+        }
+        catch(Exception ex) {
             ApexPages.addMessages(ex);
         }
     }
+    
     
      /**
     * @description       method when we are still to work on the case

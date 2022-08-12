@@ -1,0 +1,251 @@
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff") format("woff");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff") format("woff");
+  font-weight: bold;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff") format("woff");
+  font-weight: 300;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff") format("woff");
+  font-weight: 300;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumtItalic-102401.woff") format("woff");
+  font-weight: 500;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeText-Regular-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeText-Regular-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff") format("woff");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff") format("woff");
+  font-weight: bold;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff") format("woff");
+  font-weight: 300;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff") format("woff");
+  font-weight: 300;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumtItalic-102401.woff") format("woff");
+  font-weight: 500;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APLetterFont';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APLetterBoldFont';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+
+body {
+  font-family: 'APTypeText', sans-serif;
+  font-size: 1rem;
+  color: #382F2D;
+  line-height: 1.5rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, b, strong {
+  font-family: 'APTypeDisplay', 'APTypeText', helvetica, arial, sans-serif;
+  font-weight: bold; }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500; }
+h1 { font-size: 1.5rem; line-height: 2rem; }
+h2 { font-size: 1.25rem; line-height: 1.5rem; }
+h3 { font-size: 1.125rem; line-height: 1.5rem; }
+.chas-heading_large { font-size: 1.125rem; line-height: 1.5rem; }
+.chas-heading_medium { font-size: 1rem; line-height: 1.5rem; }
+.chas-heading_small { font-size: 1rem; line-height: 1.5rem; }
+.chas-body_regular { font-size: 1rem; line-height: 1.5rem; }
+.chas-body_small { color: #4D4D54; font-size: 0.8125rem; font-weight:normal; line-height: 1rem; }
+.chas-error-message { color: #bc111e; font-size: 0.8125rem; line-height: 1.5rem; }
+.slds-form-element__label { color: #292f33; }
+
+.slds-button:focus,
+.slds-button:active {
+  box-shadow: none;    
+}
+
+.slds-button:focus:after {
+  border: 1px dotted #382F2D;
+  border-radius: 3px;
+  content: "";
+  display: block;
+  height: calc(100% + 10px);
+  left: -5px;
+  pointer-events: none;
+  position: absolute;
+  top: -5px;
+  width: calc(100% + 10px);
+}
+
+.slds-button.loading-true {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+.slds-button.loading-true lightning-primitive-icon {
+	display: none;
+}
+.slds-button.loading-true::after {
+  display: inline-block;
+    margin: 0 auto;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: .75s linear infinite spinnerRotate;
+  animation: .75s linear infinite spinnerRotate;
+  border: 2px solid white;
+  border-bottom-color: transparent;
+  border-radius: 100%;
+  background: 0 0;
+  content: "";
+  position: relative;
+  left: auto;
+    top: auto;
+  color: inherit;
+}
+.slds-button.disabled-true.loading-true::after {
+    border-color: #6D6D72;
+    border-bottom-color: transparent;
+}
+
+@keyframes spinnerRotate {
+  0% {
+    -webkit-transform:rotate(0);
+    transform:rotate(0)
+  }
+  to {
+    -webkit-transform:rotate(360deg);
+    transform:rotate(360deg)
+  }
+}
+
+@media (min-width: 680px) {
+  h1 { font-size: 2rem; line-height: 2.5rem; }
+  h2 { font-size: 1.5rem; line-height: 2rem; }
+  h3 { font-size: 1.125rem; line-height: 1.5rem; }
+  .chas-heading_large { font-size: 1.25rem; line-height: 2rem; }   
+  .chas-heading_medium { font-size: 1rem; line-height: 1.5rem; }    
+  .chas-heading_small { font-size: 1.125rem; line-height: 1.5rem;letter-spacing:0.8px;}
+}
+
+/* Helptext tooltip styling */
+.slds-popover_tooltip,
+.slds-popover--tooltip {
+    background: white;
+    box-shadow: 0 1px 12px 0 rgba(83, 95, 103, 0.3);
+    border-radius: 0;
+}
+.slds-popover_tooltip .slds-popover__body,
+.slds-popover--tooltip .slds-popover__body {
+    color: inherit;
+    font-size: .875rem;
+    padding: 0.875rem 1rem;
+}
+
+/* Modal styling */
+.slds-backdrop {
+	background: rgba(41, 47, 51, 0.65);
+}
+.slds-modal .slds-modal__content {
+    border-radius: 0;
+    box-shadow: none;
+}
+.slds-modal__close {
+    top: 0.25rem;
+    right: 0.25rem;
+    color: #292f33;
+}
+.slds-modal__close.slds-button--icon-inverse:hover,
+.slds-modal__close.slds-button--icon-inverse:focus {
+    color: rgb(174, 20, 32);
+}
+:root { --dxp-c-section-columns-max-width: 1170px; }

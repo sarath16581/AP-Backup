@@ -17,6 +17,7 @@
  * 2021-09-01 prerna.rahangdale@auspost.com.au Added parcel simplification captureId fields.
  * 2021-10-01 - Nathan Franklin - Refactor transient attributes from TIBCOArticleService
  * 2021-11-07 - Prerna Rahangdale - Addev VODV_Redirect to the Article this comes in further references when the Event Messages are MRS hold.
+ * 2022-08-11 - Harry Wang - Adding Content Items as transient attribute (for ICPS)
  */
 public class TIBCOArticleWrapper {
 	/**
@@ -495,6 +496,14 @@ public class TIBCOArticleWrapper {
 				//Content Items
 				ArticleUtil.setContentsItems(article.ContentsItem, proxyArticle);
 
+				//Passing content items attributes as transient attributes
+				if (article.ContentsItem != null) {
+					transientAttributes.contentItems = new List<ArticleContentItem>();
+					for (AuspostMailProductSchema.ArticleContentsItemType item: article.ContentsItem) {
+						transientAttributes.contentItems.add(new ArticleContentItem(item));
+					}
+				}
+
 				if (article.Insurance != null) {
 					proxyArticle.InsuranceRequired__c = article.Insurance.InsuranceRequired != null
 							? article.Insurance.InsuranceRequired : false;
@@ -595,5 +604,25 @@ public class TIBCOArticleWrapper {
 		@AuraEnabled public String predictedWindowEnd;
 		@AuraEnabled public String initialPredictedWindowStart;
 		@AuraEnabled public String initialPredictedWindowEnd;
+		public ArticleContentItem[] contentItems;
+	}
+
+	/*
+	* Class to store content item attributes
+	*/
+	public class ArticleContentItem {
+		public String description;
+		public String weight;
+		public Integer quantity;
+		public String unitValue;
+		public String value;
+
+		public ArticleContentItem(AuspostMailProductSchema.ArticleContentsItemType itemType) {
+			description = itemType.Description;
+			weight = itemType.Weight;
+			quantity = itemType.Quantity;
+			unitValue = itemType.UnitValue;
+			value = itemType.Value;
+		}
 	}
 }
