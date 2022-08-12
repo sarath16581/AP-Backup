@@ -5,12 +5,10 @@
 04.08.2022    Swati.mogadala@auspost.com.au    Created
 **/
 global class LoginEventCondition implements TxnSecurity.EventCondition {
-    //SSSW-Service agent profile Id
-    @TestVisible private static final Set < String > PROFILESETID = new Set < String > {
-        '00e90000001eeTkAAI'
-    };
-    // Allowed platform to login for agents
-    @TestVisible private static final String PERMITTEDPROFILE = 'Windows';
+    @TestVisible 
+    private static final Set <String> PERMITTEDPROFILE = new Set <String>{'SSSW - Service Agent'}; // Profiles to check
+    @TestVisible
+    private static final String PERMITTEDPLATFORM = 'Windows'; // Allowed platform for permitted profiles
 
     public boolean evaluate(SObject event) {
         switch on event {
@@ -20,20 +18,19 @@ global class LoginEventCondition implements TxnSecurity.EventCondition {
             when null {
                 return false;
             }
-            when
-            else {
+            when else {
                 return false;
             }
         }
     }
 
-    @TestVisible private boolean handleLoginEvent(LoginEvent loginEvent) {
-
+    @TestVisible 
+    private boolean handleLoginEvent(LoginEvent loginEvent) {
         id userId = loginEvent.UserId;
         String platform = loginEvent.Platform;
         User user = [select id, name, profile.name from user where id =: userId];
-        string currentProfile = user.Profile.id;
-        if (!(platform.contains(PERMITTEDPROFILE)) && (PROFILESETID.contains(currentProfile))) {
+        string currentProfile = user.Profile.name;
+        if (!(platform.contains(PERMITTEDPLATFORM)) && (PERMITTEDPROFILE.contains(currentProfile))) {
             return true;
         }
         return false;
