@@ -36,5 +36,8 @@
 		"**/{aura,lwc}/**": [
 			"eslint"
 		]
+	},
+	"dependencies": {
+		"sass": "^1.54.4"
 	}
 }
