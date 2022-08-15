@@ -47,7 +47,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	 *
 	 * @param events 'Job_Action' events from dispatch system
 	 */
-	public void processJobActionEvents(List<PUD_Job_Dispatch_Event__e> events) {
+	public void processJobActionEvents(List<PUD_Job_Dispatch_Event__e> events, ApplicationUnitOfWork uow) {
 
 		// iterate through each event and collect all parent job ids.
 		Set<Id> parentJobIds = new Set<Id>();
@@ -115,7 +115,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 		if (!updatableJobs.isEmpty()) {
 			// attempt to update the jobs. any dml failures result in an exception being thrown
-			ApplicationDatabase.getInstance().dmlUpdate(updatableJobs.values());
+			//ApplicationDatabase.getInstance().dmlUpdate(updatableJobs.values());
+			uow.registerDirty(updatableJobs.values(), false, 'PUDJobDispatchEventHandler');
 		}
 		if(!containersToProcess.isEmpty()){
 
@@ -124,7 +125,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				containersToUpsert.addAll(containersToProcess.get(jobId));
 			}
 
-			ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, PUD_Container__c.Id);
+			//ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, PUD_Container__c.Id);
+			uow.registerUpsert(containersToUpsert, false, 'PUDJobDispatchEventHandler');
 		}
 
 	}

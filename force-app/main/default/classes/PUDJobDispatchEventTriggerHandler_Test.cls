@@ -6,6 +6,7 @@
  * @domain PUD
  * @changelog
  * 2021-08-26 - Ranjeewa Silva - Created.
+ * 2022-08-15 - Dattaraj Deshmukh - updated test class to include UnitOfWork.
  */
 
 @IsTest
@@ -24,17 +25,20 @@ private class PUDJobDispatchEventTriggerHandler_Test {
 		// Stubbing
 		// =====================================
 		PUDJobDispatchEventHandler mockEventHandler = (PUDJobDispatchEventHandler)MockUtility.mockUtility(PUDJobDispatchEventHandler.class);
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(PUDJobDispatchEventTriggerHandler.getUnitOfWorkSObjectTypes());
+
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		((PUDJobDispatchEventHandler)MockUtility.Mocks.doAnswer(new DoNothingAnswer(), mockEventHandler)).processJobActionEvents((List<PUD_Job_Dispatch_Event__e>)fflib_Match.eqList(events));
+		((PUDJobDispatchEventHandler)MockUtility.Mocks.doAnswer(new DoNothingAnswer(), mockEventHandler)).processJobActionEvents((List<PUD_Job_Dispatch_Event__e>)fflib_Match.eqList(events), (ApplicationUnitOfWork)fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
+
 
 		EventBus.publish(events);
 
@@ -61,10 +65,11 @@ private class PUDJobDispatchEventTriggerHandler_Test {
 		// Stubbing
 		// =====================================
 		PUDJobDispatchEventHandler mockEventHandler = (PUDJobDispatchEventHandler)MockUtility.mockUtility(PUDJobDispatchEventHandler.class);
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(PUDJobDispatchEventTriggerHandler.getUnitOfWorkSObjectTypes());
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		((PUDJobDispatchEventHandler) MockUtility.Mocks.doThrowWhen(new MockException('test'),  mockEventHandler)).processJobActionEvents((List<PUD_Job_Dispatch_Event__e>)fflib_Match.anyObject());
+		((PUDJobDispatchEventHandler) MockUtility.Mocks.doThrowWhen(new MockException('test'),  mockEventHandler)).processJobActionEvents((List<PUD_Job_Dispatch_Event__e>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -100,7 +105,7 @@ private class PUDJobDispatchEventTriggerHandler_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		((PUDJobDispatchEventHandler) MockUtility.Mocks.doThrowWhen(new MockException('test'),  mockEventHandler)).processJobActionEvents((List<PUD_Job_Dispatch_Event__e>)fflib_Match.anyObject());
+		((PUDJobDispatchEventHandler) MockUtility.Mocks.doThrowWhen(new MockException('test'),  mockEventHandler)).processJobActionEvents((List<PUD_Job_Dispatch_Event__e>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
