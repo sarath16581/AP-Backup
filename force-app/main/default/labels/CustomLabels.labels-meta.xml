@@ -14,6 +14,41 @@
         <shortDescription>Apttus Object Initials for Proposal</shortDescription>
         <value>a8O</value>
     </labels>
+	<labels>
+        <fullName>APT_IncompleteAPPCPSR</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Incomplete APPC PSR</shortDescription>
+        <value>Unable to check out due to incomplete PSR. Please follow-up with Pricing.</value>
+    </labels>
+	<labels>
+        <fullName>APT_MismatchedLodgementZone</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mismatched Lodgement Zone</shortDescription>
+        <value>Approved lodgment zone(s) does not match lodgment zone(s) entered in the product configuration. Please update the product configuration or follow up with pricing to update the PSR.</value>
+    </labels>
+	<labels>
+        <fullName>APT_NoAPPCPSR</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APPC PSR does not exist</shortDescription>
+        <value>This customer qualifies for pricing that is outside of Sales delegation. A Pricing Support Request is required to proceed or adjust the customers minimum volume or revenue.</value>
+    </labels>
+	<labels>
+        <fullName>APT_LinkPSRSuccess</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Success Message for Linking PSR</shortDescription>
+        <value>Rates available for check out</value>
+    </labels>
+	<labels>
+        <fullName>APT_ExpiredQuoteValidityEndDate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Expired Quote Validity End Date</shortDescription>
+        <value>Compass quote end date has passed, please request re-activation.</value>
+    </labels>
     <labels>
         <fullName>APTS_Apttus_Object_Initial_Configuration</fullName>
         <language>en_US</language>

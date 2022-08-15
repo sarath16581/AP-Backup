@@ -4,6 +4,7 @@
  * @group 
  * @description Test class for APT_DetermineZoneTypesBatch.
  * @changelog
+ * 2022-05-15 Nasir Jawed Changed Tier
 */
 
 @isTest
@@ -55,7 +56,7 @@ public with sharing class APT_DetermineZoneTypesBatch_Test {
             
             //Insert EXP product.
             List<Product2> prodList = new List<Product2>();	
-            Product2 product1 = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'EXP', 'StarTrack');
+            Product2 product1 = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'StarTrack');
             product1.APT_Domestic_Pricing__c = true;
             insert product1;
             
@@ -119,7 +120,7 @@ public with sharing class APT_DetermineZoneTypesBatch_Test {
         System.runAs(testuser) {
             
             //Insert EXP product.
-         	Product2 product_prm = APT_TestUtils.createStarTrackProduct('Premium PRM Tier 1', 'PremiumPRMTier1', 'Parcel Services', 'Tier 1', 'PRM', 'StarTrack');
+            Product2 product_prm = APT_TestUtils.createStarTrackProduct('Premium PRM Tier 1', 'PremiumPRMTier1', 'Parcel Services', 'T01', 'PRM', 'StarTrack');
         	product_prm.APT_Domestic_Pricing__c = true;
 			insert product_prm;             
             //Insert Price data mapping for EXP.                
@@ -181,7 +182,7 @@ public with sharing class APT_DetermineZoneTypesBatch_Test {
         System.runAs(testuser) {
             
             //Insert EXP product.
-        	Product2 product_ret = APT_TestUtils.createStarTrackProduct('Special Services RET Tier 1', 'SpecialServicesRETTier1', 'Parcel Services', 'Tier 1', 'RET', 'StarTrack');
+            Product2 product_ret = APT_TestUtils.createStarTrackProduct('Special Services RET Tier 1', 'SpecialServicesRETTier1', 'Parcel Services', 'T01', 'RET', 'StarTrack');
         	product_ret.APT_Domestic_Pricing__c = true;
 			insert product_ret;             
             //Insert Price data mapping for EXP.                
@@ -246,7 +247,7 @@ public with sharing class APT_DetermineZoneTypesBatch_Test {
         System.runAs(testuser) {
             
             //Insert EXP product.
-        	Product2 product_re2 = APT_TestUtils.createStarTrackProduct('Special Services RE2 Tier 1', 'SpecialServicesRE2Tier1', 'Parcel Services', 'Tier 1', 'RE2', 'StarTrack');
+            Product2 product_re2 = APT_TestUtils.createStarTrackProduct('Special Services RE2 Tier 1', 'SpecialServicesRE2Tier1', 'Parcel Services', 'T01', 'RE2', 'StarTrack');
         	product_re2.APT_Domestic_Pricing__c = true;
 			insert product_re2;             
             //Insert Price data mapping for EXP.                

@@ -1,0 +1,50 @@
+<!--
+ @description: 	This Visualforce Page is for linking PSR functionality.
+			It is used as a wrapper for the LWC component, using Lightning-out framework. 
+ @author Seth Heang
+ @date 2022-04-01
+ @changelog: 
+ 2022-04-01 - Seth Heang - Created
+-->
+<apex:page showHeader="false" sidebar="false" controller="APT_CompassPricingController">
+	
+	<!-- Pass VF page paramters to Apex Controller to build compassPricingAttributes, which the is passed to LWC via Lightning Wrapper -->
+	<apex:outputText >	
+		<apex:param name="lineItemId" value="{!$CurrentPage.parameters.selectedRecordID}"/>
+		<apex:param name="configId" value="{!$CurrentPage.parameters.configId}"/>
+		<apex:param name="opportunityId" value="{!$CurrentPage.parameters.opportunityId}"/>
+	</apex:outputText>
+	<apex:outputPanel id="panel">
+		<apex:form >
+			<!-- Call Page Reference to nagivate back to shopping with provided url -->
+			<apex:actionfunction name="gobacktocart" action="{!goBack}" rerender="panel">
+				<apex:param name="url" value=""/>
+			</apex:actionfunction>
+		</apex:form>
+	</apex:outputPanel>
+	<html>	
+		<body class="slds-scope">
+			<div id="wrapper">
+				<c:LightningWrapper lightningApp="c:APT_CompassPriceApp"
+									lightningComponent="c:apt_CompassPriceLWC"	                        
+									crossOriginLwcEvents="false"
+									componentAttributes="{!compassPricingAttributes}" />
+			</div>				
+		</body>
+	</html>
+
+	
+	<script>
+		// listen for the custom dom event backToCart so we can handle anytime a user wants to click 'Back to Shopping Cart' button in LWC
+		document.getElementById('wrapper').addEventListener('backToCart', handleCompassPricingEvent);
+		/**
+		 * This is the callback for anytime a lightning event is received from LWC
+		 */
+		function handleCompassPricingEvent(e) {
+			if(e && e.type === 'backToCart' && e.detail) {
+				// navigate back to shopping cart by call an apex:action function with url returned from LWC
+				gobacktocart(e.detail.url);
+			}
+		}
+	</script>
+</apex:page>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Lodgement_Zone_Code__c</fullName>
+    <description>Tells the Lodgment Zone Code of Lodgement Zone. Gives CA, CO and ME for Capital, Country and Metro respectively. Use to send information to I5</description>
     <externalId>false</externalId>
     <label>Lodgment Zone Code</label>
     <length>100</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

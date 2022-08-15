@@ -4,6 +4,7 @@ Created By - Raviteja Epuri
 Created Date - 2nd Nov, 2015
 Last Modified By -
 Last Modified Date - 
+2022-05-15 Nasir Jawed Changed Tier
 **/
 @isTest(seealldata=false)
 private with sharing class APT_ProductAttributeValueTrigger_Test {
@@ -809,7 +810,7 @@ Creating test data
             attribute1.APT_Postcode__c = '2000';
             attribute1.APT_Lodgement_Zone__c=logdZone.ID;      
             attribute1.APT_AirmailSmallParcelGT2kgAVGWeightKG__c = 3;
-            attribute1.APTS_Price_Structure__c = 'BASE';
+            attribute1.APTS_Price_Structure__c = 'Z003';
             attribute1.APT_Distribution_Type_Printpost__c = 'Local Sort Division;Same State Metro;Other State';  
             attribute1.APT_Volume_Threshold_Post_BillPay__c='25,001 – 100,000';
             attribute1.APT_PostBillPay_Volume_threshold__c='25,001 – 100,000';
@@ -902,7 +903,7 @@ Creating test data
             attribute1.APT_Postcode__c = '2000';
             attribute1.APT_Lodgement_Zone__c=logdZone.ID;      
             attribute1.APT_AirmailSmallParcelGT2kgAVGWeightKG__c = 3;
-            attribute1.APTS_Price_Structure__c = 'Z3';
+            attribute1.APTS_Price_Structure__c = 'Z003';
             attribute1.APT_Distribution_Type_Printpost__c = 'Local Sort Division;Same State Metro;Other State';  
             attribute1.APT_Volume_Threshold_Post_BillPay__c='25,001 – 100,000';
             attribute1.APT_PostBillPay_Volume_threshold__c='25,001 – 100,000';
@@ -913,7 +914,7 @@ Creating test data
             spendRange.APT_Product_Code__c = 'APPC';
             spendRange.APT_Min_Spend__c = 5000;
             spendRange.APT_Max_Spend__c = 7000;
-            spendRange.APT_Tier__c = 'TIER 4';
+            spendRange.APT_Tier__c = 'T04';
             insert spendRange;
             
             Test.starttest();     
@@ -1002,7 +1003,7 @@ Creating test data
             attribute1.APT_Postcode__c = '2000';
             attribute1.APT_Lodgement_Zone__c=logdZone.ID;      
             attribute1.APT_AirmailSmallParcelGT2kgAVGWeightKG__c = 3;
-            attribute1.APTS_Price_Structure__c = 'Z3';
+            attribute1.APTS_Price_Structure__c = 'Z003';
             attribute1.APT_Distribution_Type_Printpost__c = 'Local Sort Division;Same State Metro;Other State';  
             attribute1.APT_Volume_Threshold_Post_BillPay__c='25,001 – 100,000';
             attribute1.APT_PostBillPay_Volume_threshold__c='25,001 – 100,000';
@@ -1013,7 +1014,7 @@ Creating test data
             spendRange.APT_Product_Code__c = 'APPC';
             spendRange.APT_Min_Spend__c = 5000;
             spendRange.APT_Max_Spend__c = 7000;
-            spendRange.APT_Tier__c = 'TIER 4';
+            spendRange.APT_Tier__c = 'T04';
             insert spendRange;
             
             Test.starttest();     
@@ -1105,7 +1106,7 @@ Creating test data
             attribute1.APT_Postcode__c = '2000';
             //attribute1.APT_Lodgement_Zone__c=logdZone.ID;      
             attribute1.APT_AirmailSmallParcelGT2kgAVGWeightKG__c = 3;
-            attribute1.APTS_Price_Structure__c = 'BASE';
+            attribute1.APTS_Price_Structure__c = 'Z003';
             attribute1.APT_Distribution_Type_Printpost__c = 'Local Sort Division;Same State Metro;Other State';  
             attribute1.APT_Volume_Threshold_Post_BillPay__c='25,001 – 100,000';
             attribute1.APT_PostBillPay_Volume_threshold__c='25,001 – 100,000';
@@ -1422,10 +1423,10 @@ Test method for PCMS bundles
             productCAT1STD.APT_Domestic_Pricing__c = true;
             products.add( productCAT1STD);
             //Startrack Product
-            Product2 productNXF = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'NextFlightTier1', 'Parcel Services', 'Tier 1', 'NXF', 'Startrack');
+            Product2 productNXF = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'NextFlightTier1', 'Parcel Services', 'T01', 'NXF', 'Startrack');
             productNXF.APT_Domestic_Pricing__c = true;
             products.add(productNXF);
-            Product2 productEXP = APT_TestUtils.createStarTrackProduct('Road Express', 'RoadExpress', 'Parcel Services', 'Tier 1', 'EXP', 'Startrack');
+            Product2 productEXP = APT_TestUtils.createStarTrackProduct('Road Express', 'RoadExpress', 'Parcel Services', 'T01', 'EXP', 'Startrack');
             productEXP.APT_Domestic_Pricing__c = true;
             products.add(productEXP);
             //International product 1
@@ -2434,10 +2435,10 @@ Test method for PCMS bundles
             productCAT1STD.APT_Domestic_Pricing__c = true;
             products.add( productCAT1STD);
             //Startrack Product
-            Product2 productNXF = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'NextFlightTier1', 'Parcel Services', 'Tier 1', 'NXF', 'Startrack');
+            Product2 productNXF = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'NextFlightTier1', 'Parcel Services', 'T01', 'NXF', 'Startrack');
             productNXF.APT_Domestic_Pricing__c = true;
             products.add(productNXF);
-            Product2 productEXP = APT_TestUtils.createStarTrackProduct('Road Express', 'RoadExpress', 'Parcel Services', 'Tier 1', 'EXP', 'Startrack');
+            Product2 productEXP = APT_TestUtils.createStarTrackProduct('Road Express', 'RoadExpress', 'Parcel Services', 'T01', 'EXP', 'Startrack');
             productEXP.APT_Domestic_Pricing__c = true;
             products.add(productEXP);
             //International product 1
@@ -3577,10 +3578,10 @@ Test method for PCMS bundles
             productCAT1STD.APT_Domestic_Pricing__c = true;
             products.add( productCAT1STD);
             //Startrack Product
-            Product2 productNXF = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'NextFlightTier1', 'Parcel Services', 'Tier 1', 'NXF', 'Startrack');
+            Product2 productNXF = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'NextFlightTier1', 'Parcel Services', 'T01', 'NXF', 'Startrack');
             productNXF.APT_Domestic_Pricing__c = true;
             products.add(productNXF);
-            Product2 productEXP = APT_TestUtils.createStarTrackProduct('Road Express', 'RoadExpress', 'Parcel Services', 'Tier 1', 'EXP', 'Startrack');
+            Product2 productEXP = APT_TestUtils.createStarTrackProduct('Road Express', 'RoadExpress', 'Parcel Services', 'T01', 'EXP', 'Startrack');
             productEXP.APT_Domestic_Pricing__c = true;
             products.add(productEXP);
             //International product 1

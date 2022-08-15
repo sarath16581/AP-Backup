@@ -4,6 +4,7 @@
  * @group 
  * @description Test class for APT_UpdatePostCodeMappingBatch.
  * @changelog
+  *2022-05-15 Nasir Jawed Changed Tier
 */
 
 @isTest
@@ -20,7 +21,7 @@ public with sharing class APT_UpdatePostCodeMappingBatch_Test {
         product.APT_Domestic_Pricing__c = true;
         insert product;
         //Startrack Product
-        Product2 product1 = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'EXP', 'Startrack');
+        Product2 product1 = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'Startrack');
         product.APT_Domestic_Pricing__c = true;
         insert product1;
         Product2 productInternational = APT_TestUtils.createInternationalProduct('Air Mail Letters', 'AIRLET', 'Parcel Services');

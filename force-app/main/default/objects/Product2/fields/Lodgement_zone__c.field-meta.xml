@@ -26,6 +26,11 @@
                 <default>false</default>
                 <label>Metro</label>
             </value>
+            <value>
+                <fullName>Anywhere</fullName>
+                <default>false</default>
+                <label>Anywhere</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
