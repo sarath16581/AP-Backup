@@ -21,6 +21,8 @@ Changes Made - Fix to set industry attribute only if the value is not blank at o
 
 Mathew Jose - 29/05/2021 - Added to beforeInsertEvent method to set the zone dispersions (STP-5812)
 Mathew Jose - 29/05/2021 - Added afterUpdateEvent method to set the Is Band Changed flag on lineItem (STP-5812)
+Pradeep Jaiswal - 26/4/2022 - CI-224 - Removed Existing Customer field from layout and checked Exisiting Customer from opportunity
+Bharat Patel 15-05-2022 Added condition for option NO
 
 Naveen Rajanna - 11/02/2022 - REQ2649482 - Modified API Version and Minimum Quantity to be set to Category low and high if entered quantity exceeds category range
 
@@ -46,7 +48,8 @@ public with sharing class APT_ProductAttributeValueTriggerHandler {
             //CI-224 Removed APT_Existing_APPC_Customer__c 
             Map<ID,Apttus_Config2__LineItem__c> lineItemMap = new Map<ID,Apttus_Config2__LineItem__c>([select ID,Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Industry, 
                                                                                                        Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.Role_Type_Roll_Up__c,
-                                                                                                       Apttus_Config2__ProductId__r.ProductCode,
+                                                                                                       Apttus_Config2__ProductId__r.ProductCode,Apttus_Config2__ProductId__r.APT_Apttus_Product_Classification__c,
+                                                                                                       Apttus_Config2__OptionId__r.APT_Apttus_Product_Classification__c,
                                                                                                          Apttus_Config2__ConfigurationId__c, 
                                                                                                        Apttus_Config2__ConfigurationId__r.Apttus_Config2__AccountId__r.APT_Eligible_APPC_Tier__c,
                                                                                                        Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Cubic_Factor__c,
@@ -415,7 +418,8 @@ pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). 
                                                                // CI-69 Code block for new APPC customer to fetch the tier value based on the min spend per anumn entered on the cart attribute configuration.
                                                                //CI-224 Existing APPC Customer flag from Proposal rather then from Account Object
                                                                string strNewAPPCCustomer = mapLineItem.get(pav.Apttus_Config2__LineItemId__c).Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Type;
-                                                               if(strNewAPPCCustomer == APT_Constants.OPPORTUNITY_TYPE_NEW_CUSTOMER && pav.APT_Min_Spend_Per_Annum__c != NULL)
+                                                               
+                                                               if(strNewAPPCCustomer == APT_Constants.OPPORTUNITY_TYPE_NEW_CUSTOMER && pav.APT_Min_Spend_Per_Annum__c != NULL && pav.APT_RK_Code_AppliedYN__c == APT_Constants.OPTION_NO)
                                                                {
                                                                    APT_Simplified_Parcel_Spend_Range__c sr;
                                                                    // CI-69 Fetch the APT_Simplified_Parcel_Spend_Range__c where the pav.APT_Min_Spend_Per_Annum__c is in range of APT_Min_Spend__c and APT_Max_Spend__c

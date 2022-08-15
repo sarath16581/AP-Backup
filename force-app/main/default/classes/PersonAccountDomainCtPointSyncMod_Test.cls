@@ -8,55 +8,10 @@
  */
 @IsTest
 public with sharing class PersonAccountDomainCtPointSyncMod_Test {
-    
-    @IsTest
-    static void onBeforeInsert() {
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(PersonAccountDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-
-        ContactService mockService = (ContactService)MockUtility.mockUtility(ContactService.class);
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.stopStubbing();
-
-        List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
-
-        Test.startTest();
-
-        PersonAccountDomainCtPointSyncModule.newInstance().onBeforeInsert(accounts, uow);
-        ((ContactService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).applyPhoneNumberFormatting((List<Account>)fflib_Match.eq(accounts), (Map<Id, Account>)fflib_Match.isNull());
-
-        Test.stopTest();
-
-        // PMD Warning
-        System.assert(true);
-    }
-
-    @IsTest
-    static void onBeforeUpdate() {
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(PersonAccountDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-
-        ContactService mockService = (ContactService)MockUtility.mockUtility(ContactService.class);
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.stopStubbing();
-
-        List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
-        Account acc1 = accounts[0];
-        Account oldAcc1 = acc1.clone(true, true, false, false);
-        Map<Id, Account> existingRecords = new Map<Id, Account>{oldAcc1.Id => oldAcc1};
-
-        Test.startTest();
-
-        PersonAccountDomainCtPointSyncModule.newInstance().onBeforeUpdate(accounts, existingRecords, uow);
-        ((ContactService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).applyPhoneNumberFormatting((List<Account>)fflib_Match.eq(accounts), (Map<Id, Account>)fflib_Match.eq(existingRecords));
-
-        Test.stopTest();
-
-        // PMD Warning
-        System.assert(true);
-    }
 
     @IsTest
     static void onAfterUpdate() {
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(PersonAccountDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+        ApplicationUnitOfWork mockUoW = MockUtility.mockUnitOfWork();
         
         List<Account> accounts = new List<Account>();
         Map<Id, Account> existingAccounts = new Map<Id, Account>();
@@ -156,7 +111,6 @@ public with sharing class PersonAccountDomainCtPointSyncMod_Test {
         
         ContactPointPhoneSelector cpPhoneSelector = (ContactPointPhoneSelector)MockUtility.mockSelector(ContactPointPhoneSelector.class);
         ContactPointEmailSelector cpEmailSelector = (ContactPointEmailSelector)MockUtility.mockSelector(ContactPointEmailSelector.class);
-        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
         MockUtility.Mocks.startStubbing();
 
@@ -196,21 +150,21 @@ public with sharing class PersonAccountDomainCtPointSyncMod_Test {
 
         Test.startTest();
 
-        PersonAccountDomainCtPointSyncModule.newInstance().onAfterUpdate(accounts, existingAccounts, uow);
+        PersonAccountDomainCtPointSyncModule.newInstance().onAfterUpdate(accounts, existingAccounts, mockUoW);
 
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlDelete(
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUoW, MockUtility.Mocks.times(1))).registerDeleted(
                                                                                                     (List<ContactPointPhone>)fflib_Match.eq(new List<ContactPointPhone>{existingCppHomePhone2})
                                                                                                 );
 
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlDelete(
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUoW, MockUtility.Mocks.times(1))).registerDeleted(
                                                                                                     (List<ContactPointEmail>)fflib_Match.eq(new List<ContactPointEmail>{existingCppEmail2})
                                                                                                 );
 
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlDelete(
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUoW, MockUtility.Mocks.times(1))).registerDeleted(
                                                                                                 (List<ContactPointPhone>)fflib_Match.eq(new List<ContactPointPhone>{existingCppMobilePhone2})
                                                                                             );
 
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert(
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUoW, MockUtility.Mocks.times(1))).registerUpsert(
                                                                                             (List<SObject>)fflib_Match.eq(new List<SObject>{
                                                                                                 new ContactPointPhone(
                                                                                                     ParentId = personContact2.accountId,
@@ -220,26 +174,34 @@ public with sharing class PersonAccountDomainCtPointSyncMod_Test {
                                                                                                     Verified__c = FALSE,
                                                                                                     Preferred__c = FALSE,
                                                                                                     UniqueMobile__c = FALSE
-                                                                                                ),
-                                                                                                new ContactPointPhone(
-                                                                                                    ParentId = personContact2.accountId,
-                                                                                                    Contact__c = personContact2.Id,
-                                                                                                    PhoneType = 'Mobile',
-                                                                                                    TelephoneNumber = personContact2.MobilePhone,
-                                                                                                    Verified__c = FALSE,
-                                                                                                    Preferred__c = FALSE,
-                                                                                                    UniqueMobile__c = FALSE
-                                                                                                ),
-                                                                                                new ContactPointEmail(
-                                                                                                    ParentId = personContact2.accountId,
-                                                                                                    Contact__c = personContact2.Id,
-                                                                                                    EmailAddress = personContact2.Email,
-                                                                                                    Verified__c = FALSE,
-                                                                                                    Preferred__c = FALSE,
-                                                                                                    AuthenticationEmail__c = FALSE,
-                                                                                                    Communication_Email__c = TRUE
                                                                                                 )
                                                                                             }));
+                                                                                            
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUoW, MockUtility.Mocks.times(1))).registerUpsert(
+                                                                                                (List<SObject>)fflib_Match.eq(new List<SObject>{
+                                                                                                    new ContactPointPhone(
+                                                                                                        ParentId = personContact2.accountId,
+                                                                                                        Contact__c = personContact2.Id,
+                                                                                                        PhoneType = 'Mobile',
+                                                                                                        TelephoneNumber = personContact2.MobilePhone,
+                                                                                                        Verified__c = FALSE,
+                                                                                                        Preferred__c = FALSE,
+                                                                                                        UniqueMobile__c = FALSE
+                                                                                                    )
+                                                                                                }));
+        
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUoW, MockUtility.Mocks.times(1))).registerUpsert(
+                                                                                                    (List<SObject>)fflib_Match.eq(new List<SObject>{
+                                                                                                        new ContactPointEmail(
+                                                                                                            ParentId = personContact2.accountId,
+                                                                                                            Contact__c = personContact2.Id,
+                                                                                                            EmailAddress = personContact2.Email,
+                                                                                                            Verified__c = FALSE,
+                                                                                                            Preferred__c = FALSE,
+                                                                                                            AuthenticationEmail__c = FALSE,
+                                                                                                            Communication_Email__c = TRUE
+                                                                                                        )
+                                                                                                    }));
 
         Test.stopTest();
 

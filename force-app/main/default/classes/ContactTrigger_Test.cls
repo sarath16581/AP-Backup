@@ -19,6 +19,20 @@ private class ContactTrigger_Test {
         database.insert( new et4ae5__Configuration__c(et4ae5__Support_Ticket_Recipient__c = 'example@example.com') );   
     }
     
+    @IsTest
+    static void makingSureThatTheDispatchMethodIsCalledFromTheCorrectClass() {
+        ContactDomainTriggerHandler mock = (ContactDomainTriggerHandler)MockUtility.mockUtility(ContactDomainTriggerHandler.class);
+
+        List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, false);
+        insert accounts;
+		List<SObject> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, false);
+        insert contacts;
+
+        ((ContactDomainTriggerHandler) MockUtility.Mocks.verify(mock, MockUtility.Mocks.atLeastOnce())).dispatch();
+
+        // PMD Warning
+		System.assert(true);
+    }
 
     /** 
     * @name: ContactTriggerTest()
@@ -27,11 +41,10 @@ private class ContactTrigger_Test {
     * @return: NA
     *
     */
-    private static testmethod void ContactTriggerTest() {  
+    private static testmethod void contactTriggerTest() {  
         Profile prof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
         System.runAs(TestUtility.createUser('Wayne',prof.id,null)){
             Map<String,Schema.RecordTypeInfo> accRecTypeMap = Schema.Sobjecttype.Account.getRecordTypeInfosByName();
-            Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
             Account acc = TestUtility.createBusinessAccount('Wayne Enterprises',
                                                             accRecTypeMap.get('Organisation').getRecordTypeId());
             Database.insert(acc);

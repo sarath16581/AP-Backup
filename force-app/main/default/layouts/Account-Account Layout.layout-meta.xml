@@ -3,6 +3,9 @@
     <customButtons>DecaK40p000000000pCAA</customButtons>
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
+    <excludeButtons>DataDotComAccountInsights</excludeButtons>
+    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -675,6 +678,11 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
+            <actionName>DecaK40p000000000pCAA</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>Account.New_BG_Opportunity</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>1</sortOrder>
@@ -683,11 +691,6 @@
             <actionName>Account.New_Deal_Support_Request</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>DecaK40p000000000pCAA</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>0</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Create_Sales_Task</actionName>
@@ -1180,6 +1183,26 @@
         <fields>Verified__c</fields>
         <fields>Labels__c</fields>
         <relatedList>Integration__c.Organisation__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>ParentAccount__c</fields>
+        <fields>Relationship__c</fields>
+        <fields>Connection__c</fields>
+        <fields>EndDate__c</fields>
+        <fields>CREATEDBY_USER</fields>
+        <fields>CREATED_DATE</fields>
+        <relatedList>AccountRelationship__c.RelatedAccount__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>RelatedAccount__c</fields>
+        <fields>Relationship__c</fields>
+        <fields>Connection__c</fields>
+        <fields>EndDate__c</fields>
+        <fields>CREATEDBY_USER</fields>
+        <fields>CREATED_DATE</fields>
+        <relatedList>AccountRelationship__c.ParentAccount__c</relatedList>
     </relatedLists>
     <relatedObjects>Network_Facility__c</relatedObjects>
     <relatedObjects>ParentId</relatedObjects>

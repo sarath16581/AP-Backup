@@ -1,0 +1,150 @@
+/* RSolomon 16th Mar 2020 - New fonts included as defined in the 2019 brand refresh */
+@font-face {
+	font-family: 'APTypeText';
+	font-style: normal;
+  	font-weight: normal;
+  	src: url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff") format("woff");
+   }
+
+@font-face {
+  	font-family: 'APTypeText';
+    font-style: italic;
+	font-weight: normal;
+  	src: url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic102401.woff") format("woff");
+   }
+
+@font-face {
+  	font-family: 'APTypeText';
+    font-style: normal;
+    font-weight: bold;
+  	src: url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff") format("woff");
+   }
+
+@font-face {
+  	font-family: 'APTypeText';
+    font-style: italic;
+    font-weight: bold;
+  	src: url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff") format("woff");
+   }
+
+@font-face {
+  	font-family: 'APTypeText';
+    font-style: normal;
+    font-weight: 300;
+  	src: url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff") format("woff");
+   }
+
+@font-face {
+  	font-family: 'APTypeText';
+    font-style: italic;
+    font-weight: 300;
+  	src: url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff") format("woff");
+  	 }
+
+@font-face {
+  	font-family: 'APTypeText';
+    font-style: normal;
+    font-weight: 500;
+  	src: url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff") format("woff");
+  	 }
+
+@font-face {
+  	font-family: 'APTypeText';
+    font-style: italic;
+    font-weight: 500;
+  	src: url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumItalic-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumtItalic-102401.woff") format("woff");
+	}
+
+@font-face {
+  	font-family: 'APTypeDisplay';
+    font-style: normal;
+    font-weight: normal;
+  	src: url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Regular-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Regular-102401.woff") format("woff"); 	
+  	 }
+
+@font-face {
+  	font-family: 'APTypeDisplay';
+    font-style: italic;
+    font-weight: normal;
+  	src: url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff") format("woff");
+   }
+
+@font-face {
+  	font-family: 'APTypeDisplay';
+    font-style: normal; 
+    font-weight: bold;
+  	src: url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff") format("woff");
+  	}
+
+@font-face {
+  	font-family: 'APTypeDisplay';
+    font-style: italic;
+    font-weight: bold;
+  	src: url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff") format("woff"); 	
+  	 }
+
+@font-face {
+  	font-family: 'APTypeDisplay';
+    font-style: normal;
+    font-weight: 300;
+  	src: url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff") format("woff");
+  	 }
+
+@font-face {
+  	font-family: 'APTypeDisplay';
+    font-style: italic;
+    font-weight: 300;
+  	src: url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff") format("woff");
+  	 }
+
+@font-face {
+  	font-family: 'APTypeDisplay';
+    font-style: normal;
+    font-weight: 500;
+  	src: url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff") format("woff");
+  	}
+
+@font-face {
+  	font-family: 'APTypeDisplay';
+    font-style: italic;
+    font-weight: 500;
+  	src: url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumItalic-102401.woff2") format("woff2"), 
+    url("/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumtItalic-102401.woff") format("woff");
+   }
+
+h1, h2, h3, h4, h5, h6, b, strong {
+  font-family: 'APTypeDisplay', 'APTypeText', helvetica, arial, sans-serif;
+  font-weight: bold; }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500; }
+h1 { font-size: 1.5rem; line-height: 2rem; }
+h2 { font-size: 1.25rem; line-height: 1.5rem; }
+h3 { font-size: 1.125rem; line-height: 1.5rem; }
+
+body {
+  overflow-x: hidden;
+}
+.forceOutputLookupWithPreview a.textUnderline:hover{
+    color: #008575;
+}
+
+/* Workaround since Log in option had to be hidden. To be fixed by making the necessary change on the Home and Inner theme components where the User Profile Menu is rendered */
+.selfServiceUserProfileMenu {
+   display: none;
+}
+:root { --dxp-c-section-columns-max-width: 1170px; }

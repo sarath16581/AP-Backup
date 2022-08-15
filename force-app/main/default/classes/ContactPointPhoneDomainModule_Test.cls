@@ -118,9 +118,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 
 		//test start and stop
 		Test.startTest();
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointPhoneDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-		System.debug('cpPhones1 >>' + cpPhones1);
-		System.debug('uow >>' + uow);
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointPhoneTriggerHandler.getUnitOfWorkSObjectTypes());
 		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
 		module.onAfterInsert((List<SObject>) cpPhones1, uow);
 
@@ -128,7 +126,8 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		((ContactService) MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1)))
 			.syncContactPointPhoneToContacts(
 				(List<ContactPointPhone>) fflib_Match.eq(cpPhones1),
-				(List<ContactPointPhone>) fflib_Match.isNull()
+				(List<ContactPointPhone>) fflib_Match.isNull(),
+				(Map<Id,ContactPointPhone>) fflib_Match.isNull()
 			);
 	}
 
@@ -188,7 +187,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 
 		//test start and stop
 		Test.startTest();
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointPhoneDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointPhoneTriggerHandler.getUnitOfWorkSObjectTypes());
 		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
 		module.onAfterUpdate((List<SObject>) cpPhones1, (Map<Id, SObject>) existing, uow);
 
@@ -196,7 +195,8 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		((ContactService) MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1)))
 			.syncContactPointPhoneToContacts(
 				(List<ContactPointPhone>) fflib_Match.eq(cpPhones1),
-				(List<ContactPointPhone>) fflib_Match.isNull()
+				(List<ContactPointPhone>) fflib_Match.isNull(),
+				(Map<Id, ContactPointPhone>) fflib_Match.eq(existing)
 			);
 	}
 	@isTest
@@ -254,7 +254,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 
 		//test start and stop
 		Test.startTest();
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointPhoneDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointPhoneTriggerHandler.getUnitOfWorkSObjectTypes());
 		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
 		module.onAfterDelete((List<SObject>) cpPhones1, uow);
 
@@ -262,7 +262,55 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		((ContactService) MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1)))
 			.syncContactPointPhoneToContacts(
 				(List<ContactPointPhone>) fflib_Match.isNull(),
-				(List<ContactPointPhone>) fflib_Match.eq(cpPhones1)
+				(List<ContactPointPhone>) fflib_Match.eq(cpPhones1),
+				(Map<Id,ContactPointPhone>) fflib_Match.isNull()
 			);
 	}
+
+
+	//test exceptions in module class
+	@isTest
+	static void testExceptionOnAfterUpdate(){
+		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+		insert logLevel;
+		Test.startTest();
+		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+		module.onAfterUpdate(new List<SObject>{},new Map<Id,SObject>{},null);
+		Test.stopTest();
+		//an exception should be created when thre are invalid parameters in the onAfterUpdate
+		List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
+		System.assertEquals(true, logResult.size() > 0, 'Exception created');
+	}
+
+	//test exceptions in module class
+	@isTest
+	static void testExceptionOnAfterInsert(){
+		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+		insert logLevel;
+		Test.startTest();
+		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+		module.onAfterInsert(new List<SObject>{},null);
+		Test.stopTest();
+		//an exception should be created when thre are invalid parameters in the onAfterInsert
+		List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
+		System.assertEquals(true, logResult.size() > 0, 'Exception created');
+	}
+
+	//test exceptions in module class
+		@isTest
+		static void testExceptionOnAfterDelete(){
+			LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+			logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+			insert logLevel;
+			Test.startTest();
+			ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+			module.onAfterDelete(null,null);
+			Test.stopTest();
+			//an exception should be created when thre are invalid parameters in the onAfterDelete
+			List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
+			System.assertEquals(true, logResult.size() > 0, 'Exception created');
+		}
+
 }

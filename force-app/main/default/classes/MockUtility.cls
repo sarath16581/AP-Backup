@@ -7,6 +7,7 @@
  * @changelog
  * 2020-08-02 - Nathan Franklin - Added new generic DML answers
  * 2021-10-15 - Nathan Franklin - Add new AnswerVoid class
+ * 2022-07-28 - Sreenish Krishnan - Added DMLUpsert logic
  */
 @IsTest
 public class MockUtility {
@@ -206,6 +207,7 @@ public class MockUtility {
 			List<Map<String, Object>> upsertResults = new List<Map<String, Object>>();
 			List<SObject> records = (List<SObject>)invocation.getArgument(0);
 			for(SObject record : records) {
+        		record.Id = fflib_IDGenerator.generate(record.getSObjectType());
 				Map<String, Object> result = new Map<String, Object> {
 						'success' => true,
 						'id' => record.Id

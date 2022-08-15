@@ -5,6 +5,7 @@
  * @description Test class consisting of methods to test the methods in the APT_PricingAdjustmentController class.
  * @changelog
  * 2021-05-31 - Darshan Chauhan - Created
+ 2022-05-15 Nasir Jawed changed Tier
 */
 
 @isTest
@@ -15,7 +16,7 @@ public with sharing class APT_PricingAdjustmentController_Test {
     @TestSetup
     static void createTestData(){
         //Startrack Product
-        Product2 product = APT_TestUtils.createStarTrackProduct('Road Express Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'EXP', 'Startrack');
+        Product2 product = APT_TestUtils.createStarTrackProduct('Road Express Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'Startrack');
         product.APT_Domestic_Pricing__c = true;
         insert product;
 

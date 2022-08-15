@@ -7,6 +7,7 @@
  * @description A very simple selector class that sits in the base domain
  * @changelog
  * 2021-03-30 - Shashwat.nath@auspost.com.au - Created
+ * 2022-05-09 - NAsir Jawed - Added selectByConfigId, selectByProposalId methods
  */
 public virtual inherited sharing class ProductConfigurationSelector extends ApplicationSelector {
     public enum Options {
@@ -44,7 +45,8 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
 
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
-                Apttus_Config2__ProductConfiguration__c.ID , Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c
+                Apttus_Config2__ProductConfiguration__c.ID, Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c, Apttus_Config2__ProductConfiguration__c.Name, 
+                Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Status__c,Apttus_Config2__ProductConfiguration__c.APT_APPC_Count_in_Cart__c
         };
     }
 
@@ -66,19 +68,50 @@ public virtual inherited sharing class ProductConfigurationSelector extends Appl
         return new Map<Id, Apttus_Config2__ProductConfiguration__c>((List<Apttus_Config2__ProductConfiguration__c>)Database.query(qb.toSoqlString()));
     }
 
+	/**
+	* @description Run a simple query to get records based on Apttus shopping cart config Id's
+	*/
+	public virtual List<Apttus_Config2__ProductConfiguration__c> selectByConfigId(set<ID> configIds) {
+		return selectByConfigId(configIds, new Set<Object>());
+	}
 
+	/**
+	* @description Run a simple query to get records based on Apttus shopping cart config Id's
+	*/
+	public virtual List<Apttus_Config2__ProductConfiguration__c> selectByConfigId(set<ID> configIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		qb.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.ID + ' = :configIds'))
+			.endConditions();
+		return (List<Apttus_Config2__ProductConfiguration__c>)Database.query(qb.toSoqlString());
+	}
 
-    /**
-     * @description Grabs a new QueryBuilder based on the selector options passed in
-     */
-    public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-        QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+	/**
+	* @description Run a simple query to get records based on Proposal Id on Configuration record
+	*/
+	public virtual List<Apttus_Config2__ProductConfiguration__c> selectByProposalId(set<ID> proposalIds) {
+		return selectByProposalId(proposalIds, new Set<Object>());
+	}
 
-        if(selectorOptions.contains(Options.WITH_LINE_ITEMS)) {
-            builder.addSubQuery(LineItemsSelector.newInstance().newQueryBuilder(new Set<Object>{LineItemsSelector.Options.WITH_PRODUCT_ATTRIBUTE_VALUE}), 'Apttus_Config2__LineItems__r');
-        }
+	public virtual List<Apttus_Config2__ProductConfiguration__c> selectByProposalId(set<ID> proposalIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		qb.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__ProductConfiguration__c.Apttus_QPConfig__Proposald__c + ' = :proposalIds'))
+			.endConditions();
+		return (List<Apttus_Config2__ProductConfiguration__c>)Database.query(qb.toSoqlString());
+	}
 
-        return builder;
-    }
+	/**
+	 * @description Grabs a new QueryBuilder based on the selector options passed in
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if(selectorOptions.contains(Options.WITH_LINE_ITEMS)) {
+			builder.addSubQuery(LineItemsSelector.newInstance().newQueryBuilder(new Set<Object>{LineItemsSelector.Options.WITH_PRODUCT_ATTRIBUTE_VALUE}), 'Apttus_Config2__LineItems__r');
+		}
+
+		return builder;
+	}
 
 }

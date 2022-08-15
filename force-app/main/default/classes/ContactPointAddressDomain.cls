@@ -1,15 +1,14 @@
 /**
-* @description Domain class to handle ContactPointAddress related capability
-* @author George Nguyen
-* @group Domains
-* @domain ContactPointAddress
-* @changelog
-* 2022-05-31 - George Nguyen - Created.
-*/
+ * @description Domain class to handle ContactPointAddress related capability
+ * @author George Nguyen
+ * @group Domains
+ * @domain ContactPointAddress
+ * @changelog
+ * 2022-05-31 - George Nguyen - Created.
+ */
 public inherited sharing class ContactPointAddressDomain extends ApplicationDomain {
-
 	public static ContactPointAddressDomain newInstance(List<SObject> sObjectList) {
-		return (ContactPointAddressDomain)ApplicationDomain.newInstance(ContactPointAddressDomain.class, sObjectList);
+		return (ContactPointAddressDomain) ApplicationDomain.newInstance(ContactPointAddressDomain.class, sObjectList);
 	}
 
 	/**
@@ -17,7 +16,9 @@ public inherited sharing class ContactPointAddressDomain extends ApplicationDoma
 	 */
 	public override void registerModules() {
 		// these module will be available for domain operations and trigger execution
-		registerModule(ContactPointAddressDomainModule.class);
+		if (ContactService.getInstance().checkCurrentUserIsIntegrationUser(UserInfo.getUserId())) {
+			registerModule(ContactPointAddressDomainModule.class);
+		}
 	}
 
 	/**
@@ -28,5 +29,4 @@ public inherited sharing class ContactPointAddressDomain extends ApplicationDoma
 			return ContactPointAddressDomain.newInstance(sObjectList);
 		}
 	}
-
 }

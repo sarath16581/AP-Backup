@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>Deliver_Product__c</fullName>
-	<description>This is a formula field to display consolidated deliver product</description>
-	<externalId>false</externalId>
-	<formula>
-		IF (Blue_Bags__c == 0,&quot;&quot;,&quot;Blue Bags: &quot; + TEXT(Blue_Bags__c) + BR()) +
-		IF (Express_Bags__c == 0,&quot;&quot;,&quot;Express Bags: &quot; + TEXT(Express_Bags__c) + BR()) +
-		IF (Large_Letter_Tubs__c == 0,&quot;&quot;,&quot;Large Letter Tubs: &quot; + TEXT(Large_Letter_Tubs__c)+ BR()) +
-		IF (Red_Tubs__c == 0,&quot;&quot;,&quot;Red Tubs: &quot; + TEXT(Red_Tubs__c) + BR()) +
-		IF (Small_Letter_Trays__c == 0,&quot;&quot;,&quot;Small Letter Trays: &quot; + TEXT(Small_Letter_Trays__c) +
-		BR()) +
-		IF (White_Bags__c == 0 ,&quot;&quot;,&quot;White Bags: &quot; + TEXT(White_Bags__c))
-	</formula>
-	<formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-	<businessStatus>Active</businessStatus>
-	<label>Deliver Product</label>
-	<required>false</required>
-	<securityClassification>INTERNAL</securityClassification>
-	<trackTrending>false</trackTrending>
-	<type>Text</type>
-	<unique>false</unique>
+    <fullName>Deliver_Product__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>This is a formula field to display consolidated deliver product</description>
+    <externalId>false</externalId>
+    <formula>IF (Blue_Bags__c == 0,&quot;&quot;,&quot;Blue Bags: &quot; + TEXT(Blue_Bags__c) + BR()) + IF (Express_Bags__c == 0,&quot;&quot;,&quot;Express Bags: &quot; + TEXT(Express_Bags__c) + BR()) + IF (Large_Letter_Tubs__c == 0,&quot;&quot;,&quot;Large Letter Tubs: &quot; + TEXT(Large_Letter_Tubs__c)+ BR()) + IF (Red_Tubs__c == 0,&quot;&quot;,&quot;Red Tubs: &quot; + TEXT(Red_Tubs__c) + BR()) + IF (Small_Letter_Trays__c == 0,&quot;&quot;,&quot;Small Letter Trays: &quot; + TEXT(Small_Letter_Trays__c) + BR()) + IF (White_Bags__c == 0 ,&quot;&quot;,&quot;White Bags: &quot; + TEXT(White_Bags__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Deliver Product</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

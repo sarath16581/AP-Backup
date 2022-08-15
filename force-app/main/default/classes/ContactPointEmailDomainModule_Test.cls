@@ -8,20 +8,90 @@
  */
 @IsTest
 public with sharing class ContactPointEmailDomainModule_Test {
+
+	@IsTest
+	static void makingSureTheUserIsUpdatedWithTheFieldsFromContactPointEmail() {
+		String sandboxSuffix = Application.Cache.organizationInfo.isSandbox == true ? '.' + Application.Cache.organizationInfo.sandboxName : '';
+		Account acc = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		Map<Id, Contact> contacts = new Map<Id, Contact>(ApplicationTestDataFactory.getContacts(1, acc.Id, true));
+		Contact ct1 = contacts.values()[0];
+
+		List<ContactPointEmail> cpEmails = ApplicationTestDataFactory.getContactPointEmails(2, acc.id, true);
+		ContactPointEmail cpe1 = cpEmails[0];
+		cpe1.IsCredential__c = true;
+		cpe1.Contact__c = ct1.Id;
+
+		List<User> existingUsers = ApplicationTestDataFactory.getCommunityUsers(1, new List<Id>{ ct1.Id }, true);
+		User existingUser = existingUsers[0];
+
+		ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorker worker = new ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorker();
+		ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorkerParameters params = new ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorkerParameters();
+		params.userIdsAndContactPointEmailIds = new List<String>{existingUser.Id + '-' + cpe1.Id};
+
+		ContactPointEmailSelector mockEmailSelector = (ContactPointEmailSelector) MockUtility.mockSelector(ContactPointEmailSelector.class);
+		UsersSelector mockUserSelector = (UsersSelector) MockUtility.mockSelector(UsersSelector.class);
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockEmailSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{cpe1.Id}))).thenReturn(new List<ContactPointEmail>{cpe1});
+		MockUtility.Mocks.when(mockUserSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{existingUser.Id}))).thenReturn(new Map<Id, User>(existingUsers));
+
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+
+		System.assertEquals(ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorker.class, worker.getClassType(), 'matching type');
+		System.assertEquals(User.SObjectType, worker.getSObjectTypeGroup(), 'matching type');
+
+		worker.deserialiseParams(JSON.serialize(params));
+		System.assert(worker.contactPointEmailIds.contains(cpe1.Id), 'It should be passed in via the params');
+		System.assert(worker.userIdsVsContactPointEmailIds.containsKey(existingUser.Id), 'It should be passed in via the params');
+		System.assertEquals(cpe1.Id, worker.userIdsVsContactPointEmailIds.get(existingUser.Id), 'It should be set via the params');
+
+		worker.execute(mockUow);
+		existingUser.Email = cpe1.emailAddress;
+		existingUser.Username = cpe1.emailAddress + '.community' + sandboxSuffix;
+		existingUser.FederationIdentifier = cpe1.emailAddress + '.community' + sandboxSuffix;
+
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
+			(List<User>) fflib_Match.eq(new List<User>{existingUser}),
+			(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{
+				User.Email,
+				User.Username,
+				User.FederationIdentifier
+			}),
+			fflib_Match.eqBoolean(false),
+			fflib_Match.eqString(ContactPointEmailDomainModule.class.getName() + '.' + ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorker.class.getName())
+		);
+
+		// PMD Warning
+		System.assert(true);
+
+		Test.stopTest();
+	}	
+
+	/*
+    * this test will verify the following method was called:
+    * ApplicationUnitOfWork.registerDirty - with the valid Contact records to update with valid values using the specified fields only
+	* ApplicationUnitOfWork.registerUpsert - for Contacts with updated CRMCSSOID__c
+	* ApplicationUnitOfWork.registerUpsert - for New Portal Users 
+	* ApplicationDatabase.dmlUpdate - for User records with updated email, username and fed id
+    */
 	@IsTest
 	static void onAfterInsert() {
-		ContactService mockService = (ContactService) MockUtility.mockUtility(ContactService.class);
-
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointAddressDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+		
 		Account acc = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
 		Map<Id, Contact> contacts = new Map<Id, Contact>(ApplicationTestDataFactory.getContacts(2, acc.Id, true));
 		Contact ct1 = contacts.values()[0];
 		Contact ct2 = contacts.values()[1];
 
 		List<ContactPointEmail> cpEmails = ApplicationTestDataFactory.getContactPointEmails(2, acc.id, true);
-		cpEmails[0].Contact__c = ct1.Id;
-		cpEmails[0].IsCredential__c = true;
-		cpEmails[0].EmailAddress = 'test-sync-with-contact@sample.auspost.com.au';
+
+		ContactPointEmail cpe1 = cpEmails[0];
+		cpe1.Contact__c = ct1.Id;
+		cpe1.EmailAddress = 'newEmailForExistingUser@test.com';
+		cpe1.IsCredential__c = true;
 
 		ContactPointEmail cpe2 = cpEmails[1];
 		cpe2.Contact__c = ct2.Id;
@@ -36,292 +106,342 @@ public with sharing class ContactPointEmailDomainModule_Test {
 		cpp2.TelephoneNumber = '+61288889999';
 
 		List<User> existingUsers = ApplicationTestDataFactory.getCommunityUsers(1, new List<Id>{ ct1.Id }, true);
+		User existingUser = existingUsers[0];
+		existingUser.Email = 'oldemail@test.com';
+		existingUser.Username = 'oldemail@test.com.blah';
+		existingUser.FederationIdentifier = 'oldemail@test.com.blah';
 
-		ContactsSelector ctSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
-		ContactPointPhoneSelector phoneSelector = (ContactPointPhoneSelector) MockUtility.mockSelector(ContactPointPhoneSelector.class);
-		ContactPointEmailSelector emailSelector = (ContactPointEmailSelector) MockUtility.mockSelector(ContactPointEmailSelector.class);
-
-		UsersSelector userSelector = (UsersSelector) MockUtility.mockSelector(UsersSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		ContactService mockContactService = (ContactService) MockUtility.mockUtility(ContactService.class);
+		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
+		ContactPointPhoneSelector mockPhoneSelector = (ContactPointPhoneSelector) MockUtility.mockSelector(ContactPointPhoneSelector.class);
+		ContactPointEmailSelector mockEmailSelector = (ContactPointEmailSelector) MockUtility.mockSelector(ContactPointEmailSelector.class);
+		UsersSelector mockUserSelector = (UsersSelector) MockUtility.mockSelector(UsersSelector.class);
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(ctSelector.selectById((Set<Id>) fflib_Match.eq(contacts.keySet()))).thenReturn(contacts);
+		MockUtility.Mocks.when(mockContactService.syncContactPointEmailToContacts(
+														(List<ContactPointEmail>) fflib_Match.eq(cpEmails),
+														(List<ContactPointEmail>) fflib_Match.isNull(),
+														(Map<Id,ContactPointEmail>) fflib_Match.isNull()
+													)).thenReturn(contacts.values());
 
-		MockUtility.Mocks.when(
-				phoneSelector.selectByContact(
-					(Set<Id>) fflib_Match.eq(contacts.keySet()),
-					(Set<Object>) fflib_Match.eq(
-						new Set<Object>{
-							ContactPointPhoneSelector.Options.FILTER_MOBILEPHONE,
-							ContactPointPhoneSelector.Options.FILTER_PREFERRED_TRUE
-						}
-					)
-				)
-			)
-			.thenReturn(cpPhones);
+		MockUtility.Mocks.when(mockContactsSelector.selectById((Set<Id>) fflib_Match.eq(contacts.keySet()))).thenReturn(contacts);
 
-		MockUtility.Mocks.when(
-				emailSelector.selectByContact((Set<Id>) fflib_Match.eq(contacts.keySet()), (Set<Object>) fflib_Match.eq(new Set<Object>()))
-			)
-			.thenReturn(cpEmails);
+		MockUtility.Mocks.when(mockPhoneSelector.selectByContact(
+														(Set<Id>) fflib_Match.eq(contacts.keySet()),
+														(Set<Object>) fflib_Match.eq(
+															new Set<Object>{
+																ContactPointPhoneSelector.Options.FILTER_MOBILEPHONE,
+																ContactPointPhoneSelector.Options.FILTER_PREFERRED_TRUE
+															}
+														))).thenReturn(cpPhones);
 
-		MockUtility.Mocks.when(userSelector.selectByContactId((Set<Id>) fflib_Match.eq(contacts.keySet())))
-			.thenReturn(new Map<Id, User>(existingUsers));
+		MockUtility.Mocks.when(mockEmailSelector.selectByContact((Set<Id>) fflib_Match.eq(contacts.keySet()), (Set<Object>) fflib_Match.eq(new Set<Object>()))).thenReturn(cpEmails);
 
-		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>) fflib_Match.anyObject()))
-			.thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		MockUtility.Mocks.when(mockUserSelector.selectByContactId((Set<Id>) fflib_Match.eq(contacts.keySet()))).thenReturn(new Map<Id, User>(existingUsers));
 
-		MockUtility.Mocks.when(
-				mockService.syncContactPointEmailToContacts(
-					(List<ContactPointEmail>) fflib_Match.eq(cpEmails),
-					(List<ContactPointEmail>) fflib_Match.isNull()
-				)
-			)
-			.thenReturn(contacts.values());
+		MockUtility.Mocks.when(mockEmailSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{cpe1.Id}))).thenReturn(new List<ContactPointEmail>{cpe1});
+		MockUtility.Mocks.when(mockUserSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{existingUser.Id}))).thenReturn(new Map<Id, User>(existingUsers));
 
 		MockUtility.Mocks.stopStubbing();
 
-		Id portalUserProfileId = [SELECT Id FROM Profile WHERE Name = 'DDC Consumer Community User' LIMIT 1].Id;
+		Id portalUserProfileId = Application.Cache.profileIds.get(ChasConstants.CONSUMER_COMMUNITY_PROFILE_NAME);
 
 		Test.startTest();
 
 		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
 		module.onAfterInsert((List<SObject>) cpEmails, mockUow);
 
-		/*	((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<Contact>) fflib_Match.eq(contacts.values()));
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<Contact>) fflib_Match.eq(contacts.values()),(List<SObjectField>)fflib_Match.anyObject(),fflib_Match.anyString());
 
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
-			.dmlInsert(
-				(List<User>) fflib_Match.eq(
-					new List<User>{
-						new User(
-							FirstName = ct2.FirstName,
-							LastName = ct2.LastName,
-							APCN__c = ct2.APCN__c,
-							ProfileId = portalUserProfileId,
-							IsActive = false,
-							Email = cpe2.emailAddress,
-							MobilePhone = cpp2.TelephoneNumber,
-							Username = cpe2.emailAddress + '.community',
-							FederationIdentifier = cpe2.emailAddress + '.community',
-							OID_ID__c = ct2.OID_ID__c,
-							LanguageLocaleKey = 'en_US',
-							Alias = 'Consumer',
-							LocaleSidKey = 'en_AU',
-							ContactId = ct2.Id,
-							EmailEncodingKey = 'UTF-8',
-							TimeZoneSidKey = 'Australia/Sydney'
-						)
-					}
-				)
-			);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerUpsert((List<Contact>) fflib_Match.eq(
+				new List<Contact>{
+					new Contact(Id = ct2.Id, CRMCSSOID__c = cpe2.emailAddress)
+				}
+			)
+		);
 
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
-			.dmlUpdate(
-				(List<Contact>) fflib_Match.eq(
-					new List<Contact>{ new Contact(Id = ct2.Id, CRMCSSOID__c = cpe2.emailAddress, Email = cpEmails[0].EmailAddress) }
-				)
-			);*/
+		String sandboxSuffix = Application.Cache.organizationInfo.isSandbox == true ? '.' + Application.Cache.organizationInfo.sandboxName : '';
+
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerUpsert((List<User>) fflib_Match.eq(
+				new List<User>{
+					new User(
+						FirstName = ct2.FirstName,
+						LastName = ct2.LastName,
+						APCN__c = ct2.APCN__c,
+						ProfileId = portalUserProfileId,
+						IsActive = false,
+						Email = cpe2.emailAddress,
+						MobilePhone = cpp2.TelephoneNumber,
+						Username = cpe2.emailAddress + '.community' + sandboxSuffix,
+						FederationIdentifier = cpe2.emailAddress + '.community' + sandboxSuffix,
+						OID_ID__c = ct2.OID_ID__c,
+						LanguageLocaleKey = 'en_US',
+						Alias = 'Consumer',
+						LocaleSidKey = 'en_AU',
+						ContactId = ct2.Id,
+						EmailEncodingKey = 'UTF-8',
+						TimeZoneSidKey = 'Australia/Sydney'
+					)
+				}
+			)
+		);
+
+		/*
+		List<String> userIdsAndContactPointEmailIds = new List<String>{existingUser.Id + '-' + cpe1.Id};
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) fflib_Match.eq(
+				new ApplicationUnitOfWork.AsyncStagingWorker(ApplicationUnitOfWork.AsyncUpdateUserLoginDetailsWorker.class, new Map<String, Object>{'userIdsAndContactPointEmailIds' => userIdsAndContactPointEmailIds})
+			)
+		);
+		*/
 
 		// PMD Warning
 		System.assert(true);
 
 		Test.stopTest();
-
-		/*	((ContactService) MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1)))
-			.syncContactPointEmailToContacts(
-				(List<ContactPointEmail>) fflib_Match.eq(cpEmails),
-				(List<ContactPointEmail>) fflib_Match.isNull()
-			);*/
 	}
 
+	/*
+    * this test will verify the following method was called:
+    * ApplicationUnitOfWork.registerDirty - with the valid Contact records to update with valid values using the specified fields only
+	* ApplicationUnitOfWork.registerUpsert - for Contacts with updated CRMCSSOID__c
+	* ApplicationUnitOfWork.registerUpsert - for New Portal Users 
+	* ApplicationDatabase.dmlUpdate - for User records with updated email, username and fed id
+    */
 	@IsTest
 	static void onAfterUpdate() {
-		ContactService mockService = (ContactService) MockUtility.mockUtility(ContactService.class);
 
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointAddressDomainTriggerHandler.getUnitOfWorkSObjectTypes());
 		Account acc = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
-		Map<Id, Contact> contacts = new Map<Id, Contact>(ApplicationTestDataFactory.getContacts(3, acc.Id, true));
+		Map<Id, Contact> contacts = new Map<Id, Contact>(ApplicationTestDataFactory.getContacts(2, acc.Id, true));
 		Contact ct1 = contacts.values()[0];
 		Contact ct2 = contacts.values()[1];
-		Contact ct3 = contacts.values()[1];
 
-		List<ContactPointEmail> cpEmails = ApplicationTestDataFactory.getContactPointEmails(3, acc.id, true);
-		cpEmails[0].Contact__c = ct1.Id;
-		cpEmails[0].IsCredential__c = true;
+		List<ContactPointEmail> cpEmails = ApplicationTestDataFactory.getContactPointEmails(2, acc.id, true);
 
 		ContactPointEmail cpe1 = cpEmails[0];
+		cpe1.Contact__c = ct1.Id;
+		cpe1.EmailAddress = 'test-sync-with-contact@sample.auspost.com.au';
+		cpe1.IsCredential__c = true;
 
 		ContactPointEmail cpe2 = cpEmails[1];
 		cpe2.Contact__c = ct2.Id;
 		cpe2.EmailAddress = 'test1234@houdini-g.com';
 		cpe2.IsCredential__c = true;
 
-		ContactPointEmail cpe3 = cpEmails[2];
-		cpe3.Contact__c = ct3.Id;
-		cpe3.EmailAddress = 'test1234@houdini-g.com';
-		cpe3.IsCredential__c = true;
+		List<ContactPointPhone> cpPhones = ApplicationTestDataFactory.getContactPointPhones(2, acc.id, true);
+		cpPhones[0].Contact__c = ct1.Id;
 
-		ContactPointEmail existingCpe3 = cpe3.clone(true, true, false, false);
-		existingCpe3.IsCredential__c = false;
+		ContactPointPhone cpp2 = cpPhones[1];
+		cpp2.Contact__c = ct2.Id;
+		cpp2.TelephoneNumber = '+61288889999';
 
+		ContactPointEmail existingCpe1 = cpe1.clone(true, true, false, false);
+		existingCpe1.IsCredential__c = false;
+
+		ContactPointEmail existingCpe2 = cpe2.clone(true, true, false, false);
+		existingCpe2.IsCredential__c = false;
+		
 		Map<Id, ContactPointEmail> existingRecords = new Map<Id, ContactPointEmail>{
-			existingCpe3.Id => existingCpe3,
-			cpe1.Id => cpe1,
-			cpe2.Id => cpe2
+			existingCpe1.Id => existingCpe1,
+			existingCpe2.Id => existingCpe2
 		};
 
 		List<User> existingUsers = ApplicationTestDataFactory.getCommunityUsers(1, new List<Id>{ ct1.Id }, true);
+		User existingUser = existingUsers[0];
+		existingUser.Email = 'oldemail@test.com';
+		existingUser.Username = 'oldemail@test.com.blah';
+		existingUser.FederationIdentifier = 'oldemail@test.com.blah';
 
-		ContactsSelector ctSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
-		ContactPointPhoneSelector phoneSelector = (ContactPointPhoneSelector) MockUtility.mockSelector(ContactPointPhoneSelector.class);
-		UsersSelector userSelector = (UsersSelector) MockUtility.mockSelector(UsersSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		ContactService mockContactService = (ContactService) MockUtility.mockUtility(ContactService.class);
+		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
+		ContactPointPhoneSelector mockPhoneSelector = (ContactPointPhoneSelector) MockUtility.mockSelector(ContactPointPhoneSelector.class);
+		ContactPointEmailSelector mockEmailSelector = (ContactPointEmailSelector) MockUtility.mockSelector(ContactPointEmailSelector.class);
+		UsersSelector mockUserSelector = (UsersSelector) MockUtility.mockSelector(UsersSelector.class);
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(ctSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ ct3.Id })))
-			.thenReturn(new Map<Id, Contact>{ ct3.Id => ct3 });
+		MockUtility.Mocks.when(mockContactService.syncContactPointEmailToContacts(
+														(List<ContactPointEmail>) fflib_Match.eq(cpEmails),
+														(List<ContactPointEmail>) fflib_Match.isNull(),
+														(Map<Id, ContactPointEmail>) fflib_Match.eq(existingRecords)
+													)).thenReturn(contacts.values());
 
-		MockUtility.Mocks.when(
-				phoneSelector.selectByContact(
-					(Set<Id>) fflib_Match.eq(new Set<Id>{ ct3.Id }),
-					(Set<Object>) fflib_Match.eq(
-						new Set<Object>{
-							ContactPointPhoneSelector.Options.FILTER_MOBILEPHONE,
-							ContactPointPhoneSelector.Options.FILTER_PREFERRED_TRUE
-						}
-					)
-				)
-			)
-			.thenReturn(new List<ContactPointPhone>());
+		MockUtility.Mocks.when(mockContactsSelector.selectById((Set<Id>) fflib_Match.eq(contacts.keySet()))).thenReturn(contacts);
 
-		MockUtility.Mocks.when(
-				mockService.syncContactPointEmailToContacts(
-					(List<ContactPointEmail>) fflib_Match.eq(cpEmails),
-					(List<ContactPointEmail>) fflib_Match.isNull()
-				)
-			)
-			.thenReturn(contacts.values());
+		MockUtility.Mocks.when(mockPhoneSelector.selectByContact(
+														(Set<Id>) fflib_Match.eq(contacts.keySet()),
+														(Set<Object>) fflib_Match.eq(
+															new Set<Object>{
+																ContactPointPhoneSelector.Options.FILTER_MOBILEPHONE,
+																ContactPointPhoneSelector.Options.FILTER_PREFERRED_TRUE
+															}
+														))).thenReturn(cpPhones);
 
-		MockUtility.Mocks.when(userSelector.selectByContactId((Set<Id>) fflib_Match.eq(new Set<Id>{ ct3.Id })))
-			.thenReturn(new Map<Id, User>());
+		MockUtility.Mocks.when(mockEmailSelector.selectByContact((Set<Id>) fflib_Match.eq(contacts.keySet()), (Set<Object>) fflib_Match.eq(new Set<Object>()))).thenReturn(cpEmails);
 
-		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>) fflib_Match.anyObject()))
-			.thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		MockUtility.Mocks.when(mockUserSelector.selectByContactId((Set<Id>) fflib_Match.eq(contacts.keySet()))).thenReturn(new Map<Id, User>(existingUsers));
+
+		MockUtility.Mocks.when(mockEmailSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{cpe1.Id}))).thenReturn(new List<ContactPointEmail>{cpe1});
+		MockUtility.Mocks.when(mockUserSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{existingUser.Id}))).thenReturn(new Map<Id, User>(existingUsers));
 
 		MockUtility.Mocks.stopStubbing();
 
-		Id portalUserProfileId = [SELECT Id FROM Profile WHERE Name = 'DDC Consumer Community User' LIMIT 1].Id;
+		Id portalUserProfileId = Application.Cache.profileIds.get(ChasConstants.CONSUMER_COMMUNITY_PROFILE_NAME);
 
 		Test.startTest();
 
 		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
-		module.onAfterUpdate((List<SObject>) cpEmails, existingRecords, mockUow);
+		module.onAfterUpdate((List<SObject>) cpEmails, (Map<Id, SObject>) existingRecords, mockUow);
 
-		//module.onAfterUpdate((List<SObject>) (new List<ContactPointEmail>{ cpe3 }), (Map<Id, SObject>) existingRecords, uow);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<Contact>) fflib_Match.eq(contacts.values()),(List<SObjectField>)fflib_Match.anyObject(),fflib_Match.anyString());
 
-		/*		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
-			.dmlInsert(
-				(List<User>) fflib_Match.eq(
-					new List<User>{
-						new User(
-							FirstName = ct2.FirstName,
-							LastName = ct2.LastName,
-							APCN__c = ct2.APCN__c,
-							ProfileId = portalUserProfileId,
-							IsActive = false,
-							Email = cpe2.emailAddress,
-							MobilePhone = '',
-							Username = cpe2.emailAddress + '.community',
-							FederationIdentifier = cpe2.emailAddress + '.community',
-							OID_ID__c = ct2.OID_ID__c,
-							LanguageLocaleKey = 'en_US',
-							Alias = 'Consumer',
-							LocaleSidKey = 'en_AU',
-							ContactId = ct2.Id,
-							EmailEncodingKey = 'UTF-8',
-							TimeZoneSidKey = 'Australia/Sydney'
-						)
-					}
-				)
-			);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerUpsert((List<Contact>) fflib_Match.eq(
+				new List<Contact>{
+					new Contact(Id = ct2.Id, CRMCSSOID__c = cpe2.emailAddress)
+				}
+			)
+		);
 
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
-			.dmlUpdate((List<Contact>) fflib_Match.eq(new List<Contact>{ new Contact(Id = ct2.Id, CRMCSSOID__c = cpe2.emailAddress) }));*/
+		String sandboxSuffix = Application.Cache.organizationInfo.isSandbox == true ? '.' + Application.Cache.organizationInfo.sandboxName : '';
+
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerUpsert((List<User>) fflib_Match.eq(
+				new List<User>{
+					new User(
+						FirstName = ct2.FirstName,
+						LastName = ct2.LastName,
+						APCN__c = ct2.APCN__c,
+						ProfileId = portalUserProfileId,
+						IsActive = false,
+						Email = cpe2.emailAddress,
+						MobilePhone = cpp2.TelephoneNumber,
+						Username = cpe2.emailAddress + '.community' + sandboxSuffix,
+						FederationIdentifier = cpe2.emailAddress + '.community' + sandboxSuffix,
+						OID_ID__c = ct2.OID_ID__c,
+						LanguageLocaleKey = 'en_US',
+						Alias = 'Consumer',
+						LocaleSidKey = 'en_AU',
+						ContactId = ct2.Id,
+						EmailEncodingKey = 'UTF-8',
+						TimeZoneSidKey = 'Australia/Sydney'
+					)
+				}
+			)
+		);
+
+		/*
+		List<String> userIdsAndContactPointEmailIds = new List<String>{existingUser.Id + '-' + cpe1.Id};
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) fflib_Match.eq(
+				new ApplicationUnitOfWork.AsyncStagingWorker(ApplicationUnitOfWork.AsyncUpdateUserLoginDetailsWorker.class, new Map<String, Object>{'userIdsAndContactPointEmailIds' => userIdsAndContactPointEmailIds})
+			)
+		);
+		*/
 
 		// PMD Warning
 		System.assert(true);
 
 		Test.stopTest();
-		/*	((ContactService) MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1)))
-			.syncContactPointEmailToContacts(
-				(List<ContactPointEmail>) fflib_Match.eq(cpEmails),
-				(List<ContactPointEmail>) fflib_Match.isNull()
-			);*/
 	}
 
+	/*
+    * this test will verify the following method was called:
+    * ApplicationUnitOfWork.registerDirty - with the valid Contact records to update with valid values using the specified fields only
+    */
 	@isTest
 	static void onAfterDelete() {
-		ContactService mockService = (ContactService) MockUtility.mockUtility(ContactService.class);
 		Account acc = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
-		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, acc.Id, true);
-		Contact ct1 = contacts[0];
+		Map<Id, Contact> contacts = new Map<Id, Contact>(ApplicationTestDataFactory.getContacts(2, acc.Id, true));
+		Contact ct1 = contacts.values()[0];
+		Contact ct2 = contacts.values()[1];
 
-		List<ContactPointEmail> cpEmails = ApplicationTestDataFactory.getContactPointEmails(2, acc.Id, true);
+		List<ContactPointEmail> cpEmails = ApplicationTestDataFactory.getContactPointEmails(2, acc.id, true);
 
 		ContactPointEmail cpe1 = cpEmails[0];
 		cpe1.Contact__c = ct1.Id;
-		cpe1.ParentId = acc.Id;
-		cpe1.Preferred__c = false;
-		cpe1.EmailAddress = 'emailone@test.com.dummy';
-		cpe1.Verified__c = false;
+		cpe1.EmailAddress = 'test-sync-with-contact@sample.auspost.com.au';
+		cpe1.IsCredential__c = true;
 
 		ContactPointEmail cpe2 = cpEmails[1];
-		cpe2.Contact__c = ct1.Id;
-		cpe2.ParentId = acc.Id;
-		cpe2.Preferred__c = false;
-		cpe2.EmailAddress = 'emailone@test.com.dummy';
-		cpe2.Verified__c = false;
+		cpe2.Contact__c = ct2.Id;
+		cpe2.EmailAddress = 'test1234@houdini-g.com';
+		cpe2.IsCredential__c = false;
 
-		List<ContactPointEmail> cpEmails1 = new List<ContactPointEmail>();
-		cpEmails1.add(cpe1);
-		cpEmails1.add(cpe2);
+		List<ContactPointPhone> cpPhones = ApplicationTestDataFactory.getContactPointPhones(2, acc.id, true);
+		cpPhones[0].Contact__c = ct1.Id;
 
-		//mock selectors
-		ContactPointEmailSelector cpEmailSelector = (ContactPointEmailSelector) MockUtility.mockSelector(ContactPointEmailSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		ContactPointPhone cpp2 = cpPhones[1];
+		cpp2.Contact__c = ct2.Id;
+		cpp2.TelephoneNumber = '+61288889999';
+
+		ContactService mockContactService = (ContactService) MockUtility.mockUtility(ContactService.class);
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(
-				cpEmailSelector.selectByContact(
-					(Set<Id>) fflib_Match.eq(new Set<Id>{ ct1.Id }),
-					(Set<Object>) fflib_Match.eq(new Set<Object>())
-				)
-			)
-			.thenReturn(new List<ContactPointEmail>(cpEmails1));
-
-		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>) fflib_Match.anyObject()))
-			.thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		MockUtility.Mocks.when(mockContactService.syncContactPointEmailToContacts(
+														(List<ContactPointEmail>) fflib_Match.isNull(), 
+														(List<ContactPointEmail>) fflib_Match.eq(cpEmails),
+														(Map<Id,ContactPointEmail>) fflib_Match.isNull() 
+													)).thenReturn(contacts.values());
 
 		MockUtility.Mocks.stopStubbing();
 
-		//test start and stop
 		Test.startTest();
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointEmailDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+
 		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
-		module.onAfterDelete((List<SObject>) cpEmails1, uow);
+		module.onAfterDelete((List<SObject>) cpEmails, mockUow);
+
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<Contact>) fflib_Match.eq(contacts.values()),(List<SObjectField>)fflib_Match.anyObject(),fflib_Match.anyString());
+		
+		// PMD Warning
+		System.assert(true);
 
 		Test.stopTest();
-		((ContactService) MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1)))
-			.syncContactPointEmailToContacts(
-				(List<ContactPointEmail>) fflib_Match.isNull(),
-				(List<ContactPointEmail>) fflib_Match.eq(cpEmails1)
-			);
 	}
+
+	//test exceptions in module class
+	@isTest
+	static void testExceptionOnUpdate(){
+		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+		insert logLevel;
+		Test.startTest();
+		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
+		module.onAfterUpdate(new List<SObject>{},new Map<Id,SObject>{},null);
+		Test.stopTest();
+		//an exception should be created when thre are invalid parameters in the onAfterUpdate
+		List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
+		System.assertEquals(true, logResult.size() > 0, 'Exception created');
+	}
+
+	//test exceptions in module class
+	@isTest
+	static void testExceptionOnInsert(){
+		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+		insert logLevel;
+		Test.startTest();
+		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
+		module.onAfterInsert(new List<SObject>{},null);
+		Test.stopTest();
+		//an exception should be created when thre are invalid parameters in the onAfterInsert
+		List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
+		System.assertEquals(true, logResult.size() > 0, 'Exception created');
+	}
+
+	//test exceptions in module class
+		@isTest
+		static void testExceptionOnDelete(){
+			LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+			logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+			insert logLevel;
+			Test.startTest();
+			ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
+			module.onAfterDelete(new List<SObject>{},null);
+			Test.stopTest();
+			//an exception should be created when thre are invalid parameters in the onAfterDelete
+			List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
+			System.assertEquals(true, logResult.size() > 0, 'Exception created');
+		}
 }

@@ -1,0 +1,275 @@
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff") format("woff");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff") format("woff");
+  font-weight: bold;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff") format("woff");
+  font-weight: 300;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff") format("woff");
+  font-weight: 300;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumtItalic-102401.woff") format("woff");
+  font-weight: 500;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeText-Regular-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeText-Regular-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff") format("woff");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff") format("woff");
+  font-weight: bold;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff") format("woff");
+  font-weight: 300;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff") format("woff");
+  font-weight: 300;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APTypeDisplay';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumItalic-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumtItalic-102401.woff") format("woff");
+  font-weight: 500;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'APLetterFont';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'APLetterBoldFont';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2") format("woff2"), 
+    url("sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+/* To remove line spacing on the Chatter feed */
+.slds-feed__item {
+    padding-top: 0;
+}
+
+.forceChatterStyle--default .cuf-feedElement.cuf-feedElement {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* To position the Profile Menu in the Header */
+.cProfileMenu {
+    margin-right: 0.5rem;
+    width: 100%;
+}
+
+/* To position the Profile Menu in the Header - check if still necessary */
+.selfServiceUserProfileMenu {
+    float: right;
+}
+
+/* To position the StarTrack Logo in the Header */
+.siteforcePrmBody .cHeader .cBrandingLogo {
+    height: 40px !important;
+    width: 130px !important;
+}
+
+/* To remove default box-shadow */
+.siteforcePrmBody .cHeader {
+    box-shadow: none;
+}
+
+/* To hide the Global Nav */
+.forceCommunityGlobalNavigation {
+    display: none;
+}
+
+/* To control visibility of Chatter Feed component actions */
+.slds-post__footer {
+    display: none;
+}
+
+/* To control visibility of Chatter Feed component actions */
+.cuf-feedback {
+    display: none;
+}
+
+/* To control visibility of Chatter Feed component actions */
+.cuf-ftcLink {
+    display: none !important;
+}
+
+/* To control visibility of Chatter Feed component actions */
+.cuf-moreFtcs {
+    display: none !important;
+}
+
+/* To control visibility of View-More section on the feed */
+.forceChatterFeedAuxBodyRecordSummary--default .rsLink {
+    display: none !important;
+}
+
+/* To position attachment pop-up */
+.cImageContainer.popup .popuptext {
+    margin-left: -600px !important;
+    top: 0 !important;
+    width: 800px !important;
+}
+
+/* AP Fonts */
+@font-face {
+    font-family: 'letterbold';
+    font-style: normal;
+    font-weight: normal;
+    src: url("/resource/cpApFonts/letter-bold-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-bold-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: 'letterbold_italic';
+    font-style: normal;
+    font-weight: normal;
+    src: url("/resource/cpApFonts/letter-bolditalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-bolditalic-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: 'letterlight';
+    font-style: normal;
+    font-weight: normal;
+    src: url("/resource/cpApFonts/letter-light-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-light-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: 'letterlight_italic';
+    font-style: normal;
+    font-weight: normal;
+    src: url("/resource/cpApFonts/letter-lightitalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-lightitalic-webfont.woff") format("woff");   
+}
+
+@font-face {
+    font-family: 'lettermedium';
+    font-style: normal;
+    font-weight: normal;
+    src: url("/resource/cpApFonts/letter-medium-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-medium-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: 'lettermedium_italic';
+    font-style: normal;
+    font-weight: normal;
+    src: url("/resource/cpApFonts/letter-mediumitalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-mediumitalic-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: 'letterregular';
+    font-style: normal;
+    font-weight: normal;
+    src: url("/resource/cpApFonts/letter-regular-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-regular-webfont.woff") format("woff");
+}
+
+@font-face {
+    font-family: 'letteritalic';
+    font-style: normal;
+    font-weight: normal;
+    src: url("/resource/cpApFonts/letter-regularitalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-regularitalic-webfont.woff") format("woff");
+}
+
+.profile.uiMenuItem {
+    display: none;
+}
+
+.myAccount.uiMenuItem {
+    display: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.slds-button_icon-bare{
+display: none;
+}
+
+.slds-truncate {
+    text-overflow: inherit;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+}
+:root { --dxp-c-section-columns-max-width: 1170px; }

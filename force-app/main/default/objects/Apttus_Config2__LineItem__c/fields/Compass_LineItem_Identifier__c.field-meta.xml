@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Compass_LineItem_Identifier__c</fullName>
+    <description>Unique identifer to identify which line item to be updated when PSR response is applied in custom pricing scenario</description>
+    <externalId>false</externalId>
+    <label>Compass LineItem Identifier</label>
+    <length>50</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

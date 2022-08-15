@@ -2,7 +2,7 @@
  * @description       : This is a test class for CustomerDataSyncEventCPAddressHelper
  * @author            : George Nguyen
  * @domain            : Connecetd Customer
- * @last modified on  : 07-22-2022
+ * @last modified on  : 08-12-2022
  * @last modified by  : Sreenish Krishnan
  **/
 @IsTest
@@ -49,8 +49,7 @@ public with sharing class CustomerDataSyncEventCPAddrHlpr_Test {
 		wr.country = 'AU';
         
         payloadWrappers.add(wr);
-        String name = wr.street1 + ' ' + (String.isBlank(wr.street2) ? wr.street2 + ' ': '') + wr.suburb + ' ' + wr.state + ' ' + wr.postcode + ' ' + wr.country;
-
+        String Name = wr.street1 + ' ' + wr.street2+' '+ wr.suburb + ' ' + wr.state + ' ' + wr.postcode + ' ' + wr.country;
         CustomerDataSyncEventCPAddressHelper helper = new CustomerDataSyncEventCPAddressHelper();
         ContactPointAddress cpa = helper.getContactPointAddress(customerData, payloadWrappers)[0];
 

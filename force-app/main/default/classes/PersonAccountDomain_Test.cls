@@ -11,7 +11,7 @@
 private class PersonAccountDomain_Test {
 	@IsTest
 	static void ensureThatRegisterModulesIsBeingCalledWithTheCorrectType() {
-		ApplicationDomain domain = (ApplicationDomain) MockUtility.mockDomain(ApplicationDomain.class);
+		MockUtility.mockDomain(ApplicationDomain.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.stopStubbing();
@@ -22,6 +22,7 @@ private class PersonAccountDomain_Test {
 
 		ApplicationDomain appDomain = constructor.construct(contacts);
 		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(PersonAccountDomainCtPointSyncModule.class);
+		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(PersonAccountDomainUserSyncModule.class);
 
 		// PMD by-pass
 		System.assert(true, 'PMD by-pass');

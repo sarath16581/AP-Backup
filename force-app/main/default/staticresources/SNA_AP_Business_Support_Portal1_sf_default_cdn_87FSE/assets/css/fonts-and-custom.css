@@ -1,0 +1,428 @@
+/*********************************************************
+ * Font Declarations
+ *********************************************************/
+
+@font-face {
+    font-family: 'APTypeText';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APTypeText';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic-102401.woff") format("woff");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'APTypeText';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APTypeText';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff") format("woff");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'APTypeText';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APTypeText';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff") format("woff");
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'APTypeText';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APTypeText';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumItalic-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumtItalic-102401.woff") format("woff");
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'APTypeDisplay';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeText-Regular-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeText-Regular-102401.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APTypeDisplay';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff") format("woff");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'APTypeDisplay';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APTypeDisplay';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff") format("woff");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'APTypeDisplay';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APTypeDisplay';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff") format("woff");
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'APTypeDisplay';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APTypeDisplay';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumItalic-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumtItalic-102401.woff") format("woff");
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'APLetterFont';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APLetterBoldFont';
+    src: url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2") format("woff2"),
+        url("/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'APIcon-web';
+    src: url('/sfsites/c/resource/APIconFontv2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+/*********************************************************
+ * Body Styles
+ *********************************************************/
+
+body {
+    font-family: 'APTypeText', sans-serif;
+    font-size: 1rem;
+    color: #382F2D;
+    line-height: 1.5rem;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+h1,h2,h3,h4,h5,h6,b,strong {
+    font-family: 'APTypeDisplay', 'APTypeText', helvetica, arial, sans-serif;
+    font-weight: bold;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: .03rem;
+}
+
+h2 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    letter-spacing: .03rem;
+}
+
+h3 {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    letter-spacing: .03rem;
+}
+
+
+/*********************************************************
+ * SLDS Button Declarations
+ *********************************************************/
+
+.slds-form-element__label {
+    color: #292f33;
+}
+
+.slds-button:focus,
+.slds-button:active {
+    box-shadow: none;
+}
+
+.slds-button:focus:after {
+    border: 1px dotted #382F2D;
+    border-radius: 3px;
+    content: "";
+    display: block;
+    height: calc(100% + 10px);
+    left: -5px;
+    pointer-events: none;
+    position: absolute;
+    top: -5px;
+    width: calc(100% + 10px);
+}
+
+.slds-button.loading-true {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.slds-button.loading-true lightning-primitive-icon {
+    display: none;
+}
+
+.slds-button.loading-true::after {
+    display: inline-block;
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: .75s linear infinite spinnerRotate;
+    animation: .75s linear infinite spinnerRotate;
+    border: 2px solid white;
+    border-bottom-color: transparent;
+    border-radius: 100%;
+    background: 0 0;
+    content: "";
+    position: relative;
+    left: auto;
+    top: auto;
+    color: inherit;
+}
+
+.slds-button.disabled-true.loading-true::after {
+    border-color: #6D6D72;
+    border-bottom-color: transparent;
+}
+
+.slds-button.slds-button_destructive:disabled {
+    opacity:.5;
+}
+
+/*********************************************************
+ * Tooltip Popover Declarations
+ *********************************************************/
+
+.slds-popover_tooltip,
+.slds-popover--tooltip {
+  background: white;
+  box-shadow: 0 1px 12px 0 rgba(83, 95, 103, 0.3);
+  border-radius: 0;
+}
+
+.slds-popover_tooltip .slds-popover__body,
+.slds-popover--tooltip .slds-popover__body {
+  color: inherit;
+  font-size: .875rem;
+  padding: 0.875rem 1rem;
+}
+
+@keyframes spinnerRotate {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+
+.slds-listbox__option_plain {
+    font-size: 1rem;
+}
+
+.slds-listbox__option:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.slds-listbox__option:focus {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.slds-listbox__option.slds-has-focus{
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.slds-is-today.slds_day {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/*********************************************************
+  * Modal Style Declarations
+  *********************************************************/
+.slds-backdrop {
+  background: rgba(41, 47, 51, 0.65);
+}
+
+.slds-modal .slds-modal__content {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.slds-modal__close {
+  top: 0.25rem;
+  right: 0.25rem;
+  color: #292f33;
+}
+
+.slds-modal__close.slds-button--icon-inverse:hover,
+.slds-modal__close.slds-button--icon-inverse:focus {
+  color: rgb(174, 20, 32);
+}
+
+.slds-modal__header {
+    border-top-right-radius: .4rem;
+    border-top-left-radius: .4rem;
+    border-bottom: 0;
+}
+
+.slds-modal__container {
+    overflow-y: auto;
+}
+.slds-modal__footer {
+    border-bottom-right-radius: .4rem;
+    border-bottom-left-radius: .4rem;
+    border-top: 0;
+    text-align: left;
+}
+
+/*********************************************************
+ * SLDS File Selector Declarations
+ *********************************************************/
+
+.slds-file-selector__dropzone {
+    padding: 0;
+    border: none;
+}
+
+.slds-file-selector__text {
+    display: none;
+}
+
+.slds-file-selector__button {
+    display: inline-flex;
+    align-items: center;
+    color: #212129;
+    height: 45px;
+    border-width: 2px;
+    border-color: #e2e2e2;
+    min-width: 120px;
+    border-radius: .4em;
+    font-weight: 800;
+    margin-top: .75rem;
+}
+.slds-file-selector__button:hover {
+    border-color: #212129;
+    background-color: #FFFFFF;
+    color: #212129;
+}
+
+.slds-form-element__label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+.uiButton--brand {
+    height: 45px;
+    min-width: 140px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: .4em;
+}
+
+/*********************************************************
+ * SLDS Input Declarations
+ *********************************************************/
+
+/*.slds-input-has-icon .slds-input__icon {
+    margin-top: -0.55rem;
+}*/
+
+.slds-input-has-icon .slds-input__icon button {
+    line-height: 0;
+    display: block;
+}
+
+/*********************************************************
+ * Media Style Declarations
+ *********************************************************/
+@media (min-width: 680px) {
+    h1 {
+        font-size: 2rem;
+        line-height: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        line-height: 2rem;
+    }
+}
+:root { --dxp-c-section-columns-max-width: 1170px; }
