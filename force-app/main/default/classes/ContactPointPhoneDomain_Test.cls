@@ -11,7 +11,7 @@
 private class ContactPointPhoneDomain_Test {
 	@IsTest
 	static void ensureThatRegisterModulesIsBeingCalledWithTheCorrectType() {
-		ApplicationDomain domain = (ApplicationDomain) MockUtility.mockDomain(ApplicationDomain.class);
+		MockUtility.mockDomain(ApplicationDomain.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.stopStubbing();

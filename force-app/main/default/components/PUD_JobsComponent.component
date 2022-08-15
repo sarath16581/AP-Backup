@@ -1,7 +1,7 @@
-<apex:component>
+<apex:component >
 	<apex:attribute name="jobs" type="PUD_Job__c[]" description="List of jobs for a given route"/>
 
-	<apex:pageBlock>
+	<apex:pageBlock >
 		<!-- jobs table -->
 		<apex:pageBlockTable value="{! jobs  }" var="job"
 		                     styleClass="normalcell"

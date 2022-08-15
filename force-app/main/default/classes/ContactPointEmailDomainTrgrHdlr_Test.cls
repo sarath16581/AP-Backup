@@ -15,6 +15,8 @@ public with sharing class ContactPointEmailDomainTrgrHdlr_Test {
 		System.assertNotEquals(null, handler.newUnitOfWork(), 'Expected a valid instance of ApplicationUnitOfWork; but got null');
 		System.assertNotEquals(null, handler.registerDomains(), 'Expected valid list of domain types to be returned');
 		System.assertEquals(ContactPointEmail.SObjectType, handler.getSObjectType(), 'Expected Contact sobject type');
-		System.assertNotEquals(null, ContactPointEmailDomainTriggerHandler.getUnitOfWorkSObjectTypes(), 'Expected valid list of sobject types to be returned');
+		System.assert(ContactPointEmailDomainTriggerHandler.getUnitOfWorkSObjectTypes().contains(Contact.SObjectType), 'Expected valid list of sobject types to be returned');
+		System.assert(ContactPointEmailDomainTriggerHandler.getUnitOfWorkSObjectTypes().contains(ContactPointEmail.SObjectType), 'Expected valid list of sobject types to be returned');
+		System.assert(ContactPointEmailDomainTriggerHandler.getUnitOfWorkSObjectTypes().contains(User.SObjectType), 'Expected valid list of sobject types to be returned');
 	}
 }

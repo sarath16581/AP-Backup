@@ -10,6 +10,10 @@
  */
 public with sharing class PersonAccountDomainTriggerHandler extends ApplicationDomainTriggerHandler  {
     
+	public static PersonAccountDomainTriggerHandler newInstance() {
+		return (PersonAccountDomainTriggerHandler)Application.Utilities.newInstance(PersonAccountDomainTriggerHandler.class);
+	}
+
 	public override SObjectType getSObjectType() {
 		return Account.SObjectType;
 	}
@@ -31,7 +35,11 @@ public with sharing class PersonAccountDomainTriggerHandler extends ApplicationD
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-            Account.SObjectType
+            Account.SObjectType, 
+			User.SObjectType,
+			ContactPointPhone.SObjectType,
+			ContactPointEmail.SObjectType,
+			ContactPointAddress.SObjectType
 		};
 	}
 }

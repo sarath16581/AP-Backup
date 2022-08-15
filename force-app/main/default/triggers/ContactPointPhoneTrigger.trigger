@@ -8,6 +8,6 @@
  */
 trigger ContactPointPhoneTrigger on ContactPointPhone (before insert, before update,after insert,after update, after delete) {
     if(!TriggerHelper.isTriggerDisabled(String.valueOf(ContactPointPhone.SObjectType))) {
-		(new ContactPointPhoneDomainTriggerHandler()).dispatch();
+		ContactPointPhoneTriggerHandler.newInstance().dispatch();
 	}
 }

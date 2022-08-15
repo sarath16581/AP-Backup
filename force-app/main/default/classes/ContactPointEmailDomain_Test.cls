@@ -11,9 +11,13 @@
 private class ContactPointEmailDomain_Test {
 	@IsTest
 	static void ensureThatRegisterModulesIsBeingCalledWithTheCorrectType() {
-		ApplicationDomain domain = (ApplicationDomain) MockUtility.mockDomain(ApplicationDomain.class);
+		MockUtility.mockDomain(ApplicationDomain.class);
+		ContactService mockService = (ContactService)MockUtility.mockUtility(ContactService.class);
 
 		MockUtility.Mocks.startStubbing();
+		
+		MockUtility.Mocks.when(mockService.checkCurrentUserIsIntegrationUser(fflib_Match.anyString())).thenReturn(true);
+
 		MockUtility.Mocks.stopStubbing();
 
 		ContactPointEmailDomain.Constructor constructor = new ContactPointEmailDomain.Constructor();

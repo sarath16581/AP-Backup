@@ -156,6 +156,45 @@ public with sharing class UTIL_LoggingService{
          return exceptionLogList;    
      }
      
+     //create exception log for upsert result
+     public static void createExceptionForUpsertResults(List<Database.UpsertResult> upsertResults, 
+                                                                        List<sObject> relatedsObjects, String appName, 
+                                                                        String className, string methodName, String triggerName,
+                                                                        System.LoggingLevel level) {
+         List<ExceptionLog__c> exceptionLogList = new List<ExceptionLog__c>();
+         if (exceptionLogMeetsSeverityFilter(level.name())){            
+             for(integer i=0; i <upsertResults.size(); ++i) {
+                 Database.UpsertResult upsertResult = upsertResults[i];
+                if(!upsertResult.isSuccess()) {
+                    Database.Error[] errors = upsertResult.getErrors();
+                     String relatedObjectString = UTIL_ErrorConstants.BLANK_SPACE;
+                     if (relatedsObjects.size() > i) {
+                         relatedObjectString = UTIL_ErrorConstants.RELATED_OBJECT + relatedsObjects[i];
+                     }
+                     String errorMessage = (buildErrorMessageFromErrorList(upsertResult.getId(), errors) + 
+                                            relatedObjectString.left(UTIL_ErrorConstants.EXCEPTION_DETAILS_SIZE_LIMIT));
+                     
+                     String exceptionCode = UTIL_ErrorConstants.BLANK_SPACE;
+                     if (errors.size() > 0) {
+                         exceptionCode = errors[0].statusCode.name();
+                     }
+                     exceptionLogList.add(new ExceptionLog__c(Application__c = appName, ExceptionCode__c=exceptionCode, 
+                                                              ClassName__C =className, MethodName__c = methodname,
+                                                              ContextUser__c = UserInfo.getUserId(), NumberOfTimesOccured__c=1,
+                                                              ExceptionLogTimestamp__c = System.Now(), ApexTrigger__c=triggerName, 
+                                                              ExceptionDetails__c = errorMessage, Severity__c = level.name(),
+                                                              ExceptionType__c = UTIL_ErrorConstants.DML_EXCEPTION, isHandled__c = true));
+                 }
+             }
+         }
+         if(exceptionLogList.size()>0){
+            Database.insert(exceptionLogList, false);
+         }     
+     }
+
+
+
+
     /**
       * @description       This method creates ExceptionLog__c records in case of Exception obtained due to Database.DeleteResult operation.
       * @param             deleteResults A List of Database.DeleteResult object records

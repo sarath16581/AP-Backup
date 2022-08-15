@@ -70,10 +70,22 @@ public with sharing class ContactPointEmailSelector_Test {
 		);
 		System.assertEquals(0, results.size(), 'Expected result size of 0');
 
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{ContactPointEmail.EmailAddress};
+		selector = ContactPointEmailSelector.newInstance(1, fieldOverrides);
+
 		results = selector.selectByContactAndEmail(
 			new Set<Id>{ contacts[0].Id },
 			new List<String>{ ContactPointEmails[1].EmailAddress },
 			new Set<Object>{ ContactPointEmailSelector.Options.FILTER_VERIFIED_FALSE }
+		);
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
+
+		Map<SObjectType, Set<SObjectField>> fieldOverridesMap = new Map<SObjectType, Set<SObjectField>>{ContactPointEmail.getSObjectType() => new Set<SObjectField> {ContactPointEmail.EmailAddress}};
+		selector = ContactPointEmailSelector.newInstance(1, fieldOverridesMap);
+
+		results = selector.selectByParentId(
+			new Set<Id>{ acc.Id },
+			new Set<Object>{ ContactPointEmailSelector.Options.WITH_CONTACT }
 		);
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 

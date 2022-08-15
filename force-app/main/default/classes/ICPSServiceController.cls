@@ -181,6 +181,7 @@ public with sharing class ICPSServiceController {
 					consignmentDetails.add(consignmentDetail);
 				} else {
 					trackingArticle.article = tr.articleDetails.proxyArticle;
+					mapArticleContentItems(trackingArticle.article, tr.articleDetails.transientAttributes.contentItems);
 				}
 			} else {
 				if (!tr.Success) {
@@ -202,6 +203,33 @@ public with sharing class ICPSServiceController {
 		result.consignments = consignmentDetails;
 
 		return result;
+	}
+
+	/**
+	 * This method is used to extract and map content items from TIBCOArticleWrapper
+	 * @param article core article
+	 * @param contentItems content items wrapper from TIBCO service
+	 */
+	private static void mapArticleContentItems(Article__c article, TIBCOArticleWrapper.ArticleContentItem[] contentItems) {
+		if (article != null && contentItems != null) {
+			List<String> contents = new List<String>();
+			Decimal weight = 0;
+			Decimal value = 0;
+			for (TIBCOArticleWrapper.ArticleContentItem item: contentItems) {
+				if (String.isNotBlank(item.description)) {
+					contents.add(item.description);
+				}
+				if (item.weight != null) {
+					weight += Decimal.valueOf(item.weight);
+				}
+				if (item.value != null) {
+					value += Decimal.valueOf(item.value);
+				}
+			}
+			article.ContentsItems__c = String.join(contents, '; ');
+			article.ActualWeight__c = weight;
+			article.ArticleTransitAmountValue__c = value;
+		}
 	}
 
 	/**

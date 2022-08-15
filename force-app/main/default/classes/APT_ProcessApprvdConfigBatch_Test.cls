@@ -5,6 +5,7 @@
  * @last modified on  : 06-29-2021
  * @last modified by  : Darshan Chauhan
  * Modifications Log 
+ 2022- 05-15 Nasir Jawed Changed Tier
 **/
 @isTest
 public with sharing class APT_ProcessApprvdConfigBatch_Test {
@@ -48,7 +49,7 @@ public with sharing class APT_ProcessApprvdConfigBatch_Test {
         insert opty;
 
         // Startrack Product
-        Product2 product = APT_TestUtils.createStarTrackProduct('Road Express Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'EXP', 'Startrack');
+        Product2 product = APT_TestUtils.createStarTrackProduct('Road Express Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'Startrack');
         product.APT_Domestic_Pricing__c = true;
         insert product;
         

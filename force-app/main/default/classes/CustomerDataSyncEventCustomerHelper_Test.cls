@@ -2,7 +2,7 @@
  * @description       : Test Class for CustomerDataSyncHelper
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 07-15-2022
+ * @last modified on  : 08-09-2022
  * @last modified by  : Sreenish Krishnan
  **/
 @isTest
@@ -43,14 +43,6 @@ public with sharing class CustomerDataSyncEventCustomerHelper_Test {
 			'SFID' => new Map<String, Account>{ personAccount.Id => personAccount }
 		};
 
-		// Database.SaveResult sr = (Database.SaveResult) JSON.deserialize(
-		// 	'{"success":true,"id":'+personAccount.Id+'}',
-		// 	Database.SaveResult.class
-		// );
-
-		// =====================================
-		// Stubbing (No stubbing required as its a platform event)
-		// =====================================
 		//Mock the Database
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
@@ -66,13 +58,15 @@ public with sharing class CustomerDataSyncEventCustomerHelper_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-
 		CustomerDataSyncEventCustomerHelper customerHelper = new CustomerDataSyncEventCustomerHelper();
-		Map<String, CustomerDataSyncEventCustomerHelper.CustomerUpsertResult> upserResult = new Map<String, CustomerDataSyncEventCustomerHelper.CustomerUpsertResult>();
-		upserResult = customerHelper.upsertCustomerData(filteredEvents, refMaps);
-		System.debug('upserResult >>' + upserResult);
+		Map<String, CustomerDataSyncEventCustomerHelper.CustomerUpsertResult> upsertResult = new Map<String, CustomerDataSyncEventCustomerHelper.CustomerUpsertResult>();
+		upsertResult = customerHelper.upsertCustomerData(filteredEvents, refMaps);
 		Test.stopTest();
-		System.assert(!upserResult.isEmpty(), 'customer data upserted');
+		
+		// =====================================
+		// Asssertion
+		// =====================================
+		System.assert(!upsertResult.isEmpty(), 'customer data upserted');
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
 			.dmlUpsert((List<SObject>) fflib_Match.anyObject(), (SObjectField) fflib_Match.anyObject());
 	}

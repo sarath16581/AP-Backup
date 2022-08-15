@@ -9,9 +9,13 @@
 @IsTest
 public with sharing class ContactPointAddressDomainModule_Test {
     
+    /*
+    * this test will verify the following method was called:
+    * ApplicationUnitOfWork.registerDirty - with the valid records to update with valid values using the specified fields only
+    */
     @IsTest
     static void onAfterInsert() {
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointAddressDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+        ApplicationUnitOfWork uow = MockUtility.mockUnitOfWork();
         Account acc = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(3, acc.Id, true);
 
@@ -43,7 +47,6 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
 
         ContactPointAddressSelector cpAddressSelector = (ContactPointAddressSelector)MockUtility.mockSelector(ContactPointAddressSelector.class);
-        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
         MockUtility.Mocks.startStubbing();
 
@@ -56,7 +59,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
         ContactPointAddressDomainModule.newInstance().onAfterInsert(ct1Addresses, uow);
 
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Contact>)fflib_Match.eq(new List<Contact>{
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(uow, MockUtility.Mocks.times(1))).registerDirty((List<Contact>)fflib_Match.eq(new List<Contact>{
             new Contact(
                 Id = ct1.Id,
                 MailingStreet = cpa1.Street,
@@ -73,7 +76,23 @@ public with sharing class ContactPointAddressDomainModule_Test {
                 OtherState = cpa2.State,
                 OtherCountry = cpa2.Country
             )
-        }));
+        }), 
+        (List<SObjectField>)fflib_Match.eq(new List<SObjectField>{
+			Contact.MailingStreet,
+			Contact.MailingStreet2__c,
+			Contact.MailingCity,
+			Contact.MailingPostalCode,
+			Contact.MailingState,
+			Contact.MailingCountry,
+
+			Contact.OtherStreet,
+			Contact.OtherStreet2__c,
+			Contact.OtherCity,
+			Contact.OtherPostalCode,
+			Contact.OtherState,
+			Contact.OtherCountry
+		}),
+        (String)fflib_Match.eq('ContactPointAddressDomainModule'));
 
         // PMD Warning
         System.assert(true);
@@ -81,9 +100,13 @@ public with sharing class ContactPointAddressDomainModule_Test {
         Test.stopTest();
     }
 
+    /*
+    * this test will verify the following method was called:
+    * ApplicationUnitOfWork.registerDirty - with the valid records to update with valid values using the specified fields only
+    */
     @IsTest
     static void onAfterUpdate() {
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointAddressDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+        ApplicationUnitOfWork uow = MockUtility.mockUnitOfWork();
         Account acc = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(3, acc.Id, true);
 
@@ -115,7 +138,6 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
 
         ContactPointAddressSelector cpAddressSelector = (ContactPointAddressSelector)MockUtility.mockSelector(ContactPointAddressSelector.class);
-        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
         MockUtility.Mocks.startStubbing();
 
@@ -128,7 +150,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
         ContactPointAddressDomainModule.newInstance().onAfterUpdate(ct1Addresses, new Map<Id, ContactPointAddress>(ct2Addresses), uow);
 
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Contact>)fflib_Match.eq(new List<Contact>{
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(uow, MockUtility.Mocks.times(1))).registerDirty((List<Contact>)fflib_Match.eq(new List<Contact>{
             new Contact(
                 Id = ct1.Id,
                 MailingStreet = cpa1.Street,
@@ -145,7 +167,23 @@ public with sharing class ContactPointAddressDomainModule_Test {
                 OtherState = cpa2.State,
                 OtherCountry = cpa2.Country
             )
-        }));
+        }), 
+        (List<SObjectField>)fflib_Match.eq(new List<SObjectField>{
+			Contact.MailingStreet,
+			Contact.MailingStreet2__c,
+			Contact.MailingCity,
+			Contact.MailingPostalCode,
+			Contact.MailingState,
+			Contact.MailingCountry,
+
+			Contact.OtherStreet,
+			Contact.OtherStreet2__c,
+			Contact.OtherCity,
+			Contact.OtherPostalCode,
+			Contact.OtherState,
+			Contact.OtherCountry
+		}),
+        (String)fflib_Match.eq('ContactPointAddressDomainModule'));
 
         // PMD Warning
         System.assert(true);
@@ -153,9 +191,13 @@ public with sharing class ContactPointAddressDomainModule_Test {
         Test.stopTest();
     }
 
+    /*
+    * this test will verify the following method was called:
+    * ApplicationUnitOfWork.registerDirty - with the valid records to update with valid values using the specified fields only
+    */
     @IsTest
     static void onAfterDelete() {
-        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointAddressDomainTriggerHandler.getUnitOfWorkSObjectTypes());
+        ApplicationUnitOfWork uow = MockUtility.mockUnitOfWork();
         Account acc = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(3, acc.Id, true);
 
@@ -187,7 +229,6 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
 
         ContactPointAddressSelector cpAddressSelector = (ContactPointAddressSelector)MockUtility.mockSelector(ContactPointAddressSelector.class);
-        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
         MockUtility.Mocks.startStubbing();
 
@@ -200,7 +241,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
         ContactPointAddressDomainModule.newInstance().onAfterDelete(ct2Addresses, uow);
 
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Contact>)fflib_Match.eq(new List<Contact>{
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(uow, MockUtility.Mocks.times(1))).registerDirty((List<Contact>)fflib_Match.eq(new List<Contact>{
             new Contact(
                 Id = ct2.Id,
                 MailingStreet = NULL,
@@ -217,7 +258,23 @@ public with sharing class ContactPointAddressDomainModule_Test {
                 OtherState = NULL,
                 OtherCountry = NULL
             )
-        }));
+        }), 
+        (List<SObjectField>)fflib_Match.eq(new List<SObjectField>{
+			Contact.MailingStreet,
+			Contact.MailingStreet2__c,
+			Contact.MailingCity,
+			Contact.MailingPostalCode,
+			Contact.MailingState,
+			Contact.MailingCountry,
+
+			Contact.OtherStreet,
+			Contact.OtherStreet2__c,
+			Contact.OtherCity,
+			Contact.OtherPostalCode,
+			Contact.OtherState,
+			Contact.OtherCountry
+		}),
+        (String)fflib_Match.eq('ContactPointAddressDomainModule'));
 
         // PMD Warning
         System.assert(true);
@@ -225,5 +282,49 @@ public with sharing class ContactPointAddressDomainModule_Test {
         Test.stopTest();
     }
 
+	//test exceptions in module class
+	@isTest
+	static void testExceptionOnUpdate(){
+		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+		insert logLevel;
+		Test.startTest();
+		ContactPointAddressDomainModule module = ContactPointAddressDomainModule.newInstance();
+		module.onAfterUpdate(new List<SObject>{},new Map<Id,SObject>{},null);
+		Test.stopTest();
+		//an exception should be created when thre are invalid parameters in the onAfterUpdate
+		List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
+		System.assertEquals(true, logResult.size() > 0, 'Exception created');
+	}
+
+	//test exceptions in module class
+	//@isTest
+	// static void testExceptionOnInsert(){
+	// 	LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+	// 	logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+	// 	insert logLevel;
+	// 	Test.startTest();
+	// 	ContactPointAddressDomainModule module = ContactPointAddressDomainModule.newInstance();
+	// 	module.onAfterInsert(null,null);
+	// 	Test.stopTest();
+	// 	//an exception should be created when thre are invalid parameters in the onAfterInsert
+	// 	List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
+	// 	System.assertEquals(true, logResult.size() > 0, 'Exception created');
+	// }
+
+	// //test exceptions in module class
+	// 	@isTest
+	// 	static void testExceptionOnDelete(){
+	// 		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+	// 		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
+	// 		insert logLevel;
+	// 		Test.startTest();
+	// 		ContactPointAddressDomainModule module = ContactPointAddressDomainModule.newInstance();
+	// 		module.onAfterDelete(new List<SObject>{},null);
+	// 		Test.stopTest();
+	// 		//an exception should be created when thre are invalid parameters in the onAfterDelete
+	// 		List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
+	// 		System.assertEquals(true, logResult.size() > 0, 'Exception created');
+	// 	}
     
 }
