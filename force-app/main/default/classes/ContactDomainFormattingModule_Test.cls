@@ -9,6 +9,10 @@
 @IsTest
 public with sharing class ContactDomainFormattingModule_Test {
     
+    /*
+    * this test will verify the following method was called:
+    * ContactService.applyPhoneNumberFormatting
+    */
     @IsTest
     static void onBeforeInsert() {
 
@@ -32,6 +36,10 @@ public with sharing class ContactDomainFormattingModule_Test {
         Test.stopTest();
     }
 
+    /*
+    * this test will verify the following method was called:
+    * ContactService.applyPhoneNumberFormatting
+    */
     @IsTest
     static void onBeforeUpdate() {
         
@@ -58,3 +66,4 @@ public with sharing class ContactDomainFormattingModule_Test {
         Test.stopTest();
     }
 }
+

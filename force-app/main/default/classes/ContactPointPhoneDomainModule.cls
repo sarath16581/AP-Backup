@@ -29,33 +29,63 @@ public inherited sharing class ContactPointPhoneDomainModule extends Application
 	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		List<SObject> recordsToUpdate = new List<SObject>();
-		recordsToUpdate = (List<SObject>) ContactService.getInstance()
-			.syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null);
-
-		uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-		uow.registerDirty(recordsToUpdate);
-		uow.commitWork();
+		try {
+			List<SObject> recordsToUpdate = (List<SObject>) ContactService.getInstance()
+				.syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null, null);
+			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneDomainModule.class.getName());
+		} catch (Exception e) {
+			UTIL_LoggingService.logHandledException(
+				e,
+				UserInfo.getOrganizationId(),
+				'ContactPointPhoneDomainModule',
+				ContactPointPhoneDomainModule.class.getName(),
+				'onAfterInsert',
+				'ContactPointPhoneDomainModule',
+				LoggingLevel.ERROR
+			);
+		}
 	}
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		List<SObject> recordsToUpdate = new List<SObject>();
-		recordsToUpdate = ContactService.getInstance().syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null);
-
-		uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-		uow.registerDirty(recordsToUpdate);
-		uow.commitWork();
+		try {
+			List<SObject> recordsToUpdate = ContactService.getInstance()
+				.syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null, (Map<Id, ContactPointPhone>) existingRecords);
+			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneDomainModule.class.getName());
+		} catch (Exception e) {
+			UTIL_LoggingService.logHandledException(
+				e,
+				UserInfo.getOrganizationId(),
+				'ContactPointPhoneDomainModule',
+				ContactPointPhoneDomainModule.class.getName(),
+				'onAfterUpdate',
+				'ContactPointPhoneDomainModule',
+				LoggingLevel.ERROR
+			);
+		}
 	}
 
 	public override void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {
-		List<SObject> recordsToUpdate = new List<SObject>();
-		recordsToUpdate = ContactService.getInstance().syncContactPointPhoneToContacts(null, (List<ContactPointPhone>) records);
-
-		uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-		uow.registerDirty(recordsToUpdate);
-		uow.commitWork();
+		try {
+			List<SObject> recordsToUpdate = ContactService.getInstance()
+				.syncContactPointPhoneToContacts(null, (List<ContactPointPhone>) records, null);
+			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneDomainModule.class.getName());
+		} catch (Exception e) {
+			UTIL_LoggingService.logHandledException(
+				e,
+				UserInfo.getOrganizationId(),
+				'ContactPointPhoneDomainModule',
+				ContactPointPhoneDomainModule.class.getName(),
+				'onAfterDelete',
+				'ContactPointPhoneDomainModule',
+				LoggingLevel.ERROR
+			);
+		}
 	}
 
+	//which fields to be registered dirty in contact  when updating from CPPhone
+	private List<SObjectField> getFieldstoRegDirtyContact() {
+		return new List<SObjectField>{ Contact.MobilePhone, Contact.VerifiedMobile__c, Contact.Unique_Mobile__c, Contact.HomePhone };
+	}
 	/**
 	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
 	 */

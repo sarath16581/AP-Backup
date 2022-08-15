@@ -344,6 +344,36 @@ private class UTIL_LoggingService_TEST{
     }
 
     /**
+    * @description : Added this method to throw an exception when there are failed results in upsertresult
+    * @author Sreenish Krishnan | 08-11-2022 
+    * @return testMethod 
+    **/
+    private static testMethod void handleUpsertException(){
+      User runUser = UTIL_TestMethods.runningUser(HN_ALIAS+NUM+2 , SYSTEM_ADMIN);
+      severityLevelValue();
+      List<Account> accList1 = new List<Account>();
+      Account accData1= new Account(Name = TEST_USER_ROLE+NUM);
+      accList1.add(accData1);
+      Database.SaveResult[] svRes = Database.insert(accList1, false);          
+      List<Account> accList2 = new List<Account>();
+      Account accData2= new Account(Id=svRes[0].getId(),Name='');
+      accList2.add(accData2);
+      Database.UpsertResult[] upsertResult = Database.upsert(accList2, false);  
+
+      Test.startTest();
+      System.runAs(runUser){
+         UTIL_LoggingService.createExceptionForUpsertResults(upsertResult, accList2, TEST_APP, TEST_CLASS, TEST_METHOD, null, LoggingLevel.ERROR);
+      }
+      Test.stopTest();
+      
+      ExceptionLog__c excpData = [SELECT ClassName__c, Severity__c FROM ExceptionLog__c WHERE Application__c=:TEST_APP]; 
+      System.assertEquals(excpData.ClassName__c, TEST_CLASS);
+      Integer noOfExcep = [SELECT COUNT() FROM ExceptionLog__c WHERE Application__c=:TEST_APP];
+      System.assertEquals(noOfExcep, 1);
+  }
+
+
+    /**
       * @description       This Test Method is to verify that ExceptionLog__c record is logged 
                            in case of any program throwing an Exception due to Database.delete() operation. 
       * @param             NA

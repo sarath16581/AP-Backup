@@ -2,15 +2,15 @@
  * @description       : This is a test class for CustomerDataSyncEventCPEmailHelper
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 07-22-2022
+ * @last modified on  : 07-26-2022
  * @last modified by  : Sreenish Krishnan
  **/
 @isTest
 public with sharing class CustomerDataSyncEventCPEmailHelper_Test {
 	/**
-	* @description :deserialise the payload to the wrapper
-	* @author Sreenish Krishnan | 07-22-2022 
-	**/
+	 * @description :deserialise the payload to the wrapper
+	 * @author Sreenish Krishnan | 07-22-2022
+	 **/
 	@isTest
 	static void deserialisePayload() {
 		CustomerDataSync__e event = new CustomerDataSync__e();
@@ -24,14 +24,15 @@ public with sharing class CustomerDataSyncEventCPEmailHelper_Test {
 		System.assertEquals(wr.emailAddress, actual.emailAddress);
 	}
 
-	
 	/**
-	* @description :logic executed when existing emails are updated from the payload
-	* @author Sreenish Krishnan | 07-22-2022 
-	**/
+	 * @description :logic executed when existing emails are updated from the payload
+	 * @author Sreenish Krishnan | 07-22-2022
+	 **/
 	@isTest
 	static void updateCPEmailsFromPayload() {
-
+		// =====================================
+		// Data Preparation
+		// =====================================
 		List<CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper> ew = new List<CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper>();
 		CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper ew1 = new CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper();
 		ew1.emailAddress = 'emailone@sample.com.test';
@@ -92,6 +93,11 @@ public with sharing class CustomerDataSyncEventCPEmailHelper_Test {
 		uResult.add(u1);
 		resultMap.put('1234', u1);
 
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
 		CustomerDataSyncEventCPEmailHelper helper = new CustomerDataSyncEventCPEmailHelper();
 		helper.syncContactPointEmail(
 			input,
@@ -99,17 +105,23 @@ public with sharing class CustomerDataSyncEventCPEmailHelper_Test {
 			(Map<String, CustomerDataSyncEventCustomerHelper.CustomerUpsertResult>) resultMap
 		);
 
-		System.assertEquals(true, helper.getCPEmailsUpsertList().size()>0, 'Contact Point Emails Updated');
+		Test.stopTest();
 
+		// =====================================
+		// Assert
+		// =====================================
+		System.assertEquals(true, helper.getCPEmailsUpsertList().size() > 0, 'Contact Point Emails Updated');
 	}
 
 	/**
-	* @description :logic executed when existing emails are inserted from the payload
-	* @author Sreenish Krishnan | 07-22-2022 
-	**/
+	 * @description :logic executed when existing emails are inserted from the payload
+	 * @author Sreenish Krishnan | 07-22-2022
+	 **/
 	@isTest
 	static void insertCPEmailsFromPayload() {
-
+		// =====================================
+		// Data Preparation
+		// =====================================
 		List<CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper> ew = new List<CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper>();
 		CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper ew1 = new CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper();
 		ew1.emailAddress = 'emailone@sample.com.test';
@@ -155,24 +167,31 @@ public with sharing class CustomerDataSyncEventCPEmailHelper_Test {
 		uResult.add(u1);
 		resultMap.put('1234', u1);
 
+		// =====================================
+		// Testing
+		// =====================================
+
+		Test.startTest();
 		CustomerDataSyncEventCPEmailHelper helper = new CustomerDataSyncEventCPEmailHelper();
 		helper.syncContactPointEmail(
 			input,
 			(Map<String, List<ContactPointEmail>>) existing,
 			(Map<String, CustomerDataSyncEventCustomerHelper.CustomerUpsertResult>) resultMap
 		);
+		Test.stopTest();
 
-		System.assertEquals(true, helper.getCPEmailsUpsertList().size()>0, 'Contact Point Emails Inserted');
-
+		// =====================================
+		// Assert
+		// =====================================
+		System.assertEquals(true, helper.getCPEmailsUpsertList().size() > 0, 'Contact Point Emails Inserted');
 	}
 
 	/**
-	* @description :logic executed when existing emails are deleted from the payload
-	* @author Sreenish Krishnan | 07-22-2022 
-	**/
+	 * @description :logic executed when existing emails are deleted from the payload
+	 * @author Sreenish Krishnan | 07-22-2022
+	 **/
 	@isTest
 	static void deleteCPEmailsFromPayload() {
-
 		List<CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper> ew = new List<CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper>();
 		CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper ew1 = new CustomerDataSyncEventCPEmailHelper.EmailPayloadWrapper();
 		ew1.emailAddress = 'emailone@sample.com.test';
@@ -225,17 +244,23 @@ public with sharing class CustomerDataSyncEventCPEmailHelper_Test {
 
 		uResult.add(u1);
 		resultMap.put('1234', u1);
+		// =====================================
+		// Testing
+		// =====================================
 
+
+		Test.startTest();
 		CustomerDataSyncEventCPEmailHelper helper = new CustomerDataSyncEventCPEmailHelper();
 		helper.syncContactPointEmail(
 			input,
 			(Map<String, List<ContactPointEmail>>) existing,
 			(Map<String, CustomerDataSyncEventCustomerHelper.CustomerUpsertResult>) resultMap
 		);
-
-		System.assertEquals(true, helper.getCPEmailsDeleteList().size()>0, 'Contact Point Emails Deleted');
-
+		Test.stopTest();
+		
+		// =====================================
+		// Assert
+		// =====================================
+		System.assertEquals(true, helper.getCPEmailsDeleteList().size() > 0, 'Contact Point Emails Deleted');
 	}
-
-
 }

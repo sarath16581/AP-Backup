@@ -2,11 +2,13 @@
  * @description       : This is the method called from the Customer Data Sync Platform Event Trigger
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 07-20-2022
+ * @last modified on  : 08-13-2022
  * @last modified by  : Sreenish Krishnan
  **/
 
 public inherited sharing class CustomerDataSyncEventHandler {
+	public class CustomerDataSyncException extends Exception {
+	}
 	//key class variables
 	private static final String APCN = 'APCN';
 	private static final String SFID = 'SFID';
@@ -140,6 +142,9 @@ public inherited sharing class CustomerDataSyncEventHandler {
 		List<Database.UpsertResult> resultCPEUpsert = new List<Database.UpsertResult>();
 		List<Database.DeleteResult> resultCPPDelete = new List<Database.DeleteResult>();
 		List<Database.UpsertResult> resultCPPUpsert = new List<Database.UpsertResult>();
+		List<Database.DeleteResult> resultCPADelete = new List<Database.DeleteResult>();
+		List<Database.SaveResult> resultCPAInsert = new List<Database.SaveResult>();
+		List<ContactPointAddress> existingCPAddresses = new List<ContactPointAddress>();
 
 		//fetch the emails list
 		cpeDeleteList = cpEmailHelper.getCPEmailsDeleteList();
@@ -148,45 +153,108 @@ public inherited sharing class CustomerDataSyncEventHandler {
 		cppDeleteList = cpPhoneHelper.getCPPhonesDeleteList();
 		cppUpsertList = cpPhoneHelper.getCPPhonesUpsertList();
 
-		if (cpeDeleteList.size() > 0) {
-			resultCPEDelete = ApplicationDatabase.getInstance().dmlDelete(cpeDeleteList);
-		}
-		if (cpeUpsertList.size() > 0) {
-			resultCPEUpsert = ApplicationDatabase.getInstance().dmlUpsert(cpeUpsertList, ContactPointEmail.Id, false);
-		}
-		if (cppDeleteList.size() > 0) {
-			resultCPPDelete = ApplicationDatabase.getInstance().dmlDelete(cppDeleteList);
-		}
-		if (cppUpsertList.size() > 0) {
-			resultCPPUpsert = ApplicationDatabase.getInstance().dmlUpsert(cppUpsertList, ContactPointPhone.Id, false);
-		}
+		try {
+			if (cpeDeleteList.size() > 0) {
+				resultCPEDelete = ApplicationDatabase.getInstance().dmlDelete(cpeDeleteList, false);
+			}
+			if (cpeUpsertList.size() > 0) {
+				resultCPEUpsert = ApplicationDatabase.getInstance().dmlUpsert(cpeUpsertList, ContactPointEmail.Id, false);
+			}
+			if (cppDeleteList.size() > 0) {
+				resultCPPDelete = ApplicationDatabase.getInstance().dmlDelete(cppDeleteList, false);
+			}
+			if (cppUpsertList.size() > 0) {
+				resultCPPUpsert = ApplicationDatabase.getInstance().dmlUpsert(cppUpsertList, ContactPointPhone.Id, false);
+			}
 
-		List<ContactPointAddress> existingCPAddresses = ContactPointAddressSelector.newInstance()
-			.selectByContactWithOtherOrMailingAddressType(contactIds);
-		ApplicationDatabase.getInstance().dmlDelete(existingCPAddresses);
-		ApplicationDatabase.getInstance().dmlInsert(cpAddressToInsert);
+			if (!contactIds.isEmpty()) {
+				existingCPAddresses = ContactPointAddressSelector.newInstance().selectByContactWithOtherOrMailingAddressType(contactIds);
+			}
+
+			if (existingCPAddresses.size() > 0) {
+				resultCPADelete = ApplicationDatabase.getInstance().dmlDelete(existingCPAddresses);
+			}
+			if (cpAddressToInsert.size() > 0) {
+				resultCPAInsert = ApplicationDatabase.getInstance().dmlInsert(cpAddressToInsert);
+			}
+
+
+			//throw exception if there are any failures in the results
+			logSaveAndDeleteResultsException(null,resultCPEDelete);
+			logSaveAndDeleteResultsException(null,resultCPPDelete);
+			logSaveAndDeleteResultsException(resultCPAInsert,null);
+
+			logUpsertResultsException(resultCPEUpsert);
+			logUpsertResultsException(resultCPPUpsert);
+
+
+
+		} catch (Exception e) {
+			throw new CustomerDataSyncException(
+				'DML failed for CP records with exception>>' +
+				e +
+				'\n' +
+				'Records of CPEmailsDelete' +
+				cpeDeleteList +
+				'\n' +
+				'Results of DML resultCPEDelete' +
+				resultCPEDelete +
+				'\n' +
+				'Records of cpeUpsertList' +
+				cpeUpsertList +
+				'\n' +
+				'Results of DML resultCPEUpsert' +
+				resultCPEUpsert +
+				'\n' +
+				'Records of cppDeleteList' +
+				cppDeleteList +
+				'\n' +
+				'Results of DML resultCPPDelete' +
+				resultCPPDelete +
+				'\n' +
+				'Records of cppUpsertList' +
+				cppUpsertList +
+				'\n'+
+				'Results of DML cppUpsertList' +
+				resultCPPUpsert +
+				'\n' +
+				'Records of existingCPAddresses' +
+				existingCPAddresses +
+				'\n'+
+				'Results of DML resultCPADelete' +
+				resultCPADelete +
+				'\n' +
+				'Records of cpAddressToInsert' +
+				cpAddressToInsert +
+				'\n'+
+				'Results of DML resultCPAInsert' +
+				resultCPAInsert
+			);
+		}
 	}
 
 	//filter and parse
 	private void filterWithParsing(List<CustomerDataSync__e> events) {
 		//collect all apcn's from the event list
-		try {
-			for (CustomerDataSync__e e : events) {
+
+		for (CustomerDataSync__e e : events) {
+			try {
+				//process
+				genContactPointWrapper(e);
 				filterEvents(e);
 				genCustSet(e);
-				genContactPointWrapper(e);
+			} catch (Exception ex) {
+				System.debug('>>>>>>>>>>>>>>>>>>>> Exception: ' + ex + '>>>>>>>>>>>>>>>>>>>> Filtered Events:' + filteredEvents);
+				UTIL_LoggingService.logHandledException(
+					ex,
+					UserInfo.getOrganizationId(),
+					'CustomerDataSyncEventHandler',
+					CustomerDataSyncEventHandler.class.getName(),
+					'filterWithParsing',
+					'CustomerDataSyncEventHandler',
+					LoggingLevel.ERROR
+				);
 			}
-		} catch (Exception e) {
-			System.debug('>>>>>>>>>>>>>>>>>>>> Exception: ' + e + '>>>>>>>>>>>>>>>>>>>> Filtered Events:' + filteredEvents);
-			UTIL_LoggingService.logHandledException(
-				e,
-				UserInfo.getOrganizationId(),
-				'CustomerDataSyncEventHandler',
-				CustomerDataSyncEventHandler.class.getName(),
-				'parseEvent',
-				'CustomerDataSyncEventHandler',
-				LoggingLevel.ERROR
-			);
 		}
 	}
 
@@ -216,9 +284,19 @@ public inherited sharing class CustomerDataSyncEventHandler {
 
 	//generate contact point wrappers
 	private void genContactPointWrapper(CustomerDataSync__e e) {
-		apcnVsEmails.put(e.apcn__c, cpEmailHelper.deserialisePayload(e));
-		apcnVsPhones.put(e.apcn__c, cpPhoneHelper.deserialisePayload(e));
-		apcnVsAddresses.put(e.apcn__c, cpAddressHelper.deserialisePayload(e));
+		try {
+			apcnVsEmails.put(e.apcn__c, cpEmailHelper.deserialisePayload(e));
+			apcnVsPhones.put(e.apcn__c, cpPhoneHelper.deserialisePayload(e));
+			apcnVsAddresses.put(e.apcn__c, cpAddressHelper.deserialisePayload(e));
+		} catch (Exception ex) {
+			throw new CustomerDataSyncException(
+				'This event ' +
+				e +
+				' has been discarded as it has parsing issues for this apcn ' +
+				e.apcn__c,
+				ex
+			);
+		}
 	}
 
 	//method to create the set with APCN and SFID for querying Account later
@@ -235,7 +313,7 @@ public inherited sharing class CustomerDataSyncEventHandler {
 			if (e.integrationServiceModDate__c > (filteredEvents.get(e.apcn__c)).integrationServiceModDate__c) {
 				filteredEvents.put(e.apcn__c, e);
 			} else {
-				System.debug('**DISCARD THE EVENT***>>' + e);
+				throw new CustomerDataSyncException('This event ' + e + ' has been discarded as the integration timestamp is older for the apcn '+e.apcn__c);
 			}
 		} else {
 			filteredEvents.put(e.apcn__c, e);
@@ -315,9 +393,35 @@ public inherited sharing class CustomerDataSyncEventHandler {
 
 		return queryMap;
 	}
-
 	//which fields need to be queried in customer
 	private Set<SObjectField> getFieldOverridesCustomer() {
 		return new Set<SObjectField>{ Account.apcn__pc, Account.PersonContactId, Account.Id, Account.Integration_Service_Mod_Date__c };
+	}
+
+	//log delete result
+	private void logSaveAndDeleteResultsException(List<Database.SaveResult> saveResult, List<Database.DeleteResult> deleteResults) {
+		UTIL_LoggingService.logDmlResults(
+			saveResult,
+			deleteResults,
+			null,
+			'CustomerDataSyncEventHandler',
+			CustomerDataSyncEventHandler.class.getName(),
+			'performContactPointDMLs',
+			null,
+			LoggingLevel.ERROR
+		);
+	}
+
+	//log exception for upsert result failures as the upsert result 
+	private void logUpsertResultsException(List<Database.UpsertResult> upsertResults) {
+		UTIL_LoggingService.createExceptionForUpsertResults(
+			upsertResults,
+			null,
+			'CustomerDataSyncEventHandler',
+			CustomerDataSyncEventHandler.class.getName(),
+			'performContactPointDMLs',
+			null,
+			LoggingLevel.ERROR
+		);
 	}
 }

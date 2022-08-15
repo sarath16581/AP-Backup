@@ -2,7 +2,7 @@
  * @description       : This is a helper class for Connected Customer Phone Payload
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 07-13-2022
+ * @last modified on  : 07-29-2022
  * @last modified by  : Sreenish Krishnan
  **/
 public inherited sharing class CustomerDataSyncEventCPPhoneHelper {
@@ -95,7 +95,7 @@ public inherited sharing class CustomerDataSyncEventCPPhoneHelper {
 			if (existingPhones.containsKey(apcn)) {
 				existing = existingPhones.get(apcn);
 			}
-			//get inout emails
+			//get input emails
 			if (input.containsKey(apcn)) {
 				phones = input.get(apcn);
 			}

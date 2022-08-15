@@ -9,16 +9,17 @@
  * @changelog
  * 2022-05-30 - George Nguyen - Created.
  */
-public inherited sharing class ContactPointPhoneDomainTriggerHandler extends ApplicationDomainTriggerHandler  {
-    
+public inherited sharing class ContactPointPhoneTriggerHandler extends ApplicationDomainTriggerHandler {
+	public static ContactPointPhoneTriggerHandler newInstance() {
+		return (ContactPointPhoneTriggerHandler) Application.Utilities.newInstance(ContactPointPhoneTriggerHandler.class);
+	}
+
 	public override SObjectType getSObjectType() {
 		return ContactPointPhone.SObjectType;
 	}
 
 	public override List<Type> registerDomains() {
-		return new List<Type>{
-            ContactPointPhoneDomain.class
-		};
+		return new List<Type>{ ContactPointPhoneDomain.class };
 	}
 
 	/**
@@ -31,8 +32,6 @@ public inherited sharing class ContactPointPhoneDomainTriggerHandler extends App
 	}
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
-		return new List<SObjectType>{
-            ContactPointPhone.SObjectType
-		};
+		return new List<SObjectType>{ Contact.SObjectType, ContactPointPhone.SObjectType };
 	}
 }

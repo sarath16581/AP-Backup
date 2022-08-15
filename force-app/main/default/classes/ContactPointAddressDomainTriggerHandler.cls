@@ -11,6 +11,10 @@
  */
 public with sharing class ContactPointAddressDomainTriggerHandler extends ApplicationDomainTriggerHandler  {
 
+	public static ContactPointAddressDomainTriggerHandler newInstance() {
+		return (ContactPointAddressDomainTriggerHandler)Application.Utilities.newInstance(ContactPointAddressDomainTriggerHandler.class);
+	}
+
 	public override SObjectType getSObjectType() {
 		return ContactPointAddress.SObjectType;
 	}
@@ -32,7 +36,7 @@ public with sharing class ContactPointAddressDomainTriggerHandler extends Applic
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-            ContactPointAddress.SObjectType
+			Contact.SObjectType,ContactPointAddress.SObjectType
 		};
 	}
 }

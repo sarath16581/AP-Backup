@@ -8,6 +8,10 @@
  */
 @IsTest
 public with sharing class ContactDomainTriggerHandler_Test {
+
+	/*
+    * this test will check and make sure that the properties return the correct SObject type and the UoW contains the correct SObject type to handle. 
+    */
     @IsTest
 	private static void main() {
 
@@ -16,6 +20,6 @@ public with sharing class ContactDomainTriggerHandler_Test {
 		System.assertNotEquals(null, handler.newUnitOfWork(), 'Expected a valid instance of ApplicationUnitOfWork; but got null');
 		System.assertNotEquals(null, handler.registerDomains(), 'Expected valid list of domain types to be returned');
 		System.assertEquals(Contact.SObjectType, handler.getSObjectType(), 'Expected Contact sobject type');
-		System.assertNotEquals(null, ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes(), 'Expected valid list of sobject types to be returned');
+		System.assert(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes().contains(Contact.SObjectType), 'Expected valid list of sobject types to be returned');
 	}
 }
