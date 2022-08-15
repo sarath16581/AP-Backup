@@ -113,7 +113,6 @@
                             var dpidFromOneTrackService = cmp.get("v.wizardData.dpid");
                             // get the boolean for inflight redirection
                             var isRedirectApplied = cmp.get("v.wizardData.isRedirectApplied");
-
                             if(returnObj["isEligibleForMultipleArticleSelection"]) {
                                 cmp.set('v.isMultipleArticles', true);
                                 cmp.set("v.isLoading", false);
@@ -123,6 +122,9 @@
                                 cmp.set("v.isLoading", false);
                                 cmp.set('v.eddDisplayDate',helper.getEDDDateString(cmp, event, helper));
                                 return;
+                            } else if(cmp.get("v.wizardData.eddStatus") === 'NO_EDD'){
+                                cmp.set("v.wizardData.hasQualifiedForNoEDDFlow",true);
+                                helper.gotoNextPage(cmp,'chasMissingItemEDDAddressValidation');
                             }
                             //safedrop flow - checks for SAFE_DROP, RTS Scan event, DPid, inflight redirection before presenting address validations screen
                         else if(cmp.get('v.wizardData.eddStatus') == 'SAFE_DROP' && cmp.get('v.wizardData.isReturnToSender') == false && !$A.util.isEmpty(dpidFromOneTrackService) && !isRedirectApplied )
@@ -187,11 +189,11 @@
               if (cmp.get("v.wizardData.isEligibleForMultipleArticleSelection")) {
                   cmp.set('v.isMultipleArticles', true);
                   cmp.set("v.isLoading", false);
-              }
-              else if (cmp.get("v.wizardData.hasQualifiedForSafeDropFlow")){
+              } else if (cmp.get("v.wizardData.hasQualifiedForSafeDropFlow")){
                  helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
-              }
-              else if (cmp.get("v.showInvalidMessage")) {
+              } else if(cmp.get("v.wizardData.hasQualifiedForNoEDDFlow")){
+                   helper.gotoNextPage(cmp,'chasMissingItemEDDAddressValidation');
+               } else if (cmp.get("v.showInvalidMessage")) {
                 let invalidBspCmp = cmp.find("invalidBsp");
                 if ($A.util.hasClass(invalidBspCmp, "slds-hide")) {
                     $A.util.removeClass(invalidBspCmp, "slds-hide");
