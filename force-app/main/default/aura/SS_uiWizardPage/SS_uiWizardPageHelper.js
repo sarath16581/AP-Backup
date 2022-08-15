@@ -397,6 +397,7 @@
         var isValid = true;
         var overriden = cmp.get("v.isOverriden");
         var hasQualifiedForSafeDropFlow = cmp.get("v.wizardData.hasQualifiedForSafeDropFlow");      
+        var hasQualifiedForNoEDDFlow = cmp.get("v.wizardData.hasQualifiedForNoEDDFlow");
         var mailRedirectionType = cmp.get('v.wizardData.selectedRadio1Name');
         if(overriden)
         {
@@ -446,7 +447,7 @@
                     }
                 }
                 //Recipient delivery address validation, only for non-safe drop flows
-                if(!hasQualifiedForSafeDropFlow && senderOrRecipientType == 'Domestic'){
+                if(!hasQualifiedForNoEDDFlow && !hasQualifiedForSafeDropFlow && senderOrRecipientType == 'Domestic'){
                     var recipientAddressTyped = cmp.get('v.recipientAddressTyped');
                     var recipientAddress = cmp.get('v.recipientAddress');                
                     var recipientDeliveryAddress = cmp.get("v.wizardData.recipientDeliveryAddress");
