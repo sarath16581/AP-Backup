@@ -172,8 +172,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 						//Create a key to store only unique payload.
 						//This is required to remove duplicate payload received as a part of same event.
-						//e.g. [{"Name":"CardULD","Quantity":3,"ActualQuantity":2,"Condition":"Empty"}, 
-						//		{"Name":"CardULD","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]
+						//e.g. [{"Name":"Cardboard ULD","Quantity":3,"ActualQuantity":2,"Condition":"Empty"}, 
+						//		{"Name":"Cardboard ULD","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]
 						//In this scenario, only last payload will be considered for upsert for a job.
 						String uniqueyKey = event.Parent_Id__c+'-'+containerWrapper.Name+'-'+containerWrapper.Condition;
 

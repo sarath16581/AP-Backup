@@ -820,7 +820,7 @@ public with sharing class PUDUtility_Test {
 				bookingContainersToInsert.add(bookingContainerTrailer);
 
 
-				PUD_Container__c bookingContainerCardULD = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'CardULD', 'Full', false )[0];
+				PUD_Container__c bookingContainerCardULD = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'Cardboard ULD', 'Full', false )[0];
 				bookingContainerCardULD.Expected_Quantity__c = 3;
 				bookingContainersToInsert.add(bookingContainerCardULD);
 
@@ -832,7 +832,7 @@ public with sharing class PUDUtility_Test {
 		update bookingList;
 
 		String sampleContainerPayload = '[{"Quantity":1.0,"Name":"Aircan","Condition":"Empty"}, {"Quantity":11.0,"Name":"Aircan","Condition":"Full"},'+
-										'{"Quantity":2.0,"Name":"Trailer","Condition":"Empty"},{"Quantity":3.0,"Name":"CardULD","Condition":"Full"},{"Quantity":4.0,"Name":"Pallet","Condition":"Full"}'+
+										'{"Quantity":2.0,"Name":"Trailer","Condition":"Empty"},{"Quantity":3.0,"Name":"Cardboard ULD","Condition":"Full"},{"Quantity":4.0,"Name":"Pallet","Condition":"Full"}'+
 										']';
 		
 
