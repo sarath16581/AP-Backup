@@ -25,7 +25,6 @@ private class PUDJobDispatchEventTriggerHandler_Test {
 		// Stubbing
 		// =====================================
 		PUDJobDispatchEventHandler mockEventHandler = (PUDJobDispatchEventHandler)MockUtility.mockUtility(PUDJobDispatchEventHandler.class);
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(PUDJobDispatchEventTriggerHandler.getUnitOfWorkSObjectTypes());
 
 
 		// set up our responses
@@ -65,7 +64,6 @@ private class PUDJobDispatchEventTriggerHandler_Test {
 		// Stubbing
 		// =====================================
 		PUDJobDispatchEventHandler mockEventHandler = (PUDJobDispatchEventHandler)MockUtility.mockUtility(PUDJobDispatchEventHandler.class);
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(PUDJobDispatchEventTriggerHandler.getUnitOfWorkSObjectTypes());
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
