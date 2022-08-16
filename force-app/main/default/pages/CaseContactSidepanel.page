@@ -188,11 +188,15 @@
             if (!hasErrorMessages) {
                 sforce.console.getEnclosingPrimaryTabId(function(result){
                     sforce.console.getFocusedPrimaryTabObjectId(function(res) {
-                        if({!currentUserIsPartOfOmniGroup}) {
+
+                        // need to use the below with Omni as it won't trigger refresh if there changes and refreshing will not clear out the current case assign. 
+                        // the old method caused Omni to assign another case whenever the tab was refreshed. 
+                        if({!currentUserIsPartOfOmniGroup}) { 
                             sforce.console.refreshPrimaryTabById(result.id, true, function() {}, true);
                         } else {
                             sforce.console.openPrimaryTab(result.id, '/' + res.id, true, '', null);
                         }
+
                     });
                     
                     //sforce.console.openPrimaryTab(result.id, '/{!case.ID}', true, '', null); 
