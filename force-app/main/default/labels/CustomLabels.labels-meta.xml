@@ -7614,116 +7614,116 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the cessation of use of any Aust. Post Vehicle.</value>
     </labels>
     <labels>
-        <fullName>Sths_Description_Validation_Message</fullName>
+        <fullName>STHSDescriptionValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Description Validation Message</shortDescription>
+        <shortDescription>STHS Description Validation Message</shortDescription>
         <value>Please provide as much information as possible, this will assist us with your enquiry</value>
     </labels>
     <labels>
-        <fullName>Sths_Email_Validation_Message</fullName>
+        <fullName>STHSEmailValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Email Validation Message</shortDescription>
+        <shortDescription>STHS Email Validation Message</shortDescription>
         <value>Please enter a valid email address. For example: name@emailaddress.com.au</value>
     </labels>
     <labels>
-        <fullName>Sths_Enquiry_Selection_Validation_Message</fullName>
+        <fullName>STHSEnquirySelectionValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Enquiry Selection Validation Message</shortDescription>
+        <shortDescription>STHS Enquiry Selection Validation Message</shortDescription>
         <value>Please select what your enquiry is about</value>
     </labels>
     <labels>
-        <fullName>Sths_Enquiry_Validation_Message</fullName>
+        <fullName>STHSEnquiryValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Enquiry Validation Message</shortDescription>
+        <shortDescription>STHS Enquiry Validation Message</shortDescription>
         <value>Please enter your enquiry</value>
     </labels>
     <labels>
-        <fullName>Sths_Enquiry_Error_State_Message</fullName>
+        <fullName>STHSEnquiryErrorStateMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Enquiry Error State Message</shortDescription>
+        <shortDescription>STHS Enquiry Error State Message</shortDescription>
         <value>Your enquiry couldn’t be submitted due to an error. Please wait a few moments and try again.</value>
     </labels>
     <labels>
-        <fullName>Sths_Feedback_Error_State_Message</fullName>
+        <fullName>STHSFeedbackErrorStateMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Feedback Error State Message</shortDescription>
+        <shortDescription>STHS Feedback Error State Message</shortDescription>
         <value>Your feedback couldn’t be submitted due to an error.
             Please wait a few moments and try again.</value>
     </labels>
     <labels>
-        <fullName>Sths_Feedback_Selection_Validation_Message</fullName>
+        <fullName>STHSFeedbackSelectionValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Feedback Selection Validation Message</shortDescription>
+        <shortDescription>STHS Feedback Selection Validation Message</shortDescription>
         <value>Please select what your feedback is about</value>
     </labels>
     <labels>
-        <fullName>Sths_Feedback_Validation_Message</fullName>
+        <fullName>STHSFeedbackValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Feedback Validation Message</shortDescription>
+        <shortDescription>STHS Feedback Validation Message</shortDescription>
         <value>Please enter your feedback</value>
     </labels>
     <labels>
-        <fullName>Sths_Firstname_Validation_Message</fullName>
+        <fullName>STHSFirstnameValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Firstname Validation Message</shortDescription>
+        <shortDescription>STHS Firstname Validation Message</shortDescription>
         <value>Please enter your first name</value>
     </labels>
     <labels>
-        <fullName>Sths_Lastname_Validation_Message</fullName>
+        <fullName>STHSLastnameValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Lastname Validation Message</shortDescription>
+        <shortDescription>STHS Lastname Validation Message</shortDescription>
         <value>Please enter your last name</value>
     </labels>
     <labels>
-        <fullName>Sths_Max_Characters_Validation_Message</fullName>
+        <fullName>STHSMaxCharactersValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Max Characters Validation Message</shortDescription>
+        <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
     </labels>
     <labels>
-        <fullName>Sths_Phone_Validation_Message</fullName>
+        <fullName>STHSPhoneValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Phone Validation Message</shortDescription>
+        <shortDescription>STHS Phone Validation Message</shortDescription>
         <value>Please enter a phone number with area code (For example, 0298765432), or a mobile (For example, 0400111222)</value>
     </labels>
     <labels>
-        <fullName>Sths_Reference_Validation_Message</fullName>
+        <fullName>STHSReferenceValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Reference Validation Message</shortDescription>
+        <shortDescription>STHS Reference Validation Message</shortDescription>
         <value>Please enter a reference</value>
     </labels>
     <labels>
-        <fullName>Sths_Support_URL</fullName>
+        <fullName>STHSSupportURL</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sths Support URL</shortDescription>
+        <shortDescription>STHS Support URL</shortDescription>
         <value>https://startrack.com.au/support</value>
     </labels>
     <labels>

@@ -1,10 +1,10 @@
 /**
- * @File Name          : SthsConstants.cls
+ * @File Name          : STHSConstants.cls
  * @Description        : Constants for StarTrack Help and Support Community
  * @Author             : Mahesh Parvathaneni
  **/
 
-public with sharing class SthsConstants {
+public with sharing class STHSConstants {
     public static final String CASE_STATUS_NEW = 'New';
     public static final String CASE_PRIOIRITY_NORMAL = 'Normal';
     public static final String CASE_ORIGIN_WEB = 'Web';
