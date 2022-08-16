@@ -79,7 +79,7 @@
             <!-- EDD before date message -->
             <aura:if isTrue="{!(v.showInvalidWithinEDDMessage)}">
                 <div class="tracking-info">
-                    <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}" iconLinkStyle="message-icon">
+                    <c:ChasBspDeflection aura:id="invalidEdd" noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}" iconLinkStyle="message-icon">
                         <p class="message-text">This parcel is on track to be delivered {!if(v.wizardData.deliveredByDateFrom  != null, 'between', 'on')} <b>{!v.eddDisplayDate} </b> </p>
                         <br/>
                         <p class="message-text"> You can only enquire about a late or missing item after the expected delivery date. For essential medication enquiries,

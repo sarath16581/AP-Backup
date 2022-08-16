@@ -200,8 +200,12 @@
                 cmp.set("v.isLoading", false);
               }
               else if(cmp.get("v.showInvalidWithinEDDMessage")){
+                  let invalidEddCmp = cmp.find("invalidEdd");
+                  if ($A.util.hasClass(invalidEddCmp, "slds-hide")) {
+                      $A.util.removeClass(invalidEddCmp, "slds-hide");
+                      $A.util.addClass(invalidEddCmp, "slds-show");
+                  }
                   cmp.set("v.isLoading", false);
-                  return;
               } else {
                   helper.gotoNextPage(cmp);
               }
