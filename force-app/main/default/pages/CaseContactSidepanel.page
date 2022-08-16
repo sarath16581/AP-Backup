@@ -188,8 +188,13 @@
             if (!hasErrorMessages) {
                 sforce.console.getEnclosingPrimaryTabId(function(result){
                     sforce.console.getFocusedPrimaryTabObjectId(function(res) {
-                        sforce.console.openPrimaryTab(result.id, '/' + res.id, true, '', null);
+                        if({!currentUserIsPartOfOmniGroup}) {
+                            sforce.console.refreshPrimaryTabById(result.id, true, function() {}, true);
+                        } else {
+                            sforce.console.openPrimaryTab(result.id, '/' + res.id, true, '', null);
+                        }
                     });
+                    
                     //sforce.console.openPrimaryTab(result.id, '/{!case.ID}', true, '', null); 
                     //sforce.console.refreshPrimaryTabById(result.id, true);
                 });
