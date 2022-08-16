@@ -28,6 +28,11 @@ public with sharing class CaseContactSidepanelContExt {
     public Boolean isReadOnly { get; set; }
     public Boolean isEditable { get; set; }
     public Boolean lockFields { get; set; }
+    public Boolean currentUserIsPartOfOmniGroup {
+        get {
+            return OmniChannelService.currentUserIsPartOfOmniGroup;
+        }
+    }
     
 
     private static final String ANY_VAL = '- Any -';
