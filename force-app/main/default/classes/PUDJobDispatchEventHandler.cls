@@ -47,7 +47,7 @@ public inherited sharing class PUDJobDispatchEventHandler {
 	 *
 	 * @param events 'Job_Action' events from dispatch system
 	 */
-	public void processJobActionEvents(List<PUD_Job_Dispatch_Event__e> events) {
+	public void processJobActionEvents(List<PUD_Job_Dispatch_Event__e> events, ApplicationUnitOfWork uow) {
 
 		// iterate through each event and collect all parent job ids.
 		Set<Id> parentJobIds = new Set<Id>();
@@ -115,7 +115,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 		if (!updatableJobs.isEmpty()) {
 			// attempt to update the jobs. any dml failures result in an exception being thrown
-			ApplicationDatabase.getInstance().dmlUpdate(updatableJobs.values());
+			//ApplicationDatabase.getInstance().dmlUpdate(updatableJobs.values());
+			uow.registerDirty(updatableJobs.values(), false, 'PUDJobDispatchEventHandler');
 		}
 		if(!containersToProcess.isEmpty()){
 
@@ -124,7 +125,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 				containersToUpsert.addAll(containersToProcess.get(jobId));
 			}
 
-			ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, PUD_Container__c.Id);
+			//ApplicationDatabase.getInstance().dmlUpsert(containersToUpsert, PUD_Container__c.Id);
+			uow.registerUpsert(containersToUpsert, false, 'PUDJobDispatchEventHandler');
 		}
 
 	}
@@ -170,8 +172,8 @@ public inherited sharing class PUDJobDispatchEventHandler {
 
 						//Create a key to store only unique payload.
 						//This is required to remove duplicate payload received as a part of same event.
-						//e.g. [{"Name":"CardULD","Quantity":3,"ActualQuantity":2,"Condition":"Empty"}, 
-						//		{"Name":"CardULD","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]
+						//e.g. [{"Name":"Cardboard ULD","Quantity":3,"ActualQuantity":2,"Condition":"Empty"}, 
+						//		{"Name":"Cardboard ULD","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]
 						//In this scenario, only last payload will be considered for upsert for a job.
 						String uniqueyKey = event.Parent_Id__c+'-'+containerWrapper.Name+'-'+containerWrapper.Condition;
 

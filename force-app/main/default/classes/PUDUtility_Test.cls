@@ -19,7 +19,7 @@
 * 2022-02-10 - Seth Heang - Added test method for updating booking location details to also flow to booking and job details where job status is schedule or accepted
 * 2022-02-28 - Seth Heang - Update test methods to test containers and product types for the booking-job sync validation for jobs with status 'New', 'Schedule', 'Accept' and 'Completed'
 * 2022-04-11 - Seth Heang - Added test method to test booking's before insert trigger and validate booking's default depot from route's depot
-* 2022-07-23 - Dattaraj Deshmukh - Added test methods for container types, removed references OLD Empty_/Full_ fields for containers from PUD_JOb__c object.
+* 2022-07-23 - Dattaraj Deshmukh - Added test methods for container types, removed references OLD Empty_/Full_ fields for containers from PUD_JOb__c object. 
 */
 @isTest
 public with sharing class PUDUtility_Test {
@@ -820,7 +820,7 @@ public with sharing class PUDUtility_Test {
 				bookingContainersToInsert.add(bookingContainerTrailer);
 
 
-				PUD_Container__c bookingContainerCardULD = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'CardULD', 'Full', false )[0];
+				PUD_Container__c bookingContainerCardULD = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'Cardboard ULD', 'Full', false )[0];
 				bookingContainerCardULD.Expected_Quantity__c = 3;
 				bookingContainersToInsert.add(bookingContainerCardULD);
 
@@ -832,7 +832,7 @@ public with sharing class PUDUtility_Test {
 		update bookingList;
 
 		String sampleContainerPayload = '[{"Quantity":1.0,"Name":"Aircan","Condition":"Empty"}, {"Quantity":11.0,"Name":"Aircan","Condition":"Full"},'+
-										'{"Quantity":2.0,"Name":"Trailer","Condition":"Empty"},{"Quantity":3.0,"Name":"CardULD","Condition":"Full"},{"Quantity":4.0,"Name":"Pallet","Condition":"Full"}'+
+										'{"Quantity":2.0,"Name":"Trailer","Condition":"Empty"},{"Quantity":3.0,"Name":"Cardboard ULD","Condition":"Full"},{"Quantity":4.0,"Name":"Pallet","Condition":"Full"}'+
 										']';
 		
 
