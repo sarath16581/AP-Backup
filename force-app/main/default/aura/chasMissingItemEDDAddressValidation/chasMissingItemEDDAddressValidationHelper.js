@@ -224,7 +224,7 @@
 
     pushAnalytics : function(cmp, step) {
         // we expect something to be returned here, if nothing returned means a technical issue
-        if(cmp.get('v.wizardData.eddStatus') != '') {
+        /*if(cmp.get('v.wizardData.eddStatus') != '') {
             var duplicateCaseText = 'new';
             if(cmp.get('v.wizardData.duplicateCase') != '') {
                 duplicateCaseText = 'duplicate';
@@ -256,7 +256,7 @@
                 componentAttributes: analyticsObject
             });
 
-        }
+        }*/
     },
 
 })

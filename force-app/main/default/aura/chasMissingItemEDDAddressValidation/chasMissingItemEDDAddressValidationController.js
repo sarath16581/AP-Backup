@@ -3,7 +3,13 @@
  */
 
 ({
-    init: function (cmp, event, helper) {},
+    init: function (cmp, event, helper) {
+        var baseUrl = window.location.href;
+        if(baseUrl.includes("#"))
+        {
+            cmp.set("v.isFromBackButton", true);
+        }
+    },
 
     checkOverride : function(cmp, event, helper) {
         var overriden = event.getParam('selected');
@@ -33,6 +39,7 @@
         {
             //set the wizard data with the selected address
             cmp.set('v.wizardData.correctDeliveryAddress', cmp.get('v.selectedAddress'));
+            cmp.set('v.wizardData.recipientDeliveryAddress', cmp.get('v.selectedAddress'));
             //push analytics for site-interact
             window.AP_ANALYTICS_HELPER.analyticsTrackInteraction(
                 'site-interact',
@@ -86,7 +93,7 @@
         //cmp.set("v.wizardData.correctDeliveryAddress",null);
         helper.gotoPrevPage(cmp);
         //push analytics for site-interact
-        window.AP_ANALYTICS_HELPER.analyticsTrackInteraction(
+/*        window.AP_ANALYTICS_HELPER.analyticsTrackInteraction(
             "site-interact",
             "form:" + cmp.get("v.pageTitle"),
             "item details: " + "address:back"
@@ -98,6 +105,6 @@
                 "form:" + cmp.get("v.pageTitle"),
                 "item details: " + "address manual:back"
             );
-        }
+        }*/
     },
 });
