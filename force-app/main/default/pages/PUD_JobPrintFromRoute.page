@@ -2,6 +2,7 @@
  -  page used to print pdf with route and bookings, generated from the route record page
  - @changelog:
  - 24/6/2022 - Kamil Szyc- created
+ - 11/08/2022 - Dattaraj Deshmukh - Updated page to use wrapper class.
  -->
 <apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_PrintRouteController"
            renderAs="pdf" applyBodyTag="false" id="PUD_JobPrintFromRoute">

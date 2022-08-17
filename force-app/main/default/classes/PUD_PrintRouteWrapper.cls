@@ -17,17 +17,11 @@ public inherited sharing class PUD_PrintRouteWrapper {
 	public List<PUD_PrintRouteBookingWrapper> bookings {get; private set;}
 	public List<PUD_PrintRouteBookingWrapper> mealBreaks {get; private set;}
 	
-	public String startTimeString {get; private set;}
-	public String endTimeString {get; private set;}
-
 	public PUD_PrintRouteWrapper(PUD_Route__c route) {
 		this.route = route;
 		this.bookings = new List<PUD_PrintRouteBookingWrapper>();
 		this.mealBreaks = new List<PUD_PrintRouteBookingWrapper>();
-		this.startTimeString = getDurationDisplayTimeString(route.Start_Time__c);
-		this.endTimeString = getDurationDisplayTimeString(route.End_Time__c);
-
-
+		
 		for(PUD_Booking__c booking: route.Bookings__r) {
 			PUD_PrintRouteBookingWrapper b = new PUD_PrintRouteBookingWrapper(booking);
 			//add bookings
@@ -40,42 +34,16 @@ public inherited sharing class PUD_PrintRouteWrapper {
 		}
 	}
 
-	
-	/**
-	 * @param Time value.
-	 * @return Time displayed in String.
-	 * @desc Display time in HHMM format.   
-	 * e.g. If Time is 9:5 then function returns 0905 as a string. If its 1215 then returns 1215 as a string.
-	 */
-	public String getDurationDisplayTimeString(Time displayTime){
-		String displayTimeString='';
-
-		//return blank string if time is null
-		if(displayTime == null) { return displayTimeString; }
-
-		//if length of hour() component of Time is less than 2, prefix with 0
-		if((String.valueOf(displayTime.hour())).length() < 2){
-			displayTimeString += ('0'+String.valueOf(displayTime.hour()));
-		}
-		else{
-			displayTimeString += String.valueOf(displayTime.hour());
-		}
-
-		//if length of minute() component of Time is less than 2, prefix with 0
-		if((String.valueOf(displayTime.minute())).length() < 2){
-			displayTimeString += ('0'+String.valueOf(displayTime.minute()));
-		}
-		else{
-			displayTimeString += (''+String.valueOf(displayTime.minute()));
-		}
-		
-		//if length of hour() & minute() component of Time is equal to, return string representation of time.
-		if((String.valueOf(displayTime.hour())).length() == 2 && (String.valueOf(displayTime.minute())).length() == 2){
-			displayTimeString = String.valueOf(displayTime.hour()) + ''+String.valueOf(displayTime.minute());
-		}
-		
-		return displayTimeString;
+	//getter for startTimeString
+	//return time in HHMM format
+	public String getStartTimeString(){
+		return PUDPrintUtility.getDurationDisplayX(this.route.Start_Time__c);
 	}
 
-
+	//getter for endTimeString
+	//return time in HHMM format
+	public String getEndTimeString(){
+		return PUDPrintUtility.getDurationDisplayX(this.route.End_Time__c);
+	}
+	
 }
