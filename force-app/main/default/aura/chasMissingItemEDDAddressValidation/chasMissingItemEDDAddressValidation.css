@@ -196,3 +196,31 @@ display: block;
 {
     padding: 0.25rem 0.75rem;
 }
+
+.THIS .tracking-error .info-box {
+    border: none;
+    border-left: 3px solid #EDA51F;
+    background-color: #FBEDD2;
+}
+
+.THIS .tracking-info .info-box {
+    border: none;
+}
+
+.THIS .message-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    font-style: normal;
+}
+
+.THIS .message-icon {
+    min-width: 20px;
+    width: 20px;
+}
+
+.THIS .link-plain {
+    color: inherit;
+    transition: none;
+    text-decoration: underline;
+}
