@@ -11,13 +11,6 @@
         if (formValid) {
             cmp.set('v.displaySpinner', true);
             this.getEDDServiceEstimates(cmp, event, helper);
-/*            const deliveredByDateOrEDD = cmp.get('v.wizardData.deliveredByDateOrEDD');
-            const deliveredByDateFrom = cmp.get('v.wizardData.deliveredByDateFrom');
-            const deliveredByDateTo = cmp.get('v.wizardData.deliveredByDateTo');
-            if(($A.util.isEmpty(deliveredByDateOrEDD) || $A.util.isUndefined(deliveredByDateOrEDD))
-            && $A.util.isEmpty(deliveredByDateOrEDD))*/
-
-
         } else {
             cmp.set("v.inputError", "true");
         }
