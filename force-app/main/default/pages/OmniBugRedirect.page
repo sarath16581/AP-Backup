@@ -1,4 +1,4 @@
-<apex:page>
+<apex:page controller="OmniBugRedirectController">
 	<script>
         /*
         * This is required because there is a bug in SF with clasic service consoles when opening a Subtab with a standard controller and having Omni Channel routing enabled with Tab-based tracking. 
@@ -11,6 +11,13 @@
         */
         var currentUrl = new URL(window.location.href);
         var originalUrl = currentUrl.searchParams.get("url");
-        location.href = originalUrl;
-	</script>
+
+        var orgDomainUrl = '{!orgDomainUrl}';
+        if(originalUrl.startsWith(orgDomainUrl) == true || originalUrl.startsWith('/apex/') == true) {
+                location.href = originalUrl;
+        } else {
+                alert('Unauthorised redirection...');
+        }
+	
+        </script>
 </apex:page>
