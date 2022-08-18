@@ -208,7 +208,15 @@ History
 		function openSubTab(url, tabName) {
 			tabName = tabName == 'undefined' ? '' : tabName;
 			sforce.console.getEnclosingPrimaryTabId(function(result) {
-				sforce.console.openSubtab(result.id, url, true, tabName, null);
+
+				// this is required for the Omni channel routing pilot. 
+				if({!currentUserIsPartOfOmniGroup}) {
+					var omniRedirectURL = '/apex/OmniBugRedirect?&url=' + encodeURIComponent(url);
+            		sforce.console.openSubtab(result.id, omniRedirectURL, true, tabName, null);
+				} else {
+					sforce.console.openSubtab(result.id, url, true, tabName, null);
+				}
+				
 			});
 		}
 
@@ -335,7 +343,7 @@ History
 
 		<div class="tab-pane fade in active" id="CaseComments">
 			<div class="pbHeader"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="pbButton">
-				<input value="New Comment" class="btn btn-sm btn-default" name="newComment" onclick="openSubTab('/apex/CaseCommentCustom?id={!Case.id}','New Comment');" title="New Case Comments" type="button"/>
+				<input value="New Comment" class="btn btn-sm btn-default" name="newComment" onclick="openSubTab('/apex/CaseCommentCustom?id={!Case.id}&isdtp=vw','New Comment');" title="New Case Comments" type="button"/>
 			</td></tr></tbody></table></div>
 			<apex:dataTable value="{!caseComments}" var="comment" styleClass="list table table-bordered table-hover" rowClasses="dataRow" rendered="{!NOT(caseComments == null)}">
 				<apex:column value="{!comment.IsPublished}" headerValue="Public"/>
@@ -669,11 +677,11 @@ History
 		<div class="tab-pane fade" id="CN08">
 			<center>
 				<input value="New CN 18" class="btn btn-sm btn-default" name="newcn18"
-					   onclick="openSubTab('/apex/SSSWCN18Form?id={!Case.id}&create=true','CN 18 Form');" oncomplete="RefreshPrimaryTabById();"
+					   onclick="openSubTab('/apex/SSSWCN18Form?id={!Case.id}&create=true&isdtp=vw','CN 18 Form');" oncomplete="RefreshPrimaryTabById();"
 					   title="Send delivery confirmation letter to Addressee" type="button"/>
 				&nbsp;&nbsp;
 				<input value="New CN 08" class="btn btn-sm btn-default" name="newcn08"
-					   onclick="openSubTab('/apex/EditCN08?caseId={!Case.id}','CN 08 form');" oncomplete="RefreshPrimaryTabById();"
+					   onclick="openSubTab('/apex/EditCN08?caseId={!Case.id}&isdtp=vw','CN 08 form');" oncomplete="RefreshPrimaryTabById();"
 					   title="Send enquiry to Office of Exchange" type="button"/>
 			</center>
 			<br/>

@@ -1,6 +1,12 @@
 global with sharing class CaseCommentCustomController {
   public Case currentCase {get;set;}
   public List<CaseComment> caseComments {get;set;}
+
+  public Boolean currentUserIsPartOfOmniGroup {
+      get {
+          return OmniChannelService.currentUserIsPartOfOmniGroup;
+      }
+  }
   
    public CaseCommentCustomController(ApexPages.StandardController stdController) 
     {      
