@@ -62,7 +62,7 @@ public with sharing class STHSFeedbackFormController_Test {
         // should have called STHSCommunityService methods
         ((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getCaseDefaultValues((Case)fflib_Match.anyObject());
 		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getFormCaseData((Case)fflib_Match.anyObject(), (Map<Object, String>)fflib_Match.eq(formData));
-		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).insertRecords((List<SObject>)fflib_Match.anyObject());
+		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(2))).insertRecords((List<SObject>)fflib_Match.anyObject());
 		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getCaseNumber((Id)fflib_Match.isNull());
 	}
 
