@@ -36,7 +36,16 @@
                                     'currentStepName': 'item details:address',
                                     'stage': ''
                                 },
-                             'chasMissingItemAddressMismatchForm': {
+                                'chasMissingItemEDDAddressValidation': {
+                                    'key': 'chasMissingItemEDDAddressValidation',
+                                    'name': 'c:chasMissingItemEDDAddressValidation',
+                                    'prev': 'chasMissingItemWPage01',
+                                    'next': 'chasMissingItemForm',
+                                    'step': '1',
+                                    'currentStepName': 'item details:address',
+                                    'stage': ''
+                                },
+                                'chasMissingItemAddressMismatchForm': {
                                     'key': 'chasMissingItemAddressMismatchForm',
                                     'name': 'c:chasMissingItemAddressMismatchForm',
                                     'prev': 'chasMissingItemAddressValidation',
