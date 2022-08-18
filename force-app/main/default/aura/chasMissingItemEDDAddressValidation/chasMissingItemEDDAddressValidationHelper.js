@@ -52,13 +52,12 @@
                 'recipientPostcode': component.get('v.wizardData.recipientPostcode') // post code of selected address
             };
             action.setParams(objParams);
-            console.log("IN getEDDServiceEstimates");
+
             // server side return
             action.setCallback(this, function (response) {
                 let status = response.getState();
                 if (status === 'SUCCESS') {
                     var returnObj = JSON.parse((JSON.stringify(response.getReturnValue())));
-                    console.log("SUCCESS");
                     // update the wizard with the response data, else use the previous copy of the wizard data
                     component.set('v.wizardData.deliveredByDateOrEDD', $A.util.isEmpty(returnObj["deliveredByDateOrEDD"]) ? component.get('v.wizardData.deliveredByDateOrEDD') : returnObj["deliveredByDateOrEDD"]);
                     component.set('v.wizardData.deliveredByDateFrom', $A.util.isEmpty(returnObj["deliveredByDateFrom"]) ? component.get('v.wizardData.deliveredByDateFrom') : returnObj["deliveredByDateFrom"]);
@@ -80,11 +79,9 @@
                         helper.gotoNextPage(component, "chasMissingItemWPage02");
                     }
                 } else if (state === "INCOMPLETE") {
-                    console.log("INCOMPLETE");
                     component.set('v.displaySpinner', false);
                     // Enable debugging if required
                 } else if (state === "ERROR") {
-                    console.log("ERROR");
                     component.set('v.displaySpinner', false);
                     component.set('v.error500', true);
                     var errors = response.getError();
@@ -179,42 +176,6 @@
     getShowError : function(cmp, event, helper) {
         var showerror = event.getParam('inputError');
         cmp.set("v.showError",showerror);
-    },
-//TODO: remove
-    dpidMatch: function (cmp, event, helper) {
-        var dpidFromOneTrackService = cmp.get("v.wizardData.dpid");
-        var dpidFromAMEService = cmp.get("v.dpid");
-        var dpidFromUrl = cmp.get("v.dpidFromUrl");
-        //check if dipidFromUrl matches to that returned from consignment service
-        if (
-            (!$A.util.isEmpty(dpidFromUrl) || !$A.util.isUndefined(dpidFromUrl)) &&
-            !cmp.get("v.isFromBackButton")
-        ) {
-            if (
-                dpidFromOneTrackService != null &&
-                dpidFromOneTrackService != dpidFromUrl
-            ) {
-                cmp.set("v.addressMatched", "noMatch");
-                //when the dipidFromUrl is an invalid one and user manually enters the address.
-                if (
-                    dpidFromAMEService != null &&
-                    dpidFromOneTrackService != dpidFromAMEService
-                ) {
-                    cmp.set("v.addressMatched", "noMatch");
-                } else {
-                    cmp.set("v.addressMatched", "Match");
-                }
-            }
-        } else {
-            //check if the dpid matches
-            if (dpidFromOneTrackService != dpidFromAMEService) {
-                cmp.set("v.addressMatched", "noMatch");
-                //push analytics for 'helpsupport-form-navigate' for self-help
-                this.pushAnalytics(cmp, "item details:address:not match");
-            } else {
-                cmp.set("v.addressMatched", "Match");
-            }
-        }
     },
 
     getAddressTyped : function(cmp, event, helper) {
