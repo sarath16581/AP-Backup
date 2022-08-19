@@ -1,0 +1,226 @@
+@media (min-width: 480px)
+{
+    .THIS .outer-box {
+        padding:32px 32px 32px 32px;
+        max-width: 656px;
+        background-color: #ffffff;
+    }
+}
+.THIS .outer-box-div {
+    padding:32px 0 32px 0;
+    max-width: 656px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+.THIS .para1{
+    color: #4D4D54;
+    font-weight:400;
+    padding: 0 32px 32px 32px;
+}
+.THIS .para2{
+    padding: 0 32px 0 32px;
+}
+
+.THIS .chas-button-box{
+    display: inline-block;
+    border-top: none;
+}
+@media (min-width: 480px){
+    .THIS .btn-padding {
+        margin-left: 12px;
+    }
+}
+
+.THIS .searchbox input {
+    box-sizing: border-box;
+    border: 2px solid #919194;
+    border-radius: 6px;
+    height: 44px;
+}
+
+.THIS .searchbox-err input {
+    box-sizing: border-box;
+    border: solid 2px #BD152E;
+    border-radius: 6px;
+    height: 44px;
+}
+.THIS .slds-has-error .slds-input {
+    border: solid 2px #BD152E;
+    border-radius: 6px;
+    box-shadow:none;
+}
+.THIS .img-div{
+    width: 656px;
+    padding:40px 40px 0px 40px;
+    background: #EEEEEE;
+    justify-content: space-between;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+.THIS .img-footer-div{
+    background: #EEEEEE;
+    padding:16px 40px 42px 196px;
+}
+@media (max-width: 480px) {
+    .THIS .img-footer-div{
+        padding:24px 40px 42px 50px;
+    }
+}
+
+.THIS .image{
+    border: 3.50685px solid #FFFFFF;
+    box-sizing: border-box;
+}
+
+.THIS .top {
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+}
+.THIS .left {
+    transform: rotate(-180deg);
+    -webkit-transform: rotate(-90deg);
+}
+.THIS .right {
+    transform: rotate(-270deg);
+    -webkit-transform: rotate(-90deg);
+}
+
+.THIS .arrow {
+    border: solid #706e6b;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.THIS.slds-spinner_container {
+    z-index: 10000;
+    position: fixed;
+}
+.THIS .chas-button.loading-true::after {
+    left: 0.5rem;
+}
+@media (max-width: 480px) {
+    .THIS .chas-button.loading-true::after {
+        left: 0.5rem;
+        margin:0;
+    }
+}
+
+.THIS .inner-action{
+    font-size: 16px;
+    font-weight:500 !important;
+    letter-spacing:0.8px;
+    line-height: 24px;
+    color: #212129;
+    padding-right:32px;
+    display:flex;
+}
+.THIS .inner-action-div{
+    text-align: center;
+    white-space: nowrap;
+    background: #EEEEEE;
+    right: 37%;
+    left: 16%;
+    top: 70%;
+    box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.03);
+    justify-content: space-between;
+}
+.THIS .address-box{
+    height: 52px;
+    background: #F5F5F5;
+    border-radius: 3px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.06);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:16px;
+    margin-bottom:16px;
+}
+@media (min-width: 480px) {
+    .THIS .address-box{
+        width: 440px;
+    }
+}
+/*.THIS .slds-form-element__label {
+font-size: 16px;
+font-weight: 500;
+display: block;
+}*/
+.THIS .form-input-container{
+    max-width:none;
+    margin-bottom:0;
+}
+.THIS .chas-input{
+    margin-bottom: 0;
+}
+.THIS h4 {
+    letter-spacing:0.8px;
+}
+.THIS .bottom-padding {
+    padding-bottom:24px;
+    line-height: 24px;
+    color: #4D4D54;
+}
+@media (max-width: 480px) {
+    .THIS .bottom-padding {
+        padding-bottom:32px;
+    }
+}
+@media (min-width: 680px) {
+    .THIS .desktop-view {
+        display:block;
+    }
+    .THIS .mobile-view {
+        display:none;
+    }
+}
+@media (max-width: 680px) {
+    .THIS .desktop-view {
+        display:none;
+    }
+    .THIS .mobile-view {
+        display:block;
+    }
+}
+.THIS .slds-required{
+    display: none;
+}
+.THIS .slds-input{
+    line-height: 44px;
+    border: 2px solid #919194;
+    border-radius: 6px;
+}
+.THIS .slds-lookup__item-action
+{
+    padding: 0.25rem 0.75rem;
+}
+
+.THIS .tracking-error .info-box {
+    border: none;
+    border-left: 3px solid #EDA51F;
+    background-color: #FBEDD2;
+}
+
+.THIS .tracking-info .info-box {
+    border: none;
+}
+
+.THIS .message-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    font-style: normal;
+}
+
+.THIS .message-icon {
+    min-width: 20px;
+    width: 20px;
+}
+
+.THIS .link-plain {
+    color: inherit;
+    transition: none;
+    text-decoration: underline;
+}
