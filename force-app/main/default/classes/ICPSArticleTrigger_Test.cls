@@ -21,7 +21,7 @@ class ICPSArticleTrigger_Test {
 		List<ICPSArticle__c> articles = ICPSTestDataFactory.getICPSArticles(icps[0].Id, 1, false);
 		insert articles;
 
-		((ICPSArticleTriggerHandler)MockUtility.Mocks.verify(articleHandler, MockUtility.Mocks.times(4))).dispatch(); // 4 per transaction
+		((ICPSArticleTriggerHandler)MockUtility.Mocks.verify(articleHandler, MockUtility.Mocks.times(2)).dispatch(); // 4 per transaction
 		System.assert(true, 'PMD by-pass');
 	}
 }
