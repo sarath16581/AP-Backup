@@ -89,7 +89,22 @@ public inherited sharing class STHSCommunityService {
     public String getCaseNumber(Id caseId){
         ElevatedSharingContext context = new ElevatedSharingContext();
         return context.getCasesById(new Set<Id> {caseId}).get(caseId).CaseNumber;
-    } 
+    }
+    
+    /**
+     * Build the case comments from the form data
+     */
+    public String buildCaseCommentsWithFormData(String commentBody, Map<Object,String> formData) {
+        commentBody += '\n' + 'What does it relate to ? - ' + formData.get(STHSConstants.FORM_DATA_ENQUIRY_TYPE);
+        if (formData.get(STHSConstants.FORM_DATA_REFERENCE) != null) {
+            commentBody += '\n' + 'Reference - ' + formData.get(STHSConstants.FORM_DATA_REFERENCE);
+        }
+        commentBody += '\n' + 'First Name - ' + formData.get(STHSConstants.FORM_DATA_FNAME);
+        commentBody += '\n' + 'Phone no - ' + formData.get(STHSConstants.FORM_DATA_PHONE);
+        commentBody += '\n' + 'Email - ' + formData.get(STHSConstants.FORM_DATA_EMAIL);
+        commentBody += '\n' + 'Your feedback - ' + formData.get(STHSConstants.FORM_DATA_ENQUIRY);
+        return commentBody;
+    }
 
     /**
 	* Private inner class that elevates access/edit privileges of the current user to edit data without being limited by

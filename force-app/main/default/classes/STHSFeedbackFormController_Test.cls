@@ -35,6 +35,7 @@ public with sharing class STHSFeedbackFormController_Test {
 		// =====================================
 		Map<Object, String> formData = formDataSetup();
 
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -44,6 +45,7 @@ public with sharing class STHSFeedbackFormController_Test {
         MockUtility.Mocks.startStubbing();
 	    ((STHSCommunityService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).getCaseDefaultValues((Case)fflib_Match.anyObject());
 		((STHSCommunityService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).getFormCaseData((Case)fflib_Match.anyObject(), (Map<Object, String>)fflib_Match.eq(formData));
+		MockUtility.Mocks.when(mockService.buildCaseCommentsWithFormData((String)fflib_Match.anyObject(), (Map<Object, String>)fflib_Match.eq(formData))).thenReturn('First Name - Test');
 		((STHSCommunityService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockService)).insertRecords((List<SObject>)fflib_Match.anyObject());
 		MockUtility.Mocks.when(mockService.getCaseNumber((Id)fflib_Match.isNull())).thenReturn('475123');
         MockUtility.Mocks.stopStubbing();
@@ -62,7 +64,8 @@ public with sharing class STHSFeedbackFormController_Test {
         // should have called STHSCommunityService methods
         ((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getCaseDefaultValues((Case)fflib_Match.anyObject());
 		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getFormCaseData((Case)fflib_Match.anyObject(), (Map<Object, String>)fflib_Match.eq(formData));
-		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).insertRecords((List<SObject>)fflib_Match.anyObject());
+		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).buildCaseCommentsWithFormData((String)fflib_Match.anyObject(), (Map<Object, String>)fflib_Match.eq(formData));
+		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(2))).insertRecords((List<SObject>)fflib_Match.anyObject());
 		((STHSCommunityService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).getCaseNumber((Id)fflib_Match.isNull());
 	}
 

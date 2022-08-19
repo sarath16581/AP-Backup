@@ -36,7 +36,7 @@
 						<lightning-layout-item size="12" medium-device-size="9">
 							<lightning-combobox
 								data-validation="feedbackForm"
-								data-field-name="feedBackType"
+								data-field-name="enquiryType"
 								name="enquiry"
 								class="form-dropdown"
 								label="What does it relate to?"
@@ -44,7 +44,7 @@
 								options={enquiryOptions}
 								onchange={handleEnquiryChange}
 								required
-								value={formData.feedbackType}
+								value={formData.enquiryType}
 								message-when-value-missing={label.invalidFeedbackTypeSelection}></lightning-combobox>
 						</lightning-layout-item>
 						<template if:true={showReference}>
@@ -149,7 +149,7 @@
 								name="feedbackDetails"
 								label="Your feedback"
 								data-validation="feedbackForm"
-								data-field-name="feedbackDetails"
+								data-field-name="enquiry"
 								onchange={handleInputChange}
 								value={formData.enquiry}
 								required
