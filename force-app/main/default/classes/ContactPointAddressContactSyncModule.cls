@@ -5,17 +5,18 @@
  * @author George Nguyen
  * @group Domain
  * @domain ContactPointAddress
+ * @test ContactPointAddressCtSyncModule_Test
  * @changelog
  * 2022-05-22 - George Nguyen - Created.
  *
  */
-public with sharing class ContactPointAddressDomainModule extends ApplicationDomain.Module {
-	public static ContactPointAddressDomainModule newInstance() {
-		return (ContactPointAddressDomainModule) Application.Utilities.newInstance(ContactPointAddressDomainModule.class);
+public with sharing class ContactPointAddressContactSyncModule extends ApplicationDomain.Module {
+	public static ContactPointAddressContactSyncModule newInstance() {
+		return (ContactPointAddressContactSyncModule) Application.Utilities.newInstance(ContactPointAddressContactSyncModule.class);
 	}
 
 	// Setup which trigger events this module should respond to
-	public ContactPointAddressDomainModule() {
+	public ContactPointAddressContactSyncModule() {
 		getTriggerEvents().enableAfterInsert().enableAfterUpdate().enableAfterDelete();
 	}
 
@@ -26,10 +27,10 @@ public with sharing class ContactPointAddressDomainModule extends ApplicationDom
 			UTIL_LoggingService.logHandledException(
 				e,
 				UserInfo.getOrganizationId(),
-				'ContactPointAddressDomainModule',
+				'ContactPointAddressContactSyncModule',
 				CustomerDataSyncEventHandler.class.getName(),
 				'onAfterInsert',
-				'ContactPointAddressDomainModule',
+				'ContactPointAddressContactSyncModule',
 				LoggingLevel.ERROR
 			);
 		}
@@ -42,10 +43,10 @@ public with sharing class ContactPointAddressDomainModule extends ApplicationDom
 			UTIL_LoggingService.logHandledException(
 				e,
 				UserInfo.getOrganizationId(),
-				'ContactPointAddressDomainModule',
+				'ContactPointAddressContactSyncModule',
 				CustomerDataSyncEventHandler.class.getName(),
 				'onAfterUpdate',
-				'ContactPointAddressDomainModule',
+				'ContactPointAddressContactSyncModule',
 				LoggingLevel.ERROR
 			);
 		}
@@ -58,28 +59,47 @@ public with sharing class ContactPointAddressDomainModule extends ApplicationDom
 			UTIL_LoggingService.logHandledException(
 				e,
 				UserInfo.getOrganizationId(),
-				'ContactPointAddressDomainModule',
+				'ContactPointAddressContactSyncModule',
 				CustomerDataSyncEventHandler.class.getName(),
 				'onAfterDelete',
-				'ContactPointAddressDomainModule',
+				'ContactPointAddressContactSyncModule',
 				LoggingLevel.ERROR
 			);
 		}
 	}
 
+	/*
+	 * This method will check for valid records to process in the overload method of syncContactPointAddressToContacts(Set<Id> contactIds, ApplicationUnitOfWork uow)
+	 * Note: for Insert and Delete we only need to check for Contact__c as it will always pass in records. 
+	 */
 	private void syncContactPointAddressToContacts(
 		List<ContactPointAddress> records,
 		Map<Id, ContactPointAddress> existingRecords,
 		ApplicationUnitOfWork uow
 	) {
 		Set<Id> contactIds = new Set<Id>();
-		if (records != null) {
+		if (records != null && existingRecords == null) { // Insert
 			for (ContactPointAddress cpa : records) {
 				if (cpa.Contact__c != null) {
 					contactIds.add(cpa.Contact__c);
 				}
 			}
-		} else if (records == null && existingRecords != null) {
+		} else if (records != null && existingRecords != null) { // Update
+			for (ContactPointAddress cpa : records) {
+				ContactPointAddress existingCpa = existingRecords.get(cpa.Id);
+				if (cpa.Contact__c != null && 
+					(
+						cpa.Street != existingCpa.Street || 
+						cpa.Street2__c != existingCpa.Street2__c || 
+						cpa.City != existingCpa.City || 
+						cpa.PostalCode != existingCpa.PostalCode || 
+						cpa.State != existingCpa.State || 
+						cpa.Country != existingCpa.Country
+					)) {
+					contactIds.add(cpa.Contact__c);
+				}
+			}
+		} else if (records == null && existingRecords != null) { // Delete
 			for (ContactPointAddress cpa : existingRecords.values()) {
 				if (cpa.Contact__c != null) {
 					contactIds.add(cpa.Contact__c);
@@ -166,7 +186,7 @@ public with sharing class ContactPointAddressDomainModule extends ApplicationDom
 					Contact.OtherState,
 					Contact.OtherCountry
 				},
-				'ContactPointAddressDomainModule'
+				'ContactPointAddressContactSyncModule'
 			);
 		}
 	}
@@ -176,7 +196,7 @@ public with sharing class ContactPointAddressDomainModule extends ApplicationDom
 	 */
 	public class Constructor implements ApplicationDomain.IConstructableModule {
 		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) ContactPointAddressDomainModule.newInstance();
+			return (ApplicationDomain.Module) ContactPointAddressContactSyncModule.newInstance();
 		}
 	}
 }

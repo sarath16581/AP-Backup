@@ -2,12 +2,12 @@
  * @author George Nguyen
  * @date 2022-05-25
  * @domain Core
- * @description Test class for ContactPointEmailDomainModule
+ * @description Test class for ContactPointEmailContactSyncModule
  * @changelog
  * 2022-05-25 - George Nguyen - Created
  */
 @IsTest
-public with sharing class ContactPointEmailDomainModule_Test {
+public with sharing class ContactPointEmailContactSyncModule_Test {
 
 	@IsTest
 	static void makingSureTheUserIsUpdatedWithTheFieldsFromContactPointEmail() {
@@ -24,8 +24,8 @@ public with sharing class ContactPointEmailDomainModule_Test {
 		List<User> existingUsers = ApplicationTestDataFactory.getCommunityUsers(1, new List<Id>{ ct1.Id }, true);
 		User existingUser = existingUsers[0];
 
-		ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorker worker = new ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorker();
-		ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorkerParameters params = new ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorkerParameters();
+		ContactPointEmailContactSyncModule.AsyncUpdateUserLoginDetailsWorker worker = new ContactPointEmailContactSyncModule.AsyncUpdateUserLoginDetailsWorker();
+		ContactPointEmailContactSyncModule.AsyncUpdateUserLoginDetailsWorkerParameters params = new ContactPointEmailContactSyncModule.AsyncUpdateUserLoginDetailsWorkerParameters();
 		params.userIdsAndContactPointEmailIds = new List<String>{existingUser.Id + '-' + cpe1.Id};
 
 		ContactPointEmailSelector mockEmailSelector = (ContactPointEmailSelector) MockUtility.mockSelector(ContactPointEmailSelector.class);
@@ -41,7 +41,7 @@ public with sharing class ContactPointEmailDomainModule_Test {
 
 		Test.startTest();
 
-		System.assertEquals(ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorker.class, worker.getClassType(), 'matching type');
+		System.assertEquals(ContactPointEmailContactSyncModule.AsyncUpdateUserLoginDetailsWorker.class, worker.getClassType(), 'matching type');
 		System.assertEquals(User.SObjectType, worker.getSObjectTypeGroup(), 'matching type');
 
 		worker.deserialiseParams(JSON.serialize(params));
@@ -62,7 +62,7 @@ public with sharing class ContactPointEmailDomainModule_Test {
 				User.FederationIdentifier
 			}),
 			fflib_Match.eqBoolean(false),
-			fflib_Match.eqString(ContactPointEmailDomainModule.class.getName() + '.' + ContactPointEmailDomainModule.AsyncUpdateUserLoginDetailsWorker.class.getName())
+			fflib_Match.eqString(ContactPointEmailContactSyncModule.class.getName() + '.' + ContactPointEmailContactSyncModule.AsyncUpdateUserLoginDetailsWorker.class.getName())
 		);
 
 		// PMD Warning
@@ -150,7 +150,7 @@ public with sharing class ContactPointEmailDomainModule_Test {
 
 		Test.startTest();
 
-		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
+		ContactPointEmailContactSyncModule module = ContactPointEmailContactSyncModule.newInstance();
 		module.onAfterInsert((List<SObject>) cpEmails, mockUow);
 
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<Contact>) fflib_Match.eq(contacts.values()),(List<SObjectField>)fflib_Match.anyObject(),fflib_Match.anyString());
@@ -292,7 +292,7 @@ public with sharing class ContactPointEmailDomainModule_Test {
 
 		Test.startTest();
 
-		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
+		ContactPointEmailContactSyncModule module = ContactPointEmailContactSyncModule.newInstance();
 		module.onAfterUpdate((List<SObject>) cpEmails, (Map<Id, SObject>) existingRecords, mockUow);
 
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<Contact>) fflib_Match.eq(contacts.values()),(List<SObjectField>)fflib_Match.anyObject(),fflib_Match.anyString());
@@ -389,7 +389,7 @@ public with sharing class ContactPointEmailDomainModule_Test {
 
 		Test.startTest();
 
-		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
+		ContactPointEmailContactSyncModule module = ContactPointEmailContactSyncModule.newInstance();
 		module.onAfterDelete((List<SObject>) cpEmails, mockUow);
 
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<Contact>) fflib_Match.eq(contacts.values()),(List<SObjectField>)fflib_Match.anyObject(),fflib_Match.anyString());
@@ -407,7 +407,7 @@ public with sharing class ContactPointEmailDomainModule_Test {
 		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
 		insert logLevel;
 		Test.startTest();
-		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
+		ContactPointEmailContactSyncModule module = ContactPointEmailContactSyncModule.newInstance();
 		module.onAfterUpdate(new List<SObject>{},new Map<Id,SObject>{},null);
 		Test.stopTest();
 		//an exception should be created when thre are invalid parameters in the onAfterUpdate
@@ -422,7 +422,7 @@ public with sharing class ContactPointEmailDomainModule_Test {
 		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
 		insert logLevel;
 		Test.startTest();
-		ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
+		ContactPointEmailContactSyncModule module = ContactPointEmailContactSyncModule.newInstance();
 		module.onAfterInsert(new List<SObject>{},null);
 		Test.stopTest();
 		//an exception should be created when thre are invalid parameters in the onAfterInsert
@@ -437,7 +437,7 @@ public with sharing class ContactPointEmailDomainModule_Test {
 			logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
 			insert logLevel;
 			Test.startTest();
-			ContactPointEmailDomainModule module = ContactPointEmailDomainModule.newInstance();
+			ContactPointEmailContactSyncModule module = ContactPointEmailContactSyncModule.newInstance();
 			module.onAfterDelete(new List<SObject>{},null);
 			Test.stopTest();
 			//an exception should be created when thre are invalid parameters in the onAfterDelete

@@ -9,13 +9,13 @@
  * 2022-05-22 - George Nguyen - Created.
  *
  */
-public inherited sharing class ContactPointPhoneDomainModule extends ApplicationDomain.Module {
-	public static ContactPointPhoneDomainModule newInstance() {
-		return (ContactPointPhoneDomainModule) Application.Utilities.newInstance(ContactPointPhoneDomainModule.class);
+public inherited sharing class ContactPointPhoneContactSyncModule extends ApplicationDomain.Module {
+	public static ContactPointPhoneContactSyncModule newInstance() {
+		return (ContactPointPhoneContactSyncModule) Application.Utilities.newInstance(ContactPointPhoneContactSyncModule.class);
 	}
 
 	// Setup which trigger events this module should respond to
-	public ContactPointPhoneDomainModule() {
+	public ContactPointPhoneContactSyncModule() {
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate().enableAfterDelete();
 	}
 
@@ -32,15 +32,15 @@ public inherited sharing class ContactPointPhoneDomainModule extends Application
 		try {
 			List<SObject> recordsToUpdate = (List<SObject>) ContactService.getInstance()
 				.syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null, null);
-			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneDomainModule.class.getName());
+			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneContactSyncModule.class.getName());
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
 				e,
 				UserInfo.getOrganizationId(),
-				'ContactPointPhoneDomainModule',
-				ContactPointPhoneDomainModule.class.getName(),
+				'ContactPointPhoneContactSyncModule',
+				ContactPointPhoneContactSyncModule.class.getName(),
 				'onAfterInsert',
-				'ContactPointPhoneDomainModule',
+				'ContactPointPhoneContactSyncModule',
 				LoggingLevel.ERROR
 			);
 		}
@@ -50,15 +50,15 @@ public inherited sharing class ContactPointPhoneDomainModule extends Application
 		try {
 			List<SObject> recordsToUpdate = ContactService.getInstance()
 				.syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null, (Map<Id, ContactPointPhone>) existingRecords);
-			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneDomainModule.class.getName());
+			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneContactSyncModule.class.getName());
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
 				e,
 				UserInfo.getOrganizationId(),
-				'ContactPointPhoneDomainModule',
-				ContactPointPhoneDomainModule.class.getName(),
+				'ContactPointPhoneContactSyncModule',
+				ContactPointPhoneContactSyncModule.class.getName(),
 				'onAfterUpdate',
-				'ContactPointPhoneDomainModule',
+				'ContactPointPhoneContactSyncModule',
 				LoggingLevel.ERROR
 			);
 		}
@@ -68,15 +68,15 @@ public inherited sharing class ContactPointPhoneDomainModule extends Application
 		try {
 			List<SObject> recordsToUpdate = ContactService.getInstance()
 				.syncContactPointPhoneToContacts(null, (List<ContactPointPhone>) records, null);
-			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneDomainModule.class.getName());
+			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneContactSyncModule.class.getName());
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
 				e,
 				UserInfo.getOrganizationId(),
-				'ContactPointPhoneDomainModule',
-				ContactPointPhoneDomainModule.class.getName(),
+				'ContactPointPhoneContactSyncModule',
+				ContactPointPhoneContactSyncModule.class.getName(),
 				'onAfterDelete',
-				'ContactPointPhoneDomainModule',
+				'ContactPointPhoneContactSyncModule',
 				LoggingLevel.ERROR
 			);
 		}
@@ -91,7 +91,7 @@ public inherited sharing class ContactPointPhoneDomainModule extends Application
 	 */
 	public class Constructor implements ApplicationDomain.IConstructableModule {
 		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) ContactPointPhoneDomainModule.newInstance();
+			return (ApplicationDomain.Module) ContactPointPhoneContactSyncModule.newInstance();
 		}
 	}
 }

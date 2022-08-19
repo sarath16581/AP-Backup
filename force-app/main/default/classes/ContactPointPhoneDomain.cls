@@ -17,7 +17,7 @@ public inherited sharing class ContactPointPhoneDomain extends ApplicationDomain
 	public override void registerModules() {
 		// these module will be available for domain operations and trigger execution
 		if (ContactService.getInstance().checkCurrentUserIsIntegrationUser(UserInfo.getUserId())) {
-			registerModule(ContactPointPhoneDomainModule.class);
+			registerModule(ContactPointPhoneContactSyncModule.class);
 		}
 	}
 

@@ -2,12 +2,13 @@
  * @description       : Helper Class to perform Customer related logic for Connected Customer
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 08-12-2022
+ * @last modified on  : 08-15-2022
  * @last modified by  : Sreenish Krishnan
  **/
 public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	private static final String APCN = 'APCN';
 	private static final String SFID = 'SFID';
+	private static final Integer NO_LIMIT = 0;
 	private ID personAccId;
 	private Map<String, List<Account>> custMap = new Map<String, List<Account>>{ APCN => new List<Account>(), SFID => new List<Account>() };
 	private Map<ID, Account> custSuccessMap = new Map<ID, Account>();
@@ -168,7 +169,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 
 	//query Customer after upsert to fetch the person contact ids
 	private Map<ID, Account> genSuccessCustomerMap(Set<ID> accIds) {
-		return AccountsSelector.newInstance(200, getFieldOverridesUpsertCustomer()).selectById(accIds);
+		return AccountsSelector.newInstance(NO_LIMIT, getFieldOverridesUpsertCustomer()).selectById(accIds);
 	}
 
 	//map the person account fields

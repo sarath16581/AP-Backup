@@ -26,7 +26,7 @@ private class ContactPointAddressDomain_Test {
 		List<SObject> contactPointAddresses = ApplicationTestDataFactory.getContactPointAddresses(1, contacts[0].Id, true);
 
 		ApplicationDomain appDomain = constructor.construct(contactPointAddresses);
-		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(ContactPointAddressDomainModule.class);
+		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(ContactPointAddressContactSyncModule.class);
 
 		// PMD by-pass
 		System.assert(true, 'PMD by-pass');

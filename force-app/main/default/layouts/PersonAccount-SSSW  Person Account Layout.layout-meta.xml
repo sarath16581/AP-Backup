@@ -130,7 +130,7 @@
                 <field>PersonEmail</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>VerifiedEmail__pc</field>
             </layoutItems>
             <layoutItems>
