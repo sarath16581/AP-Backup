@@ -61,4 +61,16 @@ public inherited sharing class PUDPrintableBookingWrapper {
 		}
         return endTime;
     }
+
+	//return Booking Start and End time in HHMM format
+	// e.g. Startime/endtime will be displayed as 1200 - 1215
+	// Scenarios: 1. StartTime & EndTime == NULL, display whitespace.
+	//				2. StartTime(1000) != NULL, EndTime = NULL, display '1000 -' 
+	//				3. StartTime == NULL, EndTime(1100) != NULL, display ' - 1100' 
+	public String getBookingDuration(){
+		String startTime = getStartTimeString();
+		String endTime = getEndTimeString();
+		
+		return PUDPrintUtility.getDuration(startTime, endTime);
+	}
 }

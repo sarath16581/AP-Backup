@@ -34,16 +34,16 @@ public inherited sharing class PUDPrintableRouteWrapper {
 		}
 	}
 
-	//getter for startTimeString
-	//return time in HHMM format
-	public String getStartTimeString(){
-		return PUDPrintUtility.getDisplayTime(this.route.Start_Time__c);
-	}
-
-	//getter for endTimeString
-	//return time in HHMM format
-	public String getEndTimeString(){
-		return PUDPrintUtility.getDisplayTime(this.route.End_Time__c);
+	//return Route Start and End time in HHMM format
+	// e.g. Startime/endtime will be displayed as 1200 - 1215
+	// Scenarios: 1. StartTime & EndTime == NULL, display whitespace.
+	//				2. StartTime(1000) != NULL, EndTime = NULL, display '1000 -' 
+	//				3. StartTime == NULL, EndTime(1100) != NULL, display ' - 1100' 
+	public String getRouteDuration(){
+		String startTime = PUDPrintUtility.getDisplayTime(this.route.Start_Time__c);
+		String endTime = PUDPrintUtility.getDisplayTime(this.route.End_Time__c);
+		
+		return PUDPrintUtility.getDuration(startTime, endTime);
 	}
 	
 }

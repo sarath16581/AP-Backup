@@ -27,14 +27,8 @@
                                 <apex:outputText rendered="{! routeWrapper.route.Friday__c}" value="Fri "/>
                                 <apex:outputText rendered="{! routeWrapper.route.Saturday__c}" value="Sat "/>
                                 <apex:outputText rendered="{! routeWrapper.route.Sunday__c}" value="Sun "/>
-	                        <!-- display time in hhmm format -->
-                            <apex:outputText rendered="{! !ISBLANK(routeWrapper.route.Start_Time__c)}">
-                                {! routeWrapper.startTimeString}
-                            </apex:outputText>
-                            <apex:outputText rendered="{! !ISBLANK(routeWrapper.route.End_Time__c)}">
-                                -&nbsp;
-	                        	{! routeWrapper.endTimeString}
-						    </apex:outputText>
+	                        	<!-- display time in hhmm format -->
+                      			<apex:outputText> {! routeWrapper.routeDuration}</apex:outputText>
                             </span>
 			</td>
 			<td class="boldcell"
@@ -48,24 +42,14 @@
 				Rest Break:
 			</td>
 			<td class="boldcell" style="font-size:12px;  vertical-align:top; width:210px; display:inline-block">
-				<apex:variable var="breaksNumber" value="{!0}"/>
 				<!-- iterate through Meal Break bookings -->
 				<apex:repeat value="{!routeWrapper.mealBreaks}" var="bookingWrapper">
 					<apex:outputText > 						<br/>
 					</apex:outputText>
 					<apex:outputText rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Location_Name_LU__c)}">{!bookingWrapper.booking.Booking_Location_Name_LU__c} &nbsp;
 					</apex:outputText>
-					<apex:outputText >
-							{! bookingWrapper.startTimeString}
-						</apex:outputText>
-					<apex:outputText rendered="{! AND(!ISBLANK(bookingWrapper.booking.Start_Time__c),!ISBLANK(bookingWrapper.booking.Dwell_Time_Planned__c))}">
-						<apex:outputText >
-							-
-								{! bookingWrapper.endTimeString}
-						</apex:outputText>
-					</apex:outputText>
-					<apex:outputText >
-						<apex:variable var="breaksNumber" value="{!breaksNumber+1}"/>
+					<apex:outputText>
+						{!bookingWrapper.bookingDuration}
 					</apex:outputText>
 				</apex:repeat>
 			</td>

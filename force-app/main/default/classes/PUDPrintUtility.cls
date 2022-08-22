@@ -41,4 +41,37 @@ public inherited sharing class PUDPrintUtility {
 		
 		return displayTimeString;
     }
+
+
+
+	/**
+     * @param StarTime, EndTime value
+     * @return concatinate StartTime and EndTime with '-'
+     * @desc
+	 * 		1. StartTime & EndTime == NULL, display whitespace.
+	 *		2. StartTime(1000) != NULL, EndTime = NULL, display '1000 -' 
+	 *		3. StartTime == NULL, EndTime(1100) != NULL, display ' - 1100' 
+     */
+	public static String getDuration(String startTime, String endTime){
+		String duration = '';
+
+		// return blank if both startTime and endTime is blank
+		if(String.isBlank(startTime) && String.isBlank(endTime)){
+			return duration;
+		}
+
+		// add start time and append with ' - '
+		if(String.isNotBlank(startTime)){
+			duration += startTime + ' - ';
+		}
+		else{
+			duration += ' - ';
+		}
+		
+		if(String.isNotBlank(endTime)){
+			duration += endTime;
+		}
+		
+		return duration;
+	}
 }

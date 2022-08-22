@@ -38,13 +38,7 @@
 		<apex:outputText rendered="{! routeWrapper.route.Friday__c}" value="Fri "/>
 		<apex:outputText rendered="{! routeWrapper.route.Saturday__c}" value="Sat "/>
 		<apex:outputText rendered="{! routeWrapper.route.Sunday__c}" value="Sun "/>
-		<apex:outputText rendered="{! !ISBLANK(routeWrapper.route.Start_Time__c)}">
-			<!-- display time in hhmm format-->
-			{!routeWrapper.startTimeString}
-		</apex:outputText>
-		<apex:outputText rendered="{! !ISBLANK(routeWrapper.route.End_Time__c)}">
-			-&nbsp;
-				{!routeWrapper.endTimeString}
-		</apex:outputText>
+		<!-- display time in hhmm format-->
+		<apex:outputText> {! routeWrapper.routeDuration}</apex:outputText>
 	</div>
 </apex:component>
