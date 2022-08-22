@@ -166,4 +166,35 @@ public with sharing class STHSCommunityService_Test {
         ((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{caseRecord.Id}));
 	}
 
+    /**
+	 * Scenario: Testing to build the case comments
+	 */
+	@IsTest
+	private static void testBuildCaseCommentsWithFormData() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+        Map<Object, String> formData = formDataSetup();
+        String commentBody;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+        // None
+
+		// =====================================
+		// Testing
+		// =====================================
+        Test.startTest();
+        
+        STHSCommunityService service = STHSCommunityService.getInstance();
+        commentBody = service.buildCaseCommentsWithFormData(commentBody, formData);
+
+        Test.stopTest();
+
+        System.assertNotEquals(null, commentBody, 'Expected case comments to be populated but instead got null.');
+
+	}
+
 }

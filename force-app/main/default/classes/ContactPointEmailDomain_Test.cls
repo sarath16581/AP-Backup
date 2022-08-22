@@ -25,7 +25,7 @@ private class ContactPointEmailDomain_Test {
 		List<SObject> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
 
 		ApplicationDomain appDomain = constructor.construct(contacts);
-		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(ContactPointEmailDomainModule.class);
+		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(ContactPointEmailContactSyncModule.class);
 
 		// PMD by-pass
 		System.assert(true, 'PMD by-pass');

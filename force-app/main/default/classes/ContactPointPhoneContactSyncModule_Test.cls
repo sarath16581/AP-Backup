@@ -2,12 +2,12 @@
  * @author George Nguyen
  * @date 2022-05-25
  * @domain Core
- * @description Test class for ContactPointPhoneDomainModule
+ * @description Test class for ContactPointPhoneContactSyncModule
  * @changelog
  * 2022-05-25 - George Nguyen - Created
  */
 @IsTest
-public with sharing class ContactPointPhoneDomainModule_Test {
+public with sharing class ContactPointPhoneContactSyncModule_Test {
 	@IsTest
 	static void onBeforeInsert() {
 		ContactService mockService = (ContactService) MockUtility.mockUtility(ContactService.class);
@@ -15,7 +15,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		MockUtility.Mocks.stopStubbing();
 
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+		ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
 		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
 		List<ContactPointPhone> contactPointPhones = ApplicationTestDataFactory.getContactPointPhones(1, accounts[0].Id, true);
 
@@ -41,7 +41,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		MockUtility.Mocks.stopStubbing();
 
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+		ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
 		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
 		List<ContactPointPhone> contactPointPhones = ApplicationTestDataFactory.getContactPointPhones(1, accounts[0].Id, true);
 		ContactPointPhone ctp1 = contactPointPhones[0];
@@ -119,7 +119,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		//test start and stop
 		Test.startTest();
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointPhoneTriggerHandler.getUnitOfWorkSObjectTypes());
-		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+		ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
 		module.onAfterInsert((List<SObject>) cpPhones1, uow);
 
 		Test.stopTest();
@@ -188,7 +188,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		//test start and stop
 		Test.startTest();
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointPhoneTriggerHandler.getUnitOfWorkSObjectTypes());
-		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+		ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
 		module.onAfterUpdate((List<SObject>) cpPhones1, (Map<Id, SObject>) existing, uow);
 
 		Test.stopTest();
@@ -255,7 +255,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		//test start and stop
 		Test.startTest();
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactPointPhoneTriggerHandler.getUnitOfWorkSObjectTypes());
-		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+		ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
 		module.onAfterDelete((List<SObject>) cpPhones1, uow);
 
 		Test.stopTest();
@@ -275,7 +275,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
 		insert logLevel;
 		Test.startTest();
-		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+		ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
 		module.onAfterUpdate(new List<SObject>{},new Map<Id,SObject>{},null);
 		Test.stopTest();
 		//an exception should be created when thre are invalid parameters in the onAfterUpdate
@@ -290,7 +290,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
 		insert logLevel;
 		Test.startTest();
-		ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+		ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
 		module.onAfterInsert(new List<SObject>{},null);
 		Test.stopTest();
 		//an exception should be created when thre are invalid parameters in the onAfterInsert
@@ -305,7 +305,7 @@ public with sharing class ContactPointPhoneDomainModule_Test {
 			logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
 			insert logLevel;
 			Test.startTest();
-			ContactPointPhoneDomainModule module = ContactPointPhoneDomainModule.newInstance();
+			ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
 			module.onAfterDelete(null,null);
 			Test.stopTest();
 			//an exception should be created when thre are invalid parameters in the onAfterDelete

@@ -2,7 +2,7 @@
  * @description       : This is the method called from the Customer Data Sync Platform Event Trigger
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 08-13-2022
+ * @last modified on  : 08-15-2022
  * @last modified by  : Sreenish Krishnan
  **/
 
@@ -10,8 +10,11 @@ public inherited sharing class CustomerDataSyncEventHandler {
 	public class CustomerDataSyncException extends Exception {
 	}
 	//key class variables
+	private static final String APP_NAME = 'Connected Customer';
 	private static final String APCN = 'APCN';
 	private static final String SFID = 'SFID';
+	private static final Integer NO_LIMIT = 0;
+
 	Set<String> apcns = new Set<String>();
 	Set<ID> sfIds = new Set<ID>();
 
@@ -178,17 +181,13 @@ public inherited sharing class CustomerDataSyncEventHandler {
 				resultCPAInsert = ApplicationDatabase.getInstance().dmlInsert(cpAddressToInsert);
 			}
 
-
 			//throw exception if there are any failures in the results
-			logSaveAndDeleteResultsException(null,resultCPEDelete);
-			logSaveAndDeleteResultsException(null,resultCPPDelete);
-			logSaveAndDeleteResultsException(resultCPAInsert,null);
+			logSaveAndDeleteResultsException(null, resultCPEDelete);
+			logSaveAndDeleteResultsException(null, resultCPPDelete);
+			logSaveAndDeleteResultsException(resultCPAInsert, null);
 
 			logUpsertResultsException(resultCPEUpsert);
 			logUpsertResultsException(resultCPPUpsert);
-
-
-
 		} catch (Exception e) {
 			throw new CustomerDataSyncException(
 				'DML failed for CP records with exception>>' +
@@ -214,19 +213,19 @@ public inherited sharing class CustomerDataSyncEventHandler {
 				'\n' +
 				'Records of cppUpsertList' +
 				cppUpsertList +
-				'\n'+
+				'\n' +
 				'Results of DML cppUpsertList' +
 				resultCPPUpsert +
 				'\n' +
 				'Records of existingCPAddresses' +
 				existingCPAddresses +
-				'\n'+
+				'\n' +
 				'Results of DML resultCPADelete' +
 				resultCPADelete +
 				'\n' +
 				'Records of cpAddressToInsert' +
 				cpAddressToInsert +
-				'\n'+
+				'\n' +
 				'Results of DML resultCPAInsert' +
 				resultCPAInsert
 			);
@@ -236,6 +235,7 @@ public inherited sharing class CustomerDataSyncEventHandler {
 	//filter and parse
 	private void filterWithParsing(List<CustomerDataSync__e> events) {
 		//collect all apcn's from the event list
+		List<Exception> parseExceptions = new List<Exception>();
 
 		for (CustomerDataSync__e e : events) {
 			try {
@@ -245,16 +245,13 @@ public inherited sharing class CustomerDataSyncEventHandler {
 				genCustSet(e);
 			} catch (Exception ex) {
 				System.debug('>>>>>>>>>>>>>>>>>>>> Exception: ' + ex + '>>>>>>>>>>>>>>>>>>>> Filtered Events:' + filteredEvents);
-				UTIL_LoggingService.logHandledException(
-					ex,
-					UserInfo.getOrganizationId(),
-					'CustomerDataSyncEventHandler',
-					CustomerDataSyncEventHandler.class.getName(),
-					'filterWithParsing',
-					'CustomerDataSyncEventHandler',
-					LoggingLevel.ERROR
-				);
+				parseExceptions.add(ex);
 			}
+		}
+
+		//collect and log parse exception
+		if (!parseExceptions.isEmpty()) {
+			logParsingExceptions(parseExceptions);
 		}
 	}
 
@@ -313,7 +310,12 @@ public inherited sharing class CustomerDataSyncEventHandler {
 			if (e.integrationServiceModDate__c > (filteredEvents.get(e.apcn__c)).integrationServiceModDate__c) {
 				filteredEvents.put(e.apcn__c, e);
 			} else {
-				throw new CustomerDataSyncException('This event ' + e + ' has been discarded as the integration timestamp is older for the apcn '+e.apcn__c);
+				throw new CustomerDataSyncException(
+					'This event ' +
+					e +
+					' has been discarded as the integration timestamp is older for the apcn ' +
+					e.apcn__c
+				);
 			}
 		} else {
 			filteredEvents.put(e.apcn__c, e);
@@ -333,9 +335,9 @@ public inherited sharing class CustomerDataSyncEventHandler {
 		String searchConditions = '(1 OR 2) AND 3';
 		Schema.SObjectField orderByField = Account.Integration_Service_Mod_Date__c;
 
-		//note that this is limited to 200 as the platform event batch size is 200
+		//pass zero in limit for getfieldOverrides
 		for (
-			Account a : AccountsSelector.newInstance(200, getFieldOverridesCustomer())
+			Account a : AccountsSelector.newInstance(NO_LIMIT, getFieldOverridesCustomer())
 				.selectByAPCNAndIdAndPersonAccount(searchParams, searchConditions, orderByField)
 		) {
 			//pick only the latest as its ordered by Integration_Service_Mod_Date__c
@@ -412,7 +414,20 @@ public inherited sharing class CustomerDataSyncEventHandler {
 		);
 	}
 
-	//log exception for upsert result failures as the upsert result 
+	//this method collects and logs the exception
+	private void logParsingExceptions(List<Exception> collectedExceptions) {
+		ApplicationLogger.getInstance()
+			.logException(
+				ApplicationLogger.wrapException(collectedExceptions),
+				APP_NAME,
+				String.valueOf(CustomerDataSyncEventHandler.class),
+				'filterWithParsing',
+				'CustomerDataSyncEventTrigger',
+				ApplicationLogger.LoggingLevel.ERROR
+			);
+	}
+
+	//log exception for upsert result failures as the upsert result
 	private void logUpsertResultsException(List<Database.UpsertResult> upsertResults) {
 		UTIL_LoggingService.createExceptionForUpsertResults(
 			upsertResults,

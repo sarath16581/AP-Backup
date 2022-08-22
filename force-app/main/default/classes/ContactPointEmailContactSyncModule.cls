@@ -2,16 +2,16 @@
  * @description       : This is a CP Email domain module that is called by the CP Email Trigger
  * @author            : Sreenish Krishnan
  * @domain            : connected customer
- * @last modified on  : 08-13-2022
+ * @last modified on  : 08-19-2022
  * @last modified by  : Sreenish Krishnan
  **/
-public inherited sharing class ContactPointEmailDomainModule extends ApplicationDomain.Module {
-	public static ContactPointEmailDomainModule newInstance() {
-		return (ContactPointEmailDomainModule) Application.Utilities.newInstance(ContactPointEmailDomainModule.class);
+public inherited sharing class ContactPointEmailContactSyncModule extends ApplicationDomain.Module {
+	public static ContactPointEmailContactSyncModule newInstance() {
+		return (ContactPointEmailContactSyncModule) Application.Utilities.newInstance(ContactPointEmailContactSyncModule.class);
 	}
 
 	// Setup which trigger events this module should respond to
-	public ContactPointEmailDomainModule() {
+	public ContactPointEmailContactSyncModule() {
 		getTriggerEvents().enableAfterInsert().enableAfterUpdate().enableAfterDelete();
 	}
 
@@ -19,16 +19,16 @@ public inherited sharing class ContactPointEmailDomainModule extends Application
 		try {
 			List<SObject> recordsToUpdate = ContactService.getInstance()
 				.syncContactPointEmailToContacts((List<ContactPointEmail>) records, null, null);
-			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailDomainModule.class.getName());
+			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailContactSyncModule.class.getName());
 			processPortalUsers((List<ContactPointEmail>) records, null, uow);
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
 				e,
 				UserInfo.getOrganizationId(),
-				'ContactPointEmailDomainModule',
-				ContactPointEmailDomainModule.class.getName(),
+				'ContactPointEmailContactSyncModule',
+				ContactPointEmailContactSyncModule.class.getName(),
 				'onAfterInsert',
-				'ContactPointEmailDomainModule',
+				'ContactPointEmailContactSyncModule',
 				LoggingLevel.ERROR
 			);
 		}
@@ -38,17 +38,17 @@ public inherited sharing class ContactPointEmailDomainModule extends Application
 		try {
 			List<SObject> recordsToUpdate = ContactService.getInstance()
 				.syncContactPointEmailToContacts((List<ContactPointEmail>) records, null, (Map<Id, ContactPointEmail>) existingRecords);
-			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailDomainModule.class.getName());
+			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailContactSyncModule.class.getName());
 
 			processPortalUsers((List<ContactPointEmail>) records, (Map<Id, ContactPointEmail>) existingRecords, uow);
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
 				e,
 				UserInfo.getOrganizationId(),
-				'ContactPointEmailDomainModule',
-				ContactPointEmailDomainModule.class.getName(),
+				'ContactPointEmailContactSyncModule',
+				ContactPointEmailContactSyncModule.class.getName(),
 				'onAfterUpdate',
-				'ContactPointEmailDomainModule',
+				'ContactPointEmailContactSyncModule',
 				LoggingLevel.ERROR
 			);
 		}
@@ -58,15 +58,15 @@ public inherited sharing class ContactPointEmailDomainModule extends Application
 		try {
 			List<SObject> recordsToUpdate = ContactService.getInstance()
 				.syncContactPointEmailToContacts(null, (List<ContactPointEmail>) records, null);
-			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailDomainModule.class.getName());
+			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointEmailContactSyncModule.class.getName());
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
 				e,
 				UserInfo.getOrganizationId(),
-				'ContactPointEmailDomainModule',
-				ContactPointEmailDomainModule.class.getName(),
+				'ContactPointEmailContactSyncModule',
+				ContactPointEmailContactSyncModule.class.getName(),
 				'onAfterDelete',
-				'ContactPointEmailDomainModule',
+				'ContactPointEmailContactSyncModule',
 				LoggingLevel.ERROR
 			);
 		}
@@ -183,7 +183,7 @@ public inherited sharing class ContactPointEmailDomainModule extends Application
 	 */
 	public class Constructor implements ApplicationDomain.IConstructableModule {
 		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) ContactPointEmailDomainModule.newInstance();
+			return (ApplicationDomain.Module) ContactPointEmailContactSyncModule.newInstance();
 		}
 	}
 
@@ -229,7 +229,7 @@ public inherited sharing class ContactPointEmailDomainModule extends Application
 						usersToUpdate,
 						new List<SObjectField>{ User.Email, User.Username, User.FederationIdentifier },
 						false, // do not throw exception on error as it is async. It will be logged
-						ContactPointEmailDomainModule.class.getName() +
+						ContactPointEmailContactSyncModule.class.getName() +
 						'.' +
 						AsyncUpdateUserLoginDetailsWorker.class.getName()
 					);

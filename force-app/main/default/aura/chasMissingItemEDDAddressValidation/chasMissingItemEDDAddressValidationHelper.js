@@ -31,7 +31,6 @@
                 ($A.util.isEmpty(overrideAddr) || $A.util.isUndefined(overrideAddr)) &&
                 ($A.util.isEmpty(selectedAddr) || $A.util.isUndefined(selectedAddr))
             ) {
-                //isValid = this.updateErrorSummary(cmp,inputErrors);
                 isValid = false;
                 cmp.set("v.inputFieldError", true);
             }
@@ -44,6 +43,7 @@
     getEDDServiceEstimates : function (component,event, helper)
     {
         try {
+            component.set("v.isLoading", true);
             // call server method to invoke the EDD service
             var action = component.get("c.getEDDEstimates");
             // set method parameters
@@ -76,14 +76,17 @@
                         component.set('v.eddDisplayDate',helper.getEDDDateString(component, event, helper));
                         return;
                     } else {
+                        component.set("v.isLoading", false);
                         helper.gotoNextPage(component, "chasMissingItemWPage02");
                     }
                 } else if (state === "INCOMPLETE") {
                     component.set('v.displaySpinner', false);
+                    component.set("v.isLoading", false);
                     // Enable debugging if required
                 } else if (state === "ERROR") {
                     component.set('v.displaySpinner', false);
                     component.set('v.error500', true);
+                    component.set("v.isLoading", false);
                     var errors = response.getError();
                     if (errors) {
                         if (errors[0] && errors[0].message) {
@@ -98,6 +101,7 @@
 
             $A.enqueueAction(action);
         } catch (err) {
+            component.set("v.isLoading", false);
             console.log('ERROR EDD service estimates: '+err);
             throw err;
         }
@@ -137,24 +141,19 @@
         var addressEntered='';
         var count = 0;
         for (var singlekey in streetAddress) {
-            if(streetAddress[singlekey] == '')
-            {
+            if(streetAddress[singlekey] == '') {
                 allInputs.push(singlekey);
 
-            }
-            //set the address strings into indiviual line items
-            else
-            {
+            } else {
+                //set the address strings into indiviual line items
                 cmp.set("v.wizardData.recipientAddressLine1",streetAddress['addressLine1']);
                 cmp.set("v.wizardData.recipientAddressLine2",streetAddress['addressLine2']);
                 cmp.set("v.wizardData.recipientCity",streetAddress['city']);
                 cmp.set("v.wizardData.recipientState",streetAddress['state']);
                 cmp.set("v.wizardData.recipientPostcode",streetAddress['postcode']);
-                if(streetAddress[singlekey])
-                {
+                if(streetAddress[singlekey]) {
                     addressEntered = addressEntered + streetAddress[singlekey] + ' ';
-                    if(singlekey != 'addressLine2')
-                    {
+                    if(singlekey != 'addressLine2') {
                         count = count + 1;
                     }
                 }
@@ -163,8 +162,7 @@
         cmp.set("v.inputFieldCount", count);
         cmp.set("v.inputErr",allInputs);
         // set the manual address entered
-        if(addressEntered != null && addressEntered !='undefined')
-        {
+        if(addressEntered != null && addressEntered !='undefined') {
             //set the wizard data with the override address
             cmp.set("v.overrideAddress",addressEntered);
             cmp.set('v.wizardData.correctDeliveryAddress', addressEntered);

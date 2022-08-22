@@ -2,12 +2,12 @@
  * @author George Nguyen
  * @date 2022-05-25
  * @domain Core
- * @description Test class for ContactPointAddressDomainModule 
+ * @description Test class for ContactPointAddressContactSyncModule 
  * @changelog
  * 2022-05-25 - George Nguyen - Created
  */
 @IsTest
-public with sharing class ContactPointAddressDomainModule_Test {
+public with sharing class ContactPointAddressCtSyncModule_Test {
     
     /*
     * this test will verify the following method was called:
@@ -57,7 +57,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
         Test.startTest();
 
-        ContactPointAddressDomainModule.newInstance().onAfterInsert(ct1Addresses, uow);
+        ContactPointAddressContactSyncModule.newInstance().onAfterInsert(ct1Addresses, uow);
 
         ((ApplicationUnitOfWork)MockUtility.Mocks.verify(uow, MockUtility.Mocks.times(1))).registerDirty((List<Contact>)fflib_Match.eq(new List<Contact>{
             new Contact(
@@ -92,7 +92,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 			Contact.OtherState,
 			Contact.OtherCountry
 		}),
-        (String)fflib_Match.eq('ContactPointAddressDomainModule'));
+        (String)fflib_Match.eq('ContactPointAddressContactSyncModule'));
 
         // PMD Warning
         System.assert(true);
@@ -112,6 +112,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
         Contact ct1 = contacts[0];
         List<ContactPointAddress> ct1Addresses =  ApplicationTestDataFactory.getContactPointAddresses(2, acc.id, true);
+        Map<Id, ContactPointAddress> existingCt1Addresses = new Map<Id, ContactPointAddress>();
         ContactPointAddress cpa1 = ct1Addresses[0];
         cpa1.Contact__c = ct1.Id;
         cpa1.Street = 'mailing addr 1';
@@ -121,6 +122,14 @@ public with sharing class ContactPointAddressDomainModule_Test {
         cpa1.State = 'mailing addr 1';
         cpa1.Country = 'mailing addr';
         cpa1.AddressType = 'Mailing';
+        ContactPointAddress existingCpa1 = cpa1.clone(true, false, false, false);
+        existingCpa1.Street = 'mailing addr 1 OLD';
+        existingCpa1.Street2__c = 'mailing addr 1 OLD';
+        existingCpa1.City = 'mailing addr 1 OLD';
+        existingCpa1.PostalCode = '1111 OLD';
+        existingCpa1.State = 'mailing addr 1 OLD';
+        existingCpa1.Country = 'mailing addr OLD';
+        existingCt1Addresses.put(existingCpa1.id, existingCpa1);
 
         ContactPointAddress cpa2 = ct1Addresses[1];
         cpa2.Contact__c = ct1.Id;
@@ -131,6 +140,14 @@ public with sharing class ContactPointAddressDomainModule_Test {
         cpa2.State = 'other addr 1';
         cpa2.Country = 'other addr';
         cpa2.AddressType = 'Other';
+        ContactPointAddress existingCpa2 = cpa2.clone(true, false, false, false);
+        existingCpa2.Street = 'other addr 1 OLD';
+        existingCpa2.Street2__c = 'other addr 1 OLD';
+        existingCpa2.City = 'other addr 1 OLD';
+        existingCpa2.PostalCode = '1111 OLD';
+        existingCpa2.State = 'other addr 1 OLD';
+        existingCpa2.Country = 'other addr OLD';
+        existingCt1Addresses.put(existingCpa2.id, existingCpa2);
 
         Contact ct2 = contacts[1];
         List<ContactPointAddress> ct2Addresses =  ApplicationTestDataFactory.getContactPointAddresses(1, acc.id, true);
@@ -148,7 +165,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
         Test.startTest();
 
-        ContactPointAddressDomainModule.newInstance().onAfterUpdate(ct1Addresses, new Map<Id, ContactPointAddress>(ct2Addresses), uow);
+        ContactPointAddressContactSyncModule.newInstance().onAfterUpdate(ct1Addresses, existingCt1Addresses, uow);
 
         ((ApplicationUnitOfWork)MockUtility.Mocks.verify(uow, MockUtility.Mocks.times(1))).registerDirty((List<Contact>)fflib_Match.eq(new List<Contact>{
             new Contact(
@@ -183,7 +200,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 			Contact.OtherState,
 			Contact.OtherCountry
 		}),
-        (String)fflib_Match.eq('ContactPointAddressDomainModule'));
+        (String)fflib_Match.eq('ContactPointAddressContactSyncModule'));
 
         // PMD Warning
         System.assert(true);
@@ -239,7 +256,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 
         Test.startTest();
 
-        ContactPointAddressDomainModule.newInstance().onAfterDelete(ct2Addresses, uow);
+        ContactPointAddressContactSyncModule.newInstance().onAfterDelete(ct2Addresses, uow);
 
         ((ApplicationUnitOfWork)MockUtility.Mocks.verify(uow, MockUtility.Mocks.times(1))).registerDirty((List<Contact>)fflib_Match.eq(new List<Contact>{
             new Contact(
@@ -274,7 +291,7 @@ public with sharing class ContactPointAddressDomainModule_Test {
 			Contact.OtherState,
 			Contact.OtherCountry
 		}),
-        (String)fflib_Match.eq('ContactPointAddressDomainModule'));
+        (String)fflib_Match.eq('ContactPointAddressContactSyncModule'));
 
         // PMD Warning
         System.assert(true);
@@ -289,42 +306,11 @@ public with sharing class ContactPointAddressDomainModule_Test {
 		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
 		insert logLevel;
 		Test.startTest();
-		ContactPointAddressDomainModule module = ContactPointAddressDomainModule.newInstance();
+		ContactPointAddressContactSyncModule module = ContactPointAddressContactSyncModule.newInstance();
 		module.onAfterUpdate(new List<SObject>{},new Map<Id,SObject>{},null);
 		Test.stopTest();
 		//an exception should be created when thre are invalid parameters in the onAfterUpdate
 		List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
 		System.assertEquals(true, logResult.size() > 0, 'Exception created');
-	}
-
-	//test exceptions in module class
-	//@isTest
-	// static void testExceptionOnInsert(){
-	// 	LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
-	// 	logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
-	// 	insert logLevel;
-	// 	Test.startTest();
-	// 	ContactPointAddressDomainModule module = ContactPointAddressDomainModule.newInstance();
-	// 	module.onAfterInsert(null,null);
-	// 	Test.stopTest();
-	// 	//an exception should be created when thre are invalid parameters in the onAfterInsert
-	// 	List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
-	// 	System.assertEquals(true, logResult.size() > 0, 'Exception created');
-	// }
-
-	// //test exceptions in module class
-	// 	@isTest
-	// 	static void testExceptionOnDelete(){
-	// 		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
-	// 		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
-	// 		insert logLevel;
-	// 		Test.startTest();
-	// 		ContactPointAddressDomainModule module = ContactPointAddressDomainModule.newInstance();
-	// 		module.onAfterDelete(new List<SObject>{},null);
-	// 		Test.stopTest();
-	// 		//an exception should be created when thre are invalid parameters in the onAfterDelete
-	// 		List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
-	// 		System.assertEquals(true, logResult.size() > 0, 'Exception created');
-	// 	}
-    
+	}    
 }
