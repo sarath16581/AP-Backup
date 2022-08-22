@@ -3,7 +3,7 @@
 <!--Created 2020-08-10 Dheeraj Mandavilli-->
 <!--2022-07-12 - Kamil Szyc - Updated format to resemble FSL -->
 <apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_AdhocJobsNextDayController"
-           recordSetVar="routes" renderAs="pdf" applyBodyTag="false">
+           recordSetVar="routesVar" renderAs="pdf" applyBodyTag="false">
 	<head>
 		<style type="text/css" media="print">
             @page {
