@@ -211,7 +211,7 @@ History
 
 				// this is required for the Omni channel routing pilot. 
 				if({!currentUserIsPartOfOmniGroup} && url != undefined) {
-					var omniRedirectURL = '/apex/OmniBugRedirect?&url=' + encodeURIComponent(url);
+					var omniRedirectURL = '/apex/OmniBugRedirect?isdtp=vw&url=' + encodeURIComponent(url);
             		sforce.console.openSubtab(result.id, omniRedirectURL, true, tabName, null);
 				} else {
 					sforce.console.openSubtab(result.id, url, true, tabName, null);

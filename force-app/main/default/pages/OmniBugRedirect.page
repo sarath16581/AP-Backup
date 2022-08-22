@@ -10,14 +10,25 @@
         * https://trailblazer.salesforce.com/issues_view?id=a1p3A000000nbVUQAY
         */
         var currentUrl = new URL(window.location.href);
-        var originalUrl = currentUrl.searchParams.get("url");
+        var originalUrlString = currentUrl.searchParams.get("url");
+        var originalUrl = new URLSearchParams(originalUrlString);
 
         var orgDomainUrl = '{!orgDomainUrl}';
-        if(originalUrl.startsWith(orgDomainUrl) == true || originalUrl.startsWith('/apex/') == true) {
-                location.href = originalUrl;
+        if(originalUrlString.startsWith(orgDomainUrl) == true || originalUrlString.startsWith('/') == true) {
+                if(originalUrl.get('isdtp=vw') == undefined) {
+                        if(originalUrlString.includes('?') == false) {
+                                originalUrlString += '?isdtp=vw';   
+                        } else {
+                                originalUrlString += '&isdtp=vw';
+                        }
+                }
+                location.href = originalUrlString;
         } else {
-                alert('Unauthorised redirection...');
+                var msgBox = document.getElementById("msgBox");
+                var text = document.createTextNode("Unauthorised redirection: " + originalUrlString);
+                msgBox.appendChild(text);
         }
 	
         </script>
+        <div id="msgBox"></div>
 </apex:page>
