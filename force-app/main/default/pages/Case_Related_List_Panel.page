@@ -210,7 +210,7 @@ History
 			sforce.console.getEnclosingPrimaryTabId(function(result) {
 
 				// this is required for the Omni channel routing pilot. 
-				if({!currentUserIsPartOfOmniGroup}) {
+				if({!currentUserIsPartOfOmniGroup} && url != undefined) {
 					var omniRedirectURL = '/apex/OmniBugRedirect?&url=' + encodeURIComponent(url);
             		sforce.console.openSubtab(result.id, omniRedirectURL, true, tabName, null);
 				} else {
