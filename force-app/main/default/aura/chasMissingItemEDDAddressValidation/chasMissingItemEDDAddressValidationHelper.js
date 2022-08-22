@@ -43,6 +43,7 @@
     getEDDServiceEstimates : function (component,event, helper)
     {
         try {
+            component.set("v.isLoading", true);
             // call server method to invoke the EDD service
             var action = component.get("c.getEDDEstimates");
             // set method parameters
@@ -75,14 +76,17 @@
                         component.set('v.eddDisplayDate',helper.getEDDDateString(component, event, helper));
                         return;
                     } else {
+                        component.set("v.isLoading", false);
                         helper.gotoNextPage(component, "chasMissingItemWPage02");
                     }
                 } else if (state === "INCOMPLETE") {
                     component.set('v.displaySpinner', false);
+                    component.set("v.isLoading", false);
                     // Enable debugging if required
                 } else if (state === "ERROR") {
                     component.set('v.displaySpinner', false);
                     component.set('v.error500', true);
+                    component.set("v.isLoading", false);
                     var errors = response.getError();
                     if (errors) {
                         if (errors[0] && errors[0].message) {
@@ -97,6 +101,7 @@
 
             $A.enqueueAction(action);
         } catch (err) {
+            component.set("v.isLoading", false);
             console.log('ERROR EDD service estimates: '+err);
             throw err;
         }
