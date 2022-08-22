@@ -1,5 +1,15 @@
 <!--
- - Created by hasan on 9/08/2022.
+ *
+ * @author Hasantha Liyanage
+ * @date 2022-08-10
+ * @group Chas
+ * @tag EDD service
+ * @tag DDS-11627
+ * @domain Help & Support
+ * @description calculated EDD service estimate tests
+ * @changelog
+ * 2022-08-10 - Hasantha Liyanage - Created
+ *
  -->
 
 <aura:component extends="c:SS_uiWizardPage" controller="ChasEDDAddressValidationController"
@@ -91,8 +101,6 @@
                         </div>
                     </div>
                 </c:ChasForm>
-
-
                 <aura:set attribute="else">
                     <legend class="chas-header left-padding">
                         <h2>Item Details</h2>
@@ -118,28 +126,6 @@
                     </c:ChasForm>
                 </aura:set>
             </aura:if>
-
         </aura:set>
     </aura:if>
-
-
-    <!-- EDD before date message -->
-    <!--
-        <legend class="chas-header left-padding">
-            <h2>Item Details</h2>
-        </legend>
-        <c:ChasForm customStyle="left-padding">
-            <div class="form-input-container outer-box">
-                <div class="tracking-info">
-                    <c:ChasBspDeflection noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}" iconLinkStyle="message-icon">
-                        <p class="message-text">This parcel is on track to be delivered {!if(v.wizardData.deliveredByDateFrom  != null, 'between', 'on')} <b>{!v.eddDisplayDate} </b> </p>
-                        <br/>
-                        <p class="message-text"> You can only enquire about a late or missing item after the expected delivery date. For essential medication enquiries,
-                            <a href="https://auspost.com.au/help-and-support#contact" class="link-plain" target="blank" >please contact us by phone.</a>
-                        </p>
-                    </c:ChasBspDeflection>
-                </div>
-            </div>
-        </c:ChasForm>-->
-
 </aura:component>

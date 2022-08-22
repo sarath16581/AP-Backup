@@ -1,5 +1,13 @@
 /**
- * Created by hasan on 9/08/2022.
+ * @author Hasantha Liyanage
+ * @date 2022-08-10
+ * @group Chas
+ * @tag EDD service
+ * @tag DDS-11627
+ * @domain Help & Support
+ * @description calculated EDD service estimate tests
+ * @changelog
+ * 2022-08-10 - Hasantha Liyanage - Created
  */
 
 ({
@@ -10,7 +18,6 @@
             cmp.set("v.isFromBackButton", true);
         }
     },
-
     checkOverride : function(cmp, event, helper) {
         var overriden = event.getParam('selected');
         cmp.set("v.isOverriden",overriden);
@@ -23,7 +30,6 @@
             'item details: ' + 'item details:address:enter address manually'
         );
     },
-
     getSelectedAddress : function(cmp, event, helper) {
         var streetAddress = event.getParam('address');
         cmp.set("v.selectedAddress",streetAddress.address);
