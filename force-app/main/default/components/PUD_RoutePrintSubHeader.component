@@ -2,10 +2,11 @@
  - component to contain information in the first page of the route pdf
  - @changelog:
  - 24/6/2022 - Kamil Szyc- created
+ - 08/08/2022- Dattaraj Deshmukh - updated to use wrapper object.
  -->
 
 <apex:component id="PUD_RoutePrintSubHeader">
-	<apex:attribute name="routeWrapper" type="PUD_PrintRouteWrapper" description="Route to be printed" required="true"/>
+	<apex:attribute name="routeWrapper" type="PUDPrintableRouteWrapper" description="Route to be printed" required="true"/>
 	<table class="info" style="background-color:white;">
 		<tr>
 			<td class="italic" style="width:100%; font-size:12px;">

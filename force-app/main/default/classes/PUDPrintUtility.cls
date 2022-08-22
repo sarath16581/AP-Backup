@@ -17,7 +17,7 @@ public inherited sharing class PUDPrintUtility {
      * @desc time is prefixed with '0'.  
 	 * e.g. If Time is 9 then function returns 09 as a string. If its 12 then returns 12 as a string.
      */
-    public static String getDurationDisplayX(Time displayTime){
+    public static String getDisplayTime(Time displayTime){
         String displayTimeString='';
 
 		//return blank string if time is null

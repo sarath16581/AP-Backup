@@ -12,18 +12,18 @@
 * 2022-08-09 - created
 */
 
-public inherited sharing class PUD_PrintRouteWrapper {
+public inherited sharing class PUDPrintableRouteWrapper {
 	public PUD_Route__c route {get; private set;}
-	public List<PUD_PrintRouteBookingWrapper> bookings {get; private set;}
-	public List<PUD_PrintRouteBookingWrapper> mealBreaks {get; private set;}
+	public List<PUDPrintableBookingWrapper> bookings {get; private set;}
+	public List<PUDPrintableBookingWrapper> mealBreaks {get; private set;}
 	
-	public PUD_PrintRouteWrapper(PUD_Route__c route) {
+	public PUDPrintableRouteWrapper(PUD_Route__c route) {
 		this.route = route;
-		this.bookings = new List<PUD_PrintRouteBookingWrapper>();
-		this.mealBreaks = new List<PUD_PrintRouteBookingWrapper>();
+		this.bookings = new List<PUDPrintableBookingWrapper>();
+		this.mealBreaks = new List<PUDPrintableBookingWrapper>();
 		
 		for(PUD_Booking__c booking: route.Bookings__r) {
-			PUD_PrintRouteBookingWrapper b = new PUD_PrintRouteBookingWrapper(booking);
+			PUDPrintableBookingWrapper b = new PUDPrintableBookingWrapper(booking);
 			//add bookings
 			this.bookings.add(b);
 			
@@ -37,13 +37,13 @@ public inherited sharing class PUD_PrintRouteWrapper {
 	//getter for startTimeString
 	//return time in HHMM format
 	public String getStartTimeString(){
-		return PUDPrintUtility.getDurationDisplayX(this.route.Start_Time__c);
+		return PUDPrintUtility.getDisplayTime(this.route.Start_Time__c);
 	}
 
 	//getter for endTimeString
 	//return time in HHMM format
 	public String getEndTimeString(){
-		return PUDPrintUtility.getDurationDisplayX(this.route.End_Time__c);
+		return PUDPrintUtility.getDisplayTime(this.route.End_Time__c);
 	}
 	
 }

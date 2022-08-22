@@ -126,15 +126,15 @@ private class PUD_PrintRouteController_Test {
 	
 		Test.startTest();
 
-		PUD_PrintRouteWrapper routeWrapper = new PUD_PrintRouteWrapper(route1);
+		PUDPrintableRouteWrapper routeWrapper = new PUDPrintableRouteWrapper(route1);
 
 		Test.stopTest();
 		//assert that bookings are added 
 		System.assertNotEquals(null, routeWrapper.bookings, 'Bookings wrapper is expected to be populated');
 		
 		//assert start and end time are formatted in HHMM format
-		System.assertEquals('0700', routeWrapper.startTimeString, 'Expected to format Start Time in HHMM format');
-		System.assertEquals('0705', routeWrapper.endTimeString, 'Expected to format End Time in HHMM format');
+		System.assertEquals('0700', routeWrapper.getStartTimeString(), 'Expected to format Start Time in HHMM format');
+		System.assertEquals('0705', routeWrapper.getEndTimeString(), 'Expected to format End Time in HHMM format');
 		
 	}
 }

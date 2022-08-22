@@ -12,11 +12,11 @@
 * 2022-08-09 - created
 */
 
-public inherited sharing class PUD_PrintRouteBookingWrapper {
+public inherited sharing class PUDPrintableBookingWrapper {
   
 	public PUD_Booking__c booking {get; private set;}
 	
-	public PUD_PrintRouteBookingWrapper(PUD_Booking__c booking) {
+	public PUDPrintableBookingWrapper(PUD_Booking__c booking) {
 		this.booking = booking;
 	}
 	
@@ -27,7 +27,7 @@ public inherited sharing class PUD_PrintRouteBookingWrapper {
 	
 	//getter for startTimeString
 	public String getStartTimeString(){
-		return PUDPrintUtility.getDurationDisplayX(this.booking.Start_Time__c);
+		return PUDPrintUtility.getDisplayTime(this.booking.Start_Time__c);
 	}
 
 	//getter for endTimeString
@@ -41,17 +41,24 @@ public inherited sharing class PUD_PrintRouteBookingWrapper {
 			return endTimeString;
 		}
 		
-		//create a new instance of END TIME from start time and dwell time planned
-		if( this.booking.Dwell_Time_Planned__c !=null ){
-			endTime = this.booking.Start_Time__c.addMinutes(Time.newInstance(0,(Integer)this.booking.Dwell_Time_Planned__c,0,0).minute());	
-		}
+        endTime = this.calculateEndTime();
 
 		//format endtime in HHMM format
 		if(endTime !=null){
-			return PUDPrintUtility.getDurationDisplayX(endTime);
+			return PUDPrintUtility.getDisplayTime(endTime);
 		}
 
 		//return blank string if endTime is NULL;
 		return endTimeString;
 	}
+
+    private Time calculateEndTime(){
+        Time endTime;
+
+        //create a new instance of END TIME from start time and dwell time planned
+		if( this.booking.Dwell_Time_Planned__c !=null ){
+			endTime = this.booking.Start_Time__c.addMinutes(Time.newInstance(0,(Integer)this.booking.Dwell_Time_Planned__c,0,0).minute());	
+		}
+        return endTime;
+    }
 }

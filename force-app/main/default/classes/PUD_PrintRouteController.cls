@@ -12,26 +12,26 @@
  */
 
 public with sharing class PUD_PrintRouteController {
-	public List<PUD_PrintRouteWrapper> routes {get;set;}
+	public List<PUDPrintableRouteWrapper> routes {get;set;}
 	
 	//Constructor
 	public PUD_PrintRouteController(ApexPages.StandardSetController ssc) {
 
 		//initialise wrapper list
-		routes = new List<PUD_PrintRouteWrapper>();
+		routes = new List<PUDPrintableRouteWrapper>();
 
 		//Identify the selected records from Listview
 		Set<Id> selectedRouteIDs = new Map<Id, PUD_Route__c>((PUD_Route__c[]) ssc.getSelected()).keySet();
 		
 		//iterate through routes and build wrapper list for routes, its bookings and meal break bookings
 		for(PUD_Route__c route : getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT})){
-			routes.add(new PUD_PrintRouteWrapper(route));
+			routes.add(new PUDPrintableRouteWrapper(route));
 		}
 	}
 
 	public PUD_PrintRouteController(ApexPages.StandardController sc) {
 		//initialise wrapper list
-		routes = new List<PUD_PrintRouteWrapper>();
+		routes = new List<PUDPrintableRouteWrapper>();
 
 		//Identify the selected records from Listview
 		Set<Id> selectedRouteIDs = new Set<Id>{
@@ -41,7 +41,7 @@ public with sharing class PUD_PrintRouteController {
 		
 		//iterate through routes and build wrapper list for routes, its bookings and meal break bookings
 		for(PUD_Route__c route : getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT})){
-			routes.add(new PUD_PrintRouteWrapper(route));
+			routes.add(new PUDPrintableRouteWrapper(route));
 		}
 	}
 	@TestVisible private static List<PUD_Route__c> getSelectedRoutesWithBookings(Set<Id> routeIds, Set<Object>selectorOptions) {

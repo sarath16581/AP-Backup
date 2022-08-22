@@ -11,7 +11,7 @@
 private class PUDPrintUtility_Test {
     
     @IsTest
-    public static void testGetDurationDisplayX() {
+    public static void testGetDisplayTime() {
       
         
         // =====================================
@@ -30,14 +30,20 @@ private class PUDPrintUtility_Test {
 
         Test.startTest();
 
-        String displayStartTimeString = PUDPrintUtility.getDurationDisplayX(startTime);
-        String displayEndTimeString = PUDPrintUtility.getDurationDisplayX(endTime);
-
+        String displayStartTimeString = PUDPrintUtility.getDisplayTime(startTime);
+        String displayEndTimeString = PUDPrintUtility.getDisplayTime(endTime);
+        
+        String displayStartTimePostTenHour = PUDPrintUtility.getDisplayTime(startTimePostTenHour);
+        String displayEndTimePostTenMinute = PUDPrintUtility.getDisplayTime(endTimePostTenMinute);
+        
 
         Test.stopTest();
 
         System.assertEquals('0700', displayStartTimeString);
         System.assertEquals('0705', displayEndTimeString);
+
+        System.assertEquals('1100', displayStartTimePostTenHour);
+        System.assertEquals('1215', displayEndTimePostTenMinute);
 
 
     }

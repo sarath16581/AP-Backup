@@ -1,9 +1,10 @@
 <!--
  - Created by kamilszyc on 20/7/2022.
+  - 08/08/2022- Dattaraj Deshmukh - updated to use wrapper object.
  -->
 
 <apex:component id="PUD_BookingsHeader">
-	<apex:attribute name="routeWrapper" type="PUD_PrintRouteWrapper" description="parent route"/>
+	<apex:attribute name="routeWrapper" type="PUDPrintableRouteWrapper" description="parent route"/>
 	<table style="width:100%; font-family:Arial Unicode MS; margin-top:10px;">
 		<tr>
 			<td rowspan="2"><img src="{!$Resource.auspost_logo}" width="110" alt="AusPost Logo"/></td>
