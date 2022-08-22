@@ -31,7 +31,6 @@
                 ($A.util.isEmpty(overrideAddr) || $A.util.isUndefined(overrideAddr)) &&
                 ($A.util.isEmpty(selectedAddr) || $A.util.isUndefined(selectedAddr))
             ) {
-                //isValid = this.updateErrorSummary(cmp,inputErrors);
                 isValid = false;
                 cmp.set("v.inputFieldError", true);
             }
@@ -137,24 +136,19 @@
         var addressEntered='';
         var count = 0;
         for (var singlekey in streetAddress) {
-            if(streetAddress[singlekey] == '')
-            {
+            if(streetAddress[singlekey] == '') {
                 allInputs.push(singlekey);
 
-            }
-            //set the address strings into indiviual line items
-            else
-            {
+            } else {
+                //set the address strings into indiviual line items
                 cmp.set("v.wizardData.recipientAddressLine1",streetAddress['addressLine1']);
                 cmp.set("v.wizardData.recipientAddressLine2",streetAddress['addressLine2']);
                 cmp.set("v.wizardData.recipientCity",streetAddress['city']);
                 cmp.set("v.wizardData.recipientState",streetAddress['state']);
                 cmp.set("v.wizardData.recipientPostcode",streetAddress['postcode']);
-                if(streetAddress[singlekey])
-                {
+                if(streetAddress[singlekey]) {
                     addressEntered = addressEntered + streetAddress[singlekey] + ' ';
-                    if(singlekey != 'addressLine2')
-                    {
+                    if(singlekey != 'addressLine2') {
                         count = count + 1;
                     }
                 }
@@ -163,8 +157,7 @@
         cmp.set("v.inputFieldCount", count);
         cmp.set("v.inputErr",allInputs);
         // set the manual address entered
-        if(addressEntered != null && addressEntered !='undefined')
-        {
+        if(addressEntered != null && addressEntered !='undefined') {
             //set the wizard data with the override address
             cmp.set("v.overrideAddress",addressEntered);
             cmp.set('v.wizardData.correctDeliveryAddress', addressEntered);
