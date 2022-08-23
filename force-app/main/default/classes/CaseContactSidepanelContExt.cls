@@ -203,7 +203,6 @@ public with sharing class CaseContactSidepanelContExt {
     }
     
     /**************************************************
-
     20.06.2016  eugene.jandusay@auspost.com.au  updated method when creating a new contact/person account                                               
     **************************************************/
     public PageReference save() {
