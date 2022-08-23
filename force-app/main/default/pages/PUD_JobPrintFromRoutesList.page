@@ -78,6 +78,10 @@
             .locationAddress {
                 text-transform: lowercase;
             }
+            .job-comments-instructions{
+                margin-left: 40px; 
+                display: block;
+            }
 
         </style>
 

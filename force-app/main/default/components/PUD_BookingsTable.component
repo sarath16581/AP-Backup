@@ -52,17 +52,16 @@
 
 				<apex:outputText value="{! bookingWrapper.booking.Booking_Type__c}" styleClass="normalcell"/> <br/>
 
-				<apex:outputLabel value="Booking Comments: " for="bookingComments" rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Comments__c)}"/> <br/>
-				<span style="margin-left: 40px; display: block;">
+				<apex:outputLabel value="Booking Comments: " for="bookingComments" rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Comments__c)}"> 
+					<br/>
+				</apex:outputLabel>
+				<apex:outputPanel styleClass="job-comments-instructions" rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Comments__c)}">
 					<apex:outputField label="bookingComments" value="{!bookingWrapper.booking.Booking_Comments__c}" styleClass="normalcell"/>
-                        </span>
+				</apex:outputPanel>
 				<apex:outputLabel value="Site Instructions: " for="siteInstructions" rendered="{! !ISBLANK(bookingWrapper.booking.Site_Instructions__c)}"/> 
-				<span style="margin-left: 40px; display: block;">
+				<apex:outputPanel styleClass="job-comments-instructions" rendered="{! !ISBLANK(bookingWrapper.booking.Site_Instructions__c)}">
 					<apex:outputField label="siteInstructions" value="{!bookingWrapper.booking.Site_Instructions__c}" styleClass="normalcell"/>
-                        </span>
-				<apex:outputText rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Comments__c)}">
-					
-				</apex:outputText>
+				</apex:outputPanel>
 				<br/>
 			</apex:column>
 			<apex:column headerValue="Docks" styleClass="normalcell" width="55"
