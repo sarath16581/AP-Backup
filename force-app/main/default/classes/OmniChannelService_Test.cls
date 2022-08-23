@@ -14,6 +14,7 @@
 **/
 @IsTest (IsParallel=true)
 public class OmniChannelService_Test {
+
     @TestSetup
     static void setup(){
         /*** Create Case record records. */
@@ -37,6 +38,22 @@ public class OmniChannelService_Test {
         callbackRequestList.add(new Callback_Request__c(OwnerId=Userinfo.getUserId(),Type__c ='Business',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
         callbackRequestList.add(new Callback_Request__c(OwnerId=Userinfo.getUserId(),Type__c ='Business',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
 		insert callbackRequestList;
+    }
+
+    /*
+    * Test that the user belongs to an Omni Group
+    */
+    @IsTest
+    static void currentUserIsPartOfOmniGroup() {
+        User testUser = [SELECT Id FROM User WHERE IsActive = True AND ProfileId IN (SELECT ProfileId FROM PresenceUserConfigProfile) LIMIT 1];
+        System.runAs(testUser) {
+            System.assertEquals(true, OmniChannelService.currentUserIsPartOfOmniGroup, 'Should be true for users in profiles assigned to Omni');
+        }
+
+        User anotherTestUser = [SELECT Id FROM User WHERE IsActive = True AND Id IN (SELECT UserId FROM PresenceUserConfigUser) AND Id != :testUser.Id LIMIT 1];
+        System.runAs(anotherTestUser) {
+            System.assertEquals(true, OmniChannelService.currentUserIsPartOfOmniGroup, 'Should be true for users assigned to Omni');
+        }
     }
     
     @IsTest
