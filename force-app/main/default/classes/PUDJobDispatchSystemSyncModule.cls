@@ -57,7 +57,7 @@ public inherited sharing class PUDJobDispatchSystemSyncModule extends Applicatio
 				// monitor for jobs that satisfy below conditions:
 				//  - Date__c >= today and Date__c <= today+1
 				//  - Status = New
-				if (job.Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && job.date__c <= PUDUtility.JOB_DISPATCH_FROM_DATE
+				if (job.Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && job.date__c <= PUDUtility.JOB_DISPATCH_TO_DATE
 					 && job.Status__c == PUDConstants.PUD_JOB_STATUS_NEW) {
 					jobsToSendToDispatchSystem.add(job);
 				}
@@ -96,7 +96,7 @@ public inherited sharing class PUDJobDispatchSystemSyncModule extends Applicatio
 
 				//push jobs which are within date range where 
 				// Date__c >= today && Date__c <= today+1
-				if (job.Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && job.date__c <= PUDUtility.JOB_DISPATCH_FROM_DATE
+				if (job.Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && job.date__c <= PUDUtility.JOB_DISPATCH_TO_DATE
 						&& (((job.Status__c == PUDConstants.PUD_JOB_STATUS_SCHEDULE || job.Status__c == PUDConstants.PUD_JOB_STATUS_ACCEPTED) && hasJobDetailsUpdated(changed))
 								|| (changed.contains(PUD_Job__c.Status__c) && job.Status__c == PUDConstants.PUD_JOB_STATUS_CANCEL))
 						&& !changed.contains(PUD_Job__c.Last_Pushed_to_Dispatch_System__c)) {
