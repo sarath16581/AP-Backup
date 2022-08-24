@@ -8,6 +8,7 @@
  * 2020-11-23 - arjun.singh@auspost.com.au - Created
  * 2021-04-12 - seth.heang@auspost.com.au - updated wrapper class to reflect the latest request payload structure
  * 2021-05-2021 - avula.jansirani@auspost.com.au - added 'bankAccounts', 'industryId','entityType' in 'CustomerDetail' class 
+ * 2022-08-04 - Seth Heang - Update wrapper with additional rating plan payload definition
  */
 public with sharing class BillingAccountWrapper {
 
@@ -24,7 +25,11 @@ public with sharing class BillingAccountWrapper {
     @AuraEnabled
     public String targetSystem;
     @AuraEnabled
-    public SAPsystem sap; 
+    public SAPsystem sap;
+    @AuraEnabled
+    public CompassContractActivation ratingPlanActivation;
+    @AuraEnabled
+    public String customerId;
 
     public class communicationInfoDetail{
         @AuraEnabled
@@ -180,7 +185,94 @@ public with sharing class BillingAccountWrapper {
         sap.customer.contactPersons = new List<ContactDetail>();
         sap.customer.communicationInfo = new communicationInfoDetail();
         sap.customer.childAccount = new List<childAccountDetail>();
+        ratingPlanActivation = new CompassContractActivation();
     }
+
+	public class CompassContractActivation{
+		@AuraEnabled
+		public String quoteId;
+		@AuraEnabled
+		public List<ratingPlanCustomer> customer;
+		@AuraEnabled
+		public List<eventData> eventData;
+	}
+
+	public class ratingPlanCustomer{
+		@AuraEnabled
+		public String objectType;
+		@AuraEnabled
+		public String objectId;
+		@AuraEnabled
+		public String ratingPlanId;
+		@AuraEnabled
+		public String requestObjId;
+	}
+
+	public class eventData{
+		@AuraEnabled
+		public String action;
+		@AuraEnabled
+		public String actionId;
+		@AuraEnabled
+		public data data;
+	}
+
+	public class data{
+		@AuraEnabled
+		public String ratingPlanId;
+		@AuraEnabled
+		public String customer;
+		@AuraEnabled
+		public String validFrom;
+		@AuraEnabled
+		public String validTo;
+		@AuraEnabled
+		public String newValidTo;
+		@AuraEnabled
+		public String ratingModel;
+		@AuraEnabled
+		public String ratingGroup;
+		@AuraEnabled
+		public String contractRef;
+		@AuraEnabled
+		public String weightRounding;
+		@AuraEnabled
+		public String status;
+		@AuraEnabled
+		public String description;
+		@AuraEnabled
+		public String cubingFlag;
+		@AuraEnabled
+		public String cubicConvFac;
+		@AuraEnabled
+		public String cubicDWTConvFac;
+		@AuraEnabled
+		public List<item> item;
+	}
+
+	public class item{
+		@AuraEnabled
+		public String ratingPlanItemId;
+		@AuraEnabled
+		public String rateCardCategory;
+		@AuraEnabled
+		public String lodgementZoneType;
+		@AuraEnabled
+		public String destinationZoneType;
+		@AuraEnabled
+		public String customerTier;
+		@AuraEnabled
+		public String customRef;
+		@AuraEnabled
+		public List<feature> features;
+    }
+
+	public class feature{
+		@AuraEnabled
+		public String pricePoint;
+		@AuraEnabled
+		public Integer totDeclaredCover;
+	}
 
     public BillingAccountWrapper(boolean subAccount){
         if(subAccount){

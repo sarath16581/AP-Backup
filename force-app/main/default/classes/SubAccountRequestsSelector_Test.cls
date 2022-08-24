@@ -8,98 +8,139 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2020-12-18 - Seth Heang - Created
-*/
+* 2022-05-30 - Seth Heang - updated getSObjectFieldList, Added selectByProposalId and Added WITH_ORGANISATION related list
+ */
 @IsTest
 private with sharing class SubAccountRequestsSelector_Test {
 
-    /**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output
-     */
-    @IsTest
-    private static void testEnsureQueryBuilderProducesCorrectString() {
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	private static void testEnsureQueryBuilderProducesCorrectString() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        // None!
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
-        SubAccountRequestsSelector selector = SubAccountRequestsSelector.newInstance();
-        QueryBuilder qb = selector.newQueryBuilder();
-        String soql = qb.toSoqlString();
+		SubAccountRequestsSelector selector = SubAccountRequestsSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Sub_Account__c\\b').matcher(soql).find(), 'Resulting query does not select from opportunity product classification');
+		System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Sub_Account__c\\b').matcher(soql).find(), 'Resulting query does not select from opportunity product classification');
 
-        Test.stopTest();
+		Test.stopTest();
 
-    }
+	}
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is querying with related list
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SubAccountRequestsSelector selector = SubAccountRequestsSelector.newInstance(1);
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{
+			SubAccountRequestsSelector.Options.WITH_SUB_ACCOUNT_CONTACT,
+			SubAccountRequestsSelector.Options.WITH_ORGANISATION}
+			);
+		String soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)SubAccountContact__r\\..*?\\bfrom APT_Sub_Account__c\\b').matcher(soql).find(), 'Resulting query does not select sub account contact field');
+		System.assertEquals(true, Pattern.compile('(?ism)APT_Organisation__r\\..*?\\bfrom APT_Sub_Account__c\\b').matcher(soql).find(), 'Resulting query does not select organisation field');
+
+		Test.stopTest();
+
+	}
     
-    /**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output
-     */
-    @IsTest
-    private static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+	/**
+	* Test:
+	*  Executes a query to ensure it returns expected results with actual inserted data
+	*/
+	@IsTest
+	private static void testSelectorIntegration() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        MockUtility.disableTriggerExecution();
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+		Account acc = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		insert acc;
+		Contact con = ApplicationTestDataFactory.getContacts(1, acc.Id, false)[0];
+		insert con;
+		Apttus_Proposal__Proposal__c proposal = ApplicationTestDataFactory.getApttusProposals(1, con.Id, false)[0];
+		insert proposal;
 
-        //Id recTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('SSSWRouting__c', new Set<String>{'Credit_DSR_Routing'}).values()[0].Id;
-        //SSSWRouting__c ssswCreditDSR = ApplicationTestDataFactory.getSSSWRoutings(1, recTypeId, 'M12', 'seth@test.com', 'Legal Recovery Team', 'Credit Person Code', false)[0];
-        //insert ssswCreditDSR;
-        
-        
-        APT_Charge_Account__c chargeAccountRequest = ApplicationTestDataFactory.getApttusChargeAccountRequest(1,false)[0];
-        insert chargeAccountRequest;
-        
-        APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test1',false)[0];
-        subAccountRequest.Lodgement_Point_to_Work_Centre_Code__c = 'Melbourne:123456:3336';
-        subAccountRequest.Is_Parcel_Send_Login_Required__c = 'No';
-        subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
-        subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
-        //subAccountRequest.SubAccountContact__c = contact.id;
+		APT_Charge_Account__c chargeAccountRequest = ApplicationTestDataFactory.getApttusChargeAccountRequest(1,false)[0];
+		insert chargeAccountRequest;
+
+		APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test1',false)[0];
+		subAccountRequest.Lodgement_Point_to_Work_Centre_Code__c = 'Melbourne:123456:3336';
+		subAccountRequest.Is_Parcel_Send_Login_Required__c = 'No';
+		subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
+		subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
+		//subAccountRequest.SubAccountContact__c = contact.id;
 		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
-        subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
+		subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
 		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
-        subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
-        subAccountRequest.Name = 'Seth 1';
-        subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
-        subAccountRequest.APT_Charge_Account__c = chargeAccountRequest.Id;
-        subAccountRequest.APT_Sub_Account_Request_Status__c = 'Pending Charge Account';
-        insert subAccountRequest;
-        
-        // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+		subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
+		subAccountRequest.Name = 'Seth 1';
+		subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
+		subAccountRequest.APT_Charge_Account__c = chargeAccountRequest.Id;
+		subAccountRequest.APT_Sub_Account_Request_Status__c = 'Pending Charge Account';
+		subAccountRequest.APT_Quote_Proposal__c = proposal.Id;
+		insert subAccountRequest;
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
-		
-        SubAccountRequestsSelector selector = SubAccountRequestsSelector.newInstance(1);
-        
-        
-        Map<Id, APT_Sub_Account__c> resultsBySARID = selector.selectById(new Set<id>{subAccountRequest.Id});
-        System.assertEquals(1, resultsBySARID.size(), 'Expected result size of 1');
-        Map<Id, APT_Sub_Account__c> resultsByCARID = selector.selectByChargeAcountRequestIdAndStatus(new Set<id>{chargeAccountRequest.Id},new Set<String>{'Pending Charge Account'});
-        //Map<Id, SSSWRouting__c> results = selector.selectByRecordTypeId(new Set<id>{recTypeId});
-        System.assertEquals(1, resultsByCARID.size(), 'Expected result size of 1');
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
 
-        Test.stopTest();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
 
-    }
+		SubAccountRequestsSelector selector = SubAccountRequestsSelector.newInstance(1);
+
+
+		Map<Id, APT_Sub_Account__c> resultsBySARID = selector.selectById(new Set<id>{subAccountRequest.Id});
+		System.assertEquals(1, resultsBySARID.size(), 'Expected result size of 1');
+		Map<Id, APT_Sub_Account__c> resultsByCARID = selector.selectByChargeAcountRequestIdAndStatus(new Set<id>{chargeAccountRequest.Id},new Set<String>{'Pending Charge Account'});
+		System.assertEquals(1, resultsByCARID.size(), 'Expected result size of 1');
+
+		List<APT_Sub_Account__c> resultsByProposalId = selector.selectByProposalId(
+			new Set<id>{
+				proposal.Id
+			});
+		System.assertEquals(1, resultsByProposalId.size(), 'Expected result size of 1');
+		Test.stopTest();
+
+	}
 }

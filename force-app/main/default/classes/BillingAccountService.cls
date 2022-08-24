@@ -7,6 +7,7 @@
  * @changelog
  * 2020-11-18 - arjun.singh@auspost.com.au - Created
  * 2021-05-12 - avula.jansirani@auspost.com.au - added submitRequest() method
+ * 2022-08-04 - Seth Heang - Updated parseResponse method to handle rating plan activation changes
  */
 public with sharing class BillingAccountService {
     public static BillingAccountService getInstance() {
@@ -16,7 +17,7 @@ public with sharing class BillingAccountService {
      * @Description : Request generation for Billing Account Creation 
      * */    
     public HttpRequest getRequest(String requestBody , String businessReferenceId, String sourceSystem) {  
-        AusPostSettings__c setting = AusPostSettings__c.getValues('CreateBillingAccountCredentials'); 
+        AusPostSettings__c setting = AusPostSettings__c.getValues('CreateBillingAccountCredentials');
         //System.debug('setting='+setting);
         HttpRequest request = new HttpRequest();
         request.setEndpoint(setting.URL2__c);
@@ -33,9 +34,11 @@ public with sharing class BillingAccountService {
         return con;
     }
     /**
-     * @Description: Parse the respons returned as a part of billing account creation
+     * @description		Parse the response returned as a part of billing account creation and rating plan activation creation
+	 * @param			HttpResponse response, String requestObjId, String chargeAccountRequestId, String onboardingRequestId, CreateBillingAccountControllerForTeams.contractDetail contractDetails, Boolean isBillingAccountPlusRatingPlanFlow; to specify new customer or existing customer flow
+	 * @return			Boolean; true for callout success or false for callout failure
      */
-    public Boolean parseResponse(HttpResponse response , String requestObjId, String chargeAccountRequestId, String onboardingRequestId, CreateBillingAccountControllerForTeams.contractDetail contractDetails ) {
+    public Boolean parseResponse(HttpResponse response , String requestObjId, String chargeAccountRequestId, String onboardingRequestId, CreateBillingAccountControllerForTeams.contractDetail contractDetails, Boolean isBillingAccountPlusRatingPlanFlow) {
         String status;
         String responseMsg;
         Boolean callOutSuccess = false;
@@ -46,10 +49,12 @@ public with sharing class BillingAccountService {
                 status = 'Requested';
                 callOutSuccess = true;
                 if(contractDetails !=null){
+                    //Team flow
                     CreateTeamsBillingAccountHelper.updateDSRAndChargeAccountAndContract(requestObjId, chargeAccountRequestId, onboardingRequestId, status, responseMsg, contractDetails);
                 }
                 else{
-                    CreateBillingAccountHelper.updateDSRAndChargeAccount(requestObjId, chargeAccountRequestId, onboardingRequestId, status, responseMsg);
+                    //SAP flow
+                    CreateBillingAccountHelper.updateDSRAndChargeAccount(requestObjId, chargeAccountRequestId, onboardingRequestId, status, responseMsg, isBillingAccountPlusRatingPlanFlow);
                 }
 
             } else {
@@ -67,14 +72,19 @@ public with sharing class BillingAccountService {
                         }
                     }
                 }
-                if(responseMsg == null){
+                // error response for billing account flow
+                if(responseMsg == null && chargeAccountRequestId != null){
                     responseMsg = 'Issue with Billing Account Creation';
+                }
+                // error response for rating plan flow
+                else if(responseMsg == null && chargeAccountRequestId == null){
+                    responseMsg = 'Issue with Rating Plan Activation Creation';
                 }
                 if(contractDetails !=null){
                     CreateTeamsBillingAccountHelper.updateDSRAndChargeAccountAndContract(requestObjId, chargeAccountRequestId, onboardingRequestId, status, responseMsg, contractDetails);
                 }
                 else{
-                    CreateBillingAccountHelper.updateDSRAndChargeAccount(requestObjId, chargeAccountRequestId, onboardingRequestId, status, responseMsg);
+                    CreateBillingAccountHelper.updateDSRAndChargeAccount(requestObjId, chargeAccountRequestId, onboardingRequestId, status, responseMsg, isBillingAccountPlusRatingPlanFlow);
                 }
             }
         
@@ -86,7 +96,7 @@ public with sharing class BillingAccountService {
                 CreateTeamsBillingAccountHelper.updateDSRAndChargeAccountAndContract(requestObjId, chargeAccountRequestId, onboardingRequestId, status, responseMsg, contractDetails);
             }
             else{
-                CreateBillingAccountHelper.updateDSRAndChargeAccount(requestObjId, chargeAccountRequestId, onboardingRequestId, status, responseMsg);
+                CreateBillingAccountHelper.updateDSRAndChargeAccount(requestObjId, chargeAccountRequestId, onboardingRequestId, status, responseMsg, isBillingAccountPlusRatingPlanFlow);
             }
         }
         return callOutSuccess;

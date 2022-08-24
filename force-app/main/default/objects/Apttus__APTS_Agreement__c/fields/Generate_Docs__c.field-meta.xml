@@ -20,42 +20,43 @@
 				APT_SelectedContractAmendRenewCategory__c=&quot;New or additional account numbers or sub account numbers&quot;, 
 				APT_SelectedContractAmendRenewCategory__c=&quot;T&amp;C Change&quot;
 			),
-			AND
-			(
-				APT_No_Of_LP_Without_Billing_Account__c = 0, 
-				APT_of_Selected_Lodgement_Points__c &gt; 0
-			), 
+			IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;), 
+				APT_of_Selected_Lodgement_Points__c &gt; 0,
+				AND
+				(
+					APT_No_Of_LP_Without_Billing_Account__c = 0,
+					APT_of_Selected_Lodgement_Points__c &gt; 0
+				)
+			)
+			,
 			INCLUDES (Included_Product_Lines__c , &quot;Priority Product&quot;), 
 			INCLUDES (Included_Product_Lines__c , &quot;StarTrack&quot;), 
-			INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;),
 			INCLUDES (Included_Product_Lines__c , &quot;Workforce Verification&quot;)
-		),    
+		),
 		NOT(ISPICKVAL(Apttus__Status_Category__c, &quot;Terminated&quot;)),
-        OR
+		OR
 		(
-			INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;),
 			NOT(ISBLANK(Included_Product_Lines__c)),
 			APT_Ratecards_Created__c
 		),
-		NOT(APT_Is_Create_Contract_Batch_Job_Running__c)		 
+		NOT(APT_Is_Create_Contract_Batch_Job_Running__c)
 	),
 	HYPERLINK(&quot;/apex/APT_CreateContractValidation?id=&quot;&amp;Id &amp; &quot;&amp;count=&quot;&amp;
-        IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;),&quot;1&quot;,&quot;0&quot;), 
-        IMAGE(&quot;/resource/APT_Create_Green&quot;, &quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;), 
+	IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;),&quot;1&quot;,&quot;0&quot;),
+	IMAGE(&quot;/resource/APT_Create_Green&quot;, &quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;),
 	IF 
 	(
 		AND
 		(
-			NOT(ISPICKVAL(Apttus__Status_Category__c, &quot;Terminated&quot;)), 
-			NOT(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;))
-			/*OR
-			(
-				NOT(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;)),
-				NOT(ISBLANK(Included_Product_Lines__c))				
-			)*/
-			
-		), 
-		HYPERLINK(&quot;/apex/APT_ManageContractLodgementPoint?agId=&quot;&amp;Id, IMAGE(&quot;/resource/APT_Create_Red&quot;, &quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;), 
+			NOT(ISPICKVAL(Apttus__Status_Category__c, &quot;Terminated&quot;)),
+			NOT(ISBLANK(Included_Product_Lines__c))
+
+		),
+		HYPERLINK(IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;), 
+		&quot;/lightning/cmp/c__APT_LinkingBillingAccountToContractWrapper?c__recordId=&quot;,
+		&quot;/apex/APT_ManageContractLodgementPoint?agId=&quot;)&amp;Id, 
+		IMAGE(&quot;/resource/APT_Create_Red&quot;, 
+		&quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;),
 		NULL
 	)
 )</formula>

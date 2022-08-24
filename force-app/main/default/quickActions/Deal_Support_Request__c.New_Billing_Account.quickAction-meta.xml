@@ -2,7 +2,7 @@
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Quick Action to request new billing account in sap</description>
     <height>450</height>
-    <label>New Billing Account</label>
+    <label>Create Billing Account/Rating Plan</label>
     <lightningComponent>createBillingAccountWrapper</lightningComponent>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <type>LightningComponent</type>
