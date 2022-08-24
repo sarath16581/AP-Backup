@@ -55,9 +55,10 @@ public inherited sharing class PUDJobDispatchSystemSyncModule extends Applicatio
 			for (PUD_Job__c job : (List<PUD_Job__c>) records) {
 
 				// monitor for jobs that satisfy below conditions:
-				//  - Date__c = today
+				//  - Date__c >= today and Date__c <= today+1
 				//  - Status = New
-				if (job.Date__c == System.today() && job.Status__c == PUDConstants.PUD_JOB_STATUS_NEW) {
+				if (job.Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && job.date__c <= PUDUtility.JOB_DISPATCH_FROM_DATE
+					 && job.Status__c == PUDConstants.PUD_JOB_STATUS_NEW) {
 					jobsToSendToDispatchSystem.add(job);
 				}
 			}
@@ -92,7 +93,10 @@ public inherited sharing class PUDJobDispatchSystemSyncModule extends Applicatio
 				//  - status changing to Cancel
 				// it is not necessary to trigger the send if 'Last_Pushed_to_Dispatch_System__c' has been updated in
 				// current transaction. this indicates the job has been already pushed.
-				if (job.Date__c == System.today()
+
+				//push jobs which are within date range where 
+				// Date__c >= today && Date__c <= today+1
+				if (job.Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && job.date__c <= PUDUtility.JOB_DISPATCH_FROM_DATE
 						&& (((job.Status__c == PUDConstants.PUD_JOB_STATUS_SCHEDULE || job.Status__c == PUDConstants.PUD_JOB_STATUS_ACCEPTED) && hasJobDetailsUpdated(changed))
 								|| (changed.contains(PUD_Job__c.Status__c) && job.Status__c == PUDConstants.PUD_JOB_STATUS_CANCEL))
 						&& !changed.contains(PUD_Job__c.Last_Pushed_to_Dispatch_System__c)) {

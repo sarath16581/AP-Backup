@@ -47,6 +47,19 @@ public with sharing class PUDUtility {
 		private set;
 	}
 
+	//Get date range based on offset value from custom setting.
+	//This range is used to send jobs to MobileStar 1 day in advance.
+	public static Date JOB_DISPATCH_FROM_DATE  = Date.today();
+	public static Date JOB_DISPATCH_TO_DATE {
+		get{
+			if(JOB_DISPATCH_TO_DATE == null){
+				JOB_DISPATCH_TO_DATE = JOB_DISPATCH_FROM_DATE.addDays((pickupBookingSettings != null ? Integer.valueOf(pickupBookingSettings.Job_Dispatch_Offset_Days__c) : 1));
+			}
+			return JOB_DISPATCH_TO_DATE;
+		}
+		private set;
+	}
+
 	// set of fields used for comparing an existing job in 'New' status to a new instance based on latest booking configuration.
 	//!!!---WARNING - Fields below must be included in jobsNewList query in function getNewJobList and jobsExistingList query in function refreshJobs ---!!!
 	private static final Set<SObjectField> COMPARABLE_FIELD_SET_NEW_JOBS {

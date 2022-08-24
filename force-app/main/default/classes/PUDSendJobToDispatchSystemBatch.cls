@@ -23,7 +23,7 @@ public class PUDSendJobToDispatchSystemBatch implements Database.Batchable<SObje
 
     public Database.QueryLocator start(Database.BatchableContext ctx) {
 		PUDJobsSelector pudJobSelector = PUDJobsSelector.newInstance(0);
-		return pudJobSelector.selectJobsByDateAndStatusQueryLocator(date.today(), PUDConstants.PUD_JOB_STATUS_NEW);
+		return pudJobSelector.selectJobsByDateAndStatusQueryLocator(PUDUtility.JOB_DISPATCH_FROM_DATE, PUDUtility.JOB_DISPATCH_TO_DATE, PUDConstants.PUD_JOB_STATUS_NEW);
 	}
 
 	public void execute(Database.BatchableContext ctx, List<SObject> scope) {

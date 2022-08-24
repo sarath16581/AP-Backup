@@ -69,18 +69,19 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 		return (List<PUD_Job__c>)Database.query(qb.toSoqlString());
 	}
 
-    public virtual Database.QueryLocator selectJobsByDateAndStatusQueryLocator(Date dateVar, String statusVar) {
-		QueryBuilder qb = selectJobsByDateAndStatusQueryLocator(dateVar,  statusVar, new Set<Object>());
+    public virtual Database.QueryLocator selectJobsByDateAndStatusQueryLocator(Date fromDate, Date toDate, String statusVar) {
+		QueryBuilder qb = selectJobsByDateAndStatusQueryLocator(fromDate, toDate, statusVar, new Set<Object>());
         return Database.getQueryLocator(qb.toSoqlString());
 	}
 	
 	/**
     * @description : simple query to get records based on date flag, status flag and send to dispatch system flag
     */
-	public virtual QueryBuilder selectJobsByDateAndStatusQueryLocator(Date dateVar, String statusVar, Set<Object> selectorOptions) {
+	public virtual QueryBuilder selectJobsByDateAndStatusQueryLocator(Date fromDate, Date toDate, String statusVar, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 		.addConditions()
-		.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' = :dateVar'))
+		.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' >= :fromDate'))
+		.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Date__c + ' <= :toDate'))
 		.add(new QueryBuilder.SimpleCondition(PUD_Job__c.Status__c + ' = :statusVar'))
 		.endConditions();
 		

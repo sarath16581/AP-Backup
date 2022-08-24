@@ -217,8 +217,10 @@ public with sharing class PUDPickupBookingController {
 	 * @return true if job can be sent to dispatch system. false otherwise.
 	 */
 	private static Boolean canTriggerDispatchSystemSync(PUD_Job__c job, PickupBookingActionResult result) {
-		// only current day jobs are allowed to be sent to dispatch system.
-		if (job.Date__c != Date.today()) {
+		
+		// only current day and day after jobs are allowed to be sent to dispatch system.
+		// throw error if job date range do not fall in between of JOB_DISPATCH_FROM_DATE (today) and JOB_DISPATCH_TO_DATE (tomorrow)
+		if (job.Date__c < PUDUtility.JOB_DISPATCH_FROM_DATE || job.Date__c > PUDUtility.JOB_DISPATCH_TO_DATE) {
 			result.status = Status.ERROR.name();
 			result.errorMessage = System.Label.PUDJobDispatchSystemSyncRestrictedForDateErrorMessage;
 			return false;
@@ -252,8 +254,9 @@ public with sharing class PUDPickupBookingController {
 			return false;
 		}
 
-		// Future jobs can only be cancelled by updating booking.
-		if (Date.today() < job.Date__c) {
+		// Future jobs a day after tomorrow can only be cancelled by updating booking.
+		//if (Date.today() < job.Date__c) {
+		if ( PUDUtility.JOB_DISPATCH_TO_DATE < job.Date__c) {	
 			result.status = Status.ERROR.name();
 			result.errorMessage = System.Label.PUDUpdateBookingToCancelFutureJobsErrorMessage;
 			return false;
