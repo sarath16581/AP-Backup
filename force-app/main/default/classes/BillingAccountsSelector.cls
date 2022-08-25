@@ -12,13 +12,15 @@
  *				Billing_Account__c.StarTrack_Account_Manager__c
  * 2021-08-06 - Seth Heang - Added selectByLikedNameOrderByName
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+ * 2022-05-30 - Seth Heang - Added PAYER_ACCOUNT_ID related list and selectByOrgId method
  */
 public virtual inherited sharing class BillingAccountsSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_ORGANISATION,
-        FILTER_CUST_TYPE,
-        FILTER_ACTIVE
+		FILTER_CUST_TYPE,
+		FILTER_ACTIVE,
+		WITH_PAYER_ACCOUNT_ID
 	}
 
 	public static BillingAccountsSelector newInstance() {
@@ -96,10 +98,10 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 	}
 
 	/**
-     * @description Select Billing Account based on 'LIKE' name and order by name
-     * @param String name of billing account
-     * @return matching billing account records
-     */
+	 * @description Select Billing Account based on 'LIKE' name and order by name
+	 * @param String name of billing account
+	 * @return matching billing account records
+ 	*/
 	public Map<Id, Billing_Account__c> selectByLikedNameOrderByName(String name) {
 		return selectByLikedNameOrderByName(name, new Set<Object>());
 	}
@@ -115,6 +117,26 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		return new Map<Id, Billing_Account__c>((List<Billing_Account__c>)Database.query(qb.toSoqlString()));
 	}
 
+	/**
+	 * @description Select Billing Account based on organisation Id
+	 * @param String orgIds
+	 * @return matching organisation Id records
+	 */
+	public Map<Id, Billing_Account__c> selectByOrgId(Set<Id> orgIds) {
+		return selectByOrgId(orgIds, new Set<Object>());
+	}
+	/**
+	 * @description Select Billing Account based on organisation Id
+	 * @param String orgIds
+	 * @param Set<Object> selectorOptions
+	 * @return matching organisation Id records
+	 */
+	public Map<Id, Billing_Account__c> selectByOrgId(Set<Id> orgIds, Set<Object> selectorOptions) {
+		String soql = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Billing_Account__c.Organisation__c + ' in :orgIds')).endConditions().toSoqlString();
+		return new Map<Id, Billing_Account__c>((List<Billing_Account__c>)Database.query(soql));
+	}
+
+
 	public override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
@@ -125,16 +147,19 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
 			builder.addRelatedFields(AccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'Organisation__r');
 		}
-        
-        if(selectorOptions.contains(Options.FILTER_CUST_TYPE)) {
-            builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.Type__c).eq('CUST')).endConditions();
-        }
-        
-        if(selectorOptions.contains(Options.FILTER_ACTIVE)) {
-            builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.SAP_marked_for_deletion__c).eq(false)).endConditions();
-        }
-        
-        
+
+		if(selectorOptions.contains(Options.FILTER_CUST_TYPE)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.Type__c).eq('CUST')).endConditions();
+		}
+
+		if(selectorOptions.contains(Options.FILTER_ACTIVE)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.SAP_marked_for_deletion__c).eq(false)).endConditions();
+		}
+		if(selectorOptions.contains(Options.WITH_PAYER_ACCOUNT_ID)) {
+			// limit 1 to prevent recursive loop due to self-lookup
+			builder.addRelatedFields(BillingAccountsSelector.newInstance(1).newQueryBuilder(), 'PAYER_ACCOUNT_ID__r');
+		}
+
 		return builder;
 	}
 

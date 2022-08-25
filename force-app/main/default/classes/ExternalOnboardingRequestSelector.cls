@@ -7,6 +7,7 @@
  * @description A very simple selector class that sits in the base domain
  * @changelog
  * 2021-04-12 - Shashwat.nath@auspost.com.au - Created
+ * 2022-08-04 - Seth Heang - Added Request_Object_Id__c field in the query
  */
 
 public with sharing class ExternalOnboardingRequestSelector extends ApplicationSelector{
@@ -39,7 +40,7 @@ public with sharing class ExternalOnboardingRequestSelector extends ApplicationS
     }
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField>{
-                BAMExternalOnboardingRequest__c.Id, BAMExternalOnboardingRequest__c.Response_Payload__c
+                BAMExternalOnboardingRequest__c.Id, BAMExternalOnboardingRequest__c.Response_Payload__c, BAMExternalOnboardingRequest__c.CreatedDate, BAMExternalOnboardingRequest__c.Request_Object_Id__c
         };
     }
     /**

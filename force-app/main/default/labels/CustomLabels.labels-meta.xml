@@ -34,6 +34,14 @@
         <protected>false</protected>
         <shortDescription>APPC PSR does not exist</shortDescription>
         <value>This customer qualifies for pricing that is outside of Sales delegation. A Pricing Support Request is required to proceed or adjust the customers minimum volume or revenue.</value>
+    </labels>    
+	<labels>
+        <fullName>APT_NoLinkedAccounts</fullName>
+        <categories>APT Linking Billing Account &amp; Contract</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APT_NoLinkedAccounts</shortDescription>
+        <value>No linked accounts, please set up an account from the proposal record</value>
     </labels>
 	<labels>
         <fullName>APT_LinkPSRSuccess</fullName>
@@ -211,6 +219,14 @@
         <protected>false</protected>
         <shortDescription>Billing Account</shortDescription>
         <value>Billing Account</value>
+    </labels>    
+	<labels>
+        <fullName>APT_BillingAccountAlreadyLinked</fullName>
+        <categories>APT Linking Billing Account &amp; Contract</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APT_BillingAccountAlreadyLinked</shortDescription>
+        <value>Account already added, please select another account</value>
     </labels>
     <labels>
         <fullName>APT_Blankcustomerid</fullName>
@@ -6352,6 +6368,14 @@ We manage your personal information in accordance with our Privacy policy. The p
         <protected>false</protected>
         <shortDescription>Profile Id</shortDescription>
         <value>00e30000001N9BE</value>
+    </labels>
+	<labels>
+        <fullName>RatingPlanIntegrationStatusNotClear</fullName>
+        <categories>Rating Plan Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rating Plan Integration Status Not Clear</shortDescription>
+        <value>Please change the Rating plan Integration Status to blank before retrying rating plan activation.</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_CAR</fullName>

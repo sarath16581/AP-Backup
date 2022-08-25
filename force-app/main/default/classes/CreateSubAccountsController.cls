@@ -8,6 +8,9 @@
  * 2021-05-12 - seth.heang@auspost.com.au - created
  * 2021-05-18 - Dheeraj.mandavilli@auspost.com.au - Updated SOQL query on Proposal Object to fetch Opportunity Key Contact id.
  * 2021-06-01 - Dheeraj.mandavilli@auspost.com.au - Added Logic to exclude contact when Is parcel send is set to No.
+ * 01/08/2022 - prerna.rahangdale@auspost.com.au - createSubAccounts - Added the validation error if the lodegement zone selected in the Sub Account Request form is not from
+ *                                                 the lodegement zones of proposals.
+ * 01/08/2022 - nasir.jawed@auspost.com.au - Created a method validateSearchLodgementZone which defines the lodgement zone and returns boolean value.
  */
 public with sharing class CreateSubAccountsController {
 
@@ -95,7 +98,6 @@ public with sharing class CreateSubAccountsController {
     }
 
     @AuraEnabled
-   // public static APT_Sub_Account__c createSubAccounts(APT_Sub_Account__c subAccountRec,String lodgementPointWCCs, String existingLodgementPoints) {
         public static APT_Sub_Account__c createSubAccounts(APT_Sub_Account__c subAccountRec,String lodgementPointWCCs) {
 
         //boolean recCreated = false;
@@ -116,6 +118,9 @@ public with sharing class CreateSubAccountsController {
                 subAccountRec.Lodgement_Point_to_Work_Centre_Code__c += so.recName + ':' + so.recWCC + ':' + so.postCode +'\n';
                 // increase the count
                 lPcounter++;
+            }
+            if(!CreateSubAccountsController.validateSearchLodgementZone(subAccountRec.APT_Quote_Proposal__c,responseDetail[0].postCode)){
+                throw new AuraHandledException('LODGEMENT_POINT_NOMATCH');
             }
         }
 
@@ -271,7 +276,7 @@ public with sharing class CreateSubAccountsController {
                     curChildAcc.contactPersons = new List<BillingAccountWrapper.ContactDetail>{curChildAccContact};
                     curChildAcc.lodgementPoints = new List<BillingAccountWrapper.lodgementPointsDetail>();
                     if(curChildAccLPList != null && curChildAccLPList.size() > 0){
-                    	curChildAcc.lodgementPoints.addAll(curChildAccLPList);
+                        curChildAcc.lodgementPoints.addAll(curChildAccLPList);
                     }
                     curChildAcc.name1 = curSubAcc.Name;
                     curChildAcc.name2 = curSubAcc?.APT_Account_Name_2__c;
@@ -345,7 +350,7 @@ public with sharing class CreateSubAccountsController {
         HttpResponse response = Continuation.getResponse(labels[0]);
         BillingAccountService service = BillingAccountService.getInstance();
         // Parse response from Camunda and determine if the transaction is successful or failed as True or False respectively
-        Boolean callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, null, stateinformation.onboardingRequestId,null);
+        Boolean callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, null, stateinformation.onboardingRequestId,null,null);
         return callOutSuccess;
     }
 
@@ -354,5 +359,50 @@ public with sharing class CreateSubAccountsController {
         public string requestObjId;
         @AuraEnabled
         public string onboardingRequestId;
-    }    
+    }
+    
+	/**
+	 * @description      This method validate whether the lodgement zone selected is matching the Agreement line items lodgement Zones from the Apttus Shopping cart
+	 * @param            String proposal, String searchLodgementPoint
+	 * @return           Boolean
+	 */
+	public static Boolean validateSearchLodgementZone(String proposal, String searchLodgementPoint){
+		// flag to return validation status
+		Boolean isValidToSave = false;
+		// Getting the value of Product configuration from Proposal id
+		List<Apttus_Config2__ProductConfiguration__c>  pcListWithAPPC = new List<Apttus_Config2__ProductConfiguration__c>();
+		ID proposalID =(ID)proposal;
+		List<Apttus_Config2__ProductConfiguration__c>  prodConfigList = ProductConfigurationSelector.newInstance().selectByProposalId(new Set<Id>{proposalID});
+		
+		// Query product config with APPC product only
+		for(Apttus_Config2__ProductConfiguration__c productConfig : prodConfigList){
+			if(productConfig.Apttus_Config2__Status__c == 'Finalized' && productConfig.APT_APPC_Count_in_Cart__c > 0){
+				pcListWithAPPC.add(productConfig);
+			}
+		}
+
+		// Only validate lodgement point check for APPC product
+		if(pcListWithAPPC.size() > 0) {
+			// Getting 'option' type line item with product attribute value
+			ID configurationId = prodConfigList[0].Id;              
+			Apttus_Config2__LineItem__c lineItem = LineItemsSelector.newInstance(1).selectByProdConfigAndLineType(
+				new Set<ID>{configurationId}, 
+				new Set<String>{'Product/Service'}, 
+				new Set<Object>{LineItemsSelector.Options.WITH_PRODUCT_ATTRIBUTE_VALUE})[0];
+
+			// Getting the Lodgement zone for APPC product
+			APT_Lodgement_Zone__c lodgeZone = APT_LodgementZonesSelector.newInstance(1).selectByZoneStructure(
+				new Set<String>{APT_Constants.PRODUCT_CODE_APPC},
+				new Set<String>{searchLodgementPoint})[0];
+
+			string searchLodgementZone = lodgeZone.Name;
+			//Matching the Lodgement zone with Attribute value fields
+			if( searchLodgementZone == lineItem.Apttus_Config2__AttributeValueId__r.APT_Selected_Lodgement_Zone__c ||
+				searchLodgementZone == lineItem.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_1__c || 
+				searchLodgementZone == lineItem.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_2__c ){
+				isValidToSave = true;
+			}
+		}
+		return isValidToSave;
+	}
 }

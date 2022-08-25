@@ -7,6 +7,7 @@
  * 2020-10-18 - Nathan Franklin - Added tests for selectByAccountNumber.
  * 2021-08-09 - Seth Heang - Added selectByLikedNameOrderByName test coverage
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+ * 2022-06-01 - Seth Heang - Added selectByOrgId and WITH_PAYER_ACCOUNT_ID related list test coverage
  */
 @IsTest
 private class BillingAccountsSelector_Test {
@@ -66,10 +67,11 @@ private class BillingAccountsSelector_Test {
 		Test.startTest();
 
 		BillingAccountsSelector selector = BillingAccountsSelector.newInstance();
-		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION});
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION,BillingAccountsSelector.Options.WITH_PAYER_ACCOUNT_ID});
 		String soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)Organisation__r\\..*?\\bfrom billing_account__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation fields');
-
+		System.assertEquals(true, Pattern.compile('(?ism)PAYER_ACCOUNT_ID__r\\..*?\\bfrom billing_account__c\\b').matcher(soql).find(), 'Resulting query does not select Payer Account Id fields');
+		
 		Test.stopTest();
 
 	}
@@ -129,7 +131,7 @@ private class BillingAccountsSelector_Test {
 
 		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(2, accountRecord.Id, 'SAP ERP', false);
 		billingAccounts[0].Name = 'MYER Account';
-        insert billingAccounts;
+		insert billingAccounts;
 
 		Set<String> parentLegacyIdSet = new Set<String>();
 		for(Billing_Account__c bill : billingAccounts){
@@ -161,11 +163,14 @@ private class BillingAccountsSelector_Test {
 		System.assertEquals(1, results.size(), 'Result count was wrong');
 		System.assertEquals(billingAccounts[0].Id, results.values()[0].Id, 'Result count was wrong');
 
-        results = selector.selectByLikedNameOrderByName(billingAccounts[0].Name);
-        System.assertEquals(1, results.size(), 'Result count was wrong');
-        
-        Map<Id, Billing_Account__c> resultsforBillingAccountwithNumbers = selector.selectByIdorAccountNumber(billingAccounts,parentLegacyIdSet);
+		results = selector.selectByLikedNameOrderByName(billingAccounts[0].Name);
+		System.assertEquals(1, results.size(), 'Result count was wrong');
+
+		Map<Id, Billing_Account__c> resultsforBillingAccountwithNumbers = selector.selectByIdorAccountNumber(billingAccounts,parentLegacyIdSet);
 		System.assertEquals(2, resultsforBillingAccountwithNumbers.size(), 'Result count was wrong');
+
+		Map<Id, Billing_Account__c> selectByOrgIdResult = selector.selectByOrgId(new Set<Id>{accountRecord.Id});
+		System.assertEquals(2, selectByOrgIdResult.size(), 'Result count was wrong');
 		Test.stopTest();
 
 	}

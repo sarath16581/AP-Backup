@@ -1,0 +1,4 @@
+/** set max-height: 700px to display up to 15 rows in the table */
+.displayMaxRow{
+	max-height: 700px;
+}
