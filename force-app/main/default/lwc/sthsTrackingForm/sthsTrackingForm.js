@@ -11,10 +11,15 @@ import invalidCharacters from "@salesforce/label/c.STHSMaxCharactersValidationMe
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
+import createTrackingFormCase from "@salesforce/apex/STHSTrackingFormController.createTrackingFormCase";
 
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
 	formData = {}; //form data to capture
+	isLoading = false; //flag to show/hide the spinner
+	caseNumber; //case number created for feedback form
+	showError = false; //flag to show/hide the error message
+	isCaseCreatedSuccessfully = false; //flag to show/hide the layout when case created successfully
 
 	//labels
 	label = {
@@ -49,10 +54,35 @@ export default class SthsTrackingForm extends LightningElement {
 
 	//handle form submit click
 	handleSubmitClick(event) {
+		this.resetForm();
+		//validate the form
 		let isFormValid = this.validateForm();
 		if (isFormValid) {
 			//submit the form
-			console.log(JSON.parse(JSON.stringify(this.formData)));
+			this.isLoading = true;
+			//create case and related contact
+			createTrackingFormCase({
+				formData: this.formData
+			})
+				.then((response) => {
+					if (response !== null) {
+						this.caseNumber = response;
+						//show confirmation message
+						this.isCaseCreatedSuccessfully = true;
+					} else {
+						this.showError = true;
+						window.scrollTo(0, 0); //scroll to top
+					}
+					this.isLoading = false;
+				})
+				.catch((error) => {
+					this.isLoading = false;
+					this.showError = true;
+					window.scrollTo(0, 0); //scroll to top
+					console.error(
+						"createTrackingFormCase call failed: " + error
+					);
+				});
 		}
 	}
 
@@ -63,4 +93,10 @@ export default class SthsTrackingForm extends LightningElement {
 		);
 		return validateInputComponents([...inputElements], true);
 	}
+
+	//reset the form
+	resetForm = () => {
+		this.showError = false;
+		this.isCaseCreatedSuccessfully = false;
+	};
 }
