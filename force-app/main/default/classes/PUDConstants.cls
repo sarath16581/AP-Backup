@@ -9,6 +9,7 @@
 * 2022-03-16 - Ranjeewa Silva - Added new constant PUD_BOOKING_STATUS_ACTIVE.
 * 2022-07-08 - Kamil Szyc - Added booking record type names
 * 2022-07-26 - Dattaraj Deshmukh - Added Booking and Job container record types.
+* 2022-08-17 - Dattaraj Deshmukh - Added new constant PUD_BOOKING_TYPE_MEAL_BREAK
 */
 public inherited sharing class PUDConstants {
 
@@ -21,6 +22,9 @@ public inherited sharing class PUDConstants {
 	//PUD Booking record types
 	public static final String PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY = 'Adhoc Pickup/Delivery';
 	public static final String PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY = 'Permanent Pickup/Delivery';
+
+    //PUD Booking type
+	public static final String PUD_BOOKING_TYPE_MEAL_BREAK = 'Meal Break';
 
 	//PUD Job status
 	// jobs are created in 'New' status. they are not yet pushed to dispatch system
