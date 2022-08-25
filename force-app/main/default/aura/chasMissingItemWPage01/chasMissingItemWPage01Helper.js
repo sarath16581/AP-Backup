@@ -363,7 +363,7 @@
              const eddFromDate = new Date(cmp.get('v.wizardData.deliveredByDateFrom'));
              const eddToDate = new Date(cmp.get('v.wizardData.deliveredByDateTo'));
              // format for weekday day - weekday day month eg: Thu 11 - Tue 16 August
-             disDate = ' ' + eddFromDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddFromDate.toLocaleString("en-US", {day: 'numeric'})
+             disDate = ' ' + eddFromDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddFromDate.toLocaleString("en-US", {day: 'numeric'})  + (eddFromDate.getMonth() !== eddToDate.getMonth() ? ' ' +eddFromDate.toLocaleString("en-US", {month:'long'}) : '')
                  + ' - ' + eddToDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddToDate.toLocaleString("en-US", {day: 'numeric'}) + ' ' +eddToDate.toLocaleString("en-US", {month:'long'});
          } else {
              // format for weekday day month eg:Tue 16 August
