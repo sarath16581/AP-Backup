@@ -98,9 +98,9 @@ public inherited sharing class StarTrackSupportCaseOwnerModule extends Applicati
 					 */
 					// Get old case
 					Case oldCase = existingRecords != null ? (Case) existingRecords.get(c.Id) : null;
-					//DDS-11558 Added condition to not to execute the logic if case owner changed from AP Integration User to Delivery queue for StarTrack Web form
+					//DDS-11558 Added condition to not to execute the logic if case created by AP Integration User from StarTrack Web form
 					Boolean isCaseCreatedFromSTHSForm = c.Origin == STHSConstants.CASE_ORIGIN_WEB && c.Status == STHSConstants.CASE_STATUS_NEW && 
-						(oldCase.OwnerId == AP_INTEGRATION_USER_ID && c.OwnerId == ST_DELIVERY_ENQUIRY_QUEUE_ID);
+						oldCase.OwnerId == AP_INTEGRATION_USER_ID;
 					if (caseRecordTypes.keySet().contains(c.RecordTypeId) && changedFields.contains(Case.OwnerId) && !BspConstants.CURRENT_USER_CAN_ACCESS_BSP && !excludedStatuses.contains(c.Status) &&
 						//Removing LDC check as it is no longer used by business
 						//&& !(changedFields.contains(Case.LDC_System_Check__c) && c.LDC_System_Check__c)
@@ -152,19 +152,6 @@ public inherited sharing class StarTrackSupportCaseOwnerModule extends Applicati
 				AP_INTEGRATION_USER_ID = UsersSelector.newInstance().selectByName(new Set<String>{'AP Integration'}).values()[0].Id;
 			}
 			return AP_INTEGRATION_USER_ID;
-		}
-		private set;
-	}
-
-	/**
-	 * StarTrack Delivery Enquiry Queue Id
-	 */
-	public static final Id ST_DELIVERY_ENQUIRY_QUEUE_ID {
-		get {
-			if (ST_DELIVERY_ENQUIRY_QUEUE_ID == null) {
-				ST_DELIVERY_ENQUIRY_QUEUE_ID = GroupsSelector.newInstance().selectByGroupTypeAndDeveloperName(new Set<String>{'queue'},new Set<String>{'StarTrack_Delivery_Enquiry_Queue'}).values()[0].Id;
-			}
-			return ST_DELIVERY_ENQUIRY_QUEUE_ID;
 		}
 		private set;
 	}

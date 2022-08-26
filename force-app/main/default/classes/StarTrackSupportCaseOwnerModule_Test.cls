@@ -132,7 +132,7 @@ private class StarTrackSupportCaseOwnerModule_Test {
     }
 
     /**
-     *  Scenario: StarTrack Tracking Enquiry Form Scenario, change the case owner to Delivery Enquiry Queue to see status not updated to "Awaiting Investigation"
+     *  Scenario: StarTrack Tracking Enquiry Form Scenario, case created by AP Integration user has case status not updated to "Awaiting Investigation"
      */
     @IsTest
     public static void testEnsureCaseStatusNotPopulatedSTHSTrackingForm() {
@@ -150,9 +150,7 @@ private class StarTrackSupportCaseOwnerModule_Test {
         //get ap user
         User apUser = ApplicationTestDataFactory.getUsers(1, true)[0];
         oldCases[0].ownerId = apUser.Id;
-        //get a queue
-		Group delQueue = ApplicationTestDataFactory.getGroups(1,true)[0];
-        cases[0].OwnerId = delQueue.Id;
+        cases[0].OwnerId = UserInfo.getUserId();
 		
 
         // =====================================
@@ -163,7 +161,6 @@ private class StarTrackSupportCaseOwnerModule_Test {
 
         MockUtility.Mocks.startStubbing();
         MockUtility.Mocks.when(mockUsersSelector.selectByName(new Set<String>{'AP Integration'})).thenReturn(new Map<Id, User>{apUser.Id => apUser});
-        MockUtility.Mocks.when(mockGroupsSelector.selectByGroupTypeAndDeveloperName(new Set<String>{'queue'},new Set<String>{'StarTrack_Delivery_Enquiry_Queue'})).thenReturn(new Map<Id, Group>{delQueue.Id => delQueue});
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
