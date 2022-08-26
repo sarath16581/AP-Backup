@@ -7,6 +7,7 @@
  * @domain StarTrack
  * @changelog
  * 2021-11-09 Naveen Rajanna REQ2656153 - Fix failing test class
+ * 2022-08-25 Mahesh Parvathaneni DDS-11558 - Added test method testEnsureCaseStatusNotPopulatedSTHSTrackingForm
  */
 @IsTest
 private class StarTrackSupportCaseOwnerModule_Test {
@@ -127,6 +128,61 @@ private class StarTrackSupportCaseOwnerModule_Test {
             'Awaiting Investigation',
             updatedCases[0].Status,
             'Expected status to be Awaiting Investigation on case'
+        );
+    }
+
+    /**
+     *  Scenario: StarTrack Tracking Enquiry Form Scenario, change the case owner to Delivery Enquiry Queue to see status not updated to "Awaiting Investigation"
+     */
+    @IsTest
+    public static void testEnsureCaseStatusNotPopulatedSTHSTrackingForm() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+        cases[0].Status = 'New';
+        cases[0].Origin = 'Web';
+        cases[0].Subject = 'Tracking Enquiry';
+        cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackDeliveryEnquiryRecordType;
+        List<Case> oldCases = new List<Case>{ cases[0].clone(true) };
+
+        //get ap user
+        User apUser = ApplicationTestDataFactory.getUsers(1, true)[0];
+        oldCases[0].ownerId = apUser.Id;
+        //get a queue
+		Group delQueue = ApplicationTestDataFactory.getGroups(1,true)[0];
+        cases[0].OwnerId = delQueue.Id;
+		
+
+        // =====================================
+		// Stubbing
+		// =====================================
+        UsersSelector mockUsersSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
+        GroupsSelector mockGroupsSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);
+
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockUsersSelector.selectByName(new Set<String>{'AP Integration'})).thenReturn(new Map<Id, User>{apUser.Id => apUser});
+        MockUtility.Mocks.when(mockGroupsSelector.selectByGroupTypeAndDeveloperName(new Set<String>{'queue'},new Set<String>{'StarTrack_Delivery_Enquiry_Queue'})).thenReturn(new Map<Id, Group>{delQueue.Id => delQueue});
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+        // Testing
+        // =====================================
+
+        Test.startTest();
+
+        StarTrackSupportCaseOwnerModule module = StarTrackSupportCaseOwnerModule.newInstance();
+        module.onBeforeUpdate(cases, new Map<Id, Case>(oldCases), uow);
+
+        // should have attempted to call UsersSelector
+        ((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, MockUtility.Mocks.times(1))).selectByName((Set<String>)fflib_Match.eq(new Set<String>{'AP Integration'}));
+
+        // Make sure fields were updated correctly
+        System.assertEquals(
+            'New',
+            cases[0].Status,
+            'Expected status to be New on case'
         );
     }
 }
