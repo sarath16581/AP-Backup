@@ -7,6 +7,7 @@
  * @changelog
  * 2020-11-18 - Shashwat.Nath@auspost.com.au - Created
  * 2021-06-08 - seth.heang@auspost.com.au - STP-5386 map sender name field from opportunity and to same field on DSR's New Billing Account Request Modal Popup 
+ * 2022-08-04 - Seth Heang - Updated parseResponse param due to changes in method signature
  */
 public with sharing class CreateBillingAccountControllerForTeams {
     @TestVisible private static final String DSR_OBJECT = 'Deal_Support_Request__c';
@@ -295,7 +296,7 @@ public with sharing class CreateBillingAccountControllerForTeams {
         HttpResponse response = Continuation.getResponse(labels[0]);
         System.debug('response>>>>'+response);
         BillingAccountService service = BillingAccountService.getInstance();
-        Boolean callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, stateinformation.chargeAccountRequestId, stateinformation.onboardingRequestId, stateinformation.contractdetails);
+        Boolean callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, stateinformation.chargeAccountRequestId, stateinformation.onboardingRequestId, stateinformation.contractdetails, null); // added null param due to changes in method signature
         return callOutSuccess;
      }
     public class stateInfo{
