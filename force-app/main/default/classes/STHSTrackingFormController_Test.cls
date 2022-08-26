@@ -1,11 +1,11 @@
 /**
- * @File Name          : STHSFeedbackFormController_Test.cls
- * @Description        : Test class for STHSFeedbackFormController
+ * @File Name          : STHSTrackingFormController_Test.cls
+ * @Description        : Test class for STHSTrackingFormController
  * @Author             : Mahesh Parvathaneni
  **/
 
 @isTest
-public with sharing class STHSFeedbackFormController_Test {
+public with sharing class STHSTrackingFormController_Test {
 
     private static Map<Object, String> formData;
 
@@ -13,22 +13,22 @@ public with sharing class STHSFeedbackFormController_Test {
         if (formData == null) {
             formData = new Map<Object, String>();
             //form data setup
-            formData.put('enquiryType', 'Product & Sales');
+            formData.put('enquiryType', 'Track & Trace');
             formData.put('reference', '34TE345634562');
             formData.put('firstName', 'UserFName');
             formData.put('lastName', 'UserLName');
             formData.put('phone', '0403456456');
             formData.put('email', 'test.user@test.com');
-            formData.put('enquiry', 'feedbackDetails');
+            formData.put('enquiry', 'trackingDetails');
         }
         return formData.clone();
     }
 
     /**
-	 * Scenario: Testing to create feedback enquiry case and related contacts.
+	 * Scenario: Testing to create tracking enquiry case and related contacts.
 	 */
 	@IsTest
-	private static void testCreateFeedbackFormCase() {
+	private static void testCreateTrackingFormCase() {
 
 		// =====================================
 		// Data Preparation
@@ -55,7 +55,7 @@ public with sharing class STHSFeedbackFormController_Test {
 		// =====================================
         Test.startTest();
 
-        String result = STHSFeedbackFormController.createFeedbackFormCase(formData);
+        String result = STHSTrackingFormController.createTrackingFormCase(formData);
 
         Test.stopTest();
 
@@ -70,10 +70,10 @@ public with sharing class STHSFeedbackFormController_Test {
 	}
 
     /**
-	 * Scenario: Testing to return exception from feedback enquiry case 
+	 * Scenario: Testing to return exception from tracking enquiry case 
 	 */
 	@IsTest
-	private static void testCreateFeedbackFormCaseException() {
+	private static void testCreateTrackingFormCaseException() {
 
 		// =====================================
 		// Data Preparation
@@ -96,7 +96,7 @@ public with sharing class STHSFeedbackFormController_Test {
 
 		String result;
 		try {
-			result = STHSFeedbackFormController.createFeedbackFormCase(formData);
+			result = STHSTrackingFormController.createTrackingFormCase(formData);
 		} catch (Exception ex) {
 			System.assertEquals(null, result, 'Expected CaseNumber to be null when there is an error.');
 		}

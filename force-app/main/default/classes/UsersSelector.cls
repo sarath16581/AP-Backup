@@ -12,6 +12,7 @@
 * 2021-03-02 - Alvin Zhou - Updated - selectActiveuserByProfileName and add the Current_Owner_Role__c to the related list
  * 2022-02-24 - Nathan Franklin - Added a field override capability
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
+ * 2022-08-25 - Mahesh Parvathaneni - Added method selectByName
 */
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
 
@@ -82,6 +83,21 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	 */
 	public Map<Id, User> selectByUsername(Set<String> usernames, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames')).endConditions();
+		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Run a simple query to get records based on names
+	 */
+	public Map<Id, User> selectByName(Set<String> names) {
+		return selectByName(names, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on names
+	 */
+	public Map<Id, User> selectByName(Set<String> names, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Name + ' in :names')).endConditions();
 		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
 	}
 
