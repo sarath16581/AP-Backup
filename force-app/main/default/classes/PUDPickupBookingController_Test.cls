@@ -9,6 +9,7 @@
  * 2022-03-23 - Ranjeewa Silva - Added new test methods to test bulk edit functionality.
  * 2022-04-04 - Seth Heang - Added new test method to test update dispatch job integration flag on network
  * 2022-04-21 - Ranjeewa Silva - Added test methods for retrieving dispatch photo from Digital Repository.
+ * 2022-08-24 - Dattaraj Deshmukh - Updated test method 'testEnsureCancelJobActionNotAllowedForFutureJobs' to allow cancellation for today and tomorrow.
  */
 
 @IsTest
@@ -242,7 +243,7 @@ private class PUDPickupBookingController_Test {
 		// Data Preparation
 		// =====================================
 		PUD_Job__c job = PUDTestDataFactory.getPUDJobs(1, null, PUDConstants.PUD_JOB_STATUS_NEW, true)[0];
-		job.Date__c = Date.today().addDays(1);
+		job.Date__c = Date.today().addDays(2);
 
 		// =====================================
 		// Stubbing

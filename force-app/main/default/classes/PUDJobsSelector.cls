@@ -71,7 +71,7 @@ public virtual inherited sharing class PUDJobsSelector extends ApplicationSelect
 
     public virtual Database.QueryLocator selectJobsByDateAndStatusQueryLocator(Date fromDate, Date toDate, String statusVar) {
 		QueryBuilder qb = selectJobsByDateAndStatusQueryLocator(fromDate, toDate, statusVar, new Set<Object>());
-        return Database.getQueryLocator(qb.toSoqlString());
+		return Database.getQueryLocator(qb.toSoqlString());
 	}
 	
 	/**

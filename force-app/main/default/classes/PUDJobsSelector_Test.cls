@@ -6,9 +6,12 @@
  * @description Test Class covering PUDJobsSelector
  * @changelog
  * 2021-07-28 - arjun.singh@austpost.com.au - Created
+ * 2022-08-24-  Dattaraj Deshmukh - Added 'Pickup_Booking_Settings__c' custom setting 
+ *              and updated params in 'selectJobsByDateAndStatusQueryLocator' method to pass date range.
  */
  @IsTest
 public with sharing class PUDJobsSelector_Test {
+    
     /**
      * Test:
      *  Ensures that the selectors QueryBuilder is generating the correct output
@@ -114,6 +117,9 @@ public with sharing class PUDJobsSelector_Test {
 		// =====================================
 		MockUtility.disableTriggerExecution();
 
+        //inserting custom settings
+        insert new Pickup_Booking_Settings__c(SetupOwnerId=UserInfo.getOrganizationId(), Job_Dispatch_Offset_Days__c=1);
+
 		Network__c network = ApplicationTestDataFactory.getNetworks(1, false)[0];
 		network.recordTypeId = PUDTestDataFactory.businessHubNetworkRecordType;
 		network.ORG_UNIT_ADDR_2__c ='1 Main St';
@@ -157,7 +163,7 @@ public with sharing class PUDJobsSelector_Test {
 		System.assertEquals(true, results.containsKey(pudJobs[0].Id), 'Expected Job record not returned in results');
 		System.assertEquals(true, results.containsKey(pudJobs[1].Id), 'Expected Job record not returned in results');
 
-		Database.QueryLocator jobsQueryLocator = selector.selectJobsByDateAndStatusQueryLocator(date.today(), PUDConstants.PUD_JOB_STATUS_NEW);
+		Database.QueryLocator jobsQueryLocator = selector.selectJobsByDateAndStatusQueryLocator(PUDUtility.JOB_DISPATCH_FROM_DATE, PUDUtility.JOB_DISPATCH_TO_DATE, PUDConstants.PUD_JOB_STATUS_NEW);
 		System.assertNotEquals(null, jobsQueryLocator, 'Expected a valid query locator, but got null');
 
 		results = new Map<Id, PUD_Job__c>(selector.selectByBookingIdStatusAndFromDate(new Set<Id>{pudBooking.Id}, Date.today(), new Set<String>{PUDConstants.PUD_JOB_STATUS_SCHEDULE}));
