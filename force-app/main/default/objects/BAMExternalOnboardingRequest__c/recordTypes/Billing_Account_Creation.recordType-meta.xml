@@ -7,6 +7,10 @@
     <picklistValues>
         <picklist>Status__c</picklist>
         <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Error</fullName>
             <default>false</default>
         </values>

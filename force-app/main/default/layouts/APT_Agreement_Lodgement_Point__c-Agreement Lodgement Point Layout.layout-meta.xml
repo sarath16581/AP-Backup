@@ -28,6 +28,14 @@
                 <field>APT_Billing_Account__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>APT_Charge_Account__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>APT_Sub_Account__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>APT_Product__c</field>
             </layoutItems>
@@ -98,6 +106,18 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>APT_Lodgement_Zone_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Integration_Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Rating_Plan_Id__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Integration_Status_Description__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>

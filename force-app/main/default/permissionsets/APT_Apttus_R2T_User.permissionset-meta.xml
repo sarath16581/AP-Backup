@@ -405,6 +405,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APT_LinkingBillAccToContractController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APT_ManageContractLPController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1108,6 +1112,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Agreement_Lodgement_Point__c.APT_eParcel_Enabled__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Agreement_Lodgement_Point__c.Integration_Status_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Agreement_Lodgement_Point__c.Integration_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Agreement_Lodgement_Point__c.Rating_Plan_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14708,6 +14727,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus__APTS_Agreement__c.Contract_Fully_Signed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus__APTS_Agreement__c.Contract_Relationship__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -203,72 +203,71 @@ public with sharing class LineItemsSelector_Test {
         Test.stopTest();
 
     }
-    
-     /**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output by using the Configuration id and getting
-     * the correct output for Bundle Product/Service
-     */
-    
-     @IsTest
-    public static void testEnsureQueryBuilderProducesRecordWithConfigurationID() {
-         // =====================================
-        // Data Preparation
-        // =====================================
-        Account legacyacct = APT_TestUtils.createOrganisation();
-        legacyacct.Legacy_Id__c = '60000000';
-        legacyacct.Name = 'legacyacct';     
-        insert legacyacct;    
-        
-        //Create Opportunity       
-        Opportunity opp1 = APT_TestUtils.createOpportunity(legacyacct.id);     
-        opp1.Is_Superseded_Opportunity__c = true;             
-        insert opp1;
-        
-        Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
-        insert priceList;
-        
-        Apttus_Proposal__Proposal__c proposal = APT_TestUtils.getQuoteProposal(legacyacct.id,opp1.Id,'Proposal','Test',priceList.id);
-        insert proposal;        
-        
-        
-        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, null, null, false)[0];
-        prodConfig.Apttus_QPConfig__Proposald__c =proposal.id;
-        prodConfig.Apttus_Config2__Status__c ='New';
-        insert prodConfig;
-        
-        prodConfig.Apttus_Config2__Status__c ='Finalized';
-        update prodConfig;
-        
-        product2 prod= new product2();
-        prod.Name='Australia Post Parcel Contract';
-        prod.ProductCode='APPC';
-        prod.Family='APPC';
-        prod.APT_Apttus_Product_Classification__c='APPC';
-        prod.IsActive=true;
-        prod.Apttus_Config2__ConfigurationType__c='Bundle';
-        insert prod;
-        
-        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, null, false)[0];  
-        lineItem.Apttus_Config2__LineType__c = 'Product/Service'; 
-        lineItem.Apttus_Config2__ProductId__c= prod.id;
-        lineItem.Apttus_Config2__Description__c='Australia Post Parcel Contract';
-        lineItem.Apttus_Config2__ConfigurationId__c=prodConfig.id;
-        insert lineItem;
-        
-        Test.startTest();
-        //Getting the Line item record by passing the prod config id and checking the result
-        LineItemsSelector  selector = LineItemsSelector.newInstance();
-        List<Apttus_Config2__LineItem__c> LineItemRec=selector.selectByProdConfId(new set<ID>{(ID)prodConfig.id});
-        System.assertEquals(1,LineItemRec.size(), 'Resulting query give lineitem record as 1');
-        
-        //Getting the Line item record by passing the prod config id and checking the result       
-        List<Apttus_Config2__LineItem__c> LineItemProdService=selector.selectByProdConfigAndLineType(
+
+	/**
+	* Test:
+	*  Ensures that the selectors QueryBuilder is generating the correct output by using the Configuration id and getting
+	* the correct output for Bundle Product/Service
+	*/
+	@IsTest
+	public static void testEnsureQueryBuilderProducesRecordWithConfigurationID() {
+		 // =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+		Account legacyacct = APT_TestUtils.createOrganisation();
+		legacyacct.Legacy_Id__c = '60000000';
+		legacyacct.Name = 'legacyacct';     
+		insert legacyacct;    
+
+		//Create Opportunity       
+		Opportunity opp1 = APT_TestUtils.createOpportunity(legacyacct.id);     
+		opp1.Is_Superseded_Opportunity__c = true;             
+		insert opp1;
+
+		Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
+		insert priceList;
+
+		Apttus_Proposal__Proposal__c proposal = APT_TestUtils.getQuoteProposal(legacyacct.id,opp1.Id,'Proposal','Test',priceList.id);
+		insert proposal;        
+
+
+		Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, null, null, false)[0];
+		prodConfig.Apttus_QPConfig__Proposald__c =proposal.id;
+		prodConfig.Apttus_Config2__Status__c ='New';
+		insert prodConfig;
+
+		prodConfig.Apttus_Config2__Status__c ='Finalized';
+		update prodConfig;
+
+		product2 prod= new product2();
+		prod.Name='Australia Post Parcel Contract';
+		prod.ProductCode='APPC';
+		prod.Family='APPC';
+		prod.APT_Apttus_Product_Classification__c='APPC';
+		prod.IsActive=true;
+		prod.Apttus_Config2__ConfigurationType__c='Bundle';
+		insert prod;
+
+		Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, null, false)[0];  
+		lineItem.Apttus_Config2__LineType__c = 'Product/Service'; 
+		lineItem.Apttus_Config2__ProductId__c= prod.id;
+		lineItem.Apttus_Config2__Description__c='Australia Post Parcel Contract';
+		lineItem.Apttus_Config2__ConfigurationId__c=prodConfig.id;
+		insert lineItem;
+
+		Test.startTest();
+		//Getting the Line item record by passing the prod config id and checking the result
+		LineItemsSelector  selector = LineItemsSelector.newInstance();
+		List<Apttus_Config2__LineItem__c> LineItemRec=selector.selectByProdConfId(new set<ID>{(ID)prodConfig.id});
+		System.assertEquals(1,LineItemRec.size(), 'Resulting query give lineitem record as 1');
+
+		//Getting the Line item record by passing the prod config id and checking the result       
+		List<Apttus_Config2__LineItem__c> LineItemProdService=selector.selectByProdConfigAndLineType(
 			new set<ID>{(ID)prodConfig.id},
 			new set<String>{'Product/Service'},
 			new Set<Object>{LineItemsSelector.Options.WITH_PRODUCT_ATTRIBUTE_VALUE});
-        System.assertEquals(1,LineItemProdService.size(), 'Resulting query give lineitem record as 1');  
-        Test.stopTest();
-
-    }
+		System.assertEquals(1,LineItemProdService.size(), 'Resulting query give lineitem record as 1');  
+		Test.stopTest();
+	}
 }

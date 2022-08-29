@@ -63,49 +63,52 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
         return new Map<Id, Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
     }
 
-  /**
-   * @description Run a query by passing the prod config id
-   */
-  public virtual List<Apttus_Config2__LineItem__c> selectByProdConfId(set<ID> prodConfIds) {
-    return selectByProdConfId(prodConfIds, new Set<Object>());
-  }
+	/**
+	 * @description Run a query by passing the prod config id
+	 */
+	public virtual List<Apttus_Config2__LineItem__c> selectByProdConfId(set<ID> prodConfIds) {
+		return selectByProdConfId(prodConfIds, new Set<Object>());
+	}
 
-  public virtual List<Apttus_Config2__LineItem__c> selectByProdConfId(Set<ID> prodConfIds, Set<Object> selectorOptions) {
-    QueryBuilder qb = newQueryBuilder(selectorOptions)
-    .addConditions()
-      .add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :prodConfIds'))
-    .endConditions();
-    return new List<Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
-  }
+	public virtual List<Apttus_Config2__LineItem__c> selectByProdConfId(Set<ID> prodConfIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+		.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :prodConfIds'))
+		.endConditions();
+		return new List<Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
+	}
 
-  /**
-  * @description Run a query by passing the prod config id, LineType
-  */
-  public virtual List<Apttus_Config2__LineItem__c> selectByProdConfigAndLineType(Set<ID> prodConfigIds, Set<String> lineType) {
-    return selectByProdConfigAndLineType(prodConfigIds, lineType, new Set<Object>());
-  }
+	/**
+	* @description Run a query by passing the prod config id, LineType
+	*/
+	public virtual List<Apttus_Config2__LineItem__c> selectByProdConfigAndLineType(Set<ID> prodConfigIds, Set<String> lineType) {
+		return selectByProdConfigAndLineType(prodConfigIds, lineType, new Set<Object>());
+	}
 
-  public virtual List<Apttus_Config2__LineItem__c> selectByProdConfigAndLineType(Set<ID> prodConfigIds, Set<String> lineType, Set<Object> selectorOptions) {
-    QueryBuilder qb = newQueryBuilder(selectorOptions);
-    qb.addConditions()
-      .add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :prodConfigIds'))
-      .add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__LineType__c + ' = :lineType'))
-    .endConditions();
-    return new List<Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
-  }
-  /**
-  * @description Using query builder to get the fields from Product Attribute Value objects
-  */
-  public virtual override QueryBuilder newQueryBuilder() {
-    return newQueryBuilder(new Set<Object>());
-  }
-  
-  public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-    QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+	/**
+	* @description Run a query by passing the prod config id, LineType
+	*/
+	public virtual List<Apttus_Config2__LineItem__c> selectByProdConfigAndLineType(Set<ID> prodConfigIds, Set<String> lineType, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		qb.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :prodConfigIds'))
+			.add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__LineType__c + ' = :lineType'))
+		.endConditions();
+		return new List<Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
+	}
+	/**
+	 * @description Using query builder to get the fields from Product Attribute Value objects
+	 */
+	public virtual override QueryBuilder newQueryBuilder() {
+		return newQueryBuilder(new Set<Object>());
+	}
 
-    if(selectorOptions.contains(Options.WITH_PRODUCT_ATTRIBUTE_VALUE)) {
-      builder.addRelatedFields(ProductAttributeValueSelector.newInstance().newQueryBuilder(), 'Apttus_Config2__AttributeValueId__r');
-    }
-    return builder;
-  }
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if(selectorOptions.contains(Options.WITH_PRODUCT_ATTRIBUTE_VALUE)) {
+			builder.addRelatedFields(ProductAttributeValueSelector.newInstance().newQueryBuilder(), 'Apttus_Config2__AttributeValueId__r');
+		}
+		return builder;
+	}
 }

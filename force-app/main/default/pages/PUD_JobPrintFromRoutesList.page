@@ -2,7 +2,8 @@
  - page used to print pdf with routes and related bookings, generated from the route list view
  - @changelog:
  - 24/6/2022 - Kamil Szyc- created
- -->
+-  11/08/2022 - Dattaraj Deshmukh - Updated page to use wrapper class.
+-->
 <apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_PrintRouteController"
            recordSetVar="routesVar"
            renderAs="pdf" applyBodyTag="false" id="PUD_JobPrintFromRoutesList">
@@ -68,21 +69,34 @@
                 font-weight:normal;
                 font-size:small;
             }
+            .counterReset {
+                -fs-page-sequence: start;
+            }
+            .locationName {
+                text-transform: uppercase;
+            }
+            .locationAddress {
+                text-transform: lowercase;
+            }
+            .job-comments-instructions{
+                margin-left: 40px; 
+                display: block;
+            }
 
         </style>
 
     </head>
     <!--page counter used to truncate blank pages and the end of the pdf document -->
     <apex:variable var="routeCounter" value="{!0}"/>
-    <apex:repeat value="{!routes}" var="route" id="selectedRoutes">
-        <div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+    <apex:repeat value="{!routes}" var="routeWrapperRecord" id="selectedRoutes">
+        <div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}" class="counterReset">
             <div class="header">
                 <!--repeatable header-->
-                <c:PUD_BookingsHeader Route="{! route}"/>
+                <c:PUD_BookingsHeader routeWrapper="{! routeWrapperRecord}"/>
             </div>
             <div class="content">
-                <c:PUD_RoutePrintSubHeader route="{!route}"/>
-                <c:PUD_BookingsTable bookings="{!route.Bookings__r}"/>
+                <c:PUD_RoutePrintSubHeader routeWrapper="{!routeWrapperRecord}"/>
+                <c:PUD_BookingsTable bookings="{!routeWrapperRecord.bookings}"/>
             </div>
         </div>
         <apex:variable var="routeCounter" value="{!routeCounter+1}"/>

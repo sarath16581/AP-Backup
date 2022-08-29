@@ -9,6 +9,7 @@
  * 2020-11-18 - arjun.singh@austpost.com.au - Created
  * 2021-05-12 - seth.heang@auspost.com.com.au Updated test classes due to field mapping changes in main classes
  * 2021-05-19 - avula.jansirani@auspost.com.au - added bca methods
+ * 2022-08-08 - Seth Heang - Added test method to cover Rating Plan Activation changes
  */
 @IsTest
 public with sharing class CreateBillingAccountController_Test {
@@ -64,10 +65,21 @@ public with sharing class CreateBillingAccountController_Test {
         Map<Id, Account> mockOrganisationMap = new Map<Id, Account>{account.Id => account };
         MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES})).thenReturn(mockOrganisationMap );
         Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
-        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, new Set<Object>{DealSupportRequestsSelector.Options.WITH_OPPORTUNITY})).thenReturn(mockDsrMap);
+        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, 
+			new Set<Object>{
+				DealSupportRequestsSelector.Options.WITH_OPPORTUNITY,
+				DealSupportRequestsSelector.Options.WITH_CONTRACT
+			})).thenReturn(mockDsrMap);
 
         Map<Id, Apttus__APTS_Agreement__c> mockApttusContractMap = new Map<Id, Apttus__APTS_Agreement__c>{apttusContracts.Id => apttusContracts};
-        MockUtility.Mocks.when(apttusContractSelector.selectById(new Set<Id>{dealSupportRequest.APT_Contract__c}, new Set<object>{ApttusContractsSelector.Options.WITH_ORGANISATION,ApttusContractsSelector.Options.WITH_CONTACT,ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,ApttusContractsSelector.Options.WITH_PROPOSAL})).thenReturn(mockApttusContractMap);
+        MockUtility.Mocks.when(apttusContractSelector.selectById(new Set<Id>{dealSupportRequest.APT_Contract__c}, 
+			new Set<object>{
+				ApttusContractsSelector.Options.WITH_ORGANISATION,
+				ApttusContractsSelector.Options.WITH_CONTACT,
+				ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,
+				ApttusContractsSelector.Options.WITH_PROPOSAL,
+				ApttusContractsSelector.Options.WITH_OPPORTUNITY
+			})).thenReturn(mockApttusContractMap);
 
         MockUtility.Mocks.stopStubbing();
 
@@ -152,7 +164,14 @@ public with sharing class CreateBillingAccountController_Test {
         apttusContracts.Apttus__Account__c = account.Id;
         update apttusContracts;
         // The mock framework does not work with below query, as such for this method we had to insert actual data in order to pass the code coverage
-        apttusContracts = ApttusContractsSelector.newInstance().selectById(new set<Id>{apttusContracts.id}, new Set<object>{ApttusContractsSelector.Options.WITH_ORGANISATION,ApttusContractsSelector.Options.WITH_CONTACT,ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,ApttusContractsSelector.Options.WITH_PROPOSAL,ApttusContractsSelector.Options.WITH_OPPORTUNITY}).values()[0];
+        apttusContracts = ApttusContractsSelector.newInstance().selectById(new set<Id>{apttusContracts.id}, 
+			new Set<object>{
+				ApttusContractsSelector.Options.WITH_ORGANISATION,
+				ApttusContractsSelector.Options.WITH_CONTACT,
+				ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,
+				ApttusContractsSelector.Options.WITH_PROPOSAL,
+				ApttusContractsSelector.Options.WITH_OPPORTUNITY
+			}).values()[0];
 
         dealSupportRequest.APT_Contract__c = apttusContracts.Id;
         dealSupportRequest.Opportunity__c = opportunityRecord.Id;
@@ -175,12 +194,23 @@ public with sharing class CreateBillingAccountController_Test {
         Map<Id, Account> mockOrganisationMap = new Map<Id, Account>{account.Id => account };
         MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES})).thenReturn(mockOrganisationMap );
         Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
-        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, new Set<Object>{DealSupportRequestsSelector.Options.WITH_OPPORTUNITY})).thenReturn(mockDsrMap);
+        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, 
+			new Set<Object>{
+				DealSupportRequestsSelector.Options.WITH_OPPORTUNITY,
+				DealSupportRequestsSelector.Options.WITH_CONTRACT
+			})).thenReturn(mockDsrMap);
         Map<Id, APT_Sub_Account__c> mockSarMap = new Map<Id, APT_Sub_Account__c>{subAccountRequest.Id => subAccountRequest };
         MockUtility.Mocks.when(subAccReqSelector.selectByChargeAcountRequestIdAndStatus(new Set<Id>{chargeAccountRequest.Id},new Set<String>{'Pending Charge Account'}, new Set<Object>{SubAccountRequestsSelector.Options.WITH_SUB_ACCOUNT_CONTACT})).thenReturn(mockSarMap );
 
         Map<Id, Apttus__APTS_Agreement__c> mockApttusContractMap = new Map<Id, Apttus__APTS_Agreement__c>{apttusContracts.Id => apttusContracts};
-        MockUtility.Mocks.when(apttusContractSelector.selectById(new Set<Id>{dealSupportRequest.APT_Contract__c}, new Set<object>{ApttusContractsSelector.Options.WITH_ORGANISATION,ApttusContractsSelector.Options.WITH_CONTACT,ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,ApttusContractsSelector.Options.WITH_PROPOSAL})).thenReturn(mockApttusContractMap);
+        MockUtility.Mocks.when(apttusContractSelector.selectById(new Set<Id>{dealSupportRequest.APT_Contract__c}, 
+			new Set<object>{
+				ApttusContractsSelector.Options.WITH_ORGANISATION,
+				ApttusContractsSelector.Options.WITH_CONTACT,
+				ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,
+				ApttusContractsSelector.Options.WITH_PROPOSAL,
+				ApttusContractsSelector.Options.WITH_OPPORTUNITY
+			})).thenReturn(mockApttusContractMap);
         List<BAMExternalOnboardingRequest__c> onboardingRequest = new List<BAMExternalOnboardingRequest__c>{externalOnboardingRecord};
         String stJson = '{"success":true,"id":' +'"'+ onboardingRequest[0].Id + '"'+ '}';
         Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
@@ -232,10 +262,21 @@ public with sharing class CreateBillingAccountController_Test {
         Map<Id, Account> mockOrganisationMap = new Map<Id, Account>{account.Id => account };
         MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES})).thenReturn(mockOrganisationMap );
         Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
-        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, new Set<Object>{DealSupportRequestsSelector.Options.WITH_OPPORTUNITY})).thenReturn(mockDsrMap);
+        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, 
+		new Set<Object>{
+			DealSupportRequestsSelector.Options.WITH_OPPORTUNITY,
+			DealSupportRequestsSelector.Options.WITH_CONTRACT}
+			)).thenReturn(mockDsrMap);
 
         Map<Id, Apttus__APTS_Agreement__c> mockApttusContractMap = new Map<Id, Apttus__APTS_Agreement__c>{apttusContracts.Id => apttusContracts};
-        MockUtility.Mocks.when(apttusContractSelector.selectById(new Set<Id>{dealSupportRequest.APT_Contract__c}, new Set<object>{ApttusContractsSelector.Options.WITH_ORGANISATION,ApttusContractsSelector.Options.WITH_CONTACT,ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,ApttusContractsSelector.Options.WITH_PROPOSAL})).thenReturn(mockApttusContractMap);
+        MockUtility.Mocks.when(apttusContractSelector.selectById(new Set<Id>{dealSupportRequest.APT_Contract__c}, 
+			new Set<object>{
+				ApttusContractsSelector.Options.WITH_ORGANISATION,
+				ApttusContractsSelector.Options.WITH_CONTACT,
+				ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,
+				ApttusContractsSelector.Options.WITH_PROPOSAL,
+				ApttusContractsSelector.Options.WITH_OPPORTUNITY
+			})).thenReturn(mockApttusContractMap);
         List<BAMExternalOnboardingRequest__c> onboardingRequest = new List<BAMExternalOnboardingRequest__c>{externalOnboardingRecord};
         String stJson = '{"success":true,"id":' +'"'+ onboardingRequest[0].Id + '"'+ '}';
         Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
@@ -287,10 +328,21 @@ public with sharing class CreateBillingAccountController_Test {
         Map<Id, Account> mockOrganisationMap = new Map<Id, Account>{account.Id => account };
         MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES})).thenReturn(mockOrganisationMap );
         Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
-        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, new Set<Object>{DealSupportRequestsSelector.Options.WITH_OPPORTUNITY})).thenReturn(mockDsrMap);
+        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, 
+			new Set<Object>{
+				DealSupportRequestsSelector.Options.WITH_OPPORTUNITY,
+				DealSupportRequestsSelector.Options.WITH_CONTRACT
+		})).thenReturn(mockDsrMap);
 
         Map<Id, Apttus__APTS_Agreement__c> mockApttusContractMap = new Map<Id, Apttus__APTS_Agreement__c>{apttusContracts.Id => apttusContracts};
-        MockUtility.Mocks.when(apttusContractSelector.selectById(new Set<Id>{dealSupportRequest.APT_Contract__c}, new Set<object>{ApttusContractsSelector.Options.WITH_ORGANISATION,ApttusContractsSelector.Options.WITH_CONTACT,ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,ApttusContractsSelector.Options.WITH_PROPOSAL})).thenReturn(mockApttusContractMap);
+        MockUtility.Mocks.when(apttusContractSelector.selectById(new Set<Id>{dealSupportRequest.APT_Contract__c}, 
+			new Set<object>{
+				ApttusContractsSelector.Options.WITH_ORGANISATION,
+				ApttusContractsSelector.Options.WITH_CONTACT,
+				ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,
+				ApttusContractsSelector.Options.WITH_PROPOSAL,
+				ApttusContractsSelector.Options.WITH_OPPORTUNITY
+			})).thenReturn(mockApttusContractMap);
         List<BAMExternalOnboardingRequest__c> onboardingRequest = new List<BAMExternalOnboardingRequest__c>{externalOnboardingRecord};
         String stJson = '{"success":true,"id":' +'"'+ onboardingRequest[0].Id + '"'+ '}';
         Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
@@ -358,10 +410,18 @@ public with sharing class CreateBillingAccountController_Test {
         Map<Id, Account> mockOrganisationMap = new Map<Id, Account>{account.Id => account };
         MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES})).thenReturn(mockOrganisationMap );
         Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
-        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, new Set<Object>{DealSupportRequestsSelector.Options.WITH_OPPORTUNITY})).thenReturn(mockDsrMap);
+        MockUtility.Mocks.when(dsrSelector.selectById(new Set<Id>{dealSupportRequest.Id}, new Set<Object>{DealSupportRequestsSelector.Options.WITH_OPPORTUNITY,DealSupportRequestsSelector.Options.WITH_CONTRACT})).thenReturn(mockDsrMap);
 
         Map<Id, Apttus__APTS_Agreement__c> mockApttusContractMap = new Map<Id, Apttus__APTS_Agreement__c>{apttusContracts.Id => apttusContracts};
-        MockUtility.Mocks.when(apttusContractSelector.selectById(new Set<Id>{dealSupportRequest.APT_Contract__c}, new Set<object>{ApttusContractsSelector.Options.WITH_ORGANISATION,ApttusContractsSelector.Options.WITH_CONTACT,ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,ApttusContractsSelector.Options.WITH_PROPOSAL})).thenReturn(mockApttusContractMap);
+        MockUtility.Mocks.when(apttusContractSelector.selectById(
+			new Set<Id>{dealSupportRequest.APT_Contract__c}, 
+			new Set<object>{
+				ApttusContractsSelector.Options.WITH_ORGANISATION,
+				ApttusContractsSelector.Options.WITH_CONTACT,
+				ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,
+				ApttusContractsSelector.Options.WITH_PROPOSAL,
+				ApttusContractsSelector.Options.WITH_OPPORTUNITY
+			})).thenReturn(mockApttusContractMap);
         List<BAMExternalOnboardingRequest__c> onboardingRequest = new List<BAMExternalOnboardingRequest__c>{externalOnboardingRecord};
         String stJson = '{"success":true,"id":' +'"'+ onboardingRequest[0].Id + '"'+ '}';
         Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
@@ -580,4 +640,578 @@ public with sharing class CreateBillingAccountController_Test {
         BillingAccountCreationEventTriggerHelper.updateCA( bae,billingAccountRecord.Id);
         Test.stopTest();
     }
+
+	/**
+	 * Test: When rating plan request payload is triggered for existing account scenario and the connection to Camunda is successful,
+	 * 		validate that continuation method response expects a boolean true callout response, and DSR rating integration status updated to 'Requested'
+	 */
+	@IsTest
+	private static void ratingPlanRequestSuccessScenarioTest() {
+		setMetadata(
+		'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
+		(List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
+		);
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, true)[0];
+		Deal_Support_Request__c dealSupportRequest = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+		BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', true)[0];
+
+		// setup APPC product data
+		List<Product2> prodList = ApplicationTestDataFactory.getPSRProducts(6, true);
+		List<String> prodClassification = new List<String>{
+			'APPC-Standard',
+			'APPC-Premium',
+			'APPC-Feature',
+			'APPC-Surcharge',
+			'APPC-Return',
+			'APPC-FuelSurcharge'
+		};
+		for(Integer i=0; i<prodList.size();i++){
+			prodList[i].APT_Apttus_Product_Classification__c = prodClassification[i];
+		}
+		// setup APPC agreement line item data
+		List<Apttus__AgreementLineItem__c> aliList = APT_TestDataFactory.getAPTAgreementLineItem(6, true);
+		for(Integer i=0; i<prodList.size();i++){
+			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
+			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
+			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i], 
+				new Map<String, Object>{
+					'Apttus_CMConfig__OptionId__r' => prodList[i], 
+					'Apttus__AgreementId__c' => apttusContracts.Id,
+					'APT_Option_Name_Without_Tier__c' => 'T04'
+				});
+		}
+
+		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
+		Billing_Account__c billAccRec = ApplicationTestDataFactory.getBillingAccounts(1, account.Id, 'SAP ERP', true)[0];
+		List<APT_Agreement_Lodgement_Point__c> alpList = ApplicationTestDataFactory.getAgreementLodgementPoints(2, net.id, apttusContracts.id, account.id, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		AccountsSelector acctSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
+		DealSupportRequestsSelector dsrSelector = (DealSupportRequestsSelector)MockUtility.mockSelector(DealSupportRequestsSelector.class);        
+		ApttusContractsSelector apttusContractSelector = (ApttusContractsSelector)MockUtility.mockSelector(ApttusContractsSelector.class);
+		APT_AgreementLineItemsSelector agreementLineItemSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class); 
+		APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
+
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		Map<Id, Account> mockOrganisationMap = new Map<Id, Account>{account.Id => account };
+		MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES})).thenReturn(mockOrganisationMap );
+		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
+		MockUtility.Mocks.when(dsrSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(mockDsrMap);
+
+		Map<Id, Apttus__APTS_Agreement__c> mockApttusContractMap = new Map<Id, Apttus__APTS_Agreement__c>{apttusContracts.Id => apttusContracts};
+		MockUtility.Mocks.when(apttusContractSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(mockApttusContractMap);
+
+		MockUtility.Mocks.when(agreementLineItemSelector.selectByContractIdsAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+
+		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
+			(Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject()))
+			.thenReturn(new Map<Id,APT_Agreement_Lodgement_Point__c>(alpList));
+
+		List<BAMExternalOnboardingRequest__c> onboardingRequest = new List<BAMExternalOnboardingRequest__c>{externalOnboardingRecord};
+		String stJson = '{"success":true,"id":' +'"'+ onboardingRequest[0].Id + '"'+ '}';
+		Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
+
+		list<Database.SaveResult> svResultList = new  list<Database.SaveResult>{sr};
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenReturn(svResultList);
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.stopStubbing();
+		String requestLabel;
+		Test.startTest();        
+		CreateBillingAccountHelper.ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation onboardingRecord = CreateBillingAccountController.activateRatingPlan(dealSupportRequest.Id);
+		String onboardingRecordJson = System.JSON.serialize(onboardingRecord);
+		Continuation con = (Continuation)CreateBillingAccountController.ratingPlanActivationCreationRequest(onboardingRecordJson, dealSupportRequest.Id);
+		requestLabel = new List<String>(con.getRequests().keySet())[0];
+		Test.stopTest();
+		String mockResponseBody = '{"Status":"success"}';
+		// Verify that the continuation has the correct number of requests
+		Map<String, HttpRequest> requests = con.getRequests();
+		System.assertEquals(1, requests.size(), 'The number of requests associated to the Continuation is not correct');
+		// Create a mock response
+		HttpResponse response = new HttpResponse();
+		response.setStatusCode(202);
+		response.setBody(mockResponseBody);
+		Test.setContinuationResponse(requestLabel, response);
+		// Expected Callout Success
+		List<String> labels = new List<String>{requestLabel};
+		Boolean result = CreateBillingAccountController.processResponse(labels, CreateBillingAccountController.stateInfoVar);
+		System.assertEquals(true, result, 'Expected success in Callout response');
+		// verify 1 dml insert for BAM external onboarding
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
+		// verify 3 dml update for related object records
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(3))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+
+		// setup DSR captor
+		fflib_ArgumentCaptor updatableDSRCaptor = fflib_ArgumentCaptor.forClass(List<Deal_Support_Request__c>.class);
+		// verify dml insert and retrieve DSR test record from captor
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(3))).dmlUpdate((List<SObject>)updatableDSRCaptor.capture());
+		Map<Id, Object> updatedDSR;
+		String jsonDmlResponse = JSON.serialize(updatableDSRCaptor.getAllValues());
+		System.assertEquals(true, Pattern.compile('Deal_Support_Request__c/'+dealSupportRequest.Id+'"([\\s\\S]*?)"Rating_Integration_Status__c":"Requested"').matcher(jsonDmlResponse).find(), 'Expected DSR Rating Integration Status changed to Requested');
+	}
+
+	/**
+	 * Test: When rating plan request payload is triggered for existing account scenario and there is connection error with Camunda,
+	 * 		validate that continuation method response expects a boolean false callout response, and DSR rating integration status updated to 'Error'
+	 */
+	@IsTest
+	private static void ratingPlanRequestErrorScenarioTest() {
+		setMetadata(
+		'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
+		(List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
+		);
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, true)[0];
+		Deal_Support_Request__c dealSupportRequest = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+		BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', true)[0];
+
+		// setup APPC product data
+		List<Product2> prodList = ApplicationTestDataFactory.getPSRProducts(6, true);
+		List<String> prodClassification = new List<String>{
+			'APPC-Standard',
+			'APPC-Premium',
+			'APPC-Feature',
+			'APPC-Surcharge',
+			'APPC-Return',
+			'APPC-FuelSurcharge'
+		};
+		for(Integer i=0; i<prodList.size();i++){
+			prodList[i].APT_Apttus_Product_Classification__c = prodClassification[i];
+		}
+		// setup APPC agreement line item data
+		List<Apttus__AgreementLineItem__c> aliList = APT_TestDataFactory.getAPTAgreementLineItem(6, true);
+		for(Integer i=0; i<prodList.size();i++){
+			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
+			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
+			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i], 
+				new Map<String, Object>{
+					'Apttus_CMConfig__OptionId__r' => prodList[i], 
+					'Apttus__AgreementId__c' => apttusContracts.Id,
+					'APT_Option_Name_Without_Tier__c' => 'T04'
+				});
+		}
+
+		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
+		Billing_Account__c billAccRec = ApplicationTestDataFactory.getBillingAccounts(1, account.Id, 'SAP ERP', true)[0];
+		List<APT_Agreement_Lodgement_Point__c> alpList = ApplicationTestDataFactory.getAgreementLodgementPoints(2, net.id, apttusContracts.id, account.id, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		AccountsSelector acctSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
+		DealSupportRequestsSelector dsrSelector = (DealSupportRequestsSelector)MockUtility.mockSelector(DealSupportRequestsSelector.class);        
+		ApttusContractsSelector apttusContractSelector = (ApttusContractsSelector)MockUtility.mockSelector(ApttusContractsSelector.class);
+		APT_AgreementLineItemsSelector agreementLineItemSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class); 
+		APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
+
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		Map<Id, Account> mockOrganisationMap = new Map<Id, Account>{account.Id => account };
+		MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES})).thenReturn(mockOrganisationMap );
+		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
+		MockUtility.Mocks.when(dsrSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(mockDsrMap);
+
+		Map<Id, Apttus__APTS_Agreement__c> mockApttusContractMap = new Map<Id, Apttus__APTS_Agreement__c>{apttusContracts.Id => apttusContracts};
+		MockUtility.Mocks.when(apttusContractSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(mockApttusContractMap);
+
+		MockUtility.Mocks.when(agreementLineItemSelector.selectByContractIdsAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+
+		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
+			(Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject()))
+			.thenReturn(new Map<Id,APT_Agreement_Lodgement_Point__c>(alpList));
+
+		List<BAMExternalOnboardingRequest__c> onboardingRequest = new List<BAMExternalOnboardingRequest__c>{externalOnboardingRecord};
+		String stJson = '{"success":true,"id":' +'"'+ onboardingRequest[0].Id + '"'+ '}';
+		Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
+
+		list<Database.SaveResult> svResultList = new  list<Database.SaveResult>{sr};
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenReturn(svResultList);
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.stopStubbing();
+		String requestLabel;
+		Test.startTest();        
+		CreateBillingAccountHelper.ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation onboardingRecord = CreateBillingAccountController.activateRatingPlan(dealSupportRequest.Id);
+		String onboardingRecordJson = System.JSON.serialize(onboardingRecord);
+		Continuation con = (Continuation)CreateBillingAccountController.ratingPlanActivationCreationRequest(onboardingRecordJson, dealSupportRequest.Id);
+		requestLabel = new List<String>(con.getRequests().keySet())[0];
+		Test.stopTest();
+		String mockResponseBody = '{"errors":[{"detail":"Error in rating plan creation"}]}';
+		// Verify that the continuation has the correct number of requests
+		Map<String, HttpRequest> requests = con.getRequests();
+		System.assertEquals(1, requests.size(), 'The number of requests associated to the Continuation is not correct');
+		// Create a mock response
+		HttpResponse response = new HttpResponse();
+		response.setStatusCode(500);
+		response.setBody(mockResponseBody);
+		Test.setContinuationResponse(requestLabel, response);
+		// Expected Callout Error
+		List<String> labels = new List<String>{requestLabel};
+		Boolean result = CreateBillingAccountController.processResponse(labels, CreateBillingAccountController.stateInfoVar);
+		System.assertEquals(false, result, 'Expected failure in Callout response');
+		// verify 1 dml insert for BAM external onboarding
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
+		// verify 3 dml update for related object records
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(3))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+
+		// setup DSR captor
+		fflib_ArgumentCaptor updatableDSRCaptor = fflib_ArgumentCaptor.forClass(List<Deal_Support_Request__c>.class);
+		// verify dml insert and retrieve DSR test record from captor
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(3))).dmlUpdate((List<SObject>)updatableDSRCaptor.capture());
+		Map<Id, Object> updatedDSR;
+		String jsonDmlResponse = JSON.serialize(updatableDSRCaptor.getAllValues());
+		System.assertEquals(true, Pattern.compile('Deal_Support_Request__c/'+dealSupportRequest.Id+'"([\\s\\S]*?)"Rating_Integration_Status__c":"Error"').matcher(jsonDmlResponse).find(), 'Resulting payload has failures');
+	}
+
+	/**
+	 * Test: When rating plan request payload is triggered for existing account scenario with dummy connection,
+	 * 		validate that DSR integration status related fields are still properly updated, and dummy response code coverage is covered
+	 */
+	@IsTest
+	private static void validateRatingPlanRequestPayloadWithDummyConnection() {
+		setMetadata(
+		'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
+		(List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"No"}]', List<SAP_Integration__mdt>.class)
+		);
+		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
+		Account account = accountList[0];
+		Account chargeAccount = accountList[1];
+		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		Apttus_Proposal__Proposal__c apttusProposals = ApplicationTestDataFactory.getApttusProposals(1, primaryContact.Id, true)[0];
+		Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, true)[0];
+		Deal_Support_Request__c dealSupportRequest = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+		BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', true)[0];
+		externalOnboardingRecord.Request_Object_Id__c = dealSupportRequest.Id;
+		apttusContracts.Apttus_QPComply__RelatedProposalId__c = apttusProposals.Id;
+		apttusContracts.Apttus__Account__c = account.Id;
+		dealSupportRequest.APT_Contract__c = apttusContracts.Id;
+
+		// setup APPC product data
+		List<Product2> prodList = ApplicationTestDataFactory.getPSRProducts(6, true);
+		List<String> prodClassification = new List<String>{
+			'APPC-Standard',
+			'APPC-Premium',
+			'APPC-Feature',
+			'APPC-Surcharge',
+			'APPC-Return',
+			'APPC-FuelSurcharge'
+		};
+		for(Integer i=0; i<prodList.size();i++){
+			prodList[i].APT_Apttus_Product_Classification__c = prodClassification[i];
+		}
+		// setup APPC agreement line item data
+		List<Apttus__AgreementLineItem__c> aliList = APT_TestDataFactory.getAPTAgreementLineItem(6, true);
+		for(Integer i=0; i<prodList.size();i++){
+			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
+			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
+			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i], 
+				new Map<String, Object>{
+					'Apttus_CMConfig__OptionId__r' => prodList[i], 
+					'Apttus__AgreementId__c' => apttusContracts.Id,
+					'APT_Option_Name_Without_Tier__c' => 'T04'
+				});
+		}
+
+		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
+		Billing_Account__c billAccRec = ApplicationTestDataFactory.getBillingAccounts(1, account.Id, 'SAP ERP', true)[0];
+		List<APT_Agreement_Lodgement_Point__c> alpList = ApplicationTestDataFactory.getAgreementLodgementPoints(2, net.id, apttusContracts.id, account.id, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		AccountsSelector acctSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
+		DealSupportRequestsSelector dsrSelector = (DealSupportRequestsSelector)MockUtility.mockSelector(DealSupportRequestsSelector.class);        
+		ApttusContractsSelector apttusContractSelector = (ApttusContractsSelector)MockUtility.mockSelector(ApttusContractsSelector.class);
+		APT_AgreementLineItemsSelector agreementLineItemSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class); 
+		APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
+
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		Map<Id, Account> mockOrganisationMap = new Map<Id, Account>{account.Id => account };
+		MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES})).thenReturn(mockOrganisationMap );
+		Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
+		MockUtility.Mocks.when(dsrSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(mockDsrMap);
+
+		Map<Id, Apttus__APTS_Agreement__c> mockApttusContractMap = new Map<Id, Apttus__APTS_Agreement__c>{apttusContracts.Id => apttusContracts};
+		MockUtility.Mocks.when(apttusContractSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(mockApttusContractMap);
+
+		MockUtility.Mocks.when(agreementLineItemSelector.selectByContractIdsAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+
+
+		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
+			(Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject()))
+			.thenReturn(new Map<Id,APT_Agreement_Lodgement_Point__c>(alpList));
+			
+		List<BAMExternalOnboardingRequest__c> onboardingRequest = new List<BAMExternalOnboardingRequest__c>{externalOnboardingRecord};
+		String stJson = '{"success":true,"id":' +'"'+ onboardingRequest[0].Id + '"'+ '}';
+		Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
+
+		list<Database.SaveResult> svResultList = new  list<Database.SaveResult>{sr}; 
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenReturn(svResultList);
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+		CreateBillingAccountHelper.ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation onboardingRecord = CreateBillingAccountController.activateRatingPlan(dealSupportRequest.Id);
+		Test.stopTest();
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(3))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+
+		// setup DSR captor
+		fflib_ArgumentCaptor updatableDSRCaptor = fflib_ArgumentCaptor.forClass(List<Deal_Support_Request__c>.class);
+		// verify dml insert and retrieve DSR test record from captor
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(3))).dmlUpdate((List<SObject>)updatableDSRCaptor.capture());
+		Map<Id, Object> updatedDSR;
+		String jsonDmlResponse = JSON.serialize(updatableDSRCaptor.getAllValues());
+		System.assertEquals(true, Pattern.compile('Deal_Support_Request__c/'+dealSupportRequest.Id+'"([\\s\\S]*?)"Rating_Integration_Status__c":"Completed"').matcher(jsonDmlResponse).find(), 'Resulting payload is successful');
+	}
+
+	/**
+	 * Test: When rating plan request payload is triggered and the contract is linked at charge and sub account request level for New Account scenario,
+	 * 		validate that 'ChargeAccount' and 'SubAccount' objectType is present in the customer node within the payload
+	 */
+	@IsTest
+	private static void validatePayloadContractIsLinkedAtChargeAndSubAccountLevel() {
+		MockUtility.disableTriggerExecution();
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		APT_Charge_Account__c chargeAccountRequest = ApplicationTestDataFactory.getApttusChargeAccountRequest(1,true)[0];
+		Apttus_Proposal__Proposal__c apttusProposals = ApplicationTestDataFactory.getApttusProposals(1, primaryContact.Id, true)[0];
+		Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, true)[0];
+		Deal_Support_Request__c dealSupportRequest = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+		APT_Sub_Account__c subAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1,'Test1',true)[0];
+
+		// setup APPC Product data with Product Classification values 
+		List<Product2> prodList = ApplicationTestDataFactory.getPSRProducts(6, true);
+		List<String> prodClassification = new List<String>{
+			'APPC-Standard',
+			'APPC-Premium',
+			'APPC-Feature',
+			'APPC-Surcharge',
+			'APPC-FuelSurcharge',
+			'APPC-Return'
+		};
+		// setup product code for APPC product
+		List<String> prodCode = new List<String>{'SP00','SP01','FE00','SU00','SU01','RE00'};
+		for(Integer i=0; i<prodList.size();i++){
+			prodList[i].APT_Apttus_Product_Classification__c = prodClassification[i];
+			prodList[i].SAP_Product_Code__c = prodCode[i];
+		}
+		// populate product classification to agreement line item
+		List<Apttus__AgreementLineItem__c> aliList = APT_TestDataFactory.getAPTAgreementLineItem(6, true);
+		for(Integer i=0; i<prodList.size();i++){
+			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
+			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
+			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i], 
+				new Map<String, Object>{
+					'Apttus_CMConfig__OptionId__r' => prodList[i], 
+					'Apttus__AgreementId__c' => apttusContracts.Id,
+					'APT_Option_Name_Without_Tier__c' => 'T04'
+				});
+		}
+
+		List<APT_Agreement_Lodgement_Point__c> alpList = ApplicationTestDataFactory.getAgreementLodgementPoints(2, null, apttusContracts.id, account.id, true);
+		// link charge account and sub account req to contract's junction obj
+		alpList[0].APT_Charge_Account__c = chargeAccountRequest.Id;
+		alpList[1].APT_Sub_Account__c = subAccountRequest.Id;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		APT_AgreementLineItemsSelector agreementLineItemSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class); 
+		APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
+
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(agreementLineItemSelector.selectByContractIdsAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
+			(Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject()))
+			.thenReturn(new Map<Id,APT_Agreement_Lodgement_Point__c>(alpList));
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+		// generate rating plan request payload
+		BillingAccountWrapper.CompassContractActivation payload = CreateBillingAccountHelper.generateActivateRatePlanJSON(dealSupportRequest, true);
+		String payloadJSON = JSON.serialize(payload);
+		// Validate that "ChargeAccount" and "SubAccount" objectType is present in custom node within payload
+		System.assertEquals(true, Pattern.compile('"customer"(.*)"requestObjId"(.*)"ratingPlanId"(.*)"objectType":"ChargeAccount"').matcher(payloadJSON).find(), 'Resulting payload contain charge account in customer node');
+		System.assertEquals(true, Pattern.compile('"customer"(.*)"requestObjId"(.*)"ratingPlanId"(.*)"objectType":"SubAccount"').matcher(payloadJSON).find(), 'Resulting payload contain sub account in customer node');
+		// Validate that all 6 product codes are present in payload
+		System.assertEquals(true, Pattern.compile('"SP00"(.*)"SP01"(.*)"FE00"(.*)"SU00"(.*)"SU01"(.*)"RE00"').matcher(payloadJSON).find(), 'Resulting payload contain all 6 APPC product codes');
+		Test.stopTest();
+	}
+
+	/**
+	 * Test: When rating plan request payload is triggered and the contract is linked at organisation level,
+	 * 		validate that 'Organisation' objectType is present in the customer node within the payload
+	 */
+	@IsTest
+	private static void validatePayloadContractIsLinkedAtOrgLevel() {
+		MockUtility.disableTriggerExecution();
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, true)[0];
+		Deal_Support_Request__c dealSupportRequest = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+
+		// setup APPC Product data with Product Classification values 
+		List<Product2> prodList = ApplicationTestDataFactory.getPSRProducts(6, true);
+		List<String> prodClassification = new List<String>{
+			'APPC-Standard',
+			'APPC-Premium',
+			'APPC-Feature',
+			'APPC-Surcharge',
+			'APPC-FuelSurcharge',
+			'APPC-Return'
+		};
+		// setup product code for APPC product
+		List<String> prodCode = new List<String>{'SP00','SP01','FE00','SU00','SU01','RE00'};
+		for(Integer i=0; i<prodList.size();i++){
+			prodList[i].APT_Apttus_Product_Classification__c = prodClassification[i];
+			prodList[i].SAP_Product_Code__c = prodCode[i];
+		}
+		// populate product classification to agreement line item
+		List<Apttus__AgreementLineItem__c> aliList = APT_TestDataFactory.getAPTAgreementLineItem(6, true);
+		for(Integer i=0; i<prodList.size();i++){
+			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
+			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
+			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i], 
+				new Map<String, Object>{
+					'Apttus_CMConfig__OptionId__r' => prodList[i], 
+					'Apttus__AgreementId__c' => apttusContracts.Id,
+					'APT_Option_Name_Without_Tier__c' => 'T04'
+				});
+		}
+
+		List<APT_Agreement_Lodgement_Point__c> alpList = ApplicationTestDataFactory.getAgreementLodgementPoints(1, null, apttusContracts.id, account.id, true);
+		// contract's junction obj is linked at Org Lv
+		alpList[0].APT_Charge_Account__c = null;
+		alpList[0].APT_Sub_Account__c = null;
+		alpList[0].APT_Billing_Account__c = null;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		APT_AgreementLineItemsSelector agreementLineItemSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class); 
+		APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
+
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(agreementLineItemSelector.selectByContractIdsAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
+			(Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject()))
+			.thenReturn(new Map<Id,APT_Agreement_Lodgement_Point__c>(alpList));
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+		// generate rating plan request payload
+		BillingAccountWrapper.CompassContractActivation payload = CreateBillingAccountHelper.generateActivateRatePlanJSON(dealSupportRequest, true);
+		String payloadJSON = JSON.serialize(payload);
+		// Validate that "Organisation" objectType is present in custom node within payload
+		System.assertEquals(true, Pattern.compile('"customer"(.*)"requestObjId"(.*)"ratingPlanId"(.*)"objectType":"Organisation"').matcher(payloadJSON).find(), 'Resulting payload contain organisation in customer node');
+		System.assertEquals(true, Pattern.compile('"SP00"(.*)"SP01"(.*)"FE00"(.*)"SU00"(.*)"SU01"(.*)"RE00"').matcher(payloadJSON).find(), 'Resulting payload contain all 6 APPC product codes');
+		Test.stopTest();
+	}
+
+	/**
+	 * Test: When rating plan request payload is triggered and the contract is linked at billing account level for existing account scenario,
+	 * 		validate that 'BillingAccount' objectType is present in the customer node within the payload
+	 */
+	@IsTest
+	private static void validatePayloadContractIsLinkedAtBillingAccountLevel() {
+		MockUtility.disableTriggerExecution();
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, true)[0];
+		Deal_Support_Request__c dealSupportRequest = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+
+		// setup APPC Product data with Product Classification values 
+		List<Product2> prodList = ApplicationTestDataFactory.getPSRProducts(6, true);
+		List<String> prodClassification = new List<String>{
+			'APPC-Standard',
+			'APPC-Premium',
+			'APPC-Feature',
+			'APPC-Surcharge',
+			'APPC-FuelSurcharge',
+			'APPC-Return'
+		};
+		// setup product code for APPC product
+		List<String> prodCode = new List<String>{'SP00','SP01','FE00','SU00','SU01','RE00'};
+		for(Integer i=0; i<prodList.size();i++){
+			prodList[i].APT_Apttus_Product_Classification__c = prodClassification[i];
+			prodList[i].SAP_Product_Code__c = prodCode[i];
+		}
+		// populate product classification to agreement line item
+		List<Apttus__AgreementLineItem__c> aliList = APT_TestDataFactory.getAPTAgreementLineItem(6, true);
+		for(Integer i=0; i<prodList.size();i++){
+			aliList[i].Apttus_CMConfig__LineType__c = 'Option';
+			aliList[i].Apttus_CMConfig__OptionId__c = prodList[i].Id;
+			aliList[i] = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(aliList[i], 
+				new Map<String, Object>{
+					'Apttus_CMConfig__OptionId__r' => prodList[i], 
+					'Apttus__AgreementId__c' => apttusContracts.Id,
+					'APT_Option_Name_Without_Tier__c' => 'T04'
+				});
+		}
+		Billing_Account__c billAccRec = ApplicationTestDataFactory.getBillingAccounts(1, account.Id, 'SAP ERP', true)[0];
+		List<APT_Agreement_Lodgement_Point__c> alpList = ApplicationTestDataFactory.getAgreementLodgementPoints(2, null, apttusContracts.id, account.id, true);
+		// contract's junction obj is linked at Org Lv
+		alpList[0].APT_Billing_Account__c = billAccRec.Id;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		APT_AgreementLineItemsSelector agreementLineItemSelector = (APT_AgreementLineItemsSelector)MockUtility.mockSelector(APT_AgreementLineItemsSelector.class); 
+		APT_AgreementLodgementPointsSelector agreementLPSelector = (APT_AgreementLodgementPointsSelector)MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
+
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(agreementLineItemSelector.selectByContractIdsAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject())).thenReturn(aliList);
+		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
+			(Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject()))
+			.thenReturn(new Map<Id,APT_Agreement_Lodgement_Point__c>(alpList));
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+		// generate rating plan request payload
+		BillingAccountWrapper.CompassContractActivation payload = CreateBillingAccountHelper.generateActivateRatePlanJSON(dealSupportRequest, false);
+		String payloadJSON = JSON.serialize(payload);
+		// Validate that "BillingAccount" objectType is present in custom node within payload
+		System.assertEquals(true, Pattern.compile('"customer"(.*)"requestObjId"(.*)"ratingPlanId"(.*)"objectType":"BillingAccount"').matcher(payloadJSON).find(), 'Resulting payload contain billing account in customer node');
+		System.assertEquals(true, Pattern.compile('"SP00"(.*)"SP01"(.*)"FE00"(.*)"SU00"(.*)"SU01"(.*)"RE00"').matcher(payloadJSON).find(), 'Resulting payload contain all 6 APPC product codes');
+		Test.stopTest();
+	}
 }

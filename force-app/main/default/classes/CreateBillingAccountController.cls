@@ -11,6 +11,7 @@
  * 2021-05-28 - ankur.gandhi@auspost.com.au - removing special chars from BSB number
  * 2021-06-08 - seth.heang@auspost.com.au - STP-5386 map sender name field from opportunity and to same field on DSR's New Billing Account Request Modal Popup 
  * 2022-07-07 - madhuri.awasthi@auspost.com. - REQ2800825 Filtering Status for LP before sending in SAP
+ * 2022-08-04 - Seth.Heang@auspost.com.au - Added methods for Rating Plan Activation request payload changes
  */
 public with sharing class CreateBillingAccountController {
     @TestVisible private static final String DSR_OBJECT = 'Deal_Support_Request__c';
@@ -25,6 +26,7 @@ public with sharing class CreateBillingAccountController {
     private static final String CHARGE_SUB_ACCOUNT_PROCESSTYPE = 'PT002';
     private static final String CHARGE_SUB_ACCOUNT_PROCESSTYPE_DESC = 'Assisted Onboarding - New Charge and Sub Account';
     private static final String SAP_TARGET_SYSTEM = 'SAP';
+    private static final String NEW_ACCOUNT_TYPE = 'New Account';
 
     /**
      * @Description:  Checks and validation all the required attributes for Billing Account creation and provide
@@ -94,9 +96,9 @@ public with sharing class CreateBillingAccountController {
             stateInfoVar.requestObjId = requestObjId;
             stateInfoVar.chargeAccountRequestId = chargeAccountRequestId;
             stateInfoVar.onboardingRequestId = onboardingRequestId;
+            stateInfoVar.isBillingAccountPlusRatingPlanFlow = true; // Added flag to specify the billing account request flow for new customer scenario
            
             BillingAccountService service = BillingAccountService.getInstance();  
-            System.debug('I5 BRP billingAccountJson : ' + billingAccountJson);      
             Continuation con = service.getContinuation(billingAccountJson, onboardingRequestId, sourceSystem);
             con.state = stateInfoVar;
             con.continuationMethod = 'processResponse';
@@ -108,17 +110,27 @@ public with sharing class CreateBillingAccountController {
         }       
     }
 
-    @AuraEnabled
-    public static Boolean processResponse(List<String> labels,
-    Object state) {
-        StateInfo stateinformation = (StateInfo)state;
-        HttpResponse response = Continuation.getResponse(labels[0]);
-        System.debug('response>>>>'+response);
-        BillingAccountService service = BillingAccountService.getInstance();
-        Boolean callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, stateinformation.chargeAccountRequestId, stateinformation.onboardingRequestId,null);
+	/**
+	 * @description		This method wait and process the continuation response, then parse the response and return boolean for callout success or failure
+	 * @param			List<String> labels,Object state
+	 * @return			Boolean callout status; true for success or false for failure
+	 */
+	@AuraEnabled
+	public static Boolean processResponse(List<String> labels,
+	Object state) {
+		StateInfo stateinformation = (StateInfo)state;
+		HttpResponse response = Continuation.getResponse(labels[0]);
+		System.debug('response>>>>'+response);
+		BillingAccountService service = BillingAccountService.getInstance();
+		Boolean callOutSuccess;
+		if(stateinformation.chargeAccountRequestId != null){
+			callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, stateinformation.chargeAccountRequestId, stateinformation.onboardingRequestId,null, stateinformation.isBillingAccountPlusRatingPlanFlow);
+		}else{
+			callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, null, stateinformation.onboardingRequestId,null, stateinformation.isBillingAccountPlusRatingPlanFlow);
+		}
 
-        return callOutSuccess;
-    }
+		return callOutSuccess;
+	}
     public class stateInfo{
         @AuraEnabled
         public string requestObjId;
@@ -126,6 +138,8 @@ public with sharing class CreateBillingAccountController {
         public string chargeAccountRequestId;
         @AuraEnabled
         public string onboardingRequestId;
+        @AuraEnabled
+        public boolean isBillingAccountPlusRatingPlanFlow;
     }        
     /**
      * @Description: Creates the Billing Account Creation Request using DSR as a base record which has details from multiple objects such as 
@@ -143,11 +157,23 @@ public with sharing class CreateBillingAccountController {
         boolean hasSubAccount;  
         Integer subAccountCount;  
         try{
-            Deal_Support_Request__c dealSupportRequest = DealSupportRequestsSelector.newInstance().selectById(new set<Id>{recordId}, new set<object>{DealSupportRequestsSelector.Options.WITH_OPPORTUNITY}).values()[0];
+            Deal_Support_Request__c dealSupportRequest = DealSupportRequestsSelector.newInstance().selectById(new set<Id>{recordId}, 
+					new set<object>{
+						DealSupportRequestsSelector.Options.WITH_OPPORTUNITY,
+						DealSupportRequestsSelector.Options.WITH_CONTRACT
+					}).values()[0];
             String integrationStatus = dealSupportRequest.Integration_Status__c ;
             billingAccountOtherValidation.loggedInUserProfile = ProfilesSelector.newInstance().selectById(new set<id>{userinfo.getProfileId()}).values()[0].name;  
             if(dealSupportRequest.APT_Contract__c != null){                                                                    
-                Apttus__APTS_Agreement__c contractRecord = ApttusContractsSelector.newInstance().selectById(new set<Id>{dealSupportRequest.APT_Contract__c}, new Set<object>{ApttusContractsSelector.Options.WITH_ORGANISATION,ApttusContractsSelector.Options.WITH_CONTACT,ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,ApttusContractsSelector.Options.WITH_PROPOSAL}).values()[0];
+                Apttus__APTS_Agreement__c contractRecord = ApttusContractsSelector.newInstance().selectById(
+					new set<Id>{dealSupportRequest.APT_Contract__c}, 
+					new Set<object>{
+						ApttusContractsSelector.Options.WITH_ORGANISATION,
+						ApttusContractsSelector.Options.WITH_CONTACT,
+						ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,
+						ApttusContractsSelector.Options.WITH_PROPOSAL,
+						ApttusContractsSelector.Options.WITH_OPPORTUNITY
+					}).values()[0];
                 if(contractRecord != null){                   
                     if(contractRecord.Apttus__Account__c != null){
                         /* Shashwat.Nath@auspost.com has added below lines of code to enforce a validation if customer role is invalid
@@ -303,7 +329,7 @@ public with sharing class CreateBillingAccountController {
                             // Map the Work Centre Code from related Network record and Map to LodgementPointId on Camunda spec for both PT001(Charge account only) and PT002(Charge+Sub Account) scenario
                             for(APT_Agreement_Lodgement_Point__c contractLP : contractLodgementPointList){
                                 // Only map unique work centre code
-                                if(!uniqueWorkCentreCode.contains(contractLP.APT_Lodgement_Point_Lookup__r?.Org_ID__c)){
+                                if(!uniqueWorkCentreCode.contains(contractLP.APT_Lodgement_Point_Lookup__r?.Org_ID__c) && contractLP.APT_Lodgement_Point_Lookup__r?.Org_ID__c != null){
                                 	uniqueWorkCentreCode.add(contractLP.APT_Lodgement_Point_Lookup__r?.Org_ID__c);
                                     BillingAccountWrapper.lodgementPointsDetail curContractLP = new BillingAccountWrapper.lodgementPointsDetail();
                                     curContractLP.lodgementPointId = contractLP.APT_Lodgement_Point_Lookup__r?.Org_ID__c;
@@ -380,6 +406,11 @@ public with sharing class CreateBillingAccountController {
                         billingAccountRequestVar.requestObjId = id.valueOf(recordId);
                         billingAccountRequestVar.orgRecordId = contractRecord.Apttus__Account__c;
                         billingAccountRequestVar.targetSystem = SAP_TARGET_SYSTEM;
+
+						// For new account scenario, append the rating plan activation payload to the billing account creation payload below
+						if(dealSupportRequest.APT_Contract__r.APT_APPC_Count__c > 0 && NEW_ACCOUNT_TYPE.equalsIgnoreCase(dealSupportRequest.Work_Type__c)) {
+							billingAccountRequestVar.ratingPlanActivation = CreateBillingAccountHelper.generateActivateRatePlanJSON(dealSupportRequest, true);
+						}
                     }
                 }
             }
@@ -521,4 +552,74 @@ public with sharing class CreateBillingAccountController {
         
         return billingAccountWrapperObj;
     }
+
+	/**
+	 * @description		This method builds the request payload and perform appropriate mapping for existing account scenario.
+	 * 					It then create external onboarding request record and handling wrapper record for usage on LWC front-end
+	 * @param			String recordId
+	 * @return			CreateBillingAccountHelper.ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation wrapper
+	 * */    
+	@AuraEnabled
+	public static CreateBillingAccountHelper.ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation activateRatingPlan(String recordId){
+		CreateBillingAccountHelper.ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation externalOnboardingRequestWithConnectionDetailsVar;
+		try {
+			BillingAccountWrapper ratingPlanRequestPayload = new BillingAccountWrapper();
+			// Query DSR record and perform initial field mappings specifically for existing account scenario
+			String objectName = String.valueOf(id.valueOf(recordId).getsobjecttype());
+			if(objectName == DSR_OBJECT){
+				Deal_Support_Request__c dsrRecord = DealSupportRequestsSelector.newInstance().selectById(
+					new set<Id>{ recordId }, 
+					new set<object>{
+						DealSupportRequestsSelector.Options.WITH_OPPORTUNITY,
+						DealSupportRequestsSelector.Options.WITH_CONTRACT,
+						DealSupportRequestsSelector.Options.WITH_ORGANISATION
+				}).values()[0];
+				ratingPlanRequestPayload.sap = null;
+				ratingPlanRequestPayload.requestObjId = id.valueOf(recordId);
+				ratingPlanRequestPayload.customerId = dsrRecord.Organisation__r.LEGACY_ID__c;
+				// call method to generate the full request payload
+				ratingPlanRequestPayload.ratingPlanActivation = CreateBillingAccountHelper.generateActivateRatePlanJSON(dsrRecord, false);
+			}
+			// call method to create external onboarding request and return wrapper obj to LWC for handling front-end
+			String onboardingRequestId = CreateBillingAccountHelper.createExternalOnboardingRequest(ratingPlanRequestPayload);
+			externalOnboardingRequestWithConnectionDetailsVar = CreateBillingAccountHelper.externalOnboardingRequestDetailsForRatingPlanActivation(ratingPlanRequestPayload, onboardingRequestId, recordId);
+		} catch (Exception e) {
+			throw new AuraHandledException('Error occurred while preparing a rating plan activation payload' + e.getMessage());
+		}
+		return externalOnboardingRequestWithConnectionDetailsVar;
+	}
+
+	/**
+	 * @description		This continutation method triggers the actual Rating Plan Activation creation using BillingAccountService.
+	 * 					It serialises request payload into proper JSON format and send the payload to Camunda
+	 * @param			String externalOnboardingRequestWithConnectionDetailsVar, String dsrId
+	 * @return			Continuation object
+	 */
+	@AuraEnabled(continuation=true)
+	public static Object ratingPlanActivationCreationRequest(String externalOnboardingRequestWithConnectionDetailsVar, String dsrId){
+		Boolean callOutSuccessful = false;
+		String sourceSystem = 'salesforce';
+		CreateBillingAccountHelper.ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation externalOnboardingRequestWithConnectionDetailsRecord = (CreateBillingAccountHelper.ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation)System.JSON.deserialize(externalOnboardingRequestWithConnectionDetailsVar, CreateBillingAccountHelper.ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation.class);
+		try { 
+			BillingAccountWrapper ratingPlanPayload = externalOnboardingRequestWithConnectionDetailsRecord.ratingPlanWrapper;
+			ratingPlanPayload.transactionId = externalOnboardingRequestWithConnectionDetailsRecord.onboardingRequestId;
+			String ratingPlanPayloadJson = System.JSON.serialize(ratingPlanPayload, true);
+			String requestObjId = dsrId;
+			String onboardingRequestId = externalOnboardingRequestWithConnectionDetailsRecord.onboardingRequestId;
+
+			// Populate StateInfo for handling response
+			stateInfoVar = new stateInfo();
+			stateInfoVar.requestObjId = requestObjId;
+			stateInfoVar.onboardingRequestId = onboardingRequestId;
+			stateInfoVar.isBillingAccountPlusRatingPlanFlow = false;
+
+			BillingAccountService service = BillingAccountService.getInstance();  
+			Continuation con = service.getContinuation(ratingPlanPayloadJson, onboardingRequestId, sourceSystem);
+			con.state = stateInfoVar;
+			con.continuationMethod = 'processResponse';
+			return con;
+		} catch (Exception e) {
+			throw new AuraHandledException('Error occurred while making a continuation callout to Camunda'+ e.getMessage());        
+		}       
+	}
 }
