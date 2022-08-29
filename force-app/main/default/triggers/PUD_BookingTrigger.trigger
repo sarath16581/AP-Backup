@@ -13,7 +13,7 @@ History:
 -------------------------  
 */
 trigger PUD_BookingTrigger on PUD_Booking__c (before insert, before update, after insert, after update) {
-
+	
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(PUD_Booking__c.SObjectType))) {
 
 		if(Trigger.isBefore){
