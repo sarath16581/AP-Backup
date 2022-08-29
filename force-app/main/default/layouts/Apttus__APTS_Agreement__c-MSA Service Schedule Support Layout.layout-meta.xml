@@ -733,15 +733,6 @@
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
-        <fields>NAME</fields>
-        <fields>APT_DoV_Type__c</fields>
-        <fields>APT_DOV_Reason__c</fields>
-        <fields>APT_DoV_Action__c</fields>
-        <fields>APT_DoV_Product__c</fields>
-        <relatedList>APT_DoV_Language__c.APT_Contract__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Work_Type__c</fields>
