@@ -1,5 +1,5 @@
 import { LightningElement } from "lwc";
-import { validateInputComponents } from "c/utils";
+import { validateInputComponents, validateName, validatePhone } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
 import invalidDescription from "@salesforce/label/c.STHSDescriptionValidationMessage";
 import invalidEmail from "@salesforce/label/c.STHSEmailValidationMessage";
@@ -10,6 +10,7 @@ import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
 import invalidCharacters from "@salesforce/label/c.STHSMaxCharactersValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
+import invalidNameFieldCharacters from "@salesforce/label/c.STHSNamePatternValidationMessage";
 import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
 import createFeedbackFormCase from "@salesforce/apex/SthsFeedbackFormController.createFeedbackFormCase";
@@ -29,6 +30,7 @@ export default class SthsTrackingForm extends LightningElement {
 	isLoading = false; //flag to show/hide the spinner
 	caseNumber; //case number created for feedback form
 	isCaseCreatedSuccessfully = false; //flag to show/hide the layout when case created successfully
+	isValidPhone = false;
 
 	//labels
 	label = {
@@ -42,7 +44,8 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidPhone,
 		invalidReference,
 		stSupportURL,
-		errorStateMessage
+		errorStateMessage,
+		invalidNameFieldCharacters
 	};
 
 	get enquiryOptions() {
@@ -129,5 +132,30 @@ export default class SthsTrackingForm extends LightningElement {
 	//handler for error close event
 	handleErrorClose = (event) => {
 		this.showError = false;
+	};
+
+	// handling phone number fields separate with custom validations
+	handleInputOnPhoneChange = (event) => {
+		if(!validatePhone(event)) {
+			event.target.setCustomValidity(this.label.invalidPhone);
+		} else {
+			event.target.setCustomValidity('');
+			this.handleInputChange(event);
+		}
+		event.target.reportValidity();
+		event.target.showHelpMessageIfInvalid();
+	};
+
+	// handling name fields separate with custom validations
+	handleInputOnNameChange = (event) => {
+		event.target.setCustomValidity('');
+		if(!validateName(event)) {
+			event.target.setCustomValidity(this.label.invalidNameFieldCharacters);
+			event.target.reportValidity();
+			event.target.showHelpMessageIfInvalid();
+		} else {
+			this.handleInputChange(event);
+		}
+
 	};
 }
