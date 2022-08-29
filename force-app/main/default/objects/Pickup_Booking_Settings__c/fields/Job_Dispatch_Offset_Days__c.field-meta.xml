@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Dispatch_Offset_Days__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>1</defaultValue>
+    <description>The number of days into the future to push jobs into dispatch system.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number of days into the future to push jobs into dispatch system.</inlineHelpText>
+    <label>Job Dispatch Offset Days</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
