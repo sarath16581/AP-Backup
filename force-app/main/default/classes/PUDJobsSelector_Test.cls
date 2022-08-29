@@ -117,9 +117,6 @@ public with sharing class PUDJobsSelector_Test {
 		// =====================================
 		MockUtility.disableTriggerExecution();
 
-        //inserting custom settings
-        insert new Pickup_Booking_Settings__c(SetupOwnerId=UserInfo.getOrganizationId(), Job_Dispatch_Offset_Days__c=1);
-
 		Network__c network = ApplicationTestDataFactory.getNetworks(1, false)[0];
 		network.recordTypeId = PUDTestDataFactory.businessHubNetworkRecordType;
 		network.ORG_UNIT_ADDR_2__c ='1 Main St';

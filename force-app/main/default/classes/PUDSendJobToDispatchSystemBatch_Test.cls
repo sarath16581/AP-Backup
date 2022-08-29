@@ -2,8 +2,7 @@
     Overview: Test class for PUDSendJobToDispatchSystemBatch
 	History:
 	27/07/2021	arjun.singh@austpost.com.au - Created
-	24/08/2022  Dattaraj Deshmukh - Added 'Pickup_Booking_Settings__c' in 'testBatchStart' and 'testBatchJobEndToEnd' methods. 
-									Updated selectJobsByDateAndStatusQueryLocator params to pass dates.
+	24/08/2022  Dattaraj Deshmukh - Updated selectJobsByDateAndStatusQueryLocator params to pass dates.
 	-------------------------  
 */
 @IsTest
@@ -110,9 +109,10 @@ private class PUDSendJobToDispatchSystemBatch_Test {
 		// Data Preparation
 		// =====================================
 
-		//insert custom settings
-        // insert new Pickup_Booking_Settings__c(SetupOwnerId=UserInfo.getOrganizationId(),
-		// Job_Dispatch_Offset_Days__c=1, PUDSendJobToDispatchSystemBatchSize__c= 200);
+		//insert custom settings to disable booking and job triggers.
+		//Disabling triggers will allow to TEST if job status are changed by BATCH only.
+        insert new SystemSwitch__c(SetupOwnerId=UserInfo.getOrganizationId(),
+		DisableTriggers__c=true, ObjectTriggersToBeDisabled__c= 'PUD_Booking__c,PUD_Job__c,');
 
 		Network__c network = ApplicationTestDataFactory.getNetworks(1, false)[0];
 		network.recordTypeId = PUDTestDataFactory.businessHubNetworkRecordType;
@@ -136,14 +136,6 @@ private class PUDSendJobToDispatchSystemBatch_Test {
 			jobs.add(job);
 		}
 		insert(jobs);
-
-		//setting jobs status to NEW again. 
-		//When jobs are created, its trigger changes job status from NEW to SCHEDULE. This is expected for newly created jobs falling within date range.
-		//Since, we are testing status change via batch, we need to change the JOB's status to NEW again to simulate data passed to batch.
-		for(PUD_Job__c job : jobs){
-			job.Status__c = PUDConstants.PUD_JOB_STATUS_NEW;
-		}
-		update jobs;
 
 		// =====================================
 		// Stubbing

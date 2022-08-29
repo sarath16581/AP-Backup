@@ -49,7 +49,6 @@ public with sharing class PUDUtility {
 	}
 
 	//Get date range based on offset value from custom setting.
-	//This range is used to send jobs to MobileStar 1 day in advance.
 	public static Date JOB_DISPATCH_FROM_DATE  = Date.today();
 	public static Date JOB_DISPATCH_TO_DATE {
 		get{
