@@ -2,6 +2,7 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
     <description>Schedule Path for Business Enablement Case Escalation</description>
+    <environments>Default</environments>
     <interviewLabel>CaseScheduled_BusinessEnablementEscalation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled BusinessEnablementEscalation</label>
     <processMetadataValues>
@@ -40,6 +41,15 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+ OR(
+  {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_SalesCoordinator},
+  {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_CAR}
+ ),
+ ISBLANK({!$Record.Owner:User.Id}), 
+ ISPICKVAL({!$Record.Request_Origin__c},&apos;On Demand&apos;),
+ NOT({!$Record.IsClosed})
+)</filterFormula>
         <object>Case</object>
         <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>
