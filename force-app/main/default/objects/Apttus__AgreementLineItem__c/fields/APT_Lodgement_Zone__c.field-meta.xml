@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Lodgement_Zone__c</fullName>
+    <description>Lodgment Zone of speed products and FSR products. Use to send information to I5</description>
     <externalId>false</externalId>
     <label>Lodgement Zone</label>
     <length>225</length>

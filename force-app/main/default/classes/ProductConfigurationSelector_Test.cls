@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2021-05-12 - Shashwat.Nath@auspost.com.au - Created
+* 2022-05-09 - NAsir Jawed - Added test for selectByProposalId methods
 */
 @IsTest
 public with sharing class ProductConfigurationSelector_Test{
@@ -72,76 +73,86 @@ public with sharing class ProductConfigurationSelector_Test{
         Test.stopTest();
 
     }
-    /**
-     * Executes a query to ensure it returns expected results with actual inserted data
-     */
-    @IsTest
-    public static void testSelectorIntegration() {
+	/**
+	 * Executes a query to ensure it returns expected results with actual inserted data
+	 */
+	@IsTest
+	public static void testSelectorIntegration() {
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        MockUtility.disableTriggerExecution();
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
 
-          Contact con = APT_TestUtils.createContact();
-            con.MailingCity = 'Melbourne';
-            con.MailingState = 'VIC';
-            con.MailingStreet = 'Flinders Street';
-            con.MailingPostalCode = '3000'; 
-            insert con;
-            
-            //Creating account test data
-            Account tempacct = APT_TestUtils.createOrganisation();
-            insert tempacct;
-            
-            //Creating Opportunity Test Data
-            Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
-            insert opp;
-            
-            //Creating Pricelist test data
-            Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
-            insert priceList;
-            
-            //Creating proposal test data
-            Apttus_Proposal__Proposal__c quote = APT_TestUtils.getQuoteProposal(tempacct.id,opp.Id,'Proposal','Test',priceList.id);
-            quote.Expected_Revenue_Start_Date__c = System.today() + 2;
-            insert quote;
-            
-            //Inserting product test data
-            Product2 bundle1 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST001','Postal Services');
-            bundle1.Non_contracted__c = false;
-            insert bundle1;
-            
-            //Inserting product test data 2
-            Product2 bundle2 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST002','Postal Services');
-            bundle2.APT_Sync_with_Opportunity__c = true;
-            bundle2.Apttus_Config2__HasOptions__c = true;
-            bundle2.Non_contracted__c = true;
-            bundle2.Apttus_Config2__ConfigurationType__c = 'Bundle';
-            insert bundle2;
-            
-            //Inserting product configuration test data
-            Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtils.getProductConfiguration('Product Configuration', 1, 
-            quote.Id, 'Proposal','Ad Hoc',priceList.Id, null,'Ready For Finalization',null, Datetime.now(), true);
-            insert prodconfig;
-         // =====================================
-        // Stubbing
-        // =====================================
-        // None!
+		Contact con = APT_TestUtils.createContact();
+		con.MailingCity = 'Melbourne';
+		con.MailingState = 'VIC';
+		con.MailingStreet = 'Flinders Street';
+		con.MailingPostalCode = '3000'; 
+		insert con;
 
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
-        
-        ProductConfigurationSelector selector = ProductConfigurationSelector.newInstance(1);
-        Map<Id, Apttus_Config2__ProductConfiguration__c > results = selector.selectById(new Set<Id>{prodconfig.id});
-        System.assertNotEquals(1, results.size(), 'Result count was wrong');
+		//Creating account test data
+		Account tempacct = APT_TestUtils.createOrganisation();
+		insert tempacct;
 
-        results = selector.selectById(new Set<Id>{prodconfig.id}, new Set<Object>{ProductConfigurationSelector.Options.WITH_LINE_ITEMS});
-        Test.stopTest();
+		//Creating Opportunity Test Data
+		Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
+		insert opp;
 
-    }
+		//Creating Pricelist test data
+		Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
+		insert priceList;
+
+		//Creating proposal test data
+		Apttus_Proposal__Proposal__c quote = APT_TestUtils.getQuoteProposal(tempacct.id,opp.Id,'Proposal','Test',priceList.id);
+		quote.Expected_Revenue_Start_Date__c = System.today() + 2;
+		insert quote;
+
+		//Inserting product test data
+		Product2 bundle1 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST001','Postal Services');
+		bundle1.Non_contracted__c = false;
+		insert bundle1;
+
+		//Inserting product test data 2
+		Product2 bundle2 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST002','Postal Services');
+		bundle2.APT_Sync_with_Opportunity__c = true;
+		bundle2.Apttus_Config2__HasOptions__c = true;
+		bundle2.Non_contracted__c = true;
+		bundle2.Apttus_Config2__ConfigurationType__c = 'Bundle';
+		insert bundle2;
+
+		//Inserting product configuration test data
+		Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtils.getProductConfiguration('Product Configuration', 1, 
+		quote.Id, 'Proposal','Ad Hoc',priceList.Id, null,'Ready For Finalization',null, Datetime.now(), true);
+		insert prodconfig;
+		 // =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		ProductConfigurationSelector selector = ProductConfigurationSelector.newInstance(1);
+		Map<Id, Apttus_Config2__ProductConfiguration__c > results = selector.selectById(new Set<Id>{prodconfig.id});
+		System.assertNotEquals(1, results.size(), 'Result count was wrong');
+
+		results = selector.selectById(new Set<Id>{prodconfig.id}, new Set<Object>{ProductConfigurationSelector.Options.WITH_LINE_ITEMS});
+
+		//Getting the prod config record by passing the proposal id and checking the result
+		ProductConfigurationSelector selectorConfigId = ProductConfigurationSelector.newInstance(1);
+		List<Apttus_Config2__ProductConfiguration__c> resultsByConfigId = selectorConfigId.selectByConfigId(new Set<ID>{prodconfig.id});
+		System.assertEquals(1, resultsByConfigId.size(), 'Expected result size of 1');
+
+		//Getting the prod config record by passing the proposal id and checking the result
+		ProductConfigurationSelector selectorProp = ProductConfigurationSelector.newInstance(1);
+		List<Apttus_Config2__ProductConfiguration__c> resultsByProp = selectorProp.selectByProposalId(new Set<ID>{quote.id});
+		System.assertEquals(1, resultsByProp.size(), 'Expected result size of 1');
+		Test.stopTest();
+
+	}
     
       /**
      * Test:

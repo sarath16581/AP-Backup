@@ -11,7 +11,7 @@ History:
 2021-10-28 Sautul Mehta - CI-96 Changes for APPC Contract Template Document Generation.
 2022-04-26 Pradeep Jaiswal - CI-224 Populated Cubic Status, Cubic Factor and Existing APPC Customer Attributes
 2022-05-23 Chaitanya Doshi - Changed condition to exact match Product code as "Premium - STE" has blank Productcode and "contains" is causing issue in PROD.
-2022-05-26 Pradeep Jaiswal - CI-379 Added condition for International Return product
+2022-07-15 Nasir Jawed CI-552 Populating the Agreement Line Item fields when its FSR product for lodgement fields.
 **************************************************/
 
 public with sharing class APT_AgreementLineItemTriggerHandler{
@@ -25,15 +25,14 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
             for(Apttus__AgreementLineItem__c ali : aliList) {
                 if(ali.APT_Mark_All_Agreement_Line_Items_as_Old__c) {
                     ali.APT_New__c = false;
-                }
+                }       
             }
             //1084
             return APT_Constants.SUCCESS_LABEL;
         } catch(system.exception ex) {
             return ex.getMessage();
         }
-    }
-    
+    }    
     /**
      * after insert agreement line item
      */
@@ -42,10 +41,20 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
             
             //process builder to trigger
             set<Id> setAgreementLineItemId = new set<Id>();
+            List<Apttus__AgreementLineItem__c> listAliToUpdate = new List<Apttus__AgreementLineItem__c>();
+
+            //CI-552 When the product is FSR update price structure to Z1
+            Map<String,APT_FSR_Product__c> allCodes = APT_FSR_Product__c.getAll();              
+            list<String> fsrProducts= new list<String>();
+            for(APT_FSR_Product__c fsr: allCodes.values()){
+                fsrProducts.add(fsr.name);    
+            }
+            //CI-552
+
             for(Apttus__AgreementLineItem__c ali : aliList) {
                 setAgreementLineItemId.add(ali.Id);
             }
-            
+
             //set<Id> setUniqueOSId = new set<Id>();
             map<Id, APT_Operational_Schedule__c> mapOS = new map<Id, APT_Operational_Schedule__c>();
             //list<APT_Operational_Schedule__c> listOS = new list<APT_Operational_Schedule__c>();
@@ -56,7 +65,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
              for(Apttus__AgreementLineItem__c ali : [SELECT Id, Apttus__ProductId__c, Apttus__ProductId__r.Name, Apttus__ProductId__r.ProductCode,
                                                     Apttus_CMConfig__ChargeType__c, Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c,
                                                     Apttus_CMConfig__OptionId__c, Apttus_CMConfig__OptionId__r.Name, Apttus_CMConfig__OptionId__r.ProductCode,
-                                                    Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c,
+                                                    Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c,Apttus_CMConfig__OptionId__r.Lodgement_zone__c,
+                                                    Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c,
                                                     Apttus__AgreementId__r.recordType.Name, Apttus__AgreementId__r.Operational_Schedule__c,
                                                     Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c, 
                                                     Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Dangerous_Goods_Flag__c,
@@ -79,10 +89,32 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_From_Time_24_hour_clock_2__c,
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_To_Time_24_hour_clock_2__c,
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Collection_Address_To_1__c,
-                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Collection_Address_To_2__c
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Collection_Address_To_2__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Customer_Tier__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Transit_cover__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Transit_Cover_Type__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Weight_Rounding__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Cubic_Conversion_Factor__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Group__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Model__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Plan_DWT_Conversion_Factor__c,
+                                                    APT_Option_Group__c,
+                                                    APT_Lodgement_Zone_Code__c,
+                                                    APT_Lodgement_Zone__c,
+                                                    Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c
                                                     FROM Apttus__AgreementLineItem__c
                                                     WHERE Id IN :setAgreementLineItemId]) {
                 
+                //CI-552 When the product is FSR update price structure to Z001
+                if(fsrProducts.contains(ali.Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c)){
+                    Apttus__AgreementLineItem__c ref = new Apttus__AgreementLineItem__c();
+                    ref.Id = ali.Id;
+                    ref.APT_Lodgement_Zone_Code__c = ali.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c;  //'AN';
+                    ref.APT_Lodgement_Zone__c = ali.Apttus_CMConfig__OptionId__r.Lodgement_zone__c ;   //'Anywhere';
+                    listAliToUpdate.add(ref);                   
+                }
+
+               
                 if(mapOS.get(ali.Apttus__AgreementId__r.Operational_Schedule__c) != null) {
                     os = mapOS.get(ali.Apttus__AgreementId__r.Operational_Schedule__c);
                 } else {
@@ -145,11 +177,11 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     && ali.Apttus__ProductId__r.Apttus_Config2__ConfigurationType__c.equalsIgnoreCase(APT_Constants.CONFIG_TYPE_STAND_ALONE)
                     && null != ali.Apttus__AgreementId__r.Operational_Schedule__c 
                     && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c)
-                   ) || ( 
+                    ) || ( 
                         // Chaitanya 23-05-2022: Changed condition to exact match Product code as "Premium - STE" has blank Productcode and "contains" is causing issue in PROD.
-                        ali.Apttus__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_APPC
+                        ali.Apttus__ProductId__r.ProductCode == APT_Constants.PRODUCT_CODE_APPC 
                     ))                   
-                	{         
+                    {                       
                     os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
                     if(isInsert) {
                         os.APT_Parcel__c = true; //US-126
@@ -176,6 +208,18 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                         newApav.APT_Cubic_Status__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Cubic_Status__c;
                         newApav.APT_Existing_APPC_Customer__c =  ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Existing_APPC_Customer__c;
                         
+                        
+                        //Populate Agreement product attribute values field from Derived field 
+                        newApav.APT_Transit_Cover_Type__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Transit_Cover_Type__c;
+                        newApav.Transit_cover__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Transit_cover__c;
+                        newApav.APT_Customer_Tier__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Customer_Tier__c;
+                        newApav.SAP_Cubic_Conversion_Factor__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Cubic_Conversion_Factor__c;
+                        newApav.SAP_Rating_Group__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Group__c;
+                        newApav.SAP_Rating_Model__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Model__c;
+                        newApav.SAP_Rating_Plan_DWT_Conversion_Factor__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Plan_DWT_Conversion_Factor__c;
+                        newApav.SAP_Weight_Rounding__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Weight_Rounding__c;
+                                               
+
                         // Populate attribute values from DerivedFrom field into a new operational schedule
                         os.APT_LPD_Service_Type__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Service_Type__c;
                         os.APT_LPD_Multiple_Frequency__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Multiple_Frequency__c;
@@ -427,7 +471,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     
                     mapOS.put(os.Id, os);
                 }
-                  //US-379               
+				
+				 //US-379               
                   //International Returns 
                 if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_RETURNS) 
                     && String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
@@ -526,8 +571,14 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     newALI.Apttus_CMConfig__AttributeValueId__c = mapLocalPickup.get(newALI).id;
                     listAli.add(newALI);
                 }
-                update listAli;
+                ApplicationDatabase.getInstance().dmlUpdate(listAli);
             }
+
+            if(listAliToUpdate.size() > 0 ) {  
+                ApplicationDatabase.getInstance().dmlUpdate(listAliToUpdate);
+            }
+
+           
             
             return APT_Constants.SUCCESS_LABEL;
         } catch(system.exception ex) {

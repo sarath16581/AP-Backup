@@ -19,7 +19,7 @@
 * 2022-02-10 - Seth Heang - Added test method for updating booking location details to also flow to booking and job details where job status is schedule or accepted
 * 2022-02-28 - Seth Heang - Update test methods to test containers and product types for the booking-job sync validation for jobs with status 'New', 'Schedule', 'Accept' and 'Completed'
 * 2022-04-11 - Seth Heang - Added test method to test booking's before insert trigger and validate booking's default depot from route's depot
-* 2022-07-23 - Dattaraj Deshmukh - Added test methods for container types, removed references OLD Empty_/Full_ fields for containers from PUD_JOb__c object.
+* 2022-07-23 - Dattaraj Deshmukh - Added test methods for container types, removed references OLD Empty_/Full_ fields for containers from PUD_JOb__c object. 
 */
 @isTest
 public with sharing class PUDUtility_Test {
@@ -627,9 +627,9 @@ public with sharing class PUDUtility_Test {
 		bookingContainersToInsert.add(bookingContainerColby);
 
 
-		PUD_Container__c bookingContainerPallets = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'Pallets', 'Full', false )[0];
-		bookingContainerPallets.Expected_Quantity__c = 2;
-		bookingContainersToInsert.add(bookingContainerPallets);
+		PUD_Container__c bookingContainerPallet = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'Pallet', 'Full', false )[0];
+		bookingContainerPallet.Expected_Quantity__c = 2;
+		bookingContainersToInsert.add(bookingContainerPallet);
 
 		insert bookingContainersToInsert;
 
@@ -657,12 +657,12 @@ public with sharing class PUDUtility_Test {
 		bookingContainerTrailer.Expected_Quantity__c = 23;
 		bookingContainerULD.Expected_Quantity__c = 34;
 		bookingContainerColby.Expected_Quantity__c = 67;
-		bookingContainerPallets.Expected_Quantity__c = 56;
+		bookingContainerPallet.Expected_Quantity__c = 56;
 		
 		bookingContainersToUpdate.add(bookingContainerTrailer);
 		bookingContainersToUpdate.add(bookingContainerULD);
 		bookingContainersToUpdate.add(bookingContainerColby);
-		bookingContainersToUpdate.add(bookingContainerPallets);
+		bookingContainersToUpdate.add(bookingContainerPallet);
 		
 	
 		update booking;
@@ -820,19 +820,19 @@ public with sharing class PUDUtility_Test {
 				bookingContainersToInsert.add(bookingContainerTrailer);
 
 
-				PUD_Container__c bookingContainerCardULD = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'CardULD', 'Full', false )[0];
+				PUD_Container__c bookingContainerCardULD = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'Cardboard ULD', 'Full', false )[0];
 				bookingContainerCardULD.Expected_Quantity__c = 3;
 				bookingContainersToInsert.add(bookingContainerCardULD);
 
-				PUD_Container__c bookingContainerPallets = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'Pallets', 'Full', false )[0];
-				bookingContainerPallets.Expected_Quantity__c = 4;
-				bookingContainersToInsert.add(bookingContainerPallets);
+				PUD_Container__c bookingContainerPallet = PUDTestDataFactory.getPUDBookingContainers(1, booking.Id, 'Pallet', 'Full', false )[0];
+				bookingContainerPallet.Expected_Quantity__c = 4;
+				bookingContainersToInsert.add(bookingContainerPallet);
 			}
 		}
 		update bookingList;
 
 		String sampleContainerPayload = '[{"Quantity":1.0,"Name":"Aircan","Condition":"Empty"}, {"Quantity":11.0,"Name":"Aircan","Condition":"Full"},'+
-										'{"Quantity":2.0,"Name":"Trailer","Condition":"Empty"},{"Quantity":3.0,"Name":"CardULD","Condition":"Full"},{"Quantity":4.0,"Name":"Pallets","Condition":"Full"}'+
+										'{"Quantity":2.0,"Name":"Trailer","Condition":"Empty"},{"Quantity":3.0,"Name":"Cardboard ULD","Condition":"Full"},{"Quantity":4.0,"Name":"Pallet","Condition":"Full"}'+
 										']';
 		
 
@@ -970,7 +970,7 @@ public with sharing class PUDUtility_Test {
 		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, pudBookingList[0].Id, PUDConstants.PUD_JOB_STATUS_NEW, true);
 
 		//create a booking container
-		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallet', 'Empty', true )[0];
 
 		//associating containers with bookings.
 		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{bookingContainer}});
@@ -1013,7 +1013,7 @@ public with sharing class PUDUtility_Test {
 
 		//verify that job containers are added under jobs as per booking containers.
 		system.assertEquals(6, MockUtility.mockUnitOfWorkDMLs.size(), 'Expected to create 6 job containers, one for each 6 jobs');
-		system.assertEquals('Pallets', ((PUD_Container__c)MockUtility.mockUnitOfWorkDMLs[0]).Type__c, 'Expected to match type with job container\'s, type.');
+		system.assertEquals('Pallet', ((PUD_Container__c)MockUtility.mockUnitOfWorkDMLs[0]).Type__c, 'Expected to match type with job container\'s, type.');
 		system.assertNotEquals(null, ((PUD_Job__c)jobDMlAnswerMockInstance.mockJobDMLUpdatedRecords[0]).Containers_Payload__c, 'Expected to update Job\'s container payload and not null.');
 	}
 
@@ -1028,13 +1028,13 @@ public with sharing class PUDUtility_Test {
 		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, pudBookingList[0].Id, PUDConstants.PUD_JOB_STATUS_NEW, true);
 
 		//create a booking container
-		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c bookingContainer = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallet', 'Empty', true )[0];
 		bookingContainer.Expected_Quantity__c = 20;
 		//associating containers with bookings.
 		pudBookingList[0] = (PUD_Booking__c)ApplicationTestDataFactory.setChildRelationships(pudBookingList[0], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{bookingContainer}});
 
 		//create job containers.
-		List<PUD_Container__c> containers = PUDTestDataFactory.getPUDJobContainers(6, pudBookingList[0].Id, null, 'Pallets', 'Empty', true );
+		List<PUD_Container__c> containers = PUDTestDataFactory.getPUDJobContainers(6, pudBookingList[0].Id, null, 'Pallet', 'Empty', true );
 		containers[0].Job__c = jobs[0].Id;
 		containers[0].Expected_Quantity__c = 10; 
 		containers[1].Job__c = jobs[1].Id;
@@ -1100,7 +1100,7 @@ public with sharing class PUDUtility_Test {
 		system.assertEquals(6, MockUtility.mockUnitOfWorkDMLs.size(), 'Expected to create 6 job containers, one for each 6 jobs');
 		system.assertEquals(20, ((PUD_Container__c)MockUtility.mockUnitOfWorkDMLs[0]).Expected_Quantity__c, 'Expected to match type with job container\'s, Expected_Quantity__c.');
 		system.assertNotEquals(null, ((PUD_Job__c)jobDMlAnswerMockInstance.mockJobDMLUpdatedRecords[0]).Containers_Payload__c, 'Expected to update Job\'s container payload and not null.');
-		system.assert(((PUD_Job__c)jobDMlAnswerMockInstance.mockJobDMLUpdatedRecords[0]).Containers_Payload__c.contains('[{"Quantity":20.0,"Name":"Pallets","Condition":"Empty"}]'), 'Expected to update Job\'s container payload with Quantity.');
+		system.assert(((PUD_Job__c)jobDMlAnswerMockInstance.mockJobDMLUpdatedRecords[0]).Containers_Payload__c.contains('[{"Quantity":20.0,"Name":"Pallet","Condition":"Empty"}]'), 'Expected to update Job\'s container payload with Quantity.');
 	}
 
 
@@ -1120,7 +1120,7 @@ public with sharing class PUDUtility_Test {
 		//Upon successfull tests, job containers should be deleted as its booking doesn't have any containers.
 
 		//create job containers.
-		List<PUD_Container__c> containers = PUDTestDataFactory.getPUDJobContainers(6, pudBookingList[0].Id, null, 'Pallets', 'Empty', true );
+		List<PUD_Container__c> containers = PUDTestDataFactory.getPUDJobContainers(6, pudBookingList[0].Id, null, 'Pallet', 'Empty', true );
 		containers[0].Job__c = jobs[0].Id;
 		containers[0].Expected_Quantity__c = 10; 
 		containers[1].Job__c = jobs[1].Id;
@@ -1143,12 +1143,12 @@ public with sharing class PUDUtility_Test {
 		jobs[5] = (PUD_Job__c)ApplicationTestDataFactory.setChildRelationships(jobs[5], new Map<String, List<SObject>>{'Containers__r' => new List<SObject>{containers[5]}});
 		
 		//set jobs containers
-		jobs[0].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallets","Condition":"Empty"}]';
-		jobs[1].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallets","Condition":"Empty"}]'; 
-		jobs[2].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallets","Condition":"Empty"}]'; 
-		jobs[3].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallets","Condition":"Empty"}]'; 
-		jobs[4].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallets","Condition":"Empty"}]'; 
-		jobs[5].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallets","Condition":"Empty"}]'; 
+		jobs[0].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallet","Condition":"Empty"}]';
+		jobs[1].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallet","Condition":"Empty"}]'; 
+		jobs[2].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallet","Condition":"Empty"}]'; 
+		jobs[3].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallet","Condition":"Empty"}]'; 
+		jobs[4].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallet","Condition":"Empty"}]'; 
+		jobs[5].Containers_Payload__c = '[{"Quantity":20.0,"Name":"Pallet","Condition":"Empty"}]'; 
 		
 
 		// =====================================
@@ -1208,7 +1208,7 @@ public with sharing class PUDUtility_Test {
 		//Upon successfull tests, job containers should be deleted as its booking doesn't have any containers.
 
 		//create job containers.
-		List<PUD_Container__c> containers = PUDTestDataFactory.getPUDJobContainers(6, pudBookingList[0].Id, null, 'Pallets', 'Empty', true );
+		List<PUD_Container__c> containers = PUDTestDataFactory.getPUDJobContainers(6, pudBookingList[0].Id, null, 'Pallet', 'Empty', true );
 		containers[0].Job__c = jobs[0].Id;
 		containers[0].Expected_Quantity__c = 10; 
 		containers[1].Job__c = jobs[1].Id;

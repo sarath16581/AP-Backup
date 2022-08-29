@@ -4,6 +4,7 @@ Created By - Mausam Padhiyar
 Created Date - 16th Oct, 20154
 Last Modified By -
 Last Modified Date - 
+2022-05-15 Nasir Jawed Changed Tier
 **/
 @isTest
 private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
@@ -324,17 +325,17 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         insert product;
 
         //Startrack Product
-        Product2 product1 = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'EXP', 'StarTrack');
+        Product2 product1 = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'StarTrack');
         insert product1;
-        Product2 product2 = APT_TestUtils.createStarTrackProduct('Special Services RE2 Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'RE2', 'StarTrack');
+        Product2 product2 = APT_TestUtils.createStarTrackProduct('Special Services RE2 Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'RE2', 'StarTrack');
         insert product2;
-        Product2 product3 = APT_TestUtils.createStarTrackProduct('Special Services RET Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'RET', 'StarTrack');
+        Product2 product3 = APT_TestUtils.createStarTrackProduct('Special Services RET Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'RET', 'StarTrack');
         insert product3;
-        Product2 product4 = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'NXF', 'StarTrack');
+        Product2 product4 = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'NXF', 'StarTrack');
         insert product4;
-        Product2 product5 = APT_TestUtils.createStarTrackProduct('Security Express Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'SE3', 'StarTrack');
+        Product2 product5 = APT_TestUtils.createStarTrackProduct('Security Express Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'SE3', 'StarTrack');
         insert product5;
-        Product2 product6 = APT_TestUtils.createStarTrackProduct('Priority Services Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'PRM', 'StarTrack');
+        Product2 product6 = APT_TestUtils.createStarTrackProduct('Priority Services Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'PRM', 'StarTrack');
         insert product6;
         
         Apttus_Config2__ProductAttributeGroup__c productAttributeGroup = APT_TestUtils.createProductAttributeGroup('Apttus_Config2__ProductAttributeValue__c');
@@ -550,7 +551,7 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         insert r2tSystemProperties;
         
         //Startrack Product
-        Product2 product = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'EXP', 'StarTrack');
+        Product2 product = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'StarTrack');
         insert product;
         
         APT_R2T_Domestic_Pricing_Properties__c r2tdomestiPricingProperties = new APT_R2T_Domestic_Pricing_Properties__c();
@@ -563,7 +564,7 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         r2tdomestiPricingProperties.APT_Dimension6_Name__c = 'priceDimension6';
         insert r2tdomestiPricingProperties;
         
-        Apttus_Config2__PriceListItem__c pli = APT_TestUtils.createPriceListItem(testPriceList.Id, product.ID, 'Express Road Tier 1', 'ExpressRoadTier1');
+        Apttus_Config2__PriceListItem__c pli = APT_TestUtils.createPriceListItem(testPriceList.Id, product.ID, 'Express Road T01', 'ExpressRoadTier1');
         insert pli;
         
         test.startTest();
@@ -601,7 +602,7 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         insert r2tSystemProperties;
         
         //product
-        Product2 product = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'EXP', 'StarTrack');
+        Product2 product = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'StarTrack');
         insert product;
         
         //attributes
@@ -677,16 +678,16 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         //domestic price data
         list<APT_Domestic_Price_Data__c > listDomesticPriceData = new list<APT_Domestic_Price_Data__c >();
         
-        APT_Domestic_Price_Data__c  dpd1 = APT_TestUtils.createDomesticPriceDataForST('Tier 1', 'LOC', 'Outbound', 'NC3', 'QC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd1 = APT_TestUtils.createDomesticPriceDataForST('T01', 'LOC', 'Outbound', 'NC3', 'QC3', 10, 20, 30);
         listDomesticPriceData.add(dpd1);
         
-        APT_Domestic_Price_Data__c  dpd2 = APT_TestUtils.createDomesticPriceDataForST('Tier 1', 'EXP', 'Inbound', 'QC3', 'NC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd2 = APT_TestUtils.createDomesticPriceDataForST('T01', 'EXP', 'Inbound', 'QC3', 'NC3', 10, 20, 30);
         listDomesticPriceData.add(dpd2);
         
-        APT_Domestic_Price_Data__c  dpd7 = APT_TestUtils.createDomesticPriceDataForST('Tier 1', 'EXP', 'Outbound', 'QC3', 'D10', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd7 = APT_TestUtils.createDomesticPriceDataForST('T01', 'EXP', 'Outbound', 'QC3', 'D10', 10, 20, 30);
         listDomesticPriceData.add(dpd7);
         
-        APT_Domestic_Price_Data__c  dpd8 = APT_TestUtils.createDomesticPriceDataForST('Tier 1', 'EXP', 'Inbound', 'D10', 'QC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd8 = APT_TestUtils.createDomesticPriceDataForST('T01', 'EXP', 'Inbound', 'D10', 'QC3', 10, 20, 30);
         listDomesticPriceData.add(dpd8);
         insert listDomesticPriceData;
         
@@ -716,7 +717,7 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         insert r2tSystemProperties;
         
         //product
-        Product2 product = APT_TestUtils.createStarTrackProduct('Special Services Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'RE2', 'StarTrack');
+        Product2 product = APT_TestUtils.createStarTrackProduct('Special Services Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'RE2', 'StarTrack');
         insert product;
         
         //attributes
@@ -792,10 +793,10 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         //domestic price data
         list<APT_Domestic_Price_Data__c > listDomesticPriceData = new list<APT_Domestic_Price_Data__c >();
         
-        APT_Domestic_Price_Data__c  dpd3 = APT_TestUtils.createDomesticPriceDataForST('Tier 1', 'LO2', 'Outbound', 'ADL', 'BRS', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd3 = APT_TestUtils.createDomesticPriceDataForST('T01', 'LO2', 'Outbound', 'ADL', 'BRS', 10, 20, 30);
         listDomesticPriceData.add(dpd3);
         
-        APT_Domestic_Price_Data__c  dpd4 = APT_TestUtils.createDomesticPriceDataForST('Tier 1', 'RE2', 'Inbound', 'BRS', 'ADL', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd4 = APT_TestUtils.createDomesticPriceDataForST('T01', 'RE2', 'Inbound', 'BRS', 'ADL', 10, 20, 30);
         listDomesticPriceData.add(dpd4);
         
         insert listDomesticPriceData;
@@ -826,7 +827,7 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         insert r2tSystemProperties;
         
         //product
-        Product2 product = APT_TestUtils.createStarTrackProduct('Special Services Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'RET', 'StarTrack');
+        Product2 product = APT_TestUtils.createStarTrackProduct('Special Services Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'RET', 'StarTrack');
         insert product;
         
         //attributes
@@ -905,10 +906,10 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         //domestic price data
         list<APT_Domestic_Price_Data__c > listDomesticPriceData = new list<APT_Domestic_Price_Data__c >();
         
-        APT_Domestic_Price_Data__c  dpd5 = APT_TestUtils.createDomesticPriceDataForST('Tier 1', 'LOT', 'Outbound', 'A10', 'MEL', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd5 = APT_TestUtils.createDomesticPriceDataForST('T01', 'LOT', 'Outbound', 'A10', 'MEL', 10, 20, 30);
         listDomesticPriceData.add(dpd5);
         
-        APT_Domestic_Price_Data__c  dpd6 = APT_TestUtils.createDomesticPriceDataForST('Tier 1', 'RET', 'Outbound', 'MEL', 'A10', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd6 = APT_TestUtils.createDomesticPriceDataForST('T01', 'RET', 'Outbound', 'MEL', 'A10', 10, 20, 30);
         listDomesticPriceData.add(dpd6);
 
         insert listDomesticPriceData;
@@ -939,7 +940,7 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         insert r2tSystemProperties;
         
         //product
-        Product2 product = APT_TestUtils.createStarTrackProduct('Security Services Tier 3', 'SecurityServicesTier3', 'Parcel Services', 'Tier 3', 'SE3', 'StarTrack');
+        Product2 product = APT_TestUtils.createStarTrackProduct('Security Services Tier 3', 'SecurityServicesTier3', 'Parcel Services', 'T03', 'SE3', 'StarTrack');
         insert product;
         
         //attributes
@@ -1012,16 +1013,16 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         //domestic price data
         list<APT_Domestic_Price_Data__c > listDomesticPriceData = new list<APT_Domestic_Price_Data__c >();
         
-        APT_Domestic_Price_Data__c  dpd1 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'SE3', 'Outbound', 'NC3', 'QC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd1 = APT_TestUtils.createDomesticPriceDataForST('T03', 'SE3', 'Outbound', 'NC3', 'QC3', 10, 20, 30);
         listDomesticPriceData.add(dpd1);
         
-        APT_Domestic_Price_Data__c  dpd2 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'SE3', 'Inbound', 'QC3', 'NC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd2 = APT_TestUtils.createDomesticPriceDataForST('T03', 'SE3', 'Inbound', 'QC3', 'NC3', 10, 20, 30);
         listDomesticPriceData.add(dpd2);
         
-        APT_Domestic_Price_Data__c  dpd7 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'SE3', 'Outbound', 'QC3', 'ADL', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd7 = APT_TestUtils.createDomesticPriceDataForST('T03', 'SE3', 'Outbound', 'QC3', 'ADL', 10, 20, 30);
         listDomesticPriceData.add(dpd7);
         
-        APT_Domestic_Price_Data__c  dpd8 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'SE3', 'Inbound', 'ADL', 'QC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd8 = APT_TestUtils.createDomesticPriceDataForST('T03', 'SE3', 'Inbound', 'ADL', 'QC3', 10, 20, 30);
         listDomesticPriceData.add(dpd8);
         insert listDomesticPriceData;
         
@@ -1044,7 +1045,7 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
     **/ 
     private static testMethod void testMethodDetermineSTZoneTypesBatch5() {
         //product
-        Product2 product = APT_TestUtils.createStarTrackProduct('Next Flight Tier 3', 'NextFlightTier1', 'Parcel Services', 'Tier 3', 'NXF', 'StarTrack');
+        Product2 product = APT_TestUtils.createStarTrackProduct('Next Flight Tier 3', 'NextFlightTier1', 'Parcel Services', 'T03', 'NXF', 'StarTrack');
         insert product;
         
         //post code mapping
@@ -1061,16 +1062,16 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         //domestic price data
         list<APT_Domestic_Price_Data__c > listDomesticPriceData = new list<APT_Domestic_Price_Data__c >();
         
-        APT_Domestic_Price_Data__c  dpd1 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'NXF', 'Outbound', 'NC3', 'QC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd1 = APT_TestUtils.createDomesticPriceDataForST('T03', 'NXF', 'Outbound', 'NC3', 'QC3', 10, 20, 30);
         listDomesticPriceData.add(dpd1);
         
-        APT_Domestic_Price_Data__c  dpd2 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'NXF', 'Inbound', 'QC3', 'NC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd2 = APT_TestUtils.createDomesticPriceDataForST('T03', 'NXF', 'Inbound', 'QC3', 'NC3', 10, 20, 30);
         listDomesticPriceData.add(dpd2);
         
-        APT_Domestic_Price_Data__c  dpd7 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'NXF', 'Outbound', 'QC3', 'ADL', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd7 = APT_TestUtils.createDomesticPriceDataForST('T03', 'NXF', 'Outbound', 'QC3', 'ADL', 10, 20, 30);
         listDomesticPriceData.add(dpd7);
         
-        APT_Domestic_Price_Data__c  dpd8 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'NXF', 'Inbound', 'NC3', 'QC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd8 = APT_TestUtils.createDomesticPriceDataForST('T03', 'NXF', 'Inbound', 'NC3', 'QC3', 10, 20, 30);
         listDomesticPriceData.add(dpd8); 
         insert listDomesticPriceData;
         
@@ -1095,7 +1096,7 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         insert r2tSystemProperties;
         
         //product
-        Product2 product = APT_TestUtils.createStarTrackProduct('Next Flight Tier 3', 'NextFlightTier1', 'Parcel Services', 'Tier 3', 'NXF', 'StarTrack');
+        Product2 product = APT_TestUtils.createStarTrackProduct('Next Flight Tier 3', 'NextFlightTier1', 'Parcel Services', 'T03', 'NXF', 'StarTrack');
         insert product;
 
         //attributes
@@ -1169,16 +1170,16 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         //domestic price data
         list<APT_Domestic_Price_Data__c > listDomesticPriceData = new list<APT_Domestic_Price_Data__c >();
         
-        APT_Domestic_Price_Data__c  dpd1 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'NXF', 'Outbound', 'NC3', 'QC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd1 = APT_TestUtils.createDomesticPriceDataForST('T03', 'NXF', 'Outbound', 'NC3', 'QC3', 10, 20, 30);
         listDomesticPriceData.add(dpd1);
         
-        APT_Domestic_Price_Data__c  dpd2 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'NXF', 'Inbound', 'QC3', 'NC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd2 = APT_TestUtils.createDomesticPriceDataForST('T03', 'NXF', 'Inbound', 'QC3', 'NC3', 10, 20, 30);
         listDomesticPriceData.add(dpd2);
         
-        APT_Domestic_Price_Data__c  dpd7 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'NXF', 'Outbound', 'QC3', 'ADL', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd7 = APT_TestUtils.createDomesticPriceDataForST('T03', 'NXF', 'Outbound', 'QC3', 'ADL', 10, 20, 30);
         listDomesticPriceData.add(dpd7);
         
-        APT_Domestic_Price_Data__c  dpd8 = APT_TestUtils.createDomesticPriceDataForST('Tier 3', 'NXF', 'Inbound', 'NC3', 'QC3', 10, 20, 30);
+        APT_Domestic_Price_Data__c  dpd8 = APT_TestUtils.createDomesticPriceDataForST('T03', 'NXF', 'Inbound', 'NC3', 'QC3', 10, 20, 30);
         listDomesticPriceData.add(dpd8); 
         insert listDomesticPriceData;
         

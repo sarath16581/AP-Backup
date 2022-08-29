@@ -25,9 +25,9 @@
                 <label>Cage</label>
             </value>
             <value>
-                <fullName>CardULD</fullName>
+                <fullName>Cardboard ULD</fullName>
                 <default>false</default>
-                <label>CardULD</label>
+                <label>Cardboard ULD</label>
             </value>
             <value>
                 <fullName>Colby</fullName>
@@ -35,9 +35,9 @@
                 <label>Colby</label>
             </value>
             <value>
-                <fullName>Pallets</fullName>
+                <fullName>Pallet</fullName>
                 <default>false</default>
-                <label>Pallets</label>
+                <label>Pallet</label>
             </value>
             <value>
                 <fullName>Trailer</fullName>

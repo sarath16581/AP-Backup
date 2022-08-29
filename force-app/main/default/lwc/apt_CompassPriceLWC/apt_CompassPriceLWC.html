@@ -1,0 +1,84 @@
+<template>
+	<!-- Loading Spinner -->
+	<template if:true={isLoading}>
+		<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+	</template>
+
+	<!-- Error Banner -->
+	<template if:true={error}>
+		<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+			<!--error graphic-->
+			<span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+			  <lightning-icon icon-name="utility:error" alternative-text="Error" title="Error" variant="inverse"></lightning-icon>
+			</span>
+			<!--error message-->
+			<h2>{error}</h2>
+		</div>
+	</template>
+
+	<!-- Success Banner -->
+	<template if:true={success}>
+		<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_success" role="alert">
+			<!--success graphic-->
+			<span class="slds-icon_container slds-icon-utility-success slds-m-right_x-small">
+			  <lightning-icon icon-name="utility:success" alternative-text="Success" title="Success" variant="inverse"></lightning-icon>
+			</span>
+			<!--success message-->
+			<h2>{success}</h2>
+		</div>
+	</template>
+	<!-- Incomplete PSR Table -->
+	<template if:true={incompletePSRs}>
+		<div class="slds-page-header">
+			<div class="slds-page-header__name-title">
+				<h1>
+					<span class="slds-page-header__title slds-truncate" title="List of Work In Progress PSRs">List of Work In Progress PSRs</span>
+				</h1>
+			</div>
+		</div> 
+		<div class="slds-media__body slds-m-bottom_medium">
+			<lightning-datatable
+				key-field="Id"
+				data={incompletePSRs}
+				columns={incompletePSRTableColumns}
+				hide-checkbox-column
+			></lightning-datatable>
+		</div>
+	</template>
+
+	<!-- Completed PSR Table -->
+    <template if:true={completedPSRs}>
+		<div class="slds-page-header">
+			<div class="slds-page-header__name-title">
+				<h1>
+					<span class="slds-page-header__title slds-truncate" title="List of Completed PSRs">List of Completed PSRs</span>
+				</h1>
+			</div>
+		</div> 
+		<div class="slds-media__body">
+			<lightning-datatable
+				key-field="Id"
+				data={completedPSRs}
+				columns={completedPSRTableColumns}
+				selected-rows={preSelectedRow}
+				onrowselection={handleSelectedPSR}
+				max-row-selection=1
+			></lightning-datatable>
+		</div>
+	</template>
+	<!-- Button section -->
+	<div class="slds-m-top_medium slds-align_absolute-center">
+		<lightning-button class="slds-m-horizontal_xx-small" variant="brand" label="Back to Shopping Cart" onclick={handleBackToCart}></lightning-button>
+		<template if:true={completedPSRs}>
+			<lightning-button class="slds-m-horizontal_xx-small" variant="brand" label="Apply PSR" onclick={handleApplyPSR} disabled={disableApplyPSR}></lightning-button>
+		</template>
+
+		</div>	
+
+	<div class="slds-m-top_medium slds-align_absolute-center slds-hidden">
+		<!--ADDED BY Bharat::::DONT REMOVE BELOW BUTTONS -->
+		<!-- <lightning-button class="slds-m-horizontal_xx-small slds-hidden customRePriceCartClass" variant="brand" label="customRePriceCart"  name="CustomRePriceCart" onclick={customRePriceCartRequest}></lightning-button>
+		 <lightning-button class="slds-m-horizontal_xx-small slds-hidden associateConstraintRuleClass" variant="brand" label="Associate Constraint Rule"  name="AssociateConstraintRule" onclick={associateConstraintRuleRequest}></lightning-button>
+		<lightning-button class="slds-m-horizontal_xx-small slds-hidden updateCartForCustomPricingClass" variant="brand" label="Update Cart Custom Pricing" name="UpdateCartCustomPricing" onclick={updateCartForCustomPricingRequest}></lightning-button> -->
+	</div>
+</template>

@@ -631,7 +631,7 @@
         <ruleEntry>
             <assignedTo>BSC_Telstra</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -641,11 +641,6 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>team.belong.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>likewize.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -893,7 +888,7 @@
         <ruleEntry>
             <assignedTo>BSC_Team_1</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -933,6 +928,11 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>au.ibm.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>likewize.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -2908,6 +2908,11 @@
             <assignedTo>StarTrack_VOC_Case_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>AND(ISNEW(),RecordType.Name = &apos;Voice of Customer Enquiry&apos;,Subject = &apos;Feedback Enquiry&apos;,ISPICKVAL(Origin, &apos;Web&apos;))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>StarTrack_Delivery_Enquiry_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND(ISNEW(),RecordType.Name = &apos;Delivery Enquiry&apos;,Subject = &apos;Tracking Enquiry&apos;,ISPICKVAL(Origin, &apos;Web&apos;))</formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

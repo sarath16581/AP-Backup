@@ -32,7 +32,6 @@ import FIELD_RECEIVER_STATE from '@salesforce/schema/ICPSArticle__c.ReceiverStat
 import getICPSWithArticles from '@salesforce/apex/ICPSServiceController.getICPSWithArticles';
 import searchICPSArticles from '@salesforce/apex/ICPSServiceController.searchICPSArticlesInSAP';
 import saveArticles from '@salesforce/apex/ICPSServiceController.saveArticles';
-import { get } from 'c/utils';
 import LABEL_INVALID_INPUTS from '@salesforce/label/c.ICPSAddArticlesInvalidInputs';
 import LABEL_MANUAL_MANDATORY from '@salesforce/label/c.ICPSAddArticlesManualFieldMandatory';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
@@ -121,13 +120,18 @@ export default class IcpsAddArticles extends LightningElement {
 				let articleIndex = this.newArticles.findIndex(item => item.trackingId === input);
 				if (articleIndex > -1) {
 					let article = this.newArticles[articleIndex];
+					let trackingArticle = result.articles[0];
 					if (result.consignments != null && result.consignments.length > 0) {
 						article.error = 'Search failed: consignment found';
 					} else {
-						article.icpsArticle = this.newICPSArticle(result.articles[0], input);
+						article.icpsArticle = this.newICPSArticle(trackingArticle, input);
 						article.isNew = true;
 						article.isDirty = false;
-						if (result.errors != null && result.errors.length > 0) {
+
+						if (trackingArticle != null && trackingArticle.article != null
+							&& !trackingArticle.article.ReceiverName__c && !trackingArticle.article.SenderName__c && !trackingArticle.article.ContentsItems__c) {
+							article.error = 'Data for this item is not available.';
+						} else if (result.errors != null && result.errors.length > 0) {
 							article.error = result.errors[0];
 						} else {
 							article.error = result.articles[0].error;
@@ -310,32 +314,32 @@ export default class IcpsAddArticles extends LightningElement {
     /**
      * returns a new icps article populated from the tracking article received via article search.
      */
-    newICPSArticle(trackingArticle, searchInput) {
+	newICPSArticle(trackingArticle, searchInput) {
         let icpsArticle = {'sobjectType': OBJECT_ICPS_ARTICLE.objectApiName};
 	    icpsArticle[FIELD_ICPS.fieldApiName] = this.recordId;
 	    icpsArticle[FIELD_NAME.fieldApiName] = searchInput.toUpperCase();
 		if (trackingArticle === undefined) {
 			return icpsArticle;
 		}
-        icpsArticle[FIELD_CONTENTS.fieldApiName] = get(trackingArticle, 'article.ContentsItems__c', null);
-        icpsArticle[FIELD_WEIGHT.fieldApiName] = get(trackingArticle, 'article.ActualWeight__c', null);
-        icpsArticle[FIELD_DECLARED_VALUE.fieldApiName] = get(trackingArticle, 'article.ArticleTransitAmountValue__c', null);
-        icpsArticle[FIELD_POSTAGE_INSURANCE.fieldApiName] = get(trackingArticle, 'article.InsuranceAmount__c', null);
-        icpsArticle[FIELD_SENDER_NAME.fieldApiName] = get(trackingArticle, 'article.SenderName__c', null);
-        icpsArticle[FIELD_SENDER_STREET_LINE_1.fieldApiName] = get(trackingArticle, 'article.SenderAddressLine1__c', null);
-        icpsArticle[FIELD_SENDER_STREET_LINE_2.fieldApiName] = get(trackingArticle, 'article.SenderAddressLine2__c', null);
-        icpsArticle[FIELD_SENDER_CITY.fieldApiName] = get(trackingArticle, 'article.SenderCity__c', null);
-        icpsArticle[FIELD_SENDER_POSTAL_CODE.fieldApiName] = get(trackingArticle, 'article.SenderPostcode__c', null);
-        icpsArticle[FIELD_SENDER_STATE.fieldApiName] = get(trackingArticle, 'article.SenderState__c', null);
-        icpsArticle[FIELD_SENDER_COUNTRY.fieldApiName] = get(trackingArticle, 'article.SenderCountry__c', null);
-        icpsArticle[FIELD_RECEIVER_NAME.fieldApiName] = get(trackingArticle, 'article.ReceiverName__c', null);
-        icpsArticle[FIELD_RECEIVER_EMAIL.fieldApiName] = get(trackingArticle, 'article.ReceiverEmail__c', null);
-        icpsArticle[FIELD_RECEIVER_MOBILE.fieldApiName] = get(trackingArticle, 'article.Receiver_Mobile__c', null);
-        icpsArticle[FIELD_RECEIVER_STREET_LINE_1.fieldApiName] = get(trackingArticle, 'article.ReceiverAddressLine1__c', null);
-        icpsArticle[FIELD_RECEIVER_STREET_LINE_2.fieldApiName] = get(trackingArticle, 'article.ReceiverAddressLine2__c', null);
-        icpsArticle[FIELD_RECEIVER_CITY.fieldApiName] = get(trackingArticle, 'article.ReceiverCity__c', null);
-        icpsArticle[FIELD_RECEIVER_POSTAL_CODE.fieldApiName] = get(trackingArticle, 'article.ReceiverPostcode__c', null);
-        icpsArticle[FIELD_RECEIVER_STATE.fieldApiName] = get(trackingArticle, 'article.ReceiverState__c', null);
+        icpsArticle[FIELD_CONTENTS.fieldApiName] = trackingArticle?.article?.ContentsItems__c;
+        icpsArticle[FIELD_WEIGHT.fieldApiName] = trackingArticle?.article?.ActualWeight__c;
+        icpsArticle[FIELD_DECLARED_VALUE.fieldApiName] = trackingArticle?.article?.ArticleTransitAmountValue__c;
+        icpsArticle[FIELD_POSTAGE_INSURANCE.fieldApiName] = trackingArticle?.article?.InsuranceAmount__c;
+        icpsArticle[FIELD_SENDER_NAME.fieldApiName] = trackingArticle?.article?.SenderName__c;
+	    icpsArticle[FIELD_SENDER_STREET_LINE_1.fieldApiName] = trackingArticle?.article?.SenderAddressLine1__c;
+        icpsArticle[FIELD_SENDER_STREET_LINE_2.fieldApiName] = trackingArticle?.article?.SenderAddressLine2__c;
+        icpsArticle[FIELD_SENDER_CITY.fieldApiName] = trackingArticle?.article?.SenderCity__c;
+        icpsArticle[FIELD_SENDER_POSTAL_CODE.fieldApiName] = trackingArticle?.article?.SenderPostcode__c;
+        icpsArticle[FIELD_SENDER_STATE.fieldApiName] = trackingArticle?.article?.SenderState__c;
+        icpsArticle[FIELD_SENDER_COUNTRY.fieldApiName] = trackingArticle?.article?.SenderCountry__c;
+        icpsArticle[FIELD_RECEIVER_NAME.fieldApiName] = trackingArticle?.article?.ReceiverName__c;
+        icpsArticle[FIELD_RECEIVER_EMAIL.fieldApiName] = trackingArticle?.article?.ReceiverEmail__c;
+        icpsArticle[FIELD_RECEIVER_MOBILE.fieldApiName] = trackingArticle?.article?.Receiver_Mobile__c;
+        icpsArticle[FIELD_RECEIVER_STREET_LINE_1.fieldApiName] = trackingArticle?.article?.ReceiverAddressLine1__c;
+        icpsArticle[FIELD_RECEIVER_STREET_LINE_2.fieldApiName] = trackingArticle?.article?.ReceiverAddressLine2__c;
+        icpsArticle[FIELD_RECEIVER_CITY.fieldApiName] = trackingArticle?.article?.ReceiverCity__c;
+        icpsArticle[FIELD_RECEIVER_POSTAL_CODE.fieldApiName] = trackingArticle?.article?.ReceiverPostcode__c;
+        icpsArticle[FIELD_RECEIVER_STATE.fieldApiName] = trackingArticle?.article?.ReceiverState__c;
         return icpsArticle;
     }
 
@@ -388,9 +392,16 @@ export default class IcpsAddArticles extends LightningElement {
         }
     }
 
+	/**
+	 * ensure article number input is valid
+	 */
 	validateSearchInput(input) {
 		if (input == null || input.trim() === '') {
 			this.errorMessage = 'Please specify an article number prior to clicking on the Search button';
+			return false;
+		}
+		if (input.length !== 13) {
+			this.errorMessage = 'Article number provided is not valid, please check article number on label';
 			return false;
 		}
 		if (this.articles.some(a => input.trim() === a.trackingId)) {

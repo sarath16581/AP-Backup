@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>31.0</apiVersion>
+    <apiVersion>52.0</apiVersion>
     <available>true</available>
     <description>Displays the incoming Email for Direct Emails</description>
     <encodingKey>ISO-8859-1</encodingKey>
     <name>SSSW Network Direct Email</name>
     <style>none</style>
-    <subject>Unanswered:  - Case:</subject>
+    <subject>Australia Post - Auto Reply - Could not locate Case | Case number: {!Case.CaseNumber}</subject>
     <type>visualforce</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

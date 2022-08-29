@@ -11,12 +11,39 @@
  * 2022-06-30 - Harry Wang - Created
 */
 public inherited sharing class ICPSArticleNoticeGenerationModule extends ApplicationDomain.Module {
+	/**
+	 * list of field types required to be capitalized
+	 */
+	private static final Set<SObjectField> CAP_FIELDS {
+		get {
+			if (CAP_FIELDS == null) {
+				CAP_FIELDS = new Set<SObjectField> {
+						ICPSArticle__c.Contents__c, ICPSArticle__c.ReceiverName__c, ICPSArticle__c.ReceiverStreetLine1__c,
+						ICPSArticle__c.ReceiverStreetLine2__c, ICPSArticle__c.ReceiverCity__c, ICPSArticle__c.ReceiverPostalCode__c,
+						ICPSArticle__c.ReceiverState__c, ICPSArticle__c.SenderName__c, ICPSArticle__c.SenderStreetLine1__c, ICPSArticle__c.SenderStreetLine2__c,
+						ICPSArticle__c.SenderCity__c, ICPSArticle__c.SenderPostalCode__c, ICPSArticle__c.SenderState__c, ICPSArticle__c.SenderCountry__c
+				};
+			}
+			return CAP_FIELDS;
+		}
+		set;
+	}
+
 	public static ICPSArticleNoticeGenerationModule newInstance() {
 		return (ICPSArticleNoticeGenerationModule)Application.Utilities.newInstance(ICPSArticleNoticeGenerationModule.class);
 	}
 
 	public ICPSArticleNoticeGenerationModule() {
-		getTriggerEvents().enableAfterInsert();
+		getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate();
+	}
+
+	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		try {
+			capitalizeFields(records, null);
+		} catch (Exception ex) {
+			// Error Logged to Exception object for analysis
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getUserId(), 'ICPS', ICPSAutomationModule.class.getName(), 'onBeforeInsert', 'ICPSArticleTrigger', LoggingLevel.ERROR);
+		}
 	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
@@ -25,6 +52,15 @@ public inherited sharing class ICPSArticleNoticeGenerationModule extends Applica
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getUserId(), 'ICPS', ICPSArticleNoticeGenerationModule.class.getName(), 'onAfterInsert', 'ICPSArticleTrigger', LoggingLevel.ERROR);
+		}
+	}
+
+	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		try {
+			capitalizeFields(records, existingRecords);
+		} catch (Exception ex) {
+			// Error Logged to Exception object for analysis
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getUserId(), 'ICPS', ICPSAutomationModule.class.getName(), 'onBeforeUpdate', 'ICPSArticleTrigger', LoggingLevel.ERROR);
 		}
 	}
 
@@ -60,6 +96,21 @@ public inherited sharing class ICPSArticleNoticeGenerationModule extends Applica
 		// Only update ICPS with expected article names
 		if (!toUpdateICPSList.isEmpty()) {
 			uow.registerDirty(toUpdateICPSList);
+		}
+	}
+
+	/**
+	 * Some fields are required to be capitalized
+	 */
+	@TestVisible
+	private void capitalizeFields(List<SObject> records, Map<Id, SObject> existingRecords) {
+		for (ICPSArticle__c icpsArticle: (List<ICPSArticle__c>) records) {
+			for (SObjectField fieldName: CAP_FIELDS) {
+				String newValue = (String)icpsArticle.get(fieldName);
+				if (newValue != null && (existingRecords == null || !newValue.equals(existingRecords.get(icpsArticle.Id).get(fieldName)))) {
+					icpsArticle.put(fieldName, String.isNotBlank(newValue) ? newValue.toUpperCase() : newValue);
+				}
+			}
 		}
 	}
 

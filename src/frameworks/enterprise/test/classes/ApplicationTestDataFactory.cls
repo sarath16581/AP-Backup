@@ -32,6 +32,7 @@
  * 2022-02-17 - Asha - added email message methods
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Added caseStarTransitWarrantyClaimRecordType, getter for MilestoneType and CaseMilestones
  * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
+ * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -60,6 +61,17 @@ public with sharing class ApplicationTestDataFactory {
 				APR__c.Billing_Account_Name__c => billingAccountId,
 				APR__c.Type__c => type
 		}, count), generateIds);
+	}
+
+	public static List<AssignmentRule> getAssignmentRules(Integer count, String objType, Boolean generateIds) {
+		List<AssignmentRule> output = (List<AssignmentRule>)maybeGenerateIds(populateSObjects(Schema.SObjectType.AssignmentRule.SObjectType, new Map<SObjectField, Object> {
+		}, count), generateIds);
+
+		for(Integer i=0;i<output.size();i++) {
+			output[i] = (AssignmentRule)setUnwritableFields(output[i], new Map<String, Object>{'SobjectType' => objType, 'Active' => true});
+		}
+
+		return output;
 	}
 
 	public static List<Account> getPersonAccounts(Integer count, Boolean generateIds) {

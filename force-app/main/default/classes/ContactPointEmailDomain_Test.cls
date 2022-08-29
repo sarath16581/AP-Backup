@@ -11,9 +11,13 @@
 private class ContactPointEmailDomain_Test {
 	@IsTest
 	static void ensureThatRegisterModulesIsBeingCalledWithTheCorrectType() {
-		ApplicationDomain domain = (ApplicationDomain) MockUtility.mockDomain(ApplicationDomain.class);
+		MockUtility.mockDomain(ApplicationDomain.class);
+		ContactService mockService = (ContactService)MockUtility.mockUtility(ContactService.class);
 
 		MockUtility.Mocks.startStubbing();
+		
+		MockUtility.Mocks.when(mockService.checkCurrentUserIsIntegrationUser(fflib_Match.anyString())).thenReturn(true);
+
 		MockUtility.Mocks.stopStubbing();
 
 		ContactPointEmailDomain.Constructor constructor = new ContactPointEmailDomain.Constructor();
@@ -21,7 +25,7 @@ private class ContactPointEmailDomain_Test {
 		List<SObject> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
 
 		ApplicationDomain appDomain = constructor.construct(contacts);
-		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(ContactPointEmailDomainModule.class);
+		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(ContactPointEmailContactSyncModule.class);
 
 		// PMD by-pass
 		System.assert(true, 'PMD by-pass');

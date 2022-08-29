@@ -6,6 +6,8 @@
 * @tag Apttus__APTS_Agreement__c SObject
 * @domain Apttus 
 * @description APT_AgreementObjectsSelector to validate contract.
+* changelog:
+* 2022-08-11 - Seth Heang - Fix test classes failure due to Product attribute value's Price Structure picklist API name change
 */
 @IsTest
 private with sharing class APT_AgreementObjectsSelector_Test {
@@ -240,15 +242,15 @@ private with sharing class APT_AgreementObjectsSelector_Test {
         
         //CREATE Product Attribute Value
         List<Apttus_Config2__ProductAttributeValue__c> attributeValueList = new List<Apttus_Config2__ProductAttributeValue__c>();
-        Apttus_Config2__ProductAttributeValue__c attriObj = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'FPP',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z6');
+        Apttus_Config2__ProductAttributeValue__c attriObj = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'FPP',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z006');
         attributeValueList.add(attriObj);
-        Apttus_Config2__ProductAttributeValue__c attriObj2 = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem2.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'FPP',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z6');
+        Apttus_Config2__ProductAttributeValue__c attriObj2 = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem2.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'FPP',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z006');
         attributeValueList.add(attriObj2);
-        Apttus_Config2__ProductAttributeValue__c attriObj3 = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem3.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'PRM',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z6');
+        Apttus_Config2__ProductAttributeValue__c attriObj3 = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem3.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'PRM',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z006');
         attributeValueList.add(attriObj3);
-        Apttus_Config2__ProductAttributeValue__c attriObj4 = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem4.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'PRM',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z6');
+        Apttus_Config2__ProductAttributeValue__c attriObj4 = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem4.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'PRM',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z006');
         attributeValueList.add(attriObj4);
-        Apttus_Config2__ProductAttributeValue__c attriObj5 = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem5.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'PRM',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z6');
+        Apttus_Config2__ProductAttributeValue__c attriObj5 = new Apttus_Config2__ProductAttributeValue__c(Apttus_Config2__LineItemId__c =lineItem5.ID,APT_PostBillPay_Gross_Settlement_fee__c = 'Yes', APT_StarTrack_Service_Type__c = 'PRM',   APT_Lodgement_Zone__c = LZ.Id, APTS_Price_Structure__c = 'Z006');
         attributeValueList.add(attriObj5);
         insert attributeValueList;
         

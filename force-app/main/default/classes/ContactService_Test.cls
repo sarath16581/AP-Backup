@@ -11,13 +11,23 @@ public with sharing class ContactService_Test {
 	@IsTest
 	static void applyPhoneNumberFormatting() {
 		StringFormattingService service = StringFormattingService.getInstance();
-		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
-		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
+		List<Account> accounts = ApplicationTestDataFactory.getPersonAccounts(1, true);
+		Account personAcc = (Account)ApplicationTestDataFactory.setUnwritableFields(accounts[0], new Map<String, Object>{'IsPersonAccount'=>true});
+		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, personAcc.Id, true);
 		Contact ct1 = contacts[0];
 		ct1.Phone = '(02) 1111 0001';
 		ct1.MobilePhone = '0404 11 22 22';
 		ct1.VerifiedMobile__c = '0404 11 22 33';
 		ct1.HomePhone = '(02) 1111 2222';
+
+		AccountsSelector mockAccountSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockAccountSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ personAcc.Id })))
+			.thenReturn(new Map<Id, Account>(accounts));
+
+		MockUtility.Mocks.stopStubbing();
+
 		ContactService.getInstance().applyPhoneNumberFormatting(contacts, null);
 		String expected = service.formatPhoneNumber(ct1.Phone);
 		System.assertEquals(expected, ct1.Phone);
@@ -44,7 +54,7 @@ public with sharing class ContactService_Test {
 		expected = service.formatPhoneNumber(ct1.HomePhone);
 		System.assertEquals(expected, ct1.HomePhone);
 
-		List<ContactPointPhone> contactPointPhones = ApplicationTestDataFactory.getContactPointPhones(1, accounts[0].Id, true);
+		List<ContactPointPhone> contactPointPhones = ApplicationTestDataFactory.getContactPointPhones(1, personAcc.Id, true);
 		ContactPointPhone ctp1 = contactPointPhones[0];
 		ctp1.TelephoneNumber = '(02) 1111 0001';
 		ContactService.getInstance().applyPhoneNumberFormatting(contactPointPhones, null);
@@ -86,16 +96,17 @@ public with sharing class ContactService_Test {
 		cpp2.Verified__c = true;
 		cpp2.PhoneType = 'Mobile';
 
+		Map<Id,ContactPointPhone> cppExistingMap = new Map<Id,ContactPointPhone>();
+		cppExistingMap.put(cpp1.Id,cpp1);
+		cppExistingMap.put(cpp2.Id,cpp2);
+
 		List<ContactPointPhone> cpRecords = new List<ContactPointPhone>();
 		cpRecords.add(cpp1);
 		cpRecords.add(cpp2);
 
-		List<ContactPointPhone> cpExisting = new List<ContactPointPhone>();
-
 		//create mock selectors
 		ContactPointPhoneSelector cpPhoneSelector = (ContactPointPhoneSelector) MockUtility.mockSelector(ContactPointPhoneSelector.class);
 		ContactsSelector contactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		MockUtility.Mocks.startStubbing();
 
@@ -105,7 +116,7 @@ public with sharing class ContactService_Test {
 					(Set<Object>) fflib_Match.eq(new Set<Object>())
 				)
 			)
-			.thenReturn(new List<ContactPointPhone>(cpRecords));
+			.thenReturn(new List<ContactPointPhone>(cppExistingMap.values()));
 
 		MockUtility.Mocks.when(contactsSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ ct1.Id })))
 			.thenReturn(new List<Contact>(contacts));
@@ -116,7 +127,7 @@ public with sharing class ContactService_Test {
 		Test.startTest();
 
 		ContactService service = ContactService.getInstance();
-		List<Contact> assertContacts = service.syncContactPointPhoneToContacts(cpRecords, cpExisting);
+		List<Contact> assertContacts = service.syncContactPointPhoneToContacts(cpRecords,null,null);
 		Test.stopTest();
 
 		System.assert(assertContacts.size() > 0, 'Contact Point Phones Records Sync Success');
@@ -143,8 +154,6 @@ public with sharing class ContactService_Test {
 		cpRecords.add(cpe1);
 		cpRecords.add(cpe2);
 
-		List<ContactPointEmail> cpExisting = new List<ContactPointEmail>();
-
 		//create mock selectors
 		ContactPointEmailSelector cpEmailSelector = (ContactPointEmailSelector) MockUtility.mockSelector(ContactPointEmailSelector.class);
 		ContactsSelector contactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
@@ -168,8 +177,7 @@ public with sharing class ContactService_Test {
 		Test.startTest();
 
 		ContactService service = ContactService.getInstance();
-		System.debug('cpRecords>>' + cpRecords);
-		List<Contact> assertContacts = service.syncContactPointEmailToContacts(cpRecords, null);
+		List<Contact> assertContacts = service.syncContactPointEmailToContacts(cpRecords, null,null);
 		Test.stopTest();
 
 		System.assert(assertContacts.size() > 0, 'Contact Point Emails Records Sync Success');

@@ -41,7 +41,7 @@
             </value>
         </filters>
         <filters>
-            <field>Name</field>
+            <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>QueueDevname</elementReference>
@@ -88,7 +88,7 @@
         <name>QueueDevname</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
-        <isInput>false</isInput>
+        <isInput>true</isInput>
         <isOutput>false</isOutput>
         <value>
             <stringValue>Sorry_We_Missed_You</stringValue>

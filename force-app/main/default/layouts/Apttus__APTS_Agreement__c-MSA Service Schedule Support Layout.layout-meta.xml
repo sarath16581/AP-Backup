@@ -182,6 +182,10 @@
                 <behavior>Edit</behavior>
                 <field>Is_Document_Signed__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Contract_Relationship__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

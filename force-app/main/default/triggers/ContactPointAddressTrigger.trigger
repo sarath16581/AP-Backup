@@ -8,6 +8,6 @@
  */
 trigger ContactPointAddressTrigger on ContactPointAddress (after insert, after update, after delete) {
     if(!TriggerHelper.isTriggerDisabled(String.valueOf(ContactPointAddress.SObjectType))) {
-		(new ContactPointAddressDomainTriggerHandler()).dispatch();
+		ContactPointAddressDomainTriggerHandler.newInstance().dispatch();
 	}
 }

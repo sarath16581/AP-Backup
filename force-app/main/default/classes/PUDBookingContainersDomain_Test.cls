@@ -25,10 +25,10 @@ private class PUDBookingContainersDomain_Test {
 
         //create containers
         //creating Booking Containers
-        PUD_Container__c c1 = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallets', 'Empty', true )[0];
+        PUD_Container__c c1 = PUDTestDataFactory.getPUDBookingContainers(1, pudBookingList[0].Id, 'Pallet', 'Empty', true )[0];
         
         //creating job containers
-        PUD_Container__c c2 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, null, 'Pallets', 'Full', true )[0];
+        PUD_Container__c c2 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, null, 'Pallet', 'Full', true )[0];
 
         List<PUD_Container__c> newContainers = new List<PUD_Container__c>{c1,c2};
 

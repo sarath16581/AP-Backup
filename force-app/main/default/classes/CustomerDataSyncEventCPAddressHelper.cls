@@ -29,7 +29,7 @@ public inherited sharing class CustomerDataSyncEventCPAddressHelper {
 				State = wr.state,
 				PostalCode = wr.postcode,
 				Country = wr.country,
-				Name = wr.street1 + ' ' + (String.isBlank(wr.street2) ? wr.street2 + ' ': '') + wr.suburb + ' ' + wr.state + ' ' + wr.postcode + ' ' + wr.country
+				Name = (String.isBlank(wr.street1) == false ? wr.street1 + ' ': '') + (String.isBlank(wr.street2) == false ? wr.street2 + ' ': '') + wr.suburb + ' ' + wr.state + ' ' + wr.postcode + ' ' + wr.country
 			));
 		}
 		return result;

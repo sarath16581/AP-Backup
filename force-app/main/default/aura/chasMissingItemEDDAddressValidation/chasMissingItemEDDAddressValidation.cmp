@@ -1,0 +1,130 @@
+<!--
+ *
+ * @author Hasantha Liyanage
+ * @date 2022-08-10
+ * @group Chas
+ * @tag EDD service
+ * @tag DDS-11627
+ * @domain Help & Support
+ * @description calculated EDD service estimate tests
+ * @changelog
+ * 2022-08-10 - Hasantha Liyanage - Created
+ *
+ -->
+
+<aura:component extends="c:SS_uiWizardPage" controller="ChasEDDAddressValidationController"
+                description="EDD Address validation">
+    <aura:attribute name="addressLine1" type="String" default=''/>
+    <aura:attribute name="city" type="String" default=''/>
+    <aura:attribute name="state" type="String" default=''/>
+    <aura:attribute name="postcode" type="String" default=''/>
+    <aura:attribute name="inputFieldCount" type="Integer"/>
+    <aura:attribute name="selectedAddress" type="String" default=''/>
+    <aura:attribute name="overrideAddress" type="String" default=''/>
+    <aura:attribute name="isOverriden" type="Boolean" default="false"/>
+    <aura:attribute name="addressTyped" type="String" default=''/>
+    <aura:attribute name="addressMatched" type="String" default=""/>
+    <aura:attribute name="rotate" type="String" default="down"/>
+    <aura:attribute name="duplicateCase" type="String" default=''/>
+    <aura:attribute name="isEligibleForMyNetworkAssignment" type="String" default=''/>
+    <aura:attribute name="isFromBackButton" type="Boolean" default="false"/>
+
+    <!-- Message handling attributes-->
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="showError" type="Boolean"/>
+    <aura:attribute name="error" type="String" default=''/>
+    <aura:attribute name="inputError" type="Boolean" default="false"/>
+    <aura:attribute name="inputFieldError" type="Boolean" default="false"/>
+    <aura:attribute name="formValid" type="Boolean" default="false"/>
+    <aura:attribute name="error500" type="Boolean" default="false"/>
+    <aura:attribute name="inputErr" type="List"/>
+    <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
+    <aura:attribute name="showInvalidWithinEDDMessage" type="Boolean" default="false"/>
+    <aura:attribute name="eddDisplayDate" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <aura:if isTrue="{! v.isFromBackButton == 'false'}">
+        <!--Display a spinner and autoprogress the form, if the tracking Id and dpId are passed in the query parameters-->
+        <lightning:spinner class="{!if(v.displaySpinner, '', 'slds-hidden')}"/>
+        <aura:set attribute="else">
+            <!--Go back button-->
+            <div class="left-padding">
+                <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+                <lightning:button label="BACK" variant="base" onclick="{!c.goBackHandler}" class="goBack"/>
+            </div>
+            <aura:if isTrue="{!not(v.showInvalidWithinEDDMessage)}">
+                <legend class="chas-header left-padding">
+                    <h2>Confirm the delivery address</h2>
+                </legend>
+                <c:ChasForm customStyle="left-padding">
+                    <div class="form-input-container outer-box">
+                        <legend class="bottom-padding chas-heading_medium">
+                            <div style="color: #4D4D54;font-weight:400;">We’ll check that this matches what’s in our
+                                system.
+                            </div>
+                        </legend>
+                        <legend class="chas-heading_medium">
+                        </legend>
+                        <!-- Errors -->
+                        <div>
+                            <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
+                            <c:chasMissingItemAddressLookup aura:id="searchAddress"
+                                                            inputFieldError="{!v.inputFieldError}"
+                                                            inputError="{!v.inputError}"
+                                                            errorMessage="{!v.errorMessage}"
+                                                            onshowError="{!c.getShowError}"
+                                                            onvaluechange="{!c.getOverrideAddress}"
+                                                            onsearchtermchange="{!c.getSelectedAddress}"
+                                                            onaddressOverride="{!c.checkOverride}"
+                                                            onaddressTyped="{!c.getAddressTyped}"/>
+                        </div>
+                        <aura:if isTrue="{!(v.error500)}">
+                            <div style="padding-top:32px;">
+                                <c:ChasInfoTile heading="Whoops, something's gone wrong."
+                                                image="/chas-icons/pngs/UI/icons/it_error.png">
+                                    <p>Please try again in a few minutes.</p>
+                                </c:ChasInfoTile>
+                            </div>
+                        </aura:if>
+                        <div style="padding-top:32px;">
+                            <aura:if isTrue="{!not(v.isOverriden)}">
+                                <lightning:button label="Continue" disabled="false" variant="brand"
+                                                  class="{! 'chas-button loading-' + v.isLoading}"
+                                                  onclick="{!c.callRedirectService}"/>
+                            </aura:if>
+                            <aura:if isTrue="{!v.isOverriden}">
+                                <lightning:button label="Continue" disabled="false" variant="brand"
+                                                  class="{! 'chas-button loading-' + v.isLoading}"
+                                                  onclick="{!c.manualEntryFlow}"/>
+                            </aura:if>
+                        </div>
+                    </div>
+                </c:ChasForm>
+                <aura:set attribute="else">
+                    <legend class="chas-header left-padding">
+                        <h2>Item Details</h2>
+                    </legend>
+                    <c:ChasForm customStyle="left-padding">
+                        <div class="form-input-container outer-box">
+                            <div class="tracking-info">
+                                <c:ChasBspDeflection noInfoIcon="true" hasClose="false" borderStyle="info-box"
+                                                     iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}"
+                                                     iconLinkStyle="message-icon">
+                                    <p class="message-text">This parcel is estimated to arrive {!if(v.wizardData.deliveredByDateFrom  != null, 'between', 'on')}
+                                        <b>{!v.eddDisplayDate}. </b></p>
+                                    <br/>
+                                    <p class="message-text"> You can only enquire about a late or missing item after the
+                                        estimated arrival date. For essential medication enquiries, please
+                                        <a href="https://auspost.com.au/help-and-support#contact" class="link-plain"
+                                           target="blank">contact us by phone.</a>
+                                    </p>
+                                </c:ChasBspDeflection>
+                            </div>
+                        </div>
+                    </c:ChasForm>
+                </aura:set>
+            </aura:if>
+        </aura:set>
+    </aura:if>
+</aura:component>

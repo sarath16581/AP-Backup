@@ -10,7 +10,7 @@
     <enableDecline>true</enableDecline>
     <enableDeclineReason>false</enableDeclineReason>
     <enableDisconnectSound>false</enableDisconnectSound>
-    <enableRequestSound>false</enableRequestSound>
+    <enableRequestSound>true</enableRequestSound>
     <label>Callback Request Team</label>
     <presenceStatusOnDecline>Away</presenceStatusOnDecline>
 </PresenceUserConfig>

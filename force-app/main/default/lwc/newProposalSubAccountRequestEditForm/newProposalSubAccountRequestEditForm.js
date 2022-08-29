@@ -8,6 +8,7 @@
 18.05.2021    Dheeraj Mandavilli   Updated logic to auto populate contact with opportunity.key contact value.
 20.05.2021    Dheeraj Mandavilli   Added elms Enabled Lodgement Points Hyperlink on the form.
 30.07.2021    Naveen Rajanna       REQ2570608 - Set fieldList to empty at start of onsubmitHandler and commented console log statements
+01.08.2022    Prerna Rahangdale     - Added the the validation for lodgement point records to be same as Proposal.
 */
 
 import { LightningElement ,track, wire, api} from 'lwc';
@@ -249,6 +250,10 @@ export default class NewProposalSubAccountRequestEditForm extends NavigationMixi
                 }
                 else if(this.message.includes("FIELD_FILTER_VALIDATION_EXCEPTION")){
                     this.message ='Email field on created contact record is blank.Please update contact with valid email value.';
+                    alert(this.message);
+                }
+                else if(this.message.includes("LODGEMENT_POINT_NOMATCH")){
+                    this.message ='Lodgement point selected must be within one of the primary lodgement zone/s entered in the shopping cart.';
                     alert(this.message);
                 }
                 else{

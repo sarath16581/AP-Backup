@@ -42,7 +42,7 @@ private class PUDJobDispatchEventHandler_Test {
 
 		
 
-		PUD_Container__c c1 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[1].Id, 'Pallets', 'Empty', true )[0];
+		PUD_Container__c c1 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[1].Id, 'Pallet', 'Empty', true )[0];
 		c1.Expected_Quantity__c = 10;
 		PUD_Container__c c2 = PUDTestDataFactory.getPUDJobContainers(1, pudBookingList[0].Id, jobs[1].Id, 'Aircan', 'Empty', true )[0];
 		c2.Expected_Quantity__c = 30;
@@ -57,7 +57,7 @@ private class PUDJobDispatchEventHandler_Test {
 		//'Completed' event for jobs[1]. Confirming the job has been completed by the driver.
 		//Setting container payload with existing and new container types.
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[1].Id, Status__c='Completed', Event_Timestamp__c = System.now().addHours(-1), 
-		Containers_Payload__c = '[{"Name":"Aircan","Quantity":30,"ActualQuantity":52,"Condition":"Empty"},{"Name":"Colby","Quantity":3,"ActualQuantity":2,"Condition":"Full"}, {"Name":"Pallets","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]'));
+		Containers_Payload__c = '[{"Name":"Aircan","Quantity":30,"ActualQuantity":52,"Condition":"Empty"},{"Name":"Colby","Quantity":3,"ActualQuantity":2,"Condition":"Full"}, {"Name":"Pallet","Quantity":10,"ActualQuantity":12,"Condition":"Empty"}]'));
 		
 		//'Completed' event for jobs[2]. Confirming the job has been completed by the driver.
 		//Setting duplicate container payload from MobileStar
@@ -72,18 +72,17 @@ private class PUDJobDispatchEventHandler_Test {
 		// Stubbing
 		// =====================================
 		PUDJobsSelector mockSelector = (PUDJobsSelector)MockUtility.mockSelector(PUDJobsSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+	
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(jobs);
+		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject(), fflib_Match.eqBoolean(false), (String)fflib_Match.eq('PUDJobDispatchEventHandler'))).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 		
-		//ApplicationDatabase does not have a class to return MOCK answer() for DML Upsert.
+		//MockUtility does not have a class to return MOCK answer() for DML Upsert.
 		//This is a temporary mock Answer for DML Upsert.
-		MockUtility.Mocks.when(mockDatabase.dmlUpsert((List<SObject>)fflib_Match.anyObject(), (SObjectField)fflib_Match.anyObject())).thenAnswer(new AnswerContainerDMLUpserted());
-
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.when(mockUow.registerUpsert((List<SObject>)fflib_Match.anyObject(), fflib_Match.eqBoolean(false), (String)fflib_Match.eq('PUDJobDispatchEventHandler'))).thenAnswer(new AnswerContainerDMLUpserted());
 
 
 		MockUtility.Mocks.stopStubbing();
@@ -93,7 +92,7 @@ private class PUDJobDispatchEventHandler_Test {
 		// =====================================
 		Test.startTest();
 
-		PUDJobDispatchEventHandler.getInstance().processJobActionEvents(events);
+		PUDJobDispatchEventHandler.getInstance().processJobActionEvents(events, mockUow);
 
 		Test.stopTest();
 
@@ -103,10 +102,10 @@ private class PUDJobDispatchEventHandler_Test {
 		fflib_ArgumentCaptor upsertableContainersCaptor = fflib_ArgumentCaptor.forClass(List<PUD_Container__c>.class);
 
 		//verify that PUDUtility is called once with expected list of jobs
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<PUD_Job__c>) updatableJobsCaptor.capture());
+	    ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerDirty((List<PUD_Job__c>) updatableJobsCaptor.capture(), fflib_Match.eqBoolean(false), (String)fflib_Match.eq('PUDJobDispatchEventHandler'));
 
 		//verify that PUDUtility is called once with expected list of containers
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpsert((List<PUD_Container__c>) upsertableContainersCaptor.capture(), (SObjectField) fflib_Match.eq(PUD_Container__c.Id));
+	    ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerUpsert((List<PUD_Container__c>) upsertableContainersCaptor.capture(), fflib_Match.eqBoolean(false), (String)fflib_Match.eq('PUDJobDispatchEventHandler'));
 
 		Map<Id, PUD_Container__c> upsertedContainers = new Map<Id, PUD_Container__c>((List<PUD_Container__c>) upsertableContainersCaptor.getValue());
 		
@@ -132,8 +131,6 @@ private class PUDJobDispatchEventHandler_Test {
 		// Data Preparation
 		// =====================================
 
-		List<PUD_Booking__c> pudBookingList = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(2, null, null, Date.today(), Date.today().addDays(30), null, true);
-		
 		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(6, null, PUDConstants.PUD_JOB_STATUS_NEW, true);
 		//jobs[0] is in status 'Schedule'. Job has been pushed to dispatch system but awaiting confirmation.
 		jobs[0].Status__c = PUDConstants.PUD_JOB_STATUS_SCHEDULE;
@@ -178,14 +175,14 @@ private class PUDJobDispatchEventHandler_Test {
 		// Stubbing
 		// =====================================
 		PUDJobsSelector mockSelector = (PUDJobsSelector)MockUtility.mockSelector(PUDJobsSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(jobs);
-		
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject(), fflib_Match.eqBoolean(false), (String)fflib_Match.eq('PUDJobDispatchEventHandler'))).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 
 
 		MockUtility.Mocks.stopStubbing();
@@ -195,16 +192,14 @@ private class PUDJobDispatchEventHandler_Test {
 		// =====================================
 		Test.startTest();
 
-		PUDJobDispatchEventHandler.getInstance().processJobActionEvents(events);
+		PUDJobDispatchEventHandler.getInstance().processJobActionEvents(events, mockUow);
 
 		Test.stopTest();
 
 		fflib_ArgumentCaptor updatableJobsCaptor = fflib_ArgumentCaptor.forClass(List<PUD_Job__c>.class);
 
 		//verify that PUDUtility is called once with expected list of jobs
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<PUD_Job__c>) updatableJobsCaptor.capture());
-
-		
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerDirty((List<PUD_Job__c>) updatableJobsCaptor.capture(), fflib_Match.eqBoolean(false), (String)fflib_Match.eq('PUDJobDispatchEventHandler'));
 
 		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>((List<PUD_Job__c>) updatableJobsCaptor.getValue());
 		System.assertEquals(5, updatableJobs.size(), 'Expected to update 5 job records from Dispatch System Job Action events.');
@@ -278,12 +273,13 @@ private class PUDJobDispatchEventHandler_Test {
 		// Stubbing
 		// =====================================
 		PUDJobsSelector mockSelector = (PUDJobsSelector)MockUtility.mockSelector(PUDJobsSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(jobs);
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject(), fflib_Match.eqBoolean(false), (String)fflib_Match.eq('PUDJobDispatchEventHandler'))).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -291,14 +287,14 @@ private class PUDJobDispatchEventHandler_Test {
 		// =====================================
 		Test.startTest();
 
-		PUDJobDispatchEventHandler.getInstance().processJobActionEvents(events);
+		PUDJobDispatchEventHandler.getInstance().processJobActionEvents(events, mockUow);
 
 		Test.stopTest();
 
 		fflib_ArgumentCaptor updatableJobsCaptor = fflib_ArgumentCaptor.forClass(List<PUD_Job__c>.class);
 
 		//verify that PUDUtility is called once with expected list of jobs
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<PUD_Job__c>) updatableJobsCaptor.capture());
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerDirty((List<PUD_Job__c>) updatableJobsCaptor.capture(), fflib_Match.eqBoolean(false), (String)fflib_Match.eq('PUDJobDispatchEventHandler'));
 
 		Map<Id, PUD_Job__c> updatableJobs = new Map<Id, PUD_Job__c>((List<PUD_Job__c>) updatableJobsCaptor.getValue());
 		System.assertEquals(3, updatableJobs.size(), 'Expected to update 3 job records from Dispatch System Job Action events.');
@@ -346,8 +342,7 @@ private class PUDJobDispatchEventHandler_Test {
 			// store a list of the records that were updated when this answer is invoked.
 			mockDMLUpsertedRecords.addAll(records);
 
-			List<Database.UpsertResult> result = (List<Database.UpsertResult>)JSON.deserialize(JSON.serialize(upsertResults), List<Database.UpsertResult>.class);
-			return result;
+			return mockDMLUpsertedRecords;
 		}
 	}
 }

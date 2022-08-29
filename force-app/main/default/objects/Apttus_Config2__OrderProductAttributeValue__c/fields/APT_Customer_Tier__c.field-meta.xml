@@ -11,72 +11,72 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>TIER 1</fullName>
+                <fullName>T01</fullName>
                 <default>false</default>
                 <label>TIER 1 ($2,500.00 - $4,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 2</fullName>
+                <fullName>T02</fullName>
                 <default>false</default>
                 <label>TIER 2 ($5,000.00 - $9,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 3</fullName>
+                <fullName>T03</fullName>
                 <default>false</default>
                 <label>TIER 3 ($10,000.00 - $19,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 4</fullName>
+                <fullName>T04</fullName>
                 <default>false</default>
                 <label>TIER 4 ($20,000.00 - $49,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 5</fullName>
+                <fullName>T05</fullName>
                 <default>false</default>
                 <label>TIER 5 ($50,000.00 - $124,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 6</fullName>
+                <fullName>T06</fullName>
                 <default>false</default>
                 <label>TIER 6 ($125,000.00 - $249,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 7</fullName>
+                <fullName>T07</fullName>
                 <default>false</default>
                 <label>TIER 7 ($250,000.00 - $499,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 8</fullName>
+                <fullName>T08</fullName>
                 <default>false</default>
                 <label>TIER 8 ($500,000.00 - $999,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 9</fullName>
+                <fullName>T09</fullName>
                 <default>false</default>
                 <label>TIER 9 ($1,000,000 - $2,499,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 10</fullName>
+                <fullName>T10</fullName>
                 <default>false</default>
                 <label>TIER 10 ($2,500,000.00 - $4,999,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 11</fullName>
+                <fullName>T11</fullName>
                 <default>false</default>
                 <label>TIER 11 ($5,000,000.00 - $9,999,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 12</fullName>
+                <fullName>T12</fullName>
                 <default>false</default>
                 <label>TIER 12 ($10,000,000.00 - $19,999,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 13</fullName>
+                <fullName>T13</fullName>
                 <default>false</default>
                 <label>TIER 13 ($20,000,000.00 - $39,999,999.99)</label>
             </value>
             <value>
-                <fullName>TIER 14</fullName>
+                <fullName>T14</fullName>
                 <default>false</default>
                 <label>TIER 14 ($40,000,000.00 +)</label>
             </value>

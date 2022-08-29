@@ -12,6 +12,7 @@
  * @domain StarTrack
  * @changelog
  * 2021-11-09 Naveen Rajanna REQ2656153 - Added null check to avoid null pointer exception
+ * 2022-08-25 Mahesh Parvathaneni DDS-11558 - Added logic for STHS tracking form to not to update the case status
  */
 
 public inherited sharing class StarTrackSupportCaseOwnerModule extends ApplicationDomain.Module {
@@ -95,10 +96,15 @@ public inherited sharing class StarTrackSupportCaseOwnerModule extends Applicati
 					 * 
 					 * When Case is transfered from call center to investigator generals team
 					 */
+					// Get old case
+					Case oldCase = existingRecords != null ? (Case) existingRecords.get(c.Id) : null;
+					//DDS-11558 Added condition to not to execute the logic if case created by AP Integration User from StarTrack Web form
+					Boolean isCaseCreatedFromSTHSForm = c.Origin == STHSConstants.CASE_ORIGIN_WEB && c.Status == STHSConstants.CASE_STATUS_NEW && 
+						oldCase.OwnerId == AP_INTEGRATION_USER_ID;
 					if (caseRecordTypes.keySet().contains(c.RecordTypeId) && changedFields.contains(Case.OwnerId) && !BspConstants.CURRENT_USER_CAN_ACCESS_BSP && !excludedStatuses.contains(c.Status) &&
 						//Removing LDC check as it is no longer used by business
 						//&& !(changedFields.contains(Case.LDC_System_Check__c) && c.LDC_System_Check__c)
-						!('Card Left'.equalsIgnoreCase(c.Call_Purpose__c) && 'Waiting on operations'.equalsIgnoreCase(c.Status)) && !changedFields.contains(Case.Approval_Status__c) && !IS_SYSTEM_SUPPORT_USER) {
+						!('Card Left'.equalsIgnoreCase(c.Call_Purpose__c) && 'Waiting on operations'.equalsIgnoreCase(c.Status)) && !changedFields.contains(Case.Approval_Status__c) && !IS_SYSTEM_SUPPORT_USER && !isCaseCreatedFromSTHSForm) {
 						c.Status = 'Awaiting Investigation';
 						//Add cases to update milestones
 						casesToProcess.put(c.Id, c);
@@ -133,6 +139,19 @@ public inherited sharing class StarTrackSupportCaseOwnerModule extends Applicati
 				IS_SYSTEM_SUPPORT_USER = 'System Support'.equalsIgnoreCase(UserInfo.getName());
 			}
 			return IS_SYSTEM_SUPPORT_USER;
+		}
+		private set;
+	}
+
+	/**
+	 * AP Integration user Id
+	 */
+	public static final Id AP_INTEGRATION_USER_ID {
+		get {
+			if (AP_INTEGRATION_USER_ID == null) {
+				AP_INTEGRATION_USER_ID = UsersSelector.newInstance().selectByName(new Set<String>{'AP Integration'}).values()[0].Id;
+			}
+			return AP_INTEGRATION_USER_ID;
 		}
 		private set;
 	}

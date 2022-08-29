@@ -183,10 +183,31 @@ public class APT_ProposalObjectsSelector_Test {
     }
     @IsTest
     private static void testEnsureSelectorMethodsReturnCorrectResult2() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, null, null, false)[0];
+        insert prodConfig;
+        Contact con = [Select Id from Contact Limit 1];
+        Account legacyacct = [Select Id from Account where Name = 'legacyacct' Limit 1];
+        
+        Opportunity opp1 = [Select Id, AccountId from Opportunity where AccountId = :legacyacct.Id Limit 1];
+        Application__c app = new Application__c();
+        app.Opportunity__c = opp1.Id;
+        
+      
+        Product2 product = [Select Id from Product2 where Name = 'Australia Post Parcel Contract' Limit 1];
+        Product2 product2 = [Select Id from Product2 where Name = 'International Bundle' Limit 1];
+       
+        Apttus_Proposal__Proposal__c proposal = [Select Id, CreatedDate from Apttus_Proposal__Proposal__c where Apttus_Proposal__Account__c =:legacyacct.Id Limit 1];
+        proposal.Apttus_QPApprov__Approval_Status__c = APT_Constants.APPROVAL_STAGE_APPROVED;
+      
         
         Test.startTest();
-              
+        //Getting the proposal record by passing the proposal id and checking the result       
         APT_ProposalObjectsSelector selector = APT_ProposalObjectsSelector.newInstance();
+        List<Apttus_Proposal__Proposal__c> results = selector.selectByConfigIds(new set<ID>{(ID)proposal.ID});
+        System.assertEquals(1, results.size(), 'Expected result size of 1');
         
         Test.stopTest();
         

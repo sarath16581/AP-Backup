@@ -8,6 +8,7 @@
  * @changelog
  * 2020-11-18 - arjun.singh@austpost.com.au - Created
  * 2020-12-09 - Shashwat.Nath@Auspost.com - Added WITH_PROPOSAL option
+ * 2022-08-04 - Seth Heang - Added APT_APPC_Count__c, Apttus__FF_Agreement_Number__c in the query
  */
 public with sharing class ApttusContractsSelector extends ApplicationSelector{
     public enum Options {
@@ -43,7 +44,7 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
             Apttus__APTS_Agreement__c.Id,Apttus__APTS_Agreement__c.Name, Apttus__APTS_Agreement__c.Apttus__Account__c,
                 Apttus__APTS_Agreement__c.APT_Review_Date__c,Apttus__APTS_Agreement__c.Apttus__Related_Opportunity__c,
                 Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c, Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c,
-                Apttus__APTS_Agreement__c.Term__c
+                Apttus__APTS_Agreement__c.Term__c, Apttus__APTS_Agreement__c.APT_APPC_Count__c, Apttus__APTS_Agreement__c.Apttus__FF_Agreement_Number__c
         };
     }
     /**
@@ -97,6 +98,7 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
             System.debug('here Opportunity');
             builder.addRelatedFields(OpportunitySelector.newInstance().newQueryBuilder(), 'Apttus__Related_Opportunity__r');
         }
+		
         return builder;
     }
 }

@@ -1,20 +1,25 @@
 import { LightningElement } from "lwc";
 import { validateInputComponents } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
-import invalidDescription from "@salesforce/label/c.Sths_Description_Validation_Message";
-import invalidEmail from "@salesforce/label/c.Sths_Email_Validation_Message";
-import invalidEnquirySelection from "@salesforce/label/c.Sths_Enquiry_Selection_Validation_Message";
-import invalidEnquiry from "@salesforce/label/c.Sths_Enquiry_Validation_Message";
-import invalidFirstName from "@salesforce/label/c.Sths_Firstname_Validation_Message";
-import invalidLastName from "@salesforce/label/c.Sths_Lastname_Validation_Message";
-import invalidCharacters from "@salesforce/label/c.Sths_Max_Characters_Validation_Message";
-import invalidPhone from "@salesforce/label/c.Sths_Phone_Validation_Message";
-import invalidReference from "@salesforce/label/c.Sths_Reference_Validation_Message";
-import stSupportURL from "@salesforce/label/c.Sths_Support_URL";
+import invalidDescription from "@salesforce/label/c.STHSDescriptionValidationMessage";
+import invalidEmail from "@salesforce/label/c.STHSEmailValidationMessage";
+import invalidEnquirySelection from "@salesforce/label/c.STHSEnquirySelectionValidationMessage";
+import invalidEnquiry from "@salesforce/label/c.STHSEnquiryValidationMessage";
+import invalidFirstName from "@salesforce/label/c.STHSFirstnameValidationMessage";
+import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
+import invalidCharacters from "@salesforce/label/c.STHSMaxCharactersValidationMessage";
+import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
+import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
+import stSupportURL from "@salesforce/label/c.STHSSupportURL";
+import createTrackingFormCase from "@salesforce/apex/STHSTrackingFormController.createTrackingFormCase";
 
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
 	formData = {}; //form data to capture
+	isLoading = false; //flag to show/hide the spinner
+	caseNumber; //case number created for feedback form
+	showError = false; //flag to show/hide the error message
+	isCaseCreatedSuccessfully = false; //flag to show/hide the layout when case created successfully
 
 	//labels
 	label = {
@@ -49,10 +54,35 @@ export default class SthsTrackingForm extends LightningElement {
 
 	//handle form submit click
 	handleSubmitClick(event) {
+		this.resetForm();
+		//validate the form
 		let isFormValid = this.validateForm();
 		if (isFormValid) {
 			//submit the form
-			console.log(JSON.parse(JSON.stringify(this.formData)));
+			this.isLoading = true;
+			//create case and related contact
+			createTrackingFormCase({
+				formData: this.formData
+			})
+				.then((response) => {
+					if (response !== null) {
+						this.caseNumber = response;
+						//show confirmation message
+						this.isCaseCreatedSuccessfully = true;
+					} else {
+						this.showError = true;
+						window.scrollTo(0, 0); //scroll to top
+					}
+					this.isLoading = false;
+				})
+				.catch((error) => {
+					this.isLoading = false;
+					this.showError = true;
+					window.scrollTo(0, 0); //scroll to top
+					console.error(
+						"createTrackingFormCase call failed: " + error
+					);
+				});
 		}
 	}
 
@@ -63,4 +93,10 @@ export default class SthsTrackingForm extends LightningElement {
 		);
 		return validateInputComponents([...inputElements], true);
 	}
+
+	//reset the form
+	resetForm = () => {
+		this.showError = false;
+		this.isCaseCreatedSuccessfully = false;
+	};
 }

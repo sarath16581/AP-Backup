@@ -24,6 +24,72 @@ public with sharing class Application {
 		Profiler = new ProfileFactory();
 	}
 
+	public static CacheFactory Cache {
+		get {
+			if(Cache == null) {
+				Cache = new CacheFactory();
+			}
+			return Cache;
+		}
+		private set;
+	}
+
+	public class CacheFactory {
+
+		@TestVisible 
+		void resetStaticVariablesForUnitTestOnly() {
+			organizationInfo = null;
+			CacheManager.put('ORGANISATION_INFO', null);
+			profileIds = null;
+			CacheManager.put('ALL_PROFILE_IDS', null);
+		}
+
+		public OrganizationWrapper organizationInfo {
+			get {
+				if(organizationInfo == null) {
+					organizationInfo = (OrganizationWrapper)CacheManager.get('ORGANISATION_INFO');
+					if(organizationInfo == null) {
+						organizationInfo = new OrganizationWrapper([SELECT Name, IsSandbox, InstanceName FROM Organization LIMIT 1]);
+						CacheManager.put('ORGANISATION_INFO', organizationInfo);
+					}
+				}
+				return organizationInfo;
+			}
+			private set;
+		}	
+	
+		public Map<String, Id> profileIds {
+			get {
+				if(profileIds == null) {
+					profileIds = (Map<String, Id>)CacheManager.get('ALL_PROFILE_IDS');
+					if(profileIds == null) {
+						profileIds = new Map<String, Id>();
+						for(Profile p: [SELECT Name FROM Profile]) {
+							profileIds.put(p.Name, p.Id);
+						}
+						CacheManager.put('ALL_PROFILE_IDS', profileIds);
+					}
+				}
+				return profileIds;
+			}
+			private set;
+		}
+	}
+
+	public class OrganizationWrapper {
+		public Boolean isSandbox {get; private set;}
+		public String sandboxName {get; private set;}
+
+		public OrganizationWrapper(Organization org) {
+			isSandbox = org.IsSandbox;
+			if(isSandbox == true) {
+				sandboxName = System.Url.getSalesforceBaseUrl().getHost().substringBetween('--', '.');
+			} else {
+				sandboxName = '';
+			}
+		}
+	}
+
 	public class UtilityFactory {
 
 		Map<Type, Object> mockInstances = new Map<Type, Object>();
