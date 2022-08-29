@@ -6,6 +6,7 @@
  * @domain PUD
  * @changelog
  * 2022-07-25 - Dattaraj Deshmukh - Created
+ * 2022-08-26 - Dattaraj Deshmukh - updated 'testEndToEndTriggerIntegrationForInsert' method to insert custom settings for bookings.
   */
 
 @IsTest
@@ -238,6 +239,11 @@ private class PUDContainerTypeSyncModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
+		
+		//insert custom settings to disable booking trigger. This will avoid changing job status to CANCEL.
+		insert new SystemSwitch__c(SetupOwnerId=UserInfo.getOrganizationId(),
+		DisableTriggers__c=true, ObjectTriggersToBeDisabled__c= 'PUD_Booking__c,');
+
 		Network__c network = ApplicationTestDataFactory.getNetworks(1, false)[0];
 		network.recordTypeId = PUDTestDataFactory.businessHubNetworkRecordType;
 		network.ORG_UNIT_ADDR_2__c ='1 Main St';

@@ -6,6 +6,7 @@
 * @domain PUD
 * @changelog
 * 2021-07-27 - Arjun Singh - Created.
+* 2022-08-26 - Dattaraj Deshmukh -  Updated method 'selectJobsByDateAndStatusQueryLocator' params to use Job Dispatch dates from PUDUtility.
 */
 public class PUDSendJobToDispatchSystemBatch implements Database.Batchable<SObject>, Schedulable {
 

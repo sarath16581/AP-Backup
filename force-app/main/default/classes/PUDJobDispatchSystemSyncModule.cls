@@ -11,6 +11,7 @@
  * 2021-10-12 - Ranjeewa Silva - Added Start Time to the list of fields monitored for changes.
  * 2022-02-09 - Seth Heang - REQ2742514 Added 'Revenue_Check__c' into the monitoring fields check where Job is in 'Schedule' and 'Accepted' Status and push the updates to Dispatch system 
  * 2022-03-08 - Seth Heang - Add 'Containers_Payload__c', 'Regular_Product__c', 'International_Product__c', 'Express_Product__c' into the monitoring fields 
+ * 2022-08-26 - Dattaraj Deshmukh - Updated job dispatch date criteria in 'onBeforeInsert' and 'onBeforeUpdate' method.
  */
 
 public inherited sharing class PUDJobDispatchSystemSyncModule extends ApplicationDomain.Module {

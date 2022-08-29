@@ -8,6 +8,7 @@
  * 2021-07-27 - Arjun Sing - Created
  * 2021-11-11 - Ranjeewa Silva - Added more fields to the set of selected fields.
  * 2022-07-19 - Dattaraj Deshmukh - Added Options enum. Added overriden QueryBuilder method.
+ * 2022-08-26 - Dattaraj Deshmukh - Updated From and To date filter in 'selectJobsByDateAndStatusQueryLocator' method.
  */
 public virtual inherited sharing class PUDJobsSelector extends ApplicationSelector{
 

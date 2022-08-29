@@ -9,6 +9,7 @@
 * 2022-03-16 - Ranjeewa Silva - Added new methods to support 'Bulk Edit UI'.
 * 2022-04-01 - Seth Heang - Added new methods to update job dispatch flag on network and bypass sharing setting
 * 2022-04-08 - Ranjeewa Silva - Added methods for retrieving dispatch photo from Digital Repository.
+* 2022-08-26 - Dattaraj Deshmukh - Updated 'canCancelJob' and 'canTriggerDispatchSystemSync' method to use date criteria from custom settings from PUDUtility class.
 */
 public with sharing class PUDPickupBookingController {
 
