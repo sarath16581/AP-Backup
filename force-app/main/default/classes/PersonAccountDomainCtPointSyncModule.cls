@@ -26,19 +26,12 @@ public inherited sharing class PersonAccountDomainCtPointSyncModule extends Appl
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterUpdate();
 	}
 
-    public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-        ContactService.getInstance().applyPhoneNumberFormatting ((List<Account>)records, null);
-    }
-
-    public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		ContactService.getInstance().applyPhoneNumberFormatting ((List<Account>)records, (Map<Id, Account>)existingRecords);
-    }
-
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		syncPersonAccountsToContactPoints((List<Account>)records, (Map<Id, Account>)existingRecords);
+		syncPersonAccountsToContactPoints((List<Account>)records, (Map<Id, Account>)existingRecords, uow);
+        uow.commitWork();
     }
 	
-    private void syncPersonAccountsToContactPoints(List<Account> records, Map<Id, Account> existingRecords) {
+    private void syncPersonAccountsToContactPoints(List<Account> records, Map<Id, Account> existingRecords, ApplicationUnitOfWork uow) {
 
         Map<Id, String> contactIdsVsHomePhones = new Map<Id, String>();        
         Map<Id, String> contactIdsVsMobilePhones = new Map<Id, String>();
@@ -62,93 +55,99 @@ public inherited sharing class PersonAccountDomainCtPointSyncModule extends Appl
             }
         }
 
-        List<SObject> result = new List<SObject>();
         if(contactIdsVsHomePhones.isEmpty() == false) {
-            result.addAll(generateContactPointPhone(contacts, contactIdsVsHomePhones, CONTACT_POINT_PHONE_TYPE.HOME));
+            uow.registerUpsert(generateContactPointPhone(contacts, contactIdsVsHomePhones, CONTACT_POINT_PHONE_TYPE.HOME, uow));
         }
 
         if(contactIdsVsMobilePhones.isEmpty() == false) {
-            result.addAll(generateContactPointPhone(contacts, contactIdsVsMobilePhones, CONTACT_POINT_PHONE_TYPE.MOBILE));
+            uow.registerUpsert(generateContactPointPhone(contacts, contactIdsVsMobilePhones, CONTACT_POINT_PHONE_TYPE.MOBILE, uow));
         }
 
         if(contactIdsVsEmails.isEmpty() == false) {
-            result.addAll(generateContactPointEmails(contacts, contactIdsVsEmails));
+            uow.registerUpsert(generateContactPointEmails(contacts, contactIdsVsEmails, uow));
         }
-		ApplicationDatabase.getInstance().dmlInsert(result);
     }
     
-    private List<ContactPointPhone>  generateContactPointPhone(Map<Id, Contact> contacts, Map<Id, String> contactIdsVsNumbers, CONTACT_POINT_PHONE_TYPE type) {
-        ContactPointPhoneSelector cpPhoneSelector = ContactPointPhoneSelector.newInstance();        
-        Set<Object> selectionOptions = new Set<Object>();
-        String phoneType = '';
-        switch on type {
-            when HOME {
-                selectionOptions.add(ContactPointPhoneSelector.Options.FILTER_HOMEPHONE);
-                phoneType = 'Home';
-            }
-            when MOBILE {
-                selectionOptions.add(ContactPointPhoneSelector.Options.FILTER_MOBILEPHONE);
-                phoneType = 'Mobile';
-            }
-        }
-        
-        for(ContactPointPhone cpp: cpPhoneSelector.selectByContactAndPhoneNumber(contactIdsVsNumbers.keySet(), contactIdsVsNumbers.values(), selectionOptions)) {
-            contactIdsVsNumbers.remove(cpp.Contact__c);
-        }
-
-        selectionOptions.add(ContactPointPhoneSelector.Options.FILTER_VERIFIED_FALSE);
-        
-        ApplicationDatabase.getInstance().dmlDelete(cpPhoneSelector.selectByContact(contactIdsVsNumbers.keySet(), selectionOptions));
-            
+    private List<ContactPointPhone> generateContactPointPhone(Map<Id, Contact> contacts, Map<Id, String> contactIdsVsNumbers, CONTACT_POINT_PHONE_TYPE type, ApplicationUnitOfWork uow) {
         List<ContactPointPhone> newContactPointPhones = new List<ContactPointPhone>();
-        for(Id contactId: contactIdsVsNumbers.keySet()) {
-            Contact ct = contacts.get(contactId);
-            String value = contactIdsVsNumbers.get(contactId);
-            if(String.isBlank(value) == false) {
-                newContactPointPhones.add(new ContactPointPhone(
-                    ParentId = ct.accountId,
-                    Contact__c = contactId,
-                    PhoneType = phoneType,
-                    TelephoneNumber = value,
-                    Verified__c = FALSE,
-                    Preferred__c = FALSE,
-                    UniqueMobile__c = FALSE
-                ));
+        if(contactIdsVsNumbers.isEmpty() == false) {
+            ContactPointPhoneSelector cpPhoneSelector = ContactPointPhoneSelector.newInstance();        
+            Set<Object> selectionOptions = new Set<Object>();
+            String phoneType = '';
+            switch on type {
+                when HOME {
+                    selectionOptions.add(ContactPointPhoneSelector.Options.FILTER_HOMEPHONE);
+                    phoneType = 'Home';
+                }
+                when MOBILE {
+                    selectionOptions.add(ContactPointPhoneSelector.Options.FILTER_MOBILEPHONE);
+                    phoneType = 'Mobile';
+                }
+            }
+            
+            for(ContactPointPhone cpp: cpPhoneSelector.selectByContactAndPhoneNumber(contactIdsVsNumbers.keySet(), contactIdsVsNumbers.values(), selectionOptions)) {
+                contactIdsVsNumbers.remove(cpp.Contact__c);
+            }
+
+            selectionOptions.add(ContactPointPhoneSelector.Options.FILTER_VERIFIED_FALSE);
+            
+            if(contactIdsVsNumbers.isEmpty() == false) {
+                uow.registerDeleted(cpPhoneSelector.selectByContact(contactIdsVsNumbers.keySet(), selectionOptions));
+            }
+                
+            
+            for(Id contactId: contactIdsVsNumbers.keySet()) {
+                Contact ct = contacts.get(contactId);
+                String value = contactIdsVsNumbers.get(contactId);
+                if(String.isBlank(value) == false) {
+                    newContactPointPhones.add(new ContactPointPhone(
+                        ParentId = ct.accountId,
+                        Contact__c = contactId,
+                        PhoneType = phoneType,
+                        TelephoneNumber = value,
+                        Verified__c = FALSE,
+                        Preferred__c = FALSE,
+                        UniqueMobile__c = FALSE
+                    ));
+                }
             }
         }
 
         return newContactPointPhones;
     }
 
-    private List<ContactPointEmail> generateContactPointEmails(Map<Id, Contact> contacts, Map<Id, String> contactIdsVsEmails) {
-        ContactPointEmailSelector cpEmailelector = ContactPointEmailSelector.newInstance();        
-        Set<Object> selectionOptions = new Set<Object>();
-        for(ContactPointEmail cpe: cpEmailelector.selectByContactAndEmail(contactIdsVsEmails.keySet(), contactIdsVsEmails.values(), selectionOptions)) {
-            contactIdsVsEmails.remove(cpe.Contact__c);
-        }
+    private List<ContactPointEmail> generateContactPointEmails(Map<Id, Contact> contacts, Map<Id, String> contactIdsVsEmails, ApplicationUnitOfWork uow) {
+        List<ContactPointEmail> newContactPointEmails = new List<ContactPointEmail>();
+        if(contactIdsVsEmails.isEmpty() == false) {
+            ContactPointEmailSelector cpEmailelector = ContactPointEmailSelector.newInstance();        
+            Set<Object> selectionOptions = new Set<Object>();
+            for(ContactPointEmail cpe: cpEmailelector.selectByContactAndEmail(contactIdsVsEmails.keySet(), contactIdsVsEmails.values(), selectionOptions)) {
+                contactIdsVsEmails.remove(cpe.Contact__c);
+            }
 
-        selectionOptions.add(ContactPointEmailSelector.Options.FILTER_VERIFIED_FALSE);
+            selectionOptions.add(ContactPointEmailSelector.Options.FILTER_VERIFIED_FALSE);
 
-        ApplicationDatabase.getInstance().dmlDelete(cpEmailelector.selectByContact(contactIdsVsEmails.keySet(), selectionOptions));
-
-        List<ContactPointEmail> newContactPointPhones = new List<ContactPointEmail>();
-        for(Id contactId: contactIdsVsEmails.keySet()) {
-            Contact ct = contacts.get(contactId);
-            String value = contactIdsVsEmails.get(contactId);
-            if(String.isBlank(value) == false) {
-                newContactPointPhones.add(new ContactPointEmail(
-                    ParentId = ct.accountId,
-                    Contact__c = contactId,
-                    EmailAddress = value,
-                    Verified__c = FALSE,
-                    Preferred__c = FALSE,
-                    AuthenticationEmail__c = FALSE,
-                    Communication_Email__c = TRUE
-                ));
+            if(contactIdsVsEmails.isEmpty() == false) {
+                uow.registerDeleted(cpEmailelector.selectByContact(contactIdsVsEmails.keySet(), selectionOptions));
+            }
+            
+            for(Id contactId: contactIdsVsEmails.keySet()) {
+                Contact ct = contacts.get(contactId);
+                String value = contactIdsVsEmails.get(contactId);
+                if(String.isBlank(value) == false) {
+                    newContactPointEmails.add(new ContactPointEmail(
+                        ParentId = ct.accountId,
+                        Contact__c = contactId,
+                        EmailAddress = value,
+                        Verified__c = FALSE,
+                        Preferred__c = FALSE,
+                        AuthenticationEmail__c = FALSE,
+                        Communication_Email__c = TRUE
+                    ));
+                }
             }
         }
-
-        return newContactPointPhones;
+        return newContactPointEmails;
     }
 
     /**

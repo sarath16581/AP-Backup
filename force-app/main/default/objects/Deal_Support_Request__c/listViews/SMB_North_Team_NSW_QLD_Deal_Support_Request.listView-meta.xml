@@ -32,7 +32,7 @@
         <operation>notEqual</operation>
         <value>Credit assessment query,Credit limit review</value>
     </filters>
-    <label>SMB North Team - NSW/QLD</label>
+    <label>Micro Team</label>
     <queue>SMB_North_Team_NSW_QLD</queue>
     <sharedTo>
         <group>Deal_Enablement_Centre_Team</group>

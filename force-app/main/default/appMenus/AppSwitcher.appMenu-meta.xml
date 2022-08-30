@@ -717,19 +717,19 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>DDC Consumer Community</name>
+        <name>Inactive - DDConsumerOld</name>
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Australia Post Business Support Portal</name>
+        <name>Inactive - BSPOld</name>
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Australia Post Community</name>
+        <name>Inactive - APCommunityOld</name>
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
-        <name>RetailBusinessCustomers</name>
+        <name>Inactive - RBChomeOld</name>
         <type>Network</type>
     </appMenuItems>
     <appMenuItems>
@@ -771,10 +771,6 @@
     <appMenuItems>
         <name>APXT_BPM__Conga_Conductor</name>
         <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>GRAX_OAuth</name>
-        <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
         <name>Coveo</name>

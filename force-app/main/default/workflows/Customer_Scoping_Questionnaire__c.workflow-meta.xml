@@ -118,7 +118,7 @@
             <name>Draft_CSQ_Status</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <formula>!ISCHANGED(CSQ_Status__c) &amp;&amp;!ISCHANGED( Pick_up_Location_Record_Count__c ) &amp;&amp;  or( ISPICKVAL(CSQ_Status__c, &quot;Approved_by_SM&quot;) ,  ISPICKVAL(CSQ_Status__c, &quot;Fully_Approved&quot;), (ISPICKVAL(CSQ_Status__c, &quot;Pending National Operations Manager Approval&quot; ))) &amp;&amp;    $Profile.Id &lt;&gt;&quot;00e30000001jG0I&quot;</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>

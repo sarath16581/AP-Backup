@@ -6,6 +6,7 @@
  *     09/13/2019                               Added test methods for populateClassification()
  *     05/03/2020   seth.p.heang@accenture.com  Updated Test methods with dynamic dateTime test data to fix test failure due to static dateTime
  *     01/06/2020   shashwat.a.nath@accenture.com Updated Methods to assign PS to running user to bypass Opportunity Creation Restriction in Classic
+ * 	   28/06/2022 KMcGuire			 Modified for including related account sales in OPC classification
  ***************************************/
 @isTest
 public class OpportunityLineItemServiceTest {
@@ -22,7 +23,7 @@ public class OpportunityLineItemServiceTest {
         List<Organisation_Role__c> orgRoleList = new List<Organisation_Role__c>();
         List<Organisation_Role__c> newOrgRoleList = new List<Organisation_Role__c>();
         Integer currentYear = Date.today().year();
-        // Create a Sales Administrator Profile for running tests
+        
         Profile covSales = [SELECT Id FROM Profile WHERE Name = 'Coverage Sales'];
 
         User user1 = new User(
@@ -35,36 +36,33 @@ public class OpportunityLineItemServiceTest {
         
         INSERT user1;
         
-        // Set the nominal trade amount to be used in classification
         NominalTradeAmount__c ntAmount = NominalTradeAmount__c.getInstance();
-        ntAmount.Amount__c = 100;
+        ntAmount.Amount__c = 99;
         upsert ntAmount;
         
-        // Trigger Isolation Setttings
         SystemSettings__c sysCS = SystemSettings__c.getInstance();
         sysCS.Disable_Triggers__c = FALSE;
         upsert sysCS;
         
         // Create test Accounts
-        Account accountWithRevenue1 = APT_TestUtil2.createOrganisation();
-        accountWithRevenue1.Name = 'WithRevenue';
-        accIdSet.add(accountWithRevenue1.Id);
-        accVarList.add(accountWithRevenue1);
-        
-        Account accountWithRevenue2 = APT_TestUtil2.createOrganisation();
-        accountWithRevenue2.Name = 'AnotherWithRevenue';
-        accIdSet.add(accountWithRevenue2.Id);
-        accVarList.add(accountWithRevenue2);
         
         Account accountWithoutRevenue = APT_TestUtil2.createOrganisation();
-        accountWithoutRevenue.Name = 'WithoutRevenue';
+        accountWithoutRevenue.Name = 'Without Revenue';
         accIdSet.add(accountWithoutRevenue.Id);
         accVarList.add(accountWithoutRevenue);
         
-
+        Account accountBelowNominalRevenue = APT_TestUtil2.createOrganisation();
+        accountBelowNominalRevenue.Name = 'Below Nominal Revenue';
+        accIdSet.add(accountBelowNominalRevenue.Id);
+        accVarList.add(accountBelowNominalRevenue);
+        
+        Account accountWithNominalRevenue = APT_TestUtil2.createOrganisation();
+        accountWithNominalRevenue.Name = 'With Nominal Revenue';
+        accIdSet.add(accountWithNominalRevenue.Id);
+        accVarList.add(accountWithNominalRevenue);
         
         Account refactoredAccount = APT_TestUtil2.createOrganisation();
-        refactoredAccount.Name = 'RefactoredAcct';
+        refactoredAccount.Name = 'Refactored';
         accIdSet.add(refactoredAccount.Id);
         accVarList.add(refactoredAccount);
         
@@ -79,34 +77,32 @@ public class OpportunityLineItemServiceTest {
         
         UPDATE newOrgRoleList;
         
-        // Create an open test Opportunity for the first account with revenue 
-        Opportunity oppVar1 = APT_TestUtil2.createOpportunity(accountWithRevenue1);
-        oppVar1.Pre_Entry__c = TRUE;
-        oppVar1.StageName = 'Identify';
-        optyList.add(oppVar1);
+        // Create test Opportunity
+        Opportunity belowNominalOpportunity = APT_TestUtil2.createOpportunity(accountBelowNominalRevenue);
+        belowNominalOpportunity.Pre_Entry__c = TRUE;
+        belowNominalOpportunity.StageName = 'Identify';
+        optyList.add(belowNominalOpportunity);
         
-        // Create two test opportunities, one open and one with a close reason for the second account with revenue
-        Opportunity oppVar2a = APT_TestUtil2.createOpportunity(accountWithRevenue2);
-        oppVar2a.Pre_Entry__c = TRUE;
-        oppVar2a.StageName = 'Identify';
-        optyList.add(oppVar2a);
+        Opportunity withoutRevenueOpportunity = APT_TestUtil2.createOpportunity(accountWithoutRevenue);
+        withoutRevenueOpportunity.Pre_Entry__c = TRUE;
+        withoutRevenueOpportunity.StageName = 'Identify';
+        optyList.add(withoutRevenueOpportunity);
         
-        Opportunity oppVar2b = APT_TestUtil2.createOpportunity(accountWithRevenue2);
-        oppVar2b.Pre_Entry__c = TRUE;
-        oppVar2b.Closed_Reason__c = 'Functionality';
-        oppVar2b.StageName = 'Identify';
-        optyList.add(oppVar2b);
+        Opportunity nominalRevenueOpportunity = APT_TestUtil2.createOpportunity(accountWithNominalRevenue);
+        nominalRevenueOpportunity.Pre_Entry__c = TRUE;
+        nominalRevenueOpportunity.Closed_Reason__c = 'Functionality';
+        nominalRevenueOpportunity.StageName = 'Identify';
+        optyList.add(nominalRevenueOpportunity);
         
-        // Create a test opportunity for the refactored account with a closed reason
-        Opportunity oppVar3 = APT_TestUtil2.createOpportunity(refactoredAccount);
-        oppVar3.Pre_Entry__c = TRUE;
-        oppVar3.Closed_Reason__c = 'Functionality';
-        oppVar3.StageName = 'Identify';
-        optyList.add(oppVar3);
+        Opportunity refactoredOpportunity = APT_TestUtil2.createOpportunity(refactoredAccount);
+        refactoredOpportunity.Pre_Entry__c = TRUE;
+        refactoredOpportunity.Closed_Reason__c = 'Functionality';
+        refactoredOpportunity.StageName = 'Identify';
+        optyList.add(refactoredOpportunity);
         
         insert optyList;
         
-        //create product bundles
+        //create products
         Product2 bundle1 = OpptyLineItemTriggerHandler_TestUtil.getTestProduct('International Bundle', TRUE);
         productList.add(bundle1);
         
@@ -121,7 +117,7 @@ public class OpportunityLineItemServiceTest {
         
         insert productList;
         
-        //Create pricebook entries for teh product bundles
+        //Create your pricebook entry
         PricebookEntry pbEntry = new PricebookEntry();
         
         for(Product2 testProd : productList){
@@ -135,10 +131,10 @@ public class OpportunityLineItemServiceTest {
         
         insert pbEntryList;
         
-        //Create Budget_and_Revenue__c for the first account with revenue
+        //Create Budget_and_Revenue__c
         Budget_and_Revenue__c barObj = new Budget_and_Revenue__c();
-        barObj.Name = 'Revenue 1a Current Year'; // test name
-        barObj.Organisation__c = accountWithRevenue1.Id;
+        barObj.Name = 'Below Nominal Current Year';
+        barObj.Organisation__c = accountBelowNominalRevenue.Id;
         barObj.Product__c = bundle3.Id;
         barObj.Jan_Revenue_Amount__c = 50;
         barObj.Feb_Revenue_Amount__c = 50;
@@ -157,63 +153,40 @@ public class OpportunityLineItemServiceTest {
         
         barList.add(barObj);
         
-        
         Budget_and_Revenue__c barObjPFY = new Budget_and_Revenue__c();
-        barObjPFY.Name = 'Revenue 1a Last Year';
-        barObjPFY.Organisation__c = accountWithRevenue1.Id;
+        barObjPFY.Name = 'Below Nominal Last Year';
+        barObjPFY.Organisation__c = accountBelowNominalRevenue.Id;
         barObjPFY.Product__c = bundle3.Id;
         barObjPFY.Total_Revenue_Amount__c = 0;
         barObjPFY.Financial_Year__c = String.valueOf(currentYear-1);
         
         barList.add(barObjPFY);
         
-                
-        Budget_and_Revenue__c barObj6 = new Budget_and_Revenue__c();
-        barObj6.Name = 'Revenue 1b Current Year';
-        barObj6.Organisation__c = accountWithRevenue1.Id;
-        barObj6.Product__c = bundle4.Id;
-        barObj6.Jan_Revenue_Amount__c = 0;
-        barObj6.Feb_Revenue_Amount__c = 0;
-        barObj6.Mar_Revenue_Amount__c = 0;
-        barObj6.Apr_Revenue_Amount__c = 0;
-        barObj6.May_Revenue_Amount__c = 0;
-        barObj6.Jun_Revenue_Amount__c = 0;
-        barObj6.Jul_Revenue_Amount__c = 0;
-        barObj6.Aug_Revenue_Amount__c = 0;
-        barObj6.Sep_Revenue_Amount__c = 0;
-        barObj6.Oct_Revenue_Amount__c = 0;
-        barObj6.Nov_Revenue_Amount__c = 0;
-        barObj6.Dec_Revenue_Amount__c = 0;
-        barObj6.Total_Revenue_Amount__c = 0;
-        barObj6.Financial_Year__c = String.valueOf(2020);
+     
+        Budget_and_Revenue__c barObj4 = new Budget_and_Revenue__c();
+        barObj4.Name = 'Nominal Revenue Next Year';
+        barObj4.Organisation__c = accountWithNominalRevenue.Id;
+        barObj4.Product__c = bundle3.Id;
+        barObj4.Jan_Revenue_Amount__c = 0;
+        barObj4.Feb_Revenue_Amount__c = 0;
+        barObj4.Mar_Revenue_Amount__c = 0;
+        barObj4.Apr_Revenue_Amount__c = 0;
+        barObj4.May_Revenue_Amount__c = 0;
+        barObj4.Jun_Revenue_Amount__c = 0;
+        barObj4.Jul_Revenue_Amount__c = 0;
+        barObj4.Aug_Revenue_Amount__c = 0;
+        barObj4.Sep_Revenue_Amount__c = 0;
+        barObj4.Oct_Revenue_Amount__c = 0;
+        barObj4.Nov_Revenue_Amount__c = 0;
+        barObj4.Dec_Revenue_Amount__c = 0;
+        barObj4.Total_Revenue_Amount__c = 1200;
+        barObj4.Financial_Year__c = String.valueOf(currentYear+1);
         
-        barList.add(barObj6);
+        barList.add(barObj4);
         
-        Budget_and_Revenue__c barObj7 = new Budget_and_Revenue__c();
-        barObj7.Name = 'Revenue 1b Last Year';
-        barObj7.Organisation__c = accountWithRevenue1.Id;
-        barObj7.Product__c = bundle4.Id;
-        barObj7.Jan_Revenue_Amount__c = 0;
-        barObj7.Feb_Revenue_Amount__c = 0;
-        barObj7.Mar_Revenue_Amount__c = 0;
-        barObj7.Apr_Revenue_Amount__c = 0;
-        barObj7.May_Revenue_Amount__c = 0;
-        barObj7.Jun_Revenue_Amount__c = 0;
-        barObj7.Jul_Revenue_Amount__c = 0;
-        barObj7.Aug_Revenue_Amount__c = 0;
-        barObj7.Sep_Revenue_Amount__c = 0;
-        barObj7.Oct_Revenue_Amount__c = 150;
-        barObj7.Nov_Revenue_Amount__c = 0;
-        barObj7.Dec_Revenue_Amount__c = 0;
-        barObj7.Total_Revenue_Amount__c = 150;
-        barObj7.Financial_Year__c = String.valueOf(2018);
-        
-        barList.add(barObj7);
-        
-         //Create Budget_and_Revenue__c for the second account with revenue
-        Budget_and_Revenue__c barObj2 = new Budget_and_Revenue__c();
-        barObj2.Name = 'Revenue 2a Currrent Year';
-        barObj2.Organisation__c = accountWithRevenue2.Id;
+   Budget_and_Revenue__c barObj2 = new Budget_and_Revenue__c();
+        barObj2.Name = 'Nominal Revenue Last Year';
+        barObj2.Organisation__c = accountWithNominalRevenue.Id;
         barObj2.Product__c = bundle3.Id;
         barObj2.Jan_Revenue_Amount__c = 100;
         barObj2.Feb_Revenue_Amount__c = 100;
@@ -233,8 +206,8 @@ public class OpportunityLineItemServiceTest {
         barList.add(barObj2);
         
         Budget_and_Revenue__c barObj3 = new Budget_and_Revenue__c();
-        barObj3.Name = 'Revenue 2a Last year';
-        barObj3.Organisation__c = accountWithRevenue2.Id;
+        barObj3.Name = 'Nominal Revenue Two Years Ago';
+        barObj3.Organisation__c = accountWithNominalRevenue.Id;
         barObj3.Product__c = bundle3.Id;
         barObj3.Jan_Revenue_Amount__c = 100;
         barObj3.Feb_Revenue_Amount__c = 100;
@@ -253,31 +226,51 @@ public class OpportunityLineItemServiceTest {
         
         barList.add(barObj3);
         
+        Budget_and_Revenue__c barObj6 = new Budget_and_Revenue__c();
+        barObj6.Name = 'Nominal Revenue three years ago';
+        barObj6.Organisation__c = accountWithNominalRevenue.Id;
+        barObj6.Product__c = bundle4.Id;
+        barObj6.Jan_Revenue_Amount__c = 0;
+        barObj6.Feb_Revenue_Amount__c = 0;
+        barObj6.Mar_Revenue_Amount__c = 0;
+        barObj6.Apr_Revenue_Amount__c = 0;
+        barObj6.May_Revenue_Amount__c = 0;
+        barObj6.Jun_Revenue_Amount__c = 0;
+        barObj6.Jul_Revenue_Amount__c = 0;
+        barObj6.Aug_Revenue_Amount__c = 0;
+        barObj6.Sep_Revenue_Amount__c = 0;
+        barObj6.Oct_Revenue_Amount__c = 0;
+        barObj6.Nov_Revenue_Amount__c = 0;
+        barObj6.Dec_Revenue_Amount__c = 0;
+        barObj6.Total_Revenue_Amount__c = 0;
+        barObj6.Financial_Year__c = String.valueOf(2020);
         
-        Budget_and_Revenue__c barObj4 = new Budget_and_Revenue__c();
-        barObj4.Name = 'Revenue 2b First Year';
-        barObj4.Organisation__c = accountWithRevenue2.Id;
-        barObj4.Product__c = bundle3.Id;
-        barObj4.Jan_Revenue_Amount__c = 0;
-        barObj4.Feb_Revenue_Amount__c = 0;
-        barObj4.Mar_Revenue_Amount__c = 0;
-        barObj4.Apr_Revenue_Amount__c = 0;
-        barObj4.May_Revenue_Amount__c = 0;
-        barObj4.Jun_Revenue_Amount__c = 0;
-        barObj4.Jul_Revenue_Amount__c = 0;
-        barObj4.Aug_Revenue_Amount__c = 0;
-        barObj4.Sep_Revenue_Amount__c = 0;
-        barObj4.Oct_Revenue_Amount__c = 0;
-        barObj4.Nov_Revenue_Amount__c = 0;
-        barObj4.Dec_Revenue_Amount__c = 0;
-        barObj4.Total_Revenue_Amount__c = 1200;
-        barObj4.Financial_Year__c = String.valueOf(currentYear+1);
+        barList.add(barObj6);
         
-        barList.add(barObj4);
+        Budget_and_Revenue__c barObj7 = new Budget_and_Revenue__c();
+        barObj7.Name = 'Nominal Revenue 2018';
+        barObj7.Organisation__c = accountWithNominalRevenue.Id;
+        barObj7.Product__c = bundle4.Id;
+        barObj7.Jan_Revenue_Amount__c = 0;
+        barObj7.Feb_Revenue_Amount__c = 0;
+        barObj7.Mar_Revenue_Amount__c = 0;
+        barObj7.Apr_Revenue_Amount__c = 0;
+        barObj7.May_Revenue_Amount__c = 0;
+        barObj7.Jun_Revenue_Amount__c = 0;
+        barObj7.Jul_Revenue_Amount__c = 0;
+        barObj7.Aug_Revenue_Amount__c = 0;
+        barObj7.Sep_Revenue_Amount__c = 0;
+        barObj7.Oct_Revenue_Amount__c = 150;
+        barObj7.Nov_Revenue_Amount__c = 0;
+        barObj7.Dec_Revenue_Amount__c = 0;
+        barObj7.Total_Revenue_Amount__c = 150;
+        barObj7.Financial_Year__c = String.valueOf(2018);
+        
+        barList.add(barObj7);
         
         Budget_and_Revenue__c barObj5 = new Budget_and_Revenue__c();
-        barObj5.Name = 'Revenue 2b Last Year';
-        barObj5.Organisation__c = accountWithRevenue2.Id;
+        barObj5.Name = 'Refactored Revenue 2020';
+        barObj5.Organisation__c = refactoredAccount.Id;
         barObj5.Product__c = bundle4.Id;
         barObj5.Jan_Revenue_Amount__c = 0;
         barObj5.Feb_Revenue_Amount__c = 0;
@@ -295,7 +288,6 @@ public class OpportunityLineItemServiceTest {
         barObj5.Financial_Year__c = String.valueOf(2020);
         
         barList.add(barObj5);
-
         
         insert barList;
         
@@ -308,7 +300,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void testClassificationCS() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'International Bundle' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -317,12 +309,12 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
-        oliVar.Contract_Start_Date__c = Date.today();
-        oliVar.Contract_End_Date__c = Date.today()+10;
+        oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4); // Date.today();
+        oliVar.Contract_End_Date__c =  Date.newInstance(System.Today().year(), 4, 14); // Date.today()+10;
         optyLIList.add(oliVar);
         
         test.startTest();
@@ -340,7 +332,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void testClassificationWB() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'Boxes and Bags Others' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -349,12 +341,12 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
-        oliVar.Contract_Start_Date__c = Date.today();
-        oliVar.Contract_End_Date__c = Date.today()+10;
+        oliVar.Contract_Start_Date__c =  Date.newInstance(System.Today().year(), 4, 4);// Date.today();
+        oliVar.Contract_End_Date__c =   Date.newInstance(System.Today().year(), 4, 14); // Date.today()+10;
         optyLIList.add(oliVar);
         
         test.startTest();
@@ -372,7 +364,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void testClassificationWB2() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'Boxes and Bags Others' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -381,12 +373,12 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
-        oliVar.Contract_Start_Date__c = Date.newInstance(2019, 03, 01);
-        oliVar.Contract_End_Date__c = Date.today()+10;
+        oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4); // Date.newInstance(2019, 03, 01);
+        oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 14); // Date.today()+10;
         optyLIList.add(oliVar);
         
         test.startTest();
@@ -404,7 +396,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void testClassificationNB() {
-        Account testOrg = [SELECT Id, Name FROM Account WHERE Name = 'WithoutRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id, Name FROM Account WHERE Name = 'Without Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'Road Express - STE' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -413,12 +405,12 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
-        oliVar.Contract_Start_Date__c = Date.today();
-        oliVar.Contract_End_Date__c = Date.today()+10;
+        oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4);// Date.today();
+        oliVar.Contract_End_Date__c =  Date.newInstance(System.Today().year(), 4, 14);//Date.today()+10;
         optyLIList.add(oliVar);
         
         test.startTest();
@@ -436,7 +428,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void testClassificationRR() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -445,7 +437,7 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
@@ -458,7 +450,7 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItemService.populateClassification(optyLIList);
         test.stopTest();
         
-        System.assertEquals('Renewal', oliVar.Classification__c);
+        System.assertEquals(Constants.CLSS_RENEWAL, oliVar.Classification__c);
     }
     
     /*********************************
@@ -469,7 +461,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void testClassificationRG() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -491,7 +483,7 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItemService.populateClassification(optyLIList);
         test.stopTest();
         
-        System.assertEquals('Growth', oliVar.Classification__c);
+        System.assertEquals(Constants.CLSS_GROWTH, oliVar.Classification__c);
     }
     
     /*********************************
@@ -502,7 +494,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void testClassificationR7G() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'Below Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -524,7 +516,7 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItemService.populateClassification(optyLIList);
         test.stopTest();
         
-        System.assertEquals('Growth', oliVar.Classification__c);
+        System.assertEquals(Constants.CLSS_GROWTH, oliVar.Classification__c);
     }
     
      /*********************************
@@ -535,7 +527,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void testClassificationR7R() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'Below Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -557,7 +549,7 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItemService.populateClassification(optyLIList);
         test.stopTest();
         
-        System.assertEquals('Renewal', oliVar.Classification__c);
+        System.assertEquals(Constants.CLSS_RENEWAL, oliVar.Classification__c);
     }
     
     /*********************************
@@ -568,7 +560,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void testClassificationNB2() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'RefactoredAcct' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'Refactored' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'Boxes and Bags Others' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -600,7 +592,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void updateClassificationR() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -610,28 +602,26 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
-        oliVar.Contract_Start_Date__c = Date.today();
-        oliVar.Contract_End_Date__c = Date.today()+10;
+        oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4); // Date.today();
+        oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 14); // Date.today()+10;
+       
         oldRecMap.put(oliVar.Id, oliVar);
-        INSERT oliVar;
-        
-        OpportunityLineItem newOpty = [SELECT Id, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id
+         INSERT oliVar;
+        OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id,Change_Classification__c 
                                        FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id LIMIT 1];
-        newOpty.Contract_Start_Date__c = Date.today()+8;
-        newOpty.Contract_End_Date__c = Date.today()+15;
+        newOpty.Contract_Start_Date__c =  Date.newInstance(System.Today().year(), 4, 12);// Date.today()+8;
+        newOpty.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 19); // Date.today()+15;
         UPDATE newOpty;
-        
         optyLIList.add(newOpty);
-        
         test.startTest();
         OpportunityLineItemService.updateClassification(optyLIList, oldRecMap);
         test.stopTest();
-        
-        System.assertEquals('Renewal', newOpty.Classification__c);
+        //
+        System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
     }
     
     /*********************************
@@ -642,12 +632,12 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void updateClassificationRG() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
         List<OpportunityLineItem> optyLIList = new List<OpportunityLineItem>();
-        Map<Id, OpportunityLineItem> oldRecMap = new Map<Id,OpportunityLineItem>();
+        Map<Id,OpportunityLineItem> oldRecMap = new Map<Id,OpportunityLineItem>();
         
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
@@ -655,16 +645,15 @@ public class OpportunityLineItemServiceTest {
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 93.00;
         oliVar.PricebookEntryId = pbEntry.Id;
-        oliVar.Contract_Start_Date__c = Date.today();
-        oliVar.Contract_End_Date__c = Date.today()+10;
+        oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4);// Date.today();
+        oliVar.Contract_End_Date__c =  Date.newInstance(System.Today().year(), 4, 10);// Date.today()+10;
         oliVar.Change_Classification__c = 'YES';
-        oldRecMap.put(oliVar.Id, oliVar);
-        
-        INSERT oliVar;
-        
-        OpportunityLineItem newOpty = [SELECT Id, TotalPrice, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id
-                                       FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id AND TotalPrice =: 93.00 LIMIT 1];
-        newOpty.Contract_End_Date__c = Date.today()+15;
+       
+         INSERT oliVar;
+         oldRecMap.put(oliVar.Id, oliVar);
+        OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id,Change_Classification__c 
+                                       FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id LIMIT 1];
+        newOpty.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 19); //Date.today()+15;
         UPDATE newOpty;
 
         optyLIList.add(newOpty);
@@ -672,10 +661,9 @@ public class OpportunityLineItemServiceTest {
         test.startTest();
         OpportunityLineItemService.updateClassification(optyLIList, oldRecMap);
         test.stopTest();
-        
-        System.assertEquals('Growth', newOpty.Classification__c);
+        //
+        System.assertEquals(Constants.CLSS_GROWTH, newOpty.Classification__c);
     }
-    
     /*********************************
      * Description: Tests the populateClassification() method for Renewal
      * Author: Jeoffrey Palmero
@@ -684,7 +672,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void updateClassificationR7() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'Below Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -694,17 +682,18 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
         oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 7, 7);
         oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 8, 8);
-        oldRecMap.put(oliVar.Id, oliVar);
-        INSERT oliVar;
-        
-        OpportunityLineItem newOpty = [SELECT Id, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id
+       
+         INSERT oliVar;
+         oldRecMap.put(oliVar.Id, oliVar);
+        OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id,Change_Classification__c 
                                        FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id LIMIT 1];
+     
         newOpty.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4);
         newOpty.Contract_End_Date__c = Date.newInstance(System.Today().year(), 8, 16);
         UPDATE newOpty;
@@ -715,7 +704,7 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItemService.updateClassification(optyLIList, oldRecMap);
         test.stopTest();
         
-        System.assertEquals('Renewal', newOpty.Classification__c);
+        System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
     }
     
      /*********************************
@@ -726,39 +715,38 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void updateClassificationR9() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
-        List<OpportunityLineItem> optyLIList = new List<OpportunityLineItem>();
         Map<Id, OpportunityLineItem> oldRecMap = new Map<Id,OpportunityLineItem>();
         
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
         oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4);
         oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 10, 16);
-        oldRecMap.put(oliVar.Id, oliVar);
         INSERT oliVar;
+        oldRecMap.put(oliVar.Id, oliVar);
         
-        OpportunityLineItem newOpty = [SELECT Id, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id
+       	List<OpportunityLineItem> optyLIList = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id,Change_Classification__c 
                                        FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id LIMIT 1];
-        newOpty.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 9, 9);
-        newOpty.Contract_End_Date__c = Date.newInstance(System.Today().year(), 10, 16);
-        newOpty.Change_Classification__c = 'No';
-        UPDATE newOpty;
+        OpportunityLineItem newOptyLI = optyLIList[0];
+        newOptyLI.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 9, 9);
+        newOptyLI.Contract_End_Date__c = Date.newInstance(System.Today().year(), 10, 16);
+        newOptyLI.Change_Classification__c = 'No';
+        UPDATE newOptyLI;
         
-        optyLIList.add(newOpty);
-        
+         System.assertEquals(Constants.CLSS_RENEWAL, newOptyLI.Classification__c);
         test.startTest();
         OpportunityLineItemService.updateClassification(optyLIList, oldRecMap);
         test.stopTest();
+		System.assertEquals(Constants.CLSS_WINBACK, newOptyLI.Classification__c);
         
-        System.assertEquals('Renewal', newOpty.Classification__c);
     }
     
     /*********************************
@@ -769,7 +757,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void updateClassificationR9G() { 
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -786,10 +774,10 @@ public class OpportunityLineItemServiceTest {
         oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4);
         oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 10, 16);
         oliVar.Change_Classification__c = 'YES';
-        oldRecMap.put(oliVar.Id, oliVar);
         INSERT oliVar;
+        oldRecMap.put(oliVar.Id, oliVar);
         
-        OpportunityLineItem newOpty = [SELECT Id, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id, Change_Classification__c
+        OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id,Change_Classification__c 
                                        FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id LIMIT 1];
         newOpty.Contract_End_Date__c = Date.newInstance(System.Today().year(), 10, 16);
         UPDATE newOpty;
@@ -800,7 +788,7 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItemService.updateClassification(optyLIList, oldRecMap);
         test.stopTest();
         
-        System.assertEquals('Growth', newOpty.Classification__c);
+        System.assertEquals(Constants.CLSS_GROWTH, newOpty.Classification__c);
     }
     
     /*********************************
@@ -811,7 +799,8 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void updateClassificationNB() {
-        Account testOrg = [SELECT Id, Name FROM Account WHERE Name = 'WithoutRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id, Name FROM Account WHERE Name = 'Without Revenue'
+                           LIMIT 1];
         Opportunity testOpty = [SELECT Id FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'Road Express - STE' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -821,19 +810,19 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
-        oliVar.Contract_Start_Date__c = Date.today();
-        oliVar.Contract_End_Date__c = Date.today()+10;
-        oldRecMap.put(oliVar.Id, oliVar);
+        oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4); //Date.today();
+        oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 14); // Date.today()+10;
         INSERT oliVar;
+        oldRecMap.put(oliVar.Id, oliVar);
         
-        OpportunityLineItem newOpty = [SELECT Id, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id
+        OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id,Change_Classification__c 
                                        FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id LIMIT 1];
-        newOpty.Contract_Start_Date__c = Date.today()+8;
-        newOpty.Contract_End_Date__c = Date.today()+15;
+        newOpty.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 12); //Date.today()+8;
+        newOpty.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 19); //Date.today()+15;
         UPDATE newOpty;
         
         optyLIList.add(newOpty);
@@ -853,7 +842,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void updateClassificationCS() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'International Bundle' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -863,18 +852,18 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
-        oliVar.Contract_Start_Date__c = Date.today();
-        oliVar.Contract_End_Date__c = Date.today()+10;
+        oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4); // Date.today();
+        oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 14); // Date.today()+10;
         INSERT oliVar;
         
         OpportunityLineItem newOpty = [SELECT Id, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id
                                        FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id LIMIT 1];
-        newOpty.Contract_Start_Date__c = Date.today()+8;
-        newOpty.Contract_End_Date__c = Date.today()+15;
+        newOpty.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 12);// Date.today()+8;
+        newOpty.Contract_End_Date__c =  Date.newInstance(System.Today().year(), 4, 19);// Date.today()+15;
         UPDATE newOpty;
         
         optyLIList.add(newOpty);
@@ -894,7 +883,7 @@ public class OpportunityLineItemServiceTest {
      ********************************/
     @isTest
     static void updateClassificationWB() {
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Opportunity testOpty = [SELECT Id, AccountId FROM Opportunity WHERE AccountId =: testOrg.Id LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'Boxes and Bags Others' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
@@ -904,17 +893,17 @@ public class OpportunityLineItemServiceTest {
         OpportunityLineItem oliVar = new OpportunityLineItem();
         oliVar.OpportunityId = testOpty.Id;
         oliVar.Product2Id = testProd.Id;
-        oliVar.Classification__c = 'Growth';
+        oliVar.Classification__c =Constants.CLSS_GROWTH;
         oliVar.Quantity = 12;
         oliVar.TotalPrice = 24.00;
         oliVar.PricebookEntryId = pbEntry.Id;
-        oliVar.Contract_Start_Date__c = Date.today();
-        oliVar.Contract_End_Date__c = Date.today()+10;
+        oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4); // Date.today();
+        oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 14);// Date.today()+10;
         INSERT oliVar;
-        
+        oldRecMap.put(oliVar.Id, oliVar);
         OpportunityLineItem newOpty = [SELECT Id, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id
                                        FROM OpportunityLineItem WHERE OpportunityId =: testOpty.Id LIMIT 1];
-        newOpty.Contract_End_Date__c = Date.today()+15;
+        newOpty.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 19);// Date.today()+15;
         UPDATE newOpty;
         
         optyLIList.add(newOpty);
@@ -935,7 +924,7 @@ public class OpportunityLineItemServiceTest {
     @isTest
     static void deleteProduct() {
         User testRunAs = [SELECT Id from User WHERE Alias = 'CovSal' LIMIT 1];
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'International Bundle' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
         List<OpportunityLineItem> optyLIList = new List<OpportunityLineItem>();
@@ -956,7 +945,7 @@ public class OpportunityLineItemServiceTest {
             oppVar.Pre_Entry__c = TRUE;
             oppVar.Closed_Reason__c = 'Functionality';
             oppVar.Data_Integrity_Compliance__c = TRUE;
-            oppVar.CloseDate = Date.today();
+            oppVar.CloseDate = Date.newInstance(System.Today().year(), 4, 4); // Date.today();
             oppVar.Offline_Contract_Received__c = TRUE;
             oppVar.StageName = 'Identify';
             INSERT oppVar;
@@ -964,12 +953,12 @@ public class OpportunityLineItemServiceTest {
             OpportunityLineItem oliVar = new OpportunityLineItem();
             oliVar.OpportunityId = oppVar.Id;
             oliVar.Product2Id = testProd.Id;
-            oliVar.Classification__c = 'Growth';
+            oliVar.Classification__c = Constants.CLSS_GROWTH;
             oliVar.Quantity = 12;
             oliVar.TotalPrice = 24.00;
             oliVar.PricebookEntryId = pbEntry.Id;
-            oliVar.Contract_Start_Date__c = Date.today();
-            oliVar.Contract_End_Date__c = Date.today()+10;
+            oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4); // Date.today();
+            oliVar.Contract_End_Date__c =  Date.newInstance(System.Today().year(), 4, 14);//Date.today()+10;
             oliVar.Contract_Product__c = 'No';
             INSERT oliVar;
             
@@ -998,7 +987,7 @@ public class OpportunityLineItemServiceTest {
     @isTest
     static void changeClassTestR() {
         User testRunAs = [SELECT Id, Profile.Name from User WHERE Alias = 'CovSal' LIMIT 1];
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
         List<OpportunityLineItem> optyLIList = new List<OpportunityLineItem>();
@@ -1023,7 +1012,7 @@ public class OpportunityLineItemServiceTest {
             oppVar.Pre_Entry__c = TRUE;
             oppVar.Closed_Reason__c = 'Functionality';
             oppVar.Data_Integrity_Compliance__c = TRUE;
-            oppVar.CloseDate = Date.today();
+            oppVar.CloseDate = Date.newInstance(System.Today().year(), 4, 4); //Date.today();
             oppVar.Offline_Contract_Received__c = TRUE;
             oppVar.StageName = 'Identify';
             INSERT oppVar;
@@ -1031,7 +1020,7 @@ public class OpportunityLineItemServiceTest {
             OpportunityLineItem oliVar = new OpportunityLineItem();
             oliVar.OpportunityId = oppVar.Id;
             oliVar.Product2Id = testProd.Id;
-            oliVar.Classification__c = 'Renewal';
+            oliVar.Classification__c = Constants.CLSS_RENEWAL;
             oliVar.Quantity = 12;
             oliVar.TotalPrice = 93.00;
             oliVar.PricebookEntryId = pbEntry.Id;
@@ -1040,10 +1029,10 @@ public class OpportunityLineItemServiceTest {
             oliVar.Contract_Product__c = 'No';
             oliVar.Change_Classification__c = 'No';
             INSERT oliVar;
-            System.assertEquals('Renewal', oliVar.Classification__c);
+
             oldRecMap.put(oliVar.Id, oliVar);
             
-            OpportunityLineItem newOpty = [SELECT Id, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id, TotalPrice
+            OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id, TotalPrice, Change_Classification__c
                                            FROM OpportunityLineItem WHERE OpportunityId =: oppVar.Id AND Product2Id =: testProd.Id AND TotalPrice =: 93.00 LIMIT 1];
             System.assertEquals(oliVar.Classification__c, newOpty.Classification__c);
             newOpty.Change_Classification__c = 'Yes';
@@ -1052,11 +1041,12 @@ public class OpportunityLineItemServiceTest {
             optyLIList.add(newOpty);
             OpportunityLineItemService.changeClassification(optyLIList,oldRecMap);
             
-            System.assertEquals('Growth', newOpty.Classification__c);
+            System.assertEquals(Constants.CLSS_GROWTH, newOpty.Classification__c);
             
         }
         test.stopTest();
-    }    
+    }
+    
     /*********************************
      * Description: Tests the changeClassification() for Growth scenario
      * Author: Jeoffrey Palmero
@@ -1066,7 +1056,7 @@ public class OpportunityLineItemServiceTest {
     @isTest
     static void changeClassTestG() {
         User testRunAs = [SELECT Id, Profile.Name from User WHERE Alias = 'CovSal' LIMIT 1];
-        Account testOrg = [SELECT Id FROM Account WHERE Name = 'AnotherWithRevenue' LIMIT 1];
+        Account testOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
         Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'eParcel Express' LIMIT 1];
         PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
         List<OpportunityLineItem> optyLIList = new List<OpportunityLineItem>();
@@ -1091,7 +1081,7 @@ public class OpportunityLineItemServiceTest {
             oppVar.Pre_Entry__c = TRUE;
             oppVar.Closed_Reason__c = 'Functionality';
             oppVar.Data_Integrity_Compliance__c = TRUE;
-            oppVar.CloseDate = Date.today();
+            oppVar.CloseDate = Date.newInstance(System.Today().year(), 4, 4); // Date.today();
             oppVar.Offline_Contract_Received__c = TRUE;
             oppVar.StageName = 'Identify';
             INSERT oppVar;
@@ -1099,7 +1089,7 @@ public class OpportunityLineItemServiceTest {
             OpportunityLineItem oliVar = new OpportunityLineItem();
             oliVar.OpportunityId = oppVar.Id;
             oliVar.Product2Id = testProd.Id;
-            oliVar.Classification__c = 'Growth';
+            oliVar.Classification__c = Constants.CLSS_GROWTH;
             oliVar.Quantity = 12;
             oliVar.TotalPrice = 93.00;
             oliVar.PricebookEntryId = pbEntry.Id;
@@ -1110,7 +1100,7 @@ public class OpportunityLineItemServiceTest {
             INSERT oliVar;
             oldRecMap.put(oliVar.Id, oliVar);
             
-            OpportunityLineItem newOpty = [SELECT Id, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id, TotalPrice
+            OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id, TotalPrice,Change_Classification__c
                                            FROM OpportunityLineItem WHERE OpportunityId =: oppVar.Id AND Product2Id =: testProd.Id AND TotalPrice =: 93.00 LIMIT 1];
             newOpty.Change_Classification__c = 'No';
             UPDATE newOpty;
@@ -1118,9 +1108,50 @@ public class OpportunityLineItemServiceTest {
             optyLIList.add(newOpty);
             OpportunityLineItemService.changeClassification(optyLIList,oldRecMap);
             
-            System.assertEquals('Renewal', newOpty.Classification__c);
+            System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
             
         }
         test.stopTest();
+    }
+    
+    /*********************************
+     * Description: Tests the populateClassification() method for an OPC related account business renewal
+     * Author: Ken McGuire
+     * History:
+     * 2022-05-10       Created
+     ********************************/
+    @isTest
+    static void testClassificationOPCRelatedCrossSell() {
+        Account parentOrg = [SELECT Id, Name FROM Account WHERE Name = 'Without Revenue' LIMIT 1];
+        Account relatedOrg = [SELECT Id FROM Account WHERE Name = 'With Nominal Revenue' LIMIT 1];
+        
+        AccountRelationship__c opcRelationship = new AccountRelationship__c(ParentAccount__c = parentOrg.id,RelatedAccount__c = relatedOrg.Id,Relationship__c = 'OPC');
+        insert(opcRelationship);
+        
+        // parent opportunity
+        Opportunity testOpty = [SELECT Id FROM Opportunity WHERE AccountId =: parentOrg.Id LIMIT 1];
+        Product2 testProd = [SELECT Id FROM Product2 WHERE Name = 'Road Express - STE' LIMIT 1];
+        PricebookEntry pbEntry = [SELECT Id FROM PricebookEntry WHERE Product2Id =: testProd.Id LIMIT 1];
+        List<OpportunityLineItem> optyLIList = new List<OpportunityLineItem>();
+
+        OpportunityLineItem oliVar = new OpportunityLineItem();
+        oliVar.OpportunityId = testOpty.Id;
+        oliVar.Product2Id = testProd.Id;
+        oliVar.Classification__c = Constants.CLSS_GROWTH;
+        oliVar.Quantity = 12;
+        oliVar.TotalPrice = 24.00;
+        oliVar.PricebookEntryId = pbEntry.Id;
+        oliVar.Contract_Start_Date__c = Date.newInstance(System.Today().year(), 4, 4); // Date.today();
+        oliVar.Contract_End_Date__c = Date.newInstance(System.Today().year(), 4, 14); // Date.today()+10;
+        optyLIList.add(oliVar);
+        
+        // related account sales history
+        
+        test.startTest();
+        OpportunityLineItemService.populateClassification(optyLIList);
+        test.stopTest();
+        
+        System.assertEquals('Cross Sell', oliVar.Classification__c);
+
     }
 }

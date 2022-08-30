@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Schedule Path for SSSW Case hard closure</description>
+    <environments>Default</environments>
+    <interviewLabel>CaseScheduledMyCustomer_HardClose {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>CaseScheduled MyCustomer HardClose</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Case_Record</name>
+        <label>Update Case Record</label>
+        <locationX>308</locationX>
+        <locationY>288</locationY>
+        <inputAssignments>
+            <field>LastIncomingEmailAddress__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Permanent_Close__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+ CONTAINS({!$Record.RecordType.DeveloperName}, {!$Label.REC_TYPE_DEV_KEYWORD_SSSW}),
+ {!$Record.IsClosed},
+ NOT({!$Record.Permanent_Close__c})
+)</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>X30_Days_after_Created_or_Updated</name>
+            <connector>
+                <targetReference>Update_Case_Record</targetReference>
+            </connector>
+            <label>30 Days after Created or Updated</label>
+            <offsetNumber>30</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

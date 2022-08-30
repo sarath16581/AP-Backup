@@ -1,83 +1,79 @@
-<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_JobsPrintFutureControllerX" renderAs="pdf" applyBodyTag="false">
-<!--apex:page docType="html-5.0" Controller="PUD_JobsPrintFutureControllerX" renderAs="pdf" applyBodyTag="false"-->   
-<!--Page to allow printing of Duty for driver a backup to the mobile device -->
-<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->  
-<!--Created 26-11-19 Dheeraj Mandavilli-->  
-    <head>
-        <style type="text/css" media="print">
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_JobsPrintFutureControllerX"
+           renderAs="pdf" applyBodyTag="false">
+	<!--apex:page docType="html-5.0" Controller="PUD_JobsPrintFutureControllerX" renderAs="pdf" applyBodyTag="false"-->
+	<!--Page to allow printing of Duty for driver a backup to the mobile device -->
+	<!--Uses controller extension to retrieve data. Controller required to retrieve long field and allow sort on Day Start Time-->
+	<!--Created 26-11-19 Dheeraj Mandavilli-->
+	<!-- 11-07-2022 - Kamil Szyc - rebuilt the page to meet new design requirements-->
+
+	<!--Page to allow printing of Duty for driver a backup to the mobile device -->
+	<head>
+		<style type="text/css" media="print">
             @page {
+                padding-top:80px;
                 @top-center {
                     content: element(header);
-                }       
-                @bottom-center {
-                    content: element(footer);
                 }
             }
-           @page { size: A4 potrait; }
+           @page {
+                size: A4 portrait;
+                margin-top:14mm;
+           }
             div.header {
-                padding: 5px;
-            	position: running(header);
+            font-size: small;
+            position:running(header);
             }
            table {
     			-fs-table-paginate: paginate;
-			} 
-            div.footer {
-                display: block;
-                padding: 5px;
-                position: running(footer);
-            }
+			}
+
             .pagenumber:before {
                 content: counter(page);
             }
             .pagecount:before {
                 content: counter(pages);
             }
-        </style>
-    </head>
-    <div class="header">
-    <b>Route Name : {!routeName}</b><br/>
-  	</div>
-    <div class="footer">
-        <div>
-            <center>
-                Page <span class="pagenumber"/> of <span class="pagecount"/>
-                (
-                <apex:outputText value="{0, date, d MMM yyyy}">
-                    <apex:param value="{!NOW()}" />
-                </apex:outputText>
-                )
-            </center>
-        </div>
-    </div>
-    <div class="content">     
-        <apex:pageBlock >
-            <center>
-            		<img src="{!$Resource.auspost_logo}" width="15%"/>
-            		<br/><br/>
-                	<b>Driver Run Sheet for {!depotName}</b>
-        			</center><br/>
-            		<b>Date: {!sdate}</b><br/>
-                    <br/>
-            		
-           <apex:pageBlockTable value="{! jobTemplateList }" var="jt" border="1" style="vertical-align:Top font:Calibri; font-size: 12pt">
-           <apex:column headerValue="Start Time" style="vertical-align:Top font:Calibri; font-size: 11pt" width="80px">
-                <b><apex:outputField value="{! jt.Display_Start_Time__c}" rendered="{!!adhoc}"/></b>
-               	<b><apex:outputField value="{! jt.Start_Time__c}" rendered="{!adhoc}"/></b>
-            </apex:column>
-            <apex:column headerValue="Job Details" style="vertical-align:Top font: Calibri; font-size:12pt" width="430px">
-                <b><apex:outputField value="{!jt.Location_Information__c}"/></b><br/>
-                <apex:outputField value="{!jt.Job_Information__c}" /><br/>
-                <b><apex:outputField value="{!jt.Booking_Comments__c}"/></b>
-    		</apex:column> 
-            <apex:column value="{! jt.Deliver_Product__c}" style="vertical-align:Top font-family: Calibri; font-size: 12pt" width="200px"/>
-        	 <apex:column headerValue="Rev Chk" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
-                <apex:outputField value="{!jt.Revenue_Check__c}" /> <br></br><br></br>
-    		</apex:column>
-        	 <apex:column headerValue="Stop Credit" style="vertical-align:Top font-family:Calibri; font-size: 6pt" width="25px">
-                <apex:outputField value="{!jt.Stop_Credit__c}" />
-    		</apex:column>
-        	<apex:column headerValue="MS/E/P_F" style="vertical-align:Top" width="0px"/>    
-            </apex:pageBlockTable>
-        </apex:pageBlock>
-	</div>
+            .table-header{
+                border-bottom: 1px solid black;
+                font-family:Arial Unicode MS;
+                font-size: 10px;
+            }
+            td.bold{
+                font-weight:bold;
+                font-family:sans-serif;
+            }
+            .boldcell {
+                font-size: 10pt;
+                font-weight: bold;
+                font-family: sans-serif;
+                vertical-align: Top;
+            }
+            .normalcell {
+                font-size: 10pt;
+                font-family: "Arial Unicode MS";
+                vertical-align: Top;
+            }
+            .job-headers {
+                font-weight:normal;
+                font-size:small;
+            }
+
+        
+		</style>
+
+	</head>
+	<!--page counter used to truncate blank pages and the end of the pdf document -->
+	<apex:variable var="routeCounter" value="{!0}"/>
+	<apex:pageBlock rendered="{! route.Jobs__r.size > 0}">
+		<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}">
+			<div class="header">
+				<!--repeatable header-->
+				<c:PUD_JobsHeader Route="{! route}" effectiveDate="{!effectiveDate}"/>
+			</div>
+			<div class="content">
+				<c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>
+			</div>
+		</div>
+		<apex:variable var="routeCounter" value="{!routeCounter+1}"/>
+	</apex:pageBlock>
 </apex:page>

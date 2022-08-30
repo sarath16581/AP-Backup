@@ -1,76 +1,87 @@
 <!--Page to allow printing of Duty for driver a backup to the mobile device -->
-<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->  
-<!--Created 26-11-19 Dheeraj Mandavilli-->  
-<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_AdhocJobsfromListViewControllerX" recordSetVar="routes" renderAs="pdf" applyBodyTag="false" >
-    <head>
-        <style type="text/css" media="print">
+<!--Uses controller extension to retrieve data. Controller required to retrieve long field and allow sort on Day Start Time-->
+<!--Created 26-11-19 Dheeraj Mandavilli-->
+<!--2022-07-12 - Kamil Szyc - Updated format to resemble FSL -->
+
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_AdhocJobsfromListViewControllerX"
+           recordSetVar="routesVar" renderAs="pdf" applyBodyTag="false">
+	<head>
+		<style type="text/css" media="print">
             @page {
-            @top-center {
-            content: element(header);
-            }       
-            @bottom-center {
-            content: element(footer);
+                padding-top:80px;
+                @top-center {
+                    content: element(header);
+                }
             }
-            }
-            @page { size: A4 portrait; }
-            .page-break {
-            display:block;
-            page-break-after:always;
-            }
+           @page {
+                size: A4 portrait;
+                margin-top:14mm;
+           }
             div.header {
-            padding: 5px;
-            position: running(header);
+            font-size: small;
+            position:running(header);
             }
-            table {
-            -fs-table-paginate: paginate;
-            } 
-            div.footer {
-            display: block;
-            padding: 5px;
-            position: running(footer);
-            }
+           table {
+    			-fs-table-paginate: paginate;
+			}
+
             .pagenumber:before {
-            content: counter(page);
+                content: counter(page);
             }
             .pagecount:before {
-            content: counter(pages);
+                content: counter(pages);
             }
-        </style>
-    </head>
-    
-    <div class="header">
-    </div>
-    
-    <div class="footer">
-        <div>
-            <center>
-                Page <span class="pagenumber"/> of <span class="pagecount"/>
-                (
-                <apex:outputText value="{0, date, d MMM yyyy}">
-                    <apex:param value="{!NOW()}" />
-                </apex:outputText>
-                )
-            </center>
-        </div>
-    </div>
-    
-    <div class="content">     
+            .table-header{
+                border-bottom: 1px solid black;
+                font-family:Arial Unicode MS;
+                font-size: 10px;
+            }
+            td.bold{
+                font-weight:bold;
+                font-family:sans-serif;
+            }
+            .boldcell {
+                font-size: 10pt;
+                font-weight: bold;
+                font-family: sans-serif;
+                vertical-align: Top;
+            }
+            .normalcell {
+                font-size: 10pt;
+                font-family: "Arial Unicode MS";
+                vertical-align: Top;
+            }
+            .job-headers {
+                font-weight:normal;
+                font-size:small;
+            }
+            .counterReset {
+                -fs-page-sequence: start;
+            }
+            
+
         
-        <apex:pageBlock > 
-            <apex:repeat value="{!routeJobMap}" var="key">
-                <div style="page-break-after:always;">
-                    <center>
-                        <img src="{!$Resource.auspost_logo}" width="15%"/>
-                        <br/><br/>
-                        <b>Driver Run Sheet for {!depotName}</b>
-                    </center><br/>
-                    <b>Route Name : {!key}</b><br/>
-                    <br/>
-                    <b>Date : {!reportdate}</b>
-                    <br/>&nbsp;            
-                    <c:PUD_JobsComponent Jobs="{!routeJobMap[key]}"/>   
-                </div>
-            </apex:repeat>          
-        </apex:pageBlock>  
-    </div>
+		</style>
+
+	</head>
+	<!--page counter used to truncate blank pages and the end of the pdf document -->
+	<apex:variable var="routeCounter" value="{!0}"/>
+	<apex:repeat value="{!routes}" var="route" id="selectedRoutes">
+		<apex:variable var="jobsCount" value="{!0}"/>
+		<apex:repeat value="{!route.Jobs__r}" var="job">
+			<apex:variable var="jobsCount" value="{!jobsCount +1}"/>
+		</apex:repeat>
+		<apex:pageBlock rendered="{!jobsCount > 0}">
+			<div style="{!if(routeCounter < 1, 'page-break-before:avoid;','page-break-before:always;')}" class="counterReset">
+				<div class="header">
+					<!--repeatable header-->
+					<c:PUD_JobsHeader Route="{! route}" effectiveDate="{!TODAY()}"/>
+				</div>
+				<div class="content">
+					<c:PUD_JobsComponent jobs="{!route.Jobs__r}"/>
+				</div>
+			</div>
+		</apex:pageBlock>
+		<apex:variable var="routeCounter" value="{!routeCounter+1}"/>
+	</apex:repeat>
 </apex:page>

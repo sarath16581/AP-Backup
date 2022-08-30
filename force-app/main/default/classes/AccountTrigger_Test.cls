@@ -46,6 +46,19 @@ private class AccountTrigger_Test {
         
     }
 
+    @IsTest
+    static void makingSureThatTheDispatchMethodIsCalledFromTheCorrectClass() {
+        PersonAccountDomainTriggerHandler mock = (PersonAccountDomainTriggerHandler)MockUtility.mockUtility(PersonAccountDomainTriggerHandler.class);
+
+        List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, false);
+        insert accounts;
+
+        ((PersonAccountDomainTriggerHandler) MockUtility.Mocks.verify(mock, MockUtility.Mocks.atLeastOnce())).dispatch();
+
+        // PMD Warning
+		System.assert(true);
+    }
+
     /**
       * @description       test method for testing of licence related requirements
       * @param             NA 

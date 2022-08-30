@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2020-04-10 - arjun.singh@auspost.com.au - Created
+* 2022-04-08 - seth.heang@auspost.com.au - updated test method to test search method
 */
 @IsTest
 public with sharing class DealSupportRequestsSelector_Test {
@@ -129,6 +130,10 @@ public with sharing class DealSupportRequestsSelector_Test {
         insert apttusContracts;*/
         
         Deal_Support_Request__c dealSupportRequest = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, false)[0];
+        Id psrAPPCRecTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0].Id;
+        dealSupportRequest.recordTypeId = psrAPPCRecTypeId;
+        dealSupportRequest.product__c = APT_Constants.PSR_APPC_PRODUCT_NAME;
+        dealSupportRequest.Returns__c = true;
         insert dealSupportRequest;
 
         BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', false)[0];
@@ -164,6 +169,21 @@ public with sharing class DealSupportRequestsSelector_Test {
 
         Map<Id, Deal_Support_Request__c> resultsforMultipleDSR = selector.selectByRecordList(new List<Deal_Support_Request__c>{dealSupportRequest});
         System.assertEquals(1, resultsforMultipleDSR.size(), 'Result count was wrong');
+
+        DealSupportRequestsSelector selector2 = DealSupportRequestsSelector.newInstance(1, new Set<SObjectField>{
+            Deal_Support_Request__c.Id,
+            Deal_Support_Request__c.Name,
+            Deal_Support_Request__c.Product__c,
+            Deal_Support_Request__c.Opportunity__c,
+            Deal_Support_Request__c.RecordTypeId
+        });
+        
+        Map<String, Object> searchParams = new Map<String, Object>();
+        searchParams.put('opportunityIds', new Set<Id>{opportunityRecord.Id});
+        searchParams.put('recTypeIds', new Set<Id>{psrAPPCRecTypeId});
+        searchParams.put('productNames', new Set<String>{APT_Constants.PSR_APPC_PRODUCT_NAME});
+        List<Deal_Support_Request__c> resultsforAPPCPSRList = selector2.search(searchParams, new Set<Object>(), true);
+        System.assertEquals(1, resultsforAPPCPSRList.size(), 'Result count was wrong');
 
         Test.stopTest();
 

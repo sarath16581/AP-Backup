@@ -8,165 +8,204 @@
 					<span class="back-text">BACK</span>
 				</a>
 			</lightning-layout-item>
-			<lightning-layout-item size="12">
-				<!-- Form Header -->
-				<h2 class="form-heading slds-var-p-top_large">Feedback Form</h2>
-				<p class="form-sub-heading slds-var-p-top_x-small">
-					All fields are required unless marked as (optional)
-				</p>
-			</lightning-layout-item>
-			<lightning-layout-item size="12" class="form-top-padding">
-				<!-- Form Body -->
-				<lightning-layout
-					multiple-rows
-					class="slds-box box-background form-elements-padding">
-					<lightning-layout-item size="12" medium-device-size="9">
-						<lightning-combobox
-							data-validation="feedbackForm"
-							data-field-name="feedBackType"
-							name="enquiry"
-							class="form-dropdown"
-							label="What does it relate to?"
-							placeholder="Please select one"
-							options={enquiryOptions}
-							onchange={handleEnquiryChange}
-							required
-							value={formData.feedbackType}
-							message-when-value-missing={label.invalidFeedbackTypeSelection}></lightning-combobox>
+			<template if:false={isCaseCreatedSuccessfully}>
+				<lightning-layout-item size="12">
+					<!-- Form Header -->
+					<h2 class="form-heading slds-var-p-top_large">
+						Feedback Form
+					</h2>
+					<p class="form-sub-heading slds-var-p-top_x-small">
+						All fields are required unless marked as (optional)
+					</p>
+				</lightning-layout-item>
+				<template if:true={showError}>
+					<lightning-layout-item class="form-top-padding" size="12">
+						<c-message-banner
+							message={label.errorStateMessage}
+							banner-type="error"
+							img-link={errorIcon}
+							dispatch-close-event="true"
+							onclosebanner={handleErrorClose}></c-message-banner>
 					</lightning-layout-item>
-					<template if:true={showReference}>
+				</template>
+				<lightning-layout-item size="12" class="form-top-padding">
+					<!-- Form Body -->
+					<lightning-layout
+						multiple-rows
+						class="slds-box box-background form-elements-padding">
+						<lightning-layout-item size="12" medium-device-size="9">
+							<lightning-combobox
+								data-validation="feedbackForm"
+								data-field-name="enquiryType"
+								name="enquiry"
+								class="form-dropdown"
+								label="What does it relate to?"
+								placeholder="Please select one"
+								options={enquiryOptions}
+								onchange={handleEnquiryChange}
+								required
+								value={formData.enquiryType}
+								message-when-value-missing={label.invalidFeedbackTypeSelection}></lightning-combobox>
+						</lightning-layout-item>
+						<template if:true={showReference}>
+							<lightning-layout-item
+								size="12"
+								medium-device-size="9"
+								class="slds-var-p-top_x-large">
+								<lightning-input
+									type="text"
+									label="Reference"
+									required
+									message-when-value-missing={label.invalidReference}
+									max-length="40"
+									data-validation="feedbackForm"
+									data-field-name="reference"
+									onchange={handleInputChange}
+									value={formData.reference}></lightning-input>
+								<p
+									class="form-sub-heading slds-var-p-top_x-small">
+									Tracking, booking, or barcode reference
+								</p>
+							</lightning-layout-item>
+						</template>
+						<lightning-layout-item
+							size="12"
+							class="slds-var-p-top_x-large">
+							<div class="line-border"></div>
+						</lightning-layout-item>
 						<lightning-layout-item
 							size="12"
 							medium-device-size="9"
 							class="slds-var-p-top_x-large">
 							<lightning-input
 								type="text"
-								label="Reference"
+								label="First name"
 								required
-								message-when-value-missing={label.invalidReference}
+								pattern="^([^0-9]*)$"
 								max-length="40"
-								message-when-too-long={label.invalidCharacters}
 								data-validation="feedbackForm"
-								data-field-name="reference"
+								data-field-name="firstName"
 								onchange={handleInputChange}
-								value={formData.reference}></lightning-input>
-							<p class="form-sub-heading slds-var-p-top_x-small">
-								Tracking, booking, or barcode reference
-							</p>
+								value={formData.firstName}
+								message-when-pattern-mismatch={label.invalidNameFieldCharacters}
+								message-when-value-missing={label.invalidFirstName}
+							></lightning-input>
 						</lightning-layout-item>
-					</template>
-					<lightning-layout-item
-						size="12"
-						class="slds-var-p-top_x-large">
-						<div class="line-border"></div>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
-						medium-device-size="9"
-						class="slds-var-p-top_x-large">
-						<lightning-input
-							type="text"
-							label="First name"
-							required
-							message-when-value-missing={label.invalidFirstName}
-							max-length="40"
-							data-validation="feedbackForm"
-							data-field-name="firstName"
-							onchange={handleInputChange}
-							value={formData.firstName}
-							message-when-too-long={label.invalidCharacters}></lightning-input>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
-						medium-device-size="9"
-						class="slds-var-p-top_x-large">
-						<lightning-input
-							type="text"
-							label="Last name"
-							required
-							message-when-value-missing={label.invalidLastName}
-							max-length="40"
-							data-validation="feedbackForm"
-							data-field-name="lastName"
-							onchange={handleInputChange}
-							value={formData.lastName}
-							message-when-too-long={label.invalidCharacters}></lightning-input>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
-						medium-device-size="9"
-						class="slds-var-p-top_x-large">
-						<lightning-input
-							type="tel"
-							label="Phone number"
-							required
-							message-when-value-missing={label.invalidPhone}
-							max-length="10"
-							min-length="10"
-							pattern="[0-9]{10}"
-							data-validation="feedbackForm"
-							data-field-name="phone"
-							onchange={handleInputChange}
-							value={formData.phone}
-							message-when-too-long={label.invalidPhone}
-							message-when-too-short={label.invalidPhone}
-							message-when-pattern-mismatch={label.invalidPhone}></lightning-input>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
-						medium-device-size="9"
-						class="slds-var-p-top_x-large">
-						<lightning-input
-							type="email"
-							label="Email"
-							data-validation="feedbackForm"
-							data-field-name="email"
-							onchange={handleInputChange}
-							value={formData.email}
-							required
-							message-when-value-missing={label.invalidEmail}
-							message-when-type-mismatch={label.invalidEmail}></lightning-input>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
-						medium-device-size="9"
-						class="slds-var-p-top_x-large">
-						<lightning-textarea
-							name="feedbackDetails"
-							label="Your feedback"
-							data-validation="feedbackForm"
-							data-field-name="feedbackDetails"
-							onchange={handleInputChange}
-							value={formData.enquiry}
-							required
-							message-when-value-missing={label.invalidFeedback}></lightning-textarea>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
-						class="slds-var-p-top_x-large">
-						<lightning-input
-							data-field-name="allowToContact"
-							type="checkbox"
-							label="Tick if you don’t want us to contact you about your feedback"></lightning-input>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
-						medium-device-size="4"
-						class="slds-var-p-top_x-large">
-						<lightning-button
-							variant="brand"
-							label="Submit"
-							title="Submit"
-							class="submitBtn"
-							onclick={handleSubmitClick}></lightning-button>
-					</lightning-layout-item>
-					<lightning-layout-item
-						size="12"
-						class="slds-var-p-top_x-large">
-						<c-sths-privacy-notice></c-sths-privacy-notice>
-					</lightning-layout-item>
-				</lightning-layout>
-			</lightning-layout-item>
+						<lightning-layout-item
+							size="12"
+							medium-device-size="9"
+							class="slds-var-p-top_x-large">
+							<lightning-input
+								type="text"
+								label="Last name"
+								required
+								pattern="^([^0-9]*)$"
+								max-length="40"
+								data-validation="feedbackForm"
+								data-field-name="lastName"
+								onchange={handleInputChange}
+								value={formData.lastName}
+								message-when-pattern-mismatch={label.invalidNameFieldCharacters}
+								message-when-value-missing={label.invalidLastName}
+							></lightning-input>
+						</lightning-layout-item>
+						<lightning-layout-item
+							size="12"
+							medium-device-size="9"
+							class="slds-var-p-top_x-large">
+							<lightning-input
+								type="tel"
+								label="Phone number"
+								required
+								message-when-value-missing={label.invalidPhone}
+								data-validation="feedbackForm"
+								data-field-name="phone"
+								onchange={handleInputOnPhoneChange}
+								value={formData.phone}
+								></lightning-input>
+						</lightning-layout-item>
+						<lightning-layout-item
+							size="12"
+							medium-device-size="9"
+							class="slds-var-p-top_x-large">
+							<lightning-input
+								type="email"
+								label="Email"
+								data-validation="feedbackForm"
+								data-field-name="email"
+								onchange={handleInputChange}
+								value={formData.email}
+								required
+								message-when-value-missing={label.invalidEmail}
+								message-when-type-mismatch={label.invalidEmail}></lightning-input>
+						</lightning-layout-item>
+						<lightning-layout-item
+							size="12"
+							medium-device-size="9"
+							class="slds-var-p-top_x-large">
+							<lightning-textarea
+								name="feedbackDetails"
+								label="Your feedback"
+								data-validation="feedbackForm"
+								data-field-name="enquiry"
+								onchange={handleInputChange}
+								value={formData.enquiry}
+								required
+								max-length="1000"
+								message-when-value-missing={label.invalidFeedback}></lightning-textarea>
+						</lightning-layout-item>
+						<lightning-layout-item
+							size="12"
+							medium-device-size="4"
+							class="slds-var-p-top_x-large">
+							<lightning-button
+								variant="brand"
+								label="Submit"
+								title="Submit"
+								class="submitBtn"
+								onclick={handleSubmitClick}></lightning-button>
+						</lightning-layout-item>
+						<lightning-layout-item
+							size="12"
+							class="slds-var-p-top_x-large">
+							<c-sths-privacy-notice></c-sths-privacy-notice>
+						</lightning-layout-item>
+					</lightning-layout>
+				</lightning-layout-item>
+			</template>
 		</lightning-layout>
+		<!-- Confirmation message -->
+		<template if:true={isCaseCreatedSuccessfully}>
+			<lightning-layout class="slds-var-p-top_x-large">
+				<lightning-layout-item
+					size="12"
+					class="slds-box box-background form-elements-padding">
+					<c-sths-confirmation-page>
+						<span slot="header">
+							<h2>Thanks for your feedback</h2>
+						</span>
+						<span slot="body">
+							<p>
+								We’ve sent you a confirmation email with all the
+								details, including your reference number:
+								<b> {caseNumber}.</b>
+							</p>
+							<p class="slds-var-p-top_large">
+								We’ll review your feedback and respond as soon
+								we can.
+							</p>
+						</span>
+					</c-sths-confirmation-page>
+				</lightning-layout-item>
+			</lightning-layout>
+		</template>
+
+		<template if:true={isLoading}>
+			<!--LOAD SPINNER-->
+			<lightning-spinner
+				variant="brand"
+				size="large"
+				alternative-text="Loading"></lightning-spinner>
+		</template>
 	</div>
 </template>

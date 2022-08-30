@@ -2,7 +2,7 @@
  * @description       : This class handles calling the Customer Data Sync Event Trigger
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 07-20-2022
+ * @last modified on  : 07-22-2022
  * @Test CustomerDataSyncEventTrgrHldr_Test
  * @last modified by  : Sreenish Krishnan
  **/
@@ -12,14 +12,7 @@ public inherited sharing class CustomerDataSyncEventTriggerHandler {
 			CustomerDataSyncEventHandler.getInstance()
 				.processCustomerDataSyncEvent(events);
 		} catch (Exception e) {
-			UTIL_LoggingService.logHandledException(
-				e,
-				UserInfo.getOrganizationId(),
-				'CustomerDataSyncEventTriggerHandler',
-				CustomerDataSyncEventTriggerHandler.class.getName(),
-				'afterInsertHandler',
-				'CustomerDataSyncEventTrigger',
-				LoggingLevel.ERROR
+			UTIL_LoggingService.logHandledException(e,UserInfo.getOrganizationId(),'CustomerDataSyncEventTriggerHandler',CustomerDataSyncEventTriggerHandler.class.getName(),'afterInsertHandler','CustomerDataSyncEventTrigger',LoggingLevel.ERROR
 			);
 		}
 	}

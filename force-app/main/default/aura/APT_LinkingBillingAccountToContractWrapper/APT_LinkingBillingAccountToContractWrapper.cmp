@@ -1,0 +1,12 @@
+<!--
+	@description Lightning Component wrapper triggered from the formula field, to launch a child LWC component for linking Billing Account to Contract functionality.
+				It passed the Apttus Contract Id(recordId) parameter from formula field down to the property of the child LWC.
+	@changelog
+	2022-06-01 - Seth Heang - Created
+-->
+ <aura:component implements="force:hasRecordId,lightning:isUrlAddressable">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute type="id" name="recordId" /> 
+	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChanged}" />
+	<c:apt_LinkingBillingAccountToContract recordId="{!v.recordId}" />
+</aura:component>

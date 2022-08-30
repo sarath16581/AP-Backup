@@ -15,6 +15,7 @@ History:
 2020-08-02 - Nathan Franklin - Updated test class for refactoring OpportunityUtility.updateOwnerEmployeeNumber into OpportunityUtility_part2.registerOpptyOwner
 2020-11-20  Seth Heang   - Updated test method testUserRolePopulateOnOpptyOwnerChange() to bypass the custom validation on Opportunity due to Opportunity Split
 2020-11-30  Seth Heang   - Added test method testCloseDateUpdateOnOppClosure() to test the 'Close Date' field auto-populated to Today's date during Opportunity Closure
+1011-07-22      ken.mcguire                         OPC Uplift.
 *****************************************************************************************/
 
 @isTest
@@ -440,7 +441,7 @@ private class OpportunityUtilityTest {
         barObj6.Nov_Revenue_Amount__c = 0;
         barObj6.Dec_Revenue_Amount__c = 0;
         barObj6.Total_Revenue_Amount__c = 0;
-        barObj6.Financial_Year__c = String.valueOf(2020);
+        barObj6.Financial_Year__c = String.valueOf(currentYear);
         
         barList.add(barObj6);
         
@@ -461,7 +462,7 @@ private class OpportunityUtilityTest {
         barObj7.Nov_Revenue_Amount__c = 0;
         barObj7.Dec_Revenue_Amount__c = 0;
         barObj7.Total_Revenue_Amount__c = 150;
-        barObj7.Financial_Year__c = String.valueOf(2018);
+        barObj7.Financial_Year__c = String.valueOf(currentYear-2);
         
         barList.add(barObj7);
         
@@ -1193,7 +1194,7 @@ private class OpportunityUtilityTest {
         newOpty.StageName = 'Closed Won';
         newOpty.Closed_Reason__c = 'Functionality';
         newOpty.Data_Integrity_Compliance__c = TRUE;
-        newOpty.CloseDate = Date.today();
+        newOpty.CloseDate = newOpty.CloseDate = Date.newInstance(System.Today().year(), 4, 4); //  Date.today();
         newOpty.Offline_Contract_Received__c = TRUE;
         //[Jansi:12-03-2020]added below line - To fix the ERROR - FIELD_CUSTOM_VALIDATION_EXCEPTION, Please use the 'Opportunity Closure' button to Close the Opportunity:
         newOpty.Hidden_Restrict_Path_Closure__c =TRUE;
@@ -1203,7 +1204,7 @@ private class OpportunityUtilityTest {
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
         
-        System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
+        System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
     
     /*********************************
@@ -1243,7 +1244,7 @@ private class OpportunityUtilityTest {
         newOpty.StageName = 'Closed Won';
         newOpty.Closed_Reason__c = 'Functionality';
         newOpty.Data_Integrity_Compliance__c = TRUE;
-        newOpty.CloseDate = Date.today();
+        newOpty.CloseDate = newOpty.CloseDate = Date.newInstance(System.Today().year(), 4, 4); //  Date.today();
         newOpty.Offline_Contract_Received__c = TRUE;
         //[Jansi:12-03-2020]added below line - To fix the ERROR - FIELD_CUSTOM_VALIDATION_EXCEPTION, Please use the 'Opportunity Closure' button to Close the Opportunity:
         newOpty.Hidden_Restrict_Path_Closure__c =TRUE;
@@ -1253,7 +1254,7 @@ private class OpportunityUtilityTest {
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
         
-        System.assertEquals('Growth', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
+        System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
     
     /*********************************
@@ -1293,7 +1294,7 @@ private class OpportunityUtilityTest {
         newOpty.StageName = 'Closed Won';
         newOpty.Closed_Reason__c = 'Functionality';
         newOpty.Data_Integrity_Compliance__c = TRUE;
-        newOpty.CloseDate = Date.today();
+        newOpty.CloseDate = newOpty.CloseDate = Date.newInstance(System.Today().year(), 4, 4); //  Date.today();
         newOpty.Offline_Contract_Received__c = TRUE;
         //[Jansi:12-03-2020]added below line - To fix the ERROR - FIELD_CUSTOM_VALIDATION_EXCEPTION, Please use the 'Opportunity Closure' button to Close the Opportunity:
         newOpty.Hidden_Restrict_Path_Closure__c =TRUE;
@@ -1303,7 +1304,7 @@ private class OpportunityUtilityTest {
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
         
-        System.assertEquals('Growth', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
+        System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
     
     /*********************************
@@ -1577,7 +1578,7 @@ private class OpportunityUtilityTest {
         newOpty.StageName = 'Closed Won';
         newOpty.Closed_Reason__c = 'Functionality';
         newOpty.Data_Integrity_Compliance__c = TRUE;
-        newOpty.CloseDate = Date.today();
+        newOpty.CloseDate = Date.newInstance(System.Today().year(), 4, 4); //  Date.today();
         newOpty.Offline_Contract_Received__c = TRUE;
         //[Jansi:12-03-2020]added below line - To fix the ERROR - FIELD_CUSTOM_VALIDATION_EXCEPTION, Please use the 'Opportunity Closure' button to Close the Opportunity:
         newOpty.Hidden_Restrict_Path_Closure__c =TRUE;
@@ -1587,7 +1588,7 @@ private class OpportunityUtilityTest {
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
         
-        System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
+        System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
     
     /*********************************

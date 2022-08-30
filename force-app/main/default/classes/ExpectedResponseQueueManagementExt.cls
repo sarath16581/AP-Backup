@@ -5,6 +5,8 @@
  * July-2018  kalpita.talwadekar@auspost.com.au     Added root cause for when again cases go awaiting for response
  * Jun-2018:  disha.kariya@auspost.com.au   Removed NPSRequired__c and NPSTagDate__c fields to be deleted.
  * 2021-09-06	seth.heang@auspost.com.au   Uplift SF API version to 52
+ * 2022-08-04  swati.mogadala@auspost.com.au REQ2910384 - Parent case not sent to back network when -yesStillWaitingClicked()
+ * 2022-08-25  swati.mogadala@auspost.com.au REQ2944040 - Parent case assigned to logged in agent when noStillWaitingClicked()
  * **********************************/
  global with sharing class ExpectedResponseQueueManagementExt {
     //class variable for case details
@@ -150,24 +152,33 @@
     */  
     public void yesStillWaitingClicked(){
         try {
-            if(currentCase.status == CUSTOMER_RESPONDED)
-                currentCase.status = AWAITING_CUSTOMER_RESPONSE;
-            else if(currentCase.status == NETWORK_RESPONDED) {
-                currentCase.status = AWAITING_NETWORK_RESPONSE;
+            if(currentCase.status == CUSTOMER_RESPONDED){
+                currentCase.status = AWAITING_CUSTOMER_RESPONSE; 
             }
+            else {
+                currentCase.status = NETWORK_RESPONDED;	// 04/08/22 -REQ2910384 Parent case to remain in 'Network responded' status and allocated to 'Awaiting ReOpen queue' 
+        	}  
+        
+          // previously case was being assigned back to network if related child case was awaiting network reponse
+          //   else if(currentCase.status == NETWORK_RESPONDED) {	
+           //	currentCase.status = AWAITING_NETWORK_RESPONSE;}
+               
+                // 04/08/22 -REQ2910384 -Case not sent back to network	
+           // currentCase.Root_cause__c = AWAITING_NETWORK_RESPONSE; 
             ExpectedResponseQueueManagement__c setting = ExpectedResponseQueueManagement__c.getValues(currentCase.status);
             if(setting != null) {
-                //as the case is again sent to network - we need to have the network respond again.
-                currentCase.Root_cause__c = AWAITING_NETWORK_RESPONSE; 
                 currentCase.OwnerId = setting.QueueID__c;
                 currentCase.Bypass_Data_enforcement__c = true;
                 update currentCase;
+           
             }
             
-        } catch(Exception ex) {
+        }
+        catch(Exception ex) {
             ApexPages.addMessages(ex);
         }
     }
+    
     
      /**
     * @description       method when we are still to work on the case
@@ -177,6 +188,7 @@
     */  
     public void noStillWaitingClicked(){
         currentCase.status = 'In Progress';
+        currentCase.OwnerId = userInfo.getUserId(); // Assign case to current agent REQ2944040
         update currentCase;
     }
     

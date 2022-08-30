@@ -17,6 +17,11 @@ public with sharing class ICPSServiceController {
 	private static final Integer SEARCH_LIMIT = 100;
 
 	/**
+	 * Return code if no article found in SAP EM
+	 */
+	private static final String NOT_EXIST_ARTICLE_RETURN_CODE = 'ESB-BUS-DATA-105';
+
+	/**
 	 * Field Overrides for ICPS Search Function
 	 * In case of new fields required to be returned in the future update this field set
 	 */
@@ -150,7 +155,6 @@ public with sharing class ICPSServiceController {
 
 			return labelPrintDetail;
 		} catch (Exception e) {
-            System.debug('ERROR: ' + e.getMessage() + ' ==> ' + e.getStackTraceString());
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
@@ -177,11 +181,16 @@ public with sharing class ICPSServiceController {
 					consignmentDetails.add(consignmentDetail);
 				} else {
 					trackingArticle.article = tr.articleDetails.proxyArticle;
+					mapArticleContentItems(trackingArticle.article, tr.articleDetails.transientAttributes.contentItems);
 				}
 			} else {
 				if (!tr.Success) {
-					result.errors.add(tr.resultDescription);
-					trackingArticle.error = tr.resultDescription;
+					String errorText = tr.resultDescription;
+					if (tr.returnCode == NOT_EXIST_ARTICLE_RETURN_CODE) {
+						errorText = 'Data for this item is not available.';
+					}
+					result.errors.add(errorText);
+					trackingArticle.error = errorText;
 				}
 			}
 			trackingArticles.add(trackingArticle);
@@ -194,6 +203,33 @@ public with sharing class ICPSServiceController {
 		result.consignments = consignmentDetails;
 
 		return result;
+	}
+
+	/**
+	 * This method is used to extract and map content items from TIBCOArticleWrapper
+	 * @param article core article
+	 * @param contentItems content items wrapper from TIBCO service
+	 */
+	private static void mapArticleContentItems(Article__c article, TIBCOArticleWrapper.ArticleContentItem[] contentItems) {
+		if (article != null && contentItems != null) {
+			List<String> contents = new List<String>();
+			Decimal weight = 0;
+			Decimal value = 0;
+			for (TIBCOArticleWrapper.ArticleContentItem item: contentItems) {
+				if (String.isNotBlank(item.description)) {
+					contents.add(item.description);
+				}
+				if (item.weight != null) {
+					weight += Decimal.valueOf(item.weight);
+				}
+				if (item.value != null) {
+					value += Decimal.valueOf(item.value);
+				}
+			}
+			article.ContentsItems__c = String.join(contents, '; ');
+			article.ActualWeight__c = weight;
+			article.ArticleTransitAmountValue__c = value;
+		}
 	}
 
 	/**

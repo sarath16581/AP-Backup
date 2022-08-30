@@ -89,7 +89,7 @@
                                 <td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">Thanks for contacting us. </td>
                             </tr>   
                             <tr>
-                                <td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">We’re sorry, we couldn’t locate your case.</td>
+                                <td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Sorry, we couldn’t locate the case.</td>
                             </tr>
                             <tr>
 <td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
@@ -100,9 +100,9 @@
                 <li>you sent a new request, which cannot be supported via this email address</li>
             </ul>
 
-            <p><strong>Need help or have an enquiry? </strong></p>
+            <p><strong>Still have questions?</strong></p>
 
-            <p>Call us on 1300 768 470 between 8am and 6pm Monday to Friday</p>
+            <p>Email <a href="mailto:MyNetworkSupport@auspost.com.au">MyNetworkSupport@auspost.com.au</a></p>
 
             <p style="margin-left:36.0pt;">&nbsp;</p>
             </td>

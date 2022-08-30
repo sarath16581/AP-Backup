@@ -9,10 +9,33 @@
  * 2021-05-12 - seth.heang@auspost.com.au - updated fields mapping due to changes to wrapper class attribute
  * 2021-05-14 - avula.jansirani@auspost.com.au - updated (for BCA billing account creation)
  * 2021-06-15 - Seth.Heang@auspost.com.au - STP-5386 Add senderNameFromOpportunity attribute in the wrapper and pass this value to LWC
+ * 2022-08-04 - Seth.Heang@auspost.com.au - Added methods for Rating Plan Activation request payload changes
  */
 public with sharing class CreateBillingAccountHelper {
-    private static final String DSR_OBJECT = 'Deal_Support_Request__c';
-    private static final String CA_OBJECT = 'APT_Credit_Assessment__c';
+	private static final String DSR_OBJECT = 'Deal_Support_Request__c';
+	private static final String CA_OBJECT = 'APT_Credit_Assessment__c';
+	private static final String ANYWHERE_LODGEMENT_ZONE_TYPE = 'AN';
+	private static final String Z1_DESTINATION_ZONE_TYPE = 'Z001';
+	private static final String APPC_SPEED_STANDARD_PRODUCT_CLASSIFICATION = 'APPC-Standard';
+	private static final String APPC_SPEED_PREMIUM_PRODUCT_CLASSIFICATION = 'APPC-Premium';
+	private static final String APPC_FEATURES_PRODUCT_CLASSIFICATION = 'APPC-Feature';
+	private static final String APPC_SURCHARGES_PRODUCT_CLASSIFICATION = 'APPC-Surcharge';
+	private static final String APPC_RETURNS_PRODUCT_CLASSIFICATION = 'APPC-Return';
+	private static final String APPC_FUEL_SURCHARGES_PRODUCT_CLASSIFICATION = 'APPC-FuelSurcharge';
+	private static final String OPEN_ENDED_CONTRACT_LABEL = 'Open Ended';
+	private static final String OPEN_ENDED_CONTRACT_VALUE = '9999-12-31';
+	private static final String FIXED_TERM_CONTRACT_LABEL = 'Fixed Term';
+	private static final String NEW_STANDARD_RATING_PLAN_ACTION_LABEL = 'newStandardRatingPlan';
+	private static final String NEW_STANDARD_RATING_PLAN_ACTION_ID = '001';
+	private static final String TRANSIT_COVER_TYPE_ADHOC = 'Ad hoc';
+	private static final String PRICE_POINT_ADHOC = 'TCOVER-1';
+	private static final String PRICE_POINT_ALWAYS_ON = 'TCOVER-NR';
+	private static final String RATING_PLAN_OBJ_TYPE_CHARGE_ACC = 'ChargeAccount';
+	private static final String RATING_PLAN_OBJ_TYPE_SUB_ACC = 'SubAccount';
+	private static final String RATING_PLAN_OBJ_TYPE_BILLING_ACC = 'BillingAccount';
+	private static final String CONTRACT_RELATIONSHIP_ORG = 'Organisation';
+	private static final String CONTRACT_RELATIONSHIP_BILLING_ACC = 'Billing Account';
+
     @testVisible static private Map<String, List<SObject>> metadataCoverageRecordsMap = new Map<String, List<SObject>>();
     /**
      * @Description : Checks and validation all the required attributes for Billing Account creation and provide
@@ -290,7 +313,10 @@ public with sharing class CreateBillingAccountHelper {
         List<Database.SaveResult> sResult;
         try{
             String requestObjId = billingAccountWrapperVar.requestObjId;
-            String objectName = String.valueOf(id.valueOf(requestObjId).getsobjecttype());
+            String objectName;
+            if(requestObjId != null){
+                objectName = String.valueOf(id.valueOf(requestObjId).getsobjecttype());
+            }
 
             // populate external onboarding request object for logging purposes
             BAMExternalOnboardingRequest__c bamExternalOnboardingRequest = new BAMExternalOnboardingRequest__c();        
@@ -308,7 +334,9 @@ public with sharing class CreateBillingAccountHelper {
             // remove null attribute/object off the payload
             //We need to make Bank account details null for not storing in External On boarding request.
             BillingAccountWrapper billingAccountTempWrapper = billingAccountWrapperVar;
-            billingAccountTempWrapper.sap.customer.bankAccounts = null;
+            if(billingAccountTempWrapper?.sap != null){
+                billingAccountTempWrapper.sap.customer.bankAccounts = null;
+            }
             // remove null attribute/object off the payload
             updateBamExternalOnboardingRequest.Request_Payload__c = JSON.serialize(billingAccountTempWrapper, true);
             List<Database.SaveResult> sResultForUpdate= ApplicationDatabase.getInstance().dmlUpdate(new List<BAMExternalOnboardingRequest__c>{updateBamExternalOnboardingRequest});
@@ -319,42 +347,50 @@ public with sharing class CreateBillingAccountHelper {
         return String.valueOf(sResult[0].getId());
     }   
         
-    /**
-     * @Description: Updates the related DSR and Charge Account and external onborading request based on the initial
-     *               response received from camunda
-     */
-    public static void updateDSRAndChargeAccount(String requestObjId, String chargeAccountRequestId, String onboardingRequestId, String status, String responseMsg){
-        try{
-            List<sObject> updateRelatedRecords = new List<sObject>();
-        	if(DSR_OBJECT.equalsIgnoreCase(String.valueOf(id.valueOf(requestObjId)?.getsobjecttype()))){
-                Deal_Support_Request__c dealSupportRequest = new Deal_Support_Request__c();
-                dealSupportRequest.Id = requestObjId;
-                dealSupportRequest.Integration_Status__c= status;
-                dealSupportRequest.Integration_Status_Description__c =responseMsg;
-                dealSupportRequest.Integration_Transaction_Id__c = onboardingRequestId;
-                updateRelatedRecords.add(dealSupportRequest);
-            }
-              
-            if(status == 'Requested' && (chargeAccountRequestId != null || !String.isBlank(chargeAccountRequestId))){
-                APT_Charge_Account__c chargeAccntReq = new APT_Charge_Account__c();
-                chargeAccntReq.id = chargeAccountRequestId;
-                chargeAccntReq.Status__c = 'New';
-                updateRelatedRecords.add(chargeAccntReq);
-            }
-            BAMExternalOnboardingRequest__c bamExternalOnboardingRequest = new BAMExternalOnboardingRequest__c();
-            bamExternalOnboardingRequest.Id = onboardingRequestId;
-            bamExternalOnboardingRequest.Response_Payload__c = responseMsg;
-            if(status =='Error'){
-                bamExternalOnboardingRequest.Status__c = status;
-            }
-            updateRelatedRecords.add(bamExternalOnboardingRequest);
-            //ApplicationDatabase.getInstance().dmlUpdate(updateRelatedRecords);
-            updateSobjectRecords(updateRelatedRecords);
-        }catch(Exception ex){
-            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'B&G Sales', 'CreateBillingAccountHelper' , 'updateDSRAndChargeAccount', null, LoggingLevel.ERROR);
-        }
-    }
-    
+	/**
+	 * @description		This method updates the related DSR and Charge Account and external onborading request based on the initial response received from camunda
+	 * @param			String requestObjId, String chargeAccountRequestId, String onboardingRequestId, String status, String responseMsg, Boolean isBillingAccountPlusRatingPlanFlow
+	 * @return			void
+	 */
+	public static void updateDSRAndChargeAccount(String requestObjId, String chargeAccountRequestId, String onboardingRequestId, String status, String responseMsg, Boolean isBillingAccountPlusRatingPlanFlow){
+		try{
+			List<sObject> updateRelatedRecords = new List<sObject>();
+			if(DSR_OBJECT.equalsIgnoreCase(String.valueOf(id.valueOf(requestObjId)?.getsobjecttype()))){
+				Deal_Support_Request__c dealSupportRequest = new Deal_Support_Request__c();
+				dealSupportRequest.Id = requestObjId;
+				// for billing account + rating plan flow, update DSR integration status related fields
+				if(isBillingAccountPlusRatingPlanFlow == true){
+					dealSupportRequest.Integration_Status__c= status;
+					dealSupportRequest.Integration_Status_Description__c =responseMsg;
+					dealSupportRequest.Integration_Transaction_Id__c = onboardingRequestId;
+				}
+				// always update rating plan integration related field
+				dealSupportRequest.Rating_Integration_Transaction_Id__c = onboardingRequestId;
+				dealSupportRequest.Rating_Integration_Status__c = status;
+				dealSupportRequest.Rating_Integration_Status_Description__c = responseMsg;
+				updateRelatedRecords.add(dealSupportRequest);
+			}
+			// update charge account request status if not blank
+			if(status == 'Requested' && (chargeAccountRequestId != null || !String.isBlank(chargeAccountRequestId))){
+				APT_Charge_Account__c chargeAccntReq = new APT_Charge_Account__c();
+				chargeAccntReq.id = chargeAccountRequestId;
+				chargeAccntReq.Status__c = 'New';
+				updateRelatedRecords.add(chargeAccntReq);
+			}
+			// update External onboarding request status and response payload
+			BAMExternalOnboardingRequest__c bamExternalOnboardingRequest = new BAMExternalOnboardingRequest__c();
+			bamExternalOnboardingRequest.Id = onboardingRequestId;
+			bamExternalOnboardingRequest.Response_Payload__c = responseMsg;
+			if(status =='Error'){
+				bamExternalOnboardingRequest.Status__c = status;
+			}
+			updateRelatedRecords.add(bamExternalOnboardingRequest);
+			updateSobjectRecords(updateRelatedRecords);
+		}catch(Exception ex){
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'B&G Sales', 'CreateBillingAccountHelper' , 'updateDSRAndChargeAccount', null, LoggingLevel.ERROR);
+		}
+	}
+
     /**
      * @Description: Updates the CA and external onborading request based on the initial
      *               response received from camunda
@@ -396,10 +432,316 @@ public with sharing class CreateBillingAccountHelper {
         @AuraEnabled
         public billingAccountWithEmptyfields billingAccountWithEmptyfieldsVar;
     }
+
+	/**
+	 * @description Wrapper class for rating plan activation for usage on the LWC front-end
+	 */
+	public class ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation{
+		@AuraEnabled
+		public Boolean connected;
+		@AuraEnabled
+		public String onboardingRequestId;
+		@AuraEnabled
+		public BillingAccountWrapper ratingPlanWrapper {get;set;}
+	}
+
     public static List<SObject> getSAPIntegrationMetadataRecords(String query){
         if(!metadataCoverageRecordsMap.containsKey(query)){
             metadataCoverageRecordsMap.put(query, Database.query(query));
         }
         return metadataCoverageRecordsMap.get(query);
-    }    
+    }
+
+	/**
+	 * @description		This method perform all the required mapping and generate the rating plan activation section of the final payload
+	 * @param			Deal_Support_Request__c dsrRecord, Boolean isNewAccount; used to to determine if this is for new account or existing account
+	 * @return 			BillingAccountWrapper.CompassContractActivation section of the payload
+	 */
+	public static BillingAccountWrapper.CompassContractActivation generateActivateRatePlanJSON(Deal_Support_Request__c dsrRecord, Boolean isNewAccount) {
+		BillingAccountWrapper.CompassContractActivation activateRatePlan = new BillingAccountWrapper.CompassContractActivation();
+		try {
+
+			activateRatePlan.quoteId = dsrRecord.Compass_Quote_Reference__c != null ? dsrRecord.Compass_Quote_Reference__c : ''; // Quote Id needs to be sent
+			activateRatePlan.customer = new List<BillingAccountWrapper.ratingPlanCustomer>();
+			// Query Agreement lodgement point junction object based on contract Id, for populating the customer node in the payload
+			List<APT_Agreement_Lodgement_Point__c> agreementLPs = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(
+				new Set<Id>{(Id)dsrRecord.APT_Contract__c},
+				new Set<Object>{
+					APT_AgreementLodgementPointsSelector.Options.WITH_BILLING_ACCOUNT,
+					APT_AgreementLodgementPointsSelector.Options.WITH_CHARGE_ACCOUNT_REQ,
+					APT_AgreementLodgementPointsSelector.Options.WITH_SUB_ACCOUNT_REQ,
+					APT_AgreementLodgementPointsSelector.Options.WITH_ORGANISATION
+				}).values();
+			
+			List<BillingAccountWrapper.ratingPlanCustomer> linkedAccountsList = new List<BillingAccountWrapper.ratingPlanCustomer>();
+			Apttus__APTS_Agreement__c apttusContractForUpdate = new Apttus__APTS_Agreement__c(id=dsrRecord.APT_Contract__c);
+			if(agreementLPs.size() > 0){
+				// Loop through each agreement lodgement point to perform appropriate mapping and also update contract relationship field on Apttus Contract 
+				for(APT_Agreement_Lodgement_Point__c alp : agreementLPs){
+					BillingAccountWrapper.ratingPlanCustomer ratingPlanCus = new BillingAccountWrapper.ratingPlanCustomer();
+					// send rating plan Id if exists in retry attempt, else leave blank for first attempt
+					ratingPlanCus.ratingPlanId = alp.Rating_Plan_Id__c != null ? alp.Rating_Plan_Id__c : ''; 
+					// Map objectType to 'Organisation' if linked at the Org level
+					if(alp.APT_Charge_Account__c == null && alp.APT_Sub_Account__c == null && alp.APT_Billing_Account__c == null){
+						ratingPlanCus.objectType = 'Organisation';
+						ratingPlanCus.objectId = alp.APT_Organisation__r.LEGACY_ID__c;
+						ratingPlanCus.requestObjId = alp.id;
+						linkedAccountsList.add(ratingPlanCus);
+						// set contract relationship to Organisation
+						apttusContractForUpdate.Contract_Relationship__c = CONTRACT_RELATIONSHIP_ORG;
+						continue;
+					}
+					// is New Account Flow
+					if(isNewAccount != null && isNewAccount == true){
+						// Map objectType to 'ChargeAccount' if linked at charge account request level
+						if(alp.APT_Charge_Account__c != null && alp.APT_Sub_Account__c == null){
+							ratingPlanCus.objectType = RATING_PLAN_OBJ_TYPE_CHARGE_ACC;
+							ratingPlanCus.objectId = alp.APT_Charge_Account__c;
+							ratingPlanCus.requestObjId = alp.id;
+							linkedAccountsList.add(ratingPlanCus);
+							// set contract relationship to Billing Account
+							apttusContractForUpdate.Contract_Relationship__c = CONTRACT_RELATIONSHIP_BILLING_ACC;
+							continue;
+						}
+						// Map objectType to 'SubAccount' if linked at Sub account request level
+						else if(alp.APT_Sub_Account__c != null && alp.APT_Charge_Account__c == null){
+							ratingPlanCus.objectType = RATING_PLAN_OBJ_TYPE_SUB_ACC;
+							ratingPlanCus.objectId = alp.APT_Sub_Account__c;
+							ratingPlanCus.requestObjId = alp.id;
+							linkedAccountsList.add(ratingPlanCus);
+							// set contract relationship to Billing Account
+							apttusContractForUpdate.Contract_Relationship__c = CONTRACT_RELATIONSHIP_BILLING_ACC;
+							continue;
+						}
+					}// is Existing Account Flow
+					else if(isNewAccount != null && isNewAccount == false){
+						// Map objectType to 'BillingAccount' if linked at the billing account level
+						if(alp.APT_Billing_Account__c != null){
+							ratingPlanCus.objectType = RATING_PLAN_OBJ_TYPE_BILLING_ACC;
+							ratingPlanCus.objectId = alp.APT_Billing_Account__r.LEGACY_ID__c;
+							ratingPlanCus.requestObjId = alp.id;
+							linkedAccountsList.add(ratingPlanCus);
+							// set contract relationship to Billing Account
+							apttusContractForUpdate.Contract_Relationship__c = CONTRACT_RELATIONSHIP_BILLING_ACC;
+							continue;
+						}
+					}
+				}
+			}
+			// asyc update contract relationship field on Apttus Contract
+			updateApttusContract(apttusContractForUpdate.Id, apttusContractForUpdate.Contract_Relationship__c);
+			activateRatePlan.customer = linkedAccountsList;
+
+			List<Apttus__AgreementLineItem__c> agrLiList = new List<Apttus__AgreementLineItem__c>();
+			// Query for 'Option' type Agreement Line Item based on contract Id And order by apttus item sequence field
+			agrLiList = APT_AgreementLineItemsSelector.newInstance().selectByContractIdsAndLineType(
+				new Set<id>{(Id)dsrRecord.APT_Contract__c},
+				new Set<String>{'Option'},
+				new Set<Object>{
+				APT_AgreementLineItemsSelector.Options.WITH_CONTRACT, 
+				APT_AgreementLineItemsSelector.Options.WITH_PROPOSAL, 
+				APT_AgreementLineItemsSelector.Options.WITH_OPTION,
+				APT_AgreementLineItemsSelector.Options.WITH_AGREEMENT_ATTRIBUTE_VALUE,
+				APT_AgreementLineItemsSelector.Options.ORDER_BY_ITEM_SEQUENCE_ASC
+			});
+			if(agrLiList.size() > 0){ 
+				List<BillingAccountWrapper.eventData> eventDataList = new List<BillingAccountWrapper.eventData>();
+				
+				BillingAccountWrapper.data ratingPlanData = new BillingAccountWrapper.data();
+				BillingAccountWrapper.eventData eventData = new BillingAccountWrapper.eventData();
+				ratingPlanData.ratingPlanId = ''; // blank
+				ratingPlanData.customer = ''; // blank
+				ratingPlanData.validFrom = String.valueOf(System.TODAY()+1).substring(0,10); // current date + 1; in this format(eg. 2022-06-27)
+				// logic to dynamically populate the contract end date value to payload based on Open-Ended Or Fix-term contract
+				if(dsrRecord.APT_Contract__r.Term__c == OPEN_ENDED_CONTRACT_LABEL){
+					ratingPlanData.validTo = OPEN_ENDED_CONTRACT_VALUE;
+				}
+				else if(dsrRecord.APT_Contract__r.Term__c == FIXED_TERM_CONTRACT_LABEL){
+					ratingPlanData.validTo = String.valueOf(dsrRecord.APT_Contract__r?.Apttus__Contract_End_Date__c);
+				}
+				ratingPlanData.newValidTo = ''; // blank
+
+				// Map APPC product fields' details to request payload
+				ratingPlanData.ratingModel = agrLiList[0].Apttus_CMConfig__OptionId__r.SAP_Rating_Model__c;
+				ratingPlanData.ratingGroup = agrLiList[0].Apttus_CMConfig__OptionId__r.SAP_Rating_Group__c;
+				ratingPlanData.contractRef = dsrRecord.APT_Contract__r.Apttus__FF_Agreement_Number__c;
+				ratingPlanData.weightRounding = agrLiList[0].Apttus_CMConfig__AttributeValueId__r.SAP_Weight_Rounding__c != null ? agrLiList[0].Apttus_CMConfig__AttributeValueId__r.SAP_Weight_Rounding__c : '';
+				ratingPlanData.status = 'R'; 
+				ratingPlanData.description = dsrRecord.Opportunity__r.Opportunity_Number__c;
+				ratingPlanData.cubingFlag = String.valueOf(agrLiList[0].Apttus_CMConfig__AttributeValueId__r.APT_Cubic_Status__c);
+				ratingPlanData.cubicConvFac = agrLiList[0].Apttus_CMConfig__AttributeValueId__r.SAP_Cubic_Conversion_Factor__c != null ? String.valueOf(Integer.valueOf((agrLiList[0].Apttus_CMConfig__AttributeValueId__r.SAP_Cubic_Conversion_Factor__c))) : '';
+				ratingPlanData.cubicDWTConvFac = agrLiList[0].Apttus_CMConfig__AttributeValueId__r.APT_Cubic_Factor__c != null ? String.valueOf(agrLiList[0].Apttus_CMConfig__AttributeValueId__r.APT_Cubic_Factor__c) : '';
+
+				eventData.action = NEW_STANDARD_RATING_PLAN_ACTION_LABEL;
+				eventData.actionId = NEW_STANDARD_RATING_PLAN_ACTION_ID;
+				List<BillingAccountWrapper.item> ratingPlanItemList = new List<BillingAccountWrapper.item>();
+				// Below flags are used to iterate only once for agreement line items with identical product classification
+				Boolean completeFeatureMappingOnce = false;
+				Boolean completeSurchargesMappingOnce = false;
+				Boolean completeReturnMappingOnce = false;
+				Boolean completeFuelSurchargesMappingOnce = false;
+				// Loop through each agreement line item and map product related fields to the payload
+				for(Apttus__AgreementLineItem__c agreementLineItem : agrLiList){
+					BillingAccountWrapper.item ratePlanItemRef;
+					// Mapping for APPC-Standard and APPC-Premium product classification
+					if((APPC_SPEED_STANDARD_PRODUCT_CLASSIFICATION.equalsIgnoreCase(agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c) 
+						|| APPC_SPEED_PREMIUM_PRODUCT_CLASSIFICATION.equalsIgnoreCase(agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c)) && 
+						agreementLineItem.APT_Option_Name_Without_Tier__c != null){
+						ratePlanItemRef = new BillingAccountWrapper.item();
+						ratePlanItemRef.ratingPlanItemId = '';
+						ratePlanItemRef.rateCardCategory = agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c : '';
+						ratePlanItemRef.lodgementZoneType = agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c : '';
+						ratePlanItemRef.destinationZoneType = agreementLineItem.APT_Price_Structure__c;
+						ratePlanItemRef.customerTier = agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c != null ? agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c : '';
+						ratePlanItemRef.customRef = agreementLineItem.SAP_Custom_Reference__c != null ? agreementLineItem.SAP_Custom_Reference__c : '';
+					}
+					// Mapping for APPC-Feature product classification
+					if(APPC_FEATURES_PRODUCT_CLASSIFICATION.equalsIgnoreCase(agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c) && !completeFeatureMappingOnce) {
+						ratePlanItemRef = new BillingAccountWrapper.item();
+						ratePlanItemRef.ratingPlanItemId = '';
+						ratePlanItemRef.rateCardCategory = agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c : '';
+						ratePlanItemRef.lodgementZoneType = agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c : '';
+						ratePlanItemRef.destinationZoneType = agreementLineItem.APT_Price_Structure__c;
+						ratePlanItemRef.customerTier = agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c != null ? agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c : '';
+						ratePlanItemRef.customRef = agreementLineItem.SAP_Custom_Reference__c != null ? agreementLineItem.SAP_Custom_Reference__c : '';
+						BillingAccountWrapper.feature feature = new BillingAccountWrapper.feature();
+						// populate feature node if transit cover type is not blank
+						if(agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Transit_Cover_Type__c != null ||
+							!String.isBlank(agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Transit_Cover_Type__c)){
+								feature.totDeclaredCover = Integer.valueOf(agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Min_Transit_Cover_Amount_Per_Article__c);
+								// T-COVER1 for Adhoc transit cover type, else TCOVER-NR
+								if(agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Transit_Cover_Type__c == TRANSIT_COVER_TYPE_ADHOC){
+									feature.pricePoint = PRICE_POINT_ADHOC;
+								}
+								else{
+									feature.pricePoint = PRICE_POINT_ALWAYS_ON;
+								}
+								ratePlanItemRef.features = new List<BillingAccountWrapper.feature>{feature};
+						}
+						completeFeatureMappingOnce = true;
+					}
+					// Mapping for APPC-Surcharge product classification
+					if(APPC_SURCHARGES_PRODUCT_CLASSIFICATION.equalsIgnoreCase(agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c) && !completeSurchargesMappingOnce) {
+						ratePlanItemRef = new BillingAccountWrapper.item();
+						ratePlanItemRef.ratingPlanItemId = '';
+						ratePlanItemRef.rateCardCategory = agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c : '';
+						ratePlanItemRef.lodgementZoneType = agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c : '';
+						ratePlanItemRef.destinationZoneType = agreementLineItem.APT_Price_Structure__c;
+						ratePlanItemRef.customerTier = agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c != null ? agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c : '';
+						ratePlanItemRef.customRef = agreementLineItem.SAP_Custom_Reference__c != null ? agreementLineItem.SAP_Custom_Reference__c : '';
+						completeSurchargesMappingOnce= true;
+					}
+					// Mapping for APPC-Return product classification
+					if(APPC_RETURNS_PRODUCT_CLASSIFICATION.equalsIgnoreCase(agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c) && !completeReturnMappingOnce) {
+						ratePlanItemRef = new BillingAccountWrapper.item();
+						ratePlanItemRef.ratingPlanItemId = '';
+						ratePlanItemRef.rateCardCategory = agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c : '';
+						ratePlanItemRef.lodgementZoneType = agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c : '';
+						ratePlanItemRef.destinationZoneType = agreementLineItem.APT_Price_Structure__c;
+						ratePlanItemRef.customerTier = agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c != null ? agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c : '';
+						ratePlanItemRef.customRef = agreementLineItem.SAP_Custom_Reference__c != null ? agreementLineItem.SAP_Custom_Reference__c : '';
+						completeReturnMappingOnce = true;
+					}
+					// Mapping for APPC-FuelSurcharge product classification
+					if(APPC_FUEL_SURCHARGES_PRODUCT_CLASSIFICATION.equalsIgnoreCase(agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Apttus_Product_Classification__c) && !completeFuelSurchargesMappingOnce) {
+						ratePlanItemRef = new BillingAccountWrapper.item();
+						ratePlanItemRef.ratingPlanItemId = '';
+						ratePlanItemRef.rateCardCategory = agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.SAP_Product_Code__c : '';
+						ratePlanItemRef.lodgementZoneType = agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c != null ? agreementLineItem.Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c : '';
+						ratePlanItemRef.destinationZoneType = agreementLineItem.APT_Price_Structure__c;
+						ratePlanItemRef.customerTier = agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c != null ? agreementLineItem.Apttus_CMConfig__AttributeValueId__r.APT_Customer_Tier__c : '';
+						ratePlanItemRef.customRef = agreementLineItem.SAP_Custom_Reference__c != null ? agreementLineItem.SAP_Custom_Reference__c : '';
+						completeFuelSurchargesMappingOnce = true;
+					}
+					
+					if(ratePlanItemRef != null){
+						ratingPlanItemList.add(ratePlanItemRef);
+					}
+				}
+				ratingPlanData.item = ratingPlanItemList;
+				eventData.data = ratingPlanData;
+				eventDataList.add(eventData);
+				activateRatePlan.eventData = eventDataList;
+			}
+			return activateRatePlan;
+		}catch (Exception e) {
+			throw new AuraHandledException('Error occurred while generating rating plan activation payload: ' + e.getMessage());
+		}
+	}
+
+	/**
+	 * @description		This method asynchronously update the contract relationship field on Apttus Contract, regardless of rating plan integration status
+	 * @param			id contractId, String billingAccountOrOrganisation
+	 * @return			void
+	 */
+	@future
+	public static void updateApttusContract(id contractId, String billingAccountOrOrganisation){
+		Apttus__APTS_Agreement__c updateApttusCon = new Apttus__APTS_Agreement__c();
+		updateApttusCon.Id = contractId;
+		updateApttusCon.Contract_Relationship__c = billingAccountOrOrganisation;
+		try{
+			ApplicationDatabase.getInstance().dmlUpdate(new List<Apttus__APTS_Agreement__c>{updateApttusCon});
+		}catch(Exception ex){
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'B&G Sales', 'CreateBillingAccountHelper' , 'updateApttusContract', null, LoggingLevel.ERROR);
+		}
+	}
+
+	/**
+	 * @description		This method creates External Onboarding Request prior to rating plan activation creation and its record Id will be passed as one of the attribute called as Transaction Id in request payload.
+	 * @param			BillingAccountWrapper ratingPlanWrapper, String onboardingRequestId, String requestObjId
+	 * @return			ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation wrapper
+	 */
+	public static ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation externalOnboardingRequestDetailsForRatingPlanActivation(BillingAccountWrapper ratingPlanWrapper, String onboardingRequestId, String requestObjId){
+		/*
+			A new custom Metadata to configure if the org is integration with SAP for billing account creation/rating plan.
+			If yes then actual Integration flow will be executed . If not then a mocking framework will 
+			be used to create the event and further billing account/rating plan record within salesforce.
+		*/
+		ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation externalOnboardingRequestWithConnectionDetailsVar = new ExternalOnboardingRequestWithConnectionDetailsForRatingPlanActivation();
+		try{
+			List<SAP_Integration__mdt> sapIntegrationRecord = getSAPIntegrationMetadataRecords('Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'');
+			// Live Connection
+			if(sapIntegrationRecord[0].Connected__c =='Yes'){
+				externalOnboardingRequestWithConnectionDetailsVar.connected = true;
+				externalOnboardingRequestWithConnectionDetailsVar.onboardingRequestId = onboardingRequestId;
+				externalOnboardingRequestWithConnectionDetailsVar.ratingPlanWrapper = ratingPlanWrapper;
+			}else{
+				// Create a mock response for Rating Plan Creation
+				Integer len = 8;
+				String str = string.valueof(Math.abs(Crypto.getRandomLong()));
+				String randomNumber = str.substring(0, len);
+				Integer numberOfReq = ratingPlanWrapper.ratingPlanActivation.customer.size();
+				// each rating plan payload
+				for(Integer i=0;i<numberOfReq;i++){
+					BillingAccountCreationEvent__e ratingPlan = new BillingAccountCreationEvent__e();
+					ratingPlan.Additional_Info__c =  APT_Constants.RATING_PLAN_ACTIVATION_LABEL;
+					ratingPlan.Billing_Account_Number__c =  ratingPlanWrapper.ratingPlanActivation.customer[i].objectId;
+					ratingPlan.Request_Object_Id__c = ratingPlanWrapper.ratingPlanActivation.customer[i].requestObjId;
+					ratingPlan.Source_System__c = 'SAP';
+					ratingPlan.Transaction_Id__c = onboardingRequestId;
+					ratingPlan.Status__c= 'Success';
+					ratingPlan.Status_Description__c = 'Mocking the response - Rating plan '+ randomNumber + ' is activated';
+					ratingPlan.Rating_Plan_Id__c= randomNumber;
+					EventBus.publish(ratingPlan);
+				}
+				// final rollup payload for DSR
+				BillingAccountCreationEvent__e finalPayload = new BillingAccountCreationEvent__e();
+				finalPayload.Additional_Info__c =  APT_Constants.RATING_PLAN_ACTIVATION_LABEL;
+				finalPayload.Request_Object_Id__c = requestObjId;
+				finalPayload.Status__c= 'Completed';
+				finalPayload.Status_Description__c = 'Mocking the response - All rating plans have been activated';
+				finalPayload.Transaction_Id__c = onboardingRequestId;
+				EventBus.publish(finalPayload);
+
+				updateDSRAndChargeAccount(requestObjId, null, onboardingRequestId, finalPayload.Status__c, finalPayload.Status_Description__c, false);
+				externalOnboardingRequestWithConnectionDetailsVar.connected = false;
+				externalOnboardingRequestWithConnectionDetailsVar.onboardingRequestId = onboardingRequestId;
+				externalOnboardingRequestWithConnectionDetailsVar.ratingPlanWrapper = ratingPlanWrapper;
+			}
+		}catch(Exception ex){
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'B&G Sales', 'CreateBillingAccountHelper' , 'externalOnboardingRequestDetailsForRatingPlanActivation', null, LoggingLevel.ERROR);
+		}
+
+		return externalOnboardingRequestWithConnectionDetailsVar;
+	}
 }

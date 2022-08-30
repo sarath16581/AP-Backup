@@ -5,11 +5,11 @@
     <inlineHelpText>Pricing organised into partitions according to where parcels are being sent – these are referred to as “destination zone” structures.</inlineHelpText>
     <label>Price Structure</label>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -58,24 +58,71 @@
                 <label>BANDED {Z60}</label>
             </value>
             <value>
-                <fullName>Z3</fullName>
+                <fullName>Z003</fullName>
                 <default>false</default>
                 <label>Z3</label>
             </value>
             <value>
-                <fullName>Z6</fullName>
+                <fullName>Z006</fullName>
                 <default>false</default>
                 <label>Z6</label>
             </value>
             <value>
-                <fullName>Z9</fullName>
+                <fullName>Z009</fullName>
                 <default>false</default>
                 <label>Z9</label>
             </value>
             <value>
-                <fullName>Z60</fullName>
+                <fullName>Z060</fullName>
                 <default>false</default>
                 <label>Z60</label>
+            </value>
+            <value>
+                <fullName>Z001</fullName>
+                <default>false</default>
+                <label>Z1</label>
+            </value>
+            <value>
+                <fullName>BANDED {Z3}</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>BANDED {Z3}</label>
+            </value>
+            <value>
+                <fullName>BANDED {Z9}</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>BANDED {Z9}</label>
+            </value>
+            <value>
+                <fullName>BASE+PER_KG {Z20}</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>BASE+PER_KG {Z20}</label>
+            </value>
+            <value>
+                <fullName>CUSTOM {Z30}</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CUSTOM {Z30}</label>
+            </value>
+            <value>
+                <fullName>CUSTOM {Z40}</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CUSTOM {Z40}</label>
+            </value>
+            <value>
+                <fullName>TEST</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>TEST</label>
+            </value>
+            <value>
+                <fullName>[EPARCEL] BASE+PER_KG {Z30}</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>[EPARCEL] BASE+PER_KG {Z30}</label>
             </value>
         </valueSetDefinition>
     </valueSet>

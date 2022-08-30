@@ -12,6 +12,7 @@
  * 2022-02-22 - Nathan Franklin - Added field override tests
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  * 2022-04-24 - Nathan Franklin - Added test methods for search and selectActiveUserByProfileName
+ * 2022-08-25 - Mahesh Parvathaneni - Added test methods for selectByName
  */
 @IsTest
 public with sharing class UsersSelector_Test {
@@ -243,6 +244,10 @@ public with sharing class UsersSelector_Test {
 		results = selector.selectActiveUserByProfileName(mappedContacts.keySet(), 'BSP Community User', new Set<Object>{UsersSelector.Options.WITH_CONTACT});
 		System.assertEquals(2, results.size(), 'Expected 2 results');
 		System.assertNotEquals(null, results.values()[0].Contact, 'Expected Contact object but got null');
+
+		String name = users[0].FirstName + ' ' + users[0].LastName;
+		results = selector.selectByName(new Set<String>{name});
+		System.assertEquals(1, results.size(), 'Expected 1 result');
 		
 		Test.stopTest();
 

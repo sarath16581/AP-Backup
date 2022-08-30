@@ -4,17 +4,18 @@
     <externalId>false</externalId>
     <formula>&quot;&amp;id=&quot; + Id +
 &quot;&amp;queryid=a490p000000D1ZxAAK?&amp;pv0=&quot; + Id +
-&quot;&amp;templateid=a4H0p000000Cel8EAC&quot; + 
+&quot;&amp;templateid=a4H0p000000Cel8EAC&quot; +
 &quot;&amp;emailrelatedtoid=&quot; + Id +
 &quot;&amp;emailadditionalto=&quot; + ReceiverEmail__c +
-&quot;&amp;emailfromid=0D290000000PCzfCAG&quot; + 
-&quot;&amp;emailsubject=First Notice&quot; + 
-&quot;&amp;emailtemplateattachments=1&quot; + 
-&quot;&amp;congaemailtemplateid=a480p000000CjheAAC&quot; + 
-&quot;&amp;defaultpdf=1&quot; + 
-&quot;&amp;qmode=SendEmail&quot; + 
-&quot;&amp;uf0=1&quot; + 
-&quot;&amp;mfts0=FirstNoticeDate__c&quot; + 
+&quot;&amp;emailfromid=0D290000000PCzfCAG&quot; +
+&quot;&amp;emailsubject=First Notice&quot; +
+&quot;&amp;emailtemplateattachments=1&quot; +
+&quot;&amp;congaemailtemplateid=a480p000000CjheAAC&quot; +
+&quot;&amp;defaultpdf=1&quot; +
+&quot;&amp;qmode=SendEmail&quot; +
+&quot;&amp;OFN=FirstNotice-&quot; + Name +
+&quot;&amp;uf0=1&quot; +
+&quot;&amp;mfts0=FirstNoticeDate__c&quot; +
 &quot;&amp;mftsvalue0=&quot; + TEXT( TODAY() ) +
 &quot;&amp;mftsid0=&quot; + Id +
 &quot;&amp;mfts1=DemurrageStartDate__c&quot; +

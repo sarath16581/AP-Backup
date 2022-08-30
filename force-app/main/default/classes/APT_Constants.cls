@@ -37,6 +37,7 @@ Last Modified Date: 15th Feb, 2017 | 1550 | Credit Assessment Status - Completed
 
 @changelog:
 2022-05-26 - Pradeep Jaiswal - CI-379 Added constant for International Return product
+2022-08-04 - Seth Heang - Added Constants for Rating Plan Integration Changes
 **/
 public with sharing class APT_Constants {
   //label
@@ -1643,4 +1644,6 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String PSR_APPC_CUSTOM_PRICING = 'Customised Pricing';
 
   public static final string PRICING_CATEGORY_STANDARD = 'Standard';
+  public static final String RATING_PLAN_ACTIVATION_LABEL = 'RatingPlanActivation';
+  public static final String RATING_CARD_ACTIVATION_LABEL = 'RateCardActivation';
 }

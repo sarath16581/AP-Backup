@@ -2,8 +2,9 @@
  * Created by nmain on 31/10/2017.
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
  * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
+ * 2022-08-04 Hasantha Liyanage - DDS-11626: before edd
  */
- ({   
+ ({
     callTrackingNumberService : function(cmp, event, helper) {
         //helper.gotoNextPage(cmp,'chasMissingItemWPage02');
         // Disable button actions if still loading.
@@ -11,12 +12,14 @@
         // make Spinner attribute true for display loading spinner 
         cmp.set("v.isLoading", true);
         cmp.set('v.error500', false);
+
         //-- checking if Tracking Number is entered
         var isTrackingNumEntered = helper.validateTrackingNumber(cmp.find("ChasTrackingId"), true);
         if (isTrackingNumEntered ) {
            if (cmp.get('v.wizardData.trackingId') != cmp.get('v.wizardData.pretrackingId')) {
                 //-- Trcking number is changed, so make a server call
-                
+                cmp.set("v.showInvalidWithinEDDMessage", false)
+                cmp.set("v.showInvalidMessage", false);
                 var action = cmp.get("c.searchTrackingNumber");
                 action.setParams({ "trackingNumber" : cmp.get("v.wizardData.trackingId") });
                 
@@ -97,13 +100,7 @@
                             // DDS-5488: When consignment API returns 404, route the cases to domestic queue
                             cmp.set('v.wizardData.senderOrRecipientType', "Domestic");
                             //Show Invalid Message
-                            if(!cmp.get("v.showInvalidMessage")) {
-                                cmp.set("v.showInvalidMessage", true);                                
-                            } else {
-                                //Proceed to next page
-                                helper.gotoNextPage(cmp);
-                                return;
-                            }                            
+                            cmp.set("v.showInvalidMessage", true);
                         }
                           else if(returnObj["trackingNumSerachStatusCode"] == 500) {
                             cmp.set('v.error500', true);
@@ -116,13 +113,21 @@
                             var dpidFromOneTrackService = cmp.get("v.wizardData.dpid");
                             // get the boolean for inflight redirection
                             var isRedirectApplied = cmp.get("v.wizardData.isRedirectApplied");
-
                             if(returnObj["isEligibleForMultipleArticleSelection"]) {
                                 cmp.set('v.isMultipleArticles', true);
                                 cmp.set("v.isLoading", false);
+                            } else if(cmp.get("v.wizardData.eddStatus") === 'ON_TIME'){
+                                // when the EDD returned is greater than today, we should not allow the user to raise a case in LOMI form
+                                cmp.set("v.showInvalidWithinEDDMessage", true);
+                                cmp.set("v.isLoading", false);
+                                cmp.set('v.eddDisplayDate',helper.getEDDDateString(cmp, event, helper));
+                                return;
+                            } else if(cmp.get("v.wizardData.eddStatus") === 'NO_EDD'){
+                                cmp.set("v.wizardData.hasQualifiedForNoEDDFlow",true);
+                                helper.gotoNextPage(cmp,'chasMissingItemEDDAddressValidation');
                             }
                             //safedrop flow - checks for SAFE_DROP, RTS Scan event, DPid, inflight redirection before presenting address validations screen
-                            else if(cmp.get('v.wizardData.eddStatus') == 'SAFE_DROP' && cmp.get('v.wizardData.isReturnToSender') == false && !$A.util.isEmpty(dpidFromOneTrackService) && !isRedirectApplied )
+                        else if(cmp.get('v.wizardData.eddStatus') == 'SAFE_DROP' && cmp.get('v.wizardData.isReturnToSender') == false && !$A.util.isEmpty(dpidFromOneTrackService) && !isRedirectApplied )
                             {
                                 helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
                                 cmp.set("v.wizardData.hasQualifiedForSafeDropFlow","true");
@@ -152,7 +157,7 @@
                             {
                                 helper.gotoNextPage(cmp);
                             }
-                            
+
                             return;
                             
                         } else {
@@ -184,13 +189,28 @@
               if (cmp.get("v.wizardData.isEligibleForMultipleArticleSelection")) {
                   cmp.set('v.isMultipleArticles', true);
                   cmp.set("v.isLoading", false);
-              }
-              else if (cmp.get("v.wizardData.hasQualifiedForSafeDropFlow")){
+              } else if (cmp.get("v.wizardData.hasQualifiedForSafeDropFlow")){
                  helper.gotoNextPage(cmp,'chasMissingItemAddressValidation');
+              } else if(cmp.get("v.wizardData.hasQualifiedForNoEDDFlow")){
+                   helper.gotoNextPage(cmp,'chasMissingItemEDDAddressValidation');
+               } else if (cmp.get("v.showInvalidMessage")) {
+                let invalidBspCmp = cmp.find("invalidBsp");
+                if ($A.util.hasClass(invalidBspCmp, "slds-hide")) {
+                    $A.util.removeClass(invalidBspCmp, "slds-hide");
+                    $A.util.addClass(invalidBspCmp, "slds-show");
+                }
+                cmp.set("v.isLoading", false);
               }
-              else {
-                    helper.gotoNextPage(cmp);
-                   }
+              else if(cmp.get("v.showInvalidWithinEDDMessage")){
+                  let invalidEddCmp = cmp.find("invalidEdd");
+                  if ($A.util.hasClass(invalidEddCmp, "slds-hide")) {
+                      $A.util.removeClass(invalidEddCmp, "slds-hide");
+                      $A.util.addClass(invalidEddCmp, "slds-show");
+                  }
+                  cmp.set("v.isLoading", false);
+              } else {
+                  helper.gotoNextPage(cmp);
+              }
               }
             
         } else {
@@ -327,5 +347,29 @@
 	        helper.gotoNextPage(cmp);
 	        cmp.set("v.isLoading", false);
 	    }
-	}
+	},
+     /**
+      * get the EDD date formatted for display
+      * If the EDD has a date range show between ranges eg:  Thu 11 - Tue 16 August
+      * otherwise show the on date Tue 16 August
+      * @param cmp
+      * @param event
+      * @param helper
+      * @returns {string}
+      */
+     getEDDDateString: function (cmp, event, helper) {
+         let disDate = '';
+         if (cmp.get('v.wizardData.deliveredByDateTo') != null){
+             const eddFromDate = new Date(cmp.get('v.wizardData.deliveredByDateFrom'));
+             const eddToDate = new Date(cmp.get('v.wizardData.deliveredByDateTo'));
+             // format for weekday day - weekday day month eg: Thu 11 - Tue 16 August
+             disDate = ' ' + eddFromDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddFromDate.toLocaleString("en-US", {day: 'numeric'})  + (eddFromDate.getMonth() !== eddToDate.getMonth() ? ' ' +eddFromDate.toLocaleString("en-US", {month:'long'}) : '')
+                 + ' - ' + eddToDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddToDate.toLocaleString("en-US", {day: 'numeric'}) + ' ' +eddToDate.toLocaleString("en-US", {month:'long'});
+         } else {
+             // format for weekday day month eg:Tue 16 August
+             const eddDeliveredByDate = new Date(cmp.get('v.wizardData.deliveredByDateOrEDD'));
+             disDate = ' ' + eddDeliveredByDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddDeliveredByDate.toLocaleString("en-US", {day: 'numeric'}) + ' ' +eddDeliveredByDate.toLocaleString("en-US", {month:'long'});
+         };
+         return disDate;
+     },
 })

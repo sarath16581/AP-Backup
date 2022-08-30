@@ -8,12 +8,12 @@
  * @date 2020-07-27
  * @group Core
  * @domain Core
+ * @changelog: onAfterDelete added by Sreenish Krishnan on 18th July 2022
  * @changelog
  * 2022-02-24 - Nathan Franklin - added logic for async and features
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  */
 public virtual inherited sharing class ApplicationDomain {
-
 	/**
 	 * Provides access to the data represented by this domain class
 	 **/
@@ -92,7 +92,7 @@ public virtual inherited sharing class ApplicationDomain {
 	 */
 	public String className {
 		get {
-			if(String.isEmpty(className)) {
+			if (String.isEmpty(className)) {
 				className = String.valueOf(this).substringBefore(':');
 			}
 			return className;
@@ -100,7 +100,8 @@ public virtual inherited sharing class ApplicationDomain {
 		private set;
 	}
 
-	public virtual void registerModules() {}
+	public virtual void registerModules() {
+	}
 
 	/**
 	 * Override this to set the scope of the domain object, usually by Record Type or similar.
@@ -171,10 +172,23 @@ public virtual inherited sharing class ApplicationDomain {
 		}
 	}
 
-	// TODO: delete handlers
-	//	public override void onBeforeDelete(Map<Id,SObject> existingRecords) {}
-	//	public override void onAfterDelete(Map<Id,SObject> existingRecords) {}
-
+	/**
+	 * @description :added to handle after delete
+	 * @author Sreenish Krishnan | 06-29-2022
+	 * @param existingRecords
+	 * @param uow
+	 **/
+	public void onAfterDelete(List<SObject> existingRecords, ApplicationUnitOfWork uow) {
+		Map<Type, Object> modules = cachedModules.get(className);
+		if (modules != null) {
+			for (Object module : modules.values()) {
+				IModule instance = (IModule) module;
+				if (instance.getTriggerEvents().afterDeleteEnabled) {
+					instance.onAfterDelete(existingRecords, uow);
+				}
+			}
+		}
+	}
 
 	public void registerModule(Type moduleClass) {
 		// remove any modules which are not 'active'
@@ -214,51 +228,64 @@ public virtual inherited sharing class ApplicationDomain {
 
 		// befores
 		public TriggerEvent enableBeforeInsert() {
-			beforeInsertEnabled = true; return this;
+			beforeInsertEnabled = true;
+			return this;
 		}
 		public TriggerEvent enableBeforeUpdate() {
-			beforeUpdateEnabled = true; return this;
+			beforeUpdateEnabled = true;
+			return this;
 		}
 		public TriggerEvent enableBeforeDelete() {
-			beforeDeleteEnabled = true; return this;
+			beforeDeleteEnabled = true;
+			return this;
 		}
 
 		public TriggerEvent disableBeforeInsert() {
-			beforeInsertEnabled = false; return this;
+			beforeInsertEnabled = false;
+			return this;
 		}
 		public TriggerEvent disableBeforeUpdate() {
-			beforeUpdateEnabled = false; return this;
+			beforeUpdateEnabled = false;
+			return this;
 		}
 		public TriggerEvent disableBeforeDelete() {
-			beforeDeleteEnabled = false; return this;
+			beforeDeleteEnabled = false;
+			return this;
 		}
 
 		// afters
 		public TriggerEvent enableAfterInsert() {
-			afterInsertEnabled = true; return this;
+			afterInsertEnabled = true;
+			return this;
 		}
 		public TriggerEvent enableAfterUpdate() {
-			afterUpdateEnabled = true; return this;
+			afterUpdateEnabled = true;
+			return this;
 		}
 		public TriggerEvent enableAfterDelete() {
-			afterDeleteEnabled = true; return this;
+			afterDeleteEnabled = true;
+			return this;
 		}
 		public TriggerEvent enableAfterUndelete() {
-			afterUndeleteEnabled = true; return this;
+			afterUndeleteEnabled = true;
+			return this;
 		}
-
 
 		public TriggerEvent disableAfterInsert() {
-			afterInsertEnabled = false; return this;
+			afterInsertEnabled = false;
+			return this;
 		}
 		public TriggerEvent disableAfterUpdate() {
-			afterUpdateEnabled = false; return this;
+			afterUpdateEnabled = false;
+			return this;
 		}
 		public TriggerEvent disableAfterDelete() {
-			afterDeleteEnabled = false; return this;
+			afterDeleteEnabled = false;
+			return this;
 		}
 		public TriggerEvent disableAfterUndelete() {
-			afterUndeleteEnabled = false; return this;
+			afterUndeleteEnabled = false;
+			return this;
 		}
 
 		public TriggerEvent enableAll() {
@@ -299,14 +326,20 @@ public virtual inherited sharing class ApplicationDomain {
 			return triggerEvents;
 		}
 
-		public virtual void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {}
-		public virtual void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {}
+		public virtual void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		}
+		public virtual void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		}
 
-		public virtual void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {}
-		public virtual void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {}
+		public virtual void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		}
+		public virtual void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		}
 
-		public virtual void onBeforeDelete(List<SObject> records, ApplicationUnitOfWork uow) {}
-		public virtual void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {}
+		public virtual void onBeforeDelete(List<SObject> records, ApplicationUnitOfWork uow) {
+		}
+		public virtual void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {
+		}
 
 //		/**
 //		 * Sets the link this module has with the domain that invoked it (if any)
@@ -331,12 +364,16 @@ public virtual inherited sharing class ApplicationDomain {
 		/**
 		 * Grabs a list of record ids where the values in the monitored fields have changed. This is just a bulkified helper method.
 		 */
-		protected Map<Id, Set<SObjectField>> getIsChanged(List<SObject> records, Map<Id, SObject> oldRecords, Set<SObjectField> comparisonFields) {
+		protected Map<Id, Set<SObjectField>> getIsChanged(
+			List<SObject> records,
+			Map<Id, SObject> oldRecords,
+			Set<SObjectField> comparisonFields
+		) {
 			Map<Id, Set<SObjectField>> output = new Map<Id, Set<SObjectField>>();
 			for (SObject record : records) {
 				for (SObjectField field : comparisonFields) {
-					if(record.get(field) != oldRecords.get(record.Id).get(field)) {
-						if(output.get(record.Id) == null) {
+					if (record.get(field) != oldRecords.get(record.Id).get(field)) {
+						if (output.get(record.Id) == null) {
 							output.put(record.Id, new Set<SObjectField>());
 						}
 						output.get(record.Id).add(field);
@@ -345,11 +382,9 @@ public virtual inherited sharing class ApplicationDomain {
 			}
 			return output;
 		}
-
 	}
 
 	public interface IModule {
-
 		/**
 		 * Determines which trigger events the module should respond to
 		 */

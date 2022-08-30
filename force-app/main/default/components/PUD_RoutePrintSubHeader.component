@@ -1,0 +1,58 @@
+<!--
+ - component to contain information in the first page of the route pdf
+ - @changelog:
+ - 24/6/2022 - Kamil Szyc- created
+ - 08/08/2022- Dattaraj Deshmukh - updated to use wrapper object.
+ -->
+
+<apex:component id="PUD_RoutePrintSubHeader">
+	<apex:attribute name="routeWrapper" type="PUDPrintableRouteWrapper" description="Route to be printed" required="true"/>
+	<table class="info" style="background-color:white;">
+		<tr>
+			<td class="italic" style="width:100%; font-size:12px;">
+				<apex:outputText value="{! $Label.Route_Printing_Static_Text_Top}"/>
+				<br/>
+				<apex:outputText value="{! $Label.Route_Printing_Static_Text_Bottom}"/>
+			</td>
+		</tr>
+		<tr>
+			<!-- days and times the route is active -->
+			<td class="boldcell"
+			    style="display:inline-block; width:150px; vertical-align:top !important; font-size:12px;">
+                        <span class="left-align">
+                                <apex:outputText rendered="{! routeWrapper.route.Monday__c}" value="Mon "/>
+                                <apex:outputText rendered="{! routeWrapper.route.Tuesday__c}" value="Tue "/>
+                                <apex:outputText rendered="{! routeWrapper.route.Wednesday__c}" value="Wed "/>
+                                <apex:outputText rendered="{! routeWrapper.route.Thursday__c}" value="Thu "/>
+                                <apex:outputText rendered="{! routeWrapper.route.Friday__c}" value="Fri "/>
+                                <apex:outputText rendered="{! routeWrapper.route.Saturday__c}" value="Sat "/>
+                                <apex:outputText rendered="{! routeWrapper.route.Sunday__c}" value="Sun "/>
+	                        	<!-- display time in hhmm format -->
+                      			<apex:outputText> {! routeWrapper.routeDuration}</apex:outputText>
+                            </span>
+			</td>
+			<td class="boldcell"
+			    style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:200px;">
+				Overtime:&nbsp;
+				<apex:outputText value="{!routeWrapper.route.Overtime_Allowance__c}"/>
+			</td>
+			<td class="boldcell"
+			    style="font-size:12px; text-align:right; vertical-align:top; display:inline-block; width:90px;">
+				<!-- rest breaks -->
+				Rest Break:
+			</td>
+			<td class="boldcell" style="font-size:12px;  vertical-align:top; width:210px; display:inline-block">
+				<!-- iterate through Meal Break bookings -->
+				<apex:repeat value="{!routeWrapper.mealBreaks}" var="bookingWrapper">
+					<apex:outputText > 						<br/>
+					</apex:outputText>
+					<apex:outputText rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Location_Name_LU__c)}">{!bookingWrapper.booking.Booking_Location_Name_LU__c} &nbsp;
+					</apex:outputText>
+					<apex:outputText>
+						{!bookingWrapper.bookingDuration}
+					</apex:outputText>
+				</apex:repeat>
+			</td>
+		</tr>
+	</table>
+</apex:component>

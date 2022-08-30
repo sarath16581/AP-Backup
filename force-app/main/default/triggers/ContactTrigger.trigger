@@ -12,12 +12,14 @@ History
                                 provisioned prior via TIBCO integration.
 16-JUL-2019 Andrew Judd			Added before Delete to call function deleteConApps
 05-MAR-2020 Alex Volkov			Added setMailingAddress call before insert
+
+@Test ContactTrigger_Test 
 ------------------------------------------------------------------------------*/
 
 trigger ContactTrigger on Contact (before insert, before update, after insert, after update, before Delete) {
 
     if(!TriggerHelper.isTriggerDisabled(String.valueOf(Contact.SObjectType))) {
-		(new ContactDomainTriggerHandler()).dispatch();
+		ContactDomainTriggerHandler.newInstance().dispatch();
 	}
 
     // ************************************************* WARNING *************************************************************

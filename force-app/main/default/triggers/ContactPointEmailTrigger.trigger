@@ -1,12 +1,13 @@
 /**
- * @description       :
+ * @description       : This is Contact Point Email Trigger
  * @author            : Sreenish Krishnan
- * @domain            :
- * @last modified on  : 06-29-2022
+ * @domain            : Connected Customer
+ * @last modified on  : 07-22-2022
  * @last modified by  : Sreenish Krishnan
+ * @Test ContactPointEmailTrigger_Test
  **/
 trigger ContactPointEmailTrigger on ContactPointEmail(after insert, after update, after delete) {
 	if (!TriggerHelper.isTriggerDisabled(String.valueOf(ContactPointEmail.SObjectType))) {
-		(new ContactPointEmailDomainTriggerHandler()).dispatch();
+		ContactPointEmailDomainTriggerHandler.newInstance().dispatch();
 	}
 }

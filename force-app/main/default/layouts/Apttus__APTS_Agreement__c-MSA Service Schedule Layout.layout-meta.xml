@@ -186,6 +186,10 @@
                 <behavior>Edit</behavior>
                 <field>Is_Document_Signed__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Contract_Relationship__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -711,13 +715,14 @@
         <customButtons>APT_Manage_Lodgement_Point</customButtons>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <excludeButtons>New</excludeButtons>
+        <fields>NAME</fields>
         <fields>APT_Lodgement_Point_Lookup__c</fields>
-        <fields>APT_Product__c</fields>
         <fields>APT_Billing_Account__c</fields>
-        <fields>APT_LP_Post_Code__c</fields>
-        <fields>APT_Lodgement_Zone__c</fields>
         <fields>APT_Charge_Account__c</fields>
         <fields>APT_Sub_Account__c</fields>
+        <fields>APT_Product__c</fields>
+        <fields>APT_LP_Post_Code__c</fields>
+        <fields>APT_Lodgement_Zone__c</fields>
         <fields>APT_Status__c</fields>
         <relatedList>APT_Agreement_Lodgement_Point__c.APT_Agreement__c</relatedList>
     </relatedLists>
@@ -739,15 +744,6 @@
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>NAME</fields>
         <relatedList>APT_Operational_Schedule__c.APT_Contract__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <fields>NAME</fields>
-        <fields>APT_DoV_Type__c</fields>
-        <fields>APT_DOV_Reason__c</fields>
-        <fields>APT_DoV_Action__c</fields>
-        <fields>APT_DoV_Product__c</fields>
-        <relatedList>APT_DoV_Language__c.APT_Contract__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>

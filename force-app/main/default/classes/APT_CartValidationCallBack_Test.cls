@@ -6,6 +6,7 @@ History:
 2017-01-31 Mausam Padhiyar
 2019-01-31  nathan.franklin@auspost.com.au Modified testAPTDecreaseRevenue to fix an an issue with the Too Many SOQL error with the deployment of MW0003089 - Opportunity Complexity rating in Salesforce
 2020-04-20 seth.heang@auspost.com.au - Method to test category and minimum quantity threshold validation for eParcel/eParcel Express
+2022-05-20 Nasir Jawed Chaged Tier value to T04
 **************************************************/
 @isTest(SeeAllData=false)
 public with sharing class APT_CartValidationCallBack_Test {
@@ -97,7 +98,7 @@ public with sharing class APT_CartValidationCallBack_Test {
                 prodList.add(DomesticProdVar);
 
                 //Startrack
-                Product2 stProduct = APT_TestUtils.createStarTrackProduct('Special Services Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'Tier 1', 'RET', 'StarTrack');
+                Product2 stProduct = APT_TestUtils.createStarTrackProduct('Special Services Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'RET', 'StarTrack');
                 prodList.add(stProduct);
 
                 insert prodList;

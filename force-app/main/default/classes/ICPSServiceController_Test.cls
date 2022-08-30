@@ -215,6 +215,13 @@ private class ICPSServiceController_Test {
 				tr1.ArticleDetails = TIBCO_Test.createArticleDetailElement();
 				TIBCOTrackingResultWrapper testWrapper = new TIBCOTrackingResultWrapper(tr1);
 				testWrapper.returnCode = 'ESB-BUS-DATA-100';
+
+				AuspostMailProductSchema.ArticleContentsItemType acit = new AuspostMailProductSchema.ArticleContentsItemType();
+				acit.Description = 'test';
+				acit.Value = '1';
+				acit.Weight = '1';
+				TIBCOArticleWrapper.ArticleContentItem contentItem = new TIBCOArticleWrapper.ArticleContentItem(acit);
+				testWrapper.articleDetails.transientAttributes.contentItems = new List<TIBCOArticleWrapper.ArticleContentItem>{contentItem};
 				searchResult.trackResults.add(testWrapper);
 
 				AuspostQueryTrackEventsSchema.TrackingResults tr2 = new AuspostQueryTrackEventsSchema.TrackingResults();

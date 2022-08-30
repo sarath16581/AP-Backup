@@ -15,6 +15,7 @@
  * 2021-07-23 - seth.heang@auspost.com.au - Bug Fix STP5550 Remove Filter on Known or Prospect Role in SOQL query on Account and update logic check on HoldingRole Mapping
  * 2021-07-27 - naveen.rajanna@auspost.com.au - REQ2540323 - Changed to use DeveloperName instead of Label for Deal_Enablement_Centre_Queue
  * 2022-02-18 - Naveen.Rajanna@auspost.com.au - INC1911242 - Include RoleType check 
+ * 2022-08-28 - seth.heang@auspost.com.au - Added method to handle the platform event for rating plan activation response
  */
 
 public with sharing class BillingAccountCreationEventTriggerHelper {
@@ -37,6 +38,8 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
     private static final String DSR_OBJECT = 'Deal_Support_Request__c';
     private static final String CA_OBJECT = 'APT_Credit_Assessment__c';
     private static final String SUB_ACCOUNT_REQUEST = 'APT_Sub_Account__c';
+    private static final String AGREEMENT_LODGEMENT_POINT_OBJ = 'APT_Agreement_Lodgement_Point__c';
+    private static final String RATING_MODEL_PD = 'PD';
     public static Map<String, Billing_Account__c> newlyCreatedBillingAccountsMap;
     public static String objectName;
     public static Map<id,Deal_Support_Request__c> dealSupportRequestUpdate;
@@ -113,7 +116,15 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
             // Jansi :  Get the map of CA id and CA records
             caMap = CreditsAssessmentSelector.newInstance(getCAFieldsSet()).selectById(caIdSet);
-            dealsupportRequestMap = DealSupportRequestsSelector.newInstance().selectById(dsrIdSet , new Set<object>{DealSupportRequestsSelector.Options.WITH_OWNER, DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT, DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST, DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT});
+            dealsupportRequestMap = DealSupportRequestsSelector.newInstance().selectById(dsrIdSet , 
+									new Set<object>{
+										DealSupportRequestsSelector.Options.WITH_OWNER, 
+										DealSupportRequestsSelector.Options.WITH_PRIMARYCONTACT, 
+										DealSupportRequestsSelector.Options.WITH_CHARGE_ACCOUNT_REQUEST, 
+										DealSupportRequestsSelector.Options.WITH_CREDIT_ASSESSMENT,
+										DealSupportRequestsSelector.Options.WITH_CONTRACT,
+										DealSupportRequestsSelector.Options.WITH_ORGANISATION
+									});
             subAccountMap = new Map<Id,APT_Sub_Account__c>(SubAccountRequestsSelector.newInstance().selectById(subAccountRequestId));
 
             Map<id, BAMExternalOnboardingRequest__c > externalOnboardingRequestMap = new Map<id, BAMExternalOnboardingRequest__c >();
@@ -229,6 +240,138 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
             UTIL_LoggingService.logHandledException(ex, ORGID, 'Sales', 'BillingAccountCreationEventTriggerHelper' , 'createBillingAccount', 'BillingAccountCreationEventTrigger', LoggingLevel.ERROR);
         }
     }
+
+	/**
+	 * @description This method handles the billing account creation platform events for rating plan activation response payload
+	 * 				published by CAMUNDA and create APT_SAP_Contracts__c records and update other appropriate records including DSR and Agreement Lodgement Point.
+	 * @param		List<BillingAccountCreationEvent__e>
+	 * @return		void
+	 * */
+	public static void activateRatingPlan(List<BillingAccountCreationEvent__e> listEvents){
+		try{
+			List<BAMExternalOnboardingRequest__c> onboardingRequestTobeUpdated = new List<BAMExternalOnboardingRequest__c>();
+			Set<Id> loggingRequestIdSet = new Set<Id>();
+			List<SObject> updatedRecords = new List<SObject>();
+			List<SObject> insertedRecords = new List<SObject>();
+			Set<String> billingAccNumberSet = new Set<String>();
+			Map<String,Billing_Account__c> billingAccNumMap = new Map<String,Billing_Account__c>();
+
+			Deal_Support_Request__c dsr = new Deal_Support_Request__c();
+			// Save a list of External Onboarding request(log) Id or Transaction Id
+			for(BillingAccountCreationEvent__e ratingPlanEvent : listEvents){
+				loggingRequestIdSet.add(ratingPlanEvent.Transaction_Id__c);
+				billingAccNumberSet.add(ratingPlanEvent.Billing_Account_Number__c);
+			}
+			// Query Billing Account records based on billing account number for SAP contract creation
+			for(Billing_Account__c ba: BillingAccountsSelector.newInstance().selectByAccountNumber(billingAccNumberSet).values()){
+				billingAccNumMap.put(ba.LEGACY_ID__c, ba);
+			}
+
+			// Query and update to append BAMExternalOnboardingRequest__c response payload with each new platform event with the same external onboarding request Id
+			Map<id, BAMExternalOnboardingRequest__c > externalOnboardingRequestMap = new Map<id, BAMExternalOnboardingRequest__c >();
+			externalOnboardingRequestMap = ExternalOnboardingRequestSelector.newInstance().selectById(loggingRequestIdSet);
+			// Query DSR details based on Request_Object_Id__c from External Onboarding Request Id
+			dsr = DealSupportRequestsSelector.newInstance().selectById(new Set<Id>{externalOnboardingRequestMap.values()[0].Request_Object_Id__c}, 
+							new Set<object>{
+								DealSupportRequestsSelector.Options.WITH_ORGANISATION
+							}).values()[0];
+
+			Map<Id, BAMExternalOnboardingRequest__c> loggingRequestMap = new Map<Id, BAMExternalOnboardingRequest__c>();
+			Map<Id, Deal_Support_Request__c> ratinPlanDSRMap = new Map<Id, Deal_Support_Request__c>();
+			// Loop and process each rating plan platform event
+			for(BillingAccountCreationEvent__e ratingPlanEvent : listEvents){
+				BAMExternalOnboardingRequest__c loggingRequestRecord = new BAMExternalOnboardingRequest__c();
+				// update external onboarding record with status from platform event
+				loggingRequestRecord.Id = ratingPlanEvent.Transaction_Id__c;
+				loggingRequestRecord.Status__c = ratingPlanEvent.Status__c;
+
+				// update response payload if blank or update to append response payload in a new line if already exists
+				if(externalOnboardingRequestMap.get(ratingPlanEvent.Transaction_Id__c)?.Response_Payload__c == null){
+					loggingRequestRecord.Response_Payload__c = JSON.serialize(ratingPlanEvent);
+				}
+				else if(externalOnboardingRequestMap.get(ratingPlanEvent.Transaction_Id__c)?.Response_Payload__c != null){
+					loggingRequestRecord.Response_Payload__c =  externalOnboardingRequestMap.get(ratingPlanEvent.Transaction_Id__c).Response_Payload__c +',\n' + JSON.serialize(ratingPlanEvent);
+				}
+				loggingRequestMap.put(loggingRequestRecord.Id, loggingRequestRecord);
+
+				/**
+				 * Check request_object_id from platform event if it's of DSR type or Agreement lodgement point type
+				 * For each rating plan activation request, a platform event for rating plan is received from Camunda with request_object_id of Agreement lodgement point type
+				 * Finally, an additional final rollup platform event for all rating plan requests per same transaction is received from Camunda with request_object_id of DSR type
+				 *  */ 
+				String objectName = String.valueOf(id.valueOf(ratingPlanEvent.Request_Object_Id__c)?.getsobjecttype());
+				if(AGREEMENT_LODGEMENT_POINT_OBJ.equalsIgnoreCase(objectName)){
+					// update agreement lodgment point with rating plan status and description from platform event
+					APT_Agreement_Lodgement_Point__c alp = updateAgreementLodgementPoint(ratingPlanEvent);
+					updatedRecords.add(alp);
+					// create SAP Contract record for only successful rating plan creation
+					if('Success'.equalsIgnoreCase(ratingPlanEvent.Status__c)){
+						APT_SAP_Contracts__c newSAPCon = createSAPContract(externalOnboardingRequestMap.get(ratingPlanEvent.Transaction_Id__c), ratingPlanEvent, dsr, billingAccNumMap.get(ratingPlanEvent.Billing_Account_Number__c).Id);
+						insertedRecords.add(newSAPCon);
+					}
+				}
+				// Final Platform Event to rollup status on DSR
+				else if(DSR_OBJECT.equalsIgnoreCase(objectName)){
+					// update DSR with rating plan status and description details
+					Deal_Support_Request__c updateDSR = updateRatingDSR(ratingPlanEvent);
+					ratinPlanDSRMap.put(updateDSR.Id, updateDSR);
+					// send bell notification for all statuses; Completed, Partial Success, Error
+					sendCustomNotificationforEachRatingPlan(ratingPlanEvent, dsr);
+				}
+			}
+			// Add BAM logs and DSR for DML update
+			if(loggingRequestMap.size() > 0){
+				updatedRecords.addAll((List<SObject>)loggingRequestMap.values());
+			}
+			if(ratinPlanDSRMap.size() > 0){
+				updatedRecords.addAll((List<SObject>)ratinPlanDSRMap.values());
+			}
+			if(updatedRecords.size() > 0){
+				ApplicationDatabase.getInstance().dmlUpdate(updatedRecords);
+			}
+			if(insertedRecords.size() > 0){
+				ApplicationDatabase.getInstance().dmlInsert(insertedRecords);
+			}
+		}catch(Exception ex){
+			UTIL_LoggingService.logHandledException(ex, ORGID, 'Sales', 'BillingAccountCreationEventTriggerHelper' , 'activateRatingPlan', 'BillingAccountCreationEventTrigger', LoggingLevel.ERROR);
+		}
+	}
+
+
+	/**
+	 * @description		This method update Rating plan integration related field on DSR from Rating Plan platform event received from Camunda
+	 * @param 			BillingAccountCreationEvent__e ratingPlanPE
+	 * @return 			Deal_Support_Request__c
+	 */
+	public static Deal_Support_Request__c updateRatingDSR(BillingAccountCreationEvent__e ratingPlanPE){
+		Deal_Support_Request__c dsrUpdate = new Deal_Support_Request__c();
+		dsrUpdate.Id = ratingPlanPE.Request_Object_Id__c;
+		dsrUpdate.Rating_Integration_Status__c = ratingPlanPE.Status__c;
+		dsrUpdate.Rating_Integration_Status_Description__c = ratingPlanPE.Status_Description__c;
+		dsrUpdate.Rating_Integration_Transaction_Id__c = ratingPlanPE.Transaction_Id__c;
+		return dsrUpdate;
+	}
+	
+	/**
+	 * @description		This method create SAP Contract record and populate appropriate field values based on successful Rating Plan activation request
+	 * @param			BAMExternalOnboardingRequest__c bamRecord, BillingAccountCreationEvent__e ratingPlanPE, Deal_Support_Request__c dsr, Id billingAccId
+	 * @return 			APT_SAP_Contracts__c
+	 */
+	public static APT_SAP_Contracts__c createSAPContract(BAMExternalOnboardingRequest__c bamRecord, BillingAccountCreationEvent__e ratingPlanPE, Deal_Support_Request__c dsr, Id billingAccId){
+		APT_SAP_Contracts__c sapCon = new APT_SAP_Contracts__c();
+		sapCon.APT_SAP_Contract_Number__c = ratingPlanPE.Rating_Plan_Id__c;
+		sapCon.APT_Apttus_Contract__c = dsr.APT_Contract__c;
+		sapCon.SAP_Contract_Status__c  = APT_Constants.ACTIVE;
+		sapCon.APT_Billing_Account__c  = billingAccId;
+		sapCon.APT_Material_Material_Description__c = RATING_MODEL_PD;
+		sapCon.APT_Comments_1__c = dsr.Name; // DSR Number
+		sapCon.APT_Contract_Sold_To_Billing_Account__c = ratingPlanPE.Billing_Account_Number__c;
+		sapCon.APT_Contract_Start_Date__c = Date.valueOf(bamRecord?.createdDate) + 1;
+		// maximum acceptable date by Salesforce is 31 Dec 4000
+		// source: https://help.salesforce.com/s/articleView?id=sf.fields_date_range.htm&type=5
+		sapCon.APT_Contract_End_Date__c  = Date.newInstance(4000, 12, 31); 
+		return sapCon;
+	}
 
     /* Shashwat.Nath@auspost.com has created this method to prepare the Billing account records based on the values on each of the incoming platform
         Events from CAMUNDA for both Charge Account and Sub Account.
@@ -393,190 +536,280 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
         return caTobeUpdated;
     }
-    
-    /* Shashwat.Nath@auspost.com has created this method to prepare all the other related records to be updated with the
-       billing account after successful creation . This includes apttus contract , Charge Account Request , Organisation role
-       and Organisation
-    */
-    public static List<sObject> updateRelatedObjects (List<Billing_Account__c> billingAccountList , List<BillingAccountCreationEvent__e> billingAccountEvents){
-        List<sObject> relatedObjectsToBeUpdated = new List<sObject>();
-        newlyCreatedBillingAccountsMap = new Map<String, Billing_Account__c>();
-        system.debug('****Parent number set ****'+parentBillingAccountNumberSet);
-        system.debug('****billingAccountList ****'+billingAccountList);
-        //for(Billing_Account__c billAcc :[Select id , PAYER_ACCOUNT_ID__c , Organisation__c, LEGACY_ID__c from Billing_Account__c Where id IN :billingAccountList OR LEGACY_ID__c  IN:parentBillingAccountNumberSet] ){
-        
-        for(Billing_Account__c billAcc : BillingAccountsSelector.newInstance().selectByIdorAccountNumber(billingAccountList , parentBillingAccountNumberSet).Values()){
-            newlyCreatedBillingAccountsMap.put(billAcc.LEGACY_ID__c, billAcc);
-        }
-        system.debug('****Billing Account List****'+newlyCreatedBillingAccountsMap);
-        try{
-            List<Holding_Role_Reference__c> newAccHoldingRoleList =  HoldingReferenceRoleSelector.newInstance().selectByName('New Accounts' ).values();
-            // added by Jansi - 13 -05-2021
-            Holding_Role_Reference__c newAccountHoldingRole = !newAccHoldingRoleList.isEmpty() ? newAccHoldingRoleList[0] : null;
-            
-            for(Billing_Account__c billingAccountRecord :  newlyCreatedBillingAccountsMap.Values()){
-                
-                if(platformEventsMap.containsKey(billingAccountRecord.LEGACY_ID__c) &&
-                String.isBlank(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Sub_Account_Request_Id__c) &&
-                String.isBlank(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c)){
-                    // Setting up apttus contract to be updated
-                    
-                    //Jansi : Only for DSR. For CA billingAccountNumberDSRMap will be blank.
-                    if(billingAccountRecord?.LEGACY_ID__c != null && billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c) !=null){
-                        Apttus__APTS_Agreement__c apttusContract = new Apttus__APTS_Agreement__c();
-                        apttusContract.id = dealsupportRequestMap.get(billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c))?.APT_Contract__c;
-                        if(apttusContract.id!=null){
-                            apttusContract.Billing_Account__c = billingAccountRecord.id;
-                            relatedObjectsToBeUpdated.add(apttusContract);
-                        }
-                    }
-                    // Setting up charge Account to be updated
-                    //Jansi : Only for DSR. For CA billingAccountNumberDSRMap will be blank.
-                    if(billingAccountRecord?.LEGACY_ID__c != null && billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c) !=null){
-                        APT_Charge_Account__c car = new APT_Charge_Account__c();
-                        car.id = dealsupportRequestMap.get(billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c))?.APT_Contract__r?.Apttus_QPComply__RelatedProposalId__r?.APT_Credit_Assessment__r?.APT_Charge_Account__c;
-                        if(car.id!=null) {
-                            car.Billing_Account__c = billingAccountRecord.id;
-                            car.Status__c = 'Completed';
-                            relatedObjectsToBeUpdated.add(car);
-                        }
-                    }
-                    // Setting up Organisation role and account to be updated
-                    //Jansi : For both DSR & CA. We need to update Organisation role and holding role reference.
-                    // Need to check with Min choon if this is only needed for DSR records?
-                    if(organisationToOrganisationRoleMap.containskey(billingAccountRecord.Organisation__c) &&
-                        organisationToOrganisationRoleMap.get(billingAccountRecord.Organisation__c)!=null){
-                            Organisation_Role__c  orgRole = new Organisation_Role__c();
-                            orgRole.id = organisationToOrganisationRoleMap.get(billingAccountRecord.Organisation__c).id;
-                            // Only Update Role to "Customer" When Holding Role is "Known" or "Prospect"
-                            String roleType = organisationToOrganisationRoleMap.get(billingAccountRecord.Organisation__c).Role_Type__c; // Bug Fix INC1911242
-                            // Only Update Role to "Customer" When Holding Role is "Known" or "Prospect"
-                            system.debug('Check the Role1'+roleType);
-                            if(orgRole.id!=null && ('Known'.equalsIgnoreCase(roleType) || 'Prospect'.equalsIgnoreCase(roleType))){
-                                orgRole.Role_Type__c = 'Customer';
-                                system.debug('Check the Role1'+orgRole.Role_Type__c);
-                                relatedObjectsToBeUpdated.add(orgRole);
-                            }
-                            // Setting up Account for updating the holding Role to New Accounts
-                            Account acc = new Account();
-                            acc.id = billingAccountRecord.Organisation__c;
-                            String holdingRole = organisationMap.get(billingAccountRecord.Organisation__c).Holding_Role_Reference__r.Name;
-                            // Bug Fix STP-5550 OR REQ2571490: Only Update Holding Role to "New Accounts" When Holding Role is "Known" or "Prospect"
-                            if(acc.id!=null && newAccountHoldingRole!=null && ('Known'.equalsIgnoreCase(holdingRole) || 'Prospect'.equalsIgnoreCase(holdingRole))){
-                                acc.Holding_Role_Reference__c = newAccountHoldingRole.id;
-                                system.debug('Check the holding Role1'+ acc.Holding_Role_Reference__c);
-                                relatedObjectsToBeUpdated.add(acc);
-                            }
-                        }
-                    
-                    String objectName = String.valueOf(id.valueOf(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Request_Object_Id__c)?.getsobjecttype());
-                    //-- only for CA
-                    if(CA_OBJECT.equalsIgnoreCase(objectName)){
-                        relatedObjectsToBeUpdated.add(updateCA(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c), billingAccountRecord.Id));
-                    }
-                }
-                else{
-                    //This can be also executed for CA records. 
-                    billingAccountMap.put(billingAccountRecord.LEGACY_ID__c, billingAccountRecord );
-                    if(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c) != null){
-                        billingAccountRecord.PAYER_ACCOUNT_ID__c =  newlyCreatedBillingAccountsMap.get(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c).Id;
-                        billingAccountRecord.Credit_Person_Code__c = newlyCreatedBillingAccountsMap.get(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c).Credit_Person_Code__c;
-                        billingAccountRecord.Credit_Person__c = newlyCreatedBillingAccountsMap.get(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c).Credit_Person__c;
-                        relatedObjectsToBeUpdated.add(billingAccountRecord);
-                    }
-                }
-            }
-            // flag to represent sub-account request originated from Proposal
-            Boolean isProposalFlow = false;
-            Integer subAccCount = 0;
-            //Integer subAccErrorCount = 0;
-            Deal_Support_Request__c dsrUpdate;
-            boolean isSAP = false;
-            for(BillingAccountCreationEvent__e evnt : billingAccountEvents ){
-                String objectName = String.valueOf(id.valueOf(evnt.Request_Object_Id__c)?.getsobjecttype());
-                if(!CA_OBJECT.equalsIgnoreCase(objectName) &&'SAP'.equalsIgnoreCase(evnt.Source_System__c)){
-                    isSAP = true;
-                }
-                //Will check Min choon if this will come for CA record or not.
-                // Platform Event is for Sub-Account
-                if(evnt.Parent_Account_Number__c != null){
-                    subAccCount++;
-                    APT_Sub_Account__c subAccountRequestRecord = new APT_Sub_Account__c();
-                    subAccountRequestRecord.id = evnt.Sub_Account_Request_Id__c;
-                    subAccountRequestRecord.Sub_Account_Number__c = evnt.Billing_Account_Number__c;
-                    if('Success'.equalsIgnoreCase(evnt.Status__c) || 'Partial Success'.equalsIgnoreCase(evnt.Status__c)){
-                        subAccountRequestRecord.APT_Sub_Account_Request_Status__c = evnt.Status__c;
-                            // Check source of sub account request - only allow Proposal source to update DSR
-                        if(subAccountMap.get(subAccountRequestRecord.id).APT_Source_of_Sub_Account_Request__c == 'Proposal'){
-                            isProposalFlow = true;
-                            Deal_Support_Request__c dsrSubAcc = new Deal_Support_Request__c();
-                            if(dealsupportRequestMap!=null && dealsupportRequestMap.get(evnt.Request_Object_Id__c)!=null){
-                                dsrSubAcc = dealsupportRequestMap.get(evnt.Request_Object_Id__c);
-                            }
-                            // Append ";" after each sub-account number received from camunda and populate to DSR's sub-account number field 
-                            if((String.ISBLANK(dsrSubAcc.Sub_Accounts__c) || dsrSubAcc.Sub_Accounts__c == null)){
-                                dsrSubAcc.Sub_Accounts__c = subAccountRequestRecord.Sub_Account_Number__c;
-                            }else if(!String.ISBLANK(dsrSubAcc.Sub_Accounts__c) && dsrSubAcc.Sub_Accounts__c != null 
-                                    && !dsrSubAcc.Sub_Accounts__c.contains(subAccountRequestRecord.Sub_Account_Number__c) && subAccountRequestRecord.Sub_Account_Number__c != null){
-                                        dsrSubAcc.Sub_Accounts__c = dsrSubAcc.Sub_Accounts__c + ';' + subAccountRequestRecord.Sub_Account_Number__c;
-                                    }
-                            // Retrieve DSR from dealSupportRequestUpdate Map and populate the sub-account number field                        
-                            Deal_Support_Request__c dsrChargeSubAcc;
-                            if(dealSupportRequestUpdate!=null && dealSupportRequestUpdate.get(evnt.Request_Object_Id__c)!=null){
-                                dsrChargeSubAcc = dealSupportRequestUpdate.get(evnt.Request_Object_Id__c);
-                            }
-                            if(dsrChargeSubAcc!= null && dsrChargeSubAcc.id == dsrSubAcc.id && dsrChargeSubAcc != null){
-                                dsrChargeSubAcc.Sub_Accounts__c = dsrSubAcc.Sub_Accounts__c;
-                            }
-                            // Save DSR with latest details in the final map
-                            if(dsrChargeSubAcc != null){
-                                dsrFINAL.put(dsrChargeSubAcc.id,dsrChargeSubAcc);
-                            }else{
-                                dsrFINAL.put(dsrSubAcc.id,dsrSubAcc);
-                            }
-                        }
-                    }
-                    else if('Error'.equalsIgnoreCase(evnt.Status__c)){
-                        subAccountRequestRecord.APT_Sub_Account_Request_Status__c = evnt.Status__c;
-                        //subAccErrorCount++;
-                    }
-                    
-                    subAccountRequestRecord.Sub_Account_Request_Status_Description__c = evnt.Status_Description__c;
-                    subAccountRequestRecord.Transaction_Id__c = evnt.Transaction_Id__c;
-                    if(newlyCreatedBillingAccountsMap.get(evnt.Parent_Account_Number__c) != null){
-                        subAccountRequestRecord.APT_Billing_Account__c = newlyCreatedBillingAccountsMap?.get(evnt.Parent_Account_Number__c).id;
-                    }
-                    relatedObjectsToBeUpdated.add(subAccountRequestRecord);
-                }
-                // Platform Event is for Billing Account
-                else{
-                    // Add DSR object
-                    if(dealSupportRequestUpdate!=null && dealSupportRequestUpdate.get(evnt.Request_Object_Id__c)!=null){
-                        dsrUpdate = dealSupportRequestUpdate.get(evnt.Request_Object_Id__c);
-                    }
-                }
-            }
-            // is Proposal Flow, add DSR to list to be DML updated
-            if(isSAP && isProposalFlow && subAccCount > 0){
-                relatedObjectsToBeUpdated.add(dsrFINAL.values());
-            }
-            System.debug('---subAccCount: ' + subAccCount);
-        //System.debug('---dsrUpdate.Id' + dsrUpdate.Id);
-        System.debug('---dsrUpdate: ' + dsrUpdate);
-        
-            // Charge Account only scenario, add DSR to list to be DML updated
-            if(isSAP && subAccCount == 0 && dsrUpdate != null){
-                dsrFINAL.put(dsrUpdate.id,dsrUpdate);
-                relatedObjectsToBeUpdated.add(dsrFINAL.values());
-            }
-        }
-        catch(Exception ex) {
-        UTIL_LoggingService.logHandledException(ex, ORGID, 'Sales', 'BillingAccountCreationEventTriggerHelper' , 'updateDSR', 'BillingAccountCreationEventTrigger', LoggingLevel.ERROR);
-        
-        }
+
+	/**
+	 * @description		check if this platform event is for APPC product
+	 * @param			N/A
+	 * @return			true for APPC product, false for non-APPC product (eg. eParcel/International)
+	 */
+	public static boolean validateAPPCProduct(){
+		for(Deal_Support_Request__c dsr : dealsupportRequestMap.values()){
+			if(dsr.APT_Contract__r.APT_APPC_Count__c > 0){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/* Shashwat.Nath@auspost.com has created this method to prepare all the other related records to be updated with the
+	   billing account after successful creation . This includes apttus contract , Charge Account Request , Organisation role
+	   and Organisation
+	*/
+	public static List<sObject> updateRelatedObjects (List<Billing_Account__c> billingAccountList , List<BillingAccountCreationEvent__e> billingAccountEvents){
+		List<sObject> relatedObjectsToBeUpdated = new List<sObject>();
+		newlyCreatedBillingAccountsMap = new Map<String, Billing_Account__c>();
+		system.debug('****Parent number set ****'+parentBillingAccountNumberSet);
+		system.debug('****billingAccountList ****'+billingAccountList);
+		//for(Billing_Account__c billAcc :[Select id , PAYER_ACCOUNT_ID__c , Organisation__c, LEGACY_ID__c from Billing_Account__c Where id IN :billingAccountList OR LEGACY_ID__c  IN:parentBillingAccountNumberSet] ){
+		boolean hasAPPCProduct = validateAPPCProduct();
+		Id contractId = dealsupportRequestMap.get(billingAccountEvents[0].Request_Object_Id__c)?.APT_Contract__c;
+		List<APT_Agreement_Lodgement_Point__c> alpList;
+		// For APPC product only, Query Agreement Lodgement Point based on contract Id and update the Billing Account Number
+		if(hasAPPCProduct == true){
+			alpList = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(new set<Id>{contractId}).values();
+		}
+		
+		for(Billing_Account__c billAcc : BillingAccountsSelector.newInstance().selectByIdorAccountNumber(billingAccountList , parentBillingAccountNumberSet).Values()){
+			newlyCreatedBillingAccountsMap.put(billAcc.LEGACY_ID__c, billAcc);
+		}
+		system.debug('****Billing Account List****'+newlyCreatedBillingAccountsMap);
+		try{
+			List<Holding_Role_Reference__c> newAccHoldingRoleList =  HoldingReferenceRoleSelector.newInstance().selectByName('New Accounts' ).values();
+			// added by Jansi - 13 -05-2021
+			Holding_Role_Reference__c newAccountHoldingRole = !newAccHoldingRoleList.isEmpty() ? newAccHoldingRoleList[0] : null;
+
+			for(Billing_Account__c billingAccountRecord :  newlyCreatedBillingAccountsMap.Values()){
+
+				if(platformEventsMap.containsKey(billingAccountRecord.LEGACY_ID__c) &&
+				String.isBlank(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Sub_Account_Request_Id__c) &&
+				String.isBlank(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c)){
+					// Setting up apttus contract to be updated
+					
+					//Jansi : Only for DSR. For CA billingAccountNumberDSRMap will be blank.
+					if(billingAccountRecord?.LEGACY_ID__c != null && billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c) !=null){
+						Apttus__APTS_Agreement__c apttusContract = new Apttus__APTS_Agreement__c();
+						apttusContract.id = dealsupportRequestMap.get(billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c))?.APT_Contract__c;
+						if(apttusContract.id!=null){
+							apttusContract.Billing_Account__c = billingAccountRecord.id;
+							relatedObjectsToBeUpdated.add(apttusContract);
+						}
+
+						// For APPC product, update "Organisation" level Agreement Lodgement Point with Billing Account lookup Id
+						if(hasAPPCProduct == true){
+							for(APT_Agreement_Lodgement_Point__c alp : alpList){
+								if(alp.APT_Billing_Account__c == null && alp.APT_Charge_Account__c == null && alp.APT_Sub_Account__c == null){
+									alp.APT_Billing_Account__c = billingAccountRecord.Id;
+									relatedObjectsToBeUpdated.add(alp);
+									break;
+								}
+							}
+						}
+					}
+					// Setting up charge Account to be updated
+					//Jansi : Only for DSR. For CA billingAccountNumberDSRMap will be blank.
+					if(billingAccountRecord?.LEGACY_ID__c != null && billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c) !=null){
+						APT_Charge_Account__c car = new APT_Charge_Account__c();
+						car.id = dealsupportRequestMap.get(billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c))?.APT_Contract__r?.Apttus_QPComply__RelatedProposalId__r?.APT_Credit_Assessment__r?.APT_Charge_Account__c;
+						if(car.id!=null) {
+							car.Billing_Account__c = billingAccountRecord.id;
+							car.Status__c = 'Completed';
+							relatedObjectsToBeUpdated.add(car);
+						}
+					}
+					// Setting up Organisation role and account to be updated
+					//Jansi : For both DSR & CA. We need to update Organisation role and holding role reference.
+					// Need to check with Min choon if this is only needed for DSR records?
+					if(organisationToOrganisationRoleMap.containskey(billingAccountRecord.Organisation__c) &&
+						organisationToOrganisationRoleMap.get(billingAccountRecord.Organisation__c)!=null){
+						Organisation_Role__c  orgRole = new Organisation_Role__c();
+						orgRole.id = organisationToOrganisationRoleMap.get(billingAccountRecord.Organisation__c).id;
+						// Only Update Role to "Customer" When Holding Role is "Known" or "Prospect"
+						String roleType = organisationToOrganisationRoleMap.get(billingAccountRecord.Organisation__c).Role_Type__c; // Bug Fix INC1911242
+						// Only Update Role to "Customer" When Holding Role is "Known" or "Prospect"
+						if(orgRole.id!=null && ('Known'.equalsIgnoreCase(roleType) || 'Prospect'.equalsIgnoreCase(roleType))){
+							orgRole.Role_Type__c = 'Customer';
+							relatedObjectsToBeUpdated.add(orgRole);
+						}
+						// Setting up Account for updating the holding Role to New Accounts
+						Account acc = new Account();
+						acc.id = billingAccountRecord.Organisation__c;
+						String holdingRole = organisationMap.get(billingAccountRecord.Organisation__c).Holding_Role_Reference__r.Name;
+						// Bug Fix STP-5550 OR REQ2571490: Only Update Holding Role to "New Accounts" When Holding Role is "Known" or "Prospect"
+						if(acc.id!=null && newAccountHoldingRole!=null && ('Known'.equalsIgnoreCase(holdingRole) || 'Prospect'.equalsIgnoreCase(holdingRole))){
+							acc.Holding_Role_Reference__c = newAccountHoldingRole.id;
+							relatedObjectsToBeUpdated.add(acc);
+						}
+					}
+
+					String objectName = String.valueOf(id.valueOf(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Request_Object_Id__c)?.getsobjecttype());
+					//-- only for CA
+					if(CA_OBJECT.equalsIgnoreCase(objectName)){
+						relatedObjectsToBeUpdated.add(updateCA(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c), billingAccountRecord.Id));
+					}
+				}
+				else{
+					//This can be also executed for CA records. 
+					billingAccountMap.put(billingAccountRecord.LEGACY_ID__c, billingAccountRecord );
+					if(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c) != null){
+						billingAccountRecord.PAYER_ACCOUNT_ID__c =  newlyCreatedBillingAccountsMap.get(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c).Id;
+						billingAccountRecord.Credit_Person_Code__c = newlyCreatedBillingAccountsMap.get(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c).Credit_Person_Code__c;
+						billingAccountRecord.Credit_Person__c = newlyCreatedBillingAccountsMap.get(platformEventsMap.get(billingAccountRecord.LEGACY_ID__c).Parent_Account_Number__c).Credit_Person__c;
+						relatedObjectsToBeUpdated.add(billingAccountRecord);
+					}
+				}
+			}
+			// flag to represent sub-account request originated from Proposal
+			Boolean isProposalFlow = false;
+			Integer subAccCount = 0;
+			//Integer subAccErrorCount = 0;
+			Deal_Support_Request__c dsrUpdate;
+			boolean isSAP = false;
+			for(BillingAccountCreationEvent__e evnt : billingAccountEvents ){
+				String objectName = String.valueOf(id.valueOf(evnt.Request_Object_Id__c)?.getsobjecttype());
+				if(!CA_OBJECT.equalsIgnoreCase(objectName) &&'SAP'.equalsIgnoreCase(evnt.Source_System__c)){
+					isSAP = true;
+				}
+				//Will check Min choon if this will come for CA record or not.
+				// Platform Event is for Sub-Account
+				if(evnt.Parent_Account_Number__c != null){
+					subAccCount++;
+					APT_Sub_Account__c subAccountRequestRecord = new APT_Sub_Account__c();
+					subAccountRequestRecord.id = evnt.Sub_Account_Request_Id__c;
+					subAccountRequestRecord.Sub_Account_Number__c = evnt.Billing_Account_Number__c;
+
+					// For APPC product, update "Sub Account Request" level Agreement Lodgement Point with Billing Account lookup Id
+					if(hasAPPCProduct == true){
+						for(APT_Agreement_Lodgement_Point__c alp : alpList){
+							if(alp.APT_Sub_Account__c == subAccountRequestRecord.id){
+								alp.APT_Billing_Account__c = newlyCreatedBillingAccountsMap.get(evnt.Billing_Account_Number__c)?.Id;
+								relatedObjectsToBeUpdated.add(alp);
+							}
+						}
+					}
+					if('Success'.equalsIgnoreCase(evnt.Status__c) || 'Partial Success'.equalsIgnoreCase(evnt.Status__c)){
+						subAccountRequestRecord.APT_Sub_Account_Request_Status__c = evnt.Status__c;
+						// Check source of sub account request - only allow Proposal source to update DSR
+						if(subAccountMap.get(subAccountRequestRecord.id).APT_Source_of_Sub_Account_Request__c == 'Proposal'){
+							isProposalFlow = true;
+							Deal_Support_Request__c dsrSubAcc = new Deal_Support_Request__c();
+							if(dealsupportRequestMap!=null && dealsupportRequestMap.get(evnt.Request_Object_Id__c)!=null){
+								dsrSubAcc = dealsupportRequestMap.get(evnt.Request_Object_Id__c);
+							}
+							// Append ";" after each sub-account number received from camunda and populate to DSR's sub-account number field 
+							if((String.ISBLANK(dsrSubAcc.Sub_Accounts__c) || dsrSubAcc.Sub_Accounts__c == null)){
+								dsrSubAcc.Sub_Accounts__c = subAccountRequestRecord.Sub_Account_Number__c;
+							}else if(!String.ISBLANK(dsrSubAcc.Sub_Accounts__c) && dsrSubAcc.Sub_Accounts__c != null 
+									&& !dsrSubAcc.Sub_Accounts__c.contains(subAccountRequestRecord.Sub_Account_Number__c) && subAccountRequestRecord.Sub_Account_Number__c != null){
+								dsrSubAcc.Sub_Accounts__c = dsrSubAcc.Sub_Accounts__c + ';' + subAccountRequestRecord.Sub_Account_Number__c;
+							}
+							// Retrieve DSR from dealSupportRequestUpdate Map and populate the sub-account number field                        
+							Deal_Support_Request__c dsrChargeSubAcc;
+							if(dealSupportRequestUpdate!=null && dealSupportRequestUpdate.get(evnt.Request_Object_Id__c)!=null){
+								dsrChargeSubAcc = dealSupportRequestUpdate.get(evnt.Request_Object_Id__c);
+							}
+							if(dsrChargeSubAcc!= null && dsrChargeSubAcc.id == dsrSubAcc.id && dsrChargeSubAcc != null){
+								dsrChargeSubAcc.Sub_Accounts__c = dsrSubAcc.Sub_Accounts__c;
+							}
+							// Save DSR with latest details in the final map
+							if(dsrChargeSubAcc != null){
+								dsrFINAL.put(dsrChargeSubAcc.id,dsrChargeSubAcc);
+							}else{
+								dsrFINAL.put(dsrSubAcc.id,dsrSubAcc);
+							}
+						}
+					}
+					else if('Error'.equalsIgnoreCase(evnt.Status__c)){
+						subAccountRequestRecord.APT_Sub_Account_Request_Status__c = evnt.Status__c;
+						//subAccErrorCount++;
+					}
+
+					subAccountRequestRecord.Sub_Account_Request_Status_Description__c = evnt.Status_Description__c;
+					subAccountRequestRecord.Transaction_Id__c = evnt.Transaction_Id__c;
+					if(newlyCreatedBillingAccountsMap.get(evnt.Parent_Account_Number__c) != null){
+						subAccountRequestRecord.APT_Billing_Account__c = newlyCreatedBillingAccountsMap?.get(evnt.Parent_Account_Number__c).id;
+					}
+					relatedObjectsToBeUpdated.add(subAccountRequestRecord);
+				}
+				// Platform Event is for Billing Account
+				else{
+					// Add DSR object
+					if(dealSupportRequestUpdate!=null && dealSupportRequestUpdate.get(evnt.Request_Object_Id__c)!=null){
+						dsrUpdate = dealSupportRequestUpdate.get(evnt.Request_Object_Id__c);
+					}
+					// For APPC product, update "Charge Account Request" level Agreement Lodgement Point with Billing Account lookup Id
+					if(hasAPPCProduct == true){
+						for(APT_Agreement_Lodgement_Point__c alp : alpList){
+							if( alp.APT_Charge_Account__c != null && alp.APT_Sub_Account__c == null && alp.APT_Billing_Account__c == null){
+								alp.APT_Billing_Account__c = newlyCreatedBillingAccountsMap.get(evnt.Billing_Account_Number__c)?.Id;
+								relatedObjectsToBeUpdated.add(alp);
+								break;
+							}
+						}
+					}
+				}
+			}
+			// is Proposal Flow, add DSR to list to be DML updated
+			if(isSAP && isProposalFlow && subAccCount > 0){
+				relatedObjectsToBeUpdated.add(dsrFINAL.values());
+			}
+			System.debug('---subAccCount: ' + subAccCount);
+			//System.debug('---dsrUpdate.Id' + dsrUpdate.Id);
+			System.debug('---dsrUpdate: ' + dsrUpdate);
+
+			// Charge Account only scenario, add DSR to list to be DML updated
+			if(isSAP && subAccCount == 0 && dsrUpdate != null){
+				dsrFINAL.put(dsrUpdate.id,dsrUpdate);
+				relatedObjectsToBeUpdated.add(dsrFINAL.values());
+			}
+		}
+		catch(Exception ex) {
+			UTIL_LoggingService.logHandledException(ex, ORGID, 'Sales', 'BillingAccountCreationEventTriggerHelper' , 'updateDSR', 'BillingAccountCreationEventTrigger', LoggingLevel.ERROR);
+		}
     
         return relatedObjectsToBeUpdated ;
     }
+
+
+	/**
+	 * @description		This method send custom bell notification to DSR's requestor with appropriate message based on Rating Plan integration status("Completed", "Partial Success", "Error")
+	 * 					in the final platform event sent from Camunda
+	 * @param			BillingAccountCreationEvent__e eachEvent, Deal_Support_Request__c dsr
+	 * @return 			void
+	 * 
+	 */
+	public static void sendCustomNotificationforEachRatingPlan(BillingAccountCreationEvent__e eachEvent, Deal_Support_Request__c dsr) {
+		/**
+		 * Querying the custom notification Type:
+		 * Selector Framework fails on ApplicationSelector.QueryBuilder.addFields(getSObjectFieldList()) with below error message
+		 * 		System.NoAccessException: Insufficient Privileges: You do not have the level of access necessary to perform the operation you requested. 
+		 * 		Please contact the owner of the record or your administrator if access is necessary.
+		 * This may be due to immutability property of CustomNotificationType metadata obj:
+		 * https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_customnotificationtype.htm
+		 */
+		CustomNotificationType customNotifType = [SELECT Id FROM CustomNotificationType WHERE DeveloperName = 'Custom_Notification' LIMIT 1];
+		if(customNotifType != null){
+			Messaging.CustomNotification notification = new Messaging.CustomNotification();
+			notification.setSenderId(Userinfo.getUserId());
+			notification.setNotificationTypeId(customNotifType.id);
+			notification.setTargetId(dsr.Id);
+			if('Completed'.equalsIgnoreCase(eachEvent.Status__c)) {
+				notification.setBody('Click here to go to the DSR record');
+				notification.setTitle('Rating Plan activation request for '+ dsr.Organisation__r.Name +' is completed');
+			}
+			else if('Partial Success'.equalsIgnoreCase(eachEvent.Status__c)) {
+				notification.setBody('Click here to navigate to exception description and remedial action');
+				notification.setTitle('Rating Plan creation has been successful, one or more rating plan activation has failed.');
+			}
+			else if('Error'.equalsIgnoreCase(eachEvent.Status__c)) {
+				notification.setBody('Click here to go to the DSR record. Once error has been remediated, click on the Rating Plan Retry button.');
+				notification.setTitle('Rating Plan activation request for '+ dsr.Organisation__r.Name +' has encountered an Error. Please Reach out to the IT Support Team.');
+			}
+			notification.send(new Set<String>{
+				dsr.Requestor__c
+			});
+		}
+	}
+
     /* Shashwat.Nath@auspost.com created this method to send bell notifications to the owners of the DSR on successful and
        unsuccessful Billing Account creation
      */
@@ -751,6 +984,20 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
     }
     
+	/* 
+	  * @description	This method updates Agreement Lodgement Point record with appropriate values coming from Camunda's rating plan platform event
+	  * @param			BillingAccountCreationEvent__e
+	  * @return			APT_Agreement_Lodgement_Point__c
+	*/
+	public static APT_Agreement_Lodgement_Point__c updateAgreementLodgementPoint(BillingAccountCreationEvent__e ratingPlanEvent){
+		APT_Agreement_Lodgement_Point__c alp = new APT_Agreement_Lodgement_Point__c();
+		alp.Id = ratingPlanEvent.Request_Object_Id__c;
+		alp.Integration_Status__c = ratingPlanEvent.Status__c;
+		alp.Integration_Status_Description__c = ratingPlanEvent.Status_Description__c;
+		alp.Rating_Plan_Id__c = ratingPlanEvent.Rating_Plan_Id__c;
+		return alp;
+	}
+
     /**
      * Credit Assessment object fields
      * */

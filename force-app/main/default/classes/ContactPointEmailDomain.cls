@@ -1,8 +1,8 @@
 /**
  * @description       :Domain class to handle Contact Point Email triger logic
  * @author            : Sreenish Krishnan
- * @domain            :
- * @last modified on  : 07-18-2022
+ * @domain            : Connected Customer
+ * @last modified on  : 08-18-2022
  * @last modified by  : Sreenish Krishnan
  **/
 public inherited sharing class ContactPointEmailDomain extends ApplicationDomain {
@@ -11,7 +11,9 @@ public inherited sharing class ContactPointEmailDomain extends ApplicationDomain
 	}
 
 	public override void registerModules() {
-		registerModule(ContactPointEmailDomainModule.class);
+		if (ContactService.getInstance().checkCurrentUserIsIntegrationUser(UserInfo.getUserId())) {
+			registerModule(ContactPointEmailContactSyncModule.class);
+		}
 	}
 
 	public virtual class Constructor implements ApplicationDomain.IConstructable {

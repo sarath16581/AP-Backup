@@ -1690,6 +1690,21 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Rating_Integration_Status_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Rating_Integration_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Rating_Integration_Transaction_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Reason__c</field>
         <readable>true</readable>

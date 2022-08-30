@@ -6,6 +6,7 @@
  * @changelog
  * 2021-03-01 - Darshan Chauhan - Created
  * 2021-09-23 - Mathew Jose - Added test methods test the simplified parcel products (Appc Speed & FSR)
+ * 2022-05-15 - Nasir Jawed -
 */
 
 @isTest
@@ -23,10 +24,10 @@ public with sharing class APT_PricingBatchUtility_Test {
         productCAT1STD.APT_Domestic_Pricing__c = true;
         insert productCAT1STD;
         //Startrack Product
-        Product2 productNXF = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'NextFlightTier1', 'Parcel Services', 'Tier 1', 'NXF', 'Startrack');
+        Product2 productNXF = APT_TestUtils.createStarTrackProduct('Next Flight Tier 1', 'NextFlightTier1', 'Parcel Services', 'T01', 'NXF', 'Startrack');
         productNXF.APT_Domestic_Pricing__c = true;
         insert productNXF;
-        Product2 productEXP = APT_TestUtils.createStarTrackProduct('Road Express', 'RoadExpress', 'Parcel Services', 'Tier 1', 'EXP', 'Startrack');
+        Product2 productEXP = APT_TestUtils.createStarTrackProduct('Road Express', 'RoadExpress', 'Parcel Services', 'T01', 'EXP', 'Startrack');
         productEXP.APT_Domestic_Pricing__c = true;
         insert productEXP;
         //International product 1
@@ -40,14 +41,14 @@ public with sharing class APT_PricingBatchUtility_Test {
         insert productAIRLET1; 
 
         //APPC Speed Product 
-        Product2 product_APPC_SPEED1 = APT_TestUtils.createDomesticProduct('Tier4 Standard Capital', 'PDSP00_Capital', 'Parcel Services', 'Tier 4','Standard');
+        Product2 product_APPC_SPEED1 = APT_TestUtils.createDomesticProduct('Tier4 Standard Capital', 'PDSP00_Capital', 'Parcel Services', 'T04','Standard');
         product_APPC_SPEED1.APT_Domestic_Pricing__c = true;
         product_APPC_SPEED1.APT_Product_type__c = 'Parcel Contract';
         insert product_APPC_SPEED1;
                 
         
         //APPC FSR Product 
-        Product2 product_APPC_FSR1 = APT_TestUtils.createDomesticProduct('Premium Express Parcel Transit Cover', 'FSR1', 'Parcel Services', 'Tier 4','Standard');
+        Product2 product_APPC_FSR1 = APT_TestUtils.createDomesticProduct('Premium Express Parcel Transit Cover', 'FSR1', 'Parcel Services', 'T04','Standard');
         product_APPC_FSR1.APT_Product_type__c = 'Parcel Contract-Feature';
         insert product_APPC_FSR1;   
 
@@ -469,7 +470,7 @@ public with sharing class APT_PricingBatchUtility_Test {
         APT_Pricing_Data__c pricData7 = new APT_Pricing_Data__c();
         pricData7.APT_Product__c = product_APPC_FSR1.Id;
         pricData7.APT_Pricing_Value_1__c = 'Parcel Contract-Feature';
-        pricData7.APT_Pricing_Value_2__c = 'TIER 4';
+        pricData7.APT_Pricing_Value_2__c = 'T04';
         pricData7.APT_Pricing_Value_3__c = '100';
         pricData7.APT_Pricing_Data_Mapping__c = pdMapping6.Id;
         pdList.add(pricData7);          

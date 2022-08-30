@@ -18,6 +18,7 @@ public inherited sharing class PersonAccountDomain extends ApplicationDomain {
 	public override void registerModules() {
 		// these module will be available for domain operations and trigger execution
 		registerModule(PersonAccountDomainCtPointSyncModule.class);
+		registerModule(PersonAccountDomainUserSyncModule.class);
 	}
 
 	/**

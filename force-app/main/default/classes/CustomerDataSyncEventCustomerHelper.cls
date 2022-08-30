@@ -2,12 +2,13 @@
  * @description       : Helper Class to perform Customer related logic for Connected Customer
  * @author            : Sreenish Krishnan
  * @domain            : Connected Customer
- * @last modified on  : 07-12-2022
+ * @last modified on  : 08-15-2022
  * @last modified by  : Sreenish Krishnan
  **/
 public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	private static final String APCN = 'APCN';
 	private static final String SFID = 'SFID';
+	private static final Integer NO_LIMIT = 0;
 	private ID personAccId;
 	private Map<String, List<Account>> custMap = new Map<String, List<Account>>{ APCN => new List<Account>(), SFID => new List<Account>() };
 	private Map<ID, Account> custSuccessMap = new Map<ID, Account>();
@@ -29,8 +30,8 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		//create map of APCN and Salesforce ID's for Query
 		Map<String, Object> apcnMap;
 		Map<String, Object> recIdMap;
-		List<Database.UpsertResult> result1 = new List<Database.UpsertResult>();
-		List<Database.UpsertResult> result2 = new List<Database.UpsertResult>();
+		List<Database.UpsertResult> resultUpsertAPCN = new List<Database.UpsertResult>();
+		List<Database.UpsertResult> resultUpsertSFID = new List<Database.UpsertResult>();
 		List<CustomerUpsertResult> resAPCNmap = new List<CustomerUpsertResult>();
 
 		try {
@@ -54,19 +55,27 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				accupsertSFIDList = (List<SObject>) custMap.get(SFID);
 
 				if (accupsertAPCNList.size() > 0) {
-					result1 = ApplicationDatabase.getInstance().dmlUpsert(accupsertAPCNList, Account.apcn__c);
+					resultUpsertAPCN = ApplicationDatabase.getInstance().dmlUpsert(accupsertAPCNList, Account.apcn__c);
 				}
 				if (accupsertSFIDList.size() > 0) {
-					result2 = ApplicationDatabase.getInstance().dmlUpsert(accupsertSFIDList, Account.Id);
+					resultUpsertSFID = ApplicationDatabase.getInstance().dmlUpsert(accupsertSFIDList, Account.Id);
 				}
 
-				custSuccessMap = genSuccessCustomerMap(genSuccessCustIds(result1, result2));
+				custSuccessMap = genSuccessCustomerMap(genSuccessCustIds(resultUpsertAPCN, resultUpsertSFID));
 
 				//query customer to get the contactid and create a map of salesforce id, person contactid
 				resAPCNmap = genCustomerUpsertResult(
 					(List<Account>) combineListsAccount(accupsertAPCNList, accupsertSFIDList),
-					(List<Database.UpsertResult>) combineListsUpsertResult(result1, result2)
+					(List<Database.UpsertResult>) combineListsUpsertResult(resultUpsertAPCN, resultUpsertSFID)
 				);
+
+				if(!resultUpsertAPCN.isEmpty()){
+					logUpsertResultsException(resultUpsertAPCN);
+				}
+				if(!resultUpsertSFID.isEmpty()){
+					logUpsertResultsException(resultUpsertSFID);
+				}
+
 			}
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
@@ -96,7 +105,9 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		Set<ID> result = new Set<ID>();
 		if (!input.isEmpty()) {
 			for (Database.UpsertResult r : input) {
-				result.add(r.getId());
+				if (r.isSuccess()) {
+					result.add(r.getId());
+				}
 			}
 		}
 		return result;
@@ -129,7 +140,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	//create a map of apcn and the CustmerUpsertResult
 	private Map<String, CustomerUpsertResult> genAPCNMapFromUpsertResult(List<CustomerUpsertResult> res) {
 		Map<String, CustomerUpsertResult> apcnMap = new Map<String, CustomerUpsertResult>();
-		try {
+
 			for (CustomerUpsertResult r : res) {
 				if (!apcnMap.containsKey(r.apcn)) {
 					apcnMap.put(r.apcn, r);
@@ -137,9 +148,6 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 					System.debug('***THERE HAS BEEN DUPLICATE APCN ENTRY***** ' + apcnMap.get(r.apcn));
 				}
 			}
-		} catch (Exception ex) {
-			System.debug('Exception is ' + ex.getMessage());
-		}
 		return apcnMap;
 	}
 
@@ -161,7 +169,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 
 	//query Customer after upsert to fetch the person contact ids
 	private Map<ID, Account> genSuccessCustomerMap(Set<ID> accIds) {
-		return AccountsSelector.newInstance(200, getFieldOverridesUpsertCustomer()).selectById(accIds);
+		return AccountsSelector.newInstance(NO_LIMIT, getFieldOverridesUpsertCustomer()).selectById(accIds);
 	}
 
 	//map the person account fields
@@ -245,6 +253,19 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	//get the recordtypeId. does this need to be moved to the account util class?
 	private ID getRecordTypeID(String developerName) {
 		return Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(developerName).getRecordTypeID();
+	}
+
+	//log exception for upsert result failures as the upsert result 
+	private void logUpsertResultsException(List<Database.UpsertResult> upsertResults) {
+		UTIL_LoggingService.createExceptionForUpsertResults(
+			upsertResults,
+			null,
+			'CustomerDataSyncEventCustomerHelper',
+			CustomerDataSyncEventCustomerHelper.class.getName(),
+			'upsertCustomerData',
+			null,
+			LoggingLevel.ERROR
+		);
 	}
 
 	//map the fields from Person Account
