@@ -7,7 +7,7 @@
 22.08.2019    Gunith Devasurendra     Added ausPhoneNumberRegEx (REQ1886690)
 13.08.2019    Gunith Devasurendra     Added getOrEmpty(..)
 21.07.2022    Mahesh Parvathaneni     Added validateInputComponents
-29.08.2022    Hasantha Liyanage       Added validatePhone and validateName
+29.08.2022    Hasantha Liyanage       Added validatePhone
 **/
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -159,24 +159,6 @@ export const REQUIRED_ERROR_MESSAGE = 'Complete this field';
                 isValid = false;
             }
         } else {
-            isValid = false;
-        }
-    }
-    return isValid;
- };
-
-/**
- * validating name fields according to the help and support UI standards
- * @param event
- * @returns {boolean}
- */
- export const validateName = (event) => {
-    var isValid = true;
-    if (event.target) {
-        var val = event.target.value;
-        if (!val || !val.trim()) {
-            isValid = false;
-        }else if (val.match(/\d/)) {
             isValid = false;
         }
     }

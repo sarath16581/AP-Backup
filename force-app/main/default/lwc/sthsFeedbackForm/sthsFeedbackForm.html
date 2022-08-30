@@ -58,7 +58,6 @@
 									required
 									message-when-value-missing={label.invalidReference}
 									max-length="40"
-									message-when-too-long={label.invalidCharacters}
 									data-validation="feedbackForm"
 									data-field-name="reference"
 									onchange={handleInputChange}
@@ -82,12 +81,14 @@
 								type="text"
 								label="First name"
 								required
-								message-when-value-missing={label.invalidFirstName}
+								pattern="^([^0-9]*)$"
 								max-length="40"
 								data-validation="feedbackForm"
 								data-field-name="firstName"
+								onchange={handleInputChange}
 								value={formData.firstName}
-								onchange= {handleInputOnNameChange}
+								message-when-pattern-mismatch={label.invalidNameFieldCharacters}
+								message-when-value-missing={label.invalidFirstName}
 							></lightning-input>
 						</lightning-layout-item>
 						<lightning-layout-item
@@ -98,12 +99,14 @@
 								type="text"
 								label="Last name"
 								required
-								message-when-value-missing={label.invalidLastName}
+								pattern="^([^0-9]*)$"
 								max-length="40"
 								data-validation="feedbackForm"
 								data-field-name="lastName"
-								onchange={handleInputOnNameChange}
+								onchange={handleInputChange}
 								value={formData.lastName}
+								message-when-pattern-mismatch={label.invalidNameFieldCharacters}
+								message-when-value-missing={label.invalidLastName}
 							></lightning-input>
 						</lightning-layout-item>
 						<lightning-layout-item
@@ -115,8 +118,6 @@
 								label="Phone number"
 								required
 								message-when-value-missing={label.invalidPhone}
-								max-length="12"
-								min-length="10"
 								data-validation="feedbackForm"
 								data-field-name="phone"
 								onchange={handleInputOnPhoneChange}

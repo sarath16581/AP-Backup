@@ -7727,20 +7727,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Maximum 40 characters allowed</value>
     </labels>
     <labels>
-        <fullName>STHSNamePatternValidationMessage</fullName>
-        <categories>StarTrack Help and Support</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>STHS Name Field Characters Validation Message</shortDescription>
-        <value>Please enter letters and/or special characters only</value>
-    </labels>
-    <labels>
         <fullName>STHSPhoneValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>STHS Phone Validation Message</shortDescription>
-        <value>Please enter a phone number with area code (For example, 0298765432), or a mobile (For example, 0400111222)</value>
+        <value>Enter valid phone number including area code</value>
     </labels>
     <labels>
         <fullName>STHSReferenceValidationMessage</fullName>
