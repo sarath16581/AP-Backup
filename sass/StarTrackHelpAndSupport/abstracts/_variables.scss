@@ -1,7 +1,11 @@
+@import '../../global/abstracts/variables';
+
+// variables 
+
 $primary-text-color: #212129;
 $secondary-text-color: #4D4D54;
-$error-color: #BD152E;
-$background-color:#F5F5F5;
-$white-background: #FFFFFF;
+$error-color: $dark-red;
+$background-color: $whitesmoke;
+$white-background: $white;
 $input-border-color: #919194;
 $button-primary-color: #003359;
