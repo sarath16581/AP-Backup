@@ -22,35 +22,25 @@ private class PUDPickupBookingController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		Network__c depot = ApplicationTestDataFactory.getNetworks(1, true)[0];
-		depot.Integrated_Job_Dispatch_Enabled__c = true;
-
 		PUD_Job__c job = PUDTestDataFactory.getPUDJobs(1, null, PUDConstants.PUD_JOB_STATUS_NEW, true)[0];
 		
 		//Dispatch window is specified in '' custom settings. Since custom setting is not specified in the test(intentional), 
 			//it will take default dispatch window for jobs. Default dispatch window is specified in PUDUtility.JOB_DISPATCH_FROM_DATE & JOB_DISPATCH_TO_DATE. 
 		
-		//setting jobs[2] date after 2 days.
+		//setting job date after 2 days.
 		//This should throw error as it is outside of default dispatch window.
 		job.Date__c = Date.today().addDays(2);
-		job.Depot__c = depot.Id;
 		// =====================================
 		// Stubbing
 		// =====================================
 		PUDJobsSelector mockJobSelector = (PUDJobsSelector) MockUtility.mockSelector(PUDJobsSelector.class);
-		NetworksSelector mockNetworkSelector = (NetworksSelector) MockUtility.mockSelector(NetworksSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-
+		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
 		//mock job and network selector
 		MockUtility.Mocks.when(mockJobSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<PUD_Job__c>{job});
-		MockUtility.Mocks.when(mockNetworkSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Network__c>{depot.Id => depot});
 		
-		//mock dmlUpdate method. Job[0] and job[1] should be updated
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
-
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
