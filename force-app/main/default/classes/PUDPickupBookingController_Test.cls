@@ -10,18 +10,27 @@
  * 2022-04-04 - Seth Heang - Added new test method to test update dispatch job integration flag on network
  * 2022-04-21 - Ranjeewa Silva - Added test methods for retrieving dispatch photo from Digital Repository.
  * 2022-08-24 - Dattaraj Deshmukh - Updated test method 'testEnsureCancelJobActionNotAllowedForFutureJobs' to allow cancellation for today and tomorrow.
+ * 								  - Renamed test method 'testEnsureTriggerDispatchSystemSyncOnlyForCurrentDayJobs' with 'testEnsureTriggerDispatchSystemSyncOnlyForJobsWithInDispatchWindow'
  */
 
 @IsTest
 private class PUDPickupBookingController_Test {
 
 	@IsTest
-	static void testEnsureTriggerDispatchSystemSyncOnlyForCurrentDayJobs() {
+	static void testEnsureTriggerDispatchSystemSyncOnlyForJobsWithInDispatchWindow() {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		PUD_Job__c job = PUDTestDataFactory.getPUDJobs(1, null, PUDConstants.PUD_JOB_STATUS_NEW, true)[0];
-		job.Date__c = Date.today().addDays(2);
+		List<PUD_Job__c> jobs = PUDTestDataFactory.getPUDJobs(3, null, PUDConstants.PUD_JOB_STATUS_NEW, true);
+		//jobs[0] & jobs[1] are set for today and as per PUDUtility.JOB_DISPATCH_TO_DATE respectively.
+		//PUDUtility.JOB_DISPATCH_TO_DATE returns Date.today()+number configured for offset. 
+		//If 'Pickup_Booking_Settings__c & Pickup_Booking_Settings__c.Job_Dispatch_Offset_Days__c' is null then it will return date = 'Date.today.addDays(1)'.
+		//In this scenario since we are not creating instance of Pickup_Booking_Settings__c, it will return 'Date.today.addDays(1)'
+		jobs[0].Date__c = Date.today();
+		jobs[1].Date__c = PUDUtility.JOB_DISPATCH_TO_DATE;
+		
+		//setting jobs[2] date after 2 days.
+		jobs[2].Date__c = Date.today().addDays(2);
 
 
 		// =====================================
@@ -32,7 +41,7 @@ private class PUDPickupBookingController_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<PUD_Job__c>{job});
+		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(jobs);
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -41,13 +50,24 @@ private class PUDPickupBookingController_Test {
 		// =====================================
 		Test.startTest();
 
-		PUDPickupBookingController.PickupBookingActionResult result = PUDPickupBookingController.triggerDispatchSystemSync(job.Id);
+		PUDPickupBookingController.PickupBookingActionResult job_0_result = PUDPickupBookingController.triggerDispatchSystemSync(jobs[0].Id);
+		PUDPickupBookingController.PickupBookingActionResult job_1_result = PUDPickupBookingController.triggerDispatchSystemSync(jobs[1].Id);
+		PUDPickupBookingController.PickupBookingActionResult job_2_result = PUDPickupBookingController.triggerDispatchSystemSync(jobs[2].Id);
 
 		Test.stopTest();
 
-		System.assertNotEquals(null, result, 'Expected a valid response, but received null');
-		System.assertEquals(PUDPickupBookingController.Status.ERROR.name(), result.status, 'Expected error status not returned');
-		System.assert(String.isNotBlank(result.errorMessage), 'Expected a valid error message; but was blank');
+		//asserting job[0] is sent to dispatch
+		System.assertNotEquals(null, job_0_result, 'Expected a valid response, but received null');
+		System.assertEquals(PUDPickupBookingController.Status.SUCCESSFUL.name(), job_0_result.status, 'Expected status not returned');
+
+		//asserting job[1] is sent to dispatch
+		System.assertNotEquals(null, job_1_result, 'Expected a valid response, but received null');
+		System.assertEquals(PUDPickupBookingController.Status.SUCCESSFUL.name(), job_1_result.status, 'Expected status not returned');
+
+		//asserting job[2] throws error
+		System.assertNotEquals(null, job_2_result, 'Expected a valid response, but received null');
+		System.assertEquals(PUDPickupBookingController.Status.ERROR.name(), job_2_result.status, 'Expected error status not returned');
+		System.assert(String.isNotBlank(job_2_result.errorMessage), 'Expected a valid error message; but was blank');
 	}
 
 	@IsTest
@@ -243,6 +263,12 @@ private class PUDPickupBookingController_Test {
 		// Data Preparation
 		// =====================================
 		PUD_Job__c job = PUDTestDataFactory.getPUDJobs(1, null, PUDConstants.PUD_JOB_STATUS_NEW, true)[0];
+
+		//setting job after 2 days. 
+		//This job should not be allowed to be cancelled. 
+		//Job cancellation is only allowed within date range specified in 'Pickup_Booking_Settings__c' config.
+		//Since we are not creating an instance of 'Pickup_Booking_Settings__c', 
+		//default date range specified in PUDUtility.JOB_DISPATCH_FROM_DATE  & PUDUtility.JOB_DISPATCH_TO_DATE will be used.
 		job.Date__c = Date.today().addDays(2);
 
 		// =====================================

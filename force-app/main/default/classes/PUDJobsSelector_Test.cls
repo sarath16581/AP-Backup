@@ -6,8 +6,7 @@
  * @description Test Class covering PUDJobsSelector
  * @changelog
  * 2021-07-28 - arjun.singh@austpost.com.au - Created
- * 2022-08-24-  Dattaraj Deshmukh - Added 'Pickup_Booking_Settings__c' custom setting 
- *              and updated params in 'selectJobsByDateAndStatusQueryLocator' method to pass date range.
+ * 2022-08-24-  Dattaraj Deshmukh - Updated params in 'selectJobsByDateAndStatusQueryLocator' method to pass date range.
  */
  @IsTest
 public with sharing class PUDJobsSelector_Test {

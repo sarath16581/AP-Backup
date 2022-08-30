@@ -56,7 +56,7 @@ public inherited sharing class PUDJobDispatchSystemSyncModule extends Applicatio
 			for (PUD_Job__c job : (List<PUD_Job__c>) records) {
 
 				// monitor for jobs that satisfy below conditions:
-				//  - Date__c >= JOB_DISPATCH_FROM_DATE && Date__c <= JOB_DISPATCH_TO_DATE. These dates are fetched as per config defined.
+				//  - Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && Date__c <= PUDUtility.JOB_DISPATCH_TO_DATE. These dates are fetched as per config defined.
 				//  - Status = New
 				if (job.Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && job.date__c <= PUDUtility.JOB_DISPATCH_TO_DATE
 					 && job.Status__c == PUDConstants.PUD_JOB_STATUS_NEW) {
@@ -90,7 +90,7 @@ public inherited sharing class PUDJobDispatchSystemSyncModule extends Applicatio
 				if (changed == null) changed = new Set<SObjectField>();
 
 				//	- monitor jobs which are within date range where 
-				// Date__c >= JOB_DISPATCH_FROM_DATE && Date__c <= JOB_DISPATCH_TO_DATE. These dates are fetched as per config defined.
+				// Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && Date__c <= PUDUtility.JOB_DISPATCH_TO_DATE. These dates are fetched as per config defined.
 				//  - job details changing where Status = Schedule, Accepted
 				//  - status changing to Cancel
 				// it is not necessary to trigger the send if 'Last_Pushed_to_Dispatch_System__c' has been updated in

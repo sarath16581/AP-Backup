@@ -255,14 +255,6 @@ public with sharing class PUDPickupBookingController {
 			return false;
 		}
 
-		// Future jobs a day after tomorrow can only be cancelled by updating booking.
-		//if (Date.today() < job.Date__c) {
-		if ( PUDUtility.JOB_DISPATCH_TO_DATE < job.Date__c) {	
-			result.status = Status.ERROR.name();
-			result.errorMessage = System.Label.PUDUpdateBookingToCancelFutureJobsErrorMessage;
-			return false;
-		}
-
 		// Jobs in 'New' status are not yet sent to dispatch system.
 		// Update the booking to cancel such jobs.
 		if (job.Status__c == PUDConstants.PUD_JOB_STATUS_NEW) {
