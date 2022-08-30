@@ -1,0 +1,34 @@
+<apex:page controller="OmniBugRedirectController">
+	<script>
+        /*
+        * This is required because there is a bug in SF with clasic service consoles when opening a Subtab with a standard controller and having Omni Channel routing enabled with Tab-based tracking. 
+        * Using javascript, if you use sforce.console.openSubtab(...) and passing an URL to another VF page that uses Standard controller. The URL params need to have "id=<objet id>". SF uses this param to load up the record. 
+        * However, Omni also uses this param to track for tab changes. Closing the tab will trigger Omni to send another record as it thinks that you have closed the record
+        * 
+        * Reference: 
+        * https://trailblazer.salesforce.com/issues_view?id=a1p3A00000031ySQAQ&title=when-a-custom-vf-page-is-opened-as-a-subtab-of-an-omni-routed-case-closing-that-subtab-frees-up-agent-capacity-and-routed-new-work-to-the-agent
+        * https://trailblazer.salesforce.com/issues_view?id=a1p3A000000nbVUQAY
+        */
+        var currentUrl = new URL(window.location.href);
+        var originalUrlString = currentUrl.searchParams.get("url");
+        var originalUrl = new URLSearchParams(originalUrlString);
+
+        var orgDomainUrl = '{!orgDomainUrl}';
+        if(originalUrlString.startsWith(orgDomainUrl) == true || originalUrlString.startsWith('/') == true) {
+                if(originalUrl.get('isdtp=vw') == undefined) {
+                        if(originalUrlString.includes('?') == false) {
+                                originalUrlString += '?isdtp=vw';   
+                        } else {
+                                originalUrlString += '&isdtp=vw';
+                        }
+                }
+                location.href = originalUrlString;
+        } else {
+                var msgBox = document.getElementById("msgBox");
+                var text = document.createTextNode("Unauthorised redirection: " + originalUrlString);
+                msgBox.appendChild(text);
+        }
+	
+        </script>
+        <div id="msgBox"></div>
+</apex:page>

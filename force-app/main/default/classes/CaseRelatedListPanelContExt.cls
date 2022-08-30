@@ -24,6 +24,12 @@ public with sharing class CaseRelatedListPanelContExt {
 	public transient List<EmailMessage> emails { get; private set; } //transient
 	public List<CaseComment> caseComments { get; private set; }
 
+	public Boolean currentUserIsPartOfOmniGroup {
+		get {
+			return OmniChannelService.currentUserIsPartOfOmniGroup;
+		}
+	}
+
 	public List<AttachmentWrapper> attachments { get; private set; }
 	public List<EventMessage__c> eventMessages { get; private set; }
 	public Boolean isConsignmentCase { get; private set; }
