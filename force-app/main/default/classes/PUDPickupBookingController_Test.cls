@@ -24,7 +24,7 @@ private class PUDPickupBookingController_Test {
 		// =====================================
 		PUD_Job__c job = PUDTestDataFactory.getPUDJobs(1, null, PUDConstants.PUD_JOB_STATUS_NEW, true)[0];
 		
-		//Dispatch window is specified in '' custom settings. Since custom setting is not specified in the test(intentional), 
+		//Dispatch window is specified in 'Pickup_Booking_Settings__c' custom settings. Since custom setting is not specified in the test(intentional), 
 			//it will take default dispatch window for jobs. Default dispatch window is specified in PUDUtility.JOB_DISPATCH_FROM_DATE & JOB_DISPATCH_TO_DATE. 
 		
 		//setting job date after 2 days.
@@ -38,7 +38,7 @@ private class PUDPickupBookingController_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		//mock job and network selector
+		//mock job selector
 		MockUtility.Mocks.when(mockJobSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<PUD_Job__c>{job});
 		
 		MockUtility.Mocks.stopStubbing();
