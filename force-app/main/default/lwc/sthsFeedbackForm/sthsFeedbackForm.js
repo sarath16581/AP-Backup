@@ -1,5 +1,5 @@
 import { LightningElement } from "lwc";
-import { validateInputComponents } from "c/utils";
+import { validateInputComponents, validatePhone } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
 import invalidDescription from "@salesforce/label/c.STHSDescriptionValidationMessage";
 import invalidEmail from "@salesforce/label/c.STHSEmailValidationMessage";
@@ -7,7 +7,6 @@ import invalidFeedbackTypeSelection from "@salesforce/label/c.STHSFeedbackSelect
 import invalidFeedback from "@salesforce/label/c.STHSFeedbackValidationMessage";
 import invalidFirstName from "@salesforce/label/c.STHSFirstnameValidationMessage";
 import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
-import invalidCharacters from "@salesforce/label/c.STHSMaxCharactersValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
 import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
@@ -29,6 +28,7 @@ export default class SthsTrackingForm extends LightningElement {
 	isLoading = false; //flag to show/hide the spinner
 	caseNumber; //case number created for feedback form
 	isCaseCreatedSuccessfully = false; //flag to show/hide the layout when case created successfully
+	isValidPhone = false;
 
 	//labels
 	label = {
@@ -38,7 +38,6 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidFeedback, // Please enter your feedback
 		invalidFirstName,
 		invalidLastName,
-		invalidCharacters,
 		invalidPhone,
 		invalidReference,
 		stSupportURL,
@@ -129,5 +128,17 @@ export default class SthsTrackingForm extends LightningElement {
 	//handler for error close event
 	handleErrorClose = (event) => {
 		this.showError = false;
+	};
+
+	// handling phone number fields separate with custom validations
+	handleInputOnPhoneChange = (event) => {
+		if(!validatePhone(event)) {
+			event.target.setCustomValidity(this.label.invalidPhone);
+		} else {
+			event.target.setCustomValidity('');
+			this.handleInputChange(event);
+		}
+		event.target.reportValidity();
+		event.target.showHelpMessageIfInvalid();
 	};
 }

@@ -7732,7 +7732,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>STHS Phone Validation Message</shortDescription>
-        <value>Please enter a phone number with area code (For example, 0298765432), or a mobile (For example, 0400111222)</value>
+        <value>Enter valid phone number including area code</value>
     </labels>
     <labels>
         <fullName>STHSReferenceValidationMessage</fullName>
