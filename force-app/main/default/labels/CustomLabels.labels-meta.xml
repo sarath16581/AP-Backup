@@ -7708,7 +7708,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>STHS Firstname Validation Message</shortDescription>
-        <value>Enter first name</value>
+        <value>Please enter your first name</value>
     </labels>
     <labels>
         <fullName>STHSLastnameValidationMessage</fullName>
@@ -7716,7 +7716,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>STHS Lastname Validation Message</shortDescription>
-        <value>Enter last name</value>
+        <value>Please enter your last name</value>
     </labels>
     <labels>
         <fullName>STHSMaxCharactersValidationMessage</fullName>
