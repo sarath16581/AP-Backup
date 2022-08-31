@@ -29,7 +29,6 @@ export default class SthsTrackingForm extends LightningElement {
 	isLoading = false; //flag to show/hide the spinner
 	caseNumber; //case number created for feedback form
 	isCaseCreatedSuccessfully = false; //flag to show/hide the layout when case created successfully
-	isValidPhone = false;
 
 	//labels
 	label = {
@@ -132,15 +131,13 @@ export default class SthsTrackingForm extends LightningElement {
 		this.showError = false;
 	};
 
-	// handling phone number fields separate with custom validations
-	handleInputOnPhoneChange = (event) => {
-		if(!validatePhone(event)) {
+	//valiadte phone number field with custom validations
+	validatePhone = (event) => {
+		event.target.setCustomValidity('');
+		if(event.target.value && !validatePhone(event.target.value)) {
 			event.target.setCustomValidity(this.label.invalidPhone);
-		} else {
-			event.target.setCustomValidity('');
-			this.handleInputChange(event);
 		}
 		event.target.reportValidity();
 		event.target.showHelpMessageIfInvalid();
-	};
+	}
 }

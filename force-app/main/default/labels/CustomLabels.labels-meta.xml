@@ -7719,14 +7719,6 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Please enter your last name</value>
     </labels>
     <labels>
-        <fullName>STHSMaxCharactersValidationMessage</fullName>
-        <categories>StarTrack Help and Support</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>STHS Max Characters Validation Message</shortDescription>
-        <value>Maximum 40 characters allowed</value>
-    </labels>
-    <labels>
         <fullName>STHSNameFieldCharactersValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>

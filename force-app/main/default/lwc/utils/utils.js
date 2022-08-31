@@ -139,27 +139,20 @@ export const REQUIRED_ERROR_MESSAGE = 'Complete this field';
 
 /**
  * validating phone number fields according to the help and support UI standards
- * @param event
+ * @param {string} phNumber
  * @returns {boolean}
  */
- export const validatePhone  = (event) => {
-    var isValid = true;
-    if (event.target) {
-        var val = event.target.value;
-        if (val) {
-            var valTrimmed = val.replace(/[\s\)\(-]+/g, '');
-            if (
-                valTrimmed.match(/^0\d{9}$/) ||     // 10 character number starting with 0
-                valTrimmed.match(/^\+?61\d{9}$/) || // 12 character number starting with +61
-                valTrimmed.match(/^13\d{4}$/) ||    // 6 character number starting with 13
-                valTrimmed.match(/^1300\d{6}$/)     // 10 character number starting with 1300
-            ){
-                isValid = true;
-            } else {
-                isValid = false;
-            }
-        } else {
-            isValid = false;
+ export const validatePhone  = (phNumber) => {
+    var isValid = false;
+    if (phNumber) {
+        var valTrimmed = phNumber.replace(/[\s\)\(-]+/g, '');
+        if (
+            valTrimmed.match(/^0\d{9}$/) ||     // 10 character number starting with 0
+            valTrimmed.match(/^\+?61\d{9}$/) || // 12 character number starting with +61
+            valTrimmed.match(/^13\d{4}$/) ||    // 6 character number starting with 13
+            valTrimmed.match(/^1300\d{6}$/)     // 10 character number starting with 1300
+        ){
+            isValid = true;
         }
     }
     return isValid;
