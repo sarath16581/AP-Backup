@@ -132,7 +132,7 @@ export default class SthsTrackingForm extends LightningElement {
 
 	// handling phone number fields separate with custom validations
 	handleInputOnPhoneChange = (event) => {
-		if(!validatePhone(event)) {
+		if(!validatePhone(event.detail.value)) {
 			event.target.setCustomValidity(this.label.invalidPhone);
 		} else {
 			event.target.setCustomValidity('');
