@@ -1,5 +1,5 @@
 import { LightningElement } from "lwc";
-import { validateInputComponents } from "c/utils";
+import { validateInputComponents, validatePhone } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
 import invalidDescription from "@salesforce/label/c.STHSDescriptionValidationMessage";
 import invalidEmail from "@salesforce/label/c.STHSEmailValidationMessage";
@@ -7,10 +7,10 @@ import invalidEnquirySelection from "@salesforce/label/c.STHSEnquirySelectionVal
 import invalidEnquiry from "@salesforce/label/c.STHSEnquiryValidationMessage";
 import invalidFirstName from "@salesforce/label/c.STHSFirstnameValidationMessage";
 import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
-import invalidCharacters from "@salesforce/label/c.STHSMaxCharactersValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
+import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
 import createTrackingFormCase from "@salesforce/apex/STHSTrackingFormController.createTrackingFormCase";
 
 export default class SthsTrackingForm extends LightningElement {
@@ -32,7 +32,8 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidCharacters,
 		invalidPhone,
 		invalidReference,
-		stSupportURL
+		stSupportURL,
+		invalidNameFieldCharacters
 	};
 
 	get enquiryOptions() {
@@ -99,4 +100,14 @@ export default class SthsTrackingForm extends LightningElement {
 		this.showError = false;
 		this.isCaseCreatedSuccessfully = false;
 	};
+
+	//valiadte phone number field with custom validations
+	validatePhone = (event) => {
+		event.target.setCustomValidity('');
+		if(event.target.value && !validatePhone(event.target.value)) {
+			event.target.setCustomValidity(this.label.invalidPhone);
+		}
+		event.target.reportValidity();
+		event.target.showHelpMessageIfInvalid();
+	}
 }

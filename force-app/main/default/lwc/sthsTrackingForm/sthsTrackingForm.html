@@ -49,7 +49,6 @@
 							required
 							message-when-value-missing={label.invalidReference}
 							max-length="40"
-							message-when-too-long={label.invalidCharacters}
 							data-validation="trackingForm"
 							data-field-name="reference"
 							onchange={handleInputChange}
@@ -72,7 +71,8 @@
 							data-field-name="firstName"
 							onchange={handleInputChange}
 							value={formData.firstName}
-							message-when-too-long={label.invalidCharacters}></lightning-input>
+							pattern="^([^0-9]*)$"
+							message-when-pattern-mismatch={label.invalidNameFieldCharacters}></lightning-input>
 					</lightning-layout-item>
 					<lightning-layout-item
 						size="12"
@@ -88,7 +88,8 @@
 							data-field-name="lastName"
 							onchange={handleInputChange}
 							value={formData.lastName}
-							message-when-too-long={label.invalidCharacters}></lightning-input>
+							pattern="^([^0-9]*)$"
+							message-when-pattern-mismatch={label.invalidNameFieldCharacters}></lightning-input>
 					</lightning-layout-item>
 					<lightning-layout-item
 						size="12"
@@ -99,16 +100,11 @@
 							label="Phone number"
 							required
 							message-when-value-missing={label.invalidPhone}
-							max-length="10"
-							min-length="10"
-							pattern="[0-9]{10}"
 							data-validation="trackingForm"
 							data-field-name="phone"
 							onchange={handleInputChange}
-							value={formData.phone}
-							message-when-too-long={label.invalidPhone}
-							message-when-too-short={label.invalidPhone}
-							message-when-pattern-mismatch={label.invalidPhone}></lightning-input>
+							onblur={validatePhone}
+							value={formData.phone}></lightning-input>
 					</lightning-layout-item>
 					<lightning-layout-item
 						size="12"
@@ -137,6 +133,7 @@
 							onchange={handleInputChange}
 							value={formData.enquiry}
 							required
+							max-length="1000"
 							message-when-value-missing={label.invalidEnquiry}></lightning-textarea>
 					</lightning-layout-item>
 					<lightning-layout-item

@@ -145,7 +145,7 @@ export const REQUIRED_ERROR_MESSAGE = 'Complete this field';
  export const validatePhone  = (phNumber) => {
     var isValid = false;
     if (phNumber) {
-        var valTrimmed = val.replace(/[\s\)\(-]+/g, '');
+        var valTrimmed = phNumber.replace(/[\s\)\(-]+/g, '');
         if (
             valTrimmed.match(/^0\d{9}$/) ||     // 10 character number starting with 0
             valTrimmed.match(/^\+?61\d{9}$/) || // 12 character number starting with +61
