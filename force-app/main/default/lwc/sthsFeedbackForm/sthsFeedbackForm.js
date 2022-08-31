@@ -9,6 +9,7 @@ import invalidFirstName from "@salesforce/label/c.STHSFirstnameValidationMessage
 import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
+import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
 import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
 import createFeedbackFormCase from "@salesforce/apex/SthsFeedbackFormController.createFeedbackFormCase";
@@ -41,7 +42,8 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidPhone,
 		invalidReference,
 		stSupportURL,
-		errorStateMessage
+		errorStateMessage,
+		invalidNameFieldCharacters
 	};
 
 	get enquiryOptions() {
