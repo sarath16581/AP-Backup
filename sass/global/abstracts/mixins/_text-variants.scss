@@ -1,0 +1,9 @@
+// text variants
+@import '../mixins/fonts';
+
+/* background color */
+@mixin text-default($color, $font-weight, $font-size, $line-height) {
+    @include font-normal($font-size, $font-weight);
+    color: $color;
+    line-height: $line-height;
+}
