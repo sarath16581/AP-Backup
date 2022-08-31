@@ -29,7 +29,6 @@ export default class SthsTrackingForm extends LightningElement {
 	isLoading = false; //flag to show/hide the spinner
 	caseNumber; //case number created for feedback form
 	isCaseCreatedSuccessfully = false; //flag to show/hide the layout when case created successfully
-	isValidPhone = false;
 
 	//labels
 	label = {

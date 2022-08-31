@@ -29,7 +29,6 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidEnquiry,
 		invalidFirstName,
 		invalidLastName,
-		invalidCharacters,
 		invalidPhone,
 		invalidReference,
 		stSupportURL,
