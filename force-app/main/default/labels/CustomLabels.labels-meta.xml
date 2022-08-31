@@ -7708,7 +7708,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>STHS Firstname Validation Message</shortDescription>
-        <value>Please enter your first name</value>
+        <value>Enter first name</value>
     </labels>
     <labels>
         <fullName>STHSLastnameValidationMessage</fullName>
@@ -7716,7 +7716,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>STHS Lastname Validation Message</shortDescription>
-        <value>Please enter your last name</value>
+        <value>Enter last name</value>
     </labels>
     <labels>
         <fullName>STHSMaxCharactersValidationMessage</fullName>
@@ -7725,6 +7725,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
+    </labels>
+    <labels>
+        <fullName>STHSNameFieldCharactersValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS name field validation message on characters</shortDescription>
+        <value>Please enter letters and/or special characters only</value>
     </labels>
     <labels>
         <fullName>STHSPhoneValidationMessage</fullName>
