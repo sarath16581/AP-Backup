@@ -61,6 +61,7 @@ public inherited sharing class STHSCommunityService {
         caseObj.Recent_Caller_First_Name__c = formData.get(STHSConstants.FORM_DATA_FNAME);
         caseObj.Recent_Caller_Last_Name__c = formData.get(STHSConstants.FORM_DATA_LNAME);
         String phNumber = formData.get(STHSConstants.FORM_DATA_PHONE);
+        phNumber = phNumber.replaceAll('[^0-9]', ''); //replace all characters other than numbers
         //check mobile or landline number
         if (isMobileNumber(phNumber)) {
             caseObj.Recent_Contact_Mobile_Number__c = phNumber;
@@ -72,7 +73,7 @@ public inherited sharing class STHSCommunityService {
 
     //function to check mobile number
     private Boolean isMobileNumber(String phNumber){
-        return (phNumber.startsWith('04') || phNumber.startsWith('05'));
+        return (phNumber.startsWith('04') || phNumber.startsWith('05') || phNumber.startsWith('614') || phNumber.startsWith('615'));
     }
 
     /**
