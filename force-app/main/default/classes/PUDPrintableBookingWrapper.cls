@@ -9,8 +9,8 @@
 *				 This class is created to be able to use on Apex:Component as a Type attribute. Due to current limitation of Visualforce 
 * 				 Component, we cannot use apex:attribute with inner class as a "Type". It requires TOP LEVEL class only.
 * @changelog
-* 2022-08-09 - created - Dattaraj Deshmukh
-* 2022-08-31 - Updated - Added compareTo() logic to sort Bookings for overnight routes. Bookings on overnight routes appear on top in list on pdf.
+* 2022-08-09 - Dattaraj Deshmukh - created 
+* 2022-08-31 - Dattaraj Deshmukh - Added compareTo() logic to sort Bookings for overnight routes. Bookings on overnight routes appear on top in list on pdf.
 */
 
 public inherited sharing class PUDPrintableBookingWrapper implements Comparable{
