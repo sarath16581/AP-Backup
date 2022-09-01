@@ -50,6 +50,11 @@
 		<field>PUD_Route__c.Wednesday__c</field>
 		<readable>true</readable>
 	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>PUD_Route__c.Overnight_Route__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Auspost Depot Super User</label>
     <license>Salesforce Platform</license>
