@@ -40,8 +40,10 @@ public inherited sharing class PUDPrintableRouteWrapper {
 			// 	this.normalBookings.add(b);
 			// }
 				
-			//set overnight flag on booking if booking.Start_Time__c >= Route.Start_Time  
-			b.isOvernightBooking(this.route.Start_Time__c);
+			//if ROUTE is overnight route, check and set overnight flag on booking if booking.Start_Time__c >= Route.Start_Time  
+			if(this.route.Overnight_Route__c) {
+				b.isOvernightBooking(this.route.Start_Time__c);
+			}
 
 			this.bookings.add(b);
 
