@@ -224,7 +224,7 @@ private class PUD_PrintRouteController_Test {
 		//asserting that bookings are sorted and overnight bookings after normal bookings.
 		//bookings at position 1 and 2 should be listed as per start time on booking. 
 		//ie. Bookings starting on 1st Day should be listed before bookings starting on 2nd Day
-		//bookings[2] and bookings[4] (3rd and 5th bookings) start overnight ie. between (2200hrs - 2400hrs)
+		//bookings[2] and bookings[4] (3rd and 5th bookings) start Day 1  ie. between (2200hrs - 2400hrs)
 		system.assertEquals(testRoutesPrint.routes[0].bookings[0].booking.Id, bookings[2].Id, 'Expected booking at 2300-2330 to appear first.');
 		system.assertEquals(testRoutesPrint.routes[0].bookings[1].booking.Id, bookings[4].Id, 'Expected booking at 2330-2345 to appear second.');
 				
