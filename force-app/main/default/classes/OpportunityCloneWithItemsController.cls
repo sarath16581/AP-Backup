@@ -17,6 +17,7 @@ History:
   24-Feb-2021     Naseer Abbasi       Omitted field 'Closing Owner Role' while cloning opportunity  
   09-Mar-2021     Seth Heang           STP-2793 - Decommission "Business_Development_Driver__c" field
   14-Apr-2021     Neha Mehta          INC1659920-REQ2459600 Update some opportuniy field values to null after cloning
+  02-Sep-2022     Talib Raza          REQ2938280: Set Opp fields to false
 *********************************************************************************************/
 
 public with sharing class OpportunityCloneWithItemsController {
@@ -101,7 +102,13 @@ public with sharing class OpportunityCloneWithItemsController {
              
              Opportunity update_opp = [SELECT Id FROM Opportunity WHERE Id = :newOp.id];
 
-             update_opp.ECLM_Opportunity_Id_for_Contract__c=newOp.id;  
+             update_opp.ECLM_Opportunity_Id_for_Contract__c=newOp.id; 
+             system.debug('flag1');
+             // REQ2938280: set Opp fields to false
+             update_opp.CTA_Propose_Approved__c = false;
+             update_opp.CTA_Propose_Request_Exists__c = false;
+             update_opp.CTA_Pursue_Approved__c = false;
+             update_opp.CTA_Pursue_Request_Exists__c = false;
              
              Update update_opp;
  
@@ -214,6 +221,13 @@ public with sharing class OpportunityCloneWithItemsController {
              
              // update_opp.Business_Development_Driver__c =null; - Decommission this field as part of STP-2793
               update_opp.Supply_Chain_Optimisation_Driver__c =null;
+              
+              system.debug('flag2');
+              // REQ2938280: set Opp fields to false
+              update_opp.CTA_Propose_Approved__c = false;
+              update_opp.CTA_Propose_Request_Exists__c = false;
+              update_opp.CTA_Pursue_Approved__c = false;
+              update_opp.CTA_Pursue_Request_Exists__c = false;
              
              Update update_opp;
  
