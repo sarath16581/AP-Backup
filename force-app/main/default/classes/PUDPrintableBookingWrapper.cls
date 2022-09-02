@@ -10,25 +10,16 @@
 * 				 Component, we cannot use apex:attribute with inner class as a "Type". It requires TOP LEVEL class only.
 * @changelog
 * 2022-08-09 - Dattaraj Deshmukh - created 
-* 2022-08-31 - Dattaraj Deshmukh - Added compareTo() logic to sort Bookings for overnight routes. Bookings on overnight routes appear on top in list on pdf.
 */
 
-public inherited sharing class PUDPrintableBookingWrapper implements Comparable{
+public inherited sharing class PUDPrintableBookingWrapper {
   
 	public PUD_Booking__c booking {get; private set;}
-	Boolean overnightBooking {get; private set;}
 	
 	public PUDPrintableBookingWrapper(PUD_Booking__c booking) {
 		this.booking = booking;
-		this.overnightBooking = false;
 	}
-	
-	//check if booking is for overnight route.
-	//overnight bookings are appeared on top of Print Board pdf page.
-	public Boolean isOvernightBooking(Time routeStartTime){
-		this.overnightBooking = this.booking.Start_Time__c >= routeStartTime ? true : false;
-		return overnightBooking;
-	}
+
 
 	// check if booking is of Meal Type
 	public Boolean isMealBreak() {
@@ -84,28 +75,4 @@ public inherited sharing class PUDPrintableBookingWrapper implements Comparable{
 		return PUDPrintUtility.getDuration(startTime, endTime);
 	}
 
-	/**
-	 * @desc: * By default bookings are sorted as per Start Time.
-	 * compareTo() method is used to sort overnight bookings within bookings list.
-	 * For overnight route, Overnight bookings should appear before normal day bookings.
-	 * 		
-	 */
-	public Integer compareTo(Object compareTo) {
-		PUDPrintableBookingWrapper compareToBooking = (PUDPrintableBookingWrapper)compareTo;
-
-		//if booking being compared is overnight booking and its start time is greater than current booking
-		if(compareToBooking.overnightBooking && compareToBooking.booking.Start_Time__c > this.booking.Start_Time__c){
-
-			//if current booking is also overnight and its start time is < overnight booking being compared then, return -1
-			//ie. Bookings at 2200 and 1130 are both overnights but 2200 should appear first hence returning -1 will make
-			// booking at 2200 return before 1130 as its 2200 < 1130.  
-			if(this.overnightBooking && this.booking.Start_Time__c< compareToBooking.booking.Start_Time__c){
-				return -1;
-			}
-			return 1;
-		}
-		else{
-			return 0;
-		}	
-	}
 }
