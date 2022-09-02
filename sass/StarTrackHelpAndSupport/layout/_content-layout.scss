@@ -19,6 +19,12 @@
     height: 371px; /* Set same as footer's height */
 } 
 
+.THIS .header {
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+}
+
 .THIS .mainContentArea {
     max-width: 656px;
     padding: 44px 0px 24px 0px;
