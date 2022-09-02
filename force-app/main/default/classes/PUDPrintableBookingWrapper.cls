@@ -20,7 +20,6 @@ public inherited sharing class PUDPrintableBookingWrapper {
 		this.booking = booking;
 	}
 
-
 	// check if booking is of Meal Type
 	public Boolean isMealBreak() {
 		return this.booking.Booking_Type__c == PUDConstants.PUD_BOOKING_TYPE_MEAL_BREAK ? true : false;

@@ -50,7 +50,6 @@ public inherited sharing class PUDPrintableRouteWrapper {
 					this.mealBreaks.add(b);
 				}
 			}
-			
 		}
 
 		//adding overnight bookings as these should appear after normal bookings.
@@ -62,7 +61,6 @@ public inherited sharing class PUDPrintableRouteWrapper {
 		if (!overnightMealBreaks.isEmpty()) {
 			this.mealBreaks.addAll(overnightMealBreaks);
 		}
-		
 	}
 
 	//return Route Start and End time in HHMM format
@@ -76,5 +74,4 @@ public inherited sharing class PUDPrintableRouteWrapper {
 		
 		return PUDPrintUtility.getDuration(startTime, endTime);
 	}
-	
 }
