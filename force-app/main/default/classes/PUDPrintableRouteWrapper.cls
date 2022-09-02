@@ -42,7 +42,7 @@ public inherited sharing class PUDPrintableRouteWrapper {
 				if(b.isMealBreak()){
 					overnightMealBreaks.add(b);
 				}
-			} else{
+			} else {
 				this.bookings.add(b);
 
 				//add meal break bookings			
