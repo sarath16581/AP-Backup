@@ -34,6 +34,7 @@ public inherited sharing class PUDPrintableRouteWrapper {
 			//e.g. If Route Start Time is 8.00PM and end time is 6.00AM, bookings after 12.00AM are considered overnight bookings. 
 			//Bookings beteween 8.00PM - 12.00AM are considered normal bookings and will appear on top of page. 
 			//if route is overnight and booking is overnight, add booking to overnight collection
+
 			if(this.route.Overnight_Route__c && this.route.Start_Time__c > booking.Start_Time__c){
 				overnightBookings.add(b);
 
@@ -41,15 +42,13 @@ public inherited sharing class PUDPrintableRouteWrapper {
 				if(b.isMealBreak()){
 					overnightMealBreaks.add(b);
 				}
-			}
-			else{
+			} else{
 				this.bookings.add(b);
 
 				//add meal break bookings			
 				if (b.isMealBreak()) {
 					this.mealBreaks.add(b);
 				}
-
 			}
 			
 		}
