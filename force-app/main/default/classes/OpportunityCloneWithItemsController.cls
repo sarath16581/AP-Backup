@@ -102,8 +102,7 @@ public with sharing class OpportunityCloneWithItemsController {
              
              Opportunity update_opp = [SELECT Id FROM Opportunity WHERE Id = :newOp.id];
 
-             update_opp.ECLM_Opportunity_Id_for_Contract__c=newOp.id; 
-             system.debug('flag1');
+             update_opp.ECLM_Opportunity_Id_for_Contract__c=newOp.id;
              // REQ2938280: set Opp fields to false
              update_opp.CTA_Propose_Approved__c = false;
              update_opp.CTA_Propose_Request_Exists__c = false;
@@ -222,7 +221,6 @@ public with sharing class OpportunityCloneWithItemsController {
              // update_opp.Business_Development_Driver__c =null; - Decommission this field as part of STP-2793
               update_opp.Supply_Chain_Optimisation_Driver__c =null;
               
-              system.debug('flag2');
               // REQ2938280: set Opp fields to false
               update_opp.CTA_Propose_Approved__c = false;
               update_opp.CTA_Propose_Request_Exists__c = false;
