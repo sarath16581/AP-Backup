@@ -1,9 +1,13 @@
 @import '../abstracts/variables';
+@import '../../global/abstracts/mixins/borders';
+@import '../../global/abstracts/mixins/text-variants';
+
+
 /*=====  Start of _form-inputs.scss  ======*/
 .THIS .sths-guest-user-form lightning-input:not(.slds-has-error) .slds-input,
 .THIS .sths-guest-user-form lightning-combobox:not(.slds-has-error) .slds-combobox__input,
 .THIS .sths-guest-user-form lightning-textarea:not(.slds-has-error) .slds-textarea {
-    border: 2px solid #919194;
+    @include border-solid(2px, #919194);
     border-radius: 6px;
 }
 
@@ -11,11 +15,7 @@
 .THIS .sths-guest-user-form .slds-textarea,
 .THIS .sths-guest-user-form .form-dropdown .slds-dropdown, 
 .THIS .sths-guest-user-form .form-dropdown .slds-input_faux {
-    color: $primary-text-color;
-    font-size: 1rem;
-    font-style: normal;
-    line-height: 1.5rem;
-    font-weight: 400;
+    @include text-default($primary-text-color, 400, 1rem, 1.5rem);
     padding-top: 10px;
     padding-bottom: 10px;
 }

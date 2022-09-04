@@ -16,6 +16,10 @@ There is an update to your enquiry
 
 {!Case.Last_Case_Comment}
 
+Sometimes enquiries can be resolved before we&apos;ve completed our investigation. If that happens, let us know here:
+
+CLOSE MY CASE
+
 To respond or view more information about your case, visit {!IF( 	CONTAINS(Case.Customer_Type__c,&apos;Consumer&apos;), 	&apos;Login - Consumer&apos;, 		IF( 			CONTAINS(Case.Customer_Type__c,&apos;MyPost Business&apos;), 			&apos;Login - MyPost Business&apos;, 			&apos;Login - Enterprise&apos; 		) 	) }
 
 Alternatively, please reply to this email and we will be happy to assist you.

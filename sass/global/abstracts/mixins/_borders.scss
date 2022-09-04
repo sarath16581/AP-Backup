@@ -1,0 +1,6 @@
+//borders
+
+/* solid border */
+@mixin border-solid($width, $color) {
+    border: $width solid $color;
+}

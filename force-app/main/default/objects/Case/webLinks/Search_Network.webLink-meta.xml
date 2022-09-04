@@ -9,16 +9,19 @@
     <protected>false</protected>
     <url>{!REQUIRESCRIPT(&quot;/support/console/32.0/integration.js&quot;)} 
 
-if(&apos;{!Case.RecordType}&apos; === &apos;SSSW General Enquiry&apos;) 
-{ 
-sforce.console.getEnclosingPrimaryTabId(function(result) { 
-sforce.console.openSubtab(result.id, &apos;/apex/FacilitySearch?postcode={!Case.Address2Postcode__c}&amp;isdtp=vw&apos;, true); 
-}); 
-} 
-else 
-{ 
-sforce.console.getEnclosingPrimaryTabId(function(result) { 
-sforce.console.openSubtab(result.id, &apos;/apex/FacilitySearch?id={!Case.Id}&amp;postcode={!Case.Address2Postcode__c}&amp;isdtp=vw&apos;, true); 
-}); 
+if(&apos;{!Case.RecordType}&apos; === &apos;SSSW General Enquiry&apos;) { 
+
+	sforce.console.getEnclosingPrimaryTabId(function(result) { 
+		sforce.console.openSubtab(result.id, &apos;/apex/FacilitySearch?postcode={!Case.Address2Postcode__c}&amp;isdtp=vw&apos;, true); 
+	}); 
+	
+} else { 
+
+	sforce.console.getEnclosingPrimaryTabId(function(result) { 
+		// Note: the below is a workaround due to a bug with Omni triggering new case whenever a subtab is opened with &quot;id&quot; in the url param
+		var targetUrl = &apos;/apex/FacilitySearch?id={!Case.Id}&amp;postcode={!Case.Address2Postcode__c}&amp;isdtp=vw&apos;;
+		var omniRedirectURL = &apos;/apex/OmniBugRedirect?&amp;url=&apos; + encodeURIComponent(targetUrl);
+		sforce.console.openSubtab(result.id, omniRedirectURL, true); 
+	}); 
 }</url>
 </WebLink>

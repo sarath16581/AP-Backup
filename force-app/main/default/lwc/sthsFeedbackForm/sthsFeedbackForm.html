@@ -120,7 +120,8 @@
 								message-when-value-missing={label.invalidPhone}
 								data-validation="feedbackForm"
 								data-field-name="phone"
-								onchange={handleInputOnPhoneChange}
+								onchange={handleInputChange}
+								onblur={validatePhone}
 								value={formData.phone}
 								></lightning-input>
 						</lightning-layout-item>

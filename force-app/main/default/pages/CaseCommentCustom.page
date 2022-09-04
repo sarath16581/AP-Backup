@@ -43,8 +43,20 @@
             showProgressCaseComment();
             CaseCommentCustomController.addComment('{!currentCase.id}', commentBody, isPublished, preventStatusChange, function(result, event) {
                 if(event.status && result.indexOf('Error') != 0) {
-                    sforce.console.getFocusedSubtabId(function (r) { sforce.console.closeTab(r.id);});
-                    sforce.console.getEnclosingPrimaryTabId(function(r) { sforce.console.refreshPrimaryTabById(r.id, true); });
+                    sforce.console.getFocusedSubtabId(function (r) { 
+                        sforce.console.closeTab(r.id);
+                    });
+
+                    sforce.console.getEnclosingPrimaryTabId(function(r) { 
+
+                        // this is required for the Omni channel routing pilot. 
+                        if({!currentUserIsPartOfOmniGroup}) {
+                            sforce.console.refreshPrimaryTabById(r.id, true, function() {}, true);
+                        } else {
+                            sforce.console.refreshPrimaryTabById(r.id, true); 
+                        }
+
+                    });
                 } else {
                     var pbError = j$('#errorDiv_ep');
                     pbError.html(result);
