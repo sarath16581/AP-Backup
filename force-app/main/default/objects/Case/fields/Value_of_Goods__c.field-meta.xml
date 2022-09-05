@@ -12,14 +12,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>0 - $1500</fullName>
+                <fullName>0 - $1,999</fullName>
                 <default>false</default>
-                <label>0 - $1500</label>
+                <label>0 - $1,999</label>
             </value>
             <value>
-                <fullName>$1500+ - $10k</fullName>
+                <fullName>$2,000 - $9,999</fullName>
                 <default>false</default>
-                <label>$1500+ - $10k</label>
+                <label>$2,000 - $9,999</label>
             </value>
             <value>
                 <fullName>$10k+</fullName>
