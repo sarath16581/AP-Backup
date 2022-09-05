@@ -77,12 +77,14 @@ private class ContactUtility_Test {
 		}
 		insert users;
 
-		// create a contact that is not associated with any user for deletion test
-		Contact delContact = TestDataProvider.createTestContact();
-		delContact.accountid = accounts[3].Id;
-		delContact.MobilePhone = '0422222222';
-		insert delContact;
-	}
+        // create a contact that is not associated with any user for deletion test
+        Contact delContact = TestDataProvider.createTestContact();
+        delContact.accountid = accounts[3].Id;
+        delContact.MobilePhone = '0422222222';
+        insert delContact;
+        
+        
+    }
 
 	/**
 	 * SCENARIO: user details updated successfully
@@ -120,7 +122,7 @@ private class ContactUtility_Test {
 		// verify the updated user
 		for (Integer i = 0; i < 3; i++) {
 			User user = [SELECT MobilePhone from User where Email = :('henry@gmail.com' + i)];
-			System.assertEquals('041111111' + i + '5', user.MobilePhone,
+			System.assertEquals('+6141111111' + i + '5', user.MobilePhone,
 					'ContactUtility_Test_updateUserDetails_updated : Mobile Phone of the user has been updated by adding 5 in the end');
 		}
 	}
