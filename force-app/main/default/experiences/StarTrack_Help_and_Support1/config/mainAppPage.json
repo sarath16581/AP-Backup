@@ -3,6 +3,7 @@
   "currentThemeId" : "1c04104b-a312-4490-97fd-11dc7d35f8be",
   "headMarkup" : "<link rel=\"icon\" href=\"/sfsites/c/resource/StarTrackFavicon\">",
   "id" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
+  "isLockerServiceEnabled" : true,
   "isRelaxedCSPLevel" : false,
   "label" : "main",
   "templateName" : "Service Community Template",
