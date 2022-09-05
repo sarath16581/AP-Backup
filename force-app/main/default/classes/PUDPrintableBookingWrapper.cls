@@ -9,7 +9,7 @@
 *				 This class is created to be able to use on Apex:Component as a Type attribute. Due to current limitation of Visualforce 
 * 				 Component, we cannot use apex:attribute with inner class as a "Type". It requires TOP LEVEL class only.
 * @changelog
-* 2022-08-09 - created
+* 2022-08-09 - Dattaraj Deshmukh - created 
 */
 
 public inherited sharing class PUDPrintableBookingWrapper {
@@ -19,7 +19,7 @@ public inherited sharing class PUDPrintableBookingWrapper {
 	public PUDPrintableBookingWrapper(PUD_Booking__c booking) {
 		this.booking = booking;
 	}
-	
+
 	// check if booking is of Meal Type
 	public Boolean isMealBreak() {
 		return this.booking.Booking_Type__c == PUDConstants.PUD_BOOKING_TYPE_MEAL_BREAK ? true : false;
@@ -37,14 +37,14 @@ public inherited sharing class PUDPrintableBookingWrapper {
 		String endTimeString='';
 
 		//return blank if startime is null.
-		if(this.booking.Start_Time__c == null){
+		if (this.booking.Start_Time__c == null) {
 			return endTimeString;
 		}
 		
         endTime = this.calculateEndTime();
 
 		//format endtime in HHMM format
-		if(endTime !=null){
+		if (endTime !=null) {
 			return PUDPrintUtility.getDisplayTime(endTime);
 		}
 
@@ -56,7 +56,7 @@ public inherited sharing class PUDPrintableBookingWrapper {
         Time endTime;
 
         //create a new instance of END TIME from start time and dwell time planned
-		if( this.booking.Dwell_Time_Planned__c !=null ){
+		if (this.booking.Dwell_Time_Planned__c !=null) {
 			endTime = this.booking.Start_Time__c.addMinutes(Time.newInstance(0,(Integer)this.booking.Dwell_Time_Planned__c,0,0).minute());	
 		}
         return endTime;
@@ -73,4 +73,5 @@ public inherited sharing class PUDPrintableBookingWrapper {
 		
 		return PUDPrintUtility.getDuration(startTime, endTime);
 	}
+
 }
