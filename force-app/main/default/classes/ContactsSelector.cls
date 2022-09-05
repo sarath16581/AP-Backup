@@ -155,7 +155,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		}
 
 		if (selectorOptions.contains(Options.WITH_ACCOUNT)) {
-			builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Account');
+			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'Account');
 		}
 
 		return builder;
