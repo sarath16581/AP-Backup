@@ -2,10 +2,17 @@
  * @description Trigger on user object, customer community use this trigger to check on nickname update against list of banned words.
  * @changelog
  * 2022-06-27 - Ranjeewa Silva - Support disabling trigger via custom setting SystemSettings__c.Disable_Triggers__c
+ * 2022-08-10 - Kamil Szyc - added handleLAccessToLpoCpo call
+ * 2022-08-24 - Nathan Franklin - refactored to include domain framework
  */
 trigger User_trigger on User (after insert, before insert, after update, before update) {
 
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
+
+		//UserUtility.handleAccessToLpoCpo(Trigger.new);
+		//enterprise framework entry point
+		(new UserTriggerHandler()).dispatch();
+
 
 		if (Trigger.isInsert) {
 			if (Trigger.isAfter) {
@@ -67,6 +74,7 @@ trigger User_trigger on User (after insert, before insert, after update, before 
 					}
 				}
 			}
+
 			if (Trigger.isUpdate) {
 
 				Id communityProfId = [select Id from Profile where Name = 'DDC Consumer Community User' limit 1].Id;
@@ -80,6 +88,7 @@ trigger User_trigger on User (after insert, before insert, after update, before 
 						newUser.FederationIdentifier = newUser.Username;
 					}
 				}
+
 			}
 		}
 	}
