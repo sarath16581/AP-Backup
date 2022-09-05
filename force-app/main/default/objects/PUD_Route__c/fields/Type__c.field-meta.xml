@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type__c</fullName>
+    <businessStatus>Active</businessStatus>
     <description>Route type coming down from source system (ADAM). Salesforce will only receive routes with route types DUTYTRUCK_ID, DUTY_ID and ROUTE_ID.</description>
     <externalId>false</externalId>
     <inlineHelpText>Route type coming down from ADAM.</inlineHelpText>
