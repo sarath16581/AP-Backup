@@ -7454,11 +7454,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>%241500%2B - %2410k</fullName>
+            <fullName>%242%2C000 - %249%2C999</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>0 - %241500</fullName>
+            <fullName>0 - %241%2C999</fullName>
             <default>false</default>
         </values>
     </picklistValues>
