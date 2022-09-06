@@ -20,6 +20,7 @@
 * 2022-02-28 - Seth Heang - Update test methods to test containers and product types for the booking-job sync validation for jobs with status 'New', 'Schedule', 'Accept' and 'Completed'
 * 2022-04-11 - Seth Heang - Added test method to test booking's before insert trigger and validate booking's default depot from route's depot
 * 2022-07-23 - Dattaraj Deshmukh - Added test methods for container types, removed references OLD Empty_/Full_ fields for containers from PUD_JOb__c object. 
+* 2022-09-06 - Dattaraj Deshmukh - updated test methods to assert synchronisation of 'Dock_Number__c' field from booking onto jobs.
 */
 @isTest
 public with sharing class PUDUtility_Test {
@@ -109,14 +110,15 @@ public with sharing class PUDUtility_Test {
 		PUD_Booking__c booking = PUDTestUtility.createBooking('AP_Permanent_Pickup', recordIdMap.get('blCust'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
 		insert booking;
 
-		//Update booking contact name - which will update job contact name
+		//Update booking contact name and dock number - which will update job contact name
 		booking.Contact_Name__c = 'Donald Duck';
+		booking.Dock_Number__c = '15';
 		update booking;
 
 		Test.stopTest();
 
 		//Get job contact name for updated job
-		jobsList = [SELECT Contact_Name__c FROM PUD_Job__c WHERE Booking__c = :booking.Id];
+		jobsList = [SELECT Contact_Name__c, Dock_Number__c FROM PUD_Job__c WHERE Booking__c = :booking.Id];
 		strJobUpdatedContact = jobsList[0].Contact_Name__c;
 
 		strJobCreatedContact = BOOKING_CONTACT;
@@ -126,6 +128,9 @@ public with sharing class PUDUtility_Test {
 
 		//Confirm route was changed
 		System.assertNotEquals(true, bolJobContactMatch);
+
+		//assert dock number on booking is synchronised with job
+		System.assertEquals(booking.Dock_Number__c, jobsList[0].Dock_Number__c);
 
 	}
 
@@ -188,7 +193,8 @@ public with sharing class PUDUtility_Test {
 		booking.Regular_Product__c = true;
 		booking.International_Product__c = false;
 		booking.Express_Product__c = true;
-		
+		booking.Dock_Number__c = '2';
+
 		insert booking;
 
 		Test.stopTest();
@@ -213,7 +219,8 @@ public with sharing class PUDUtility_Test {
 				Street__c,
 				Regular_Product__c,
 				International_Product__c,
-				Express_Product__c				
+				Express_Product__c,
+				Dock_Number__c				
 				FROM PUD_Booking__c WHERE Id = :booking.Id];
 
 		//Get jobs
@@ -236,7 +243,8 @@ public with sharing class PUDUtility_Test {
 				Street__c,
 				Regular_Product__c,
 				International_Product__c,
-				Express_Product__c 
+				Express_Product__c,
+				Dock_Number__c 
 				FROM PUD_Job__c WHERE Booking__c = :booking.Id];
 
 		//Get job field values
@@ -258,7 +266,9 @@ public with sharing class PUDUtility_Test {
 				jobsList[0].Street__c +
 				jobsList[0].Regular_Product__c +
 				jobsList[0].International_Product__c +
-				jobsList[0].Express_Product__c;
+				jobsList[0].Express_Product__c +
+				jobsList[0].Dock_Number__c;
+
 				
 
 		//Get booking field values
@@ -280,7 +290,8 @@ public with sharing class PUDUtility_Test {
 				bookingList[0].Street__c +
 				bookingList[0].Regular_Product__c +
 				bookingList[0].International_Product__c +
-				bookingList[0].Express_Product__c;
+				bookingList[0].Express_Product__c +
+				bookingList[0].Dock_Number__c;
 				
 
 		system.debug('strJobFieldValues ' + strJobFieldValues);
