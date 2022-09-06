@@ -6495,7 +6495,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Record Type Developer Name of Special Services</shortDescription>
-        <value>Special Services</value>
+        <value>Special_Services</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_KEYWORD_SSSW</fullName>

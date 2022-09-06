@@ -45,9 +45,9 @@
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterFormula>AND(
  {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_StarTrack_VOCI},
- NOT(ISNULL({!$Record.Due_Date__c})),
+ NOT(ISBLANK({!$Record.Due_Date__c})),
  NOT(ISPICKVAL({!$Record.Status}, &apos;Closed&apos;)),
- NOT(ISNULL({!$Record.Nominated_Advocate_Email__c}))
+ NOT(ISBLANK({!$Record.Nominated_Advocate_Email__c}))
 )</filterFormula>
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
