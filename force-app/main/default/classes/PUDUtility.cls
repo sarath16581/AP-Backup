@@ -31,7 +31,7 @@ History:
 2022-02-23 - Seth Heang - Added Container Type fields and Product Type fields into the sync functionality from booking and job and to the Dispatch System as part of Metro Transport Enhancements
 2022-02-23 - Seth Heang - Serialised container type fields information into a JSON format and populate to a new long text field called Containers Payload
 2022-07-02 - Dattaraj Deshmukh - Added logic to create container type records when a container type at booking level is created/updated and jobs are added as a part of batch job.
-2022-09-05 - Dattaraj Deshmukh - Added 'PUD_Job__c.Dock_Number__c' field to monitored field sets for job synchronisation.
+2022-09-05 - Dattaraj Deshmukh - Added 'PUD_Job__c.Dock_Number__c' field to monitored field sets for job synchronisation and updated createJobs, refreshJobs, getNewJobList() methods.
 -------------------------
 */
 public with sharing class PUDUtility {
