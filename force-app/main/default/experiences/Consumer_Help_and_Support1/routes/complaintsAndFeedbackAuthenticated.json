@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "f765a642-30b7-4a86-bf06-d510ba0fba6c",
+  "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "configurationTags" : [ ],
+  "id" : "ffe488f1-e0e6-44af-b456-b4655d48a272",
+  "label" : "Complaints and feedback (authenticated)",
+  "pageAccess" : "RequiresLogin",
+  "routeType" : "custom-complaints-and-feedback-authenticated",
+  "type" : "route",
+  "urlPrefix" : "complaints-and-feedback-authenticated"
+}

@@ -1,0 +1,11 @@
+{
+  "forgotPasswordRouteId" : "887fd277-7d30-4920-8834-34c194ef4286",
+  "isAvailableToGuests" : false,
+  "isFilteredComponentsView" : false,
+  "isProgressiveRenderingEnabled" : false,
+  "loginAppPageId" : "988a8744-fb5e-4f61-9a94-d7588fcd9b1b",
+  "mainAppPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
+  "preferredDomain" : "ptest.npe.forceapps.auspost.com.au",
+  "selfRegistrationRouteId" : "b41ab715-36ae-4bdc-98f1-90bfc20dd9d0",
+  "type" : "site"
+}

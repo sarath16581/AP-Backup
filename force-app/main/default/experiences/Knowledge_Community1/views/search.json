@@ -1,0 +1,41 @@
+{
+  "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "97e03880-9fad-4f6f-9731-7ff157461564",
+  "label" : "Search",
+  "regions" : [ {
+    "id" : "9fb6f0c1-147a-47e5-8ba7-d39325139e3d",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "activeTab" : "articles",
+        "articleListPageSize" : 10,
+        "articleTabLabel" : "Articles",
+        "defaultSortOrderCompactFeed" : "Relevance",
+        "defaultSortOrderFullFeed" : "Relevance",
+        "discussionTabLabel" : "Discussions",
+        "searchTerm" : "{!term}",
+        "showArticleTab" : true,
+        "showCompactFeedInDiscussion" : true,
+        "topicId" : "{!topicId}"
+      },
+      "componentName" : "forceCommunity:resultsList",
+      "id" : "304352fc-aa2b-4fe9-8e61-e402f1445016",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b14585f0-e27a-4f75-b959-01e83297e73a",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "4c8e1cfd-8d9d-4747-905d-ffb0d4491b90",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "global-search"
+}

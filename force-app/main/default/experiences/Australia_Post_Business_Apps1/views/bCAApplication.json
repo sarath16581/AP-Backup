@@ -1,0 +1,67 @@
+{
+  "appPageId" : "729bdb9f-b2c1-49f8-af56-798696598806",
+  "componentName" : "siteforce:dynamicLayout",
+  "id" : "ab6eed3b-6aa2-4e79-8786-72936bebd88e",
+  "label" : "BCA Application",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "f74aaf55-ee39-4f3f-bcdb-4fa61578b90f",
+          "columns" : [ {
+            "UUID" : "7ae715ab-6431-499a-86cb-42ac796ed6fe",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "f74aaf55-ee39-4f3f-bcdb-4fa61578b90f",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:bcaForm",
+          "id" : "fdc88049-87a4-49b2-9962-0f6222786be9",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "7ae715ab-6431-499a-86cb-42ac796ed6fe",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5821a10b-758b-4293-977b-70940cc0905e",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "BCA Application"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "11a31fc0-866d-4059-a395-77afd1e830e7",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "0ddde8bc-ce8b-4eb3-bc41-d26f891101d8",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "wsPvuTJ1oc30CnaXwhomVSd7AZ9Vx5",
+  "type" : "view",
+  "viewType" : "custom-bca"
+}
