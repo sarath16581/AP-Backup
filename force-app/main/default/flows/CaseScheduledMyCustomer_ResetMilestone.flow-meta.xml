@@ -39,8 +39,8 @@
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterFormula>AND(
- ISNULL({!$Record.CustomerTierSLA__c}),
- NOT(ISNULL({!$Record.Previous_Milestone_Time__c})),
+ ISBLANK({!$Record.CustomerTierSLA__c}),
+ NOT(ISBLANK({!$Record.Previous_Milestone_Time__c})),
  ISPICKVAL({!$Record.Status}, &apos;Awaiting Customer Response&apos;)
 )</filterFormula>
         <object>Case</object>
