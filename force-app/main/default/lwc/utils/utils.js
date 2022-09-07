@@ -157,3 +157,19 @@ export const REQUIRED_ERROR_MESSAGE = 'Complete this field';
     }
     return isValid;
  };
+
+ /**
+  * validating email fields according to the help and support UI standards
+  * @param {string} phNumber
+  * @returns {boolean}
+  */
+ export const validateEmail  = (email) => {
+    let isValid = true;
+    const regExpEmailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!email || !email.trim()) {
+        isValid = false;
+    }else if (!email.match(regExpEmailformat)) {
+        isValid = false;
+    }
+    return isValid;
+ };

@@ -135,6 +135,7 @@
 								data-validation="feedbackForm"
 								data-field-name="email"
 								onchange={handleInputChange}
+								onblur={validateEmail}
 								value={formData.email}
 								required
 								message-when-value-missing={label.invalidEmail}
