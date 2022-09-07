@@ -22,7 +22,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "filterName" : "00B900000088nc0EAA",
+        "filterName" : "My_Cases",
         "layout" : "FULL",
         "pageSize" : 25,
         "scope" : "Case",

@@ -11,13 +11,6 @@
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
-    }, {
-      "componentAttributes" : { },
-      "componentName" : "c:bcaTestLogin",
-      "id" : "e939eb2b-f63c-4293-b427-28f77a300351",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
     } ],
     "id" : "4c0aa972-d1e5-4bd4-87f0-5544ea623236",
     "regionName" : "header",

@@ -22,7 +22,7 @@
       "componentAttributes" : {
         "numberOfArticles" : 10,
         "title" : "Trending Articles - Product",
-        "topicId" : "0TO1m00000000zuGAA"
+        "topicId" : "{!topicId}"
       },
       "componentName" : "selfService:topicTrendingArticles42",
       "id" : "2f5b11d3-0847-470c-b3cb-d2dc025f874c",
@@ -38,7 +38,7 @@
       "componentAttributes" : {
         "numberOfArticles" : 10,
         "title" : "Trending Articles - Star Track",
-        "topicId" : "0TO1m00000000zvGAA"
+        "topicId" : "{!topicId}"
       },
       "componentName" : "selfService:topicTrendingArticles42",
       "id" : "358e98f6-fa4d-46eb-aadf-6070aab6dcf1",

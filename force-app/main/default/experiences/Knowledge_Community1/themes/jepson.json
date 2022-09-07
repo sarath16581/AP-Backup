@@ -139,7 +139,7 @@
             "componentAttributes" : {
               "navAlignment" : "left",
               "navItemThreshold" : 15,
-              "navigationMenuEditorRefresh" : "Default_Navigation10"
+              "navigationMenuEditorRefresh" : ""
             },
             "componentName" : "forceCommunity:themeNav",
             "id" : "34089459-713a-4f62-861a-537dd3676b85",
@@ -358,7 +358,7 @@
             "componentAttributes" : {
               "navAlignment" : "left",
               "navItemThreshold" : 15,
-              "navigationMenuEditorRefresh" : "Default_Navigation10"
+              "navigationMenuEditorRefresh" : ""
             },
             "componentName" : "forceCommunity:themeNav",
             "id" : "5ac0edfa-04e9-4425-baa9-7f9d9a5718d6",

@@ -1,6 +1,6 @@
 {
   "activeBrandingSetId" : "650c714a-98b5-4aed-a7a2-9cbe4464806a",
-  "customCSS" : "",
+  "customCSS" : "@font-face {\n  font-family: 'APTypeText';\n  src: url(\"sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff\") format(\"woff\");\n}",
   "developerName" : "service",
   "id" : "1c04104b-a312-4490-97fd-11dc7d35f8be",
   "label" : "Customer Service",
