@@ -1,8 +1,8 @@
 <!-- Description:    VF component to generate POD document for Event messages which has a SAFEDROP GUID
 History:
---------------------------------------------------
 12/05/2020 - Hara Sahoo Created
---->
+08/09/2022 - Naveen Rajanna - REQ2963906: domain check to populate prefix myNetwork if required
+-->
 <apex:component controller="MyNetworkPODSafedrop">
     <apex:attribute name="messageIds" type="String"  description="all event messages related to the cases" />
     <apex:attribute name="selectedIds" type="String"  description="all cases selected from UI" />
@@ -63,10 +63,9 @@ History:
     function checkDomainandRedirect()
     {
         var hostname = window.location.hostname;
-        //Check for community login
-        if(hostname.includes("auspostbusiness"))
-        {var url = 'https://'+ hostname + '/myNetwork/apex/myNetworkRedirectCasePDFGenerator?selectedIds='+encodeURI('{!selectedIds}');}
-        else{var url = 'https://'+ hostname + '/apex/myNetworkRedirectCasePDFGenerator?selectedIds='+encodeURI('{!selectedIds}');}
+        var url = 'https://'+ hostname + 
+            (hostname.includes("auspostbusiness") ? '/myNetwork' : '') +
+            '/apex/myNetworkRedirectCasePDFGenerator?selectedIds='+encodeURI('{!selectedIds}');
         location.href = encodeURI(url);
     }
     
