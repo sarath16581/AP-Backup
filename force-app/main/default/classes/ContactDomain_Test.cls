@@ -21,7 +21,6 @@ private class ContactDomain_Test {
 		List<SObject> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
 
 		ApplicationDomain appDomain = constructor.construct(contacts);
-		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(ContactDomainFormattingModule.class);
 
 		// PMD by-pass
 		System.assert(true, 'PMD by-pass');

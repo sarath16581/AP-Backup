@@ -19,14 +19,6 @@ public inherited sharing class ContactPointPhoneContactSyncModule extends Applic
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate().enableAfterDelete();
 	}
 
-	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		ContactService.getInstance().applyPhoneNumberFormatting((List<ContactPointPhone>) records, null);
-	}
-
-	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		ContactService.getInstance()
-			.applyPhoneNumberFormatting((List<ContactPointPhone>) records, (Map<Id, ContactPointPhone>) existingRecords);
-	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
