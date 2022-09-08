@@ -6,10 +6,6 @@
     {
       "path": "force-app",
       "default": true
-    },
-    {
-      "path": "workspace/force-app",
-      "default": true
     }
   ],
   "name": "auspost-sfdx",
