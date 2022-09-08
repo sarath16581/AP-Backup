@@ -48,6 +48,7 @@ public with sharing class STHSTrackingFormController {
 	private static void getTrackingCaseDefaultValues(Case caseObj) {
         caseObj.Subject = caseObj.Call_Purpose__c = caseObj.Initial_Call_Purpose__c = STHSConstants.CASE_SUBJECT_TRACKING_ENQUIRY;
 		caseObj.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(STHSConstants.CASE_RECORDTYPE_DELIVERY_ENQUIRY).getRecordTypeId();
+		caseObj.Send_Auto_Response_Email__c = true;
     }
 
 	/**
