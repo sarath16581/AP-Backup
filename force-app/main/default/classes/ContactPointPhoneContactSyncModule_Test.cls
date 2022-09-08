@@ -8,61 +8,7 @@
  */
 @IsTest
 public with sharing class ContactPointPhoneContactSyncModule_Test {
-	@IsTest
-	static void onBeforeInsert() {
-		ContactService mockService = (ContactService) MockUtility.mockUtility(ContactService.class);
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.stopStubbing();
-
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-		ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
-		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
-		List<ContactPointPhone> contactPointPhones = ApplicationTestDataFactory.getContactPointPhones(1, accounts[0].Id, true);
-
-		Test.startTest();
-
-		module.onBeforeInsert(contactPointPhones, uow);
-		((ContactService) MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1)))
-			.applyPhoneNumberFormatting(
-				(List<ContactPointPhone>) fflib_Match.eq(contactPointPhones),
-				(Map<Id, ContactPointPhone>) fflib_Match.isNull()
-			);
-
-		// PMD warning
-		System.assert(true);
-
-		Test.stopTest();
-	}
-
-	@IsTest
-	static void onBeforeUpdate() {
-		ContactService mockService = (ContactService) MockUtility.mockUtility(ContactService.class);
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.stopStubbing();
-
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(ContactDomainTriggerHandler.getUnitOfWorkSObjectTypes());
-		ContactPointPhoneContactSyncModule module = ContactPointPhoneContactSyncModule.newInstance();
-		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
-		List<ContactPointPhone> contactPointPhones = ApplicationTestDataFactory.getContactPointPhones(1, accounts[0].Id, true);
-		ContactPointPhone ctp1 = contactPointPhones[0];
-		ContactPointPhone oldCtp1 = ctp1.clone(true, true, false, false);
-		Map<Id, ContactPointPhone> existingRecords = new Map<Id, ContactPointPhone>{ oldCtp1.Id => oldCtp1 };
-
-		Test.startTest();
-
-		module.onBeforeUpdate(contactPointPhones, existingRecords, uow);
-		((ContactService) MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1)))
-			.applyPhoneNumberFormatting(
-				(List<ContactPointPhone>) fflib_Match.eq(contactPointPhones),
-				(Map<Id, ContactPointPhone>) fflib_Match.eq(existingRecords)
-			);
-
-		// PMD warning
-		System.assert(true);
-
-		Test.stopTest();
-	}
-
+	
 	@isTest
 	static void onAfterInsert() {
 		ContactService mockService = (ContactService) MockUtility.mockUtility(ContactService.class);

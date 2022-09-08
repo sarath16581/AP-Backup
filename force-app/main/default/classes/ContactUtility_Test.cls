@@ -122,7 +122,7 @@ private class ContactUtility_Test {
 		// verify the updated user
 		for (Integer i = 0; i < 3; i++) {
 			User user = [SELECT MobilePhone from User where Email = :('henry@gmail.com' + i)];
-			System.assertEquals('+6141111111' + i + '5', user.MobilePhone,
+			System.assertEquals('041111111' + i + '5', user.MobilePhone,
 					'ContactUtility_Test_updateUserDetails_updated : Mobile Phone of the user has been updated by adding 5 in the end');
 		}
 	}
