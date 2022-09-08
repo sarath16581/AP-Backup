@@ -20,7 +20,7 @@
 * 2022-02-28 - Seth Heang - Update test methods to test containers and product types for the booking-job sync validation for jobs with status 'New', 'Schedule', 'Accept' and 'Completed'
 * 2022-04-11 - Seth Heang - Added test method to test booking's before insert trigger and validate booking's default depot from route's depot
 * 2022-07-23 - Dattaraj Deshmukh - Added test methods for container types, removed references OLD Empty_/Full_ fields for containers from PUD_JOb__c object. 
-* 2022-09-06 - Dattaraj Deshmukh - updated test methods to assert synchronisation of 'Dock_Number__c' field from booking onto jobs.
+* 2022-09-06 - Dattaraj Deshmukh - updated test methods 'validate03UpdateBookingJobUpdated' and 'validate05BookingJobMatch' to assert synchronisation of fields from booking onto jobs.
 */
 @isTest
 public with sharing class PUDUtility_Test {
@@ -97,10 +97,7 @@ public with sharing class PUDUtility_Test {
 
 		Map<String, Id> recordIdMap = new Map<String,Id>();
 		List<PUD_Job__c> jobsList = new List<PUD_Job__c>();
-		String strJobCreatedContact;
-		String strJobUpdatedContact;
-		Boolean bolJobContactMatch;
-
+		
 		//Create Test Data
 		recordIdMap = PUDTestUtility.createPUDBasicRecords();
 
@@ -119,17 +116,9 @@ public with sharing class PUDUtility_Test {
 
 		//Get job contact name for updated job
 		jobsList = [SELECT Contact_Name__c, Dock_Number__c FROM PUD_Job__c WHERE Booking__c = :booking.Id];
-		strJobUpdatedContact = jobsList[0].Contact_Name__c;
 
-		strJobCreatedContact = BOOKING_CONTACT;
-
-		//Compare routes values
-		bolJobContactMatch = (strJobCreatedContact == strJobUpdatedContact);
-
-		//Confirm route was changed
-		System.assertNotEquals(true, bolJobContactMatch);
-
-		//assert dock number on booking is synchronised with job
+		//assert contact name and dock number on booking is synchronised with job
+		System.assertEquals(booking.Contact_Name__c, jobsList[0].Contact_Name__c);
 		System.assertEquals(booking.Dock_Number__c, jobsList[0].Dock_Number__c);
 
 	}
@@ -189,7 +178,7 @@ public with sharing class PUDUtility_Test {
 
 		//Create a Booking for customer booking location
 		PUD_Booking__c booking = PUDTestUtility.createBooking('AP_Permanent_Pickup', recordIdMap.get('blCust'),null, null, recordIdMap.get('netDepot'), recordIdMap.get('route'));
-		// Add container and product type details to test on newly created jobs with 'New' Status
+		// Add product type details, dock number to test on newly created jobs with 'New' Status
 		booking.Regular_Product__c = true;
 		booking.International_Product__c = false;
 		booking.Express_Product__c = true;
@@ -199,109 +188,20 @@ public with sharing class PUDUtility_Test {
 
 		Test.stopTest();
 
-		//Get booking
-		bookingList = [SELECT
-				City__c,
-				Contact_Email__c,
-				Contact_Name__c,
-				Contact_Phone_Number__c,
-				Customer__c,
-				Depot__c,
-				Dwell_Time_Planned__c,
-				Earliest_Start_Time__c,
-				Hazards__c,
-				Latest_End_Time__c,
-				Network__c,
-				Post_Code__c,
-				Route_Lookup__c,
-				Site_Instructions__c,
-				State__c,
-				Street__c,
-				Regular_Product__c,
-				International_Product__c,
-				Express_Product__c,
-				Dock_Number__c				
-				FROM PUD_Booking__c WHERE Id = :booking.Id];
-
 		//Get jobs
 		jobsList = [SELECT
-				City__c,
-				Contact_Email__c,
-				Contact_Name__c,
-				Contact_Phone_Number__c,
-				Customer__c,
-				Depot__c,
-				Dwell_Time_Planned__c,
-				Earliest_Start_Time__c,
-				Hazards__c,
-				Latest_End_Time__c,
-				Network__c,
-				Post_Code__c,
-				Route_Lookup__c,
-				Site_Instructions__c,
-				State__c,
-				Street__c,
 				Regular_Product__c,
 				International_Product__c,
 				Express_Product__c,
 				Dock_Number__c 
 				FROM PUD_Job__c WHERE Booking__c = :booking.Id];
-
-		//Get job field values
-		strJobFieldValues = 	jobsList[0].City__c +
-				jobsList[0].Contact_Email__c +
-				jobsList[0].Contact_Name__c +
-				jobsList[0].Contact_Phone_Number__c +
-				jobsList[0].Customer__c +
-				jobsList[0].Depot__c +
-				jobsList[0].Dwell_Time_Planned__c +
-				jobsList[0].Earliest_Start_Time__c +
-				jobsList[0].Hazards__c +
-				jobsList[0].Latest_End_Time__c +
-				jobsList[0].Network__c +
-				jobsList[0].Post_Code__c +
-				jobsList[0].Route_Lookup__c +
-				jobsList[0].Site_Instructions__c +
-				jobsList[0].State__c +
-				jobsList[0].Street__c +
-				jobsList[0].Regular_Product__c +
-				jobsList[0].International_Product__c +
-				jobsList[0].Express_Product__c +
-				jobsList[0].Dock_Number__c;
-
-				
-
-		//Get booking field values
-		strBookingFieldValues = bookingList[0].City__c +
-				bookingList[0].Contact_Email__c +
-				bookingList[0].Contact_Name__c +
-				bookingList[0].Contact_Phone_Number__c +
-				bookingList[0].Customer__c +
-				bookingList[0].Depot__c +
-				bookingList[0].Dwell_Time_Planned__c +
-				bookingList[0].Earliest_Start_Time__c +
-				bookingList[0].Hazards__c +
-				bookingList[0].Latest_End_Time__c +
-				bookingList[0].Network__c +
-				bookingList[0].Post_Code__c +
-				bookingList[0].Route_Lookup__c +
-				bookingList[0].Site_Instructions__c +
-				bookingList[0].State__c +
-				bookingList[0].Street__c +
-				bookingList[0].Regular_Product__c +
-				bookingList[0].International_Product__c +
-				bookingList[0].Express_Product__c +
-				bookingList[0].Dock_Number__c;
-				
-
-		system.debug('strJobFieldValues ' + strJobFieldValues);
-		system.debug('strBookingFieldValues ' + strBookingFieldValues);
-
-		//Compare field values
-		bolBookingJobMatch = (strJobFieldValues == strBookingFieldValues);
-
-		//Confirm field values the same
-		System.assertEquals(true, bolBookingJobMatch);
+		
+		//asserting booking fields are synchronised on jobs
+		system.assertEquals(booking.Regular_Product__c, jobsList[0].Regular_Product__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.International_Product__c, jobsList[0].International_Product__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Express_Product__c, jobsList[0].Express_Product__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Dock_Number__c, jobsList[0].Dock_Number__c, 'Expected fields values to be same, but found different');
+		
 	}
 
 	//Validate that when adding a booking exception the job for the parent and child (delivery booking) is cancelled
