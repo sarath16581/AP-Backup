@@ -28,7 +28,7 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
-&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/damaged-articles&quot; title=&quot;Damaged article/missing contents&quot;&gt;&lt;h3&gt;Damaged/missing contents&lt;/h3&gt;&lt;/a&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;/s/damaged-articles&quot; title=&quot;Damaged article/missing contents&quot;&gt;&lt;h3&gt;Damaged/missing contents&lt;/h3&gt;&lt;/a&gt;
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
@@ -39,7 +39,7 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
-&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/MailRedirect.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/mail-redirection&quot; title=&quot;Mail redirection/hold&quot;&gt;&lt;h3&gt;Mail redirection/hold&lt;/h3&gt;&lt;/a&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/MailRedirect.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;/s/mail-redirection&quot; title=&quot;Mail redirection/hold&quot;&gt;&lt;h3&gt;Mail redirection/hold&lt;/h3&gt;&lt;/a&gt;
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
@@ -50,7 +50,7 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
-&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/eparcel-damages&quot; title=&quot;eParcel damages&quot;&gt;&lt;h3&gt;eParcel damages&lt;/h3&gt;&lt;/a&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;/s/eparcel-damages&quot; title=&quot;eParcel damages&quot;&gt;&lt;h3&gt;eParcel damages&lt;/h3&gt;&lt;/a&gt;
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
@@ -68,7 +68,7 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
-&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/LostArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/lost-article&quot; title=&quot;Lost article&quot;&gt;&lt;h3&gt;Lost article&lt;/h3&gt;&lt;/a&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/LostArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;/s/lost-article&quot; title=&quot;Lost article&quot;&gt;&lt;h3&gt;Lost article&lt;/h3&gt;&lt;/a&gt;
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
@@ -79,7 +79,7 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
-&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/StaffFeedback.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/staff-feedback&quot; title=&quot;Staff related feedback&quot;&gt;&lt;h3&gt;Staff related feedback&lt;/h3&gt;&lt;/a&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/StaffFeedback.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;/s/staff-feedback&quot; title=&quot;Staff related feedback&quot;&gt;&lt;h3&gt;Staff related feedback&lt;/h3&gt;&lt;/a&gt;
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
@@ -97,7 +97,7 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
-&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DeliveryConcern.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/delivery-concerns&quot; title=&quot;Delivery concerns/requests&quot;&gt;&lt;h3&gt;Delivery concerns/requests&lt;/h3&gt;&lt;/a&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DeliveryConcern.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;/s/delivery-concerns&quot; title=&quot;Delivery concerns/requests&quot;&gt;&lt;h3&gt;Delivery concerns/requests&lt;/h3&gt;&lt;/a&gt;
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
@@ -108,7 +108,7 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
-&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/others&quot; title=&quot;Something else&quot;&gt;&lt;h3&gt;Something else&lt;/h3&gt;&lt;/a&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;/s/others&quot; title=&quot;Something else&quot;&gt;&lt;h3&gt;Something else&lt;/h3&gt;&lt;/a&gt;
 &lt;/div&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
