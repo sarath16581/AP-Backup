@@ -5,7 +5,7 @@
             <user>brandon.hunt@auspost.com.au</user>
         </users>
     </assignments>
-    <capacity>1</capacity>
+    <capacity>2</capacity>
     <declineReasons>End_of_shift</declineReasons>
     <declineReasons>On_Break</declineReasons>
     <enableAutoAccept>false</enableAutoAccept>
