@@ -16,6 +16,16 @@
 						All fields are required unless marked as (optional)
 					</p>
 				</lightning-layout-item>
+				<template if:true={showError}>
+					<lightning-layout-item class="form-top-padding" size="12">
+						<c-message-banner
+								message={label.errorStateMessage}
+								banner-type="error"
+								img-link={errorIcon}
+								dispatch-close-event="true"
+								onclosebanner={handleErrorClose}></c-message-banner>
+					</lightning-layout-item>
+				</template>
 				<lightning-layout-item size="12" class="form-top-padding">
 				<!-- Form Body -->
 				<lightning-layout

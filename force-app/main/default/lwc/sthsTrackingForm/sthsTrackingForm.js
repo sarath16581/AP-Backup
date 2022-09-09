@@ -10,11 +10,13 @@ import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
+import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
 import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
 import createTrackingFormCase from "@salesforce/apex/STHSTrackingFormController.createTrackingFormCase";
 
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
+	errorIcon = STHS_ICONS + "/sths_icons/svgs/forms/error_input.svg"; //error icon
 	formData = {}; //form data to capture
 	isLoading = false; //flag to show/hide the spinner
 	caseNumber; //case number created for feedback form
@@ -32,6 +34,7 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidPhone,
 		invalidReference,
 		stSupportURL,
+		errorStateMessage,
 		invalidNameFieldCharacters
 	};
 
@@ -100,6 +103,10 @@ export default class SthsTrackingForm extends LightningElement {
 		this.isCaseCreatedSuccessfully = false;
 	};
 
+	// close error message banner
+	handleErrorClose = (event) => {
+		this.showError = false;
+	};
 	//validate phone number field with custom validations
 	validatePhone = (event) => {
 		event.target.setCustomValidity('');
