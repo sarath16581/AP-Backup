@@ -61,7 +61,7 @@
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterFormula>AND(
  {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_StarTrack_VOCI},
- NOT(ISNULL({!$Record.Due_Date__c})),
+ NOT(ISBLANK({!$Record.Due_Date__c})),
  NOT(ISPICKVAL({!$Record.Status}, &apos;Closed&apos;)),
  {!$Record.Owner_is_Changed__c}
 )</filterFormula>

@@ -1,18 +1,19 @@
 /**
-* @author Nathan Franklin
-* @date 2020-04-10
-* @group Selector
-* @tag Selector
-* @tag User SObject
-* @domain Core
-* @description A very simple selector class that sits in the base domain
-* @changelog
-* 2020-04-10 - Nathan Franklin - Created
-* 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId,selectbyUserName and selectByContactId Methods
-* 2021-03-02 - Alvin Zhou - Updated - selectActiveuserByProfileName and add the Current_Owner_Role__c to the related list
+ * @author Nathan Franklin
+ * @date 2020-04-10
+ * @group Selector
+ * @tag Selector
+ * @tag User SObject
+ * @domain Core
+ * @description A very simple selector class that sits in the base domain
+ * @changelog
+ * 2020-04-10 - Nathan Franklin - Created
+ * 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId,selectbyUserName and selectByContactId Methods
+ * 2021-03-02 - Alvin Zhou - Updated - selectActiveuserByProfileName and add the Current_Owner_Role__c to the related list
  * 2022-02-24 - Nathan Franklin - Added a field override capability
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  * 2022-08-25 - Mahesh Parvathaneni - Added method selectByName
+ * 2022-08-30 - Nathan Franklin - Added field overrides Map<>
 */
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
 
@@ -32,6 +33,15 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	 * This approach removes data consistency and prevents possible caching of results
 	 */
 	public static UsersSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		UsersSelector selector = (UsersSelector)Application.Selectors.newInstance(UsersSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static UsersSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		UsersSelector selector = (UsersSelector)Application.Selectors.newInstance(UsersSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
@@ -75,15 +85,26 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 	 * @description Run a simple query to get active users based on Id, profile Name
 	 */
 	public Map<Id, User> selectActiveUserByProfileName(Set<Id> contactIds, String profileName, Set<Object> selectorOptions) {
-		return new Map<Id, User>(search(new Map<String, Object>{'contactIds' => contactIds, 'profileNames' => profileName, 'isActive' => true}, selectorOptions, true));
+		return new Map<Id, User>(search(new Map<String, Object>{
+				'contactIds' => contactIds, 'profileNames' => profileName, 'isActive' => true
+		}, selectorOptions, true));
 	}
-	
+
+	/**
+	 * @description Run a simple query to get users based on contact Id, profile Name
+	 */
+	public Map<Id, User> selectUserByContactIdAndProfileName(Set<Id> contactIds, String profileName, Set<Object> selectorOptions) {
+		return new Map<Id, User>(search(new Map<String, Object>{
+				'contactIds' => contactIds, 'profileNames' => profileName
+		}, selectorOptions, true));
+	}
+
 	/**
 	 * @description Run a simple query to get records based on usernames
 	 */
 	public Map<Id, User> selectByUsername(Set<String> usernames, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames')).endConditions();
-		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames')).endConditions();
+		return new Map<Id, User>((List<User>) Database.query(qb.toSoqlString()));
 	}
 
 	/**
@@ -231,7 +252,7 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if(selectorOptions.contains(Options.WITH_CONTACT)) {
-			builder.addRelatedFields(ContactsSelector.newInstance().newQueryBuilder(), 'Contact');
+			builder.addRelatedFields(ContactsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'Contact');
 		}
 
 		if(selectorOptions.contains(Options.WITH_ROLE)) {

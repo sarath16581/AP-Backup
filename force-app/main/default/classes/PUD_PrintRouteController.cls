@@ -9,6 +9,7 @@
 * @changelog 
  * 2022-06-24 - created
  * 2022-08-09- Dattaraj Deshmukh - Updated class to use wrapper classes for Route and Bookings.
+ * 2022-08-31- Dattaraj Deshmukh - Sorted overnight route bookings to appear on top. 
  */
 
 public with sharing class PUD_PrintRouteController {
@@ -50,7 +51,8 @@ public with sharing class PUD_PrintRouteController {
 						PUD_Route__c.Name, PUD_Route__c.Depot__c,
 						PUD_Route__c.Monday__c, PUD_Route__c.Tuesday__c, PUD_Route__c.Wednesday__c, PUD_Route__c.Thursday__c, PUD_Route__c.Friday__c,
 						PUD_Route__c.Saturday__c, PUD_Route__c.Sunday__c, PUD_Route__c.Overtime_Allowance__c,
-						PUD_Route__c.Start_Time__c, PUD_Route__c.End_Time__c, PUD_Route__c.Start_Date__c, PUD_Route__c.End_Date__c
+						PUD_Route__c.Start_Time__c, PUD_Route__c.End_Time__c, PUD_Route__c.Start_Date__c, PUD_Route__c.End_Date__c,
+						PUD_Route__c.Overnight_Route__c
 				},
 				PUD_Booking__c.getSObjectType() => new Set <SObjectField>{
 						PUD_Booking__c.Id, PUD_Booking__c.Name, PUD_Booking__c.Status__c, PUD_Booking__c.Article_Count__c, PUD_Booking__c.Parent_Booking__c,

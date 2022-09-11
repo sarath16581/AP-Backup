@@ -28,7 +28,6 @@ public inherited sharing class PersonAccountDomainCtPointSyncModule extends Appl
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		syncPersonAccountsToContactPoints((List<Account>)records, (Map<Id, Account>)existingRecords, uow);
-        uow.commitWork();
     }
 	
     private void syncPersonAccountsToContactPoints(List<Account> records, Map<Id, Account> existingRecords, ApplicationUnitOfWork uow) {

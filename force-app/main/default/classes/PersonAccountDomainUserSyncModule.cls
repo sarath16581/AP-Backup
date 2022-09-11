@@ -22,7 +22,6 @@ public inherited sharing class PersonAccountDomainUserSyncModule extends Applica
 
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         syncUpdatedFieldsToUserRecord((List<Account>)records, (Map<Id, Account>)existingRecords, uow);
-        uow.commitWork();
     }
 
     /**

@@ -13,6 +13,7 @@
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  * 2022-04-24 - Nathan Franklin - Added test methods for search and selectActiveUserByProfileName
  * 2022-08-25 - Mahesh Parvathaneni - Added test methods for selectByName
+ * 2022-08-31 - Nathan Franklin - Add tests for Map<> field overrides
  */
 @IsTest
 public with sharing class UsersSelector_Test {
@@ -84,6 +85,23 @@ public with sharing class UsersSelector_Test {
 		qb = selector.newQueryBuilder();
 		soql = qb.toSoqlString();
 		System.assertEquals(false, Pattern.compile('(?ism)\\bUsername\\b.*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query selected a field it was not meant to');
+
+		qb = selector.newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Profile\\..*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select Profile fields');
+
+		qb = selector.newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE, UsersSelector.Options.WITH_ROLE});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)UserRole\\..*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select UserRole fields');
+		System.assertEquals(true, Pattern.compile('(?ism)Profile\\..*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select Profile fields');
+
+		selector = UsersSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{User.SObjectType => new Set<SObjectField>{User.TimeZoneSidKey}, Contact.SObjectType => new Set<SObjectField>{Contact.Email}});
+		qb = selector.newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_CONTACT});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Contact\\.Email.*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select Contact fields');
+		System.assertEquals(false, Pattern.compile('(?ism)Contact\\.Phone.*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query selects Phone field on Contact');
+		System.assertEquals(true, Pattern.compile('(?ism)TimeZoneSidKey.*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query does not select TimeZoneSidKey field');
+		System.assertEquals(false, Pattern.compile('(?ism)Username.*?\\bfrom user\\b').matcher(soql).find(), 'Resulting query selects Username field');
 
 		qb = selector.newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE});
 		soql = qb.toSoqlString();
@@ -220,7 +238,7 @@ public with sharing class UsersSelector_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		
+
 		UsersSelector selector = UsersSelector.newInstance(2);
 		Map<Id, User> results = selector.selectById(new Set<Id>{UserInfo.getUserId()});
 		System.assertEquals(1, results.size(), 'Expected 1 results');
@@ -248,7 +266,7 @@ public with sharing class UsersSelector_Test {
 		String name = users[0].FirstName + ' ' + users[0].LastName;
 		results = selector.selectByName(new Set<String>{name});
 		System.assertEquals(1, results.size(), 'Expected 1 result');
-		
+
 		Test.stopTest();
 
 	}

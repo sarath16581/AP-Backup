@@ -8,14 +8,25 @@
 					<span class="back-text">BACK</span>
 				</a>
 			</lightning-layout-item>
-			<lightning-layout-item size="12">
-				<!-- Form Header -->
-				<h2 class="form-heading slds-var-p-top_large">Tracking Form</h2>
-				<p class="form-sub-heading slds-var-p-top_x-small">
-					All fields are required unless marked as (optional)
-				</p>
-			</lightning-layout-item>
-			<lightning-layout-item size="12" class="form-top-padding">
+			<template if:false={isCaseCreatedSuccessfully}>
+				<lightning-layout-item size="12">
+					<!-- Form Header -->
+					<h2 class="form-heading slds-var-p-top_large">Tracking Form</h2>
+					<p class="form-sub-heading slds-var-p-top_x-small">
+						All fields are required unless marked as (optional)
+					</p>
+				</lightning-layout-item>
+				<template if:true={showError}>
+					<lightning-layout-item class="form-top-padding" size="12">
+						<c-message-banner
+								message={label.errorStateMessage}
+								banner-type="error"
+								img-link={errorIcon}
+								dispatch-close-event="true"
+								onclosebanner={handleErrorClose}></c-message-banner>
+					</lightning-layout-item>
+				</template>
+				<lightning-layout-item size="12" class="form-top-padding">
 				<!-- Form Body -->
 				<lightning-layout
 					multiple-rows
@@ -116,6 +127,7 @@
 							data-validation="trackingForm"
 							data-field-name="email"
 							onchange={handleInputChange}
+							onblur={validateEmail}
 							value={formData.email}
 							required
 							message-when-value-missing={label.invalidEmail}
@@ -168,6 +180,40 @@
 					</lightning-layout-item>
 				</lightning-layout>
 			</lightning-layout-item>
+			</template>
 		</lightning-layout>
+		<!-- Confirmation message -->
+		<template if:true={isCaseCreatedSuccessfully}>
+			<lightning-layout class="slds-var-p-top_x-large">
+				<lightning-layout-item
+						size="12"
+						class="slds-box box-background form-elements-padding">
+					<c-sths-confirmation-page>
+						<span slot="header">
+							<h2>Thanks for your enquiry</h2>
+						</span>
+						<span slot="body">
+							<p>
+								We’ve sent you a confirmation email with all the
+								details, including your reference number:
+								<b> {caseNumber}.</b>
+							</p>
+							<p class="slds-var-p-top_large">
+								We’ll review your enquiry and respond as soon
+								we can.
+							</p>
+						</span>
+					</c-sths-confirmation-page>
+				</lightning-layout-item>
+			</lightning-layout>
+		</template>
+
+		<template if:true={isLoading}>
+			<!--LOAD SPINNER-->
+			<lightning-spinner
+					variant="brand"
+					size="large"
+					alternative-text="Loading"></lightning-spinner>
+		</template>
 	</div>
 </template>

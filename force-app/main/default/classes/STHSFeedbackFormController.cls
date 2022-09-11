@@ -48,6 +48,7 @@ public with sharing class STHSFeedbackFormController {
 	private static void getFeedbackCaseDefaultValues(Case caseObj) {
         caseObj.Subject = caseObj.Call_Purpose__c = caseObj.Initial_Call_Purpose__c = STHSConstants.CASE_SUBJECT_FEEDBACK_ENQUIRY;
 		caseObj.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(STHSConstants.CASE_RECORDTYPE_VOC_ENQUIRY).getRecordTypeId();
+		caseObj.Auto_Email_Response_sent__c = true;
     }
 
 	/**

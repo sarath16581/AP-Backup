@@ -34,7 +34,6 @@ public inherited sharing class STHSCommunityService {
      * Assign default values for Startrack related cases
      */
     public void getCaseDefaultValues(Case caseObj) {
-        caseObj.Auto_Email_Response_sent__c = true;
         caseObj.Status = STHSConstants.CASE_STATUS_NEW;
         caseObj.Priority = STHSConstants.CASE_PRIOIRITY_NORMAL;
         caseObj.Origin = STHSConstants.CASE_ORIGIN_WEB;
