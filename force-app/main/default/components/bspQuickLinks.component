@@ -1,5 +1,6 @@
 <!--
 2019-04-28 nathan.franklin@auspost.com.au Removed optional display logic for AP (SSCR5)
+2022-09-12 naveen.rajanna@auspost.com.au Removed /bsp in url as part of CHG0176934
 -->
 <apex:component controller="bspComponent">
     <div class="right-panel">

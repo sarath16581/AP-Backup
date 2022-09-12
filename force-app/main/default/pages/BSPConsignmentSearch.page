@@ -550,6 +550,7 @@
                                             <apex:column rendered="{!(selectedConsignmentSearchType == 'AusPost' && isConsignmentAuthenticated)}">
                                                 <apex:facet name="header">Proof of Delivery</apex:facet>
                                               <!--  <apex:outputLink value="/servlet/servlet.FileDownload?file={!ce.NotesAndAttachments[0].Id}" rendered="{!ce.NotesAndAttachments.size > 0}" target="_blank">Click to View Image</apex:outputLink> -->
+                                              <!-- CHG0176934 -->
                                                 <apex:outputLink value="/POD_Redirect?id={!ce.Id}" rendered="{!(ce.NotesAndAttachments.size > 0 ||  ce.Safe_Drop_GUID__c != '' ) && IF(CONTAINS(emScanTypes, ce.EventType__c),true,false)}" target="_blank">Click to View </apex:outputLink>
                                             </apex:column>
                                         </apex:dataTable>
