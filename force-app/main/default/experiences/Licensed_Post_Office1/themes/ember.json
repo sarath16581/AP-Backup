@@ -86,7 +86,7 @@
               "buttonText" : "Log in",
               "buttonTextColor" : "",
               "buttonTextHoverColor" : "",
-              "customizableUserProfileMenuEditor" : "Default_User_Profile_Menu1",
+              "customizableUserProfileMenuEditor" : "",
               "menuStyleSettings" : "{\"selectedMenuStyleSetting\":\"iconOnly\",\"selectedIconSetting\":\"userAvatar\",\"includeCompanyName\":false,\"selectedTextOrientationSetting\":\"right\"}"
             },
             "componentName" : "forceCommunity:customizableUserProfileMenu",
