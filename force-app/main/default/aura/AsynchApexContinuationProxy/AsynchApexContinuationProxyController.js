@@ -17,7 +17,7 @@
 
                 // url path determines wheather the user is logged in from a community or aas an internal user,
                 // if the user is a BSP then the prefix will not be appended
-                if(typeof UrlPath !== 'undefined') {
+                if(typeof UrlPath !== 'undefined' && UrlPath.includes("auspostbusiness")) { //CHG0176934
                     UrlPath = '/' + URLConfig.UrlPathPrefix +'/apex/AsynchApexContinuation';
                 } else {
                     UrlPath = '/apex/AsynchApexContinuation';
