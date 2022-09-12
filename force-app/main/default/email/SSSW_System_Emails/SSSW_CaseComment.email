@@ -103,7 +103,7 @@
 		IF(
 			CONTAINS(Case.Customer_Type__c,'MyPost Business'),
 			'<a href="https://www.auspost.com.au/mypost-business/home">Login - MyPost Business</a>',
-			'<a href="https://auspostbusiness.force.com/bsp/bspLogin">Login - Enterprise</a>'
+			'<a href="https://auspostbusiness.force.com/bsp/bsplogin">Login - Enterprise</a>'
 		)
 	)
 }
