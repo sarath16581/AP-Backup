@@ -41,7 +41,7 @@ private class StarTrackConsignmentShortage_ConX_Test {
             controller.searchUpdatedCase();
             System.assert(controller.buttonHit);
             caseRec.Enquiry_Type__c = 'Shortage';
-            caseRec.Value_of_Goods__c = '$1500 - $10k';
+            caseRec.Value_of_Goods__c = '$2,000 - $9,999'; //REQ2947669 - Changing to new picklist value since old value is inactivated
             update caseRec;
             System.assertEquals('Shortage', StarTrackConsignmentShortage_ControllerX.refreshCase(caseRec.Id).Enquiry_Type__c);
             controller.setCaseRecord(caseRec);
