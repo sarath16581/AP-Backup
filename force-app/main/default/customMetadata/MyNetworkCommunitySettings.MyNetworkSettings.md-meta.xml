@@ -8,11 +8,11 @@
     </values>
     <values>
         <field>Development_Base_URL__c</field>
-        <value xsi:type="xsd:string">https://ptest-auspostbusiness.cs58.force.com/myNetwork</value>
+        <value xsi:type="xsd:string">https://ptest.npe.mynetwork.auspost.com.au</value>
     </values>
     <values>
         <field>PTEST_Base_URL__c</field>
-        <value xsi:type="xsd:string">https://ptest-auspostbusiness.cs58.force.com/myNetwork</value>
+        <value xsi:type="xsd:string">https://ptest.npe.mynetwork.auspost.com.au</value>
     </values>
     <values>
         <field>PTEST_Oracle_IAM_Logout_URL__c</field>
@@ -24,7 +24,7 @@
     </values>
     <values>
         <field>Production_Base_URL__c</field>
-        <value xsi:type="xsd:string">https://auspostbusiness.force.com/myNetwork</value>
+        <value xsi:type="xsd:string">https://mynetwork.auspost.com.au</value>
     </values>
     <values>
         <field>Production_Retail_Logout_URL__c</field>
@@ -32,7 +32,7 @@
     </values>
     <values>
         <field>STEST_Base_URL__c</field>
-        <value xsi:type="xsd:string">https://stest-auspostbusiness.cs72.force.com/myNetwork</value>
+        <value xsi:type="xsd:string">https://stest.npe.mynetwork.auspost.com.au</value>
     </values>
     <values>
         <field>Stest_Oracle_IAM_Logout_URL__c</field>
