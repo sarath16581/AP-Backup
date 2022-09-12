@@ -9,6 +9,8 @@
  *  Continuation + callouts need a Continuation.State to preserve context (context is lost when using static)
  *  Continuation + callouts need a wrapper method with NO arguments for Test Coverage. Test.InvokeContinuation only
  *  allows for a continuation method with no arguments.
+ *  2022-09-12 - prerna.rahangdale@auspost.com.au Change to update the eventMessages with the safe drop guid for events of
+ *  safe drop type.
  */
 public without sharing class BSPConsignmentSearchUplift {
 
@@ -409,7 +411,11 @@ public without sharing class BSPConsignmentSearchUplift {
                 }
             } else {
                 for(AuspostQueryTrackEventsSchema.TrackingResults tr : trackResults.getValue().TrackingResult){
-                    searchResult.trackResults.add(new TIBCOTrackingResultWrapper(tr));
+                    TIBCOTrackingResultWrapper trackingResultWrapper = new TIBCOTrackingResultWrapper(tr);
+                    searchResult.trackResults.add(trackingResultWrapper);
+                   if(bspBaseUplift.accessibleBillingAccounts.containsKey(trackingResultWrapper.articleDetails.proxyArticle.Billing_Account__c)){
+                        updateGuidInEventMessages(trackingResultWrapper);
+                    }
                 }
             }
         
@@ -808,6 +814,28 @@ public without sharing class BSPConsignmentSearchUplift {
         articleEvents = new List<EventMessage__c>();
         if(articleEventsMap.containsKey(selectedEventArticle)){
             articleEvents = articleEventsMap.get(selectedEventArticle).values();
+        }
+    }
+
+    /*
+     * This method is used to update the GUID in the event message of the article or consignments.
+     * The safe drop guid is not returned for merchant profile , hence needs to do explicit call to SAPEM and get the
+     * safedrop guid for safe drop event types and update the particluar event messages or articles or consignments and update the guid.
+     *
+     */
+    private static void updateGuidInEventMessages(TIBCOTrackingResultWrapper tr){
+        List<TIBCOEventMessageWrapper> eventMessages = null;
+        Set<String> safeDropEventTypes = SafeDropUtility.getSafeDropEvents();
+         If(tr.articleDetails != null){
+             eventMessages = tr.articleDetails.eventMessages;
+        } else if(tr.consignmentDetails != null){
+             eventMessages = tr.consignmentDetails.eventMessages;
+        }
+
+        for(TIBCOEventMessageWrapper events:eventMessages){
+            if(safeDropEventTypes.contains(events.proxyEM.EventType__c) && String.isBlank(events.proxyEM.Safe_Drop_GUID__c)){
+                events.proxyEM.Safe_Drop_GUID__c = DeliveryProofService.getSafeDropGuidHttpRequest(tr.trackingID);
+            }
         }
     }
 

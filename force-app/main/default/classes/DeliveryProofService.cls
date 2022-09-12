@@ -4,6 +4,7 @@
  * @author Nathan Franklin
  * @date 2021-10-10
  * @changelog
+ * prerna.rahangdale 12/09/2022  a new method to get the safedrop for the article tracking number.
  *
  */
 public inherited sharing class DeliveryProofService {
@@ -138,4 +139,28 @@ public inherited sharing class DeliveryProofService {
 		}
 	}
 
+	/**
+	 * Get the guid from the safe drop API service for the article Id.
+	 * @param trackingNumber
+	 *
+	 * @return safe drop guid
+	 */
+	public static String getSafeDropGuidHttpRequest(String trackingNumber) {
+		String guid ='';
+		HttpRequest req = new HttpRequest();
+		req.setMethod('GET');
+		req.setEndpoint('callout:SafeDropGuidAPI/'+trackingNumber+'/guid');
+		req.setHeader('AUTH-KEY', '{!$Credential.Password}');
+		try{
+			HttpResponse response = (new Http()).send(req);
+			if(response.getStatusCode() == 200){
+				Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+				guid = (String)m.get('safeDropImageGuid');
+			}
+		}catch (Exception e){
+			System.debug('Exception in DeliveryProofService ##  getSafeDropGuidHttpRequest ## in getting guid for article '+trackingNumber);
+			throw new CalloutException(e);
+		}
+		return guid;
+	}
 }

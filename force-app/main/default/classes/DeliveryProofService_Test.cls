@@ -4,6 +4,7 @@
  * @author Nathan Franklin
  * @date 2021-10-10
  * @changelog
+ * 2022/09/12 prerna.rahangdale@auspost.com.au test method testSafeDropGuidHttpRequest
  */
 @IsTest
 public with sharing class DeliveryProofService_Test {
@@ -229,4 +230,36 @@ public with sharing class DeliveryProofService_Test {
 
 	}
 
+	/***
+     * Test that an article with delivery signature is eligible for delivery proof generation
+     */
+	@IsTest
+	private static void testSafeDropGuidHttpRequest() {
+		// =====================================
+		// Stubbing
+		// =====================================
+		Test.setMock(HttpCalloutMock.class, new DeliveryProofServiceHttpMock());
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+			System.assertEquals('aa92d596-879e-4a4e-85ae-6a8c68f8d5b4',DeliveryProofService.getSafeDropGuidHttpRequest('JDQ168278501000600803'));
+		Test.stopTest();
+
+
+	}
+
+	public class DeliveryProofServiceHttpMock implements HttpCalloutMock {
+		public HttpResponse respond(HTTPRequest req) {
+			HttpResponse res = new HttpResponse();
+			if (req.getEndpoint().containsIgnoreCase('guid')) {
+				res.setStatusCode(200);
+				res.setBody('{\n' +
+						'	"safeDropImageGuid":"aa92d596-879e-4a4e-85ae-6a8c68f8d5b4"\n' +
+						'}');
+				return res;
+			}
+			return res;
+		}
+	}
 }
