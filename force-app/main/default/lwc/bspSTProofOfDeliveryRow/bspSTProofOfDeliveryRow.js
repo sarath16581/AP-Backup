@@ -15,11 +15,11 @@ export default class BspSTProofOfDeliviryRow extends LightningElement {
 
     get podHref(){
         if(this.isTM){
-            return '/bsp/BSPStarTrackPOD?id=' + this.pod.NotesAndAttachments[0].Id;
+            return '/BSPStarTrackPOD?id=' + this.pod.NotesAndAttachments[0].Id;
         }
 
         if(this.isTR){
-            return '/bsp/StarTrackProofOfDeliveryMerge?id=' + this.pod.Id;
+            return '/StarTrackProofOfDeliveryMerge?id=' + this.pod.Id;
         }
     }
 

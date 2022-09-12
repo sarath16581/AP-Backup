@@ -33,7 +33,7 @@ export default class BspLabelEventRow extends LightningElement {
   }
 
   get podHref(){
-    return '/bsp/POD_Redirect?id=' + this.le.Id;
+    return '/POD_Redirect?id=' + this.le.Id;
   }
 
   get stFormattedActualDateTimeStr(){
