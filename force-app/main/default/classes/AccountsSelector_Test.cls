@@ -286,12 +286,12 @@ public with sharing class AccountsSelector_Test {
 		});
 		System.assertNotEquals(null, results.values()[0].Network_Facility__r, 'Expected network record in Network Facility field');
 
-		results = selector.selectById(mappedAccounts.keySet(), new Set<Object>{
+		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_PARENT
 		});
 		System.assertNotEquals(null, results.values()[0].ParentId, 'Expected parent account Id field');
 
-		results = selector.selectById(mappedAccounts.keySet(), new Set<Object>{
+		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_GRANDPARENT
 		});
 		System.assertNotEquals(null, results.values()[0].Parent.ParentId, 'Expected grandparent account Id field');
