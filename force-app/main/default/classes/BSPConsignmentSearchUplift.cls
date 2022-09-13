@@ -825,17 +825,35 @@ public without sharing class BSPConsignmentSearchUplift {
      */
     private static void updateGuidInEventMessages(TIBCOTrackingResultWrapper tr){
         List<TIBCOEventMessageWrapper> eventMessages = null;
-        Set<String> safeDropEventTypes = SafeDropUtility.getSafeDropEvents();
+        Integer  eventCount = null;
+        Set<String> safeDropSigEventTypes = new Set<String>();
+
+        // Get the Safe drop or is Signature on Delivery Event Types.
+        for(EventMessageTypeMapping__mdt eventType : EventMessageUtil.getEventMessageTypes().values()) {
+            if(('Delivered').equalsIgnoreCase(eventType.Category__c) && (eventType.IsSafeDrop__c || eventType.IsSignatureOnDelivery__c)) {
+                safeDropSigEventTypes.add(eventType.Label);
+            }
+        }
+
+        // get event Message or article or consignment.
          If(tr.articleDetails != null){
              eventMessages = tr.articleDetails.eventMessages;
         } else if(tr.consignmentDetails != null){
              eventMessages = tr.consignmentDetails.eventMessages;
         }
 
-        for(TIBCOEventMessageWrapper events:eventMessages){
-            if(safeDropEventTypes.contains(events.proxyEM.EventType__c) && String.isBlank(events.proxyEM.Safe_Drop_GUID__c)){
-                events.proxyEM.Safe_Drop_GUID__c = DeliveryProofService.getSafeDropGuidHttpRequest(tr.trackingID);
+        if(eventMessages != null) {
+            for (Integer i = 0; i < eventMessages.size(); i++) {
+                if (safeDropSigEventTypes.contains(eventMessages[i].proxyEM.EventType__c) && String.isBlank(eventMessages[i].proxyEM.Safe_Drop_GUID__c)) {
+                    eventCount = i;
+                    // populate the safe drop guid in the latest scanned delivered event, the EventMessages are sorted
+                    // with ActualDateTime__c.
+                    break;
             }
+        }
+            // There is an event of safe drop or signature on delivery.
+            if (eventCount != null)
+                eventMessages[eventCount].proxyEM.Safe_Drop_GUID__c = DeliveryProofService.getSafeDropGuidHttpRequest(tr.trackingID);
         }
     }
 
