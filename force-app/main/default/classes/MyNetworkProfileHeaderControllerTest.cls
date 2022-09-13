@@ -3,14 +3,12 @@ Author:        Dion Gunn (dion.gunn@auspost.com.au)
 Description:   Test class for MyNetworkProfileHeadereController.
 History
 10-08-2017 - Dion Gunn - Created
+08-09.2022 - Naveen Rajanna - REQ2963906 - upgraded to 55 and minor changes for coverage
 ------------------------------------------------------------*/
 @isTest
 public without sharing class MyNetworkProfileHeaderControllerTest {
 
-    public static testMethod void testLogout() {
-        //Test regular logout scenario
-        System.assert(!MyNetworkProfileHeaderController.myLogoutUrl().contains('https://sso'));
-        
+    public static testMethod void testLogout() {       
         
         MyNetworkCommunitySettings__mdt myNetworkSettings = [select Dev_Oracle_IAM_Logout_URL__c, PTEST_Oracle_IAM_Logout_URL__c,
                 Stest_Oracle_IAM_Logout_URL__c, Prod_Oracle_IAM_Logout_URL__c, Development_Base_URL__c, PTEST_Base_URL__c,
@@ -21,26 +19,23 @@ public without sharing class MyNetworkProfileHeaderControllerTest {
         System.runAs(myNetworkRetail) {
             //Test DEV Scenario
             MyNetworkProfileHeaderController.baseURL = myNetworkSettings.Development_Base_URL__c;
-            System.assert(MyNetworkProfileHeaderController.myLogoutUrl().contains(myNetworkSettings.Dev_Oracle_IAM_Logout_URL__c));
+            System.assert(MyNetworkProfileHeaderController.getRetailLogoutURL().contains(myNetworkSettings.Dev_Oracle_IAM_Logout_URL__c));
             
             //Test PTEST Scenario
             MyNetworkProfileHeaderController.baseURL = myNetworkSettings.PTEST_Base_URL__c;
-            System.assert(MyNetworkProfileHeaderController.myLogoutUrl().contains(myNetworkSettings.PTEST_Oracle_IAM_Logout_URL__c));
+            System.assert(MyNetworkProfileHeaderController.getRetailLogoutURL().contains(myNetworkSettings.PTEST_Oracle_IAM_Logout_URL__c));
             
             //Test STEST Scenario
             MyNetworkProfileHeaderController.baseURL = myNetworkSettings.STEST_Base_URL__c;
-            System.assert(MyNetworkProfileHeaderController.myLogoutUrl().contains(myNetworkSettings.Stest_Oracle_IAM_Logout_URL__c));
-            
-            //test profile URL
-            System.assert(MyNetworkProfileHeaderController.myProfileUrl().contains('./profile/' + myNetworkRetail.Id));
+            System.assert(MyNetworkProfileHeaderController.getRetailLogoutURL().contains(myNetworkSettings.Stest_Oracle_IAM_Logout_URL__c));
+
             //test uname
             MyNetworkProfileHeaderController Userd = MyNetworkProfileHeaderController.uName();
             System.assert(Userd.name.contains(myNetworkRetail.FirstName));
             
             //test retail users logout redirect 
-            Organization currentOrg = [select IsSandbox from Organization limit 1];
-            if(!currentOrg.IsSandbox && !Test.isRunningTest()) {
-            System.assert(MyNetworkProfileHeaderController.myLogoutUrl().contains(myNetworkSettings.Production_Retail_Logout_URL__c));
+            if(!Util.runningInASandbox && !Test.isRunningTest()) {
+            System.assert(MyNetworkProfileHeaderController.getRetailLogoutURL().contains(myNetworkSettings.Production_Retail_Logout_URL__c));
             }
        }
     }

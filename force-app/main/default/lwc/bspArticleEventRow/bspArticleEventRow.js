@@ -1,3 +1,6 @@
+/*
+2022-09-12 naveen.rajanna@auspost.com.au Removed /bsp in url as part of CHG0176934
+*/
 import { LightningElement, api } from 'lwc';
 import { convertToFormattedDateStr } from 'c/bspCommonJS';
 
@@ -32,7 +35,7 @@ export default class BspArticleEventRow extends LightningElement {
     }
 
     get podHref(){
-      return '/bsp/POD_Redirect?id=' + this.evnt.Id;
+      return '/POD_Redirect?id=' + this.evnt.Id; //CHG0176934
     }
 
     get formattedActualDateStr(){
