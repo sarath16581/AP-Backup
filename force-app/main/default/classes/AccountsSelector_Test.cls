@@ -276,7 +276,7 @@ public with sharing class AccountsSelector_Test {
 
 		System.assertNotEquals(null, results.values()[0].Memberships__r, 'Expected membership object');
 
-		results = selector.selectById(mappedAccounts.keySet(), new Set<Object>{
+		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_POSTOFFICEASSIGNED
 		});
 		System.assertNotEquals(null, results.values()[0].Post_Office_Assigned__r, 'Expected network record in Post Office Assigned field');
