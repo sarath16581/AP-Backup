@@ -20,7 +20,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png\" width=\"36\" height=\"36\"><a href=\"https://auspostbusiness.force.com/myNetwork/s/damaged-articles\" title=\"Damaged article/missing contents\"><h3>Damaged/missing contents</h3></a>\n</div>"
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png\" width=\"36\" height=\"36\"><a href=\"/s/damaged-articles\" title=\"Damaged article/missing contents\"><h3>Damaged/missing contents</h3></a>\n</div>"
       },
       "componentName" : "forceCommunity:htmlBlock",
       "id" : "925c6d5d-40ab-4f23-8921-cd4f111ccdf9",
@@ -29,7 +29,7 @@
       "type" : "component"
     }, {
       "componentAttributes" : {
-        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/MailRedirect.png\" width=\"36\" height=\"36\"><a href=\"https://auspostbusiness.force.com/myNetwork/s/mail-redirection\" title=\"Mail redirection/hold\"><h3>Mail redirection/hold</h3></a>\n</div>"
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/MailRedirect.png\" width=\"36\" height=\"36\"><a href=\"/s/mail-redirection\" title=\"Mail redirection/hold\"><h3>Mail redirection/hold</h3></a>\n</div>"
       },
       "componentName" : "forceCommunity:htmlBlock",
       "id" : "cd69fe7d-b7ab-486b-b941-7f82d4f50ec3",
@@ -38,7 +38,7 @@
       "type" : "component"
     }, {
       "componentAttributes" : {
-        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png\" width=\"36\" height=\"36\"><a href=\"https://auspostbusiness.force.com/myNetwork/s/eparcel-damages\" title=\"eParcel/Wine Damages\"><h3>eParcel/Wine Damages</h3></a>\n</div>"
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png\" width=\"36\" height=\"36\"><a href=\"/s/eparcel-damages\" title=\"eParcel/Wine Damages\"><h3>eParcel/Wine Damages</h3></a>\n</div>"
       },
       "componentName" : "forceCommunity:htmlBlock",
       "id" : "9da6c2c5-0c15-452f-8672-28d21e27bb4a",
@@ -52,7 +52,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/LostArticle.png\" width=\"36\" height=\"36\"><a href=\"https://auspostbusiness.force.com/myNetwork/s/lost-article\" title=\"Lost article\"><h3>Lost article</h3></a>\n</div>"
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/LostArticle.png\" width=\"36\" height=\"36\"><a href=\"/s/lost-article\" title=\"Lost article\"><h3>Lost article</h3></a>\n</div>"
       },
       "componentName" : "forceCommunity:htmlBlock",
       "id" : "a0b84630-83ca-494d-ab00-e601d90a4583",
@@ -61,7 +61,7 @@
       "type" : "component"
     }, {
       "componentAttributes" : {
-        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/StaffFeedback.png\" width=\"36\" height=\"36\"><a href=\"https://auspostbusiness.force.com/myNetwork/s/staff-feedback\" title=\"Staff related feedback\"><h3>Staff related feedback</h3></a>\n</div>"
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/StaffFeedback.png\" width=\"36\" height=\"36\"><a href=\"/s/staff-feedback\" title=\"Staff related feedback\"><h3>Staff related feedback</h3></a>\n</div>"
       },
       "componentName" : "forceCommunity:htmlBlock",
       "id" : "f1df6c10-c056-4f12-ae18-b22cc24da6dd",
@@ -75,7 +75,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DeliveryConcern.png\" width=\"36\" height=\"36\"><a href=\"https://auspostbusiness.force.com/myNetwork/s/delivery-concerns\" title=\"Delivery concerns/requests\"><h3>Delivery concerns/requests</h3></a>\n</div>"
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DeliveryConcern.png\" width=\"36\" height=\"36\"><a href=\"/s/delivery-concerns\" title=\"Delivery concerns/requests\"><h3>Delivery concerns/requests</h3></a>\n</div>"
       },
       "componentName" : "forceCommunity:htmlBlock",
       "id" : "3591d360-6cbf-4f3d-9e99-03b64cb65e40",
@@ -84,7 +84,7 @@
       "type" : "component"
     }, {
       "componentAttributes" : {
-        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png\" width=\"36\" height=\"36\"><a href=\"https://auspostbusiness.force.com/myNetwork/s/others\" title=\"Something else\"><h3>Something else</h3></a>\n</div>"
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png\" width=\"36\" height=\"36\"><a href=\"/s/others\" title=\"Something else\"><h3>Something else</h3></a>\n</div>"
       },
       "componentName" : "forceCommunity:htmlBlock",
       "id" : "3d5f6152-1dc1-4b52-9b3b-a743ef22ced3",
