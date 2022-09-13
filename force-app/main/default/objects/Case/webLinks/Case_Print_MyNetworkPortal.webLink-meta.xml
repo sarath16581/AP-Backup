@@ -16,5 +16,5 @@
     <protected>false</protected>
     <showsLocation>false</showsLocation>
     <showsStatus>false</showsStatus>
-    <url>/myNetwork/PON_Case_Detail_View?ID={!Case.Id}</url>
+    <url>/PON_Case_Detail_View?ID={!Case.Id}</url>
 </WebLink>
