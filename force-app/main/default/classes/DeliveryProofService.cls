@@ -149,7 +149,7 @@ public inherited sharing class DeliveryProofService {
 		String guid ='';
 		HttpRequest req = new HttpRequest();
 		req.setMethod('GET');
-		req.setEndpoint('callout:SafeDropGuidAPI/'+trackingNumber+'/guid');
+		req.setEndpoint('callout:SafeDropGuidAPI/'+EncodingUtil.urlEncode(trackingNumber,'UTF-8')+'/guid');
 		req.setHeader('AUTH-KEY', '{!$Credential.Password}');
 		try{
 			HttpResponse response = (new Http()).send(req);
