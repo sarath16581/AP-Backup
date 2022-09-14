@@ -74,6 +74,7 @@
                         component.set('v.showInvalidWithinEDDMessage', true);
                         component.set("v.isLoading", false);
                         component.set('v.eddDisplayDate',helper.getEDDDateString(component, event, helper));
+                        helper.pushAnalytics(component,'BEFORE_EDD_CALCULATED_ERROR')
                         return;
                     } else {
                         component.set("v.isLoading", false);
@@ -181,41 +182,48 @@
         cmp.set("v.addressTyped",streetAddress);
     },
 
-    pushAnalytics : function(cmp, step) {
-        // we expect something to be returned here, if nothing returned means a technical issue
-        /*if(cmp.get('v.wizardData.eddStatus') != '') {
-            var duplicateCaseText = 'new';
-            if(cmp.get('v.wizardData.duplicateCase') != '') {
+    /**
+     * push analytics
+     */
+    pushAnalytics : function(cmp, stepKey) {
+        let analyticsObject = {};
+        // setting the common attributes
+        analyticsObject.form.name = 'form:' + cmp.get('v.pageTitle');
+        analyticsObject.form.product = cmp.get('v.wizardData.trackingId');
+
+        let trackingType = 'helpsupport-form-navigate';
+
+        if(stepKey === "BEFORE_EDD_CALCULATED_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
+            // building the analytics params object
+            analyticsObject.form.step = "item details";
+            analyticsObject.form.stage = 'start';
+            analyticsObject.form.error = 'before calculated EDD -parcel is on track to be delivered';
+
+        } else if(stepKey === "MANUAL_ADDRESS_ENTRY" && cmp.get('v.wizardData.eddStatus') != '') {
+            let duplicateCaseText = 'new';
+            if(cmp.get('v.wizardData.duplicateCase') !== '') {
                 duplicateCaseText = 'duplicate';
             }
-            var latestEventLocationMessage = cmp.get('v.wizardData.latestEventLocationMessage');
-            var alertMessage=cmp.get('v.wizardData.trackStatusValue');
+            let latestEventLocationMessage = cmp.get('v.wizardData.latestEventLocationMessage');
+            let alertMessage=cmp.get('v.wizardData.trackStatusValue');
             if(!$A.util.isEmpty(latestEventLocationMessage) || !$A.util.isUndefined(latestEventLocationMessage))
             {
                 alertMessage = latestEventLocationMessage;
 
             }
 
-            var isEligibleForMyNetworkAssignment = cmp.get('v.wizardData.isEligibleForMyNetworkAssignment') ? 'yes' : 'no';
+            let isEligibleForMyNetworkAssignment = cmp.get('v.wizardData.isEligibleForMyNetworkAssignment') ? 'yes' : 'no';
 
-            // building the analytics params object
-            var analyticsObject = {
-                form: {
-                    name: 'form:' + cmp.get('v.pageTitle'),
-                    step: step,
-                    stage: '',
-                    detail: 'article status='+alertMessage+'|case='+duplicateCaseText + '|network eligibility='+isEligibleForMyNetworkAssignment,
-                    product: cmp.get('v.wizardData.trackingId')
-                }
-            };
+            analyticsObject.form.step = "item details:address manual";
+            analyticsObject.form.stage = '';
+            analyticsObject.form.detail = 'article status='+alertMessage+'|case='+duplicateCaseText + '|network eligibility='+isEligibleForMyNetworkAssignment;
+        }
 
-            // calling the analytics API methods
-            window.AP_ANALYTICS_HELPER.trackByObject({
-                trackingType: 'helpsupport-form-navigate',
-                componentAttributes: analyticsObject
-            });
-
-        }*/
+        // calling the analytics API methods
+        window.AP_ANALYTICS_HELPER.trackByObject({
+            trackingType: trackingType,
+            componentAttributes: analyticsObject
+        });
     },
 
 })
