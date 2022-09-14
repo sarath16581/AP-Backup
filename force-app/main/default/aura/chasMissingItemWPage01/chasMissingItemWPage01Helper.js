@@ -3,6 +3,7 @@
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
  * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
  * 2022-08-04 Hasantha Liyanage - DDS-11626: before edd
+ * 2022-09-12 mahesh.parvathaneni@auspost.com.au DDS-12166: Added analytics for invalid tracking number error
  */
  ({
     callTrackingNumberService : function(cmp, event, helper) {
@@ -101,6 +102,8 @@
                             cmp.set('v.wizardData.senderOrRecipientType', "Domestic");
                             //Show Invalid Message
                             cmp.set("v.showInvalidMessage", true);
+                            //push analytics for invalid tracking number
+                            helper.pushAnalytics(cmp, "item details", "invalid tracking number");
                         }
                           else if(returnObj["trackingNumSerachStatusCode"] == 500) {
                             cmp.set('v.error500', true);
@@ -372,4 +375,24 @@
          };
          return disDate;
      },
+
+     //push analytics via API methods
+     pushAnalytics : function(cmp, step, error) {
+        // building the analytics params object
+        var analyticsObject = {
+            form: {
+                name: 'form:' + cmp.get('v.pageTitle'),
+                step: step,
+                stage: 'start',
+                error: error,
+                product: cmp.get('v.wizardData.trackingId')
+            }
+        };
+
+        // calling the analytics API methods
+        window.AP_ANALYTICS_HELPER.trackByObject({
+            trackingType: 'helpsupport-form-navigate',
+            componentAttributes: analyticsObject
+        });
+    },
 })
