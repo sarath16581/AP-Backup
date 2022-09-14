@@ -413,7 +413,15 @@ public without sharing class BSPConsignmentSearchUplift {
                 for(AuspostQueryTrackEventsSchema.TrackingResults tr : trackResults.getValue().TrackingResult){
                     TIBCOTrackingResultWrapper trackingResultWrapper = new TIBCOTrackingResultWrapper(tr);
                     searchResult.trackResults.add(trackingResultWrapper);
-                   if(bspBaseUplift.accessibleBillingAccounts.containsKey(trackingResultWrapper.articleDetails.proxyArticle.Billing_Account__c)){
+
+                    Id billingAccount = null;
+                    if(trackingResultWrapper.articleDetails != null ){
+                        billingAccount = trackingResultWrapper.articleDetails.proxyArticle.Billing_Account__c;
+                    }
+                    if(trackingResultWrapper.consignmentDetails != null ){
+                        billingAccount = trackingResultWrapper.consignmentDetails.proxyConsignment.Billing_Account__c;
+                    }
+                   if(billingAccount != null && bspBaseUplift.accessibleBillingAccounts.containsKey(billingAccount)){
                         updateGuidInEventMessages(trackingResultWrapper);
                     }
                 }
