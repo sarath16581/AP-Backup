@@ -103,7 +103,7 @@
                             //Show Invalid Message
                             cmp.set("v.showInvalidMessage", true);
                             //push analytics for invalid tracking number
-                            helper.pushAnalytics(cmp, "item details", "invalid tracking number");
+                            helper.pushAnalytics(cmp, "ITEM_DETAILS_ERROR",);
                         }
                           else if(returnObj["trackingNumSerachStatusCode"] == 500) {
                             cmp.set('v.error500', true);
@@ -124,6 +124,7 @@
                                 cmp.set("v.showInvalidWithinEDDMessage", true);
                                 cmp.set("v.isLoading", false);
                                 cmp.set('v.eddDisplayDate',helper.getEDDDateString(cmp, event, helper));
+                                helper.pushAnalytics(cmp, 'BEFORE_EDD_ERROR');
                                 return;
                             } else if(cmp.get("v.wizardData.eddStatus") === 'NO_EDD'){
                                 cmp.set("v.wizardData.hasQualifiedForNoEDDFlow",true);
@@ -376,23 +377,32 @@
          return disDate;
      },
 
-     //push analytics via API methods
-     pushAnalytics : function(cmp, step, error) {
+     /**
+      * push analytics
+      */
+     pushAnalytics : function(cmp, stepKey) {
+         let analyticsObject = {};
         // building the analytics params object
-        var analyticsObject = {
-            form: {
-                name: 'form:' + cmp.get('v.pageTitle'),
-                step: step,
-                stage: 'start',
-                error: error,
-                product: cmp.get('v.wizardData.trackingId')
-            }
-        };
+         // setting the common attributes
+         analyticsObject.form.name = 'form:' + cmp.get('v.pageTitle');
+         analyticsObject.form.product = cmp.get('v.wizardData.trackingId');
+         analyticsObject.form.step = "item details";
+         let trackingType = 'helpsupport-form-navigate';
 
-        // calling the analytics API methods
-        window.AP_ANALYTICS_HELPER.trackByObject({
-            trackingType: 'helpsupport-form-navigate',
-            componentAttributes: analyticsObject
-        });
-    },
+         if(stepKey === "BEFORE_EDD_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
+             // building the analytics params object
+             analyticsObject.form.stage = 'start';
+             analyticsObject.form.error = 'before EDD -parcel is on track to be delivered';
+         } else  if(stepKey === "ITEM_DETAILS_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
+             // building the analytics params object
+             analyticsObject.form.stage = 'start';
+             analyticsObject.form.error = 'invalid tracking number';
+         }
+
+         // calling the analytics API methods
+         window.AP_ANALYTICS_HELPER.trackByObject({
+             trackingType: trackingType,
+             componentAttributes: analyticsObject
+         });
+     }
 })
