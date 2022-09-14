@@ -183,25 +183,47 @@ public with sharing class PUDUtility_Test {
 		booking.International_Product__c = false;
 		booking.Express_Product__c = true;
 		booking.Dock_Number__c = '2';
-
 		insert booking;
 
 		Test.stopTest();
 
 		//Get jobs
 		jobsList = [SELECT
-				Regular_Product__c,
-				International_Product__c,
-				Express_Product__c,
-				Dock_Number__c 
-				FROM PUD_Job__c WHERE Booking__c = :booking.Id];
+				City__c,
+				Contact_Email__c,
+				Contact_Name__c,
+				Contact_Phone_Number__c,
+				Customer__c,
+				Depot__c,
+				Dwell_Time_Planned__c,
+				Earliest_Start_Time__c,
+				Hazards__c,
+				Latest_End_Time__c,
+				Network__c,
+				Post_Code__c,
+				Route_Lookup__c,
+				Site_Instructions__c,
+				State__c,
+				Street__c,
+ 				Regular_Product__c,
+ 				International_Product__c,
+ 				Express_Product__c,
+ 				Dock_Number__c 
+ 				FROM PUD_Job__c WHERE Booking__c = :booking.Id];
 		
 		//asserting booking fields are synchronised on jobs
 		system.assertEquals(booking.Regular_Product__c, jobsList[0].Regular_Product__c, 'Expected fields values to be same, but found different');
 		system.assertEquals(booking.International_Product__c, jobsList[0].International_Product__c, 'Expected fields values to be same, but found different');
 		system.assertEquals(booking.Express_Product__c, jobsList[0].Express_Product__c, 'Expected fields values to be same, but found different');
-		system.assertEquals(booking.Dock_Number__c, jobsList[0].Dock_Number__c, 'Expected fields values to be same, but found different');
-		
+		system.assertEquals(booking.Contact_Email__c, jobsList[0].Contact_Email__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Contact_Name__c, jobsList[0].Contact_Name__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Contact_Phone_Number__c, jobsList[0].Contact_Phone_Number__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Depot__c, jobsList[0].Depot__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Dwell_Time_Planned__c, jobsList[0].Dwell_Time_Planned__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Earliest_Start_Time__c, jobsList[0].Earliest_Start_Time__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Network__c, jobsList[0].Network__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Route_Lookup__c, jobsList[0].Route_Lookup__c, 'Expected fields values to be same, but found different');
+		system.assertEquals(booking.Latest_End_Time__c, jobsList[0].Latest_End_Time__c, 'Expected fields values to be same, but found different');
 	}
 
 	//Validate that when adding a booking exception the job for the parent and child (delivery booking) is cancelled
