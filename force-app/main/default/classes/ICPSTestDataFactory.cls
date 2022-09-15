@@ -6,6 +6,7 @@
  * @description Contains all the test data methods for ICPS test classes
  * @changelog
  * 2022-03-21 - Harry Wang - Created
+ * 2022-09-15 - Harry Wang - Added new fields
  */
 @IsTest
 public class ICPSTestDataFactory {
@@ -19,7 +20,10 @@ public class ICPSTestDataFactory {
 				ICPS__c.ReceiverName__c => 'Test Receiver',
 				ICPS__c.CountryofOrigin__c => 'USA',
 				ICPS__c.FirstNoticeDate__c => Date.newInstance(2022, 2, 22),
-				ICPS__c.FinalNoticeDate__c => Date.newInstance(2022, 2, 22)
+				ICPS__c.FinalNoticeDate__c => Date.newInstance(2022, 2, 22),
+				ICPS__c.DateOfPosting__c => Date.newInstance(2022, 2, 22),
+				ICPS__c.DateReturned__c => Date.newInstance(2022, 2, 22),
+				ICPS__c.DeliveryDate__c => Date.newInstance(2022, 2, 22)
 		}, count), generateIds);
 	}
 

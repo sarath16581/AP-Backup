@@ -8,6 +8,7 @@
  * @description Test class for ICPSSelector
  * @changelog
  * 2022-03-21 - Harry Wang - Created
+ * 2022-09-15 - Harry Wang - Added test for new search params
  */
 @IsTest
 public with sharing class ICPSSelector_Test {
@@ -132,6 +133,17 @@ public with sharing class ICPSSelector_Test {
 		searchParams.put('to_holding_date',  String.valueOf(Date.today().addDays(40)));
 		searchParams.put('from_release_date', '2022-02-22');
 		searchParams.put('to_release_date', '2022-02-22');
+		searchResults = ICPSSelector.newInstance().search(searchParams, true);
+		System.assertEquals(2, searchResults.size(), 'Expected 2 results');
+
+		// Search Scenario 3
+		searchParams.clear();
+		searchParams.put('from_date_returned', '2022-02-22');
+		searchParams.put('to_date_returned', '2022-02-22');
+		searchParams.put('from_date_of_posting', '2022-02-22');
+		searchParams.put('to_date_of_posting', '2022-02-22');
+		searchParams.put('from_delivery_date', '2022-02-22');
+		searchParams.put('to_delivery_date', '2022-02-22');
 		searchResults = ICPSSelector.newInstance().search(searchParams, true);
 		System.assertEquals(2, searchResults.size(), 'Expected 2 results');
 		Test.stopTest();
