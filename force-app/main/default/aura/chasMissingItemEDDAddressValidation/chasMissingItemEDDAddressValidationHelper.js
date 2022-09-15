@@ -43,6 +43,7 @@
     getEDDServiceEstimates : function (component,event, helper)
     {
         try {
+            component.set("v.isLoading", true);
             // call server method to invoke the EDD service
             var action = component.get("c.getEDDEstimates");
             // set method parameters
@@ -73,16 +74,20 @@
                         component.set('v.showInvalidWithinEDDMessage', true);
                         component.set("v.isLoading", false);
                         component.set('v.eddDisplayDate',helper.getEDDDateString(component, event, helper));
+                        helper.pushAnalytics(component,'BEFORE_EDD_CALCULATED_ERROR')
                         return;
                     } else {
+                        component.set("v.isLoading", false);
                         helper.gotoNextPage(component, "chasMissingItemWPage02");
                     }
                 } else if (state === "INCOMPLETE") {
                     component.set('v.displaySpinner', false);
+                    component.set("v.isLoading", false);
                     // Enable debugging if required
                 } else if (state === "ERROR") {
                     component.set('v.displaySpinner', false);
                     component.set('v.error500', true);
+                    component.set("v.isLoading", false);
                     var errors = response.getError();
                     if (errors) {
                         if (errors[0] && errors[0].message) {
@@ -97,6 +102,7 @@
 
             $A.enqueueAction(action);
         } catch (err) {
+            component.set("v.isLoading", false);
             console.log('ERROR EDD service estimates: '+err);
             throw err;
         }
@@ -116,7 +122,7 @@
             const eddFromDate = new Date(cmp.get('v.wizardData.deliveredByDateFrom'));
             const eddToDate = new Date(cmp.get('v.wizardData.deliveredByDateTo'));
             // format for weekday day - weekday day month eg: Thu 11 - Tue 16 August
-            disDate = ' ' + eddFromDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddFromDate.toLocaleString("en-US", {day: 'numeric'})
+            disDate = ' ' + eddFromDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddFromDate.toLocaleString("en-US", {day: 'numeric'}) + (eddFromDate.getMonth() !== eddToDate.getMonth() ? ' ' +eddFromDate.toLocaleString("en-US", {month:'long'}) : '')
                 + ' - ' + eddToDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddToDate.toLocaleString("en-US", {day: 'numeric'}) + ' ' +eddToDate.toLocaleString("en-US", {month:'long'});
         } else {
             // format for weekday day month eg:Tue 16 August
@@ -176,41 +182,48 @@
         cmp.set("v.addressTyped",streetAddress);
     },
 
-    pushAnalytics : function(cmp, step) {
-        // we expect something to be returned here, if nothing returned means a technical issue
-        /*if(cmp.get('v.wizardData.eddStatus') != '') {
-            var duplicateCaseText = 'new';
-            if(cmp.get('v.wizardData.duplicateCase') != '') {
+    /**
+     * push analytics
+     */
+    pushAnalytics : function(cmp, stepKey) {
+        let analyticsObject = {};
+        // setting the common attributes
+        analyticsObject.form.name = 'form:' + cmp.get('v.pageTitle');
+        analyticsObject.form.product = cmp.get('v.wizardData.trackingId');
+
+        let trackingType = 'helpsupport-form-navigate';
+
+        if(stepKey === "BEFORE_EDD_CALCULATED_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
+            // building the analytics params object
+            analyticsObject.form.step = "item details";
+            analyticsObject.form.stage = 'start';
+            analyticsObject.form.error = 'before calculated EDD -parcel is on track to be delivered';
+
+        } else if(stepKey === "MANUAL_ADDRESS_ENTRY" && cmp.get('v.wizardData.eddStatus') != '') {
+            let duplicateCaseText = 'new';
+            if(cmp.get('v.wizardData.duplicateCase') !== '') {
                 duplicateCaseText = 'duplicate';
             }
-            var latestEventLocationMessage = cmp.get('v.wizardData.latestEventLocationMessage');
-            var alertMessage=cmp.get('v.wizardData.trackStatusValue');
+            let latestEventLocationMessage = cmp.get('v.wizardData.latestEventLocationMessage');
+            let alertMessage=cmp.get('v.wizardData.trackStatusValue');
             if(!$A.util.isEmpty(latestEventLocationMessage) || !$A.util.isUndefined(latestEventLocationMessage))
             {
                 alertMessage = latestEventLocationMessage;
 
             }
 
-            var isEligibleForMyNetworkAssignment = cmp.get('v.wizardData.isEligibleForMyNetworkAssignment') ? 'yes' : 'no';
+            let isEligibleForMyNetworkAssignment = cmp.get('v.wizardData.isEligibleForMyNetworkAssignment') ? 'yes' : 'no';
 
-            // building the analytics params object
-            var analyticsObject = {
-                form: {
-                    name: 'form:' + cmp.get('v.pageTitle'),
-                    step: step,
-                    stage: '',
-                    detail: 'article status='+alertMessage+'|case='+duplicateCaseText + '|network eligibility='+isEligibleForMyNetworkAssignment,
-                    product: cmp.get('v.wizardData.trackingId')
-                }
-            };
+            analyticsObject.form.step = "item details:address manual";
+            analyticsObject.form.stage = '';
+            analyticsObject.form.detail = 'article status='+alertMessage+'|case='+duplicateCaseText + '|network eligibility='+isEligibleForMyNetworkAssignment;
+        }
 
-            // calling the analytics API methods
-            window.AP_ANALYTICS_HELPER.trackByObject({
-                trackingType: 'helpsupport-form-navigate',
-                componentAttributes: analyticsObject
-            });
-
-        }*/
+        // calling the analytics API methods
+        window.AP_ANALYTICS_HELPER.trackByObject({
+            trackingType: trackingType,
+            componentAttributes: analyticsObject
+        });
     },
 
 })

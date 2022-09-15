@@ -183,8 +183,9 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	private void checkExistingCustomer(Map<String, Object> apcnMap, Map<String, Object> recIdMap, CustomerDataSync__e e) {
 		List<Account> accList = new List<Account>();
 		//if the salsforce record id is not null,then retrieve the person account
-		if (apcnMap.containsKey(e.apcn__c)) {
-			custMap.get(APCN).add(genCustomerWithAPCNKey(apcnMap, e));
+		Account acc = genCustomerWithAPCNKey(apcnMap, e);
+		if (apcnMap.containsKey(e.apcn__c) && acc != null) {
+			custMap.get(APCN).add(acc);
 		} else {
 			//if  salesforce id is not null, and no apcn is found, then search for the salesforce id
 			if (recIdMap.containsKey(e.salesforceRecordID__c)) {
@@ -197,7 +198,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 
 	//helper method to generate Customer List using the apcn Map and the event
 	private Account genCustomerWithAPCNKey(Map<String, Object> apcnMap, CustomerDataSync__e e) {
-		Account acc = new Account();
+		Account acc = null;
 		if (apcnMap.keySet().size() > 0) {
 			if (e.integrationServiceModDate__c >= (Datetime) apcnMap.get(e.apcn__c)) {
 				acc = mapPersonAccountFields(e);

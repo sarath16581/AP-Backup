@@ -13,13 +13,13 @@ public with sharing class STHSFeedbackFormController_Test {
         if (formData == null) {
             formData = new Map<Object, String>();
             //form data setup
-            formData.put('enquiry', 'Product & Sales');
+            formData.put('enquiryType', 'Product & Sales');
             formData.put('reference', '34TE345634562');
             formData.put('firstName', 'UserFName');
             formData.put('lastName', 'UserLName');
             formData.put('phone', '0403456456');
             formData.put('email', 'test.user@test.com');
-            formData.put('feedbackDetails', 'feedbackDetails');
+            formData.put('enquiry', 'feedbackDetails');
         }
         return formData.clone();
     }

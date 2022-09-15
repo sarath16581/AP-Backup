@@ -8,20 +8,21 @@
  * @changelog
  * 2021-05-12 - seth.heang@auspost.com.au - created
  * 2021-05-13 - dheeraj.mandavilli@auspost.com.au - Updated the test class to include test methods dealing with SubAccountRequest creation/edit,deletion and finalization.
+ * 2022-08-04 - Nasir Jawed - added test method for validate lodgement point search
  */
 @IsTest
 public with sharing class CreateSubAccountsControllerTest {
     @TestSetup
-	private static void setup() {
-		AusPostSettings__c setting = new AusPostSettings__c(Name = 'CreateBillingAccountCredentials', ApplicationName__c = 'Camunda', URL2__c = 'callout:LAYER7_CERT/csp/customer/v1/billingaccounts');
-		insert setting;
-	}
+    private static void setup() {
+        AusPostSettings__c setting = new AusPostSettings__c(Name = 'CreateBillingAccountCredentials', ApplicationName__c = 'Camunda', URL2__c = 'callout:LAYER7_CERT/csp/customer/v1/billingaccounts');
+        insert setting;
+    }
     public static void setMetadata(String query, List<SObject> records){
-		CreateSubAccountHelper.MetadataCoverageRecordsMap.put(query, records);
-	}
+        CreateSubAccountHelper.MetadataCoverageRecordsMap.put(query, records);
+    }
 
     @IsTest
-	private static void generateExternalOnboardingRecordTest() {
+    private static void generateExternalOnboardingRecordTest() {
         setMetadata(
         'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
         (List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
@@ -41,15 +42,15 @@ public with sharing class CreateSubAccountsControllerTest {
         subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
         subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
         subAccountRequest.SubAccountContact__c = contact.id;
-		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
+        subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
         subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
-		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
+        subAccountRequest.APT_Postal_Address_State__c = 'VIC';
         subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
         subAccountRequest.Name = 'Seth 1';
         subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
         // =====================================
-		// Stubbing
-		// =====================================
+        // Stubbing
+        // =====================================
         AccountsSelector acctSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);  
         SubAccountRequestsSelector subAccReqSelector = (SubAccountRequestsSelector)MockUtility.mockSelector(SubAccountRequestsSelector.class); 
         BillingAccountsSelector billingSelector = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);    
@@ -84,7 +85,7 @@ public with sharing class CreateSubAccountsControllerTest {
     }
     
     @IsTest
-	private static void generateExternalOnboardingRecordTestWithDummyConnection() {
+    private static void generateExternalOnboardingRecordTestWithDummyConnection() {
         setMetadata(
         'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
         (List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"No"}]', List<SAP_Integration__mdt>.class)
@@ -104,15 +105,15 @@ public with sharing class CreateSubAccountsControllerTest {
         subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
         subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
         subAccountRequest.SubAccountContact__c = contact.id;
-		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
+        subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
         subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
-		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
+        subAccountRequest.APT_Postal_Address_State__c = 'VIC';
         subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
         subAccountRequest.Name = 'Seth 1';
         subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
         // =====================================
-		// Stubbing
-		// =====================================
+        // Stubbing
+        // =====================================
         AccountsSelector acctSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);  
         SubAccountRequestsSelector subAccReqSelector = (SubAccountRequestsSelector)MockUtility.mockSelector(SubAccountRequestsSelector.class); 
         BillingAccountsSelector billingSelector = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);    
@@ -148,7 +149,7 @@ public with sharing class CreateSubAccountsControllerTest {
         Test.stopTest();
     }
     @IsTest
-	private static void subAccountCreationRequestSuccessScenarioTest() {
+    private static void subAccountCreationRequestSuccessScenarioTest() {
         setMetadata(
         'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
         (List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
@@ -168,15 +169,15 @@ public with sharing class CreateSubAccountsControllerTest {
         subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
         subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
         subAccountRequest.SubAccountContact__c = contact.id;
-		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
+        subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
         subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
-		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
+        subAccountRequest.APT_Postal_Address_State__c = 'VIC';
         subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
         subAccountRequest.Name = 'Seth 1';
         subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
         // =====================================
-		// Stubbing
-		// =====================================
+        // Stubbing
+        // =====================================
         AccountsSelector acctSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);  
         SubAccountRequestsSelector subAccReqSelector = (SubAccountRequestsSelector)MockUtility.mockSelector(SubAccountRequestsSelector.class); 
         BillingAccountsSelector billingSelector = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);    
@@ -227,7 +228,7 @@ public with sharing class CreateSubAccountsControllerTest {
     }
 
     @IsTest
-	private static void subAccountCreationRequestErrorScenarioTest() {
+    private static void subAccountCreationRequestErrorScenarioTest() {
         setMetadata(
         'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
         (List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
@@ -247,15 +248,15 @@ public with sharing class CreateSubAccountsControllerTest {
         subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
         subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
         subAccountRequest.SubAccountContact__c = contact.id;
-		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
+        subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
         subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
-		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
+        subAccountRequest.APT_Postal_Address_State__c = 'VIC';
         subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
         subAccountRequest.Name = 'Seth 1';
         subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
         // =====================================
-		// Stubbing
-		// =====================================
+        // Stubbing
+        // =====================================
         AccountsSelector acctSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);  
         SubAccountRequestsSelector subAccReqSelector = (SubAccountRequestsSelector)MockUtility.mockSelector(SubAccountRequestsSelector.class); 
         BillingAccountsSelector billingSelector = (BillingAccountsSelector)MockUtility.mockSelector(BillingAccountsSelector.class);    
@@ -313,8 +314,8 @@ public with sharing class CreateSubAccountsControllerTest {
     }
     
     
- 	@IsTest
-	private static void subAccountRequestFinalizeScenarioTest() {
+    @IsTest
+    private static void subAccountRequestFinalizeScenarioTest() {
         setMetadata(
         'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
         (List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
@@ -333,15 +334,15 @@ public with sharing class CreateSubAccountsControllerTest {
         subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
         subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
         subAccountRequest.SubAccountContact__c = contact.id;
-		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
+        subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
         subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
-		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
+        subAccountRequest.APT_Postal_Address_State__c = 'VIC';
         subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
         subAccountRequest.Name = 'Seth 1';
         subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
         // =====================================
-		// Stubbing
-		// =====================================
+        // Stubbing
+        // =====================================
         AccountsSelector acctSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);  
         SubAccountRequestsSelector subAccReqSelector = (SubAccountRequestsSelector)MockUtility.mockSelector(SubAccountRequestsSelector.class);  
 
@@ -358,7 +359,7 @@ public with sharing class CreateSubAccountsControllerTest {
         List<APT_Sub_Account__c> sarList = new List<APT_Sub_Account__c>();
         sarList.add(subAccountRequest);  
 
-      	boolean finalizeSARList = CreateSubAccountsController.setPendingStatus(sarList);
+        boolean finalizeSARList = CreateSubAccountsController.setPendingStatus(sarList);
 
         Test.stopTest();
 
@@ -368,8 +369,8 @@ public with sharing class CreateSubAccountsControllerTest {
 
     }
 
-	@IsTest
-	private static void subAccountRequestDeleteScenarioTest() {
+    @IsTest
+    private static void subAccountRequestDeleteScenarioTest() {
         setMetadata(
         'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
         (List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
@@ -388,16 +389,16 @@ public with sharing class CreateSubAccountsControllerTest {
         subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
         subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
         subAccountRequest.SubAccountContact__c = contact.id;
-		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
+        subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
         subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
-		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
+        subAccountRequest.APT_Postal_Address_State__c = 'VIC';
         subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
         subAccountRequest.Name = 'Seth 1';
         subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
 
         // =====================================
-		// Stubbing
-		// =====================================
+        // Stubbing
+        // =====================================
         AccountsSelector acctSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);  
         SubAccountRequestsSelector subAccReqSelector = (SubAccountRequestsSelector)MockUtility.mockSelector(SubAccountRequestsSelector.class);  
 
@@ -408,7 +409,7 @@ public with sharing class CreateSubAccountsControllerTest {
         List<APT_Sub_Account__c> sarList = new List<APT_Sub_Account__c>();
         sarList.add(subAccountRequest);  
 
-      	boolean deleteRec = CreateSubAccountsController.deleteSubAccounts(sarList);
+        boolean deleteRec = CreateSubAccountsController.deleteSubAccounts(sarList);
 
         Test.stopTest();
 
@@ -417,8 +418,8 @@ public with sharing class CreateSubAccountsControllerTest {
 
     }
 
-	@IsTest
-	private static void getSubAccountRecordValuesfromProposalTest() {
+    @IsTest
+    private static void getSubAccountRecordValuesfromProposalTest() {
         setMetadata(
         'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
         (List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
@@ -437,9 +438,9 @@ public with sharing class CreateSubAccountsControllerTest {
         subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
         subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
         subAccountRequest.SubAccountContact__c = contact.id;
-		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
+        subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
         subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
-		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
+        subAccountRequest.APT_Postal_Address_State__c = 'VIC';
         subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
         subAccountRequest.Name = 'Seth 1';
         subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
@@ -451,8 +452,8 @@ public with sharing class CreateSubAccountsControllerTest {
         List<APT_Sub_Account__c> sarList = new List<APT_Sub_Account__c>();
         sarList.add(subAccountRequest);
 
-      	List<APT_Sub_Account__c> subAccList = CreateSubAccountsController.getRelatedSubAccountRequestsforProposal(proposalRec.Id);
-      	
+        List<APT_Sub_Account__c> subAccList = CreateSubAccountsController.getRelatedSubAccountRequestsforProposal(proposalRec.Id);
+        
         Test.stopTest();
 
         System.assertNotEquals(null, subAccList);
@@ -461,7 +462,7 @@ public with sharing class CreateSubAccountsControllerTest {
     
 
     @IsTest
-	private static void getSubAccountRecordValuesfromBillingAccTest() {
+    private static void getSubAccountRecordValuesfromBillingAccTest() {
         setMetadata(
         'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
         (List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
@@ -481,9 +482,9 @@ public with sharing class CreateSubAccountsControllerTest {
         subAccountRequest.APT_eLMS_Enabled__c = 'Yes';
         subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
         subAccountRequest.SubAccountContact__c = contact.id;
-		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
+        subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
         subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
-		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
+        subAccountRequest.APT_Postal_Address_State__c = 'VIC';
         subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
         subAccountRequest.Name = 'Seth 1';
         subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
@@ -495,8 +496,8 @@ public with sharing class CreateSubAccountsControllerTest {
         List<APT_Sub_Account__c> sarList = new List<APT_Sub_Account__c>();
         sarList.add(subAccountRequest);
 
-      	List<APT_Sub_Account__c> subAccList = CreateSubAccountsController.getRelatedSubAccountRequests(billingAcc.Id);
-      	
+        List<APT_Sub_Account__c> subAccList = CreateSubAccountsController.getRelatedSubAccountRequests(billingAcc.Id);
+        
         Test.stopTest();
 
         System.assertNotEquals(null, subAccList);
@@ -504,7 +505,7 @@ public with sharing class CreateSubAccountsControllerTest {
     }
     
     @IsTest
-	private static void getSubAccountRequestUpsertTest() {
+    private static void getSubAccountRequestUpsertTest() {
         setMetadata(
         'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
         (List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
@@ -522,9 +523,9 @@ public with sharing class CreateSubAccountsControllerTest {
         subAccountRequest.Is_Parcel_Send_Login_Required__c = 'No';
         subAccountRequest.APT_eLMS_Enabled__c = 'No';
         subAccountRequest.APT_eParcel_Enabled__c = 'Yes';
-		subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
+        subAccountRequest.APT_Postal_Address_Street_Name__c = '123 Test St';
         subAccountRequest.APT_Postal_Address_Suburb__c = 'Melbourne';
-		subAccountRequest.APT_Postal_Address_State__c = 'VIC';
+        subAccountRequest.APT_Postal_Address_State__c = 'VIC';
         subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
         subAccountRequest.Name = 'Seth 2';
         subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
@@ -545,5 +546,85 @@ public with sharing class CreateSubAccountsControllerTest {
 
         Test.stopTest();
 
+    }
+	
+	/**
+	 * Test: When the user select the lodgement zone for Charge Account request during the Linking Billing Account to Contract process,
+	 * 		Validate that the lodgement zone selected must match the Agreement line items lodgement Zones in the shopping cart.
+	 * */
+	@IsTest
+	private static void validateSearchLodgementZoneTest() {
+		MockUtility.disableTriggerExecution();
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		Apttus__APTS_Agreement__c apttusContracts = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, true)[0];
+		Apttus_Proposal__Proposal__c apttusProposals = ApplicationTestDataFactory.getApttusProposals(1, primaryContact.Id, true)[0];
+
+		Product2 prod = ApplicationTestDataFactory.getPSRProducts(1, true)[0];
+		prod.Name='Australia Post Parcel Contract';
+		prod.ProductCode='APPC';
+		prod.Family='APPC';
+		prod.APT_Apttus_Product_Classification__c='APPC';
+		prod.IsActive=true;
+		prod.Apttus_Config2__ConfigurationType__c='Bundle';
+
+		Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, null, null, true)[0];
+		prodConfig.Apttus_QPConfig__Proposald__c =apttusProposals.id;
+		prodConfig.Apttus_Config2__Status__c ='Finalized';
+		prodConfig = (Apttus_Config2__ProductConfiguration__c)ApplicationTestDataFactory.setUnwritableFields(prodConfig,new Map<String, Object>{
+			'APT_APPC_Count_in_Cart__c' => 1
+		});
+
+		APT_Lodgement_Zone__c lodgementZone= APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
+		lodgementZone.APT_Zone_Structure__c ='APPC';
+		lodgementZone.APT_Postcode__c='3000';
+		lodgementZone.Name='Capital';
+
+		Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];  
+		lineItem.Apttus_Config2__LineType__c = 'Product/Service'; 
+		lineItem.Apttus_Config2__ProductId__c= prod.id;
+		lineItem.Apttus_Config2__Description__c='Australia Post Parcel Contract';
+		lineItem.Apttus_Config2__ConfigurationId__c=prodConfig.id;
+
+		Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+		pav.APT_Lodgement_Zone__c = lodgementZone.Id;             
+		pav.APT_Customer_Tier__c = 'T04';
+		pav.Apttus_Config2__LineItemId__c=lineItem.id;        
+		pav.APT_Additional_Lodgement_Zone_1__c= 'Capital';
+		pav.APT_Additional_Lodgement_Zone_2__c= 'Metro';
+		lineItem.Apttus_Config2__AttributeValueId__c = pav.id;
+		lineItem = (Apttus_Config2__LineItem__c)ApplicationTestDataFactory.setUnwritableFields(lineItem,new Map<String, Object>{
+					'Apttus_Config2__AttributeValueId__r' => pav
+				});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ProductConfigurationSelector prodConfigSelector = (ProductConfigurationSelector)MockUtility.mockSelector(ProductConfigurationSelector.class);
+		APT_LodgementZonesSelector lpZoneSelector = (APT_LodgementZonesSelector) MockUtility.mockSelector(APT_LodgementZonesSelector.class);
+		LineItemsSelector lineItemSelector = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(prodConfigSelector.selectByProposalId((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<Apttus_Config2__ProductConfiguration__c>{prodConfig}); 
+
+		MockUtility.Mocks.when(lpZoneSelector.selectByZoneStructure(
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject())).thenReturn(new List<APT_Lodgement_Zone__c>{lodgementZone}); 
+
+		MockUtility.Mocks.when(lineItemSelector.selectByProdConfigAndLineType(
+			(Set<Id>)fflib_Match.anyObject(),
+			(Set<String>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject()
+			)).thenReturn(new List<Apttus_Config2__LineItem__c>{lineItem});     
+
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest(); 
+		string propID=String.valueOf(apttusProposals.id);
+		Boolean validationResult = CreateSubAccountsController.validateSearchLodgementZone(propID,lodgementZone.APT_Postcode__c);
+		Test.stopTest();
+		System.assertEquals(true, validationResult, 'Expected matched lodgement point result');
     }
 }

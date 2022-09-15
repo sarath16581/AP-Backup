@@ -1,5 +1,5 @@
 import { LightningElement } from "lwc";
-import { validateInputComponents } from "c/utils";
+import { validateInputComponents, validatePhone, validateEmail } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
 import invalidDescription from "@salesforce/label/c.STHSDescriptionValidationMessage";
 import invalidEmail from "@salesforce/label/c.STHSEmailValidationMessage";
@@ -7,9 +7,9 @@ import invalidFeedbackTypeSelection from "@salesforce/label/c.STHSFeedbackSelect
 import invalidFeedback from "@salesforce/label/c.STHSFeedbackValidationMessage";
 import invalidFirstName from "@salesforce/label/c.STHSFirstnameValidationMessage";
 import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
-import invalidCharacters from "@salesforce/label/c.STHSMaxCharactersValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
+import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
 import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
 import createFeedbackFormCase from "@salesforce/apex/SthsFeedbackFormController.createFeedbackFormCase";
@@ -38,11 +38,11 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidFeedback, // Please enter your feedback
 		invalidFirstName,
 		invalidLastName,
-		invalidCharacters,
 		invalidPhone,
 		invalidReference,
 		stSupportURL,
-		errorStateMessage
+		errorStateMessage,
+		invalidNameFieldCharacters
 	};
 
 	get enquiryOptions() {
@@ -129,5 +129,25 @@ export default class SthsTrackingForm extends LightningElement {
 	//handler for error close event
 	handleErrorClose = (event) => {
 		this.showError = false;
+	};
+
+	//validate phone number field with custom validations
+	validatePhone = (event) => {
+		event.target.setCustomValidity('');
+		if(event.target.value && !validatePhone(event.target.value)) {
+			event.target.setCustomValidity(this.label.invalidPhone);
+		}
+		event.target.reportValidity();
+		event.target.showHelpMessageIfInvalid();
+	};
+
+	//validate email field with custom validations
+	validateEmail = (event) => {
+		event.target.setCustomValidity('');
+		if(event.target.value && !validateEmail(event.target.value)) {
+			event.target.setCustomValidity(this.label.invalidEmail);
+		}
+		event.target.reportValidity();
+		event.target.showHelpMessageIfInvalid();
 	};
 }

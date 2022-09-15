@@ -103,10 +103,13 @@
 		IF(
 			CONTAINS(Case.Customer_Type__c,'MyPost Business'),
 			'<a href="https://www.auspost.com.au/mypost-business/home">Login - MyPost Business</a>',
-			'<a href="https://auspostbusiness.force.com/bsp/bspLogin">Login - Enterprise</a>'
+			'<a href="https://bsp.auspost.com.au/bsp/bsplogin">Login - Enterprise</a>'
 		)
 	)
 }
+<p><b>Sometimes enquiries can be resolved before we've completed our investigation. If that happens, let us know here:</b></p>
+
+<a href="mailto:customerservice@auspost.com.au?subject=My%20case%20can%20be%20closed&body=By%20sending%20this%20email%20your%20case%20will%20be%20closed.%20%20Please%20do%20not%20add%20or%20modify%20any%20text%20in%20the%20email.%20%20{!Case.CaseNumber}%20can%20be%20closed%20{!Case.Thread_Id}">CLOSE MY CASE</a> 
 <p/>
 <p>Alternatively, please reply to this email and we will be happy to assist you.</p>
 								</td>

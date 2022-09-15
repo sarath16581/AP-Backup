@@ -564,6 +564,16 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
+            <assignedTo>StarTrack_VOC_Case_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND(ISNEW(),RecordType.Name = &apos;Voice of Customer Enquiry&apos;,Subject = &apos;Feedback Enquiry&apos;,ISPICKVAL(Origin, &apos;Web&apos;))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>StarTrack_Delivery_Enquiry_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND(ISNEW(),RecordType.Name = &apos;Delivery Enquiry&apos;,Subject = &apos;Tracking Enquiry&apos;,ISPICKVAL(Origin, &apos;Web&apos;))</formula>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>BSC_Apple</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Apple__c,   Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
@@ -2903,11 +2913,6 @@
             <assignedToType>Queue</assignedToType>
             <formula>AND(ISNEW() , RecordType.DeveloperName=&apos;ACIC_Request&apos;)</formula>
             <template>Australia_Post_Email_Templates/ACIC_Case_Created_2</template>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>StarTrack_VOC_Case_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>AND(ISNEW(),RecordType.Name = &apos;Voice of Customer Enquiry&apos;,Subject = &apos;Feedback Enquiry&apos;,ISPICKVAL(Origin, &apos;Web&apos;))</formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

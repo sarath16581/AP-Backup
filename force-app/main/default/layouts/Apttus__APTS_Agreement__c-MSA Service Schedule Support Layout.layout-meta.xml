@@ -182,6 +182,10 @@
                 <behavior>Edit</behavior>
                 <field>Is_Document_Signed__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Contract_Relationship__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -726,15 +730,6 @@
         <fields>APT_Sub_Account__c</fields>
         <fields>APT_Status__c</fields>
         <relatedList>APT_Agreement_Lodgement_Point__c.APT_Agreement__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <fields>NAME</fields>
-        <fields>APT_DoV_Type__c</fields>
-        <fields>APT_DOV_Reason__c</fields>
-        <fields>APT_DoV_Action__c</fields>
-        <fields>APT_DoV_Product__c</fields>
-        <relatedList>APT_DoV_Language__c.APT_Contract__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>

@@ -1,5 +1,5 @@
 import { LightningElement } from "lwc";
-import { validateInputComponents } from "c/utils";
+import { validateInputComponents, validatePhone, validateEmail } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
 import invalidDescription from "@salesforce/label/c.STHSDescriptionValidationMessage";
 import invalidEmail from "@salesforce/label/c.STHSEmailValidationMessage";
@@ -7,14 +7,21 @@ import invalidEnquirySelection from "@salesforce/label/c.STHSEnquirySelectionVal
 import invalidEnquiry from "@salesforce/label/c.STHSEnquiryValidationMessage";
 import invalidFirstName from "@salesforce/label/c.STHSFirstnameValidationMessage";
 import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
-import invalidCharacters from "@salesforce/label/c.STHSMaxCharactersValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
+import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
+import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
+import createTrackingFormCase from "@salesforce/apex/STHSTrackingFormController.createTrackingFormCase";
 
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
+	errorIcon = STHS_ICONS + "/sths_icons/svgs/forms/error_input.svg"; //error icon
 	formData = {}; //form data to capture
+	isLoading = false; //flag to show/hide the spinner
+	caseNumber; //case number created for feedback form
+	showError = false; //flag to show/hide the error message
+	isCaseCreatedSuccessfully = false; //flag to show/hide the layout when case created successfully
 
 	//labels
 	label = {
@@ -24,10 +31,11 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidEnquiry,
 		invalidFirstName,
 		invalidLastName,
-		invalidCharacters,
 		invalidPhone,
 		invalidReference,
-		stSupportURL
+		stSupportURL,
+		errorStateMessage,
+		invalidNameFieldCharacters
 	};
 
 	get enquiryOptions() {
@@ -49,10 +57,35 @@ export default class SthsTrackingForm extends LightningElement {
 
 	//handle form submit click
 	handleSubmitClick(event) {
+		this.resetForm();
+		//validate the form
 		let isFormValid = this.validateForm();
 		if (isFormValid) {
 			//submit the form
-			console.log(JSON.parse(JSON.stringify(this.formData)));
+			this.isLoading = true;
+			//create case and related contact
+			createTrackingFormCase({
+				formData: this.formData
+			})
+				.then((response) => {
+					if (response !== null) {
+						this.caseNumber = response;
+						//show confirmation message
+						this.isCaseCreatedSuccessfully = true;
+					} else {
+						this.showError = true;
+						window.scrollTo(0, 0); //scroll to top
+					}
+					this.isLoading = false;
+				})
+				.catch((error) => {
+					this.isLoading = false;
+					this.showError = true;
+					window.scrollTo(0, 0); //scroll to top
+					console.error(
+						"createTrackingFormCase call failed: " + error
+					);
+				});
 		}
 	}
 
@@ -63,4 +96,34 @@ export default class SthsTrackingForm extends LightningElement {
 		);
 		return validateInputComponents([...inputElements], true);
 	}
+
+	//reset the form
+	resetForm = () => {
+		this.showError = false;
+		this.isCaseCreatedSuccessfully = false;
+	};
+
+	// close error message banner
+	handleErrorClose = (event) => {
+		this.showError = false;
+	};
+	//validate phone number field with custom validations
+	validatePhone = (event) => {
+		event.target.setCustomValidity('');
+		if(event.target.value && !validatePhone(event.target.value)) {
+			event.target.setCustomValidity(this.label.invalidPhone);
+		}
+		event.target.reportValidity();
+		event.target.showHelpMessageIfInvalid();
+	}
+
+	//validate email field with custom validations
+	validateEmail = (event) => {
+		event.target.setCustomValidity('');
+		if(event.target.value && !validateEmail(event.target.value)) {
+			event.target.setCustomValidity(this.label.invalidEmail);
+		}
+		event.target.reportValidity();
+		event.target.showHelpMessageIfInvalid();
+	};
 }

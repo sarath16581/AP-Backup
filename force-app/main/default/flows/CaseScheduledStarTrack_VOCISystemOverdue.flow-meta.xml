@@ -17,6 +17,7 @@
     </actionCalls>
     <apiVersion>55.0</apiVersion>
     <description>Schedule Path for StarTrack VOC Incident System Overdue</description>
+    <environments>Default</environments>
     <interviewLabel>CaseScheduledStarTrack_VOCISystemOverdue {!$Flow.CurrentDateTime}</interviewLabel>
     <label>CaseScheduled StarTrack VOCISystemOverdue</label>
     <processMetadataValues>
@@ -58,6 +59,12 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+ {!$Record.RecordType.DeveloperName} = {!$Label.REC_TYPE_DEV_StarTrack_VOCI},
+ NOT(ISBLANK({!$Record.Due_Date__c})),
+ NOT(ISPICKVAL({!$Record.Status}, &apos;Closed&apos;)),
+ {!$Record.Owner_is_Changed__c}
+)</filterFormula>
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>

@@ -1,0 +1,10 @@
+//fonts
+
+/* font normal */
+@mixin font-normal($size, $weight) {
+    font: {
+        size: $size;
+        style: normal;
+        weight: $weight;
+    }
+}

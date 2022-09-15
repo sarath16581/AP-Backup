@@ -7,6 +7,7 @@
 22.08.2019    Gunith Devasurendra     Added ausPhoneNumberRegEx (REQ1886690)
 13.08.2019    Gunith Devasurendra     Added getOrEmpty(..)
 21.07.2022    Mahesh Parvathaneni     Added validateInputComponents
+29.08.2022    Hasantha Liyanage       Added validatePhone
 **/
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -135,3 +136,38 @@ export const REQUIRED_ERROR_MESSAGE = 'Complete this field';
         return validSoFar && inputCmp.checkValidity();
     }, true);
 };
+
+/**
+ * validating phone number fields according to the help and support UI standards
+ * @param {string} phNumber
+ * @returns {boolean}
+ */
+ export const validatePhone  = (phNumber) => {
+    var isValid = false;
+    if (phNumber) {
+        var valTrimmed = phNumber.replace(/[\s\)\(-]+/g, '');
+        if (
+            valTrimmed.match(/^0\d{9}$/) ||     // 10 character number starting with 0
+            valTrimmed.match(/^\+?61\d{9}$/) || // 12 character number starting with +61
+            valTrimmed.match(/^13\d{4}$/) ||    // 6 character number starting with 13
+            valTrimmed.match(/^1300\d{6}$/)     // 10 character number starting with 1300
+        ){
+            isValid = true;
+        }
+    }
+    return isValid;
+ };
+
+ /**
+  * validating email fields according to the help and support UI standards
+  * @param {string} email
+  * @returns {boolean}
+  */
+ export const validateEmail  = (email) => {
+     let isValid = false;
+     const regExpEmailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+     if (email && email.match(regExpEmailformat)) {
+         isValid = true;
+     }
+     return isValid;
+ };

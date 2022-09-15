@@ -34,7 +34,6 @@ public inherited sharing class STHSCommunityService {
      * Assign default values for Startrack related cases
      */
     public void getCaseDefaultValues(Case caseObj) {
-        caseObj.Auto_Email_Response_sent__c = true;
         caseObj.Status = STHSConstants.CASE_STATUS_NEW;
         caseObj.Priority = STHSConstants.CASE_PRIOIRITY_NORMAL;
         caseObj.Origin = STHSConstants.CASE_ORIGIN_WEB;
@@ -42,7 +41,7 @@ public inherited sharing class STHSCommunityService {
         caseObj.Notification_Required__c = true;
         caseObj.Recent_Caller_Pref_Method_of_Contact__c = caseObj.Initical_CallPreferred_method_of_contact__c = STHSConstants.PREF_CONTACT_METHOD_EMAIL;
         caseObj.Recent_Caller_Type__c = STHSConstants.CASE_CONTYPE_SENDER;
-
+        caseObj.StarTrack_Calc_Email_Address__c = StarTrackUtil.getCaseSTCalcEmailAddress(String.valueOf(caseObj.SuppliedEmail));
 
         // if there is an active case assignment rule set the DML Options to ensure assignment rule is executed on case insert
         if (CASE_ASSIGNMENT_RULE.Id != null) {
@@ -61,6 +60,7 @@ public inherited sharing class STHSCommunityService {
         caseObj.Recent_Caller_First_Name__c = formData.get(STHSConstants.FORM_DATA_FNAME);
         caseObj.Recent_Caller_Last_Name__c = formData.get(STHSConstants.FORM_DATA_LNAME);
         String phNumber = formData.get(STHSConstants.FORM_DATA_PHONE);
+        phNumber = phNumber.replaceAll('[^0-9]', ''); //replace all characters other than numbers
         //check mobile or landline number
         if (isMobileNumber(phNumber)) {
             caseObj.Recent_Contact_Mobile_Number__c = phNumber;
@@ -72,7 +72,7 @@ public inherited sharing class STHSCommunityService {
 
     //function to check mobile number
     private Boolean isMobileNumber(String phNumber){
-        return (phNumber.startsWith('04') || phNumber.startsWith('05'));
+        return (phNumber.startsWith('04') || phNumber.startsWith('05') || phNumber.startsWith('614') || phNumber.startsWith('615'));
     }
 
     /**

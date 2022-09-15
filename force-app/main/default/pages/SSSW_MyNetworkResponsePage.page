@@ -10,6 +10,7 @@
       2020-05-20 - haraprasad.sahoo@auspost.com.au - Added requestoHold variable for the onclick event on the apex:commandButtons
       2020-08-19 - neha.mehta@auspost.com.au - Added function showMessage() to display a message if  "Further CCC action required" value is true.
       2021-07-06 - naveen.rajanna@auspost.com.au - Added confirm message as per REQ2554118
+      2022-09-09 - naveen.rajanna@auspost.com.au - REQ2963906: domain check to populate prefix myNetwork if required
 -->
 <apex:page standardController="Case" extensions="SSSW_MyNetworkResponsePageContr" action="{!initialize}" showHeader="false" applyHtmlTag="true" applyBodyTag="false" lightningStyleSheets="true">
     <head>
@@ -67,21 +68,26 @@
 
                 var refreshCurrentTab = function refreshCurrentTab() {
                     alert('Record has been saved successfully');
+                    var baseURL = window.location.origin;
+                    var pathPrefix = '/s/';
+                    if(baseURL.includes("auspostbusiness")) {
+                        pathPrefix = '/{!$Label.MYNETWORK_LABEL}/s/';
+                    }
 
                     if ('{!$User.UITheme}' != undefined) {
                         if ('{!$User.UITheme}' == 'Theme4t' || '{!$User.UITheme}' == 'Theme4d') {
                             console.log('VF in S1 or LEX');
-                            window.top.location.href = document.location.origin + '/{!$Label.MYNETWORK_LABEL}/s/';
+                            window.top.location.href = document.location.origin + pathPrefix;
                         } else if (sforce.console.isInConsole()) {
                             sforce.console.getEnclosingPrimaryTabId(function(result) {
                                 sforce.console.getFocusedPrimaryTabObjectId(function(res) {
                                     if ('{!cseId}'.indexOf(res.id) == 0) {
                                         //case is opened in primary tab
-                                        window.top.location.href = document.location.origin + '/{!$Label.MYNETWORK_LABEL}/s/';
+                                        window.top.location.href = document.location.origin + pathPrefix;
                                     } else {
                                         //case is opened in sub tab
                                         sforce.console.getFocusedSubtabId(function(r) {
-                                            window.top.location.href = document.location.origin + '/{!$Label.MYNETWORK_LABEL}/s/';
+                                            window.top.location.href = document.location.origin + pathPrefix;
                                         });
                                     }
                                 });
@@ -89,10 +95,7 @@
 
                         } else {
                             console.log('VF in Classic');
-                            // window.location.assign(document.location.origins);
-                            //sforce.one.navigateToURL('/{!cseId}');
-                            // window.navigate(document.location.origin+'/{!$Label.MYNETWORK_LABEL}/s/');
-                            window.top.location.href = document.location.origin + '/{!$Label.MYNETWORK_LABEL}/s/';
+                            window.top.location.href = document.location.origin + pathPrefix;
 
                         }
                     }

@@ -22,7 +22,7 @@
         var overriden = event.getParam('selected');
         cmp.set("v.isOverriden",overriden);
         //push analytics for 'helpsupport-form-navigate'
-        helper.pushAnalytics(cmp, "item details:address manual");
+        helper.pushAnalytics(cmp, "MANUAL_ADDRESS_ENTRY");
         //Click tracking - push analytics for site-interact
         window.AP_ANALYTICS_HELPER.analyticsTrackInteraction(
             'site-interact',
@@ -99,7 +99,7 @@
         //cmp.set("v.wizardData.correctDeliveryAddress",null);
         helper.gotoPrevPage(cmp);
         //push analytics for site-interact
-/*        window.AP_ANALYTICS_HELPER.analyticsTrackInteraction(
+        window.AP_ANALYTICS_HELPER.analyticsTrackInteraction(
             "site-interact",
             "form:" + cmp.get("v.pageTitle"),
             "item details: " + "address:back"
@@ -111,6 +111,15 @@
                 "form:" + cmp.get("v.pageTitle"),
                 "item details: " + "address manual:back"
             );
-        }*/
+        }
     },
+
+    pushInteractionAnalytics: function (cmp, helper) {
+        // calling the analytics API methods for trackingtype = "site-interact"
+        window.AP_ANALYTICS_HELPER.analyticsTrackInteraction(
+            "site-interact",
+            "form:" + cmp.get("v.pageTitle"),
+            "item details:missing item:before calculated edd alert:contact us by phone"
+        );
+    }
 });

@@ -58,7 +58,6 @@
 									required
 									message-when-value-missing={label.invalidReference}
 									max-length="40"
-									message-when-too-long={label.invalidCharacters}
 									data-validation="feedbackForm"
 									data-field-name="reference"
 									onchange={handleInputChange}
@@ -82,13 +81,15 @@
 								type="text"
 								label="First name"
 								required
-								message-when-value-missing={label.invalidFirstName}
+								pattern="^([^0-9]*)$"
 								max-length="40"
 								data-validation="feedbackForm"
 								data-field-name="firstName"
 								onchange={handleInputChange}
 								value={formData.firstName}
-								message-when-too-long={label.invalidCharacters}></lightning-input>
+								message-when-pattern-mismatch={label.invalidNameFieldCharacters}
+								message-when-value-missing={label.invalidFirstName}
+							></lightning-input>
 						</lightning-layout-item>
 						<lightning-layout-item
 							size="12"
@@ -98,13 +99,15 @@
 								type="text"
 								label="Last name"
 								required
-								message-when-value-missing={label.invalidLastName}
+								pattern="^([^0-9]*)$"
 								max-length="40"
 								data-validation="feedbackForm"
 								data-field-name="lastName"
 								onchange={handleInputChange}
 								value={formData.lastName}
-								message-when-too-long={label.invalidCharacters}></lightning-input>
+								message-when-pattern-mismatch={label.invalidNameFieldCharacters}
+								message-when-value-missing={label.invalidLastName}
+							></lightning-input>
 						</lightning-layout-item>
 						<lightning-layout-item
 							size="12"
@@ -115,16 +118,12 @@
 								label="Phone number"
 								required
 								message-when-value-missing={label.invalidPhone}
-								max-length="10"
-								min-length="10"
-								pattern="[0-9]{10}"
 								data-validation="feedbackForm"
 								data-field-name="phone"
 								onchange={handleInputChange}
+								onblur={validatePhone}
 								value={formData.phone}
-								message-when-too-long={label.invalidPhone}
-								message-when-too-short={label.invalidPhone}
-								message-when-pattern-mismatch={label.invalidPhone}></lightning-input>
+								></lightning-input>
 						</lightning-layout-item>
 						<lightning-layout-item
 							size="12"
@@ -136,6 +135,7 @@
 								data-validation="feedbackForm"
 								data-field-name="email"
 								onchange={handleInputChange}
+								onblur={validateEmail}
 								value={formData.email}
 								required
 								message-when-value-missing={label.invalidEmail}
@@ -153,6 +153,7 @@
 								onchange={handleInputChange}
 								value={formData.enquiry}
 								required
+								max-length="1000"
 								message-when-value-missing={label.invalidFeedback}></lightning-textarea>
 						</lightning-layout-item>
 						<lightning-layout-item

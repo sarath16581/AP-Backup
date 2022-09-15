@@ -3,6 +3,7 @@
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
  * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
  * 2022-08-04 Hasantha Liyanage - DDS-11626: before edd
+ * 2022-09-12 mahesh.parvathaneni@auspost.com.au DDS-12166: Added analytics for invalid tracking number error
  */
  ({
     callTrackingNumberService : function(cmp, event, helper) {
@@ -101,6 +102,8 @@
                             cmp.set('v.wizardData.senderOrRecipientType', "Domestic");
                             //Show Invalid Message
                             cmp.set("v.showInvalidMessage", true);
+                            //push analytics for invalid tracking number
+                            helper.pushAnalytics(cmp, "ITEM_DETAILS_ERROR",);
                         }
                           else if(returnObj["trackingNumSerachStatusCode"] == 500) {
                             cmp.set('v.error500', true);
@@ -121,6 +124,7 @@
                                 cmp.set("v.showInvalidWithinEDDMessage", true);
                                 cmp.set("v.isLoading", false);
                                 cmp.set('v.eddDisplayDate',helper.getEDDDateString(cmp, event, helper));
+                                helper.pushAnalytics(cmp, 'BEFORE_EDD_ERROR');
                                 return;
                             } else if(cmp.get("v.wizardData.eddStatus") === 'NO_EDD'){
                                 cmp.set("v.wizardData.hasQualifiedForNoEDDFlow",true);
@@ -363,7 +367,7 @@
              const eddFromDate = new Date(cmp.get('v.wizardData.deliveredByDateFrom'));
              const eddToDate = new Date(cmp.get('v.wizardData.deliveredByDateTo'));
              // format for weekday day - weekday day month eg: Thu 11 - Tue 16 August
-             disDate = ' ' + eddFromDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddFromDate.toLocaleString("en-US", {day: 'numeric'})
+             disDate = ' ' + eddFromDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddFromDate.toLocaleString("en-US", {day: 'numeric'})  + (eddFromDate.getMonth() !== eddToDate.getMonth() ? ' ' +eddFromDate.toLocaleString("en-US", {month:'long'}) : '')
                  + ' - ' + eddToDate.toLocaleString("en-US", {weekday: 'short'}) + ' ' + eddToDate.toLocaleString("en-US", {day: 'numeric'}) + ' ' +eddToDate.toLocaleString("en-US", {month:'long'});
          } else {
              // format for weekday day month eg:Tue 16 August
@@ -372,4 +376,33 @@
          };
          return disDate;
      },
+
+     /**
+      * push analytics
+      */
+     pushAnalytics : function(cmp, stepKey) {
+         let analyticsObject = {};
+        // building the analytics params object
+         // setting the common attributes
+         analyticsObject.form.name = 'form:' + cmp.get('v.pageTitle');
+         analyticsObject.form.product = cmp.get('v.wizardData.trackingId');
+         analyticsObject.form.step = "item details";
+         let trackingType = 'helpsupport-form-navigate';
+
+         if(stepKey === "BEFORE_EDD_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
+             // building the analytics params object
+             analyticsObject.form.stage = 'start';
+             analyticsObject.form.error = 'before EDD -parcel is on track to be delivered';
+         } else  if(stepKey === "ITEM_DETAILS_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
+             // building the analytics params object
+             analyticsObject.form.stage = 'start';
+             analyticsObject.form.error = 'invalid tracking number';
+         }
+
+         // calling the analytics API methods
+         window.AP_ANALYTICS_HELPER.trackByObject({
+             trackingType: trackingType,
+             componentAttributes: analyticsObject
+         });
+     }
 })

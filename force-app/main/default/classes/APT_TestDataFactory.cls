@@ -7,8 +7,8 @@
 * @domain Apttus
 * @changelog
 * 2022-04-08 - Seth Heang - Created
-* 2022-06-01 - Seth Heang - Added getAPTAgreementLineItem
 * 2022-05-30 - nasir.jawed@auspost.com.au - added the method to get proposal, contact  for test class
+* 2022-06-01 - Seth Heang - Added getAPTAgreementLineItem
 */
 @isTest
 public class APT_TestDataFactory {

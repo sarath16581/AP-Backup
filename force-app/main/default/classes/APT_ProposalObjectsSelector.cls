@@ -8,6 +8,7 @@
 * @changelog:
 * 2022-05-30 - Seth Heang - updated getSObjectFieldList
 * 2022-05-30 - Nasir JAwed Added method selectByConfigIds
+* 2022-08-15 - Seth Heang - Added recordLimit, fieldOverrides to newInstance() method
 */
 public virtual inherited sharing class APT_ProposalObjectsSelector extends ApplicationSelector {
     public enum Options {
@@ -19,6 +20,15 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
     public static APT_ProposalObjectsSelector newInstance(Integer recordLimit) {
         return (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setLimit(recordLimit);
     }
+
+	/**
+	* @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	*						  This approach removes data consistency and prevents possible caching of results
+	*/
+	public static APT_ProposalObjectsSelector newInstance(Integer recordLimit, Map<Schema.SObjectType,Set<Schema.SObjectField>> fieldOverrides) {
+		APT_ProposalObjectsSelector selector = (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
     
     public virtual override SObjectType getSObjectType() {
         return Apttus_Proposal__Proposal__c.getSObjectType();

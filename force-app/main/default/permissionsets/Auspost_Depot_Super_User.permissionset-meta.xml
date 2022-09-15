@@ -10,15 +10,60 @@
         <field>PUD_Route__c.External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+		<editable>true</editable>
+		<field>PUD_Route__c.Friday__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>PUD_Route__c.Monday__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>PUD_Route__c.Overtime_Allowance__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>PUD_Route__c.Saturday__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>PUD_Route__c.Sunday__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>PUD_Route__c.Thursday__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>PUD_Route__c.Tuesday__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>PUD_Route__c.Wednesday__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>PUD_Route__c.Overnight_Route__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Auspost Depot Super User</label>
     <license>Salesforce Platform</license>
     <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>PUD_Route__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>

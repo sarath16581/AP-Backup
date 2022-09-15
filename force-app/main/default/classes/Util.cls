@@ -1,6 +1,7 @@
 /* 
  * @changelog
  * 2021-08-11 - Seth Heang - Decommision the use of 'al' package by uplifting the soql query and uplift API version to 52
+ * 2022-09-08 - Naveen Rajanna - REQ2963906: Added runningInASandbox method
  * 
 */public class Util {
     public static integer MAX_COLLECTION_SIZE = 1000;
@@ -256,5 +257,16 @@
          
         return 'SELECT ' + selects + ' FROM ' + objectName + ' WHERE ' + whereClause;
          
+    }
+
+    // Returns true if running from Sandbox
+    public static Boolean runningInASandbox {
+        get {
+            if(runningInASandbox == null) {
+                runningInASandbox = [SELECT IsSandbox FROM Organization LIMIT 1].IsSandbox;
+            }
+            return runningInASandbox;
+        }
+        set;
     }
 }
