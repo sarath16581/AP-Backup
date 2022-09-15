@@ -113,4 +113,13 @@
             );
         }
     },
+
+    pushInteractionAnalytics: function (cmp, helper) {
+        // calling the analytics API methods for trackingtype = "site-interact"
+        window.AP_ANALYTICS_HELPER.analyticsTrackInteraction(
+            "site-interact",
+            "form:" + cmp.get("v.pageTitle"),
+            "item details:missing item:before calculated edd alert:contact us by phone"
+        );
+    }
 });
