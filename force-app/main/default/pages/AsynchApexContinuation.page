@@ -1,7 +1,7 @@
 <!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
 <!--2020-09-13  lija.jawahar@auspost.com.au modified getVFBaseURL- Stabilize URLs for Visualforce -->
 <!--2022-09-12 naveen.rajanna@auspost.com.au CHG0176934 incorporate enhanced domain change -->
-
+<!--2022-09-16 naveen.rajanna@auspost.com.au INC2035054 incorporate new visual force url post enhanced domain -->
 <apex:page id="AsynchApexContinuation" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" controller="AsynchApexContinuationController">
     <html>
 
@@ -13,7 +13,7 @@
 			window.addEventListener("message", function (event) {
                 lcBaseURL = event.origin;
 			    console.log('event.origin=' + event.origin + ',lcBaseURL=' + lcBaseURL );
-                if (! (event.origin.includes("auspost") && (event.origin.includes(".visualforce.com") || event.origin.includes(".lightning.force.com")) ) ) { //CHG0176934
+                if (! (event.origin.includes("auspost") && (event.origin.includes(".visualforce.com") || event.origin.includes(".lightning.force.com") || event.origin.includes("vf.force.com")) ) ) { //CHG0176934 INC2035054
                 // Not the expected origin: reject message
 					return;
 				}
