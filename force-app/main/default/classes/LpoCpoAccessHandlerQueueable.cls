@@ -5,6 +5,9 @@
  * @changelog
  * 5/8/2022 - Created by Kamil Szyc.
  * 16/9/2022 - Mahesh Parvathaneni - Changed to without sharing to provide access to Account teams for LBP Community internal admins
+ * (When Internal users tries to change facility, there could be an exception when deleting the team member records. 
+ * This is because the role of internal user might not be under the same role hierarchy of organisation owner's role. To avoid this, without sharing is used so the
+ * team member records are deleted without any exception)
  */
 public without sharing class LpoCpoAccessHandlerQueueable implements Queueable {
 	public Map<String, Set<Id>> contactIdsByNetworkFacility { get; set; }
