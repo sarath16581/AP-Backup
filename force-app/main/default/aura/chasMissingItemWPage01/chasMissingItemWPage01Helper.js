@@ -399,6 +399,8 @@
              analyticsObject.form.error = 'invalid tracking number';
          }
 
+         console.log('ANALYTICS sending .. '+analyticsObject);
+
          // calling the analytics API methods
          window.AP_ANALYTICS_HELPER.trackByObject({
              trackingType: trackingType,
