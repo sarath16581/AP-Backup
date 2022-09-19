@@ -384,18 +384,18 @@
          let analyticsObject = {};
         // building the analytics params object
          // setting the common attributes
+         analyticsObject.form = {};
          analyticsObject.form.name = 'form:' + cmp.get('v.pageTitle');
          analyticsObject.form.product = cmp.get('v.wizardData.trackingId');
          analyticsObject.form.step = "item details";
+         analyticsObject.form.stage = 'start';
          let trackingType = 'helpsupport-form-navigate';
 
          if(stepKey === "BEFORE_EDD_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
-             // building the analytics params object
-             analyticsObject.form.stage = 'start';
+             // setting before edd specific attributes
              analyticsObject.form.error = 'before EDD -parcel is on track to be delivered';
          } else  if(stepKey === "ITEM_DETAILS_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
-             // building the analytics params object
-             analyticsObject.form.stage = 'start';
+             // setting item details error specific attributes
              analyticsObject.form.error = 'invalid tracking number';
          }
 
