@@ -188,18 +188,20 @@
     pushAnalytics : function(cmp, stepKey) {
         let analyticsObject = {};
         // setting the common attributes
+        analyticsObject.form = {};
         analyticsObject.form.name = 'form:' + cmp.get('v.pageTitle');
         analyticsObject.form.product = cmp.get('v.wizardData.trackingId');
 
         let trackingType = 'helpsupport-form-navigate';
 
         if(stepKey === "BEFORE_EDD_CALCULATED_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
-            // building the analytics params object
+            // setting before edd calculated specific attributes
             analyticsObject.form.step = "item details";
             analyticsObject.form.stage = 'start';
             analyticsObject.form.error = 'before calculated EDD -parcel is on track to be delivered';
 
         } else if(stepKey === "MANUAL_ADDRESS_ENTRY" && cmp.get('v.wizardData.eddStatus') != '') {
+            // setting manual address entry specific attributes
             let duplicateCaseText = 'new';
             if(cmp.get('v.wizardData.duplicateCase') !== '') {
                 duplicateCaseText = 'duplicate';
