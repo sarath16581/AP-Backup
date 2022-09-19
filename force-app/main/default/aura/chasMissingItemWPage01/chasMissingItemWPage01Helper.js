@@ -103,7 +103,7 @@
                             //Show Invalid Message
                             cmp.set("v.showInvalidMessage", true);
                             //push analytics for invalid tracking number
-                            helper.pushAnalytics(cmp, "ITEM_DETAILS_ERROR",);
+                            helper.pushAnalytics(cmp, "ITEM_DETAILS_ERROR");
                         }
                           else if(returnObj["trackingNumSerachStatusCode"] == 500) {
                             cmp.set('v.error500', true);
@@ -398,6 +398,8 @@
              analyticsObject.form.stage = 'start';
              analyticsObject.form.error = 'invalid tracking number';
          }
+
+         console.log('ANALYTICS sending .. '+analyticsObject);
 
          // calling the analytics API methods
          window.AP_ANALYTICS_HELPER.trackByObject({
