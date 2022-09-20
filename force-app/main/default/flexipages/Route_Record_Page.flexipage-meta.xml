@@ -41,6 +41,15 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Status__c</fieldItem>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Depot__c</fieldItem>
             </fieldInstance>
         </itemInstances>
@@ -91,6 +100,15 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.ADAM_Id__c</fieldItem>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Decommissioned__c</fieldItem>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
