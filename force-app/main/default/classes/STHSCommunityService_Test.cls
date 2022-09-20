@@ -9,6 +9,14 @@ public with sharing class STHSCommunityService_Test {
 
     private static Map<Object, String> formData;
 
+    @testSetup
+    static void testSetup() { 
+        StarTrack_Settings__c customSetting = new StarTrack_Settings__c(
+            Check_for_Duplicate_Email__c = true, ST_Credit_Claim_Inbound_Email_Prefix__c='ccie', DHL1__c='dhlcold.chain@startrack.com.au', DHL2__c='dhl.apple@startrack.com.au', DHL3__c='dhlservices@startrack.com.au', DHL4__c='mailbox.dhlservices@startrack.com.au', DHL5__c='mailbox.dhlservices@startrack.com', BSC_Apple__c='apple@startrack.com.au', BSC_Defence_Force__c='defence@startrack.com.au', BSC_Dell_Schenker__c='dell.sydney@startrack.com.au', BSC_Phillips_Schenker__c='schenkerphillips@startrack.com.au', ST_Acc_Mgr_Supp__c='account.managers@startrack.com.au', BSC_DHL_Road__c='dhlsupplychain@startrack.com.au', BSC_Fedex_Enq__c='fedex.enquiries@startrack.com.au', BSC_Fedex_Pick__c='fedexpkups@startrack.com.au', BSC_HP_Schenker__c='schenkerhp@startrack.com.au', BSC_Optus__c='optus@startrack.com.au', BSC_Samsung__c='samsung@startrack.com.au', BSC_Stop_Delivery__c='stop.delivery@startrack.com.au', BSC_Telstra__c='telstrateam@startrack.com.au', BSC_Optus_Stop_Delivery__c='optusstop@startrack.com.au', Business_Solutions_From_Email__c='businesscentre@startrack.com.au', Investigators_From_Email__c='customerservice@startrack.com.au', Credit_Dispute_From_Email__c='credit.claims@startrack.com.au', Transit_Warranty_From_Email__c='transit.warranty@startrack.com.au', VOC_From_Email__c='customer.satisfaction@startrack.com.au', General_Enquiry_From_Address__c='customerservice@startrack.com.au', Default_From_Email__c='businesscentre@startrack.com.au', Startrackdamages__c='damages@startrack.com.au'
+        );
+        insert(customSetting);
+    }
+    
     private static Map<Object, String> formDataSetup() {
         if (formData == null) {
             formData = new Map<Object, String>();
@@ -33,8 +41,9 @@ public with sharing class STHSCommunityService_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-        // None
+        Map<Object, String> formData = formDataSetup();
 
+        
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -50,8 +59,9 @@ public with sharing class STHSCommunityService_Test {
 		// =====================================
         Test.startTest();
         
-        Case caseObj = new Case();
+        Case caseObj = new Case();        
         STHSCommunityService service = STHSCommunityService.getInstance();
+        service.getFormCaseData(caseObj, formData);        
         service.getCaseDefaultValues(caseObj);
 
         Test.stopTest();

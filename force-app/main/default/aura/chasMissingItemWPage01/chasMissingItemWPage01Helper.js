@@ -103,7 +103,7 @@
                             //Show Invalid Message
                             cmp.set("v.showInvalidMessage", true);
                             //push analytics for invalid tracking number
-                            helper.pushAnalytics(cmp, "ITEM_DETAILS_ERROR",);
+                            helper.pushAnalytics(cmp, "ITEM_DETAILS_ERROR");
                         }
                           else if(returnObj["trackingNumSerachStatusCode"] == 500) {
                             cmp.set('v.error500', true);
@@ -384,20 +384,22 @@
          let analyticsObject = {};
         // building the analytics params object
          // setting the common attributes
+         analyticsObject.form = {};
          analyticsObject.form.name = 'form:' + cmp.get('v.pageTitle');
          analyticsObject.form.product = cmp.get('v.wizardData.trackingId');
          analyticsObject.form.step = "item details";
+         analyticsObject.form.stage = 'start';
          let trackingType = 'helpsupport-form-navigate';
 
          if(stepKey === "BEFORE_EDD_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
-             // building the analytics params object
-             analyticsObject.form.stage = 'start';
+             // setting before edd specific attributes
              analyticsObject.form.error = 'before EDD -parcel is on track to be delivered';
          } else  if(stepKey === "ITEM_DETAILS_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
-             // building the analytics params object
-             analyticsObject.form.stage = 'start';
+             // setting item details error specific attributes
              analyticsObject.form.error = 'invalid tracking number';
          }
+
+         console.log('ANALYTICS sending .. '+analyticsObject);
 
          // calling the analytics API methods
          window.AP_ANALYTICS_HELPER.trackByObject({

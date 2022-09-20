@@ -6227,7 +6227,7 @@ Also, the package has changed the setting to prevent the creation of Contacts an
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PUDJobDispatchSystemSyncRestrictedForDateErrorMessage</shortDescription>
-        <value>Only current day&apos;s jobs are allowed to be sent to dispatch system.</value>
+        <value>Job is outside of the date range where Jobs are allowed to be sent to dispatch system.</value>
     </labels>
     <labels>
         <fullName>PUDJobDispatchSystemSyncRestrictedForStopCreditJobsErrorMessage</fullName>

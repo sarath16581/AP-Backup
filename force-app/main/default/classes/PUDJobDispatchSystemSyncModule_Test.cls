@@ -10,6 +10,7 @@
  * 2022-02-10 - Seth Heang - Updated test method to detect Revenue Check flag change which triggers the job update to the dispatch system where job status is schedule or accepted
  * 2022-03-08 - Seth Heang - Updated test method to detect Container Payload change which triggers the job update to the dispatch system where job status is schedule or accepted
  * 2022-08-09 - Dattaraj Deshmukh - Update ContainerPayload to use Container Object.
+ * 2022-08-26 - Dattaraj Deshmukh - Updated all methods to test jobs are sent in advance to dispatch system.
  */
 
 @IsTest
@@ -63,8 +64,10 @@ private class PUDJobDispatchSystemSyncModule_Test {
 
 		List<PUD_Job__c> jobsForDispatch = (List<PUD_Job__c>) jobsCaptor.getValue();
 		System.assertNotEquals(null, jobsForDispatch, 'Expected a list of pud jobs to be passed in for dispatch; but passed null.');
-		System.assertEquals(1, jobsForDispatch.size(), 'Expected only one pud job to be passed in for dispatch');
-		System.assertEquals(Date.today(), jobsForDispatch[0].Date__c, 'Expected only current day jobs to be dispatched');
+		System.assertEquals(2, jobsForDispatch.size(), 'Expected only two pud jobs to be passed in for dispatch. One for today and one for tomorrow');
+		System.assertEquals(Date.today(), jobsForDispatch[0].Date__c, 'Expected current day job to be dispatched');
+		System.assertEquals(Date.today().addDays(1), jobsForDispatch[1].Date__c, 'Expected tomorrow\' job to be dispatched');
+		
 	}
 
 	@IsTest
@@ -120,11 +123,11 @@ private class PUDJobDispatchSystemSyncModule_Test {
 		List<PUD_Job__c> oldJobs = new List<PUD_Job__c>{jobs[0].clone(true), jobs[1].clone(true), jobs[2].clone(true), jobs[3].clone(true), jobs[4].clone(true), jobs[5].clone(true), jobs[6].clone(true), jobs[7].clone(true), jobs[8].clone(true)};
 
 		// now update field values on jobs to test the scenario
-		jobs[0].Job_Instructions__c = 'test2';
-		jobs[1].Job_Instructions__c = 'test2';
-		jobs[2].Job_Instructions__c = 'test2';
+		jobs[0].Job_Instructions__c = 'test2 job0';
+		jobs[1].Job_Instructions__c = 'test2 job1';
+		jobs[2].Job_Instructions__c = 'test2 job2';
 		jobs[3].Status__c = PUDConstants.PUD_JOB_STATUS_CANCEL;
-		jobs[4].Job_Instructions__c = 'test2';
+		jobs[4].Job_Instructions__c = 'test2 job4';
 		jobs[5].Status__c = PUDConstants.PUD_JOB_STATUS_CANCEL;
 
 		// Update Revenue Check flag to True
@@ -167,7 +170,7 @@ private class PUDJobDispatchSystemSyncModule_Test {
 
 		List<PUD_Job__c> jobsForDispatch = (List<PUD_Job__c>) jobsCaptor.getValue();
 		System.assertNotEquals(null, jobsForDispatch, 'Expected a list of pud jobs to be passed in for dispatch; but passed null.');
-		System.assertEquals(5, jobsForDispatch.size(), 'Expected only five pud jobs to be passed in for dispatch');
+		System.assertEquals(6, jobsForDispatch.size(), 'Expected only six pud jobs to be passed in for dispatch');
 
 		Map<Id, PUD_Job__c> jobsForDispatchMap = new Map<Id, PUD_Job__c>(jobsForDispatch);
 		System.assertEquals(true, jobsForDispatchMap.containsKey(jobs[2].Id), 'Expected to dispatch current day job in Schedule status when job information updated.');
@@ -184,6 +187,11 @@ private class PUDJobDispatchSystemSyncModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
+
+		//insert custom settings to disable booking trigger. This will avoid changing job status to CANCEL.
+        insert new SystemSwitch__c(SetupOwnerId=UserInfo.getOrganizationId(),
+		DisableTriggers__c=true, ObjectTriggersToBeDisabled__c= 'PUD_Booking__c,');
+
 		Network__c network = ApplicationTestDataFactory.getNetworks(1, false)[0];
 		network.recordTypeId = PUDTestDataFactory.businessHubNetworkRecordType;
 		network.ORG_UNIT_ADDR_2__c ='1 Main St';

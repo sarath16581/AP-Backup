@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set is used for the internal users of the LBP Community.
+It is used to change the account name of the contact that is associated to an Experience cloud site, update records for inactive users</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>LBP Internal Admin</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ManagePartners</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>UpdateWithInactiveOwner</name>
+    </userPermissions>
+</PermissionSet>
