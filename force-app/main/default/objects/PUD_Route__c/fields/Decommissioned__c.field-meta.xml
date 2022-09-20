@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Decommissioned__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>false</defaultValue>
+    <description>Indicates whether the field has been deleted in Adam.
+Sourced from Adam.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates whether the field has been deleted in Adam.
+Sourced from Adam.</inlineHelpText>
+    <label>Decommissioned</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
