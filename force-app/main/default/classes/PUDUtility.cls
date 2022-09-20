@@ -31,6 +31,7 @@ History:
 2022-02-23 - Seth Heang - Added Container Type fields and Product Type fields into the sync functionality from booking and job and to the Dispatch System as part of Metro Transport Enhancements
 2022-02-23 - Seth Heang - Serialised container type fields information into a JSON format and populate to a new long text field called Containers Payload
 2022-07-02 - Dattaraj Deshmukh - Added logic to create container type records when a container type at booking level is created/updated and jobs are added as a part of batch job.
+2022-08-26 - Dattaraj Deshmukh - Added 'JOB_DISPATCH_FROM_DATE' and 'JOB_DISPATCH_TO_DATE' to send jobs to dispatch system in advance. 
 -------------------------
 */
 public with sharing class PUDUtility {
@@ -40,9 +41,21 @@ public with sharing class PUDUtility {
 	public static Date DATE_TO {
 		get {
 			if (DATE_TO == null) {
-				DATE_TO = DATE_FROM.addDays((pickupBookingSettings != null ? Integer.valueOf(pickupBookingSettings.Job_Offset_Days__c) : 7));
+				DATE_TO = DATE_FROM.addDays(((pickupBookingSettings != null && pickupBookingSettings.Job_Offset_Days__c != null) ? Integer.valueOf(pickupBookingSettings.Job_Offset_Days__c) : 7));
 			}
 			return DATE_TO;
+		}
+		private set;
+	}
+
+	//Get date range based on offset value from custom setting.
+	public static Date JOB_DISPATCH_FROM_DATE  = Date.today();
+	public static Date JOB_DISPATCH_TO_DATE {
+		get{
+			if(JOB_DISPATCH_TO_DATE == null){
+				JOB_DISPATCH_TO_DATE = JOB_DISPATCH_FROM_DATE.addDays(((pickupBookingSettings != null && pickupBookingSettings.Job_Dispatch_Offset_Days__c != null) ? Integer.valueOf(pickupBookingSettings.Job_Dispatch_Offset_Days__c) : 1));
+			}
+			return JOB_DISPATCH_TO_DATE;
 		}
 		private set;
 	}

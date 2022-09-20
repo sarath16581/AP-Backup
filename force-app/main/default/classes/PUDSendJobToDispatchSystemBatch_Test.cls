@@ -2,6 +2,7 @@
     Overview: Test class for PUDSendJobToDispatchSystemBatch
 	History:
 	27/07/2021	arjun.singh@austpost.com.au - Created
+	24/08/2022  Dattaraj Deshmukh - Updated selectJobsByDateAndStatusQueryLocator params to pass dates.
 	-------------------------  
 */
 @IsTest
@@ -20,7 +21,7 @@ private class PUDSendJobToDispatchSystemBatch_Test {
 		PUDJobsSelector mockSelector = (PUDJobsSelector) MockUtility.mockSelector(PUDJobsSelector.class);
 		Database.QueryLocator queryLocator = Database.getQueryLocator([Select Id from PUD_Job__c]);
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSelector.selectJobsByDateAndStatusQueryLocator((Date) fflib_Match.anyDate(), (String) fflib_Match.anyString())).thenReturn(queryLocator);
+		MockUtility.Mocks.when(mockSelector.selectJobsByDateAndStatusQueryLocator((Date) fflib_Match.anyDate(), (Date) fflib_Match.anyDate(), (String) fflib_Match.anyString())).thenReturn(queryLocator);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -35,7 +36,7 @@ private class PUDSendJobToDispatchSystemBatch_Test {
 
 		System.assertNotEquals(null, ql, 'Expect a valid query locator to be returned');
 		//verify that selector is called once with expected arguments to get the query locator
-		((PUDJobsSelector) MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).selectJobsByDateAndStatusQueryLocator((Date) fflib_Match.eqDate(Date.today()), (String) fflib_Match.eqString(PUDConstants.PUD_JOB_STATUS_NEW));
+		((PUDJobsSelector) MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).selectJobsByDateAndStatusQueryLocator((Date) fflib_Match.eqDate(PUDUtility.JOB_DISPATCH_FROM_DATE), (Date) fflib_Match.eqDate(PUDUtility.JOB_DISPATCH_TO_DATE), (String) fflib_Match.eqString(PUDConstants.PUD_JOB_STATUS_NEW));
 
 	}
 
@@ -108,6 +109,11 @@ private class PUDSendJobToDispatchSystemBatch_Test {
 		// Data Preparation
 		// =====================================
 
+		//insert custom settings to disable booking and job triggers.
+		//Disabling triggers will allow to TEST if job status are changed by BATCH only.
+        insert new SystemSwitch__c(SetupOwnerId=UserInfo.getOrganizationId(),
+		DisableTriggers__c=true, ObjectTriggersToBeDisabled__c= 'PUD_Booking__c,PUD_Job__c,');
+
 		Network__c network = ApplicationTestDataFactory.getNetworks(1, false)[0];
 		network.recordTypeId = PUDTestDataFactory.businessHubNetworkRecordType;
 		network.ORG_UNIT_ADDR_2__c ='1 Main St';
@@ -145,6 +151,7 @@ private class PUDSendJobToDispatchSystemBatch_Test {
 		batchJob.execute(null);
 		Test.stopTest();
 
+		//asserting job's status changed by BATCH.
 		List<PUD_Job__c> updatedJobs = PUDJobsSelector.newInstance().selectById(new Map<Id,PUD_Job__c>(jobs).keySet());
 		for (PUD_Job__c job: updatedJobs) {
 			System.assertEquals(PUDConstants.PUD_JOB_STATUS_SCHEDULE, job.Status__c, 'Expected job status to be updated after sending to Dispatch system');
