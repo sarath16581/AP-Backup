@@ -10,6 +10,7 @@
  * @date 2022-02-14
  * @changelog
  * 2022-02-14 - Ranjeewa Silva - Created
+ * 2022-09-14 - Dattaraj Deshmukh - Added logic for 'FIELD_DISPLAY_ETA_TO_DRIVER'.
  */
 
 import { LightningElement, track } from 'lwc';
@@ -221,7 +222,16 @@ export default class PudBulkEditBookings extends LightningElement {
             if (updatedBooking && updatedBooking.booking) {
 	            updatedBooking.booking[event.detail.fieldName] = event.detail.draftValue;
 	            if (!updatedBooking.dirtyFields.includes(event.detail.fieldName)) {
-	                updatedBooking.dirtyFields.push(event.detail.fieldName);
+
+					updatedBooking.dirtyFields.push(event.detail.fieldName);
+
+					// if start_time__c is blanked out, set Display_ETA_To_Driver__c to false.
+					if(event.detail.fieldName == CONSTANTS.PUD_BOOKING_FIELDS.FIELD_START_TIME
+						&& isNaN(event.detail.draftValue)){
+							//set Display_ETA_To_Driver__c to false.
+							updatedBooking.booking[CONSTANTS.PUD_BOOKING_FIELDS.FIELD_DISPLAY_ETA_TO_DRIVER] = false;
+							updatedBooking.dirtyFields.push(CONSTANTS.PUD_BOOKING_FIELDS.FIELD_DISPLAY_ETA_TO_DRIVER);
+					}
 	            }
 
 	            // we have unsaved changes. mark that there are dirty records.

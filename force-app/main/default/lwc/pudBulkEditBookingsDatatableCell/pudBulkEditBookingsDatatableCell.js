@@ -6,6 +6,8 @@
  * @date 2022-03-11
  * @changelog
  * 2022-03-11 - Ranjeewa Silva - Created
+ * 2022-09-14 - Dattaraj Deshmukh - Added 'isEditable()' method to check for optional cellAttributes. 
+ *              Updated 'handleValueChange()' to handle checkbox 'checked' property.
  */
 import { LightningElement, api } from 'lwc';
 import { CONSTANTS } from 'c/pudBulkEditBookingsService';
@@ -73,9 +75,17 @@ export default class PudBulkEditBookingsDatatableCell extends LightningElement {
 	 * handle value change event.
 	 */
     handleValueChange(event) {
-        this._value = event.detail.value;
+        //special handing for getting checkbox value
+        this._value = (this.type === CONSTANTS.FIELD_TYPES.CHECKBOX ?  event.target.checked : event.detail.value);
+        
         // value has changed - mark the component as dirty
         this.isDirty = true;
+
+        //calling handleEditCompleted() method explicitly to take checkbox out of focus upon select/unselect.
+        //This avoids the need to click outside of checkbox area to close checkbox edit element.
+        if(this.type === CONSTANTS.FIELD_TYPES.CHECKBOX){
+            this.handleEditCompleted(event);
+        }
     }
 
 	/**
@@ -91,6 +101,7 @@ export default class PudBulkEditBookingsDatatableCell extends LightningElement {
             this.editMode = false;
             // special handling for time fields to convert to epoch time
             const draftValue = (this.type === CONSTANTS.FIELD_TYPES.TIME ? Date.parse('1970-01-01T'+this._value+'Z') : this._value);
+
             this.dispatchEvent(new CustomEvent('valuechange', { detail: { id: this.bookingId, draftValue: draftValue, fieldName: this.name }} ));
         }
     }
@@ -101,6 +112,22 @@ export default class PudBulkEditBookingsDatatableCell extends LightningElement {
     get isTextArea() {
         return this.type === CONSTANTS.FIELD_TYPES.TEXTAREA;
     }
+
+
+    /**
+	 * returns true if this field is a CHECKBOX field
+	 */
+     get isCheckbox() {
+        return this.type === CONSTANTS.FIELD_TYPES.CHECKBOX;
+    }
+
+    /**
+	 * returns true if this field is other than checkbox and textarea
+	 */
+     get isGeneric() {
+        return this.type !== CONSTANTS.FIELD_TYPES.CHECKBOX && this.type !== CONSTANTS.FIELD_TYPES.TEXTAREA;
+    }
+    
 
 	/**
 	 * maps the field type to a supported 'lightning-input' type
@@ -120,6 +147,11 @@ export default class PudBulkEditBookingsDatatableCell extends LightningElement {
         let styleClass = 'slds-truncate' + (this.isTextArea ? ' slds-line-clamp_x-small' : '');
         styleClass += ((this.cellAttributes && this.cellAttributes.styleClass) ? (' ' + this.cellAttributes.styleClass) : '');
         return styleClass;
+    }
+
+    get isEditable(){
+        //if cellAttributes has editable set then use cellAttributes.editable. Else, use editable property set on columns.
+        return (this.cellAttributes && this.cellAttributes.editable) ? this.cellAttributes.editable : this.editable; 
     }
 
 	/**
