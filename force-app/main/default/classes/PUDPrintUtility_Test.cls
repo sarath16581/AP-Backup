@@ -6,6 +6,7 @@
 * @description Test class for PUDPrintUtility 
 * @changelog 
  * 2022-08-17- Dattaraj Deshmukh - Created
+ * 2022-09-21- Dattaraj Deshmukh - updated 'testGetDuration' method.
  */
 @IsTest
 private class PUDPrintUtility_Test {
