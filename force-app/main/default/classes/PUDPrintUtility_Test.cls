@@ -85,7 +85,7 @@ private class PUDPrintUtility_Test {
         //asserting duration is formated with '-'
         System.assertEquals('0700 - 0705', duration1,'Expected duration formatted with hyphen');
         System.assertEquals('1100 - ', durationWithStartTimeOnly, 'Expected duration formatted with hyphen without end date');
-        System.assertEquals('- 1215', durationWithEndTimeOnly, 'Expected duration formatted with hyphen without start date');
+        System.assertEquals(' - 1215', durationWithEndTimeOnly, 'Expected duration formatted with hyphen without start date');
        
     }
 }
