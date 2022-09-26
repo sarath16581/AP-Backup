@@ -7,6 +7,7 @@
  * @changelog
  * 2022-03-23 - Ranjeewa Silva - Created
  * 2022-07-28 - Kamil Szyc - add tests for selectByIdWithAllBookings and selectByIdAndDepotWithJobs
+ * 2022-09-21 - Ranjeewa Silva - Updated tests for selecting routes with child bookings
  */
 @IsTest
 public with sharing class PUDRoutesSelector_Test {
@@ -119,9 +120,18 @@ public with sharing class PUDRoutesSelector_Test {
 		PUD_Booking_Location__c pudBookingLocation = PUDTestDataFactory.getPUDNetworkBookingLocations(1, network.Id, false)[0];
 		insert pudBookingLocation;
 
-		List<PUD_Booking__c> pudBookings = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(2, pudBookingLocation.Id, network.Id, Date.today(), Date.today().addDays(90), new List<String>{'Monday'}, false);
+		List<PUD_Booking__c> pudBookings = PUDTestDataFactory.getPUDPermanentPickupDeliveryBookings(4, pudBookingLocation.Id, network.Id, Date.today(), Date.today().addDays(90), new List<String>{'Monday'}, false);
 		pudBookings[0].Route_Lookup__c = routes[0].Id;
 		pudBookings[1].Route_Lookup__c = routes[0].Id;
+		pudBookings[2].Route_Lookup__c = routes[0].Id;
+		pudBookings[3].Route_Lookup__c = routes[0].Id;
+
+		// make pudBookings[2] an expired booking
+		pudBookings[2].Effective_Date__c = Date.today().addDays(-30);
+		pudBookings[2].Expiry_Date__c = Date.today().addDays(-10);
+
+		// make pudBookings[3] a booking in 'Planned' status
+		pudBookings[3].Effective_Date__c = Date.today().addDays(3);
 		insert pudBookings;
 		
 		List<PUD_Job__c> pudJobs = PUDTestDataFactory.getPUDJobs(1, pudBookings[0].Id, 'Accepted', false);
@@ -151,9 +161,9 @@ public with sharing class PUDRoutesSelector_Test {
 		System.assertEquals(true, resultsMap.containsKey(routes[1].Id), 'Expected route record not returned.');
 		System.assertEquals(2, resultsMap.get(routes[0].Id).Bookings__r.size(), 'Expected active child bookings to be populated on the route.');
 
-		results = selector.selectByIdWithAllBookings(new Set<Id>{routes[0].Id},  new Set<Object>());
+		results = selector.selectByIdWithBookings(new Set<Id>{routes[0].Id}, new Set<String>{PUDConstants.PUD_BOOKING_STATUS_PLANNED, PUDConstants.PUD_BOOKING_STATUS_ACTIVE}, new Set<Id>());
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
-		System.assert(!results[0].Bookings__r.isEmpty(), 'No bookings were returned');
+		System.assertEquals(3, results[0].Bookings__r.size(), 'Expected all active(2) and planned(1) bookings on this route to be returned.');
 		
 		results = selector.selectByIdAndDepotWithJobs(new Set<Id>{routes[0].Id}, null, new Set<String>(), new Set<Date>{Date.today()},new Set<Object>());
 		System.assertEquals(1, results.size(), 'Expected result size of 1');

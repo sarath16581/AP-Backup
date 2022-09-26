@@ -9,6 +9,7 @@
  * 2022-06-24 - Kamil Szyc - created
  * 2022-08-08 - Dattaraj Deshmukh - updated test class to cover wrapper classes referred in 'PUD_PrintRouteController'
  * 2022-09-01- Dattaraj Deshmukh - updated test class to cover overnight routes scenario. Added method 'testOvernightRoutes()'
+ * 2022-09-21- Ranjeewa Silva - Updated tests for selecting routes with child bookings
  */
 
 @IsTest
@@ -27,13 +28,9 @@ private class PUD_PrintRouteController_Test {
 		PUDRoutesSelector routesSelector = (PUDRoutesSelector) MockUtility.mockSelector(PUDRoutesSelector.class);
 		// set up responses
 		MockUtility.Mocks.startStubbing();
-
-		MockUtility.Mocks.when(routesSelector.selectByIdWithAllBookings(
-				(Set<Id>) fflib_Match.anyObject(),
-				(Set<Object>) fflib_Match.anyObject())
-		)
-				.thenReturn(routeList
-				);
+		MockUtility.Mocks.when(routesSelector.selectByIdWithBookings(
+				(Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())
+		).thenReturn(routeList);
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
@@ -43,7 +40,7 @@ private class PUD_PrintRouteController_Test {
 		Test.stopTest();
 
 		System.assertNotEquals(null, testRoutesPrint.routes, 'The selector has not returned a list of routes');
-		System.assert(!testRoutesPrint.routes.isEmpty(), 'Expected routes were not returned by the controller');
+		System.assertEquals(2, testRoutesPrint.routes.size(), 'Expected routes were not returned by the controller');
 	}
 	@IsTest
 	static void testGetBookingsForSingleRoute() {
@@ -77,14 +74,11 @@ private class PUD_PrintRouteController_Test {
 		// set up responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(routesSelector.selectByIdWithAllBookings(
-				(Set<Id>) fflib_Match.anyObject(),
-				(Set<Object>) fflib_Match.anyObject())
-		)
-				.thenReturn(new List<PUD_Route__c>{route1}
-				);
-		MockUtility.Mocks.stopStubbing();
+		MockUtility.Mocks.when(routesSelector.selectByIdWithBookings(
+				(Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())
+		).thenReturn(new List<PUD_Route__c>{route1});
 
+		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
 
@@ -94,6 +88,9 @@ private class PUD_PrintRouteController_Test {
 		PUD_PrintRouteController testRoutesPrint = new PUD_PrintRouteController(new ApexPages.StandardController(route1));
 		Test.stopTest();
 		System.assertNotEquals(null, testRoutesPrint.routes, 'The selector has not returned a route');
+		System.assertEquals(1, testRoutesPrint.routes.size(), 'Expected only one route, but received [' + testRoutesPrint.routes.size() + ']');
+		System.assertEquals(5, testRoutesPrint.routes[0].bookings.size(), 'Expected number of bookings not returned with the route.');
+		System.assertEquals(2, testRoutesPrint.routes[0].mealBreaks.size(), 'Expected number of meal break bookings not returned with the route.');
 	}
 
 	@IsTest
@@ -200,12 +197,10 @@ private class PUD_PrintRouteController_Test {
 		// set up responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(routesSelector.selectByIdWithAllBookings(
-				(Set<Id>) fflib_Match.anyObject(),
-				(Set<Object>) fflib_Match.anyObject())
-		)
-				.thenReturn(new List<PUD_Route__c>{route1}
-				);
+		MockUtility.Mocks.when(routesSelector.selectByIdWithBookings(
+				(Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())
+		).thenReturn(new List<PUD_Route__c>{route1});
+
 		MockUtility.Mocks.stopStubbing();
 
 
