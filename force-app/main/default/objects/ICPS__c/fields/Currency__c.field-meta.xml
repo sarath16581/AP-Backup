@@ -14,212 +14,212 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Australian Dollar (AUD)</fullName>
+                <fullName>AUD</fullName>
                 <default>false</default>
                 <label>Australian Dollar (AUD)</label>
             </value>
             <value>
-                <fullName>United States Dollar (USD)</fullName>
+                <fullName>USD</fullName>
                 <default>false</default>
                 <label>United States Dollar (USD)</label>
             </value>
             <value>
-                <fullName>Canadian Dollar (CAN)</fullName>
+                <fullName>CAN</fullName>
                 <default>false</default>
                 <label>Canadian Dollar (CAN)</label>
             </value>
             <value>
-                <fullName>British Pound (GBP)</fullName>
+                <fullName>GBP</fullName>
                 <default>false</default>
                 <label>British Pound (GBP)</label>
             </value>
             <value>
-                <fullName>Euro (EUR)</fullName>
+                <fullName>EUR</fullName>
                 <default>false</default>
                 <label>Euro (EUR)</label>
             </value>
             <value>
-                <fullName>New Zealand Dollar (NZD)</fullName>
+                <fullName>NZD</fullName>
                 <default>false</default>
                 <label>New Zealand Dollar (NZD)</label>
             </value>
             <value>
-                <fullName>Singapore Dollar (SGD)</fullName>
+                <fullName>SGD</fullName>
                 <default>false</default>
                 <label>Singapore Dollar (SGD)</label>
             </value>
             <value>
-                <fullName>Swiss Franc (CHF)</fullName>
+                <fullName>CHF</fullName>
                 <default>false</default>
                 <label>Swiss Franc (CHF)</label>
             </value>
             <value>
-                <fullName>Chinese Yuan (CNY)</fullName>
+                <fullName>CNY</fullName>
                 <default>false</default>
                 <label>Chinese Yuan (CNY)</label>
             </value>
             <value>
-                <fullName>Hong Kong Dollar (HKD)</fullName>
+                <fullName>HKD</fullName>
                 <default>false</default>
                 <label>Hong Kong Dollar (HKD)</label>
             </value>
             <value>
-                <fullName>Indonesian Rupiah (IDR)</fullName>
+                <fullName>IDR</fullName>
                 <default>false</default>
                 <label>Indonesian Rupiah (IDR)</label>
             </value>
             <value>
-                <fullName>Japanese Yen (JPY)</fullName>
+                <fullName>JPY</fullName>
                 <default>false</default>
                 <label>Japanese Yen (JPY)</label>
             </value>
             <value>
-                <fullName>Argentine Peso (ARS)</fullName>
+                <fullName>ARS</fullName>
                 <default>false</default>
                 <label>Argentine Peso (ARS)</label>
             </value>
             <value>
-                <fullName>Bahraini Dollar (BBD)</fullName>
+                <fullName>BBD</fullName>
                 <default>false</default>
                 <label>Bahraini Dollar (BBD)</label>
             </value>
             <value>
-                <fullName>Brazilian Real (BRL)</fullName>
+                <fullName>BRL</fullName>
                 <default>false</default>
                 <label>Brazilian Real (BRL)</label>
             </value>
             <value>
-                <fullName>Croatian Kuna (HRK)</fullName>
+                <fullName>HRK</fullName>
                 <default>false</default>
                 <label>Croatian Kuna (HRK)</label>
             </value>
             <value>
-                <fullName>Czech Koruna (CZK)</fullName>
+                <fullName>CZK</fullName>
                 <default>false</default>
                 <label>Czech Koruna (CZK)</label>
             </value>
             <value>
-                <fullName>Danish Krone (DKK)</fullName>
+                <fullName>DKK</fullName>
                 <default>false</default>
                 <label>Danish Krone (DKK)</label>
             </value>
             <value>
-                <fullName>Fiji Dollar (FJD)</fullName>
+                <fullName>FJD</fullName>
                 <default>false</default>
                 <label>Fiji Dollar (FJD)</label>
             </value>
             <value>
-                <fullName>Hungarian Forint (HUF)</fullName>
+                <fullName>HUF</fullName>
                 <default>false</default>
                 <label>Hungarian Forint (HUF)</label>
             </value>
             <value>
-                <fullName>Indian Rupee (INR)</fullName>
+                <fullName>INR</fullName>
                 <default>false</default>
                 <label>Indian Rupee (INR)</label>
             </value>
             <value>
-                <fullName>Israeli New Shekel (ILS)</fullName>
+                <fullName>ILS</fullName>
                 <default>false</default>
                 <label>Israeli New Shekel (ILS)</label>
             </value>
             <value>
-                <fullName>Jordanian Dinar (JOD)</fullName>
+                <fullName>JOD</fullName>
                 <default>false</default>
                 <label>Jordanian Dinar (JOD)</label>
             </value>
             <value>
-                <fullName>Kuwaiti Dinar (KWD)</fullName>
+                <fullName>KWD</fullName>
                 <default>false</default>
                 <label>Kuwaiti Dinar (KWD)</label>
             </value>
             <value>
-                <fullName>Malaysian Ringgit (MUR)</fullName>
+                <fullName>MUR</fullName>
                 <default>false</default>
                 <label>Malaysian Ringgit (MUR)</label>
             </value>
             <value>
-                <fullName>Mexican Peso (MXN)</fullName>
+                <fullName>MXN</fullName>
                 <default>false</default>
                 <label>Mexican Peso (MXN)</label>
             </value>
             <value>
-                <fullName>Moroccan Dirham (MAD)</fullName>
+                <fullName>MAD</fullName>
                 <default>false</default>
                 <label>Moroccan Dirham (MAD)</label>
             </value>
             <value>
-                <fullName>New Taiwan Dollar (TWD)</fullName>
+                <fullName>TWD</fullName>
                 <default>false</default>
                 <label>New Taiwan Dollar (TWD)</label>
             </value>
             <value>
-                <fullName>Norwegian Krone (NOK)</fullName>
+                <fullName>NOK</fullName>
                 <default>false</default>
                 <label>Norwegian Krone (NOK)</label>
             </value>
             <value>
-                <fullName>Pakistani Rupee (PKR)</fullName>
+                <fullName>PKR</fullName>
                 <default>false</default>
                 <label>Pakistani Rupee (PKR)</label>
             </value>
             <value>
-                <fullName>Phillipine Peso (PHP)</fullName>
+                <fullName>PHP</fullName>
                 <default>false</default>
                 <label>Phillipine Peso (PHP)</label>
             </value>
             <value>
-                <fullName>Polish Zloty (PLN)</fullName>
+                <fullName>PLN</fullName>
                 <default>false</default>
                 <label>Polish Zloty (PLN)</label>
             </value>
             <value>
-                <fullName>Qatari Riyal (QAR)</fullName>
+                <fullName>QAR</fullName>
                 <default>false</default>
                 <label>Qatari Riyal (QAR)</label>
             </value>
             <value>
-                <fullName>Russian Ruble (RUB)</fullName>
+                <fullName>RUB</fullName>
                 <default>false</default>
                 <label>Russian Ruble (RUB)</label>
             </value>
             <value>
-                <fullName>Saudi Riyal (SAR)</fullName>
+                <fullName>SAR</fullName>
                 <default>false</default>
                 <label>Saudi Riyal (SAR)</label>
             </value>
             <value>
-                <fullName>South African Rand (ZAR)</fullName>
+                <fullName>ZAR</fullName>
                 <default>false</default>
                 <label>South African Rand (ZAR)</label>
             </value>
             <value>
-                <fullName>Sri Lankan Rupee (LKR)</fullName>
+                <fullName>LKR</fullName>
                 <default>false</default>
                 <label>Sri Lankan Rupee (LKR)</label>
             </value>
             <value>
-                <fullName>Swedish Krona (SEK)</fullName>
+                <fullName>SEK</fullName>
                 <default>false</default>
                 <label>Swedish Krona (SEK)</label>
             </value>
             <value>
-                <fullName>Thai Bhat (THB)</fullName>
+                <fullName>THB</fullName>
                 <default>false</default>
                 <label>Thai Bhat (THB)</label>
             </value>
             <value>
-                <fullName>Turkish Lira (TRY)</fullName>
+                <fullName>TRY</fullName>
                 <default>false</default>
                 <label>Turkish Lira (TRY)</label>
             </value>
             <value>
-                <fullName>United Arab Emirates Dirham (AED)</fullName>
+                <fullName>AED</fullName>
                 <default>false</default>
                 <label>United Arab Emirates Dirham (AED)</label>
             </value>
             <value>
-                <fullName>Vietnamese Dong (VND)</fullName>
+                <fullName>VND</fullName>
                 <default>false</default>
                 <label>Vietnamese Dong (VND)</label>
             </value>
