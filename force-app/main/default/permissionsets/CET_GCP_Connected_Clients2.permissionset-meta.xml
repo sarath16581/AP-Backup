@@ -16263,6 +16263,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>PUD_Booking__c.Display_ETA_To_Driver__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>PUD_Booking__c.Display_Start_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -16864,6 +16869,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>PUD_Job__c.Depot__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PUD_Job__c.Display_ETA_To_Driver__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
