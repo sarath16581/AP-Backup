@@ -102,8 +102,6 @@
 
 <a href="mailto:customerservice@auspost.com.au?subject=My%20case%20can%20be%20closed&body=By%20sending%20this%20email%20your%20case%20will%20be%20closed.%20%20Please%20do%20not%20add%20or%20modify%20any%20text%20in%20the%20email.%20%20{!Case.CaseNumber}%20can%20be%20closed%20{!Case.Thread_Id}">CLOSE MY CASE</a>
 
-<p>We'll start our late item investigation 10 business days after the estimated delivery date</p>
-
 <p>If receiving a response takes longer than usual, please know we haven’t forgotten about you, it is just taking us a little longer as we are continuing to manage higher than normal enquiry volumes. </p>
  
 <p>We are people just like you, doing our best to assist through these difficult times. We will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks. </p>
