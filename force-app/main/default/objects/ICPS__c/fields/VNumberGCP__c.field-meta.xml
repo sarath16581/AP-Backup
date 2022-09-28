@@ -3,12 +3,7 @@
     <fullName>VNumberGCP__c</fullName>
     <description>This formula field has been introduced purely for the consumption by GCP and so that this field can be put on the daily extract that is sent to Australia Border Force on a daily basis from GCP</description>
     <externalId>false</externalId>
-    <formula>CASE(RecordType.Name, 
-    &quot;NSW&quot;, &quot;9&quot; + Name , 
-    &quot;VIC&quot;, &quot;7&quot; + Name ,  
-    &quot;QLD&quot;, &quot;2&quot; + Name , 
-    &quot;WA&quot;, &quot;1&quot; + Name , 
-    &quot;Unknown&quot;)</formula>
+    <formula>&quot;0&quot; + Name</formula>
     <inlineHelpText>This formula field has been introduced purely for the consumption by GCP and so that this field can be put on the daily extract that is sent to Australia Border Force on a daily basis from GCP</inlineHelpText>
     <label>VNumber - GCP</label>
     <required>false</required>
