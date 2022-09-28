@@ -16,7 +16,7 @@ public class ICPSTestDataFactory {
 				ICPS__c.MailCategory__c => 'Ordinary',
 				ICPS__c.RecordTypeId => recordTypeId,
 				ICPS__c.StoredLocation__c => 'Bulk I',
-				ICPS__c.ItemType__c => 'AIR',
+				ICPS__c.ItemType__c => 'SEA',
 				ICPS__c.ReceiverName__c => 'Test Receiver',
 				ICPS__c.CountryofOrigin__c => 'US',
 				ICPS__c.FirstNoticeDate__c => Date.newInstance(2022, 2, 22),
