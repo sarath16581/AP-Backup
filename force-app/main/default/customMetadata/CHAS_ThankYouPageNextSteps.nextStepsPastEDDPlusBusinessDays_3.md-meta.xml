@@ -24,11 +24,7 @@
     </values>
     <values>
         <field>Sub_Label__c</field>
-        <value xsi:type="xsd:string">You&apos;ll hear back from us when we review your enquiry or if your item arrives.
-
-We&apos;ll start our late item investigation 10 business days after the estimated delivery date.
-
-We&apos;re currently experiencing high volumes of enquiries and will be in touch as soon as we can.</value>
+        <value xsi:type="xsd:string">You&apos;ll hear back when we review your enquiry - usually within 2 business days - or if your item arrives.</value>
     </values>
     <values>
         <field>isActive__c</field>
