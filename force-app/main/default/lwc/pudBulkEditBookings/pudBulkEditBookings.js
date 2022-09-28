@@ -10,7 +10,9 @@
  * @date 2022-02-14
  * @changelog
  * 2022-02-14 - Ranjeewa Silva - Created
- * 2022-09-14 - Dattaraj Deshmukh - Added logic for 'FIELD_DISPLAY_ETA_TO_DRIVER'.
+ * 2022-09-14 - Dattaraj Deshmukh - Added logic for 'FIELD_DISPLAY_ETA_TO_DRIVER'. 
+ * 				FIELD_DISPLAY_ETA_TO_DRIVER checkbox is made editable only if Start_Time__c is populated. 
+ * 				If Start_Time__c is updated to be blank, FIELD_DISPLAY_ETA_TO_DRIVER is unchecked.
  */
 
 import { LightningElement, track } from 'lwc';
@@ -227,7 +229,7 @@ export default class PudBulkEditBookings extends LightningElement {
 
 					// if start_time__c is blanked out, set Display_ETA_To_Driver__c to false.
 					if(event.detail.fieldName == CONSTANTS.PUD_BOOKING_FIELDS.FIELD_START_TIME
-						&& isNaN(event.detail.draftValue)){
+						&& !event.detail.draftValue){
 							//set Display_ETA_To_Driver__c to false.
 							updatedBooking.booking[CONSTANTS.PUD_BOOKING_FIELDS.FIELD_DISPLAY_ETA_TO_DRIVER] = false;
 							updatedBooking.dirtyFields.push(CONSTANTS.PUD_BOOKING_FIELDS.FIELD_DISPLAY_ETA_TO_DRIVER);

@@ -45,6 +45,12 @@ public with sharing class PUD_JobsPrintFutureControllerX_Test {
 
 		Test.startTest();
 
+		PageReference pageRef = Page.PUD_FutureJobPrint;
+		
+		pageRef.getParameters().put('date', String.valueOf(Date.today()));
+		pageRef.getParameters().put('type','Perm');
+		Test.setCurrentPage(pageRef);
+
 		PUD_JobsPrintFutureControllerX testDTPrint = new PUD_JobsPrintFutureControllerX(new ApexPages.StandardController(routeList[0]));
 
 		Test.stopTest();

@@ -149,9 +149,12 @@ export default class PudBulkEditBookingsDatatableCell extends LightningElement {
         return styleClass;
     }
 
-    get isEditable(){
+    get isEditable() {
         //if cellAttributes has editable set then use cellAttributes.editable. Else, use editable property set on columns.
-        return (this.cellAttributes && this.cellAttributes.editable) ? this.cellAttributes.editable : this.editable; 
+        //return (this.cellAttributes && this.cellAttributes.editable) ? this.cellAttributes.editable : this.editable; 
+        
+        return (!this.editable ? false : ( (this.cellAttributes && this.cellAttributes.hasOwnProperty('editable')) ? this.cellAttributes.editable : this.editable ));
+        
     }
 
 	/**
