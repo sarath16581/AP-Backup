@@ -10,7 +10,7 @@
 * 2022-07-08 - Kamil Szyc - Added booking record type names
 * 2022-07-26 - Dattaraj Deshmukh - Added Booking and Job container record types.
 * 2022-08-17 - Dattaraj Deshmukh - Added new constant PUD_BOOKING_TYPE_MEAL_BREAK
-* 2022-09-12 - Dattaraj Deshmukh - Added 'Display_ETA_To_Driver__c' to PUD_JOB_PRINT_FIELDS.
+* 2022-09-12 - Dattaraj Deshmukh - Added 'Display_ETA_To_Driver__c' to PUD_JOB_PRINT_FIELDS. 
 */
 public inherited sharing class PUDConstants {
 

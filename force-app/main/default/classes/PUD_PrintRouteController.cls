@@ -10,7 +10,7 @@
  * 2022-06-24 - created
  * 2022-08-09 - Dattaraj Deshmukh - Updated class to use wrapper classes for Route and Bookings.
  * 2022-08-31 - Dattaraj Deshmukh - Sorted overnight route bookings to appear on top.
- * 2022-09-14 - Dattaraj Deshmukh - Removed 'Display_Start_Time__c' and added 'Display_ETA_to_Driver__c' in fieldOverrides map 
+ * 2022-09-14 - Dattaraj Deshmukh - Removed 'Display_Start_Time__c' and added 'Display_ETA_to_Driver__c' in fieldOverrides map.
  */
 
 public with sharing class PUD_PrintRouteController {
