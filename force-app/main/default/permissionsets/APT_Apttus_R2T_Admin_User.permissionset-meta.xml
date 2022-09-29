@@ -14005,6 +14005,11 @@
         <field>Apttus__Term_Exception__c.Apttus__ReferenceId__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Billing_Account__c.APPC_Primary_Lodgement_Point__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.APT_ABN__c</field>
