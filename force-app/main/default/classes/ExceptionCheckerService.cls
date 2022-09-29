@@ -30,6 +30,9 @@ public with sharing class ExceptionCheckerService {
                 // if there's an exception found set the value to true in the DTO
                 if(eventMessageString.contains(event.EventType__c)) {
                     result.isException = true;
+                } // if there was a recent scan we should get the agent to look at the case.
+                else if(event.ActualDateTime__c >= Date.today().addDays(-5)){
+                    result.isException = true;
                 }
             }
 
