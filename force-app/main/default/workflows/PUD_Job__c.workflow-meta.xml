@@ -33,7 +33,7 @@
         <fields>Date__c</fields>
         <fields>Deliver_Product__c</fields>
         <fields>Depot_Organisation_Id__c</fields>
-        <fields>Display_Start_Time_Text__c</fields>
+        <fields>Display_ETA_to_Driver__c</fields>
         <fields>Dwell_Time_Planned__c</fields>
         <fields>Earliest_Start_Time_Text__c</fields>
         <fields>Express_Bags__c</fields>
