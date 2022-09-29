@@ -11,6 +11,7 @@
  * 2022-08-09 - Dattaraj Deshmukh - Updated class to use wrapper classes for Route and Bookings.
  * 2022-08-31 - Dattaraj Deshmukh - Sorted overnight route bookings to appear on top.
  * 2022-09-14 - Dattaraj Deshmukh - Removed 'Display_Start_Time__c' and added 'Display_ETA_to_Driver__c' in fieldOverrides map.
+ * 2022-09-21- Ranjeewa Silva - Filter out expired bookings from appearing in the print out.
  */
 
 public with sharing class PUD_PrintRouteController {
@@ -26,7 +27,7 @@ public with sharing class PUD_PrintRouteController {
 		Set<Id> selectedRouteIDs = new Map<Id, PUD_Route__c>((PUD_Route__c[]) ssc.getSelected()).keySet();
 		
 		//iterate through routes and build wrapper list for routes, its bookings and meal break bookings
-		for(PUD_Route__c route : getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT})){
+		for(PUD_Route__c route : getSelectedRoutesWithBookings(selectedRouteIDs)){
 			routes.add(new PUDPrintableRouteWrapper(route));
 		}
 	}
@@ -42,11 +43,11 @@ public with sharing class PUD_PrintRouteController {
 
 		
 		//iterate through routes and build wrapper list for routes, its bookings and meal break bookings
-		for(PUD_Route__c route : getSelectedRoutesWithBookings(selectedRouteIDs, new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT})){
+		for(PUD_Route__c route : getSelectedRoutesWithBookings(selectedRouteIDs)){
 			routes.add(new PUDPrintableRouteWrapper(route));
 		}
 	}
-	@TestVisible private static List<PUD_Route__c> getSelectedRoutesWithBookings(Set<Id> routeIds, Set<Object>selectorOptions) {
+	@TestVisible private static List<PUD_Route__c> getSelectedRoutesWithBookings(Set<Id> routeIds) {
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 				PUD_Route__c.getSObjectType() => new Set <SObjectField>{
 						PUD_Route__c.Name, PUD_Route__c.Depot__c,
@@ -66,6 +67,8 @@ public with sharing class PUD_PrintRouteController {
 				}
 		};
 
-		return PUDRoutesSelector.newInstance(fieldOverrides).selectByIdWithAllBookings(routeIds, selectorOptions);
+		// filter by booking status
+		Set<String> bookingStatus = new Set<String>{PUDConstants.PUD_BOOKING_STATUS_ACTIVE, PUDConstants.PUD_BOOKING_STATUS_PLANNED};
+		return PUDRoutesSelector.newInstance(fieldOverrides).selectByIdWithBookings(routeIds, bookingStatus, new Set<Id>(), new Set<Object>{PUDRoutesSelector.Options.WITH_DEPOT});
 	}
 }
