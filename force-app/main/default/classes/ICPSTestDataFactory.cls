@@ -13,7 +13,6 @@ public class ICPSTestDataFactory {
 	public static List<ICPS__c> getICPS(Integer count, Boolean generateIds) {
 		Id recordTypeId = Schema.SObjectType.ICPS__c.getRecordTypeInfosByName().get('VIC').getRecordTypeId();
 		return (List<ICPS__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ICPS__c.SObjectType, new Map<SObjectField, Object> {
-				ICPS__c.MailCategory__c => 'Ordinary',
 				ICPS__c.RecordTypeId => recordTypeId,
 				ICPS__c.StoredLocation__c => 'Bulk I',
 				ICPS__c.ReceiverName__c => 'Test Receiver',
