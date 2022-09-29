@@ -16,7 +16,6 @@ public class ICPSTestDataFactory {
 				ICPS__c.RecordTypeId => recordTypeId,
 				ICPS__c.StoredLocation__c => 'Bulk I',
 				ICPS__c.ReceiverName__c => 'Test Receiver',
-				ICPS__c.CountryofOrigin__c => 'US',
 				ICPS__c.FirstNoticeDate__c => Date.newInstance(2022, 2, 22),
 				ICPS__c.FinalNoticeDate__c => Date.newInstance(2022, 2, 22),
 				ICPS__c.DateOfPosting__c => Date.newInstance(2022, 2, 22),
