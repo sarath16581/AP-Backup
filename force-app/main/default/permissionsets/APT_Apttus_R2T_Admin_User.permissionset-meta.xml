@@ -5205,6 +5205,11 @@
         <field>Apttus_Approval__SearchFilter__c.Apttus_Approval__BusinessObject__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Selected_Lodgement_Zone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APTS_Price_Structure__c</field>
@@ -10693,6 +10698,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.STE_Pricing_Tier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Selected_Lodgement_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
