@@ -46,8 +46,8 @@ export default class PudBulkEditBookingsDatatable extends LightningElement {
 		{label: 'Booking Type', fieldName: CONSTANTS.PUD_BOOKING_FIELDS.FIELD_BOOKING_TYPE, editable:false, sortedColumn: false, fieldType: CONSTANTS.FIELD_TYPES.TEXT, headerCssClass : 'slds-th__action slds-text-link_reset max-width_x-small', dataCssClass : 'slds-cell-wrap max-width_x-small'},
 		{label: 'Route', fieldName: CONSTANTS.PUD_BOOKING_FIELDS.FIELD_ROUTE_LOOKUP_NAME, editable:false, sortedColumn: false, fieldType: CONSTANTS.FIELD_TYPES.TEXT, headerCssClass : 'slds-th__action slds-text-link_reset max-width_small', dataCssClass : 'slds-cell-wrap'},
 		{label: 'Start Time', fieldName: CONSTANTS.PUD_BOOKING_FIELDS.FIELD_START_TIME, editable:true, sortedColumn: false, fieldType: CONSTANTS.FIELD_TYPES.TIME, headerCssClass : 'slds-th__action slds-text-link_reset', dataCssClass : 'slds-cell-wrap'},
-		{label: 'Dwell Time (mins)', fieldName: CONSTANTS.PUD_BOOKING_FIELDS.FIELD_DWELL_TIME_PLANNED, editable:true, sortedColumn: false, fieldType: CONSTANTS.FIELD_TYPES.INTEGER, typeAttributes: {min:1, max:9999},headerCssClass : 'slds-th__action slds-text-link_reset', dataCssClass : 'slds-cell-wrap'},
 		{label: 'Display ETA To Driver', fieldName: CONSTANTS.PUD_BOOKING_FIELDS.FIELD_DISPLAY_ETA_TO_DRIVER, editable:true, sortedColumn: false, fieldType: CONSTANTS.FIELD_TYPES.CHECKBOX, headerCssClass : 'slds-th__action slds-text-link_reset', dataCssClass : 'slds-cell-wrap', conditionalEdit:true},
+		{label: 'Dwell Time (mins)', fieldName: CONSTANTS.PUD_BOOKING_FIELDS.FIELD_DWELL_TIME_PLANNED, editable:true, sortedColumn: false, fieldType: CONSTANTS.FIELD_TYPES.INTEGER, typeAttributes: {min:1, max:9999},headerCssClass : 'slds-th__action slds-text-link_reset', dataCssClass : 'slds-cell-wrap'},
 		{label: 'Parent Booking', fieldName: CONSTANTS.PUD_BOOKING_FIELDS.FIELD_PARENT_BOOKING_NAME, editable:false, sortedColumn: false, fieldType: CONSTANTS.FIELD_TYPES.TEXT, headerCssClass : 'slds-th__action slds-text-link_reset', dataCssClass : 'slds-cell-wrap'},
 		{label: 'Booking Comments', fieldName: CONSTANTS.PUD_BOOKING_FIELDS.FIELD_BOOKING_COMMENTS, editable:true, sortedColumn: false, fieldType: CONSTANTS.FIELD_TYPES.TEXTAREA, typeAttributes: {maxLength:1500}, headerCssClass : 'slds-th__action slds-text-link_reset max-width_small', dataCssClass : 'slds-cell-wrap max-width_small'},
 		{label: 'Location Address', fieldName: CONSTANTS.PUD_BOOKING_FIELDS.FIELD_BOOKING_LOCATION_ADDRESS, editable:false, sortedColumn: false, fieldType: CONSTANTS.FIELD_TYPES.TEXT, headerCssClass : 'slds-th__action slds-text-link_reset max-width_medium', dataCssClass : 'slds-cell-wrap max-width_medium'}
@@ -319,7 +319,10 @@ export default class PudBulkEditBookingsDatatable extends LightningElement {
 
     isCellEditable(booking, column) {
         if(column.fieldName == CONSTANTS.PUD_BOOKING_FIELDS.FIELD_DISPLAY_ETA_TO_DRIVER) {
-            const isEdit =  booking.Start_Time__c ? true : false; 
+
+            //checking booking.start_time__c is not undefined and not 0. 
+            //booking.start_time__c need to be checked against 0 as when start time is set as 12.00 am, '0' is returned.
+            const isEdit =  ( booking.Start_Time__c || booking.Start_Time__c === 0 ) ? true : false; 
             return isEdit;
         }
         return false;

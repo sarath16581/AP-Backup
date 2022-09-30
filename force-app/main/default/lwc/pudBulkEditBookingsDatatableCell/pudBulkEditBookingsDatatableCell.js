@@ -8,6 +8,7 @@
  * 2022-03-11 - Ranjeewa Silva - Created
  * 2022-09-14 - Dattaraj Deshmukh - Added 'isEditable()' method to check for optional cellAttributes. 
  *              Updated 'handleValueChange()' to handle checkbox 'checked' property.
+ *              Updated 'set value()' method to resolve defect when start_Time__c is set as 12.00 am.
  */
 import { LightningElement, api } from 'lwc';
 import { CONSTANTS } from 'c/pudBulkEditBookingsService';
@@ -52,7 +53,9 @@ export default class PudBulkEditBookingsDatatableCell extends LightningElement {
     get value() { return this._source; }
     set value(v) {
         this._source = v;
-        if (this.type === CONSTANTS.FIELD_TYPES.TIME && !!v) {
+
+        // value of 'v' need to be compared with '0' as when start_time__c is set as 12.00 am, '0' is returned from database.
+        if (this.type === CONSTANTS.FIELD_TYPES.TIME && (!!v || v === 0)) {
             const dateTimeISOString = new Date(v).toISOString();
             if (dateTimeISOString.indexOf('T') != -1) {
                 this._value = dateTimeISOString.split('T')[1].replace('Z', '');
