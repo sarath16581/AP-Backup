@@ -16,6 +16,7 @@
  * 2021-07-27 - naveen.rajanna@auspost.com.au - REQ2540323 - Changed to use DeveloperName instead of Label for Deal_Enablement_Centre_Queue
  * 2022-02-18 - Naveen.Rajanna@auspost.com.au - INC1911242 - Include RoleType check 
  * 2022-08-28 - seth.heang@auspost.com.au - Added method to handle the platform event for rating plan activation response
+ * 2022-09-05 - nasir.jawed@auspost.com.au - populating the lodgement point on billing account and charge account
  */
 
 public with sharing class BillingAccountCreationEventTriggerHelper {
@@ -611,6 +612,18 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 						APT_Charge_Account__c car = new APT_Charge_Account__c();
 						car.id = dealsupportRequestMap.get(billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c))?.APT_Contract__r?.Apttus_QPComply__RelatedProposalId__r?.APT_Credit_Assessment__r?.APT_Charge_Account__c;
 						if(car.id!=null) {
+                            //Populating the new field APPC_Primary_Lodgement_Point__c on the billing Account and on charge Account on field APT_Principal_Lodgement_Location__c.
+                            for(APT_Agreement_Lodgement_Point__c alp : alpList){
+                                if(alp.APT_Charge_Account__c != null && alp.APT_Charge_Account__c == car.id) {
+                                  //populate Lodgement point
+                                  car.APT_Principal_Lodgement_Location__c = alp.APT_Lodgement_Point_Lookup__r.Post_Code__c;
+                                  
+                                  //populate LP on the respected Billing account record
+                                  billingAccountRecord.APPC_Primary_Lodgement_Point__c = alp.APT_Lodgement_Point_Lookup__r.Post_Code__c;
+                                  relatedObjectsToBeUpdated.add(billingAccountRecord);         
+                                }
+                              }     
+                              
 							car.Billing_Account__c = billingAccountRecord.id;
 							car.Status__c = 'Completed';
 							relatedObjectsToBeUpdated.add(car);
