@@ -8,6 +8,7 @@
 * @description A polymorphic Selector Class for custom settings
 * @changelog
 * 2021-04-28 - Victor Cheng - Created
+* 2022-09-05 - Swati Mogadala - Created a new method selectBySetupOwnerid() for hierarchy custom settings
 */
 public virtual inherited sharing class CustomsSettingsSelector extends ApplicationSelector{
 
@@ -48,4 +49,21 @@ public virtual inherited sharing class CustomsSettingsSelector extends Applicati
         }
         return mapReturn;
     }
+
+    /**
+	 * Get the Hierarchial Custom Settings rows filtered by the setupOwnerIds
+	 * @param targetIds contains setupOwnerIds
+	 * @return  `List<SObject>`
+	 */
+	public virtual List<SObject> selectBySetupOwnerid(Set<Id> targetIds) {
+		// new query string
+		QueryBuilder qb = newQueryBuilder();
+
+		QueryBuilder.ConditionsManager cm = qb.conditionsManager;
+		cm.add(new QueryBuilder.SimpleCondition('SetupOwnerid IN:  targetIds'));
+		cm.endConditions();
+		List<SObject> queryResults = Database.query((qb.toSoqlString()));
+		return queryResults;
+	}
+    
 }
