@@ -10,7 +10,7 @@
  * @changelog
  */
 public inherited sharing class ExceptionCheckerService {
-
+    private static Consumer_Help_and_Support__c CHAS_SETTINGS = Consumer_Help_and_Support__c.getOrgDefaults();
     /**
      * Check for the exceptions in the events for articles
      * @param eventsByArticle Map<String, List<EventMessage__c>>
@@ -18,6 +18,7 @@ public inherited sharing class ExceptionCheckerService {
      * @return Map<String,ExceptionResult>
      */
     public static Map<String, ExceptionResultDTO> isExceptionApplies(Map<String, List<EventMessageDTO>> eventsByArticle) {
+        Integer recentScanDays = Integer.valueOf(CHAS_SETTINGS.RecentScanDays__c);
         // retrieving stored exceptionDTO message config
         List<String> eventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
         // storing the result to be returned per article
@@ -31,7 +32,7 @@ public inherited sharing class ExceptionCheckerService {
                 if(eventMessageString.contains(exceptionDTO.EventType)) {
                     result.isException = true;
                 } // if there was a recent scan we should get the agent to look at the case.
-                else if(exceptionDTO.ActualDateTime >= Date.today().addDays(-5)){
+                else if(exceptionDTO.ActualDateTime >= Date.today().addDays(-recentScanDays)){
                     result.isException = true;
                 }
             }
@@ -40,28 +41,6 @@ public inherited sharing class ExceptionCheckerService {
         }
 
         return articleToExceptionResult;
-    }
-
-    /**
-     * support for EventMessage__c for back end use
-     * @param eventsByArticle Map<String, List<EventMessage__c>>
-     *
-     * @return Map<String, ExceptionResultDTO>
-     */
-    public static Map<String, ExceptionResultDTO> isExceptionApplies(Map<String, List<EventMessage__c>> eventsByArticle) {
-        Map<String, List<EventMessageDTO>> eventDTOsByArticle = new  Map<String, List<EventMessageDTO>>();
-        for(String articleId: eventsByArticle.keySet()){
-            if(eventsByArticle.get(articleId) == null) {continue;}
-            List<EventMessageDTO> eventMessageDTOS = new List<EventMessageDTO>();
-            for(EventMessage__c event : eventsByArticle.get(articleId)) {
-                ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
-                eventMessageDTO.EventType = event.EventType__c;
-                eventMessageDTO.ActualDateTime = event.ActualDateTime__c;
-                eventMessageDTOS.add(eventMessageDTO);
-            }
-            eventDTOsByArticle.put(articleId, eventMessageDTOS);
-        }
-        return isExceptionApplies(eventDTOsByArticle);
     }
 
     // in case if we need to send more parameters we are using this DTO
