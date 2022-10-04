@@ -48,6 +48,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Display_ETA_to_Driver__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Earliest_Start_Time__c</field>
             </layoutItems>
             <layoutItems>
@@ -103,10 +107,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>LastModifiedById</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Display_ETA_to_Driver__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
