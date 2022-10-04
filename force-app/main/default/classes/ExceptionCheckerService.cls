@@ -9,7 +9,7 @@
  * @domain CHAS
  * @changelog
  */
-public with sharing class ExceptionCheckerService {
+public inherited sharing class ExceptionCheckerService {
 
     /**
      * Check for the exceptions in the events for articles
@@ -17,21 +17,21 @@ public with sharing class ExceptionCheckerService {
      *
      * @return Map<String,ExceptionResult>
      */
-    public static Map<String,ExceptionResult> isExceptionApplies(Map<String, List<EventMessage__c>> eventsByArticle) {
-        // retrieving stored event message config
+    public static Map<String, ExceptionResultDTO> isExceptionApplies(Map<String, List<EventMessageDTO>> eventsByArticle) {
+        // retrieving stored exceptionDTO message config
         List<String> eventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
         // storing the result to be returned per article
-        Map<String,ExceptionResult> articleToExceptionResult = new Map<String,ExceptionResult>();
+        Map<String, ExceptionResultDTO> articleToExceptionResult = new Map<String, ExceptionResultDTO>();
         for(String articleId : eventsByArticle.keySet()) {
-            List<EventMessage__c> events = eventsByArticle.get(articleId);
-            ExceptionResult result = new ExceptionResult();
+            List<EventMessageDTO> exceptionDTOS = eventsByArticle.get(articleId);
+            ExceptionResultDTO result = new ExceptionResultDTO();
             // checking through events for exceptions
-            for(EventMessage__c event : events) {
+            for(EventMessageDTO exceptionDTO : exceptionDTOS) {
                 // if there's an exception found set the value to true in the DTO
-                if(eventMessageString.contains(event.EventType__c)) {
+                if(eventMessageString.contains(exceptionDTO.EventType)) {
                     result.isException = true;
                 } // if there was a recent scan we should get the agent to look at the case.
-                else if(event.ActualDateTime__c >= Date.today().addDays(-5)){
+                else if(exceptionDTO.ActualDateTime >= Date.today().addDays(-5)){
                     result.isException = true;
                 }
             }
@@ -42,9 +42,36 @@ public with sharing class ExceptionCheckerService {
         return articleToExceptionResult;
     }
 
+    /**
+     * support for EventMessage__c for back end use
+     * @param eventsByArticle Map<String, List<EventMessage__c>>
+     *
+     * @return Map<String, ExceptionResultDTO>
+     */
+    public static Map<String, ExceptionResultDTO> isExceptionApplies(Map<String, List<EventMessage__c>> eventsByArticle) {
+        Map<String, List<EventMessageDTO>> eventDTOsByArticle = new  Map<String, List<EventMessageDTO>>();
+        for(String articleId: eventsByArticle.keySet()){
+            if(eventsByArticle.get(articleId) == null) {continue;}
+            List<EventMessageDTO> eventMessageDTOS = new List<EventMessageDTO>();
+            for(EventMessage__c event : eventsByArticle.get(articleId)) {
+                ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+                eventMessageDTO.EventType = event.EventType__c;
+                eventMessageDTO.ActualDateTime = event.ActualDateTime__c;
+                eventMessageDTOS.add(eventMessageDTO);
+            }
+            eventDTOsByArticle.put(articleId, eventMessageDTOS);
+        }
+        return isExceptionApplies(eventDTOsByArticle);
+    }
+
     // in case if we need to send more parameters we are using this DTO
-    public class ExceptionResult {
-        public boolean isException{
+    public class EventMessageDTO {
+        public String EventType { get; set; }
+        public DateTime ActualDateTime { get; set; }
+    }
+
+    public class ExceptionResultDTO {
+        public Boolean isException{
             get{
                 if(isException == null) {
                     return false;
