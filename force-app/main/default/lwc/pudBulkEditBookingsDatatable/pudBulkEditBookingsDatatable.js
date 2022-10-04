@@ -310,8 +310,8 @@ export default class PudBulkEditBookingsDatatable extends LightningElement {
     getCellAttributes(booking, column) {
         if(column.colorCoded) {
             return ({styleClass: 'dot ' + getColorCodeStyleClass(booking)});
-        }
-        else if(column.conditionalEdit) { //set column value editable if Booking.start_time__c is NOT NULL.
+        } else if(column.conditionalEdit) { 
+            //set column value editable if Booking.start_time__c is NOT NULL.
             return ({editable : this.isCellEditable(booking, column)});
         }
         return null;

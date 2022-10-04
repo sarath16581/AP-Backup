@@ -156,7 +156,7 @@ export default class PudBulkEditBookingsDatatableCell extends LightningElement {
      * returns the whether cell/column is editable or not.
      */
     get isEditable() {
-        //if editable is false then return false.c/addLodgementPoint
+        //if editable is false then return false
         //If cellAttributes has editable set then use cellAttributes.editable. Else, use editable property set on columns.
         return (!this.editable ? false : ( (this.cellAttributes && this.cellAttributes.hasOwnProperty('editable')) ? this.cellAttributes.editable : this.editable ));
     }
