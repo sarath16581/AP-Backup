@@ -5,6 +5,7 @@
 * @description Test class for CaseReopenBatch job
 * @changelog
 * 02/12/2021 - Alex Volkov - Initial creation
+* 28/09/2022 - Mahesh Parvathaneni - DDS-12732 - Included the exception checker logic
 */
 
 @IsTest
@@ -34,9 +35,17 @@ private with sharing class CaseReopenBatchTest {
 		CaseReopenBatch vBatch = new CaseReopenBatch();
 		vBatch.execute(null, vCases);
 		Test.stopTest();
-		fflib_ArgumentCaptor vArgCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
-		((ApplicationDatabase) MockUtility.Mocks.verify(vMockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>)vArgCaptor.capture(), fflib_Match.eqBoolean(false));
-		Map<Id, Case> vRecords = new Map<Id, Case>((List<Case>) vArgCaptor.getValue());
+		// fflib_ArgumentCaptor vArgCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
+		// //update called on cases and case comments
+		// ((ApplicationDatabase) MockUtility.Mocks.verify(vMockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<Case>)vArgCaptor.capture(), fflib_Match.eqBoolean(false));
+		// Map<Id, Case> vRecords = new Map<Id, Case>((List<Case>) vArgCaptor.getValue());
+		// System.assertEquals(200, vRecords.size(), 'Records were not updated');
+
+		// verify worker was enqueued correctly
+		fflib_ArgumentCaptor vArgCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
+		//update called on cases and case comments
+		((ApplicationDatabase)MockUtility.Mocks.verify(vMockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)vArgCaptor.capture(), fflib_Match.eqBoolean(false));
+		Map<Id, SObject> vRecords = new Map<Id, Case>((List<SObject>) vArgCaptor.getValue());
 		System.assertEquals(200, vRecords.size(), 'Records were not updated');
 	}
 
