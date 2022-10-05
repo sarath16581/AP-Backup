@@ -78,16 +78,19 @@ private class StarTrackSupportCaseOwnerModule_Test {
 
         Test.stopTest();
 
-        // Make sure the method behaved
-        ((CaseMilestonesSelector) MockUtility.Mocks.verify(mockCaseMilestonesSelector, 1))
-            .selectByCase(new Set<Id>{ cases[0].Id });
+        // (Case status not updated for System support user)
+        if (!'System Support'.equalsIgnoreCase(UserInfo.getName())) {
+            // Make sure the method behaved
+            ((CaseMilestonesSelector) MockUtility.Mocks.verify(mockCaseMilestonesSelector, 1))
+                .selectByCase(new Set<Id>{ cases[0].Id });
 
-        // Make sure fields updated correctly
-        System.assertEquals(
-            'Awaiting Investigation',
-            cases[0].Status,
-            'Expected status to be Awaiting Investigation on case'
-        );
+            // Make sure fields updated correctly
+            System.assertEquals(
+                'Awaiting Investigation',
+                cases[0].Status,
+                'Expected status to be Awaiting Investigation on case'
+            );
+        }
     }
 
     /**
@@ -123,12 +126,14 @@ private class StarTrackSupportCaseOwnerModule_Test {
 
         Test.stopTest();
 
-        // Make sure fields were updated correctly
-        System.assertEquals(
+        // Make sure fields were updated correctly (Case status not updated for System support user)
+        if (!'System Support'.equalsIgnoreCase(UserInfo.getName())) {
+            System.assertEquals(
             'Awaiting Investigation',
             updatedCases[0].Status,
             'Expected status to be Awaiting Investigation on case'
         );
+        }
     }
 
     /**
