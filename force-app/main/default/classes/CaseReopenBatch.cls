@@ -49,7 +49,7 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 
 		//process the exception checker logic for cases with articles
 		if (articleToCasesMap.size() > 0) {
-			runExceptionCheckerOnCases(articleToCasesMap);
+			handleExceptionCheckerOnCases(articleToCasesMap);
 		}
 
 		//process the consignments to allocate to queue
@@ -66,25 +66,21 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 		Database.executeBatch(this, BATCH_SIZE);
 	}
 
-	private void runExceptionCheckerOnCases(Map<Id, List<Case>> articleToCasesMap) {
+	private void handleExceptionCheckerOnCases(Map<Id, List<Case>> articleToCasesMap) {
 		Map<String, Id> trackingIdToArticleMap = new Map<String, Id>();
-		Map<String, List<EventMessageWrapper>> trackingIdToEventMessageWrapperMap = new Map<String, List<EventMessageWrapper>>();
+		Map<String, List<ExceptionCheckerService.EventMessageDTO>> trackingIdToEventMessageWrapperMap = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
 		Map<Id,EventMessage__c> eventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(articleToCasesMap.keySet());
-		List<Case> exceptionCases = new List<Case>();
-		List<Case> noExceptionCases = new List<Case>();
-		List<Case> agentQueueCases = new List<Case>();
-		List<Case> casesToClose = new List<Case>();
 
 			for (EventMessage__c em : eventMessageMap.values()) {
 				//populate trackingIdToEventMessageWrapperMap
 				if (!trackingIdToEventMessageWrapperMap.containsKey(em.TrackingID__c)) {
-					trackingIdToEventMessageWrapperMap.put(em.TrackingID__c, new List<EventMessageWrapper>());
+					trackingIdToEventMessageWrapperMap.put(em.TrackingID__c, new List<ExceptionCheckerService.EventMessageDTO>());
 				}
 				if (String.isNotBlank(em.EventType__c)) {
-					EventMessageWrapper wrapper = new EventMessageWrapper();
-					wrapper.eventType = em.EventType__c;
-					wrapper.eventDatetime = em.ActualDateTime__c;
-					trackingIdToEventMessageWrapperMap.get(em.TrackingID__c).add(wrapper);
+					ExceptionCheckerService.EventMessageDTO emDto = new ExceptionCheckerService.EventMessageDTO();
+					emDto.eventType = em.EventType__c;
+					emDto.actualDateTime = em.ActualDateTime__c;
+					trackingIdToEventMessageWrapperMap.get(em.TrackingID__c).add(emDto);
 				}
 				//populate trackingIdToArticleMap
 				if (!trackingIdToArticleMap.containsKey(em.TrackingID__c)) {
@@ -93,91 +89,40 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 			}
 
 			if (trackingIdToEventMessageWrapperMap.size() > 0) {
-				//call the exception checker service for any exceptions found
-				Map<String, ExceptionResult> exceptionResult = isExceptionApplies(trackingIdToEventMessageWrapperMap);
-				//loop through tracking ids if exceptions
-				for (String trackingId : trackingIdToEventMessageWrapperMap.keySet()) {
-					if (exceptionResult.containsKey(trackingId) && exceptionResult.get(trackingId).isException) {
-						//get the cases
-						exceptionCases.addAll(articleToCasesMap.get(trackingIdToArticleMap.get(trackingId)));
-					} else {
-						noExceptionCases.addAll(articleToCasesMap.get(trackingIdToArticleMap.get(trackingId)));
-					}
-				}
-				agentQueueCases.addAll(exceptionCases);
-
-				for (Case neCase : noExceptionCases) {
-					if (neCase.CaseOriginator__c == ChasConstants.SENDER) {
-						agentQueueCases.add(neCase);
-					} else {
-						casesToClose.add(neCase);
-					}
-				}
-				//assign the cases to queue
-				assignCasesToAgentQueue(exceptionCases);
-				//close the cases for lost in transit
-				closeCases(casesToClose);	
+				//call the exception checker service
+				runExceptionChecker(trackingIdToEventMessageWrapperMap, articleToCasesMap, trackingIdToArticleMap);	
 			}
 	}
 
-	//assign cases to agent queue
-	private void assignCasesToAgentQueue(List<Case> casesToAgentQueue) {
-		List<CaseComment> caseComments = new List<CaseComment>();
-		for (Case c: casesToAgentQueue) {
-			c.AllocateToQueue__c = true;
-			c.Case_Reopen_Date__c = null;
-			c.Bypass_Data_enforcement__c = true;
-			//add comment
-			CaseComment caseComment = new CaseComment();
-			caseComment.IsPublished = true;
-            caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: No';
-            caseComments.add(caseComment);
+	private void runExceptionChecker(Map<String, List<ExceptionCheckerService.EventMessageDTO>> trackingIdToEventMessageWrapperMap, Map<Id, List<Case>> articleToCasesMap, Map<String, Id> trackingIdToArticleMap) {
+		List<Case> exceptionCases = new List<Case>();
+		List<Case> noExceptionCases = new List<Case>();
+		List<Case> agentQueueCases = new List<Case>();
+		List<Case> casesToClose = new List<Case>();
+
+		Map<String, ExceptionCheckerService.ExceptionResultDTO> exceptionResult = ExceptionCheckerService.isExceptionApplies(trackingIdToEventMessageWrapperMap);
+		//loop through tracking ids if exceptions
+		for (String trackingId : trackingIdToEventMessageWrapperMap.keySet()) {
+			if (exceptionResult.containsKey(trackingId) && exceptionResult.get(trackingId).isException) {
+				//get the cases
+				exceptionCases.addAll(articleToCasesMap.get(trackingIdToArticleMap.get(trackingId)));
+			} else {
+				noExceptionCases.addAll(articleToCasesMap.get(trackingIdToArticleMap.get(trackingId)));
+			}
 		}
-		//update cases
-		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToAgentQueue, false);
-		UTIL_LoggingService.logDmlResults(vResult, null, casesToAgentQueue, 'Case Reopen',
-				CaseReopenBatch.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
-		//update case comments
-		List<Database.SaveResult> commentsResult = ApplicationDatabase.getInstance().dmlUpdate(caseComments, false);
-		UTIL_LoggingService.logDmlResults(commentsResult, null, caseComments, 'Case Reopen',
-				CaseReopenBatch.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
-	}
+		agentQueueCases.addAll(exceptionCases);
 
-	//close cases for lost in transit
-	private void closeCases(List<Case> casesToClose) {
-		List<CaseComment> caseComments = new List<CaseComment>();
-		for (Case c: casesToClose) {
-			c.ClosedBySystem__c = true;
-			c.ByPassWorkflowRulesOnCreation__c = true; //populate the filed to trigger the email
-			//add comment
-			CaseComment caseComment = new CaseComment();
-			caseComment.IsPublished = true;
-            caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: Yes';
-            caseComments.add(caseComment);
+		for (Case neCase : noExceptionCases) {
+			if (neCase.CaseOriginator__c == ChasConstants.SENDER) {
+				agentQueueCases.add(neCase);
+			} else {
+				casesToClose.add(neCase);
+			}
 		}
-		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToClose, false);
-		UTIL_LoggingService.logDmlResults(vResult, null, casesToClose, 'Case Reopen',
-				CaseReopenBatch.class.getName(), 'closeCases',null, LoggingLevel.ERROR);
-		//update case comments
-		List<Database.SaveResult> commentsResult = ApplicationDatabase.getInstance().dmlUpdate(caseComments, false);
-		UTIL_LoggingService.logDmlResults(commentsResult, null, caseComments, 'Case Reopen',
-				CaseReopenBatch.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
-	}
-
-	private Map<String, ExceptionResult> isExceptionApplies(Map<String, List<EventMessageWrapper>> trackingIdToEventMessageWrapperMap){
-		Map<String, ExceptionResult> result = new Map<String, ExceptionResult>();
-		return result;
-	}
-
-	public class EventMessageWrapper {
-		public String eventType;
-		public Datetime eventDatetime;
-	}
-
-	public class ExceptionResult {
-		public boolean isException;
+		//assign the cases to queue
+		ExceptionCheckerService.assignCasesToAgentQueue(exceptionCases);
+		//close the cases for lost in transit
+		ExceptionCheckerService.closeCases(casesToClose);
 	}
 
 }

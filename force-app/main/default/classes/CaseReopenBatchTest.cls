@@ -45,7 +45,7 @@ private with sharing class CaseReopenBatchTest {
 		fflib_ArgumentCaptor vArgCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 		//update called on cases and case comments
 		((ApplicationDatabase)MockUtility.Mocks.verify(vMockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)vArgCaptor.capture(), fflib_Match.eqBoolean(false));
-		Map<Id, SObject> vRecords = new Map<Id, Case>((List<SObject>) vArgCaptor.getValue());
+		Map<Id, SObject> vRecords = new Map<Id, SObject>((List<SObject>) vArgCaptor.getValue());
 		System.assertEquals(200, vRecords.size(), 'Records were not updated');
 	}
 

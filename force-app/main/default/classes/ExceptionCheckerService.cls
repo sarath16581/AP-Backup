@@ -45,8 +45,8 @@ public inherited sharing class ExceptionCheckerService {
 
     // in case if we need to send more parameters we are using this DTO
     public class EventMessageDTO {
-        public String EventType { get; set; }
-        public DateTime ActualDateTime { get; set; }
+        public String eventType { get; set; }
+        public DateTime actualDateTime { get; set; }
     }
 
     public class ExceptionResultDTO {
@@ -60,5 +60,55 @@ public inherited sharing class ExceptionCheckerService {
             set;
         }
     }
+
+    /**
+     *  Close cases for lost in transit and 
+     */
+	public static void closeCases(List<Case> casesToClose) {
+		List<CaseComment> caseComments = new List<CaseComment>();
+		for (Case c: casesToClose) {
+			c.ClosedBySystem__c = true;
+			c.ByPassWorkflowRulesOnCreation__c = true; //populate the filed to trigger the email
+			//add comment
+			CaseComment caseComment = new CaseComment();
+			caseComment.IsPublished = true;
+            caseComment.ParentId = c.Id;
+            caseComment.CommentBody = 'Auto-LIT exception: Yes';
+            caseComments.add(caseComment);
+		}
+		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToClose, false);
+		UTIL_LoggingService.logDmlResults(vResult, null, casesToClose, 'Case Reopen',
+				ExceptionCheckerService.class.getName(), 'closeCases',null, LoggingLevel.ERROR);
+		//update case comments
+		List<Database.SaveResult> commentsResult = ApplicationDatabase.getInstance().dmlInsert(caseComments, false);
+		UTIL_LoggingService.logDmlResults(commentsResult, null, caseComments, 'Case Reopen',
+                ExceptionCheckerService.class.getName(), 'closeCases',null, LoggingLevel.ERROR);
+	}
+
+    /**
+     * Assign cases to agent queue
+     */
+	public static void assignCasesToAgentQueue(List<Case> casesToAgentQueue) {
+		List<CaseComment> caseComments = new List<CaseComment>();
+		for (Case c: casesToAgentQueue) {
+			c.AllocateToQueue__c = true;
+			c.Case_Reopen_Date__c = null;
+			c.Bypass_Data_enforcement__c = true;
+			//add comment
+			CaseComment caseComment = new CaseComment();
+			caseComment.IsPublished = true;
+            caseComment.ParentId = c.Id;
+            caseComment.CommentBody = 'Auto-LIT exception: No';
+            caseComments.add(caseComment);
+		}
+		//update cases
+		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToAgentQueue, false);
+		UTIL_LoggingService.logDmlResults(vResult, null, casesToAgentQueue, 'Case Reopen',
+				CaseReopenBatch.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
+		//update case comments
+		List<Database.SaveResult> commentsResult = ApplicationDatabase.getInstance().dmlUpdate(caseComments, false);
+		UTIL_LoggingService.logDmlResults(commentsResult, null, caseComments, 'Case Reopen',
+				CaseReopenBatch.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
+	}
 
 }
