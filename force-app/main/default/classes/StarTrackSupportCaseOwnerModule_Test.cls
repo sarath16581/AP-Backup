@@ -16,8 +16,9 @@ private class StarTrackSupportCaseOwnerModule_Test {
      */
     @testSetup
     static void createUser() {
-        Profile p = [SELECT Id FROM Profile WHERE Name = 'StarTrack Support'];
+        Profile p = [SELECT Id FROM Profile WHERE Name = 'StarTrack Support'];        
         UserRole r = [SELECT Id FROM UserRole WHERE Name = 'CEO/Reporting'];
+        List<User> lstUser = new List<User>();
         User supportUser = new User(
             Alias = 'stspUser',
             Email = 'user@testorg.com.au',
@@ -30,7 +31,25 @@ private class StarTrackSupportCaseOwnerModule_Test {
             TimeZoneSidKey = 'America/Los_Angeles',
             UserName = 'user@testorg.a'
         );
-        Database.insert(supportUser);
+        lstUser.add(supportUser);
+        
+        Profile pAdmin = [SELECT Id FROM Profile WHERE Name = 'System Administrator'];
+        User supportUser1 = new User(
+            Alias = 'stsUser1',
+            Email = 'user1@testorg.com.au',
+            EmailEncodingKey = 'UTF-8',
+            LastName = 'Testing1',
+            LanguageLocaleKey = 'en_US',
+            LocaleSidKey = 'en_US',
+            ProfileId = pAdmin.Id,
+            UserRoleId = r.Id,
+            TimeZoneSidKey = 'America/Los_Angeles',
+            UserName = 'user1@testorg.a'
+        );
+        lstUser.add(supportUser1);
+        
+        Database.insert(lstUser);
+        
     }
 
     /**
@@ -118,22 +137,24 @@ private class StarTrackSupportCaseOwnerModule_Test {
             insert cases;
         }
 
-        // Change owner
-        cases[0].OwnerId = Userinfo.getUserId();
-        update Cases;
+        User supportUser1 = [SELECT Id, Name FROM User WHERE UserName = 'user1@testorg.a' LIMIT 1];
 
+        System.runAs(supportUser1) {        
+            // Change owner
+            cases[0].OwnerId = supportUser1.Id;
+            update Cases;
+        }
+        
         List<Case> updatedCases = [SELECT Id, Status FROM Case WHERE Id = :cases[0].Id];
 
         Test.stopTest();
 
         // Make sure fields were updated correctly (Case status not updated for System support user)
-        if (!'System Support'.equalsIgnoreCase(UserInfo.getName())) {
-            System.assertEquals(
+        System.assertEquals(
             'Awaiting Investigation',
             updatedCases[0].Status,
             'Expected status to be Awaiting Investigation on case'
         );
-        }
     }
 
     /**
