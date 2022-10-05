@@ -7,8 +7,9 @@
 * @domain Apttus
 * @changelog
 * 2022-04-08 - Seth Heang - Created
-* 2022-05-30 - nasir.jawed@auspost.com.au - added the method to get proposal, contact  for test class
 * 2022-06-01 - Seth Heang - Added getAPTAgreementLineItem
+* 2022-05-30 - nasir.jawed@auspost.com.au - added the method to get proposal, contact  for test class
+* 2022-08-24 - Bharat Patel - added the method to get SummaryGroup, ProductOptionComponent, ClassificationName, ClassificationHierarchy, ConfigLineItem and update getAPTContactRecord() method   for test class
 */
 @isTest
 public class APT_TestDataFactory {
@@ -140,22 +141,99 @@ public class APT_TestDataFactory {
     // creating a test data for proposal object
      public static List<Apttus_Proposal__Proposal__c> getAPTProposalRecord(integer count, Id oppId, Id AccID,ID conID, Boolean generateIds){
 		return (List<Apttus_Proposal__Proposal__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Proposal__Proposal__c.SObjectType, new Map<SObjectField, Object> {
-			
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary__c => true,
 			Apttus_Proposal__Proposal__c.Is_Startrack_Proposal__c => 'NO',			
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c => AccID,
 			Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary_Contact__c => conID,
-			Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c => oppId
+			Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__c => oppId,
+			Apttus_Proposal__Proposal__c.RecordTypeId => Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Proposal').getRecordTypeId()
 		}, count), generateIds);
 	}
 	// creating a test data for Contact object
-	public static List<Contact> getAPTContactRecord(integer count, Id AccID, Boolean generateIds){
+	public static List<Contact> getAPTContactRecord(integer count, Id accId, Boolean generateIds){
 		return (List<Contact>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Contact.SObjectType, new Map<SObjectField, Object> {			
-			Contact.lastname => 'Jawed',
-			Contact.status__c => 'Active',			
-			Contact.AccountID => AccID,
-			Contact.email => 'njawed@conga.com',
-			Contact.phone => '9886340071'
+			Contact.FirstName => APT_Constants.STRING_TEST1,
+			Contact.LastName => APT_Constants.STRING_SAMPLE,
+			Contact.Status__c => 'Active',			
+			Contact.AccountId => accId,
+			Contact.Email => APT_Constants.SAMPLE_EMAIL,
+			Contact.Phone => '9886340071'
+		}, count), generateIds);
+	}
+
+	// creating a test data for Apttus_Config2__SummaryGroup__c object
+	public static List<Apttus_Config2__SummaryGroup__c> getSummaryGroupRecord(integer count, Id configId, integer itemSequence, integer lineNumber, Boolean generateIds){
+		return (List<Apttus_Config2__SummaryGroup__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__SummaryGroup__c.SObjectType, new Map<SObjectField, Object> {			
+			Apttus_Config2__SummaryGroup__c.Apttus_Config2__ConfigurationId__c => configId,
+			Apttus_Config2__SummaryGroup__c.Apttus_Config2__ItemSequence__c => itemSequence,
+			Apttus_Config2__SummaryGroup__c.Apttus_Config2__LineNumber__c => lineNumber
+		}, count), generateIds);
+	}
+
+	// creating a test data for Apttus_Config2__ProductOptionComponent__c object
+	public static List<Apttus_Config2__ProductOptionComponent__c> getProductOptionComponentRecord(integer count,  integer itemSequence, Boolean generateIds){
+		return (List<Apttus_Config2__ProductOptionComponent__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ProductOptionComponent__c.SObjectType, new Map<SObjectField, Object> {			
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Sequence__c => itemSequence			
+		}, count), generateIds);
+	}
+
+	// creating a test data for Apttus_Config2__ClassificationName__c object
+	public static List<Apttus_Config2__ClassificationName__c> getClassificationNameRecord(integer count,  String name, String hierarchyLabel, String type, String guidePage, Boolean generateIds){
+		return (List<Apttus_Config2__ClassificationName__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ClassificationName__c.SObjectType, new Map<SObjectField, Object> {			
+			Apttus_Config2__ClassificationName__c.Name => name,	
+			Apttus_Config2__ClassificationName__c.Apttus_Config2__Active__c => true,
+			Apttus_Config2__ClassificationName__c.Apttus_Config2__HierarchyLabel__c => hierarchyLabel,
+			Apttus_Config2__ClassificationName__c.Apttus_Config2__Type__c => type,
+			Apttus_Config2__ClassificationName__c.Apttus_Config2__GuidePage__c => guidePage
+		}, count), generateIds);
+	}
+
+	// creating a test data for Apttus_Config2__ClassificationHierarchy__c object
+	public static List<Apttus_Config2__ClassificationHierarchy__c> getClassificationHierarchyRecord(integer count, Id hierarchyId, String label, Boolean generateIds){
+		return (List<Apttus_Config2__ClassificationHierarchy__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ClassificationHierarchy__c.SObjectType, new Map<SObjectField, Object> {			
+			Apttus_Config2__ClassificationHierarchy__c.Apttus_Config2__HierarchyId__c => hierarchyId,	
+			Apttus_Config2__ClassificationHierarchy__c.Apttus_Config2__Label__c => label
+		}, count), generateIds);
+	}
+
+	public static List<Apttus_Config2__LineItem__c> getConfigLineItemRecords(integer count, ID configId,ID groupId, Integer itemSeq,
+		ID productId, ID productOptionId, ID optionId, ID classId, Decimal quantity,
+		Boolean isQtyModifiable, String uom,Integer term,ID priceListId,ID plItemId, String priceType,String priceMethod,String chargeType, String frequency,
+		 Decimal listPrice, Decimal basePrice,  Decimal baseExtPrice,Decimal optionPrice,
+		Decimal extPrice, Boolean generateIds){
+		return (List<Apttus_Config2__LineItem__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__LineItem__c.SObjectType, new Map<SObjectField, Object> {
+			Apttus_Config2__LineItem__c.Apttus_Config2__LineNumber__c => 1,
+			Apttus_Config2__LineItem__c.Apttus_Config2__IsPrimaryLine__c => true,
+			Apttus_Config2__LineItem__c.Apttus_Config2__PrimaryLineNumber__c => 1,
+			Apttus_Config2__LineItem__c.Apttus_Config2__ItemSequence__c => itemSeq,
+			Apttus_Config2__LineItem__c.Apttus_Config2__SummaryGroupId__c => groupId,
+			Apttus_Config2__LineItem__c.Apttus_Config2__LineType__c => '',
+			Apttus_Config2__LineItem__c.Apttus_Config2__ProductId__c => productId,
+			Apttus_Config2__LineItem__c.Apttus_Config2__Customizable__c => false,
+			Apttus_Config2__LineItem__c.Apttus_Config2__ProductOptionId__c => productOptionId,
+			Apttus_Config2__LineItem__c.Apttus_Config2__OptionId__c => optionId,
+			Apttus_Config2__LineItem__c.Apttus_Config2__ClassificationId__c => classId,
+			Apttus_Config2__LineItem__c.Apttus_Config2__ClassificationHierarchy__c => '',
+			Apttus_Config2__LineItem__c.Apttus_Config2__Quantity__c => quantity,
+			Apttus_Config2__LineItem__c.Apttus_Config2__IsQuantityModifiable__c => isQtyModifiable,
+			Apttus_Config2__LineItem__c.Apttus_Config2__Uom__c => uom,
+			Apttus_Config2__LineItem__c.Apttus_Config2__Term__c => term,
+			Apttus_Config2__LineItem__c.Apttus_Config2__PriceListId__c => priceListId,
+			Apttus_Config2__LineItem__c.Apttus_Config2__PriceListItemId__c => plItemId,
+			Apttus_Config2__LineItem__c.Apttus_Config2__PriceType__c => priceType,
+			Apttus_Config2__LineItem__c.Apttus_Config2__PriceMethod__c => priceMethod,
+			Apttus_Config2__LineItem__c.Apttus_Config2__ChargeType__c => chargeType,
+			Apttus_Config2__LineItem__c.Apttus_Config2__Frequency__c => frequency,
+			Apttus_Config2__LineItem__c.Apttus_Config2__AllowManualAdjustment__c => false,
+			Apttus_Config2__LineItem__c.Apttus_Config2__AllocateGroupAdjustment__c => false,
+			Apttus_Config2__LineItem__c.Apttus_Config2__ListPrice__c => listPrice,
+			Apttus_Config2__LineItem__c.Apttus_Config2__BasePrice__c => basePrice,
+			Apttus_Config2__LineItem__c.Apttus_Config2__BasePriceMethod__c => '',
+			Apttus_Config2__LineItem__c.Apttus_Config2__BaseExtendedPrice__c => baseExtPrice,
+			Apttus_Config2__LineItem__c.Apttus_Config2__OptionPrice__c => optionPrice,
+			Apttus_Config2__LineItem__c.Apttus_Config2__ExtendedPrice__c => extPrice,
+			Apttus_Config2__LineItem__c.Apttus_Config2__Description__c => 'Line Description',
+			Apttus_Config2__LineItem__c.Apttus_Config2__AdjustedPrice__c => 0
 		}, count), generateIds);
 	}
 }

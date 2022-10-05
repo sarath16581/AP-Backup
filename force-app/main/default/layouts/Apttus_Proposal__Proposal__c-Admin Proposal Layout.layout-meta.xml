@@ -45,10 +45,6 @@
                 <behavior>Readonly</behavior>
                 <field>APT_Make_Primary__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Apttus_Proposal__Primary__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -74,6 +70,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>APT_STE_Pricing_Tier__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Apttus_Proposal__Primary__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -151,6 +151,10 @@
         <label>Credit Assessment Request</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>APT_Parent_Proposal__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>APT_Method_of_Payment__c</field>
             </layoutItems>
@@ -169,7 +173,7 @@
                 <field>APT_Credit_Assessment_Status__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>APT_Credit_Assessment__c</field>
             </layoutItems>
             <layoutItems>
@@ -257,11 +261,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Apttus_Proposal__Proposal__c.Clone_with_Configuration</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>5</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Edit</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>0</sortOrder>
@@ -285,6 +284,11 @@
             <actionName>Apttus_CQApprov__Approvals</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>4</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Apttus_Proposal__Proposal__c.Clone_with_Configuration</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>5</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
@@ -384,28 +388,6 @@
         <fields>Apttus_Proposal__Quantity__c</fields>
         <fields>Apttus_QPConfig__DerivedFromId__c</fields>
         <relatedList>Apttus_Proposal__Proposal_Line_Item__c.Apttus_Proposal__Proposal__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>NewCase</excludeButtons>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CREATEDBY_USER.ALIAS</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
-        <relatedList>Case.Proposal__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>New</excludeButtons>
-        <fields>NAME</fields>
-        <fields>APT_ABN__c</fields>
-        <fields>APT_ACN__c</fields>
-        <fields>CREATED_DATE</fields>
-        <fields>LAST_UPDATE</fields>
-        <relatedList>APT_Cash_Account__c.APT_Proposal__c</relatedList>
-        <sortField>LAST_UPDATE</sortField>
-        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>

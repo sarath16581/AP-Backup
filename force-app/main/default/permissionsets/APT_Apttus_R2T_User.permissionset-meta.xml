@@ -11530,7 +11530,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Credit_Assessment_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
