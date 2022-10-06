@@ -185,7 +185,6 @@ public with sharing class BillingAccountWrapper {
         sap.customer.contactPersons = new List<ContactDetail>();
         sap.customer.communicationInfo = new communicationInfoDetail();
         sap.customer.childAccount = new List<childAccountDetail>();
-        ratingPlanActivation = new CompassContractActivation();
     }
 
 	public class CompassContractActivation{

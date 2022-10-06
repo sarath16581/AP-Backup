@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
+        <apexClass>APT_AgreementLineItemsSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>APT_AgreementLodgementPointsSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>APT_AgreementObjectsSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>APT_LodgementZonesSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>APT_ProductAttributeValuesSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>APT_ProposalObjectsSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>AgreementProductAttributeValuesSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>ApttusContractsSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>ChargeAccountRequestSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>ExternalOnboardingRequestSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>LineItemsSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>ProductsSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
         <apexClass>APTS_MergeDocumentstoPDFController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -18,6 +66,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APT_AccountDetails</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+	<classAccesses>
+        <apexClass>APT_CompassPricingController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -5207,6 +5259,11 @@
     </fieldPermissions>
 	<fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.Applied_PSR__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Selected_Lodgement_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5238,6 +5295,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Customer_Tier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.SAP_Cubic_Conversion_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.SAP_Rating_Model__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.SAP_Rating_Group__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5428,6 +5500,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_CMConfig__AgreementProductAttributeValue__c.Transit_cover__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetLineItem__c.APT_PSR_Applied__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__AssetLineItem__c.APT_COMPASS_Quote_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5818,6 +5900,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Config2__LineItem__c.APT_Get_Renewal_Rates__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__LineItem__c.Lodgement_Point__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__LineItem__c.Compass_LineItem_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__LineItem__c.SAP_Custom_Reference__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7088,6 +7185,20 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Config2__ProductAttributeValue__c.APTS_Price_Structure__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.SAP_Rating_Plan_DWT_Conversion_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.SAP_Cubic_Conversion_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions><fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.SAP_Weight_Rounding__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8783,6 +8894,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_DocuApi__DocuSignDefaultRecipient2__c.APT_Docusign_Recipient_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal_Line_Item__c.APT_PSR_Applied__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal_Line_Item__c.APT_COMPASS_Quote_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11290,6 +11411,31 @@
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.Revenue_Committment__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.SAP_Cubic_Conversion_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.SAP_Rating_Group__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.SAP_Rating_Model__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.SAP_Rating_Plan_DWT_Conversion_Factor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.SAP_Weight_Rounding__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.Transit_cover__c</field>
@@ -13220,6 +13366,26 @@
         <field>Apttus__AgreementLineItem__c.APT_Lodgement_Zone__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	 <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus__AgreementLineItem__c.SAP_Custom_Reference__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus__AgreementLineItem__c.APT_PSR_Applied__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	 <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus__AgreementLineItem__c.Compass_LineItem_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	 <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus__AgreementLineItem__c.APT_COMPASS_Quote_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus__AgreementLineItem__c.APT_Mark_All_Agreement_Line_Items_as_Old__c</field>
@@ -14200,6 +14366,11 @@
         <field>Product2.APTPS_need_transit_cov_on_all_parcels__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.Pricing_Tool__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.APTS_Ext_ID__c</field>
@@ -14218,6 +14389,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.APT_Apttus_Product_Classification__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.APT_Lodgement_Zone_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14593,6 +14769,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.Lodgement_zone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.SAP_Product_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -15112,6 +15293,10 @@
     </objectPermissions>
     <pageAccesses>
         <apexPage>APTS_CombineDocs</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+	<pageAccesses>
+        <apexPage>APT_Link_PSR</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
