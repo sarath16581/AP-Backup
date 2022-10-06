@@ -2,9 +2,10 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
-    <name>SSSW WFM Queue 4</name>
+    <name>Omni Routing Default</name>
+    <queueMembers>
+    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
-    <queueRoutingConfig></queueRoutingConfig>
 </Queue>

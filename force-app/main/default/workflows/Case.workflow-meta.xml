@@ -2344,7 +2344,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Social_Back_Office</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSWSocial</lookupValue>
+        <lookupValue>SSSW_Consumer_Back_Office_Low_Priority</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Social Back Office</name>
         <notifyAssignee>false</notifyAssignee>

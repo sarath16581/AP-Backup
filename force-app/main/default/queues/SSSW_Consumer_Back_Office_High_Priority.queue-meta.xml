@@ -2,9 +2,9 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
-    <name>SSSW WFM Queue 4</name>
+    <name>SSSW Consumer Back Office High Priority</name>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
-    <queueRoutingConfig></queueRoutingConfig>
+    <queueRoutingConfig>AP_SSSW_Consumer_BOH_High_Priority</queueRoutingConfig>
 </Queue>

@@ -1,15 +1,16 @@
 /**
-* @description Domain class to handle Person Account related capability
+* @description Domain class to handle Account related capability
 * @author George Nguyen
 * @group Domains
 * @domain Account
 * @changelog
 * 2022-05-31 - George Nguyen - Created.
+* 2022-09-29 - Noel Lim - Updated - relabelled from PersonAccountDomain to AccountDomain 
 */
-public inherited sharing class PersonAccountDomain extends ApplicationDomain {
+public inherited sharing class AccountDomain extends ApplicationDomain {
 
-	public static PersonAccountDomain newInstance(List<SObject> sObjectList) {
-		return (PersonAccountDomain)ApplicationDomain.newInstance(PersonAccountDomain.class, sObjectList);
+	public static AccountDomain newInstance(List<SObject> sObjectList) {
+		return (AccountDomain)ApplicationDomain.newInstance(AccountDomain.class, sObjectList);
 	}
 
 	/**
@@ -26,7 +27,7 @@ public inherited sharing class PersonAccountDomain extends ApplicationDomain {
 	 */
 	public virtual class Constructor implements ApplicationDomain.IConstructable {
 		public ApplicationDomain construct(List<SObject> sObjectList) {
-			return PersonAccountDomain.newInstance(sObjectList);
+			return AccountDomain.newInstance(sObjectList);
 		}
 	}
 
