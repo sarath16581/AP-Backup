@@ -54,7 +54,7 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 
 		//process the consignments to allocate to queue
 		if (caseListWithoutArticles.size() > 0) {
-			assignCasesToAgentQueue(caseListWithoutArticles);
+			ExceptionCheckerService.getInstance().assignCasesToAgentQueue(caseListWithoutArticles);
 		}
 	}
 
@@ -66,6 +66,9 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 		Database.executeBatch(this, BATCH_SIZE);
 	}
 
+	/**
+	 * handle the exception checker logic
+	 */
 	private void handleExceptionCheckerOnCases(Map<Id, List<Case>> articleToCasesMap) {
 		Map<String, Id> trackingIdToArticleMap = new Map<String, Id>();
 		Map<String, List<ExceptionCheckerService.EventMessageDTO>> trackingIdToEventMessageWrapperMap = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
@@ -94,13 +97,16 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 			}
 	}
 
+	/**
+	 * Run the exception checker logic on cases to assign to agent queue and close the cases
+	 */
 	private void runExceptionChecker(Map<String, List<ExceptionCheckerService.EventMessageDTO>> trackingIdToEventMessageWrapperMap, Map<Id, List<Case>> articleToCasesMap, Map<String, Id> trackingIdToArticleMap) {
 		List<Case> exceptionCases = new List<Case>();
 		List<Case> noExceptionCases = new List<Case>();
 		List<Case> agentQueueCases = new List<Case>();
 		List<Case> casesToClose = new List<Case>();
 
-		Map<String, ExceptionCheckerService.ExceptionResultDTO> exceptionResult = ExceptionCheckerService.isExceptionApplies(trackingIdToEventMessageWrapperMap);
+		Map<String, ExceptionCheckerService.ExceptionResultDTO> exceptionResult = ExceptionCheckerService.getInstance().isExceptionApplies(trackingIdToEventMessageWrapperMap);
 		//loop through tracking ids if exceptions
 		for (String trackingId : trackingIdToEventMessageWrapperMap.keySet()) {
 			if (exceptionResult.containsKey(trackingId) && exceptionResult.get(trackingId).isException) {
@@ -120,9 +126,9 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 			}
 		}
 		//assign the cases to queue
-		ExceptionCheckerService.assignCasesToAgentQueue(exceptionCases);
+		ExceptionCheckerService.getInstance().assignCasesToAgentQueue(exceptionCases);
 		//close the cases for lost in transit
-		ExceptionCheckerService.closeCases(casesToClose);
+		ExceptionCheckerService.getInstance().closeCases(casesToClose);
 	}
 
 }

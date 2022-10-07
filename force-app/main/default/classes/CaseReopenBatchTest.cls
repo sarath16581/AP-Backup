@@ -26,27 +26,23 @@ private with sharing class CaseReopenBatchTest {
 			c.Case_Reopen_Date__c = System.now();
 		}
 		//Mocks
-		ApplicationDatabase vMockDatabase = MockUtility.mockDatabase();
+		ExceptionCheckerService exceptionService = (ExceptionCheckerService)MockUtility.mockUtility(ExceptionCheckerService.class);
+
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(vMockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		((ExceptionCheckerService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), exceptionService)).assignCasesToAgentQueue((List<Case>)fflib_Match.eq(vCases));
 		MockUtility.Mocks.stopStubbing();
 		//Test
 		Test.startTest();
 		CaseReopenBatch vBatch = new CaseReopenBatch();
 		vBatch.execute(null, vCases);
+		vBatch.execute(null);
 		Test.stopTest();
-		// fflib_ArgumentCaptor vArgCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
-		// //update called on cases and case comments
-		// ((ApplicationDatabase) MockUtility.Mocks.verify(vMockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<Case>)vArgCaptor.capture(), fflib_Match.eqBoolean(false));
-		// Map<Id, Case> vRecords = new Map<Id, Case>((List<Case>) vArgCaptor.getValue());
-		// System.assertEquals(200, vRecords.size(), 'Records were not updated');
 
-		// verify worker was enqueued correctly
-		fflib_ArgumentCaptor vArgCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
-		//update called on cases and case comments
-		((ApplicationDatabase)MockUtility.Mocks.verify(vMockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)vArgCaptor.capture(), fflib_Match.eqBoolean(false));
-		Map<Id, SObject> vRecords = new Map<Id, SObject>((List<SObject>) vArgCaptor.getValue());
-		System.assertEquals(200, vRecords.size(), 'Records were not updated');
+		List<AsyncApexJob> vJob = [SELECT Status FROM AsyncApexJob];
+		System.assertEquals('Completed', vJob[0].Status, 'Batch status: failed');
+
+		// should have called ExceptionCheckerService methods
+        ((ExceptionCheckerService)MockUtility.Mocks.verify(exceptionService, MockUtility.Mocks.times(1))).assignCasesToAgentQueue((List<Case>)fflib_Match.eq(vCases));
 	}
 
 	/**
@@ -71,5 +67,97 @@ private with sharing class CaseReopenBatchTest {
 		List<AsyncApexJob> vJob = [SELECT Status FROM AsyncApexJob];
 		System.assertEquals(1, vJob.size(), 'Batch failed to run');
 		System.assertEquals('Completed', vJob[0].Status, 'Batch status: failed');
+	}
+
+
+	/**
+	 * @description Test the exception checker logic to assign the cases to agent queue and close the cases
+	 */
+	@IsTest
+	private static void testExceptionCheckerCasesReopen() {
+
+		// =====================================
+        // Data Preparation
+        // =====================================
+		List<Case> vCases = ApplicationTestDataFactory.getCases(100, true);
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(4, null, true);
+		Map<String, List<EventMessageTypeMapping__mdt>> eventMessageType = EventMessageUtil.getEventMessageTypesByCategory();
+		List<EventMessage__c> articleOneEventMessages = ApplicationTestDataFactory.getEventMessages(1, articles[0].Id, true);
+		articleOneEventMessages[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
+		articleOneEventMessages[0].ActualDateTime__c = System.now();
+		articleOneEventMessages[0].TrackingID__c = '1234ABC';
+		List<EventMessage__c> articleTwoEventMessages = ApplicationTestDataFactory.getEventMessages(1, articles[1].Id, true);
+		articleTwoEventMessages[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
+		articleTwoEventMessages[0].ActualDateTime__c = System.now();
+		articleTwoEventMessages[0].TrackingID__c = '5678DEF';
+		List<EventMessage__c> articleThreeEventMessages = ApplicationTestDataFactory.getEventMessages(1, articles[2].Id, true);
+		articleThreeEventMessages[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
+		articleThreeEventMessages[0].ActualDateTime__c = System.now();
+		articleThreeEventMessages[0].TrackingID__c = 'ABC123';
+		List<EventMessage__c> articleFourEventMessages = ApplicationTestDataFactory.getEventMessages(1, articles[3].Id, true);
+		articleFourEventMessages[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
+		articleFourEventMessages[0].ActualDateTime__c = System.now();
+		articleFourEventMessages[0].TrackingID__c = 'DEF456';
+		for (Integer i = 0; i < 100 ; i++) {
+			vCases[i].Case_Reopen_Date__c = System.now();
+			if (i < 25) {
+				vCases[i].ArticleTest__c = articles[0].Id;
+			} else if (i < 50) {
+				vCases[i].ArticleTest__c = articles[1].Id;
+			} else if (i < 75) {
+				vCases[i].ArticleTest__c = articles[2].Id;
+			} else if (i < 85) {
+				vCases[i].ArticleTest__c = articles[2].Id;
+				vCases[i].CaseOriginator__c = 'Sender';
+			} else {
+				vCases[i].ArticleTest__c = articles[3].Id;
+			}
+		}
+
+		Map<String, ExceptionCheckerService.ExceptionResultDTO> exceptionResult = new Map<String, ExceptionCheckerService.ExceptionResultDTO>();
+		ExceptionCheckerService.ExceptionResultDTO ex1 = new ExceptionCheckerService.ExceptionResultDTO();
+		ex1.isException = true;
+		ExceptionCheckerService.ExceptionResultDTO ex2 = new ExceptionCheckerService.ExceptionResultDTO();
+		ex2.isException = true;
+		ExceptionCheckerService.ExceptionResultDTO ex3 = new ExceptionCheckerService.ExceptionResultDTO();
+		ex3.isException = false;
+		ExceptionCheckerService.ExceptionResultDTO ex4 = new ExceptionCheckerService.ExceptionResultDTO();
+		ex4.isException = true;
+		exceptionResult.put(articleOneEventMessages[0].TrackingID__c, ex1);
+		exceptionResult.put(articleTwoEventMessages[0].TrackingID__c, ex2);
+		exceptionResult.put(articleThreeEventMessages[0].TrackingID__c, ex3);
+		exceptionResult.put(articleFourEventMessages[0].TrackingID__c, ex4);
+
+
+
+		// =====================================
+        // Stubbing
+        // =====================================
+        EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector)MockUtility.mockSelector(EventMessagesSelector.class);
+		ExceptionCheckerService exceptionService = (ExceptionCheckerService)MockUtility.mockUtility(ExceptionCheckerService.class);
+
+		MockUtility.Mocks.startStubbing();
+		List<EventMessage__c> eventMessages = new List<EventMessage__c>(articleOneEventMessages);
+        eventMessages.addAll(articleTwoEventMessages);
+		eventMessages.addAll(articleThreeEventMessages);
+		eventMessages.addAll(articleFourEventMessages);
+        MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>(eventMessages));
+		MockUtility.Mocks.when(exceptionService.isExceptionApplies((Map<String, List<ExceptionCheckerService.EventMessageDTO>>)fflib_Match.anyObject())).thenReturn(exceptionResult);
+		((ExceptionCheckerService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), exceptionService)).assignCasesToAgentQueue((List<Case>)fflib_Match.anyObject());
+		((ExceptionCheckerService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), exceptionService)).closeCases((List<Case>)fflib_Match.anyObject());
+		MockUtility.Mocks.stopStubbing();
+		//Test
+		Test.startTest();
+		CaseReopenBatch vBatch = new CaseReopenBatch();
+		vBatch.execute(null, vCases);
+		vBatch.execute(null);
+		Test.stopTest();
+
+		List<AsyncApexJob> vJob = [SELECT Status FROM AsyncApexJob];
+		System.assertEquals('Completed', vJob[0].Status, 'Batch status: failed');
+
+		// should have called ExceptionCheckerService methods
+        ((ExceptionCheckerService)MockUtility.Mocks.verify(exceptionService, MockUtility.Mocks.times(1))).assignCasesToAgentQueue((List<Case>)fflib_Match.anyObject());
+		((ExceptionCheckerService)MockUtility.Mocks.verify(exceptionService, MockUtility.Mocks.times(1))).closeCases((List<Case>)fflib_Match.anyObject());
 	}
 }

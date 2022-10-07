@@ -11,13 +11,22 @@
  */
 public inherited sharing class ExceptionCheckerService {
     private static Consumer_Help_and_Support__c CHAS_SETTINGS = Consumer_Help_and_Support__c.getOrgDefaults();
+
+    /**
+	 * Grabs a new instance of this class
+	 * Using Application.Utilities allows us to override this interface with a mock class for unit testing
+	 */
+	public static ExceptionCheckerService getInstance() {
+		return (ExceptionCheckerService)Application.Utilities.getInstance(ExceptionCheckerService.class);
+	}
+
     /**
      * Check for the exceptions in the events for articles
      * @param eventsByArticle Map<String, List<EventMessage__c>>
      *
      * @return Map<String,ExceptionResult>
      */
-    public static Map<String, ExceptionResultDTO> isExceptionApplies(Map<String, List<EventMessageDTO>> eventsByArticle) {
+    public Map<String, ExceptionResultDTO> isExceptionApplies(Map<String, List<EventMessageDTO>> eventsByArticle) {
         Integer recentScanDays = Integer.valueOf(CHAS_SETTINGS.RecentScanDays__c);
         // retrieving stored exceptionDTO message config
         List<String> eventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
@@ -64,7 +73,7 @@ public inherited sharing class ExceptionCheckerService {
     /**
      *  Close cases for lost in transit and 
      */
-	public static void closeCases(List<Case> casesToClose) {
+	public void closeCases(List<Case> casesToClose) {
 		List<CaseComment> caseComments = new List<CaseComment>();
 		for (Case c: casesToClose) {
 			c.ClosedBySystem__c = true;
@@ -79,7 +88,7 @@ public inherited sharing class ExceptionCheckerService {
 		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToClose, false);
 		UTIL_LoggingService.logDmlResults(vResult, null, casesToClose, 'Case Reopen',
 				ExceptionCheckerService.class.getName(), 'closeCases',null, LoggingLevel.ERROR);
-		//update case comments
+		//insert case comments
 		List<Database.SaveResult> commentsResult = ApplicationDatabase.getInstance().dmlInsert(caseComments, false);
 		UTIL_LoggingService.logDmlResults(commentsResult, null, caseComments, 'Case Reopen',
                 ExceptionCheckerService.class.getName(), 'closeCases',null, LoggingLevel.ERROR);
@@ -88,7 +97,7 @@ public inherited sharing class ExceptionCheckerService {
     /**
      * Assign cases to agent queue
      */
-	public static void assignCasesToAgentQueue(List<Case> casesToAgentQueue) {
+	public void assignCasesToAgentQueue(List<Case> casesToAgentQueue) {
 		List<CaseComment> caseComments = new List<CaseComment>();
 		for (Case c: casesToAgentQueue) {
 			c.AllocateToQueue__c = true;
@@ -104,11 +113,11 @@ public inherited sharing class ExceptionCheckerService {
 		//update cases
 		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToAgentQueue, false);
 		UTIL_LoggingService.logDmlResults(vResult, null, casesToAgentQueue, 'Case Reopen',
-				CaseReopenBatch.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
-		//update case comments
-		List<Database.SaveResult> commentsResult = ApplicationDatabase.getInstance().dmlUpdate(caseComments, false);
+            ExceptionCheckerService.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
+		//insert case comments
+		List<Database.SaveResult> commentsResult = ApplicationDatabase.getInstance().dmlInsert(caseComments, false);
 		UTIL_LoggingService.logDmlResults(commentsResult, null, caseComments, 'Case Reopen',
-				CaseReopenBatch.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
+            ExceptionCheckerService.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
 	}
 
 }
