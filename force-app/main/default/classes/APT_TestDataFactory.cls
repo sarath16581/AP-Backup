@@ -10,6 +10,7 @@
 * 2022-06-01 - Seth Heang - Added getAPTAgreementLineItem
 * 2022-05-30 - nasir.jawed@auspost.com.au - added the method to get proposal, contact  for test class
 * 2022-08-24 - Bharat Patel - added the method to get SummaryGroup, ProductOptionComponent, ClassificationName, ClassificationHierarchy, ConfigLineItem and update getAPTContactRecord() method   for test class
+* 2022-09-19 - Seth Heang - Added getAPTProductOptionComponentRecord
 */
 @isTest
 public class APT_TestDataFactory {
@@ -171,9 +172,16 @@ public class APT_TestDataFactory {
 	}
 
 	// creating a test data for Apttus_Config2__ProductOptionComponent__c object
-	public static List<Apttus_Config2__ProductOptionComponent__c> getProductOptionComponentRecord(integer count,  integer itemSequence, Boolean generateIds){
+	public static List<Apttus_Config2__ProductOptionComponent__c> getAPTProductOptionComponentRecord(integer count, Id parentProductId, Id optionProductId, Boolean generateIds){
 		return (List<Apttus_Config2__ProductOptionComponent__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ProductOptionComponent__c.SObjectType, new Map<SObjectField, Object> {			
-			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Sequence__c => itemSequence			
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Required__c => false,
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Sequence__c => 1,
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__ComponentProductId__c => optionProductId,
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__ParentProductId__c => parentProductId,
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Default__c => false,
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Modifiable__c => true,
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__AllowCloning__c => false,
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__AutoUpdateQuantity__c => false
 		}, count), generateIds);
 	}
 

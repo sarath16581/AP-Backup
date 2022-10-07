@@ -1,5 +1,9 @@
 /**
  * This apex class is test class for APT_AmendRenewController
+ * 
+ * 
+ * @changelog:
+ * 2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
 */
 @isTest
 private class APT_AmendRenewController_Test{
