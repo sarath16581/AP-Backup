@@ -5,13 +5,21 @@
     <description>If Status is Resolution Plan please fill out Resolution Plan Date, Resolution cannot be blank if case Status is closed.</description>
     <errorConditionFormula>IF($Profile.Name = &quot;System Administrator&quot;, FALSE,
 
+AND(
+
+TEXT( Product_Type__c )&lt;&gt; &quot;Letters&quot;,
+TEXT( Product_Type__c)&lt;&gt; &quot;Parcels&quot;,
+TEXT( Product_Type__c)&lt;&gt; &quot;Parcels – BPA&quot;,
+TEXT( Product_Type__c)&lt;&gt; &quot;Parcels – eParcels&quot;,
+TEXT( Product_Type__c)&lt;&gt; &quot;Parcels – Full Rate&quot;,
+
 CONTAINS(RecordType.DeveloperName, &quot;Non_compliance_Lodgement_Issue&quot;)
 &amp;&amp;
 ((ISPICKVAL(Status,&apos;Resolution Plan&apos;)
 &amp;&amp;
 ISBLANK(Resolution_Plan_Date__c))
 ||
-(ISBLANK(TEXT(Resolution__c)) &amp;&amp; ISPICKVAL(Status,&quot;Closed&quot;))))</errorConditionFormula>
+(ISBLANK(TEXT(Resolution__c)) &amp;&amp; ISPICKVAL(Status,&quot;Closed&quot;)))))</errorConditionFormula>
     <errorDisplayField>Status</errorDisplayField>
     <errorMessage>If Status is Resolution Plan please fill out Resolution Plan Date, Resolution cannot be blank if case Status is closed.</errorMessage>
 </ValidationRule>
