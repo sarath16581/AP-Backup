@@ -9,6 +9,7 @@
 * 2022-03-16 - Ranjeewa Silva - Added new methods to support 'Bulk Edit UI'.
 * 2022-04-01 - Seth Heang - Added new methods to update job dispatch flag on network and bypass sharing setting
 * 2022-04-08 - Ranjeewa Silva - Added methods for retrieving dispatch photo from Digital Repository.
+* 2022-08-26 - Dattaraj Deshmukh - Updated 'canCancelJob' and 'canTriggerDispatchSystemSync' method to use date criteria from custom settings from PUDUtility class.
 */
 public with sharing class PUDPickupBookingController {
 
@@ -217,8 +218,10 @@ public with sharing class PUDPickupBookingController {
 	 * @return true if job can be sent to dispatch system. false otherwise.
 	 */
 	private static Boolean canTriggerDispatchSystemSync(PUD_Job__c job, PickupBookingActionResult result) {
-		// only current day jobs are allowed to be sent to dispatch system.
-		if (job.Date__c != Date.today()) {
+		
+		// only current day and day after jobs are allowed to be sent to dispatch system.
+		// throw error if job date range do not fall in between of JOB_DISPATCH_FROM_DATE (today) and JOB_DISPATCH_TO_DATE (tomorrow)
+		if (job.Date__c < PUDUtility.JOB_DISPATCH_FROM_DATE || job.Date__c > PUDUtility.JOB_DISPATCH_TO_DATE) {
 			result.status = Status.ERROR.name();
 			result.errorMessage = System.Label.PUDJobDispatchSystemSyncRestrictedForDateErrorMessage;
 			return false;
@@ -249,13 +252,6 @@ public with sharing class PUDPickupBookingController {
 		if (Date.today() > job.Date__c) {
 			result.status = Status.ERROR.name();
 			result.errorMessage = System.Label.PUDCannotCancelPastJobsErrorMessage;
-			return false;
-		}
-
-		// Future jobs can only be cancelled by updating booking.
-		if (Date.today() < job.Date__c) {
-			result.status = Status.ERROR.name();
-			result.errorMessage = System.Label.PUDUpdateBookingToCancelFutureJobsErrorMessage;
 			return false;
 		}
 

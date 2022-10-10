@@ -9,7 +9,7 @@
 * 02/12/2021 - Alex Volkov - Initial creation
 */
 
-public with sharing virtual class CaseReopenBatch implements Database.Batchable<SObject>, Schedulable {
+global with sharing class CaseReopenBatch implements Database.Batchable<SObject>, Schedulable {
 
 	private static final Integer BATCH_SIZE = 25;
 

@@ -291,19 +291,26 @@ public with sharing class UTIL_LoggingService{
       * @return            void
       * @throws            NA
       */
-     public static void logHandledException(Exception excp, String orgID, String applicationName, String className, 
-                                            String methodName, String triggerName, System.LoggingLevel severity){
-         List<ExceptionLog__c> excpLogVal = new List<ExceptionLog__c>();
-         
-         ExceptionLog__c exceptionLog = buildExceptionObject(excp, orgID, applicationName, className, methodName, severity, 
-                                                             null, null, triggerName, null, null, null, true); 
-         
-         excpLogVal = mergeExistingErrorLogs(new List<ExceptionLog__c>{exceptionLog});
-                   
-         if(excpLogVal!=null && excpLogVal.size()==1){
-             logException(exceptionLog);
-         }
-     }
+
+
+    public static void logHandledException(Exception excp, String orgID, String applicationName, String className, String methodName, String triggerName, System.LoggingLevel severity){
+        logHandledException(excp, orgID, applicationName, className, methodName, triggerName, severity, '');
+    }
+
+    // overload to add the additional info
+    public static void logHandledException(Exception excp, String orgID, String applicationName, String className, String methodName, String triggerName, System.LoggingLevel severity, String additionalInfo){
+
+        List<ExceptionLog__c> excpLogVal = new List<ExceptionLog__c>();
+
+        ExceptionLog__c exceptionLog = buildExceptionObject(excp, orgID, applicationName, className, methodName, severity, null, null, triggerName, null, null, null, true); 
+        exceptionLog.AdditionalInformation__c = additionalInfo;
+
+        excpLogVal = mergeExistingErrorLogs(new List<ExceptionLog__c>{exceptionLog});
+            
+        if(excpLogVal!=null && excpLogVal.size()==1){
+            logException(exceptionLog);
+        }
+    }
      
     /**
       * @description       This method is called in case of an unhandled Exception. This method in turn calls processExceptionEmail method to build and insert ExceptionLog__c records.

@@ -15,6 +15,8 @@ History:
 @Description: STP-2763 STPAC - Generate ST proposal document - Added this condition for not doing any of these calculations for StarTrack
 **************************************************
 2021-11-10 Sautul Mehta - CI-95 Changes for APPC product
+**************************************************
+2022-09-16 Talib Raza - REQ2939749: comment out the code related to pricing calculator
 **************************************************/
 global class APT_ViewratecardBatch implements Database.Batchable<sObject>, Database.Stateful , Database.AllowsCallouts{
 
@@ -205,7 +207,7 @@ global class APT_ViewratecardBatch implements Database.Batchable<sObject>, Datab
                 }
                 
                 //Code Added for International CO - By Akansha
-                if(String.isNotBlank(li.Apttus_Config2__ProductId__r.ProductCode) && (li.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_BUNDLE) || li.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_PCMS) || li.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_PCMS_airmail)) && li.APT_New__c){
+                /*REQ2939749: if(String.isNotBlank(li.Apttus_Config2__ProductId__r.ProductCode) && (li.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_BUNDLE) || li.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_PCMS) || li.Apttus_Config2__ProductId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_PCMS_airmail)) && li.APT_New__c){
                     APT_ViewRatecardControllerAPI rateCardCalcAPI = new APT_ViewRatecardControllerAPI(li.id,APT_Constants.BOOLEAN_TRUE,APT_Constants.BOOL_TRUE);
                     rateCardCalcAPI.init();
                     rateCardCalcAPI.prestoAPI(APT_Constants.STRING_XLS);
@@ -219,7 +221,7 @@ global class APT_ViewratecardBatch implements Database.Batchable<sObject>, Datab
                       
                     }
                     
-                }
+                }REQ2939749: */
                 //Code Added for International CO - By Akansha end
                
             }
@@ -263,7 +265,7 @@ global class APT_ViewratecardBatch implements Database.Batchable<sObject>, Datab
         
         //Code Added for International CO - By Akansha
         /*Start: Meet Desai: Updated code to refer ContentVersion/ ContentDocument/ ContentDocumentFile instead of Attachment */
-        if(rateCalcAttachmentIdlist !=null && rateCalcAttachmentIdlist.size() > 0){
+        /*REQ2939749: if(rateCalcAttachmentIdlist !=null && rateCalcAttachmentIdlist.size() > 0){
             ContentVersion[] contentVersionList = new ContentVersion[]{};
             ContentDocumentLink[] insertFileList = new ContentDocumentLink[]{};
             DateTime dateVal = system.now();
@@ -339,7 +341,7 @@ global class APT_ViewratecardBatch implements Database.Batchable<sObject>, Datab
             if(insertFileList.size() > 0){
                 insert insertFileList;
             }
-        }
+        }REQ2939749: */
         /*End: Meet Desai: Updated code to refer ContentVersion/ ContentDocument/ ContentDocumentFile instead of Attachment */
         //Code Added for International CO - By Akansha end
             

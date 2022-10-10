@@ -160,10 +160,10 @@ public with sharing class APT_LinkingBillAccToContractController {
 			if (lodgementPointWCCs != null) {
 				// deserialise the JSON and convert to the custom Sboject
 				responseDetail = (List<CreateSubAccountsController.SObjectResult>) System.JSON.deserialize(lodgementPointWCCs, List<CreateSubAccountsController.SObjectResult>.class);
-			}
 			// validate whether the lodgement zone selected is matching the Agreement line items lodgement Zones.
 			if(!CreateSubAccountsController.validateSearchLodgementZone(proposalId,responseDetail[0].postCode)){
 				return 'FAILED';
+			}
 			}
 			// iterate over wrapper object and map to respective lookup fields based on supplied SObject type(eg. Billing Acc, Charge Acc Req, Sub Acc Req)
 			for (LinkingAccountWrapper wrapperRec : wrapperObjList) {
@@ -181,6 +181,10 @@ public with sharing class APT_LinkingBillAccToContractController {
 				// map billing account lookup for linking sub account request
 				else if (wrapperRec.id != null && wrapperRec.objType.equals('APT_Sub_Account__c')) {
 					newALP.APT_Sub_Account__c = wrapperRec.id;
+				}
+				// map lodgement point lookup for linking at the organisation level, only for new customer scenario
+				else if (wrapperRec.id != null && wrapperRec.objType.equals('APT_Organisation__c') && lodgementPointWCCs != null) {
+					newALP.APT_Lodgement_Point_Lookup__c = responseDetail[0].recId;
 				}
 				// map product name if supplied for produce specific linking
 				if (prodName != null || prodName != '') {

@@ -41,7 +41,7 @@ public with sharing class OpportunitySelector extends ApplicationSelector{
     }
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField>{
-                Opportunity.Id, Opportunity.Primary_Pick_Up_Location__c, Opportunity.Sender_name_to_appear_on_parcel_label__c
+                Opportunity.Id, Opportunity.Primary_Pick_Up_Location__c, Opportunity.Sender_name_to_appear_on_parcel_label__c, Opportunity.Opportunity_Number__c
         };
     }
     /**

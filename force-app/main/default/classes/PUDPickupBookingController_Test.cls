@@ -9,30 +9,38 @@
  * 2022-03-23 - Ranjeewa Silva - Added new test methods to test bulk edit functionality.
  * 2022-04-04 - Seth Heang - Added new test method to test update dispatch job integration flag on network
  * 2022-04-21 - Ranjeewa Silva - Added test methods for retrieving dispatch photo from Digital Repository.
+ * 2022-08-24 - Dattaraj Deshmukh - Updated test method 'testEnsureCancelJobActionNotAllowedForFutureJobs' to allow cancellation for today and tomorrow.
+ * 								  - Renamed test method 'testEnsureTriggerDispatchSystemSyncOnlyForCurrentDayJobs' with 'testEnsureTriggerDispatchSystemSyncOnlyForJobsWithInDispatchWindow'
+ * 								  - Added test comments in 'testEnsureTriggerDispatchSystemSyncOnlyForJobsWithInDispatchWindow' regarding dispatch window.
  */
 
 @IsTest
 private class PUDPickupBookingController_Test {
 
 	@IsTest
-	static void testEnsureTriggerDispatchSystemSyncOnlyForCurrentDayJobs() {
+	static void testEnsureTriggerDispatchSystemSyncOnlyForJobsWithInDispatchWindow() {
 		// =====================================
 		// Data Preparation
 		// =====================================
 		PUD_Job__c job = PUDTestDataFactory.getPUDJobs(1, null, PUDConstants.PUD_JOB_STATUS_NEW, true)[0];
+		
+		//Dispatch window is specified in 'Pickup_Booking_Settings__c' custom settings. Since custom setting is not specified in the test(intentional), 
+			//it will take default dispatch window for jobs. Default dispatch window is specified in PUDUtility.JOB_DISPATCH_FROM_DATE & JOB_DISPATCH_TO_DATE. 
+		
+		//setting job date after 2 days.
+		//This should throw error as it is outside of default dispatch window.
 		job.Date__c = Date.today().addDays(2);
-
-
 		// =====================================
 		// Stubbing
 		// =====================================
-		PUDJobsSelector mockSelector = (PUDJobsSelector) MockUtility.mockSelector(PUDJobsSelector.class);
-
+		PUDJobsSelector mockJobSelector = (PUDJobsSelector) MockUtility.mockSelector(PUDJobsSelector.class);
+		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<PUD_Job__c>{job});
-
+		//mock job selector
+		MockUtility.Mocks.when(mockJobSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<PUD_Job__c>{job});
+		
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -44,6 +52,7 @@ private class PUDPickupBookingController_Test {
 
 		Test.stopTest();
 
+		//asserting job throws error
 		System.assertNotEquals(null, result, 'Expected a valid response, but received null');
 		System.assertEquals(PUDPickupBookingController.Status.ERROR.name(), result.status, 'Expected error status not returned');
 		System.assert(String.isNotBlank(result.errorMessage), 'Expected a valid error message; but was blank');
@@ -242,7 +251,13 @@ private class PUDPickupBookingController_Test {
 		// Data Preparation
 		// =====================================
 		PUD_Job__c job = PUDTestDataFactory.getPUDJobs(1, null, PUDConstants.PUD_JOB_STATUS_NEW, true)[0];
-		job.Date__c = Date.today().addDays(1);
+
+		//setting job after 2 days. 
+		//This job should not be allowed to be cancelled. 
+		//Job cancellation is only allowed within date range specified in 'Pickup_Booking_Settings__c' config.
+		//Since we are not creating an instance of 'Pickup_Booking_Settings__c', 
+		//default date range specified in PUDUtility.JOB_DISPATCH_FROM_DATE  & PUDUtility.JOB_DISPATCH_TO_DATE will be used.
+		job.Date__c = Date.today().addDays(2);
 
 		// =====================================
 		// Stubbing

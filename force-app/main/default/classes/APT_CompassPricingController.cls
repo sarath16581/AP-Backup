@@ -5,7 +5,8 @@
  @date 2022-04-01
  @changelog: 
  2022-04-01 - Seth Heang - Created
-2022-05-05 - Nasir Jawed - Modified for CI-134 for Delegate Pricing
+ 2022-05-05 - Nasir Jawed - Modified for CI-134 for Delegate Pricing
+ 2022-08-23 - Bharat Patel - Modified  applyConstraintRules(), updatePriceForCart() methods and remove debug log from code
 **/
 public with sharing class APT_CompassPricingController {
     public String lineItemId {get; set;}
@@ -19,15 +20,11 @@ public with sharing class APT_CompassPricingController {
         lineItemId = apexpages.currentPage().getParameters().get('selectedRecordID');
         configId = apexpages.currentPage().getParameters().get('configId');
         opportunityId = apexpages.currentPage().getParameters().get('opportunityId');
-
-
-        //BRP temp
+        
         String hostURL = String.valueof(URL.getSalesforceBaseUrl().toExternalForm());
         hostURL += '/apex/Apttus_Config2__Cart?configRequestId=' + configId + '&id=' + configId + '#/cart';
 
         parentPageURL = hostURL;
-
-
     }
 
     public String compassPricingAttributes {
@@ -115,14 +112,13 @@ public with sharing class APT_CompassPricingController {
     @AuraEnabled
     public static String onApply(SObject objDSR, string configId, string selectedLineItemId){
         ID conID=(String) configId;
-        List<Apttus_Config2__ProductAttributeValue__c> pavRec;
+        Apttus_Config2__ProductAttributeValue__c pavRec;
         AuraHandledException exceptionHandler;
         Deal_Support_Request__c selectedPSR = (Deal_Support_Request__c) objDSR;         
         
-        
-      try{
+      	try{
             // fetch product attribute value and its neccessary fields' values for validation purposes
-            pavRec = APT_ProductAttributeValuesSelector.newInstance().selectByLineItemId(new Set<Id>{selectedLineItemId});
+            pavRec = APT_ProductAttributeValuesSelector.newInstance(1).selectByLineItemId(new Set<Id>{selectedLineItemId})[0];
             
             // check if validity end date has passed in PSR and display error message
             if(selectedPSR.Quote_Validity_End_Date__c < Date.today()){
@@ -130,17 +126,20 @@ public with sharing class APT_CompassPricingController {
                 exceptionHandler.setMessage(System.Label.APT_ExpiredQuoteValidityEndDate);
                 throw exceptionHandler;
             }
-
+			Set<String> psrApprovedLPSet = new Set<String>();
+			// create a new set for lodgment points from PSR by spliting string by ';'
+			psrApprovedLPSet.addAll(selectedPSR.Approved_lodgement_zone__c.Split(';'));
+			// create a new set for lodgement points from shopping cart for comparison
+			Set<String> cartLPSet = new Set<String>{pavRec.APT_Selected_Lodgement_Zone__c, pavRec.APT_Additional_Lodgement_Zone_1__c, pavRec.APT_Additional_Lodgement_Zone_2__c};
+			cartLPSet.remove(null); // remove null value
+           
             // validate if selected PSR record’s Lodgement Zone does not match with cart’s Selected Lodgement Zone, Additional Lodgement Zone 1 and Additional Lodgement Zone 2
-            if((pavRec[0].APT_Selected_Lodgement_Zone__c != null) && (selectedPSR.Approved_lodgement_zone__c != null) && (!selectedPSR.Approved_lodgement_zone__c.contains(pavRec[0].APT_Selected_Lodgement_Zone__c))
-                || (pavRec[0].APT_Additional_Lodgement_Zone_1__c != null && (selectedPSR.Approved_lodgement_zone__c != null) && !selectedPSR.Approved_lodgement_zone__c.contains(pavRec[0]?.APT_Additional_Lodgement_Zone_1__c))
-                || (pavRec[0].APT_Additional_Lodgement_Zone_2__c != null && (selectedPSR.Approved_lodgement_zone__c != null) && !selectedPSR.Approved_lodgement_zone__c.contains(pavRec[0]?.APT_Additional_Lodgement_Zone_2__c))){
+            if(pavRec.APT_Selected_Lodgement_Zone__c != null && selectedPSR.Approved_lodgement_zone__c != null 
+				&& (!psrApprovedLPSet.containsAll(cartLPSet) || !cartLPSet.containsAll(psrApprovedLPSet))){
                 exceptionHandler = new AuraHandledException(System.Label.APT_MismatchedLodgementZone);
                 exceptionHandler.setMessage(System.Label.APT_MismatchedLodgementZone);
                 throw exceptionHandler;
             }
-           
-            System.debug('BRP: OnApply() L 143');
 
             // Standard delegated pricing is required
             if(selectedPSR.Approved_Event__c == APT_Constants.PSR_APPC_STANDARD_DELEGATED_PRICING) {
@@ -149,17 +148,10 @@ public with sharing class APT_CompassPricingController {
 
             return System.Label.APT_LinkPSRSuccess;
         }
-         catch(Exception e){
-           System.debug('BRP: OnApply() Exception L 157 = ' + e);
+        catch(Exception e){
           throw new AuraHandledException(e.getMessage());
-        }
-    }
-
-    
-    
-
-    
-    
+        }        
+    }    
 
     /**
      * This method updates the shopping cart configuration record and recalculate the Apttus product pricing in the shopping cart.
@@ -167,7 +159,7 @@ public with sharing class APT_CompassPricingController {
      * @return void
      */     
     private static void updateProdConfigAndPricingForCart(ID quoteConfigurationId,Deal_Support_Request__c selectedPSR ) {
-                  
+        
             List<Apttus_Config2__LineItem__c> lineItemList;            
             List<ID> pavList= new List<ID>();
             List<Apttus_Config2__ProductAttributeValue__c> pavListQuery;            
@@ -179,9 +171,7 @@ public with sharing class APT_CompassPricingController {
             
             
             //fetch all the lineitem by using configurationID
-                    
             lineItemList = LineItemsSelector.newInstance().selectByProdConfId(new set<ID>{(ID)quoteConfigurationId});
-            system.debug('lineItemList :'+ lineItemList );
             for(Apttus_Config2__LineItem__c li:lineItemList ){                             
                 pavList.add(li.Apttus_Config2__AttributeValueId__c);                               
             }            
@@ -189,32 +179,24 @@ public with sharing class APT_CompassPricingController {
             //Fetch all the Product Attribute value records and update all the records with Tier and Price structure
             if(pavList != null && pavList.size() > 0 ){
                 pavListQuery = APT_ProductAttributeValuesSelector.newInstance().selectByPavID(pavList);                
-                system.debug('pavListQuery :'+ pavListQuery.size());
                 UpdateProductAttributeValues(pavListQuery,selectedPSR, quoteConfigurationId);               
-                  
-                constraintRuleResult = applyConstraintRules(quoteConfigurationId);  
-                System.debug('constraintRuleResult:' + constraintRuleResult);                             
-                              
+                constraintRuleResult = applyConstraintRules(quoteConfigurationId, false);  
             }  
            
             if(constraintRuleResult == false ){
                 Boolean isPricePending;                                  
-                isPricePending = updatePriceForCart(quoteConfigurationId); 
-                system.debug('isPricePending:'+ isPricePending);              
-                if(isPricePending == false ){                            
-                    
+                isPricePending = updatePriceForCart(quoteConfigurationId, false); 
+                if(isPricePending == false ){                           
                     if(quoteConfigurationId!=null){
                         productConfig=ProductConfigurationSelector.newInstance().selectByConfigId(new set<ID>{(ID)quoteConfigurationId});
                     }
                     //getting the current proposal record
                     if(productConfig != null){
                         id proposalID = productConfig[0].Apttus_QPConfig__Proposald__c; 
-                        system.debug('proposalID:'+ proposalID);  
                         currentProposal=APT_ProposalObjectsSelector.newInstance().selectByConfigIds(new set<ID>{(ID)proposalID});
                     }                    
                     //updating the proposal record for the field expiry date from the salected DSR
                     if(currentProposal!=null){
-                        system.debug('currentProposal:'+ currentProposal[0]); 
                         currentProposal[0].Apttus_Proposal__Proposal_Expiration_Date__c=selectedPSR.Quote_Validity_End_Date__c;
                         proposalListUpdate.add(currentProposal[0]);
                         ApplicationDatabase.getInstance().dmlUpdate(proposalListUpdate);
@@ -232,19 +214,15 @@ public with sharing class APT_CompassPricingController {
              
         // updating all the product Attribute values for the proposal
         for(Apttus_Config2__ProductAttributeValue__c pav: productAttributeValuesListToUpdate){
-            
             if(pav.APT_Customer_Tier__c == selectedPSR.Approved_Tier__c && liUpdateRequired == false)
             {
                 liUpdateRequired = true;              
             }
-
             pav.APT_Customer_Tier__c = selectedPSR.Approved_Tier__c;   
             pav.Applied_PSR__c =  selectedPSR.id;  
-            system.debug('pav.Applied_PSR__c:'+pav.Applied_PSR__c + 'PSRID'+ selectedPSR.id);
             pav.APTS_Price_Structure__c =  selectedPSR.Approved_Pricing_Structure__c;
             pav.APT_RK_Code_AppliedYN__c=APT_Constants.OPTION_YES;           
             pavListUpdate.add(pav);
-            system.debug('pavListUpdate:'+pavListUpdate);
         }
         
         if(pavListUpdate.size() > 0){            
@@ -269,7 +247,7 @@ public with sharing class APT_CompassPricingController {
     /* This method does the repricing of the Cart
      * param : product Configuration ID
      */
-    public static boolean updatePriceForCart(ID quoteConfigurationId) {
+    public static boolean updatePriceForCart(ID quoteConfigurationId, Boolean isMoreProcessing) {
         boolean isPricePendingCheck;
         Apttus_Config2__ProductConfiguration__c  updateConfig = new Apttus_Config2__ProductConfiguration__c();
         updateConfig.Id = quoteConfigurationId;
@@ -278,14 +256,11 @@ public with sharing class APT_CompassPricingController {
         ApplicationDatabase.getInstance().dmlUpdate(new List<Apttus_Config2__ProductConfiguration__c>{updateConfig});
         
         // Apttus webservice method to reprice the cart
-        if(!Test.isRunningTest()){            
-            Apttus_CpqApi.CPQ.UpdatePriceRequestDO objUpdatePriceRequestDO = new Apttus_CpqApi.CPQ.UpdatePriceRequestDO();
-            objUpdatePriceRequestDO.CartId = quoteConfigurationId;
-            Apttus_CpqApi.CPQ.UpdatePriceResponseDO result = Apttus_CpqApi.CPQWebService.updatePriceForCart(objUpdatePriceRequestDO);
-            IsPricePendingCheck= result.IsPricePending;           
-        }else{            
-            IsPricePendingCheck= false;    
-        }      
+        Apttus_CpqApi.CPQ.UpdatePriceRequestDO objUpdatePriceRequestDO = new Apttus_CpqApi.CPQ.UpdatePriceRequestDO();
+        objUpdatePriceRequestDO.CartId = quoteConfigurationId;
+        Apttus_CpqApi.CPQ.UpdatePriceResponseDO result = Apttus_CpqApi.CPQWebService.updatePriceForCart(objUpdatePriceRequestDO);
+        IsPricePendingCheck= result.IsPricePending;           
+         
         return IsPricePendingCheck;
     }
 
@@ -303,26 +278,25 @@ public with sharing class APT_CompassPricingController {
         return new PageReference(backURL);
     }
     
-    /* This method calls the constraint rule when the repricing is done after the delegate or custom pricing is completed
+    /**
+     * This method calls the constraint rule when the repricing is done after the delegate or custom pricing is completed
      * param : product Configuration ID
+     * param : isMoreProcessing, flag to extend apply constraint rule's more processing
      */
-    public static boolean applyConstraintRules(ID quoteConfigurationId) {
+    public static boolean applyConstraintRules(ID quoteConfigurationId, Boolean isMoreProcessing) {
         List<Integer> primaryLines = new List<Integer>();
         Boolean returnReuslt = false;
-        if(!Test.isRunningTest()){
+
+        Apttus_CPQApi.CPQWebService.associateConstraintRules(quoteConfigurationId, primaryLines);       
+        Apttus_CPQApi.CPQWebService.applyConstraintRules(quoteConfigurationId, false);
+        Apttus_CPQApi.CPQ.ConstraintResultDO constraintResult = Apttus_CPQApi.CPQWebService.getConstraintRuleResult(quoteConfigurationId);
+           
+        if(constraintResult.NeedMoreProcessing || isMoreProcessing)
+        {
             Apttus_CPQApi.CPQWebService.associateConstraintRules(quoteConfigurationId, primaryLines);
             Apttus_CPQApi.CPQWebService.applyConstraintRules(quoteConfigurationId, false);    
-    
-            Apttus_CPQApi.CPQ.ConstraintResultDO constraintResult = Apttus_CPQApi.CPQWebService.getConstraintRuleResult(quoteConfigurationId);
-            if(constraintResult.NeedMoreProcessing)
-            {
-                Apttus_CPQApi.CPQWebService.associateConstraintRules(quoteConfigurationId, primaryLines);
-                Apttus_CPQApi.CPQWebService.applyConstraintRules(quoteConfigurationId, false);    
-            }
-            returnReuslt = constraintResult.HasPendingError;
-            return returnReuslt;
         }
-        return returnReuslt;
+        returnReuslt = constraintResult.HasPendingError;
+        return returnReuslt;       
     } 
-   
 }

@@ -1,5 +1,6 @@
 <!--
 2019-04-28 nathan.franklin@auspost.com.au Removed optional display logic for AP (SSCR5)
+2022-09-12 naveen.rajanna@auspost.com.au Removed /bsp in url as part of CHG0176934
 -->
 <apex:component controller="bspComponent">
     <div class="right-panel">
@@ -13,7 +14,7 @@
                 <li><a href="https://eparceltrack.auspost.com.au/" target="_blank">Login to eMerchant tracking</a></li>
                 <li><a href="https://id.auspost.com.au/csso/login" target="_blank">Login to My Business Account</a></li>
                 <apex:outputPanel rendered="{!isCognitionUser}" >
-                    <li><a href="/bsp/apex/cognitionvF" target="_blank">Cognition</a></li>
+                    <li><a href="/apex/cognitionvF" target="_blank">Cognition</a></li>
                 </apex:outputPanel>
                 <!-- Auspost requested to remove before christmas<li><a href="/bsp/servlet/servlet.FileDownload?file={!$Setup.CCUSettings__c.BulkUploadTemplateId__c}" download="BulkUploadTemplate.csv" type="csv">Download Bulk Upload Template</a></li>-->
             </ul>

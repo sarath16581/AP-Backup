@@ -38,6 +38,9 @@ and updated doAmend method to add logic to update Opportunity Sub type based on 
 
 Last Modified By - Mansi Shah
 Lat Modified Date - 28th May, 2021 | STP-5134 commented the code for DoV Reason - Removed Validation for Dov Reason and population of DoV Reason
+
+@changelog:
+2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
 **/
 
 public with sharing class APT_AmendRenewController {

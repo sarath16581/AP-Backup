@@ -2344,7 +2344,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Social_Back_Office</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSWSocial</lookupValue>
+        <lookupValue>SSSW_Consumer_Back_Office_Low_Priority</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Social Back Office</name>
         <notifyAssignee>false</notifyAssignee>
@@ -4743,7 +4743,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4782,6 +4782,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.OwnerId</field>
             <operation>notEqual</operation>
             <value>SSSW High Level Complaints</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.CHASEnquiryType__c</field>
+            <operation>equals</operation>
+            <value>Missing or lost item</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -4851,7 +4856,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4891,6 +4896,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>SSSW High Level Complaints</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Case.CHASEnquiryType__c</field>
+            <operation>equals</operation>
+            <value>Missing or lost item</value>
+        </criteriaItems>
         <description>Snigdha : 19.05.2020 - Removed Article Codes DD-ER38, INT-2070</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
@@ -4921,7 +4931,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4961,6 +4971,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>SSSW High Level Complaints</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Case.CHASEnquiryType__c</field>
+            <operation>equals</operation>
+            <value>Missing or lost item</value>
+        </criteriaItems>
         <description>Workflow when case has a article event code DD-ER15, DD-ER38, INT-2070
 19.05.2020 - Snigdha : Added Event Codes DD-ER38, INT-2070</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
@@ -4988,7 +5003,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -5027,6 +5042,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.OwnerId</field>
             <operation>notEqual</operation>
             <value>SSSW High Level Complaints</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.CHASEnquiryType__c</field>
+            <operation>equals</operation>
+            <value>Missing or lost item</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>

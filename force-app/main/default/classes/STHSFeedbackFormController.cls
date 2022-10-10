@@ -19,10 +19,10 @@ public with sharing class STHSFeedbackFormController {
 			getFeedbackCaseDefaultValues(caseObj);
 			//get instance of STHS community service
 			STHSCommunityService service = STHSCommunityService.getInstance();
-			//get case default values
-			service.getCaseDefaultValues(caseObj);
 			//get case data from form
 			service.getFormCaseData(caseObj, formData);
+			//get case default values
+			service.getCaseDefaultValues(caseObj);
 			//insert case
 			service.insertRecords(new List<SObject>{caseObj});
 			//get case comments
