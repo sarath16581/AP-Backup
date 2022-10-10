@@ -28,33 +28,38 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 	}
 
 	public void execute(Database.BatchableContext bc, List<SObject> scope) {
-		Map<Id, List<Case>> articleToCasesMap = new Map<Id, List<Case>>();
-		List<Case> caseListWithArticles = new List<Case>();
-		List<Case> caseListWithoutArticles = new List<Case>();
+		try {
+			Map<Id, List<Case>> articleToCasesMap = new Map<Id, List<Case>>();
+			List<Case> caseListWithArticles = new List<Case>();
+			List<Case> caseListWithoutArticles = new List<Case>();
 
-		// loop through cases associated with/without articles
-		for (Case c : (List<Case>) scope) {
-			if (c.ArticleTest__c != null) {
-				List<Case> clist = articleToCasesMap.get(c.ArticleTest__c);
-				if (clist == null) {
-					clist = new List<Case>();
+			// loop through cases associated with/without articles
+			for (Case c : (List<Case>) scope) {
+				if (c.ArticleTest__c != null) {
+					List<Case> clist = articleToCasesMap.get(c.ArticleTest__c);
+					if (clist == null) {
+						clist = new List<Case>();
+					}
+					clist.add(c);
+					articleToCasesMap.put(c.ArticleTest__c, clist);
+					caseListWithArticles.add(c);
+				} else {
+					caseListWithoutArticles.add(c);
 				}
-				clist.add(c);
-				articleToCasesMap.put(c.ArticleTest__c, clist);
-				caseListWithArticles.add(c);
-			} else {
-				caseListWithoutArticles.add(c);
 			}
-		}
 
-		//process the exception checker logic for cases with articles
-		if (articleToCasesMap.size() > 0) {
-			handleExceptionCheckerOnCases(articleToCasesMap);
-		}
+			//process the exception checker logic for cases with articles
+			if (articleToCasesMap.size() > 0) {
+				handleExceptionCheckerOnCases(articleToCasesMap);
+			}
 
-		//process the consignments to allocate to queue
-		if (caseListWithoutArticles.size() > 0) {
-			ExceptionCheckerService.getInstance().assignCasesToAgentQueue(caseListWithoutArticles);
+			//process the consignments to allocate to queue
+			if (caseListWithoutArticles.size() > 0) {
+				ExceptionCheckerService.getInstance().assignCasesToAgentQueue(caseListWithoutArticles);
+			}
+		} catch (Exception ex) {
+			// Error Logged to Exception object for analysis
+            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Case Reopen', CaseReopenBatch.class.getName(), 'execute', null, LoggingLevel.ERROR);
 		}
 	}
 
