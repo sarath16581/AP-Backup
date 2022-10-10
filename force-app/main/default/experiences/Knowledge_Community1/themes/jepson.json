@@ -135,7 +135,6 @@
           "regionName" : "search",
           "type" : "region"
         }, {
-          "components" : [],
           "id" : "c0f4f520-1ef5-4356-8c04-6e3f1dfc9000",
           "regionName" : "nav",
           "type" : "region"
@@ -344,7 +343,6 @@
           "regionName" : "search",
           "type" : "region"
         }, {
-          "components" : [],
           "id" : "81c779ce-0aae-4805-a1c3-c510e87f37c4",
           "regionName" : "nav",
           "type" : "region"
