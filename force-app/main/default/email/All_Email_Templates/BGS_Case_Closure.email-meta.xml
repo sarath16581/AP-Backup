@@ -5,21 +5,32 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>BGS Case Closure</name>
     <style>none</style>
-    <subject>We&apos;ve closed your case - {!Case.CaseNumber}. [{!EmailMessage.ThreadIdentifier}]</subject>
-    <textOnly>Dear {!Contact.FirstName},
+    <subject>We&apos;ve closed your case - {!Case.CaseNumber}</subject>
+    <textOnly>Case #{!Case.CaseNumber} has been updated to resolved/closed
 
-Case #{!Case.CaseNumber} has been updated to resolved/closed.
 
-Please direct any further requests or enquiries to your BGS Service Advisor team.
 
-We value your feedback - A survey may be sent to you regarding your experience. We would appreciate if you could take the time to tell us about your experience with our Service Advisor team.
+Hi,
+
+We&apos;ve closed your enquiry - case reference number ({!Case.CaseNumber}).
+
+If you&apos;d like us to investigate further or have a new enquiry, PLEASE DO NOT REPLY TO THIS EMAIL as this case is closed and no longer monitored. Please create and send a new email request to your Service Advisor Team.
+
+If you&apos;d like to give us feedback about how your case was handled, please complete the short survey which will be sent to you in a separate email. We&apos;d really appreciate your comments, as they help us to review and improve our service.
+
+Regards,
+
+Australia Post’s Service Advisor Team
 
 
 Australia Post will never send you an email asking for your password, credit card details or account information.
 
+
 This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. Visit auspost.com.au for further information on our online security.
 
-Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.</textOnly>
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>
