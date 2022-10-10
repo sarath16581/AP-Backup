@@ -12,7 +12,7 @@
 
 public with sharing class CaseReopenBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
 
-	private static final Integer BATCH_SIZE = 25;
+	private Integer BATCH_SIZE = 50;
 
 	/**
 	 * @description Overridable query
@@ -68,6 +68,11 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 
 	//schedular for processing cases waiting on hold
 	public void execute(SchedulableContext sc) {
+		//instantiate config variables
+		Consumer_Help_and_Support__c config = Consumer_Help_and_Support__c.getOrgDefaults();
+		if (config.CaseReopenBatchSize__c != null) {
+			this.BATCH_SIZE = Integer.valueOf(config.CaseReopenBatchSize__c);
+		} 
 		Database.executeBatch(this, BATCH_SIZE);
 	}
 
