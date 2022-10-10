@@ -117,7 +117,7 @@
                                     <p class="message-text"> You can only enquire about a late or missing item after the
                                         estimated arrival date. For essential medication enquiries, please
                                         <a href="https://auspost.com.au/help-and-support#contact" class="link-plain"
-                                           target="blank">contact us by phone.</a>
+                                           target="blank" onclick="{! v.pushInteractionAnalytics }">contact us by phone.</a>
                                     </p>
                                 </c:ChasBspDeflection>
                             </div>

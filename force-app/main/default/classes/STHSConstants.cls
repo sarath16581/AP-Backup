@@ -20,6 +20,7 @@ public with sharing class STHSConstants {
     public static final String FORM_DATA_LNAME = 'lastName';
     public static final String FORM_DATA_REFERENCE = 'reference';
     public static final String FORM_DATA_ENQUIRY_TYPE = 'enquiryType';
+    public static final String FORM_DATA_DESCRIPTION_CONTENTS = 'description';
     public static final String CASE_OBJ = 'Case';
     public static final String CASE_CONTYPE_SENDER = 'Sender';
     public static final String PREF_CONTACT_METHOD_EMAIL = 'Email';

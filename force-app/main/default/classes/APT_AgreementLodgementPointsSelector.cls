@@ -35,7 +35,8 @@ public virtual inherited sharing class APT_AgreementLodgementPointsSelector exte
 		return new Set<SObjectField> {
 			APT_Agreement_Lodgement_Point__c.Id, APT_Agreement_Lodgement_Point__c.APT_Lodgement_Point_Lookup__c, APT_Agreement_Lodgement_Point__c.APT_Agreement__c, 
 			APT_Agreement_Lodgement_Point__c.Name, APT_Agreement_Lodgement_Point__c.APT_Organisation__c, APT_Agreement_Lodgement_Point__c.Rating_Plan_Id__c,
-			APT_Agreement_Lodgement_Point__c.APT_Billing_Account__c, APT_Agreement_Lodgement_Point__c.APT_Charge_Account__c, APT_Agreement_Lodgement_Point__c.APT_Sub_Account__c
+			APT_Agreement_Lodgement_Point__c.APT_Billing_Account__c, APT_Agreement_Lodgement_Point__c.APT_Charge_Account__c, APT_Agreement_Lodgement_Point__c.APT_Sub_Account__c,
+			APT_Agreement_Lodgement_Point__c.APT_Product__c
 		};
 	}
     

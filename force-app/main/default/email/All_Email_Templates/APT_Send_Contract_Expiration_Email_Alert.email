@@ -1,4 +1,4 @@
-<p>Dear {!Apttus__APTS_Agreement__c.CreatedBy} </p>
+<p>Dear {!Apttus__APTS_Agreement__c.OwnerFullName} </p>
 
 <p>This is a system generated reminder.</p>
 

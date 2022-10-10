@@ -437,50 +437,6 @@ private class AccountTriggerUtility_Test {
       * @return            NA
       * @throws            NA
       */  
-    private static testMethod void testUndelete(){
-        Test.startTest();//determine recordtype of account
-            RecordType orgRecType = [SELECT Id FROM RecordType WHERE IsActive = true AND SobjectType = 'Account' AND Name = 'Organisation' limit 1];
-             //Insert Conveyancer_Number__c custom settings
-            insert new Conveyancer_Number__c(SetupOwnerId=UserInfo.getOrganizationId(), Next_Id__c=123456);
-            // create 20 test accounts
-            List<Account> accListCon = new List<Account>();
-            List<Account> accListUpdate = new List<Account>();
-            
-            Account acc;
-            integer x = 0;
-            for(x=1;x<20;x++){
-                acc = new Account();
-                acc.RecordTypeId = orgRecType.Id;
-                acc.Name = 'Conveyancer Organisation';
-                accListCon.add(acc);
-                
-            }
-            insert accListCon;
-           
-            // retrieve and then update the 20 newly created test accounts to set them as a conveyancer
-            List<Account> accAll = [Select Id, Name, Conveyancer_Is_a__c, Conveyancer_Number__c from Account Where Id IN:accListCon];
-            for (Account accUpdate : accAll) {
-                accUpdate.Conveyancer_Is_a__c = true;
-                accListUpdate.add(accUpdate);
-               
-            }
-            
-            runTriggerMethods();
-            Delete accListUpdate;
-            
-            runTriggerMethods();
-            undelete accListUpdate;
-        
-        Test.stopTest();
-
-    }
-    
-    /**
-      * @description       test Method for testing generation of conveyancer number
-      * @param             NA 
-      * @return            NA
-      * @throws            NA
-      */  
     private static testMethod void testRevPhone(){
          RecordType accountRecordType = [SELECT Id FROM RecordType WHERE SobjectType = 'Account' AND DeveloperName = 'PersonAccount' LIMIT 1];
         

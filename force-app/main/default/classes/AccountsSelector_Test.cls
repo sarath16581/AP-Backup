@@ -16,6 +16,55 @@
  */
 @IsTest
 public with sharing class AccountsSelector_Test {
+
+	// Checks that the query params and condition orders are set correctly.
+	@IsTest
+	static void selectLPOAndCPOAccountsByAccIds() {
+		Account bizAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		bizAccount.ABN__c = '12345678910';
+		insert bizAccount;
+		Network__c lpoNetwork = ApplicationTestDataFactory.getLPONetwork(1, false)[0];
+		insert lpoNetwork;
+
+		Network__c rpNetwork = ApplicationTestDataFactory.getNetworks(1, false)[0];
+		rpNetwork.Org_Unit_Type__c = 'RP';
+		insert rpNetwork;
+
+		Account rpFacility = ApplicationTestDataFactory.getFacilityAccounts(1, rpNetwork.id, false)[0];
+		rpFacility.Licence_Type__c = 'RP';
+		insert rpFacility;
+
+		Account lpoAccount = ApplicationTestDataFactory.getLPOAccounts(1, bizAccount.Id, null, false)[0];
+		insert lpoAccount;
+
+		Account lpoFacility = ApplicationTestDataFactory.getFacilityAccounts(1, lpoNetwork.id, false)[0];
+		lpoFacility.ParentId = lpoAccount.Id;
+		insert lpoFacility;
+
+		Map<Id, Account> actual = AccountsSelector.newInstance().selectLPOAndCPOAccountsByAccIds(new Set<Id>{rpFacility.Id, bizAccount.Id}, new Set<Object>());
+		System.assertEquals(2, actual.size(), 'Should only return two records');
+		System.assertEquals(true, actual.containsKey(rpFacility.Id), 'Should return the rpFacility account');
+		System.assertEquals(true, actual.containsKey(lpoFacility.Id), 'Should return the lpoFacility account');
+	}
+
+
+	// Checks that the query params are set correctly.
+	@IsTest
+	static void selectByPostOfficeAssigned() {
+		String postOfficeOrgId = 'test2134123123123213213123';
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
+		networks[0].Org_ID__c = postOfficeOrgId;
+		insert networks;
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, false);
+		accounts[0].Post_Office_Assigned__c = networks[0].Id;
+		insert accounts;
+
+		Map<Id, Account> actual = AccountsSelector.newInstance().selectByPostOfficeAssigned(new Set<String>{postOfficeOrgId}, new Set<Object>());
+		System.assert(actual.size() == 1, 'Should only return one record');
+		System.assertEquals(accounts[0].Id, actual.values()[0].Id, 'Should match on the result');
+	}
+
+
 	/**
 	 * Test:
 	 *  Ensures that the selectors QueryBuilder is generating the correct output
@@ -276,7 +325,7 @@ public with sharing class AccountsSelector_Test {
 
 		System.assertNotEquals(null, results.values()[0].Memberships__r, 'Expected membership object');
 
-		results = selector.selectById(mappedAccounts.keySet(), new Set<Object>{
+		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_POSTOFFICEASSIGNED
 		});
 		System.assertNotEquals(null, results.values()[0].Post_Office_Assigned__r, 'Expected network record in Post Office Assigned field');
@@ -286,12 +335,12 @@ public with sharing class AccountsSelector_Test {
 		});
 		System.assertNotEquals(null, results.values()[0].Network_Facility__r, 'Expected network record in Network Facility field');
 
-		results = selector.selectById(mappedAccounts.keySet(), new Set<Object>{
+		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_PARENT
 		});
 		System.assertNotEquals(null, results.values()[0].ParentId, 'Expected parent account Id field');
 
-		results = selector.selectById(mappedAccounts.keySet(), new Set<Object>{
+		results = selector.selectById(new Set<Id> {orgAaccounts[0].Id}, new Set<Object>{
 			AccountsSelector.Options.WITH_GRANDPARENT
 		});
 		System.assertNotEquals(null, results.values()[0].Parent.ParentId, 'Expected grandparent account Id field');

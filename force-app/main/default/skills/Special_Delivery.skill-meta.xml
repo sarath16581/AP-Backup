@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Skill xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Special Delivery</label>
+    <description>This skill is applied to agents who work on cases related to special deliveries, i.e. cases that were previously routed to the SSSW Consumer Back Office Spec Del queue.</description>
+</Skill>

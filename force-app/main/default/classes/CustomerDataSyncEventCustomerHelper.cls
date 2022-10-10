@@ -33,6 +33,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		List<Database.UpsertResult> resultUpsertAPCN = new List<Database.UpsertResult>();
 		List<Database.UpsertResult> resultUpsertSFID = new List<Database.UpsertResult>();
 		List<CustomerUpsertResult> resAPCNmap = new List<CustomerUpsertResult>();
+		String apcnNumbers = ''; 
 
 		try {
 			if (!refMaps.isEmpty()) {
@@ -50,7 +51,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				List<SObject> accupsertSFIDList = new List<SObject>();
 
 				//customer logic
-				customerLogic(apcnMap, recIdMap, events);
+				apcnNumbers = customerLogic(apcnMap, recIdMap, events);
 				accupsertAPCNList = (List<SObject>) custMap.get(APCN);
 				accupsertSFIDList = (List<SObject>) custMap.get(SFID);
 
@@ -85,7 +86,8 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				CustomerDataSyncEventCustomerHelper.class.getName(),
 				'parseCustomerDataPayload',
 				'CustomerDataSyncEventCustomerHelper',
-				LoggingLevel.ERROR
+				LoggingLevel.ERROR, 
+				apcnNumbers
 			);
 		}
 
@@ -124,9 +126,11 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	}
 
 	//logic to check for different scenarios for customer
-	private void customerLogic(Map<String, Object> apcnMap, Map<String, Object> recIdMap, List<CustomerDataSync__e> events) {
+	private String customerLogic(Map<String, Object> apcnMap, Map<String, Object> recIdMap, List<CustomerDataSync__e> events) {
+		String apcnNumbers = '';
 		if (!events.isEmpty()) {
 			for (CustomerDataSync__e e : events) {
+				apcnNumbers += (String.isBlank(e.apcn__c) == false ? e.apcn__c : '') + ',';
 				//if the salsforce record id is null then its a new consumer record
 				if (String.isEmpty(e.salesforceRecordID__c)) {
 					custMap.get(APCN).add(genNewCustomer(e));
@@ -135,6 +139,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				}
 			}
 		}
+		return apcnNumbers;
 	}
 
 	//create a map of apcn and the CustmerUpsertResult

@@ -7,6 +7,7 @@
 12.05.2020    Hara Sahoo                   Added JS function for handleClick(event) and getSelectedRows(event)
 26.10.2020    Swati.Mogadala@auspost.com.au REQ2289157 handleClick(evt) modified to check if any records are records selected for printing
 30.10.2020    Swati.Mogadala@auspost.com.au REQ2329468 Error message fixed - 'Please select case(s) for printing'
+08.09.2022    Naveen Rajanna - REQ2963906: domain check to populate prefix myNetwork if required
 */
 /* eslint-disable default-case */
 /* eslint-disable no-console */
@@ -188,6 +189,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   @track loadLandingPageErrMsg;
   @track sortedRecords = [];
   @track selectedRecords = [];
+  sfdcBaseURL;
   constructor() {
     super();
     this.searchingFlag = true;
@@ -197,6 +199,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
     this.loadLandingPageErrMsg = '';
     this.assignToSelfHasErr = false;
     this.assignToSelfErrMsg = '';
+	this.sfdcBaseURL = window.location.origin;
 
     Promise.all([
       loadStyle(this, customStyle + "/MYNetworkCustomStyle.css"),
@@ -249,7 +252,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       caseRecord.Case_Print = data[i].myNetworkCase.Checkbox__c ? "Yes" : "No";
       caseRecord.Case_Details = data[i].caseIcon;
       caseRecord.detailCSSClass = data[i].caseColor;
-      caseRecord.caseLink = "/myNetwork/s/case/" + data[i].caseId;
+      caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/s/case/" + data[i].caseId;
       caseRecord.caseNumberCSSClass = "blue";
       if (data[i].myNetworkCase.Facility_Milestones_Violated__c > 1) {
         caseRecord.dotCSSClass = "redcolor";
@@ -577,8 +580,8 @@ export default class CaseList extends NavigationMixin(LightningElement) {
         attributes: {
           url:
             "https://" +
-            hostname +
-            "/myNetwork/apex/myNetworkCasePDFGenerator?selectedIds=" +
+            hostname + (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") +
+            "/apex/myNetworkCasePDFGenerator?selectedIds=" +
             encodeURI(this.selectedRecords),
         },
       };

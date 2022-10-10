@@ -265,6 +265,7 @@
     <tabs>APT_Charge_Code__c</tabs>
     <tabs>Callback_Request__c</tabs>
     <tabs>standard-OmniSupervisor</tabs>
+    <tabs>standard-ServiceResource</tabs>
     <workspaceConfig>
         <mappings>
             <tab>APR_Contact__c</tab>
@@ -361,6 +362,9 @@
         </mappings>
         <mappings>
             <tab>standard-QuickText</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-ServiceResource</tab>
         </mappings>
         <mappings>
             <tab>standard-SocialPost</tab>
