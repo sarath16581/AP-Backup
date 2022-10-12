@@ -85,7 +85,8 @@ public inherited sharing class ExceptionCheckerService {
             caseComment.CommentBody = 'Auto-LIT exception: Yes';
             caseComments.add(caseComment);
 		}
-		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToClose, false);
+        //update cases
+        List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToClose, false);
 		UTIL_LoggingService.logDmlResults(vResult, null, casesToClose, 'Case Reopen',
 				ExceptionCheckerService.class.getName(), 'closeCases',null, LoggingLevel.ERROR);
 		//insert case comments
@@ -110,7 +111,7 @@ public inherited sharing class ExceptionCheckerService {
             caseComment.CommentBody = 'Auto-LIT exception: No';
             caseComments.add(caseComment);
 		}
-		//update cases
+        //update cases
 		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToAgentQueue, false);
 		UTIL_LoggingService.logDmlResults(vResult, null, casesToAgentQueue, 'Case Reopen',
             ExceptionCheckerService.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
