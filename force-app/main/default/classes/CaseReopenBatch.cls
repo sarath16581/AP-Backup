@@ -12,7 +12,7 @@
 
 public with sharing class CaseReopenBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
 
-	private Integer BATCH_SIZE = 50;
+	private Integer BATCH_SIZE = 25;
 
 	/**
 	 * @description Overridable query
