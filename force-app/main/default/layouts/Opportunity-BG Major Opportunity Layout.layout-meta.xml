@@ -267,7 +267,7 @@
                 <field>Initial_Contact__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Lead_Seeker__c</field>
             </layoutItems>
         </layoutColumns>

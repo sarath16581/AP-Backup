@@ -3,15 +3,16 @@
  * @author George Nguyen
  * @date 2021-08-12
  * @group Domain
- * @tag PersonAccountDomain
+ * @tag AccountDomain
  * @domain Account
  * @changelog
  * 2022-05-30 - George Nguyen - Created.
+ * 2022-09-29 - Noel Lim - Updated - relabelled from PersonAccountDomain to AccountDomain
  */
-public with sharing class PersonAccountDomainTriggerHandler extends ApplicationDomainTriggerHandler  {
+public with sharing class AccountDomainTriggerHandler extends ApplicationDomainTriggerHandler  {
     
-	public static PersonAccountDomainTriggerHandler newInstance() {
-		return (PersonAccountDomainTriggerHandler)Application.Utilities.newInstance(PersonAccountDomainTriggerHandler.class);
+	public static AccountDomainTriggerHandler newInstance() {
+		return (AccountDomainTriggerHandler)Application.Utilities.newInstance(AccountDomainTriggerHandler.class);
 	}
 
 	public override SObjectType getSObjectType() {
@@ -20,7 +21,7 @@ public with sharing class PersonAccountDomainTriggerHandler extends ApplicationD
 
 	public override List<Type> registerDomains() {
 		return new List<Type>{
-            PersonAccountDomain.class
+            AccountDomain.class
 		};
 	}
 

@@ -33,7 +33,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APPC PSR does not exist</shortDescription>
-        <value>This customer qualifies for pricing that is outside of Sales delegation. A Pricing Support Request is required to proceed or adjust the customers minimum volume or revenue.</value>
+        <value>This customer qualifies for pricing that is outside of sales delegation. A pricing support request (PSR) is required to proceed.</value>
     </labels>    
 	<labels>
         <fullName>APT_NoLinkedAccounts</fullName>

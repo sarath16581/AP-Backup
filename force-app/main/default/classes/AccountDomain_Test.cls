@@ -1,14 +1,15 @@
 /***
- * @description test class for PersonAccountDomain
+ * @description test class for AccountDomain
  * @author George Nguyen
  * @date 2022-07-21
  * @group Domain
  * @domain Connected Customer
  * @changelog
  * 2022-07-21 - George Nguyen - Created
+ * 2022-09-29 - Noel Lim - Updated - relabelled from PersonAccountDomain to AccountDomain
  */
 @IsTest
-private class PersonAccountDomain_Test {
+private class AccountDomain_Test {
 	@IsTest
 	static void ensureThatRegisterModulesIsBeingCalledWithTheCorrectType() {
 		MockUtility.mockDomain(ApplicationDomain.class);
@@ -16,7 +17,7 @@ private class PersonAccountDomain_Test {
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.stopStubbing();
 
-		PersonAccountDomain.Constructor constructor = new PersonAccountDomain.Constructor();
+		AccountDomain.Constructor constructor = new AccountDomain.Constructor();
 		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
 		List<SObject> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, true);
 

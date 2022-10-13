@@ -33,6 +33,7 @@
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Added caseStarTransitWarrantyClaimRecordType, getter for MilestoneType and CaseMilestones
  * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
  * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
+
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -720,7 +721,6 @@ public with sharing class ApplicationTestDataFactory {
 			record.Id = fflib_IDGenerator.generate(record.getSObjectType());
 		}
 	}
-
 	/**
 	 * This little hack, idea courtesy of Andy Fawcett, will enable us to put values into fields that are not writeable for the purposes of mocking data without using DML operations
 	 * An example of such a construct is .Owner on the SObject. The OwnerId field is writable, but we are unable to set the .Owner value (i suppose because it's automatically populated after calling a soql)
@@ -734,8 +734,6 @@ public with sharing class ApplicationTestDataFactory {
 		for(String key : relationshipFields.keySet()) {
 			recordAsMap.put(key, relationshipFields.get(key));
 		}
-
-		System.debug(recordAsMap);
 		return (SObject)JSON.deserialize(JSON.serialize(recordAsMap), SObject.class);
 	}
 

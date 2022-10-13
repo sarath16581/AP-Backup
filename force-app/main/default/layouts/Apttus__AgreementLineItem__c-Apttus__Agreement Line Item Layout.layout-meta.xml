@@ -57,6 +57,10 @@
                 <behavior>Readonly</behavior>
                 <field>APT_Depot_Tier_Version__c</field>
             </layoutItems>
+			<layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Apttus_CMConfig__AttributeValueId__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

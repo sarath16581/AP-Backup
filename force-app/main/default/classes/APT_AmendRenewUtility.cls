@@ -25,6 +25,7 @@ Last Modified By - Madhuri Awasthi
 Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract Inactive when for the old version contarcts
 
 2022-06-08 - Naveen Rajanna - REQ2595048 - Reset Pricing Category to 'Standard' after Agreement Clone upon amend or renewal and upgrade api version to 52
+2022-10-05 - seth.heang@auspost.com.au - uplift API version to 55, update copyProposalChildRecords() method to check for bundle products hierarchy and remove decommisioned products
 */
 public without sharing class APT_AmendRenewUtility {
     
@@ -353,7 +354,7 @@ public without sharing class APT_AmendRenewUtility {
                                                              Apttus_Config2__ConfigurationId__c, Apttus_Config2__ProductId__r.APT_Product_type__c, Apttus_Config2__LineType__c,
                                                              Apttus_Config2__IsOptionRollupLine__c, Apttus_Config2__IsPrimaryLine__c, Apttus_Config2__ContractNumbers__c,
                                                              Apttus_Config2__ProductId__r.APT_Contract_Pricing__c, Apttus_Config2__OptionId__r.APT_Contract_Pricing__c,
-                                                             APT_Rate_Card_Key__c,APT_RC_Key__c
+                                                             APT_Rate_Card_Key__c,APT_RC_Key__c,Apttus_Config2__OptionId__c, Apttus_Config2__OptionId__r.Name, Apttus_Config2__ChargeType__c
                                                              from Apttus_Config2__LineItem__c
                                                              where Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__c  =: newProposalId ];
                 List<Apttus_Config2__LineItem__c> pliListTobeDeleted = new List<Apttus_Config2__LineItem__c>();
@@ -380,7 +381,14 @@ public without sharing class APT_AmendRenewUtility {
                 **/
                 
                 if(pliList.size() > 0) {
+                    Set<Id> productOptionToFind = new Set<Id>();
+                    Map<Id, Apttus_Config2__LineItem__c> mapProductOptionLI= new Map<Id, Apttus_Config2__LineItem__c>();
                     for(Apttus_Config2__LineItem__c pli :pliList ){
+                        // store option products for later processing to remove decommissioned products after the clone
+                        if(pli.Apttus_Config2__OptionId__c != null){				
+                            productOptionToFind.add(pli.Apttus_Config2__ProductId__c);
+                        }
+                        mapProductOptionLI.put(pli.Id, pli);
                         
                         String productType =  pli.Apttus_Config2__ProductId__r.APT_Product_type__c;
                         String linetype = pli.Apttus_Config2__LineType__c;
@@ -497,6 +505,22 @@ public without sharing class APT_AmendRenewUtility {
                         System.debug('pliListTobeDeleted --> ' + pliListTobeDeleted);
                         System.debug('pliListTobeUpdated --> ' + pliListTobeUpdated);
                     }
+
+					// check for decommisioned products based on latest product structure hierarchy and deleted related line items
+					if(mapProductOptionLI.size() > 0) {
+						List<Apttus_Config2__LineItem__c> liToBeDeleteList = checkProductComponentOptions(mapProductOptionLI, productOptionToFind);
+						if(liToBeDeleteList.size() > 0) {
+							// iterate over clone version, so original list can be modified during iteration
+							for(Apttus_Config2__LineItem__c li: pliListTobeUpdated.clone()){
+								// remove to-be-deleted line item from pliListTobeUpdated list
+								if(liToBeDeleteList.contains(li)){
+									Integer liIndex = pliListTobeUpdated.indexOf(li);
+									pliListTobeUpdated.remove(liIndex);
+								}
+							}
+							ApplicationDatabase.getInstance().dmlDelete(liToBeDeleteList);
+						}
+					}
                     
                     if(pliListTobeUpdated.size() > 0 ){
                         update pliListTobeUpdated;
@@ -1235,4 +1259,48 @@ public without sharing class APT_AmendRenewUtility {
             }
         }
     }
+
+	/**
+	 * @description	Validate the line item structure against the product option component which is the latest product schema configuration in Apttus
+	 * @param Map<Id, Apttus_Config2__LineItem__c>
+	 * @param Set<Id> productOptionToFind
+	 * @return List<Apttus_Config2__LineItem__c>
+	 */
+	public static List<Apttus_Config2__LineItem__c> checkProductComponentOptions(Map<Id, Apttus_Config2__LineItem__c> mapProductOptionLI, Set<Id> productOptionToFind) {
+		
+		List<Apttus_Config2__LineItem__c> liToBeDeleteList = new List<Apttus_Config2__LineItem__c>();
+		List<Apttus_Config2__ProductOptionComponent__c> productOptionComponentsList = APT_ProductOptionCompsSelector.newInstance().selectByParentProductId(
+			productOptionToFind, 
+			new Set<Object>{
+				APT_ProductOptionCompsSelector.Options.WITH_COMPONENT_PRODUCT
+			});
+		if(productOptionComponentsList.size() > 0 ) {
+			Set<string> productOptionComponentKeyMap = new Set<string>();
+			//create a string using parent product id and Component Product Id, to filter on LI
+			for(Apttus_Config2__ProductOptionComponent__c productOptionComponent :productOptionComponentsList){
+				productOptionComponentKeyMap.add(productOptionComponent.Apttus_Config2__ParentProductId__c + '_' +productOptionComponent.Apttus_Config2__ComponentProductId__r.Name);
+			}
+			// set to store the product name for deletion
+			Set<String> productNameForDeletionSet = new Set<String>();
+			//check the List of LI of Option products 's key (generated) against product option component key map
+			for(Apttus_Config2__LineItem__c li :mapProductOptionLI.values()){
+				// Build a key string to match the above string for comparison
+				string keyToCheck;
+				if(li.Apttus_Config2__OptionId__c != null){
+					keyToCheck = li.Apttus_Config2__ProductId__c + '_' + li.Apttus_Config2__OptionId__r.Name; 
+				}
+				// capture line item with Option products that matches the key's string
+				if(!productOptionComponentKeyMap.contains(keyToCheck) && keyToCheck != null) {
+					productNameForDeletionSet.add(li.Apttus_Config2__OptionId__r.Name);
+				}
+			}
+			// capture all line items including 'Product/Service' and 'Options' types with same name
+			for(Apttus_Config2__LineItem__c li :mapProductOptionLI.values()){
+				if(productNameForDeletionSet.contains(li.Apttus_Config2__ChargeType__c)){
+					liToBeDeleteList.add(li);
+				}
+			}
+		}
+		return liToBeDeleteList;
+	}
 }

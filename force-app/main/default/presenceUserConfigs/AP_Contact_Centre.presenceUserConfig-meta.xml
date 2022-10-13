@@ -2,15 +2,17 @@
 <PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <profiles>
-            <profile>sssw - service agent</profile>
+            <profile>SSSW - Service Agent</profile>
         </profiles>
+        <users>            
+        </users>
     </assignments>
-    <capacity>1</capacity>
+    <capacity>2</capacity>
     <enableAutoAccept>false</enableAutoAccept>
     <enableDecline>true</enableDecline>
     <enableDeclineReason>false</enableDeclineReason>
-    <enableDisconnectSound>false</enableDisconnectSound>
+    <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
-    <label>Callback Request Team</label>
+    <label>AP Contact Centre</label>
     <presenceStatusOnDecline>Away</presenceStatusOnDecline>
 </PresenceUserConfig>

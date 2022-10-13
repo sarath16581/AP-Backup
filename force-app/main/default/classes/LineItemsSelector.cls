@@ -107,7 +107,7 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if(selectorOptions.contains(Options.WITH_PRODUCT_ATTRIBUTE_VALUE)) {
-			builder.addRelatedFields(ProductAttributeValueSelector.newInstance().newQueryBuilder(), 'Apttus_Config2__AttributeValueId__r');
+			builder.addRelatedFields(APT_ProductAttributeValuesSelector.newInstance().newQueryBuilder(), 'Apttus_Config2__AttributeValueId__r');
 		}
 		return builder;
 	}
