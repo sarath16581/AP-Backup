@@ -7,11 +7,12 @@
 * @description Batch job responsible for reopening cases waiting on hold
 * @changelog
 * 02/12/2021 - Alex Volkov - Initial creation
+* 28/09/2022 - Mahesh Parvathaneni - DDS-12732 - Included the exception checker logic
 */
 
-global with sharing class CaseReopenBatch implements Database.Batchable<SObject>, Schedulable {
+public with sharing class CaseReopenBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
 
-	private static final Integer BATCH_SIZE = 25;
+	private Integer BATCH_SIZE = 25;
 
 	/**
 	 * @description Overridable query
@@ -27,20 +28,117 @@ global with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 	}
 
 	public void execute(Database.BatchableContext bc, List<SObject> scope) {
-		for (Case c: (List<Case>)scope) {
-			c.AllocateToQueue__c = true;
-			c.Case_Reopen_Date__c = null;
-			c.Bypass_Data_enforcement__c = true;
+		try {
+			Map<Id, List<Case>> articleToCasesMap = new Map<Id, List<Case>>();
+			List<Case> caseListWithArticles = new List<Case>();
+			List<Case> caseListWithoutArticles = new List<Case>();
+
+			// loop through cases associated with/without articles
+			for (Case c : (List<Case>) scope) {
+				if (c.ArticleTest__c != null) {
+					List<Case> clist = articleToCasesMap.get(c.ArticleTest__c);
+					if (clist == null) {
+						clist = new List<Case>();
+					}
+					clist.add(c);
+					articleToCasesMap.put(c.ArticleTest__c, clist);
+					caseListWithArticles.add(c);
+				} else {
+					caseListWithoutArticles.add(c);
+				}
+			}
+
+			//process the exception checker logic for cases with articles
+			if (articleToCasesMap.size() > 0) {
+				handleExceptionCheckerOnCases(articleToCasesMap);
+			}
+
+			//process the consignments to allocate to queue
+			if (caseListWithoutArticles.size() > 0) {
+				ExceptionCheckerService.getInstance().assignCasesToAgentQueue(caseListWithoutArticles);
+			}
+		} catch (Exception ex) {
+			// Error Logged to Exception object for analysis
+            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Case Reopen', CaseReopenBatch.class.getName(), 'execute', null, LoggingLevel.ERROR);
 		}
-		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(scope, false);
-		UTIL_LoggingService.logDmlResults(vResult, null, scope, 'Case Reopen',
-				CaseReopenBatch.class.getName(), 'execute',null, LoggingLevel.ERROR);
 	}
 
 	public void finish(Database.BatchableContext bc) {
 	}
 
+	//schedular for processing cases waiting on hold
 	public void execute(SchedulableContext sc) {
+		//instantiate config variables
+		Consumer_Help_and_Support__c config = Consumer_Help_and_Support__c.getOrgDefaults();
+		if (config.CaseReopenBatchSize__c != null) {
+			this.BATCH_SIZE = Integer.valueOf(config.CaseReopenBatchSize__c);
+		} 
 		Database.executeBatch(this, BATCH_SIZE);
 	}
+
+	/**
+	 * handle the exception checker logic
+	 */
+	private void handleExceptionCheckerOnCases(Map<Id, List<Case>> articleToCasesMap) {
+		Map<String, Id> trackingIdToArticleMap = new Map<String, Id>();
+		Map<String, List<ExceptionCheckerService.EventMessageDTO>> trackingIdToEventMessageWrapperMap = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+		Map<Id,EventMessage__c> eventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(articleToCasesMap.keySet());
+
+			for (EventMessage__c em : eventMessageMap.values()) {
+				//populate trackingIdToEventMessageWrapperMap
+				if (!trackingIdToEventMessageWrapperMap.containsKey(em.TrackingID__c)) {
+					trackingIdToEventMessageWrapperMap.put(em.TrackingID__c, new List<ExceptionCheckerService.EventMessageDTO>());
+				}
+				if (String.isNotBlank(em.EventType__c)) {
+					ExceptionCheckerService.EventMessageDTO emDto = new ExceptionCheckerService.EventMessageDTO();
+					emDto.eventType = em.EventType__c;
+					emDto.actualDateTime = em.ActualDateTime__c;
+					trackingIdToEventMessageWrapperMap.get(em.TrackingID__c).add(emDto);
+				}
+				//populate trackingIdToArticleMap
+				if (!trackingIdToArticleMap.containsKey(em.TrackingID__c)) {
+					trackingIdToArticleMap.put(em.TrackingID__c, em.Article__c);
+				}
+			}
+
+			if (trackingIdToEventMessageWrapperMap.size() > 0) {
+				//call the exception checker service
+				runExceptionChecker(trackingIdToEventMessageWrapperMap, articleToCasesMap, trackingIdToArticleMap);	
+			}
+	}
+
+	/**
+	 * Run the exception checker logic on cases to assign to agent queue and close the cases
+	 */
+	private void runExceptionChecker(Map<String, List<ExceptionCheckerService.EventMessageDTO>> trackingIdToEventMessageWrapperMap, Map<Id, List<Case>> articleToCasesMap, Map<String, Id> trackingIdToArticleMap) {
+		List<Case> exceptionCases = new List<Case>();
+		List<Case> noExceptionCases = new List<Case>();
+		List<Case> agentQueueCases = new List<Case>();
+		List<Case> casesToClose = new List<Case>();
+
+		Map<String, ExceptionCheckerService.ExceptionResultDTO> exceptionResult = ExceptionCheckerService.getInstance().isExceptionApplies(trackingIdToEventMessageWrapperMap);
+		//loop through tracking ids if exceptions
+		for (String trackingId : trackingIdToEventMessageWrapperMap.keySet()) {
+			if (exceptionResult.containsKey(trackingId) && exceptionResult.get(trackingId).isException) {
+				//get the cases
+				exceptionCases.addAll(articleToCasesMap.get(trackingIdToArticleMap.get(trackingId)));
+			} else {
+				noExceptionCases.addAll(articleToCasesMap.get(trackingIdToArticleMap.get(trackingId)));
+			}
+		}
+		agentQueueCases.addAll(exceptionCases);
+
+		for (Case neCase : noExceptionCases) {
+			if (neCase.CaseOriginator__c == ChasConstants.SENDER) {
+				agentQueueCases.add(neCase);
+			} else {
+				casesToClose.add(neCase);
+			}
+		}
+		//assign the cases to queue
+		ExceptionCheckerService.getInstance().assignCasesToAgentQueue(exceptionCases);
+		//close the cases for lost in transit
+		ExceptionCheckerService.getInstance().closeCases(casesToClose);
+	}
+
 }

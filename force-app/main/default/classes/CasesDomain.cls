@@ -1,4 +1,4 @@
-/**
+/** 
 * @description Domain class to handle common logic for all case types
 * @author Ashapriya Gadi
 * @date 2021-12-06
@@ -28,7 +28,8 @@ public inherited sharing class CasesDomain extends ApplicationDomain{
 		// Logic relating to Omni Skills-based Routing
 		// Populate Case attributes used in Skills routing rules
 		// Related to SSSW Cases only, the module filters to SSSW Cases only
-		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. It has logic that depends on Case.AccountId. Legacy code assigns a Contact to Cases without a Contact, see CaseCommonUtility.assignContactIDToCase()
+		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. It has logic that depends on Case.AccountId
+		// Refactor Guidance - the logic in this code needs to be positioned: i) in CaseTriggerUtility.beforeHandler() ii) when caseUtility.assignContactIDToCase() is called
 		registerModule(CaseSkillBasedRoutingModule.class);
 	}
 	/**

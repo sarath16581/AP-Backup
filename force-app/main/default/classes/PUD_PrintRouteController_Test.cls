@@ -111,8 +111,15 @@ private class PUD_PrintRouteController_Test {
 
 		bookings[1].Booking_Type__c = PUDConstants.PUD_BOOKING_TYPE_MEAL_BREAK;
 		bookings[1].Start_Time__c = Time.newInstance(10, 0, 0, 0);
-		bookings[1].Dwell_Time_Planned__c = 15;
-		
+		// set dwell time over one hour
+		bookings[1].Dwell_Time_Planned__c = 75;
+
+		bookings[2].Start_Time__c = null;
+		bookings[2].Dwell_Time_Planned__c = null;
+
+		bookings[3].Start_Time__c = Time.newInstance(10, 0, 0, 0);
+		bookings[3].Dwell_Time_Planned__c = null;
+
 		//associating bookings with a route.
 		route1 = (PUD_Route__c)ApplicationTestDataFactory.setChildRelationships(route1, new Map<String, List<SObject>>{'Bookings__r' => bookings});
 
@@ -125,7 +132,10 @@ private class PUD_PrintRouteController_Test {
 		Test.startTest();
 
 		PUDPrintableRouteWrapper routeWrapper = new PUDPrintableRouteWrapper(route1);
-		PUDPrintableBookingWrapper bookingWrapper = new PUDPrintableBookingWrapper(bookings[0]);
+		PUDPrintableBookingWrapper bookingWrapperOne = new PUDPrintableBookingWrapper(bookings[0]);
+		PUDPrintableBookingWrapper bookingWrapperTwo = new PUDPrintableBookingWrapper(bookings[1]);
+		PUDPrintableBookingWrapper bookingWrapperThree = new PUDPrintableBookingWrapper(bookings[2]);
+		PUDPrintableBookingWrapper bookingWrapperFour = new PUDPrintableBookingWrapper(bookings[3]);
 
 		Test.stopTest();
 		//assert that bookings are added 
@@ -135,12 +145,26 @@ private class PUD_PrintRouteController_Test {
 		System.assertEquals('0700 - 0705', routeWrapper.getRouteDuration(), 'Expected to format route duration with hyphen');
 
 		//assert bookings start and end time are formatted in HHMM format
-		System.assertEquals('0700', bookingWrapper.getStartTimeString(), 'Expected to format Start Time in HHMM format');
-		System.assertEquals('0705', bookingWrapper.getEndTimeString(), 'Expected to format end Time in HHMM format');
+		System.assertEquals('0700', bookingWrapperOne.getStartTimeString(), 'Expected to format Start Time in HHMM format');
+		System.assertEquals('0705', bookingWrapperOne.getEndTimeString(), 'Expected to format end Time in HHMM format');
 
 		//assert booking duration
-		System.assertEquals('0700 - 0705', bookingWrapper.getBookingDuration(), 'Expected to format booking duration with hyphen');
-		
+		System.assertEquals('0700 - 0705', bookingWrapperOne.getBookingDuration(), 'Expected to format booking duration with hyphen');
+
+		// assert start time, end time and duration is displayed properly on bookings with a dwell time over an hour
+		System.assertEquals('1000', bookingWrapperTwo.getStartTimeString(), 'Expected to format Start Time in HHMM format');
+		System.assertEquals('1115', bookingWrapperTwo.getEndTimeString(), 'Expected to format end Time in HHMM format');
+		System.assertEquals('1000 - 1115', bookingWrapperTwo.getBookingDuration(), 'Expected to format booking duration with hyphen');
+
+		// assert start time, end time and duration is displayed properly on bookings with a null start time / dwell time
+		System.assertEquals('', bookingWrapperThree.getStartTimeString(), 'Expected empty string as the start time when start time on the booking is null');
+		System.assertEquals('', bookingWrapperThree.getEndTimeString(), 'Expected empty string as the end time when start time / dwell time on the booking is null');
+		System.assertEquals('', bookingWrapperThree.getBookingDuration(), 'Expected empty string as the duration when start time / dwell time on the booking is null');
+
+		// assert start time, end time and duration is displayed properly on bookings with a null dwell time
+		System.assertEquals('1000', bookingWrapperFour.getStartTimeString(), 'Expected to format Start Time in HHMM format');
+		System.assertEquals('', bookingWrapperFour.getEndTimeString(), 'Expected empty string as the end time when dwell time on the booking is null');
+		System.assertEquals('1000 - ', bookingWrapperFour.getBookingDuration(), 'Expected to show only start time in booking duration with hyphen');
 	}
 
 	@IsTest
