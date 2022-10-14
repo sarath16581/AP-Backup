@@ -3,7 +3,6 @@
   "currentThemeId" : "3ac1481c-39ca-4daf-ba5d-9e4d686f5886",
   "headMarkup" : "<link rel=\"icon\" type=\"image/x-icon\" href=\"https://auspost.com.au/content/dam/global/favicons/favicon-32x32.png\">\n\n<script>\n        var analytics = {};\n        analytics.page = {};\n        analytics.page.pageData = {};\n        analytics.page.pageData.sitePrefix = \"auspost:help and support\";\n        analytics.page.pageData.pageAbort = \"true\";\n        analytics.component = {};\n        analytics.component.form = {};\n        analytics.component.form.name=\"\";\n        analytics.component.form.step=\"\";\n        analytics.component.form.stage=\"\";\n        \n    </script>\n    <script type=\"text/javascript\" src=\"//assets.adobedtm.com/bfecad1ae7e5d7a2b8a9353b2d496d9b392db768/satelliteLib-9c215febcba74f72ca4a2cc8370a7f4b70048c28.js\"></script>",
   "id" : "6f87ce43-8103-412d-b337-9119174263c8",
-  "isLockerServiceEnabled" : true,
   "isRelaxedCSPLevel" : true,
   "label" : "main",
   "templateName" : "Service Community Template",
