@@ -17,6 +17,7 @@
     <label>AP CCC Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSets>MFA Authorization for User Logins</permissionSets>
+    <permissionSets>SSSW Reopen Date</permissionSets>
     <permissionSets>SSSW Omni Supervisor PermSet</permissionSets>
     <permissionSets>SSSW Allow Quick Text</permissionSets>
     <permissionSets>SSSW Callback Reminder Manager</permissionSets>

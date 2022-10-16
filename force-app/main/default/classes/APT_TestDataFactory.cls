@@ -244,4 +244,16 @@ public class APT_TestDataFactory {
 			Apttus_Config2__LineItem__c.Apttus_Config2__AdjustedPrice__c => 0
 		}, count), generateIds);
 	}
+	
+	public static List<Product2> getAppcProduct(integer count, Boolean generateIds){
+		return (List<Product2>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
+			Product2.ProductCode=> 'APPC',
+			Product2.name=>'Australia Post Parcel Contract',            
+			Product2.Family=>'APPC',
+			Product2.APT_Contracting_Entity__c=>'Australian Postal Corporation',
+			Product2.IsActive=>true,
+			Product2.APT_Apttus_Product_Classification__c=>'APPC',
+			Product2.APT_Is_Apttus_Product__c=>true
+		}, count), generateIds);
+	}
 }

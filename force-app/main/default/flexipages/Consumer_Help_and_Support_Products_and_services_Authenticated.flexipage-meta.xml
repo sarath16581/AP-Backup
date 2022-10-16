@@ -12,6 +12,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>ChasProductsAndServicesWizard</componentName>
+                <identifier>ChasProductsAndServicesWizard</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -28,6 +29,7 @@
                     <value>ProductsAndServicesAuthenticated</value>
                 </componentInstanceProperties>
                 <componentName>ChasAdobeAnalyticsPageView</componentName>
+                <identifier>ChasAdobeAnalyticsPageView</identifier>
             </componentInstance>
         </itemInstances>
         <name>footer</name>
@@ -50,6 +52,7 @@
                     <value>Products &amp; Services (Authenticated)</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
+                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

@@ -14,6 +14,7 @@
 &lt;!--render facet: 282:2;a--&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:richText</componentName>
+                <identifier>forceCommunity_richText</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -54,6 +55,7 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:userProfileBody</componentName>
+                <identifier>forceCommunity_userProfileBody</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -83,6 +85,7 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:userProfileTabs</componentName>
+                <identifier>forceCommunity_userProfileTabs</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -99,6 +102,7 @@
                     <value>UserProfile</value>
                 </componentInstanceProperties>
                 <componentName>cpAdobeAnalyticsPageView</componentName>
+                <identifier>cpAdobeAnalyticsPageView</identifier>
             </componentInstance>
         </itemInstances>
         <name>footer</name>
@@ -122,11 +126,13 @@
                     <name>userStatsTitle</name>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:userProfileStats</componentName>
+                <identifier>forceCommunity_userProfileStats</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>brideas_UserProfileIdeasStats</componentName>
+                <identifier>brideas_UserProfileIdeasStats</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -144,6 +150,7 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:userProfileKnowledgeableAbout</componentName>
+                <identifier>forceCommunity_userProfileKnowledgeableAbout</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -153,6 +160,7 @@
                     <value>{!recordId}</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:userRelatedList</componentName>
+                <identifier>forceCommunity_userRelatedList</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

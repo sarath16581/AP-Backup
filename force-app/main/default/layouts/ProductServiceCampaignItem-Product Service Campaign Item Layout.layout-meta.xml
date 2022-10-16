@@ -28,6 +28,10 @@
                 <behavior>Edit</behavior>
                 <field>AssetId</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>SerializedProductId</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

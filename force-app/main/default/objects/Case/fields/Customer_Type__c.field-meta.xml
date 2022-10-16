@@ -3,12 +3,7 @@
     <fullName>Customer_Type__c</fullName>
     <description>SSSW - Shows the Customer type on Account</description>
     <externalId>false</externalId>
-    <formula>
-IF(NOT(ISPICKVAL(CustomerQueueType__c,'')), TEXT(CustomerQueueType__c),
-  IF(NOT(ISPICKVAL(Account.ServiceSLA__c,'')),  TEXT(Account.ServiceSLA__c),
-    'Consumer'
-))
-    </formula>
+    <formula>IF(NOT(ISPICKVAL(CustomerQueueType__c,&apos;&apos;)), TEXT(CustomerQueueType__c), IF(NOT(ISPICKVAL(Account.ServiceSLA__c,&apos;&apos;)), TEXT(Account.ServiceSLA__c), &apos;Consumer&apos; ))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Customer Type</label>
     <required>false</required>

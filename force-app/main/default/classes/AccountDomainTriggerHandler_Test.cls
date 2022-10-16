@@ -25,4 +25,3 @@ public with sharing class AccountDomainTriggerHandler_Test {
 
 	}
 }
-

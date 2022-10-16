@@ -13,6 +13,7 @@
  * 2021-08-06 - Seth Heang - Added selectByLikedNameOrderByConsumerAndNameNullFirst, selectByLikedAnyPhoneOrderByName
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-07-19 - Sreenish Krishnan - Code upliftment to newinstance with map parameters and additional fields
+ * 2022-09-05 - Nathan Franklin - Passed options and overrides to AccountsSelector
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
     public enum Options {

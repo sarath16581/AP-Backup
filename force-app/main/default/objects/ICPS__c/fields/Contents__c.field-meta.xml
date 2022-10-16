@@ -5,8 +5,10 @@
     <externalId>false</externalId>
     <inlineHelpText>The nature of the contents within the article/s allocated to this ICPS</inlineHelpText>
     <label>Contents</label>
+    <length>255</length>
     <required>false</required>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>TextArea</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

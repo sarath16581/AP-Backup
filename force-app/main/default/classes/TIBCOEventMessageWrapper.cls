@@ -22,7 +22,7 @@
  * 2021-09-30 - Nathan Franklin - adding transient attributes capability (for attributes that are not stored within SF but still mapped for UI only use) + modifying logic for safe drop images
  * * 2022-03-07   prerna.rahangdale@auspost.com.au For VODV Articles location doesn't come for Merchant profile , but when internal user searches the article the location details are show in BSP, resetting the
  * 											     values to get the location from SAP everytime with Merchant profile access controls.
- * 	13/10/2022 prerna.rahangdale@auspost.com.au resetting the guid value to blank.
+ *13/10/2022 	prerna.rahangdale@auspost.com.au resetting the guid value to blank.
 **************************************************/
 
 public class TIBCOEventMessageWrapper implements Comparable {
@@ -362,17 +362,15 @@ public class TIBCOEventMessageWrapper implements Comparable {
 		Set<String> safeDropTypes = SafeDropUtility.getSafeDropAttachmentTypes();
 		Set<String> safeDropEventTypes = SafeDropUtility.getSafeDropEvents();
 
-		proxyEM.Safe_Drop_GUID__c = '';
-
 		if (attachmentsElement != null && attachmentsElement.Attachment != null && attachmentsElement.Attachment.size() > 0) {
 
+			proxyEM.Safe_Drop_GUID__c = '';
 			// TIBCO returns only one attachment per event message.
 			for (AuspostCommonSchema.AttachmentType att : attachmentsElement.Attachment) {
 
 				if (String.isNotBlank(att.AttachmentType) && String.isNotBlank(att.URL)) {
 					// this is for backwards compatibility for Safe Drop feature
-
-					if(safeDropTypes.contains(att.AttachmentType) && safeDropEventTypes.contains(proxyEM.EventType__c)){
+					if(safeDropTypes.contains(att.AttachmentType) && safeDropEventTypes.contains(proxyEM.EventType__c)) {
 						proxyEM.Safe_Drop_GUID__c = att.URL;
 					}
 

@@ -3,8 +3,43 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW WFM Queue 4</name>
+    <queueMembers>
+        <users>
+            <user>ahmad.awamleh@auspost.com.au</user>
+            <user>alexis.marchi2@auspost.com.au</user>
+            <user>becky.wheller@auspost.com.au</user>
+            <user>cassie.cizzio@auspost.com.au</user>
+            <user>cortni.odonnell4@auspost.com.au</user>
+            <user>danielle.anderson13@auspost.com.au</user>
+            <user>debbie.bean3@auspost.com.au</user>
+            <user>dipti.shah6@auspost.com.au</user>
+            <user>donna.simmons4@auspost.com.au</user>
+            <user>ella.oost@auspost.com.au</user>
+            <user>emma.devos@auspost.com.au</user>
+            <user>ena.colo@auspost.com.au</user>
+            <user>francesco.edmonds@auspost.com.au</user>
+            <user>gowri.nagarajan@auspost.com.au</user>
+            <user>han.pua2@auspost.com.au</user>
+            <user>jan.lyons@auspost.com.au</user>
+            <user>jodie.janevski@auspost.com.au</user>
+            <user>kavitha.mohanarangam@auspost.com.au</user>
+            <user>kym.menagh@auspost.com.au</user>
+            <user>lisa.lewis4@auspost.com.au</user>
+            <user>melanie.dcruz@auspost.com.au</user>
+            <user>nadia.envall@auspost.com.au</user>
+            <user>orla.hamm@auspost.com.au</user>
+            <user>payal.joshi3@auspost.com.au</user>
+            <user>ramona.ese@auspost.com.au</user>
+            <user>rhonda.kneebone@auspost.com.au</user>
+            <user>rohan.walsh5@auspost.com.au</user>
+            <user>sheree.lette@auspost.com.au</user>
+            <user>suniya.haris@auspost.com.au</user>
+            <user>te.vi@auspost.com.au</user>
+            <user>vidit.gupta4@auspost.com.au</user>
+            <user>zainab.hussain3@auspost.com.au</user>
+        </users>
+    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
-    <queueRoutingConfig></queueRoutingConfig>
 </Queue>

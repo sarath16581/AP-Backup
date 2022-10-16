@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Skill xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Consumer</label>
     <description>This is the base skill to be applied to cases that are attached to consumer accounts . All agents working on consumer cases must have this base skill assigned.</description>
+    <label>Consumer</label>
 </Skill>

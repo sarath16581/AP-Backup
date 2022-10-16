@@ -27,4 +27,3 @@ class ContactPointPhoneTrigger_Test {
 		System.assert(true);
     }
 }
-

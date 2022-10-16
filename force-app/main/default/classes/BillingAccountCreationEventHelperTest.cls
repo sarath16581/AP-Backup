@@ -101,10 +101,6 @@ public with sharing class BillingAccountCreationEventHelperTest {
         Map<Id, Account> mockOrganisationMap = new Map<Id, Account>{account.Id => account };
         MockUtility.Mocks.when(acctSelector.selectById(mockOrganisationMap.keyset(),new Set<object>{AccountsSelector.Options.WITH_ORGANISATION_ROLES,AccountsSelector.Options.WITH_HOLDINGROLE})).thenReturn(mockOrganisationMap );
         
-       
-         List<APT_Agreement_Lodgement_Point__c> mockALPList = new List<APT_Agreement_Lodgement_Point__c>{alpRec};
-            MockUtility.Mocks.when(alpSelector.selectByApttusContractId(new set<Id>{apttusContracts.id})).thenReturn(mockALPList);
-        
         Map<Id, Deal_Support_Request__c> mockDsrMap = new Map<Id, Deal_Support_Request__c>{dealSupportRequest.Id => dealSupportRequest};
         MockUtility.Mocks.when(dsrSelector.selectById(mockDsrMap.keyset(), 
 			new Set<object>{
@@ -130,7 +126,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
+			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}),(Set<Object>)fflib_Match.anyObject())).thenReturn(
 			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
         
         MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);

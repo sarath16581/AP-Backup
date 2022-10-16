@@ -339,15 +339,20 @@ public inherited sharing class SurveyService {
         
         surveysMetadataMap.put(sObjectApiName,surveysMetadata);
 	}
-
+	/*
+	* Static Entry Conditions must be met for a data object before considering entry conditions for a survey invitation.
+	* @param SObjectName  the API name of the data object to test as specified in survey metadata
+	* @returns = a standardized Entry Condition Name
+	*/
     private String getStaticEntryConditionsName(String SObjectApiName) {
        
-       string staticEntryConditionsName = 'Static_'+SObjectApiName+'_Survey';
-       if (!surveyEntryConditions.isCreated(staticEntryConditionsName)) createStaticEntryConditions(staticEntryConditionsName); 
-       if (!surveyEntryConditions.hasEntryConditions(staticEntryConditionsName)) return null;
-		return staticEntryConditionsName;
-        
-    }
+	string cleanName = SObjectApiName.right(3) == '__c' ?  SObjectApiName.left(SObjectApiName.length()-3) : SObjectApiName;
+	string staticEntryConditionsName = 'Static_'+cleanName+'_Survey';
+	if (!surveyEntryConditions.isCreated(staticEntryConditionsName)) createStaticEntryConditions(staticEntryConditionsName); 
+	if (!surveyEntryConditions.hasEntryConditions(staticEntryConditionsName)) return null;
+	return staticEntryConditionsName;
+	 
+ }
     
     /*========================================================================================
     * Send Survey Invitations Queueable subclass

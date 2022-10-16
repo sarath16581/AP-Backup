@@ -181,43 +181,44 @@
             <showKnowledgeArticles>false</showKnowledgeArticles>
         </liveAgentConfig>
         <whitelistedDomains>auspost.com.au</whitelistedDomains>
-        <whitelistedDomains> www.google.com.au</whitelistedDomains>
-        <whitelistedDomains> www.dhl.com.au</whitelistedDomains>
-        <whitelistedDomains> www.fedex.com</whitelistedDomains>
-        <whitelistedDomains> www.ups.com</whitelistedDomains>
-        <whitelistedDomains> maps.googleapis.com</whitelistedDomains>
-        <whitelistedDomains> code.jquery.com</whitelistedDomains>
-        <whitelistedDomains> ajax.googleapis.com</whitelistedDomains>
-        <whitelistedDomains> c.ap1.visual.force.com</whitelistedDomains>
-        <whitelistedDomains> ap1.salesforce.com</whitelistedDomains>
-        <whitelistedDomains> localhost</whitelistedDomains>
-        <whitelistedDomains> 127.0.0.1</whitelistedDomains>
-        <whitelistedDomains> auspost.custhelp.com</whitelistedDomains>
-        <whitelistedDomains> netposx</whitelistedDomains>
-        <whitelistedDomains> clwsapcapp03</whitelistedDomains>
-        <whitelistedDomains> netposadmin</whitelistedDomains>
-        <whitelistedDomains> globaltracktrace.ptc.post</whitelistedDomains>
-        <whitelistedDomains> mrs</whitelistedDomains>
-        <whitelistedDomains> cs.ipc.be</whitelistedDomains>
-        <whitelistedDomains> sttrackandtrace.startrack.com.au</whitelistedDomains>
-        <whitelistedDomains> datawarehouse</whitelistedDomains>
-        <whitelistedDomains> postapps</whitelistedDomains>
-        <whitelistedDomains> gcss.ipc.be</whitelistedDomains>
-        <whitelistedDomains> solutions-admin.corp.auspost.local</whitelistedDomains>
-        <whitelistedDomains> apex</whitelistedDomains>
-        <whitelistedDomains> hxaix23.hq.auspost.com.au:50000</whitelistedDomains>
-        <whitelistedDomains> hxaix08.hq.auspost.com.au:8000</whitelistedDomains>
-        <whitelistedDomains> nwebapp1</whitelistedDomains>
-        <whitelistedDomains> umcs.corp.auspost.local</whitelistedDomains>
-        <whitelistedDomains> auspost.niceondemand.com</whitelistedDomains>
-        <whitelistedDomains> nswamc</whitelistedDomains>
-        <whitelistedDomains> c.ap15.visual.force.com</whitelistedDomains>
-        <whitelistedDomains> ap15.salesforce.com</whitelistedDomains>
+        <whitelistedDomains>www.google.com.au</whitelistedDomains>
+        <whitelistedDomains>www.dhl.com.au</whitelistedDomains>
+        <whitelistedDomains>www.fedex.com</whitelistedDomains>
+        <whitelistedDomains>www.ups.com</whitelistedDomains>
+        <whitelistedDomains>maps.googleapis.com</whitelistedDomains>
+        <whitelistedDomains>code.jquery.com</whitelistedDomains>
+        <whitelistedDomains>ajax.googleapis.com</whitelistedDomains>
+        <whitelistedDomains>c.ap1.visual.force.com</whitelistedDomains>
+        <whitelistedDomains>ap1.salesforce.com</whitelistedDomains>
+        <whitelistedDomains>localhost</whitelistedDomains>
+        <whitelistedDomains>127.0.0.1</whitelistedDomains>
+        <whitelistedDomains>auspost.custhelp.com</whitelistedDomains>
+        <whitelistedDomains>netposx</whitelistedDomains>
+        <whitelistedDomains>clwsapcapp03</whitelistedDomains>
+        <whitelistedDomains>netposadmin</whitelistedDomains>
+        <whitelistedDomains>globaltracktrace.ptc.post</whitelistedDomains>
+        <whitelistedDomains>mrs</whitelistedDomains>
+        <whitelistedDomains>cs.ipc.be</whitelistedDomains>
+        <whitelistedDomains>sttrackandtrace.startrack.com.au</whitelistedDomains>
+        <whitelistedDomains>datawarehouse</whitelistedDomains>
+        <whitelistedDomains>postapps</whitelistedDomains>
+        <whitelistedDomains>gcss.ipc.be</whitelistedDomains>
+        <whitelistedDomains>solutions-admin.corp.auspost.local</whitelistedDomains>
+        <whitelistedDomains>apex</whitelistedDomains>
+        <whitelistedDomains>hxaix23.hq.auspost.com.au:50000</whitelistedDomains>
+        <whitelistedDomains>hxaix08.hq.auspost.com.au:8000</whitelistedDomains>
+        <whitelistedDomains>nwebapp1</whitelistedDomains>
+        <whitelistedDomains>umcs.corp.auspost.local</whitelistedDomains>
+        <whitelistedDomains>auspost.niceondemand.com</whitelistedDomains>
+        <whitelistedDomains>nswamc</whitelistedDomains>
+        <whitelistedDomains>c.ap15.visual.force.com</whitelistedDomains>
+        <whitelistedDomains>ap15.salesforce.com</whitelistedDomains>
     </consoleConfig>
     <defaultLandingTab>standard-home</defaultLandingTab>
     <description>MyCustomers Console Application for CS&amp;S Agents</description>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isServiceCloudConsole>true</isServiceCloudConsole>
     <label>Customer Service</label>
     <preferences>

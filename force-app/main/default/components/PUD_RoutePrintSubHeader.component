@@ -29,7 +29,7 @@
                                 <apex:outputText rendered="{! routeWrapper.route.Saturday__c}" value="Sat "/>
                                 <apex:outputText rendered="{! routeWrapper.route.Sunday__c}" value="Sun "/>
 	                        	<!-- display time in hhmm format -->
-                      			<apex:outputText> {! routeWrapper.routeDuration}</apex:outputText>
+                      			<apex:outputText > {! routeWrapper.routeDuration}</apex:outputText>
                             </span>
 			</td>
 			<td class="boldcell"
@@ -44,17 +44,16 @@
 			</td>
 			<td class="boldcell" style="font-size:12px;  vertical-align:top; width:210px; display:inline-block">
 				<apex:variable var="breaksNumber" value="{!0}"/>
-                
-                <!-- iterate through Meal Break bookings -->
+				<!-- iterate through Meal Break bookings -->
 				<apex:repeat value="{!routeWrapper.mealBreaks}" var="bookingWrapper">
 					<apex:outputText rendered="{! breaksNumber>0 }"><br/>
 					</apex:outputText>
 					<apex:outputText rendered="{! !ISBLANK(bookingWrapper.booking.Booking_Location_Name_LU__c)}">{!bookingWrapper.booking.Booking_Location_Name_LU__c} &nbsp;
 					</apex:outputText>
-					<apex:outputText>
+					<apex:outputText >
 						{!bookingWrapper.bookingDuration}
 					</apex:outputText>
-                    <apex:variable var="breaksNumber" value="{!breaksNumber+1}"/>
+					<apex:variable var="breaksNumber" value="{!breaksNumber+1}"/>
 				</apex:repeat>
 			</td>
 		</tr>

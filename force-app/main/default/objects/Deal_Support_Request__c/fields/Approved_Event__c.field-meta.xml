@@ -21,6 +21,7 @@
             <value>
                 <fullName>Customised Pricing</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Customised Pricing</label>
             </value>
         </valueSetDefinition>

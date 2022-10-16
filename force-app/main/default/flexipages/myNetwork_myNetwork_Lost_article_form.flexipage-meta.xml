@@ -12,6 +12,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>myNetworkLostArticleFormContainer</componentName>
+                <identifier>myNetworkLostArticleFormContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -41,6 +42,7 @@
                     <value>Lost article form</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
+                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

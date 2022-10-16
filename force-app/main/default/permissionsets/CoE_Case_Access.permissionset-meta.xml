@@ -77,4 +77,8 @@
         <recordType>Case.CoE_Case_Record_Type</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ShareFilesWithNetworks</name>
+    </userPermissions>
 </PermissionSet>

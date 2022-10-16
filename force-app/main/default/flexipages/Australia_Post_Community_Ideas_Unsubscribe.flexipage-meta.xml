@@ -12,6 +12,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>brideas_Unsubscribe</componentName>
+                <identifier>brideas_Unsubscribe</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>

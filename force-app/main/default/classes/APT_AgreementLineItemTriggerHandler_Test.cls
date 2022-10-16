@@ -1,7 +1,5 @@
 /**
  * This apex class is test class for agreement line item trigger and trigger handler. 
- * changelog: 
- * 2022-05-26 - Pradeep Jaiswal - CI-379 Added test method to cover for International Return product
  * 
 */
 @isTest
@@ -789,7 +787,12 @@ private class APT_AgreementLineItemTriggerHandler_Test{
             system.assert(listAgreementLodgementPoint != null);
         }
     }
+    
     private static testMethod void testAgreement9() {
+        APT_FSR_Product__c fsrCS= new APT_FSR_Product__c();
+        fsrCS.Name='APPC-Feature';
+        insert fsrCS;
+        
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
         User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
         EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
@@ -809,6 +812,7 @@ private class APT_AgreementLineItemTriggerHandler_Test{
             
             Product2 product =APT_TestUtils.createInternationalProduct('Car',APT_Constants.ECIPCL_INTERNATIONAL_PRODUCT,'Postal Services');
             product.APT_Product_type__c = 'Workforce Verification';//add product type to product
+            product.APT_Apttus_Product_Classification__c = 'APPC-Feature';
             insert product;
             
             Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();

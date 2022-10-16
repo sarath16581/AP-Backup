@@ -114,10 +114,6 @@
     <picklistValues>
         <picklist>Approved_Event__c</picklist>
         <values>
-            <fullName>Customised Pricing</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Delegated Pricing</fullName>
             <default>false</default>
         </values>
@@ -125,19 +121,19 @@
     <picklistValues>
         <picklist>Approved_Pricing_Structure__c</picklist>
         <values>
-            <fullName>Z3</fullName>
+            <fullName>Z003</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Z6</fullName>
+            <fullName>Z006</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Z60</fullName>
+            <fullName>Z009</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Z9</fullName>
+            <fullName>Z060</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -155,59 +151,59 @@
     <picklistValues>
         <picklist>Approved_Tier__c</picklist>
         <values>
-            <fullName>TIER 1</fullName>
+            <fullName>T01</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 10</fullName>
+            <fullName>T02</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 11</fullName>
+            <fullName>T03</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 12</fullName>
+            <fullName>T04</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 13</fullName>
+            <fullName>T05</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 14</fullName>
+            <fullName>T06</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 2</fullName>
+            <fullName>T07</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 3</fullName>
+            <fullName>T08</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 4</fullName>
+            <fullName>T09</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 5</fullName>
+            <fullName>T10</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 6</fullName>
+            <fullName>T11</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 7</fullName>
+            <fullName>T12</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 8</fullName>
+            <fullName>T13</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>TIER 9</fullName>
+            <fullName>T14</fullName>
             <default>false</default>
         </values>
     </picklistValues>

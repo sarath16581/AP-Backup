@@ -248,4 +248,4 @@ private class PUD_PrintRouteController_Test {
 		system.assertEquals(testRoutesPrint.routes[0].bookings[1].booking.Id, bookings[4].Id, 'Expected booking at 2330-2345 to appear second.');
 				
 	}
-}	
+}

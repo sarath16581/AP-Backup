@@ -190,7 +190,7 @@
         <description>APT_Send Contract Expiration Email Alert</description>
         <protected>false</protected>
         <recipients>
-            <type>creator</type>
+            <type>owner</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>

@@ -44,6 +44,7 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
+                <identifier>wave_waveDashboard</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>

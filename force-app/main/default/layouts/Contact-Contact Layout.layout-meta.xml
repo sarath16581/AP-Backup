@@ -108,6 +108,10 @@
                 <behavior>Edit</behavior>
                 <field>EmailNotAvailable__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>WorkforceId__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
