@@ -20,16 +20,20 @@ public class ExceptionCheckerServiceTest {
 
         Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
 
-        Map<String, List<ExceptionCheckerService.EventMessageDTO>> eventsByArticle = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+       List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
-        ExceptionCheckerService.EventMessageDTO event1dExceptionDTO = new ExceptionCheckerService.EventMessageDTO();
-        event1dExceptionDTO.EventType = 'AFC-ER19';
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.ArticleId = article.Id;
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'AFC-ER19';
 
-        eventsByArticle.put(article.Id, new List<ExceptionCheckerService.EventMessageDTO> {event1dExceptionDTO});
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
+
+        exceptionCheckDTOS.add(exceptionCheckDTO);
 
         Test.startTest();
         ExceptionCheckerService service = ExceptionCheckerService.getInstance();
-        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionApplies(eventsByArticle);
+        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionAppliesOnEventType(exceptionCheckDTOS);
         Test.stopTest();
 
         for(ExceptionCheckerService.ExceptionResultDTO res : result.values()) {
@@ -43,16 +47,20 @@ public class ExceptionCheckerServiceTest {
 
         Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
 
-        Map<String, List<ExceptionCheckerService.EventMessageDTO>> eventsByArticle = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
-        ExceptionCheckerService.EventMessageDTO event1dExceptionDTO = new ExceptionCheckerService.EventMessageDTO();
-        event1dExceptionDTO.EventType = 'DD-ER13';
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.ArticleId = article.Id;
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'DD-ER13';
 
-        eventsByArticle.put(article.Id, new List<ExceptionCheckerService.EventMessageDTO> {event1dExceptionDTO});
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
+
+        exceptionCheckDTOS.add(exceptionCheckDTO);
 
         Test.startTest();
         ExceptionCheckerService service = ExceptionCheckerService.getInstance();
-        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionApplies(eventsByArticle);
+        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionAppliesOnEventType(exceptionCheckDTOS);
         Test.stopTest();
 
         for(ExceptionCheckerService.ExceptionResultDTO res : result.values()) {
@@ -65,17 +73,21 @@ public class ExceptionCheckerServiceTest {
 
         Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
 
-        Map<String, List<ExceptionCheckerService.EventMessageDTO>> eventsByArticle = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
-        ExceptionCheckerService.EventMessageDTO event1dExceptionDTO = new ExceptionCheckerService.EventMessageDTO();
-        event1dExceptionDTO.EventType = 'DD-ER13';
-        event1dExceptionDTO.ActualDateTime = Date.today().addDays(-3);
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.ArticleId = article.Id;
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'DD-ER13';
+        eventMessageDTO.ActualDateTime = Date.today().addDays(-3);
 
-        eventsByArticle.put(article.Id, new List<ExceptionCheckerService.EventMessageDTO> {event1dExceptionDTO});
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
+
+        exceptionCheckDTOS.add(exceptionCheckDTO);
 
         Test.startTest();
         ExceptionCheckerService service = ExceptionCheckerService.getInstance();
-        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionApplies(eventsByArticle);
+        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isCaseRaisedRecently(exceptionCheckDTOS);
         Test.stopTest();
 
         for(ExceptionCheckerService.ExceptionResultDTO res : result.values()) {
@@ -88,17 +100,20 @@ public class ExceptionCheckerServiceTest {
 
         Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
 
-        Map<String, List<ExceptionCheckerService.EventMessageDTO>> eventsByArticle = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
-        ExceptionCheckerService.EventMessageDTO event1dExceptionDTO = new ExceptionCheckerService.EventMessageDTO();
-        event1dExceptionDTO.EventType = 'DD-ER13';
-        event1dExceptionDTO.ActualDateTime = Date.today().addDays(-10);
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.ArticleId = article.Id;
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'DD-ER13';
+        eventMessageDTO.ActualDateTime = Date.today().addDays(-10);
 
-        eventsByArticle.put(article.Id, new List<ExceptionCheckerService.EventMessageDTO> {event1dExceptionDTO});
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
 
+        exceptionCheckDTOS.add(exceptionCheckDTO);
         Test.startTest();
         ExceptionCheckerService service = ExceptionCheckerService.getInstance();
-        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionApplies(eventsByArticle);
+        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isCaseRaisedRecently(exceptionCheckDTOS);
         Test.stopTest();
 
         for(ExceptionCheckerService.ExceptionResultDTO res : result.values()) {
