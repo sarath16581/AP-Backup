@@ -10,7 +10,7 @@
 * 28/09/2022 - Mahesh Parvathaneni - DDS-12732 - Included the exception checker logic
 */
 
-public with sharing class CaseReopenBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
+public class CaseReopenBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
 
 	private Integer BATCH_SIZE = 25;
 
