@@ -19,6 +19,9 @@ public inherited sharing class MyCustomerCasesDomain extends ApplicationDomain {
 		// each module will register their trigger entry points
 		// additionally, each module will specify a list of fields that it monitors changes for.
 		registerModule(MyCustomerCaseArticlesModule.class);
+
+		// this module checks for Closed Cases
+		registerModule(MyCustomerClosedCaseModule.class);
 	}
 
 	/**
