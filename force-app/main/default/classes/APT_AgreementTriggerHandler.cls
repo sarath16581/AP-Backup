@@ -593,10 +593,8 @@ public with sharing class APT_AgreementTriggerHandler{
                         configMapToProposal.Put( config.Apttus_QPConfig__Proposald__c, config.ID);
                     }
                 }
-
                 for(Apttus__APTS_Agreement__c agrmnt : listAgrmnt){
                     String configID = configMapToProposal.get(agrmnt.Apttus_QPComply__RelatedProposalId__c);
-
                     if(null != agrmnt.Included_Product_Lines__c && String.IsNotBlank(agrmnt.Included_Product_Lines__c) && String.IsNotBlank(configID)){
                         APT_AmendRenewUtility.createAgreementChildRecords(configID, agrmnt.ID);
                     }
@@ -950,10 +948,8 @@ public with sharing class APT_AgreementTriggerHandler{
                         configMapToProposal.Put( config.Apttus_QPConfig__Proposald__c, config.ID);
                     }
                 }
-
                 for(Apttus__APTS_Agreement__c agrmnt : agreementsToBeProcessed){
                     String configID = configMapToProposal.get(agrmnt.Apttus_QPComply__RelatedProposalId__c);
-
                     if(null != agrmnt.Included_Product_Lines__c && String.IsNotBlank(agrmnt.Included_Product_Lines__c) && String.IsNotBlank(configID)){
                         APT_AmendRenewUtility.createAgreementChildRecords(configID, agrmnt.ID);
                     }

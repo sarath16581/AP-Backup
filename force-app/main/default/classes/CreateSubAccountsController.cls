@@ -119,8 +119,11 @@ public with sharing class CreateSubAccountsController {
                 // increase the count
                 lPcounter++;
             }
-            if(!CreateSubAccountsController.validateSearchLodgementZone(subAccountRec.APT_Quote_Proposal__c,responseDetail[0].postCode)){
-                throw new AuraHandledException('LODGEMENT_POINT_NOMATCH');
+            // only run lodgement point validation for sub account request creation from Proposal source
+            if( subAccountRec.APT_Quote_Proposal__c != null && subAccountRec.APT_Source_of_Sub_Account_Request__c == 'Proposal') {
+                if (!CreateSubAccountsController.validateSearchLodgementZone(subAccountRec.APT_Quote_Proposal__c, responseDetail[0].postCode)) {
+                    throw new AuraHandledException('LODGEMENT_POINT_NOMATCH');
+                }
             }
         }
 
@@ -402,6 +405,9 @@ public with sharing class CreateSubAccountsController {
 				searchLodgementZone == lineItem.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_2__c ){
 				isValidToSave = true;
 			}
+		}else{
+			isValidToSave = true;
+			return isValidToSave;
 		}
 		return isValidToSave;
 	}

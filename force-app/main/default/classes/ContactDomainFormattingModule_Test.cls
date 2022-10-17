@@ -66,4 +66,3 @@ public with sharing class ContactDomainFormattingModule_Test {
         Test.stopTest();
     }
 }
-

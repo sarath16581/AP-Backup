@@ -2,67 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Generate_Docs__c</fullName>
     <externalId>false</externalId>
-    <formula>IF 
-(
-	AND
-	( 
-		OR
-		( 
-			OR
-			( 
-				APT_SelectedContractAmendRenewCategory__c=&quot;Add New Lodgement Point (Same Zone)&quot;, 
-				APT_SelectedContractAmendRenewCategory__c=&quot;Add or Change Collection Points&quot;, 
-				APT_SelectedContractAmendRenewCategory__c=&quot;Add Services&quot;, 
-				APT_SelectedContractAmendRenewCategory__c=&quot;Change Contract Contact Details&quot;, 
-				APT_SelectedContractAmendRenewCategory__c=&quot;Change of Mail Collection Details&quot;, 
-				APT_SelectedContractAmendRenewCategory__c=&quot;Change of Organisational / Legal Entity Details&quot;, 
-				APT_SelectedContractAmendRenewCategory__c=&quot;Changing Name: Trading Names&quot;, 
-				APT_SelectedContractAmendRenewCategory__c=&quot;New or additional account numbers or sub account numbers&quot;, 
-				APT_SelectedContractAmendRenewCategory__c=&quot;T&amp;C Change&quot;
-			),
-			IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;), 
-				APT_of_Selected_Lodgement_Points__c &gt; 0,
-				AND
-				(
-					APT_No_Of_LP_Without_Billing_Account__c = 0,
-					APT_of_Selected_Lodgement_Points__c &gt; 0
-				)
-			)
-			,
-			INCLUDES (Included_Product_Lines__c , &quot;Priority Product&quot;), 
-			INCLUDES (Included_Product_Lines__c , &quot;StarTrack&quot;), 
-			INCLUDES (Included_Product_Lines__c , &quot;Workforce Verification&quot;)
-		),
-		NOT(ISPICKVAL(Apttus__Status_Category__c, &quot;Terminated&quot;)),
-		OR
-		(
-			NOT(ISBLANK(Included_Product_Lines__c)),
-			APT_Ratecards_Created__c
-		),
-		NOT(APT_Is_Create_Contract_Batch_Job_Running__c)
-	),
-	HYPERLINK(&quot;/apex/APT_CreateContractValidation?id=&quot;&amp;Id &amp; &quot;&amp;count=&quot;&amp;
-	IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;),&quot;1&quot;,&quot;0&quot;),
-	IMAGE(&quot;/resource/APT_Create_Green&quot;, &quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;),
-	IF 
-	(
-		AND
-		(
-			NOT(ISPICKVAL(Apttus__Status_Category__c, &quot;Terminated&quot;)),
-			NOT(ISBLANK(Included_Product_Lines__c))
-
-		),
-		HYPERLINK(IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;), 
-		&quot;/lightning/cmp/c__APT_LinkingBillingAccountToContractWrapper?c__recordId=&quot;,
-		&quot;/apex/APT_ManageContractLodgementPoint?agId=&quot;)&amp;Id, 
-		IMAGE(&quot;/resource/APT_Create_Red&quot;, 
-		&quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;),
-		NULL
-	)
-)</formula>
+    <formula>IF ( AND ( OR ( OR ( APT_SelectedContractAmendRenewCategory__c=&quot;Add New Lodgement Point (Same Zone)&quot;, APT_SelectedContractAmendRenewCategory__c=&quot;Add or Change Collection Points&quot;, APT_SelectedContractAmendRenewCategory__c=&quot;Add Services&quot;, APT_SelectedContractAmendRenewCategory__c=&quot;Change Contract Contact Details&quot;, APT_SelectedContractAmendRenewCategory__c=&quot;Change of Mail Collection Details&quot;, APT_SelectedContractAmendRenewCategory__c=&quot;Change of Organisational / Legal Entity Details&quot;, APT_SelectedContractAmendRenewCategory__c=&quot;Changing Name: Trading Names&quot;, APT_SelectedContractAmendRenewCategory__c=&quot;New or additional account numbers or sub account numbers&quot;, APT_SelectedContractAmendRenewCategory__c=&quot;T&amp;C Change&quot; ), IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;), APT_of_Selected_Lodgement_Points__c &gt; 0, AND ( APT_No_Of_LP_Without_Billing_Account__c = 0, APT_of_Selected_Lodgement_Points__c &gt; 0 ) ) , INCLUDES (Included_Product_Lines__c , &quot;Priority Product&quot;), INCLUDES (Included_Product_Lines__c , &quot;StarTrack&quot;), INCLUDES (Included_Product_Lines__c , &quot;Workforce Verification&quot;) ), NOT(ISPICKVAL(Apttus__Status_Category__c, &quot;Terminated&quot;)), OR ( NOT(ISBLANK(Included_Product_Lines__c)), APT_Ratecards_Created__c ), NOT(APT_Is_Create_Contract_Batch_Job_Running__c) ), HYPERLINK(&quot;/apex/APT_CreateContractValidation?id=&quot;&amp;Id &amp; &quot;&amp;count=&quot;&amp; IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;),&quot;1&quot;,&quot;0&quot;), IMAGE(&quot;/resource/APT_Create_Green&quot;, &quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;), IF ( AND ( NOT(ISPICKVAL(Apttus__Status_Category__c, &quot;Terminated&quot;)), NOT(ISBLANK(Included_Product_Lines__c)) ), HYPERLINK(IF(INCLUDES (Included_Product_Lines__c , &quot;Parcel Contract&quot;), &quot;/lightning/cmp/c__APT_LinkingBillingAccountToContractWrapper?c__recordId=&quot;, &quot;/apex/APT_ManageContractLodgementPoint?agId=&quot;)&amp;Id, IMAGE(&quot;/resource/APT_Create_Red&quot;, &quot;Create Contract Documents (One Click)&quot;),&quot;_self&quot;), NULL ) )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <inlineHelpText>Generate/Create all suggested contract documents for this Contract with One Click.
-Please make sure you have Lodgement Point with Billing Account before using this functionality.</inlineHelpText>
+    <inlineHelpText>Generate/Create all suggested contract documents for this Contract with One Click. Please make sure you have Lodgement Point with Billing Account before using this functionality.</inlineHelpText>
     <label>Create Contracts</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

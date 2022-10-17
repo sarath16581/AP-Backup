@@ -2,6 +2,8 @@
 <WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Manage_Lodgement_Point</fullName>
     <availability>online</availability>
+    <description>Navigate to a page where user can link lodgement points, charge account request, sub account request and billing account details, and subsequently create agreement lodgement point records.
+Added a new navigation page for APPC related product.</description>
     <displayType>massActionButton</displayType>
     <encodingKey>UTF-8</encodingKey>
     <height>600</height>
@@ -10,8 +12,8 @@
     <openType>sidebar</openType>
     <protected>false</protected>
     <requireRowSelection>false</requireRowSelection>
-    <url>{!IF( INCLUDES(Apttus__APTS_Agreement__c.Included_Product_Lines__c , &quot;Parcel Contract&quot;), 
-URLFOR(&apos;/lightning/cmp/c__APT_LinkingBillingAccountToContractWrapper?c__recordId=&apos;+ Apttus__APTS_Agreement__c.Id), 
+    <url>{!IF( INCLUDES(Apttus__APTS_Agreement__c.Included_Product_Lines__c , &quot;Parcel Contract&quot;),
+URLFOR(&apos;/lightning/cmp/c__APT_LinkingBillingAccountToContractWrapper?c__recordId=&apos;+ Apttus__APTS_Agreement__c.Id),
 URLFOR(&apos;/apex/APT_ManageContractLodgementPoint?agId=&apos;+Apttus__APTS_Agreement__c.Id)
 )}</url>
 </WebLink>

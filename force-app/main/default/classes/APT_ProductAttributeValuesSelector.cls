@@ -15,6 +15,10 @@ public virtual inherited sharing class APT_ProductAttributeValuesSelector extend
     public static APT_ProductAttributeValuesSelector newInstance() {
         return (APT_ProductAttributeValuesSelector)Application.Selectors.newInstance(APT_ProductAttributeValuesSelector.class);
     }
+    
+    public static APT_ProductAttributeValuesSelector newInstance(Integer recordLimit) {
+        return (APT_ProductAttributeValuesSelector)Application.Selectors.newInstance(APT_ProductAttributeValuesSelector.class).setLimit(recordLimit);
+    }
 
     public virtual override SObjectType getSObjectType() {
         return Apttus_Config2__ProductAttributeValue__c.getSObjectType();

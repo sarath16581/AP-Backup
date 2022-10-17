@@ -125,6 +125,7 @@ private with sharing class ContactsSelector_Test {
         contacts[0].Phone = '+61440123456';
         contacts[1].MobilePhone = '+61440123456';
 		insert contacts;
+        System.debug('---name: ' + contacts[0].Name);
 
 		Map<Id, Contact> mappedContacts = new Map<Id, Contact>(contacts);
 		// =====================================

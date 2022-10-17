@@ -18,6 +18,7 @@ We’re looking for passionate, creative people, who want to help Australia Post
 &lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
+                <identifier>forceCommunity_htmlBlock</identifier>
             </componentInstance>
         </itemInstances>
         <name>DescriptionBlock</name>
@@ -42,6 +43,7 @@ We’re looking for passionate, creative people, who want to help Australia Post
                     <value>Featured Ideas</value>
                 </componentInstanceProperties>
                 <componentName>brideas_FeaturedIdeas</componentName>
+                <identifier>brideas_FeaturedIdeas</identifier>
             </componentInstance>
         </itemInstances>
         <name>FeaturedBlock</name>

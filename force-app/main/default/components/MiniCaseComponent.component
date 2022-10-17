@@ -10,6 +10,7 @@
     2020-04-06 nathan.franklin@auspost.com.au Removed code duplication in createCase
     2020-09-07 swati.mogadala@auspost.com.au  REQ2202596 Added a confirm() message on the 'Clear' commandbutton 
 	2020-10-28 madhuri.awasthi@auspost.com.au  REQ2322551 Changed Close Enquiry button to Create Case button
+    2022-10-03 jacob.isaac@auspost.com.au  REQ2982495 Hiding EDD Page from MycustomerSearch Page - The feautre will be reviewed and activated later
 -->
 <apex:component controller="MiniCaseComponentController" allowDML="true">
     <apex:attribute name="disableEnterKeyPress" description="disable the Enter key default pressed action" type="boolean" required="false" default="false" />
@@ -127,7 +128,7 @@
                 <!--<li><a href="#sap" data-toggle="tab"><apex:image value="{!$Resource.SAPIcon}" height="20" alt="SAP-EM"/></a></li>-->
                 <li><a href="#happyparcel" data-toggle="tab"><apex:image value="{!$Resource.SAPIcon}" height="20" alt="Happy Parcel"/></a></li>
                 <li><a href="#track" data-toggle="tab" id="trackUrl"><apex:image url="{!URLFOR($Resource.SSSWIcons,'logo.png')}" height="20" alt="Tracking"/>&nbsp;&nbsp;Track</a></li>
-                <li><a href="#edd" data-toggle="tab"><apex:image url="{!URLFOR($Resource.SSSWIcons,'EDDIcon.png')}" height="20" alt="EDD"/>&nbsp;&nbsp;EDD</a></li>
+                <!-- <li><a href="#edd" data-toggle="tab"><apex:image url="{!URLFOR($Resource.SSSWIcons,'EDDIcon.png')}" height="20" alt="EDD"/>&nbsp;&nbsp;EDD</a></li> -->
             </ul>
             <div class="tab-content">
                 <div id="existingCases" class="tab-pane active existingCasesOrActivities">

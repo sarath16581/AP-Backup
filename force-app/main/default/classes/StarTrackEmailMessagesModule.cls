@@ -64,11 +64,12 @@ public inherited sharing class StarTrackEmailMessagesModule extends ApplicationD
 			//Get the selected emailMessage with related case fields, whose parent case recordtype is StarTrack
 			for(EmailMessage em : EmailMessagesSelector.newInstance().selectByIdsWithParentStarTrackCase(emailIdSet, new Set<Object>{EmailMessagesSelector.Options.WITH_CASE, CasesSelector.Options.WITH_RECORDTYPE})){
 				Case caseToUpd = null;	
-
+                
 				//Incoming Email for selected StarTrack Open Cases with StarTrack_Calc_Email_Address__c populated or has received first email response already
 				if (em.Incoming && em.Parent.Status != StarTrack_Constants.CASE_STAT_CLOSED &&
 					(em.Parent.First_Email_Response__c || em.Parent.StarTrack_Calc_Email_Address__c != null) &&
 					validRecTypes.containsKey(em.Parent.RecordTypeId)) {
+                        
 					if (StarTrack_Constants.CASE_VOC_RT_DEV.equals(em.Parent.RecordType.DeveloperName)) {
 						//Update Case Status to Awaiting Review
 						caseToUpd = new Case(Id=em.ParentId, Status=StarTrack_Constants.CASE_STAT_AWAITINGREVIEW);

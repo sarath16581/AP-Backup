@@ -684,6 +684,11 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>ChangeOwnerOne</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>1</sortOrder>
@@ -707,11 +712,6 @@
             <actionName>ChangeRecordType</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>5</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
@@ -849,7 +849,7 @@
         <fields>Apttus_CMConfig__OptionId__c</fields>
         <fields>APT_Depot_Tier_Version__c</fields>
         <fields>Apttus_CMConfig__ChargeType__c</fields>
-		<fields>Apttus_CMConfig__AttributeValueId__c</fields>
+        <fields>Apttus_CMConfig__AttributeValueId__c</fields>
         <relatedList>Apttus__AgreementLineItem__c.Apttus__AgreementId__c</relatedList>
     </relatedLists>
     <relatedLists>

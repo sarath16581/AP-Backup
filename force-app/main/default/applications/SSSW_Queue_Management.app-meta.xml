@@ -4,5 +4,6 @@
     <description>List of records for Queue Management</description>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>SSSW Queue Management</label>
 </CustomApplication>

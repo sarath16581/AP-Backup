@@ -828,7 +828,7 @@
         <fields>Apttus_CMConfig__OptionId__c</fields>
         <fields>APT_Depot_Tier_Version__c</fields>
         <fields>Apttus_CMConfig__ChargeType__c</fields>
-		<fields>Apttus_CMConfig__AttributeValueId__c</fields>
+        <fields>Apttus_CMConfig__AttributeValueId__c</fields>
         <relatedList>Apttus__AgreementLineItem__c.Apttus__AgreementId__c</relatedList>
     </relatedLists>
     <relatedLists>

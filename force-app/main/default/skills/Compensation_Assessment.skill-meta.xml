@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Skill xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Compensation Assessment</label>
     <description>This skill must be assigned to agents who work on Compensation Assessments, previously cases that were routed to the SSSW Consumer Compensation Assessment queue.</description>
+    <label>Compensation Assessment</label>
 </Skill>

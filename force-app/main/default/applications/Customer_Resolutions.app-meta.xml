@@ -174,6 +174,7 @@
     <description>Australia Post Group Service Cloud console for Customer Resolution Team</description>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isServiceCloudConsole>true</isServiceCloudConsole>
     <label>Customer Resolutions</label>
     <preferences>

@@ -6,8 +6,7 @@
  * @last modified by  : Sreenish Krishnan
  **/
 trigger CustomerDataSyncEventTrigger on CustomerDataSync__e(after insert) {
-    
-	if(!TriggerHelper.isTriggerDisabled(String.valueOf(ContactPointAddress.SObjectType))) {
-        CustomerDataSyncEventTriggerHandler.execute();
-    }
+	
+    CustomerDataSyncEventTriggerHandler.execute();
+
 }

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Up_to_500g_Rate__c</fullName>
     <externalId>false</externalId>
-    <formula>IF( Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode == &apos;eParcelStandard&apos;, 7.2, 9.92)</formula>
+    <formula>IF( Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode == &apos;eParcelStandard&apos;, 7.78, 10.71)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Up to 500g Rate</label>
     <precision>18</precision>

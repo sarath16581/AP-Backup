@@ -8,7 +8,7 @@
         <outerJoin>true</outerJoin>
         <relationship>ActionCadenceTracker</relationship>
     </join>
-    <label>Leads With or Without Sales Cadence Trackers</label>
+    <label>Leads With or Without Cadence Trackers</label>
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -1023,6 +1023,6 @@
         <masterLabel>Leads</masterLabel>
     </sections>
     <sections>
-        <masterLabel>Sales Cadence Trackers</masterLabel>
+        <masterLabel>Cadence Trackers</masterLabel>
     </sections>
 </ReportType>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>This permission group is assigned to LPO Partner Users (LBP)</description>
+    <hasActivationRequired>false</hasActivationRequired>
     <label>LPO Permission Set Group</label>
     <permissionSets>LBP_Seismic_Access</permissionSets>
     <permissionSets>LPO_Partner_Community_Permissions</permissionSets>

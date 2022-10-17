@@ -12,7 +12,7 @@ import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage
 import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
 import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
-import createFeedbackFormCase from "@salesforce/apex/SthsFeedbackFormController.createFeedbackFormCase";
+import createFeedbackFormCase from "@salesforce/apex/STHSFeedbackFormController.createFeedbackFormCase";
 
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow

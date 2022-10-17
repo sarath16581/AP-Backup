@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DeclaredValueGCP__c</fullName>
+    <description>This formula field has been introduced purely for the consumption by GCP and so that this field can be put on the daily extract that is sent to Australia Border Force on a daily basis from GCP</description>
+    <externalId>false</externalId>
+    <formula>IF( LEFT( OrderNumber__c , 4) = &quot;5000&quot;, OrderNumber__c, IF( TEXT( Currency__c ) != NULL, TEXT( Currency__c ) + &quot; &quot; + TEXT( DeclaredValue__c ), TEXT( DeclaredValue__c ) ))</formula>
+    <inlineHelpText>This formula field has been introduced purely for the consumption by GCP and so that this field can be put on the daily extract that is sent to Australia Border Force on a daily basis from GCP</inlineHelpText>
+    <label>Declared Value - GCP</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

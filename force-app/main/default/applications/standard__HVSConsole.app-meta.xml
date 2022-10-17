@@ -88,7 +88,8 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <label>High Velocity Sales</label>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Sales Engagement</label>
     <navType>Console</navType>
     <profileActionOverrides>
         <actionName>View</actionName>

@@ -177,6 +177,7 @@
         </rules>
     </decisions>
     <description>This flow will allow users to create Deal Support requests from BAR with limited DSR record Types</description>
+    <environments>Default</environments>
     <formulas>
         <name>RunningUser</name>
         <dataType>String</dataType>
@@ -306,10 +307,10 @@
         </connector>
         <fields>
             <name>Select_the_Deal_Support_Request_Type</name>
-            <choiceReferences>Choice_APPC_Parcel_Contract</choiceReferences>
             <choiceReferences>Choice_PSR_Domestic</choiceReferences>
             <choiceReferences>Choice_PSR_Intl</choiceReferences>
             <choiceReferences>Choice_PSR_StarTrack</choiceReferences>
+            <choiceReferences>Choice_APPC_Parcel_Contract</choiceReferences>
             <choiceReferences>Choice_Surcharge_Exemption</choiceReferences>
             <choiceReferences>Choice_Deal_enablement_Centre</choiceReferences>
             <dataType>String</dataType>

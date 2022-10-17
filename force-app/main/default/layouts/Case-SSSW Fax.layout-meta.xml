@@ -86,6 +86,10 @@
                 <behavior>Edit</behavior>
                 <field>Origin</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>CustomerQueueType__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

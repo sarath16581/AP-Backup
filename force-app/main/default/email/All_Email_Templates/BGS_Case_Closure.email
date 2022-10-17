@@ -245,17 +245,14 @@
         <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" ><td style="background-color: #ffffff;width: 600px" class="w560"><![endif]-->
           <div class="column" style='text-align: left;color: #5e514d;font-size: 14px;line-height: 21px;font-family: Arial, Helvetica, sans-serif;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);'>
 
-
-          <!-- Heading-1 -->
-          <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 50px;">
-            <h1 style="Margin-top: 0;Margin-bottom: 20px;font-style: normal;font-weight: normal;color: #37a0dc;font-size: 24px;line-height: 32px;font-family: Arial, sans-serif;" lang="x-size-24">
-              Hi {!Contact.FirstName},
-            </h1>
-          </div>
-          <!-- Text -->
+  <!-- Text -->
           <div style="Margin-left: 20px;Margin-right: 20px;Margin-bottom: 24px;">
             <p style="Margin-top: 16px;Margin-bottom: 0;font-size: 16px;line-height: 20px;text-align: left;" lang="x-size-16">
-We've closed your enquiry - case reference number #({!Case.CaseNumber}).  <br/><br/>
+         
+<br/><br/>
+Hi,
+ <br/><br/>
+We've closed your enquiry - case reference number ({!Case.CaseNumber}).  <br/><br/>
 If you'd like us to investigate further or have a new enquiry, <b>PLEASE DO NOT REPLY TO THIS EMAIL </b>as this case is closed and no longer monitored. Please create and send a new email request to your Service Advisor Team. <br/><br/>
 
 If you'd like to give us feedback about how your case was handled, please complete the short survey which will be sent to you in a separate email. We'd really appreciate your comments, as they help us to review and improve our service.<br/><br/>

@@ -134,10 +134,12 @@
         <customTabListAdditionalFields>Product2</customTabListAdditionalFields>
         <customTabListAdditionalFields>Status</customTabListAdditionalFields>
         <customTabListAdditionalFields>Asset</customTabListAdditionalFields>
+        <customTabListAdditionalFields>SerializedProduct</customTabListAdditionalFields>
         <searchResultsAdditionalFields>ProductServiceCampaign</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Product2</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Status</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Asset</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>SerializedProduct</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

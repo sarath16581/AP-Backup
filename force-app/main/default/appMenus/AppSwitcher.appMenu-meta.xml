@@ -457,10 +457,6 @@
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
-        <name>DataLoader</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>Flosum</name>
         <type>ConnectedApp</type>
     </appMenuItems>
@@ -674,14 +670,6 @@
     </appMenuItems>
     <appMenuItems>
         <name>Post_Plus</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>SpanningBackup</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>SpanningRestore</name>
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>

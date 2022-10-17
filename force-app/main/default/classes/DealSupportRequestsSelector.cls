@@ -155,8 +155,7 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
             builder.addRelatedFields(ChargeAccountRequestSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r.APT_Charge_Account__r');
         }
         
-        if(selectorOptions.contains(Options.WITH_CREDIT_ASSESSMENT)) {
-            System.debug('here');
+        if(selectorOptions.contains(Options.WITH_CREDIT_ASSESSMENT)) {           
             builder.addRelatedFields(CreditsAssessmentSelector.newInstance().newQueryBuilder(), 'APT_Contract__r.Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r');
         }
         
@@ -164,14 +163,14 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
             builder.addRelatedFields(OpportunitySelector.newInstance().newQueryBuilder(), 'Opportunity__r');
         }
         
-		if(selectorOptions.contains(Options.WITH_CONTRACT)) {
+        if(selectorOptions.contains(Options.WITH_CONTRACT)) {
             builder.addRelatedFields(ApttusContractsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r');
         }
 
-		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
+        if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
             builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Organisation__r');
         }
-		
+        
         return builder;
     }
 }

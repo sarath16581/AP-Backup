@@ -248,7 +248,7 @@
         <actionName>Deal_Support_Request__c.Deal_Support_Request_Completion_Notification</actionName>
         <actionType>emailAlert</actionType>
         <connector>
-            <targetReference>myDecision45</targetReference>
+            <targetReference>myDecision46</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -265,14 +265,14 @@
                 <stringValue>LPO_Deal_Support_Request_Completion_Notification</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_46_A1</name>
+        <name>myRule_47_A1</name>
         <label>Send LPO Requestor Completion Email</label>
-        <locationX>4600</locationX>
+        <locationX>4700</locationX>
         <locationY>200</locationY>
         <actionName>Deal_Support_Request__c.LPO_Deal_Support_Request_Completion_Notification</actionName>
         <actionType>emailAlert</actionType>
         <connector>
-            <targetReference>myDecision48</targetReference>
+            <targetReference>myDecision49</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -289,14 +289,14 @@
                 <stringValue>Deal_Support_Request_Additional_Info_Notification</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_49_A1</name>
+        <name>myRule_50_A1</name>
         <label>Send Email to Request Creator</label>
-        <locationX>4900</locationX>
+        <locationX>5000</locationX>
         <locationY>200</locationY>
         <actionName>Deal_Support_Request__c.Deal_Support_Request_Additional_Info_Notification</actionName>
         <actionType>emailAlert</actionType>
         <connector>
-            <targetReference>myRule_49_A2</targetReference>
+            <targetReference>myRule_50_A2</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -313,14 +313,14 @@
                 <stringValue>{&quot;mentions&quot;:[],&quot;message&quot;:&quot;Below details have been requested for this support request from the Requestor :\n\n{![Deal_Support_Request__c].Additional_Information_Requested__c}&quot;}</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_49_A2</name>
+        <name>myRule_50_A2</name>
         <label>Post Comments added by Support Team to Chatter</label>
-        <locationX>4900</locationX>
+        <locationX>5000</locationX>
         <locationY>300</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
         <connector>
-            <targetReference>myRule_49_A3</targetReference>
+            <targetReference>myRule_50_A3</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -348,14 +348,14 @@
                 <stringValue>LPO_Deal_Support_Request_Additional_Info_Notification</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_53_A1</name>
+        <name>myRule_54_A1</name>
         <label>Send LPO Requestor an Email</label>
-        <locationX>5300</locationX>
+        <locationX>5400</locationX>
         <locationY>200</locationY>
         <actionName>Deal_Support_Request__c.LPO_Deal_Support_Request_Additional_Info_Notification</actionName>
         <actionType>emailAlert</actionType>
         <connector>
-            <targetReference>myRule_53_A2</targetReference>
+            <targetReference>myRule_54_A2</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -372,14 +372,14 @@
                 <stringValue>{&quot;mentions&quot;:[],&quot;message&quot;:&quot;Below details have been requested for this support request from the Requestor :\n\n{![Deal_Support_Request__c].Additional_Information_Requested__c}&quot;}</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_53_A2</name>
+        <name>myRule_54_A2</name>
         <label>Chatter Post on record</label>
-        <locationX>5300</locationX>
+        <locationX>5400</locationX>
         <locationY>300</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
         <connector>
-            <targetReference>myRule_53_A3</targetReference>
+            <targetReference>myRule_54_A3</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -431,14 +431,14 @@
                 <stringValue>{&quot;mentions&quot;:[],&quot;message&quot;:&quot;{![Deal_Support_Request__c].CreatedBy.FirstName} , {![Deal_Support_Request__c].CreatedBy.LastName} has submitted the request with information requested with following comments : {![Deal_Support_Request__c].Requestor_Comments_on_Resubmit__c}&quot;}</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_62_A1</name>
+        <name>myRule_63_A1</name>
         <label>Post Requestor Comments on Chatter</label>
-        <locationX>6200</locationX>
+        <locationX>6300</locationX>
         <locationY>200</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
         <connector>
-            <targetReference>myDecision64</targetReference>
+            <targetReference>myDecision65</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -464,14 +464,14 @@
                 <stringValue>{&quot;mentions&quot;:[],&quot;message&quot;:&quot;Requestor has requested for review of Request outcome and provided comments as below :\n\n {![Deal_Support_Request__c].Requestor_Comments_on_Resubmit__c}&quot;}</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_72_A1</name>
+        <name>myRule_73_A1</name>
         <label>Post Requestor comments on record when re-submited for review</label>
-        <locationX>7200</locationX>
+        <locationX>7300</locationX>
         <locationY>200</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
         <connector>
-            <targetReference>myDecision74</targetReference>
+            <targetReference>myDecision75</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -511,14 +511,14 @@
                 <stringValue>currentUser</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_75_A1</name>
+        <name>myRule_76_A1</name>
         <label>Submit Request for Approval</label>
-        <locationX>7500</locationX>
+        <locationX>7600</locationX>
         <locationY>200</locationY>
         <actionName>submit</actionName>
         <actionType>submit</actionType>
         <connector>
-            <targetReference>myRule_75_A2</targetReference>
+            <targetReference>myRule_76_A2</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -556,14 +556,14 @@
                 <stringValue>Share DSR Records With Choose Next Approver</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_75_A2</name>
+        <name>myRule_76_A2</name>
         <label>Share DSR Records With Choose Next Approver</label>
-        <locationX>7500</locationX>
+        <locationX>7600</locationX>
         <locationY>300</locationY>
         <actionName>Share_DSR_Records_With_Choose_Next_Approver</actionName>
         <actionType>flow</actionType>
         <connector>
-            <targetReference>myDecision77</targetReference>
+            <targetReference>myDecision78</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -664,14 +664,14 @@
                 <stringValue>Share DSR Records With Created User</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_78_A1</name>
+        <name>myRule_79_A1</name>
         <label>Add owner to sharing setting</label>
-        <locationX>7800</locationX>
+        <locationX>7900</locationX>
         <locationY>200</locationY>
         <actionName>Share_DSR_Records_With_Created_User</actionName>
         <actionType>flow</actionType>
         <connector>
-            <targetReference>myDecision79</targetReference>
+            <targetReference>myDecision80</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -772,14 +772,14 @@
                 <stringValue>Share DSR Records With Created User</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_85_A1</name>
+        <name>myRule_86_A1</name>
         <label>Call Flow to Share Record with Requestor</label>
-        <locationX>8500</locationX>
+        <locationX>8600</locationX>
         <locationY>200</locationY>
         <actionName>Share_DSR_Records_With_Created_User</actionName>
         <actionType>flow</actionType>
         <connector>
-            <targetReference>myDecision86</targetReference>
+            <targetReference>myDecision87</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -874,14 +874,14 @@
                 <stringValue>CTA_Creation_Notification</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_87_A1</name>
+        <name>myRule_88_A1</name>
         <label>CTA_Propose_Creation_Notification</label>
-        <locationX>8700</locationX>
+        <locationX>8800</locationX>
         <locationY>200</locationY>
         <actionName>Deal_Support_Request__c.CTA_Creation_Notification</actionName>
         <actionType>emailAlert</actionType>
         <connector>
-            <targetReference>myAssignment_myRule_87_A2</targetReference>
+            <targetReference>myAssignment_myRule_88_A2</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -910,14 +910,14 @@
                 <stringValue>reference</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_87_A2</name>
+        <name>myRule_88_A2</name>
         <label>Send Notification</label>
-        <locationX>8700</locationX>
+        <locationX>8800</locationX>
         <locationY>300</locationY>
         <actionName>customNotificationAction</actionName>
         <actionType>customNotificationAction</actionType>
         <connector>
-            <targetReference>myRule_87_A3</targetReference>
+            <targetReference>myRule_88_A3</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -989,7 +989,7 @@
             </processMetadataValues>
             <name>recipientIds</name>
             <value>
-                <elementReference>myCollection_myRule_87_A2recipientIds</elementReference>
+                <elementReference>myCollection_myRule_88_A2recipientIds</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -1000,9 +1000,9 @@
                 <stringValue>Deal_Governance_DSR_Request_submit_notiifcation</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_87_A3</name>
+        <name>myRule_88_A3</name>
         <label>Deal Governance DSR Notification</label>
-        <locationX>8700</locationX>
+        <locationX>8800</locationX>
         <locationY>400</locationY>
         <actionName>Deal_Support_Request__c.Deal_Governance_DSR_Request_submit_notiifcation</actionName>
         <actionType>emailAlert</actionType>
@@ -1021,14 +1021,14 @@
                 <stringValue>CTA_Pursue_Creation_Notification</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_89_A1</name>
+        <name>myRule_90_A1</name>
         <label>CTA_Pursue_Creation_Notification</label>
         <locationX>8800</locationX>
         <locationY>200</locationY>
         <actionName>Deal_Support_Request__c.CTA_Pursue_Creation_Notification</actionName>
         <actionType>emailAlert</actionType>
         <connector>
-            <targetReference>myAssignment_myRule_89_A2</targetReference>
+            <targetReference>myAssignment_myRule_90_A2</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -1057,14 +1057,14 @@
                 <stringValue>reference</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_89_A2</name>
+        <name>myRule_90_A2</name>
         <label>CTA Pursue Notification</label>
         <locationX>8800</locationX>
         <locationY>300</locationY>
         <actionName>customNotificationAction</actionName>
         <actionType>customNotificationAction</actionType>
         <connector>
-            <targetReference>myRule_89_A3</targetReference>
+            <targetReference>myRule_90_A3</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -1136,7 +1136,7 @@
             </processMetadataValues>
             <name>recipientIds</name>
             <value>
-                <elementReference>myCollection_myRule_89_A2recipientIds</elementReference>
+                <elementReference>myCollection_myRule_90_A2recipientIds</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -1147,7 +1147,7 @@
                 <stringValue>Deal_Governance_DSR_Request_submit_notiifcation</stringValue>
             </value>
         </processMetadataValues>
-        <name>myRule_89_A3</name>
+        <name>myRule_90_A3</name>
         <label>Deal Governance DSR Notification</label>
         <locationX>8800</locationX>
         <locationY>400</locationY>
@@ -1163,35 +1163,35 @@
     </actionCalls>
     <apiVersion>52.0</apiVersion>
     <assignments>
-        <name>myAssignment_myRule_87_A2</name>
-        <label>myAssignment_myRule_87_A2</label>
+        <name>myAssignment_myRule_88_A2</name>
+        <label>myAssignment_myRule_88_A2</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>myCollection_myRule_87_A2recipientIds</assignToReference>
+            <assignToReference>myCollection_myRule_88_A2recipientIds</assignToReference>
             <operator>Add</operator>
             <value>
                 <elementReference>myVariable_current.CreatedBy.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>myRule_87_A2</targetReference>
+            <targetReference>myRule_88_A2</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>myAssignment_myRule_89_A2</name>
-        <label>myAssignment_myRule_89_A2</label>
+        <name>myAssignment_myRule_90_A2</name>
+        <label>myAssignment_myRule_90_A2</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>myCollection_myRule_89_A2recipientIds</assignToReference>
+            <assignToReference>myCollection_myRule_90_A2recipientIds</assignToReference>
             <operator>Add</operator>
             <value>
                 <elementReference>myVariable_current.CreatedBy.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>myRule_89_A2</targetReference>
+            <targetReference>myRule_90_A2</targetReference>
         </connector>
     </assignments>
     <decisions>
@@ -1264,7 +1264,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision47_myRule_46_Status_c</targetReference>
+            <targetReference>isChangedDecision45_myRule_43_Status_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
@@ -1285,22 +1285,22 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision47_myRule_46_Status_c</targetReference>
+                <targetReference>isChangedDecision45_myRule_43_Status_c</targetReference>
             </connector>
             <label>isChangedRule_44_myRule_43_Stage_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision47_myRule_46_Status_c</name>
-        <label>isChangedDecision47_myRule_46_Status_c</label>
+        <name>isChangedDecision45_myRule_43_Status_c</name>
+        <label>isChangedDecision45_myRule_43_Status_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision50_myRule_49_Status_c</targetReference>
+            <targetReference>isChangedDecision48_myRule_47_Status_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_47_myRule_46_Status_c</name>
+            <name>isChangedRule_45_myRule_43_Status_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1317,22 +1317,22 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision50_myRule_49_Status_c</targetReference>
+                <targetReference>isChangedDecision48_myRule_47_Status_c</targetReference>
             </connector>
-            <label>isChangedRule_47_myRule_46_Status_c</label>
+            <label>isChangedRule_45_myRule_43_Status_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision50_myRule_49_Status_c</name>
-        <label>isChangedDecision50_myRule_49_Status_c</label>
+        <name>isChangedDecision48_myRule_47_Status_c</name>
+        <label>isChangedDecision48_myRule_47_Status_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision54_myRule_53_Status_c</targetReference>
+            <targetReference>isChangedDecision51_myRule_50_Status_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_50_myRule_49_Status_c</name>
+            <name>isChangedRule_48_myRule_47_Status_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1349,22 +1349,22 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision54_myRule_53_Status_c</targetReference>
+                <targetReference>isChangedDecision51_myRule_50_Status_c</targetReference>
             </connector>
-            <label>isChangedRule_50_myRule_49_Status_c</label>
+            <label>isChangedRule_48_myRule_47_Status_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision54_myRule_53_Status_c</name>
-        <label>isChangedDecision54_myRule_53_Status_c</label>
+        <name>isChangedDecision51_myRule_50_Status_c</name>
+        <label>isChangedDecision51_myRule_50_Status_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision63_myRule_62_Status_c</targetReference>
+            <targetReference>isChangedDecision55_myRule_54_Status_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_54_myRule_53_Status_c</name>
+            <name>isChangedRule_51_myRule_50_Status_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1381,22 +1381,22 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision63_myRule_62_Status_c</targetReference>
+                <targetReference>isChangedDecision55_myRule_54_Status_c</targetReference>
             </connector>
-            <label>isChangedRule_54_myRule_53_Status_c</label>
+            <label>isChangedRule_51_myRule_50_Status_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision63_myRule_62_Status_c</name>
-        <label>isChangedDecision63_myRule_62_Status_c</label>
+        <name>isChangedDecision55_myRule_54_Status_c</name>
+        <label>isChangedDecision55_myRule_54_Status_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision73_myRule_72_Status_c</targetReference>
+            <targetReference>isChangedDecision64_myRule_63_Status_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_63_myRule_62_Status_c</name>
+            <name>isChangedRule_55_myRule_54_Status_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1413,22 +1413,22 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision73_myRule_72_Status_c</targetReference>
+                <targetReference>isChangedDecision64_myRule_63_Status_c</targetReference>
             </connector>
-            <label>isChangedRule_63_myRule_62_Status_c</label>
+            <label>isChangedRule_55_myRule_54_Status_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision73_myRule_72_Status_c</name>
-        <label>isChangedDecision73_myRule_72_Status_c</label>
+        <name>isChangedDecision64_myRule_63_Status_c</name>
+        <label>isChangedDecision64_myRule_63_Status_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision76_myRule_75_Surcharge_Submitted_for_Approval_c</targetReference>
+            <targetReference>isChangedDecision74_myRule_73_Status_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_73_myRule_72_Status_c</name>
+            <name>isChangedRule_64_myRule_63_Status_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1445,22 +1445,54 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision76_myRule_75_Surcharge_Submitted_for_Approval_c</targetReference>
+                <targetReference>isChangedDecision74_myRule_73_Status_c</targetReference>
             </connector>
-            <label>isChangedRule_73_myRule_72_Status_c</label>
+            <label>isChangedRule_64_myRule_63_Status_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision76_myRule_75_Surcharge_Submitted_for_Approval_c</name>
-        <label>isChangedDecision76_myRule_75_Surcharge_Submitted_for_Approval_c</label>
+        <name>isChangedDecision74_myRule_73_Status_c</name>
+        <label>isChangedDecision74_myRule_73_Status_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision81_myRule_80_Stage_c</targetReference>
+            <targetReference>isChangedDecision77_myRule_76_Surcharge_Submitted_for_Approval_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_76_myRule_75_Surcharge_Submitted_for_Approval_c</name>
+            <name>isChangedRule_74_myRule_73_Status_c</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>myVariable_old.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>myVariable_current.Status__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>isChangedDecision77_myRule_76_Surcharge_Submitted_for_Approval_c</targetReference>
+            </connector>
+            <label>isChangedRule_74_myRule_73_Status_c</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>isChangedDecision77_myRule_76_Surcharge_Submitted_for_Approval_c</name>
+        <label>isChangedDecision77_myRule_76_Surcharge_Submitted_for_Approval_c</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>isChangedDecision82_myRule_81_Stage_c</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>isChangedRule_77_myRule_76_Surcharge_Submitted_for_Approval_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1477,22 +1509,22 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision81_myRule_80_Stage_c</targetReference>
+                <targetReference>isChangedDecision82_myRule_81_Stage_c</targetReference>
             </connector>
-            <label>isChangedRule_76_myRule_75_Surcharge_Submitted_for_Approval_c</label>
+            <label>isChangedRule_77_myRule_76_Surcharge_Submitted_for_Approval_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision81_myRule_80_Stage_c</name>
-        <label>isChangedDecision81_myRule_80_Stage_c</label>
+        <name>isChangedDecision82_myRule_81_Stage_c</name>
+        <label>isChangedDecision82_myRule_81_Stage_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision92_myRule_91_Lodgement_Point_Name_c</targetReference>
+            <targetReference>isChangedDecision93_myRule_92_Lodgement_Point_Name_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_81_myRule_80_Stage_c</name>
+            <name>isChangedRule_82_myRule_81_Stage_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1509,22 +1541,22 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision92_myRule_91_Lodgement_Point_Name_c</targetReference>
+                <targetReference>isChangedDecision93_myRule_92_Lodgement_Point_Name_c</targetReference>
             </connector>
-            <label>isChangedRule_81_myRule_80_Stage_c</label>
+            <label>isChangedRule_82_myRule_81_Stage_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision92_myRule_91_Lodgement_Point_Name_c</name>
-        <label>isChangedDecision92_myRule_91_Lodgement_Point_Name_c</label>
+        <name>isChangedDecision93_myRule_92_Lodgement_Point_Name_c</name>
+        <label>isChangedDecision93_myRule_92_Lodgement_Point_Name_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>isChangedDecision95_myRule_94_Credit_Assessment_c</targetReference>
+            <targetReference>isChangedDecision96_myRule_95_Credit_Assessment_c</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_92_myRule_91_Lodgement_Point_Name_c</name>
+            <name>isChangedRule_93_myRule_92_Lodgement_Point_Name_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1541,14 +1573,14 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>isChangedDecision95_myRule_94_Credit_Assessment_c</targetReference>
+                <targetReference>isChangedDecision96_myRule_95_Credit_Assessment_c</targetReference>
             </connector>
-            <label>isChangedRule_92_myRule_91_Lodgement_Point_Name_c</label>
+            <label>isChangedRule_93_myRule_92_Lodgement_Point_Name_c</label>
         </rules>
     </decisions>
     <decisions>
-        <name>isChangedDecision95_myRule_94_Credit_Assessment_c</name>
-        <label>isChangedDecision95_myRule_94_Credit_Assessment_c</label>
+        <name>isChangedDecision96_myRule_95_Credit_Assessment_c</name>
+        <label>isChangedDecision96_myRule_95_Credit_Assessment_c</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
@@ -1556,7 +1588,7 @@
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>isChangedRule_95_myRule_94_Credit_Assessment_c</name>
+            <name>isChangedRule_96_myRule_95_Credit_Assessment_c</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1575,7 +1607,7 @@
             <connector>
                 <targetReference>myDecision</targetReference>
             </connector>
-            <label>isChangedRule_95_myRule_94_Credit_Assessment_c</label>
+            <label>isChangedRule_96_myRule_95_Credit_Assessment_c</label>
         </rules>
     </decisions>
     <decisions>
@@ -2289,12 +2321,12 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision45</targetReference>
+            <targetReference>myDecision46</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_43</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>(1 and 2 and 3) or (2 and 3 and 4 and 5)</conditionLogic>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
@@ -2388,6 +2420,68 @@
                     <stringValue>LPO Partner Community User</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>isChangedRule_45_myRule_43_Status_c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Completed</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>myRule_43_A1</targetReference>
             </connector>
@@ -2401,16 +2495,16 @@
                 <numberValue>18.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision45</name>
-        <label>myDecision45</label>
+        <name>myDecision46</name>
+        <label>myDecision46</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision48</targetReference>
+            <targetReference>myDecision49</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_46</name>
+            <name>myRule_47</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -2437,7 +2531,7 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_47_myRule_46_Status_c</leftValueReference>
+                <leftValueReference>isChangedRule_48_myRule_47_Status_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -2506,7 +2600,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_46_A1</targetReference>
+                <targetReference>myRule_47_A1</targetReference>
             </connector>
             <label>Request by LPO is Completed</label>
         </rules>
@@ -2518,16 +2612,16 @@
                 <numberValue>19.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision48</name>
-        <label>myDecision48</label>
+        <name>myDecision49</name>
+        <label>myDecision49</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision52</targetReference>
+            <targetReference>myDecision53</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_49</name>
+            <name>myRule_50</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -2554,7 +2648,7 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_50_myRule_49_Status_c</leftValueReference>
+                <leftValueReference>isChangedRule_51_myRule_50_Status_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -2623,7 +2717,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_49_A1</targetReference>
+                <targetReference>myRule_50_A1</targetReference>
             </connector>
             <label>Additional Information Requested</label>
         </rules>
@@ -2635,16 +2729,16 @@
                 <numberValue>20.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision52</name>
-        <label>myDecision52</label>
+        <name>myDecision53</name>
+        <label>myDecision53</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision56</targetReference>
+            <targetReference>myDecision57</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_53</name>
+            <name>myRule_54</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -2671,7 +2765,7 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_54_myRule_53_Status_c</leftValueReference>
+                <leftValueReference>isChangedRule_55_myRule_54_Status_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -2740,7 +2834,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_53_A1</targetReference>
+                <targetReference>myRule_54_A1</targetReference>
             </connector>
             <label>Additional Information from LPO Requested</label>
         </rules>
@@ -2752,26 +2846,26 @@
                 <numberValue>21.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision56</name>
-        <label>myDecision56</label>
+        <name>myDecision57</name>
+        <label>myDecision57</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision58</targetReference>
+            <targetReference>myDecision59</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_57</name>
+            <name>myRule_58</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_57</leftValueReference>
+                <leftValueReference>formula_myRule_58</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_57_A1</targetReference>
+                <targetReference>myRule_58_A1</targetReference>
             </connector>
             <label>No DSR Created Prior</label>
         </rules>
@@ -2783,26 +2877,26 @@
                 <numberValue>22.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision58</name>
-        <label>myDecision58</label>
+        <name>myDecision59</name>
+        <label>myDecision59</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision61</targetReference>
+            <targetReference>myDecision62</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_59</name>
+            <name>myRule_60</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_59</leftValueReference>
+                <leftValueReference>formula_myRule_60</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_59_A1</targetReference>
+                <targetReference>myRule_60_A1</targetReference>
             </connector>
             <label>Default Requestor as Creator for Requests created directly from Deal Support Request Object</label>
         </rules>
@@ -2845,16 +2939,16 @@
                 <numberValue>23.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision61</name>
-        <label>myDecision61</label>
+        <name>myDecision62</name>
+        <label>myDecision62</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision64</targetReference>
+            <targetReference>myDecision65</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_62</name>
+            <name>myRule_63</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -2912,14 +3006,14 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_63_myRule_62_Status_c</leftValueReference>
+                <leftValueReference>isChangedRule_64_myRule_63_Status_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_62_A1</targetReference>
+                <targetReference>myRule_63_A1</targetReference>
             </connector>
             <label>Request is resubmitted to Support Team</label>
         </rules>
@@ -2931,26 +3025,26 @@
                 <numberValue>24.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision64</name>
-        <label>myDecision64</label>
+        <name>myDecision65</name>
+        <label>myDecision65</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision66</targetReference>
+            <targetReference>myDecision67</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_65</name>
+            <name>myRule_66</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_65</leftValueReference>
+                <leftValueReference>formula_myRule_66</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_65_A1</targetReference>
+                <targetReference>myRule_66_A1</targetReference>
             </connector>
             <label>Check if CTA Pursue has been Approved</label>
         </rules>
@@ -2962,26 +3056,26 @@
                 <numberValue>25.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision66</name>
-        <label>myDecision66</label>
+        <name>myDecision67</name>
+        <label>myDecision67</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision68</targetReference>
+            <targetReference>myDecision69</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_67</name>
+            <name>myRule_68</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_67</leftValueReference>
+                <leftValueReference>formula_myRule_68</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_67_A1</targetReference>
+                <targetReference>myRule_68_A1</targetReference>
             </connector>
             <label>Check if CTA Propose has been Approved</label>
         </rules>
@@ -2993,26 +3087,26 @@
                 <numberValue>26.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision68</name>
-        <label>myDecision68</label>
+        <name>myDecision69</name>
+        <label>myDecision69</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision71</targetReference>
+            <targetReference>myDecision72</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_69</name>
+            <name>myRule_70</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_69</leftValueReference>
+                <leftValueReference>formula_myRule_70</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_69_A1</targetReference>
+                <targetReference>myRule_70_A1</targetReference>
             </connector>
             <label>Check  Pricing Requests has been resubmitted for Review</label>
         </rules>
@@ -3024,16 +3118,16 @@
                 <numberValue>27.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision71</name>
-        <label>myDecision71</label>
+        <name>myDecision72</name>
+        <label>myDecision72</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision74</targetReference>
+            <targetReference>myDecision75</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_72</name>
+            <name>myRule_73</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -3091,14 +3185,14 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_73_myRule_72_Status_c</leftValueReference>
+                <leftValueReference>isChangedRule_74_myRule_73_Status_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_72_A1</targetReference>
+                <targetReference>myRule_73_A1</targetReference>
             </connector>
             <label>Request resubmitted for review</label>
         </rules>
@@ -3110,16 +3204,16 @@
                 <numberValue>28.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision74</name>
-        <label>myDecision74</label>
+        <name>myDecision75</name>
+        <label>myDecision75</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision77</targetReference>
+            <targetReference>myDecision78</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_75</name>
+            <name>myRule_76</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -3177,14 +3271,14 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_76_myRule_75_Surcharge_Submitted_for_Approval_c</leftValueReference>
+                <leftValueReference>isChangedRule_77_myRule_76_Surcharge_Submitted_for_Approval_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_75_A1</targetReference>
+                <targetReference>myRule_76_A1</targetReference>
             </connector>
             <label>Surcharge Request is being Submitted</label>
         </rules>
@@ -3196,28 +3290,59 @@
                 <numberValue>29.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision77</name>
-        <label>myDecision77</label>
+        <name>myDecision78</name>
+        <label>myDecision78</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision79</targetReference>
+            <targetReference>myDecision80</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_78</name>
+            <name>myRule_79</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_78</leftValueReference>
+                <leftValueReference>formula_myRule_79</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_78_A1</targetReference>
+                <targetReference>myRule_79_A1</targetReference>
             </connector>
             <label>Check when DSR is submitted</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>4.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision8</name>
+        <label>myDecision8</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision10</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_9</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_9</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_9_A1</targetReference>
+            </connector>
+            <label>Update Owner for PSR-International</label>
         </rules>
     </decisions>
     <decisions>
@@ -3227,16 +3352,16 @@
                 <numberValue>30.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision79</name>
-        <label>myDecision79</label>
+        <name>myDecision80</name>
+        <label>myDecision80</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision84</targetReference>
+            <targetReference>myDecision85</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_80</name>
+            <name>myRule_81</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -3294,47 +3419,16 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_81_myRule_80_Stage_c</leftValueReference>
+                <leftValueReference>isChangedRule_82_myRule_81_Stage_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_80_A1</targetReference>
+                <targetReference>myRule_81_A1</targetReference>
             </connector>
             <label>Check when DSR is Closed</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <processMetadataValues>
-            <name>index</name>
-            <value>
-                <numberValue>4.0</numberValue>
-            </value>
-        </processMetadataValues>
-        <name>myDecision8</name>
-        <label>myDecision8</label>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>myDecision10</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>default</defaultConnectorLabel>
-        <rules>
-            <name>myRule_9</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>formula_myRule_9</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>myRule_9_A1</targetReference>
-            </connector>
-            <label>Update Owner for PSR-International</label>
         </rules>
     </decisions>
     <decisions>
@@ -3344,26 +3438,26 @@
                 <numberValue>31.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision84</name>
-        <label>myDecision84</label>
+        <name>myDecision85</name>
+        <label>myDecision85</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision86</targetReference>
+            <targetReference>myDecision87</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_85</name>
+            <name>myRule_86</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_85</leftValueReference>
+                <leftValueReference>formula_myRule_86</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_85_A1</targetReference>
+                <targetReference>myRule_86_A1</targetReference>
             </connector>
             <label>Requestor Access Rights</label>
         </rules>
@@ -3375,26 +3469,26 @@
                 <numberValue>32.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision86</name>
-        <label>myDecision86</label>
+        <name>myDecision87</name>
+        <label>myDecision87</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision88</targetReference>
+            <targetReference>myDecision89</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_87</name>
+            <name>myRule_88</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_87</leftValueReference>
+                <leftValueReference>formula_myRule_88</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_87_A1</targetReference>
+                <targetReference>myRule_88_A1</targetReference>
             </connector>
             <label>CTA Creation Propose Notification</label>
         </rules>
@@ -3406,26 +3500,26 @@
                 <numberValue>33.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision88</name>
-        <label>myDecision88</label>
+        <name>myDecision89</name>
+        <label>myDecision89</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision90</targetReference>
+            <targetReference>myDecision91</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_89</name>
+            <name>myRule_90</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>formula_myRule_89</leftValueReference>
+                <leftValueReference>formula_myRule_90</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_89_A1</targetReference>
+                <targetReference>myRule_90_A1</targetReference>
             </connector>
             <label>CTA Creation Pursue Notification</label>
         </rules>
@@ -3437,16 +3531,16 @@
                 <numberValue>34.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision90</name>
-        <label>myDecision90</label>
+        <name>myDecision91</name>
+        <label>myDecision91</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision93</targetReference>
+            <targetReference>myDecision94</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_91</name>
+            <name>myRule_92</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -3510,14 +3604,14 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_92_myRule_91_Lodgement_Point_Name_c</leftValueReference>
+                <leftValueReference>isChangedRule_93_myRule_92_Lodgement_Point_Name_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_91_A1</targetReference>
+                <targetReference>myRule_92_A1</targetReference>
             </connector>
             <label>Credit Management Request - Update WCC</label>
         </rules>
@@ -3529,13 +3623,13 @@
                 <numberValue>35.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision93</name>
-        <label>myDecision93</label>
+        <name>myDecision94</name>
+        <label>myDecision94</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_94</name>
+            <name>myRule_95</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -3568,7 +3662,7 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>isChangedRule_95_myRule_94_Credit_Assessment_c</leftValueReference>
+                <leftValueReference>isChangedRule_96_myRule_95_Credit_Assessment_c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -3606,7 +3700,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_94_A1</targetReference>
+                <targetReference>myRule_95_A1</targetReference>
             </connector>
             <label>Credit Management Request - Update Credit Assessment Status</label>
         </rules>
@@ -3622,7 +3716,7 @@ OR(
 ,&apos;Product Specialist Team&apos;,&apos;Pricing Team&apos;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_12_myRule_11_A1_7702451022</name>
+        <name>formula_12_myRule_11_A1_4202247458</name>
         <dataType>String</dataType>
         <expression>IF(
 OR(
@@ -3638,7 +3732,7 @@ OR(
 ,&apos;00G2v000005RttvEAC&apos;,&apos;00G2v000005RttuEAC&apos;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_13_myRule_11_A1_2412703934</name>
+        <name>formula_13_myRule_11_A1_7395235051</name>
         <dataType>String</dataType>
         <expression>IF(OR(
 ({!myVariable_current.Organisation__r.Total_Intermediary_Account_for_StarTrack__c}&gt; 0),({!myVariable_current.Organisation__r.Is_Strategic_Account_StarTrack__c}))
@@ -3651,7 +3745,7 @@ OR(
                 <stringValue>IF([Deal_Support_Request__c].Organisation__c.Is_Strategic_Account__c , &quot;Product Specialist Team&quot;,&quot;Pricing Team&quot;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_22_myRule_21_A1_2356501925</name>
+        <name>formula_22_myRule_21_A1_5890238503</name>
         <dataType>String</dataType>
         <expression>IF({!myVariable_current.Organisation__r.Is_Strategic_Account__c} , &quot;Product Specialist Team&quot;,&quot;Pricing Team&quot;)</expression>
     </formulas>
@@ -3663,7 +3757,7 @@ OR(
 </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_23_myRule_21_A1_9295634361</name>
+        <name>formula_23_myRule_21_A1_9599024062</name>
         <dataType>String</dataType>
         <expression>IF({!myVariable_current.Organisation__r.Is_Strategic_Account__c},&apos;00G2v000005RttvEAC&apos;,&apos;00G2v000005RttsEAC&apos;)</expression>
     </formulas>
@@ -3674,7 +3768,7 @@ OR(
                 <stringValue>IF([Deal_Support_Request__c].Commercial_Analytics_Product_Specialist__c  , &quot;Product Specialist Team&quot;, &quot;Pricing Team&quot;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_30_myRule_29_A1_2135504941</name>
+        <name>formula_30_myRule_29_A1_6258033969</name>
         <dataType>String</dataType>
         <expression>IF({!myVariable_current.Commercial_Analytics_Product_Specialist__c}  , &quot;Product Specialist Team&quot;, &quot;Pricing Team&quot;)</expression>
     </formulas>
@@ -3692,7 +3786,7 @@ OR(
 )</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_31_myRule_29_A1_7039064321</name>
+        <name>formula_31_myRule_29_A1_4849860563</name>
         <dataType>String</dataType>
         <expression>IF(
 	OR(
@@ -3710,7 +3804,7 @@ OR(
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_51_myRule_49_A3_4791636797</name>
+        <name>formula_52_myRule_50_A3_2023246429</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -3721,7 +3815,7 @@ OR(
                 <stringValue>NOW()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_55_myRule_53_A3_8135205892</name>
+        <name>formula_56_myRule_54_A3_2054019949</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -3732,7 +3826,7 @@ OR(
                 <stringValue>[Deal_Support_Request__c].CreatedById </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_60_myRule_59_A1_1202172850</name>
+        <name>formula_61_myRule_60_A1_1888881349</name>
         <dataType>String</dataType>
         <expression>{!myVariable_current.CreatedById}</expression>
     </formulas>
@@ -3743,7 +3837,7 @@ OR(
                 <stringValue>[Deal_Support_Request__c].Request_for_Review_Counter__c +1</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_70_myRule_69_A1_2852086074</name>
+        <name>formula_71_myRule_70_A1_7481673120</name>
         <dataType>Number</dataType>
         <expression>{!myVariable_current.Request_for_Review_Counter__c} +1</expression>
         <scale>18</scale>
@@ -3755,7 +3849,7 @@ OR(
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_82_myRule_80_A1_3526068630</name>
+        <name>formula_83_myRule_81_A1_7593159773</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -3766,7 +3860,7 @@ OR(
                 <stringValue>NOW()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_83_myRule_80_A1_2399881651</name>
+        <name>formula_84_myRule_81_A1_0323737603</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -4039,7 +4133,7 @@ OR ( (LEFT({!myVariable_current.OwnerId}  ,3) &lt;&gt; &quot;00G&quot;), AND(OR(
 )</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_myRule_57</name>
+        <name>formula_myRule_58</name>
         <dataType>Boolean</dataType>
         <expression>AND(
 {!myVariable_current.Opportunity__c} &lt;&gt; null,
@@ -4060,7 +4154,7 @@ ISBLANK([Deal_Support_Request__c].Requestor__c ),
 ISPICKVAL([Deal_Support_Request__c].Request_type__c ,&quot;&quot;))</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_myRule_59</name>
+        <name>formula_myRule_60</name>
         <dataType>Boolean</dataType>
         <expression>AND(ISNEW(),
 ISBLANK({!myVariable_current.Requestor__c} ),
@@ -4077,7 +4171,7 @@ ISPICKVAL({!myVariable_current.Request_type__c} ,&quot;&quot;))</expression>
 )</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_myRule_65</name>
+        <name>formula_myRule_66</name>
         <dataType>Boolean</dataType>
         <expression>AND
 ( ISCHANGED({!myVariable_current.DSR_Approved__c} ),
@@ -4095,29 +4189,12 @@ ISPICKVAL({!myVariable_current.Request_type__c} ,&quot;&quot;))</expression>
 [Deal_Support_Request__c].RecordType.DeveloperName = &apos;Commit_To_Action_Propose&apos;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_myRule_67</name>
+        <name>formula_myRule_68</name>
         <dataType>Boolean</dataType>
         <expression>AND
 ( ISCHANGED({!myVariable_current.DSR_Approved__c} ),
 {!myVariable_current.DSR_Approved__c} = TRUE,
 {!myVariable_current.RecordType.DeveloperName} = &apos;Commit_To_Action_Propose&apos;)</expression>
-    </formulas>
-    <formulas>
-        <processMetadataValues>
-            <name>originalFormula</name>
-            <value>
-                <stringValue>AND (
-ISCHANGED([Deal_Support_Request__c].Status__c ),
-ISPICKVAL([Deal_Support_Request__c].Status__c , &quot;Request for Review Outcome&quot;),
-BEGINS([Deal_Support_Request__c].RecordType.DeveloperName ,&apos;Pricing_Support_Request&apos;))</stringValue>
-            </value>
-        </processMetadataValues>
-        <name>formula_myRule_69</name>
-        <dataType>Boolean</dataType>
-        <expression>AND (
-ISCHANGED({!myVariable_current.Status__c} ),
-ISPICKVAL({!myVariable_current.Status__c} , &quot;Request for Review Outcome&quot;),
-BEGINS({!myVariable_current.RecordType.DeveloperName} ,&apos;Pricing_Support_Request&apos;))</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
@@ -4148,13 +4225,30 @@ BEGINS({!myVariable_current.RecordType.DeveloperName} ,&apos;Pricing_Support_Req
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
+                <stringValue>AND (
+ISCHANGED([Deal_Support_Request__c].Status__c ),
+ISPICKVAL([Deal_Support_Request__c].Status__c , &quot;Request for Review Outcome&quot;),
+BEGINS([Deal_Support_Request__c].RecordType.DeveloperName ,&apos;Pricing_Support_Request&apos;))</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_70</name>
+        <dataType>Boolean</dataType>
+        <expression>AND (
+ISCHANGED({!myVariable_current.Status__c} ),
+ISPICKVAL({!myVariable_current.Status__c} , &quot;Request for Review Outcome&quot;),
+BEGINS({!myVariable_current.RecordType.DeveloperName} ,&apos;Pricing_Support_Request&apos;))</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
                 <stringValue>AND(
 OR( ISNEW(), ISCHANGED([Deal_Support_Request__c].Stage__c ), AND(ISCHANGED([Deal_Support_Request__c].OwnerId ),[Deal_Support_Request__c].OwnerId &lt;&gt; [Deal_Support_Request__c].CreatedById )),
  OR(ISPICKVAL([Deal_Support_Request__c].Stage__c,&quot;Submitted&quot;),
  ISPICKVAL([Deal_Support_Request__c].Stage__c,&quot;Work In Progress&quot;)))</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_myRule_78</name>
+        <name>formula_myRule_79</name>
         <dataType>Boolean</dataType>
         <expression>AND(
 OR( ISNEW(), ISCHANGED({!myVariable_current.Stage__c} ), AND(ISCHANGED({!myVariable_current.OwnerId} ),{!myVariable_current.OwnerId} &lt;&gt; {!myVariable_current.CreatedById} )),
@@ -4172,7 +4266,7 @@ AND(ISCHANGED([Deal_Support_Request__c].Record_Submitted_Check__c),[Deal_Support
 [Deal_Support_Request__c].Requestor__c.Id  &lt;&gt; [Deal_Support_Request__c].CreatedById)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_myRule_85</name>
+        <name>formula_myRule_86</name>
         <dataType>Boolean</dataType>
         <expression>AND(
 OR(ISCHANGED({!myVariable_current.Stage__c} ), ISCHANGED({!myVariable_current.OwnerId} ),
@@ -4187,20 +4281,9 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
                 <stringValue>ISNEW() &amp;&amp;  [Deal_Support_Request__c].RecordType.DeveloperName = &apos;Commit_To_Action_Propose&apos; </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_myRule_87</name>
+        <name>formula_myRule_88</name>
         <dataType>Boolean</dataType>
         <expression>ISNEW() &amp;&amp;  {!myVariable_current.RecordType.DeveloperName} = &apos;Commit_To_Action_Propose&apos;</expression>
-    </formulas>
-    <formulas>
-        <processMetadataValues>
-            <name>originalFormula</name>
-            <value>
-                <stringValue>ISNEW() &amp;&amp;  [Deal_Support_Request__c].RecordType.DeveloperName = &apos;Commit_To_Action_Pursue&apos;</stringValue>
-            </value>
-        </processMetadataValues>
-        <name>formula_myRule_89</name>
-        <dataType>Boolean</dataType>
-        <expression>ISNEW() &amp;&amp;  {!myVariable_current.RecordType.DeveloperName} = &apos;Commit_To_Action_Pursue&apos;</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
@@ -4221,7 +4304,18 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
          ISPICKVAL({!myVariable_current.Status__c},&quot;Submitted&quot;),
         {!myVariable_current.RecordType.DeveloperName}=&quot;Pricing_Support_Request_International&quot;)</expression>
     </formulas>
-    <interviewLabel>STP_Deal_Support_Request_Processes-12_InterviewLabel</interviewLabel>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>ISNEW() &amp;&amp;  [Deal_Support_Request__c].RecordType.DeveloperName = &apos;Commit_To_Action_Pursue&apos;</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_90</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW() &amp;&amp;  {!myVariable_current.RecordType.DeveloperName} = &apos;Commit_To_Action_Pursue&apos;</expression>
+    </formulas>
+    <interviewLabel>STP_Deal_Support_Request_Processes-19_InterviewLabel</interviewLabel>
     <label>STP Deal Support Request Processes</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -4457,7 +4551,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Assigned_Team__c</field>
             <value>
-                <elementReference>formula_12_myRule_11_A1_7702451022</elementReference>
+                <elementReference>formula_12_myRule_11_A1_4202247458</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4493,7 +4587,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <elementReference>formula_13_myRule_11_A1_2412703934</elementReference>
+                <elementReference>formula_13_myRule_11_A1_7395235051</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -4937,7 +5031,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Assigned_Team__c</field>
             <value>
-                <elementReference>formula_22_myRule_21_A1_2356501925</elementReference>
+                <elementReference>formula_22_myRule_21_A1_5890238503</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4973,7 +5067,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <elementReference>formula_23_myRule_21_A1_9295634361</elementReference>
+                <elementReference>formula_23_myRule_21_A1_9599024062</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5237,7 +5331,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Assigned_Team__c</field>
             <value>
-                <elementReference>formula_30_myRule_29_A1_2135504941</elementReference>
+                <elementReference>formula_30_myRule_29_A1_6258033969</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -5273,7 +5367,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <elementReference>formula_31_myRule_29_A1_7039064321</elementReference>
+                <elementReference>formula_31_myRule_29_A1_4849860563</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5513,12 +5607,12 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_49_A3</name>
+        <name>myRule_50_A3</name>
         <label>Update Requested Information time</label>
-        <locationX>4900</locationX>
+        <locationX>5000</locationX>
         <locationY>400</locationY>
         <connector>
-            <targetReference>myDecision52</targetReference>
+            <targetReference>myDecision53</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -5567,7 +5661,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Requested_Information__c</field>
             <value>
-                <elementReference>formula_51_myRule_49_A3_4791636797</elementReference>
+                <elementReference>formula_52_myRule_50_A3_2023246429</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5597,12 +5691,12 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_53_A3</name>
+        <name>myRule_54_A3</name>
         <label>Update Requested Time</label>
-        <locationX>5300</locationX>
+        <locationX>5400</locationX>
         <locationY>400</locationY>
         <connector>
-            <targetReference>myDecision56</targetReference>
+            <targetReference>myDecision57</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -5651,7 +5745,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Requested_Information__c</field>
             <value>
-                <elementReference>formula_55_myRule_53_A3_8135205892</elementReference>
+                <elementReference>formula_56_myRule_54_A3_2054019949</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5681,12 +5775,12 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_57_A1</name>
+        <name>myRule_58_A1</name>
         <label>Update Opportunity DSR Flag</label>
-        <locationX>5700</locationX>
+        <locationX>5800</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myDecision58</targetReference>
+            <targetReference>myDecision59</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -5739,90 +5833,6 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </value>
         </inputAssignments>
         <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
-        <processMetadataValues>
-            <name>evaluationType</name>
-            <value>
-                <stringValue>always</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>extraTypeInfo</name>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>isChildRelationship</name>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>reference</name>
-            <value>
-                <stringValue>[Deal_Support_Request__c]</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>referenceTargetField</name>
-        </processMetadataValues>
-        <name>myRule_59_A1</name>
-        <label>Update Requestor as Creator</label>
-        <locationX>5900</locationX>
-        <locationY>200</locationY>
-        <connector>
-            <targetReference>myDecision61</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <processMetadataValues>
-                <name>implicit</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </processMetadataValues>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>myVariable_current.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <processMetadataValues>
-                <name>dataType</name>
-                <value>
-                    <stringValue>ID</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>isRequired</name>
-                <value>
-                    <booleanValue>false</booleanValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideLabel</name>
-                <value>
-                    <stringValue>Requestor Name</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideReferenceTo</name>
-                <value>
-                    <stringValue>User</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>rightHandSideType</name>
-                <value>
-                    <stringValue>Formula</stringValue>
-                </value>
-            </processMetadataValues>
-            <field>Requestor__c</field>
-            <value>
-                <elementReference>formula_60_myRule_59_A1_1202172850</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Deal_Support_Request__c</object>
     </recordUpdates>
     <recordUpdates>
         <processMetadataValues>
@@ -5933,18 +5943,102 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <processMetadataValues>
             <name>reference</name>
             <value>
+                <stringValue>[Deal_Support_Request__c]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_60_A1</name>
+        <label>Update Requestor as Creator</label>
+        <locationX>6000</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision62</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Requestor Name</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Requestor__c</field>
+            <value>
+                <elementReference>formula_61_myRule_60_A1_1888881349</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Deal_Support_Request__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
                 <stringValue>[Deal_Support_Request__c].Opportunity</stringValue>
             </value>
         </processMetadataValues>
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_65_A1</name>
+        <name>myRule_66_A1</name>
         <label>Update Related Opportunity to Signify CTA Pursue is Approved</label>
-        <locationX>6500</locationX>
+        <locationX>6600</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myDecision66</targetReference>
+            <targetReference>myDecision67</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -6023,12 +6117,12 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_67_A1</name>
+        <name>myRule_68_A1</name>
         <label>Update Related Opportunity when CTA Propose is Approved</label>
-        <locationX>6700</locationX>
+        <locationX>6800</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myDecision68</targetReference>
+            <targetReference>myDecision69</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -6107,12 +6201,12 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_69_A1</name>
+        <name>myRule_70_A1</name>
         <label>Update Request for Review Counter for pricing request</label>
-        <locationX>6900</locationX>
+        <locationX>7000</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myDecision71</targetReference>
+            <targetReference>myDecision72</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -6161,7 +6255,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Request_for_Review_Counter__c</field>
             <value>
-                <elementReference>formula_70_myRule_69_A1_2852086074</elementReference>
+                <elementReference>formula_71_myRule_70_A1_7481673120</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -6281,12 +6375,12 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_80_A1</name>
+        <name>myRule_81_A1</name>
         <label>Update Close Date</label>
-        <locationX>8000</locationX>
+        <locationX>8100</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myDecision84</targetReference>
+            <targetReference>myDecision85</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -6335,7 +6429,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>DateClosed__c</field>
             <value>
-                <elementReference>formula_82_myRule_80_A1_3526068630</elementReference>
+                <elementReference>formula_83_myRule_81_A1_7593159773</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -6371,7 +6465,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Date_Time_Closed__c</field>
             <value>
-                <elementReference>formula_83_myRule_80_A1_2399881651</elementReference>
+                <elementReference>formula_84_myRule_81_A1_0323737603</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -6401,7 +6495,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_91_A1</name>
+        <name>myRule_92_A1</name>
         <label>Update Word Centre Code</label>
         <locationX>8800</locationX>
         <locationY>200</locationY>
@@ -6482,7 +6576,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_94_A1</name>
+        <name>myRule_95_A1</name>
         <label>Update Credit Assessment Status</label>
         <locationX>8800</locationX>
         <locationY>200</locationY>
@@ -6667,14 +6761,14 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
     <startElementReference>isChangedDecision34_myRule_33_Stage_c</startElementReference>
     <status>Active</status>
     <variables>
-        <name>myCollection_myRule_87_A2recipientIds</name>
+        <name>myCollection_myRule_88_A2recipientIds</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>myCollection_myRule_89_A2recipientIds</name>
+        <name>myCollection_myRule_90_A2recipientIds</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>

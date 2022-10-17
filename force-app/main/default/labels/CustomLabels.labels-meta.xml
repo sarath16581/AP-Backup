@@ -14,28 +14,28 @@
         <shortDescription>Apttus Object Initials for Proposal</shortDescription>
         <value>a8O</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>APT_IncompleteAPPCPSR</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Incomplete APPC PSR</shortDescription>
         <value>Unable to check out due to incomplete PSR. Please follow-up with Pricing.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>APT_MismatchedLodgementZone</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Mismatched Lodgement Zone</shortDescription>
         <value>Approved lodgment zone(s) does not match lodgment zone(s) entered in the product configuration. Please update the product configuration or follow up with pricing to update the PSR.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>APT_NoAPPCPSR</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APPC PSR does not exist</shortDescription>
         <value>This customer qualifies for pricing that is outside of sales delegation. A pricing support request (PSR) is required to proceed.</value>
-    </labels>    
-	<labels>
+    </labels>
+    <labels>
         <fullName>APT_NoLinkedAccounts</fullName>
         <categories>APT Linking Billing Account &amp; Contract</categories>
         <language>en_US</language>
@@ -43,14 +43,14 @@
         <shortDescription>APT_NoLinkedAccounts</shortDescription>
         <value>No linked accounts, please set up an account from the proposal record</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>APT_LinkPSRSuccess</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Success Message for Linking PSR</shortDescription>
         <value>Rates available for check out</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>APT_ExpiredQuoteValidityEndDate</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -219,8 +219,8 @@
         <protected>false</protected>
         <shortDescription>Billing Account</shortDescription>
         <value>Billing Account</value>
-    </labels>    
-	<labels>
+    </labels>
+    <labels>
         <fullName>APT_BillingAccountAlreadyLinked</fullName>
         <categories>APT Linking Billing Account &amp; Contract</categories>
         <language>en_US</language>
@@ -6369,7 +6369,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <shortDescription>Profile Id</shortDescription>
         <value>00e30000001N9BE</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>RatingPlanIntegrationStatusNotClear</fullName>
         <categories>Rating Plan Activation</categories>
         <language>en_US</language>
@@ -6495,7 +6495,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Record Type Developer Name of Special Services</shortDescription>
-        <value>Special_Services</value>
+        <value>Special Services</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_KEYWORD_SSSW</fullName>
@@ -7757,5 +7757,13 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>PUDDuplicateBookingContainerErrorMessage</shortDescription>
         <value>Container type: {0} with condition: {1} already exists under a booking. Please update existing container type.</value>
+    </labels>
+    <labels>
+        <fullName>STHSMaxCharactersValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Max Characters Validation Message</shortDescription>
+        <value>Maximum 40 characters allowed</value>
     </labels>
 </CustomLabels>
