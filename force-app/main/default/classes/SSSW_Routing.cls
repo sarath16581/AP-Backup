@@ -95,7 +95,7 @@ public class SSSW_Routing {
     private static final String LOC_INTERNATIONAL = 'International';
     private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{
         'International' => 'SSSWInternationalBackOffice',
-        'Consumer' => 'SSSWConsumerBackOffice',
+        'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
         'Enterprise' => 'SSSWEnterpriseBackOffice',
         'SMB' => 'SSSWBusinessBackOffice',
         'Gold' => 'SSSWBusinessBackOffice',

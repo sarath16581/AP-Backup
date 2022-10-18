@@ -396,7 +396,7 @@ public with sharing class CaseUtility {
 //
 //        Map<string, id> defaultQueueMappings = new Map<string, id>();
 //        defaultQueueMappings.put('SSSWInternationalBackOffice', null);
-//        defaultQueueMappings.put('SSSWConsumerBackOffice', null);
+//        defaultQueueMappings.put('SSSW_Consumer_Back_Office_Low_Priority', null);
 //        defaultQueueMappings.put('SSSWEnterpriseBackOffice', null);
 //        defaultQueueMappings.put('SSSWBusinessBackOffice', null);
 //
@@ -456,7 +456,7 @@ public with sharing class CaseUtility {
 //                    queueName = 'SSSWInternationalBackOffice';
 //                } else {
 //                    if(c.Customer_Type__c == 'Consumer') {
-//                        queueName = 'SSSWConsumerBackOffice';
+//                        queueName = 'SSSW_Consumer_Back_Office_Low_Priority';
 //                    } else if(c.Customer_Type__c == 'Enterprise') {
 //                        queueName = 'SSSWEnterpriseBackOffice';
 //
