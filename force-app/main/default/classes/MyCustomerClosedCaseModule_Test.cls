@@ -129,7 +129,7 @@ private class MyCustomerClosedCaseModule_Test {
         };
         oldCases[0].Status = 'New'; 
         oldCases[1].Status = 'Open'; 
-        oldCases[1].Status = 'Closed';       
+        oldCases[2].Status = 'Closed';       
 
          //AgentWork
          ServiceChannel sc = [SELECT Id FROM ServiceChannel WHERE DeveloperName LIKE '%Case%' LIMIT 1];
