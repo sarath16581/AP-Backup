@@ -63,16 +63,11 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
      * Attempt to assign the Case to the previous Agent, otherwise assign to a default Queue
      */
     private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases) {
+        System.debug('in Module reassign()');
         Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
         Map<Id, Id> caseIdVsAgentId = new Map<Id, Id>();
-        for(AgentWork aw: [SELECT 
-                                WorkItemId,
-                                UserId 
-                            FROM AgentWork 
-                            WHERE WorkItemId in :closedCases.keySet() 
-                                AND AcceptDateTime != NULL 
-                            ORDER BY WorkItemId, AcceptDateTime DESC]) {
-
+        for(AgentWork aw: AgentWorkSelector.newInstance().selectByAcceptedWorkItemIds(closedCases.keySet(),new Set<Object>())){
+            System.debug('Agentwork: '+aw);
             // grabs the first user id from agent work since it is sorted by DESC 
             if(caseIdVsAgentId.containsKey(aw.WorkItemId) == false) {
                 caseIdVsAgentId.put(aw.WorkItemId, aw.UserId);
@@ -82,11 +77,24 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
         for(Case c: closedCases.values()) {
             if(caseIdVsAgentId.containsKey(c.Id) == true) {
                 c.OwnerId = caseIdVsAgentId.get(c.Id);
+                System.debug('Assigned to User');
             } else {
                 c.OwnerId = omnichannelClosedCaseQueueId;
+                System.debug('Assigned to Queue');
             }
         }
     }
+    /*
+    [SELECT 
+                                WorkItemId,
+                                UserId 
+                            FROM AgentWork 
+                            WHERE WorkItemId in :closedCases.keySet() 
+                                AND AcceptDateTime != NULL 
+                            ORDER BY WorkItemId, AcceptDateTime DESC])
+                            */
+
+
 
     /**
      * populate a Set of Status values

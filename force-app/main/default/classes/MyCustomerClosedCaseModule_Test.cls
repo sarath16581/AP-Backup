@@ -24,11 +24,10 @@ private class MyCustomerClosedCaseModule_Test {
 		// =====================================		
         
 		//Group (Queue)
-        QueueRoutingConfig qrc = [select Id from QueueRoutingConfig where DeveloperName like '%SSSW%' LIMIT 1];
+        QueueRoutingConfig qrc = [SELECT Id FROM QueueRoutingConfig WHERE DeveloperName LIKE '%SSSW%' LIMIT 1];
 		List<Group> queues = ApplicationTestDataFactory.getGroups(1,'Queue',true);        
-		queues[0].Name = 'Omni Queue';
         queues[0].QueueRoutingConfigId = qrc.Id;
-        Map<Id,Group> mapQueues = new Map<Id,Group>(queues);
+        Map<Id,Group> mapQueues = new  Map<Id,Group>(queues);
         
         //Cases
         List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
@@ -38,9 +37,8 @@ private class MyCustomerClosedCaseModule_Test {
         cases[1].OwnerId = queues[0].Id;
 
         //Agent User
-        Profile agentprof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
+        Profile agentprof = [SELECT Id,Name FROM Profile WHERE Name =: SSSW_AGENT_PROFILE LIMIT 1];
         User ssswAgent = TestUtility.createUser('SAgent',agentprof.id,null);
-        Database.insert(new List<User>{ssswAgent});
 
         //Clone to simulate change from existing Case records
         List<Case> oldCases = new List<Case>{
@@ -49,9 +47,11 @@ private class MyCustomerClosedCaseModule_Test {
         };
         oldCases[0].Status = 'New'; 
         oldCases[1].Status = 'New'; 
-
-        AgentWork aw = new AgentWork(WorkItemId = cases[0].Id, UserId = ssswAgent.Id);
-        Insert aw; 
+        
+        //AgentWork
+        ServiceChannel sc = [SELECT Id FROM ServiceChannel WHERE DeveloperName LIKE '%Case%' LIMIT 1];
+        PendingServiceRouting psr = new PendingServiceRouting();
+        List<AgentWork> aws = new List<AgentWork>{new AgentWork(WorkItemId = cases[0].Id, UserId = ssswAgent.Id, ServiceChannelId = sc.Id, PendingServiceRoutingId = psr.Id)};        
 
         Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
 		
@@ -60,13 +60,15 @@ private class MyCustomerClosedCaseModule_Test {
 		// =====================================
 		
 		GroupsSelector mockGroupsSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);     
+        AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);    
         ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();   
         
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		
 		MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Group>(mapQueues));
-		
+		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(aws);
+
         MockUtility.Mocks.stopStubbing();
 
 
@@ -81,8 +83,10 @@ private class MyCustomerClosedCaseModule_Test {
 		
         Test.stopTest();
 
+        ((AgentWorkSelector)MockUtility.Mocks.verify(mockAgentWorkSelector, 1)).selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject());
+
         system.assertEquals(ssswAgent.Id, cases[0].OwnerId, 'Expected the Case Owner to be the previous User based on AgentWork' );
-        system.assertEquals(omnichannelClosedCaseQueueId, cases[0].OwnerId, 'Expected the Case Owner to be the previous User based on AgentWork' );        
+        system.assertEquals(omnichannelClosedCaseQueueId, cases[1].OwnerId, 'Expected the Case Owner to be the default Closed Case Queue' );        
 	}
 	
     /**
@@ -99,37 +103,74 @@ private class MyCustomerClosedCaseModule_Test {
 		// =====================================		
         
 		//Group (Queue)
-        QueueRoutingConfig qrc = [select Id from QueueRoutingConfig where DeveloperName like '%SSSW%' LIMIT 1];
-		List<Group> queues = ApplicationTestDataFactory.getGroups(1,'Queue',true);        
-		queues[0].Name = 'Omni Queue';
+        QueueRoutingConfig qrc = [SELECT Id FROM QueueRoutingConfig WHERE DeveloperName LIKE '%SSSW%' LIMIT 1];
+		List<Group> queues = ApplicationTestDataFactory.getGroups(2,'Queue',true);        
         queues[0].QueueRoutingConfigId = qrc.Id;
-        Map<Id,Group> mapQueues = new Map<Id,Group>(queues);
+        Map<Id,Group> mapQueues = new  Map<Id,Group>(queues);
         
         //Cases
-        List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+        List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
         cases[0].Status = 'Closed';
-        cases[0].OwnerId = queues[0].Id;
-        cases[1].Status = 'Closed';
+        cases[0].OwnerId = queues[1].Id;
+        cases[1].Status = 'New';
         cases[1].OwnerId = queues[0].Id;
+        cases[2].Status = 'Closed';
+        cases[2].OwnerId = queues[0].Id;
 
         //Agent User
-        Profile agentprof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
+        Profile agentprof = [SELECT Id,Name FROM Profile WHERE Name =: SSSW_AGENT_PROFILE LIMIT 1];
         User ssswAgent = TestUtility.createUser('SAgent',agentprof.id,null);
-        Database.insert(new List<User>{ssswAgent});
 
         //Clone to simulate change from existing Case records
         List<Case> oldCases = new List<Case>{
             cases[0].clone(true),
-            cases[1].clone(true)
+            cases[1].clone(true),
+            cases[2].clone(true)
         };
         oldCases[0].Status = 'New'; 
-        oldCases[1].Status = 'New'; 
+        oldCases[1].Status = 'Open'; 
+        oldCases[1].Status = 'Closed';       
 
-        AgentWork aw = new AgentWork(WorkItemId = cases[0].Id, UserId = ssswAgent.Id);
-        Insert aw; 
+         //AgentWork
+         ServiceChannel sc = [SELECT Id FROM ServiceChannel WHERE DeveloperName LIKE '%Case%' LIMIT 1];
+         PendingServiceRouting psr = new PendingServiceRouting();
+         List<AgentWork> aws = new List<AgentWork>{new AgentWork(WorkItemId = cases[0].Id, UserId = ssswAgent.Id, ServiceChannelId = sc.Id, PendingServiceRoutingId = psr.Id)};      
 
         Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
-    
+		
+		// =====================================
+		// Stubbing
+		// =====================================
+		
+		GroupsSelector mockGroupsSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);     
+        AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);    
+        ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();   
+        
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		
+		MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Group>(mapQueues));
+		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(aws);
+
+        MockUtility.Mocks.stopStubbing();
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+        MyCustomerClosedCaseModule module = MyCustomerClosedCaseModule.newInstance();        
+
+        module.onBeforeUpdate((List<SObject>) cases, new Map<Id, SObject>(oldCases), mockUow);
+		
+        Test.stopTest();
+
+        //All cases will not pass the entry criteria, and therefore AgentWorkSelector will not be called 
+        ((AgentWorkSelector)MockUtility.Mocks.verify(mockAgentWorkSelector, 0)).selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject());
+
+        //PMD by-pass
+        system.assert(true);
     }
 	
 }
