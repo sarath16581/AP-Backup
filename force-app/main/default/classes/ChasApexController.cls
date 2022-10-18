@@ -702,8 +702,8 @@ public with sharing class ChasApexController extends ChasBase{
              if(convertedEDD != null) {
                  Date convertedEDDPlusDays = convertedEDD.addDays(10); // TODO refer custom setting
                  if (Date.today() < convertedEDDPlusDays) {
-                     // If the case raised date is before EDD + 10, add to the main comment: Case logged before EDD+10: Before
-                     commentBody = commentBody + '\n'+ 'Case logged before EDD+10: Before';
+                     // If the case raised date is before EDD + 10, add to the main comment: Case logged before EDD+10: Yes
+                     commentBody = commentBody + '\n'+ 'Case logged before EDD+10: Yes';
                  } else if (convertedEDDPlusDays < Date.today()) { // EDD plus 10 passed
                      // DDS-12734 exception check
                      // if a single article is searched or a single article being selected from multiple to raise a case
@@ -746,7 +746,7 @@ public with sharing class ChasApexController extends ChasBase{
                          }
                      }
                      //If the case is after EDD + 10, add to the main comment: Case logged before EDD+10: After
-                     commentBody = commentBody + '\n'+ 'Case logged before EDD+10: After';
+                     commentBody = commentBody + '\n'+ 'Case logged before EDD+10: No';
                  }
              }
 
