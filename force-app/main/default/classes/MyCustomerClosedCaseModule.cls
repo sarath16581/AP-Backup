@@ -26,7 +26,7 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
 	}
 
     /**
-     * Filter to only Closed Cases that are in eligible Queues
+     * Filter to Closed Cases and eligible Queues
      */
     public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         Map<Id, Case> closedCases = new Map<Id, Case>();
@@ -60,7 +60,7 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
     }
 
     /**
-     * Attempt to assign the Case to the previous Agent, otherwise assign to a designated Queue
+     * Attempt to assign the Case to the previous Agent, otherwise assign to a default Queue
      */
     private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases) {
         Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
@@ -88,6 +88,9 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
         }
     }
 
+    /**
+     * populate a Set of Status values
+     */
     private static void initClosedStatusApiNames(){
         if(closedStatusAPINames == null || closedStatusAPINames.size() == 0){
             closedStatusAPINames = new Set<String>();

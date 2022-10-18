@@ -9,6 +9,9 @@
  */
 @IsTest
 private class MyCustomerClosedCaseModule_Test {
+
+    private static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
+    
 	/**
 	 * Covers the following positive test scenarios:
 	 * a) Closed Case in a Queue with Routing config and related Agent Work
@@ -20,39 +23,66 @@ private class MyCustomerClosedCaseModule_Test {
 		// Data Preparation
 		// =====================================		
         
-		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
-		cases[0].IsNewForRouting__c  = true;
-		cases[0].AllocateToQueue__c = true;
-        cases[1].ReferenceID__c = 'ART1232'; // links to articles[1]
-		cases[1].Origin = 'Email';
-		cases[0].RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
-		cases[1].IsNewForRouting__c  = true;
-		cases[1].AllocateToQueue__c = true;
+		//Group (Queue)
+        QueueRoutingConfig qrc = [select Id from QueueRoutingConfig where DeveloperName like '%SSSW%' LIMIT 1];
+		List<Group> queues = ApplicationTestDataFactory.getGroups(1,'Queue',true);        
+		queues[0].Name = 'Omni Queue';
+        queues[0].QueueRoutingConfigId = qrc.Id;
+        Map<Id,Group> mapQueues = new Map<Id,Group>(queues);
+        
+        //Cases
+        List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+        cases[0].Status = 'Closed';
+        cases[0].OwnerId = queues[0].Id;
+        cases[1].Status = 'Closed';
+        cases[1].OwnerId = queues[0].Id;
 
-        //1 queue with routing config
-        //old cases
-        //1 user
-        //1 agent work
+        //Agent User
+        Profile agentprof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
+        User ssswAgent = TestUtility.createUser('SAgent',agentprof.id,null);
+        Database.insert(new List<User>{ssswAgent});
+
+        //Clone to simulate change from existing Case records
+        List<Case> oldCases = new List<Case>{
+            cases[0].clone(true),
+            cases[1].clone(true)
+        };
+        oldCases[0].Status = 'New'; 
+        oldCases[1].Status = 'New'; 
+
+        AgentWork aw = new AgentWork(WorkItemId = cases[0].Id, UserId = ssswAgent.Id);
+        Insert aw; 
+
+        Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
 		
 		// =====================================
 		// Stubbing
 		// =====================================
 		
-		GroupsSelector mockGroupsSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);
+		GroupsSelector mockGroupsSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);     
+        ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();   
         
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		
-		//MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>(Groups));
+		MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Group>(mapQueues));
 		
         MockUtility.Mocks.stopStubbing();
+
+
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
+
+        MyCustomerClosedCaseModule module = MyCustomerClosedCaseModule.newInstance();        
+
+        module.onBeforeUpdate((List<SObject>) cases, new Map<Id, SObject>(oldCases), mockUow);
 		
         Test.stopTest();
-        
+
+        system.assertEquals(ssswAgent.Id, cases[0].OwnerId, 'Expected the Case Owner to be the previous User based on AgentWork' );
+        system.assertEquals(omnichannelClosedCaseQueueId, cases[0].OwnerId, 'Expected the Case Owner to be the previous User based on AgentWork' );        
 	}
 	
     /**
@@ -63,41 +93,42 @@ private class MyCustomerClosedCaseModule_Test {
 	 * 
 	 */
     @IsTest
-	private static void testEnsureCaseInOmniDefaultQueue() {
+	private static void testCasesNoReassign() {
 		// =====================================
 		// Data Preparation
-		// =====================================	
+		// =====================================		
         
-		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
-		cases[0].IsNewForRouting__c  = true;
-		cases[0].AllocateToQueue__c = true;
-        cases[1].ReferenceID__c = 'ART1232'; // links to articles[1]
-		cases[1].Origin = 'Email';
-		cases[0].RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
-		cases[1].IsNewForRouting__c  = true;
-		cases[1].AllocateToQueue__c = true;
+		//Group (Queue)
+        QueueRoutingConfig qrc = [select Id from QueueRoutingConfig where DeveloperName like '%SSSW%' LIMIT 1];
+		List<Group> queues = ApplicationTestDataFactory.getGroups(1,'Queue',true);        
+		queues[0].Name = 'Omni Queue';
+        queues[0].QueueRoutingConfigId = qrc.Id;
+        Map<Id,Group> mapQueues = new Map<Id,Group>(queues);
+        
+        //Cases
+        List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+        cases[0].Status = 'Closed';
+        cases[0].OwnerId = queues[0].Id;
+        cases[1].Status = 'Closed';
+        cases[1].OwnerId = queues[0].Id;
 
-        //2 queues, 1 with routing config
-        //old cases - 1 is closed status and does not change
-		
-		// =====================================
-		// Stubbing
-		// =====================================
-		
-		GroupsSelector mockGroupsSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);
-        
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
-		
-		//MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>(Groups));
-		
-        MockUtility.Mocks.stopStubbing();
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-		
-        Test.stopTest();
+        //Agent User
+        Profile agentprof = [SELECT Id,Name FROM profile where Name =: SSSW_AGENT_PROFILE LIMIT 1];
+        User ssswAgent = TestUtility.createUser('SAgent',agentprof.id,null);
+        Database.insert(new List<User>{ssswAgent});
+
+        //Clone to simulate change from existing Case records
+        List<Case> oldCases = new List<Case>{
+            cases[0].clone(true),
+            cases[1].clone(true)
+        };
+        oldCases[0].Status = 'New'; 
+        oldCases[1].Status = 'New'; 
+
+        AgentWork aw = new AgentWork(WorkItemId = cases[0].Id, UserId = ssswAgent.Id);
+        Insert aw; 
+
+        Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
     
     }
 	
