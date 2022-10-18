@@ -46,6 +46,11 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 		return (List<AgentWork>)Database.query(qb.toSoqlString());
 	}
 
+    public List<AgentWork> selectByWorkItemIds(Set<Id> workItemIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds')).endConditions();
+		return (List<AgentWork>)Database.query(qb.toSoqlString());
+	}
+
     public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
