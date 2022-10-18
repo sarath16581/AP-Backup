@@ -37,8 +37,7 @@ private class MyCustomerClosedCaseModule_Test {
         cases[1].OwnerId = queues[0].Id;
 
         //Agent User
-        Profile agentprof = [SELECT Id,Name FROM Profile WHERE Name =: SSSW_AGENT_PROFILE LIMIT 1];
-        User ssswAgent = TestUtility.createUser('SAgent',agentprof.id,null);
+        User ssswAgent = ApplicationTestDataFactory.getUsers(1, true)[0];
 
         //Clone to simulate change from existing Case records
         List<Case> oldCases = new List<Case>{
@@ -49,9 +48,7 @@ private class MyCustomerClosedCaseModule_Test {
         oldCases[1].Status = 'New'; 
         
         //AgentWork
-        ServiceChannel sc = [SELECT Id FROM ServiceChannel WHERE DeveloperName LIKE '%Case%' LIMIT 1];
-        PendingServiceRouting psr = new PendingServiceRouting();
-        List<AgentWork> aws = new List<AgentWork>{new AgentWork(WorkItemId = cases[0].Id, UserId = ssswAgent.Id, ServiceChannelId = sc.Id, PendingServiceRoutingId = psr.Id)};        
+        List<AgentWork> aws = new List<AgentWork>{new AgentWork(WorkItemId = cases[0].Id, UserId = ssswAgent.Id)};        
 
         Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
 		
@@ -118,8 +115,7 @@ private class MyCustomerClosedCaseModule_Test {
         cases[2].OwnerId = queues[0].Id;
 
         //Agent User
-        Profile agentprof = [SELECT Id,Name FROM Profile WHERE Name =: SSSW_AGENT_PROFILE LIMIT 1];
-        User ssswAgent = TestUtility.createUser('SAgent',agentprof.id,null);
+        User ssswAgent = ApplicationTestDataFactory.getUsers(1, true)[0];
 
         //Clone to simulate change from existing Case records
         List<Case> oldCases = new List<Case>{
