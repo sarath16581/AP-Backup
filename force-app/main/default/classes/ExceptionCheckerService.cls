@@ -11,7 +11,7 @@
  */
 public inherited sharing class ExceptionCheckerService {
     private static Consumer_Help_and_Support__c CHAS_SETTINGS = Consumer_Help_and_Support__c.getOrgDefaults();
-    private static String ORIGIN_SENDER = 'Sender';
+    @TestVisible private static String ORIGIN_ADDRESSEE = 'Addressee';
 
     /**
 	 * Grabs a new instance of this class
@@ -22,76 +22,94 @@ public inherited sharing class ExceptionCheckerService {
 	}
 
     /**
-     * Check for the exceptions in the events for articles
-     * @param eventsByArticle Map<String, List<EventMessage__c>>
+     * Is exception check main method, this will return the final results after calling individual exception checks
+     * @param exceptionCheckDTOS
      *
-     * @return Map<String,ExceptionResult>
+     * @return list of results can be identified by the case id or the article id
      */
-    public Map<String, ExceptionResultDTO> isExceptionAppliesOnEventType(List<ExceptionCheckDTO> exceptionCheckDTOS) {
-        // retrieving stored exceptionDTO message config
-        List<String> eventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
+    public List<ExceptionResultDTO> isExceptionApplies(List<ExceptionCheckDTO> exceptionCheckDTOS) {
         // storing the result to be returned per article
-        Map<String, ExceptionResultDTO> articleToExceptionResult = new Map<String, ExceptionResultDTO>();
+        List<ExceptionResultDTO> exceptionResultDTOS = new List<ExceptionResultDTO>();
         for(ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
             ExceptionResultDTO result = new ExceptionResultDTO();
-            // checking through events for exceptions
-            for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
-                // if there's an exception found set the value to true in the DTO
-                if(eventMessageString.contains(eventMessageDTO.EventType)) {
-                    result.isException = true;
-                }
-            }
-
-            articleToExceptionResult.put(exceptionDTO.articleId,result);
+            // checking through for exceptions
+            result.CaseId = exceptionDTO?.CaseToCheck.Id;
+            result.ArticleId = exceptionDTO?.ArticleId;
+            result.isException = checkForExceptions(exceptionDTO);
+            exceptionResultDTOS.add(result);
         }
 
-        return articleToExceptionResult;
+        return exceptionResultDTOS;
+    }
+
+    /**
+     * Calling individual checks
+     * @param exceptionDTO
+     *
+     * @return returns a boolean based on the result
+     */
+    private Boolean checkForExceptions(ExceptionCheckDTO exceptionDTO) {
+        if (isExceptionAppliesOnEventType(exceptionDTO)) {
+            return true;
+        }
+        if (isCaseRaisedRecently(exceptionDTO)) {
+            return true;
+        }
+        if (isCaseRaisedByReceiver(exceptionDTO)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check for exceptions on the event type
+     * @param exceptionDTO
+     *
+     * @return boolean
+     */
+    public Boolean isExceptionAppliesOnEventType(ExceptionCheckDTO exceptionDTO) {
+        // retrieving stored exceptionDTO message config
+        List<String> eventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
+        ExceptionResultDTO result = new ExceptionResultDTO();
+        // checking through events for exceptions
+        for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
+            // if there's an exception found set the value to true in the DTO
+            if(eventMessageString.contains(eventMessageDTO.EventType)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * is the case has been raised recently and the number of dates variation are taken from custom setting
-     * @param exceptionCheckDTOS
+     * @param exceptionDTO
      *
-     * @return
+     * @return boolean
      */
-    public Map<String, ExceptionResultDTO> isCaseRaisedRecently(List<ExceptionCheckDTO> exceptionCheckDTOS) {
+    public Boolean isCaseRaisedRecently(ExceptionCheckDTO exceptionDTO) {
         Integer recentScanDays = Integer.valueOf(CHAS_SETTINGS.RecentScanDays__c);
-        // storing the result to be returned per article
-        Map<String, ExceptionResultDTO> articleToExceptionResult = new Map<String, ExceptionResultDTO>();
-        for(ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
-            ExceptionResultDTO result = new ExceptionResultDTO();
-            // checking through events for exceptions
-            for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
-                // if there was a recent scan we should get the agent to look at the case.
-                if(eventMessageDTO.ActualDateTime >= Date.today().addDays(-recentScanDays)){
-                    result.isException = true;
-                }
+        // checking through events for exceptions
+        for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
+            // if there was a recent scan we should get the agent to look at the case.
+            if(eventMessageDTO.ActualDateTime >= Date.today().addDays(-recentScanDays)){
+                return true;
             }
-
-            articleToExceptionResult.put(exceptionDTO.articleId,result);
         }
-
-        return articleToExceptionResult;
+        return false;
     }
 
     /**
-     * is the case has been raised by the sender
-     * @param exceptionCheckDTOS
+     * is the case has been raised by the receiver
+     * @param exceptionDTO
      *
-     * @return
+     * @return boolean
      */
-    public Map<String, ExceptionResultDTO> isCaseRaisedBySender(List<ExceptionCheckDTO> exceptionCheckDTOS) {
-        // storing the result to be returned per article
-        Map<String, ExceptionResultDTO> articleToExceptionResult = new Map<String, ExceptionResultDTO>();
-        for(ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
-            ExceptionResultDTO result = new ExceptionResultDTO();
-            if(ORIGIN_SENDER.equalsIgnoreCase(exceptionDTO?.CaseToCheck?.CaseOriginator__c)) {
-                result.isCaseRaiseBySender = true;
-            }
-            articleToExceptionResult.put(exceptionDTO.articleId,result);
+    public Boolean isCaseRaisedByReceiver(ExceptionCheckDTO exceptionDTO) {
+        if(ORIGIN_ADDRESSEE.equalsIgnoreCase(exceptionDTO?.CaseToCheck?.CaseOriginator__c)) {
+            return true;
         }
-
-        return articleToExceptionResult;
+        return false;
     }
 
     // in case if we need to send more parameters we are using this DTO
@@ -117,13 +135,13 @@ public inherited sharing class ExceptionCheckerService {
             set;
         }
 
-        public Boolean isCaseRaiseBySender{
-            get{
-                if(isCaseRaiseBySender == null) {
-                    return false;
-                }
-                return isCaseRaiseBySender;
-            }
+        public String CaseId{
+            get;
+            set;
+        }
+
+        public String ArticleId{
+            get;
             set;
         }
     }
