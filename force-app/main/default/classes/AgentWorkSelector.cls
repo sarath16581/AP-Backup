@@ -46,6 +46,25 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 		return (List<AgentWork>)Database.query(qb.toSoqlString());
 	}
 
+    public List<AgentWork> selectByWorkItemIds(Set<Id> workItemIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds')).endConditions();
+		return (List<AgentWork>)Database.query(qb.toSoqlString());
+	}
+
+    public List<AgentWork> selectByAcceptedWorkItemIds(Set<Id> workItemIds, Set<Object> selectorOptions) {
+        selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+            .add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds'))
+            .add(new QueryBuilder.SimpleCondition(AgentWork.AcceptDateTime + ' != NULL'))
+            .setConditionOrder('1 AND 2')
+            .endConditions();
+
+        qb.addOrder(new QueryBuilder.Order(AgentWork.WorkItemId))
+            .addOrder(new QueryBuilder.Order(AgentWork.AcceptDateTime).setSortingOrderDesc());
+
+        return (List<AgentWork>)Database.query(qb.toSoqlString());
+    }
+
     public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
