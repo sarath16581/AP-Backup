@@ -54,6 +54,7 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 *                                                       this has been moved to a new class 'ChasProductsAndServicesController' and the ChasBase class is created and extended here.
 *                                                       some of the common shared methods are moved to ChasBase
 * 2022-06-20 mahesh.parvathaneni@auspost.com.au DDS-6293 Fix for customer seen safe drop text in case description
+* 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -506,7 +507,7 @@ public with sharing class ChasApexController extends ChasBase{
             if(wizardData.get('isEDDEstimated') == 'true'){
                 commentBody = commentBody + '\n'+ 'Estimated EDD: Yes';
             }
-            
+
             //-- Subject : Trimming the complaint details to 255 chars
             if(String.IsNotEmpty(issueDetails)){
                 if(wizardData.get('issueDetails').trim().length() > 255){
@@ -695,7 +696,59 @@ public with sharing class ChasApexController extends ChasBase{
             if(containsPharma) {
                 toBeCreateCase.Priority = 'High';
             }
-            
+             Boolean isException = false;
+             // DDS-12734 exception check
+             // if a single article is searched or a single article being selected from multiple to raise a case
+             if(allArticles.size() == 1 || selectedArticles.size() == 1) {
+                 List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
+                 ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO= new ExceptionCheckerService.ExceptionCheckDTO();
+                 // set article id
+                 exceptionCheckDTO.ArticleId = allArticles[0].articleId;
+                 // set case, this is to check the receiver
+                 exceptionCheckDTO.CaseToCheck = toBeCreateCase;
+
+                 List<ExceptionCheckerService.EventMessageDTO> eventMessageDTOs = new List<ExceptionCheckerService.EventMessageDTO>();
+                 for(EventMessage msg : allArticles[0].eventMessages) {
+                     ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+                     eventMessageDTO.ActualDateTime = msg.actualDateTime;
+                     eventMessageDTO.EventType = msg.eventType;
+                     eventMessageDTOs.add(eventMessageDTO);
+                 }
+                 // set event messages
+                 exceptionCheckDTO.eventMessages = eventMessageDTOs;
+                 exceptionCheckDTOS.add(exceptionCheckDTO);
+
+                 //calling the exception checker service for to be created case
+                 List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
+                 if(exceptionResults != null && exceptionResults[0].isException) {
+                     toBeCreateCase.ClosedBySystem__c = true;
+                     toBeCreateCase.Status = 'Closed';
+                     toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
+                     isException = true;
+                 }
+             }
+
+             // DDS-12944  is before EDD + 10 and is after EDD + 10 comments
+             if(convertedEDD != null) {
+                 Date convertedEDDPlusDays = convertedEDD.addDays(10); // TODO refer custom setting
+                 if (Date.today() < convertedEDDPlusDays) {
+                     // If the case raised date is before EDD + 10, add to the main comment: Case logged before EDD+10: Before
+                     commentBody = commentBody + '\n'+ 'Case logged before EDD+10: Before';
+                 } else if (Date.today() > convertedEDDPlusDays) {
+                     //If the case is after EDD + 10, add to the main comment: Case logged before EDD+10: After
+                     commentBody = commentBody + '\n'+ 'Case logged before EDD+10: After';
+                     // Exception found upon case being raised (when EDD+10 has already passed at time of case raised)
+                     if(isException){
+                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
+                     }
+                 }
+             }
+
+             // DDS-12944 No exception found upon case being raised
+             if(!isException){
+                 commentBody = commentBody + '\n'+ 'Auto-LIT exception: No';
+             }
+
             // 2019/10/09 - Issue Description to be set as Case Description, warning message to case reader is added if the user entered something in the issue details section
             if(!String.isEmpty(complaintDetails)) {
                 toBeCreateCase.Description = Label.HS_Issue_Details_Warning +'\n\n'+ complaintDetails + '\n\n';
@@ -864,7 +917,10 @@ public with sharing class ChasApexController extends ChasBase{
             //if( ChasCaseAssignment.VALID_STATUSES.indexOf(eddStatus) >= 0 && (wcid != null && wcid != '') && (String.isEmpty(wizardData.get('isReturnToSender')) || String.valueOf(wizardData.get('isReturnToSender')) == 'false')) {
             
          } catch (Exception ex) {
-             System.debug('Error on case creation :: ' + ex.getMessage());
+             System.debug('Error on case creation :: ' + '(MESSAGE):' + ex.getMessage() +
+                     '(STACKTRACE):' + ex.getStackTraceString() +
+                     '(LINENUMBER):' + ex.getLineNumber() +
+                     '(CAUSE):' + ex.getCause());
              caseWrapper.caseStatus = 'ERROR';
          }
         return caseWrapper;
@@ -2226,6 +2282,11 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
         @AuraEnabled public Date deliveredByDatePlusBusinessDays{get;set;}
         @AuraEnabled public Boolean isNoEddReturned {get; set;}
         @AuraEnabled public Boolean isEDDEstimated {get; set;}
+        @AuraEnabled public List<EventMessage> eventMessages {get; set;}
+    }
+    public class EventMessage {
+        @AuraEnabled public String eventType { get; set; }
+        @AuraEnabled public DateTime actualDateTime { get; set; }
     }
     
     //-- User Information Wrapper Class

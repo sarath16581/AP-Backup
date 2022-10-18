@@ -28,17 +28,21 @@ public inherited sharing class ExceptionCheckerService {
      * @return list of results can be identified by the case id or the article id
      */
     public List<ExceptionResultDTO> isExceptionApplies(List<ExceptionCheckDTO> exceptionCheckDTOS) {
-        // storing the result to be returned per article
         List<ExceptionResultDTO> exceptionResultDTOS = new List<ExceptionResultDTO>();
-        for(ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
-            ExceptionResultDTO result = new ExceptionResultDTO();
-            // checking through for exceptions
-            result.CaseId = exceptionDTO?.CaseToCheck.Id;
-            result.ArticleId = exceptionDTO?.ArticleId;
-            result.isException = checkForExceptions(exceptionDTO);
-            exceptionResultDTOS.add(result);
-        }
+        try {
+            // storing the result to be returned per article
 
+            for (ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
+                ExceptionResultDTO result = new ExceptionResultDTO();
+                // checking through for exceptions
+                result.CaseId = exceptionDTO?.CaseToCheck.Id;
+                result.ArticleId = exceptionDTO?.ArticleId;
+                result.isException = checkForExceptions(exceptionDTO);
+                exceptionResultDTOS.add(result);
+            }
+        } catch(Exception ex) {
+            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Exception Checker Service', ExceptionCheckerService.class.getName(), 'call', null, LoggingLevel.ERROR);
+        }
         return exceptionResultDTOS;
     }
 
@@ -92,7 +96,7 @@ public inherited sharing class ExceptionCheckerService {
         // checking through events for exceptions
         for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
             // if there was a recent scan we should get the agent to look at the case.
-            if(eventMessageDTO.ActualDateTime >= Date.today().addDays(-recentScanDays)){
+            if(eventMessageDTO?.ActualDateTime >= Date.today().addDays(-recentScanDays)){
                 return true;
             }
         }
@@ -114,7 +118,15 @@ public inherited sharing class ExceptionCheckerService {
 
     // in case if we need to send more parameters we are using this DTO
     public class EventMessageDTO {
-        public String eventType { get; set; }
+        public String eventType {
+            get{
+                if(eventType == null) {
+                    return '';
+                }
+                return eventType;
+            }
+            set;
+        }
         public DateTime actualDateTime { get; set; }
     }
 
