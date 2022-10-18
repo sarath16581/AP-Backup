@@ -166,7 +166,7 @@ private class MyCustomerClosedCaseModule_Test {
         ((AgentWorkSelector)MockUtility.Mocks.verify(mockAgentWorkSelector, 0)).selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject());
 
         //PMD by-pass
-        system.assert(true);
+        System.Assert(true);
     }
 	
 }
