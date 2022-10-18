@@ -253,7 +253,7 @@ public with sharing class ChasApexController extends ChasBase{
             String enquirySubType = wizardData.get('enqSubtype'); //Enquiry subtype is decided in the searchTrackingNumber method when deciding the tracking message
             Datetime EDDPlusBusinessDays = !String.isEmpty(wizardData.get('deliveredByDateToUntil')) ? Date.valueOf(wizardData.get('deliveredByDateToUntil')) : !String.isEmpty(wizardData.get('deliveredByDatePlusBusinessDays'))? Date.valueOf(wizardData.get('deliveredByDatePlusBusinessDays')): null;
             // cases which are raised within EDD or EDD plus business days, plus dont have a delivered scan are eligible for hold
-            String isEligibleForHold = '';
+            Boolean isEligibleForHold = false;
             // DDS-5273: article that contains pharma should not be held
              if ('No'.equalsIgnoreCase(wizardData.get('selectedRadio4Name'))) {
                  if (!isMultipleArticlesSelected // DDS-8586 4. ignore holding for more than one tracking id and all of them are delivered but delivered by different delivery centres (non medication/medication priority set above in existing logic)
@@ -261,14 +261,14 @@ public with sharing class ChasApexController extends ChasBase{
                          !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))) {
                      // avoid cases for which the case reopen date falls on the case creation date
                      if (EDDPlusBusinessDays != null && EDDPlusBusinessDays != System.today()) {
-                         isEligibleForHold = 'true';
+                         isEligibleForHold = true;
                      }
                  }
              }
             // if the enquiry subtype is tracking the enquiry type should be set to general enquiry, and the record type has to be General Enquiry
             // exclude cases which are eligible for hold
             if (ChasConstants.ENQ_SUB_TYPE_TRACKING.equals(enquirySubType)) {
-                if(!String.isEmpty(isEligibleForHold) && 'true'.equalsIgnoreCase(isEligibleForHold)){
+                if(isEligibleForHold){
                     enquirySubType = ChasConstants.ENQ_SUB_TYPE_MISSING;
                 } else {
                     type = ChasConstants.GENERAL_ENQUIRY;
@@ -499,7 +499,7 @@ public with sharing class ChasApexController extends ChasBase{
                 }
             }
             // write to case comments if the case was held
-            if(isEligibleForHold == 'true') {
+            if(isEligibleForHold) {
                 commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessage;
             } else {
                 commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessageNo;
@@ -700,7 +700,7 @@ public with sharing class ChasApexController extends ChasBase{
 
              Boolean isException = false;
              // DDS-12944  is before EDD + 10 and is after EDD + 10 comments
-             if (!String.isEmpty(isEligibleForHold) && 'false'.equalsIgnoreCase(isEligibleForHold)) { // EDD plus 10 passed
+             if (!isEligibleForHold) { // EDD plus 10 passed
                  // DDS-12734 exception check
                  // if a single article is searched or a single article being selected from multiple to raise a case
                  if(allArticles.size() == 1 || selectedArticles.size() == 1) {
@@ -883,7 +883,7 @@ public with sharing class ChasApexController extends ChasBase{
 
             //if eligible for hold, run the async process to update case details on case creation to put it ON HOLD and set a Reopen date
             // 17-08-2021 switched to direct routing
-            if(!String.isEmpty(isEligibleForHold) && 'true'.equalsIgnoreCase(isEligibleForHold)) {
+            if(isEligibleForHold) {
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.HOLD, null);
             }
 
