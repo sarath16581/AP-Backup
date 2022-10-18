@@ -3188,6 +3188,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>Case logged before EDD + 10: Yes</value>
     </labels>
     <labels>
+        <fullName>ChasCaseEligibleForHoldMessageNo</fullName>
+        <categories>Chas - Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Comment Message to be included when it is Not Eligible For Hold</shortDescription>
+        <value>Case logged before EDD + 10: No</value>
+    </labels>
+    <labels>
         <fullName>ChasTransferFeeHeading</fullName>
         <categories>Chas - Help and Support</categories>
         <language>en_US</language>

@@ -499,9 +499,10 @@ public with sharing class ChasApexController extends ChasBase{
                 }
             }
             // write to case comments if the case was held
-            if(isEligibleForHold == 'true')
-            {
+            if(isEligibleForHold == 'true') {
                 commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessage;
+            } else {
+                commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessageNo;
             }
             // write to case comments if edd was estimated
             if(wizardData.get('isEDDEstimated') == 'true'){
@@ -696,57 +697,49 @@ public with sharing class ChasApexController extends ChasBase{
             if(containsPharma) {
                 toBeCreateCase.Priority = 'High';
             }
+
              Boolean isException = false;
-
              // DDS-12944  is before EDD + 10 and is after EDD + 10 comments
-             if(convertedEDD != null) {
-                 Date convertedEDDPlusDays = convertedEDD.addDays(10); // TODO refer custom setting
-                 if (Date.today() < convertedEDDPlusDays) {
-                     // If the case raised date is before EDD + 10, add to the main comment: Case logged before EDD+10: Yes
-                     commentBody = commentBody + '\n'+ 'Case logged before EDD+10: Yes';
-                 } else if (convertedEDDPlusDays < Date.today()) { // EDD plus 10 passed
-                     // DDS-12734 exception check
-                     // if a single article is searched or a single article being selected from multiple to raise a case
-                     if(allArticles.size() == 1 || selectedArticles.size() == 1) {
-                         TrackingNumberDetails articlesDetail = new TrackingNumberDetails();
-                         // if user search for a consignment and selects a single article
-                         if(isEligibleForMultipleArticleSelection && selectedArticles.size() == 1) {
-                             articlesDetail =  selectedArticles[0];
-                         } else if(!isEligibleForMultipleArticleSelection && allArticles.size() == 1) {
-                             // if user search only for an article
-                             articlesDetail =  allArticles[0];
-                         }
-                         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
-                         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO= new ExceptionCheckerService.ExceptionCheckDTO();
-                         // set article id
-                         exceptionCheckDTO.ArticleId = articlesDetail.articleId;
-                         // set case, this is to check the receiver
-                         exceptionCheckDTO.CaseToCheck = toBeCreateCase;
-
-                         List<ExceptionCheckerService.EventMessageDTO> eventMessageDTOs = new List<ExceptionCheckerService.EventMessageDTO>();
-                         for(EventMessage msg : articlesDetail.eventMessages) {
-                             ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
-                             eventMessageDTO.ActualDateTime = msg.actualDateTime;
-                             eventMessageDTO.EventType = msg.eventType;
-                             eventMessageDTOs.add(eventMessageDTO);
-                         }
-                         // set event messages
-                         exceptionCheckDTO.eventMessages = eventMessageDTOs;
-                         exceptionCheckDTOS.add(exceptionCheckDTO);
-
-                         //calling the exception checker service for to be created case
-                         List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
-                         if(exceptionResults != null && exceptionResults[0].isException) {
-                             toBeCreateCase.ClosedBySystem__c = true;
-                             toBeCreateCase.Status = 'Closed';
-                             toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
-                             isException = true;
-                             // Exception found upon case being raised (when EDD+10 has already passed at time of case raised)
-                             commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
-                         }
+             if (!String.isEmpty(isEligibleForHold) && 'false'.equalsIgnoreCase(isEligibleForHold)) { // EDD plus 10 passed
+                 // DDS-12734 exception check
+                 // if a single article is searched or a single article being selected from multiple to raise a case
+                 if(allArticles.size() == 1 || selectedArticles.size() == 1) {
+                     TrackingNumberDetails articlesDetail = new TrackingNumberDetails();
+                     // if user search for a consignment and selects a single article
+                     if(isEligibleForMultipleArticleSelection && selectedArticles.size() == 1) {
+                         articlesDetail =  selectedArticles[0];
+                     } else if(!isEligibleForMultipleArticleSelection && allArticles.size() == 1) {
+                         // if user search only for an article
+                         articlesDetail =  allArticles[0];
                      }
-                     //If the case is after EDD + 10, add to the main comment: Case logged before EDD+10: After
-                     commentBody = commentBody + '\n'+ 'Case logged before EDD+10: No';
+                     List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
+                     ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO= new ExceptionCheckerService.ExceptionCheckDTO();
+                     // set article id
+                     exceptionCheckDTO.ArticleId = articlesDetail.articleId;
+                     // set case, this is to check the receiver
+                     exceptionCheckDTO.CaseToCheck = toBeCreateCase;
+
+                     List<ExceptionCheckerService.EventMessageDTO> eventMessageDTOs = new List<ExceptionCheckerService.EventMessageDTO>();
+                     for(EventMessage msg : articlesDetail.eventMessages) {
+                         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+                         eventMessageDTO.ActualDateTime = msg.actualDateTime;
+                         eventMessageDTO.EventType = msg.eventType;
+                         eventMessageDTOs.add(eventMessageDTO);
+                     }
+                     // set event messages
+                     exceptionCheckDTO.eventMessages = eventMessageDTOs;
+                     exceptionCheckDTOS.add(exceptionCheckDTO);
+
+                     //calling the exception checker service for to be created case
+                     List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
+                     if(exceptionResults != null && exceptionResults[0].isException) {
+                         toBeCreateCase.ClosedBySystem__c = true;
+                         toBeCreateCase.Status = 'Closed';
+                         toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
+                         isException = true;
+                         // Exception found upon case being raised (when EDD+10 has already passed at time of case raised)
+                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
+                     }
                  }
              }
 
