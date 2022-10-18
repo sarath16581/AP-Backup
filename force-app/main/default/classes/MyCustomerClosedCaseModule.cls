@@ -1,4 +1,20 @@
+/*** 
+ * @description
+ * Domain Module to reassign Closed Cases from Omnichannel Queues.
+ * This prevents Closed Cases from being routed by Omni-channel to an Agent
+ * Only Cases in Queues with a Routing Configuration are reassigned.
+ * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
+ * 
+ * @author Noel Lim
+ * @date 2022-10-17
+ * @group Domain
+ * @domain Routing 
+ * @changelog
+ * 2022-10-17 - Noel Lim - Created
+ */
 public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.Module {
+
+    private static Set<String> closedStatusAPINames;
 
 	public static MyCustomerClosedCaseModule newInstance() {
 		return (MyCustomerClosedCaseModule)Application.Utilities.newInstance(MyCustomerClosedCaseModule.class);
@@ -9,12 +25,18 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
 		getTriggerEvents().enableBeforeUpdate();
 	}
 
+    /**
+     * Filter to only Closed Cases that are in eligible Queues
+     */
     public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         Map<Id, Case> closedCases = new Map<Id, Case>();
         Map<Id, Group> queues = new Map<Id, Group>();
+
+        initClosedStatusApiNames();
+
         for(Case c: (List<Case>)records) {
             if(c.Status != ((Case)existingRecords.get(c.Id)).Status 
-                && c.Status == 'Closed' // TDOD this needs to be a list of Statuses where Closed = True    
+                && closedStatusAPINames.contains(c.Status)
                 && c.OwnerId != null
                 && c.OwnerId.getSobjectType() == Group.sObjectType) {
 
@@ -37,6 +59,9 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
         }
     }
 
+    /**
+     * Attempt to assign the Case to the previous Agent, otherwise assign to a designated Queue
+     */
     private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases) {
         Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
         Map<Id, Id> caseIdVsAgentId = new Map<Id, Id>();
@@ -59,6 +84,16 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
                 c.OwnerId = caseIdVsAgentId.get(c.Id);
             } else {
                 c.OwnerId = omnichannelClosedCaseQueueId;
+            }
+        }
+    }
+
+    private static void initClosedStatusApiNames(){
+        if(closedStatusAPINames == null || closedStatusAPINames.size() == 0){
+            closedStatusAPINames = new Set<String>();
+            List<CaseStatus> closedStatusList = [Select Id,ApiName From CaseStatus Where IsClosed = true];
+            for(CaseStatus cstatus : closedStatusList){
+                closedStatusAPINames.add(cstatus.ApiName);
             }
         }
     }
