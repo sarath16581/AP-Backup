@@ -35,7 +35,7 @@ public inherited sharing class ExceptionCheckerService {
             for (ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
                 ExceptionResultDTO result = new ExceptionResultDTO();
                 // checking through for exceptions
-                result.CaseId = exceptionDTO?.CaseToCheck.Id;
+                result.cse = exceptionDTO?.CaseToCheck;
                 result.ArticleId = exceptionDTO?.ArticleId;
                 result.isException = checkForExceptions(exceptionDTO);
                 exceptionResultDTOS.add(result);
@@ -147,7 +147,7 @@ public inherited sharing class ExceptionCheckerService {
             set;
         }
 
-        public String CaseId{
+        public Case cse{
             get;
             set;
         }
