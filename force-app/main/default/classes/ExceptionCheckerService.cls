@@ -35,7 +35,7 @@ public inherited sharing class ExceptionCheckerService {
             for (ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
                 ExceptionResultDTO result = new ExceptionResultDTO();
                 // checking through for exceptions
-                result.cse = exceptionDTO?.CaseToCheck;
+                result.CaseToCheck = exceptionDTO?.CaseToCheck;
                 result.ArticleId = exceptionDTO?.ArticleId;
                 result.isException = checkForExceptions(exceptionDTO);
                 exceptionResultDTOS.add(result);
@@ -59,7 +59,7 @@ public inherited sharing class ExceptionCheckerService {
         if (isCaseRaisedRecently(exceptionDTO)) {
             return true;
         }
-        if (isCaseRaisedByReceiver(exceptionDTO)) {
+        if (isCaseRaisedByReceiver(exceptionDTO) == false) {
             return true;
         }
         return false;
@@ -110,7 +110,7 @@ public inherited sharing class ExceptionCheckerService {
      * @return boolean
      */
     public Boolean isCaseRaisedByReceiver(ExceptionCheckDTO exceptionDTO) {
-        if(ORIGIN_ADDRESSEE.equalsIgnoreCase(exceptionDTO?.CaseToCheck?.CaseOriginator__c)) {
+        if(ORIGIN_ADDRESSEE.equalsIgnoreCase(exceptionDTO.CaseToCheck.CaseOriginator__c)) {
             return true;
         }
         return false;
@@ -147,7 +147,7 @@ public inherited sharing class ExceptionCheckerService {
             set;
         }
 
-        public Case cse{
+        public Case CaseToCheck{
             get;
             set;
         }
