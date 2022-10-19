@@ -58,7 +58,7 @@ public inherited sharing class ExceptionCheckerService {
         if (isCaseRaisedRecently(exceptionDTO)) {
             return true;
         }
-        if (isCaseRaisedByReceiver(exceptionDTO) == false) {
+        if (!isCaseRaisedByReceiver(exceptionDTO)) {
             return true;
         }
         return false;
