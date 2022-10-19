@@ -23,7 +23,6 @@ public class ExceptionCheckerServiceTest {
        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'AFC-ER19';
@@ -43,7 +42,6 @@ public class ExceptionCheckerServiceTest {
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'DD-ER13';
@@ -64,7 +62,6 @@ public class ExceptionCheckerServiceTest {
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'DD-ER13';
@@ -86,7 +83,6 @@ public class ExceptionCheckerServiceTest {
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'DD-ER13';
@@ -109,7 +105,6 @@ public class ExceptionCheckerServiceTest {
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'DD-ER13';
