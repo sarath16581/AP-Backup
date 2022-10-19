@@ -114,21 +114,24 @@ private with sharing class CaseReopenBatchTest {
 			}
 		}
 
-		Map<String, ExceptionCheckerService.ExceptionResultDTO> exceptionResult = new Map<String, ExceptionCheckerService.ExceptionResultDTO>();
+		List<ExceptionCheckerService.ExceptionResultDTO> exceptionResult = new List<ExceptionCheckerService.ExceptionResultDTO>();
 		ExceptionCheckerService.ExceptionResultDTO ex1 = new ExceptionCheckerService.ExceptionResultDTO();
 		ex1.isException = true;
+		ex1.CaseToCheck = vCases[0];
 		ExceptionCheckerService.ExceptionResultDTO ex2 = new ExceptionCheckerService.ExceptionResultDTO();
 		ex2.isException = true;
+		ex2.CaseToCheck = vCases[1];
 		ExceptionCheckerService.ExceptionResultDTO ex3 = new ExceptionCheckerService.ExceptionResultDTO();
 		ex3.isException = false;
+		ex3.CaseToCheck = vCases[2];
 		ExceptionCheckerService.ExceptionResultDTO ex4 = new ExceptionCheckerService.ExceptionResultDTO();
 		ex4.isException = true;
-		exceptionResult.put(articleOneEventMessages[0].TrackingID__c, ex1);
-		exceptionResult.put(articleTwoEventMessages[0].TrackingID__c, ex2);
-		exceptionResult.put(articleThreeEventMessages[0].TrackingID__c, ex3);
-		exceptionResult.put(articleFourEventMessages[0].TrackingID__c, ex4);
+		ex4.CaseToCheck = vCases[3];
 
-
+		exceptionResult.add(ex1);
+		exceptionResult.add(ex2);
+		exceptionResult.add(ex3);
+		exceptionResult.add(ex4);
 
 		// =====================================
         // Stubbing
@@ -142,7 +145,7 @@ private with sharing class CaseReopenBatchTest {
 		eventMessages.addAll(articleThreeEventMessages);
 		eventMessages.addAll(articleFourEventMessages);
         MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleId((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, EventMessage__c>(eventMessages));
-		MockUtility.Mocks.when(exceptionService.isExceptionApplies((Map<String, List<ExceptionCheckerService.EventMessageDTO>>)fflib_Match.anyObject())).thenReturn(exceptionResult);
+		MockUtility.Mocks.when(exceptionService.isExceptionApplies((List<ExceptionCheckerService.ExceptionCheckDTO>)fflib_Match.anyObject())).thenReturn(exceptionResult);
 		((ExceptionCheckerService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), exceptionService)).assignCasesToAgentQueue((List<Case>)fflib_Match.anyObject());
 		((ExceptionCheckerService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), exceptionService)).closeCases((List<Case>)fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();

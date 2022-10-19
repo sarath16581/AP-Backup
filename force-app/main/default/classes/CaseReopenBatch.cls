@@ -76,7 +76,6 @@ public class CaseReopenBatch implements Database.Batchable<SObject>, Database.St
 	 * handle the exception checker logic
 	 */
 	private void handleExceptionCheckerOnCases(Set<Id> articleIdSet, List<Case> caseListWithArticles) {
-		Map<String, Id> articleIdToTrackingMap = new Map<String, Id>();
 		Map<String, List<ExceptionCheckerService.EventMessageDTO>> articleIdToEventMessageWrapperMap = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
 		Map<Id,EventMessage__c> eventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(articleIdSet);
 
@@ -91,22 +90,18 @@ public class CaseReopenBatch implements Database.Batchable<SObject>, Database.St
 					emDto.actualDateTime = em.ActualDateTime__c;
 					articleIdToEventMessageWrapperMap.get(em.Article__c).add(emDto);
 				}
-				//populate trackingIdToArticleMap
-				if (!articleIdToTrackingMap.containsKey(em.Article__c)) {
-					articleIdToTrackingMap.put(em.Article__c, em.TrackingID__c);
-				}
 			}
 
 			if (articleIdSet.size() > 0) {
 				//call the exception checker service
-				runExceptionChecker(articleIdToEventMessageWrapperMap, articleIdToTrackingMap, caseListWithArticles);	
+				runExceptionChecker(articleIdToEventMessageWrapperMap, caseListWithArticles);	
 			}
 	}
 
 	/**
 	 * Run the exception checker logic on cases to assign to agent queue and close the cases
 	 */
-	private void runExceptionChecker(Map<String, List<ExceptionCheckerService.EventMessageDTO>> articleIdToEventMessageWrapperMap, Map<String, Id> articleIdToTrackingMap, List<Case> caseListWithArticles) {
+	private void runExceptionChecker(Map<String, List<ExceptionCheckerService.EventMessageDTO>> articleIdToEventMessageWrapperMap, List<Case> caseListWithArticles) {
 		List<Case> exceptionCases = new List<Case>();
 		List<Case> casesToClose = new List<Case>();
 
@@ -114,8 +109,6 @@ public class CaseReopenBatch implements Database.Batchable<SObject>, Database.St
 		//loop through caseListWithArticles and create the List<ExceptionCheckDTO>
 		for (Case articleCase : caseListWithArticles) {
 			ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-			// set article id
-			exceptionCheckDTO.ArticleId = articleCase.ArticleTest__c;
 			// set case, this is to check the receiver
 			exceptionCheckDTO.CaseToCheck = articleCase;
 			// set event messages
@@ -142,7 +135,7 @@ public class CaseReopenBatch implements Database.Batchable<SObject>, Database.St
 
 		//assign the cases to queue
 		ExceptionCheckerService.getInstance().assignCasesToAgentQueue(exceptionCases);
-		
+
 		//close the cases for lost in transit
 		ExceptionCheckerService.getInstance().closeCases(casesToClose);
 	}
