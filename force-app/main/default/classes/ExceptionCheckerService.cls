@@ -109,7 +109,7 @@ public inherited sharing class ExceptionCheckerService {
      * @return boolean
      */
     public Boolean isCaseRaisedByReceiver(ExceptionCheckDTO exceptionDTO) {
-        if(ORIGIN_ADDRESSEE.equalsIgnoreCase(exceptionDTO.CaseToCheck.CaseOriginator__c)) {
+        if(ORIGIN_ADDRESSEE.equalsIgnoreCase(exceptionDTO?.CaseToCheck?.CaseOriginator__c)) {
             return true;
         }
         return false;
