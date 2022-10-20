@@ -63,14 +63,15 @@ private class MyCustomerClosedCaseModule_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		
-		MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Group>(mapQueues));
-		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(aws);
+		MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.eq(new Set<Id>{queues[0].Id}))).thenReturn(new Map<Id, Group>(queues));
+		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.eq((new Map<Id,AgentWork>(aws)).keySet().clone()), (Set<Object>)fflib_Match.eq(new Set<Object>()))).thenReturn(aws);
 
         MockUtility.Mocks.stopStubbing();
 
 
 		// =====================================
 		// Testing
+
 		// =====================================
 		Test.startTest();
 
@@ -145,8 +146,8 @@ private class MyCustomerClosedCaseModule_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		
-		MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Group>(mapQueues));
-		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(aws);
+		MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.eq(new Set<Id>{queues[0].Id}))).thenReturn(new Map<Id, Group>(queues));
+		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.eq((new Map<Id,AgentWork>(aws)).keySet().clone()), (Set<Object>)fflib_Match.eq(new Set<Object>()))).thenReturn(aws);
 
         MockUtility.Mocks.stopStubbing();
 
