@@ -3,9 +3,12 @@
     <fullName>LastStatusChangedDate__c</fullName>
     <description>The date that the status was last changed.</description>
     <externalId>false</externalId>
-    <inlineHelpText>The date that the status was last changed.</inlineHelpText>
+    <inlineHelpText>The date that the status was last changed</inlineHelpText>
     <label>Last Status Changed Date</label>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Date</type>
+   <businessStatus>Active</businessStatus>
+   <complianceGroup>GDPR</complianceGroup>
+   <securityClassification>INTERNAL</securityClassification>
 </CustomField>

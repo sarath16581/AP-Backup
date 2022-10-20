@@ -9,4 +9,9 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
+    <description>The mobile phone number for the Membership Contact</description>
+    <inlineHelpText>Membership Contact mobile phone number</inlineHelpText>
+   <businessStatus>Active</businessStatus>
+   <complianceGroup>GDPR</complianceGroup>
+   <securityClassification>INTERNAL</securityClassification>
 </CustomField>

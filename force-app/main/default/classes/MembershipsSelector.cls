@@ -48,6 +48,24 @@ public virtual inherited sharing class MembershipsSelector extends ApplicationSe
         System.debug(qb.toSoqlString());
         return new Map<Id, Membership__c>((List<Membership__c>)Database.query(qb.toSoqlString()));
     }
+    
+	
+    /**
+	 * Select Memberships based on Record Type Names
+	 * @param ids list of Membership Ids.
+	 * @param recordTypeIds If supplied, Only select Memberships for the Record Type names passed in. 
+	 * @return matching Membership records
+	 */
+	public virtual Map<Id, Membership__c> selectByRecordTypeNames(Set<Id> ids,Set<Object> selectorOptions,Set<String> recordTypeNames) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions.add(new QueryBuilder.SimpleCondition(Membership__c.Id + ' in :ids'));
+		if (recordTypeNames != null && !recordTypeNames.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition('RecordType.' + RecordType.Name + ' in :recordTypeNames'));
+		} 
+		String soql = conditions.endConditions().toSoqlString();
+		return new Map<Id, Membership__c>((List<Membership__c>)Database.query(soql));
+	}
 
     public virtual override QueryBuilder newQueryBuilder() {
         return newQueryBuilder(new Set<Object>());
