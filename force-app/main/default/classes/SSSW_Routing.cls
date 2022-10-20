@@ -10,6 +10,7 @@
 * 2021-06-30 - Steve Judd - Replaced getStrategicCustomerMappings with getArticleAttributesMap to return Extra Cover(Boolean) as well as isStrategic(Boolean)
 * 2021-06-30 - Steve Judd - Modified assignCasesAndDescription to allow Extra Cover cases to be routed along with Strategic Cases.
 * 2021-08-17 - Alex Volkov - Swapped out Automated_Network_Assignment__c for more generic ByPassRoutingRulesOnCreation__c
+* 2022-10-11 - Noel Lim - Stamp Case.HasExtraCover__c, and route Cases to a 'holding Queue' if it requires an Article to be fetched from SAP-EM via MyCustomerCaseArticleModule queueable
 **/
 
 public class SSSW_Routing {
@@ -95,7 +96,7 @@ public class SSSW_Routing {
     private static final String LOC_INTERNATIONAL = 'International';
     private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{
         'International' => 'SSSWInternationalBackOffice',
-        'Consumer' => 'SSSWConsumerBackOffice',
+        'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
         'Enterprise' => 'SSSWEnterpriseBackOffice',
         'SMB' => 'SSSWBusinessBackOffice',
         'Gold' => 'SSSWBusinessBackOffice',
@@ -381,11 +382,16 @@ public class SSSW_Routing {
         system.debug('referenceIDs:::'+referenceIds);
         if(!referenceIds.isEmpty()) {
             getArticleAttributesMap(referenceIds);
-            system.debug('reference ids after getRelatedArticleMappings: '+referenceIds );
+            system.debug('reference ids after getRelatedArticleMappings: '+referenceIds );            
         }
         for (Case cs : cases) {
             Id routingOwner; 
             Case oldCase = oldMap != null ? oldMap.get(cs.Id) : null;
+
+            if(articleAttributesMap.size()>0){
+                assignSkillRoutingRelatedValues(cs);
+            }            
+
             if (!(isInsert && cs.ByPassRoutingRulesOnCreation__c)) {
                 for (SSSWRouting__c rule : routeRule) {
                     System.debug(LoggingLevel.ERROR, 'cs.Type >> ' + cs.Type);
@@ -437,7 +443,16 @@ public class SSSW_Routing {
                             // workflows and other code may change these but we still need to route the case based on the original values when it entered into the routing method
                             // since we may not have the ID of the case yet, we store these in a list that corresponds to the index in the casesForReroutingAttempt
                             casesWithOriginalValues.add(getCaseWithFieldsMapping(cs));
-                            continue;
+                            
+                            //Throw an exception if the default Queue has not been set, but allow the Case to be created                            
+                            String omniDefaultQueue =  QM__c.getOrgDefaults().OmniDefaultQueueId__c;                
+                            if(String.isEmpty(omniDefaultQueue) == false){
+                                cs.OwnerId = omniDefaultQueue;
+                            } else { 
+                                throw new ErrorException('Omni Default Routing Queue Id field in Custom Settings.SSSW Queue Management is empty');                                
+                            }
+
+                            break;
                         }
                     } else if (Rule.Match_Rules_On__c.equals('ALL')) {
                         System.debug(LoggingLevel.ERROR, '**Processing ALL rule');
@@ -485,7 +500,16 @@ public class SSSW_Routing {
                             // workflows and other code may change these but we still need to route the case based on the original values when it entered into the routing method
                             // since we may not have the ID of the case yet, we store these in a list that corresponds to the index in the casesForReroutingAttempt
                             casesWithOriginalValues.add(getCaseWithFieldsMapping(cs));
-                            continue;
+
+                            //Throw an exception if the default Queue has not been set, but allow the Case to be created
+                            String omniDefaultQueue =  QM__c.getOrgDefaults().OmniDefaultQueueId__c;
+                            if(String.isEmpty(omniDefaultQueue) == false){
+                                cs.OwnerId = omniDefaultQueue;
+                            } else { 
+                                throw new ErrorException('Omni Default Routing Queue Id field in Custom Settings.SSSW Queue Management is empty');                 
+                            }
+                            
+                            break;
                         }
                     }
                 }
@@ -786,6 +810,24 @@ public class SSSW_Routing {
         public Boolean isStrategic {get; set;}
         public Boolean hasExtraCover {get; set;}
     }
+
+    /**
+     * assign values to Case fields that are used in Skills based routing
+     */
+    private static void assignSkillRoutingRelatedValues(Case cs){
+
+        //assign HasExtraCover__c
+        String referenceId = (String.isEmpty(cs.ReferenceID__c) ? '' : cs.ReferenceID__c.toLowerCase());
+        if(String.isEmpty(referenceId) == false && articleAttributesMap.get(referenceId).hasExtraCover != null){
+            cs.HasExtraCover__c = articleAttributesMap.get(referenceId).hasExtraCover;
+        }      
+    }
+
+     /**
+     * Generic Error Exception 
+     */
+    @TestVisible
+    private class ErrorException extends Exception { }
 
     // public static void assignDescription(list<Case> cases) {
     //     System.debug('Inside assignDescription--->');

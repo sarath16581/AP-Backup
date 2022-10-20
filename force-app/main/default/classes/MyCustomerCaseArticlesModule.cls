@@ -721,6 +721,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					for (Case reroutedCase : reroutableCases) {
 						if (reroutedCase.OwnerId != null) {
 							casesWithArticlePopulated.get(reroutedCase.Id).OwnerId = reroutedCase.OwnerId;
+							casesWithArticlePopulated.get(reroutedCase.Id).HasExtraCover__c = reroutedCase.HasExtraCover__c;
 
 							// setting flag on case since selected routing rule is a strategic one
                             // its required to avoid triggering the specific workflow rules that might reset the case owner
