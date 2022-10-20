@@ -28,16 +28,13 @@ private class SSSW_Routing_Test {
 		// =====================================
 		
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, null, true);    
-		Article__c extraCoverArticle = articles[0];
         // Extra cover is  indicated by an amount > 0 and Blank merchant location id.
-        extraCoverArticle.InsuranceAmount__c = 200;
-        extraCoverArticle.ArticleID__c = 'ART1231';
-		
+        articles[0].InsuranceAmount__c = 200;
+        articles[0].ArticleID__c = 'ART1231';
 
-        Article__c noInsuranceArticle = articles[1];
 		// Extra cover is  indicated by an amount > 0 and Blank merchant location id.
-        extraCoverArticle.InsuranceAmount__c = 200;
-        noInsuranceArticle.ArticleID__c = 'ART1232';
+        articles[1].InsuranceAmount__c = 200;
+        articles[1].ArticleID__c = 'ART1232';
 
 		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
@@ -52,10 +49,12 @@ private class SSSW_Routing_Test {
 		cases[1].IsNewForRouting__c  = true;
 		cases[1].AllocateToQueue__c = true;
 
-		List<Case> caseArticleNotInDatabase = new List<Case>();
-		caseArticleNotInDatabase.add(cases[0]);
+		
 		List<Case> caseArticleInDatabase = new List<Case>();
-		caseArticleInDatabase.add(cases[1]);
+		caseArticleInDatabase.add(cases[0]);
+		List<Case> caseArticleNotInDatabase = new List<Case>();
+		caseArticleNotInDatabase.add(cases[1]);
+		
 
 		// create an old state
 		List<Case> oldCases = new List<Case>{cases[0].clone(true), cases[1].clone(true)};
@@ -85,18 +84,15 @@ private class SSSW_Routing_Test {
 		// populate the data to trigger a rerouting attempt
 		// in an end to end process, this data gets populated in the SSSW_Routing.assignCasesAndDescription method
 		// we fake it here for mocking and brevity
-		// NOTE: We rely on this being tested properly in the SSSW_Routing test class
 		SSSW_Routing.casesForReroutingAttempt = new List<Case>{
-				new Case(Id = cases[0].Id)
+				new Case(Id = cases[1].Id)
 		};
+
 		SSSW_Routing.casesWithOriginalValues = new List<Map<String, Object>>{
 				new Map<String, Object>{
 					'Origin' => 'Email',
-					'Type' => 'General Enquiry'
-				},
-                new Map<String, Object>{
-					'Origin' => 'Email',
-					'Type' => 'General Enquiry'
+					'Type' => 'General Enquiry',
+					'ReferenceID__c' => 'ART1232'
 				}
 		};
 
@@ -111,9 +107,11 @@ private class SSSW_Routing_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockArticleSelector.selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new Map<Id, Article__c>(articles));
-
-		MockUtility.Mocks.when(mockCaseSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>(cases));
+		//Article 
+		MockUtility.Mocks.when(mockArticleSelector.selectByTracking((Set<String>)fflib_Match.eq(new Set<String>{articles[0].ArticleID__c}), (Set<Object>)fflib_Match.eq(new Set<Object>{ArticlesSelector.Options.WITH_BILLINGACCOUNT, BillingAccountsSelector.Options.WITH_ORGANISATION}),(Boolean)fflib_Match.eq(false))).thenReturn(new Map<Id, Article__c>(new List<Article__c>{articles[0]}));
+		MockUtility.Mocks.when(mockArticleSelector.selectByTracking((Set<String>)fflib_Match.eq(new Set<String>{articles[1].ArticleID__c}), (Set<Object>)fflib_Match.eq(new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, ArticlesSelector.Options.WITH_RECORDTYPE}),(Boolean)fflib_Match.eq(false))).thenReturn(new Map<Id, Article__c>(new List<Article__c>{articles[1]}));
+		MockUtility.Mocks.when(mockArticleSelector.selectByTracking((Set<String>)fflib_Match.eq(new Set<String>{articles[1].ArticleID__c}), (Set<Object>)fflib_Match.eq(new Set<Object>{ArticlesSelector.Options.WITH_BILLINGACCOUNT, BillingAccountsSelector.Options.WITH_ORGANISATION}),(Boolean)fflib_Match.eq(false))).thenReturn(new Map<Id, Article__c>(new List<Article__c>{articles[1]}));
+		MockUtility.Mocks.when(mockCaseSelector.selectById((Set<Id>)fflib_Match.eq(new Set<Id>{cases[1].Id}))).thenReturn(new Map<Id, Case>(new List<Case>{cases[1]}));
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 
 		MockUtility.Mocks.stopStubbing();
@@ -124,7 +122,6 @@ private class SSSW_Routing_Test {
 		Test.startTest();
 
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
-
 		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
 		CaseCommonUtility caseUtility = new CaseCommonUtility();
 
@@ -138,17 +135,18 @@ private class SSSW_Routing_Test {
 
 		Test.stopTest();
 
-		// called once in each of the 2 scenarios
-		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 2)).selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
+		//Called from caseUtility.routeCase()
+		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 1)).selectByTracking((Set<String>)fflib_Match.eq(new Set<String>{articles[0].ArticleID__c}),  (Set<Object>)fflib_Match.eq(new Set<Object>{ArticlesSelector.Options.WITH_BILLINGACCOUNT, BillingAccountsSelector.Options.WITH_ORGANISATION}), (Boolean)fflib_Match.eq(false));
 
-		// these methods exist in the queueable only
+		//Called from the Queueable triggered in moduleonAfterUpdate() 
+		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 1)).selectByTracking((Set<String>)fflib_Match.eq(new Set<String>{articles[1].ArticleID__c}),  (Set<Object>)fflib_Match.eq(new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, ArticlesSelector.Options.WITH_RECORDTYPE}), (Boolean)fflib_Match.eq(false));
+		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 1)).selectByTracking((Set<String>)fflib_Match.eq(new Set<String>{articles[1].ArticleID__c}),  (Set<Object>)fflib_Match.eq(new Set<Object>{ArticlesSelector.Options.WITH_BILLINGACCOUNT, BillingAccountsSelector.Options.WITH_ORGANISATION}), (Boolean)fflib_Match.eq(false));
 		((TIBCOArticleService)MockUtility.Mocks.verify(mockArticleService, 1)).search((List<String>)fflib_Match.anyObject(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean());
-		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>)fflib_Match.anyObject());
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
+		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{cases[1].Id}));
 
 		// verify case HasExtraCover has been stamped 
-		System.assertEquals( true, caseArticleNotInDatabase[0].HasExtraCover__c, 'Expected case HasExtraCover marked as true');
-		System.assertEquals( true, ((Case)MockUtility.mockDMLUpdatedRecords[0]).HasExtraCover__c, 'Expected case HasExtraCover marked as true');
+		System.assertEquals( true, caseArticleNotInDatabase[0].HasExtraCover__c, 'Expected Case with Article not in Database - HasExtraCover marked as true');
+		System.assertEquals( true, ((Case)MockUtility.mockDMLUpdatedRecords[0]).HasExtraCover__c, 'Expected Case with Article in Database - HasExtraCover marked as true');
         
 	}
 
@@ -277,9 +275,7 @@ private class SSSW_Routing_Test {
 		
 
 		Test.stopTest();
-
-		//((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 1)).logMessage((List<String>)fflib_Match.anyList() , (List<String>)fflib_Match.anyList(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
-        
+		
         // Exception is caught in caseUtility and logged
 		List<ExceptionLog__c> logResult = [SELECT id FROM ExceptionLog__c];
 		System.assertEquals(true, logResult.size() > 0, 'Expected an Exception to be thrown');
