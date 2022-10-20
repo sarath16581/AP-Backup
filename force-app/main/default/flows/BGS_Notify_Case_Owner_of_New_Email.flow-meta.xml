@@ -19,7 +19,7 @@
     <label>BGS Notify Case Owner of New Email</label>
     <processType>AutoLaunchedFlow</processType>
     <startElementReference>Notify_Case_Owner</startElementReference>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>
