@@ -3,7 +3,7 @@
     <fullName>Completion_Date_Required_on_Completion</fullName>
     <active>true</active>
     <description>The completion date must be specified in order to complete a membership contact record.</description>
-    <errorConditionFormula>And( ISPICKVAL(Status__c, &apos;Completed&apos;), ISCHANGED(Status__c), ISNULL( CompletionDate__c ) )</errorConditionFormula>
+    <errorConditionFormula>And( ISPICKVAL(Status__c, &apos;Completed&apos;),  ISCHANGED(Status__c), ISNULL( CompletionDate__c ) )</errorConditionFormula>
     <errorDisplayField>CompletionDate__c</errorDisplayField>
     <errorMessage>Completion Date must be specified when the Status is Completed.</errorMessage>
 </ValidationRule>
