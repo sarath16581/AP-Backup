@@ -732,7 +732,7 @@ public with sharing class ChasApexController extends ChasBase{
 
                      //calling the exception checker service for to be created case
                      List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
-                     if(exceptionResults != null && exceptionResults[0].isException) {
+                     if(exceptionResults != null && !exceptionResults[0].isException) {
                          toBeCreateCase.ClosedBySystem__c = true;
                          toBeCreateCase.Status = 'Closed';
                          toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
