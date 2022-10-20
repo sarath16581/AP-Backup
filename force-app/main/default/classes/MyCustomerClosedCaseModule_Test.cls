@@ -107,7 +107,7 @@ private class MyCustomerClosedCaseModule_Test {
 		
         Test.stopTest();
 
-        ((AgentWorkSelector)MockUtility.Mocks.verify(mockAgentWorkSelector, 1)).selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject());
+        ((AgentWorkSelector)MockUtility.Mocks.verify(mockAgentWorkSelector, 1)).selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.eq((new Map<Id,Case>(positiveCases)).keySet().clone()), (Set<Object>)fflib_Match.anyObject());
 
         //Positive test scenarios
         system.assertEquals(ssswAgent.Id, cases[0].OwnerId, 'Expected the Case Owner to be the previous User based on AgentWork' );
