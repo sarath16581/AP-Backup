@@ -699,7 +699,6 @@ public with sharing class ChasApexController extends ChasBase{
                 toBeCreateCase.Priority = 'High';
             }
 
-             Boolean isException = false;
              // DDS-12944  is before EDD + 10 and is after EDD + 10 comments and does not contains pharma
              if (!isEligibleForHold && !containsPharma) { // EDD plus 10 passed
                  // DDS-12734 exception check
@@ -733,19 +732,16 @@ public with sharing class ChasApexController extends ChasBase{
                      //calling the exception checker service for to be created case
                      List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
                      if(exceptionResults != null && exceptionResults[0].isException) {
+                         // DDS-12944 Exception found upon case being raised
+                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
+                     } else if(exceptionResults == null || exceptionResults[0].isException){
                          toBeCreateCase.ClosedBySystem__c = true;
                          toBeCreateCase.Status = 'Closed';
                          toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
-                         isException = true;
                          // Exception found upon case being raised (when EDD+10 has already passed at time of case raised)
-                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
+                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: No';
                      }
                  }
-             }
-
-             // DDS-12944 No exception found upon case being raised
-             if(!isException){
-                 commentBody = commentBody + '\n'+ 'Auto-LIT exception: No';
              }
 
             // 2019/10/09 - Issue Description to be set as Case Description, warning message to case reader is added if the user entered something in the issue details section
