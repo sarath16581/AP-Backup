@@ -19,91 +19,103 @@ public class ExceptionCheckerServiceTest {
     private static void testExceptionCheckerService_exceptionFound_001() {
 
         Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+       List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
-        Map<String, List<ExceptionCheckerService.EventMessageDTO>> eventsByArticle = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.CaseToCheck = cases[0];
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'AFC-ER19';
 
-        ExceptionCheckerService.EventMessageDTO event1dExceptionDTO = new ExceptionCheckerService.EventMessageDTO();
-        event1dExceptionDTO.EventType = 'AFC-ER19';
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
 
-        eventsByArticle.put(article.Id, new List<ExceptionCheckerService.EventMessageDTO> {event1dExceptionDTO});
+        exceptionCheckDTOS.add(exceptionCheckDTO);
 
-        Test.startTest();
-        ExceptionCheckerService service = ExceptionCheckerService.getInstance();
-        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionApplies(eventsByArticle);
-        Test.stopTest();
-
-        for(ExceptionCheckerService.ExceptionResultDTO res : result.values()) {
-            System.assertEquals(true, res.isException, 'TestExceptionCheckerService_exceptionFound_001: Should marked as exception found');
-        }
-
+        System.assertEquals(true, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'TestExceptionCheckerService_exceptionFound_001: Should marked as exception found');
     }
 
     @IsTest
     private static void testExceptionCheckerService_No_exceptionFound_001() {
 
         Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
-        Map<String, List<ExceptionCheckerService.EventMessageDTO>> eventsByArticle = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.CaseToCheck = cases[0];
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'DD-ER13';
 
-        ExceptionCheckerService.EventMessageDTO event1dExceptionDTO = new ExceptionCheckerService.EventMessageDTO();
-        event1dExceptionDTO.EventType = 'DD-ER13';
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
 
-        eventsByArticle.put(article.Id, new List<ExceptionCheckerService.EventMessageDTO> {event1dExceptionDTO});
+        exceptionCheckDTOS.add(exceptionCheckDTO);
 
-        Test.startTest();
-        ExceptionCheckerService service = ExceptionCheckerService.getInstance();
-        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionApplies(eventsByArticle);
-        Test.stopTest();
+        System.assertEquals(false, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'TestExceptionCheckerService_No_exceptionFound_001: Should marked as NO exception found');
 
-        for(ExceptionCheckerService.ExceptionResultDTO res : result.values()) {
-            System.assertEquals(false, res.isException, 'TestExceptionCheckerService_No_exceptionFound_001: Should marked as NO exception found');
-        }
     }
 
     @IsTest
     private static void testExceptionCheckerService_recent_scan_exception_001() {
 
         Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
-        Map<String, List<ExceptionCheckerService.EventMessageDTO>> eventsByArticle = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.CaseToCheck = cases[0];
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'DD-ER13';
+        eventMessageDTO.ActualDateTime = Date.today().addDays(-3);
 
-        ExceptionCheckerService.EventMessageDTO event1dExceptionDTO = new ExceptionCheckerService.EventMessageDTO();
-        event1dExceptionDTO.EventType = 'DD-ER13';
-        event1dExceptionDTO.ActualDateTime = Date.today().addDays(-3);
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
 
-        eventsByArticle.put(article.Id, new List<ExceptionCheckerService.EventMessageDTO> {event1dExceptionDTO});
+        exceptionCheckDTOS.add(exceptionCheckDTO);
 
-        Test.startTest();
-        ExceptionCheckerService service = ExceptionCheckerService.getInstance();
-        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionApplies(eventsByArticle);
-        Test.stopTest();
+        System.assertEquals(true, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'TestExceptionCheckerService_recent_scan_exception_001: When event date is less than 5 days it should marked as exception found');
 
-        for(ExceptionCheckerService.ExceptionResultDTO res : result.values()) {
-            System.assertEquals(true, res.isException, 'TestExceptionCheckerService_recent_scan_exception_001: When event date is less than 5 days it should marked as exception found');
-        }
     }
 
     @IsTest
     private static void testExceptionCheckerService_recent_scan_exception_002() {
 
         Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
-        Map<String, List<ExceptionCheckerService.EventMessageDTO>> eventsByArticle = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.CaseToCheck = cases[0];
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'DD-ER13';
+        eventMessageDTO.ActualDateTime = Date.today().addDays(-10);
 
-        ExceptionCheckerService.EventMessageDTO event1dExceptionDTO = new ExceptionCheckerService.EventMessageDTO();
-        event1dExceptionDTO.EventType = 'DD-ER13';
-        event1dExceptionDTO.ActualDateTime = Date.today().addDays(-10);
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
 
-        eventsByArticle.put(article.Id, new List<ExceptionCheckerService.EventMessageDTO> {event1dExceptionDTO});
+        exceptionCheckDTOS.add(exceptionCheckDTO);
 
-        Test.startTest();
-        ExceptionCheckerService service = ExceptionCheckerService.getInstance();
-        Map<String,ExceptionCheckerService.ExceptionResultDTO> result = service.isExceptionApplies(eventsByArticle);
-        Test.stopTest();
+        System.assertEquals(false, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'TestExceptionCheckerService_recent_scan_exception_002: When event date is more than 5 days it should marked as exception NOT found');
 
-        for(ExceptionCheckerService.ExceptionResultDTO res : result.values()) {
-            System.assertEquals(false, res.isException, 'TestExceptionCheckerService_recent_scan_exception_002: When event date is more than 5 days it should marked as exception NOT found');
-        }
+    }
+
+    @IsTest
+    private static void testExceptionCheckerService_Is_Recipient_001() {
+
+        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+        cases[0].CaseOriginator__c = ExceptionCheckerService.ORIGIN_ADDRESSEE;
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
+
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.CaseToCheck = cases[0];
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'DD-ER13';
+        eventMessageDTO.ActualDateTime = Date.today().addDays(-10);
+
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
+
+        exceptionCheckDTOS.add(exceptionCheckDTO);
+
+        System.assertEquals(true, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'TestExceptionCheckerService_recent_scan_exception_002: When event date is more than 5 days it should marked as exception NOT found');
+
     }
 
     @IsTest

@@ -18,6 +18,7 @@
 * 2021-12-06 alex.volkov@auspost.com.au: Added newInstance() method, minor refactoring
 * 2022-01-24 alex.volkov@auspost.com.au: Updated isEligibleForMyNetworkAssignment flag to consider all consignment articles statuses
 * 2022-01-25 hasantha.liyanage@auspost.com.au DDS-9011 refactor of the constructor ChasTrackStatus(ChasOneTrackResponse,trackingId) to handle multiple articles
+* 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 added ChasTrackStatus.ArticleDetailsWrapper.events
 */
 
 public without sharing class ChasTrackStatus {
@@ -554,6 +555,28 @@ public without sharing class ChasTrackStatus {
             }
             private set;
         }
+
+        /**
+         * Setting all the events
+         */
+        public List<EventMessage> events {
+            get {
+                if (events == null) {
+                    events = new List<EventMessage>();
+                    if (article != null && article.TrackingEvents.Items != null) {
+                        for (ChasOneTrackResponse.Items event : article.TrackingEvents.Items) {
+                            EventMessage eventMessage = new EventMessage();
+                            eventMessage.actualDateTime = Datetime.valueOf(event.eventDateTime.substring(0, 19).replace('T', ' '));
+                            eventMessage.eventType = event.code;
+                            events.add(eventMessage);
+                        }
+                    }
+                }
+                return events;
+            }
+            private set;
+        }
+
         /* Check if the response contains a safedrop ineligibility code as part of the delivery instructions*/
         public Boolean deliveryChoicesSafeDropIneligibilityCode {
             get {
@@ -698,5 +721,10 @@ public without sharing class ChasTrackStatus {
             }
             private set;
         }
+    }
+
+    public class EventMessage {
+        public String eventType { get; set; }
+        public DateTime actualDateTime { get; set; }
     }
 }
