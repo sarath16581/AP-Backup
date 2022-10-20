@@ -257,21 +257,6 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <name>Send_a_Bounce_Email_to_Sender</name>
-        <label>Send a Bounce Email to Sender</label>
-        <locationX>1018</locationX>
-        <locationY>1286</locationY>
-        <actionName>Case.BGS_Send_a_Bounce_Email_to_Sender_if_the_associated_Case_has_already_been_Closed</actionName>
-        <actionType>emailAlert</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>SObjectRowId</name>
-            <value>
-                <elementReference>vCase.Id</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
         <name>Special_Services_Case_Creation_Email_Alert</name>
         <label>Special Services Case Creation Email Alert</label>
         <locationX>2866</locationX>
@@ -1031,9 +1016,6 @@ NOT({!vCase.Owner_is_Queue__c}) )</expression>
         <label>Create BGS Task</label>
         <locationX>1018</locationX>
         <locationY>1166</locationY>
-        <connector>
-            <targetReference>Send_a_Bounce_Email_to_Sender</targetReference>
-        </connector>
         <inputAssignments>
             <field>ActivityDate</field>
             <value>

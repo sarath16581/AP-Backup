@@ -22,6 +22,7 @@
         <connector>
             <targetReference>myRule_1_A2</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <processMetadataValues>
                 <name>dataType</name>
@@ -66,22 +67,6 @@
         </inputParameters>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
-    <assignments>
-        <name>myVariable_waitStartTimeAssignment</name>
-        <label>myVariable_waitStartTimeAssignment</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>myVariable_waitStartTimeVariable</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>myDecision</targetReference>
-        </connector>
-    </assignments>
     <decisions>
         <processMetadataValues>
             <name>index</name>
@@ -228,7 +213,7 @@
         </rules>
     </decisions>
     <description>Notify Case owner if an email is received for a case, and Update LastIncomingEmailAdress on Parent Case</description>
-    <interviewLabel>BGS_Email_Case_owner_on_reply_email-2_InterviewLabel</interviewLabel>
+    <interviewLabel>BGS_Email_Case_owner_on_reply_email-3_InterviewLabel</interviewLabel>
     <label>BGS - Email Case owner on reply email (Process)</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -337,7 +322,7 @@
         <object>Case</object>
     </recordUpdates>
     <startElementReference>myDecision</startElementReference>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>
@@ -353,15 +338,5 @@
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <objectType>EmailMessage</objectType>
-    </variables>
-    <variables>
-        <name>myVariable_waitStartTimeVariable</name>
-        <dataType>DateTime</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <elementReference>$Flow.CurrentDateTime</elementReference>
-        </value>
     </variables>
 </Flow>

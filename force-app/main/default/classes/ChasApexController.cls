@@ -54,6 +54,7 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 *                                                       this has been moved to a new class 'ChasProductsAndServicesController' and the ChasBase class is created and extended here.
 *                                                       some of the common shared methods are moved to ChasBase
 * 2022-06-20 mahesh.parvathaneni@auspost.com.au DDS-6293 Fix for customer seen safe drop text in case description
+* 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -252,22 +253,24 @@ public with sharing class ChasApexController extends ChasBase{
             String enquirySubType = wizardData.get('enqSubtype'); //Enquiry subtype is decided in the searchTrackingNumber method when deciding the tracking message
             Datetime EDDPlusBusinessDays = !String.isEmpty(wizardData.get('deliveredByDateToUntil')) ? Date.valueOf(wizardData.get('deliveredByDateToUntil')) : !String.isEmpty(wizardData.get('deliveredByDatePlusBusinessDays'))? Date.valueOf(wizardData.get('deliveredByDatePlusBusinessDays')): null;
             // cases which are raised within EDD or EDD plus business days, plus dont have a delivered scan are eligible for hold
-            String isEligibleForHold = '';
+            Boolean isEligibleForHold = false;
+            // RSolomon 2nd Apr: Sources value of radio button on form, that indicates if parcel contains essential medication
+            Boolean containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')));
             // DDS-5273: article that contains pharma should not be held
-             if ('No'.equalsIgnoreCase(wizardData.get('selectedRadio4Name'))) {
+             if (!containsPharma) {
                  if (!isMultipleArticlesSelected // DDS-8586 4. ignore holding for more than one tracking id and all of them are delivered but delivered by different delivery centres (non medication/medication priority set above in existing logic)
                          && String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
                          !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))) {
                      // avoid cases for which the case reopen date falls on the case creation date
                      if (EDDPlusBusinessDays != null && EDDPlusBusinessDays != System.today()) {
-                         isEligibleForHold = 'true';
+                         isEligibleForHold = true;
                      }
                  }
              }
             // if the enquiry subtype is tracking the enquiry type should be set to general enquiry, and the record type has to be General Enquiry
             // exclude cases which are eligible for hold
             if (ChasConstants.ENQ_SUB_TYPE_TRACKING.equals(enquirySubType)) {
-                if(!String.isEmpty(isEligibleForHold) && 'true'.equalsIgnoreCase(isEligibleForHold)){
+                if(isEligibleForHold){
                     enquirySubType = ChasConstants.ENQ_SUB_TYPE_MISSING;
                 } else {
                     type = ChasConstants.GENERAL_ENQUIRY;
@@ -321,8 +324,7 @@ public with sharing class ChasApexController extends ChasBase{
             String datePostedStr= wizardData.get('itemSentDate');
             // if EDD range is available consider the "deliveredByDateTo" as EDD, otherwise consider deliveredByDateOrEDD
             String EDD= !String.isEmpty(wizardData.get('deliveredByDateTo'))? wizardData.get('deliveredByDateTo'): wizardData.get('deliveredByDateOrEDD');
-            // RSolomon 2nd Apr: Sources value of radio button on form, that indicates if parcel contains essential medication
-            Boolean containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')));
+
             // Gets the field value of the sentimental field on the LOMI forms
             String containsSentimentalValue = ('yes'.equalsIgnoreCase(wizardData.get('selectedSentiValue')) ? 'Yes' : 'No');
 
@@ -498,15 +500,16 @@ public with sharing class ChasApexController extends ChasBase{
                 }
             }
             // write to case comments if the case was held
-            if(isEligibleForHold == 'true')
-            {
+            if(isEligibleForHold) {
                 commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessage;
+            } else {
+                commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessageNo;
             }
             // write to case comments if edd was estimated
             if(wizardData.get('isEDDEstimated') == 'true'){
                 commentBody = commentBody + '\n'+ 'Estimated EDD: Yes';
             }
-            
+
             //-- Subject : Trimming the complaint details to 255 chars
             if(String.IsNotEmpty(issueDetails)){
                 if(wizardData.get('issueDetails').trim().length() > 255){
@@ -695,7 +698,56 @@ public with sharing class ChasApexController extends ChasBase{
             if(containsPharma) {
                 toBeCreateCase.Priority = 'High';
             }
-            
+
+             Boolean isException = false;
+             // DDS-12944  is before EDD + 10 and is after EDD + 10 comments and does not contains pharma
+             if (!isEligibleForHold && !containsPharma) { // EDD plus 10 passed
+                 // DDS-12734 exception check
+                 // if a single article is searched or a single article being selected from multiple to raise a case
+                 if(allArticles.size() == 1 || selectedArticles.size() == 1) {
+                     TrackingNumberDetails articlesDetail = new TrackingNumberDetails();
+                     // if user search for a consignment and selects a single article
+                     if(isEligibleForMultipleArticleSelection && selectedArticles.size() == 1) {
+                         articlesDetail =  selectedArticles[0];
+                     } else if(!isEligibleForMultipleArticleSelection && allArticles.size() == 1) {
+                         // if user search only for an article
+                         articlesDetail =  allArticles[0];
+                     }
+                     List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
+                     ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO= new ExceptionCheckerService.ExceptionCheckDTO();
+
+                     // set case, this is to check the receiver
+                     exceptionCheckDTO.CaseToCheck = toBeCreateCase;
+
+                     List<ExceptionCheckerService.EventMessageDTO> eventMessageDTOs = new List<ExceptionCheckerService.EventMessageDTO>();
+                     for(EventMessage msg : articlesDetail.eventMessages) {
+                         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+                         eventMessageDTO.ActualDateTime = msg.actualDateTime;
+                         eventMessageDTO.EventType = msg.eventType;
+                         eventMessageDTOs.add(eventMessageDTO);
+                     }
+                     // set event messages
+                     exceptionCheckDTO.eventMessages = eventMessageDTOs;
+                     exceptionCheckDTOS.add(exceptionCheckDTO);
+
+                     //calling the exception checker service for to be created case
+                     List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
+                     if(exceptionResults != null && exceptionResults[0].isException) {
+                         toBeCreateCase.ClosedBySystem__c = true;
+                         toBeCreateCase.Status = 'Closed';
+                         toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
+                         isException = true;
+                         // Exception found upon case being raised (when EDD+10 has already passed at time of case raised)
+                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
+                     }
+                 }
+             }
+
+             // DDS-12944 No exception found upon case being raised
+             if(!isException){
+                 commentBody = commentBody + '\n'+ 'Auto-LIT exception: No';
+             }
+
             // 2019/10/09 - Issue Description to be set as Case Description, warning message to case reader is added if the user entered something in the issue details section
             if(!String.isEmpty(complaintDetails)) {
                 toBeCreateCase.Description = Label.HS_Issue_Details_Warning +'\n\n'+ complaintDetails + '\n\n';
@@ -831,7 +883,7 @@ public with sharing class ChasApexController extends ChasBase{
 
             //if eligible for hold, run the async process to update case details on case creation to put it ON HOLD and set a Reopen date
             // 17-08-2021 switched to direct routing
-            if(!String.isEmpty(isEligibleForHold) && 'true'.equalsIgnoreCase(isEligibleForHold)) {
+            if(isEligibleForHold) {
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.HOLD, null);
             }
 
@@ -864,7 +916,10 @@ public with sharing class ChasApexController extends ChasBase{
             //if( ChasCaseAssignment.VALID_STATUSES.indexOf(eddStatus) >= 0 && (wcid != null && wcid != '') && (String.isEmpty(wizardData.get('isReturnToSender')) || String.valueOf(wizardData.get('isReturnToSender')) == 'false')) {
             
          } catch (Exception ex) {
-             System.debug('Error on case creation :: ' + ex.getMessage());
+             System.debug('Error on case creation :: ' + '(MESSAGE):' + ex.getMessage() +
+                     '(STACKTRACE):' + ex.getStackTraceString() +
+                     '(LINENUMBER):' + ex.getLineNumber() +
+                     '(CAUSE):' + ex.getCause());
              caseWrapper.caseStatus = 'ERROR';
          }
         return caseWrapper;
@@ -1778,6 +1833,17 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                         //change made for roll out of Products and services uplift - assign the subProductId returned from the service
                         trackingNumDetailsWrapperObj.subProductId = article.subProductId;
 
+                        // DDS-12734 exception check
+                        List<EventMessage> allEventMessages = new List<EventMessage>();
+                        // passing all the events from one track to backend
+                        for (ChasTrackStatus.EventMessage event : article.events) {
+                            EventMessage eventMessage = new EventMessage();
+                            eventMessage.actualDateTime = event.actualDateTime;
+                            eventMessage.eventType = event.eventType;
+                            allEventMessages.add(eventMessage);
+                        }
+                        trackingNumDetailsWrapperObj.eventMessages = allEventMessages;
+
                         //fetch the safedDropDelivered date time
                         Datetime safedropDeliveredDateTime = article.safedropDeliveredDateTime;
                         String safedropDelivered = '';
@@ -2226,6 +2292,20 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
         @AuraEnabled public Date deliveredByDatePlusBusinessDays{get;set;}
         @AuraEnabled public Boolean isNoEddReturned {get; set;}
         @AuraEnabled public Boolean isEDDEstimated {get; set;}
+        @AuraEnabled public List<EventMessage> eventMessages {
+            get {
+                if (eventMessages == null) {
+                    return new List<EventMessage>();
+                } else {
+                    return eventMessages;
+                }
+            }
+            set;
+        }
+    }
+    public class EventMessage {
+        @AuraEnabled public String eventType { get; set; }
+        @AuraEnabled public DateTime actualDateTime { get; set; }
     }
     
     //-- User Information Wrapper Class
