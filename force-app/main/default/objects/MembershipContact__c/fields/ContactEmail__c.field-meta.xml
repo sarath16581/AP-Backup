@@ -9,4 +9,9 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
+    <description>The Email address for the membership contact</description>
+    <inlineHelpText>Membership Contact Email Address</inlineHelpText>
+   <businessStatus>Active</businessStatus>
+   <complianceGroup>GDPR</complianceGroup>
+   <securityClassification>INTERNAL</securityClassification>
 </CustomField>

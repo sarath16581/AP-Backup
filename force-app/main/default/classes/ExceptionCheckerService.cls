@@ -163,7 +163,7 @@ public inherited sharing class ExceptionCheckerService {
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: Yes';
+            caseComment.CommentBody = 'Auto-LIT exception: No';
             caseComments.add(caseComment);
 		}
         //update cases
@@ -189,7 +189,7 @@ public inherited sharing class ExceptionCheckerService {
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: No';
+            caseComment.CommentBody = 'Auto-LIT exception: Yes';
             caseComments.add(caseComment);
 		}
         //update cases

@@ -7,7 +7,7 @@
     <label>WFID</label>
     <length>8</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>
