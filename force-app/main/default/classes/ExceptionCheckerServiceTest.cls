@@ -18,12 +18,10 @@ public class ExceptionCheckerServiceTest {
     @IsTest
     private static void testExceptionCheckerService_exceptionFound_001() {
 
-        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-       List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'AFC-ER19';
@@ -38,12 +36,10 @@ public class ExceptionCheckerServiceTest {
     @IsTest
     private static void testExceptionCheckerService_No_exceptionFound_001() {
 
-        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'DD-ER13';
@@ -59,12 +55,10 @@ public class ExceptionCheckerServiceTest {
     @IsTest
     private static void testExceptionCheckerService_recent_scan_exception_001() {
 
-        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'DD-ER13';
@@ -86,7 +80,6 @@ public class ExceptionCheckerServiceTest {
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'DD-ER13';
@@ -102,14 +95,12 @@ public class ExceptionCheckerServiceTest {
 
     @IsTest
     private static void testExceptionCheckerService_Is_Recipient_001() {
-
-        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+        
         List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
         cases[0].CaseOriginator__c = ExceptionCheckerService.ORIGIN_ADDRESSEE;
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
-        exceptionCheckDTO.ArticleId = article.Id;
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
         eventMessageDTO.EventType = 'DD-ER13';

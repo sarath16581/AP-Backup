@@ -35,8 +35,7 @@ public inherited sharing class ExceptionCheckerService {
             for (ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
                 ExceptionResultDTO result = new ExceptionResultDTO();
                 // checking through for exceptions
-                result.cse = exceptionDTO?.CaseToCheck;
-                result.ArticleId = exceptionDTO?.ArticleId;
+                result.CaseToCheck = exceptionDTO?.CaseToCheck;
                 result.isException = checkForExceptions(exceptionDTO);
                 exceptionResultDTOS.add(result);
             }
@@ -59,7 +58,7 @@ public inherited sharing class ExceptionCheckerService {
         if (isCaseRaisedRecently(exceptionDTO)) {
             return true;
         }
-        if (isCaseRaisedByReceiver(exceptionDTO)) {
+        if (!isCaseRaisedByReceiver(exceptionDTO)) {
             return true;
         }
         return false;
@@ -132,7 +131,6 @@ public inherited sharing class ExceptionCheckerService {
 
     public class ExceptionCheckDTO {
         public Case CaseToCheck { get; set; }
-        public String ArticleId { get; set; }
         public List<EventMessageDTO> eventMessages { get; set; }
     }
 
@@ -147,12 +145,7 @@ public inherited sharing class ExceptionCheckerService {
             set;
         }
 
-        public Case cse{
-            get;
-            set;
-        }
-
-        public String ArticleId{
+        public Case CaseToCheck{
             get;
             set;
         }
@@ -170,7 +163,7 @@ public inherited sharing class ExceptionCheckerService {
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: Yes';
+            caseComment.CommentBody = 'Auto-LIT exception: No';
             caseComments.add(caseComment);
 		}
         //update cases
@@ -196,7 +189,7 @@ public inherited sharing class ExceptionCheckerService {
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: No';
+            caseComment.CommentBody = 'Auto-LIT exception: Yes';
             caseComments.add(caseComment);
 		}
         //update cases

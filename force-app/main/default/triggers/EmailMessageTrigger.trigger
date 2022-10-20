@@ -10,57 +10,31 @@
 2021-11-30  ashapriya.gadi@auspost.com.au   Added a call to ServiceAdvisorEmailMessageTriggerHandler as part of SMWD-312 - MW0004779
 2022-02-10  naveen.rajanna@auspost.com.au   REQ2723199 - Modified API version and commented Debug statements
 2022-05-03  saiswetha.pingali@auspost.com.au Removed call to EmailMessageUtil.parseEmailbodySnapIT as this is no more used.
-
+2022-10-13  naveen.rajanna@auspost.com.au   REQ2859152 - Moved the triggerhandler dispatch outside of Trigger.isAfter if condition and removed debug statements, changed api version to 55
 *****************************************************************************************/
 
-trigger EmailMessageTrigger on EmailMessage (after insert,before insert, after update, before update) 
-{
-    // system.debug('####################################### Email Message trigger: ' + SystemSettings__c.getInstance().Disable_Triggers__c + '#######################################');
-    
-    if (!SystemSettings__c.getInstance().Disable_Triggers__c) 
-    {   
-        if(trigger.isInsert){
-            
-            if(trigger.isBefore){    
-                // system.debug('####################################### Email Message isInsert & isBefore #####################################');
-                
-                //Removing Cloning of Cases - change to not allow networks to reopen closed cases.
-                //EmailMessageUtil.clonePermanentlyClosedCases(Trigger.new);
-                
-                EmailMessageUtil.switchInboundToOutbound(Trigger.new);
-                EmailMessageUtil.detectPermanentSpam(Trigger.new);
-                EmailMessageUtil.startrackDuplicateInboundEmail(Trigger.new); //StarTrack method to check for inbound email duplication.
-                EmailMessageUtil.processVOCIncidentEmails(Trigger.new); //StarTrack method to handle inbound emails for VOC incident.
-            }
-            
-            if(trigger.isAfter){
-                // system.debug('####################################### Email Message isInsert & isAfter #####################################');
-                
-                EmailMessageUtil.detectSpamEmailOnCases(Trigger.new);
+trigger EmailMessageTrigger on EmailMessage(after insert, before insert, after update, before update) {
+	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
+		if (Trigger.isInsert) {
+			if (Trigger.isBefore) {
+				//Removing Cloning of Cases - change to not allow networks to reopen closed cases.
+				//EmailMessageUtil.clonePermanentlyClosedCases(Trigger.new);
+				EmailMessageUtil.switchInboundToOutbound(Trigger.new);
+				EmailMessageUtil.detectPermanentSpam(Trigger.new);
+				EmailMessageUtil.startrackDuplicateInboundEmail(Trigger.new); //StarTrack method to check for inbound email duplication.
+				EmailMessageUtil.processVOCIncidentEmails(Trigger.new); //StarTrack method to handle inbound emails for VOC incident.
+			}
 
-                // when an email is received from email to case, this is used to set the email-to-case address on the parent case record
-                EmailMessageUtil.setEmailToCaseAddress(Trigger.newMap);
-
-                // Given agent sends email to the customer (via Send Email action in case record)
-                // And cases are under customer centre
-                // Then create CaseActivity record for SLA Reporting
-                SLAReportingUtility.generateCaseActivity(trigger.new);
-                // SMWD-312 - MW0004779 - This will kick off the newly created ServiceAdvisorEmailMessageTriggerHandler.
-                new EmailMessageTriggerHandler().dispatch();
-
-            }
-        }
-
-        /* if(trigger.isUpdate){
-            if(trigger.isBefore){
-                system.debug('####################################### Email Message isUpdate & isBefore #####################################');
-                
-            }
-            
-            if(trigger.isAfter){
-                system.debug('####################################### Email Message isUpdate & isAfter #####################################');
-                
-            }
-        }  */
-    }
+			if (Trigger.isAfter) {
+				EmailMessageUtil.detectSpamEmailOnCases(Trigger.new);
+				// when an email is received from email to case, this is used to set the email-to-case address on the parent case record
+				EmailMessageUtil.setEmailToCaseAddress(Trigger.newMap);
+				// Given agent sends email to the customer (via Send Email action in case record)
+				// And cases are under customer centre
+				// Then create CaseActivity record for SLA Reporting
+				SLAReportingUtility.generateCaseActivity(Trigger.new);
+			}
+		}
+		(new EmailMessageTriggerHandler()).dispatch(); // invoke domain based trigger dispatch
+	}
 }
