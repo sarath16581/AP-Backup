@@ -209,6 +209,13 @@ public with sharing class ApplicationTestDataFactory {
 				Case.Status => 'New'
 		}, count), generateIds);
 	}
+	
+	public static List<AgentWork> getAgentWorks(Integer count, Id userId, Set<Id> workitemIds, Boolean generateIds) {
+		return (List<AgentWork>)maybeGenerateIds(populateSObjects(AgentWork.SObjectType, new Map<SObjectField, Object> {
+			AgentWork.UserId => userId,
+			AgentWork.WorkItemId => workitemIds
+		}, count), generateIds);
+	}
 
 	// Added by Madhusudan
 	public static List<Task> getTasks(Integer count, Id whatId, Boolean generateIds) {

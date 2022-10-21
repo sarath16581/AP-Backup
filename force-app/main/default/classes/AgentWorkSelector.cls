@@ -30,7 +30,6 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-            AgentWork.UserId,
             AgentWork.WorkItemId,
             AgentWork.Status,
             AgentWork.UserId
