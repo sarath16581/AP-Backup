@@ -284,7 +284,10 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		acc.LastName = e.legalLastName__c;
 		acc.LegalLastName__pc = e.legalLastName__c;
 		acc.Preferred_Name__pc = e.preferredName__c;
-		acc.PersonBirthdate = e.birthDate__c;
+
+		// Salesforce can accept dates between Jan 1, 1700 and December 31, 4000.
+		acc.PersonBirthdate = e.birthDate__c != null && e.birthDate__c.year() > 1700 ? e.birthDate__c : null;
+
 		acc.LevelOfAssurance__pc = e.loa__c;
 		acc.Legal_Marketing_Opt_In__pc = e.legalMarketingOptIn__c;
 		acc.Winning_Master_Record__pc = e.winningMasterAPCN__c;

@@ -9,9 +9,4 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
-    <description>The Job Title for the Membership Contact</description>
-    <inlineHelpText>Membership Contact Job Title</inlineHelpText>
-   <businessStatus>Active</businessStatus>
-   <complianceGroup>GDPR</complianceGroup>
-   <securityClassification>INTERNAL</securityClassification>
 </CustomField>

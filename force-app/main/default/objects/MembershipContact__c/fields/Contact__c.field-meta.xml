@@ -10,9 +10,4 @@
     <required>true</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
-    <description>The contact associated with this membership</description>
-    <inlineHelpText>A membership contact</inlineHelpText>
-   <businessStatus>Active</businessStatus>
-   <complianceGroup>GDPR</complianceGroup>
-   <securityClassification>INTERNAL</securityClassification>
 </CustomField>

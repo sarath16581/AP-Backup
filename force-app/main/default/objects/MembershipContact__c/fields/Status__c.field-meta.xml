@@ -6,11 +6,6 @@
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
-    <description>The current status of this Membership Contact record</description>
-    <inlineHelpText>Membership Contact Record Status</inlineHelpText>
-   <businessStatus>Active</businessStatus>
-   <complianceGroup>GDPR</complianceGroup>
-   <securityClassification>INTERNAL</securityClassification>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>

@@ -339,9 +339,8 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Contact__c</fields>
-        <fields>Status__c</fields>
         <fields>ContactWFID__c</fields>
-        <fields>ContactMobile__c</fields>
+        <fields>Status__c</fields>
         <fields>CompletionDate__c</fields>
         <relatedList>MembershipContact__c.Membership__c</relatedList>
     </relatedLists>

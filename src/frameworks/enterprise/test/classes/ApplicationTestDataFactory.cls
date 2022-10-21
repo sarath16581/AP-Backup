@@ -30,6 +30,9 @@
  * 2021/08/31 - Ranjeewa Silva - Updated coule of core methods to 'public' access. This is to enable separate test data factory for PUD.
  * 2021-10-15 - Nathan Franklin - Added new setChildRelationships method
  * 2022-02-17 - Asha - added email message methods
+ * 2022-02-22 - Naveen Rajanna - REQ2723199 Added caseStarTransitWarrantyClaimRecordType, getter for MilestoneType and CaseMilestones
+ * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
+ * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -51,6 +54,24 @@ public with sharing class ApplicationTestDataFactory {
 				Billing_Account__c.Source_System__c => sourceSystem,
 				Billing_Account__c.LEGACY_ID__c => (sourceSystem == 'TEAM' ? 'T' : (sourceSystem == 'PeopleSoft' ? 'P' : '')) + '%count%'
 		}, count), generateIds);
+	}
+
+	public static List<APR__c> getAPRs(Integer count, Id billingAccountId, String type, Boolean generateIds) {
+		return (List<APR__c>)maybeGenerateIds(populateSObjects(APR__c.SObjectType, new Map<SObjectField, Object> {
+				APR__c.Billing_Account_Name__c => billingAccountId,
+				APR__c.Type__c => type
+		}, count), generateIds);
+	}
+
+	public static List<AssignmentRule> getAssignmentRules(Integer count, String objType, Boolean generateIds) {
+		List<AssignmentRule> output = (List<AssignmentRule>)maybeGenerateIds(populateSObjects(Schema.SObjectType.AssignmentRule.SObjectType, new Map<SObjectField, Object> {
+		}, count), generateIds);
+
+		for(Integer i=0;i<output.size();i++) {
+			output[i] = (AssignmentRule)setUnwritableFields(output[i], new Map<String, Object>{'SobjectType' => objType, 'Active' => true});
+		}
+
+		return output;
 	}
 
 	public static List<Account> getPersonAccounts(Integer count, Boolean generateIds) {
@@ -164,14 +185,6 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
-    	public static List<MembershipContact__c> getMembershipContact(Integer count, Id membershipId, Id contactId, string status, Boolean generateIds) {
-		return (List<MembershipContact__c>)maybeGenerateIds(populateSObjects(MembershipContact__c.SObjectType, new Map<SObjectField, Object> {
-				MembershipContact__c.Status__c => status,
-				MembershipContact__c.Contact__c => contactId,
-				MembershipContact__c.Membership__c => membershipId
-		}, count), generateIds);
-	}
-    
 	public static List<Contact> getContacts(Integer count, Id accountId, Boolean generateIds) {
 		return (List<Contact>)maybeGenerateIds(populateSObjects(Contact.SObjectType, new Map<SObjectField, Object> {
 				Contact.FirstName => 'First Name %count%',
@@ -189,6 +202,27 @@ public with sharing class ApplicationTestDataFactory {
 				Contact.Email => 'ZZtest%count%@test%count%.test%count%.com',
 				Contact.DoNotCall => true,
 				Contact.AccountId => accountIds
+		}, count), generateIds);
+	}
+
+	public static List<ContactPointAddress> getContactPointAddresses(Integer count, Id accountId, Boolean generateIds) {
+		return (List<ContactPointAddress>)maybeGenerateIds(populateSObjects(ContactPointAddress.SObjectType, new Map<SObjectField, Object> {
+			ContactPointAddress.Street => '%count%',
+			ContactPointAddress.ParentId => accountId
+		}, count), generateIds);
+	}
+
+	public static List<ContactPointPhone> getContactPointPhones(Integer count, Id accountId, Boolean generateIds) {
+		return (List<ContactPointPhone>)maybeGenerateIds(populateSObjects(ContactPointPhone.SObjectType, new Map<SObjectField, Object> {
+			ContactPointPhone.TelephoneNumber => '%count%',
+			ContactPointPhone.ParentId => accountId
+		}, count), generateIds);
+	}
+
+	public static List<ContactPointEmail> getContactPointEmails(Integer count, Id accountId, Boolean generateIds) {
+		return (List<ContactPointEmail>)maybeGenerateIds(populateSObjects(ContactPointEmail.SObjectType, new Map<SObjectField, Object> {
+			ContactPointEmail.EmailAddress => 'ZZtest%count%@test%count%.test%count%.com',
+			ContactPointEmail.ParentId => accountId
 		}, count), generateIds);
 	}
 
@@ -665,6 +699,22 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
+	public static List<MilestoneType> getMilestoneTypes(Integer count, Boolean generateIds) {
+		return (List<MilestoneType>)maybeGenerateIds(populateSObjects(MilestoneType.SObjectType, new Map<SObjectField, Object> {
+				MilestoneType.Name => 'Milestone Name %count%',
+				MilestoneType.Description => 'Milestone Description %count%'
+		}, count), generateIds);
+	}
+
+	public static List<CaseMilestone> getCaseMilestones(Integer count, Boolean generateIds,Boolean isViolated, Boolean isCompleted, Id milestoneTypeId, Id caseId) {
+		List<CaseMilestone> output = (List<CaseMilestone>)maybeGenerateIds(populateSObjects(CaseMilestone.SObjectType, new Map<SObjectField, Object> {}, count), generateIds);
+
+		for(Integer i = 0; i < output.size(); i++) {
+			output[i] = (CaseMilestone)setUnwritableFields(output[i], new Map<String, Object>{'MilestoneTypeId' => milestoneTypeId, 'CaseId' => caseId, 'StartDate' => Date.Today(), 'TargetDate' => Date.Today() + 365, 'IsViolated' => isViolated, 'IsCompleted' => isCompleted, 'CompletionDate' => (isCompleted ? Date.Today() + 10 : null)});
+		}
+		return output;
+	}
+
 	public static void generateRecordIds(List<SObject> records) {
 		for(SObject record : records) {
 			record.Id = fflib_IDGenerator.generate(record.getSObjectType());
@@ -804,7 +854,15 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
    }
-
+   public static Id caseStarTransitWarrantyClaimRecordType {
+		get {
+			if(caseStarTransitWarrantyClaimRecordType == null) {
+				caseStarTransitWarrantyClaimRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'StarTrack_Transit_Warranty_Claim'].Id;
+			}
+			return caseStarTransitWarrantyClaimRecordType;
+		}
+		private set;
+	}
 	//Added by Madhusudhan | PBRP 2021
 	public static Id casestarTrackGeneralEnquiryRecordType {
 		get {
@@ -897,7 +955,6 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
-    
 	public static Id defaultCommunityUserProfileId {
 		get {
 			if(defaultCommunityUserProfileId == null) {

@@ -9,9 +9,4 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
-    <description>The Id for the Membership Owner</description>
-    <inlineHelpText>Membership Owner Id</inlineHelpText>
-   <businessStatus>Active</businessStatus>
-   <complianceGroup>GDPR</complianceGroup>
-   <securityClassification>INTERNAL</securityClassification>
 </CustomField>

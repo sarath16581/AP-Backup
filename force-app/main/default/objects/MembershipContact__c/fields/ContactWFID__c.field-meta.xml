@@ -9,9 +9,4 @@
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
-    <description>The Workforce Identifier for the Membership Contact</description>
-    <inlineHelpText>Membership Contact Workforce Identifier</inlineHelpText>
-   <businessStatus>Active</businessStatus>
-   <complianceGroup>PII</complianceGroup>
-   <securityClassification>INTERNAL</securityClassification>
 </CustomField>
