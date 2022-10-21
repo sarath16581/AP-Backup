@@ -14,29 +14,33 @@
  */
 public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.Module {
 
-    private static Set<String> closedStatusAPINames;
-
 	public static MyCustomerClosedCaseModule newInstance() {
 		return (MyCustomerClosedCaseModule)Application.Utilities.newInstance(MyCustomerClosedCaseModule.class);
 	}
 
     // Setup which triggers this module should respond to
 	public MyCustomerClosedCaseModule() {
-		getTriggerEvents().enableBeforeUpdate();
+		getTriggerEvents().enableAfterInsert().enableAfterUpdate();
 	}
 
+    public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+        processClosedCases(records, uow);
+    }
+
+    public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+        processClosedCases(records, uow);
+    }
+
     /**
-     * Filter to Closed Cases and eligible Queues
+     * Filter to Closed Cases by IsClosed and eligible Queues
+     * NOTE: IsClosed is only set to True in Trigger.IsAfter
      */
-    public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+    private void processClosedCases(List<SObject> records, ApplicationUnitOfWork uow) {
         Map<Id, Case> closedCases = new Map<Id, Case>();
         Map<Id, Group> queues = new Map<Id, Group>();
 
-        initClosedStatusApiNames();
-
         for(Case c: (List<Case>)records) {
-            if(c.Status != ((Case)existingRecords.get(c.Id)).Status 
-                && closedStatusAPINames.contains(c.Status)
+            if(c.IsClosed == true 
                 && c.OwnerId != null
                 && c.OwnerId.getSobjectType() == Group.sObjectType) {
 
@@ -54,7 +58,7 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
             }        
 
             if(closedCases.isEmpty() == false) {
-                reassignToPreviousAgentIfApplicable(closedCases);
+                reassignToPreviousAgentIfApplicable(closedCases, uow);
             }
         }
     }
@@ -62,7 +66,7 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
     /**
      * Attempt to assign the Case to the previous Agent, otherwise assign to a default Queue
      */
-    private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases) {
+    private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases, ApplicationUnitOfWork uow) {
 
         Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
         Map<Id, Id> caseIdVsAgentId = new Map<Id, Id>();
@@ -74,25 +78,14 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
             }
         }
 
-        for(Case c: closedCases.values()) {
+        List<Case> casesToUpdate = CasesSelector.newInstance().selectById(closedCases.keySet()).values();
+        for(Case c: casesToUpdate) {
             if(caseIdVsAgentId.containsKey(c.Id) == true) {
                 c.OwnerId = caseIdVsAgentId.get(c.Id);
             } else {
                 c.OwnerId = omnichannelClosedCaseQueueId;
             }
         }
-    }
-
-    /**
-     * populate a Set of Status values
-     */
-    private static void initClosedStatusApiNames(){
-        if(closedStatusAPINames == null || closedStatusAPINames.size() == 0){
-            closedStatusAPINames = new Set<String>();
-            List<CaseStatus> closedStatusList = [Select Id,ApiName From CaseStatus Where IsClosed = true];
-            for(CaseStatus cstatus : closedStatusList){
-                closedStatusAPINames.add(cstatus.ApiName);
-            }
-        }
-    }
+        uow.registerDirty(casesToUpdate, new List<SObjectField> {Case.OwnerId}, String.valueOf(MyCustomerClosedCaseModule.Class));
+}
 }

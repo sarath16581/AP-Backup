@@ -12,7 +12,7 @@
 public with sharing class AgentWorkSelector_Test {
 	@IsTest
 	private static void queryFromCorrectObjectWithCorrectFields() {
-		AgentWorkSelector selector = AgentWorkSelector.newInstance();
+		AgentWorkSelector selector = AgentWorkSelector.newInstance(1);
 		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom AgentWork\\b').matcher(soql).find(), 'Query from AgentWork object');

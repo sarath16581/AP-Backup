@@ -24,7 +24,7 @@ private class MyCustomerClosedCaseModule_Test {
      * 
 	 */
 	@IsTest
-	private static void testClosedCaseReassigned() {
+	private static void ensureClosedCasedInOmniQueueAreReassigned() {
 
 		// =====================================
 		// Data Preparation
