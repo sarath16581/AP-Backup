@@ -55,8 +55,7 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
                 if(queues.get(c.OwnerId).QueueRoutingConfigId == null) { // only interested in Omni queues
                     closedCases.remove(c.Id);
                 }
-            }        
-
+            }
             reassignToPreviousAgentIfApplicable(closedCases, uow);
         }
     }
@@ -64,7 +63,7 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
     /**
      * Attempt to assign the Case to the previous Agent, otherwise assign to a default Queue
      */
-    private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases, ApplicationUnitOfWork uow) {
+    private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases, ApplicationUnitOfWork uow) {        
         if(closedCases.isEmpty() == false) {
             Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
             Map<Id, Id> caseIdVsAgentId = new Map<Id, Id>();
