@@ -1,0 +1,48 @@
+{
+  "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "componentName" : "c:ChasCasePageLayout",
+  "id" : "1fe3728a-82dc-4ef3-83fc-e3a8e0a0aee8",
+  "label" : "Case List",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "backButtonLabel" : "Back to your enquiries",
+        "backButtonUrl" : "/",
+        "label" : "Your enquiries"
+      },
+      "componentName" : "c:ChasCaseHeader",
+      "id" : "23fb469c-0029-4909-be95-1af1042fbdb2",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "30f7dab9-7570-4513-8059-dd97d0f80686",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "filterName" : "My_Cases",
+        "layout" : "FULL",
+        "pageSize" : 25,
+        "scope" : "Case",
+        "showDisplay" : "showall"
+      },
+      "componentName" : "forceCommunity:objectHome",
+      "id" : "097f7fe7-96c6-4cef-82ba-e7b4d728e3c1",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7e59660f-3f49-4d83-8c3b-afed975aa0e9",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "d2edd942-2cfa-4a17-846f-3e2f9c1312b6",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "list-500"
+}

@@ -1,0 +1,45 @@
+{
+  "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "90b9b882-ffb7-4836-8739-e018937476b0",
+  "label" : "BSP Update Profile",
+  "regions" : [ {
+    "id" : "62c3757f-8394-4b91-9224-cecb037fe70d",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bspUpdateProfile",
+      "id" : "5c8c4b0d-331b-4b87-8eb0-2636e7ced070",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a5d469ba-e4c7-4dc1-bdb9-6e386fa8e297",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "27268396-79e5-4f71-8510-0401a601cd39",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Business Support Portal Update Profile"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "339121f2-76b6-4627-a234-788774ee3568",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "845bcf15-4cc7-4fca-be79-fc4f676dbf51",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "VVzT0mL4nCmITm0Vp7hT4r3Qht92it",
+  "type" : "view",
+  "viewType" : "custom-bsp-update-profile"
+}

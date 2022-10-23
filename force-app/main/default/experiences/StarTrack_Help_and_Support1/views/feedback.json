@@ -1,0 +1,45 @@
+{
+  "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "0dcbdf39-163a-40bd-bb90-1243f57fc27b",
+  "label" : "Feedback",
+  "regions" : [ {
+    "id" : "76770920-6cfa-446c-8b72-e0ff530679f8",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:sthsFeedbackForm",
+      "id" : "77127279-a47f-434d-a82c-8ca46e567d83",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f70bf64c-d327-4fbf-8440-9f5692a4c8ee",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "c8000793-b54f-46f1-9ee8-38b905d23e4f",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "StarTrack | Feedback"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "3fe647ca-1544-4225-b63b-bcb7144f43b1",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "d3b32930-d97f-4958-aac6-05fc0b044fe9",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "sXBklNNFqExUnBYqEu4tH4XGUcWkZj",
+  "type" : "view",
+  "viewType" : "custom-feedback"
+}

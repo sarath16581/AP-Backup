@@ -1,0 +1,45 @@
+{
+  "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "98f042d2-52f7-4654-8f83-24fa1eae39f5",
+  "label" : "Mail redirection and hold (authenticated",
+  "regions" : [ {
+    "id" : "aacf687d-3558-4e33-b4cb-1434c2d6066f",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:CHAS_MailRedirectAndHoldWizard",
+      "id" : "c0795829-3d8b-4762-82e7-bf48072cbc3b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8ab2c4cb-6c3a-4d7b-b205-07ba9dac5de2",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "666d3888-86b3-4544-b0a3-75e7d1eadbde",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Mail redirection & hold (authenticated)"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "aaf294d9-3741-44f5-8d54-1d225f8069b5",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f518591d-9ee6-4f9e-92e8-82149d441ad5",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-mail-redirection-and-hold-authenticated"
+}

@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "e80cde7d-1ee7-496e-9f83-d34cafb72b8c",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "3d5f6152-1dc1-4b52-9b3b-a743ef22ced3",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "myNetwork_Customer_Forms_HTML_Editor_4_Component",
+  "id" : "6140ab25-ccf5-41ef-91f8-9ca13961a7cc",
+  "type" : "experienceVariation"
+}

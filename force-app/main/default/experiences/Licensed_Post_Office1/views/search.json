@@ -1,0 +1,64 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "642e438b-9440-45d5-ad64-4f969ca08180",
+  "label" : "Search",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<p style=\"text-align: center;\"><b style=\"font-size: 20px; color: rgb(0, 0, 0);\">If there are no records found, please</b><b style=\"font-size: 20px; color: rgb(230, 0, 0);\"> </b><a href=\"/lpo/s/create-a-lead\" target=\"_self\" style=\"font-size: 20px; color: rgb(230, 0, 0);\"><b>Create a Lead</b></a><b style=\"font-size: 20px; color: rgb(0, 0, 0);\">.</b></p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "dced9fd1-2405-45bb-8a15-d2f5ef3f25a7",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "3fec4f26-a185-4ec6-9752-af74859973e4",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "scopes" : [ {
+          "isPublic" : false,
+          "name" : "Account"
+        }, {
+          "isPublic" : false,
+          "name" : "Lead"
+        }, {
+          "isPublic" : false,
+          "name" : "Contact"
+        }, {
+          "isPublic" : false,
+          "name" : "Opportunity"
+        }, {
+          "isPublic" : false,
+          "name" : "Billing_Account__c"
+        } ],
+        "searchResultFiltering" : false,
+        "searchTerm" : "{!term}",
+        "showTopResults" : true
+      },
+      "componentName" : "forceCommunity:search",
+      "id" : "e2819303-1049-4a96-ac48-665009810ab4",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "32b420df-898d-4438-8cd9-e69eaf45bdce",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "928939bf-4ea6-4139-9e1e-85e274bc3de9",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "id" : "87dfceb5-c018-40a1-a403-64121070ca1a",
+    "regionName" : "sidebar",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "global-search"
+}
