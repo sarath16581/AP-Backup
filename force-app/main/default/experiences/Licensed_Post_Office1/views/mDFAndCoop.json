@@ -1,0 +1,22 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "82b01328-8a08-4a90-b753-daa3521066ce",
+  "label" : "MDF and Coop",
+  "regions" : [ {
+    "id" : "879d1bb9-5356-4225-8955-d8c7decd0860",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "0cb63152-8dff-49ca-a779-2d3599af84bb",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "2194e2a4-e4ad-4c55-a873-1a0b2e11c628",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "mdf"
+}

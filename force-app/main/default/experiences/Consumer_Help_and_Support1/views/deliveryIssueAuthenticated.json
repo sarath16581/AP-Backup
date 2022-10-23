@@ -1,0 +1,45 @@
+{
+  "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "5d94f84b-bc77-4fdc-84ea-1983db0513ea",
+  "label" : "Delivery issue (authenticated)",
+  "regions" : [ {
+    "id" : "82f72248-fdb6-4085-9c1a-b6f4c9a3de9a",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:ChasDeliveryIssuesWizard",
+      "id" : "db8d8af8-7397-4a4f-9900-ada85628c924",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "cdaee9ac-bb64-4590-96ec-7080293ecabe",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "b2ec7d5a-2301-407e-b39a-5b9757a22c79",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Delivery issue (authenticated)"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "a262e345-10d7-4fd8-a130-2769547abb58",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b90b93f4-c571-4224-bfe6-ef92b544e0ac",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-delivery-issue-authenticated"
+}

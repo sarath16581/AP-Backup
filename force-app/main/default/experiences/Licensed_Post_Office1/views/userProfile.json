@@ -1,0 +1,74 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "e4dfaa7e-f2e8-4a7e-800d-9db432819080",
+  "label" : "User Profile",
+  "regions" : [ {
+    "id" : "2eea5a9b-c1b9-47fc-845c-b5c5f4f7707f",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "id" : "{!recordId}",
+        "showFullPhotoAsCircle" : true,
+        "showReputation" : false
+      },
+      "componentName" : "forceCommunity:userProfileHeader",
+      "id" : "9002e6d7-5403-4801-a7ea-adda42b3a1fc",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "c6a5bf19-38dc-4fa9-9f91-5337f2b0d2bd",
+          "activeTab" : "tab1",
+          "tabs" : [ {
+            "UUID" : "7bc98c5d-82a9-40d4-a332-69fc27813447",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : { },
+              "fqn" : "forceCommunity:userProfileDetail"
+            } ],
+            "tabKey" : "tab1",
+            "tabName" : "Details"
+          } ],
+          "useOverflowMenu" : false
+        }
+      },
+      "componentName" : "forceCommunity:tabset",
+      "id" : "c6a5bf19-38dc-4fa9-9f91-5337f2b0d2bd",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "id" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:userProfileDetail",
+          "id" : "e5708c80-cf40-4ee9-b733-da7b2ef61ddc",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "7bc98c5d-82a9-40d4-a332-69fc27813447",
+        "regionLabel" : "Details",
+        "regionName" : "tab1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "fd12e9f6-796d-400c-8e69-6f33519ab3ba",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "7ebfed21-1453-418d-8985-bc80e47c8093",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-005"
+}

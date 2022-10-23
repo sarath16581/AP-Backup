@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "bd365671-e5ac-411d-a0fe-a23769c39b83",
+  "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "configurationTags" : [ ],
+  "id" : "c08647b0-cd08-405c-8f4f-69dd0d4eb156",
+  "label" : "Billing Account Related List",
+  "objectApiName" : "Billing_Account__c",
+  "routeType" : "relatedlist-a0F",
+  "type" : "route",
+  "urlPrefix" : "billing-account"
+}

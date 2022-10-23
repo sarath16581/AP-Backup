@@ -1,0 +1,266 @@
+{
+  "activeBrandingSetId" : "4160c6ab-ca34-462a-9f76-d23e978b7598",
+  "customCSS" : "/*********************************************************\n * Font Declarations\n *********************************************************/\n\n@font-face {\n    font-family: 'APTypeProText';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-Regular.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-Regular.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeProText';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-RegularItalic.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-RegularItalic.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeProText';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-Bold.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-Bold.woff\") format(\"woff\");\n    font-weight: bold;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeProText';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-BoldItalic.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-BoldItalic.woff\") format(\"woff\");\n    font-weight: bold;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeProText';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-Light.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-Light.woff\") format(\"woff\");\n    font-weight: 300;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeProText';\n    src: url(\"/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeProText-LightItalic.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeProText-LightItalic.woff\") format(\"woff\");\n    font-weight: 300;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeProText';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-Medium.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-Medium.woff\") format(\"woff\");\n    font-weight: 500;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeProText';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-MediumItalic.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProText/APTypeProText-MediumItalic.woff\") format(\"woff\");\n    font-weight: 500;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeProDisplay';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-Regular.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-Regular.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeProDisplay';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-RegularItalic.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-RegularItalic.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeProDisplay';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-Bold.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-Bold.woff\") format(\"woff\");\n    font-weight: bold;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeProDisplay';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-BoldItalic.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-BoldItalic.woff\") format(\"woff\");\n    font-weight: bold;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeProDisplay';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-Light.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-Light.woff\") format(\"woff\");\n    font-weight: 300;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeProDisplay';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-LightItalic.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-LightItalic.woff\") format(\"woff\");\n    font-weight: 300;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeProDisplay';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-Medium.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-Medium.woff\") format(\"woff\");\n    font-weight: 500;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeProDisplay';\n    src: url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-MediumItalic.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/APTypePro/APTypePro/APTypeProDisplay/APTypeProDisplay-MediumItalic.woff\") format(\"woff\");\n    font-weight: 500;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APLetterFont';\n    src: url(\"/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APLetterBoldFont';\n    src: url(\"/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APIcon-web';\n    src: url('/sfsites/c/resource/APIconFontv2') format('woff');\n    font-weight: normal;\n    font-style: normal;\n\n}\n\n\n/*********************************************************\n * Body Styles\n *********************************************************/\n\nbody {\n    font-family: 'APTypeProText', sans-serif;\n    font-size: 1rem;\n    color: #382F2D;\n    line-height: 1.5rem;\n    -webkit-font-smoothing: antialiased;\n    overflow-x: hidden;\n}\n\nh1,h2,h3,h4,h5,h6,b,strong {\n    font-family: 'APTypeProDisplay', 'APTypeProText', helvetica, arial, sans-serif;\n    font-weight: bold;\n}\n\nh1,h2,h3,h4,h5,h6 {\n    font-weight: 500;\n}\n\nh1 {\n    font-size: 1.5rem;\n    line-height: 2rem;\n    letter-spacing: .03rem;\n}\n\nh2 {\n    font-size: 1.25rem;\n    line-height: 1.5rem;\n    letter-spacing: .03rem;\n}\n\nh3 {\n    font-size: 1.125rem;\n    line-height: 1.5rem;\n    letter-spacing: .03rem;\n}\n\n\n/*********************************************************\n * SLDS Button Declarations\n *********************************************************/\n\n.slds-form-element__label {\n    color: #292f33;\n}\n\n.slds-button:focus,\n.slds-button:active {\n    box-shadow: none;\n}\n\n.slds-button:focus:after {\n    border: 1px dotted #382F2D;\n    border-radius: 3px;\n    content: \"\";\n    display: block;\n    height: calc(100% + 10px);\n    left: -5px;\n    pointer-events: none;\n    position: absolute;\n    top: -5px;\n    width: calc(100% + 10px);\n}\n\n.slds-button.loading-true {\n    display: inline-flex !important;\n    align-items: center;\n    justify-content: center;\n}\n\n.slds-button.loading-true lightning-primitive-icon {\n    display: none;\n}\n\n.slds-button.loading-true::after {\n    display: inline-block;\n    margin: 0 auto;\n    width: 20px;\n    height: 20px;\n    -webkit-animation: .75s linear infinite spinnerRotate;\n    animation: .75s linear infinite spinnerRotate;\n    border: 2px solid white;\n    border-bottom-color: transparent;\n    border-radius: 100%;\n    background: 0 0;\n    content: \"\";\n    position: relative;\n    left: auto;\n    top: auto;\n    color: inherit;\n}\n\n.slds-button.disabled-true.loading-true::after {\n    border-color: #6D6D72;\n    border-bottom-color: transparent;\n}\n\n.slds-button.slds-button_destructive:disabled {\n    opacity:.5;\n}\n\n/*********************************************************\n * Tooltip Popover Declarations\n *********************************************************/\n\n.slds-popover_tooltip,\n.slds-popover--tooltip {\n  background: white;\n  box-shadow: 0 1px 12px 0 rgba(83, 95, 103, 0.3);\n  border-radius: 0;\n}\n\n.slds-popover_tooltip .slds-popover__body,\n.slds-popover--tooltip .slds-popover__body {\n  color: inherit;\n  font-size: .875rem;\n  padding: 0.875rem 1rem;\n}\n\n@keyframes spinnerRotate {\n    0% {\n        -webkit-transform: rotate(0);\n        transform: rotate(0)\n    }\n\n    to {\n        -webkit-transform: rotate(360deg);\n        transform: rotate(360deg)\n    }\n}\n\n.slds-listbox__option_plain {\n    font-size: 1rem;\n}\n\n.slds-listbox__option:hover {\n    background-color: rgba(0, 0, 0, 0.05) !important;\n}\n\n.slds-listbox__option:focus {\n    background-color: rgba(0, 0, 0, 0.05) !important;\n}\n\n.slds-listbox__option.slds-has-focus{\n    background-color: rgba(0, 0, 0, 0.05) !important;\n}\n\n.slds-is-today.slds_day {\n    background-color: rgba(0, 0, 0, 0.05) !important;\n}\n\n/*********************************************************\n  * Modal Style Declarations\n  *********************************************************/\n.slds-backdrop {\n  background: rgba(41, 47, 51, 0.65);\n}\n\n.slds-modal .slds-modal__content {\n  border-radius: 0;\n  box-shadow: none;\n}\n\n.slds-modal__close {\n  top: 0.25rem;\n  right: 0.25rem;\n  color: #292f33;\n}\n\n.slds-modal__close.slds-button--icon-inverse:hover,\n.slds-modal__close.slds-button--icon-inverse:focus {\n  color: rgb(174, 20, 32);\n}\n\n.slds-modal__header {\n    border-top-right-radius: .4rem;\n    border-top-left-radius: .4rem;\n    border-bottom: 0;\n}\n\n.slds-modal__container {\n    overflow-y: auto;\n}\n.slds-modal__footer {\n    border-bottom-right-radius: .4rem;\n    border-bottom-left-radius: .4rem;\n    border-top: 0;\n    text-align: left;\n}\n\n/*********************************************************\n * SLDS File Selector Declarations\n *********************************************************/\n\n.slds-file-selector__dropzone {\n    padding: 0;\n    border: none;\n}\n\n.slds-file-selector__text {\n    display: none;\n}\n\n.slds-file-selector__button {\n    display: inline-flex;\n    align-items: center;\n    color: #212129;\n    height: 45px;\n    border-width: 2px;\n    border-color: #e2e2e2;\n    min-width: 120px;\n    border-radius: .4em;\n    font-weight: 800;\n    margin-top: .75rem;\n}\n.slds-file-selector__button:hover {\n    border-color: #212129;\n    background-color: #FFFFFF;\n    color: #212129;\n}\n\n.slds-form-element__label {\n    font-size: 16px;\n    font-weight: bold;\n}\n\n\n.uiButton--brand {\n    height: 45px;\n    min-width: 140px;\n    font-size: 16px;\n    font-weight: 600;\n    border-radius: .4em;\n}\n\n/*********************************************************\n * SLDS Input Declarations\n *********************************************************/\n\n/*.slds-input-has-icon .slds-input__icon {\n    margin-top: -0.55rem;\n}*/\n\n.slds-input-has-icon .slds-input__icon button {\n    line-height: 0;\n    display: block;\n}\n\n/*********************************************************\n * Media Style Declarations\n *********************************************************/\n@media (min-width: 680px) {\n    h1 {\n        font-size: 2rem;\n        line-height: 2.5rem;\n    }\n\n    h2 {\n        font-size: 1.5rem;\n        line-height: 2rem;\n    }\n\n    h3 {\n        font-size: 1.25rem;\n        line-height: 2rem;\n    }\n}",
+  "developerName" : "service",
+  "id" : "377a2ecc-8e5c-445a-811e-8daf4f0fc7eb",
+  "label" : "Customer Service",
+  "layouts" : {
+    "Inner" : "faf55864-43ed-4065-90d2-e624f11ab6eb",
+    "Login" : "2eb05b58-7982-4b54-9970-e9cfa43e60fc",
+    "ServiceNotAvailable" : "b49e5e5e-6aa3-48db-a7d3-ca56aef0ba2c",
+    "wsPvuTJ1oc30CnaXwhomVSd7AZ9Vx5" : "f8d1418c-701a-45d0-b540-9f1ca00c02ae"
+  },
+  "type" : "theme",
+  "views" : [ {
+    "componentAttributes" : { },
+    "componentName" : "salesforceIdentity:loginBody2",
+    "id" : "2eb05b58-7982-4b54-9970-e9cfa43e60fc",
+    "label" : "Login",
+    "regions" : [ {
+      "id" : "c359ec77-8b45-4b20-8d8d-0c472381c0d4",
+      "regionName" : "header",
+      "type" : "region"
+    }, {
+      "id" : "10c1fd53-c2b5-4f91-994b-fe44f011ff7a",
+      "regionName" : "content",
+      "type" : "region"
+    }, {
+      "id" : "1c932c93-e8dd-4fce-a944-3725a681f6f2",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "IsDefaultHeaderHidden" : false,
+      "IsDefaultNotificationsHidden" : false,
+      "fixedPageWidth" : 1140,
+      "isPageWidthFixed" : true
+    },
+    "componentName" : "siteforce:serviceBody",
+    "id" : "faf55864-43ed-4065-90d2-e624f11ab6eb",
+    "label" : "Default",
+    "regions" : [ {
+      "id" : "192d2846-ad63-4cba-bc34-7cc4c89ad9ca",
+      "regionName" : "customHeader",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "contineActionLabel" : "Ask the community",
+          "continueLabel" : "Don’t see it?",
+          "crossObjectTypeaheadApiNames" : [ {
+            "isPublic" : true,
+            "name" : "KnowledgeArticleVersion"
+          }, {
+            "isPublic" : true,
+            "name" : "FeedItem"
+          }, {
+            "isPublic" : false,
+            "name" : "Case"
+          }, {
+            "isPublic" : true,
+            "name" : "CollaborationGroup"
+          } ],
+          "disableCrossObjectRelevance" : false,
+          "enableAutocomplete" : true,
+          "maxNumberOfResults" : 6,
+          "placeholder" : "Search...",
+          "questionResultsFirst" : false,
+          "showContinueAction" : true,
+          "showDetails" : false,
+          "showTopics" : true,
+          "signInActionLabel" : "Sign in to ask the community"
+        },
+        "componentName" : "forceCommunity:searchBox",
+        "id" : "f7902d3a-fa80-4804-84c9-254fd24eeb99",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "b3f0cee4-b517-4869-a510-6e717f3d7fd6",
+      "regionName" : "search",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "accountManagementLabel" : "Account Management",
+          "communityBuilderLabel" : "Experience Builder",
+          "communitySetupLabel" : "Salesforce Setup",
+          "contactSupportLabel" : "Contact Support",
+          "filterName" : "MyCases",
+          "homeLabel" : "Home",
+          "includeContactSupport" : true,
+          "includeMessages" : false,
+          "loginLabel" : "Login",
+          "logoutLabel" : "Logout",
+          "myAccountLabel" : "My Account",
+          "showAccountManagement" : true,
+          "showUserSettings" : true,
+          "userSettingsLabel" : "My Settings",
+          "viewProfileLabel" : "My Profile"
+        },
+        "componentName" : "selfService:userProfileMenu",
+        "id" : "a74c146c-03f8-4f3a-ae2d-c394a95dde0d",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "36f9708e-13eb-4e37-a24f-eb2daa2e47ac",
+      "regionName" : "profileMenu",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "NavigationMenuEditorRefresh" : "",
+          "hideAppLauncher" : false,
+          "hideHomeText" : false
+        },
+        "componentName" : "forceCommunity:globalNavigation",
+        "id" : "049b18aa-05c4-4586-a326-9f7f8bbbe2fc",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "b95ca86f-db99-421e-a96d-bc7076b1d343",
+      "regionName" : "navBar",
+      "type" : "region"
+    }, {
+      "id" : "cfd0205c-fc1b-46a1-a130-8def0915b64b",
+      "regionName" : "customRegion",
+      "type" : "region"
+    }, {
+      "id" : "578f2f1d-edc5-4993-9246-f84bd11cf7e1",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "cssClass" : "",
+      "layoutWidth" : "contained",
+      "linkToHome" : false,
+      "pageTitle" : "Australia Post Business Apps Portal",
+      "showProfileMenu" : true
+    },
+    "componentName" : "c:ThemeTemplateBusinessApps",
+    "id" : "f8d1418c-701a-45d0-b540-9f1ca00c02ae",
+    "label" : "Custom Business Apps Theme Layout",
+    "regions" : [ {
+      "id" : "d639a789-1f35-4b9b-9fe2-540c8472d91b",
+      "regionName" : "customHeader",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "contineActionLabel" : "Ask the community",
+          "continueLabel" : "Don’t see it?",
+          "crossObjectTypeaheadApiNames" : [ {
+            "isPublic" : true,
+            "name" : "KnowledgeArticleVersion"
+          }, {
+            "isPublic" : true,
+            "name" : "FeedItem"
+          }, {
+            "isPublic" : false,
+            "name" : "Case"
+          }, {
+            "isPublic" : true,
+            "name" : "CollaborationGroup"
+          } ],
+          "disableCrossObjectRelevance" : false,
+          "enableAutocomplete" : true,
+          "maxNumberOfResults" : 6,
+          "placeholder" : "Search...",
+          "questionResultsFirst" : false,
+          "showContinueAction" : true,
+          "showDetails" : false,
+          "showTopics" : true,
+          "signInActionLabel" : "Sign in to ask the community"
+        },
+        "componentName" : "forceCommunity:searchBox",
+        "id" : "1e2529ac-cfee-41a6-9719-4bdc0021c862",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "364a7b14-498d-44ef-b39d-1344ccd7de14",
+      "regionName" : "search",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "accountManagementLabel" : "Account Management",
+          "communityBuilderLabel" : "Experience Builder",
+          "communitySetupLabel" : "Salesforce Setup",
+          "contactSupportLabel" : "Contact Support",
+          "filterName" : "MyCases",
+          "homeLabel" : "Home",
+          "includeContactSupport" : true,
+          "includeMessages" : false,
+          "loginLabel" : "Login",
+          "logoutLabel" : "Logout",
+          "myAccountLabel" : "My Account",
+          "showAccountManagement" : true,
+          "showUserSettings" : true,
+          "userSettingsLabel" : "My Settings",
+          "viewProfileLabel" : "My Profile"
+        },
+        "componentName" : "selfService:userProfileMenu",
+        "id" : "f82d1847-6c0f-4a03-ac34-23ce021c0004",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "cdb2a16b-e3b2-4ac8-a22e-b0428b174cff",
+      "regionName" : "profileMenu",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "NavigationMenuEditorRefresh" : "",
+          "hideAppLauncher" : false,
+          "hideHomeText" : false
+        },
+        "componentName" : "forceCommunity:globalNavigation",
+        "id" : "7d39c590-8c93-48e5-84f7-2b727e321e03",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "43d3ab52-2fe2-4e4d-838a-e30181a16366",
+      "regionName" : "navBar",
+      "type" : "region"
+    }, {
+      "id" : "70b46b3b-7794-4e0c-a43b-86c99b84bc49",
+      "regionName" : "customRegion",
+      "type" : "region"
+    }, {
+      "id" : "39df9e6a-547a-42b1-9837-fdd2ee727b31",
+      "regionName" : "footer",
+      "type" : "region"
+    }, {
+      "id" : "f91581f4-1435-4419-837a-101a5c29570c",
+      "regionName" : "newHeader",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "fixedPageWidth" : 1170,
+      "headerBgColor" : "rgba(0, 0, 0, 0)",
+      "isHeaderPinned" : false,
+      "isHeroUnderHeader" : false,
+      "isPageWidthFixed" : true,
+      "showHeader" : true,
+      "showHero" : true
+    },
+    "componentName" : "siteforce:themeLayoutStarter",
+    "id" : "b49e5e5e-6aa3-48db-a7d3-ca56aef0ba2c",
+    "label" : "ServiceNotAvailable",
+    "regions" : [ {
+      "id" : "2acc461d-9fba-423f-90d4-27fe0fe8630a",
+      "regionName" : "themeHeader",
+      "type" : "region"
+    }, {
+      "id" : "d5a8bf9a-1b44-4dd9-8c1d-90c9406d4cda",
+      "regionName" : "themeFooter",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  } ]
+}
