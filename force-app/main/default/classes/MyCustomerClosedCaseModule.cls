@@ -57,9 +57,7 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
                 }
             }        
 
-            if(closedCases.isEmpty() == false) {
-                reassignToPreviousAgentIfApplicable(closedCases, uow);
-            }
+            reassignToPreviousAgentIfApplicable(closedCases, uow);
         }
     }
 
@@ -67,25 +65,26 @@ public with sharing class MyCustomerClosedCaseModule extends ApplicationDomain.M
      * Attempt to assign the Case to the previous Agent, otherwise assign to a default Queue
      */
     private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases, ApplicationUnitOfWork uow) {
+        if(closedCases.isEmpty() == false) {
+            Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
+            Map<Id, Id> caseIdVsAgentId = new Map<Id, Id>();
+            for(AgentWork aw: AgentWorkSelector.newInstance().selectByAcceptedWorkItemIds(closedCases.keySet(),new Set<Object>())){
 
-        Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
-        Map<Id, Id> caseIdVsAgentId = new Map<Id, Id>();
-        for(AgentWork aw: AgentWorkSelector.newInstance().selectByAcceptedWorkItemIds(closedCases.keySet(),new Set<Object>())){
-
-            // grabs the first user id from agent work since it is sorted by DESC 
-            if(caseIdVsAgentId.containsKey(aw.WorkItemId) == false) {
-                caseIdVsAgentId.put(aw.WorkItemId, aw.UserId);
+                // grabs the first user id from agent work since it is sorted by DESC 
+                if(caseIdVsAgentId.containsKey(aw.WorkItemId) == false) {
+                    caseIdVsAgentId.put(aw.WorkItemId, aw.UserId);
+                }
             }
-        }
 
-        List<Case> casesToUpdate = CasesSelector.newInstance().selectById(closedCases.keySet()).values();
-        for(Case c: casesToUpdate) {
-            if(caseIdVsAgentId.containsKey(c.Id) == true) {
-                c.OwnerId = caseIdVsAgentId.get(c.Id);
-            } else {
-                c.OwnerId = omnichannelClosedCaseQueueId;
+            List<Case> casesToUpdate = new List<Case>();
+            for(Case c: CasesSelector.newInstance().selectById(closedCases.keySet()).values()) {
+                if(caseIdVsAgentId.containsKey(c.Id) == true) {
+                    casesToUpdate.add(new Case(Id = c.Id, OwnerId = caseIdVsAgentId.get(c.Id)));
+                } else {
+                    casesToUpdate.add(new Case(Id = c.Id, OwnerId = omnichannelClosedCaseQueueId));
+                }
             }
+            uow.registerDirty(casesToUpdate, new List<SObjectField> {Case.OwnerId}, String.valueOf(MyCustomerClosedCaseModule.Class));
         }
-        uow.registerDirty(casesToUpdate, new List<SObjectField> {Case.OwnerId}, String.valueOf(MyCustomerClosedCaseModule.Class));
 }
 }

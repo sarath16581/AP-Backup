@@ -10,8 +10,6 @@
 @IsTest
 private class MyCustomerClosedCaseModule_Test {
 
-    private static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
-    
 	/**
 	 * Covers the following positive test scenarios:
 	 * a) Closed Case in a Queue with Routing config and related Agent Work
@@ -24,99 +22,73 @@ private class MyCustomerClosedCaseModule_Test {
      * 
 	 */
 	@IsTest
-	private static void ensureClosedCasedInOmniQueueAreReassigned() {
-
-		// =====================================
-		// Data Preparation
-		// =====================================		
-        
-		//Group (Queue)
-        QueueRoutingConfig qrc = [SELECT Id FROM QueueRoutingConfig WHERE DeveloperName LIKE '%SSSW%' LIMIT 1];
-		List<Group> queues = ApplicationTestDataFactory.getGroups(2,'Queue',true);        
-        queues[0].QueueRoutingConfigId = qrc.Id;
-        
-        List<Case> cases = ApplicationTestDataFactory.getCases(5, true);
-
-        //Cases for positive scenario
-        cases[0].Status = 'Closed';
-        cases[0].OwnerId = queues[0].Id;
-        cases[1].Status = 'Closed';
-        cases[1].OwnerId = queues[0].Id;
-
-        List<Case> positiveCases = new List<Case>{cases[0],cases[1]};
-
-
-        //Cases for negative scenario
-        cases[2].Status = 'Closed';
-        cases[2].OwnerId = queues[1].Id;
-        cases[3].Status = 'New';
-        cases[3].OwnerId = queues[0].Id;
-        cases[4].Status = 'Closed';
-        cases[4].OwnerId = queues[0].Id;
-
-
-        //Agent User
-        User ssswAgent = ApplicationTestDataFactory.getUsers(1, true)[0];
-
-        //Clone to simulate change from existing Case records
-        List<Case> oldCases = new List<Case>{
-            cases[0].clone(true),
-            cases[1].clone(true),
-            cases[2].clone(true),
-            cases[3].clone(true),
-            cases[4].clone(true)
-        };
-        oldCases[0].Status = 'New'; 
-        oldCases[1].Status = 'New'; 
-        oldCases[2].Status = 'New'; 
-        oldCases[3].Status = 'Open'; 
-        oldCases[4].Status = 'Closed';   
-        
-        //AgentWork
-        List<AgentWork> aws = new List<AgentWork>{new AgentWork(WorkItemId = cases[0].Id, UserId = ssswAgent.Id)};  
-
+	private static void ensureClosedCasedInOmniQueueAreReassignedOnUpdate() {
 
         Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
+
+		QueueRoutingConfig qrc = new QueueRoutingConfig();
+        ApplicationTestDataFactory.generateRecordIds(new List<SObject>{qrc});
+		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(2, 'Queue', true));    
+        Group omniQueue = queues.values()[0];
+        omniQueue.QueueRoutingConfigId = qrc.Id;
+        Group nonOmniQueue = queues.values()[1];
+        
+        List<Case> cases = ApplicationTestDataFactory.getCases(5, true);
+        
+        // invalid cases
+        cases[0].OwnerId = UserInfo.getUserId();
+        cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object> { 'IsClosed' => true});
+
+        cases[1].OwnerId = nonOmniQueue.Id;
+        cases[1] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[1], new Map<String, Object> { 'IsClosed' => true});
+
+        cases[2].OwnerId = omniQueue.Id;
+        cases[2] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[2], new Map<String, Object> { 'IsClosed' => false});
+
+        // valid cases
+        Map<Id, Case> validCases = new Map<Id, Case>();
+        cases[3].OwnerId = omniQueue.Id;
+        cases[3] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[2], new Map<String, Object> { 'IsClosed' => true});
+        validCases.put(cases[3].id, cases[3]);
+
+        cases[4].OwnerId = omniQueue.Id;
+        cases[4] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[2], new Map<String, Object> { 'IsClosed' => true});
+        validCases.put(cases[4].id, cases[4]);
+
+        List<AgentWork> agentWorks = ApplicationTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{cases[4].Id}, true);
 		
 		// =====================================
 		// Stubbing
 		// =====================================
 		
 		GroupsSelector mockGroupsSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);     
-        AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);    
+        AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
+        CasesSelector mockCaseSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);    
         ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();   
         
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		
-		MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.eq((new Map<Id,Group>(queues)).keySet().clone()))).thenReturn(new Map<Id, Group>(queues));
-        MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.eq((new Map<Id,Case>(positiveCases)).keySet().clone()), (Set<Object>)fflib_Match.anyObject())).thenReturn(aws);
+		MockUtility.Mocks.when(mockGroupsSelector.selectById((Set<Id>)fflib_Match.eq(queues.keySet()))).thenReturn(queues);
+        MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.eq(validCases.keySet()), (Set<Object>)fflib_Match.anyObject())).thenReturn(agentWorks);
+        MockUtility.Mocks.when(mockCaseSelector.selectById((Set<Id>)fflib_Match.eq(validCases.keySet()))).thenReturn(validCases); 
 
         MockUtility.Mocks.stopStubbing();
 
-
-		// =====================================
-		// Testing
-
-		// =====================================
-		Test.startTest();
-
         MyCustomerClosedCaseModule module = MyCustomerClosedCaseModule.newInstance();        
-
-        module.onBeforeUpdate((List<SObject>) cases, new Map<Id, SObject>(oldCases), mockUow);
+        module.onAfterUpdate(cases, null, mockUow);
 		
-        Test.stopTest();
+        System.assertEquals(omnichannelClosedCaseQueueId, cases[3].OwnerId, 'should be updated to omni closed case queue');
+        System.assertEquals(UserInfo.getUserId(), cases[4].OwnerId, 'should be updated to the agent id on the Agent Work');
 
-        ((AgentWorkSelector)MockUtility.Mocks.verify(mockAgentWorkSelector, 1)).selectByAcceptedWorkItemIds((Set<Id>)fflib_Match.eq((new Map<Id,Case>(positiveCases)).keySet().clone()), (Set<Object>)fflib_Match.anyObject());
-
-        //Positive test scenarios
-        system.assertEquals(ssswAgent.Id, cases[0].OwnerId, 'Expected the Case Owner to be the previous User based on AgentWork' );
-        system.assertEquals(omnichannelClosedCaseQueueId, cases[1].OwnerId, 'Expected the Case Owner to be the default Closed Case Queue' );     
-        
-        //Negative test scenarios
-        system.assertEquals(cases[2].OwnerId, cases[2].OwnerId, 'Expected no change to OwnerId for negative scenario' );    
-        system.assertEquals(cases[3].OwnerId, cases[3].OwnerId, 'Expected no change to OwnerId for negative scenario' );  
-        system.assertEquals(cases[4].OwnerId, cases[4].OwnerId, 'Expected no change to OwnerId for negative scenario' );    
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
+            (List<SObject>)fflib_Match.eq(new List<Case>{
+                new Case(Id = cases[3].Id, OwnerId = omnichannelClosedCaseQueueId), 
+                new Case(Id = cases[4].Id, OwnerId = UserInfo.getUserId())
+            }), 
+            (List<SObjectField>)fflib_Match.eq(new List<SObjectField> {Case.OwnerId}),
+            (String)fflib_Match.anyObject()
+        );
 	}
 	
 }
