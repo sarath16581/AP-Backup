@@ -29,6 +29,7 @@ public virtual inherited sharing class APT_ProductAttributeValuesSelector extend
             Apttus_Config2__ProductAttributeValue__c.APT_Additional_Lodgement_Zone_2__c, Apttus_Config2__ProductAttributeValue__c.Apttus_Config2__LineItemId__c,Apttus_Config2__ProductAttributeValue__c.APT_Customer_Tier__c,
             Apttus_Config2__ProductAttributeValue__c.APTS_Price_Structure__c ,Apttus_Config2__ProductAttributeValue__c.Applied_PSR__c,Apttus_Config2__ProductAttributeValue__c.SAP_Weight_Rounding__c,
             Apttus_Config2__ProductAttributeValue__c.SAP_Rating_Plan_DWT_Conversion_Factor__c,Apttus_Config2__ProductAttributeValue__c.SAP_Cubic_Conversion_Factor__c
+            
         };
     }
 
@@ -65,7 +66,23 @@ public virtual inherited sharing class APT_ProductAttributeValuesSelector extend
         return new List<Apttus_Config2__ProductAttributeValue__c>((List<Apttus_Config2__ProductAttributeValue__c>)Database.query(qb.toSoqlString()));
     }
     
+    public virtual Map<Id, Apttus_Config2__ProductAttributeValue__c> selectByconfigIDAndLineType(List<Id> configIDs) {
+        List<string> linetypes = new List<string>{'Product/Service'}; 
+        return selectByconfigIDAndLineType( configIDs , lineTypes , new Set<Object>());
+    }
+
+    /**
+     * @description Run a simple query to get records based on line item id
+     */
+    public virtual Map<Id, Apttus_Config2__ProductAttributeValue__c> selectByconfigIDAndLineType(List<Id> configIDs, List<String> lineTypes, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions);        
+        qb.addConditions()
+            .add(new QueryBuilder.SimpleCondition('Apttus_Config2__LineItemId__r.Apttus_Config2__ConfigurationId__c = :configIDs'))
+            //.add(new QueryBuilder.SimpleCondition('Apttus_Config2__LineItemId__r.Apttus_Config2__LineType__c  = :lineTypes'))
+            .endConditions();
     
+        return new Map<Id, Apttus_Config2__ProductAttributeValue__c>((List<Apttus_Config2__ProductAttributeValue__c>)Database.query(qb.toSoqlString()));
+    }
     
     
 

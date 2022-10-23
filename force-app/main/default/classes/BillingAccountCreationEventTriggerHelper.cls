@@ -618,13 +618,18 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 							if(hasAPPCProduct == true){
 								//Populating the new field APPC_Primary_Lodgement_Point__c on the billing Account and on charge Account on field APT_Principal_Lodgement_Location__c.
 								for(APT_Agreement_Lodgement_Point__c alp : alpList){
-									//populate Lodgement point
-									car.APT_Principal_Lodgement_Location__c = alp.APT_Lodgement_Point_Lookup__r.Post_Code__c;
+                                    // rating plan linked at Charge Account Request level or Org level
+                                    if(alp.APT_Charge_Account__c != null || 
+                                       (alp.APT_Charge_Account__c == null && alp.APT_Sub_Account__c == null && alp.APT_Billing_Account__c == null)) {
+									   //populate Lodgement point
+									   car.APT_Principal_Lodgement_Location__c = alp.APT_Lodgement_Point_Lookup__r.Post_Code__c;
 
-									//populate LP on the respected Billing account record
-									billingAccountRecord.APPC_Primary_Lodgement_Point__c = alp.APT_Lodgement_Point_Lookup__r.Post_Code__c;
-									relatedObjectsToBeUpdated.add(billingAccountRecord);
-								}
+									   //populate LP on the respected Billing account record
+									   billingAccountRecord.APPC_Primary_Lodgement_Point__c = alp.APT_Lodgement_Point_Lookup__r.Post_Code__c;
+                                       relatedObjectsToBeUpdated.add(billingAccountRecord);
+                                    }
+                                }
+                                
 							}
 							car.Billing_Account__c = billingAccountRecord.id;
 							car.Status__c = 'Completed';
