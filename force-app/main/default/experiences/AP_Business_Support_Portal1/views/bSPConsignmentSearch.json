@@ -1,0 +1,45 @@
+{
+  "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "a9268b0d-38f9-47ea-b567-a149f86f4cf0",
+  "label" : "BSP Consignment Search",
+  "regions" : [ {
+    "id" : "38dced9b-93cb-4b03-a7f3-946c732b9ed2",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bSPConsignmentSearch",
+      "id" : "8cfb13ff-65e9-44a4-b267-cdc03bb78e0d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "0dfedfca-c46e-4929-9aeb-ab17fd72145c",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "6bd6ab04-3e66-4ee5-9ce0-f5675808510c",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Business Support Portal Consignment Search"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "25e45ba9-d5a5-4f96-903e-e618cb02b692",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b1227ecf-cc3a-497d-bf1c-d41d8217e499",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "VVzT0mL4nCmITm0Vp7hT4r3Qht92it",
+  "type" : "view",
+  "viewType" : "custom-bsp-consignment-search"
+}

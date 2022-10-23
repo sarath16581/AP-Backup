@@ -1,0 +1,18 @@
+{
+  "forgotPasswordRouteId" : "7040a6c9-c741-4940-aa38-242d8ae0c324",
+  "isAvailableToGuests" : true,
+  "isFilteredComponentsView" : false,
+  "isProgressiveRenderingEnabled" : false,
+  "loginAppPageId" : "c4945705-a694-4a05-8987-0e3f88bd71b9",
+  "mainAppPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "preferredDomain" : "ptest.npe.helpandsupport.auspost.com.au",
+  "selfRegistrationRouteId" : "be70f343-ebf3-4b36-8d05-1e2e110830e0",
+  "trustedSitesForScript" : [ {
+    "id" : "9c64baf6-8ace-4cae-a74b-5152777d74a3",
+    "isActive" : true,
+    "trustedSiteName" : "Adobe Assets",
+    "trustedSiteUrl" : "https://assets.adobedtm.com",
+    "type" : "trustedSitesForScripts"
+  } ],
+  "type" : "site"
+}

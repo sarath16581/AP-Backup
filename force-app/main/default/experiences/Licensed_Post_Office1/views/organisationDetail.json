@@ -1,0 +1,183 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsTwoCol84Layout",
+  "id" : "9a28f181-b356-4e11-894a-e560d35dd1ce",
+  "label" : "Organisation Detail",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordHeadline",
+      "id" : "02c46320-7606-457d-9a84-776d9aca097e",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a13e7a10-60a0-41e1-9dcd-0eeace8a3b28",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "e51fab86-1d11-4820-9674-1c5791f7a40e",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "0d00bba9-693d-4164-8c20-669f7e6ea38d",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "Details"
+          }, {
+            "UUID" : "7b58c4c5-e76b-420e-b9d9-87746957e1f9",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "2",
+            "tabName" : "Related"
+          } ],
+          "useOverflowMenu" : false
+        }
+      },
+      "componentName" : "forceCommunity:tabset",
+      "id" : "e51fab86-1d11-4820-9674-1c5791f7a40e",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:recordDetail",
+          "id" : "09c67e47-ce31-4e7d-bf79-49ccbee92565",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "0d00bba9-693d-4164-8c20-669f7e6ea38d",
+        "regionLabel" : "Details",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "relatedListApiName" : "Contacts",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "2d0bb2c7-1f60-4b1d-8845-5a2effcaf491",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "Opportunities",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "e7f6781c-af6b-4d14-976b-eaf5552f6c5c",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "Billing_Accounts__r",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "bf8af11e-f611-4cbe-b58b-223a2c4d395e",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "Cases",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "6150c7bc-1392-44bc-b4c0-df60fd46f9bf",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "Deal_Support_Request__r",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "22634dfa-4612-4e9a-b017-771792fa3d1e",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "Assets",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "f1af833d-89ea-4ac2-adb3-7e5bb806eb16",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "AttachedContentDocuments",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "8c483934-3396-4188-9e18-599641426d42",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "7b58c4c5-e76b-420e-b9d9-87746957e1f9",
+        "regionLabel" : "Related",
+        "regionName" : "2",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "31127ee8-4c4f-4a4c-a414-7d93ad1cb7e6",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "bf058c1c-dd45-4c05-95c6-1c6a8f45e49a",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "11e96a00-6605-407b-9378-ef3737c49536",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "acba9487-4e36-4a06-90fb-d308d11fd80d",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:activityPanel",
+      "id" : "031e6c72-6579-458e-b448-caddef5a4adb",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "56d07c0e-bdb4-4b96-a6a2-0908a04c65bb",
+    "regionName" : "sidebar",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-001"
+}

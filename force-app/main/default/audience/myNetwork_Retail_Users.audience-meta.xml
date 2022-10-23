@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>myNetwork Retail Users</audienceName>
+    <container>myNetwork</container>
+    <criteria>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <profile>mynetwork portal</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>2</criteriaNumber>
+            <criterionValue>
+                <entityField>$User.MyNetwork_Retail_User__c</entityField>
+                <entityType>User</entityType>
+                <fieldValue>true</fieldValue>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>FieldBased</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>3</criteriaNumber>
+            <criterionValue>
+                <entityField>Profile.Name</entityField>
+                <entityType>User</entityType>
+                <fieldValue>System Administrator</fieldValue>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>FieldBased</type>
+        </criterion>
+    </criteria>
+    <formula>(1 AND 2) OR 3</formula>
+    <formulaFilterType>CustomLogicMatches</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>ed297f43-89a7-4c9f-aada-afec39a2e1dd$#$3d5f6152-1dc1-4b52-9b3b-a743ef22ced3</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>myNetwork_Customer_Forms_HTML_Editor_4_Component</targetValue>
+        </target>
+        <target>
+            <groupName>ed297f43-89a7-4c9f-aada-afec39a2e1dd$#$a0b84630-83ca-494d-ab00-e601d90a4583</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>myNetwork_Customer_Forms_HTML_Editor_1_Component</targetValue>
+        </target>
+        <target>
+            <groupName>ed297f43-89a7-4c9f-aada-afec39a2e1dd$#$cd69fe7d-b7ab-486b-b941-7f82d4f50ec3</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>myNetwork_Customer_Forms_HTML_Editor_6_Component</targetValue>
+        </target>
+        <target>
+            <groupName>ed297f43-89a7-4c9f-aada-afec39a2e1dd$#$f1df6c10-c056-4f12-ae18-b22cc24da6dd</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>myNetwork_Customer_Forms_HTML_Editor_2_Component</targetValue>
+        </target>
+        <target>
+            <groupName>ed297f43-89a7-4c9f-aada-afec39a2e1dd$#$925c6d5d-40ab-4f23-8921-cd4f111ccdf9</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>myNetwork_Customer_Forms_HTML_Editor_5_Component</targetValue>
+        </target>
+        <target>
+            <groupName>ed297f43-89a7-4c9f-aada-afec39a2e1dd$#$3591d360-6cbf-4f3d-9e99-03b64cb65e40</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>myNetwork_Customer_Forms_HTML_Editor_Component</targetValue>
+        </target>
+    </targets>
+</Audience>

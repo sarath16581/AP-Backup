@@ -1,0 +1,45 @@
+{
+  "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "9a1b16aa-7560-4b60-afe7-f569d18db3a4",
+  "label" : "Missing or lost item (authenticated)",
+  "regions" : [ {
+    "id" : "94344ec7-770c-44bd-a537-d7d9c6d79065",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:CHAS_MissingItemWizard",
+      "id" : "af6268fb-b7b5-47c8-bd34-8c774dca9f23",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "03488e42-f0c0-4adf-a71b-abd1f87e3244",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "3e8043e7-0112-481d-9b44-aa20a590aec3",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Missing or lost item (authenticated)"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "5a5744dc-9a7c-42f8-bfd2-32f7194fa5fd",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5c81faef-a540-4d70-bccc-f02c0d2b1481",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-missing-or-lost-item-authenticated"
+}
