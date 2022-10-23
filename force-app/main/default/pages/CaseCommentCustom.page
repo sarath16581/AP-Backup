@@ -87,12 +87,30 @@
     
     function checkPreventStatus(el){
         var preventStatusChange = j$('#preventStatusChange');
-        if(!el.checked) {
-            preventStatusChange.attr('disabled','disabled');
-            preventStatusChange.attr('checked',false);
-        } else {
+        var networkStatusCheck = '{!currentCase.status}';
+        var recordTypeCheck = '{!currentCase.RecordType.DeveloperName}';
+        console.log(networkStatusCheck);
+        console.log(recordTypeCheck);
+        if(networkStatusCheck == 'Awaiting Network Response' && recordTypeCheck.includes('SSSW') && el.checked){
+            console.log('in 1');
             preventStatusChange.removeAttr('disabled');
+            preventStatusChange.attr('checked',true);
+            //preventStatusChange.attr('disabled','disabled');
+        }else{
+            //console.log('in 1.2');
+            //preventStatusChange.attr('disabled','disabled');
+            //preventStatusChange.attr('checked',false);
+
+            if(!el.checked) {
+                console.log('in 2');
+                preventStatusChange.attr('disabled','disabled');
+                preventStatusChange.attr('checked',false);
+            } else {
+                console.log('in 3');
+                preventStatusChange.removeAttr('disabled');
+            }
         }
+        
     }
 </script>
         <div class="bPageBlock brandSecondaryBrd bEditBlock secondaryPalette" id="ep">
