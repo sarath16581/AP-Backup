@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>SystemAdmins</audienceName>
+    <container>Inactive - APCommunityOld</container>
+    <criteria>
+        <criterion>
+            <criterionValue>
+                <profile>auspost community administrator</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+        <criterion>
+            <criterionValue>
+                <profile>admin</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+    </criteria>
+    <formulaFilterType>AllCriteriaMatch</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>03816afd-a523-472a-ada0-3f98cada2f70$#$fbea86ad-5964-410e-9521-8a3e08086b33</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Question_Detail_Feed_Posts_Comments_Component</targetValue>
+        </target>
+        <target>
+            <groupName>295e4157-4a20-44ad-a324-c282e02ed995$#$6e3b6710-d63d-42b8-8003-d4735fa61eb6</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Topic_Detail_Search_Results_Component</targetValue>
+        </target>
+        <target>
+            <groupName>f227de3e-3eec-4db5-a40b-ac55307af222$#$e1a499c3-c8be-45aa-a055-a07c73f2502f</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Style_3_Feed_Component</targetValue>
+        </target>
+    </targets>
+</Audience>

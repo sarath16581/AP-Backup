@@ -1,0 +1,45 @@
+{
+  "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "7c6e4ece-16b3-493d-a6e2-f05b2a189895",
+  "label" : "Registration Successful",
+  "regions" : [ {
+    "id" : "97218d48-c044-4123-ae44-1c7f1de678d0",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bamRegistrationSuccessful",
+      "id" : "e043371d-4f1a-4d44-927b-30d2ba860a48",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c4b5a505-7af5-489c-a77b-7b5e326eea03",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "3e585ccf-7bae-4651-97df-a1b968714108",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Australia Post - Merchant Portal - Registration Successful"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "3016aa68-3928-4280-91c0-82aa8b6d5757",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b920b065-2f2e-4a89-9fda-62f7b0c28832",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "LllKJHSglY1hFlmbhYMIZfjV4eTxyt",
+  "type" : "view",
+  "viewType" : "custom-registration-successful"
+}

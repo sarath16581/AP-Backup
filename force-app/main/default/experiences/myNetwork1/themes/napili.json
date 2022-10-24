@@ -1,0 +1,140 @@
+{
+  "activeBrandingSetId" : "a4baba62-64ee-4e11-b21a-1274fb259ffa",
+  "customCSS" : ".main-logo img {\n    height: 60px;\n    width: 480px;\n    \n}\n\n.cCenterPanel {\n    max-width: 1600px !important;\n}\n\n.profileName {\n    max-width: 60% !important;\n}\n\n/* RSolomon added on 24th April 2020 to change override background color for Navigation Menu */\n.forceCommunityGlobalNavigation {\n    background-color: #31313d !important;\n}\n\n/* RSolomon added on 14th April 2020 to render the header section color */\n.siteforceServiceBody .cHeaderOverlay {\n    background-color: rgba(0,0,0,0) !important;\n}\n\n/* RSolomon added on 14th April 2020 to style Search component - evaluate */\n.siteforceServiceBody .cSearchPublisher .forceCommunityGlobalSearchInput .forceSearchInputDesktop .contentWrapper {\n    border-color: black !important;\n}\n\n.siteforceServiceBody .cSearchPublisher .forceCommunityGlobalSearchInput .forceSearchInputDesktop input {\n    color: black !important;\n}\n\n.siteforceServiceBody .cSearchPublisher .forceCommunityGlobalSearchInput .forceSearchInputDesktop .contentWrapper .slds-input__icon {\n    color: black !important;\n}\n\n.forceSearchInputDesktop  input::placeholder {\n    color: black !important;\n}\n\n/* 08-08-19 Rufus/Gunith: Banner Resizing (REQ1855435) - Start */\n/*\n.forceCommunityOmniBox.selfServiceSearchWrapper {\n    margin-left: 100px !important;\n}\n\n.forceCommunityOmniBox.selfServiceSearchWrapper .search-button {\n    width: 90px !important;\n}\n\n.siteforceNapiliBody .cSearchPublisher {\n    width: 50% !important;\n}\n\n.siteforceNapiliBody .selfServiceSearchWrapper .no-assigned-image {\n    height: 100px !important;\n    top: 12px;\n}\n\n.siteforceNapiliBody .cProfileCon {\n    padding-left: 20px !important;\n    text-align: left !important;\n    width: 25% !important;\n}\n\n.siteforceNapiliBody .cHeaderLine{\n    padding-bottom: 120px !important;\n} */\n/* 08-08-19 Rufus/Gunith: Banner Resizing (REQ1855435) - End */",
+  "developerName" : "service",
+  "id" : "4e8b5139-6d47-451a-8fe1-b5f228d8d8e2",
+  "label" : "Napili",
+  "layouts" : {
+    "Inner" : "5a8eb632-d048-4b71-afb4-1f476d589a7a",
+    "Login" : "8ddd61c9-f1d8-46bd-92b6-ea427d755600",
+    "ServiceNotAvailable" : "7483a3fd-e396-41a9-abcf-fab617357a94"
+  },
+  "type" : "theme",
+  "views" : [ {
+    "componentAttributes" : { },
+    "componentName" : "salesforceIdentity:loginBody2",
+    "id" : "8ddd61c9-f1d8-46bd-92b6-ea427d755600",
+    "label" : "Login",
+    "regions" : [ {
+      "id" : "1a2a1a0a-a8e9-4356-a010-671c01557212",
+      "regionName" : "header",
+      "type" : "region"
+    }, {
+      "id" : "8750ecd4-4185-4f4b-9780-a0f42c76689a",
+      "regionName" : "content",
+      "type" : "region"
+    }, {
+      "id" : "24d92808-65ea-48be-85d3-a357e8f3055f",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "IsDefaultHeaderHidden" : false,
+      "IsDefaultNotificationsHidden" : true
+    },
+    "componentName" : "siteforce:serviceBody",
+    "id" : "5a8eb632-d048-4b71-afb4-1f476d589a7a",
+    "label" : "Default",
+    "regions" : [ {
+      "id" : "a7161099-3ff7-45ba-acde-251af886039c",
+      "regionName" : "customHeader",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "maxAutoCompleteResults" : 6,
+          "searchLabel" : "MyNetwork Global Search ...",
+          "searchObjects" : [ {
+            "isPublic" : false,
+            "name" : "KnowledgeArticleVersion"
+          }, {
+            "isPublic" : false,
+            "name" : "Case"
+          }, {
+            "isPublic" : false,
+            "name" : "Account"
+          }, {
+            "isPublic" : false,
+            "name" : "Network__c"
+          }, {
+            "isPublic" : false,
+            "name" : "Facility_User__c"
+          }, {
+            "isPublic" : false,
+            "name" : "Report"
+          }, {
+            "isPublic" : false,
+            "name" : "User"
+          } ]
+        },
+        "componentName" : "forceCommunity:globalSearchInput",
+        "id" : "319fdf5e-142f-465b-afa3-1c26968c3b0e",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "fb5b5270-7e9e-4025-9797-371e9b0d6fe4",
+      "regionName" : "search",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : { },
+        "componentName" : "c:MyNetworkProfileHeader",
+        "id" : "604fe9d5-b925-4647-9e4c-eba52c3919e5",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "fdb215a1-94ab-4c2f-9e54-d3be3c4e9a90",
+      "regionName" : "profileMenu",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "NavigationMenuEditorRefresh" : "Default_Navigation5",
+          "hideAppLauncher" : true,
+          "hideHomeText" : true
+        },
+        "componentName" : "forceCommunity:globalNavigation",
+        "id" : "868d8a29-ebb0-4aad-bc53-db6b8ddc7982",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "a6c9597b-9ad2-493e-b4c9-9f612cc30f5a",
+      "regionName" : "navBar",
+      "type" : "region"
+    }, {
+      "id" : "b5bc2579-b7fa-4098-b1f6-d0aed1953b91",
+      "regionName" : "customRegion",
+      "type" : "region"
+    }, {
+      "id" : "92df10ea-2bf9-426b-b009-068a3ed6faf7",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "fixedPageWidth" : 1170,
+      "headerBgColor" : "rgba(0, 0, 0, 0)",
+      "isHeaderPinned" : false,
+      "isHeroUnderHeader" : false,
+      "isPageWidthFixed" : true,
+      "showHeader" : true,
+      "showHero" : true
+    },
+    "componentName" : "siteforce:themeLayoutStarter",
+    "id" : "7483a3fd-e396-41a9-abcf-fab617357a94",
+    "label" : "ServiceNotAvailable",
+    "regions" : [ {
+      "id" : "6b3640dc-48c4-4bea-8c4d-dfe459e6ba40",
+      "regionName" : "themeHeader",
+      "type" : "region"
+    }, {
+      "id" : "a1536a61-d041-49ae-9530-e77a044e7229",
+      "regionName" : "themeFooter",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  } ]
+}

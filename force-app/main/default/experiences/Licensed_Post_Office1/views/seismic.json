@@ -1,0 +1,49 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "f54100e1-78c6-454c-bc53-5dc39877fbe2",
+  "label" : "Seismic",
+  "regions" : [ {
+    "id" : "a3a5f99c-0ac3-4e6c-93be-40d20a8d8dd3",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "f28dbb80-73eb-4348-b3b6-133a7ec29392",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "height" : "600",
+        "pageName" : "seismic__SeismicWebApplication",
+        "recordId" : ""
+      },
+      "componentName" : "forceCommunity:visualforcePage",
+      "id" : "a1e8c1e1-96db-421d-9a22-d8c6f45ffe52",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "01c3a6c8-6505-4dff-9ffe-dfede456e69c",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Seismic"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "60b63593-6b47-44d2-8b2b-9d7ad8908209",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7aa16994-d92b-4d36-907c-0f10feafa997",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-seismic"
+}

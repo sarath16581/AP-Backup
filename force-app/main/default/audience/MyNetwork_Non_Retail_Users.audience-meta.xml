@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>MyNetwork Non-Retail Users</audienceName>
+    <container>myNetwork</container>
+    <criteria>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <profile>mynetwork portal</profile>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Profile</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>2</criteriaNumber>
+            <criterionValue>
+                <entityField>$User.MyNetwork_Retail_User__c</entityField>
+                <entityType>User</entityType>
+                <fieldValue>false</fieldValue>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>FieldBased</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>3</criteriaNumber>
+            <criterionValue>
+                <entityField>Profile.Name</entityField>
+                <entityType>User</entityType>
+                <fieldValue>System Administrator</fieldValue>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>FieldBased</type>
+        </criterion>
+    </criteria>
+    <formula>(1 AND 2) OR 3</formula>
+    <formulaFilterType>CustomLogicMatches</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>610ff942-5b88-466a-8519-e3a99ccc8db2$#$d0854e17-7e2e-4aa7-b9a4-ad0f15744082</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>myNetwork_Support_HTML_Editor_Component</targetValue>
+        </target>
+        <target>
+            <groupName>ed297f43-89a7-4c9f-aada-afec39a2e1dd$#$9da6c2c5-0c15-452f-8672-28d21e27bb4a</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>myNetwork_Customer_Forms_HTML_Editor_3_Component</targetValue>
+        </target>
+    </targets>
+</Audience>

@@ -7,7 +7,7 @@
 * @domain OmniDomain
 * @description A very simple selector class that sits in the OmniDomain
 * @changelog
-* 2020-10-18 - George Nguyen - Created
+* 2020-10-18 - George Nguyen - Created 
 */
 public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 
@@ -30,7 +30,6 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-            AgentWork.UserId,
             AgentWork.WorkItemId,
             AgentWork.Status,
             AgentWork.UserId

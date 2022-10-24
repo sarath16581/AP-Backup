@@ -1,0 +1,567 @@
+{
+  "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
+  "componentName" : "siteforce:dynamicLayout",
+  "id" : "29bbb1e5-45be-4423-a944-e0a1e8fbd25c",
+  "label" : "Home2",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "6ca42464-742f-47b8-867c-ced1accf8f75",
+          "columns" : [ {
+            "UUID" : "562d82e9-a916-429f-9fbb-2831b12a5087",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 127
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "6ca42464-742f-47b8-867c-ced1accf8f75",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "richTextValue" : "<p><img class=\"sfdcCbImage\" src=\"{!contentAsset.Screen_Shot_20200323_at_112736_am.1}\" /></p>"
+          },
+          "componentName" : "forceCommunity:richTextInline",
+          "id" : "80f44448-b05f-4d35-bab6-cb0abb5ee366",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "562d82e9-a916-429f-9fbb-2831b12a5087",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "0865131a-2c90-43e4-9316-b63c78c18eb0",
+          "columns" : [ {
+            "UUID" : "cf1d61c9-67d6-4a09-beec-72e699476cf2",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 34
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "0865131a-2c90-43e4-9316-b63c78c18eb0",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "bannerText" : "",
+            "bannerTextWithKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineArticles\">articles</a> and <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "bannerTextWithoutKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "pageType" : "",
+            "showSubTopics" : true,
+            "title" : "Product",
+            "uniqueNameOrId" : ""
+          },
+          "componentName" : "forceCommunity:headline",
+          "id" : "e30acb2b-f8ad-431b-a440-6db93c5c56b1",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "cf1d61c9-67d6-4a09-beec-72e699476cf2",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "fe4666cd-3683-4b7b-a401-bcfe753c451d",
+          "columns" : [ {
+            "UUID" : "2065a7d4-ffbe-4edf-bf76-4dc491514afc",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "3",
+            "seedComponents" : [ ]
+          }, {
+            "UUID" : "7b961587-ee26-4c26-806b-9e6a6c8955ca",
+            "columnKey" : "e11ce",
+            "columnName" : "Column 2",
+            "columnWidth" : "3",
+            "seedComponents" : [ ]
+          }, {
+            "UUID" : "f62d329d-a24d-494a-966e-7c76cceec3af",
+            "columnKey" : "fb584",
+            "columnName" : "Column 3",
+            "columnWidth" : "3",
+            "seedComponents" : [ ]
+          }, {
+            "UUID" : "87cb2b03-2a9a-45de-a7f0-606c7dcbbdb0",
+            "columnKey" : "f78a8",
+            "columnName" : "Column 4",
+            "columnWidth" : "3",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "fe4666cd-3683-4b7b-a401-bcfe753c451d",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012dGAA"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "959812f7-f4ca-4c86-931a-2e75a2819003",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012eGAA"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "801fd1b1-d5ee-4794-b259-2d91197af471",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "2065a7d4-ffbe-4edf-bf76-4dc491514afc",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012fGAA"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "eb6cc49a-b0af-4d65-a1b9-67a7d65c8ffe",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012gGAA"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "e35715a4-42ff-40e3-869e-9c440486972d",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "7b961587-ee26-4c26-806b-9e6a6c8955ca",
+        "regionLabel" : "Column 2",
+        "regionName" : "e11ce",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012hGAA"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "c2ae0dfe-9b0d-4878-8634-557d06dec1ff",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012iGAA"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "5b304aac-623d-43c1-aa8b-9d40edc110f9",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "f62d329d-a24d-494a-966e-7c76cceec3af",
+        "regionLabel" : "Column 3",
+        "regionName" : "fb584",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012jGAA"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "48237127-40a9-457e-97d8-48a11179be10",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012kGAA"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "3580197f-524a-45d5-af87-2256b37e9efe",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "87cb2b03-2a9a-45de-a7f0-606c7dcbbdb0",
+        "regionLabel" : "Column 4",
+        "regionName" : "f78a8",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "2b342cd3-7f64-4dc7-9265-81a76f258af9",
+          "columns" : [ {
+            "UUID" : "b47fea8e-2f44-4e6d-8c85-e185ea1f3925",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 32
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "2b342cd3-7f64-4dc7-9265-81a76f258af9",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "bannerText" : "",
+            "bannerTextWithKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineArticles\">articles</a> and <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "bannerTextWithoutKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "pageType" : "",
+            "showSubTopics" : true,
+            "title" : "Star Track",
+            "uniqueNameOrId" : ""
+          },
+          "componentName" : "forceCommunity:headline",
+          "id" : "03db8ac5-8a29-4a59-bf90-c708f10bbe57",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "b47fea8e-2f44-4e6d-8c85-e185ea1f3925",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "c290ab90-afe9-41d9-a08e-f717b6440b0e",
+          "columns" : [ {
+            "UUID" : "e48511c0-5575-4db4-99a3-1add8409d501",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "3",
+            "seedComponents" : [ ]
+          }, {
+            "UUID" : "72d2c9a7-31e4-4f11-b776-6e6912c67932",
+            "columnKey" : "e11ce",
+            "columnName" : "Column 2",
+            "columnWidth" : "3",
+            "seedComponents" : [ ]
+          }, {
+            "UUID" : "45765b8c-242c-4d34-9e6f-f2a519262362",
+            "columnKey" : "fb584",
+            "columnName" : "Column 3",
+            "columnWidth" : "3",
+            "seedComponents" : [ ]
+          }, {
+            "UUID" : "0cc6a78e-86c5-45a9-8645-cb057ca89f0f",
+            "columnKey" : "f78a8",
+            "columnName" : "Column 4",
+            "columnWidth" : "3",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "c290ab90-afe9-41d9-a08e-f717b6440b0e",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012EGAQ"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "701836d4-aa9a-45cc-96d9-d0db896d36f0",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012FGAQ"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "5d6cd816-f3b3-432b-8c6e-b43bb39aeae8",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "e48511c0-5575-4db4-99a3-1add8409d501",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012HGAQ"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "829f12f7-16eb-4359-8825-6b5f86915af2",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012gGAA"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "6083987c-9634-488e-8e4e-d33c8919213d",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012OGAQ"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "db62094a-d66c-498d-b5a7-837a77d7bd3d",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "72d2c9a7-31e4-4f11-b776-6e6912c67932",
+        "regionLabel" : "Column 2",
+        "regionName" : "e11ce",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012JGAQ"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "ac7a146a-006a-4690-aa51-064bfef08080",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012KGAQ"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "20f9672f-5a2d-41c8-9e4b-ca72e2470594",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012NGAQ"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "6724aaf9-53bf-40f7-a777-a025afb957a5",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "45765b8c-242c-4d34-9e6f-f2a519262362",
+        "regionLabel" : "Column 3",
+        "regionName" : "fb584",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012LGAQ"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "ffcf60bf-f265-403a-9f73-560dcda282f1",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfArticles" : 5,
+            "showTitle" : false,
+            "title" : "Domestic Parcels",
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012MGAQ"
+            } ]
+          },
+          "componentName" : "forceCommunity:topArticleList",
+          "id" : "c23a1cfd-c881-49cb-aeea-4582be718102",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "0cc6a78e-86c5-45a9-8645-cb057ca89f0f",
+        "regionLabel" : "Column 4",
+        "regionName" : "f78a8",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a67d3930-dbdc-4f5e-8301-965fb17cd103",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Home2"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "b9b32875-4cd3-456f-bd8a-da373b91e6bc",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e7fcaa8b-06eb-45fc-8720-296316701058",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-home2"
+}

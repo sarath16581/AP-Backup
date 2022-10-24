@@ -1,0 +1,45 @@
+{
+  "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "601c5b11-44b0-4ea1-9405-ba0f5607ce72",
+  "label" : "BSP Enquiry General",
+  "regions" : [ {
+    "id" : "e9125b82-f3e9-47eb-a683-cbea18c02499",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bspFormGeneral",
+      "id" : "ff3c52ae-4ec8-45f8-acf1-b0f18a202e7b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7405515c-fa45-45d8-976d-c98386bd96c5",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "b626be18-7e12-4c78-a6ed-8a722fde089f",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Business Support Portal Enquiry"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "1c5c3688-44c9-465b-87a3-d66bc40be68b",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f1028f4b-c17b-4b06-9356-2382f2cce0cb",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "VVzT0mL4nCmITm0Vp7hT4r3Qht92it",
+  "type" : "view",
+  "viewType" : "custom-bsp-enquiry-general"
+}
