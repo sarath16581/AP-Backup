@@ -1,0 +1,28 @@
+<template>
+   <!-- <c-spinner if:true={isLoading} variant="brand" message={loadMessage}></c-spinner>-->
+    <lightning-card title="AusPost MyNetwork"  class="slds-text-align_center">
+        <div if:true={error} class="slds-var-p-around_small slds-text-color_error">{error}</div>
+        <lightning-layout>
+            <lightning-layout-item padding="around-small" size="6">
+                <lightning-input type="text" label="Subject" value={subject} data-id="subject" ></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="6">
+                <lightning-textarea name="comments" label="Comments" value={comments} data-id="comment" ></lightning-textarea>                
+            </lightning-layout-item>
+        </lightning-layout>
+        <c-mynetworkstdatatable if:true={showTable}
+            columns={columns} 
+            records={arts}
+            show-row-number
+            show-checkbox
+            show-pagination
+            place-holder="Search..." 
+            page-size-options={pageSizeOptions} 
+            onrowselection={handleRowSelection} 
+            comments={comments}
+            subject={subject}
+            onsave={saveRecords}>
+        </c-mynetworkstdatatable>
+        
+    </lightning-card>
+</template>
