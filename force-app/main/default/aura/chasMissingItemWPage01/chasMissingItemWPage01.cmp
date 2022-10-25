@@ -80,11 +80,24 @@
             <aura:if isTrue="{!(v.showInvalidWithinEDDMessage)}">
                 <div class="tracking-info">
                     <c:ChasBspDeflection aura:id="invalidEdd" noInfoIcon="true" hasClose="true" borderStyle="info-box bottom-gap" iconLink="{!$Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-info-circle.svg'}" iconLinkStyle="message-icon">
-                        <p class="message-text">This parcel is on track to be delivered {!if(v.wizardData.deliveredByDateFrom  != null, 'between', 'on')} <b>{!v.eddDisplayDate}. </b> </p>
+                        <p class="message-text">It’s on track for delivery {!if(v.wizardData.deliveredByDateFrom  != null, 'between', 'on')} <b>{!v.eddDisplayDate}. </b> </p>
                         <br/>
-                        <p class="message-text"> You can only enquire about a late or missing item after the expected delivery date. For essential medication enquiries, please
+                        <p class="message-text">This date takes into account any current disruptions, and we’ll update it along the way.</p>
+                        <br/>
+                        <p class="message-text">We can only accept online enquiries for parcels that are late.</p>
+                        <br/>
+                        <p class="message-text">Of course, if this parcel contains essential medication, you can
                             <a href="https://auspost.com.au/help-and-support#contact" class="link-plain" target="blank" onclick="{! v.pushInteractionAnalytics }" >contact us by phone.</a>
                         </p>
+                        <br/>
+                        <div>
+                            <p class="message-text">
+                                <ul class="tabbed-bullet">
+                                    <li><a href="https://auspost.com.au/help-and-support/results?group=tracking&amp;c=TraInf600" onclick="{! v.pushInteractionAnalytics }" class="link-plain" target="blank" >View related tracking FAQs</a></li>
+                                    <li><a href="https://auspost.com.au/mypost/track/#/search" onclick="{! v.pushInteractionAnalytics }" class="link-plain" target="blank" >Track this parcel</a></li>
+                                </ul>
+                            </p>
+                        </div>
                     </c:ChasBspDeflection>
                 </div>
             </aura:if>
