@@ -196,7 +196,8 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 			if (recIdMap.containsKey(e.salesforceRecordID__c)) {
 				custMap.get(SFID).add(genCustomerWithRecIdKey(recIdMap, e));
 			} else {
-				System.debug(LoggingLevel.ERROR, '*****Account Record ID NOT found****[' + e.salesforceRecordID__c + ']');
+				// Invalid SF id, need to create new Account by APCN
+				custMap.get(APCN).add(mapPersonAccountFields(e));
 			}
 		}
 	}
