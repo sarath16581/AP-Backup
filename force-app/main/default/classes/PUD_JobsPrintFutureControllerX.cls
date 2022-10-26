@@ -11,6 +11,8 @@
 * 2020-05-25 - Dheeraj Mandavilli - Updated SOQL to accommodate new cosmetic changes on Vf page
 * 2020-06-10 - Dheeraj Mandavilli - Included Time of Print Logic.
 * 2022-07-11 - Kamil Szyc - Rebuilt data retrieval using selectors
+* 2022-10-26 - Ranjeewa Silva - Updated based on UAT feedback. Include 'Other' bookings together with Permanent bookings.
+*                               'Print Adhoc and Perm Variations' option to only include 'Adhoc' bookings.
 */
 
 public with sharing class PUD_JobsPrintFutureControllerX {
@@ -30,10 +32,12 @@ public with sharing class PUD_JobsPrintFutureControllerX {
 
 		Set<String> bookingTypes = new Set<String>();
 		if(printType == 'Perm'){
+			// This option should include Permanent and Other record types as per the UAT feedback.
 			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY);
-		}else if(printType == 'Adhoc'){ // 'Adhoc' type corresponds to modal choice #2: Print Adhoc and Perm Variations, hence we are adding both booking types
+			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_OTHER);
+		}else if(printType == 'Adhoc'){
+			// This option should only include Adhoc record type as per the UAT feedback.
 			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY);
-			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY);
 		}
 		List<PUD_Route__c> routes = PUDRoutesSelector.newInstance(PUDConstants.PUD_JOB_PRINT_FIELDS).selectByIdAndDepotWithJobs(
 				new Set<Id>{
