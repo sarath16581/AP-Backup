@@ -31,11 +31,11 @@ public with sharing class PUD_JobsPrintFutureControllerX {
 		}
 
 		Set<String> bookingTypes = new Set<String>();
-		if(printType == 'Perm'){
+		if (printType == 'Perm') {
 			// This option should include Permanent and Other record types as per the UAT feedback.
 			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_PERMANENT_PICKUP_DELIVERY);
 			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_OTHER);
-		}else if(printType == 'Adhoc'){
+		} else if (printType == 'Adhoc') {
 			// This option should only include Adhoc record type as per the UAT feedback.
 			bookingTypes.add(PUDConstants.PUD_BOOKING_RECORD_TYPE_AD_HOC_PICKUP_DELIVERY);
 		}
