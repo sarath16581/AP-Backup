@@ -6,12 +6,14 @@
  * @author Nathan Franklin
  * @date 2022-02-23
  * @changelog
+ * 14/10/2022 George Nguyen: Implemented "loadFeatures" method to pull settings from Custom Settings (ApplicationFeatures__c)
  */
 public inherited sharing class ApplicationFeatures {
 
 	@TestVisible
 	private static final Boolean FEATURE_DEFAULT_BEHAVIOUR = true;
 
+	@TestVisible
 	private Boolean featuresLoaded = false;
 	private Map<String, Boolean> applicationFeatures = new Map<String, Boolean>();
 
@@ -40,7 +42,7 @@ public inherited sharing class ApplicationFeatures {
 	 * NOTE: This should be fully understand and justified why to use this before using it :)
 	 */
 	public Boolean isFeatureActive(String feature) {
-		if(!featuresLoaded) {
+		if(featuresLoaded == false) {
 			// lazy load features
 			loadFeatures();
 		}
@@ -65,10 +67,19 @@ public inherited sharing class ApplicationFeatures {
 	}
 
 	/**
-	 * Load features from custom metadata or custom settings
+	 * Load features from custom settings
 	 */
 	private void loadFeatures() {
-		// TODO: Implement
+		for(ApplicationFeatures__c feature: ApplicationFeatures__c.getAll().values()) {
+			if(feature.IsDomain__c == true) {
+				applicationFeatures.put('DOMAIN_' + feature.Name, feature.Disabled__c == false);
+			} else if(feature.IsModule__c == true) {
+				applicationFeatures.put('MODULE_' + feature.Name, feature.Disabled__c == false);
+			} else {
+				setFeatureStatus(feature.Name, feature.Disabled__c == false);
+			}
+		}
+		featuresLoaded = true;
 	}
 
 }

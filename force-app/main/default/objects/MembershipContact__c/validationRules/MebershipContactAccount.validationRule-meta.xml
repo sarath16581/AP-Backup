@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MebershipContactAccount</fullName>
+    <active>true</active>
+    <description>Contact and Membership must have the same account</description>
+    <errorConditionFormula>Contact__r.AccountId != Membership__r.Account__r.Id</errorConditionFormula>
+    <errorMessage>Contact and Membership must have the same account</errorMessage>
+</ValidationRule>

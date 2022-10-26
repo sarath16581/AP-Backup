@@ -1084,8 +1084,8 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         
         system.assert(jobId != null);
     }
-	/** 
-	 	New method to cover the APT_DomesticPricingPMEBatch process - Mathew
+    /** 
+        New method to cover the APT_DomesticPricingPMEBatch process - Mathew
     **/
     private static testMethod void testMethodDetermineSTZoneTypesBatch6() {
 
@@ -1196,16 +1196,16 @@ private with sharing class APT_DomesticPricingPLIAndPMBatch_Test {
         test.stopTest();
 
         System.debug('PriceMatrix::'+[SELECT Id,
-        							Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_Category__c,
-        							Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_Network_Type__c,
-        							Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_Product_type__c,
-        							Apttus_Config2__PriceListItemId__r.APT_Pricing_Key__c,
-        							Apttus_Config2__PriceListItemId__r.APT_Lodgement_Zone_Code__c,
-        							Apttus_Config2__PriceListItemId__r.APT_Price_Structure__c,
-        							Apttus_Config2__PriceListItemId__r.APT_Zone_Type__c,
-        							Apttus_Config2__PriceListItemId__r.APT_Zones__c
-        							FROM Apttus_Config2__PriceMatrix__c
-        							WHERE Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__c 
+                                    Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_Category__c,
+                                    Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_Network_Type__c,
+                                    Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_Product_type__c,
+                                    Apttus_Config2__PriceListItemId__r.APT_Pricing_Key__c,
+                                    Apttus_Config2__PriceListItemId__r.APT_Lodgement_Zone_Code__c,
+                                    Apttus_Config2__PriceListItemId__r.APT_Price_Structure__c,
+                                    Apttus_Config2__PriceListItemId__r.APT_Zone_Type__c,
+                                    Apttus_Config2__PriceListItemId__r.APT_Zones__c
+                                    FROM Apttus_Config2__PriceMatrix__c
+                                    WHERE Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__c 
                                     =: stProducts[0].Id LIMIT 1]);               
         system.assert(jobId != null);        
 

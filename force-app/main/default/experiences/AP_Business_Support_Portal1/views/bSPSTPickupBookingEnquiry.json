@@ -1,0 +1,45 @@
+{
+  "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "9c8c3997-f309-439d-8f29-3adebbbfeb27",
+  "label" : "BSP ST Pickup Booking Enquiry",
+  "regions" : [ {
+    "id" : "d0fc8b93-0b88-49ce-8e71-4d1bceab64fa",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bspFormSTPickupBookingEnquiry",
+      "id" : "355f5486-3c7c-47d7-bf14-7485113e47f8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "20dde90a-70eb-473f-956e-c6422a1049a8",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "a7ac2da5-6bd7-427b-a31f-28ade4fdeb31",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Business Support Portal Enquiry"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "40c9bb7a-ea3f-4901-9271-b5729b24ad04",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4e771dc6-a9c3-47c9-b44b-a357813988e7",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "VVzT0mL4nCmITm0Vp7hT4r3Qht92it",
+  "type" : "view",
+  "viewType" : "custom-bsp-st-pickup-booking-enquiry"
+}

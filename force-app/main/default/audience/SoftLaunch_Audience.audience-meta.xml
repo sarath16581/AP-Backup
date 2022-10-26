@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>SoftLaunch_Audience</audienceName>
+    <container>Inactive - APCommunityOld</container>
+    <criteria>
+        <criterion>
+            <criterionValue>
+                <entityField>Username</entityField>
+                <entityType>User</entityType>
+                <fieldValue>rufus.solomon@auspost.com.au</fieldValue>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>FieldBased</type>
+        </criterion>
+    </criteria>
+    <formulaFilterType>AllCriteriaMatch</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+</Audience>

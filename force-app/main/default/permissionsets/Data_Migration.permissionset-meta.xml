@@ -48,4 +48,8 @@
         <object>Specialist_Skill__ka</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ShareFilesWithNetworks</name>
+    </userPermissions>
 </PermissionSet>

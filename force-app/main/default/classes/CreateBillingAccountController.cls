@@ -96,7 +96,16 @@ public with sharing class CreateBillingAccountController {
             stateInfoVar.requestObjId = requestObjId;
             stateInfoVar.chargeAccountRequestId = chargeAccountRequestId;
             stateInfoVar.onboardingRequestId = onboardingRequestId;
-            stateInfoVar.isBillingAccountPlusRatingPlanFlow = true; // Added flag to specify the billing account request flow for new customer scenario
+            
+            // populate rating plan details into StateInfo; payload contains billing account details including APPC product
+            ratingPlanInfo ratingPlanDetails = new ratingPlanInfo();
+            ratingPlanDetails.isBillingAccountPlusRatingPlanFlow = true;
+            if(billingAccount.ratingPlanActivation == null){
+                ratingPlanDetails.hasAPPCProduct = false;
+            }else{
+                ratingPlanDetails.hasAPPCProduct = true;
+            }
+            stateInfoVar.ratingPlanDetails = ratingPlanDetails;
            
             BillingAccountService service = BillingAccountService.getInstance();  
             Continuation con = service.getContinuation(billingAccountJson, onboardingRequestId, sourceSystem);
@@ -124,9 +133,9 @@ public with sharing class CreateBillingAccountController {
 		BillingAccountService service = BillingAccountService.getInstance();
 		Boolean callOutSuccess;
 		if(stateinformation.chargeAccountRequestId != null){
-			callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, stateinformation.chargeAccountRequestId, stateinformation.onboardingRequestId,null, stateinformation.isBillingAccountPlusRatingPlanFlow);
+			callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, stateinformation.chargeAccountRequestId, stateinformation.onboardingRequestId,null, stateinformation.ratingPlanDetails);
 		}else{
-			callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, null, stateinformation.onboardingRequestId,null, stateinformation.isBillingAccountPlusRatingPlanFlow);
+			callOutSuccess = service.parseResponse(response, stateinformation.requestObjId, null, stateinformation.onboardingRequestId,null, stateinformation.ratingPlanDetails);
 		}
 
 		return callOutSuccess;
@@ -139,8 +148,15 @@ public with sharing class CreateBillingAccountController {
         @AuraEnabled
         public string onboardingRequestId;
         @AuraEnabled
-        public boolean isBillingAccountPlusRatingPlanFlow;
-    }        
+        public ratingPlanInfo ratingPlanDetails;
+    }
+
+	public class ratingPlanInfo{
+		@AuraEnabled
+		public boolean isBillingAccountPlusRatingPlanFlow;
+		@AuraEnabled
+		public boolean hasAPPCProduct;
+	}
     /**
      * @Description: Creates the Billing Account Creation Request using DSR as a base record which has details from multiple objects such as 
      *                related organisation, Primary Contact, Credit Assessment.
@@ -611,7 +627,12 @@ public with sharing class CreateBillingAccountController {
 			stateInfoVar = new stateInfo();
 			stateInfoVar.requestObjId = requestObjId;
 			stateInfoVar.onboardingRequestId = onboardingRequestId;
-			stateInfoVar.isBillingAccountPlusRatingPlanFlow = false;
+
+			// Populate rating plan details to StateInfo; payload has APPC products and is rating plan payload only
+			ratingPlanInfo ratingPlanDetails = new ratingPlanInfo();
+			ratingPlanDetails.isBillingAccountPlusRatingPlanFlow = false;
+			ratingPlanDetails.hasAPPCProduct = true;
+			stateInfoVar.ratingPlanDetails = ratingPlanDetails;
 
 			BillingAccountService service = BillingAccountService.getInstance();  
 			Continuation con = service.getContinuation(ratingPlanPayloadJson, onboardingRequestId, sourceSystem);

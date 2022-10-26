@@ -208,6 +208,7 @@
         </rules>
     </decisions>
     <description>New APPC flow action updated minimum spend details.</description>
+    <environments>Default</environments>
     <formulas>
         <name>RunningUser</name>
         <dataType>String</dataType>
@@ -315,10 +316,10 @@
         <fields>
             <name>Select_the_Deal_Support_Request_Type</name>
             <choiceReferences>Choice_Legal_Support</choiceReferences>
-            <choiceReferences>Choice_APPC_Parcel_Contract</choiceReferences>
             <choiceReferences>Choice_PSR_Domestic</choiceReferences>
             <choiceReferences>Choice_PSR_Intl</choiceReferences>
             <choiceReferences>Choice_PSR_StarTrack</choiceReferences>
+            <choiceReferences>Choice_APPC_Parcel_Contract</choiceReferences>
             <choiceReferences>Choice_Surcharge_Exemption</choiceReferences>
             <choiceReferences>Choice_Deal_Enablement_Centre</choiceReferences>
             <dataType>String</dataType>

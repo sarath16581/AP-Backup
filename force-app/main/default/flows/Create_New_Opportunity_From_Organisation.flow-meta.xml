@@ -450,6 +450,7 @@ Then, navigate to new opportunity record.</description>
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>displayError</name>

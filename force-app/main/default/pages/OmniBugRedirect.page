@@ -12,9 +12,18 @@
         var currentUrl = new URL(window.location.href);
         var originalUrlString = currentUrl.searchParams.get("url");
         var originalUrl = new URLSearchParams(originalUrlString);
-
+        
+console.log('currentUrl'); //https://auspost--ptest--c.sandbox.vf.force.com/apex/OmniBugRedirect?isdtp=vw&sfdcIFrameOrigin=https%3A%2F%2Fauspost--ptest.sandbox.my.salesforce.com&nonce=d56904c87464313484b89f8d7af297f7c035900596a73e5b41a8cb918bd4c17b&url=%2F0059000000Uxwg9
+console.log(JSON.stringify(currentUrl));
+console.log('originalUrlString');
+console.log(originalUrlString); // /0059000000Uxwg9
+console.log('originalUrl');
+console.log(JSON.stringify(originalUrl));
         var orgDomainUrl = '{!orgDomainUrl}';
+        console.log('orgDomainUrl');
+console.log(orgDomainUrl);
         if(originalUrlString.startsWith(orgDomainUrl) == true || originalUrlString.startsWith('/') == true) {
+
                 if(originalUrl.get('isdtp=vw') == undefined) {
                         if(originalUrlString.includes('?') == false) {
                                 originalUrlString += '?isdtp=vw';   
@@ -23,10 +32,17 @@
                         }
                 }
                 location.href = originalUrlString;
+                console.log('location.href=');
+                console.log(JSON.stringify(originalUrlString));
+                //location.href = 'https://auspost--ptest.sandbox.my.salesforce.com/0059000000Uxwg9?isdtp=vw';
         } else {
+                console.log('InElseCONDITION');
+                
                 var msgBox = document.getElementById("msgBox");
                 var text = document.createTextNode("Unauthorised redirection: " + originalUrlString);
                 msgBox.appendChild(text);
+                console.log('msgBox');
+                console.log(JSON.stringify(msgBox));
         }
 	
         </script>

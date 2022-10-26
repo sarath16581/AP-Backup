@@ -1,0 +1,22 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "3b6c5a62-db51-46cf-adbe-d6ff32a817a1",
+  "label" : "Customer Revenue List",
+  "regions" : [ {
+    "id" : "1218087e-78f1-4a8b-9e19-5b214455d085",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "b4ab69c5-112d-4c4a-b593-c2f63d76a6f3",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "319ce28a-6916-4dfb-9812-e39a172ad33b",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "list-a0g"
+}

@@ -7,6 +7,7 @@ History:
                   
 2019-01-31  nathan.franklin@auspost.com.au Modified testMethod2 to fix an an issue with the Too Many SOQL error with the deployment of MW0003089 - Opportunity Complexity rating in Salesforce
 2022-06-08 - Naveen Rajanna - REQ2595048 - upgrade api version to 52
+2022-10-05 - seth.heang@auspost.com.au - Uplift API version to 55, Modified testMethod1 to increase code coverage, testMethod3 to unit test a new method checkProductComponentOptions() 
 **************************************************/
 @isTest
 private with sharing class APT_AmendRenewUtility_Test{ 
@@ -32,7 +33,11 @@ private with sharing class APT_AmendRenewUtility_Test{
             insert agreement;
             Product2 product =APT_TestUtils.createInternationalProduct('Car','26940998','Postal Services');
             product.APT_Product_type__c = 'International';
-            insert product;
+            Product2 product2 = APT_TestUtils.createInternationalProduct('Car Option','26940999','Postal Services');
+            product2.APT_Product_type__c = 'International Option';
+            insert new List<Product2>{product, product2};
+            Apttus_Config2__ProductOptionComponent__c prodOptCom = APT_TestDataFactory.getAPTProductOptionComponentRecord(1, product.Id, product2.Id, false)[0];
+            insert prodOptCom;
             Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
             insert priceList;
             Id priceBookId=Test.getStandardPricebookId();
@@ -103,6 +108,7 @@ private with sharing class APT_AmendRenewUtility_Test{
             APT_AmendRenewUtility.cloneOpporunityProducts(opp.Id,agreement,listOppLineItem,APT_Constants.ACTION_NAME_DoV);
             APT_AmendRenewUtility.newOpportunity(agreement,APT_Constants.ACTION_TYPE_RENEWAL);
             Apttus_Proposal__Proposal__c quote2=APT_AmendRenewUtility.cloneProposal('Proposal',opp.Id,priceList.Id,agreement);
+            insert quote2;
             
             Apttus_Config2__ProductConfiguration__c pConfig1 = APT_TestUtils.getProductConfiguration2('TestConfig1',123, quote2.ID, 'Proposal', 'Product',
                                                                 priceList.ID,'New', System.today()-1, System.Today()+2,False);
@@ -117,7 +123,15 @@ private with sharing class APT_AmendRenewUtility_Test{
             Apttus_Config2__LineItem__c bundleLine1 = APT_TestUtils.getConfigLineItem(pConfig1.Id, null, 1, true,1, 'Product/Service',
             product.Id, true, null,null,null,null, 1, true,'Each',1, priceList.Id, priceLI.Id,'One Time','Per Unit','Standard Price','One Time',
             true, true, 5500, 5500, 'Per Unit',5225, 0, 5225, 'TestaPTTUS');
-            insert bundleLine1;
+            bundleLine1.Apttus_Config2__OptionId__c = product.id;
+            bundleLine1.Apttus_Config2__ChargeType__c = product.name;
+
+            Apttus_Config2__LineItem__c optionLine1 = APT_TestUtils.getConfigLineItem(pConfig1.Id, null, 1, true,1, 'Options',
+            product.Id, true, null,null,null,null, 1, true,'Each',1, priceList.Id, priceLI.Id,'One Time','Per Unit','Standard Price','One Time',
+            true, true, 5500, 5500, 'Per Unit',5225, 0, 5225, 'TestaPTTUS');
+            optionLine1.Apttus_Config2__OptionId__c = product2.id;
+            optionLine1.Apttus_Config2__ChargeType__c = product2.name;
+            insert new List<Apttus_Config2__LineItem__c>{bundleLine1, optionLine1};
             
             //test.stopTest(); // 23/10/2019 To fix the SOQL101 error
             
@@ -264,7 +278,12 @@ private with sharing class APT_AmendRenewUtility_Test{
             insert agreement;
             Product2 product =APT_TestUtils.createInternationalProduct('Car','26940998','Postal Services');
             product.APT_Product_type__c = 'International';
-            insert product;
+            Product2 product2 = APT_TestUtils.createInternationalProduct('Car Option','26940999','Postal Services');
+            product2.APT_Product_type__c = 'International Option';
+            insert new List<Product2>{product, product2};
+            Apttus_Config2__ProductOptionComponent__c prodOptCom = APT_TestDataFactory.getAPTProductOptionComponentRecord(1, product.Id, product2.Id, false)[0];
+            insert prodOptCom;
+           
             Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
             insert priceList;
             Id priceBookId=Test.getStandardPricebookId();
@@ -349,7 +368,15 @@ private with sharing class APT_AmendRenewUtility_Test{
             Apttus_Config2__LineItem__c bundleLine1 = APT_TestUtils.getConfigLineItem(pConfig1.Id, null, 1, true,1, 'Product/Service',
             product.Id, true, null,null,null,null, 1, true,'Each',1, priceList.Id, priceLI.Id,'One Time','Per Unit','Standard Price','One Time',
             true, true, 5500, 5500, 'Per Unit',5225, 0, 5225, 'TestaPTTUS');
-            insert bundleLine1;
+            bundleLine1.Apttus_Config2__OptionId__c = product.id;
+            bundleLine1.Apttus_Config2__ChargeType__c = product.name;
+
+            Apttus_Config2__LineItem__c optionLine1 = APT_TestUtils.getConfigLineItem(pConfig1.Id, null, 1, true,1, 'Options',
+            product.Id, true, null,null,null,null, 1, true,'Each',1, priceList.Id, priceLI.Id,'One Time','Per Unit','Standard Price','One Time',
+            true, true, 5500, 5500, 'Per Unit',5225, 0, 5225, 'TestaPTTUS');
+            optionLine1.Apttus_Config2__OptionId__c = product2.id;
+            optionLine1.Apttus_Config2__ChargeType__c = product2.name;
+            insert new List<Apttus_Config2__LineItem__c>{bundleLine1, optionLine1};
             
             
             APT_AmendRenewUtility.newProposal('Proposal',opp.Id,priceList.Id,agreement);
@@ -360,8 +387,18 @@ private with sharing class APT_AmendRenewUtility_Test{
             //APT_AmendRenewUtility.copyConfiguration(quote.Id,quote2.Id);
             //Apttus__APTS_Agreement__c tempAgrmnt = APT_AmendRenewUtility.amendAgreement('MSA',opp.Id,quote.Id,agreement);
             
+            // added unit test of checkProductComponentOptions() to check for decommisioned product after it's missing from product hierarchy
+            Set<Id> lineItemSet = new Set<Id>{bundleLine1.Id, optionLine1.Id};
+            List<Apttus_Config2__LineItem__c> liList = [select id, Apttus_Config2__ProductId__c, Apttus_Config2__OptionId__c, Apttus_Config2__OptionId__r.Name, Apttus_Config2__ChargeType__c FROM Apttus_Config2__LineItem__c WHERE Id =: lineItemSet];
+            List<Apttus_Config2__LineItem__c> diffLiList = APT_AmendRenewUtility.checkProductComponentOptions(
+                new Map<Id, Apttus_Config2__LineItem__c>(liList), 
+                new Set<Id>{product.id}
+            );
+
             test.stopTest();
-            //system.assert(tempAgrmnt != null);
+            //system.assert(tempAgrmnt != null);            
+            System.assertNotEquals(0, diffLiList.size(), 'List of Line items from product component option check should not be blank');
+            System.assertEquals(bundleLine1.Id, diffLiList[0].Id, 'Expect bundleLine1 Id in the returned list');
         }
     }
 

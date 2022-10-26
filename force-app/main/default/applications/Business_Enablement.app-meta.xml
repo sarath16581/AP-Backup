@@ -3,6 +3,7 @@
     <defaultLandingTab>standard-home</defaultLandingTab>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>Business Enablement Team</label>
     <logo>Australia_Post_Logo/Business_Enablement_Team_Logo.png</logo>
     <tabs>standard-Chatter</tabs>

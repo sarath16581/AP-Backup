@@ -388,6 +388,10 @@
                 <behavior>Readonly</behavior>
                 <field>State__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APPC_Primary_Lodgement_Point__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

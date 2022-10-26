@@ -107,7 +107,7 @@ public with sharing class OpportunityCloneWithItemsController {
              update_opp.CTA_Propose_Approved__c = false;
              update_opp.CTA_Propose_Request_Exists__c = false;
              update_opp.CTA_Pursue_Approved__c = false;
-             update_opp.CTA_Pursue_Request_Exists__c = false;
+             update_opp.CTA_Pursue_Request_Exists__c = false; 
              
              Update update_opp;
  
@@ -221,12 +221,12 @@ public with sharing class OpportunityCloneWithItemsController {
              // update_opp.Business_Development_Driver__c =null; - Decommission this field as part of STP-2793
               update_opp.Supply_Chain_Optimisation_Driver__c =null;
               
-              // REQ2938280: set Opp fields to false
-              update_opp.CTA_Propose_Approved__c = false;
-              update_opp.CTA_Propose_Request_Exists__c = false;
-              update_opp.CTA_Pursue_Approved__c = false;
-              update_opp.CTA_Pursue_Request_Exists__c = false;
-             
+             // REQ2938280: set Opp fields to false
+             update_opp.CTA_Propose_Approved__c = false;
+             update_opp.CTA_Propose_Request_Exists__c = false;
+             update_opp.CTA_Pursue_Approved__c = false;
+             update_opp.CTA_Pursue_Request_Exists__c = false;
+            
              Update update_opp;
  
           

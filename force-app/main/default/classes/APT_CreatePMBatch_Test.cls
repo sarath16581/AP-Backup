@@ -7,7 +7,7 @@
  * 2021-04-01 - Darshan Chauhan - Created
  * 2021-05-01 - Mathew Jose - Created test methods to test missing scenarios.
  * 2021-09-23 - Mathew Jose - Added test methods test the simplified parcel products (Appc Speed & FSR)
-* 2022-05-15 Nasir Jawed Changed tier value
+
 */
 @isTest
 public with sharing class APT_CreatePMBatch_Test {

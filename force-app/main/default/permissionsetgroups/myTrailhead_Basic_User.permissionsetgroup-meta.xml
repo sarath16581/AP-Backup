@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Minimal permissions required to access myTrailhead and access assigned training and recommendations</description>
+    <hasActivationRequired>false</hasActivationRequired>
     <label>myTrailhead_Basic_User</label>
     <permissionSets>myTrailhead_Content_Access</permissionSets>
     <permissionSets>myTrailhead_Training_Access</permissionSets>

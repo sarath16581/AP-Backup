@@ -28,9 +28,6 @@
             <type>contactLookup</type>
         </recipients>
         <recipients>
-            <type>creator</type>
-        </recipients>
-        <recipients>
             <type>owner</type>
         </recipients>
         <senderAddress>customerservice@auspost.com.au</senderAddress>

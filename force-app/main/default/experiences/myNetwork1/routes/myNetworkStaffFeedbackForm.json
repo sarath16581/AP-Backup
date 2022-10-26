@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "980b51f3-6ca8-4ad5-a9af-142c8ca6d020",
+  "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
+  "configurationTags" : [ ],
+  "id" : "86992549-2689-49f3-92c9-e8d3ca682eae",
+  "label" : "myNetwork Staff feedback form",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-staff-feedback",
+  "type" : "route",
+  "urlPrefix" : "staff-feedback"
+}

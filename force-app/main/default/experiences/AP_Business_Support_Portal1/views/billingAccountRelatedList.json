@@ -1,0 +1,38 @@
+{
+  "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "bd365671-e5ac-411d-a0fe-a23769c39b83",
+  "label" : "Billing Account Related List",
+  "regions" : [ {
+    "id" : "13faa154-ac5f-4ffc-94f2-937396432378",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customTitle" : "",
+        "parentRecordId" : "{!recordId}",
+        "relatedListName" : "{!relationshipApiName}",
+        "showBreadCrumbs" : true,
+        "showCustomTitle" : false,
+        "showManualRefreshButton" : true,
+        "showRowNumbers" : true
+      },
+      "componentName" : "forceCommunity:relatedList",
+      "id" : "843063e3-fe5c-4f2a-adda-0b6b771788ec",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f261ded6-6096-4133-9645-15747f3de4f9",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "3fd3a835-175a-438a-8ade-178a1095e3d8",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-a0F"
+}

@@ -4,6 +4,7 @@
     <description>Business Access Management</description>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>Business Access Management</label>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>

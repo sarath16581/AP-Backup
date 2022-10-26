@@ -12,6 +12,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>CHAS_MissingItemWizard</componentName>
+                <identifier>CHAS_MissingItemWizard</identifier>
             </componentInstance>
         </itemInstances>
         <name>content</name>
@@ -41,6 +42,7 @@
                     <value>Missing or lost item (authenticated)</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:seoAssistant</componentName>
+                <identifier>forceCommunity_seoAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>sfdcHiddenRegion</name>

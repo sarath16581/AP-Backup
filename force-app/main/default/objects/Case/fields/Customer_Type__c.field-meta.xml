@@ -1,32 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Type__c</fullName>
-    <description>SSSW - Shows the Customer type on Account
-
-HIstory
-Gunith - When Case.Account is null, use the Contact to derive Account (PRB0049604)</description>
+    <description>SSSW - Shows the Customer type on Account</description>
     <externalId>false</externalId>
-    <formula>IF (
-	NOT(ISBLANK(AccountId)),
-	IF (
-		NOT(ISBLANK(TEXT(Account.ServiceSLA__c))), 
-		TEXT(Account.ServiceSLA__c),
-		IF (
-			Account.Role_Type_Roll_Up__c==&quot;Customer&quot;, 
-			&quot;Silver&quot;,
-			&quot;Consumer&quot;
-		)
-	),
-	IF(
-		NOT(ISBLANK(TEXT(Contact.Account.ServiceSLA__c))), 
-		TEXT(Contact.Account.ServiceSLA__c),
-		IF (
-			Contact.Account.Role_Type_Roll_Up__c==&quot;Customer&quot;, 
-			&quot;Silver&quot;,
-			&quot;Consumer&quot;
-		)
-	)
-)</formula>
+    <formula>IF(NOT(ISPICKVAL(CustomerQueueType__c,&apos;&apos;)), TEXT(CustomerQueueType__c), IF(NOT(ISPICKVAL(Account.ServiceSLA__c,&apos;&apos;)), TEXT(Account.ServiceSLA__c), &apos;Consumer&apos; ))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Customer Type</label>
     <required>false</required>

@@ -117,8 +117,8 @@ public inherited sharing class CustomerDataSyncEventCPPhoneHelper {
 		List<String> phonesExistingChk = genPhonesListFromCPP(existing);
 
 		for (PhonePayloadWrapper input : phonesInput) {
-			phoneNumbersChckList.add(input.phone);
-			Integer index1 = phonesExistingChk.indexOf(input.phone);
+			phoneNumbersChckList.add(input.type.toUppercase() + '-' + input.phone);
+			Integer index1 = phonesExistingChk.indexOf(input.type.toUppercase() + '-' + input.phone);
 
 			ContactPointPhone cpp1 = new ContactPointPhone();
 			if (index1 >= 0) {
@@ -134,7 +134,7 @@ public inherited sharing class CustomerDataSyncEventCPPhoneHelper {
 		//check for deletes
 		if (!existing.isEmpty()) {
 			for (ContactPointPhone cpe2 : existing) {
-				Integer index2 = phoneNumbersChckList.indexOf(cpe2.TelephoneNumber);
+				Integer index2 = phoneNumbersChckList.indexOf(cpe2.PhoneType.toUppercase() + '-' + cpe2.TelephoneNumber);
 				if (index2 < 0) {
 					deleteResult.add(cpe2);
 				}
@@ -167,7 +167,7 @@ public inherited sharing class CustomerDataSyncEventCPPhoneHelper {
 	private List<String> genPhonesListFromCPP(List<ContactPointPhone> phones) {
 		List<String> phonesList = new List<String>();
 		for (ContactPointPhone phone : phones) {
-			phonesList.add(phone.TelephoneNumber);
+			phonesList.add(phone.PhoneType.toUppercase() + '-' + phone.TelephoneNumber);
 		}
 		return phonesList;
 	}
