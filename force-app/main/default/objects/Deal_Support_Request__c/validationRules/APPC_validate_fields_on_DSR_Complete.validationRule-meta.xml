@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APPC_validate_fields_on_DSR_Complete</fullName>
+    <active>true</active>
+    <description>Don’t let Pricing User move the APPC DSR to completed status and stage when mandatory fields are left blank</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName =&quot;Pricing_Support_Request_Australia_Post_Parcel_Contract&quot;,
+ISPICKVAL(Status__c,&quot;Completed&quot;), ISPICKVAL(Stage__c, &quot;Completed&quot;),
+OR(ISBLANK(Compass_Quote_Reference__c), ISBLANK(TEXT(Approved_Pricing_Structure__c)), ISBLANK(Approved_lodgement_zone__c), ISBLANK(Quote_Validity_End_Date__c) ))</errorConditionFormula>
+    <errorMessage>One or more of the pricing recommendation key fields has missing values</errorMessage>
+</ValidationRule>

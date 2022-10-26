@@ -56,4 +56,8 @@
         <tab>Revenue_Schedule__c</tab>
         <visibility>Available</visibility>
     </tabSettings>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ShareFilesWithNetworks</name>
+    </userPermissions>
 </PermissionSet>

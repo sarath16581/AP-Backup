@@ -4,6 +4,7 @@
     <description>Lead Scoring prioritizes your leads so you focus on the most promising, saving time and money.  This app lets you define the rules to value demographic information as well as the behavior of your leads.</description>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>Lead Scoring</label>
     <tabs>LeadScoringRule__c</tabs>
     <tabs>Score_All_Leads</tabs>

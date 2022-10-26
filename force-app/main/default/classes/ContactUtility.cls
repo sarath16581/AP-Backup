@@ -5,10 +5,19 @@
 **/
 
 public without sharing class ContactUtility {
+	static ContactUtility instance;
+
 	public static final set<string> LICENCE_INACTIVE_STATUSES = new set<string>{
 			'Ceased', 'Not Activated'
 	};
 	public static final string UNIQUE_EMAIL_ADDRESS = '"Nominated Partner Contact & Incent User" email address must be unique across all Legal entities with Licences in any status excluding "Ceased" or "Not Activated". The "Nominated Partner Contact & Incent User" for Organisation [ORG NAME] has the same email address as this contact.';
+
+	public static ContactUtility getInstance() {
+		if (instance == null) {
+			instance = (ContactUtility) Application.Utilities.newInstance(ContactUtility.class);
+		}
+		return instance;
+	}
 
 	/**
 	  * @description       Exclude MPB sign-up/step-up process

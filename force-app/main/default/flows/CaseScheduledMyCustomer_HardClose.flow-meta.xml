@@ -30,6 +30,12 @@
         <locationX>308</locationX>
         <locationY>288</locationY>
         <inputAssignments>
+            <field>Bypass_Data_enforcement__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>LastIncomingEmailAddress__c</field>
         </inputAssignments>
         <inputAssignments>

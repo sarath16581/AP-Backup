@@ -113,7 +113,8 @@ private with sharing class APT_ProductAttributeValuesSelector_Test {
         Test.startTest();
         // Getting the record by passing the product attribute record id
         APT_ProductAttributeValuesSelector selector = APT_ProductAttributeValuesSelector.newInstance();
-        List<Apttus_Config2__ProductAttributeValue__c> results = selector.selectByPavID(new List<id>{pav.Id});        
+        List<Apttus_Config2__ProductAttributeValue__c> results = selector.selectByPavID(new List<id>{pav.Id}); 
+        Map<Id, Apttus_Config2__ProductAttributeValue__c> results1 = selector.selectByconfigIDAndLineType(new List<id>{prodConfig.Id});        
         System.assertEquals(1, results.size(), 'Expected result size of 1');
 
         Test.stopTest();

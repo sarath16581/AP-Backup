@@ -14,22 +14,22 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Z3</fullName>
+                <fullName>Z003</fullName>
                 <default>false</default>
                 <label>Z3</label>
             </value>
             <value>
-                <fullName>Z6</fullName>
+                <fullName>Z006</fullName>
                 <default>false</default>
                 <label>Z6</label>
             </value>
             <value>
-                <fullName>Z9</fullName>
+                <fullName>Z009</fullName>
                 <default>false</default>
                 <label>Z9</label>
             </value>
             <value>
-                <fullName>Z60</fullName>
+                <fullName>Z060</fullName>
                 <default>false</default>
                 <label>Z60</label>
             </value>

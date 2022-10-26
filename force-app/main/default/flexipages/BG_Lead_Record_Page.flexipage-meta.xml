@@ -20,6 +20,7 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
+                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -38,6 +39,7 @@
                     <value>linear</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_lead:pathAssistant</componentName>
+                <identifier>runtime_sales_lead_pathAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -48,6 +50,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
+                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -70,6 +73,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
+                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-751f4948-fbf5-4843-9b79-70b745c4519a</name>
@@ -79,6 +83,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>BG_LeadQualificationsList</componentName>
+                <identifier>BG_LeadQualificationsList</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-8a8bd00b-0dec-421d-baa1-2439f9a557c3</name>
@@ -112,6 +117,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>addressLookupRecordWrapper</componentName>
+                <identifier>addressLookupRecordWrapper</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-e133c0e4-5000-4e49-aaf4-f41e52b5e4a4</name>
@@ -133,6 +139,7 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -146,6 +153,7 @@
                     <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -159,6 +167,7 @@
                     <value>Qualification</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -172,6 +181,7 @@
                     <value>Address</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -186,6 +196,7 @@
                     <value>tabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -196,6 +207,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
+                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-5be4018f-e2be-42cd-8702-ad38d6e21eef</name>
@@ -205,6 +217,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
+                <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-49849a19-906a-42ad-b054-a4ec7bda4092</name>
@@ -226,6 +239,7 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -239,6 +253,7 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>collaborateTab</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-05c85fc9-dee9-4500-ba1b-93eeaa999589</name>
@@ -248,6 +263,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
+                <identifier>runtime_sales_activities_activityPanel2</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -258,6 +274,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
+                <identifier>forceChatter_recordFeedContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-f3d431b5-2426-433b-8150-c14d319bfdc7</name>
@@ -287,6 +304,7 @@
                     <value>7</value>
                 </componentInstanceProperties>
                 <componentName>th_contextualRecommend</componentName>
+                <identifier>th_contextualRecommend</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-e78efabe-ac6f-4f74-9a1b-e10960f33c74</name>
@@ -308,6 +326,7 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>activityTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -321,6 +340,7 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>collaborateTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -334,6 +354,7 @@
                     <value>Training</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>customTab3</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -356,6 +377,7 @@
                     <value>Initiate_Qualification</value>
                 </componentInstanceProperties>
                 <componentName>flowruntime:interview</componentName>
+                <identifier>flowruntime_interview</identifier>
                 <visibilityRule>
                     <booleanFilter>(1 AND 2) OR (3 AND 4)</booleanFilter>
                     <criteria>
@@ -388,6 +410,7 @@
                     <value>BOTH</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
+                <identifier>runtime_sales_merge_mergeCandidatesPreviewCard</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -397,6 +420,7 @@
                     <value>Facet-05c85fc9-dee9-4500-ba1b-93eeaa999589</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset2</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.Show_Trailhead_Training}</leftValue>
@@ -413,6 +437,7 @@
                     <value>sidebartabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset3</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.Show_Trailhead_Training}</leftValue>

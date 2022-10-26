@@ -1,4 +1,4 @@
-/***
+/*** 
  * @author Noel Lim
  * @date 2022-09-23
  * @group Domain
@@ -33,23 +33,39 @@ private class CaseSkillBasedRoutingModule_Test {
         Account accountWithServiceSLAGold = accounts[2];
         accountWithServiceSLAGold.ServiceSLA__c = 'Gold';
 
+        //Generate Contacts and link to Accounts
+        List<Contact> contacts = ApplicationTestDataFactory.getContacts(4, accountWithServiceSLASMB.id, true);        
+        
+        
+        Contact contactNoServiceSLA = contacts[0];
+        contactNoServiceSLA.account = accountNoServiceSLA;
+        
+        Contact contactWithServiceSLASMB = contacts[1];
+        contactWithServiceSLASMB.account = accountWithServiceSLASMB;
+        
+        Contact contactWithServiceSLAGold = contacts[2];
+        contactWithServiceSLAGold.account = accountWithServiceSLAGold;
+        
+        Contact contactWithoutAccount = contacts[3];
+        contactWithoutAccount.account = null;
+        
         //Generate Cases with Account data
         List<Case> cases = ApplicationTestDataFactory.getCases(6, true);        
 
         Case c1 = cases[0]; 
-        c1.AccountId = null; 
+        c1.ContactId = contactNoServiceSLA.Id; 
         
         Case c2 = cases[1];
-        c2.AccountId = accountNoServiceSLA.Id; 
+        c2.ContactId = contactNoServiceSLA.Id; 
         
         Case c3 = cases[2];
-        c3.AccountId = accountWithServiceSLASMB.Id; 
+        c3.ContactId = contactWithServiceSLASMB.Id; 
         
         Case c4 = cases[3];
-        c4.AccountId = accountWithServiceSLAGold.Id; 
+        c4.ContactId = contactWithServiceSLAGold.Id; 
         
         Case c5 = cases[4];
-        c5.AccountId = accountWithServiceSLASMB.Id; 
+        c5.ContactId = contactWithServiceSLASMB.Id; 
 
         Case c6 = null;
 
@@ -83,25 +99,26 @@ private class CaseSkillBasedRoutingModule_Test {
             cases[1].clone(true),
             cases[2].clone(true),
             cases[3].clone(true),
-            cases[4].clone(true) 
+            cases[4].clone(true),
+            cases[5].clone(true)
         };
 
-        oldCases[0].AccountId = accountWithServiceSLASMB.Id; //Account change: blanked
-        oldCases[1].AccountId = accountWithServiceSLASMB.Id; //Account change: With SLA > No SLA
-        oldCases[2].AccountId = accountNoServiceSLA.Id; //Account change: No SLA > With SLA
-        oldCases[3].AccountId = accountNoServiceSLA.Id; //Account change: With SLA > With different SLA
-        oldCases[4].AccountId = accountWithServiceSLASMB.Id; //Account NOT changed
-
+        oldCases[0].ContactId = contactWithServiceSLASMB.Id; //Contact change: no Account
+        oldCases[1].ContactId = contactWithServiceSLASMB.Id; //Contact change: With SLA > No SLA
+        oldCases[2].ContactId = contactNoServiceSLA.Id; //Contact change: No SLA > With SLA
+        oldCases[3].ContactId = contactWithServiceSLASMB.Id; //Contact change: With SLA > With different SLA (SMB > Gold)
+        oldCases[4].ContactId = contactWithServiceSLASMB.Id; //Contact NOT changed
+        oldCases[5].ContactId = contactWithServiceSLASMB.Id; //Case is not SSSW
 
         // =====================================
         // Stubbing
         // =====================================
         
 
-        AccountsSelector mockAccountsSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
+        ContactsSelector mockContactsSelector = (ContactsSelector)MockUtility.mockSelector(ContactsSelector.class);
         // set up our responses
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockAccountsSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Account>(accounts));
+        MockUtility.Mocks.when(mockContactsSelector.selectById((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Contact>(contacts));
         MockUtility.Mocks.stopStubbing();
 
         // =====================================

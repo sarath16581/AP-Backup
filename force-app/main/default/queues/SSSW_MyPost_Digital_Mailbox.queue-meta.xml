@@ -19,7 +19,6 @@
             <user>vanessa.highland@auspost.com.au</user>
         </users>
     </queueMembers>
-    <queueRoutingConfig>Australia_Post_SSSW_Case_Routing_Configuration</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

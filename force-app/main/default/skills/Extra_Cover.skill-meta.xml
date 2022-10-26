@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Skill xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This skill is applied to agents that work on cases where the article relating to the case is insured so that the consumers get the extra service that they have paid for.</description>
     <label>Extra Cover</label>
-    <description>This skill is applied to agents that work on cases where the article relating to the case is insured so that the consumers get the extra service that they have paid for. </description>    
 </Skill>

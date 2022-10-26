@@ -13,7 +13,8 @@ ISPICKVAL( StageName, &apos;Closed Duplicate&apos;)
 (Hidden_Restrict_Path_Closure__c  = false),
 ISCHANGED(StageName),
 NOT($Permission.BG_Sales_Operations) ,
-NOT($Profile.Name = &quot;SecurePay SuperUser&quot; )
+NOT($Profile.Name = &quot;SecurePay SuperUser&quot;),
+NOT($Profile.Name = &quot;Credit Management&quot;)
 )</errorConditionFormula>
     <errorMessage>Please use the &apos;Close Opportunity&apos; button to Close the Opportunity</errorMessage>
 </ValidationRule>

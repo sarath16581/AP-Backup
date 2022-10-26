@@ -65,6 +65,7 @@
             <connector>
                 <targetReference>Outbound_Message_to_SAP_EM</targetReference>
             </connector>
+            <pathType>AsyncAfterCommit</pathType>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>

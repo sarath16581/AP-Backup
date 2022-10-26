@@ -1,0 +1,45 @@
+{
+  "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "1f893b8e-7c6f-4821-9d37-618ed9967aac",
+  "label" : "Compensation",
+  "regions" : [ {
+    "id" : "d7e4819d-c395-4a1a-acbf-ffcdc7167933",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:CHAS_CompensationWizard",
+      "id" : "68df09b1-2f77-4c29-b82a-ce997836010b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "641be6fd-5f16-4d74-91c2-58d0912097a0",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "079b3d69-0e3d-4370-af05-441dffd0f3d2",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Compensation"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "0d7e273f-8494-4d2e-8d25-d2ea6310569c",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5aea1cf9-a2d4-41f6-ad93-aa44455eb0cb",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-compensation"
+}

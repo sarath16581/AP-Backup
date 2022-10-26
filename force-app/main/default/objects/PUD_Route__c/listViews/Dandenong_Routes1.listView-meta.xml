@@ -4,6 +4,8 @@
     <columns>NAME</columns>
     <columns>CREATED_DATE</columns>
     <columns>Depot__c</columns>
+    <columns>Status__c</columns>
+    <columns>Decommissioned__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>

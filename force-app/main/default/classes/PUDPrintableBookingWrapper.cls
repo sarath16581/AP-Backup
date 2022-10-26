@@ -33,34 +33,15 @@ public inherited sharing class PUDPrintableBookingWrapper {
 	//getter for endTimeString
 	public String getEndTimeString(){
 		
-		Time endTime;
-		String endTimeString='';
-
-		//return blank if startime is null.
-		if (this.booking.Start_Time__c == null) {
-			return endTimeString;
-		}
-		
-        endTime = this.calculateEndTime();
-
-		//format endtime in HHMM format
-		if (endTime !=null) {
+		if (this.booking.Start_Time__c != null && this.booking.Dwell_Time_Planned__c !=null) {
+			Time endTime = this.booking.Start_Time__c.addMinutes((Integer) this.booking.Dwell_Time_Planned__c);
+			//format endtime in the required format
 			return PUDPrintUtility.getDisplayTime(endTime);
 		}
 
-		//return blank string if endTime is NULL;
-		return endTimeString;
+		//return blank if endTime cannot be calculated
+		return '';
 	}
-
-    private Time calculateEndTime(){
-        Time endTime;
-
-        //create a new instance of END TIME from start time and dwell time planned
-		if (this.booking.Dwell_Time_Planned__c !=null) {
-			endTime = this.booking.Start_Time__c.addMinutes(Time.newInstance(0,(Integer)this.booking.Dwell_Time_Planned__c,0,0).minute());	
-		}
-        return endTime;
-    }
 
 	//return Booking Start and End time in HHMM format
 	// e.g. Startime/endtime will be displayed as 1200 - 1215

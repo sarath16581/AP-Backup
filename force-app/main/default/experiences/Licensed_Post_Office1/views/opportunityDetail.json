@@ -1,0 +1,255 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsTwoCol84Layout",
+  "id" : "360d4cf6-aa98-44a8-adb5-b9ada6d5d909",
+  "label" : "Opportunity Detail",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordHeadline",
+      "id" : "42ebb00f-8273-4320-8789-834155fd64b4",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "952b3125-32bc-4c27-a866-a6a2c7561165",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "a9b80a1a-b018-4898-a583-4af3bb4efdc1",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "aa61a26e-8b39-42bc-b73c-85f83038cfaf",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "Details"
+          }, {
+            "UUID" : "326a28bf-f7a8-47a4-abe7-9bb5dd3b6f60",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "2",
+            "tabName" : "Related"
+          }, {
+            "UUID" : "81ba1f59-5afe-4a2e-9172-ebb9b8324a3d",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "3",
+            "tabName" : "Seismic"
+          }, {
+            "UUID" : "f452eaf6-73a6-44f4-93eb-ff8bd251da20",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "61f22",
+            "tabName" : "Deal Support Requests"
+          }, {
+            "UUID" : "4395306f-c61b-45ca-b4cb-7be5f942664e",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "e254b",
+            "tabName" : "Products"
+          } ],
+          "useOverflowMenu" : false
+        }
+      },
+      "componentName" : "forceCommunity:tabset",
+      "id" : "a9b80a1a-b018-4898-a583-4af3bb4efdc1",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:recordDetail",
+          "id" : "690bea46-b4d8-404d-8926-148f4bc368f5",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "aa61a26e-8b39-42bc-b73c-85f83038cfaf",
+        "regionLabel" : "Details",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "relatedListApiName" : "OpportunityLineItems",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "2a471503-673b-4a59-a824-23e4c9a5a33c",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "Customer_Scoping_Questionnaires__r",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "ddca8247-dfe2-436e-9372-6ee6c263b087",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "OpportunityTeamMembers",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "b31c1204-796c-4846-b35e-2b7f522ac419",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "Competitors__r",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "2bbc1492-d70d-49a3-9984-9ca419ac4819",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "Apttus_Proposal__R00N70000001yUfDEAU__r",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "4d9d1359-3f37-4488-ae34-c572f775d9d6",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "CombinedAttachments",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "7bdc5adc-308d-4398-a222-af8a74be225e",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "relatedListApiName" : "Histories",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "5b70c2e5-c070-4fd3-b2a5-df48094a4dda",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "326a28bf-f7a8-47a4-abe7-9bb5dd3b6f60",
+        "regionLabel" : "Related",
+        "regionName" : "2",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "height" : "600",
+            "pageName" : "SeismicOpportunity",
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:visualforcePage",
+          "id" : "6237186f-8d68-4457-88fa-99366a167c84",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "81ba1f59-5afe-4a2e-9172-ebb9b8324a3d",
+        "regionLabel" : "Seismic",
+        "regionName" : "3",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "relatedListApiName" : "Deal_Support_Request__r",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "51b67a19-a48b-4765-ad99-18c0d34b06ff",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "f452eaf6-73a6-44f4-93eb-ff8bd251da20",
+        "regionLabel" : "Deal Support Requests",
+        "regionName" : "61f22",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "relatedListApiName" : "OpportunityLineItems",
+            "relatedListComponentOverride" : "GRID",
+            "width" : "MEDIUM"
+          },
+          "componentName" : "forceCommunity:relatedListSingle",
+          "id" : "40dcd097-a11b-4ffc-b5f3-ecc5416441b1",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "4395306f-c61b-45ca-b4cb-7be5f942664e",
+        "regionLabel" : "Products",
+        "regionName" : "e254b",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4873a3e1-762b-4a75-a318-28b508492fb4",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "593b993d-2089-4538-b702-abd9c7a3221a",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "9cc5bbb4-3b39-49b9-b613-9fc1a2529b06",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "321089e7-d0ac-4b3a-9e47-eabc14f9cce2",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:activityPanel",
+      "id" : "b7175709-5b80-45fb-a893-04cb059355c4",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7b557352-ace3-4479-877c-0aead2358833",
+    "regionName" : "sidebar",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-006"
+}

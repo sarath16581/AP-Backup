@@ -2,6 +2,7 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Dandenong_Transport</fullName>
     <columns>NAME</columns>
+    <columns>Depot__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>

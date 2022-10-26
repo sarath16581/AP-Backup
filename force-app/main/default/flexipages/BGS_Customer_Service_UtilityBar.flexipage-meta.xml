@@ -4,6 +4,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>console:history</componentName>
+                <identifier>console_history</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -43,6 +44,7 @@
                     <value>340</value>
                 </componentInstanceProperties>
                 <componentName>forceChatter:exposedFeed</componentName>
+                <identifier>forceChatter_exposedFeed</identifier>
             </componentInstance>
         </itemInstances>
         <name>utilityItems</name>

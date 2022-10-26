@@ -852,7 +852,7 @@ public without sharing class BSPConsignmentSearchUplift {
 
         if(eventMessages != null) {
             for (Integer i = 0; i < eventMessages.size(); i++) {
-                if (safeDropSigEventTypes.contains(eventMessages[i].proxyEM.EventType__c) && String.isBlank(eventMessages[i].proxyEM.Safe_Drop_GUID__c)) {
+                if (safeDropSigEventTypes.contains(eventMessages[i].proxyEM.EventType__c)) {
                     eventCount = i;
                     // populate the safe drop guid in the latest scanned delivered event, the EventMessages are sorted
                     // with ActualDateTime__c.

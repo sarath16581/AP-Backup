@@ -2683,7 +2683,7 @@ MyPost RTS (returned mail scanned from Decipher)</description>
             <name>Set_Last_Incoming_Email_Address</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>EmailMessage.Incoming</field>
             <operation>equals</operation>

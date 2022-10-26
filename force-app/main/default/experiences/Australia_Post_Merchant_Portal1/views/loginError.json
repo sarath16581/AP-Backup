@@ -1,0 +1,45 @@
+{
+  "appPageId" : "130e9b60-f31d-4790-8283-92e1c137574e",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "0542bacb-c6de-4f48-aed1-33702a8723f0",
+  "label" : "Login Error",
+  "regions" : [ {
+    "id" : "31be78b8-fd63-49b4-8d61-2d5bcf1f0faa",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:communityCustomError",
+      "id" : "02d119ad-9f08-406b-b44c-01a28a0b5647",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e3c66235-7012-4d9d-a4b1-6f2640407bd8",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "71c863dd-d721-429a-bc30-6bdde9341ba3",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Australia Post - Merchant Portal - Login Error"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "dd0efa04-32a7-45cf-ab04-b0703312d804",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b9f953dc-6883-450e-986a-f2adee646526",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "cetX9oQqsdo8EzXrNpU4J62gOYIhdV",
+  "type" : "view",
+  "viewType" : "login-error"
+}

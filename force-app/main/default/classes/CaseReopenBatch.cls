@@ -8,9 +8,10 @@
 * @changelog
 * 02/12/2021 - Alex Volkov - Initial creation
 * 28/09/2022 - Mahesh Parvathaneni - DDS-12732 - Included the exception checker logic
+* 19/10/2022 - Thang Nguyen - DDS-13106 - Refactor the code based on the ExceptionCheckerService refactor
 */
 
-public with sharing class CaseReopenBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
+public class CaseReopenBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
 
 	private Integer BATCH_SIZE = 25;
 
@@ -29,19 +30,14 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 
 	public void execute(Database.BatchableContext bc, List<SObject> scope) {
 		try {
-			Map<Id, List<Case>> articleToCasesMap = new Map<Id, List<Case>>();
+			Set<Id> articleIdSet = new Set<Id>();
 			List<Case> caseListWithArticles = new List<Case>();
 			List<Case> caseListWithoutArticles = new List<Case>();
 
 			// loop through cases associated with/without articles
 			for (Case c : (List<Case>) scope) {
 				if (c.ArticleTest__c != null) {
-					List<Case> clist = articleToCasesMap.get(c.ArticleTest__c);
-					if (clist == null) {
-						clist = new List<Case>();
-					}
-					clist.add(c);
-					articleToCasesMap.put(c.ArticleTest__c, clist);
+					articleIdSet.add(c.ArticleTest__c);
 					caseListWithArticles.add(c);
 				} else {
 					caseListWithoutArticles.add(c);
@@ -49,8 +45,8 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 			}
 
 			//process the exception checker logic for cases with articles
-			if (articleToCasesMap.size() > 0) {
-				handleExceptionCheckerOnCases(articleToCasesMap);
+			if (articleIdSet.size() > 0) {
+				handleExceptionCheckerOnCases(articleIdSet, caseListWithArticles);
 			}
 
 			//process the consignments to allocate to queue
@@ -79,64 +75,67 @@ public with sharing class CaseReopenBatch implements Database.Batchable<SObject>
 	/**
 	 * handle the exception checker logic
 	 */
-	private void handleExceptionCheckerOnCases(Map<Id, List<Case>> articleToCasesMap) {
-		Map<String, Id> trackingIdToArticleMap = new Map<String, Id>();
-		Map<String, List<ExceptionCheckerService.EventMessageDTO>> trackingIdToEventMessageWrapperMap = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
-		Map<Id,EventMessage__c> eventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(articleToCasesMap.keySet());
+	private void handleExceptionCheckerOnCases(Set<Id> articleIdSet, List<Case> caseListWithArticles) {
+		Map<String, List<ExceptionCheckerService.EventMessageDTO>> articleIdToEventMessageWrapperMap = new Map<String, List<ExceptionCheckerService.EventMessageDTO>>();
+		Map<Id,EventMessage__c> eventMessageMap = EventMessagesSelector.newInstance().selectByArticleId(articleIdSet);
 
 			for (EventMessage__c em : eventMessageMap.values()) {
-				//populate trackingIdToEventMessageWrapperMap
-				if (!trackingIdToEventMessageWrapperMap.containsKey(em.TrackingID__c)) {
-					trackingIdToEventMessageWrapperMap.put(em.TrackingID__c, new List<ExceptionCheckerService.EventMessageDTO>());
+				//populate articleIdToEventMessageWrapperMap
+				if (!articleIdToEventMessageWrapperMap.containsKey(em.Article__c)) {
+					articleIdToEventMessageWrapperMap.put(em.Article__c, new List<ExceptionCheckerService.EventMessageDTO>());
 				}
 				if (String.isNotBlank(em.EventType__c)) {
 					ExceptionCheckerService.EventMessageDTO emDto = new ExceptionCheckerService.EventMessageDTO();
 					emDto.eventType = em.EventType__c;
 					emDto.actualDateTime = em.ActualDateTime__c;
-					trackingIdToEventMessageWrapperMap.get(em.TrackingID__c).add(emDto);
-				}
-				//populate trackingIdToArticleMap
-				if (!trackingIdToArticleMap.containsKey(em.TrackingID__c)) {
-					trackingIdToArticleMap.put(em.TrackingID__c, em.Article__c);
+					articleIdToEventMessageWrapperMap.get(em.Article__c).add(emDto);
 				}
 			}
 
-			if (trackingIdToEventMessageWrapperMap.size() > 0) {
+			if (articleIdSet.size() > 0) {
 				//call the exception checker service
-				runExceptionChecker(trackingIdToEventMessageWrapperMap, articleToCasesMap, trackingIdToArticleMap);	
+				runExceptionChecker(articleIdToEventMessageWrapperMap, caseListWithArticles);	
 			}
 	}
 
 	/**
 	 * Run the exception checker logic on cases to assign to agent queue and close the cases
 	 */
-	private void runExceptionChecker(Map<String, List<ExceptionCheckerService.EventMessageDTO>> trackingIdToEventMessageWrapperMap, Map<Id, List<Case>> articleToCasesMap, Map<String, Id> trackingIdToArticleMap) {
+	private void runExceptionChecker(Map<String, List<ExceptionCheckerService.EventMessageDTO>> articleIdToEventMessageWrapperMap, List<Case> caseListWithArticles) {
 		List<Case> exceptionCases = new List<Case>();
-		List<Case> noExceptionCases = new List<Case>();
-		List<Case> agentQueueCases = new List<Case>();
 		List<Case> casesToClose = new List<Case>();
 
-		Map<String, ExceptionCheckerService.ExceptionResultDTO> exceptionResult = ExceptionCheckerService.getInstance().isExceptionApplies(trackingIdToEventMessageWrapperMap);
-		//loop through tracking ids if exceptions
-		for (String trackingId : trackingIdToEventMessageWrapperMap.keySet()) {
-			if (exceptionResult.containsKey(trackingId) && exceptionResult.get(trackingId).isException) {
-				//get the cases
-				exceptionCases.addAll(articleToCasesMap.get(trackingIdToArticleMap.get(trackingId)));
-			} else {
-				noExceptionCases.addAll(articleToCasesMap.get(trackingIdToArticleMap.get(trackingId)));
-			}
+		List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
+		//loop through caseListWithArticles and create the List<ExceptionCheckDTO>
+		for (Case articleCase : caseListWithArticles) {
+			ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+			// set case, this is to check the receiver
+			exceptionCheckDTO.CaseToCheck = articleCase;
+			// set event messages
+			List<ExceptionCheckerService.EventMessageDTO> eventMessageDTOs =  new List<ExceptionCheckerService.EventMessageDTO>();
+			if (articleIdToEventMessageWrapperMap.containsKey(articleCase.ArticleTest__c)) {
+				eventMessageDTOs = articleIdToEventMessageWrapperMap.get(articleCase.ArticleTest__c);
+			}				
+			exceptionCheckDTO.eventMessages = eventMessageDTOs;
+			
+			//add to dto list
+			exceptionCheckDTOS.add(exceptionCheckDTO);
 		}
-		agentQueueCases.addAll(exceptionCases);
 
-		for (Case neCase : noExceptionCases) {
-			if (neCase.CaseOriginator__c == ChasConstants.SENDER) {
-				agentQueueCases.add(neCase);
-			} else {
-				casesToClose.add(neCase);
+		//call exception checker service
+		List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
+
+		for (ExceptionCheckerService.ExceptionResultDTO resultDTO : exceptionResults) {
+			if (resultDTO.isException){
+				exceptionCases.add(resultDTO.CaseToCheck);
+			}else{
+				casesToClose.add(resultDTO.CaseToCheck);
 			}
 		}
+
 		//assign the cases to queue
 		ExceptionCheckerService.getInstance().assignCasesToAgentQueue(exceptionCases);
+
 		//close the cases for lost in transit
 		ExceptionCheckerService.getInstance().closeCases(casesToClose);
 	}

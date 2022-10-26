@@ -8,11 +8,11 @@
         <outerJoin>true</outerJoin>
         <relationship>ActionCadenceTracker</relationship>
     </join>
-    <label>Sales Cadences &amp; Trackers</label>
+    <label>Cadences &amp; Trackers</label>
     <sections>
-        <masterLabel>Sales Cadences</masterLabel>
+        <masterLabel>Cadences</masterLabel>
     </sections>
     <sections>
-        <masterLabel>Sales Cadence Trackers</masterLabel>
+        <masterLabel>Cadence Trackers</masterLabel>
     </sections>
 </ReportType>

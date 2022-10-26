@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata"/>
-
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Open_to_all_ST_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Open access of quick text created by startrack CSC managers to all ST users</description>
+        <label>Open to all ST Users</label>
+        <sharedTo>
+            <group>All_StarTrack_Users</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>StarTrack_CSC_Manager</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

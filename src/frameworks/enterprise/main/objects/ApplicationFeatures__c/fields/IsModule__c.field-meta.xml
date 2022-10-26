@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsModule__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used to classify this custom settings as a Module switch</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used to classify this custom settings as a Module switch</inlineHelpText>
+    <label>Is Module</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

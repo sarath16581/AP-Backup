@@ -11,6 +11,7 @@
  */
 public inherited sharing class ExceptionCheckerService {
     private static Consumer_Help_and_Support__c CHAS_SETTINGS = Consumer_Help_and_Support__c.getOrgDefaults();
+    @TestVisible private static String ORIGIN_ADDRESSEE = 'Addressee';
 
     /**
 	 * Grabs a new instance of this class
@@ -21,41 +22,116 @@ public inherited sharing class ExceptionCheckerService {
 	}
 
     /**
-     * Check for the exceptions in the events for articles
-     * @param eventsByArticle Map<String, List<EventMessage__c>>
+     * Is exception check main method, this will return the final results after calling individual exception checks
+     * @param exceptionCheckDTOS
      *
-     * @return Map<String,ExceptionResult>
+     * @return list of results can be identified by the case id or the article id
      */
-    public Map<String, ExceptionResultDTO> isExceptionApplies(Map<String, List<EventMessageDTO>> eventsByArticle) {
-        Integer recentScanDays = Integer.valueOf(CHAS_SETTINGS.RecentScanDays__c);
+    public List<ExceptionResultDTO> isExceptionApplies(List<ExceptionCheckDTO> exceptionCheckDTOS) {
+        List<ExceptionResultDTO> exceptionResultDTOS = new List<ExceptionResultDTO>();
+        try {
+            // storing the result to be returned per article
+
+            for (ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
+                ExceptionResultDTO result = new ExceptionResultDTO();
+                // checking through for exceptions
+                result.CaseToCheck = exceptionDTO?.CaseToCheck;
+                result.isException = checkForExceptions(exceptionDTO);
+                exceptionResultDTOS.add(result);
+            }
+        } catch(Exception ex) {
+            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Exception Checker Service', ExceptionCheckerService.class.getName(), 'call', null, LoggingLevel.ERROR);
+        }
+        return exceptionResultDTOS;
+    }
+
+    /**
+     * Calling individual checks
+     * @param exceptionDTO
+     *
+     * @return returns a boolean based on the result
+     */
+    private Boolean checkForExceptions(ExceptionCheckDTO exceptionDTO) {
+        if (isExceptionAppliesOnEventType(exceptionDTO)) {
+            return true;
+        }
+        if (isCaseRaisedRecently(exceptionDTO)) {
+            return true;
+        }
+        if (!isCaseRaisedByReceiver(exceptionDTO)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check for exceptions on the event type
+     * @param exceptionDTO
+     *
+     * @return boolean
+     */
+    public Boolean isExceptionAppliesOnEventType(ExceptionCheckDTO exceptionDTO) {
         // retrieving stored exceptionDTO message config
         List<String> eventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
-        // storing the result to be returned per article
-        Map<String, ExceptionResultDTO> articleToExceptionResult = new Map<String, ExceptionResultDTO>();
-        for(String articleId : eventsByArticle.keySet()) {
-            List<EventMessageDTO> exceptionDTOS = eventsByArticle.get(articleId);
-            ExceptionResultDTO result = new ExceptionResultDTO();
-            // checking through events for exceptions
-            for(EventMessageDTO exceptionDTO : exceptionDTOS) {
-                // if there's an exception found set the value to true in the DTO
-                if(eventMessageString.contains(exceptionDTO.EventType)) {
-                    result.isException = true;
-                } // if there was a recent scan we should get the agent to look at the case.
-                else if(exceptionDTO.ActualDateTime >= Date.today().addDays(-recentScanDays)){
-                    result.isException = true;
-                }
+        ExceptionResultDTO result = new ExceptionResultDTO();
+        // checking through events for exceptions
+        for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
+            // if there's an exception found set the value to true in the DTO
+            if(eventMessageString.contains(eventMessageDTO.EventType)) {
+                return true;
             }
-
-            articleToExceptionResult.put(articleId,result);
         }
+        return false;
+    }
 
-        return articleToExceptionResult;
+    /**
+     * is the case has been raised recently and the number of dates variation are taken from custom setting
+     * @param exceptionDTO
+     *
+     * @return boolean
+     */
+    public Boolean isCaseRaisedRecently(ExceptionCheckDTO exceptionDTO) {
+        Integer recentScanDays = Integer.valueOf(CHAS_SETTINGS.RecentScanDays__c);
+        // checking through events for exceptions
+        for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
+            // if there was a recent scan we should get the agent to look at the case.
+            if(eventMessageDTO?.ActualDateTime >= Date.today().addDays(-recentScanDays)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is the case has been raised by the receiver
+     * @param exceptionDTO
+     *
+     * @return boolean
+     */
+    public Boolean isCaseRaisedByReceiver(ExceptionCheckDTO exceptionDTO) {
+        if(ORIGIN_ADDRESSEE.equalsIgnoreCase(exceptionDTO?.CaseToCheck?.CaseOriginator__c)) {
+            return true;
+        }
+        return false;
     }
 
     // in case if we need to send more parameters we are using this DTO
     public class EventMessageDTO {
-        public String eventType { get; set; }
+        public String eventType {
+            get{
+                if(eventType == null) {
+                    return '';
+                }
+                return eventType;
+            }
+            set;
+        }
         public DateTime actualDateTime { get; set; }
+    }
+
+    public class ExceptionCheckDTO {
+        public Case CaseToCheck { get; set; }
+        public List<EventMessageDTO> eventMessages { get; set; }
     }
 
     public class ExceptionResultDTO {
@@ -66,6 +142,11 @@ public inherited sharing class ExceptionCheckerService {
                 }
                 return isException;
             }
+            set;
+        }
+
+        public Case CaseToCheck{
+            get;
             set;
         }
     }
@@ -82,7 +163,7 @@ public inherited sharing class ExceptionCheckerService {
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: Yes';
+            caseComment.CommentBody = 'Auto-LIT exception: No';
             caseComments.add(caseComment);
 		}
         //update cases
@@ -108,7 +189,7 @@ public inherited sharing class ExceptionCheckerService {
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: No';
+            caseComment.CommentBody = 'Auto-LIT exception: Yes';
             caseComments.add(caseComment);
 		}
         //update cases

@@ -1,4 +1,4 @@
-/***
+/*** 
  * @description
  * Domain Module to update Case fields that are used in Omni Skills Routing, performed in isBefore so it is available for Case skills mapping.
  * This is related to SSSW, so only SSSW Cases are processed.
@@ -54,37 +54,40 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
     }
 
     /*
-	 * This method populates the Case field CustomerQueueType based on the Case Account.
+	 * This method populates the Case field CustomerQueueType based on the Case Contact's Account.
 	 * @param records the list of updated or new records from the trigger.
 	 * @param existingRecords a Map of the pre-update records from the trigger. 
      * @param uow instance of UnitOfWork to flag records for DML operations
 	 */
     private void populateCustomerQueueType(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
         
-        Map<Id,Case> accountIdCaseMapping = new Map<Id,Case>();
+        Set<Id> contactIds = new Set<Id>();
+        List<Case> caseToProcess = new List<Case>();
+        
 
-        for (Case c : (List<Case>) records) {
+        for (Case cs : (List<Case>) records) {
 
-            if (String.IsEmpty(c.AccountId) == true) {
-                c.CustomerQueueType__c = SERVICESLA_CONSUMER;
-            } else {
-                //for updates, only process Cases with a changed AccountId
-                if(
-                    existingRecords == null || 
-                    (existingRecords.isEmpty() == false &&
-                     c.AccountId != ((Case)existingRecords.get(c.Id)).AccountId)
-                ){                    
-                    accountIdCaseMapping.put(c.AccountId,c);
-                } 
-            }
+            if(existingRecords == null || 
+                (existingRecords.isEmpty() == false &&
+                    cs.ContactId != ((Case)existingRecords.get(cs.Id)).ContactId)
+            ){                    
+                caseToProcess.add(cs);      
+                if(cs.ContactId != null){
+                    contactIds.add(cs.ContactId);  
+                }                     
+            }            
         }
 
-        if(accountIdCaseMapping.isEmpty() == false){
-            for(Account acct : (AccountsSelector.newInstance().selectById(accountIdCaseMapping.keySet())).values()){
-                Case cs = accountIdCaseMapping.get(acct.Id);
-                if(cs != null){
-                    cs.CustomerQueueType__c = String.isEmpty(acct.ServiceSLA__c) ? SERVICESLA_CONSUMER : acct.ServiceSLA__c;
-                }               
+        if(caseToProcess.isEmpty() == false){
+            
+            Map<Id, Contact> contactsMap = new Map<Id, Contact>();
+            if(contactIds.isEmpty() == false){
+                contactsMap = ContactsSelector.newInstance().selectById(contactIds, new Set<Object>{ContactsSelector.Options.WITH_ACCOUNT});
+            } 
+
+            for(Case cs : caseToProcess){
+                Contact contact = contactsMap.get(cs.ContactId);
+                cs.CustomerQueueType__c = (contact != null && contact.Account != null && String.isEmpty(contact.Account.ServiceSLA__c) == false)  ? contact.Account.ServiceSLA__c : SERVICESLA_CONSUMER;                
             }
         }
     }

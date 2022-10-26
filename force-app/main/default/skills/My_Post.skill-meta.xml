@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Skill xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>My Post</label>
     <description>This skill is applied to agents that work on cases related to Consumer My Post</description>
+    <label>My Post</label>
 </Skill>

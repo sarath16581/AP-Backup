@@ -226,6 +226,15 @@
     </profileSearchLayouts>
     <profileSearchLayouts>
         <fields>FULL_NAME</fields>
+        <fields>CORE.USERS.ACTIVE</fields>
+        <fields>CORE.USERS.EMAIL</fields>
+        <fields>CORE.USERS.TITLE</fields>
+        <fields>CORE.PROFILE.NAME</fields>
+        <fields>MANAGER</fields>
+        <profileName>Sales Operations Super User</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>FULL_NAME</fields>
         <fields>CORE.USER_ROLE.NAME</fields>
         <fields>CORE.USERS.EMAIL</fields>
         <fields>CORE.PROFILE.NAME</fields>
@@ -253,15 +262,6 @@
         <fields>CORE.PROFILE.NAME</fields>
         <fields>MANAGER</fields>
         <profileName>Sales Operations</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>FULL_NAME</fields>
-        <fields>CORE.USERS.ACTIVE</fields>
-        <fields>CORE.USERS.EMAIL</fields>
-        <fields>CORE.USERS.TITLE</fields>
-        <fields>CORE.PROFILE.NAME</fields>
-        <fields>MANAGER</fields>
-        <profileName>Sales Operations Super User</profileName>
     </profileSearchLayouts>
     <searchLayouts>
         <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
