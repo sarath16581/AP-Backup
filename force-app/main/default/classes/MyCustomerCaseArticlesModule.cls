@@ -460,9 +460,10 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	}
 
 	/**
-	 * Process the scenarios that require a link to an article id. This is only where an article already exists in the Article__c object. If an article isn't found, the case will be queued for async processing in the onAfter trigger handlers
+	 * Process the scenarios that require a link to an article id. This is only where an article already exists in the Article__c object. 
+	 * If an article isn't found, the case will be queued for async processing in the onAfter trigger handlers.
 	 */
-	public void populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
+	public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
 		System.debug('populateCaseArticleIds:cases: ' + cases);
 		System.debug('populateCaseArticleIds:queriedArticles: ' + queriedArticles);
 		System.debug('populateCaseArticleIds:existingReferenceIdMappings: ' + existingReferenceIdMappings);
@@ -498,6 +499,8 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				c.ArticleTest__c = null;
 			} 
 		}
+
+		return cases;
 	}
 	/**
 	 * Where an article id was provided but a reference id was not, loop through and set the reference id
