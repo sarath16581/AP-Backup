@@ -2,6 +2,7 @@
   * @author       :
   * @date         :
   * @description  : AP Routing service class
+  * @test SSSW_Routing_Test, CaseCommonUtility_Test, ChasBaseTest
 --------------------------------------- History ------------------------------------------------------------------------------------
 * 10.28.2020             naseer.abbasi@auspost.com.au            Updated to cater for Strategic cases
 * 2020-10-28 - Ranjeewa Silva - Refactored 'assignCasesAndDescription' to move population of description into it's own method.
@@ -349,10 +350,11 @@ public class SSSW_Routing {
      * H&S will set ByPassRoutingRulesOnCreation__c flag for direct assignment
      *
      * @param skipDescriptionRules is meant to skip Description Rules and used only in context of Strategic cases
-     * @param matchArticleRequiredRulesOnly Determines whether non strategic and non Extra Cover flagged rules should be skipped or not
+     * @param isFinalPass If routing was deferred because a rule was trigger that required article attributes, the second time routing is called from the MyCustomersCaseArticleModule, this flag will be true
+     *                    It implies that on final pass, if the article exists and is linked to a case, the rule can be processed, if the article does not exist (error quering sap-em or not found), then skip the article rule and move to the next
      *
      */
-    public static void assignCasesAndDescription(list<Case> cases, Map<Id,Case> oldMap, Boolean isInsert, Boolean skipDescriptionRules, Boolean matchArticleRequiredRulesOnly) {
+    public static void assignCasesAndDescription(list<Case> cases, Map<Id,Case> oldMap, Boolean isInsert, Boolean skipDescriptionRules, Boolean isFinalPass) {
         String recType = SSSWConstants.RECTYPEROUTING + '\' OR RecordType.DeveloperName=\'' + SSSWConstants.RECTYPEDESCRIPTION;
 
         //Replacing it with GetRulesForAllProfiles
@@ -410,7 +412,7 @@ public class SSSW_Routing {
                         //
                         // Modified 25/6/2021 to use RuleRequiresArticleAttributes__c ( true when either IsStrategic OR HasExtraCover is true)
                         // cases follow default logic if it is not either of these.
-                        if ((!rule.RuleRequiresArticleAttributes__c && !matchArticleRequiredRulesOnly) || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null)) {
+                        if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null)) {
                             if (processAny(cs, rule, routingFields)) {
                                 System.debug(LoggingLevel.ERROR, 'Inside ANY rule Assign Case--->' + rule);
                                 routingOwner = rule.Queue_ID__c;
@@ -433,7 +435,7 @@ public class SSSW_Routing {
 
                             // Cases being created from H&S can be routed direct to network (currently via a queueable)
                             // In this scenario we ignore any strategic routing checks
-                        } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c)) && !casesForReroutingAttempt.contains(cs)) {
+                        } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c)) && !casesForReroutingAttempt.contains(cs)) {
                             // if this is strategic customer routing rule but the case has no articlee linked, we store this to be routed later in MyCustomerCaseArticleModule (where the SAP EM queueable run that links the case to an article)
                             // NOTE that we skip this rerouting assignment if the case is created and directly assigned to a network.
                             // we skip this to ensure we don't overwrite the network owner
@@ -467,8 +469,8 @@ public class SSSW_Routing {
                         //TODO: have to set AllocateToQueue = false for portal cases
                         // Network cases to be skipped from routing in Insert context
                         system.debug('Rule required article attributes::: ' + rule.RuleRequiresArticleAttributes__c);
-                        system.debug('match strategic rule only::: ' + matchArticleRequiredRulesOnly);
-                        if ((!rule.RuleRequiresArticleAttributes__c && !matchArticleRequiredRulesOnly) || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null && (!isInsert || (isInsert && !cs.ByPassRoutingRulesOnCreation__c)))) {
+                        system.debug('match strategic rule only::: ' + isFinalPass);
+                        if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null && (!isInsert || (isInsert && !cs.ByPassRoutingRulesOnCreation__c)))) {
                             if (processAll(cs, rule, routingFields) && rule.recordtype.developerName == SSSWConstants.RECTYPEROUTING) {
                                 System.debug(LoggingLevel.ERROR, 'Inside ALL rule Assign Case--->' + rule);
                                 routingOwner = rule.Queue_ID__c;
@@ -490,7 +492,7 @@ public class SSSW_Routing {
                             }
                             // Cases being created from H&S can be routed direct to network (currently via a queueable)
                             // In this scenario we ignore any strategic routing checks
-                        } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c)) && !casesForReroutingAttempt.contains(cs)) {
+                        } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c)) && !casesForReroutingAttempt.contains(cs)) {
                             // if this is strategic customer routing rule but the case has no articlee linked, we store this to be routed later in MyCustomerCaseArticleModule (where the SAP EM queueable run that links the case to an article)
                             // NOTE that we skip this rerouting assignment if the case is created and directly assigned to a network.
                             // we skip this to ensure we don't overwrite the network owner
