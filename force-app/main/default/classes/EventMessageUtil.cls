@@ -365,6 +365,19 @@ public without sharing class EventMessageUtil {
 		return eventMessageString;
 	}
 
+	/** get the notification event messages
+	 * @return list of event's
+	 */
+	public static List<String> getCHASNotificationEventMessageTypes() {
+		List<String> eventMessageString = new List<String>();
+		for (CHAS_EventMessageTypeMapping__mdt eventType : getChasEventMessageTypes().values()) {
+			if (!eventType.IsException__c) {
+				eventMessageString.add(eventType.Label);
+			}
+		}
+		return eventMessageString;
+	}
+
 	/**
 	 * Retrieve details about all event message attachment types and their attributes used in ui presentation in Salesforce.
 	 * @return event message attachment types

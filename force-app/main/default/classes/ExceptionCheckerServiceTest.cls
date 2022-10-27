@@ -37,6 +37,7 @@ public class ExceptionCheckerServiceTest {
     private static void testExceptionCheckerService_No_exceptionFound_001() {
 
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+        cases[0].CaseOriginator__c = ExceptionCheckerService.ORIGIN_ADDRESSEE;
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
@@ -77,6 +78,7 @@ public class ExceptionCheckerServiceTest {
 
         Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+        cases[0].CaseOriginator__c = ExceptionCheckerService.ORIGIN_ADDRESSEE;
         List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
 
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
@@ -110,7 +112,7 @@ public class ExceptionCheckerServiceTest {
 
         exceptionCheckDTOS.add(exceptionCheckDTO);
 
-        System.assertEquals(true, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'TestExceptionCheckerService_recent_scan_exception_002: When event date is more than 5 days it should marked as exception NOT found');
+        System.assertEquals(false, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'testExceptionCheckerService_Is_Recipient_001: When case raised by recipient it should marked as exception NOT found');
 
     }
 
