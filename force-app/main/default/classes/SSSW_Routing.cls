@@ -11,7 +11,8 @@
 * 2021-06-30 - Steve Judd - Replaced getStrategicCustomerMappings with getArticleAttributesMap to return Extra Cover(Boolean) as well as isStrategic(Boolean)
 * 2021-06-30 - Steve Judd - Modified assignCasesAndDescription to allow Extra Cover cases to be routed along with Strategic Cases.
 * 2021-08-17 - Alex Volkov - Swapped out Automated_Network_Assignment__c for more generic ByPassRoutingRulesOnCreation__c
-* 2022-10-11 - Noel Lim - Stamp Case.HasExtraCover__c, and route Cases to a 'holding Queue' if it requires an Article to be fetched from SAP-EM via MyCustomerCaseArticleModule queueable
+* 2022-10-11 - Noel Lim - Stamp Case.HasExtraCover__c, and route Cases to a holding queue Omni Default Queue if it requires an Article to be fetched from SAP-EM via MyCustomerCaseArticleModule queueable.
+* 2022-10-26 - Noel Lim - change of existing boolean parameter's name and logic in assignCasesAndDescription(), from 'matchArticleRequiredRulesOnly' to 'isFinalPass'. 
 **/
 
 public class SSSW_Routing {

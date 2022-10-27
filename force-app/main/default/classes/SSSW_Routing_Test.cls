@@ -216,6 +216,88 @@ private class SSSW_Routing_Test {
     }
 
 	/**
+	 * When re-routing Cases from MyCustomerCaseArticlesModule, ensure there are no cases for re-routing
+	 * 
+	 * The above test Scenario is simulated by having a rule that requires an article (for both ALL and ANY match), and a case with a Reference Id
+	 *
+	 */
+    @IsTest
+	private static void testEnsureNoCaseForRerouteWhenFinalPass() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+		cases[0].ReferenceID__c = 'ART1231'; 
+		cases[0].Origin = 'Email';		
+		cases[0].RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
+		cases[0].IsNewForRouting__c  = true;
+		cases[0].AllocateToQueue__c = true;
+
+		cases[0].ReferenceID__c = 'ART1232'; 
+		cases[0].Origin = 'Phone';		
+		cases[0].RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
+		cases[0].IsNewForRouting__c  = true;
+		cases[0].AllocateToQueue__c = true;
+
+		// TODO: move SSSWRouting generation into ApplicationTestDataFactory
+		// create a new routing rule in teh database for SSSW_Routing to pick up
+		// NOTE: we only do this because we currently haven't enabled SSSW_Routing for mocking
+		Id routingRuleRecordTypeId = [SELECT Id FROM RecordType WHERE SobjectType = 'SSSWRouting__c' AND DeveloperName = 'SSSWRouting'].Id;
+		List<QueueSobject> queues = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.Name LIKE 'SSSW%' AND SobjectType = 'Case' LIMIT 1]);
+
+		List<SSSWRouting__c> routesToInsert = new List<SSSWRouting__c>();
+
+		// Setup a rule that will match cases[0] and allow rule routing logic to execute
+		SSSWRouting__c routingRule = new SSSWRouting__c();
+		routingRule.RecordTypeId = routingRuleRecordTypeId;
+		routingRule.Match_Rules_On__c = 'All';
+		routingRule.Origin__c = 'Email';
+		routingRule.IsActive__c = true;
+		//To reach the routing logic where a Case is flagged for Queuable and rerouting, formula field SSSW_Routing__r.RuleRequiresArticleAttributes__c needs to be true
+		routingRule.HasExtraCover__c = true; 
+		routingRule.Queue_ID__c = queues[0].QueueId;
+		routingRule.Sequence__c = 1;
+		routesToInsert.add(routingRule);
+
+		// Setup a rule that will match cases[1] and allow rule routing logic to execute
+		SSSWRouting__c routingRule2 = new SSSWRouting__c();
+		routingRule2.RecordTypeId = routingRuleRecordTypeId;
+		routingRule2.Match_Rules_On__c = 'Any';
+		routingRule2.Origin__c = 'Phone';
+		routingRule2.IsActive__c = true;
+		//To reach the routing logic where a Case is flagged for Queuable and rerouting, formula field SSSW_Routing__r.RuleRequiresArticleAttributes__c needs to be true
+		routingRule2.HasExtraCover__c = true; 
+		routingRule2.Queue_ID__c = queues[0].QueueId;
+		routingRule2.Sequence__c = 2;
+		routesToInsert.add(routingRule2);
+
+		Insert routesToInsert;
+
+
+		QM__c custSetting = QM__c.getOrgDefaults();
+		List<QueueSobject> omniDefaultRoutingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'Omni_Routing_Default' AND SobjectType = 'Case' LIMIT 1]);
+        custSetting.OmniDefaultQueueId__c = omniDefaultRoutingQueueList[0].QueueId;
+        Insert custSetting;
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		//Attempt to re-route cases as a final pass via the 5th param
+		SSSW_Routing.assignCasesAndDescription(cases, null, false, true, true);		
+
+		Test.stopTest();
+
+		//Verify the case is assigned to the Omni Routing Default Queue
+		System.assert( SSSW_Routing.casesForReroutingAttempt.size() <= 0, 'Expected the list casesForReroutingAttempt is empty');
+    
+    }
+
+	/**
 	 * When there is no Omni Routing Default Queue, ensure an Exception is thrown and a log is created
 	 */
     @IsTest
