@@ -502,6 +502,8 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				c.ArticleTest__c = null;
 
 				updateable.add(c);
+			} else {
+				updateable.add(c);
 			}
 		}
 
@@ -639,14 +641,29 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					// loop through all processable cases and apply the article field id value to the case where possible
 					// m_trackingReferenceIdMappingsCache was populated in selectArticles call
 					Map<Id, Case> updateable = new Map<Id, Case>(module.populateCaseArticleIds(cases.values(), articles, m_trackingReferenceIdMappingsCache));
+
+					//SF-737 Pilot code - reroute the Cases with no Article assigned in populateCaseArticleIds()
+					Set<Id> casesWithArticle = updateable.keySet();
+					Map<Id, Case> updateableNoArticle = new Map<Id, Case>();
+					for(Id caseId : cases.keySet()){
+						if(!casesWithArticle.contains(caseId)){
+							//updateable.put(caseId,cases.get(caseId));
+						}
+					}
+
 					system.debug('updateable before rerouting: '+updateable);
 					// attempt to reroute the cases with Article linked
 					// and original routing field values
 					updateable = rerouteCases(updateable);
                     system.debug(updateable.values());
 
+					//SF-737 Pilot code	
+					//updateableNoArticle = rerouteCases(updateableNoArticle);
+
 					// apply and default values that are currently not already populated on the case
 					module.applyCaseArticleDefaults(updateable.values(), articles);
+
+					//updateable.putAll(updateableNoArticle); //SF-737 Pilot code
 					System.debug('AsyncLinkArticlesToCases >> ' + updateable);
 
 					if(!updateable.isEmpty()) {
@@ -726,9 +743,9 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 							// setting flag on case since selected routing rule is a strategic one
                             // its required to avoid triggering the specific workflow rules that might reset the case owner
 							casesWithArticlePopulated.get(reroutedCase.Id).LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c;
-			}
-		}
-	}
+						}
+					}
+				}
 			} catch(Exception ex) {
 				// Error Logged to Exception object for analysis
 				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, AsyncLinkArticlesToCasesQueueable.class.getName(), 'rerouteCases', '', LoggingLevel.ERROR);
