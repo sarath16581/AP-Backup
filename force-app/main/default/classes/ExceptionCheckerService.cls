@@ -11,6 +11,9 @@
  */
 public inherited sharing class ExceptionCheckerService {
     private static Consumer_Help_and_Support__c CHAS_SETTINGS = Consumer_Help_and_Support__c.getOrgDefaults();
+    private List<String> exceptionEventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
+    private List<String> notificationEventMessageString = EventMessageUtil.getCHASNotificationEventMessageTypes();
+
     @TestVisible private static String ORIGIN_ADDRESSEE = 'Addressee';
 
     /**
@@ -71,13 +74,11 @@ public inherited sharing class ExceptionCheckerService {
      * @return boolean
      */
     public Boolean isExceptionAppliesOnEventType(ExceptionCheckDTO exceptionDTO) {
-        // retrieving stored exceptionDTO message config
-        List<String> eventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
         ExceptionResultDTO result = new ExceptionResultDTO();
         // checking through events for exceptions
         for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
             // if there's an exception found set the value to true in the DTO
-            if(eventMessageString.contains(eventMessageDTO.EventType)) {
+            if(exceptionEventMessageString.contains(eventMessageDTO.EventType)) {
                 return true;
             }
         }
@@ -95,7 +96,8 @@ public inherited sharing class ExceptionCheckerService {
         // checking through events for exceptions
         for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
             // if there was a recent scan we should get the agent to look at the case.
-            if(eventMessageDTO?.ActualDateTime >= Date.today().addDays(-recentScanDays)){
+            if((!notificationEventMessageString.contains(eventMessageDTO.EventType)) && 
+                (eventMessageDTO?.ActualDateTime >= Date.today().addDays(-recentScanDays))){
                 return true;
             }
         }
