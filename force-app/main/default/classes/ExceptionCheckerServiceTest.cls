@@ -12,6 +12,7 @@ public class ExceptionCheckerServiceTest {
     private static void setup() {
         Consumer_Help_and_Support__c hs = new Consumer_Help_and_Support__c();
         hs.RecentScanDays__c = 5;
+        hs.EnableExceptionChecker__c = true;
         insert hs;
     }
 
@@ -115,6 +116,28 @@ public class ExceptionCheckerServiceTest {
         System.assertEquals(false, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'testExceptionCheckerService_Is_Recipient_001: When case raised by recipient it should marked as exception NOT found');
 
     }
+
+    @IsTest
+    private static void testExceptionCheckerService_When_Checker_is_Disabled_001() {
+        Consumer_Help_and_Support__c hs = Consumer_Help_and_Support__c.getOrgDefaults();
+        hs.EnableExceptionChecker__c = false;
+        update hs;
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+        List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
+
+        ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
+        exceptionCheckDTO.CaseToCheck = cases[0];
+        ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
+        eventMessageDTO.EventType = 'AFC-ER19';
+
+        exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
+
+        exceptionCheckDTOS.add(exceptionCheckDTO);
+
+        System.assertEquals(true, ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS)[0].isException, 'TestExceptionCheckerService_exceptionFound_001: Should marked as exception found');
+
+    }
+
 
     @IsTest
     private static void testCloseCases() {
