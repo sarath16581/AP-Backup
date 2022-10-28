@@ -55,6 +55,10 @@ public inherited sharing class ExceptionCheckerService {
      * @return returns a boolean based on the result
      */
     private Boolean checkForExceptions(ExceptionCheckDTO exceptionDTO) {
+        // if the exception checker is turned off return true will allow to create the case
+        if(!CHAS_SETTINGS.EnableExceptionChecker__c) {
+            return true;
+        }
         if (isExceptionAppliesOnEventType(exceptionDTO)) {
             return true;
         }
