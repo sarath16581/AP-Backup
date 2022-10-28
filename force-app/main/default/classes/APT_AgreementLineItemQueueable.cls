@@ -21,7 +21,7 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
     **/
     public void execute(QueueableContext context) {
         try {
-            
+        
             if(String.IsBlank(agreementID)){
                 return;
             }
@@ -34,7 +34,7 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
             if(agreement == null || String.IsBlank(configurationID)
                     || String.IsBlank(agreement.Included_Product_Lines__c)
                     || (agreement.Apttus__AgreementLineItems__r != null 
-                            && agreement.Apttus__AgreementLineItems__r.size() > 0)){
+                            && agreement.Apttus__AgreementLineItems__r.size() > 0) ){
                 return;
             }
             system.Debug('CD: configurationID-------->' + configurationID);
@@ -121,12 +121,12 @@ public with sharing class APT_AgreementLineItemQueueable implements Queueable {
                 
                 listAgreementLineItems.add(clonedAgreementLineItem);
                 system.Debug('clonedAgreementLineItem-->' + clonedAgreementLineItem);      
-            	system.Debug('pli-->' + pli);
+                system.Debug('pli-->' + pli);
             }         
             
             system.Debug('listAgreementLineItems-->' + listAgreementLineItems);      
             
-            if(listAgreementLineItems.size() > 0) {
+            if(listAgreementLineItems.size() > 0) {                
                 insert listAgreementLineItems;
                
                 ID jobID = System.enqueueJob(new APT_AgreementLineItemChildQueueable(new Set<ID>{agreementID}));

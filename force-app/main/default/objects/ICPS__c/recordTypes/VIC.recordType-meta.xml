@@ -22,478 +22,694 @@
     <picklistValues>
         <picklist>CountryofOrigin__c</picklist>
         <values>
-            <fullName>Afghanistan</fullName>
+            <fullName>AD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Albania</fullName>
+            <fullName>AE</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Algeria</fullName>
+            <fullName>AF</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Andorra</fullName>
+            <fullName>AL</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Australia</fullName>
+            <fullName>AT</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Austria</fullName>
+            <fullName>AU</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Belarus</fullName>
+            <fullName>BD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Belgium</fullName>
+            <fullName>BE</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Benin</fullName>
+            <fullName>BG</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Bhutan</fullName>
+            <fullName>BJ</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Bulgaria</fullName>
+            <fullName>BO</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Canada</fullName>
+            <fullName>BR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>China</fullName>
+            <fullName>BT</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Christmas Island</fullName>
+            <fullName>BY</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Croatia</fullName>
+            <fullName>CA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Cyprus</fullName>
+            <fullName>CH</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Czech Republic</fullName>
+            <fullName>CL</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Denmark</fullName>
+            <fullName>CM</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Estonia</fullName>
+            <fullName>CN</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Fiji</fullName>
+            <fullName>CO</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Finland</fullName>
+            <fullName>CR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>France</fullName>
+            <fullName>CU</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Germany</fullName>
+            <fullName>CX</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Ghana</fullName>
+            <fullName>CY</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Gibraltar</fullName>
+            <fullName>CZ</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Greece</fullName>
+            <fullName>DE</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Grenada</fullName>
+            <fullName>DK</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Hong Kong</fullName>
+            <fullName>DZ</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Hungary</fullName>
+            <fullName>EC</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Iceland</fullName>
+            <fullName>EE</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>India</fullName>
+            <fullName>EG</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Indonesia</fullName>
+            <fullName>ES</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Iran</fullName>
+            <fullName>ET</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Ireland</fullName>
+            <fullName>FI</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Israel</fullName>
+            <fullName>FJ</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Italy</fullName>
+            <fullName>FR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Japan</fullName>
+            <fullName>GB</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Kyrgyzstan</fullName>
+            <fullName>GD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Latvia</fullName>
+            <fullName>GE</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Lebanon</fullName>
+            <fullName>GF</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Lithuania</fullName>
+            <fullName>GH</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Luxembourg</fullName>
+            <fullName>GI</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Malaysia</fullName>
+            <fullName>GR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Malta</fullName>
+            <fullName>HK</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Netherlands</fullName>
+            <fullName>HR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>New Caledonia</fullName>
+            <fullName>HU</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>New Zealand</fullName>
+            <fullName>ID</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Norway</fullName>
+            <fullName>IE</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Pakistan</fullName>
+            <fullName>IL</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Peru</fullName>
+            <fullName>IN</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Phillipines</fullName>
+            <fullName>IR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Poland</fullName>
+            <fullName>IS</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Portugal</fullName>
+            <fullName>IT</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Republic of Korea</fullName>
+            <fullName>JM</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Romania</fullName>
+            <fullName>JO</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Russian Federation</fullName>
+            <fullName>JP</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Serbia</fullName>
+            <fullName>KE</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Singapore</fullName>
+            <fullName>KG</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Slovak Republic</fullName>
+            <fullName>KH</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Slovakia</fullName>
+            <fullName>KR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Slovenia</fullName>
+            <fullName>KW</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>South Africa</fullName>
+            <fullName>KZ</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Spain</fullName>
+            <fullName>LB</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Sri Lanka</fullName>
+            <fullName>LI</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Sudan</fullName>
+            <fullName>LK</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Suriname</fullName>
+            <fullName>LT</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Sweden</fullName>
+            <fullName>LU</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Switzerland</fullName>
+            <fullName>LV</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Taiwan</fullName>
+            <fullName>LY</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Thailand</fullName>
+            <fullName>MA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Turkey</fullName>
+            <fullName>MC</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>USA</fullName>
+            <fullName>MD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Ukraine</fullName>
+            <fullName>ME</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>United Arab Emirates</fullName>
+            <fullName>MG</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>United Kingdom</fullName>
+            <fullName>MK</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Vietnam</fullName>
+            <fullName>MN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>US</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>YE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ZA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ZM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ZW</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>Currency__c</picklist>
         <values>
-            <fullName>Argentine Peso %28ARS%29</fullName>
+            <fullName>AED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Australian Dollar %28AUD%29</fullName>
+            <fullName>ARS</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Bahraini Dollar %28BBD%29</fullName>
+            <fullName>AUD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Brazilian Real %28BRL%29</fullName>
+            <fullName>BBD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>British Pound %28GBP%29</fullName>
+            <fullName>BRL</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Canadian Dollar %28CAN%29</fullName>
+            <fullName>CAN</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Chinese Yuan %28CNY%29</fullName>
+            <fullName>CHF</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Croatian Kuna %28HRK%29</fullName>
+            <fullName>CNY</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Czech Koruna %28CZK%29</fullName>
+            <fullName>CZK</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Danish Krone %28DKK%29</fullName>
+            <fullName>DKK</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Euro %28EUR%29</fullName>
+            <fullName>EUR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Fiji Dollar %28FJD%29</fullName>
+            <fullName>FJD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Hong Kong Dollar %28HKD%29</fullName>
+            <fullName>GBP</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Hungarian Forint %28HUF%29</fullName>
+            <fullName>HKD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Indian Rupee %28INR%29</fullName>
+            <fullName>HRK</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Indonesian Rupiah %28IDR%29</fullName>
+            <fullName>HUF</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Israeli New Shekel %28ILS%29</fullName>
+            <fullName>IDR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Japanese Yen %28JPY%29</fullName>
+            <fullName>ILS</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Jordanian Dinar %28JOD%29</fullName>
+            <fullName>INR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Kuwaiti Dinar %28KWD%29</fullName>
+            <fullName>JOD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Malaysian Ringgit %28MUR%29</fullName>
+            <fullName>JPY</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Mexican Peso %28MXN%29</fullName>
+            <fullName>KWD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Moroccan Dirham %28MAD%29</fullName>
+            <fullName>LKR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>New Taiwan Dollar %28TWD%29</fullName>
+            <fullName>MAD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>New Zealand Dollar %28NZD%29</fullName>
+            <fullName>MUR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Norwegian Krone %28NOK%29</fullName>
+            <fullName>MXN</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Pakistani Rupee %28PKR%29</fullName>
+            <fullName>NOK</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Phillipine Peso %28PHP%29</fullName>
+            <fullName>NZD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Polish Zloty %28PLN%29</fullName>
+            <fullName>PHP</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Qatari Riyal %28QAR%29</fullName>
+            <fullName>PKR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Russian Ruble %28RUB%29</fullName>
+            <fullName>PLN</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Saudi Riyal %28SAR%29</fullName>
+            <fullName>QAR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Singapore Dollar %28SGD%29</fullName>
+            <fullName>RUB</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>South African Rand %28ZAR%29</fullName>
+            <fullName>SAR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Sri Lankan Rupee %28LKR%29</fullName>
+            <fullName>SEK</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Swedish Krona %28SEK%29</fullName>
+            <fullName>SGD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Swiss Franc %28CHF%29</fullName>
+            <fullName>THB</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Thai Bhat %28THB%29</fullName>
+            <fullName>TRY</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Turkish Lira %28TRY%29</fullName>
+            <fullName>TWD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>United Arab Emirates Dirham %28AED%29</fullName>
+            <fullName>USD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>United States Dollar %28USD%29</fullName>
+            <fullName>VND</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Vietnamese Dong %28VND%29</fullName>
+            <fullName>ZAR</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -511,7 +727,7 @@
     <picklistValues>
         <picklist>ItemType__c</picklist>
         <values>
-            <fullName>Air</fullName>
+            <fullName>AIR</fullName>
             <default>false</default>
         </values>
         <values>
@@ -523,22 +739,22 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Sea Mail</fullName>
+            <fullName>SEA MAIL</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>MailCategory__c</picklist>
         <values>
-            <fullName>Insured</fullName>
+            <fullName>INSURED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Ordinary</fullName>
+            <fullName>ORDINARY</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Registered</fullName>
+            <fullName>REGISTERED</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -576,59 +792,59 @@
     <picklistValues>
         <picklist>Status__c</picklist>
         <values>
-            <fullName>Abandoned</fullName>
+            <fullName>ABANDONED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Cancelled</fullName>
+            <fullName>CANCELLED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Delivered</fullName>
+            <fullName>DELIVERED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Held</fullName>
+            <fullName>HELD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>In Store</fullName>
+            <fullName>IN STORE</fullName>
             <default>true</default>
         </values>
         <values>
-            <fullName>L%2FAddress</fullName>
+            <fullName>L%2FADDRESS</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Prohibited</fullName>
+            <fullName>PROHIBITED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>RTS-Air</fullName>
+            <fullName>RE%2FADDRESS</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Re%2FAddress</fullName>
+            <fullName>REDIRECTED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Redirected</fullName>
+            <fullName>REFUSED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Refused</fullName>
+            <fullName>RESTRICTED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Restricted</fullName>
+            <fullName>RTS-AIR</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unclaimed</fullName>
+            <fullName>UNCLAIMED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unknown</fullName>
+            <fullName>UNKNOWN</fullName>
             <default>false</default>
         </values>
     </picklistValues>

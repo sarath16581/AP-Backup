@@ -41,6 +41,18 @@ However, other users within the Marketing team do not have the Marketing role as
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>Owner_In_Contact_Assignment_Share_with_AM</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule will allow for the Campaign Contact Assignment functionality to work with all Account Managers.</description>
+        <label>Owner In Contact Assignment - Share with AM</label>
+        <sharedTo>
+            <group>Account_Managers</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Campaign_Contact_Assignment_Group</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Share_with_Account_Managers</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This would Share the Campaigns created by Marketing with Account Managers</description>

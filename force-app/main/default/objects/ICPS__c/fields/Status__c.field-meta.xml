@@ -14,77 +14,77 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
-                <fullName>Abandoned</fullName>
+                <fullName>ABANDONED</fullName>
                 <default>false</default>
                 <label>Abandoned</label>
             </value>
             <value>
-                <fullName>Cancelled</fullName>
+                <fullName>CANCELLED</fullName>
                 <default>false</default>
                 <label>Cancelled</label>
             </value>
             <value>
-                <fullName>Delivered</fullName>
+                <fullName>DELIVERED</fullName>
                 <default>false</default>
                 <label>Delivered</label>
             </value>
             <value>
-                <fullName>Held</fullName>
+                <fullName>HELD</fullName>
                 <default>false</default>
                 <label>Held</label>
             </value>
             <value>
-                <fullName>In Store</fullName>
+                <fullName>IN STORE</fullName>
                 <default>false</default>
                 <label>In Store</label>
             </value>
             <value>
-                <fullName>L/Address</fullName>
+                <fullName>L/ADDRESS</fullName>
                 <default>false</default>
                 <label>L/Address</label>
             </value>
             <value>
-                <fullName>Prohibited</fullName>
+                <fullName>PROHIBITED</fullName>
                 <default>false</default>
                 <label>Prohibited</label>
             </value>
             <value>
-                <fullName>Re/Address</fullName>
+                <fullName>RE/ADDRESS</fullName>
                 <default>false</default>
                 <label>Re/Address</label>
             </value>
             <value>
-                <fullName>Redirected</fullName>
+                <fullName>REDIRECTED</fullName>
                 <default>false</default>
                 <label>Redirected</label>
             </value>
             <value>
-                <fullName>Refused</fullName>
+                <fullName>REFUSED</fullName>
                 <default>false</default>
                 <label>Refused</label>
             </value>
             <value>
-                <fullName>Restricted</fullName>
+                <fullName>RESTRICTED</fullName>
                 <default>false</default>
                 <label>Restricted</label>
             </value>
             <value>
-                <fullName>RTS-Air</fullName>
+                <fullName>RTS-AIR</fullName>
                 <default>false</default>
                 <label>RTS-Air</label>
             </value>
             <value>
-                <fullName>Seized</fullName>
+                <fullName>SEIZED</fullName>
                 <default>false</default>
                 <label>Seized</label>
             </value>
             <value>
-                <fullName>Unclaimed</fullName>
+                <fullName>UNCLAIMED</fullName>
                 <default>false</default>
                 <label>Unclaimed</label>
             </value>
             <value>
-                <fullName>Unknown</fullName>
+                <fullName>UNKNOWN</fullName>
                 <default>false</default>
                 <label>Unknown</label>
             </value>

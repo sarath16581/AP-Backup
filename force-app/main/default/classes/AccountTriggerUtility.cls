@@ -1252,7 +1252,7 @@ public with sharing class AccountTriggerUtility {
             Set<String> orgIdsToAdd = new Set<String>();
             if (!acctIdsToRemove.isEmpty()) {
                 List<AccountTeamMember> acctTeamToRemove = AccountTeamMembersSelector.newInstance().selectByTeamRoleAndAccountIds(
-                        'Assigned LPO', acctIdsToRemove, new Set<Object>()).values();
+                    'Assigned LPO', acctIdsToRemove, new Set<Object>()).values();
 
                 if (acctTeamToRemove.size() > 0) {
                     delete acctTeamToRemove;

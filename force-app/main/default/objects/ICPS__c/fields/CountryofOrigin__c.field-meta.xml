@@ -14,384 +14,654 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
-                <fullName>Afghanistan</fullName>
+                <fullName>AF</fullName>
                 <default>false</default>
                 <label>Afghanistan</label>
             </value>
             <value>
-                <fullName>Albania</fullName>
+                <fullName>AL</fullName>
                 <default>false</default>
                 <label>Albania</label>
             </value>
             <value>
-                <fullName>Algeria</fullName>
+                <fullName>DZ</fullName>
                 <default>false</default>
                 <label>Algeria</label>
             </value>
             <value>
-                <fullName>Andorra</fullName>
+                <fullName>AD</fullName>
                 <default>false</default>
                 <label>Andorra</label>
             </value>
             <value>
-                <fullName>Australia</fullName>
+                <fullName>AU</fullName>
                 <default>false</default>
                 <label>Australia</label>
             </value>
             <value>
-                <fullName>Austria</fullName>
+                <fullName>AT</fullName>
                 <default>false</default>
                 <label>Austria</label>
             </value>
             <value>
-                <fullName>Belarus</fullName>
+                <fullName>BD</fullName>
+                <default>false</default>
+                <label>Bangladesh</label>
+            </value>
+            <value>
+                <fullName>BY</fullName>
                 <default>false</default>
                 <label>Belarus</label>
             </value>
             <value>
-                <fullName>Belgium</fullName>
+                <fullName>BE</fullName>
                 <default>false</default>
                 <label>Belgium</label>
             </value>
             <value>
-                <fullName>Benin</fullName>
+                <fullName>BJ</fullName>
                 <default>false</default>
                 <label>Benin</label>
             </value>
             <value>
-                <fullName>Bhutan</fullName>
+                <fullName>BT</fullName>
                 <default>false</default>
                 <label>Bhutan</label>
             </value>
             <value>
-                <fullName>Bulgaria</fullName>
+                <fullName>BO</fullName>
+                <default>false</default>
+                <label>Bolivia</label>
+            </value>
+            <value>
+                <fullName>BR</fullName>
+                <default>false</default>
+                <label>Brazil</label>
+            </value>
+            <value>
+                <fullName>BG</fullName>
                 <default>false</default>
                 <label>Bulgaria</label>
             </value>
             <value>
-                <fullName>Canada</fullName>
+                <fullName>KH</fullName>
+                <default>false</default>
+                <label>Cambodia</label>
+            </value>
+            <value>
+                <fullName>CM</fullName>
+                <default>false</default>
+                <label>Cameroon</label>
+            </value>
+            <value>
+                <fullName>CA</fullName>
                 <default>false</default>
                 <label>Canada</label>
             </value>
             <value>
-                <fullName>China</fullName>
+                <fullName>CL</fullName>
+                <default>false</default>
+                <label>Chile</label>
+            </value>
+            <value>
+                <fullName>CN</fullName>
                 <default>false</default>
                 <label>China</label>
             </value>
             <value>
-                <fullName>Christmas Island</fullName>
+                <fullName>CX</fullName>
                 <default>false</default>
                 <label>Christmas Island</label>
             </value>
             <value>
-                <fullName>Croatia</fullName>
+                <fullName>CO</fullName>
+                <default>false</default>
+                <label>Colombia</label>
+            </value>
+            <value>
+                <fullName>CR</fullName>
+                <default>false</default>
+                <label>Costa Rica</label>
+            </value>
+            <value>
+                <fullName>HR</fullName>
                 <default>false</default>
                 <label>Croatia</label>
             </value>
             <value>
-                <fullName>Cyprus</fullName>
+                <fullName>CU</fullName>
+                <default>false</default>
+                <label>Cuba</label>
+            </value>
+            <value>
+                <fullName>CY</fullName>
                 <default>false</default>
                 <label>Cyprus</label>
             </value>
             <value>
-                <fullName>Czech Republic</fullName>
+                <fullName>CZ</fullName>
                 <default>false</default>
                 <label>Czech Republic</label>
             </value>
             <value>
-                <fullName>Denmark</fullName>
+                <fullName>DK</fullName>
                 <default>false</default>
                 <label>Denmark</label>
             </value>
             <value>
-                <fullName>Estonia</fullName>
+                <fullName>EC</fullName>
+                <default>false</default>
+                <label>Ecuador</label>
+            </value>
+            <value>
+                <fullName>EG</fullName>
+                <default>false</default>
+                <label>Egypt</label>
+            </value>
+            <value>
+                <fullName>EE</fullName>
                 <default>false</default>
                 <label>Estonia</label>
             </value>
             <value>
-                <fullName>Fiji</fullName>
+                <fullName>ET</fullName>
+                <default>false</default>
+                <label>Ethiopia</label>
+            </value>
+            <value>
+                <fullName>FJ</fullName>
                 <default>false</default>
                 <label>Fiji</label>
             </value>
             <value>
-                <fullName>Finland</fullName>
+                <fullName>FI</fullName>
                 <default>false</default>
                 <label>Finland</label>
             </value>
             <value>
-                <fullName>France</fullName>
+                <fullName>FR</fullName>
                 <default>false</default>
                 <label>France</label>
             </value>
             <value>
-                <fullName>Germany</fullName>
+                <fullName>GF</fullName>
+                <default>false</default>
+                <label>French Guiana</label>
+            </value>
+            <value>
+                <fullName>GE</fullName>
+                <default>false</default>
+                <label>Georgia</label>
+            </value>
+            <value>
+                <fullName>DE</fullName>
                 <default>false</default>
                 <label>Germany</label>
             </value>
             <value>
-                <fullName>Ghana</fullName>
+                <fullName>GH</fullName>
                 <default>false</default>
                 <label>Ghana</label>
             </value>
             <value>
-                <fullName>Gibraltar</fullName>
+                <fullName>GI</fullName>
                 <default>false</default>
                 <label>Gibraltar</label>
             </value>
             <value>
-                <fullName>Greece</fullName>
+                <fullName>GR</fullName>
                 <default>false</default>
                 <label>Greece</label>
             </value>
             <value>
-                <fullName>Grenada</fullName>
+                <fullName>GD</fullName>
                 <default>false</default>
                 <label>Grenada</label>
             </value>
             <value>
-                <fullName>Hong Kong</fullName>
+                <fullName>HK</fullName>
                 <default>false</default>
                 <label>Hong Kong</label>
             </value>
             <value>
-                <fullName>Hungary</fullName>
+                <fullName>HU</fullName>
                 <default>false</default>
                 <label>Hungary</label>
             </value>
             <value>
-                <fullName>Iceland</fullName>
+                <fullName>IS</fullName>
                 <default>false</default>
                 <label>Iceland</label>
             </value>
             <value>
-                <fullName>India</fullName>
+                <fullName>IN</fullName>
                 <default>false</default>
                 <label>India</label>
             </value>
             <value>
-                <fullName>Indonesia</fullName>
+                <fullName>ID</fullName>
                 <default>false</default>
                 <label>Indonesia</label>
             </value>
             <value>
-                <fullName>Iran</fullName>
+                <fullName>IR</fullName>
                 <default>false</default>
                 <label>Iran</label>
             </value>
             <value>
-                <fullName>Ireland</fullName>
+                <fullName>IE</fullName>
                 <default>false</default>
                 <label>Ireland</label>
             </value>
             <value>
-                <fullName>Israel</fullName>
+                <fullName>IL</fullName>
                 <default>false</default>
                 <label>Israel</label>
             </value>
             <value>
-                <fullName>Italy</fullName>
+                <fullName>IT</fullName>
                 <default>false</default>
                 <label>Italy</label>
             </value>
             <value>
-                <fullName>Japan</fullName>
+                <fullName>JM</fullName>
+                <default>false</default>
+                <label>Jamaica</label>
+            </value>
+            <value>
+                <fullName>JP</fullName>
                 <default>false</default>
                 <label>Japan</label>
             </value>
             <value>
-                <fullName>Kyrgyzstan</fullName>
+                <fullName>JO</fullName>
+                <default>false</default>
+                <label>Jordan</label>
+            </value>
+            <value>
+                <fullName>KZ</fullName>
+                <default>false</default>
+                <label>Kazakhstan</label>
+            </value>
+            <value>
+                <fullName>KE</fullName>
+                <default>false</default>
+                <label>Kenya</label>
+            </value>
+            <value>
+                <fullName>KW</fullName>
+                <default>false</default>
+                <label>Kuwait</label>
+            </value>
+            <value>
+                <fullName>KG</fullName>
                 <default>false</default>
                 <label>Kyrgyzstan</label>
             </value>
             <value>
-                <fullName>Latvia</fullName>
+                <fullName>LV</fullName>
                 <default>false</default>
                 <label>Latvia</label>
             </value>
             <value>
-                <fullName>Lebanon</fullName>
+                <fullName>LB</fullName>
                 <default>false</default>
                 <label>Lebanon</label>
             </value>
             <value>
-                <fullName>Lithuania</fullName>
+                <fullName>LY</fullName>
+                <default>false</default>
+                <label>Libya</label>
+            </value>
+            <value>
+                <fullName>LI</fullName>
+                <default>false</default>
+                <label>Liechtenstein</label>
+            </value>
+            <value>
+                <fullName>LT</fullName>
                 <default>false</default>
                 <label>Lithuania</label>
             </value>
             <value>
-                <fullName>Luxembourg</fullName>
+                <fullName>LU</fullName>
                 <default>false</default>
                 <label>Luxembourg</label>
             </value>
             <value>
-                <fullName>Malaysia</fullName>
+                <fullName>MK</fullName>
+                <default>false</default>
+                <label>Macedonia</label>
+            </value>
+            <value>
+                <fullName>MG</fullName>
+                <default>false</default>
+                <label>Madagascar</label>
+            </value>
+            <value>
+                <fullName>MW</fullName>
+                <default>false</default>
+                <label>Malawi</label>
+            </value>
+            <value>
+                <fullName>MY</fullName>
                 <default>false</default>
                 <label>Malaysia</label>
             </value>
             <value>
-                <fullName>Malta</fullName>
+                <fullName>MT</fullName>
                 <default>false</default>
                 <label>Malta</label>
             </value>
             <value>
-                <fullName>Netherlands</fullName>
+                <fullName>MU</fullName>
+                <default>false</default>
+                <label>Mauritius</label>
+            </value>
+            <value>
+                <fullName>MX</fullName>
+                <default>false</default>
+                <label>Mexico</label>
+            </value>
+            <value>
+                <fullName>MD</fullName>
+                <default>false</default>
+                <label>Moldova</label>
+            </value>
+            <value>
+                <fullName>MC</fullName>
+                <default>false</default>
+                <label>Monaco</label>
+            </value>
+            <value>
+                <fullName>MN</fullName>
+                <default>false</default>
+                <label>Mongolia</label>
+            </value>
+            <value>
+                <fullName>ME</fullName>
+                <default>false</default>
+                <label>Montenegro</label>
+            </value>
+            <value>
+                <fullName>MA</fullName>
+                <default>false</default>
+                <label>Morocco</label>
+            </value>
+            <value>
+                <fullName>MZ</fullName>
+                <default>false</default>
+                <label>Mozambique</label>
+            </value>
+            <value>
+                <fullName>NA</fullName>
+                <default>false</default>
+                <label>Namibia</label>
+            </value>
+            <value>
+                <fullName>NP</fullName>
+                <default>false</default>
+                <label>Nepal</label>
+            </value>
+            <value>
+                <fullName>NL</fullName>
                 <default>false</default>
                 <label>Netherlands</label>
             </value>
             <value>
-                <fullName>New Caledonia</fullName>
+                <fullName>NC</fullName>
                 <default>false</default>
                 <label>New Caledonia</label>
             </value>
             <value>
-                <fullName>New Zealand</fullName>
+                <fullName>NZ</fullName>
                 <default>false</default>
                 <label>New Zealand</label>
             </value>
             <value>
-                <fullName>Norway</fullName>
+                <fullName>NG</fullName>
+                <default>false</default>
+                <label>Nigeria</label>
+            </value>
+            <value>
+                <fullName>NO</fullName>
                 <default>false</default>
                 <label>Norway</label>
             </value>
             <value>
-                <fullName>Pakistan</fullName>
+                <fullName>PK</fullName>
                 <default>false</default>
                 <label>Pakistan</label>
             </value>
             <value>
-                <fullName>Peru</fullName>
+                <fullName>PA</fullName>
+                <default>false</default>
+                <label>Panama</label>
+            </value>
+            <value>
+                <fullName>PG</fullName>
+                <default>false</default>
+                <label>Papua New Guinea</label>
+            </value>
+            <value>
+                <fullName>PY</fullName>
+                <default>false</default>
+                <label>Paraguay</label>
+            </value>
+            <value>
+                <fullName>PE</fullName>
                 <default>false</default>
                 <label>Peru</label>
             </value>
             <value>
-                <fullName>Phillipines</fullName>
+                <fullName>PH</fullName>
                 <default>false</default>
                 <label>Phillipines</label>
             </value>
             <value>
-                <fullName>Poland</fullName>
+                <fullName>PL</fullName>
                 <default>false</default>
                 <label>Poland</label>
             </value>
             <value>
-                <fullName>Portugal</fullName>
+                <fullName>PT</fullName>
                 <default>false</default>
                 <label>Portugal</label>
             </value>
             <value>
-                <fullName>Republic of Korea</fullName>
+                <fullName>PR</fullName>
+                <default>false</default>
+                <label>Puerto Rico</label>
+            </value>
+            <value>
+                <fullName>KR</fullName>
                 <default>false</default>
                 <label>Republic of Korea</label>
             </value>
             <value>
-                <fullName>Romania</fullName>
+                <fullName>RO</fullName>
                 <default>false</default>
                 <label>Romania</label>
             </value>
             <value>
-                <fullName>Russian Federation</fullName>
+                <fullName>RU</fullName>
                 <default>false</default>
                 <label>Russian Federation</label>
             </value>
             <value>
-                <fullName>Serbia</fullName>
+                <fullName>RW</fullName>
+                <default>false</default>
+                <label>Rwanda</label>
+            </value>
+            <value>
+                <fullName>WS</fullName>
+                <default>false</default>
+                <label>Samoa</label>
+            </value>
+            <value>
+                <fullName>SM</fullName>
+                <default>false</default>
+                <label>San Marino</label>
+            </value>
+            <value>
+                <fullName>SA</fullName>
+                <default>false</default>
+                <label>Saudi Arabia</label>
+            </value>
+            <value>
+                <fullName>SN</fullName>
+                <default>false</default>
+                <label>Senegal</label>
+            </value>
+            <value>
+                <fullName>RS</fullName>
                 <default>false</default>
                 <label>Serbia</label>
             </value>
             <value>
-                <fullName>Singapore</fullName>
+                <fullName>SG</fullName>
                 <default>false</default>
                 <label>Singapore</label>
             </value>
             <value>
-                <fullName>Slovakia</fullName>
+                <fullName>SK</fullName>
                 <default>false</default>
                 <label>Slovakia</label>
             </value>
             <value>
-                <fullName>Slovak Republic</fullName>
-                <default>false</default>
-                <label>Slovak Republic</label>
-            </value>
-            <value>
-                <fullName>Slovenia</fullName>
+                <fullName>SI</fullName>
                 <default>false</default>
                 <label>Slovenia</label>
             </value>
             <value>
-                <fullName>South Africa</fullName>
+                <fullName>SB</fullName>
+                <default>false</default>
+                <label>Solomon Islands</label>
+            </value>
+            <value>
+                <fullName>SO</fullName>
+                <default>false</default>
+                <label>Somalia</label>
+            </value>
+            <value>
+                <fullName>ZA</fullName>
                 <default>false</default>
                 <label>South Africa</label>
             </value>
             <value>
-                <fullName>Spain</fullName>
+                <fullName>ES</fullName>
                 <default>false</default>
                 <label>Spain</label>
             </value>
             <value>
-                <fullName>Sri Lanka</fullName>
+                <fullName>LK</fullName>
                 <default>false</default>
                 <label>Sri Lanka</label>
             </value>
             <value>
-                <fullName>Sudan</fullName>
+                <fullName>SD</fullName>
                 <default>false</default>
                 <label>Sudan</label>
             </value>
             <value>
-                <fullName>Suriname</fullName>
+                <fullName>SR</fullName>
                 <default>false</default>
                 <label>Suriname</label>
             </value>
             <value>
-                <fullName>Sweden</fullName>
+                <fullName>SE</fullName>
                 <default>false</default>
                 <label>Sweden</label>
             </value>
             <value>
-                <fullName>Switzerland</fullName>
+                <fullName>CH</fullName>
                 <default>false</default>
                 <label>Switzerland</label>
             </value>
             <value>
-                <fullName>Taiwan</fullName>
+                <fullName>SY</fullName>
+                <default>false</default>
+                <label>Syria</label>
+            </value>
+            <value>
+                <fullName>TW</fullName>
                 <default>false</default>
                 <label>Taiwan</label>
             </value>
             <value>
-                <fullName>Thailand</fullName>
+                <fullName>TH</fullName>
                 <default>false</default>
                 <label>Thailand</label>
             </value>
             <value>
-                <fullName>Turkey</fullName>
+                <fullName>TR</fullName>
                 <default>false</default>
                 <label>Turkey</label>
             </value>
             <value>
-                <fullName>Ukraine</fullName>
+                <fullName>UG</fullName>
+                <default>false</default>
+                <label>Uganda</label>
+            </value>
+            <value>
+                <fullName>UA</fullName>
                 <default>false</default>
                 <label>Ukraine</label>
             </value>
             <value>
-                <fullName>United Arab Emirates</fullName>
+                <fullName>AE</fullName>
                 <default>false</default>
                 <label>United Arab Emirates</label>
             </value>
             <value>
-                <fullName>United Kingdom</fullName>
+                <fullName>GB</fullName>
                 <default>false</default>
                 <label>United Kingdom</label>
             </value>
             <value>
-                <fullName>USA</fullName>
+                <fullName>UY</fullName>
+                <default>false</default>
+                <label>Uruguay</label>
+            </value>
+            <value>
+                <fullName>US</fullName>
                 <default>false</default>
                 <label>USA</label>
             </value>
             <value>
-                <fullName>Vietnam</fullName>
+                <fullName>UZ</fullName>
+                <default>false</default>
+                <label>Uzbekistan</label>
+            </value>
+            <value>
+                <fullName>VU</fullName>
+                <default>false</default>
+                <label>Vanuatu</label>
+            </value>
+            <value>
+                <fullName>VE</fullName>
+                <default>false</default>
+                <label>Venezuela</label>
+            </value>
+            <value>
+                <fullName>VN</fullName>
                 <default>false</default>
                 <label>Vietnam</label>
+            </value>
+            <value>
+                <fullName>YE</fullName>
+                <default>false</default>
+                <label>Yemen</label>
+            </value>
+            <value>
+                <fullName>ZM</fullName>
+                <default>false</default>
+                <label>Zambia</label>
+            </value>
+            <value>
+                <fullName>ZW</fullName>
+                <default>false</default>
+                <label>Zimbabwe</label>
             </value>
         </valueSetDefinition>
     </valueSet>

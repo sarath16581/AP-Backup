@@ -33,6 +33,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		List<Database.UpsertResult> resultUpsertAPCN = new List<Database.UpsertResult>();
 		List<Database.UpsertResult> resultUpsertSFID = new List<Database.UpsertResult>();
 		List<CustomerUpsertResult> resAPCNmap = new List<CustomerUpsertResult>();
+		String apcnNumbers = ''; 
 
 		try {
 			if (!refMaps.isEmpty()) {
@@ -50,7 +51,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				List<SObject> accupsertSFIDList = new List<SObject>();
 
 				//customer logic
-				customerLogic(apcnMap, recIdMap, events);
+				apcnNumbers = customerLogic(apcnMap, recIdMap, events);
 				accupsertAPCNList = (List<SObject>) custMap.get(APCN);
 				accupsertSFIDList = (List<SObject>) custMap.get(SFID);
 
@@ -85,7 +86,8 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				CustomerDataSyncEventCustomerHelper.class.getName(),
 				'parseCustomerDataPayload',
 				'CustomerDataSyncEventCustomerHelper',
-				LoggingLevel.ERROR
+				LoggingLevel.ERROR, 
+				apcnNumbers
 			);
 		}
 
@@ -124,9 +126,11 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	}
 
 	//logic to check for different scenarios for customer
-	private void customerLogic(Map<String, Object> apcnMap, Map<String, Object> recIdMap, List<CustomerDataSync__e> events) {
+	private String customerLogic(Map<String, Object> apcnMap, Map<String, Object> recIdMap, List<CustomerDataSync__e> events) {
+		String apcnNumbers = '';
 		if (!events.isEmpty()) {
 			for (CustomerDataSync__e e : events) {
+				apcnNumbers += (String.isBlank(e.apcn__c) == false ? e.apcn__c : '') + ',';
 				//if the salsforce record id is null then its a new consumer record
 				if (String.isEmpty(e.salesforceRecordID__c)) {
 					custMap.get(APCN).add(genNewCustomer(e));
@@ -135,6 +139,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				}
 			}
 		}
+		return apcnNumbers;
 	}
 
 	//create a map of apcn and the CustmerUpsertResult
@@ -191,7 +196,8 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 			if (recIdMap.containsKey(e.salesforceRecordID__c)) {
 				custMap.get(SFID).add(genCustomerWithRecIdKey(recIdMap, e));
 			} else {
-				System.debug(LoggingLevel.ERROR, '*****Account Record ID NOT found****[' + e.salesforceRecordID__c + ']');
+				// Invalid SF id, need to create new Account by APCN
+				custMap.get(APCN).add(mapPersonAccountFields(e));
 			}
 		}
 	}
@@ -279,7 +285,10 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		acc.LastName = e.legalLastName__c;
 		acc.LegalLastName__pc = e.legalLastName__c;
 		acc.Preferred_Name__pc = e.preferredName__c;
-		acc.PersonBirthdate = e.birthDate__c;
+
+		// Salesforce can accept dates between Jan 1, 1700 and December 31, 4000.
+		acc.PersonBirthdate = e.birthDate__c != null && e.birthDate__c.year() > 1700 ? e.birthDate__c : null;
+
 		acc.LevelOfAssurance__pc = e.loa__c;
 		acc.Legal_Marketing_Opt_In__pc = e.legalMarketingOptIn__c;
 		acc.Winning_Master_Record__pc = e.winningMasterAPCN__c;

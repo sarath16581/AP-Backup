@@ -1254,6 +1254,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Contract_Relationship__c</picklist>
+        <values>
+            <fullName>Billing Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Contract_Schedule__c</picklist>
         <values>
             <fullName>Fixed Term</fullName>

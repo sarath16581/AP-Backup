@@ -14,9 +14,15 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
-                <fullName>Air</fullName>
+                <fullName>AIR</fullName>
                 <default>false</default>
                 <label>Air</label>
+            </value>
+            <value>
+                <fullName>Air - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Air - OLD</label>
             </value>
             <value>
                 <fullName>EMS</fullName>
@@ -29,14 +35,26 @@
                 <label>SAL</label>
             </value>
             <value>
-                <fullName>Sea</fullName>
+                <fullName>SEA</fullName>
                 <default>false</default>
                 <label>Sea</label>
             </value>
             <value>
-                <fullName>Sea Mail</fullName>
+                <fullName>SEA MAIL</fullName>
                 <default>false</default>
                 <label>Sea Mail</label>
+            </value>
+            <value>
+                <fullName>Sea Mail - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sea Mail - OLD</label>
+            </value>
+            <value>
+                <fullName>Sea - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sea - OLD</label>
             </value>
         </valueSetDefinition>
     </valueSet>

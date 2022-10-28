@@ -6,6 +6,9 @@ Created Date - 3rd Nov, 2015
 Last Modified By - conrad.c.v.borbon
 Last Modified Date - August 7, 2018
 Last Modified By - Mansi Shah on 27/05/2021 | Removed Dov Reason field and related changes
+
+@changelog:
+2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
 **/
 -->
 <apex:page controller="APT_AmendRenewController" tabStyle="Apttus__APTS_Agreement__c">

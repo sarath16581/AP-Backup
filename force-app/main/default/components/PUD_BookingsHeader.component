@@ -39,6 +39,6 @@
 		<apex:outputText rendered="{! routeWrapper.route.Saturday__c}" value="Sat "/>
 		<apex:outputText rendered="{! routeWrapper.route.Sunday__c}" value="Sun "/>
 		<!-- display time in hhmm format-->
-		<apex:outputText> {! routeWrapper.routeDuration}</apex:outputText>
+		<apex:outputText > {! routeWrapper.routeDuration}</apex:outputText>
 	</div>
 </apex:component>

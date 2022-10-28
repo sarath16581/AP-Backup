@@ -12,6 +12,7 @@ History:
 2022-04-26 Pradeep Jaiswal - CI-224 Populated Cubic Status, Cubic Factor and Existing APPC Customer Attributes
 2022-05-23 Chaitanya Doshi - Changed condition to exact match Product code as "Premium - STE" has blank Productcode and "contains" is causing issue in PROD.
 2022-07-15 Nasir Jawed CI-552 Populating the Agreement Line Item fields when its FSR product for lodgement fields.
+2022-09-01 Nasir Jawed CI-288 commenting the code which populate the Agreement Product Attributes values fields as this is done Out of the Box product.
 **************************************************/
 
 public with sharing class APT_AgreementLineItemTriggerHandler{
@@ -60,6 +61,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
             //list<APT_Operational_Schedule__c> listOS = new list<APT_Operational_Schedule__c>();
             APT_Operational_Schedule__c os;
             Apttus_CMConfig__AgreementProductAttributeValue__c newApav;
+            Boolean steCleared = false;
             // map used for 'Local Pickup and Delivery Services' Product that associate Agreement Line Item and Agreement Product Attribute Value
             map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c> mapLocalPickup = new map<Apttus__AgreementLineItem__c, Apttus_CMConfig__AgreementProductAttributeValue__c>();
              for(Apttus__AgreementLineItem__c ali : [SELECT Id, Apttus__ProductId__c, Apttus__ProductId__r.Name, Apttus__ProductId__r.ProductCode,
@@ -68,7 +70,10 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                                                     Apttus_CMConfig__OptionId__r.Apttus_Config2__ConfigurationType__c,Apttus_CMConfig__OptionId__r.Lodgement_zone__c,
                                                     Apttus_CMConfig__OptionId__r.APT_Lodgement_Zone_Code__c,
                                                     Apttus__AgreementId__r.recordType.Name, Apttus__AgreementId__r.Operational_Schedule__c,
-                                                    Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c, 
+                                                    Apttus__AgreementId__r.Operational_Schedule__r.Fixed_Price_Premium__c,
+                                                    Apttus__AgreementId__r.Operational_Schedule__r.Premium_Priority_Air_Services__c,
+                                                    Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c,
+                                                    Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Minimum_Monthly_Spend__c,
                                                     Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Dangerous_Goods_Flag__c,
                                                     APT_Identical_Line__c, List_Price_Text__c,
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Subsequent_Parcel_Discount__c,
@@ -217,7 +222,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                         newApav.SAP_Rating_Group__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Group__c;
                         newApav.SAP_Rating_Model__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Model__c;
                         newApav.SAP_Rating_Plan_DWT_Conversion_Factor__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Plan_DWT_Conversion_Factor__c;
-                        newApav.SAP_Weight_Rounding__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Weight_Rounding__c;
+                        newApav.SAP_Weight_Rounding__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Weight_Rounding__c; 
                                                
 
                         // Populate attribute values from DerivedFrom field into a new operational schedule
@@ -471,8 +476,8 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                     
                     mapOS.put(os.Id, os);
                 }
-				
-				 //US-379               
+                
+                 //US-379               
                   //International Returns 
                 if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode) && ali.Apttus_CMConfig__OptionId__r.ProductCode.equalsIgnoreCase(APT_Constants.PRODUCT_CODE_INTERNATIONAL_RETURNS) 
                     && String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
@@ -555,10 +560,109 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
 
                     mapOS.put(os.Id, os);
                 }
+
+                 // Populating Startrack fields on DOS
+                 // Road Express
+                 // move to APT_Constants
+                 String ROAD_EXPRESS_PRODUCT = 'ExpressRoad';
+                 String PREMIUM_FPP_PRODUCT = 'PremiumFPP';
+                 String PREMIUM_PRM_PRODUCT = 'PremiumPRM';
+                 String SPECIAL_SERVICE_PRODUCT = 'SpecialServices';
+                 String SECURITY_EXPRESS_PRODUCT = 'SecurityExpress';
+                 String NEXT_FLIGHT_PRODUCT = 'NextFlight';
+
+                 if(String.isNotBlank(ali.Apttus_CMConfig__OptionId__c) && null != ali.Apttus_CMConfig__OptionId__r.ProductCode && String.isNotBlank(ali.Apttus_CMConfig__OptionId__r.ProductCode)
+                         && String.isNotBlank(ali.Apttus__AgreementId__r.recordType.Name) && ali.Apttus__AgreementId__r.recordType.Name.contains(APT_Constants.MSA)
+                         && null != ali.Apttus__AgreementId__r.Operational_Schedule__c && String.isNotBlank(ali.Apttus__AgreementId__r.Operational_Schedule__c) && !ali.APT_Identical_Line__c) {
+                     // Clear existing product tick on OS
+                     if (isInsert && !steCleared) {
+                         os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+                         os.Fixed_Price_Premium__c = false;
+                         os.Premium_Priority_Air_Services__c = false;
+                         os.APT_Express_Road__c = false;
+                         os.APT_Special_Services_Tailgate__c = false;
+                         os.APT_Next_Flight__c = false;
+                         mapOS.put(os.Id, os);
+                         steCleared = true;
+                     }
+                     // Minimum Monthly Spend
+                     if (String.isNotBlank(ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c) && os.APT_Minimum_Monthly_Revenue__c != ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Minimum_Monthly_Spend__c) {
+                         os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+                         os.APT_Minimum_Monthly_Revenue__c = ali.Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Minimum_Monthly_Spend__c;
+                         mapOS.put(os.Id, os);
+                     }
+                     // Road Express
+                     if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(ROAD_EXPRESS_PRODUCT)) {
+                         os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+                         if(isInsert) {
+                             os.APT_Express_Road__c = true;
+                         }
+                         if(isDelete) {
+                             os.APT_Express_Road__c = false;
+                         }
+                         mapOS.put(os.Id, os);
+                     }
+                     // FPP Premium
+                     if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(PREMIUM_FPP_PRODUCT)) {
+                         os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+                         if(isInsert) {
+                             os.Fixed_Price_Premium__c = true;
+                         }
+                         if(isDelete) {
+                             os.Fixed_Price_Premium__c = false;
+                         }
+                         mapOS.put(os.Id, os);
+                     }
+                     // PRM Premium
+                     if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(PREMIUM_PRM_PRODUCT)) {
+                         os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+                         if(isInsert) {
+                             os.Premium_Priority_Air_Services__c = true;
+                         }
+                         if(isDelete) {
+                             os.Premium_Priority_Air_Services__c = false;
+                         }
+                         mapOS.put(os.Id, os);
+                     }
+                     // Special Services/Tailgate
+                     if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(SPECIAL_SERVICE_PRODUCT)) {
+                         os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+                         if(isInsert) {
+                             os.APT_Special_Services_Tailgate__c = true;
+                         }
+                         if(isDelete) {
+                             os.APT_Special_Services_Tailgate__c = false;
+                         }
+                         mapOS.put(os.Id, os);
+                     }
+                     // Security Express
+                     if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(SECURITY_EXPRESS_PRODUCT)) {
+                         os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+                         if(isInsert) {
+                             os.APT_Security_Services__c = true;
+                         }
+                         if(isDelete) {
+                             os.APT_Security_Services__c = false;
+                         }
+                         mapOS.put(os.Id, os);
+                     }
+                     // Next Flight
+                     if (ali.Apttus_CMConfig__OptionId__r.ProductCode.contains(NEXT_FLIGHT_PRODUCT)) {
+                         os.Id = ali.Apttus__AgreementId__r.Operational_Schedule__c;
+                         if(isInsert) {
+                             os.APT_Next_Flight__c = true;
+                         }
+                         if(isDelete) {
+                             os.APT_Next_Flight__c = false;
+                         }
+                         mapOS.put(os.Id, os);
+                     }
+                 }
             }
             
             if(mapOS != null && mapOS.values().size() > 0) {
-                update mapOS.values();
+                //update mapOS.values();
+                ApplicationDatabase.getInstance().dmlUpdate(mapOS.values());
             }
             //process builder to trigger
 

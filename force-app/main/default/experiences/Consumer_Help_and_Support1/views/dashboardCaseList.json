@@ -1,0 +1,57 @@
+{
+  "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "componentName" : "c:ChasCasePageLayout",
+  "id" : "03e09356-eff9-4c93-b233-a1bb19423009",
+  "label" : "Dashboard Case List",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "backButtonLabel" : "",
+        "backButtonUrl" : "",
+        "label" : "Your enquiries"
+      },
+      "componentName" : "c:ChasCaseHeader",
+      "id" : "cafba5ee-fe65-421f-a993-5ff063899072",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e3d9c65e-26e0-4db9-b25a-18b889795e52",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:ChasCaseList",
+      "id" : "0b8d2733-2708-4f0a-9c44-6b4dd85dd2ce",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5df2062e-7e83-45ba-bb25-7e79e79bdf66",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "13fd7a5a-244a-4635-b443-5eb92ff8fa8f",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Dashboard Case List"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "9c0400e9-ecd0-41a0-854e-038ea554defb",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7bcc8f5d-ed21-49e5-998f-249bf32473da",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-dashboard-case-list"
+}

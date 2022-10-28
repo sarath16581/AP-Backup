@@ -1,3 +1,11 @@
+/**
+ * @description test class for APT_AgreementLPTriggerHandler
+ * @group Tests
+ * @tag APT_Agreement_Lodgement_Point__c
+ * @domain Apttus
+ * changelog:
+ * 2022-10-14 - seth.heang@auspost.com.au - uplift API version to 55
+ */
 @isTest
 private class APT_AgreementLPTriggerHandler_Test{
     

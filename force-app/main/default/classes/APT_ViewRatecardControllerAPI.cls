@@ -318,6 +318,8 @@ public with sharing class APT_ViewRatecardControllerAPI {
                                                                                                                     
                 System.debug(' -->' + AppName + '--->' + selectedLineItemId + '-->' + outputFormat);                                                                                               
                 
+                System.debug('BRP : prestoAPI() check 1 : ' +  Date.Today() + ' -->> ' + oldAttachmentsList.size());
+
                 If(!Test.isRunningTest()) 
                 {
                     Apttus_XApps.EditInExcelLaunchController editLaunch = new Apttus_XApps.EditInExcelLaunchController(AppName,selectedLineItemId,outputFileFormat);
@@ -326,6 +328,9 @@ public with sharing class APT_ViewRatecardControllerAPI {
                 }
 
                 List<Attachment> newAttachmentsList = [SELECT Id, Name FROM Attachment WHERE ParentId = :selectedLineItemId Order By SystemModStamp Desc];
+               
+                System.debug('BRP : prestoAPI() check 2 : ' +  Date.Today() + ' -->> ' + newAttachmentsList.size());
+
                 Integer oldListSize  = oldAttachmentsList!=null ? oldAttachmentsList.size() : 0;
                 Integer newListSize =  newAttachmentsList!=null ? newAttachmentsList.size() : 0;
 
@@ -375,21 +380,23 @@ public with sharing class APT_ViewRatecardControllerAPI {
     **/
     public PageReference redirect(String lineItemId){
         try {
+            System.debug('BRP INTERNATION CHECK redirect() called 1 :' + lineItemId);
             List<Attachment> attachments = [SELECT Id, Name FROM Attachment WHERE ParentId = :lineitemID Order By SystemModStamp Desc ];
             
             if(attachments != null && attachments.size() > 0) {
                 String AttachmentID = attachments[0].Id;
-    
+                System.debug('BRP INTERNATION CHECK redirect() if 2 :' + APT_Constants.SERVLET_TAG+AttachmentID);
                 PageReference pageRef = new PageReference(APT_Constants.SERVLET_TAG+AttachmentID);
                 pageRef.setredirect(true); 
                 return pageRef;
             } else {
+                System.debug('BRP INTERNATION CHECK redirect() if 3 :' + APT_Constants.SEPERATOR_BACKWARD_SLASH+lineitemID);
                 PageReference pageRef = new PageReference(APT_Constants.SEPERATOR_BACKWARD_SLASH+lineitemID);
                 pageRef.setredirect(true); 
                 return pageRef;
             }
         } catch(system.exception ex) {
-            
+            System.debug('BRP INTERNATION CHECK redirect() ex 4 :' + ex);
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ex.getMessage()));
             return null;
         }  

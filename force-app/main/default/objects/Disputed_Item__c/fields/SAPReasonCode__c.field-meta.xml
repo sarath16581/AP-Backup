@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SAPReasonCode__c</fullName>
+    <description>REQ2962541 - to include &apos;Incorrect Cubic Data(Operations)&apos;,&apos;K10&apos;,</description>
     <externalId>false</externalId>
     <formula>CASE (
  Reason__c ,				
@@ -38,7 +39,9 @@
 &apos;BML - Duplicate Mail&apos;,&apos;BM6&apos;,
 &apos;CCM -Sales Director&apos;,&apos;K16&apos;,				
 &apos;eLMS Mailing Stateme&apos;,&apos;MS1&apos;,
-&apos;International Linehaul Surcharge&apos;,&apos;K18&apos;,&apos; &apos;)</formula>
+&apos;International Linehaul Surcharge&apos;,&apos;K18&apos;,
+&apos;Incorrect Cubic Data(Operations)&apos;,&apos;K10&apos;,
+&apos; &apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>SAP Reason Code</label>
     <required>false</required>

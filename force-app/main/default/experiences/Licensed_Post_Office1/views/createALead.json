@@ -1,0 +1,62 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "8806a008-9fb0-41e7-955a-cf5459a4ac9d",
+  "label" : "Create a Lead",
+  "regions" : [ {
+    "id" : "ce39b6d5-7a75-4395-b439-dca6db85079a",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h1 style=\"text-align: center;\">Create New Lead</h1><p style=\"text-align: center;\"><b>Please check you have searched for existing records before creating a new Lead</b></p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "09c88908-999a-4789-a69e-1b0e9d1f70bb",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : { },
+      "componentName" : "c:lpoCreateNewLead",
+      "id" : "a6ed27ac-87f1-4c4c-b46d-870485f1c352",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "28f6c4f4-6ac0-402c-9a99-9f72be346313",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "b01d80dd-8f18-4da6-997a-ed34407ae89d",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Create a Lead"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "778f35ae-fcf8-4052-8431-a9739391b5db",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "36868bdb-10c8-46c9-b1c9-3192e02d669c",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "id" : "6f77f4f3-0b8f-42b3-b8ec-56cc5dea37b2",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "1b189575-efbe-4866-b168-44acaab51fff",
+    "regionName" : "sidebarAlt",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-create-a-lead"
+}

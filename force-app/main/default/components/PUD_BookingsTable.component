@@ -11,9 +11,10 @@
 		<!-- bookings table -->
 		<apex:pageBlockTable value="{! bookings }" 
 		                     var="bookingWrapper" 
-		                     style="padding-top:28px; page-break-inside:avoid;"
+		                     style="padding-top:28px;"
 		                     styleClass="normalcell"
-		                     headerClass="table-header">
+		                     headerClass="table-header"
+							 rowClasses="booking-table-row">
 			<apex:column headerValue="Arrive"
 			             styleClass="normalcell"
 			             width="50px"

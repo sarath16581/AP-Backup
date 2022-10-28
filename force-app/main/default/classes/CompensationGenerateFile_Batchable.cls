@@ -4,6 +4,7 @@ History:
 ----------------------------------------------------------------------------------------------
 2018-08-22  dilshan.egodawela@auspost.com.au Created
 2019-09-13  Nathan.Franklin@auspost.com.au : Updated logic to fetch batchId, to fix INC1460293
+2022-09-19  Swati.mogadala@auspost.com.au  : Changed DL for notification from 'DLITCCOTESServiceCloud@auspost.com.au' to 'dlitcandssalesforcesupport@auspost.com.au'
 **********************************************************************************************/
  
 global without sharing class CompensationGenerateFile_Batchable implements Database.Batchable<sObject>, Database.Stateful {
@@ -143,7 +144,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
                           CompensationGenerateFile_Batchable.class.getName(), 'File Save',
                           null, LoggingLevel.ERROR);
           //send notification
-          CompensationGenerateFile_Batchable.sendEmail('Compensation File Save Error','DLITCCOTESServiceCloud@auspost.com.au');
+          CompensationGenerateFile_Batchable.sendEmail('Compensation File Save Error','dlitcandssalesforcesupport@auspost.com.au');
           
               }
           }
@@ -181,7 +182,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
           }
           //send notification
           if(!gotErrors.isEmpty()) {
-        CompensationGenerateFile_Batchable.sendEmail('Compensation update batch Error','DLITCCOTESServiceCloud@auspost.com.au');
+        CompensationGenerateFile_Batchable.sendEmail('Compensation update batch Error','dlitcandssalesforcesupport@auspost.com.au');
           }
       }
   }

@@ -3,9 +3,12 @@
     <fullName>Editing_Temporary_Customer_Account</fullName>
     <active>true</active>
     <description>This rule will restrict users (apart from Data Quality Management) from editing the Temporary Customer Account.
+REQ2990238 Update to exclude Sales Admin
 
 09/01/13: Updated to allow AP Integration (SAP) access to object [MK]</description>
-    <errorConditionFormula>Id = &quot;00190000009Blcg&quot; &amp;&amp; NOT( OR( $UserRole.Id  = &quot;00E90000000YJva&quot;, $Profile.Id = &quot;00e30000001jG0I&quot;, $Profile.Id = &quot;00e90000000inKp&quot;, $Profile.Id = &quot;00e90000000ip2I&quot;, $Profile.Id = &quot;00e30000001NDNS&quot;, $Profile.Id = &quot;00e90000000kuD3&quot;, $Permission.Lodgement_Migration_Data_Permission = TRUE ))
+    <errorConditionFormula>Id = &quot;00190000009Blcg&quot; &amp;&amp; 
+NOT( OR( $UserRole.Id  = &quot;00E90000000YJva&quot;, $Profile.Id = &quot;00e30000001jG0I&quot;, $Profile.Id = &quot;00e90000000inKp&quot;, $Profile.Id = &quot;00e90000000ip2I&quot;, $Profile.Id = &quot;00e30000001NDNS&quot;, 
+$Profile.Id = &quot;00e90000000kuD3&quot;, $Profile.Name = &apos;Sales Admin&apos;, $Permission.Lodgement_Migration_Data_Permission = TRUE ))
 
 /*  Profile IDs : 00e90000000inKp = AP Integration | 00e90000000ip2I = AusPost Integration | 00e30000001NDNS = Australia Post - Integration |  00e30000001jG0I = System Administrator | Customer Data Team | Enterprise Onboarding  */</errorConditionFormula>
     <errorMessage>Only the Data Quality Management is able to amend this record.</errorMessage>

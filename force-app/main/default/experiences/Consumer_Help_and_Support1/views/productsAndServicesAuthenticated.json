@@ -1,0 +1,45 @@
+{
+  "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "a7e1a4ad-cc8a-4c8f-a34a-b3cb20f7995d",
+  "label" : "Products and services (authenticated)",
+  "regions" : [ {
+    "id" : "6a54c3b9-4bca-4883-aff0-63be240631c8",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:ChasProductsAndServicesWizard",
+      "id" : "79ab204e-65ec-408c-ad3d-3365c9552761",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "d928de6d-eed8-4b8c-939c-cede22f1a68c",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "7f9e4e75-c18c-4947-ac1a-89272113cbc8",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Products & services (authenticated)"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "9dc4ce2e-7e33-4d6e-af22-9eee9a4c6e54",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7f709a39-5311-429f-a7d6-7ae4181ebd77",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-products-and-services-authenticated"
+}

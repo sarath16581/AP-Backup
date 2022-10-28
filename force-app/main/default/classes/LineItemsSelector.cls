@@ -44,7 +44,7 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
                 Apttus_Config2__LineItem__c.Id, Apttus_Config2__LineItem__c.Apttus_Config2__AttributeValueId__c,Apttus_Config2__LineItem__c.Apttus_Config2__LineType__c,Apttus_Config2__LineItem__c.APT_Product_Code__c,
                 Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c,Apttus_Config2__LineItem__c.Compass_LineItem_Identifier__c,
                 Apttus_Config2__LineItem__c.Apttus_Config2__NetPrice__c,Apttus_Config2__LineItem__c.SAP_Custom_Reference__c,
-                Apttus_Config2__LineItem__c.Apttus_Config2__IsCustomPricing__c,Apttus_Config2__LineItem__c.Apttus_Config2__PricingStatus__c 
+                Apttus_Config2__LineItem__c.Apttus_Config2__IsCustomPricing__c,Apttus_Config2__LineItem__c.Apttus_Config2__PricingStatus__c,Apttus_Config2__LineItem__c.Apttus_Config2__AddedByRuleInfo__c 
         };
     }
     /**
@@ -107,8 +107,18 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if(selectorOptions.contains(Options.WITH_PRODUCT_ATTRIBUTE_VALUE)) {
-			builder.addRelatedFields(ProductAttributeValueSelector.newInstance().newQueryBuilder(), 'Apttus_Config2__AttributeValueId__r');
+			builder.addRelatedFields(APT_ProductAttributeValuesSelector.newInstance().newQueryBuilder(), 'Apttus_Config2__AttributeValueId__r');
 		}
 		return builder;
 	}
+    
+    public virtual Map<Id, Apttus_Config2__LineItem__c> selectByProdConfId(ID lineItemIds) {
+        return selectByProdConfId(lineItemIds, new Set<Object>());
+    }
+    
+    public virtual Map<Id, Apttus_Config2__LineItem__c> selectByProdConfId(ID ids, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c + ' = :ids')).endConditions();
+        System.debug('totallineItem'+qb.toSoqlString());
+        return new Map<Id, Apttus_Config2__LineItem__c>((List<Apttus_Config2__LineItem__c>)Database.query(qb.toSoqlString()));
+    }
 }

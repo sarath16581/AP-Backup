@@ -16,6 +16,7 @@
  * 2021-07-27 - naveen.rajanna@auspost.com.au - REQ2540323 - Changed to use DeveloperName instead of Label for Deal_Enablement_Centre_Queue
  * 2022-02-18 - Naveen.Rajanna@auspost.com.au - INC1911242 - Include RoleType check 
  * 2022-08-28 - seth.heang@auspost.com.au - Added method to handle the platform event for rating plan activation response
+ * 2022-09-05 - nasir.jawed@auspost.com.au - populating the lodgement point on billing account and charge account
  */
 
 public with sharing class BillingAccountCreationEventTriggerHelper {
@@ -260,11 +261,16 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 			// Save a list of External Onboarding request(log) Id or Transaction Id
 			for(BillingAccountCreationEvent__e ratingPlanEvent : listEvents){
 				loggingRequestIdSet.add(ratingPlanEvent.Transaction_Id__c);
-				billingAccNumberSet.add(ratingPlanEvent.Billing_Account_Number__c);
+				if(ratingPlanEvent.Billing_Account_Number__c != null || !String.isBlank(ratingPlanEvent.Billing_Account_Number__c)){
+					billingAccNumberSet.add(ratingPlanEvent.Billing_Account_Number__c);
+				}
 			}
-			// Query Billing Account records based on billing account number for SAP contract creation
-			for(Billing_Account__c ba: BillingAccountsSelector.newInstance().selectByAccountNumber(billingAccNumberSet).values()){
-				billingAccNumMap.put(ba.LEGACY_ID__c, ba);
+
+			if(billingAccNumberSet.size() > 0){
+				// Query Billing Account records based on billing account number for SAP contract creation
+				for(Billing_Account__c ba: BillingAccountsSelector.newInstance().selectByAccountNumber(billingAccNumberSet).values()){
+					billingAccNumMap.put(ba.LEGACY_ID__c, ba);
+				}
 			}
 
 			// Query and update to append BAMExternalOnboardingRequest__c response payload with each new platform event with the same external onboarding request Id
@@ -306,7 +312,11 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 					updatedRecords.add(alp);
 					// create SAP Contract record for only successful rating plan creation
 					if('Success'.equalsIgnoreCase(ratingPlanEvent.Status__c)){
-						APT_SAP_Contracts__c newSAPCon = createSAPContract(externalOnboardingRequestMap.get(ratingPlanEvent.Transaction_Id__c), ratingPlanEvent, dsr, billingAccNumMap.get(ratingPlanEvent.Billing_Account_Number__c).Id);
+						Id billingAccId;
+						if(billingAccNumMap.get(ratingPlanEvent.Billing_Account_Number__c) != null){
+							billingAccId = billingAccNumMap.get(ratingPlanEvent.Billing_Account_Number__c).Id;
+						}
+						APT_SAP_Contracts__c newSAPCon = createSAPContract(externalOnboardingRequestMap.get(ratingPlanEvent.Transaction_Id__c), ratingPlanEvent, dsr, billingAccId);
 						insertedRecords.add(newSAPCon);
 					}
 				}
@@ -362,10 +372,15 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 		sapCon.APT_SAP_Contract_Number__c = ratingPlanPE.Rating_Plan_Id__c;
 		sapCon.APT_Apttus_Contract__c = dsr.APT_Contract__c;
 		sapCon.SAP_Contract_Status__c  = APT_Constants.ACTIVE;
-		sapCon.APT_Billing_Account__c  = billingAccId;
 		sapCon.APT_Material_Material_Description__c = RATING_MODEL_PD;
 		sapCon.APT_Comments_1__c = dsr.Name; // DSR Number
-		sapCon.APT_Contract_Sold_To_Billing_Account__c = ratingPlanPE.Billing_Account_Number__c;
+		sapCon.Organisation__c = dsr.Organisation__c; // Use account id lookup on DSR to skip a SOQL based on Account Legacy Id to get Account Id
+		if(ratingPlanPE.Billing_Account_Number__c != null || !String.isBlank(ratingPlanPE.Billing_Account_Number__c)){
+			sapCon.APT_Contract_Sold_To_Billing_Account__c = ratingPlanPE.Billing_Account_Number__c;
+			sapCon.APT_Billing_Account__c  = billingAccId;
+		}else if(ratingPlanPE.Organisation_Record_Id__c != null || !String.isBlank(ratingPlanPE.Organisation_Record_Id__c)){
+			sapCon.APT_Contract_Sold_To_Billing_Account__c = ratingPlanPE.Organisation_Record_Id__c;
+		}
 		sapCon.APT_Contract_Start_Date__c = Date.valueOf(bamRecord?.createdDate) + 1;
 		// maximum acceptable date by Salesforce is 31 Dec 4000
 		// source: https://help.salesforce.com/s/articleView?id=sf.fields_date_range.htm&type=5
@@ -566,7 +581,7 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 		List<APT_Agreement_Lodgement_Point__c> alpList;
 		// For APPC product only, Query Agreement Lodgement Point based on contract Id and update the Billing Account Number
 		if(hasAPPCProduct == true){
-			alpList = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(new set<Id>{contractId}).values();
+			alpList = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(new set<Id>{contractId}, new set<Object>{APT_AgreementLodgementPointsSelector.Options.WITH_NETWORK}).values();
 		}
 		
 		for(Billing_Account__c billAcc : BillingAccountsSelector.newInstance().selectByIdorAccountNumber(billingAccountList , parentBillingAccountNumberSet).Values()){
@@ -593,17 +608,6 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 							apttusContract.Billing_Account__c = billingAccountRecord.id;
 							relatedObjectsToBeUpdated.add(apttusContract);
 						}
-
-						// For APPC product, update "Organisation" level Agreement Lodgement Point with Billing Account lookup Id
-						if(hasAPPCProduct == true){
-							for(APT_Agreement_Lodgement_Point__c alp : alpList){
-								if(alp.APT_Billing_Account__c == null && alp.APT_Charge_Account__c == null && alp.APT_Sub_Account__c == null){
-									alp.APT_Billing_Account__c = billingAccountRecord.Id;
-									relatedObjectsToBeUpdated.add(alp);
-									break;
-								}
-							}
-						}
 					}
 					// Setting up charge Account to be updated
 					//Jansi : Only for DSR. For CA billingAccountNumberDSRMap will be blank.
@@ -611,6 +615,22 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 						APT_Charge_Account__c car = new APT_Charge_Account__c();
 						car.id = dealsupportRequestMap.get(billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c))?.APT_Contract__r?.Apttus_QPComply__RelatedProposalId__r?.APT_Credit_Assessment__r?.APT_Charge_Account__c;
 						if(car.id!=null) {
+							if(hasAPPCProduct == true){
+								//Populating the new field APPC_Primary_Lodgement_Point__c on the billing Account and on charge Account on field APT_Principal_Lodgement_Location__c.
+								for(APT_Agreement_Lodgement_Point__c alp : alpList){
+                                    // rating plan linked at Charge Account Request level or Org level
+                                    if(alp.APT_Charge_Account__c != null || 
+                                       (alp.APT_Charge_Account__c == null && alp.APT_Sub_Account__c == null && alp.APT_Billing_Account__c == null)) {
+									   //populate Lodgement point
+									   car.APT_Principal_Lodgement_Location__c = alp.APT_Lodgement_Point_Lookup__r.Post_Code__c;
+
+									   //populate LP on the respected Billing account record
+									   billingAccountRecord.APPC_Primary_Lodgement_Point__c = alp.APT_Lodgement_Point_Lookup__r.Post_Code__c;
+                                       relatedObjectsToBeUpdated.add(billingAccountRecord);
+                                    }
+                                }
+                                
+							}
 							car.Billing_Account__c = billingAccountRecord.id;
 							car.Status__c = 'Completed';
 							relatedObjectsToBeUpdated.add(car);
@@ -771,7 +791,7 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 
 
 	/**
-	 * @description		This method send custom bell notification to DSR's requestor with appropriate message based on Rating Plan integration status("Completed", "Partial Success", "Error")
+	 * @description		This method send custom bell notification to DSR's owner with appropriate message based on Rating Plan integration status("Completed", "Partial Success", "Error")
 	 * 					in the final platform event sent from Camunda
 	 * @param			BillingAccountCreationEvent__e eachEvent, Deal_Support_Request__c dsr
 	 * @return 			void
@@ -805,7 +825,7 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 				notification.setTitle('Rating Plan activation request for '+ dsr.Organisation__r.Name +' has encountered an Error. Please Reach out to the IT Support Team.');
 			}
 			notification.send(new Set<String>{
-				dsr.Requestor__c
+				dsr.OwnerId
 			});
 		}
 	}

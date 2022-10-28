@@ -11378,7 +11378,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ICPS__c.CreatedDateGCP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ICPS__c.Currency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.DateReturnedGCP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11388,7 +11398,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ICPS__c.DateofPostingGCP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ICPS__c.DateofPosting__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.DeclaredValueGCP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11398,7 +11418,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ICPS__c.DeliveryDateGCP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ICPS__c.DeliveryDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.DeliveryMethodGCP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.DemurrageStartDateGCP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11413,12 +11448,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ICPS__c.FinalNoticeDateGCP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ICPS__c.FinalNoticeDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ICPS__c.FirstNoticeDateGCP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ICPS__c.FirstNoticeDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.HoldUntilDateGCP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.HoldUntilDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11459,6 +11514,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ICPS__c.OwnerName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.PostageGCP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11559,6 +11619,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ICPS__c.StoredLocation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ICPS__c.VNumberGCP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -16884,6 +16949,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>PUD_Job__c.Display_Start_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PUD_Job__c.Dock_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

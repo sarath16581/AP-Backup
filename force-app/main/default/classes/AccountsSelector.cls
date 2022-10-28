@@ -1,4 +1,4 @@
-/***
+/*** 
  * @author Nathan Franklin
  * @date 2020-04-10
  * @group Tests
@@ -16,6 +16,7 @@
  * 2022-03-16 - Naveen Rajanna - REQ2656153 - Included missing fields to avoid SObjectException
  * 2022-06-12 - Sreenish Krishnan - Added new selector query based on APCN and Id
  * 2022-09-05 - Kamil / Nathan Franklin - Add new method and uplifted to 55
+ * 2022-09-28 - Noel Lim - added new SObject Field, removed 3 debug statements
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
 	public enum Options {
@@ -59,7 +60,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 				Account.ACN__c, Account.Primary_Business_Solutions_Contact__c, Account.BillingCountry, Account.Role_Type_Roll_Up__c,
 				Account.ShippingStreet, Account.ShippingCity, Account.ShippingState, Account.ShippingPostalCode, Account.ShippingCountry,
 				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount, Account.Business_Solutions_Customer__c, Account.Exclude_Notification_Automation__c, Account.Exclude_Subscription_Automation__c, Account.Sales_Director__c,
-				Account.APCN__c, Account.APCN__pc, Account.Integration_Service_Mod_Date__c, Account.PersonContactId
+				Account.APCN__c, Account.APCN__pc, Account.Integration_Service_Mod_Date__c, Account.PersonContactId, Account.ServiceSLA__c
 		};
 	}
 
@@ -75,7 +76,6 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	 */
 	public Map<Id, Account> selectById(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Account.Id + ' in :ids')).endConditions();
-		system.debug('** Account Query**' + qb.toSoqlString());
 		return new Map<Id, Account>((List<Account>) Database.query(qb.toSoqlString()));
 	}
 
@@ -133,7 +133,6 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	) {
 		QueryBuilder builder = newQueryBuilder(selectorOptions);
 
-		System.debug('searchParams: ' + searchParams);
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
 
 		Set<String> apcns = (Set<String>) (searchParams.get('apcn') == null
@@ -170,7 +169,6 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		}
 
 		String soql = conditions.endConditions().toSoqlString();
-		System.debug(soql);
 		return (List<Account>) Database.query(soql);
 	}
 

@@ -13,6 +13,7 @@ March-16  kalpita.talwadekar@auspost.com.au   updated the class to add the codes
 26/11/2018 saiswetha.pingali@auspost.com.au     Added new field container_Id__c for REQ1469903
 2021-10-14 - Nathan Franklin - Changed attach safe drop image to delivery proof pdf
 2022-06-06 - Talib Raza - INC1979490: condition added for cc email address
+2022-10-03 - Jacob Isaac - REQ2976037: removed condition for cc email address
 *******************************  History ************************************************/
 public with sharing class CaseRelatedListPanelContExt {
 
@@ -190,8 +191,8 @@ public with sharing class CaseRelatedListPanelContExt {
 
 
 			for (EmailMessage em : emails) {
-				// INC1979490: condition added for cc email address
-				if (em.ToAddress != null && em.CcAddress != null && (em.ToAddress.containsIgnoreCase(networkValue) || em.CcAddress.containsIgnoreCase(networkValue))) {
+				// INC1979490: condition added for cc email address //REQ2976037: removing CC email Address condition
+				if (em.ToAddress != null && em.CcAddress != null && em.ToAddress.containsIgnoreCase(networkValue)) {
 					emailsNetworkResp.add(em);
 				}
 			}

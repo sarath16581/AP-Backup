@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
-    <assignments>
-        <users>
-            <user>brandon.hunt@auspost.com.au</user>
-        </users>
-    </assignments>
     <capacity>2</capacity>
     <declineReasons>End_of_shift</declineReasons>
     <declineReasons>On_Break</declineReasons>
@@ -13,6 +8,6 @@
     <enableDeclineReason>true</enableDeclineReason>
     <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
-    <label>Australia Post SSSW Cases</label>
+    <label>AP Contact Centre – PILOT GROUP</label>
     <presenceStatusOnDecline>Busy</presenceStatusOnDecline>
 </PresenceUserConfig>

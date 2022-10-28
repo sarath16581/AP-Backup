@@ -1,0 +1,120 @@
+{
+  "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
+  "componentName" : "siteforce:sldsThreeCol444Layout",
+  "id" : "ed297f43-89a7-4c9f-aada-afec39a2e1dd",
+  "label" : "myNetwork Customer Forms",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div class=\"forms\">\n<h1>Customer Enquiry Forms</h1>\n\t<br><p>\n      <br>\n\t</p>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "cbca6040-0d62-4239-b76f-64c29bc6f015",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2c9c024a-10a5-4082-a6fc-f354cb5dff08",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png\" width=\"36\" height=\"36\"><a href=\"/s/damaged-articles\" title=\"Damaged article/missing contents\"><h3>Damaged/missing contents</h3></a>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "925c6d5d-40ab-4f23-8921-cd4f111ccdf9",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/MailRedirect.png\" width=\"36\" height=\"36\"><a href=\"/s/mail-redirection\" title=\"Mail redirection/hold\"><h3>Mail redirection/hold</h3></a>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "cd69fe7d-b7ab-486b-b941-7f82d4f50ec3",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png\" width=\"36\" height=\"36\"><a href=\"/s/eparcel-damages\" title=\"eParcel/Wine Damages\"><h3>eParcel/Wine Damages</h3></a>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "9da6c2c5-0c15-452f-8672-28d21e27bb4a",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "dc4bc307-20ed-42ac-8c50-005cf1d5c303",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/LostArticle.png\" width=\"36\" height=\"36\"><a href=\"/s/lost-article\" title=\"Lost article\"><h3>Lost article</h3></a>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "a0b84630-83ca-494d-ab00-e601d90a4583",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/StaffFeedback.png\" width=\"36\" height=\"36\"><a href=\"/s/staff-feedback\" title=\"Staff related feedback\"><h3>Staff related feedback</h3></a>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "f1df6c10-c056-4f12-ae18-b22cc24da6dd",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7021663c-ba59-41f8-b45c-db89589f9d16",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DeliveryConcern.png\" width=\"36\" height=\"36\"><a href=\"/s/delivery-concerns\" title=\"Delivery concerns/requests\"><h3>Delivery concerns/requests</h3></a>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "3591d360-6cbf-4f3d-9e99-03b64cb65e40",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png\" width=\"36\" height=\"36\"><a href=\"/s/others\" title=\"Something else\"><h3>Something else</h3></a>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "3d5f6152-1dc1-4b52-9b3b-a743ef22ced3",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a5b2e712-6df9-40dd-b738-c4e150964ca1",
+    "regionName" : "sidebarAlt",
+    "type" : "region"
+  }, {
+    "id" : "044e4c0b-13c4-4967-b3fc-f6ba1bfe360f",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "title" : "Customer enquiry forms"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "41130058-d026-4d8b-856c-a41cca826f96",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "43a0018f-61aa-445e-ba67-a093a4b1fa91",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-forms"
+}

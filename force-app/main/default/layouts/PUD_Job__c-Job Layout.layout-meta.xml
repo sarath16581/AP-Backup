@@ -125,6 +125,10 @@
                 <behavior>Readonly</behavior>
                 <field>Deliver_Product__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Dock_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

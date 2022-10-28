@@ -30,6 +30,15 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Apttus_Contract_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Apttus__APTS_Agreement__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>At_Risk_Business_Record_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
@@ -125,7 +134,8 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <label>B&amp;G Sales</label>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>AP Sales</label>
     <navType>Standard</navType>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -2028,6 +2038,24 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>Deal_Support_Request_Customer_Onboarding_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Deal_Enablement_Centre</recordType>
+        <type>Flexipage</type>
+        <profile>Enterprise Onboarding</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Customer_Onboarding_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Deal_Enablement_Centre</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>At_Risk_Business_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>At_Risk_Business__c</pageOrSobjectType>
@@ -2057,6 +2085,24 @@
         <pageOrSobjectType>At_Risk_Business__c</pageOrSobjectType>
         <type>Flexipage</type>
         <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Customer Integration Application</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Customer Integration Application</profile>
     </profileActionOverrides>
     <setupExperience>all</setupExperience>
     <tabs>standard-home</tabs>

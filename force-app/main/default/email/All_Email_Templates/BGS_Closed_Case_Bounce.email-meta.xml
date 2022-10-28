@@ -6,18 +6,29 @@
     <name>BGS Closed Case Bounce</name>
     <style>none</style>
     <subject>Looks like your email was about a closed case {!Case.CaseNumber}.  Here&apos;s what to do.</subject>
-    <textOnly>Thank you for your email.
+    <textOnly>Thank you for your email
 
-Case #{!Case.CaseNumber} has been closed.
+Hi,
 
-Please direct a new request or enquiry to your BGS Service Advisor team.
+We received your email however case (#{!Case.CaseNumber}) has already been closed. But don&apos;t worry; we can certainly help you.
+
+If you&apos;d like us to investigate further or have a new enquiry, please create and send a new email to your Service Advisor team.
+
+Importantly, PLEASE DO NOT REPLY TO THIS EMAIL, as this case is closed and no longer monitored
+
+Regards,
+
+Australia Post’s Service Advisor Team
+
 
 Australia Post will never send you an email asking for your password, credit card details or account information.
 
 
 This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. Visit auspost.com.au for further information on our online security.
 
-Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.</textOnly>
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

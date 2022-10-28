@@ -148,6 +148,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>PUD_Job__c.Dock_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>PUD_Job__c.Earliest_Start_Time_Text__c</field>
         <readable>true</readable>
     </fieldPermissions>

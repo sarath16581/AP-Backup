@@ -4,16 +4,19 @@
         <itemInstances>
             <componentInstance>
                 <componentName>clients:emailTemplatesActionContainerFlex</componentName>
+                <identifier>clients_emailTemplatesActionContainerFlex</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>lightningInbox:logItemButtonContainer</componentName>
+                <identifier>lightningInbox_logItemButtonContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>clients:peopleCardContainerFlex</componentName>
+                <identifier>clients_peopleCardContainerFlex</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -23,6 +26,7 @@
                     <value>Account</value>
                 </componentInstanceProperties>
                 <componentName>clients:relatedRecordsPageFlex</componentName>
+                <identifier>clients_relatedRecordsPageFlex</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -32,6 +36,7 @@
                     <value>Opportunity</value>
                 </componentInstanceProperties>
                 <componentName>clients:relatedRecordsPageFlex</componentName>
+                <identifier>clients_relatedRecordsPageFlex2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -41,11 +46,13 @@
                     <value>Case</value>
                 </componentInstanceProperties>
                 <componentName>clients:relatedRecordsPageFlex</componentName>
+                <identifier>clients_relatedRecordsPageFlex3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>clients:relatedCustomEntity</componentName>
+                <identifier>clients_relatedCustomEntity</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -83,6 +90,7 @@
                     </valueList>
                 </componentInstanceProperties>
                 <componentName>clients:tab</componentName>
+                <identifier>clients_tab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -105,6 +113,7 @@
                     <value>maintabs</value>
                 </componentInstanceProperties>
                 <componentName>clients:tabset</componentName>
+                <identifier>clients_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -118,11 +127,13 @@
                     <value>Organisation</value>
                 </componentInstanceProperties>
                 <componentName>clients:relatedRecordsPageFlex</componentName>
+                <identifier>clients_relatedRecordsPageFlex4</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>clients:relatedCustomEntity</componentName>
+                <identifier>clients_relatedCustomEntity2</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

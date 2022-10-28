@@ -4,6 +4,6 @@
     <protected>false</protected>
     <values>
         <field>Product_Sub_Category__c</field>
-        <value xsi:type="xsd:string">Airmail under 2kg, Economy Air under 500g, International Courier, International Express, Pack and Track International, Registered Post International, ECI, ECI Platinum, Express Post International, Mail redirection</value>
+        <value xsi:type="xsd:string">Airmail under 2kg,Economy Air under 500g,International Courier,International Express,Pack and Track International,Registered Post International,ECI,ECI Platinum,Express Post International,Mail redirection</value>
     </values>
 </CustomMetadata>

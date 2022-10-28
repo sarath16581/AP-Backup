@@ -748,6 +748,11 @@
                 <label>Transport/Pick Up/Collections</label>
             </value>
             <value>
+                <fullName>Update proposal/offer expiration date</fullName>
+                <default>false</default>
+                <label>Update proposal/offer expiration date</label>
+            </value>
+            <value>
                 <fullName>Upgrade/Release</fullName>
                 <default>false</default>
                 <label>Upgrade/Release</label>
