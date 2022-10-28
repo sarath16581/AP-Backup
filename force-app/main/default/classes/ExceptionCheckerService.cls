@@ -159,6 +159,7 @@ public inherited sharing class ExceptionCheckerService {
 	public void closeCases(List<Case> casesToClose) {
 		List<CaseComment> caseComments = new List<CaseComment>();
 		for (Case c: casesToClose) {
+            c.Status = 'Closed';
 			c.ClosedBySystem__c = true;
 			c.ByPassWorkflowRulesOnCreation__c = true; //populate the filed to trigger the email
 			//add comment
