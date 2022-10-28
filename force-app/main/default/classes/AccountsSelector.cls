@@ -1,4 +1,4 @@
-/***
+/*** 
  * @author Nathan Franklin
  * @date 2020-04-10
  * @group Tests
@@ -15,25 +15,27 @@
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-03-16 - Naveen Rajanna - REQ2656153 - Included missing fields to avoid SObjectException
  * 2022-06-12 - Sreenish Krishnan - Added new selector query based on APCN and Id
+ * 2022-09-05 - Kamil / Nathan Franklin - Add new method and uplifted to 55
+ * 2022-09-28 - Noel Lim - added new SObject Field, removed 3 debug statements
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
-    public enum Options {
-        WITH_RECORDTYPE, WITH_OWNER, WITH_ACTIVE_MEMBERSHIPS , WITH_ORGANISATION_ROLES , WITH_ORGANISATION_ROLES_PROSPECT_KNOWN , WITH_HOLDINGROLE , 
-		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT
-    }
+	public enum Options {
+		WITH_RECORDTYPE, WITH_OWNER, WITH_ACTIVE_MEMBERSHIPS, WITH_ORGANISATION_ROLES, WITH_ORGANISATION_ROLES_PROSPECT_KNOWN, WITH_HOLDINGROLE,
+		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT, WITH_POSTOFFICEASSIGNED, WITH_NETWORK, WITH_PARENT, WITH_GRANDPARENT
+	}
 
 	public static AccountsSelector newInstance() {
-		return (AccountsSelector)Application.Selectors.newInstance(AccountsSelector.class);
+		return (AccountsSelector) Application.Selectors.newInstance(AccountsSelector.class);
 	}
 	public static AccountsSelector newInstance(Integer recordLimit) {
-		return (AccountsSelector)Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit);
+		return (AccountsSelector) Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit);
 	}
 	/**
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 * This approach removes data consistency and prevents possible caching of results
 	 */
 	public static AccountsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
-		AccountsSelector selector = (AccountsSelector)Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		AccountsSelector selector = (AccountsSelector) Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -42,7 +44,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	 *                          This approach removes data consistency and prevents possible caching of results
 	 */
 	public static AccountsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-		AccountsSelector selector = (AccountsSelector)Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		AccountsSelector selector = (AccountsSelector) Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -50,17 +52,17 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		return Account.getSObjectType();
 	}
 
-    public virtual override Set<SObjectField> getSObjectFieldList() {
-        return new Set<SObjectField> {
-                Account.Id, Account.Name, Account.Type, Account.OwnerId, Account.APLAC_Member__c, Account.APT_Min_Spend_Per_Annum__c, Account.LEGACY_ID__c, Account.Customer_Account_Group__c, Account.Organisation_Trading_Name__c, 
-                Account.BillingStreet, Account.BillingCity, Account.BillingState, 
-                Account.BillingPostalCode, Account.Phone, Account.Email__c , Account.ABN__c,
-                Account.ACN__c , Account.Primary_Business_Solutions_Contact__c , Account.BillingCountry , Account.Role_Type_Roll_Up__c,
-				Account.ShippingStreet, Account.ShippingCity, Account.ShippingState,  Account.ShippingPostalCode, Account.ShippingCountry ,
+	public virtual override Set<SObjectField> getSObjectFieldList() {
+		return new Set<SObjectField>{
+				Account.Id, Account.Name, Account.Type, Account.OwnerId, Account.APLAC_Member__c, Account.APT_Min_Spend_Per_Annum__c, Account.LEGACY_ID__c, Account.Customer_Account_Group__c, Account.Organisation_Trading_Name__c,
+				Account.BillingStreet, Account.BillingCity, Account.BillingState,
+				Account.BillingPostalCode, Account.Phone, Account.Email__c, Account.ABN__c,
+				Account.ACN__c, Account.Primary_Business_Solutions_Contact__c, Account.BillingCountry, Account.Role_Type_Roll_Up__c,
+				Account.ShippingStreet, Account.ShippingCity, Account.ShippingState, Account.ShippingPostalCode, Account.ShippingCountry,
 				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount, Account.Business_Solutions_Customer__c, Account.Exclude_Notification_Automation__c, Account.Exclude_Subscription_Automation__c, Account.Sales_Director__c,
-				Account.APCN__c,Account.APCN__pc,Account.Integration_Service_Mod_Date__c,Account.PersonContactId
-        };
-    }
+				Account.APCN__c, Account.APCN__pc, Account.Integration_Service_Mod_Date__c, Account.PersonContactId, Account.ServiceSLA__c
+		};
+	}
 
 	/**
 	 * @description Run a simple query to get records based on Id's
@@ -74,8 +76,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	 */
 	public Map<Id, Account> selectById(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Account.Id + ' in :ids')).endConditions();
-		system.debug('** Account Query**'+qb.toSoqlString());
-		return new Map<Id, Account>((List<Account>)Database.query(qb.toSoqlString()));
+		return new Map<Id, Account>((List<Account>) Database.query(qb.toSoqlString()));
 	}
 
 	/**
@@ -90,9 +91,9 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	 */
 	public Map<Id, Account> selectByAccountNumber(Set<String> accountNumbers, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Account.LEGACY_ID__c + ' in :accountNumbers')).endConditions();
-		return new Map<Id, Account>((List<Account>)Database.query(qb.toSoqlString()));
+		return new Map<Id, Account>((List<Account>) Database.query(qb.toSoqlString()));
 	}
-	
+
 	/**
      * @description Run a simple query to get records based on 
      */
@@ -105,46 +106,50 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
      */
 	public Map<Id, Account> selectByLikedNameAndPersonAccountOrderByName(string name, boolean isPersonAccount, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-		.add(new QueryBuilder.LikeCondition(Account.Name).likeAnyBoth(name))
-		.add(new QueryBuilder.CompareCondition(Account.isPersonAccount).eq(isPersonAccount))
-		.endConditions();
+				.add(new QueryBuilder.LikeCondition(Account.Name).likeAnyBoth(name))
+				.add(new QueryBuilder.CompareCondition(Account.isPersonAccount).eq(isPersonAccount))
+				.endConditions();
 		qb.addOrderAsc(Account.Name);
-		return new Map<Id, Account>((List<Account>)Database.query(qb.toSoqlString()));
+		return new Map<Id, Account>((List<Account>) Database.query(qb.toSoqlString()));
 	}
 
 	/**
 	 * @description Run a SOQL based on the search parameters passed
 	 */
 	public List<Account> selectByAPCNAndIdAndPersonAccount(
-		Map<String, Object> searchParams,
-		String searchConditions,
-		Schema.SobjectField orderByField
+			Map<String, Object> searchParams,
+			String searchConditions,
+			Schema.SobjectField orderByField
 	) {
-		return search(searchParams, new Set<Object>{}, searchConditions, orderByField);
+		return search(searchParams, new Set<Object>{
+		}, searchConditions, orderByField);
 	}
 
 	public List<Account> search(
-		Map<String, Object> searchParams,
-		Set<Object> selectorOptions,
-		String searchConditions,
-		Schema.SobjectField orderByField
+			Map<String, Object> searchParams,
+			Set<Object> selectorOptions,
+			String searchConditions,
+			Schema.SobjectField orderByField
 	) {
 		QueryBuilder builder = newQueryBuilder(selectorOptions);
 
-		System.debug('searchParams: ' + searchParams);
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
 
 		Set<String> apcns = (Set<String>) (searchParams.get('apcn') == null
-			? new Set<String>()
-			: (searchParams.get('apcn') instanceof Set<String> ? searchParams.get('apcn') : new Set<Id>{ (Id) searchParams.get('apcn') }));
+				? new Set<String>()
+				: (searchParams.get('apcn') instanceof Set<String> ? searchParams.get('apcn') : new Set<Id>{
+						(Id) searchParams.get('apcn')
+				}));
 		Set<Id> accIds = (Set<Id>) (searchParams.get('accId') == null
-			? new Set<Id>()
-			: (searchParams.get('accId') instanceof Set<Id> ? searchParams.get('accId') : new Set<Id>{ (Id) searchParams.get('accId') }));
+				? new Set<Id>()
+				: (searchParams.get('accId') instanceof Set<Id> ? searchParams.get('accId') : new Set<Id>{
+						(Id) searchParams.get('accId')
+				}));
 		Boolean isPersonAccount = (Boolean) (searchParams.get('isPersonAccount') == null
-			? null
-			: (searchParams.get('isPersonAccount') instanceof Boolean
-					? searchParams.get('isPersonAccount')
-					: (Boolean) (searchParams.get('isPersonAccount'))));
+				? null
+				: (searchParams.get('isPersonAccount') instanceof Boolean
+						? searchParams.get('isPersonAccount')
+						: (Boolean) (searchParams.get('isPersonAccount'))));
 
 		conditions.add(new QueryBuilder.SimpleCondition(Account.apcn__pc + ' IN :apcns'));
 		conditions.add(new QueryBuilder.SimpleCondition(Account.Id + ' IN :accIds'));
@@ -164,8 +169,42 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		}
 
 		String soql = conditions.endConditions().toSoqlString();
-		System.debug(soql);
 		return (List<Account>) Database.query(soql);
+	}
+
+	/**
+	 * @param wcisCodes set of WCIS codes to query related LPO and CPO account records
+	 * @param selectorOptions selector options
+	 *
+	 * @return Map of LPO and CPO accounts by Id
+	 */
+	public Map<Id, Account> selectLPOAndCPOAccountsByAccIds(Set<Id> accIds, Set<Object>selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions
+				.add(new QueryBuilder.CompareCondition(Account.RecordTypeId).eq(SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Facility').getRecordTypeId()))
+				.add(new QueryBuilder.SimpleCondition(Account.Id + ' IN :accIds'))
+				.add(new QueryBuilder.CompareCondition(Account.Licence_Type__c).eq('RP'))
+				.add(new QueryBuilder.CompareCondition(Account.Licence_Type__c).eq('LPO'))
+				.add(new QueryBuilder.CompareCondition('Parent.RecordType.DeveloperName').eq('Licence'))
+				.add(new QueryBuilder.CompareCondition('Parent.Parent.RecordType.DeveloperName').eq('Business_Account'))
+				.add(new QueryBuilder.SimpleCondition('Parent.ParentId IN :accIds'));
+		String lConditionString = '1 AND ((2 AND 3) OR (4 AND 5 AND 6 AND 7))';
+		conditions.setConditionOrder(lConditionString).endConditions();
+		return new Map<Id, Account>((List<Account>) Database.query(qb.toSoqlString()));
+	}
+	/**
+	 * @param postOfficeAssignedId set of Ids of Network__c records linked to the account via Post_Office_Assigned__c field
+	 * @param selectorOptions selector options
+	 *
+	 * @return map of accounts by Ids
+	 */
+	public Map<Id, Account> selectByPostOfficeAssigned(Set<String> postOfficeAssignedOrgIds, Set<Object>selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+				.add(new QueryBuilder.SimpleCondition('Account.Post_Office_Assigned__r.Org_ID__c IN :postOfficeAssignedOrgIds'))
+				.add(new QueryBuilder.SimpleCondition('Account.Post_Office_Assigned__r.Org_ID__c != NULL'))
+				.endConditions();
+		return new Map<Id, Account>((List<Account>) Database.query(qb.toSoqlString()));
 	}
 
 	/**
@@ -188,18 +227,22 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 
 		if (selectorOptions.contains(Options.WITH_ACTIVE_MEMBERSHIPS)) {
 			builder.addSubQuery(
-				MembershipsSelector.newInstance().newQueryBuilder(new Set<Object>{ MembershipsSelector.Options.FILTER_ACTIVE_STATUS }),
-				'Memberships__r'
+					MembershipsSelector.newInstance().newQueryBuilder(new Set<Object>{
+							MembershipsSelector.Options.FILTER_ACTIVE_STATUS
+					}),
+					'Memberships__r'
 			);
 		}
 
 		if (selectorOptions.contains(Options.WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS)) {
 			builder.addSubQuery(
-				BillingAccountsSelector.newInstance()
-					.newQueryBuilder(
-						new Set<Object>{ BillingAccountsSelector.Options.FILTER_CUST_TYPE, BillingAccountsSelector.Options.FILTER_ACTIVE }
-					),
-				'Billing_Accounts__r'
+					BillingAccountsSelector.newInstance()
+							.newQueryBuilder(
+									new Set<Object>{
+											BillingAccountsSelector.Options.FILTER_CUST_TYPE, BillingAccountsSelector.Options.FILTER_ACTIVE
+									}
+							),
+					'Billing_Accounts__r'
 			);
 		}
 
@@ -209,17 +252,33 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 
 		if (selectorOptions.contains(Options.WITH_ORGANISATION_ROLES_PROSPECT_KNOWN)) {
 			builder.addSubQuery(
-				OrganisationRoleSelector.newInstance()
-					.newQueryBuilder(new Set<Object>{ OrganisationRoleSelector.Options.FILTER_PROSPECT_KNOWN }),
-				'Organisation_Roles__r'
+					OrganisationRoleSelector.newInstance()
+							.newQueryBuilder(new Set<Object>{
+									OrganisationRoleSelector.Options.FILTER_PROSPECT_KNOWN
+							}),
+					'Organisation_Roles__r'
 			);
 		}
-
 		if (selectorOptions.contains(Options.WITH_RECENT_CREATED_CREDIT_ASSESMENT)) {
 			builder.addSubQuery(
-				CreditsAssessmentSelector.newInstance('CreatedDate', 'Desc', 1).newQueryBuilder(new Set<Object>{}),
-				'Credit_Assessments__r'
+					CreditsAssessmentSelector.newInstance('CreatedDate', 'Desc', 1).newQueryBuilder(new Set<Object>{
+					}),
+					'Credit_Assessments__r'
 			);
+		}
+		if (selectorOptions.contains(Options.WITH_POSTOFFICEASSIGNED)) {
+			builder.addRelatedFields(NetworksSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Post_Office_Assigned__r');
+		}
+		if (selectorOptions.contains(Options.WITH_NETWORK)) {
+			builder.addRelatedFields(NetworksSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Network_Facility__r');
+		}
+		if (selectorOptions.contains(Options.WITH_PARENT)) {
+			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Parent');
+		}
+		if (selectorOptions.contains(Options.WITH_GRANDPARENT)) {
+			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{
+					Options.WITH_PARENT
+			}), 'Parent');
 		}
 
 		return builder;

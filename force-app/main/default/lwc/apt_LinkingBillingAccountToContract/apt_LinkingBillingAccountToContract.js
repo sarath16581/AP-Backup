@@ -127,6 +127,8 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 	hasChargeSubORBillingAccRelationship = false;
 	disableProdSpecificBillAccBtn = false;
 	disableContractRelationshipBtn = false;
+	isNewCustomerFlow = false;
+	isExistingCustomerFlow = false;
 
 	@track lodgementPointVar;
 	@track lodgementPointList;
@@ -264,32 +266,41 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 	@wire(retrieveProductsFromCLI, {contractId: '$recordId'})
 	wireProduct({data,error}){
 		if(data){
-			// get contract's organisation Id
-			this.contractAccId = data[0].Apttus__AgreementId__r.Apttus__Account__c;
-			// get proposal's new account type
-			this.proposalAccountType = data[0].Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c;
-			// get proposal Id
-			this.proposalId = data[0].Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c;
-
 			/**
-			 * Capture flag to display "Apply rates only to new Charge Accounts/Sub Accounts" radio option under below condition:
-			 * -Proposal.New Account Type is 'Charge Account' OR 'Charge + Sub Account'
-			 *  */
-			if(this.isUndefinedOrNull(this.proposalAccountType)){
-				this.displayBillingAccRateRatioBtn = true;
-			}
-			/**
-			 * Capture flag to display "Apply rates to specific Billing Accounts" radio option under below condition:
-			 * -Proposal.New Account Type is BLANK
-			 *  */
-			else if(this.proposalAccountType === PROPOSAL_NEW_ACC_TYPE_CHARGE_ACCOUNT
-					|| this.proposalAccountType === PROPOSAL_NEW_ACC_TYPE_CHARGE_SUB_ACCOUNT){
-				this.displayCarSarRateRatioBtn = true;
+			 * Add below check to fix a hard-to-reproduced intermittent issue where 'data[0].Apttus__AgreementId__r' is undefined while processing below code, even though there is already a prior 'if(data)' check at the outer layer.
+			 * This fix is based on observation that @wire fires multiple times, and in its first attempt, the assumption is that the returned data has some values which passed 'if(data)' check but Apttus__AgreementId__r property was still undefined
+			 */
+			if(data[0].hasOwnProperty('Apttus__AgreementId__r')){
+				// get contract's organisation Id
+				this.contractAccId = data[0].Apttus__AgreementId__r.Apttus__Account__c;
+				// get proposal's new account type
+				this.proposalAccountType = data[0].Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__r.APT_Method_of_Payment__c;
+				// get proposal Id
+				this.proposalId = data[0].Apttus__AgreementId__r.Apttus_QPComply__RelatedProposalId__c;
 			}
 			// save product name to display on UI
 			data.forEach(product => {
 				this.productNamelist.push(product);
 			})
+
+			/**
+			 * Capture flag to display "Apply rates to specific Billing Accounts" radio option under below condition:
+			 * -Proposal.New Account Type is BLANK
+			 *  */
+			if(this.isUndefinedOrNull(this.proposalAccountType)){
+				this.isExistingCustomerFlow = true;
+				this.displayBillingAccRateRatioBtn = true;
+			}
+			
+			/**
+			 * Capture flag to display "Apply rates only to new Charge Accounts/Sub Accounts" radio option under below condition:
+			 * -Proposal.New Account Type is 'Charge Account' OR 'Charge + Sub Account'
+			 *  */
+			else if(this.proposalAccountType === PROPOSAL_NEW_ACC_TYPE_CHARGE_ACCOUNT
+					|| this.proposalAccountType === PROPOSAL_NEW_ACC_TYPE_CHARGE_SUB_ACCOUNT){
+				this.isNewCustomerFlow = true;
+				this.displayCarSarRateRatioBtn = true;
+			}
 		}else if(error){
 			this.error = error;
 		}
@@ -342,8 +353,6 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 				this.isLoading = false;
 				this.error = error;
 			})
-
-
 		}
 	}
 
@@ -449,7 +458,13 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 			this.selectedBillingAcc = [];
 			// clear any error such as no linked account
 			this.error = void 0;
-			this.displayLPTable = true;
+			// existing customer scenario, do not display lodgement point section
+			if(this.isNewCustomerFlow === true){
+				this.displayLPTable = true;
+			}else if(this.isExistingCustomerFlow === true){
+				// new customer scenario, display lodgement point section
+				this.displayLPTable = false;
+			}
 		}
 		// On Selection of 'Apply rates only to new Charge Accounts/Sub Accounts' radio button
 		else if(this.selectRateAction === 'carSarRate'){
@@ -464,7 +479,6 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 		}
 		// On Selection of 'Apply rates to specific Billing Accounts' radio buton
 		else if(this.selectRateAction === 'billingAccRate'){
-			this.displayLPTable = true;
 			if(this.bilingAccList.length === 0){
 				// make an imperative apex call to retrieve the billing account to populate the table
 				this.getBillingAccounts();
@@ -576,7 +590,8 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 	 * @returns BOOLEAN
 	 */
 	validateSelectionNotEmpty(){
-		if((this.selectRateAction === 'carSarRate' || this.selectRateAction === 'allRate') && this.lodgementPointVar.length === 0){
+		if(this.isNewCustomerFlow === true && (this.selectRateAction === 'carSarRate' || this.selectRateAction === 'allRate')
+			&& this.lodgementPointVar.length === 0 ){
 			this.isLoading = false;
 			const evt = new ShowToastEvent({
 				title: 'Link Billing Account',
@@ -585,7 +600,8 @@ export default class Apt_LinkingBillingAccountToContract extends NavigationMixin
 			});
 			this.dispatchEvent(evt);
 			return false;
-		} else if((this.selectRateAction === 'carSarRate' || this.selectRateAction === 'allRate') && this.lodgementPointVar.length > 1){
+		} else if(this.isNewCustomerFlow === true && (this.selectRateAction === 'carSarRate' || this.selectRateAction === 'allRate') 
+			&& this.lodgementPointVar.length > 1){
 			this.isLoading = false;
 			const evt = new ShowToastEvent({
 				title: 'Link Billing Account',

@@ -8,6 +8,7 @@
  * @description Selector class to provide a query interface to the ICPS SObject.
  * @changelog
  * 2022-03-21 - Harry Wang - Created
+ * 2022-09-15 - Harry Wang - added new search params
  */
 public inherited sharing class ICPSSelector extends ApplicationSelector {
 	public enum Options {
@@ -72,6 +73,9 @@ public inherited sharing class ICPSSelector extends ApplicationSelector {
 	 * (from_final_notice_date, to_final_notice_date) - date range match
 	 * (from_holding_date, to_holding_date) - date range match
 	 * (from_release_date, to_release_date) - date range match
+	 * (from_date_returned, to_date_returned) - date range match
+	 * (from_date_of_posting, to_date_of_posting) - date range match
+	 * (from_delivery_date, to_delivery_date) - date range match
 	 * @param matchAll Match options, true for 'AND', false for 'OR'
 	 * @return List of ICPS__C meeting the search criteria
 	 */
@@ -127,6 +131,24 @@ public inherited sharing class ICPSSelector extends ApplicationSelector {
 				} else if (field == 'to_release_date') {
 					Date toReleaseDate = Date.valueOf((String) fieldValue);
 					conditions.add(new QueryBuilder.SimpleCondition('ABFInstructionDate__c <= :toReleaseDate'));
+				} else if (field == 'from_date_returned') {
+					Date fromDateReturned = Date.valueOf((String) fieldValue);
+					conditions.add(new QueryBuilder.SimpleCondition('DateReturned__c >= :fromDateReturned'));
+				} else if (field == 'to_date_returned') {
+					Date toDateReturned = Date.valueOf((String) fieldValue);
+					conditions.add(new QueryBuilder.SimpleCondition('DateReturned__c <= :toDateReturned'));
+				} else if (field == 'from_date_of_posting') {
+					Date fromDateOfPosting = Date.valueOf((String) fieldValue);
+					conditions.add(new QueryBuilder.SimpleCondition('DateOfPosting__c >= :fromDateOfPosting'));
+				} else if (field == 'to_date_of_posting') {
+					Date toDateOfPosting = Date.valueOf((String) fieldValue);
+					conditions.add(new QueryBuilder.SimpleCondition('DateOfPosting__c <= :toDateOfPosting'));
+				} else if (field == 'from_delivery_date') {
+					Date fromDeliveryDate = Date.valueOf((String) fieldValue);
+					conditions.add(new QueryBuilder.SimpleCondition('DeliveryDate__c >= :fromDeliveryDate'));
+				} else if (field == 'to_delivery_date') {
+					Date toDeliveryDate = Date.valueOf((String) fieldValue);
+					conditions.add(new QueryBuilder.SimpleCondition('DeliveryDate__c <= :toDeliveryDate'));
 				} else continue;
 				conditionCount++;
 			}

@@ -14,27 +14,27 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
-                <fullName>Express</fullName>
+                <fullName>EXPRESS</fullName>
                 <default>false</default>
                 <label>Express</label>
             </value>
             <value>
-                <fullName>Insured</fullName>
+                <fullName>INSURED</fullName>
                 <default>false</default>
                 <label>Insured</label>
             </value>
             <value>
-                <fullName>Ordinary</fullName>
+                <fullName>ORDINARY</fullName>
                 <default>false</default>
                 <label>Ordinary</label>
             </value>
             <value>
-                <fullName>Registered</fullName>
+                <fullName>REGISTERED</fullName>
                 <default>false</default>
                 <label>Registered</label>
             </value>
             <value>
-                <fullName>Small Packet</fullName>
+                <fullName>SMALL PACKET</fullName>
                 <default>false</default>
                 <label>Small Packet</label>
             </value>

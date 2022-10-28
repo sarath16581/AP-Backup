@@ -10,7 +10,7 @@
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>true</isVersionDefault>
+    <isVersionDefault>false</isVersionDefault>
     <milestones>
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>

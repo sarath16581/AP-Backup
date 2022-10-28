@@ -2,6 +2,7 @@
  * @File Name          : STHSTrackingFormController.cls
  * @Description        : Controller class for StarTrack Tracking form
  * @Author             : Mahesh Parvathaneni
+ * @Modified		   : Jacob Isaac - REQ2995236 - Added Custom Settings to set StarTrack_Calc_Email_Address__c in getTrackingCaseDefaultValues()
  **/
 
 public with sharing class STHSTrackingFormController {
@@ -16,13 +17,13 @@ public with sharing class STHSTrackingFormController {
 			//build case object
 			Case caseObj = new Case();
 			//get tracking form case default values
-			getTrackingCaseDefaultValues(caseObj);
+			getTrackingCaseDefaultValues(caseObj, formData);
 			//get instance of STHS community service
 			STHSCommunityService service = STHSCommunityService.getInstance();
-			//get case default values
-			service.getCaseDefaultValues(caseObj);
 			//get case data from form
 			service.getFormCaseData(caseObj, formData);
+			//get case default values
+			service.getCaseDefaultValues(caseObj);
 			//insert case
 			service.insertRecords(new List<SObject>{caseObj});
 			//get case comments
@@ -45,9 +46,13 @@ public with sharing class STHSTrackingFormController {
 	/**
 	 * Assign the tracking form case default values 
 	 */
-	private static void getTrackingCaseDefaultValues(Case caseObj) {
+	private static void getTrackingCaseDefaultValues(Case caseObj, Map<Object,String> formData) {
         caseObj.Subject = caseObj.Call_Purpose__c = caseObj.Initial_Call_Purpose__c = STHSConstants.CASE_SUBJECT_TRACKING_ENQUIRY;
 		caseObj.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(STHSConstants.CASE_RECORDTYPE_DELIVERY_ENQUIRY).getRecordTypeId();
+		caseObj.Send_Auto_Response_Email__c = true;
+		caseObj.Description_of_contents__c = formData.get(STHSConstants.FORM_DATA_DESCRIPTION_CONTENTS);
+		StarTrack_Settings__c starTrackSettings = StarTrack_Settings__c.getOrgDefaults();
+        caseObj.StarTrack_Calc_Email_Address__c = starTrackSettings.Investigators_From_Email__c; 
     }
 
 	/**

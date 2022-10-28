@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <formula>IF(RecordType.Name = &apos;General Enquiry&apos; &amp;&amp; ISPICKVAL( Call_Purpose__c , &apos;Security Incident&apos;), &apos;1&apos;,
 IF(RecordType.Name = &apos;Delivery Enquiry&apos; &amp;&amp; (TEXT(Value_of_Goods__c) = &apos;$10k+&apos; || Account.Transit_Risk__c || ArticleTest__r.Dangerous_Goods__c), &apos;2&apos;,
-IF(RecordType.Name = &apos;Delivery Enquiry&apos; &amp;&amp; (TEXT(Value_of_Goods__c) = &apos;$1500+ - $10k&apos;), &apos;3&apos;, &apos;&apos;)))</formula>
+IF(RecordType.Name = &apos;Delivery Enquiry&apos; &amp;&amp; OR((TEXT(Value_of_Goods__c) = &apos;$1500+ - $10k&apos;),(TEXT(Value_of_Goods__c) = &apos;$2,000 - $9,999&apos;)), &apos;3&apos;, &apos;&apos;)))</formula>
     <label>Security Tier</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

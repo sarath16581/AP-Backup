@@ -8,6 +8,7 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-16 - arjun.singh@auspost.com.au - Added methods for  rollback and savepoint
+ * 2022-05-09 - Ranjeewa Silva - Added test method to cover upsert operation.
  */
 @IsTest
 private with sharing class ApplicationDatabase_Test {
@@ -26,6 +27,25 @@ private with sharing class ApplicationDatabase_Test {
 		ApplicationDatabase.getInstance().dmlSetSavePoint();
 		ApplicationDatabase.getInstance().dmlRollback(ApplicationDatabase.getInstance().dmlSetSavePoint());
 		System.assert(true, 'Not Completed');
+	}
+
+	/**
+	 * Ensure upsert operations are completed without errors.
+	 * This is a bit of a nothing test as it doesn't contribute any value
+	 */
+	@IsTest
+	private static void testUpsert() {
+		MockUtility.disableTriggerExecution();
+
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, false);
+		ApplicationDatabase.getInstance().dmlInsert(accounts);
+
+		Test.startTest();
+		accounts[0].Name = 'updated';
+		Account newAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		ApplicationDatabase.getInstance().dmlUpsert(new List<Account>{accounts[0], newAccount}, Account.Id);
+		System.assert(true, 'Not Completed');
+		Test.stopTest();
 	}
 
 }

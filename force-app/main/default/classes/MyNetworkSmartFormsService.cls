@@ -15,7 +15,8 @@
 22.03.2021    Suman Gunaganti            Updated case comments method to include wine damages instructions
 26.03.2021    Madhuri Awasthi            REQ2447384 -Updated case comments method to include wine damages instructions 
 09.06.2021    Naveen Rajanna             REQ2525818 -Updated case comments method to include Cust Ref only in case of eparcel damages 
-16.06.2021    SaiSwetha Pingali          REQ2866516 -Introduced a new metadata to store product sub category to disable compensation and updated the logic here to utilise the metadata. 
+16.06.2021    SaiSwetha Pingali          REQ2866516 -Introduced a new metadata to store product sub category to disable compensation and updated the logic here to utilise the metadata.
+18.10.2022    Talib Raza                 REQ2866516 - getAll() only return 255 char, replace it with SOQL  
 **/
 
 public with sharing class MyNetworkSmartFormsService {
@@ -145,9 +146,9 @@ public with sharing class MyNetworkSmartFormsService {
     public static Map<String, List<String>> getSubCatValuesToDisableCompensation(){
         Map<String,List<String>> mapOfValuesToDisableCompensation = new Map<String,List<String>>();
         
-        for (MyNetworkProdSubCategory__mdt mcs : MyNetworkProdSubCategory__mdt.getall().values())
+        for (MyNetworkProdSubCategory__mdt mcs : [SELECT Label, Product_Sub_Category__c FROM MyNetworkProdSubCategory__mdt])
         {
-            mapOfValuesToDisableCompensation.put(mcs.label,new List<String>(mcs.Product_Sub_Category__c.split(','))); 
+            mapOfValuesToDisableCompensation.put(mcs.Label,new List<String>(mcs.Product_Sub_Category__c.split(','))); 
         }
         // Discuss and move to metadata.
       /* REQ2866516 - Moved this to custom metadata MyNetworkProdSubCategory__mdt
@@ -157,7 +158,6 @@ public with sharing class MyNetworkSmartFormsService {
         mapOfValuesToDisableCompensation.put('Post Office & Business Hub Services',new List<String> {'General merchandise', 'Mail Pick up', 'Philatelic (stamps)',  'PO Boxes & Bags', 'Mobile products',  'Stationery and packaging', 'Passport & ID Photos', 'Post office locator', 'Mail hold', 'Mail redirection'});
         mapOfValuesToDisableCompensation.put('International Parcels',new List<String> {'Airmail over 2kg','Airmail under 2kg','ECI','ECI Platinum','Economy Air under 2kg','Economy Sea over 2kg','Express Post International','Global Logistics','International Courier','International Express','International Standard','Pack and Track International','Registered Post International','Sea Mail','StarTrack International'});
    */
-        System.debug('mapOfValuesToDisableCompensation==>'+mapOfValuesToDisableCompensation);
         return mapOfValuesToDisableCompensation;
     }
     

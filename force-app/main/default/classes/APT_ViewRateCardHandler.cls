@@ -39,7 +39,7 @@ public class APT_ViewRateCardHandler {
             request.CartId = cartId; 
             Apttus_CPQApi.CPQ.SynchronizeCartResponseDO response;
             if(!Test.isRunningTest()){
-            	response = Apttus_CPQApi.CPQWebService.synchronizeCart(request);
+                response = Apttus_CPQApi.CPQWebService.synchronizeCart(request);
             }
         }
         catch(system.exception ex){
@@ -59,9 +59,11 @@ public class APT_ViewRateCardHandler {
         String sessionId = UserInfo.getSessionId();
         String serverUrl = System.Url.getSalesforceBaseUrl().toExternalForm() + APT_Constants.URL_SERVICES_SOAP_V43 + UserInfo.getOrganizationId();
         string docId = '';
+        
         if(!Test.isRunningTest()){
             docId = Apttus_Proposal.MergeWebService.generateDoc2(templateId,sObjectId,pLevel,docFormat,isDraft,sessionId,serverUrl);
         } 
+       
         PageReference pageRef = new PageReference(URL.getSalesforceBaseUrl().toExternalForm()+APT_Constants.URL_SERVICES_SOAP_DOWNLOAD_DOCUMENT + docId + '?' + APT_Constants.URL_SERVICES_OPERATION_CONTEXT_S1);
         pageRef.setredirect(true); 
         deleteDocumentLink(docId, templateName); 

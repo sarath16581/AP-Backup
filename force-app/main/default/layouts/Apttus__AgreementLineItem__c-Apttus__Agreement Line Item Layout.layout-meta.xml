@@ -57,6 +57,10 @@
                 <behavior>Readonly</behavior>
                 <field>APT_Depot_Tier_Version__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Apttus_CMConfig__AttributeValueId__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -94,6 +98,10 @@
         <fields>APT_Value_1__c</fields>
         <fields>APT_Value_15__c</fields>
         <relatedList>APT_Agreement_Rate_Card__c.APT_Agreement_Line_Item__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Apttus_CMConfig__AgreementUsagePriceTier__c.Apttus_CMConfig__LineItemId__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>

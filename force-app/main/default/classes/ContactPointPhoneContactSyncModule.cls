@@ -19,19 +19,12 @@ public inherited sharing class ContactPointPhoneContactSyncModule extends Applic
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate().enableAfterDelete();
 	}
 
-	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		ContactService.getInstance().applyPhoneNumberFormatting((List<ContactPointPhone>) records, null);
-	}
-
-	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		ContactService.getInstance()
-			.applyPhoneNumberFormatting((List<ContactPointPhone>) records, (Map<Id, ContactPointPhone>) existingRecords);
-	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			List<SObject> recordsToUpdate = (List<SObject>) ContactService.getInstance()
-				.syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null, null);
+			List<SObject> recordsToUpdate = (List<SObject>) ContactService.getInstance().syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null, null);
+			ContactUtility.generateReversePhoneFields((List<Contact>)recordsToUpdate);
+
 			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneContactSyncModule.class.getName());
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
@@ -48,8 +41,9 @@ public inherited sharing class ContactPointPhoneContactSyncModule extends Applic
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			List<SObject> recordsToUpdate = ContactService.getInstance()
-				.syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null, (Map<Id, ContactPointPhone>) existingRecords);
+			List<SObject> recordsToUpdate = ContactService.getInstance().syncContactPointPhoneToContacts((List<ContactPointPhone>) records, null, (Map<Id, ContactPointPhone>) existingRecords);
+			ContactUtility.generateReversePhoneFields((List<Contact>)recordsToUpdate);
+
 			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneContactSyncModule.class.getName());
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
@@ -66,8 +60,9 @@ public inherited sharing class ContactPointPhoneContactSyncModule extends Applic
 
 	public override void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			List<SObject> recordsToUpdate = ContactService.getInstance()
-				.syncContactPointPhoneToContacts(null, (List<ContactPointPhone>) records, null);
+			List<SObject> recordsToUpdate = ContactService.getInstance().syncContactPointPhoneToContacts(null, (List<ContactPointPhone>) records, null);
+			ContactUtility.generateReversePhoneFields((List<Contact>)recordsToUpdate);
+
 			uow.registerDirty(recordsToUpdate, getFieldstoRegDirtyContact(), ContactPointPhoneContactSyncModule.class.getName());
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(
@@ -84,7 +79,13 @@ public inherited sharing class ContactPointPhoneContactSyncModule extends Applic
 
 	//which fields to be registered dirty in contact  when updating from CPPhone
 	private List<SObjectField> getFieldstoRegDirtyContact() {
-		return new List<SObjectField>{ Contact.MobilePhone, Contact.VerifiedMobile__c, Contact.Unique_Mobile__c, Contact.HomePhone };
+		return new List<SObjectField>{ 
+			Contact.MobilePhone, 
+			Contact.VerifiedMobile__c, 
+			Contact.Unique_Mobile__c, 
+			Contact.HomePhone,
+			Contact.ReversePhoneFields__c
+		};
 	}
 	/**
 	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule

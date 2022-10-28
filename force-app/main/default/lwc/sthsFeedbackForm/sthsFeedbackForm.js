@@ -1,5 +1,5 @@
 import { LightningElement } from "lwc";
-import { validateInputComponents, validatePhone } from "c/utils";
+import { validateInputComponents, validatePhone, validateEmail } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
 import invalidDescription from "@salesforce/label/c.STHSDescriptionValidationMessage";
 import invalidEmail from "@salesforce/label/c.STHSEmailValidationMessage";
@@ -12,7 +12,7 @@ import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage
 import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
 import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
-import createFeedbackFormCase from "@salesforce/apex/SthsFeedbackFormController.createFeedbackFormCase";
+import createFeedbackFormCase from "@salesforce/apex/STHSFeedbackFormController.createFeedbackFormCase";
 
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
@@ -131,7 +131,7 @@ export default class SthsTrackingForm extends LightningElement {
 		this.showError = false;
 	};
 
-	//valiadte phone number field with custom validations
+	//validate phone number field with custom validations
 	validatePhone = (event) => {
 		event.target.setCustomValidity('');
 		if(event.target.value && !validatePhone(event.target.value)) {
@@ -139,5 +139,15 @@ export default class SthsTrackingForm extends LightningElement {
 		}
 		event.target.reportValidity();
 		event.target.showHelpMessageIfInvalid();
-	}
+	};
+
+	//validate email field with custom validations
+	validateEmail = (event) => {
+		event.target.setCustomValidity('');
+		if(event.target.value && !validateEmail(event.target.value)) {
+			event.target.setCustomValidity(this.label.invalidEmail);
+		}
+		event.target.reportValidity();
+		event.target.showHelpMessageIfInvalid();
+	};
 }

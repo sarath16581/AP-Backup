@@ -124,6 +124,11 @@ Used by Integration User (Einstein Analytics)</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Apttus__APTS_Agreement__c.Apttus__Agreement_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>BAMContactApplication__c.Application_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3559,7 +3564,7 @@ Used by Integration User (Einstein Analytics)</description>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Apttus__APTS_Agreement__c</object>
-        <viewAllRecords>false</viewAllRecords>
+        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>false</allowCreate>
@@ -3624,6 +3629,34 @@ Used by Integration User (Einstein Analytics)</description>
         <object>Sales_Team_Segment__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>Apttus__APTS_Agreement__c.APT_Community_Update_Pack</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Apttus__APTS_Agreement__c.APT_Letter_of_Intent</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Apttus__APTS_Agreement__c.APT_Postbillpay_Contract</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Apttus__APTS_Agreement__c.APT_Rebate_Contract</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Apttus__APTS_Agreement__c.APT_SecurePay_Online_Payments</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Apttus__APTS_Agreement__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>Sales_Team_Segment__c</tab>
         <visibility>Available</visibility>

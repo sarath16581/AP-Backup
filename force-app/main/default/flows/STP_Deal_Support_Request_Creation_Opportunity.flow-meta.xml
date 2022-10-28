@@ -249,7 +249,7 @@ Check if Opp stage is &apos;Qualify&apos; or &apos;Identify&apos; and DSQ record
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Throw_an_error</name>
-            <conditionLogic>(1 OR 2) AND (3 OR 4 OR 5)</conditionLogic>
+            <conditionLogic>(1 OR 2) AND (3 OR 4 OR 5 OR 6)</conditionLogic>
             <conditions>
                 <leftValueReference>OpportunityStage</leftValueReference>
                 <operator>EqualTo</operator>
@@ -283,6 +283,13 @@ Check if Opp stage is &apos;Qualify&apos; or &apos;Identify&apos; and DSQ record
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Pricing_Support_Request_International</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Select_the_Deal_Support_Request_Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pricing_Support_Request_Australia_Post_Parcel_Contract</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -351,6 +358,7 @@ Check if Opp stage is &apos;Qualify&apos; or &apos;Identify&apos; and DSQ record
         </rules>
     </decisions>
     <description>This flow is to show limited record types to user on Opportunity to choose from while creating new DSR from Opportunity</description>
+    <environments>Default</environments>
     <formulas>
         <name>RunningUser</name>
         <dataType>String</dataType>

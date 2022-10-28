@@ -14,7 +14,7 @@ ISCHANGED(ParentId) ||
 ISCHANGED(Industry_Sector__c) ||
 ISCHANGED(ACN__c) ||
 ISCHANGED(Organisation_Trading_Name__c) ||
-ISCHANGED(Type)) &amp;&amp; ($Profile.Name != &quot;Customer Team&quot; &amp;&amp; $Profile.Name != &apos;System Administrator&apos; &amp;&amp; $Profile.Name != &apos;Customer Team Super Users&apos; &amp;&amp; $Profile.Name != &apos;Marketing Super Users&apos; &amp;&amp; $Profile.Name != &apos;Enterprise Onboarding&apos;)) || ((
+ISCHANGED(Type)) &amp;&amp; ($Profile.Name != &quot;Customer Team&quot; &amp;&amp; $Profile.Name != &apos;System Administrator&apos; &amp;&amp; $Profile.Name != &apos;Customer Team Super Users&apos; &amp;&amp; $Profile.Name != &apos;Marketing Super Users&apos; &amp;&amp; $Profile.Name != &apos;Enterprise Onboarding&apos; &amp;&amp; $Profile.Name != &apos;Sales Admin&apos;)) || ((
 ISCHANGED(BillingStreet) ||
 ISCHANGED(BillingCity) ||
 ISCHANGED(BillingState) ||
@@ -27,6 +27,6 @@ ISCHANGED(ShippingCity) ||
 ISCHANGED(ShippingState) ||
 ISCHANGED(ShippingPostalCode) ||
 ISCHANGED(ShippingCountry))
-&amp;&amp; (($Profile.Name != &quot;Customer Team&quot; &amp;&amp; $Profile.Name != &apos;System Administrator&apos; &amp;&amp; $Profile.Name != &apos;Customer Team Super Users&apos; &amp;&amp; $Profile.Name != &apos;Marketing Super Users&apos; &amp;&amp; $Profile.Name != &apos;Enterprise Onboarding&apos;)&amp;&amp; NOT((Owner.IsCurrentUser__c || BEGINS(Owner.Username, &apos;holding.user@auspost.com.au&apos;)) &amp;&amp; ($Profile.Name =&apos;BG Base&apos; || $Profile.Name =&apos;Hub Users&apos; || $Profile.Name =&apos;Sales Admin&apos;) )))) , true, false)</errorConditionFormula>
-    <errorMessage>Please raise a case record to the Data Quality Management team to change Customers Organisation core details.</errorMessage>
+&amp;&amp; (($Profile.Name != &quot;Customer Team&quot; &amp;&amp; $Profile.Name != &apos;System Administrator&apos; &amp;&amp; $Profile.Name != &apos;Customer Team Super Users&apos; &amp;&amp; $Profile.Name != &apos;Marketing Super Users&apos; &amp;&amp; $Profile.Name != &apos;Enterprise Onboarding&apos; &amp;&amp; $Profile.Name != &apos;Sales Admin&apos;)&amp;&amp; NOT((Owner.IsCurrentUser__c || BEGINS(Owner.Username, &apos;holding.user@auspost.com.au&apos;)) &amp;&amp; ($Profile.Name =&apos;BG Base&apos; || $Profile.Name =&apos;Hub Users&apos;) )))) , true, false)</errorConditionFormula>
+    <errorMessage>Please raise a Sales Co-ordinator case for assistance with changing Customers organisation core details.</errorMessage>
 </ValidationRule>

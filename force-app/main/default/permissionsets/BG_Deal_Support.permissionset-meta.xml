@@ -47,6 +47,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Selected_Lodgement_Zone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Selected_Lodgement_Zone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1017,6 +1027,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Deal_Support_Request__c.LastSurveySentDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Deal_Support_Request__c.Last_Status_Update__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1618,6 +1633,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Surcharges__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.SurveyType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

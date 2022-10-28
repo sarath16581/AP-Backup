@@ -16,7 +16,6 @@ public inherited sharing class ContactDomain extends ApplicationDomain {
 	 */
 	public override void registerModules() {
 		// these module will be available for domain operations and trigger execution
-		registerModule(ContactDomainFormattingModule.class);
 	}
 
 	/**

@@ -16,6 +16,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:reportChart</componentName>
+                <identifier>flexipage_reportChart</identifier>
             </componentInstance>
         </itemInstances>
         <name>top</name>
@@ -37,6 +38,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:reportChart</componentName>
+                <identifier>flexipage_reportChart2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -54,6 +56,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:reportChart</componentName>
+                <identifier>flexipage_reportChart3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -71,6 +74,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:reportChart</componentName>
+                <identifier>flexipage_reportChart4</identifier>
             </componentInstance>
         </itemInstances>
         <name>bottomLeft</name>
@@ -92,6 +96,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:reportChart</componentName>
+                <identifier>flexipage_reportChart5</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -109,6 +114,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:reportChart</componentName>
+                <identifier>flexipage_reportChart6</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -126,6 +132,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:reportChart</componentName>
+                <identifier>flexipage_reportChart7</identifier>
             </componentInstance>
         </itemInstances>
         <name>bottomRight</name>
@@ -159,6 +166,7 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

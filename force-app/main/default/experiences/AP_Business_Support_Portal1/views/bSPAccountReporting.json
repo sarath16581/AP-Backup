@@ -1,0 +1,44 @@
+{
+  "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "9964f6f8-6a8c-45f3-acd1-e3d85142ff75",
+  "label" : "BSP Account Reporting",
+  "regions" : [ {
+    "id" : "ac02f7fd-07cd-419b-b99b-3965e9f6ba01",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bspAccountReporting",
+      "id" : "a50e54bd-639c-4ca1-a7be-f24198192566",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "405e1366-3f93-412b-96c2-e2c7f91947fb",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "272760ad-909b-47b5-88aa-f725730d9aa6",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "title" : "Account Reports"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "4bda3c71-d4f9-4712-96f3-35ebeb08ac3d",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "891eec38-69f0-43e6-a0e9-4877e6f233b4",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "VVzT0mL4nCmITm0Vp7hT4r3Qht92it",
+  "type" : "view",
+  "viewType" : "custom-account-reports"
+}

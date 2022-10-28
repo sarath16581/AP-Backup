@@ -5,6 +5,7 @@ History:
 --------------------------------------------------
 2008-07-01  clint.dsilva@auspost.com.au Created
 2020-09-08  lija.jawahar@auspost.com.au modified getVFBaseURL- Stabilize URLs for Visualforce
+2022-09-16  naveen.rajanna@auspost.com.au INC2035054 incorporate new visual force url post enhanced domain
 **************************************************/
 
 global with sharing class AsynchApexContinuationController {
@@ -45,7 +46,11 @@ global with sharing class AsynchApexContinuationController {
             List<String> fragments = user.fullPhotoUrl.split('\\.');
             string strFrag0 = fragments[0];
             strFrag0 = strFrag0 != null?strFrag0.toLowerCase():'';
-            urlConfig.baseURL =  strFrag0 + '.visualforce.com';
+            if(!Util.runningInASandbox) {
+                urlConfig.baseURL =  strFrag0 + '--c.vf.force.com';
+            } else {
+                urlConfig.baseURL =  strFrag0 + '--c.sandbox.vf.force.com';
+            }            
             //string strFrag1 = fragments[1];
             //urlConfig.baseURL =  strFrag0+ '.' + strFrag1 + '.visual.force.com';
         }

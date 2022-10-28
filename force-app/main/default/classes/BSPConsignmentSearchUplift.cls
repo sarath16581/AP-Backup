@@ -9,6 +9,8 @@
  *  Continuation + callouts need a Continuation.State to preserve context (context is lost when using static)
  *  Continuation + callouts need a wrapper method with NO arguments for Test Coverage. Test.InvokeContinuation only
  *  allows for a continuation method with no arguments.
+ *  2022-09-12 - prerna.rahangdale@auspost.com.au Change to update the eventMessages with the safe drop guid for events of
+ *  safe drop type.
  */
 public without sharing class BSPConsignmentSearchUplift {
 
@@ -409,7 +411,19 @@ public without sharing class BSPConsignmentSearchUplift {
                 }
             } else {
                 for(AuspostQueryTrackEventsSchema.TrackingResults tr : trackResults.getValue().TrackingResult){
-                    searchResult.trackResults.add(new TIBCOTrackingResultWrapper(tr));
+                    TIBCOTrackingResultWrapper trackingResultWrapper = new TIBCOTrackingResultWrapper(tr);
+                    searchResult.trackResults.add(trackingResultWrapper);
+
+                    Id billingAccount = null;
+                    if(trackingResultWrapper.articleDetails != null ){
+                        billingAccount = trackingResultWrapper.articleDetails.proxyArticle.Billing_Account__c;
+                    }
+                    if(trackingResultWrapper.consignmentDetails != null ){
+                        billingAccount = trackingResultWrapper.consignmentDetails.proxyConsignment.Billing_Account__c;
+                    }
+                   if(billingAccount != null && bspBaseUplift.accessibleBillingAccounts.containsKey(billingAccount)){
+                        updateGuidInEventMessages(trackingResultWrapper);
+                    }
                 }
             }
         
@@ -808,6 +822,46 @@ public without sharing class BSPConsignmentSearchUplift {
         articleEvents = new List<EventMessage__c>();
         if(articleEventsMap.containsKey(selectedEventArticle)){
             articleEvents = articleEventsMap.get(selectedEventArticle).values();
+        }
+    }
+
+    /*
+     * This method is used to update the GUID in the event message of the article or consignments.
+     * The safe drop guid is not returned for merchant profile , hence needs to do explicit call to SAPEM and get the
+     * safedrop guid for safe drop event types and update the particluar event messages or articles or consignments and update the guid.
+     *
+     */
+    private static void updateGuidInEventMessages(TIBCOTrackingResultWrapper tr){
+        List<TIBCOEventMessageWrapper> eventMessages = null;
+        Integer  eventCount = null;
+        Set<String> safeDropSigEventTypes = new Set<String>();
+
+        // Get the Safe drop or is Signature on Delivery Event Types.
+        for(EventMessageTypeMapping__mdt eventType : EventMessageUtil.getEventMessageTypes().values()) {
+            if(('Delivered').equalsIgnoreCase(eventType.Category__c) && (eventType.IsSafeDrop__c || eventType.IsSignatureOnDelivery__c)) {
+                safeDropSigEventTypes.add(eventType.Label);
+            }
+        }
+
+        // get event Message or article or consignment.
+         If(tr.articleDetails != null){
+             eventMessages = tr.articleDetails.eventMessages;
+        } else if(tr.consignmentDetails != null){
+             eventMessages = tr.consignmentDetails.eventMessages;
+        }
+
+        if(eventMessages != null) {
+            for (Integer i = 0; i < eventMessages.size(); i++) {
+                if (safeDropSigEventTypes.contains(eventMessages[i].proxyEM.EventType__c)) {
+                    eventCount = i;
+                    // populate the safe drop guid in the latest scanned delivered event, the EventMessages are sorted
+                    // with ActualDateTime__c.
+                    break;
+            }
+        }
+            // There is an event of safe drop or signature on delivery.
+            if (eventCount != null)
+                eventMessages[eventCount].proxyEM.Safe_Drop_GUID__c = DeliveryProofService.getSafeDropGuidHttpRequest(tr.trackingID);
         }
     }
 

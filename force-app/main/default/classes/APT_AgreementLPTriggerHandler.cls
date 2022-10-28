@@ -19,6 +19,9 @@
 *
 * Last Modified By - Mahesh Patel
 * Last Modified Date - 1st Mar, 2021 | STP-4673 Update TrackMail Lodgement Point on Operational Schedule record associated with contract
+*
+* changelog:
+* 2022-10-14 - seth.heang@auspost.com.au - Add null check on lodgement point prior to populating APT_Parcel_Lodgement_Points__c, and uplift API version to 55
 **/
 public with sharing class APT_AgreementLPTriggerHandler {
     
@@ -129,10 +132,17 @@ public with sharing class APT_AgreementLPTriggerHandler {
                 
                 String lpName = lp.APT_Lodgement_Point_Lookup__r.Name;
                 String billingAccountNumber = String.IsNotBlank(lp.APT_Billing_Account__r.LEGACY_ID__c) 
-                                                ? APT_Constants.SEPERATOR_COLON + lp.APT_Billing_Account__r.LEGACY_ID__c +  APT_Constants.SEPERATOR_COLON 
+                                                ? lp.APT_Billing_Account__r.LEGACY_ID__c +  APT_Constants.SEPERATOR_COLON 
                                                 : APT_Constants.SEPERATOR_COLON;
-                String lpString = lpName + billingAccountNumber;
-                
+				String lpString = '';
+				// add null check on lodgement point to ensure APT_Parcel_Lodgement_Points__c does not have null value
+				if(lpName != null){
+					lpString = lpName + APT_Constants.SEPERATOR_COLON;
+				}
+				// refactor code to concatenate billing account number to lodgement point string
+				if(billingAccountNumber != APT_Constants.SEPERATOR_COLON){
+					lpString += billingAccountNumber;
+				}
                 //generic lp case
                 if(String.isEmpty(lp.APT_Agreement_Line_Item__c)){
                     

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Shows the current status of the Route.</description>
+    <externalId>false</externalId>
+    <formula>IF( Decommissioned__c = TRUE,&apos;Inactive&apos;, IF( DATEVALUE(NOW())&lt; Start_Date__c,&apos;Draft&apos;, IF( DATEVALUE(NOW())&gt; End_Date__c ,&apos;Expired&apos;, &apos;Active&apos; ) ) )</formula>
+    <inlineHelpText>Shows the current status of the Route.</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

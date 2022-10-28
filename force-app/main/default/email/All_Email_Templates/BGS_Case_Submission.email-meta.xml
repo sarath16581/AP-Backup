@@ -5,16 +5,26 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>BGS Case Submission</name>
     <style>none</style>
-    <subject>We&apos;re looking into your enquiry - case {!Case.CaseNumber}. [{!EmailMessage.ThreadIdentifier}]</subject>
-    <textOnly>Hi {!Contact.FirstName}
+    <subject>We&apos;re looking into your enquiry - case {!Case.CaseNumber}</subject>
+    <textOnly>New Case Created
 
-Thank you for contacting Australia Post.
 
-We have received your enquiry: {!Case.Subject}
 
-A case has been created and your Case Reference Number is {!Case.CaseNumber}.
+Hi,
 
-A member of our support team will be in touch shortly.
+Thanks for contacting Australia Post. We&apos;ve received your enquiry
+
+Subject: {!Case.Subject}
+
+We&apos;ll be in touch between 8am and 6pm on a weekday.
+
+So that we can quickly check the progress of your enquiry, please include your case number ({!Case.CaseNumber}) in any future emails about your case.
+
+We look forward to helping you.
+
+Regards,
+
+Australia Post’s Service Advisor Team
 
 
 Australia Post will never send you an email asking for your password, credit card details or account information.
@@ -22,7 +32,9 @@ Australia Post will never send you an email asking for your password, credit car
 
 This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. Visit auspost.com.au for further information on our online security.
 
-Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.</textOnly>
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

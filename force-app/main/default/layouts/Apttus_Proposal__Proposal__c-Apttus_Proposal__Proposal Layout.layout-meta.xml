@@ -93,7 +93,7 @@
                 <field>Apttus_Proposal__Opportunity__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Required</behavior>
                 <field>Apttus_Proposal__Proposal_Expiration_Date__c</field>
             </layoutItems>
             <layoutItems>
@@ -147,6 +147,10 @@
         <label>Credit Assessment Request</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>APT_Parent_Proposal__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>APT_Method_of_Payment__c</field>
             </layoutItems>
@@ -161,7 +165,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>APT_Credit_Assessment_Status__c</field>
             </layoutItems>
             <layoutItems>

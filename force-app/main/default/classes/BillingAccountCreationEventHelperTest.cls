@@ -40,10 +40,48 @@ public with sharing class BillingAccountCreationEventHelperTest {
         //apttusContracts.Apttus_QPComply__RelatedProposalId__c = new Apttus_Proposal__Proposal__c();
         apttusContracts.Apttus__Account__c = account.Id;
         dealSupportRequest.APT_Contract__c = apttusContracts.Id;
+		product2 prod=APT_TestDataFactory.getAppcProduct(1,true)[0];       
+      
         
 		Network__c net = ApplicationTestDataFactory.getNetworks(1, true)[0];
 		APT_Agreement_Lodgement_Point__c alpRec = ApplicationTestDataFactory.getAgreementLodgementPoints(1, net.id, apttusContracts.id, account.id, true)[0];
 		alpRec.APT_Charge_Account__c = chargeAccountRequest.Id;
+
+        
+        //Code start
+        Apttus__AgreementLineItem__c apttusContractLineItem = APT_TestDataFactory.getAPTAgreementLineItem(1, true)[0];
+        apttusContractLineItem.Apttus__Description__c='Australia Post Parcel Contract';
+        apttusContractLineItem.Apttus__ProductId__c=prod.Id;
+        apttusContractLineItem.APT_Bundle_Name__c='Australia Post Parcel Contract';
+        apttusContractLineItem.Apttus_CMConfig__ChargeType__c='Standard Price';                    
+        apttusContractLineItem.Apttus_CMConfig__BillToAccountId__c=account.ID;
+        
+        apttusContractLineItem = (Apttus__AgreementLineItem__c)ApplicationTestDataFactory.setUnwritableFields(apttusContractLineItem, 
+				new Map<String, Object>{
+					'Apttus__AgreementId__c' =>	apttusContracts.id
+				});
+        apttusProposals = (Apttus_Proposal__Proposal__c)ApplicationTestDataFactory.setUnwritableFields(apttusProposals, 
+				new Map<String, Object>{					
+					'APT_Credit_Assessment__r' =>apttusCreditAssessment		
+				});
+        
+        apttusContracts = (Apttus__APTS_Agreement__c)ApplicationTestDataFactory.setUnwritableFields(apttusContracts, 
+				new Map<String, Object>{
+					'APT_APPC_Count__c' =>1.00,	
+                     'Apttus_QPComply__RelatedProposalId__r'=> apttusProposals 
+				});      
+         
+         dealSupportRequest = (Deal_Support_Request__c)ApplicationTestDataFactory.setUnwritableFields(dealSupportRequest, 
+				new Map<String, Object>{						
+					'APT_Contract__r' =>apttusContracts		
+				});
+        
+        
+        
+       	system.assertEquals(apttusContractLineItem.Apttus__Description__c,'Australia Post Parcel Contract');
+        system.assertEquals(apttusContracts.APT_APPC_Count__c,1.00);
+        
+        APT_AgreementLodgementPointsSelector alpSelector = (APT_AgreementLodgementPointsSelector) MockUtility.mockSelector(APT_AgreementLodgementPointsSelector.class);
 
     // =====================================
     // Stubbing
@@ -88,7 +126,7 @@ public with sharing class BillingAccountCreationEventHelperTest {
         MockUtility.Mocks.when(billAccountSel.selectByIdorAccountNumber((List<Billing_Account__c>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(billAccountMap);
 
 		MockUtility.Mocks.when(agreementLPSelector.selectByApttusContractId(
-			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}))).thenReturn(
+			(Set<Id>)fflib_Match.eq(new Set<Id>{apttusContracts.Id}),(Set<Object>)fflib_Match.anyObject())).thenReturn(
 			new Map<Id,APT_Agreement_Lodgement_Point__c>(new List<APT_Agreement_Lodgement_Point__c>{alpRec}));
         
         MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
@@ -103,7 +141,9 @@ public with sharing class BillingAccountCreationEventHelperTest {
             Organisation_Record_Id__c=account.Id,
             Transaction_Id__c = externalOnboardingRecord.Id,
             Source_System__c = 'SAP',
-            Status__c = 'Success'
+            Status__c = 'Success',
+            Parent_Account_Number__c='',
+            Sub_Account_Request_Id__c= ''
            );
            EventBus.publish(newsEvent);
 

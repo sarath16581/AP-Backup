@@ -11,6 +11,7 @@
  * 2022-07-06 - Kamil Szyc added selectByIdWithAllBookings method for printing full duty board
  * 2022-07-14 - Kamil Szyc added selectByIdWithJobs for selecting routes with jobs
  * 2022-07-21 - Kamil Szyc added getChildJobsSubQueryBuilder for building jobs query
+ * 2022-09-21 - Ranjeewa Silva - Refactored to introduce new selector method inplace of selectByIdWithAllBookings
  */
 public virtual inherited sharing class PUDRoutesSelector extends ApplicationSelector {
 	public enum Options {
@@ -124,49 +125,56 @@ public virtual inherited sharing class PUDRoutesSelector extends ApplicationSele
 	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
 	 */
 	public virtual List<PUD_Route__c> selectByIdWithActiveBookings(Set<Id> ids, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
-
-		// we need t filter the bookings by record type ids passed in.
-		Set<String> status = new Set<String>{
-				PUDConstants.PUD_BOOKING_STATUS_ACTIVE
-		};
-		qb.addSubQuery(getChildBookingsSubQueryBuilder(status, bookingRecordTypeIds, selectorOptions), 'Bookings__r');
-
-		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
+		return selectByIdWithBookings(ids, new Set<String>{PUDConstants.PUD_BOOKING_STATUS_ACTIVE}, bookingRecordTypeIds, selectorOptions);
 	}
+
 	/**
-	 * Query routes based on Id's. Query results also include Active child bookings based on the booking record type ids.
+	 * Query routes based on Id's. Query results also include child bookings based on the booking record type ids and the status.
 	 *
 	 * @param ids route ids to query
+	 * @param bookingStatus booking status to filter bookings (Optional). include all bookings in all status if not supplied.
+	 * @param bookingRecordTypeIds booking record type ids to filter bookings (Optional). include bookings in all record types
+	 *							 if not supplied.
+	 *
+	 * @return list of route records. result set include child bookings matching the record type ids and status passed in.
+	 */
+	public virtual List<PUD_Route__c> selectByIdWithBookings(Set<Id> ids, Set<String> bookingStatus, Set<Id> bookingRecordTypeIds) {
+		return selectByIdWithBookings(ids, bookingStatus, bookingRecordTypeIds, new Set<Object>());
+	}
+
+	/**
+	 * Query routes based on Id's. Query results also include child bookings based on the booking record type ids and the status.
+	 *
+	 * @param ids route ids to query
+	 * @param bookingStatus booking status to filter bookings (Optional). include all bookings in all status if not supplied.
+	 * @param bookingRecordTypeIds booking record type ids to filter bookings (Optional). include bookings in all record types
+	 *							 if not supplied.
 	 * @param selectorOptions additional selector options
 	 *
-	 * @return list of route records. result set include active child bookings matching the record type ids passed in.
+	 * @return list of route records. result set include child bookings matching the record type ids and status passed in.
 	 */
-	public virtual List<PUD_Route__c> selectByIdWithAllBookings(Set<Id> ids, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-				.addConditions()
-				.add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids'))
-				.endConditions();
-		qb.addSubQuery(PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions), 'Bookings__r');
+	public virtual List<PUD_Route__c> selectByIdWithBookings(Set<Id> ids, Set<String> bookingStatus, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(PUD_Route__c.Id + ' in :ids')).endConditions();
+		qb.addSubQuery(getChildBookingsSubQueryBuilder(bookingStatus, bookingRecordTypeIds, selectorOptions), 'Bookings__r');
 		return ((List<PUD_Route__c>) Database.query(qb.toSoqlString()));
 	}
 
 	/**
 	 * Returns a Query Builder for child bookings based on the record types, status and selector options passed in.
 	 *
-	 * @param status status to filter bookings
+	 * @param bookingStatus status to filter bookings
 	 * @param bookingRecordTypeIds record type ids to filter the bookings. optional.
 	 * @param selectorOptions set of additional selector options to augment the child bookings result set
 	 *
 	 * @return query builder instance for child bookings.
 	 */
-	private QueryBuilder getChildBookingsSubQueryBuilder(Set<String> status, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
+	private QueryBuilder getChildBookingsSubQueryBuilder(Set<String> bookingStatus, Set<Id> bookingRecordTypeIds, Set<Object> selectorOptions) {
 
 		QueryBuilder subQueryBuilder = PUDBookingsSelector.newInstance(fieldOverrides).newQueryBuilder(selectorOptions);
 
 		QueryBuilder.ConditionsManager subQueryConditions = subQueryBuilder.addConditions();
-		if (status != null && !status.isEmpty()) {
-			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.Status_Calc__c + ' in :status'));
+		if (bookingStatus != null && !bookingStatus.isEmpty()) {
+			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.Status_Calc__c + ' in :bookingStatus'));
 		}
 		if (bookingRecordTypeIds != null && !bookingRecordTypeIds.isEmpty()) {
 			subQueryConditions.add(new QueryBuilder.SimpleCondition(PUD_Booking__c.RecordTypeId + ' in :bookingRecordTypeIds'));

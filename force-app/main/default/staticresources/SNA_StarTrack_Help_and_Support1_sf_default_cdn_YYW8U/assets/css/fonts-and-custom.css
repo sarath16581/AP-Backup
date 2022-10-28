@@ -1,0 +1,5 @@
+@font-face {
+  font-family: 'APTypeText';
+  src: url("sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff") format("woff");
+}
+:root { --dxp-c-section-columns-max-width: 1170px; }

@@ -293,7 +293,7 @@
     </alerts>
     <alerts>
         <fullName>Carded_Case_Notification_Parcel_QLD</fullName>
-        <ccEmails>naveen.rajanna@auspost.com.au</ccEmails>
+        <ccEmails>DLPUDEMNQLD@auspost.com.au</ccEmails>
         <description>Carded_Case_Notification_Parcel_QLD</description>
         <protected>false</protected>
         <senderAddress>customerservice@auspost.com.au</senderAddress>
@@ -2142,12 +2142,13 @@ IF(AND (Customer_Type__c =&quot;Consumer&quot; || Customer_Type__c =&quot;Silver
 - Gunith REQ2122521: Support Customer Care Escalation</description>
         <field>PriorityNumber__c</field>
         <formula>IF(ISPICKVAL(EnquirySubType__c, &apos;Customer Care Escalation&apos;), 100,
+IF(Contact.Email=&apos;aukad.aupost@dhl.com.invalid&apos;,80,
 
 IF(ISPICKVAL(ProductSubCategory__c, &apos;Premium Unaddressed Mail&apos;), 70,
 			
 IF(Account.IsVIP__c, 100, IF( ISPICKVAL(Priority,&apos;High&apos;), 90,
 
-IF(AND (Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Platinum&quot;,  ISPICKVAL(Status,&apos;Customer Responded&apos;)), 60,
+IF(AND (Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Platinum&quot;,  ISPICKVAL(Status,&apos;Customer Responded&apos;)), 10,
 
 IF(ISPICKVAL(EnquirySubType__c,&quot;Facility Reported Damages&quot;), 70,
 
@@ -2163,15 +2164,15 @@ IF (ISPICKVAL(Origin, &apos;AP Retail (PM26)&apos;), 70,
 
 IF(ISPICKVAL(Origin,&apos;Snap It&apos;), 60,
 
-IF(AND (Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Platinum&quot;, ISPICKVAL(Status,&apos;Network Responded&apos;)), 60,
+IF(AND (Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Platinum&quot;, ISPICKVAL(Status,&apos;Network Responded&apos;)), 10,
 
-IF(Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Platinum&quot;, 60,
+IF(Customer_Type__c =&quot;Enterprise&quot; || Customer_Type__c =&quot;Platinum&quot;, 10,
 
-(IF( AND (Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, ISPICKVAL(Status,&apos;Customer Responded&apos;)), 40,
+(IF( AND (Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, ISPICKVAL(Status,&apos;Customer Responded&apos;)), 10,
 
-(IF( AND (Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, ISPICKVAL(Status,&apos;Network Responded&apos;)), 40,
+(IF( AND (Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, ISPICKVAL(Status,&apos;Network Responded&apos;)), 10,
 
-IF(Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, 40,
+IF(Customer_Type__c =&quot;SMB&quot; || Customer_Type__c =&quot;Gold&quot;, 10,
 
 IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
 
@@ -2181,7 +2182,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
 
 (IF(AND (Customer_Type__c =&quot;Consumer&quot; || Customer_Type__c =&quot;Silver&quot; || Customer_Type__c = &quot;MyPost Business&quot;, NOT(ISPICKVAL(Status,&apos;Customer Responded&apos;))),10,10
 
-))))))))))))))))))))))))))</formula>
+)))))))))))))))))))))))))))</formula>
         <name>SSSW - Set Priority Number NCCC</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
@@ -2344,7 +2345,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <fieldUpdates>
         <fullName>SSSW_Set_to_Social_Back_Office</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSWSocial</lookupValue>
+        <lookupValue>SSSW_Consumer_Back_Office_Low_Priority</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Set to Social Back Office</name>
         <notifyAssignee>false</notifyAssignee>
@@ -4743,7 +4744,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4782,6 +4783,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.OwnerId</field>
             <operation>notEqual</operation>
             <value>SSSW High Level Complaints</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.CHASEnquiryType__c</field>
+            <operation>equals</operation>
+            <value>Missing or lost item</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -4851,7 +4857,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4891,6 +4897,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>SSSW High Level Complaints</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Case.CHASEnquiryType__c</field>
+            <operation>equals</operation>
+            <value>Missing or lost item</value>
+        </criteriaItems>
         <description>Snigdha : 19.05.2020 - Removed Article Codes DD-ER38, INT-2070</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
@@ -4921,7 +4932,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4961,6 +4972,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <operation>notEqual</operation>
             <value>SSSW High Level Complaints</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Case.CHASEnquiryType__c</field>
+            <operation>equals</operation>
+            <value>Missing or lost item</value>
+        </criteriaItems>
         <description>Workflow when case has a article event code DD-ER15, DD-ER38, INT-2070
 19.05.2020 - Snigdha : Added Event Codes DD-ER38, INT-2070</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
@@ -4988,7 +5004,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -5027,6 +5043,11 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.OwnerId</field>
             <operation>notEqual</operation>
             <value>SSSW High Level Complaints</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.CHASEnquiryType__c</field>
+            <operation>equals</operation>
+            <value>Missing or lost item</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
@@ -5094,7 +5115,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_to_Admin_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Case.Subject</field>
             <operation>equals</operation>

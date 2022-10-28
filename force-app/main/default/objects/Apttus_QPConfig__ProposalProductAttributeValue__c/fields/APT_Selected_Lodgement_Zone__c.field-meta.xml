@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Selected_Lodgement_Zone__c</fullName>
+    <description>The lodgement zone corresponding with the customers Primary Post Code - i.e. related to the address where the majority of the customers parcels are lodged.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The lodgement zone corresponding with the customers Primary Post Code - i.e. related to the address where the majority of the customers parcels are lodged.</inlineHelpText>
+    <label>Selected Lodgement Zone</label>
+    <length>100</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

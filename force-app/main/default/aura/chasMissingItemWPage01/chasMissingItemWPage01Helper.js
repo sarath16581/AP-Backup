@@ -3,6 +3,7 @@
  * 2020-11-23 hara.sahoo@auspost.com.au Special handling for 403 response code for missing item form
  * 2022-05-19 mahesh.parvathaneni@auspost.com.au DDS-7472: When consignment API returns 404, show the warning message
  * 2022-08-04 Hasantha Liyanage - DDS-11626: before edd
+ * 2022-09-12 mahesh.parvathaneni@auspost.com.au DDS-12166: Added analytics for invalid tracking number error
  */
  ({
     callTrackingNumberService : function(cmp, event, helper) {
@@ -101,6 +102,8 @@
                             cmp.set('v.wizardData.senderOrRecipientType', "Domestic");
                             //Show Invalid Message
                             cmp.set("v.showInvalidMessage", true);
+                            //push analytics for invalid tracking number
+                            helper.pushAnalytics(cmp, "ITEM_DETAILS_ERROR");
                         }
                           else if(returnObj["trackingNumSerachStatusCode"] == 500) {
                             cmp.set('v.error500', true);
@@ -121,6 +124,7 @@
                                 cmp.set("v.showInvalidWithinEDDMessage", true);
                                 cmp.set("v.isLoading", false);
                                 cmp.set('v.eddDisplayDate',helper.getEDDDateString(cmp, event, helper));
+                                helper.pushAnalytics(cmp, 'BEFORE_EDD_ERROR');
                                 return;
                             } else if(cmp.get("v.wizardData.eddStatus") === 'NO_EDD'){
                                 cmp.set("v.wizardData.hasQualifiedForNoEDDFlow",true);
@@ -372,4 +376,35 @@
          };
          return disDate;
      },
+
+     /**
+      * push analytics
+      */
+     pushAnalytics : function(cmp, stepKey) {
+         let analyticsObject = {};
+        // building the analytics params object
+         // setting the common attributes
+         analyticsObject.form = {};
+         analyticsObject.form.name = 'form:' + cmp.get('v.pageTitle');
+         analyticsObject.form.product = cmp.get('v.wizardData.trackingId');
+         analyticsObject.form.step = "item details";
+         analyticsObject.form.stage = 'start';
+         let trackingType = 'helpsupport-form-navigate';
+
+         if(stepKey === "BEFORE_EDD_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
+             // setting before edd specific attributes
+             analyticsObject.form.error = 'before EDD -parcel is on track to be delivered';
+         } else  if(stepKey === "ITEM_DETAILS_ERROR" && cmp.get('v.wizardData.eddStatus') != '') {
+             // setting item details error specific attributes
+             analyticsObject.form.error = 'invalid tracking number';
+         }
+
+         console.log('ANALYTICS sending .. '+analyticsObject);
+
+         // calling the analytics API methods
+         window.AP_ANALYTICS_HELPER.trackByObject({
+             trackingType: trackingType,
+             componentAttributes: analyticsObject
+         });
+     }
 })

@@ -114,6 +114,10 @@
                 <behavior>Readonly</behavior>
                 <field>Duration__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LastSurveySentDate__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -1,0 +1,47 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "c7ae8960-e6f1-4ebd-8a50-a807147ccab6",
+  "label" : "Customer Revenue Detail (Non-Owner)",
+  "regions" : [ {
+    "id" : "703414eb-58ed-4ee1-a731-31db5fd6ffab",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "9c7eeb75-6062-47f1-94ba-aad7a1513715",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<p><br></p><p><b style=\"font-size: 28px; color: rgb(230, 0, 0);\">Sorry an error occurred with this record. </b></p><p><b style=\"font-size: 28px; color: rgb(230, 0, 0);\">Please get in touch with your Australia Post contact.</b></p><p>&nbsp;</p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "f35982fc-4ace-4aaf-b4e0-72e7e6ab08aa",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "fb772787-c2ca-4d2c-925d-9436a3998999",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "68325223-b05b-4b37-a8e8-124244c94e90",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "97bc5805-6d79-4494-a86d-fd5fe08427e8",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-a0g"
+}

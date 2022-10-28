@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CreatedDateGCP__c</fullName>
+    <description>This formula field has been introduced purely for the consumption by GCP and so that this field can be put on the daily extract that is sent to Australia Border Force on a daily basis from GCP</description>
+    <externalId>false</externalId>
+    <formula>IF( DAY( DATEVALUE( CreatedDate )) &lt; 10, &quot;0&quot; + TEXT( DAY( DATEVALUE( CreatedDate ))), TEXT( DAY( DATEVALUE( CreatedDate ))) ) + &quot; &quot; + 
+ CASE( MONTH( DATEVALUE( CreatedDate )), 
+      1, &quot;Jan&quot;, 
+      2, &quot;Feb&quot;, 
+      3, &quot;Mar&quot;,
+      4, &quot;Apr&quot;,
+      5, &quot;May&quot;, 
+      6, &quot;Jun&quot;, 
+      7, &quot;Jul&quot;,
+      8, &quot;Aug&quot;,
+      9, &quot;Sep&quot;, 
+      10, &quot;Oct&quot;, 
+      11, &quot;Nov&quot;,
+      12, &quot;Dec&quot;,
+      &quot;N/A&quot;) + &quot; &quot; + TEXT( YEAR( DATEVALUE( CreatedDate ))) + &quot; 12:00&quot;</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This formula field has been introduced purely for the consumption by GCP and so that this field can be put on the daily extract that is sent to Australia Border Force on a daily basis from GCP</inlineHelpText>
+    <label>Created Date - GCP</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

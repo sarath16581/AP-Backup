@@ -82,6 +82,9 @@
                 margin-left: 40px; 
                 display: block;
             }
+            .booking-table-row {
+                page-break-inside:avoid;
+            }
 
         </style>
 

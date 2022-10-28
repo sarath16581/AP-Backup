@@ -46,7 +46,7 @@
 										<li><a class="mobile-login-links" data-url="https://eparceltrack.auspost.com.au/external/webui/" onclick="{!c.gotoUrl}">
 											<span>eParcel</span>
 										</a></li>
-										<li><a class="mobile-login-links" data-url="https://auspostbusiness.force.com/bsp/bsplogin" onclick="{!c.gotoUrl}">
+										<li><a class="mobile-login-links" data-url="https://bsp.auspost.com.au/bsp/bsplogin" onclick="{!c.gotoUrl}">
 											<span>Business Support Portal</span>
 										</a></li>
 										<li><a class="mobile-login-links" data-url="https://shopmate.auspost.com.au/#login_panel" onclick="{!c.gotoUrl}">
@@ -126,7 +126,7 @@
 												<li><a class="desktop-login-links" data-url="https://eparceltrack.auspost.com.au/external/webui/" onclick="{!c.gotoUrl}">
 													<span>eParcel</span>
 												</a></li>
-												<li><a class="desktop-login-links" data-url="https://auspostbusiness.force.com/bsp/bsplogin" onclick="{!c.gotoUrl}">
+												<li><a class="desktop-login-links" data-url="https://bsp.auspost.com.au/bsp/bsplogin" onclick="{!c.gotoUrl}">
 													<span>Business Support Portal</span>
 												</a></li>
 												<li><a class="desktop-login-links" data-url="https://shopmate.auspost.com.au/#login_panel" onclick="{!c.gotoUrl}">

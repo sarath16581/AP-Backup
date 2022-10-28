@@ -347,27 +347,30 @@ public with sharing class CreateBillingAccountHelper {
         return String.valueOf(sResult[0].getId());
     }   
         
-	/**
-	 * @description		This method updates the related DSR and Charge Account and external onborading request based on the initial response received from camunda
-	 * @param			String requestObjId, String chargeAccountRequestId, String onboardingRequestId, String status, String responseMsg, Boolean isBillingAccountPlusRatingPlanFlow
+    /**
+     * @description		This method updates the related DSR and Charge Account and external onborading request based on the initial response received from camunda
+	 * @param			String requestObjId, String chargeAccountRequestId, String onboardingRequestId, String status, String responseMsg, CreateBillingAccountController.ratingPlanInfo; specify rating plan detail for new customer or existing customer flow and if APPC product exists
 	 * @return			void
 	 */
-	public static void updateDSRAndChargeAccount(String requestObjId, String chargeAccountRequestId, String onboardingRequestId, String status, String responseMsg, Boolean isBillingAccountPlusRatingPlanFlow){
+    public static void updateDSRAndChargeAccount(String requestObjId, String chargeAccountRequestId, String onboardingRequestId, String status, String responseMsg, CreateBillingAccountController.ratingPlanInfo ratingPlanDetails){
 		try{
 			List<sObject> updateRelatedRecords = new List<sObject>();
 			if(DSR_OBJECT.equalsIgnoreCase(String.valueOf(id.valueOf(requestObjId)?.getsobjecttype()))){
 				Deal_Support_Request__c dealSupportRequest = new Deal_Support_Request__c();
 				dealSupportRequest.Id = requestObjId;
-				// for billing account + rating plan flow, update DSR integration status related fields
-				if(isBillingAccountPlusRatingPlanFlow == true){
+				// for billing account + rating plan flow, update DSR integration status related fields regardless of products in the payload
+				if(ratingPlanDetails.isBillingAccountPlusRatingPlanFlow == true){
 					dealSupportRequest.Integration_Status__c= status;
 					dealSupportRequest.Integration_Status_Description__c =responseMsg;
 					dealSupportRequest.Integration_Transaction_Id__c = onboardingRequestId;
 				}
-				// always update rating plan integration related field
-				dealSupportRequest.Rating_Integration_Transaction_Id__c = onboardingRequestId;
-				dealSupportRequest.Rating_Integration_Status__c = status;
-				dealSupportRequest.Rating_Integration_Status_Description__c = responseMsg;
+				// In addition, for APPC product only; update DSR rating plan integration status
+				if(ratingPlanDetails != null && ratingPlanDetails.hasAPPCProduct == true){
+					// always update rating plan integration related field
+					dealSupportRequest.Rating_Integration_Transaction_Id__c = onboardingRequestId;
+					dealSupportRequest.Rating_Integration_Status__c = status;
+					dealSupportRequest.Rating_Integration_Status_Description__c = responseMsg;
+				}
 				updateRelatedRecords.add(dealSupportRequest);
 			}
 			// update charge account request status if not blank
@@ -733,7 +736,10 @@ public with sharing class CreateBillingAccountHelper {
 				finalPayload.Transaction_Id__c = onboardingRequestId;
 				EventBus.publish(finalPayload);
 
-				updateDSRAndChargeAccount(requestObjId, null, onboardingRequestId, finalPayload.Status__c, finalPayload.Status_Description__c, false);
+				CreateBillingAccountController.ratingPlanInfo ratingPlanDetails = new CreateBillingAccountController.ratingPlanInfo();
+				ratingPlanDetails.hasAPPCProduct = true;
+				ratingPlanDetails.isBillingAccountPlusRatingPlanFlow = false;
+				updateDSRAndChargeAccount(requestObjId, null, onboardingRequestId, finalPayload.Status__c, finalPayload.Status_Description__c, ratingPlanDetails);
 				externalOnboardingRequestWithConnectionDetailsVar.connected = false;
 				externalOnboardingRequestWithConnectionDetailsVar.onboardingRequestId = onboardingRequestId;
 				externalOnboardingRequestWithConnectionDetailsVar.ratingPlanWrapper = ratingPlanWrapper;

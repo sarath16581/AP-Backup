@@ -1,0 +1,37 @@
+{
+  "appPageId" : "b67e956c-d854-4559-b1e0-8969ea9a2b41",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "997419e1-64cc-458b-8b75-35946213fbc0",
+  "label" : "Register",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bspRegistration",
+      "id" : "f11eabc5-bec2-4433-bb40-5292fdc90aff",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "453b4b7e-1dc0-486d-a7e4-3678a4ec2137",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Business Support Portal Register"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "87430e8b-a49c-428d-8277-fa5c4ebc222d",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5b25dea2-9e42-4e0c-a1bb-dbbe07c3f8b3",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "QUv5QU6Ecfxq0gA7AcuBuFjvwgMXSg",
+  "type" : "view",
+  "viewType" : "self-register"
+}

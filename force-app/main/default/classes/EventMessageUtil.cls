@@ -14,10 +14,12 @@
  * 2021-06-18 - Ranjeewa Silva - Added new method to save event message image as an attachment.
  * 2021-10-01 - Nathan Franklin - get a getInstance method for mocking and a new method getEventMessageTypeDefinitions
  * 2021-10-05 - Nathan Franklin - Removed the AP Case signature attachment capability since it's no longer in use in light of new PDF delivery proof capability (StarTrack still remains)
+ * 2021-09-27 - Hasantha Liyanage - Added CHAS_EventMessageTypeMapping__mdt related getters for consumer help and support
  */
 public without sharing class EventMessageUtil {
 
 	public static Map<String, EventMessageTypeMapping__mdt> eventTypeDefinitionsCache = new Map<String, EventMessageTypeMapping__mdt>();
+	public static Map<String, CHAS_EventMessageTypeMapping__mdt> chasEventTypeDefinitionsCache = new Map<String, CHAS_EventMessageTypeMapping__mdt>();
 
 	// transactional cache of attachment type definitions
 	public static Map<String, EventMessageAttachmentTypeMapping__mdt> attachmentTypeDefinitionsCache = new Map<String, EventMessageAttachmentTypeMapping__mdt>();
@@ -324,6 +326,56 @@ public without sharing class EventMessageUtil {
 		eventTypeDefinitionsCache = output;
 
 		return output;
+	}
+
+	/**
+	 * Grab the details about all the event message types used in Help and support community related functionalities.
+	 * TODO: Does this need platform cache?
+	 */
+	public static Map<String, CHAS_EventMessageTypeMapping__mdt> getChasEventMessageTypes() {
+		// see if this data was already requested in this transaction
+		if (!chasEventTypeDefinitionsCache.isEmpty()) {
+			return chasEventTypeDefinitionsCache;
+		}
+
+		Map<String, CHAS_EventMessageTypeMapping__mdt> output = new Map<String, CHAS_EventMessageTypeMapping__mdt>();
+		for (CHAS_EventMessageTypeMapping__mdt record : [
+				Select Label, DeveloperName, IsException__c, Description__c
+				From CHAS_EventMessageTypeMapping__mdt
+		]) {
+			output.put(record.Label, record);
+		}
+
+		// add to transaction cache
+		chasEventTypeDefinitionsCache = output;
+
+		return output;
+	}
+
+	/** get the exceptional event messages
+	 * @return list of event's
+	 */
+	public static List<String> getCHASExceptionalEventMessageTypes() {
+		List<String> eventMessageString = new List<String>();
+		for (CHAS_EventMessageTypeMapping__mdt eventType : getChasEventMessageTypes().values()) {
+			if (eventType.IsException__c) {
+				eventMessageString.add(eventType.Label);
+			}
+		}
+		return eventMessageString;
+	}
+
+	/** get the notification event messages
+	 * @return list of event's
+	 */
+	public static List<String> getCHASNotificationEventMessageTypes() {
+		List<String> eventMessageString = new List<String>();
+		for (CHAS_EventMessageTypeMapping__mdt eventType : getChasEventMessageTypes().values()) {
+			if (!eventType.IsException__c) {
+				eventMessageString.add(eventType.Label);
+			}
+		}
+		return eventMessageString;
 	}
 
 	/**

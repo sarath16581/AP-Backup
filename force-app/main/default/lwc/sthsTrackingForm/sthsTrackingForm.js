@@ -1,5 +1,5 @@
 import { LightningElement } from "lwc";
-import { validateInputComponents, validatePhone } from "c/utils";
+import { validateInputComponents, validatePhone, validateEmail } from "c/utils";
 import STHS_ICONS from "@salesforce/resourceUrl/STHS_Icons";
 import invalidDescription from "@salesforce/label/c.STHSDescriptionValidationMessage";
 import invalidEmail from "@salesforce/label/c.STHSEmailValidationMessage";
@@ -10,11 +10,13 @@ import invalidLastName from "@salesforce/label/c.STHSLastnameValidationMessage";
 import invalidPhone from "@salesforce/label/c.STHSPhoneValidationMessage";
 import invalidReference from "@salesforce/label/c.STHSReferenceValidationMessage";
 import stSupportURL from "@salesforce/label/c.STHSSupportURL";
+import errorStateMessage from "@salesforce/label/c.STHSFeedbackErrorStateMessage";
 import invalidNameFieldCharacters from "@salesforce/label/c.STHSNameFieldCharactersValidationMessage";
 import createTrackingFormCase from "@salesforce/apex/STHSTrackingFormController.createTrackingFormCase";
 
 export default class SthsTrackingForm extends LightningElement {
 	arrowLeft = STHS_ICONS + "/sths_icons/svgs/forms/arrow_left.svg"; //left arrow
+	errorIcon = STHS_ICONS + "/sths_icons/svgs/forms/error_input.svg"; //error icon
 	formData = {}; //form data to capture
 	isLoading = false; //flag to show/hide the spinner
 	caseNumber; //case number created for feedback form
@@ -32,6 +34,7 @@ export default class SthsTrackingForm extends LightningElement {
 		invalidPhone,
 		invalidReference,
 		stSupportURL,
+		errorStateMessage,
 		invalidNameFieldCharacters
 	};
 
@@ -100,7 +103,11 @@ export default class SthsTrackingForm extends LightningElement {
 		this.isCaseCreatedSuccessfully = false;
 	};
 
-	//valiadte phone number field with custom validations
+	// close error message banner
+	handleErrorClose = (event) => {
+		this.showError = false;
+	};
+	//validate phone number field with custom validations
 	validatePhone = (event) => {
 		event.target.setCustomValidity('');
 		if(event.target.value && !validatePhone(event.target.value)) {
@@ -109,4 +116,14 @@ export default class SthsTrackingForm extends LightningElement {
 		event.target.reportValidity();
 		event.target.showHelpMessageIfInvalid();
 	}
+
+	//validate email field with custom validations
+	validateEmail = (event) => {
+		event.target.setCustomValidity('');
+		if(event.target.value && !validateEmail(event.target.value)) {
+			event.target.setCustomValidity(this.label.invalidEmail);
+		}
+		event.target.reportValidity();
+		event.target.showHelpMessageIfInvalid();
+	};
 }

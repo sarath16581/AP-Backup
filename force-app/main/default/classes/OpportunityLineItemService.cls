@@ -7,6 +7,7 @@ History
 <Date>           <Authors Name>     <Brief Description of Change>
 07/29/2019        JPalmero           Created
 28/06/2022		  KMcGuire			 Modified for including related account sales in OPC classification
+26/08/2022		  KMcGuire			Do not change classification on line item update when opportunity is closed won
 ------------------------------------------------------------*/
 public class OpportunityLineItemService {
     public static final String CLASSNAME = 'OpportunityLineItemService';
@@ -18,7 +19,9 @@ public class OpportunityLineItemService {
     private static final Set<String> salesUserProfiles = Constants.salesUserProfiles();
     // INSERT OF OPPORTUNITY LINE ITEM
      /*****************************
-     * Description: Populate the classification field upon insertion of new opportunity line item or upon change of opportunity to closed won.
+     * Description: Populate line item classification upon insertion of new opportunity line items having a contract start date. 
+     * - Called by opportunityLineItemTriggerHander.beforeInsert method.
+   	 * Param newOptyLineItemList - the newly inserted opportunity line items. Must have a contract start date.	
      * Author: JPalmero
      * History:
      * 7/31/2019            Created
@@ -47,33 +50,21 @@ public class OpportunityLineItemService {
     
     // INSERT OF OPPORTUNITY LINE ITEM
     /*****************************
-     * Description: Populate the classification field upon insertion of new opportunity line item or upon change of opportunity to closed won.
-     * Author: JPalmero
-     * History:
-     * 7/31/2019            Created
+     * Description: Populate the classification field 
+     * (1) upon insertion of new opportunity line item 
+     *  - called by populateClassification method above  
+     * (2) upon change of opportunity to closed won (called through opportunity trigger handlers 
+     * 	- called by opportunityUtility.populateClassification(List<Opportunity> newOptyList, Map<Id, Opportunity> oldRecMap)
+     * @parameter lineItemsToUpdate - a list of line items from  (1) or (2) above
+     * @parameter accountIdSet - the ids of all accounts associated with the line item opportunities.
+     * @parameter optyOrgMap - a map linking an opportunity Id with its associated account Id.
      * 22/07/2022	Ken McGuire	Modified
      ****************************/
    public static List<OpportunityLineItem> updateClassification(List<OpportunityLineItem> lineItemsToUpdate,Set<String> accountIdSet,Map<Id, Id> optyOrgMap  ){
-        Integer barCYear;
-        Integer barPYear;
-        Integer startMonth;
-        Decimal orgRev;
-        Decimal prodRev;
-        Decimal totalRevenue;
-        Decimal totalOutsideRevenue;
-        OpportunityLineItem oldRec = new OpportunityLineItem();
-
 		List<OpportunityLineItem> updatedLineItems = new List<OpportunityLineItem>();
-
-        Map<Id, String> acctRevenueMap = new Map<Id, String>();
-        Map<Id, String> optyStageMap = new Map<Id, String>();
-        Map<String, Decimal> fyProductMap = new Map<String, Decimal>();
         NominalTradeAmount__c ntAmount = NominalTradeAmount__c.getInstance();
-        
         TradingHistoryMaps tradingHistoryMaps = new TradingHistoryMaps();
-        
         tradingHistoryMaps.optyOrgMap = optyOrgMap;
-        
         try{
             OPCUtility.calculateParentAccountRevenueMaP(accountIdSet);
             List<OPCUtility.ParentAccountRevenue> revenue = OPCUtility.parentAccountRevenueMap.values();
@@ -94,9 +85,7 @@ public class OpportunityLineItemService {
         	}
             
         }catch(exception excp){
-            system.debug('********* '+excp.getMessage());
-            system.debug('********* '+excp.getStackTraceString());
-            UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'populateClassification', triggerName, LoggingLevel.ERROR);
+            UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'updateClassification', triggerName, LoggingLevel.ERROR);
         }
         return updatedLineItems;
     }
@@ -104,20 +93,14 @@ public class OpportunityLineItemService {
     // CHANGE TO OPPORTUNITY LINE ITEM
     /**********************************
      * Description: Update the classification field upon change of Opty Line Item's Revenue Dates
-     * Author: JPalmero
+     * - called by opportunityLineItemTriggerHandler.beforeUpdateActions
+     * Author: Ken McGuire
      * History:
-     * 8/19/2019            Created
+     * 26/08/2022            Created
      ****************************/
     public static void updateClassification(List<OpportunityLineItem> newOptyLineItemList, Map<Id, OpportunityLineItem> oldRecMap){
-        Integer contractStartYear;
-        Integer contractStartMonth;
-        Decimal orgRev;
-        Decimal prodRev;
-        Decimal totalRevenue;
-        Decimal totalOutsideRevenue;
         OpportunityLineItem oldRec = new OpportunityLineItem();
         List<OpportunityLineItem> newOptyProdList = new List<OpportunityLineItem>();
-        List<OpportunityLineItem> optyLIToUpdate = new List<OpportunityLineItem>();
         NominalTradeAmount__c ntAmount = NominalTradeAmount__c.getInstance();
 		TradingHistoryMaps tradingHistoryMaps = new TradingHistoryMaps();
         Set<Id> optyIdSet = new Set<Id>();
@@ -163,13 +146,13 @@ public class OpportunityLineItemService {
                  populateGroupedTradingHistoryMaps(tradingHistoryMaps,OPCUtility.parentAccountRevenueMap.values(),(Double) ntAmount.Amount__c);
             }
             for(OpportunityLineItem optyLine : newOptyProdList){
-                if(Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)){//if the Classification is not Growth, Growth? should be NO
-                    optyLine.Classification__c = getClassification(New TradingHistoryInfo(optyLine,TradingHistoryMaps,(Double)ntAmount.Amount__c)); 
+                if(Constants.NO_STRING.equalsIgnoreCase(optyLine.Change_Classification__c)) {//if the Classification is not Growth, Growth? should be NO
+ 					if(!Constants.CLOSED_WON.equalsIgnoreCase(optyStageMap.get(optyLine.OpportunityId))) {//skips the classification if the Opty is Closed Won
+                    	optyLine.Classification__c = getClassification(New TradingHistoryInfo(optyLine,TradingHistoryMaps,(Double)ntAmount.Amount__c)); 
+                    }
                 }
             }
         }catch(exception excp){
-            system.debug('********* '+excp.getMessage());
-            system.debug('********* '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'updateClassification', triggerName, LoggingLevel.ERROR);
         }
     }
@@ -346,6 +329,7 @@ public class OpportunityLineItemService {
     
     /*****************************
      * Description: Changes the classification from Renewal to Growth and vice versa if the user is a Coverage Sales User
+     *  - called by opportunityLineItemTriggerHandler.beforeUpdateActions
      * Author: JPalmero
      * History:
      * 9/10/2019            Created
@@ -373,8 +357,6 @@ public class OpportunityLineItemService {
                 }
             }
         } catch(exception excp){
-       		system.debug('********* '+excp.getMessage());
-            system.debug('******** '+excp.getStackTraceString());
             UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'changeClassification', triggerName, LoggingLevel.ERROR);
         }
     }

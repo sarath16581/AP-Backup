@@ -566,11 +566,7 @@
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Financial_Year__c</fields>
-        <fields>Total_Original_Budget__c</fields>
-        <fields>Total_Revised_Budget__c</fields>
-        <fields>Planned_YTD_revenue__c</fields>
         <fields>Total_Revenue_Amount__c</fields>
-        <fields>Variance_Actual_Budget_YTD_Percent__c</fields>
         <fields>Not_Traded_for_3_Months__c</fields>
         <fields>Int_Last_Upd_Date__c</fields>
         <relatedList>Budget_and_Revenue__c.Organisation__c</relatedList>

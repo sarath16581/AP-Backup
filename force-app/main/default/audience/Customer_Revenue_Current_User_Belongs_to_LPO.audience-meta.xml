@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>Customer Revenue: Current User Belongs to LPO</audienceName>
+    <container>Licensed Post Office</container>
+    <criteria>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <entityField>$Budget_and_Revenue__c.Current_User_Belongs_to_Assigned_LPO__c</entityField>
+                <entityType>Budget_and_Revenue__c</entityType>
+                <fieldValue>true</fieldValue>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>FieldBased</type>
+        </criterion>
+    </criteria>
+    <formulaFilterType>AllCriteriaMatch</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>b8353f77-41ec-4392-a04a-b07d11e9f03b</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Customer_Revenue_Detail_Customer_Revenue_Detail_Page</targetValue>
+        </target>
+    </targets>
+</Audience>
