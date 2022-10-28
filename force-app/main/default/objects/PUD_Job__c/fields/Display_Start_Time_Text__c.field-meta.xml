@@ -6,7 +6,7 @@
     <externalId>false</externalId>
     <formula>IF(ISBLANK(Display_Start_Time__c), null, TEXT( Display_Start_Time__c ) &amp; &apos;Z&apos;)</formula>
     <inlineHelpText>Represents the Display Start Time in plain text format.</inlineHelpText>
-    <label>Display Start Time (Text)  (DEPRECATED)</label>
+    <label>Display Start Time (Text) (DEPRECATED)</label>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Text</type>

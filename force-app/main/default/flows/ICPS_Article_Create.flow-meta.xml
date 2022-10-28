@@ -62,7 +62,6 @@
         <object>ICPSArticle__c</object>
         <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>
-            <pathType>AsyncAfterCommit</pathType>
             <connector>
                 <targetReference>Outbound_Message_to_SAP_EM</targetReference>
             </connector>

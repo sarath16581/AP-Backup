@@ -16,7 +16,7 @@
     </values>
     <values>
         <field>PTEST_Oracle_IAM_Logout_URL__c</field>
-        <value xsi:type="xsd:string">https://sso-ptest-local.npe.auspost.com.au/oam/server/logout</value>
+        <value xsi:type="xsd:string">https://login.microsoftonline.com/fced7ed8-363a-4005-8037-adc1290883f6/v2.0/logout</value>
     </values>
     <values>
         <field>Prod_Oracle_IAM_Logout_URL__c</field>

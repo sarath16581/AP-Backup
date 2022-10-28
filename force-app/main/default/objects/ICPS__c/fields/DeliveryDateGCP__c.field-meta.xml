@@ -3,24 +3,7 @@
     <fullName>DeliveryDateGCP__c</fullName>
     <description>This formula field has been introduced purely for the consumption by GCP and so that this field can be put on the daily extract that is sent to Australia Border Force on a daily basis from GCP</description>
     <externalId>false</externalId>
-    <formula>IF( ISBLANK( DeliveryDate__c ), &quot;Null&quot;, 
-
-IF( DAY( DeliveryDate__c ) &lt; 10, &quot;0&quot; + TEXT( DAY( DeliveryDate__c )), TEXT( DAY( DeliveryDate__c ))) + &quot; &quot; + 
- CASE( MONTH( DeliveryDate__c ), 
-      1, &quot;Jan&quot;, 
-      2, &quot;Feb&quot;, 
-      3, &quot;Mar&quot;,
-      4, &quot;Apr&quot;,
-      5, &quot;May&quot;, 
-      6, &quot;Jun&quot;, 
-      7, &quot;Jul&quot;,
-      8, &quot;Aug&quot;,
-      9, &quot;Sep&quot;, 
-      10, &quot;Oct&quot;, 
-      11, &quot;Nov&quot;,
-      12, &quot;Dec&quot;,
-      &quot;N/A&quot;) + &quot; &quot; + TEXT( YEAR( DeliveryDate__c ))
-)</formula>
+    <formula>IF( ISBLANK( DeliveryDate__c ), &quot;Null&quot;, IF( DAY( DeliveryDate__c ) &lt; 10, &quot;0&quot; + TEXT( DAY( DeliveryDate__c )), TEXT( DAY( DeliveryDate__c ))) + &quot; &quot; + CASE( MONTH( DeliveryDate__c ), 1, &quot;Jan&quot;, 2, &quot;Feb&quot;, 3, &quot;Mar&quot;, 4, &quot;Apr&quot;, 5, &quot;May&quot;, 6, &quot;Jun&quot;, 7, &quot;Jul&quot;, 8, &quot;Aug&quot;, 9, &quot;Sep&quot;, 10, &quot;Oct&quot;, 11, &quot;Nov&quot;, 12, &quot;Dec&quot;, &quot;N/A&quot;) + &quot; &quot; + TEXT( YEAR( DeliveryDate__c )) )</formula>
     <inlineHelpText>This formula field has been introduced purely for the consumption by GCP and so that this field can be put on the daily extract that is sent to Australia Border Force on a daily basis from GCP</inlineHelpText>
     <label>Delivery Date - GCP</label>
     <required>false</required>

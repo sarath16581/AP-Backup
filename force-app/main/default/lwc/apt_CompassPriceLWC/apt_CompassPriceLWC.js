@@ -66,7 +66,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 	 * @param opportunityId
 	 * @return List of PSR records
 	 */
-	@wire(getPSRList, {oppID : '$opportunityId'})
+	@wire(getPSRList, {oppID : '$opportunityId', selectedLineItemId: '$lineitemId'})
 	wiredPSR({data, error}){
 		if(data){
 			let psrIds = [];

@@ -70,7 +70,6 @@
                 <behavior>Edit</behavior>
                 <field>Stop_Credit__c</field>
             </layoutItems>
-            
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

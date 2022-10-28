@@ -45,7 +45,9 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
         return new Set<SObjectField> {
             Deal_Support_Request__c.Id,Deal_Support_Request__c.Name, Deal_Support_Request__c.APT_Contract__c, Deal_Support_Request__c.Integration_Status__c , Deal_Support_Request__c.Work_Type__c,
             Deal_Support_Request__c.Billing_Account_Change_of_Details_Type__c, Deal_Support_Request__c.OwnerId, Deal_Support_Request__c.Credit_Work_Type__c, Deal_Support_Request__c.Lodgement_Point_to_Work_Centre_Code__c,
-            Deal_Support_Request__c.Sub_Accounts__c , Deal_Support_Request__c.Requestor__c, Deal_Support_Request__c.Compass_Quote_Reference__c, Deal_Support_Request__c.Approved_Event__c,Deal_Support_Request__c.Opportunity__c,Deal_Support_Request__c.Stage__c, Deal_Support_Request__c.Status__c, Deal_Support_Request__c.Product__c,Deal_Support_Request__c.Approved_Pricing_Structure__c,Deal_Support_Request__c.Approved_lodgement_zone__c,Deal_Support_Request__c.Quote_Validity_End_Date__c,Deal_Support_Request__c.Approved_Tier__c
+            Deal_Support_Request__c.Sub_Accounts__c , Deal_Support_Request__c.Requestor__c, Deal_Support_Request__c.Compass_Quote_Reference__c, Deal_Support_Request__c.Approved_Event__c,Deal_Support_Request__c.Opportunity__c,Deal_Support_Request__c.Stage__c, 
+            Deal_Support_Request__c.Status__c, Deal_Support_Request__c.Product__c,Deal_Support_Request__c.Approved_Pricing_Structure__c,Deal_Support_Request__c.Approved_lodgement_zone__c,Deal_Support_Request__c.Quote_Validity_End_Date__c,Deal_Support_Request__c.Approved_Tier__c,
+            Deal_Support_Request__c.Compass_Quote_Reference__c
         };
     }
     /**
@@ -163,14 +165,14 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
             builder.addRelatedFields(OpportunitySelector.newInstance().newQueryBuilder(), 'Opportunity__r');
         }
         
-        if(selectorOptions.contains(Options.WITH_CONTRACT)) {
+		if(selectorOptions.contains(Options.WITH_CONTRACT)) {
             builder.addRelatedFields(ApttusContractsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r');
         }
 
-        if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
+		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
             builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Organisation__r');
         }
-        
+		
         return builder;
     }
 }

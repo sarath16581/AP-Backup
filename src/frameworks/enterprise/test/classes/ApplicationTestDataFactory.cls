@@ -37,6 +37,21 @@
 @IsTest
 public with sharing class ApplicationTestDataFactory {
 
+	public static List<MembershipContact__c> getMembershipContact(Integer count, Id membershipId, Id contactId, string status, Boolean generateIds) {
+		return (List<MembershipContact__c>)maybeGenerateIds(populateSObjects(MembershipContact__c.SObjectType, new Map<SObjectField, Object> {
+				MembershipContact__c.Status__c => status,
+				MembershipContact__c.Contact__c => contactId,
+				MembershipContact__c.Membership__c => membershipId
+		}, count), generateIds);
+	}
+
+	public static List<AgentWork> getAgentWorks(Integer count, Id userId, Set<Id> workitemIds, Boolean generateIds) {
+		return (List<AgentWork>)maybeGenerateIds(populateSObjects(AgentWork.SObjectType, new Map<SObjectField, Object> {
+			AgentWork.UserId => userId,
+			AgentWork.WorkItemId => workitemIds
+		}, count), generateIds);
+	}
+
 	public static List<Account> getAccounts(Integer count, Boolean generateIds) {
 		return (List<Account>)maybeGenerateIds(populateSObjects(Account.SObjectType, new Map<SObjectField, Object> {
 				Account.RecordTypeId => accountRecordType,

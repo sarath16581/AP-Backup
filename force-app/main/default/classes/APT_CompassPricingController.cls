@@ -47,7 +47,7 @@ public with sharing class APT_CompassPricingController {
      * @return List<Deal_Support_Request__c>
      */
     @AuraEnabled(cacheable=true)
-    public static List<SObject> getPSRList(String oppID){
+    public static List<SObject> getPSRList(String oppID, String selectedLineItemId){
         
         List<Deal_Support_Request__c> completedPSRList = new List<Deal_Support_Request__c>();
         List<Deal_Support_Request__c> psrList = new List<Deal_Support_Request__c>();
@@ -65,15 +65,17 @@ public with sharing class APT_CompassPricingController {
             searchParams.put('opportunityIds', new Set<Id>{oppID});
             searchParams.put('recTypeIds', new Set<Id>{psrAPPCRecTypeId});
             searchParams.put('productNames', new Set<String>{APT_Constants.PSR_APPC_PRODUCT_NAME});
-            //psrList = DealSupportRequestsSelector.newInstance().search(searchParams, new Set<Object>(), true);
             psrList = DealSupportRequestsSelector.newInstance().search(searchParams, new Set<Object>{DealSupportRequestsSelector.Options.WITH_ORGANISATION}, true);
 
-            // validate if there is no PSR raised and display error message
-            if(psrList.size() == 0){
-                exceptionHandler = new AuraHandledException(System.Label.APT_NoAPPCPSR);
-                exceptionHandler.setMessage(System.Label.APT_NoAPPCPSR);
-                throw exceptionHandler;
-            }
+            // fetch product attribute value and its neccessary fields' values for validation purposes
+			Apttus_Config2__ProductAttributeValue__c pavRec = APT_ProductAttributeValuesSelector.newInstance(1).selectByLineItemId(new Set<Id>{selectedLineItemId})[0];
+			Set<String> allowedTierWithoutPSR = new Set<String>{'T04','T05','T06','T07','T08'};
+			// validate if there is no PSR raised and customer tier is not within T04-T08
+			if(!allowedTierWithoutPSR.contains(pavRec.APT_Customer_Tier__c) && (psrList == null || psrList.size() == 0)){
+				exceptionHandler = new AuraHandledException(System.Label.APT_NoAPPCPSR);
+				exceptionHandler.setMessage(System.Label.APT_NoAPPCPSR);
+				throw exceptionHandler;
+			}
             List<SObject> psrSObject = new List<SObject>();
             psrSObject.addAll(psrList);
             return psrSObject;
