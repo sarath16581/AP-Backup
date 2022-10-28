@@ -124,12 +124,17 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>PUD_Job__c.Display_Start_Time_Text__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PUD_Job__c.Display_ETA_To_Driver__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>PUD_Job__c.Display_Start_Time__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>

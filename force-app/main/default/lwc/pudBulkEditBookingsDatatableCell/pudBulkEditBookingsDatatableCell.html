@@ -3,20 +3,24 @@
   	for the bookings field value received from the parent component.
   	Changelog:
   	2022-03-11 - Ranjeewa Silva - Created.
+	2022-09-14 - Dattaraj Deshmukh - added 'isEditable' to show editable/readonly columns.
  -->
 <template>
 	<template if:false={editMode}>
         <span class="slds-grid slds-grid_align-spread">
 
             <div class={readOnlyCssClass} title={_value}>
+				<template if:true={isCheckbox}>
+                    <lightning-input type={type} checked={_value} disabled="true"></lightning-input>
+	            </template>
                 <template if:true={isTextArea}>
                     <lightning-formatted-rich-text value={_value}></lightning-formatted-rich-text>
 	            </template>
-                <template if:false={isTextArea}>
+                <template if:true={isGeneric}>
 	                <c-formatted-text-label type={type} value={_value}></c-formatted-text-label>
 	            </template>
-            </div>
-            <template if:true={editable}>
+		    </div>
+            <template if:true={isEditable}>
                 <lightning-button-icon icon-name="utility:edit"
                                        size="small"
                                        variant="bare"
@@ -26,7 +30,7 @@
                                        alternative-text="Edit">
                 </lightning-button-icon>
             </template>
-            <template if:false={editable}>
+            <template if:false={isEditable}>
                 <lightning-button-icon icon-name="utility:lock"
                                        size="small"
                                        variant="bare"
@@ -46,6 +50,16 @@
 								<span class="slds-assistive-text">{label}</span>
 							</label>
 							<div class="slds-form-element__control slds-grow">
+								<template if:true={isCheckbox}>
+									<lightning-input type={inputType}
+									                 name={name}
+									                 checked={_value}
+									                 class="booking-input"
+									                 variant="label-hidden"
+									                 oncommit={handleValueChange}
+									                 >
+									</lightning-input>
+								</template>
 								<template if:true={isTextArea}>
 									<lightning-textarea name={name}
 									                    value={_value}
@@ -56,7 +70,7 @@
 									                    onblur={handleEditCompleted}>
 									</lightning-textarea>
 								</template>
-								<template if:false= {isTextArea}>
+								<template if:true={isGeneric}>
 									<lightning-input type={inputType}
 									                 name={name}
 									                 value={_value}
@@ -68,6 +82,8 @@
 									                 onblur={handleEditCompleted}>
 									</lightning-input>
 								</template>
+							
+								
 							</div>
 						</div>
 					</div>

@@ -33,6 +33,7 @@ History:
 2022-07-02 - Dattaraj Deshmukh - Added logic to create container type records when a container type at booking level is created/updated and jobs are added as a part of batch job.
 2022-08-26 - Dattaraj Deshmukh - Added 'JOB_DISPATCH_FROM_DATE' and 'JOB_DISPATCH_TO_DATE' to send jobs to dispatch system in advance.
 2022-09-05 - Dattaraj Deshmukh - Added 'PUD_Job__c.Dock_Number__c' field to monitored field sets for job synchronisation and updated createJobs, refreshJobs, getNewJobList() methods.
+2022-09-12 - Dattaraj Deshmukh - Added 'Display_ETA_To_Driver__c' from bookings and jobs. Removed Display_Start_Time__c from job synchronisation logic.
 -------------------------
 */
 public with sharing class PUDUtility {
@@ -68,7 +69,7 @@ public with sharing class PUDUtility {
 			if (COMPARABLE_FIELD_SET_NEW_JOBS == null) {
 				COMPARABLE_FIELD_SET_NEW_JOBS = new Set<SObjectField> {
 						PUD_Job__c.Booking__c, PUD_Job__c.Date__c, PUD_Job__c.Street__c, PUD_Job__c.City__c, PUD_Job__c.Post_Code__c,
-						PUD_Job__c.State__c, PUD_Job__c.Start_Time__c, PUD_Job__c.Display_Start_Time__c, PUD_Job__c.Earliest_Start_Time__c,
+						PUD_Job__c.State__c, PUD_Job__c.Start_Time__c, PUD_Job__c.Earliest_Start_Time__c,
 						PUD_Job__c.Latest_End_Time__c, PUD_Job__c.Route_Lookup__c, PUD_Job__c.Booking_Location__c, PUD_Job__c.Depot__c,
 						PUD_Job__c.Contact_Name__c, PUD_Job__c.Contact_Phone_Number__c, PUD_Job__c.Contact_Email__c, PUD_Job__c.Hazards__c,
 						PUD_Job__c.Site_Instructions__c, PUD_Job__c.Comments__c, PUD_Job__c.Dwell_Time_Planned__c, PUD_Job__c.Location__c,
@@ -81,7 +82,8 @@ public with sharing class PUDUtility {
 						PUD_Job__c.Confidence__c, PUD_Job__c.Stop_Credit__c, PUD_Job__c.Key_Number__c, PUD_Job__c.Article_Count__c,
 						PUD_Job__c.Location_Frontage_Geo__Latitude__s, PUD_Job__c.Location_Frontage_Geo__Longitude__s,
 						PUD_Job__c.Location_Side_Of_Street_Code__c, PUD_Job__c.Location_DPID__c, PUD_Job__c.Regular_Product__c, PUD_Job__c.Express_Product__c, 
-						PUD_Job__c.International_Product__c, PUD_Job__c.Containers_Payload__c, PUD_Job__c.Dock_Number__c
+						PUD_Job__c.International_Product__c, PUD_Job__c.Containers_Payload__c, PUD_Job__c.Dock_Number__c,
+						PUD_Job__c.Display_ETA_To_Driver__c
 				};
 			}
 			return COMPARABLE_FIELD_SET_NEW_JOBS;
@@ -96,13 +98,13 @@ public with sharing class PUDUtility {
 			if (COMPARABLE_FIELD_SET_SCHEDULED_JOBS == null) {
 				COMPARABLE_FIELD_SET_SCHEDULED_JOBS = new Set<SObjectField>{
 						PUD_Job__c.Contact_Name__c, PUD_Job__c.Contact_Phone_Number__c, PUD_Job__c.Contact_Email__c, PUD_Job__c.Earliest_Start_Time__c,
-						PUD_Job__c.Latest_End_Time__c, PUD_Job__c.Dwell_Time_Planned__c, PUD_Job__c.Booking_Comments__c, PUD_Job__c.Display_Start_Time__c,
+						PUD_Job__c.Latest_End_Time__c, PUD_Job__c.Dwell_Time_Planned__c, PUD_Job__c.Booking_Comments__c,
 						PUD_Job__c.Site_Instructions__c, PUD_Job__c.Comments__c, PUD_Job__c.Hazards__c, PUD_Job__c.Key_Number__c,
 						PUD_Job__c.Pallets_Quantity__c, PUD_Job__c.Bags_Quantity__c, PUD_Job__c.Volume_Cubic_Metre__c, PUD_Job__c.Tubs_Quantity__c,
 						PUD_Job__c.Trays_Quantity__c, PUD_Job__c.Large_Letter_Tubs__c, PUD_Job__c.White_Bags__c, PUD_Job__c.Blue_Bags__c,
 						PUD_Job__c.Small_Letter_Trays__c, PUD_Job__c.Express_Bags__c, PUD_Job__c.Red_Tubs__c, PUD_Job__c.Start_Time__c, PUD_Job__c.Revenue_Check__c, 
 						PUD_Job__c.Regular_Product__c, PUD_Job__c.Express_Product__c, PUD_Job__c.International_Product__c, PUD_Job__c.Containers_Payload__c,
-						PUD_Job__c.Dock_Number__c
+						PUD_Job__c.Dock_Number__c, PUD_Job__c.Display_ETA_To_Driver__c
 				};
 			}
 			return COMPARABLE_FIELD_SET_SCHEDULED_JOBS;
@@ -196,7 +198,7 @@ public with sharing class PUDUtility {
 				Large_Letter_Tubs__c,Small_Letter_Trays__c,White_Bags__c,Express_Bags__c,Blue_Bags__c,Red_Tubs__c,
 				Booking_Comments__c, Revenue_Check__c, Article_Info__c, Booking_Type__c,
 				Source_Street__c, Source_City__c, Source_Post_Code__c, Source_State__c, Confidence__c,
-				Route_Lookup__r.Name,Stop_Credit__c,Key_Number__c,Display_Start_Time__c,Article_Count__c,
+				Route_Lookup__r.Name,Stop_Credit__c,Key_Number__c, Display_ETA_To_Driver__c, Article_Count__c,
 				Frontage_Geo__Latitude__s, Frontage_Geo__Longitude__s, DPID__c, Side_Of_Street_Code__c, Regular_Product__c, Express_Product__c, International_Product__c,
 				Dock_Number__c,
 				(SELECT Id, Actual_Quantity__c, Booking__c, Condition__c, Expected_Quantity__c, Job__c, Type__c, RecordTypeId, Name
@@ -279,7 +281,7 @@ public with sharing class PUDUtility {
 				Post_Code__c,
 				State__c,
 				Start_Time__c,
-				Display_Start_Time__c,
+				Display_ETA_To_Driver__c,
 				Earliest_Start_Time__c,
 				Latest_End_Time__c,
 				Route_Lookup__c,
@@ -661,7 +663,7 @@ public with sharing class PUDUtility {
 								jobRec.Post_Code__c 			= booking.Post_Code__c;
 								jobRec.State__c 				= booking.State__c;
 								jobRec.Start_Time__c 			= booking.Start_Time__c;
-								jobRec.Display_Start_Time__c 	= booking.Display_Start_Time__c;
+								jobRec.Display_ETA_To_Driver__c = booking.Display_ETA_To_Driver__c;
 								jobRec.Earliest_Start_Time__c 	= booking.Earliest_Start_Time__c;
 								jobRec.Latest_End_Time__c 		= booking.Latest_End_Time__c;
 								jobRec.Route_Lookup__c 			= strRoute;
