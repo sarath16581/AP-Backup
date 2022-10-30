@@ -12,33 +12,8 @@
             <table>AccountRelationship__c</table>
         </columns>
         <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Owner</field>
-            <table>AccountRelationship__c</table>
-        </columns>
-        <columns>
             <checkedByDefault>true</checkedByDefault>
             <field>Name</field>
-            <table>AccountRelationship__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>AccountRelationship__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>AccountRelationship__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>AccountRelationship__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
             <table>AccountRelationship__c</table>
         </columns>
         <columns>
@@ -48,7 +23,32 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>EndDate__c</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner</field>
             <table>AccountRelationship__c</table>
         </columns>
         <columns>
@@ -67,5 +67,28 @@
             <table>AccountRelationship__c</table>
         </columns>
         <masterLabel>Account Relationships</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RelatedAccount__c.Account_Manager_Phone__c</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RelatedAccount__c.Description</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RelatedAccount__c.Docusign_VOI__c</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RelatedAccount__c.EIS_Facility__c</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <masterLabel>Related Child Account Fields</masterLabel>
     </sections>
 </ReportType>

@@ -318,7 +318,7 @@ cases.put(fax.Case__c, null);
             }
         }
         
-        Group defaultFaxCaseOwner = [select id from Group where Type='Queue' and developername = 'SSSWConsumerBackOffice' LIMIT 1];
+        Group defaultFaxCaseOwner = [select id from Group where Type='Queue' and developername = 'SSSW_Consumer_Back_Office_Low_Priority' LIMIT 1];
         
         // Create wrapper cases for each fax
         for (Fax__c fax : faxes) {

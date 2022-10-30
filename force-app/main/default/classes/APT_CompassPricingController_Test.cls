@@ -25,6 +25,10 @@ public with sharing class APT_CompassPricingController_Test {
         // =====================================
         Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
         Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Customer_Tier__c = 'T05';
         List<Deal_Support_Request__c> dealSupportReqList = ApplicationTestDataFactory.getDealSupportRequests(2, opportunityRecord.Id, account.Id, true);
         Id psrAPPCRecTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0].Id;
         dealSupportReqList[0].recordtypeId = dealSupportReqList[1].recordtypeId = psrAPPCRecTypeId;
@@ -41,17 +45,21 @@ public with sharing class APT_CompassPricingController_Test {
         // Stubbing
         // =====================================
         DealSupportRequestsSelector mockSelector = (DealSupportRequestsSelector) MockUtility.mockSelector(DealSupportRequestsSelector.class);
+        APT_ProductAttributeValuesSelector pavSelector = (APT_ProductAttributeValuesSelector) MockUtility.mockSelector(APT_ProductAttributeValuesSelector.class);
         MockUtility.Mocks.startStubbing();
         MockUtility.Mocks.when(
             mockSelector.search((Map<String, Object>)fflib_Match.anyObject(),
             (Set<Object>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyObject())).thenReturn(dealSupportReqList);
+
+        MockUtility.Mocks.when(pavSelector.selectByLineItemId((Set<id>)fflib_Match.anyObject())).thenReturn(
+        new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
         // Testing
         // =====================================
         Test.startTest();
-        List<Deal_Support_Request__c> dsrList = APT_CompassPricingController.getPSRList(opportunityRecord.Id);
+        List<Deal_Support_Request__c> dsrList = APT_CompassPricingController.getPSRList(opportunityRecord.Id, lineItem.Id);
         Test.stopTest();
 
         System.assertEquals(dsrList[0].product__c, dealSupportReqList[0].product__c, 'Expected PSR product must be Australia Post Parcel Contract');
@@ -72,8 +80,14 @@ public with sharing class APT_CompassPricingController_Test {
         // =====================================
         Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
         Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+        RecordType appcRecDSR = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0];
+            
         Id psrAPPCRecTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0].Id;
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
         List<Deal_Support_Request__c> dealSupportReqList = new List<Deal_Support_Request__c>();
+        pav.APT_Customer_Tier__c = 'T10';
 
         Map<String, Object> searchParams = new Map<String, Object>();
         searchParams.put('opportunityIds', new Set<Id>{opportunityRecord.Id});
@@ -83,8 +97,13 @@ public with sharing class APT_CompassPricingController_Test {
         // Stubbing
         // =====================================
         DealSupportRequestsSelector mockSelector = (DealSupportRequestsSelector) MockUtility.mockSelector(DealSupportRequestsSelector.class);
+        APT_ProductAttributeValuesSelector pavSelector = (APT_ProductAttributeValuesSelector) MockUtility.mockSelector(APT_ProductAttributeValuesSelector.class);
+        RecordTypesSelector recTypeSelector = (RecordTypesSelector) MockUtility.mockSelector(RecordTypesSelector.class);
         MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(recTypeSelector.selectByDeveloperName((String)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id, RecordType>{appcRecDSR.Id => appcRecDSR});
         MockUtility.Mocks.when(mockSelector.search((Map<String, Set<Id>>)fflib_Match.eq(searchParams),(Set<Object>)fflib_Match.eq(new Set<Object>()),fflib_Match.eqBoolean(true))).thenReturn(dealSupportReqList);
+        MockUtility.Mocks.when(pavSelector.selectByLineItemId((Set<id>)fflib_Match.anyObject())).thenReturn(
+        new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -93,7 +112,7 @@ public with sharing class APT_CompassPricingController_Test {
         Test.startTest();
         try{
             List<Deal_Support_Request__c> dsrList = new List<Deal_Support_Request__c>();
-            dsrList = APT_CompassPricingController.getPSRList(opportunityRecord.Id);
+            dsrList = APT_CompassPricingController.getPSRList(opportunityRecord.Id, lineItem.Id);
             System.assert(false, 'Expected No PSR Raised Exception is not thrown.');
         }catch(Exception e){
             System.assert(true, 'No PSR Raised Exception should be thrown');

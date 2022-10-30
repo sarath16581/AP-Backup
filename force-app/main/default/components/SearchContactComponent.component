@@ -11,6 +11,8 @@
     2020-07-20 swati.mogadala@auspost.com.au - Add EmailNotAvailable checkbox for Contacts (REQ2065161)
 	2021-05-10 madhuri.awasthi@auspost.com.au - Add a preferred name field in contact areas of Salesforce (REQ2476162)
 	2021-06-08 madhuri.awasthi@auspost.com.au  - Adding onKeypress attribute on Phone number field (REQ2513857)
+    2022-10-26 dattaraj.deshmukh@austpost.com.au - Added 'isLiveAgentUser' flag and logic to get 'Email Address' from primary tab details.
+                                                   When chat is started email address is auto populated to 'Email Address' input field and 'Search' is triggered. 
 -->
 <apex:component controller="SearchContactComponentController">
 
@@ -630,6 +632,43 @@
             sforce.console.fireEvent('CTIPhone_Callback', '{!id}_CTIPhoneCallback');
         });
 
+        //following block retrieves 'Email Address' from chat session.
+        if('{!isLiveAgentUser}' == 'true') {
+            sforce.console.getEnclosingPrimaryTabId(function(result) {
+                var tabId = result.id;
+                sforce.console.chat.getDetailsByPrimaryTabId(tabId, function(result) {
+                    var found = false;
+                    var conversation = [];
+                    var visitorEmailAddress;
+                    if(result.success) {
+                        for(var i=0;i<result.details.customDetails.length;i++) {
+                            var custom = result.details.customDetails[i];
+                            //get email address of visitor (unauthenticated user)
+                            if(custom.label === 'Email') {
+                                found = true;
+                                visitorEmailAddress = custom.value;
+                                break;
+                            }
+                        }
+
+                        //if visitorEmailAddress is found, then set it to 'Email Address' input element and trigger 'Search'
+                        if(visitorEmailAddress) {
+                            j$('[id$="txtEmail"]').val(visitorEmailAddress);
+                            
+                            //trigger search explicitly.
+                            //Following functions are called when 'Search' button is clicked.
+                            //Calling same list of functions in same order to trigger search.
+                            setFlag(true);
+                            rSearchContacts();
+                            enableAddConsumer();
+                        }
+                    }
+                });
+            });
+
+        }
+       
+
     </script>
     <style>
         .searchPanel .bPageBlock .pbBody .dataCol {vertical-align:top;}
@@ -760,6 +799,7 @@
                         <apex:inputText value="{!strEmail}" id="txtEmail" tabindex="60"
                                         onkeydown="searchContactHideMessage();"
                                         styleClass="form-control input-sm string" />
+                                        
 
                         <apex:inputcheckbox value="{!ckbEmailNotAvailable}" style="float:right;vertical-align:middle;" id="ckbEmailNotAvailable" tabindex="61">
                             <span style="float:left;vertical-align:middle;"> I requested an email address :</span></apex:inputcheckbox>

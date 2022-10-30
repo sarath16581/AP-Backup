@@ -502,7 +502,7 @@ public with sharing class ChasApexController extends ChasBase{
             // write to case comments if the case was held
             if(isEligibleForHold) {
                 commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessage;
-            } else {
+            } else if (!containsPharma) {
                 commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessageNo;
             }
             // write to case comments if edd was estimated

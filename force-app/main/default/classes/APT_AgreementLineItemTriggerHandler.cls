@@ -582,6 +582,7 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                          os.APT_Express_Road__c = false;
                          os.APT_Special_Services_Tailgate__c = false;
                          os.APT_Next_Flight__c = false;
+                         os.APT_Security_Services__c = false;
                          mapOS.put(os.Id, os);
                          steCleared = true;
                      }

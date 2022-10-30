@@ -30,6 +30,10 @@ public inherited sharing class EmailMessageCasesDomain extends ApplicationDomain
 
 		// StarTrack modules
 		registerModule(StarTrackEmailMessagesModule.class);
+
+		// Service Advisor modules
+		registerModule(ServiceAdvisorEmailMesAutomationModule.class);
+		registerModule(ServiceAdvisorEmailMesEntitlementsModule.class);
 	}
 
 	/**
