@@ -103,6 +103,10 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Group__c,
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Model__c,
                                                     Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Plan_DWT_Conversion_Factor__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Selected_Lodgement_Zone__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_1__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_2__c,
+                                                    Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Applied_PSR__c,
                                                     APT_Option_Group__c,
                                                     APT_Lodgement_Zone_Code__c,
                                                     APT_Lodgement_Zone__c,
@@ -222,8 +226,11 @@ public with sharing class APT_AgreementLineItemTriggerHandler{
                         newApav.SAP_Rating_Group__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Group__c;
                         newApav.SAP_Rating_Model__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Model__c;
                         newApav.SAP_Rating_Plan_DWT_Conversion_Factor__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Rating_Plan_DWT_Conversion_Factor__c;
-                        newApav.SAP_Weight_Rounding__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Weight_Rounding__c; 
-                                               
+                        newApav.SAP_Weight_Rounding__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.SAP_Weight_Rounding__c;
+                        newApav.APT_Selected_Lodgement_Zone__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Selected_Lodgement_Zone__c;
+                        newApav.APT_Additional_Lodgement_Zone_1__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_1__c;
+                        newApav.APT_Additional_Lodgement_Zone_2__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Additional_Lodgement_Zone_2__c;
+                        newApav.Applied_PSR__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.Applied_PSR__c;           
 
                         // Populate attribute values from DerivedFrom field into a new operational schedule
                         os.APT_LPD_Service_Type__c = ali.Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_LPD_Service_Type__c;
