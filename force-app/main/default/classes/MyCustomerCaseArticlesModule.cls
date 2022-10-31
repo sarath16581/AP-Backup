@@ -131,7 +131,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * This will occur if the article linked to the ReferenceID does not already exist in Salesforce
 	 */
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		try {
+		/*try {
 			System.debug('MyCustomerCaseArticlesModule:onAfterInsert');
 
 			// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
@@ -152,7 +152,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterInsert', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-		}
+		}*/
 	}
 
 	/**
@@ -273,7 +273,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * 3. Article id field on Case was removed or already empty
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		try {
+		/*try {
 			System.debug('MyCustomerCaseArticlesModule:onAfterUpdate');
 
 			// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
@@ -294,7 +294,42 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
+		*/
 	}
+
+	@InvocableMethod(label='Queue Async Article Retrieval' description='Queue up the Article retrieval and Case reroute' category= 'Case')
+	public static void invocableJobEnqueued(List<String> listCaseIds) {
+		
+		Set<String> referencesToEnqueue = new Set<String>();
+		Set<Id> casesToEnqueue = new Set<Id>();
+		Set<Id> caseIds = new Set<Id>();
+
+		for(String idString : listCaseIds){
+			caseIds.add(idString);
+		}
+		
+		Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{
+			Case.Id, Case.ReferenceID__c, Case.Origin, Case.ArticleTest__c, Case.Related_Billing_Account__c,
+			Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
+			Case.ConsignmentParcelCount__c, Case.DeliveryInstructions__c, Case.ServiceCode__c,
+			Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
+			Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
+			Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, Case.ProductCategory__c,
+			Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c
+		}).selectById(caseIds);
+		
+		for(Case c : cases.values()) {
+			if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
+				casesToEnqueue.add(c.Id);
+				referencesToEnqueue.add(c.ReferenceID__c);
+			}
+		}
+
+		if(!casesToEnqueue.isEmpty()) {
+			ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
+		}
+	}
+
 
 	/**
 	 * This will ensure that a SAP-EM query job will be enqueued for all the cases in the list.
@@ -304,7 +339,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * NOTE: referenceIds is also passed in so a soql does not need to be run prior to the integration callout to retrieve article details
 	 *          It's the callers responsibility to pass in a synchronised list of caseids/referenceids
 	 */
-	private void ensureQueryJobEnqueued(Set<Id> caseIds, Set<String> referenceIds) {
+	public static void ensureQueryJobEnqueued(Set<Id> caseIds, Set<String> referenceIds) {
 		// if the queueable has already fired or if we are already in an async context then we prevent the execution of a subsequent queueable from being fired.
 		if(preventRecursiveReschedule || System.isQueueable() || System.isFuture() || System.isBatch() || System.isScheduled()) {
 			return;
