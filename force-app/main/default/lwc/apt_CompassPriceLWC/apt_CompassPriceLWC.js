@@ -143,55 +143,6 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 		}
 	}
 
-
-	/**
-	 * This method is to convert the call from client to Server specific to custom pricing execution. As cart constraint rule
-     * execution is performed on client side.
-	 */
-	
-	customRePriceCartRequest(){
-		repriceCartRequest(
-			{				
-				configId: this.configId			
-			})
-			.then((result)=>{				
-				this.template.querySelector('.updateCartForCustomPricingClass').click();
-			})
-			.catch((error) => {
-				this.isLoading = false;
-				this.error = error.body.message;
-			})			
-	}
-	
-
-	/**
-	 * This method is to convert the call from client to Server specific to custom pricing execution. As cart constraint rule
-     * execution is performed on client side.
-	 */
-	
-	updateCartForCustomPricingRequest(){
-		updateCartForCustomPricing(
-			{
-				selectedLineItemId: this.lineitemId, 
-				objDSR: this.selectedPSR,
-				configId: this.configId,
-				cartTier: this.cartTier
-			})
-			.then((result)=>{				
-				// display success message on successful link
-				this.success = result;
-				this.error = void 0;
-				// disable Apply PSR button once successful link
-				this.disableApplyPSR = true;
-				this.isLoading = false;
-			})
-			.catch((error) => {
-				this.isLoading = false;
-				this.error = error.body.message;
-			})			
-	}
-	
-
 	/**
 	 * function to link PSR by running through various validation scenarios 
 	 * and determine if standard delegated pricing or custom pricing is required in apex controller.
@@ -219,17 +170,46 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 					//reset old cust tier
 					var resultList = reseultValue.split(this.customerTierDefault);
 					if(resultList.length > 1) {
-						this.cartTier = resultList[1];	
-						//PATCH CHANGE: BELLOW LINE ADDED
-						this.template.querySelector('.customRePriceCartClass').click();
+						this.cartTier = resultList[1];
+						repriceCartRequest(
+							{				
+								configId: this.configId			
+							})
+							.then((result)=>{				
+								updateCartForCustomPricing(
+									{
+										selectedLineItemId: this.lineitemId, 
+										objDSR: this.selectedPSR,
+										configId: this.configId,
+										cartTier: this.cartTier
+									})
+									.then((result)=>{				
+										// display success message on successful link
+										this.success = result;
+										this.error = void 0;
+										// disable Apply PSR button once successful link
+										this.disableApplyPSR = true;
+										this.isLoading = false;
+									})
+									.catch((error) => {
+										this.isLoading = false;
+										this.error = error.body.message;
+									})	
+							})
+							.catch((error) => {
+								this.isLoading = false;
+								this.error = error.body.message;
+							})	
 					}
 				}
 				else {
+					// display success message on successful link
 					this.success = result;
 					this.error = void 0;
 					// disable Apply PSR button once successful link
 					this.disableApplyPSR = true;
-					this.isLoading = false;				
+					this.isLoading = false;
+							
 				}
 			})
 			.catch((error) => {

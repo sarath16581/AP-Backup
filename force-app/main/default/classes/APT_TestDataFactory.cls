@@ -281,11 +281,21 @@ public class APT_TestDataFactory {
 		}, count), generateIds);
 	}
     
-	public static List<Apttus_Config2__AppliedRuleInfo__c> getARIRecord(integer count, Id configId, Boolean generateIds){
-		return (List<Apttus_Config2__AppliedRuleInfo__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__AppliedRuleInfo__c.SObjectType, new Map<SObjectField, Object> {      
-			Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__Invalid__c => true,
-			Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__ConstraintRuleId__c => configId,
-			Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__PrimaryLineNumber__c => 1
-		}, count), generateIds);
-	}
+    public static List<Apttus_Config2__AppliedRuleInfo__c> getARIRecord(integer count, Id configId, Boolean generateIds){
+    return (List<Apttus_Config2__AppliedRuleInfo__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__AppliedRuleInfo__c.SObjectType, new Map<SObjectField, Object> {      
+      Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__Invalid__c => true,
+      Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__ConstraintRuleId__c => configId,    
+      Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__PrimaryLineNumber__c => 1  
+     
+    }, count), generateIds);
+  }
+  
+  public static List<Apttus_Config2__ConstraintRule__c> getConstraintRuleRecord(integer count,  Boolean generateIds){
+    return (List<Apttus_Config2__ConstraintRule__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ConstraintRule__c.SObjectType, new Map<SObjectField, Object> {      
+      Apttus_Config2__ConstraintRule__c.Name => 'const',
+      Apttus_Config2__ConstraintRule__c.Apttus_Config2__Active__c=> True,    
+      Apttus_Config2__ConstraintRule__c.Apttus_Config2__MatchInPrimaryLines__c=> True 
+     
+    }, count), generateIds);
+  }
 }
