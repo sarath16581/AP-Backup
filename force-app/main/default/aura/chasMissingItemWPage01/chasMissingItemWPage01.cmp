@@ -93,8 +93,8 @@
                         <div>
                             <p class="message-text">
                                 <ul class="tabbed-bullet">
-                                    <li><a href="https://auspost.com.au/help-and-support/results?group=tracking&amp;c=TraInf600" onclick="{! v.pushInteractionAnalytics }" class="link-plain" target="blank" >View related tracking FAQs</a></li>
-                                    <li><a href="https://auspost.com.au/mypost/track/#/search" onclick="{! v.pushInteractionAnalytics }" class="link-plain" target="blank" >Track this parcel</a></li>
+                                    <li><a href="https://auspost.com.au/help-and-support/results?group=tracking&amp;c=TraInf600"  class="link-plain" target="blank" >View related tracking FAQs</a></li>
+                                    <li><a href="https://auspost.com.au/mypost/track/#/search"  class="link-plain" target="blank" >Track this parcel</a></li>
                                 </ul>
                             </p>
                         </div>
