@@ -12,6 +12,7 @@
  * 30.06.2021	Steve.judd6@auspost.com.au  Added debug statement, description changes for extra cover.
  * 20.04.2022   SaiSwetha Pingali - Removed logic for SnapIT cases as it is no longer required.
  * 26.10.2022	Noel Lim - update logic in AsyncLinkArticlesToCasesQueueable() so that all cases are re-routed. This supports the change in SSSW_Routing.cls where cases that require Articles are moved into a holding Queue. 
+ * 31.10.2022	Noel Lim - move logic in afterInsert() and afterUpdate() into an invocation method, called by a Flow. This moves enqueueing the AsyncLinkArticlesToCasesQueueable job to after Workflow updates, e.g. ones that set AllocateToQueue__c = true.
  *
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
@@ -127,35 +128,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	}
 
 	/**
-	 * After insert trigger to process records that have a Reference ID without an Article field populated
-	 * This will occur if the article linked to the ReferenceID does not already exist in Salesforce
-	 */
-	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		/*try {
-			System.debug('MyCustomerCaseArticlesModule:onAfterInsert');
-
-			// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
-			Set<String> referencesToEnqueue = new Set<String>();
-			Set<Id> casesToEnqueue = new Set<Id>();
-
-			for(Case c : (List<Case>)records) {
-				if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
-					// NOTE: If article field is not null, we can rely on the value being accurate from the previous trigger coe that was run in the before triggers
-					casesToEnqueue.add(c.Id);
-					referencesToEnqueue.add(c.ReferenceID__c);
-				}
-			}
-
-			if(!casesToEnqueue.isEmpty()) {
-				ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
-			}
-		} catch(Exception ex) {
-			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterInsert', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-		}*/
-	}
-
-	/**
 	 * Called when a Case is being updated.
 	 * Records that match the following criteria will be passed in:
 	 * 1. Where the Record Type starts with SSSW (Defined in MyCustomerCases.filter)
@@ -266,21 +238,41 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	}
 
 	/**
-	 * After Update trigger to process records that have a Reference ID without an Article field populated
+	 * Process records that have a Reference ID without an Article field populated
 	 * This would occur in the following scenarios:
 	 * 1. Reference ID field changed and the article did not already exist in Salesforce
 	 * 2. Article record was deleted in salesforce and case was later updated
 	 * 3. Article id field on Case was removed or already empty
+	 * 
+	 * This is called by a Flow that fires on Insert and Update, and passes cases where ReferenceID__c is not null and and ArticleTest__c is null.
+	 * Note that Flows execute after Workflow Field Updates.
+	 * 
+	 * This Invocation Method called by a Flow approach is necessary as opposed to After Insert/After Update  as we need the AsyncLinkArticlesToCasesQueueable job to be queued after Workflow Field Updates.  
+	 * A Workflow Field Update sets Case.AllocateToQueue__c = true, which needs to fire before the above async job is enqueued.
 	 */
-	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		/*try {
-			System.debug('MyCustomerCaseArticlesModule:onAfterUpdate');
-
+	@InvocableMethod(label='Queue Async Article to Cases' description='This method queues up the AsyncLinkArticlesToCasesQueueable job that will call out to SAP-EM for articles that are not in the SF database' category= 'Case')
+	public static void queueAsyncArticleToCases(List<String> listCaseIds) {
+		try {
 			// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
 			Set<String> referencesToEnqueue = new Set<String>();
 			Set<Id> casesToEnqueue = new Set<Id>();
-
-			for(Case c : (List<Case>)records) {
+			
+			Set<Id> caseIds = new Set<Id>();
+			for(String idString : listCaseIds){
+				caseIds.add(Id.valueOf(idString));
+			}
+			
+			Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{
+				Case.Id, Case.ReferenceID__c, Case.Origin, Case.ArticleTest__c, Case.Related_Billing_Account__c,
+				Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
+				Case.ConsignmentParcelCount__c, Case.DeliveryInstructions__c, Case.ServiceCode__c,
+				Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
+				Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
+				Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, Case.ProductCategory__c,
+				Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c
+			}).selectById(caseIds);
+			
+			for(Case c : cases.values()) {
 				if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
 					casesToEnqueue.add(c.Id);
 					referencesToEnqueue.add(c.ReferenceID__c);
@@ -294,40 +286,9 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
-		*/
-	}
 
-	@InvocableMethod(label='Queue Async Article Retrieval' description='Queue up the Article retrieval and Case reroute' category= 'Case')
-	public static void invocableJobEnqueued(List<String> listCaseIds) {
-		
-		Set<String> referencesToEnqueue = new Set<String>();
-		Set<Id> casesToEnqueue = new Set<Id>();
-		Set<Id> caseIds = new Set<Id>();
 
-		for(String idString : listCaseIds){
-			caseIds.add(idString);
-		}
 		
-		Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{
-			Case.Id, Case.ReferenceID__c, Case.Origin, Case.ArticleTest__c, Case.Related_Billing_Account__c,
-			Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
-			Case.ConsignmentParcelCount__c, Case.DeliveryInstructions__c, Case.ServiceCode__c,
-			Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
-			Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
-			Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, Case.ProductCategory__c,
-			Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c
-		}).selectById(caseIds);
-		
-		for(Case c : cases.values()) {
-			if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
-				casesToEnqueue.add(c.Id);
-				referencesToEnqueue.add(c.ReferenceID__c);
-			}
-		}
-
-		if(!casesToEnqueue.isEmpty()) {
-			ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
-		}
 	}
 
 
@@ -339,7 +300,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * NOTE: referenceIds is also passed in so a soql does not need to be run prior to the integration callout to retrieve article details
 	 *          It's the callers responsibility to pass in a synchronised list of caseids/referenceids
 	 */
-	public static void ensureQueryJobEnqueued(Set<Id> caseIds, Set<String> referenceIds) {
+	private static void ensureQueryJobEnqueued(Set<Id> caseIds, Set<String> referenceIds) {
 		// if the queueable has already fired or if we are already in an async context then we prevent the execution of a subsequent queueable from being fired.
 		if(preventRecursiveReschedule || System.isQueueable() || System.isFuture() || System.isBatch() || System.isScheduled()) {
 			return;
