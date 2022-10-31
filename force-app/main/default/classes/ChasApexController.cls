@@ -734,7 +734,7 @@ public with sharing class ChasApexController extends ChasBase{
                      if(exceptionResults != null && exceptionResults[0].isException) {
                          // DDS-12944 Exception found upon case being raised
                          commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
-                     } else if(exceptionResults == null || exceptionResults[0].isException){
+                     } else if(exceptionResults == null || !exceptionResults[0].isException){
                          toBeCreateCase.ClosedBySystem__c = true;
                          toBeCreateCase.Status = 'Closed';
                          toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
