@@ -36,6 +36,7 @@ Last Modified Date: 15th Feb, 2017 | 1550 | Credit Assessment Status - Completed
 @Description: Added constants for Contract validation.
 
 @changelog:
+2022-05-26 - Pradeep Jaiswal - CI-379 Added constant for International Return product
 2022-08-04 - Seth Heang - Added Constants for Rating Plan Integration Changes
 **/
 public with sharing class APT_Constants {
@@ -916,7 +917,7 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String URL_PARENTID = 'parentId';
   public static final String URL_AGREEMENTID = 'agreementId';
   public static final String URL_SELECTED_CATEGORY = 'selectedCategory';
-  public static final String URL_SERVICES_SOAP = '/services/Soap/u/28.0/';  
+  public static final String URL_SERVICES_SOAP = '/services/Soap/u/28.0/';
   public static final String URL_SERVICES_SOAP_V43 = '/services/Soap/u/43.0/';  
   public static final String URL_SERVICES_SOAP_DOWNLOAD_DOCUMENT = '/sfc/servlet.shepherd/document/download/';  
   public static final String URL_SERVICES_OPERATION_CONTEXT_S1 = 'operationContext=S1';  
@@ -1640,16 +1641,17 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final String PSR_STAGE_COMPLETE = 'Completed';
   public static final String PSR_APPC_STANDARD_DELEGATED_PRICING = 'Delegated Pricing';
   public static final String PSR_APPC_CUSTOM_PRICING = 'Customised Pricing';
+
   public static final string PRICING_CATEGORY_STANDARD = 'Standard';
   public static final String RATING_PLAN_ACTIVATION_LABEL = 'RatingPlanActivation';
   public static final String RATING_CARD_ACTIVATION_LABEL = 'RateCardActivation';
-
+  
   public static final String APPC_CUSTOMER_TIER_DEFAULT = 'CUST_TIER_DEFAULT';
   public static final String ANYWHERE_PRICE_STRUCTURE = 'Z001';
-
+	
   public static final String APT_KG_Rate = '_KR';
   public static final String APT_Basic_Rate = '_BR';
   public static final String RATING_MODEL_PD = 'PD';
-  public static final String QUEUABLEJOB_SPLIT =':QUEUABLEJOB:';
+  
   
 }
