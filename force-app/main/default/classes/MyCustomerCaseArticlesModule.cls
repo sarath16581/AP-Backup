@@ -127,6 +127,37 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		}
 	}
 
+	/** 
+	 * After insert trigger to process records that have a Reference ID without an Article field populated
+	 * This will occur if the article linked to the ReferenceID does not already exist in Salesforce
+	 */
+	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		if(TriggerHelper.isTriggerDisabled(String.valueOf('MyCustomerCaseArticlesModule_onAfterInsert'))){ 
+			try {
+				System.debug('MyCustomerCaseArticlesModule:onAfterInsert');
+
+				// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
+				Set<String> referencesToEnqueue = new Set<String>();
+				Set<Id> casesToEnqueue = new Set<Id>();
+
+				for(Case c : (List<Case>)records) {
+					if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
+						// NOTE: If article field is not null, we can rely on the value being accurate from the previous trigger coe that was run in the before triggers
+						casesToEnqueue.add(c.Id);
+						referencesToEnqueue.add(c.ReferenceID__c);
+					}
+				}
+
+				if(!casesToEnqueue.isEmpty()) {
+					ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
+				}
+			} catch(Exception ex) {
+				// Error Logged to Exception object for analysis
+				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterInsert', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+			}
+		}
+	}
+
 	/**
 	 * Called when a Case is being updated.
 	 * Records that match the following criteria will be passed in:
@@ -238,6 +269,39 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	}
 
 	/**
+	 * After Update trigger to process records that have a Reference ID without an Article field populated
+	 * This would occur in the following scenarios:
+	 * 1. Reference ID field changed and the article did not already exist in Salesforce
+	 * 2. Article record was deleted in salesforce and case was later updated
+	 * 3. Article id field on Case was removed or already empty
+	 */
+	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		if(TriggerHelper.isTriggerDisabled(String.valueOf('MyCustomerCaseArticlesModule_onAfterUpdate'))){ 
+			try {
+				System.debug('MyCustomerCaseArticlesModule:onAfterUpdate');
+
+				// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
+				Set<String> referencesToEnqueue = new Set<String>();
+				Set<Id> casesToEnqueue = new Set<Id>();
+
+				for(Case c : (List<Case>)records) {
+					if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
+						casesToEnqueue.add(c.Id);
+						referencesToEnqueue.add(c.ReferenceID__c);
+					}
+				}
+
+				if(!casesToEnqueue.isEmpty()) {
+					ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
+				}
+			} catch(Exception ex) {
+				// Error Logged to Exception object for analysis
+				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+			}
+		}
+	}
+
+	/**
 	 * Process records that have a Reference ID without an Article field populated
 	 * This would occur in the following scenarios:
 	 * 1. Reference ID field changed and the article did not already exist in Salesforce
@@ -284,7 +348,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			}
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'queueAsyncArticleToCases', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
 
 
