@@ -58,19 +58,19 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 				omniQueueIdsVsRoutingConfig = new Map<Id, QueueRoutingConfig>();
 
 				Map<String, String> omniQueueDeveloperNamesVsRoutingConfigDeveloperNames = new Map<String, String> {
-					'SSSW_Consumer_BOH_High_Priority' => 'AP_SSSW_Consumer_BOH_High_Priority',
-					'SSSW_Consumer_BOH_Low_Priority' => 'AP_SSSW_Consumer_BOH_Low_Priority'
+					'SSSW_Consumer_Back_Office_High_Priority' => 'AP_SSSW_Consumer_BOH_High_Priority',
+					'SSSW_Consumer_Back_Office_Low_Priority' => 'AP_SSSW_Consumer_BOH_Low_Priority'
 				};
 
 				Map<String, QueueRoutingConfig> developerNameVsRoutingConfigs = new Map<String, QueueRoutingConfig>();
-				for(QueueRoutingConfig rc: [SELECT CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, PushTimeout, RoutingModel, RoutingPriority 
+				for(QueueRoutingConfig rc: [SELECT CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, PushTimeout, RoutingModel, RoutingPriority,DeveloperName
 														FROM QueueRoutingConfig 
 														WHERE DeveloperName In :omniQueueDeveloperNamesVsRoutingConfigDeveloperNames.values() AND IsAttributeBased = true]) // NOTE: IsAttributeBased denotes skills based routing
 				{
 					developerNameVsRoutingConfigs.put(rc.DeveloperName, rc);
 				}
 
-				for(Group queue: [SELECT Id FROM Group WHERE DeveloperName IN :omniQueueDeveloperNamesVsRoutingConfigDeveloperNames.keySet()]) {
+				for(Group queue: [SELECT DeveloperName FROM Group WHERE DeveloperName IN :omniQueueDeveloperNamesVsRoutingConfigDeveloperNames.keySet()]) {
 					omniQueueIdsVsRoutingConfig.put(queue.Id, developerNameVsRoutingConfigs.get(omniQueueDeveloperNamesVsRoutingConfigDeveloperNames.get(queue.DeveloperName)));
 				}
 			}
@@ -125,7 +125,7 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 
 		Map<Id, Case> processable = new Map<Id, Case>();
 		Set<Id> routingConfigurationIds = new Set<Id>();
-		
+
 		for(Case caseRecord : cases) {
 			Case oldCase = oldCases?.get(caseRecord.Id);
 
