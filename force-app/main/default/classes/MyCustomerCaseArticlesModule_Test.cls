@@ -7,7 +7,7 @@
  * @domain SSSW
  * @changelog
  * SaiSwetha Pingali - Removed the test method for SnapIt cases as it is no longer required.
-
+ * 31.10.2022	Noel Lim - Updated method calls to MyCustomerCaseArticlesModule - queueAsyncArticleToCases() replaces old methods onAfterInsert() and onAfterUpdate() 
  */
 @IsTest
 private class MyCustomerCaseArticlesModule_Test {
@@ -91,6 +91,8 @@ private class MyCustomerCaseArticlesModule_Test {
 		cases[0].ReferenceID__c = 'ART1231';
 		cases[1].ReferenceID__c = 'ART1232';
 
+		List<String> caseIds = new List<String>{cases[0].Id, cases[1].Id};
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -111,9 +113,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-
-		module.onAfterInsert(cases, uow);
+		MyCustomerCaseArticlesModule.queueAsyncArticleToCases(caseIds);
 
 		System.assertEquals(1, Limits.getQueueableJobs(), 'Expected a queueable job');
 
@@ -122,7 +122,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// these methods exist in the queueable
 		((TIBCOArticleService)MockUtility.Mocks.verify(mockArticleService, 1)).search((List<String>)fflib_Match.anyObject(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean());
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 1)).selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
-		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>)fflib_Match.anyObject());
+		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 2)).selectById((Set<Id>)fflib_Match.anyObject());
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 	}
 
@@ -270,6 +270,8 @@ private class MyCustomerCaseArticlesModule_Test {
 		cases[0].ReferenceID__c = 'ART1231';
 		cases[1].ReferenceID__c = 'ART1232';
 
+		List<String> caseIds = new List<String>{cases[0].Id, cases[1].Id};
+
 		List<Case> oldCases = new List<Case>{cases[0].clone(true), cases[1].clone(true)};
 
 		// =====================================
@@ -292,9 +294,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-
-		module.onAfterUpdate(cases, new Map<Id, Case>(oldCases), uow);
+		MyCustomerCaseArticlesModule.queueAsyncArticleToCases(caseIds);
 
 		System.assertEquals(1, Limits.getQueueableJobs(), 'Expected a queueable job');
 
@@ -303,7 +303,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// these methods exist in the queueable
 		((TIBCOArticleService)MockUtility.Mocks.verify(mockArticleService, 1)).search((List<String>)fflib_Match.anyObject(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean());
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 1)).selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
-		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>)fflib_Match.anyObject());
+		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 2)).selectById((Set<Id>)fflib_Match.anyObject());
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 	}
 
@@ -342,6 +342,8 @@ private class MyCustomerCaseArticlesModule_Test {
 		cases[1].ReferenceID__c = 'ART1232';  // links to articles[1]
 		cases[1].Origin = 'Phone';
 		cases[1].OwnerId = UserInfo.getUserId();
+
+		List<String> caseIds = new List<String>{cases[0].Id, cases[1].Id};
 
 		// create an old state
 		List<Case> oldCases = new List<Case>{cases[0].clone(true), cases[1].clone(true)};
@@ -412,9 +414,7 @@ private class MyCustomerCaseArticlesModule_Test {
 
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
 
-		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-
-		module.onAfterUpdate(cases, new Map<Id, Case>(oldCases), uow);
+		MyCustomerCaseArticlesModule.queueAsyncArticleToCases(caseIds);
 
 		System.assertEquals(1, Limits.getQueueableJobs(), 'Expected a queueable job');
 
@@ -423,7 +423,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// these methods exist in the queueable
 		((TIBCOArticleService)MockUtility.Mocks.verify(mockArticleService, 1)).search((List<String>)fflib_Match.anyObject(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean());
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 2)).selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
-		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>)fflib_Match.anyObject());
+		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 2)).selectById((Set<Id>)fflib_Match.anyObject());
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 
 		// verify the owner of case[0] has changed and the owner of case[1] hasn't
@@ -463,6 +463,8 @@ private class MyCustomerCaseArticlesModule_Test {
 
 		cases[0].OwnerId = UserInfo.getUserId();
 
+		List<String> caseIds = new List<String>{cases[0].Id};
+
 		// create an old state
 		List<Case> oldCases = new List<Case>{cases[0].clone(true)};
 
@@ -528,9 +530,7 @@ private class MyCustomerCaseArticlesModule_Test {
 
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
 
-		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-
-		module.onAfterUpdate(cases, new Map<Id, Case>(oldCases), uow);
+		MyCustomerCaseArticlesModule.queueAsyncArticleToCases(caseIds);
 
 		System.assertEquals(1, Limits.getQueueableJobs(), 'Expected a queueable job');
 
@@ -539,7 +539,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// these methods exist in the queueable
 		((TIBCOArticleService)MockUtility.Mocks.verify(mockArticleService, 1)).search((List<String>)fflib_Match.anyObject(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean());
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 2)).selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
-		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>)fflib_Match.anyObject());
+		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 2)).selectById((Set<Id>)fflib_Match.anyObject());
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 
 		// verify the owner of case[0] has changed and the owner of case[1] hasn't
@@ -562,6 +562,8 @@ private class MyCustomerCaseArticlesModule_Test {
 		cases[0].Type = 'Investigation';
 		cases[0].OwnerId = UserInfo.getUserId();
 
+		List<String> caseIds = new List<String>{cases[0].Id};
+
 		// create an old state
 		List<Case> oldCases = new List<Case>{cases[0].clone(true)};
 
@@ -627,9 +629,7 @@ private class MyCustomerCaseArticlesModule_Test {
 
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseTriggerHandler2.getUnitOfWorkSObjectTypes());
 
-		MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-
-		module.onAfterUpdate(cases, new Map<Id, Case>(oldCases), uow);
+		MyCustomerCaseArticlesModule.queueAsyncArticleToCases(caseIds);
 
 		System.assertEquals(1, Limits.getQueueableJobs(), 'Expected a queueable job');
 
@@ -638,7 +638,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// these methods exist in the queueable
 		((TIBCOArticleService)MockUtility.Mocks.verify(mockArticleService, 1)).search((List<String>)fflib_Match.anyObject(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean());
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticleSelector, 2)).selectByTracking((Set<String>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
-		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 1)).selectById((Set<Id>)fflib_Match.anyObject());
+		((SSSWCasesSelector)MockUtility.Mocks.verify(mockCaseSelector, 2)).selectById((Set<Id>)fflib_Match.anyObject());
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 
 		// verify the owner did not change since the linked article did not have a billing account

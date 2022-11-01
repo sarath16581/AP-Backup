@@ -8,11 +8,12 @@
  * @group Domain
  * @domain SSSW
  * @changelog
- * 10.04.2020		Naseer Abbasi		Added logic to determine case queues once ArticleTest__c is populated
+ * 10.04.2020	Naseer Abbasi		Added logic to determine case queues once ArticleTest__c is populated
  * 30.06.2021	Steve.judd6@auspost.com.au  Added debug statement, description changes for extra cover.
  * 20.04.2022   SaiSwetha Pingali - Removed logic for SnapIT cases as it is no longer required.
- * 26.10.2022	Noel Lim - update logic in AsyncLinkArticlesToCasesQueueable() so that all cases are re-routed. This supports the change in SSSW_Routing.cls where cases that require Articles are moved into a holding Queue. 
- * 31.10.2022	Noel Lim - move logic in afterInsert() and afterUpdate() into an invocation method, called by a Flow. This moves enqueueing the AsyncLinkArticlesToCasesQueueable job to after Workflow updates, e.g. ones that set AllocateToQueue__c = true.
+ * 26.10.2022	Noel Lim:
+ * 					a) update logic in AsyncLinkArticlesToCasesQueueable() so that all cases are re-routed. This supports the change in SSSW_Routing.cls where cases that reach a routing rule that requires Articles are moved into a holding Queue. 
+ *                  b) move logic in afterInsert() and afterUpdate() into an invocation method, called by a Flow. This moves enqueueing the AsyncLinkArticlesToCasesQueueable job to after Workflow updates, e.g. ones that set AllocateToQueue__c = true
  *
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
@@ -326,15 +327,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				caseIds.add(Id.valueOf(idString));
 			}
 			
-			Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{
-				Case.Id, Case.ReferenceID__c, Case.Origin, Case.ArticleTest__c, Case.Related_Billing_Account__c,
-				Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
-				Case.ConsignmentParcelCount__c, Case.DeliveryInstructions__c, Case.ServiceCode__c,
-				Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
-				Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
-				Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, Case.ProductCategory__c,
-				Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c
-			}).selectById(caseIds);
+			Map<Id, Case> cases = SSSWCasesSelector.newInstance().selectById(caseIds);
 			
 			for(Case c : cases.values()) {
 				if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
@@ -514,7 +507,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					c.ArticleRecordType__c = a.RecordType.Name;
 				}
 
-				
+				c.HasExtraCover__c = a.HasExtraCover__c;
 			}
 		}
 	}
@@ -776,7 +769,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					for (Case reroutedCase : reroutableCases) {
 						if (reroutedCase.OwnerId != null) {
 							casesWithArticlePopulated.get(reroutedCase.Id).OwnerId = reroutedCase.OwnerId;
-							casesWithArticlePopulated.get(reroutedCase.Id).HasExtraCover__c = reroutedCase.HasExtraCover__c;
 
 							// setting flag on case since selected routing rule is a strategic one
                             // its required to avoid triggering the specific workflow rules that might reset the case owner

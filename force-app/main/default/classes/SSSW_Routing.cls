@@ -11,7 +11,7 @@
 * 2021-06-30 - Steve Judd - Replaced getStrategicCustomerMappings with getArticleAttributesMap to return Extra Cover(Boolean) as well as isStrategic(Boolean)
 * 2021-06-30 - Steve Judd - Modified assignCasesAndDescription to allow Extra Cover cases to be routed along with Strategic Cases.
 * 2021-08-17 - Alex Volkov - Swapped out Automated_Network_Assignment__c for more generic ByPassRoutingRulesOnCreation__c
-* 2022-10-11 - Noel Lim - Stamp Case.HasExtraCover__c, and route Cases to a holding queue Omni Default Queue if it requires an Article to be fetched from SAP-EM via MyCustomerCaseArticleModule queueable.
+* 2022-10-11 - Noel Lim - route Cases to a holding queue Omni Default Queue if it requires an Article to be fetched from SAP-EM via MyCustomerCaseArticleModule queueable.
 * 2022-10-26 - Noel Lim - change of existing boolean parameter's name and logic in assignCasesAndDescription(), from 'matchArticleRequiredRulesOnly' to 'isFinalPass'. 
 **/
 
@@ -389,11 +389,7 @@ public class SSSW_Routing {
         }
         for (Case cs : cases) {
             Id routingOwner; 
-            Case oldCase = oldMap != null ? oldMap.get(cs.Id) : null;
-
-            if(articleAttributesMap.size()>0){
-                assignSkillRoutingRelatedValues(cs);
-            }            
+            Case oldCase = oldMap != null ? oldMap.get(cs.Id) : null;          
 
             if (!(isInsert && cs.ByPassRoutingRulesOnCreation__c)) {
                 for (SSSWRouting__c rule : routeRule) {
@@ -633,14 +629,10 @@ public class SSSW_Routing {
                 ArticleAttributes attributes = new ArticleAttributes();
                 // initialise values to false
                 attributes.isStrategic = false;
-                attributes.hasExtraCover = false;
                 if(!String.isEmpty(a.ArticleID__c) && a.Billing_Account__r != null && a.Billing_Account__r.Organisation__r != null && a.Billing_Account__r.Organisation__r.IsStrategicSupportCustomer__c !=  null) {
                     attributes.isStrategic = a.Billing_Account__r.Organisation__r.IsStrategicSupportCustomer__c;
                 }
-                // Has extra cover is defined as an article with an insurance amount but no merchant location id
-                if(!String.isEmpty(a.ArticleID__c) && a.InsuranceAmount__c > 0 && a.InsuranceAmount__c != null && String.isEmpty(a.MLID__c)) {
-                    attributes.hasExtraCover = true;
-                }
+                attributes.hasExtraCover = a.HasExtraCover__c;
                 articleAttributesMap.put(a.ArticleID__c.toLowerCase(), attributes);
             }
         }
@@ -783,7 +775,7 @@ public class SSSW_Routing {
          */
         public List<Article__c> getArticles(Set<String> queryableReferenceIds) {
             Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-                Article__c.SObjectType => new Set<SObjectField>{Article__c.Id, Article__c.ArticleID__c, Article__c.MLID__c, Article__c.InsuranceAmount__c},
+                Article__c.SObjectType => new Set<SObjectField>{Article__c.Id, Article__c.ArticleID__c, Article__c.MLID__c, Article__c.InsuranceAmount__c, Article__c.HasExtraCover__c},
                 Billing_Account__c.SObjectType => new Set<SObjectField>(),
                 Account.SObjectType => new Set<SObjectField>{Account.IsStrategicSupportCustomer__c}
             };
@@ -808,18 +800,6 @@ public class SSSW_Routing {
     public class ArticleAttributes {
         public Boolean isStrategic {get; set;}
         public Boolean hasExtraCover {get; set;}
-    }
-
-    /**
-     * assign values to Case fields that are used in Skills based routing
-     */
-    private static void assignSkillRoutingRelatedValues(Case cs){
-
-        //assign HasExtraCover__c
-        String referenceId = (String.isEmpty(cs.ReferenceID__c) ? '' : cs.ReferenceID__c.toLowerCase());
-        if(String.isEmpty(referenceId) == false && articleAttributesMap.get(referenceId).hasExtraCover != null){
-            cs.HasExtraCover__c = articleAttributesMap.get(referenceId).hasExtraCover;
-        }      
     }
 
      /**
