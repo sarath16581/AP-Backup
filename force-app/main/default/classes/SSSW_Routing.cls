@@ -451,9 +451,7 @@ public class SSSW_Routing {
                             String omniDefaultQueue =  QM__c.getOrgDefaults().OmniDefaultQueueId__c;                
                             if(String.isEmpty(omniDefaultQueue) == false){
                                 cs.OwnerId = omniDefaultQueue;
-                            } else { 
-                                throw new ErrorException('Omni Default Routing Queue Id field in Custom Settings.SSSW Queue Management is empty');                                
-                            }
+                            } 
 
                             break;
                         }
@@ -508,9 +506,7 @@ public class SSSW_Routing {
                             String omniDefaultQueue =  QM__c.getOrgDefaults().OmniDefaultQueueId__c;
                             if(String.isEmpty(omniDefaultQueue) == false){
                                 cs.OwnerId = omniDefaultQueue;
-                            } else { 
-                                throw new ErrorException('Omni Default Routing Queue Id field in Custom Settings.SSSW Queue Management is empty');                 
-                            }
+                            } 
                             
                             break;
                         }
