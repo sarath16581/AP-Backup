@@ -640,8 +640,15 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					// apply and default values that are currently not already populated on the case
 					module.applyCaseArticleDefaults(updateable.values(), articles);
 
-					//add the cases successfully rerouted into the cases with articles linked in preparation for DM
-					updateable.putAll(casesRerouted);
+					//add the updates from cases successfully rerouted into the cases with articles linked in preparation for DML
+					for(Case cs : casesRerouted.values()){
+						if(updateable.containsKey(cs.Id)){
+							cs.OwnerId = casesRerouted.get(cs.Id).OwnerId;
+							cs.LastRoutingRuleIsStrategic__c  = casesRerouted.get(cs.Id).LastRoutingRuleIsStrategic__c;
+						} else {
+							updateable.put(cs.Id,casesRerouted.get(cs.Id));
+						}
+					}					
 					
 					System.debug('AsyncLinkArticlesToCases >> ' + updateable);
 
