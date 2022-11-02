@@ -42,6 +42,10 @@ public with sharing class Application {
 			CacheManager.put('ORGANISATION_INFO', null);
 			profileIds = null;
 			CacheManager.put('ALL_PROFILE_IDS', null);
+			skillDeveloperNameVsIds = null;
+			CacheManager.put('ALL_SKILL_IDS', null);
+			serviceChannels = null;
+			CacheManager.put('ALL_SERVICE_CHANNELS', null);
 		}
 
 		public OrganizationWrapper organizationInfo {
@@ -71,6 +75,40 @@ public with sharing class Application {
 					}
 				}
 				return profileIds;
+			}
+			private set;
+		}
+
+		public Map<String, Id> skillDeveloperNameVsIds {
+			get {
+				if(skillDeveloperNameVsIds == null) {
+					skillDeveloperNameVsIds = (Map<String, Id>)CacheManager.get('ALL_SKILL_IDS');
+					if(skillDeveloperNameVsIds == null) {
+						skillDeveloperNameVsIds = new Map<String, Id>();
+						for(Skill sk: [SELECT DeveloperName FROM Skill]) {
+							skillDeveloperNameVsIds.put(sk.DeveloperName, sk.Id);
+						}
+						CacheManager.put('ALL_SKILL_IDS', skillDeveloperNameVsIds);
+					}
+				}
+				return skillDeveloperNameVsIds;
+			}
+			private set;
+		}
+
+		public Map<String, ServiceChannel> serviceChannels {
+			get {
+				if(serviceChannels == null) {
+					serviceChannels = (Map<String, ServiceChannel>)CacheManager.get('ALL_SERVICE_CHANNELS');
+					if(serviceChannels == null) {
+						serviceChannels = new Map<String, ServiceChannel>();
+						for(ServiceChannel sc: [SELECT AfterConvoWorkMaxTime,DeveloperName,DoesMinimizeWidgetOnAccept,HasAfterConvoWorkTimer,RelatedEntity,SecRoutingPriorityField FROM ServiceChannel]) {
+							serviceChannels.put(sc.DeveloperName, sc);
+						}
+						CacheManager.put('ALL_SERVICE_CHANNELS', serviceChannels);
+					}
+				}
+				return serviceChannels;
 			}
 			private set;
 		}

@@ -42,16 +42,6 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 		}
 	}
 
-	private ServiceChannel caseServiceChannel {
-		get{
-			if(caseServiceChannel == null) {
-				caseServiceChannel = [SELECT Id FROM ServiceChannel WHERE DeveloperName = 'Case_Channel' LIMIT 1];
-			}
-			return caseServiceChannel;
-		}
-		set;
-	}
-
 	private Map<Id, QueueRoutingConfig> omniQueueIdsVsRoutingConfig {
 		get{
 			if(omniQueueIdsVsRoutingConfig == null) {
@@ -63,35 +53,15 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 				};
 
 				Map<String, QueueRoutingConfig> developerNameVsRoutingConfigs = new Map<String, QueueRoutingConfig>();
-				for(QueueRoutingConfig rc: [SELECT CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, PushTimeout, RoutingModel, RoutingPriority,DeveloperName
-														FROM QueueRoutingConfig 
-														WHERE DeveloperName In :omniQueueDeveloperNamesVsRoutingConfigDeveloperNames.values() AND IsAttributeBased = true]) // NOTE: IsAttributeBased denotes skills based routing
-				{
+				for(QueueRoutingConfig rc: QueueRoutingConfigSelector.newInstance().selectSkillBasedByDeveloperName(omniQueueDeveloperNamesVsRoutingConfigDeveloperNames.values(), new Set<Object>())) {
 					developerNameVsRoutingConfigs.put(rc.DeveloperName, rc);
 				}
 
-				for(Group queue: [SELECT DeveloperName FROM Group WHERE DeveloperName IN :omniQueueDeveloperNamesVsRoutingConfigDeveloperNames.keySet()]) {
+				for(Group queue: GroupsSelector.newInstance().selectByDeveloperName(omniQueueDeveloperNamesVsRoutingConfigDeveloperNames.keySet()).values()) {
 					omniQueueIdsVsRoutingConfig.put(queue.Id, developerNameVsRoutingConfigs.get(omniQueueDeveloperNamesVsRoutingConfigDeveloperNames.get(queue.DeveloperName)));
 				}
 			}
 			return omniQueueIdsVsRoutingConfig;
-		}
-		set;
-	}
-
-	private Map<String, Skill> developerNameVsSkills {
-		get {
-			if(developerNameVsSkills == null) {
-				developerNameVsSkills = new Map<String, Skill>();
-				Set<String> skillDeveloperNames = new Set<String>();
-				for(Map<String, String> fieldValueVsSkillDeveloperName: caseFieldSkillMappings.values()) {
-					skillDeveloperNames.addAll(fieldValueVsSkillDeveloperName.values());
-				}
-				for(Skill sk: [SELECT DeveloperName FROM Skill WHERE DeveloperName IN :skillDeveloperNames]) {
-					developerNameVsSkills.put(sk.DeveloperName, sk);
-				}
-			}
-			return developerNameVsSkills;
 		}
 		set;
 	}
@@ -163,7 +133,7 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 
 			List<SkillRequirement> creatableSkillRequirements = new List<SkillRequirement>();
 
-			List<PendingServiceRouting> psrRecords = [Select Id, WorkItemId, IsPushed, IsPushAttempted From PendingServiceRouting Where WorkItemId In : processable.keySet()];
+			List<PendingServiceRouting> psrRecords = PendingServiceRoutingSelector.newInstance().selectByWorkItemId(processable.keySet(), new Set<Object>());
 
 			// check which psr records can actually deleted
 			// we only want to do that if it hasn't already been pushed.
@@ -176,6 +146,8 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 					excludedManualPsrCreation.add(psrRecord.WorkItemId);
 				}
 			}
+
+			ServiceChannel sc = Application.Cache.serviceChannels.get('Case_Channel');
 
 			for(Case caseRecord : processable.values()) {
 				if(excludedManualPsrCreation.contains(caseRecord.Id) == false) {
@@ -195,7 +167,8 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 						WorkItemId = caseRecord.Id,
 						IsReadyForRouting = false,
 						RoutingType = 'SkillsBased', 
-						ServiceChannelId = caseServiceChannel.Id
+						ServiceChannelId = sc.Id
+						// SecondaryRoutingPriority = 1000 //TODO:.... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
 					));
 				}
 			}
@@ -235,10 +208,9 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 			if(caseRecord.get(field) != null) {
 				for(String fieldValue : caseFieldSkillMappings.get(field).keySet()) {
 					if(fieldValue.equalsIgnoreCase(String.valueOf(caseRecord.get(field))) == true) {
-						Skill sk = developerNameVsSkills.get(caseFieldSkillMappings.get(field).get(fieldValue));
-						system.debug(sk);
-						if(sk != null) {
-							skillRequirements.add(new SkillRequirement(SkillId = sk.Id, RelatedRecordId = psrRecordId));
+						Id skillId = Application.Cache.skillDeveloperNameVsIds.get(caseFieldSkillMappings.get(field).get(fieldValue));
+						if(skillId != null) {
+							skillRequirements.add(new SkillRequirement(SkillId = skillId, RelatedRecordId = psrRecordId));
 						}
 					}
 				}
