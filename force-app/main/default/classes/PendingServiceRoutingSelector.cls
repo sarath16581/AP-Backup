@@ -12,7 +12,7 @@
 public inherited sharing class PendingServiceRoutingSelector extends ApplicationSelector {
 
     public enum Options {
-		WITH_OWNER
+		WITH_WORKITEM
 	}
 
 	public static PendingServiceRoutingSelector newInstance() {
@@ -45,8 +45,8 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
     public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
-		if(selectorOptions.contains(Options.WITH_OWNER)) {
-			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
+		if(selectorOptions.contains(Options.WITH_WORKITEM)) {
+			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'WorkItem');
 		}
 
 		return builder;
