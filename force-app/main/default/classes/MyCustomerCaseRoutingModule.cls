@@ -42,17 +42,17 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 		}
 	}
 
-	Id serviceChannelId {
+	private ServiceChannel caseServiceChannel {
 		get{
-			if(serviceChannelId == null) {
-				serviceChannelId = [SELECT Id FROM ServiceChannel WHERE DeveloperName = 'Case_Channel'].Id;
+			if(caseServiceChannel == null) {
+				caseServiceChannel = [SELECT Id FROM ServiceChannel WHERE DeveloperName = 'Case_Channel' LIMIT 1];
 			}
-			return serviceChannelId;
+			return caseServiceChannel;
 		}
 		set;
 	}
 
-	Map<Id, QueueRoutingConfig> omniQueueIdsVsRoutingConfig {
+	private Map<Id, QueueRoutingConfig> omniQueueIdsVsRoutingConfig {
 		get{
 			if(omniQueueIdsVsRoutingConfig == null) {
 				omniQueueIdsVsRoutingConfig = new Map<Id, QueueRoutingConfig>();
@@ -79,41 +79,58 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 		set;
 	}
 
-	public static final Map<SObjectField, Map<String, Id>> caseFieldSkillMappings = new Map<SObjectField, Map<String, Id>>{
-		Case.CustomerQueueType__c => new Map<String, Id>{
-			'Consumer' => '0C56D00000002B2SAI'
+	private Map<String, Skill> developerNameVsSkills {
+		get {
+			if(developerNameVsSkills == null) {
+				developerNameVsSkills = new Map<String, Skill>();
+				Set<String> skillDeveloperNames = new Set<String>();
+				for(Map<String, String> fieldValueVsSkillDeveloperName: caseFieldSkillMappings.values()) {
+					skillDeveloperNames.addAll(fieldValueVsSkillDeveloperName.values());
+				}
+				for(Skill sk: [SELECT DeveloperName FROM Skill WHERE DeveloperName IN :skillDeveloperNames]) {
+					developerNameVsSkills.put(sk.DeveloperName, sk);
+				}
+			}
+			return developerNameVsSkills;
+		}
+		set;
+	}
+
+	private final Map<SObjectField, Map<String, String>> caseFieldSkillMappings = new Map<SObjectField, Map<String, String>>{
+		Case.CustomerQueueType__c => new Map<String, String>{
+			'Consumer' => 'Consumer'
 		}, 
-		Case.Status => new Map<String, Id>{
-			'ACL Compensation Assessment' => '0C56D00000002B7SAI'
+		Case.Status => new Map<String, String>{
+			'ACL Compensation Assessment' => 'Compensation_Assessment'
 		}, 
-		Case.ProductCategory__c => new Map<String, Id>{
-			'Money & Insurance' => '0C56D00000002BRSAY',
-			'Travel & ID' => '0C56D00000002BRSAY',
-			'Web & Apps' => '0C56D00000002BRSAY',
-			'Post Office & Business Hub Services' => '0C56D00000002BRSAY'
+		Case.ProductCategory__c => new Map<String, String>{
+			'Money & Insurance' => 'BOH_Standard',
+			'Travel & ID' => 'BOH_Standard',
+			'Web & Apps' => 'BOH_Standard',
+			'Post Office & Business Hub Services' => 'BOH_Standard'
 		}, 
-		Case.ProductSubCategory__c => new Map<String, Id>{
-			'Mail Redirection' => '0C56D00000002BCSAY',
-			'Mail Hold' => '0C56D00000002BCSAY',
-			'My Post ID card' => '0C56D00000002BHSAY',
-			'MyPost Concession Card' => '0C56D00000002BHSAY',
-			'MyPost Deliveries' => '0C56D00000002BHSAY',
-			'Express Post' => '0C56D00000002BRSAY',
-			'Express' => '0C56D00000002BRSAY',
-			'eParcel- Express' => '0C56D00000002BRSAY',
-			'Registered Post' => '0C56D00000002BRSAY',
-			'Express Platinum' => '0C56D00000002BRSAY',
-			'Premium Express Parcel' => '0C56D00000002BRSAY'
+		Case.ProductSubCategory__c => new Map<String, String>{
+			'Mail Redirection' => 'Special_Delivery',
+			'Mail Hold' => 'Special_Delivery',
+			'My Post ID card' => 'My_Post',
+			'MyPost Concession Card' => 'My_Post',
+			'MyPost Deliveries' => 'My_Post',
+			'Express Post' => 'BOH_Standard',
+			'Express' => 'BOH_Standard',
+			'eParcel- Express' => 'BOH_Standard',
+			'Registered Post' => 'BOH_Standard',
+			'Express Platinum' => 'BOH_Standard',
+			'Premium Express Parcel' => 'BOH_Standard'
 		}, 
-		Case.EnquirySubType__c => new Map<String, Id>{
-			'Delivery Complaint' => '0C56D00000002BRSAY',
-			'Item Transfer' => '0C56D00000002BRSAY',
-			'Redirection Failure' => '0C56D00000002BCSAY',
-			'Disputed delivery scan' => '0C56D00000002BRSAY',
-			'All Other' => '0C56D00000002BRSAY'
+		Case.EnquirySubType__c => new Map<String, String>{
+			'Delivery Complaint' => 'BOH_Standard',
+			'Item Transfer' => 'BOH_Standard',
+			'Redirection Failure' => 'Special_Delivery',
+			'Disputed delivery scan' => 'BOH_Standard',
+			'All Other' => 'BOH_Standard'
 		},
-		Case.CustomerQueueType__c => new Map<String, Id>{
-			'TRUE' => '0C56D00000002BMSAY'
+		Case.HasExtraCover__c => new Map<String, String>{
+			'TRUE' => 'Extra_Cover'
 		}
 	};
 
@@ -178,7 +195,7 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 						WorkItemId = caseRecord.Id,
 						IsReadyForRouting = false,
 						RoutingType = 'SkillsBased', 
-						ServiceChannelId = serviceChannelId
+						ServiceChannelId = caseServiceChannel.Id
 					));
 				}
 			}
@@ -188,7 +205,7 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 				ApplicationDatabase.getInstance().dmlDelete(deletablePsrRecords);
 			}
 
-			if(!casePsrRecords.isEmpty()) {
+			if(casePsrRecords.isEmpty() == false) {
 				// start the pending routing record process off
 				ApplicationDatabase.getInstance().dmlInsert(casePsrRecords.values());
 
@@ -202,7 +219,7 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 					finalPsrRecordUpdates.add(new PendingServiceRouting(Id = casePsrRecord.Id, IsReadyForRouting = true));
 				}
 
-				if(!creatableSkillRequirements.isEmpty()) {
+				if(creatableSkillRequirements.isEmpty() == false) {
 					ApplicationDatabase.getInstance().dmlInsert(creatableSkillRequirements);
 				}
 
@@ -217,8 +234,12 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 		for(SObjectField field : caseFieldSkillMappings.keySet()) {
 			if(caseRecord.get(field) != null) {
 				for(String fieldValue : caseFieldSkillMappings.get(field).keySet()) {
-					if(fieldValue.equalsIgnoreCase((String)caseRecord.get(field))) {
-						skillRequirements.add(new SkillRequirement(SkillId = caseFieldSkillMappings.get(field).get(fieldValue), RelatedRecordId = psrRecordId));
+					if(fieldValue.equalsIgnoreCase(String.valueOf(caseRecord.get(field))) == true) {
+						Skill sk = developerNameVsSkills.get(caseFieldSkillMappings.get(field).get(fieldValue));
+						system.debug(sk);
+						if(sk != null) {
+							skillRequirements.add(new SkillRequirement(SkillId = sk.Id, RelatedRecordId = psrRecordId));
+						}
 					}
 				}
 			}
