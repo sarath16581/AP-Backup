@@ -21,7 +21,7 @@
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_BSP_Bulk_Upload</name>
         <label>SSSW - Closed Case - Email for BSP Bulk Upload</label>
-        <locationX>2118</locationX>
+        <locationX>1920</locationX>
         <locationY>830</locationY>
         <actionName>Case.SSSW_Send_Customer_Closure_Email_for_BSP_Bulk_Upload</actionName>
         <actionType>emailAlert</actionType>
@@ -36,7 +36,7 @@
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_Exception_Checker</name>
         <label>SSSW - Closed Case - Email for Exception Checker</label>
-        <locationX>2382</locationX>
+        <locationX>2184</locationX>
         <locationY>830</locationY>
         <actionName>Case.SSSW_Send_Customer_Closure_Email_for_Exception_Checker</actionName>
         <actionType>emailAlert</actionType>
@@ -105,7 +105,7 @@
     <actionCalls>
         <name>SSSW_Email_when_Case_Permanently_Closed</name>
         <label>SSSW - Email when Case Permanently Closed</label>
-        <locationX>1854</locationX>
+        <locationX>1656</locationX>
         <locationY>830</locationY>
         <actionName>Case.Send_an_Email_to_the_Customer_if_they_are_sending_an_Email_to_a_Case_that_has_be</actionName>
         <actionType>emailAlert</actionType>
@@ -114,24 +114,6 @@
             <name>SObjectRowId</name>
             <value>
                 <elementReference>vCase.Id</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <name>SSSW_New_Case_Closed_Email_for_Exception_Checker</name>
-        <label>SSSW - New Case Closed - Email for Exception Checker</label>
-        <locationX>2426</locationX>
-        <locationY>398</locationY>
-        <actionName>Case.SSSW_Send_Customer_Closure_Email_for_Exception_Checker</actionName>
-        <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>MyCustomer_scenarios</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>SObjectRowId</name>
-            <value>
-                <elementReference>vCaseClosedExceptionChecker</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -229,7 +211,7 @@
     <decisions>
         <name>Is_new_or_existing</name>
         <label>Is new or existing</label>
-        <locationX>2118</locationX>
+        <locationX>1920</locationX>
         <locationY>158</locationY>
         <defaultConnector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -254,7 +236,7 @@
     <decisions>
         <name>MyCustomer_create_only_scenarios</name>
         <label>MyCustomer create only scenarios</label>
-        <locationX>1370</locationX>
+        <locationX>1238</locationX>
         <locationY>278</locationY>
         <defaultConnector>
             <targetReference>MyCustomer_scenarios</targetReference>
@@ -395,26 +377,11 @@
             </connector>
             <label>New Case Delete Account Web Portal</label>
         </rules>
-        <rules>
-            <name>New_Case_Closed_Exception_Checker</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>vCaseClosedExceptionChecker</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>SSSW_New_Case_Closed_Email_for_Exception_Checker</targetReference>
-            </connector>
-            <label>New Case Closed Exception Checker</label>
-        </rules>
     </decisions>
     <decisions>
         <name>MyCustomer_scenarios</name>
         <label>MyCustomer scenarios</label>
-        <locationX>2118</locationX>
+        <locationX>1920</locationX>
         <locationY>710</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -627,7 +594,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1992</locationX>
+        <locationX>1794</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_new_or_existing</targetReference>
@@ -637,7 +604,7 @@
     <subflows>
         <name>CaseMyCustomer_CardedCaseModule</name>
         <label>Carded Case module</label>
-        <locationX>1590</locationX>
+        <locationX>1392</locationX>
         <locationY>830</locationY>
         <flowName>CaseMyCustomer_CardedCaseModule</flowName>
         <inputAssignments>
