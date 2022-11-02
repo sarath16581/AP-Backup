@@ -46,7 +46,7 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if(selectorOptions.contains(Options.WITH_WORKITEM)) {
-			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'WorkItem');
+			builder.addRelatedFields(CasesSelector.newInstance().newQueryBuilder(), 'WorkItem');
 		}
 
 		return builder;
