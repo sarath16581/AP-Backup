@@ -643,8 +643,8 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					//add the updates from cases successfully rerouted into the cases with articles linked in preparation for DML
 					for(Case cs : casesRerouted.values()){
 						if(updateable.containsKey(cs.Id)){
-							cs.OwnerId = casesRerouted.get(cs.Id).OwnerId;
-							cs.LastRoutingRuleIsStrategic__c  = casesRerouted.get(cs.Id).LastRoutingRuleIsStrategic__c;
+							updateable.get(cs.Id).OwnerId = casesRerouted.get(cs.Id).OwnerId;
+							updateable.get(cs.Id).LastRoutingRuleIsStrategic__c  = casesRerouted.get(cs.Id).LastRoutingRuleIsStrategic__c;
 						} else {
 							updateable.put(cs.Id,casesRerouted.get(cs.Id));
 						}
