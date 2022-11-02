@@ -23,7 +23,7 @@ public with sharing class CompassWrapper_Test {
         cpw.customerTier = 'T05';
         cpw.ratingplanDwtconvfac = 'test';
         cpw.weightRounding = 'Y';
-        cpw.cubicConvfac = '250';
+        cpw.cubicConvfac = 250.00;
         cpw.cubingFlag = 'Y';
         cpw.ratingModel = 'PD';
         cpw.ratingGroup = 'PARCEL';
@@ -44,8 +44,8 @@ public with sharing class CompassWrapper_Test {
         serviceAttribute.priceFactor = 'KRSP00S006ME';
         serviceAttribute.weightBreak = '0.5';
         serviceAttribute.weightBreakDesc = 'Up to 500g';
-        serviceAttribute.basicRate = '9.14';
-        serviceAttribute.kgRate = '1.68';
+        serviceAttribute.basicRate = 9.14;
+        serviceAttribute.kgRate = 1.68;
         serviceAttribute.priceType= 'AUD';
         
         CompassWrapper.features featuresAttribute = new CompassWrapper.features();
@@ -53,7 +53,7 @@ public with sharing class CompassWrapper_Test {
         featuresAttribute.priceFactor = 'FE000';
         featuresAttribute.name = 'Transit Cover - Requested';
         featuresAttribute.totDeclaredCover = '0';
-        featuresAttribute.price = '0.85';
+        featuresAttribute.price = 0.85;
         featuresAttribute.minValue = '50';
         featuresAttribute.maxValue = '5000';
         featuresAttribute.pricetype = 'ART';
@@ -62,14 +62,14 @@ public with sharing class CompassWrapper_Test {
         returnsAttribute.pricePoint = 'TCOVER-1';
         returnsAttribute.priceFactor = 'FE000';
         returnsAttribute.name = 'Returns Flat Rate-Standard';        
-        returnsAttribute.price = '0.85';        
+        returnsAttribute.price = 0.85;        
         returnsAttribute.priceType = 'ART';
         
         CompassWrapper.surcharges surchargesAttribute = new CompassWrapper.surcharges();
         surchargesAttribute.pricePoint = 'UNM';
         surchargesAttribute.priceFactor = 'SU000';
         surchargesAttribute.name = 'Unmanifested Article';        
-        surchargesAttribute.price = '0.85';        
+        surchargesAttribute.price = 0.85;        
         surchargesAttribute.priceType = 'ART';
         
         

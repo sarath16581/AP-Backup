@@ -11,6 +11,7 @@
  * 10.04.2020		Naseer Abbasi		Added logic to determine case queues once ArticleTest__c is populated
  * 30.06.2021	Steve.judd6@auspost.com.au  Added debug statement, description changes for extra cover.
  * 20.04.2022   SaiSwetha Pingali - Removed logic for SnapIT cases as it is no longer required.
+ * 26.10.2022	Noel Lim - update logic in AsyncLinkArticlesToCasesQueueable() so that all cases are re-routed. This supports the change in SSSW_Routing.cls where cases that require Articles are moved into a holding Queue. 
  *
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
@@ -322,6 +323,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			// given we are now in an 'after' trigger cycle, these records will now have an Id attached to them
 			// we use this to populate the id on the map that contains the original variables at the time was case routing was triggered
 			List<Case> casesForReroutingAttempt = SSSW_Routing.getAttemptableReroutableCases();
+			System.debug('ensureQueryJobEnqueued casesForReroutingAttempt:'+casesForReroutingAttempt);
 
 			List<Map<String, Object>> caseOriginalValues = SSSW_Routing.getCaseOriginalValuesForReroutingAttempt();
 			Map<Id, Map<String, Object>> caseOriginalValuesForQueueable = new Map<Id, Map<String, Object>>();
@@ -459,14 +461,14 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	}
 
 	/**
-	 * Process the scenarios that require a link to an article id. This is only where an article already exists in the Article__c object. If an article isn't found, the case will be queued for async processing in the onAfter trigger handlers
+	 * Process the scenarios that require a link to an article id. This is only where an article already exists in the Article__c object. 
+	 * If an article isn't found, the case will be queued for async processing in the onAfter trigger handlers.
 	 */
 	public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
 		System.debug('populateCaseArticleIds:cases: ' + cases);
 		System.debug('populateCaseArticleIds:queriedArticles: ' + queriedArticles);
 		System.debug('populateCaseArticleIds:existingReferenceIdMappings: ' + existingReferenceIdMappings);
 
-		List<Case> updateable = new List<Case>();
 		for(Case c : cases) {
 			if(existingReferenceIdMappings.get(nullToString(c.ReferenceID__c).toUpperCase()) != null) {
 
@@ -484,8 +486,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					if(c.Related_Billing_Account__c == null && article.Articles__r[0].Billing_Account__c != null) {
 						c.Related_Billing_Account__c = article.Articles__r[0].Billing_Account__c;
 					}
-
-					updateable.add(c);
 				} else {
 					c.ArticleTest__c = article.Id;
 
@@ -494,20 +494,14 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					if(c.Related_Billing_Account__c == null && article.Billing_Account__c != null) {
 						c.Related_Billing_Account__c = article.Billing_Account__c;
 					}
-
-					updateable.add(c);
 				}
 			} else if(c.ArticleTest__c != null) {
 				// remove the reference to the passed in article since it is incorrect (doesn't line up with the ReferenceID passed in)
 				c.ArticleTest__c = null;
-
-				updateable.add(c);
-			} else {
-				updateable.add(c);
-			}
+			} 
 		}
 
-		return updateable;
+		return cases;
 	}
 	/**
 	 * Where an article id was provided but a reference id was not, loop through and set the reference id
@@ -640,26 +634,24 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 					// loop through all processable cases and apply the article field id value to the case where possible
 					// m_trackingReferenceIdMappingsCache was populated in selectArticles call
-					Map<Id, Case> updateable = new Map<Id, Case>(module.populateCaseArticleIds(cases.values(), articles, m_trackingReferenceIdMappingsCache));
-
-					system.debug('updateable before rerouting: '+updateable);
+					module.populateCaseArticleIds(cases.values(), articles, m_trackingReferenceIdMappingsCache);
+					system.debug('cases before rerouting: '+cases);
 					// attempt to reroute the cases with Article linked
 					// and original routing field values
-					updateable = rerouteCases(updateable);
-                    system.debug(updateable.values());
+					cases = rerouteCases(cases);
+                    system.debug(cases.values());
 
 					// apply and default values that are currently not already populated on the case
-					module.applyCaseArticleDefaults(updateable.values(), articles);
-					
-					System.debug('AsyncLinkArticlesToCases >> ' + updateable);
+					module.applyCaseArticleDefaults(cases.values(), articles);					
+					System.debug('AsyncLinkArticlesToCases >> ' + cases);
 
-					if(!updateable.isEmpty()) {
+					if(!cases.isEmpty()) {
 						// as an added saftey measure, ensure that validation rules are bypassed and this update is allowed to occur
-						for (Case c : updateable.values()) {
+						for (Case c : cases.values()) {
 							c.Bypass_Data_enforcement__c = true;
 						}
 						System.debug('May be Row lock issue???');
-						List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlUpdate(updateable.values(), false);
+						List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlUpdate(cases.values(), false);
 
 						for (Database.SaveResult sr : srList) {
 							if (sr.isSuccess()) {

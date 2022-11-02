@@ -3,7 +3,7 @@
     <fullName>InsuranceAmount__c</fullName>
     <description>SSSW</description>
     <externalId>false</externalId>
-    <label>Insurance Amount</label>
+    <label>Transit/Extra Cover Amount</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

@@ -40,7 +40,7 @@
         <editable>true</editable>
         <field>ServiceResourceSkill.SkillLevel</field>
         <readable>true</readable>
-    </fieldPermissions>   
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>SSSW WorkForce Management</label>
     <license>Salesforce</license>

@@ -24,6 +24,7 @@ Sept-2014   Created Bluewolf SSSW
  * 2020-07-20 - Swati.Mogadala@auspost.com.au       Add EmailNotAvailable checkbox for Contacts (REQ2065161)
  * 2021-05-10 - Madhuri.awasthi@auspost.com.au      Add a preferred name field in contact areas of Salesforce (REQ2476162)
  * 2021-09-08 - Nathan Franklin - Added a comment regarding the way search by phone number works to ensure CTI adapter is also updated if the logic in this page changes
+ * 2022-10-26 - Dattaraj Deshmukh - Added a flag 'isLiveAgentUser' and 'isLiveAgent' method to identify if logged user is a LiveAgent.
  */
 public with sharing class SearchContactComponentController {
 
@@ -126,6 +127,7 @@ public with sharing class SearchContactComponentController {
 	private Boolean hasAccountNum;
 	private Boolean hasAccountName;
 	private Boolean hasContactFieldSearch;
+	public  Boolean isLiveAgentUser{get; private set;}
   
 	// Get Customer Type Picklist values from Account
 	private static List<SelectOption> options = null;
@@ -149,6 +151,7 @@ public with sharing class SearchContactComponentController {
 	  ckbExcludePhoneFromSearch = false;
 	  setMinLOA();
 	  initPage(); // initialize page
+	  isLiveAgent(); // check if logged in user is a live agent.
   
 	  if (ApexPages.currentPage() != null) {
 		//If ANI & aId parameters are provided (by CTI) load the matching contacts.
@@ -802,6 +805,13 @@ public with sharing class SearchContactComponentController {
 		dupeList.add(new ContactListDisplay(result, con));
 	  }
 	  return dupeList;
+	}
+
+	//verify if the current logged in user is live agent user
+	@TestVisible
+	private void isLiveAgent(){
+		isLiveAgentUser = [SELECT Id, UserPermissionsLiveAgentUser FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1].UserPermissionsLiveAgentUser;
+		
 	}
   
 	@RemoteAction

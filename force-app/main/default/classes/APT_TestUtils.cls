@@ -725,21 +725,4 @@ public with sharing class APT_TestUtils {
             asicreport.ASICPostcode = asicPostcode;
         return asicreport;
     }
-
-    /**
-    create STE product
-    **/
-    @TestVisible private static Product2 createSTEProducts(String productName, String productCode, String configurationType) {
-        Product2 product = new Product2();
-        product.Name = productName;
-        product.ProductCode = productCode;
-        product.Family = 'Chief Operating Office';
-        product.APT_Apttus_Product_Classification__c = 'Parcel Services';
-        product.IsActive = true;
-        product.APT_Product_Lines__c = 'APT_Product_type__c';
-        product.APT_Product_type__c = 'APT_Product_type__c';
-        product.Apttus_Config2__ConfigurationType__c = configurationType;
-
-        return product;
-    }
 }
