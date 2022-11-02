@@ -16,7 +16,7 @@ Public class CompassWrapper {
             Public string customerTier{ get; set; }
             Public string ratingplanDwtconvfac{ get; set; }
             Public string weightRounding{ get; set; }
-            Public string cubicConvfac{ get; set; }
+            Public decimal cubicConvfac{ get; set; }
             Public string cubingFlag{ get; set; }
             Public string ratingModel{ get; set; }
             Public string ratingGroup{ get; set; }
@@ -54,8 +54,8 @@ Public class CompassWrapper {
             Public string priceFactor{ get; set; }
             Public string weightBreak{ get; set; }
             Public string weightBreakDesc{ get; set; }
-            Public string basicRate{ get; set; }
-            Public string kgRate{ get; set; }
+            Public decimal basicRate{ get; set; }
+            Public decimal kgRate{ get; set; }
             Public string priceType{ get; set; }
             
             public serviceSpeeds(){
@@ -63,8 +63,8 @@ Public class CompassWrapper {
                 priceFactor='';  
                 weightBreak='';  
                 weightBreakDesc='';
-                basicRate=''; 
-                kgRate='';
+                basicRate = 0.00; 
+                kgRate = 0.00;
                 priceType='';
             }
         }
@@ -74,7 +74,7 @@ Public class CompassWrapper {
             Public string priceFactor{ get; set; }
             Public string name{ get; set; }
             Public string totDeclaredCover{ get; set; }
-            Public string price{ get; set; }
+            Public decimal price{ get; set; }
             Public string minValue{ get; set; }
             Public string maxValue{ get; set; }
             Public string priceType{ get; set; }
@@ -84,7 +84,7 @@ Public class CompassWrapper {
                 priceFactor='';  
                 name='';
                 totDeclaredCover='';
-                price='';
+                price= 0.00;
                 minValue='';
                 maxValue='';
                 priceType='' ;     
@@ -95,14 +95,14 @@ Public class CompassWrapper {
             Public string pricePoint{ get; set; }
             Public string priceFactor{ get; set; }
             Public string name{ get; set; }        
-            Public string price{ get; set; }        
+            Public decimal price{ get; set; }        
             Public string priceType{ get; set; }
                 
             public returns(){
                 pricePoint=''; 
                 priceFactor='';  
                 name='';
-                price='';
+                price= 0.00;
                 priceType='' ;     
             }
         }
@@ -111,14 +111,14 @@ Public class CompassWrapper {
             Public string pricePoint{ get; set; }
             Public string priceFactor{ get; set; }
             Public string name{ get; set; }        
-            Public string price{ get; set; }        
+            Public decimal price{ get; set; }        
             Public string priceType{ get; set; }
                 
             public surcharges(){
                 pricePoint=''; 
                 priceFactor='';  
-                name='';
-                price='';
+                name ='';
+                price = 0.00;
                 priceType='' ;          
             }
         }
@@ -126,9 +126,9 @@ Public class CompassWrapper {
         Public class frsWrapper{
             Public string pricePoint{ get; set; }
             Public string priceFactor{ get; set; }            
-            Public string price{ get; set; }          
+            Public decimal price{ get; set; }          
                 
-            public frsWrapper(string pp, string pf, string fullprice){
+            public frsWrapper(string pp, string pf, decimal fullprice){
                 pricePoint = pp; 
                 priceFactor = pf;             
                 price = fullprice;                    
