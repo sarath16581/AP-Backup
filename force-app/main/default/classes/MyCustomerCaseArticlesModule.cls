@@ -12,7 +12,7 @@
  * 30.06.2021	Steve.judd6@auspost.com.au  Added debug statement, description changes for extra cover.
  * 20.04.2022   SaiSwetha Pingali - Removed logic for SnapIT cases as it is no longer required.
  * 26.10.2022	Noel Lim:
- * 					a) update logic in AsyncLinkArticlesToCasesQueueable() so that all cases are re-routed. This supports the change in SSSW_Routing.cls where cases that reach a routing rule that requires Articles are moved into a holding Queue. 
+ * 					a) update logic in AsyncLinkArticlesToCasesQueueable.execute() so that all cases are re-routed, and the cases sent for DML are cases with i) articles linked and ii) rerouted successfully. The logic change to re-rute supports the change in SSSW_Routing.cls where cases that reach a "Routing rule that requires Articles" are moved into a holding Queue
  *                  b) move logic in afterInsert() and afterUpdate() into an invocation method, called by a Flow. This moves enqueueing the AsyncLinkArticlesToCasesQueueable job to after Workflow updates, e.g. ones that set AllocateToQueue__c = true
  *
  */
@@ -128,37 +128,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		}
 	}
 
-	/** 
-	 * After insert trigger to process records that have a Reference ID without an Article field populated
-	 * This will occur if the article linked to the ReferenceID does not already exist in Salesforce
-	 */
-	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		if(TriggerHelper.isTriggerDisabled(String.valueOf('MyCustomerCaseArticlesModule_onAfterInsert'))){ 
-			try {
-				System.debug('MyCustomerCaseArticlesModule:onAfterInsert');
-
-				// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
-				Set<String> referencesToEnqueue = new Set<String>();
-				Set<Id> casesToEnqueue = new Set<Id>();
-
-				for(Case c : (List<Case>)records) {
-					if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
-						// NOTE: If article field is not null, we can rely on the value being accurate from the previous trigger coe that was run in the before triggers
-						casesToEnqueue.add(c.Id);
-						referencesToEnqueue.add(c.ReferenceID__c);
-					}
-				}
-
-				if(!casesToEnqueue.isEmpty()) {
-					ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
-				}
-			} catch(Exception ex) {
-				// Error Logged to Exception object for analysis
-				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterInsert', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-			}
-		}
-	}
-
 	/**
 	 * Called when a Case is being updated.
 	 * Records that match the following criteria will be passed in:
@@ -270,39 +239,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	}
 
 	/**
-	 * After Update trigger to process records that have a Reference ID without an Article field populated
-	 * This would occur in the following scenarios:
-	 * 1. Reference ID field changed and the article did not already exist in Salesforce
-	 * 2. Article record was deleted in salesforce and case was later updated
-	 * 3. Article id field on Case was removed or already empty
-	 */
-	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		if(TriggerHelper.isTriggerDisabled(String.valueOf('MyCustomerCaseArticlesModule_onAfterUpdate'))){ 
-			try {
-				System.debug('MyCustomerCaseArticlesModule:onAfterUpdate');
-
-				// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
-				Set<String> referencesToEnqueue = new Set<String>();
-				Set<Id> casesToEnqueue = new Set<Id>();
-
-				for(Case c : (List<Case>)records) {
-					if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
-						casesToEnqueue.add(c.Id);
-						referencesToEnqueue.add(c.ReferenceID__c);
-					}
-				}
-
-				if(!casesToEnqueue.isEmpty()) {
-					ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
-				}
-			} catch(Exception ex) {
-				// Error Logged to Exception object for analysis
-				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-			}
-		}
-	}
-
-	/**
 	 * Process records that have a Reference ID without an Article field populated
 	 * This would occur in the following scenarios:
 	 * 1. Reference ID field changed and the article did not already exist in Salesforce
@@ -337,15 +273,13 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			}
 
 			if(!casesToEnqueue.isEmpty()) {
-				ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
+				MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
+				module.ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
 			}
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'queueAsyncArticleToCases', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
-
-
-		
 	}
 
 
@@ -357,7 +291,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * NOTE: referenceIds is also passed in so a soql does not need to be run prior to the integration callout to retrieve article details
 	 *          It's the callers responsibility to pass in a synchronised list of caseids/referenceids
 	 */
-	private static void ensureQueryJobEnqueued(Set<Id> caseIds, Set<String> referenceIds) {
+	private void ensureQueryJobEnqueued(Set<Id> caseIds, Set<String> referenceIds) {
 		// if the queueable has already fired or if we are already in an async context then we prevent the execution of a subsequent queueable from being fired.
 		if(preventRecursiveReschedule || System.isQueueable() || System.isFuture() || System.isBatch() || System.isScheduled()) {
 			return;
@@ -507,7 +441,8 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					c.ArticleRecordType__c = a.RecordType.Name;
 				}
 
-				c.HasExtraCover__c = a.HasExtraCover__c;
+				//Article HasExtraCover is a boolean formula field
+				c.HasExtraCover__c = a.HasExtraCover__c; 
 			}
 		}
 	}
@@ -521,6 +456,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		System.debug('populateCaseArticleIds:queriedArticles: ' + queriedArticles);
 		System.debug('populateCaseArticleIds:existingReferenceIdMappings: ' + existingReferenceIdMappings);
 
+		List<Case> updateable = new List<Case>();
 		for(Case c : cases) {
 			if(existingReferenceIdMappings.get(nullToString(c.ReferenceID__c).toUpperCase()) != null) {
 
@@ -538,6 +474,8 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					if(c.Related_Billing_Account__c == null && article.Articles__r[0].Billing_Account__c != null) {
 						c.Related_Billing_Account__c = article.Articles__r[0].Billing_Account__c;
 					}
+
+					updateable.add(c);
 				} else {
 					c.ArticleTest__c = article.Id;
 
@@ -546,14 +484,18 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					if(c.Related_Billing_Account__c == null && article.Billing_Account__c != null) {
 						c.Related_Billing_Account__c = article.Billing_Account__c;
 					}
+
+					updateable.add(c);
 				}
 			} else if(c.ArticleTest__c != null) {
 				// remove the reference to the passed in article since it is incorrect (doesn't line up with the ReferenceID passed in)
 				c.ArticleTest__c = null;
+
+				updateable.add(c);
 			} 
 		}
 
-		return cases;
+		return updateable;
 	}
 	/**
 	 * Where an article id was provided but a reference id was not, loop through and set the reference id
@@ -686,24 +628,30 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 					// loop through all processable cases and apply the article field id value to the case where possible
 					// m_trackingReferenceIdMappingsCache was populated in selectArticles call
-					module.populateCaseArticleIds(cases.values(), articles, m_trackingReferenceIdMappingsCache);
-					system.debug('cases before rerouting: '+cases);
-					// attempt to reroute the cases with Article linked
-					// and original routing field values
-					cases = rerouteCases(cases);
-                    system.debug(cases.values());
+					Map<Id, Case> updateable = new Map<Id, Case>(module.populateCaseArticleIds(cases.values(), articles, m_trackingReferenceIdMappingsCache));
+					
+					system.debug('updateable before rerouting: '+updateable);
+
+					// attempt to reroute all cases passed to this queueable. This supports the design where cases requiring an Article not in the SF DB are placed in a holding Queue in SSSW_Routing.assignCasesAndDescription(), and re-routed here to the correct queue.
+					// original routing field values will be used			
+					Map<Id, Case> casesRerouted = rerouteCases(cases);
+                    system.debug(casesRerouted.values());					
 
 					// apply and default values that are currently not already populated on the case
-					module.applyCaseArticleDefaults(cases.values(), articles);					
-					System.debug('AsyncLinkArticlesToCases >> ' + cases);
+					module.applyCaseArticleDefaults(updateable.values(), articles);
 
-					if(!cases.isEmpty()) {
+					//add the cases successfully rerouted into the cases with articles linked in preparation for DM
+					updateable.putAll(casesRerouted);
+					
+					System.debug('AsyncLinkArticlesToCases >> ' + updateable);
+
+					if(!updateable.isEmpty()) {
 						// as an added saftey measure, ensure that validation rules are bypassed and this update is allowed to occur
-						for (Case c : cases.values()) {
+						for (Case c : updateable.values()) {
 							c.Bypass_Data_enforcement__c = true;
 						}
 						System.debug('May be Row lock issue???');
-						List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlUpdate(cases.values(), false);
+						List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlUpdate(updateable.values(), false);
 
 						for (Database.SaveResult sr : srList) {
 							if (sr.isSuccess()) {
@@ -731,6 +679,8 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		 */
 		private Map<Id, Case> rerouteCases(Map<Id, Case> casesWithArticlePopulated) {
 			// NOTE The try/catch block as a fail safe, catch this error here will ensure the routing errors do not cause the whole transaction to fail
+			Map<Id, Case> casesRerouted = new Map<Id, Case>();
+
 			try {
 				if(!casesForReroutingAttempt.isEmpty()) {
 					// we need to first convert the map of case values into a list of case object
@@ -773,6 +723,8 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 							// setting flag on case since selected routing rule is a strategic one
                             // its required to avoid triggering the specific workflow rules that might reset the case owner
 							casesWithArticlePopulated.get(reroutedCase.Id).LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c;
+
+							casesRerouted.put(reroutedCase.Id, casesWithArticlePopulated.get(reroutedCase.Id));
 						}
 					}
 				}
@@ -781,7 +733,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, AsyncLinkArticlesToCasesQueueable.class.getName(), 'rerouteCases', '', LoggingLevel.ERROR);
 			}
 
-			return casesWithArticlePopulated;
+			return casesRerouted;
 		}
 	}
 
