@@ -56,7 +56,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 	// Setup which triggers this module should respond to
 	public MyCustomerCaseArticlesModule() {
-		getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate().enableAfterUpdate();
+		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
 	}
 
 	//	public override Set<SObjectField> getTriggerMonitoredFields() {
@@ -781,15 +781,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				// Error Logged to Exception object for analysis
 				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, AsyncSubscribeArticlesQueueable.class.getName(), 'execute', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 			}
-		}
-	}
-
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module)MyCustomerCaseArticlesModule.newInstance();
 		}
 	}
 }
