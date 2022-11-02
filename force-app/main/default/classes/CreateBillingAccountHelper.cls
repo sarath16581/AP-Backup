@@ -27,7 +27,7 @@ public with sharing class CreateBillingAccountHelper {
 	private static final String FIXED_TERM_CONTRACT_LABEL = 'Fixed Term';
 	private static final String NEW_STANDARD_RATING_PLAN_ACTION_LABEL = 'newStandardRatingPlan';
 	private static final String NEW_STANDARD_RATING_PLAN_ACTION_ID = '001';
-	private static final String TRANSIT_COVER_TYPE_ADHOC = 'Ad hoc';
+	private static final String TRANSIT_COVER_TYPE_ADHOC = 'Adhoc';
 	private static final String PRICE_POINT_ADHOC = 'TCOVER-1';
 	private static final String PRICE_POINT_ALWAYS_ON = 'TCOVER-NR';
 	private static final String RATING_PLAN_OBJ_TYPE_CHARGE_ACC = 'ChargeAccount';
@@ -464,7 +464,6 @@ public with sharing class CreateBillingAccountHelper {
 		BillingAccountWrapper.CompassContractActivation activateRatePlan = new BillingAccountWrapper.CompassContractActivation();
 		try {
 
-			activateRatePlan.quoteId = dsrRecord.Compass_Quote_Reference__c != null ? dsrRecord.Compass_Quote_Reference__c : ''; // Quote Id needs to be sent
 			activateRatePlan.customer = new List<BillingAccountWrapper.ratingPlanCustomer>();
 			// Query Agreement lodgement point junction object based on contract Id, for populating the customer node in the payload
 			List<APT_Agreement_Lodgement_Point__c> agreementLPs = APT_AgreementLodgementPointsSelector.newInstance().selectByApttusContractId(
@@ -539,15 +538,19 @@ public with sharing class CreateBillingAccountHelper {
 			// Query for 'Option' type Agreement Line Item based on contract Id And order by apttus item sequence field
 			agrLiList = APT_AgreementLineItemsSelector.newInstance().selectByContractIdsAndLineType(
 				new Set<id>{(Id)dsrRecord.APT_Contract__c},
-				new Set<String>{'Option'},
+				new Set<String>{'Product/Service','Option'},
 				new Set<Object>{
 				APT_AgreementLineItemsSelector.Options.WITH_CONTRACT, 
 				APT_AgreementLineItemsSelector.Options.WITH_PROPOSAL, 
 				APT_AgreementLineItemsSelector.Options.WITH_OPTION,
 				APT_AgreementLineItemsSelector.Options.WITH_AGREEMENT_ATTRIBUTE_VALUE,
+				APT_AgreementLineItemsSelector.Options.WITH_APPLIED_PSR,
 				APT_AgreementLineItemsSelector.Options.ORDER_BY_ITEM_SEQUENCE_ASC
 			});
 			if(agrLiList.size() > 0){ 
+				// bundle line item with 'Product/Service' which has Applied PSR populated, maps to quoteId on payload
+				activateRatePlan.quoteId = agrLiList[0].Apttus_CMConfig__AttributeValueId__r.Applied_PSR__r.Compass_Quote_Reference__c != null ? agrLiList[0].Apttus_CMConfig__AttributeValueId__r.Applied_PSR__r.Compass_Quote_Reference__c : ''; // Compass Quote Id needs to be sent
+
 				List<BillingAccountWrapper.eventData> eventDataList = new List<BillingAccountWrapper.eventData>();
 				
 				BillingAccountWrapper.data ratingPlanData = new BillingAccountWrapper.data();
@@ -565,15 +568,15 @@ public with sharing class CreateBillingAccountHelper {
 				ratingPlanData.newValidTo = ''; // blank
 
 				// Map APPC product fields' details to request payload
-				ratingPlanData.ratingModel = agrLiList[0].Apttus_CMConfig__OptionId__r.SAP_Rating_Model__c;
-				ratingPlanData.ratingGroup = agrLiList[0].Apttus_CMConfig__OptionId__r.SAP_Rating_Group__c;
+				ratingPlanData.ratingModel = agrLiList[1].Apttus_CMConfig__OptionId__r.SAP_Rating_Model__c;
+				ratingPlanData.ratingGroup = agrLiList[1].Apttus_CMConfig__OptionId__r.SAP_Rating_Group__c;
 				ratingPlanData.contractRef = dsrRecord.APT_Contract__r.Apttus__FF_Agreement_Number__c;
-				ratingPlanData.weightRounding = agrLiList[0].Apttus_CMConfig__AttributeValueId__r.SAP_Weight_Rounding__c != null ? agrLiList[0].Apttus_CMConfig__AttributeValueId__r.SAP_Weight_Rounding__c : '';
+				ratingPlanData.weightRounding = agrLiList[1].Apttus_CMConfig__AttributeValueId__r.SAP_Weight_Rounding__c != null ? agrLiList[1].Apttus_CMConfig__AttributeValueId__r.SAP_Weight_Rounding__c : '';
 				ratingPlanData.status = 'R'; 
 				ratingPlanData.description = dsrRecord.Opportunity__r.Opportunity_Number__c;
-				ratingPlanData.cubingFlag = String.valueOf(agrLiList[0].Apttus_CMConfig__AttributeValueId__r.APT_Cubic_Status__c);
-				ratingPlanData.cubicConvFac = agrLiList[0].Apttus_CMConfig__AttributeValueId__r.SAP_Cubic_Conversion_Factor__c != null ? String.valueOf(Integer.valueOf((agrLiList[0].Apttus_CMConfig__AttributeValueId__r.SAP_Cubic_Conversion_Factor__c))) : '';
-				ratingPlanData.cubicDWTConvFac = agrLiList[0].Apttus_CMConfig__AttributeValueId__r.APT_Cubic_Factor__c != null ? String.valueOf(agrLiList[0].Apttus_CMConfig__AttributeValueId__r.APT_Cubic_Factor__c) : '';
+				ratingPlanData.cubingFlag = String.valueOf(agrLiList[1].Apttus_CMConfig__AttributeValueId__r.APT_Cubic_Status__c);
+				ratingPlanData.cubicConvFac = agrLiList[1].Apttus_CMConfig__AttributeValueId__r.SAP_Cubic_Conversion_Factor__c != null ? String.valueOf(Integer.valueOf((agrLiList[1].Apttus_CMConfig__AttributeValueId__r.SAP_Cubic_Conversion_Factor__c))) : '';
+				ratingPlanData.cubicDWTConvFac = agrLiList[1].Apttus_CMConfig__AttributeValueId__r.APT_Cubic_Factor__c != null ? String.valueOf(agrLiList[1].Apttus_CMConfig__AttributeValueId__r.APT_Cubic_Factor__c) : '';
 
 				eventData.action = NEW_STANDARD_RATING_PLAN_ACTION_LABEL;
 				eventData.actionId = NEW_STANDARD_RATING_PLAN_ACTION_ID;

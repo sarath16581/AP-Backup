@@ -19,9 +19,21 @@
                 <label>Abandoned</label>
             </value>
             <value>
+                <fullName>Abandoned - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Abandoned - OLD</label>
+            </value>
+            <value>
                 <fullName>CANCELLED</fullName>
                 <default>false</default>
                 <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Cancelled - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cancelled - OLD</label>
             </value>
             <value>
                 <fullName>DELIVERED</fullName>
@@ -29,9 +41,21 @@
                 <label>Delivered</label>
             </value>
             <value>
+                <fullName>Delivered - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Delivered - OLD</label>
+            </value>
+            <value>
                 <fullName>HELD</fullName>
                 <default>false</default>
                 <label>Held</label>
+            </value>
+            <value>
+                <fullName>Held - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Held - OLD</label>
             </value>
             <value>
                 <fullName>IN STORE</fullName>
@@ -39,9 +63,21 @@
                 <label>In Store</label>
             </value>
             <value>
+                <fullName>In Store - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>In Store - OLD</label>
+            </value>
+            <value>
                 <fullName>L/ADDRESS</fullName>
                 <default>false</default>
                 <label>L/Address</label>
+            </value>
+            <value>
+                <fullName>L/Address - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>L/Address - OLD</label>
             </value>
             <value>
                 <fullName>PROHIBITED</fullName>
@@ -49,9 +85,21 @@
                 <label>Prohibited</label>
             </value>
             <value>
+                <fullName>Prohibited - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Prohibited - OLD</label>
+            </value>
+            <value>
                 <fullName>RE/ADDRESS</fullName>
                 <default>false</default>
                 <label>Re/Address</label>
+            </value>
+            <value>
+                <fullName>Re/Address - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Re/Address - OLD</label>
             </value>
             <value>
                 <fullName>REDIRECTED</fullName>
@@ -59,9 +107,21 @@
                 <label>Redirected</label>
             </value>
             <value>
+                <fullName>Redirected - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Redirected - OLD</label>
+            </value>
+            <value>
                 <fullName>REFUSED</fullName>
                 <default>false</default>
                 <label>Refused</label>
+            </value>
+            <value>
+                <fullName>Refused - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Refused - OLD</label>
             </value>
             <value>
                 <fullName>RESTRICTED</fullName>
@@ -69,9 +129,21 @@
                 <label>Restricted</label>
             </value>
             <value>
+                <fullName>Restricted - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Restricted - OLD</label>
+            </value>
+            <value>
                 <fullName>RTS-AIR</fullName>
                 <default>false</default>
                 <label>RTS-Air</label>
+            </value>
+            <value>
+                <fullName>RTS-Air - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>RTS-Air - OLD</label>
             </value>
             <value>
                 <fullName>SEIZED</fullName>
@@ -79,14 +151,32 @@
                 <label>Seized</label>
             </value>
             <value>
+                <fullName>Seized - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Seized - OLD</label>
+            </value>
+            <value>
                 <fullName>UNCLAIMED</fullName>
                 <default>false</default>
                 <label>Unclaimed</label>
             </value>
             <value>
+                <fullName>Unclaimed - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Unclaimed - OLD</label>
+            </value>
+            <value>
                 <fullName>UNKNOWN</fullName>
                 <default>false</default>
                 <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>Unknown - OLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Unknown - OLD</label>
             </value>
         </valueSetDefinition>
     </valueSet>

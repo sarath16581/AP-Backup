@@ -9,6 +9,7 @@
 * NOTE: This test class is used to test the PUD_AdhocJobsPrint VF Page upon clicking "Print Adhoc and Perm with variations" from Routes Detail Page. 
 * 2019-11-19 - Dheeraj Mandavilli - Created
  * 2022-07-11 - Kamil Szyc - rebuild to test new version of the controller with selectors
+ * * 2022-09-15 - Dattaraj Deshmukh - Removed reference to VF page 'PUD_BookingPrint'.
 */
 @IsTest
 private with sharing class PUD_AdhocJobsPrintfromRouteCtrlX_Test {
@@ -42,9 +43,6 @@ private with sharing class PUD_AdhocJobsPrintfromRouteCtrlX_Test {
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
-
-		PageReference pageRef = Page.PUD_BookingPrint;
-		Test.setCurrentPage(pageRef);
 
 		PUD_AdhocJobsPrintfromRouteControllerX testDTPrint = new PUD_AdhocJobsPrintfromRouteControllerX(new ApexPages.StandardController(routeList[0]));
 

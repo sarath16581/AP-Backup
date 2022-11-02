@@ -47,7 +47,7 @@ public with sharing class APT_CompassPricingController {
      * @return List<Deal_Support_Request__c>
      */
     @AuraEnabled(cacheable=true)
-    public static List<SObject> getPSRList(String oppID){
+    public static List<SObject> getPSRList(String oppID, String selectedLineItemId){
         
         List<Deal_Support_Request__c> completedPSRList = new List<Deal_Support_Request__c>();
         List<Deal_Support_Request__c> psrList = new List<Deal_Support_Request__c>();
@@ -57,19 +57,21 @@ public with sharing class APT_CompassPricingController {
             Id psrAPPCRecTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0].Id;
             /**
              * Query PSR based on following criteria:
-             * -Quote’s Opportunity should be equal to the Deal Support Request’s Opportunity
+             * -Quote's Opportunity should be equal to the Deal Support Request's Opportunity
              * -PSR stage and status is Completed and Completed respectively.
-             * -Record type of DSR should be “Pricing Support Request - Australia Post Parcel Contract” and PSR.Product = ‘Australia Post Parcel Contract’
+             * -Record type of DSR should be "Pricing Support Request - Australia Post Parcel Contract" and PSR.Product = "Australia Post Parcel Contract"
              */
             Map<String, Object> searchParams = new Map<String, Object>();
             searchParams.put('opportunityIds', new Set<Id>{oppID});
             searchParams.put('recTypeIds', new Set<Id>{psrAPPCRecTypeId});
             searchParams.put('productNames', new Set<String>{APT_Constants.PSR_APPC_PRODUCT_NAME});
-            //psrList = DealSupportRequestsSelector.newInstance().search(searchParams, new Set<Object>(), true);
             psrList = DealSupportRequestsSelector.newInstance().search(searchParams, new Set<Object>{DealSupportRequestsSelector.Options.WITH_ORGANISATION}, true);
 
-            // validate if there is no PSR raised and display error message
-            if(psrList.size() == 0){
+            // fetch product attribute value and its neccessary fields' values for validation purposes
+            Apttus_Config2__ProductAttributeValue__c pavRec = APT_ProductAttributeValuesSelector.newInstance(1).selectByLineItemId(new Set<Id>{selectedLineItemId})[0];
+            Set<String> allowedTierWithoutPSR = new Set<String>{'T04','T05','T06','T07','T08'};
+            // validate if there is no PSR raised and customer tier is not between Tier 4 to Tier 8 
+            if(!allowedTierWithoutPSR.contains(pavRec.APT_Customer_Tier__c) && (psrList == null || psrList.size() == 0)){
                 exceptionHandler = new AuraHandledException(System.Label.APT_NoAPPCPSR);
                 exceptionHandler.setMessage(System.Label.APT_NoAPPCPSR);
                 throw exceptionHandler;
@@ -116,7 +118,7 @@ public with sharing class APT_CompassPricingController {
         AuraHandledException exceptionHandler;
         Deal_Support_Request__c selectedPSR = (Deal_Support_Request__c) objDSR;         
         
-        //try{
+        try{
             // fetch product attribute value and its neccessary fields' values for validation purposes
             pavRec = APT_ProductAttributeValuesSelector.newInstance(1).selectByLineItemId(new Set<Id>{selectedLineItemId})[0];
             
@@ -133,7 +135,7 @@ public with sharing class APT_CompassPricingController {
             Set<String> cartLPSet = new Set<String>{pavRec.APT_Selected_Lodgement_Zone__c, pavRec.APT_Additional_Lodgement_Zone_1__c, pavRec.APT_Additional_Lodgement_Zone_2__c};
             cartLPSet.remove(null); // remove null value
            
-            // validate if selected PSR record’s Lodgement Zone does not match with cart’s Selected Lodgement Zone, Additional Lodgement Zone 1 and Additional Lodgement Zone 2
+            // validate if selected PSR record's Lodgement Zone does not match with cart's Selected Lodgement Zone, Additional Lodgement Zone 1 and Additional Lodgement Zone 2
             if(pavRec.APT_Selected_Lodgement_Zone__c != null && selectedPSR.Approved_lodgement_zone__c != null 
                 && (!psrApprovedLPSet.containsAll(cartLPSet) || !cartLPSet.containsAll(psrApprovedLPSet))){
                 exceptionHandler = new AuraHandledException(System.Label.APT_MismatchedLodgementZone);
@@ -151,10 +153,10 @@ public with sharing class APT_CompassPricingController {
             }              
 
             return System.Label.APT_LinkPSRSuccess;
-        //}
-       /* catch(Exception e){
+        }
+        catch(Exception e){
           throw new AuraHandledException(e.getMessage());
-        }  */      
+        }  
     }    
 
     @AuraEnabled
@@ -176,7 +178,7 @@ public with sharing class APT_CompassPricingController {
         Deal_Support_Request__c selectedPSR = (Deal_Support_Request__c) objDSR; 
         
         if(selectedPSR.Approved_Event__c == APT_Constants.PSR_APPC_CUSTOM_PRICING) {
-            updateRecordForCustomPricing(conID,selectedPSR);
+            updateRecordForCustomPricing(conID,selectedPSR);            
         }
         return System.Label.APT_LinkPSRSuccess;
     }
@@ -185,7 +187,6 @@ public with sharing class APT_CompassPricingController {
     //Making a callout to compass API and handling the response using the wrapper class and collecting the Key 
     // to search the key in LineItem and Usage price tier
     public static void updateRecordForCustomPricing(ID quoteConfigurationId,Deal_Support_Request__c selectedPSR) {
-        
         
         AuraHandledException exceptionHandler;
         List<CompassWrapper.serviceSpeeds> rateCardService = new List<CompassWrapper.serviceSpeeds>();
@@ -204,12 +205,11 @@ public with sharing class APT_CompassPricingController {
         
         try{
             
-            string pd ='PD';           
-            responseCustomPricing = APT_HttpCallouts.makeCompassAPIRequest(selectedPSR.Compass_Quote_Reference__c,selectedPSR.Organisation__r.LEGACY_ID__c ,PD);
             
-            //This is for Mock Data compass response
-            //Nasir_Json__c jsonnasir=[select id,json__c from Nasir_Json__c where id='aKZ0p0000000001'];
-            //compassPriceResponse  =(CompassWrapper.CompassPriceWrapper)JSON.deserialize(jsonnasir.json__c , CompassWrapper.CompassPriceWrapper.class);
+            HttpRequestWrapper reqWrap= new HttpRequestWrapper(selectedPSR.Compass_Quote_Reference__c,selectedPSR.Organisation__r.LEGACY_ID__c,APT_Constants.RATING_MODEL_PD);           
+                    
+            responseCustomPricing = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);
+            
             if(responseCustomPricing.getStatusCode() == 200){         
                 compassPriceResponse  = (CompassWrapper.CompassPriceWrapper)JSON.deserialize(responseCustomPricing.getBody(), CompassWrapper.CompassPriceWrapper.class);
                 system.debug('compassPriceResponse:'+ compassPriceResponse);
@@ -291,7 +291,7 @@ public with sharing class APT_CompassPricingController {
                 if(responseErrorCode.get('code') == 'DATA_NOT_FOUND'){
                     exceptionHandler = new AuraHandledException(System.Label.INVALID_QUOTE);
                     exceptionHandler.setMessage(System.Label.DATA_NOT_FOUND);
-                    throw exceptionHandler;                    
+                    throw exceptionHandler;                                     
                 }
                 else if(responseErrorCode.get('code') == 'INVALID_QUOTE'){
                     exceptionHandler = new AuraHandledException(System.Label.INVALID_CUSTOMER_ID);
@@ -301,18 +301,18 @@ public with sharing class APT_CompassPricingController {
                 else if(responseErrorCode.get('code') == 'EXPIRED_QUOTE'){
                     exceptionHandler = new AuraHandledException(System.Label.INVALID_CUSTOMER_ID);
                     exceptionHandler.setMessage(System.Label.EXPIRED_QUOTE);
-                    throw exceptionHandler;
+                    throw exceptionHandler;                    
                 }
                 else if(responseErrorCode.get('code') == 'INVALID_CUSTOMER_ID'){
                     exceptionHandler = new AuraHandledException(System.Label.INVALID_CUSTOMER_ID);
                     exceptionHandler.setMessage(System.Label.INVALID_CUSTOMER_ID);
-                    throw exceptionHandler;
+                    throw exceptionHandler; 
                 }
               
                 else if(responseErrorCode.get('code') == 'INVALID_RATING_MODEL'){
                     exceptionHandler = new AuraHandledException(System.Label.INVALID_CUSTOMER_ID);
                     exceptionHandler.setMessage(System.Label.INVALID_RATING_MODEL);
-                    throw exceptionHandler;
+                    throw exceptionHandler;                    
                 }
                 
             }
@@ -321,19 +321,21 @@ public with sharing class APT_CompassPricingController {
                 exceptionHandler = new AuraHandledException(System.Label.DATA_NOT_FOUND);
                 exceptionHandler.setMessage(System.Label.DATA_NOT_FOUND);
                 throw exceptionHandler;
+               
             }
             else if(responseCustomPricing.getStatusCode() == 500){
                 exceptionHandler = new AuraHandledException(System.Label.SYSTEM_ERROR);
                 exceptionHandler.setMessage(System.Label.SYSTEM_ERROR);
-                throw exceptionHandler;
+                throw exceptionHandler;                
             }
             
             
             if(rateCardResponseList != null && rateCardResponseList.size() > 0 && responseCustomPricing.getStatusCode() == 200){
-                updateProdConfigAndPricingForCart(quoteConfigurationId,selectedPSR,compassPriceResponse,key1List,keyServiceMap,keyFRSMap, true,customRefMap); 
+                updateProdConfigAndPricingForCart(quoteConfigurationId,selectedPSR,compassPriceResponse,key1List,keyServiceMap,keyFRSMap, true,customRefMap);                
             }
-        }catch(Exception e){                  
-            system.debug('Error : ' + e.getMessage());
+            
+        }catch(Exception e){
+            throw new AuraHandledException(e.getMessage());
         }   
     }
 
@@ -385,7 +387,9 @@ public with sharing class APT_CompassPricingController {
             //Fetch all the Product Attribute value records and update all the records with Tier and Price structure
             if(pavList != null && pavList.size() > 0 ){
                 pavListQuery = APT_ProductAttributeValuesSelector.newInstance().selectByPavID(pavList);                
+                if(pavListQuery.size() > 0){
                 pavTierCheck = pavListQuery[0].APT_Customer_Tier__c;
+                }
                 UpdateProductAttributeValues(pavListQuery,selectedPSR,compassPriceResponse, quoteConfigurationId);               
                 
                 //if( isCustomPrice == false && (pavTierCheck != selectedPSR.Approved_Tier__c || (compassPriceResponse!= null && pavTierCheck != compassPriceResponse.customerTier))){
@@ -420,14 +424,10 @@ public with sharing class APT_CompassPricingController {
                         }
                     }                   
                     
-                    for(Apttus_Config2__LineItem__c li: lineItemListUPT){ 
-                        system.debug('li.Compass_LineItem_Identifier__c:'+ li.Compass_LineItem_Identifier__c);
-                        system.debug('key1List:'+ key1List);
-                        system.debug('keyFRSMap :'+ keyFRSMap );
+                    for(Apttus_Config2__LineItem__c li: lineItemListUPT){                        
                         if(compassPriceResponse != null){   
                                   
-                            if(key1List != null && key1List.size() > 0){
-                            system.debug('li:'+ li); 
+                            if(key1List != null && key1List.size() > 0){                           
                                 if(li.Apttus_Config2__LineType__c == APT_Constants.LABEL_LINE_TYPE_OPTION && key1List.contains(li.Compass_LineItem_Identifier__c)){
                                     
                                     lineItemCustom.add(li.id);                                    
@@ -436,7 +436,7 @@ public with sharing class APT_CompassPricingController {
                             if(keyFRSMap != null){  
                                 if(li.Apttus_Config2__LineType__c == APT_Constants.LABEL_LINE_TYPE_OPTION && keyFRSMap.containsKey(li.Compass_LineItem_Identifier__c)){
 
-                                    Decimal priceValue = decimal.valueOf(keyFRSMap.get(li.Compass_LineItem_Identifier__c).price);
+                                    Decimal priceValue = keyFRSMap.get(li.Compass_LineItem_Identifier__c).price;
                                     
                                     li.Apttus_Config2__BasePrice__c = priceValue;                                   
                                     li.Apttus_Config2__NetPrice__c = priceValue;
@@ -444,11 +444,7 @@ public with sharing class APT_CompassPricingController {
                                     li.Apttus_Config2__BaseExtendedPrice__c = priceValue;
                                     li.Apttus_Config2__DeltaPrice__c = priceValue;
                                     li.Apttus_Config2__ExtendedPrice__c = priceValue;
-                                    li.Apttus_Config2__NetUnitPrice__c = priceValue;
-
-                                    System.debug('I2 li UPDATED LI = ' + li.Id);
-                                    System.debug('I2 li UPDATED Apttus_Config2__NetPrice__c = ' + li.Apttus_Config2__NetPrice__c);
-                                    System.debug('I2 li UPDATED li.Compass_LineItem_Identifier__c = ' + li.Compass_LineItem_Identifier__c);
+                                    li.Apttus_Config2__NetUnitPrice__c = priceValue;                                   
                                     lineItemToUpdate.add(li);
                                 }  
                             } 
@@ -469,18 +465,11 @@ public with sharing class APT_CompassPricingController {
                             if(keyServiceMap.containsKey(upt.Apttus_Config2__Dimension4Value__c) && upt.Apttus_Config2__Dimension4Value__c != '' ){  
                                                       
                                 if(upt.Apttus_Config2__Dimension4Value__c != '' && upt.Apttus_Config2__Dimension4Value__c.contains('KR')){
-                                    upt.Apttus_Config2__AdjustmentAmount__c = decimal.valueOf(keyServiceMap.get(upt.Apttus_Config2__Dimension4Value__c).kgRate);                                     
-                                    System.debug('I2 upt 1 UPDATED upt  = ' + upt.Id);
-                                    System.debug('I2 upt 1 UPDATED upt.Apttus_Config2__AdjustmentAmount__c = ' + upt.Apttus_Config2__AdjustmentAmount__c);
-                                    System.debug('I2 upt 1 UPDATED upt.Apttus_Config2__Dimension4Value__c = ' + upt.Apttus_Config2__Dimension4Value__c);
+                                    upt.Apttus_Config2__AdjustmentAmount__c = keyServiceMap.get(upt.Apttus_Config2__Dimension4Value__c).kgRate;       
 
                                 }
                                 if(upt.Apttus_Config2__Dimension4Value__c != '' && upt.Apttus_Config2__Dimension4Value__c.contains('BR')){
-                                    upt.Apttus_Config2__AdjustmentAmount__c = decimal.valueOf(keyServiceMap.get(upt.Apttus_Config2__Dimension4Value__c).basicRate);                                   
-                                    System.debug('I2 upt 2 UPDATED upt  = ' + upt.Id);
-                                    System.debug('I2 upt 2 UPDATED upt.Apttus_Config2__AdjustmentAmount__c = ' + upt.Apttus_Config2__AdjustmentAmount__c);
-                                    System.debug('I2 upt 2 UPDATED upt.Apttus_Config2__Dimension4Value__c = ' + upt.Apttus_Config2__Dimension4Value__c);
-
+                                    upt.Apttus_Config2__AdjustmentAmount__c = keyServiceMap.get(upt.Apttus_Config2__Dimension4Value__c).basicRate;                                
                                 }                             
                                 uptList.add(upt);
                             }
@@ -511,7 +500,7 @@ public with sharing class APT_CompassPricingController {
             
         }catch(Exception e){
             throw new AuraHandledException(e.getMessage());
-    } 
+        } 
     }
 
      /* This method process cleanup invalid 
@@ -687,7 +676,7 @@ public with sharing class APT_CompassPricingController {
             }           
             pav.APT_RK_Code_AppliedYN__c=APT_Constants.OPTION_YES;           
             pav.SAP_Weight_Rounding__c = compassPriceResponse == null? null : compassPriceResponse.weightRounding;                         
-            pav.SAP_Cubic_Conversion_Factor__c = compassPriceResponse ==null? null: decimal.valueOf(compassPriceResponse.cubicConvfac);
+            pav.SAP_Cubic_Conversion_Factor__c = compassPriceResponse ==null? null: compassPriceResponse.cubicConvfac;
             pav.APT_Cubic_Status__c = compassPriceResponse ==null? null : compassPriceResponse.cubingFlag;
            
             pavListUpdate.add(pav);
@@ -767,4 +756,18 @@ public with sharing class APT_CompassPricingController {
         returnReuslt = constraintResult.HasPendingError;
         return returnReuslt;       
     } 
+     /**
+     * Compass API request wrapper class
+     */
+    public class HttpRequestWrapper{
+        Public string quoteId{ get; set; }
+        Public string customerId{ get; set; }
+        Public string ratingModel{ get; set; }
+        
+        public HttpRequestWrapper(string quoteIdInput,string customerIdInput,string ratingModelInput){
+            quoteId = quoteIdInput;
+            customerId = customerIdInput; 
+            ratingModel = ratingModelInput; 
+        } 
+    }
 }
