@@ -32,14 +32,14 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 	}
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		try {
+		//try {
 			// check whether the queue has changed to an omni skills based queue that we are monitoring to manually create a PSR record
 			// we do this since skills mappings are custom maintained and we have custom priority logic (oldest case created take priority over other cases in the same priority)
 			maybeTriggerOmniAssignment((List<Case>)records, (Map<Id, Case>)existingRecords);
 
-		} catch(Exception ex) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, MyCustomerCaseRoutingModule.class.getName(), 'onBeforeInsert', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
-		}
+		//} catch(Exception ex) {
+		//	ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.SSSW_APP, MyCustomerCaseRoutingModule.class.getName(), 'onBeforeInsert', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
+		//}
 	}
 
 	private Map<Id, QueueRoutingConfig> omniQueueIdsVsRoutingConfig {
@@ -65,6 +65,16 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 		}
 		set;
 	}
+
+	private Map<String, Integer> secondaryPriorityMappings = new Map<String, Integer> {
+		'Low' => 5,
+		'Critical' => 1,
+		'Normal' => 2,
+		'High' => 2,
+		'Medium' => 4,
+		'Regular' => 3,
+		'Urgent' => 1
+	};
 
 	private final Map<SObjectField, Map<String, String>> caseFieldSkillMappings = new Map<SObjectField, Map<String, String>>{
 		Case.CustomerQueueType__c => new Map<String, String>{
@@ -167,8 +177,8 @@ public inherited sharing class MyCustomerCaseRoutingModule extends ApplicationDo
 						WorkItemId = caseRecord.Id,
 						IsReadyForRouting = false,
 						RoutingType = 'SkillsBased', 
-						ServiceChannelId = sc.Id
-						// SecondaryRoutingPriority = 1000 //TODO:.... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
+						ServiceChannelId = sc.Id,
+						SecondaryRoutingPriority = secondaryPriorityMappings.get(caseRecord.Priority) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
 					));
 				}
 			}
