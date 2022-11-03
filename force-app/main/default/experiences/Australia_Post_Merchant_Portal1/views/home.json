@@ -1,0 +1,66 @@
+{
+  "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "3121d913-d48d-4d19-9a91-f760a63c762a",
+  "label" : "Home",
+  "regions" : [ {
+    "id" : "87959722-cf8a-45aa-851f-52835d5fbd8e",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "6593d517-3759-4422-a03a-1531ea29c239",
+    "regionName" : "featured",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bamMyApplicationsWrapper",
+      "id" : "55772f2c-8b1f-4c08-9d94-14e5eacb9671",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "835a5263-34e4-4d5e-9ac4-deb109c109c2",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "3d84f5b0-0535-4bb2-819e-a5ee1c25b7de",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageCategory" : "portal",
+        "pageDescription" : "landing",
+        "sitePrefix" : "business access",
+        "trackingType" : "page-navigate"
+      },
+      "componentName" : "c:BamAdobeAnalyticsPageView",
+      "id" : "f781082b-7646-49de-aec9-85c04e3dd77c",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2b8c479c-be3f-49d0-a47a-41d5cf31f7cc",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Australia Post - Merchant Portal - Dashboard"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "9293fb27-7269-4dcd-9e03-0d9fbece7e0f",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8c74cee2-8c86-4fc3-bee8-9faedf56f6b3",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Z8Y24ndMubnhJ6jMstQ7Gx9H9THWhV",
+  "type" : "view",
+  "viewType" : "home"
+}

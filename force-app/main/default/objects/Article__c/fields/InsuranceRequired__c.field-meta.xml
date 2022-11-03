@@ -4,7 +4,7 @@
     <defaultValue>false</defaultValue>
     <description>SSSW</description>
     <externalId>false</externalId>
-    <label>Insurance Required</label>
+    <label>Transit/Extra Cover Required</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

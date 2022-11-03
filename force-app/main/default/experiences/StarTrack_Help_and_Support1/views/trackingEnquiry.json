@@ -1,0 +1,45 @@
+{
+  "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "06a3d350-bb34-424a-806b-b4d5d4a7e6aa",
+  "label" : "Tracking Enquiry",
+  "regions" : [ {
+    "id" : "6bfa7ddc-bd94-4e11-9300-c10c1d9a7b82",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:sthsTrackingForm",
+      "id" : "4d39973f-5bfc-43e4-a0d9-92405b3de9ac",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a327c914-043b-441d-8790-33e002b42ce8",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "e09c31b5-cac6-4617-b022-d4fb53b76cb6",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "StarTrack | Tracking Enquiry"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "85b66a27-72b4-4ae3-89ba-ea141d65a539",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "d39a1ce4-1301-4661-a43d-e1dcd2b92141",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "sXBklNNFqExUnBYqEu4tH4XGUcWkZj",
+  "type" : "view",
+  "viewType" : "custom-tracking-enquiry"
+}

@@ -1,0 +1,76 @@
+{
+  "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
+  "componentName" : "c:ChasCasePageLayout",
+  "id" : "0f0c3234-eb7f-4a3a-8170-4b0933d78f16",
+  "label" : "Home",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "backButtonLabel" : "",
+        "backButtonUrl" : "",
+        "label" : "Your enquiries"
+      },
+      "componentName" : "c:ChasCaseHeader",
+      "id" : "04719357-9a3e-4d17-b111-205132100eef",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "9a92cd48-1678-40d3-bdc1-085957059cb1",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "845b1654-f698-4ae6-b0bb-982d72d95419",
+    "regionName" : "featured",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:ChasCaseList",
+      "id" : "8037d9a4-9211-4a82-b9c7-1881a75d979c",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7ad244a7-f24e-437d-98a9-d193c27744e9",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "channel" : "DefaultChannel",
+        "title" : ""
+      },
+      "componentName" : "forceCommunity:recommendations",
+      "id" : "4d96c395-a215-452e-926b-25de0a9547d1",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2be97e22-571f-42a4-9ac1-e5d3f72ae0cd",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "268b9e5e-3cb6-4703-8b40-1fe55a317d95",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Enquiry Dashboard"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "394daa31-3f10-4e48-9de6-88fc659b5d92",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b28201ab-f18c-4cf8-a260-b51ba6a09bd7",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "home"
+}

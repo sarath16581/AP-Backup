@@ -1,0 +1,497 @@
+{
+  "activeBrandingSetId" : "1296122e-ec7b-45b0-ad65-d4f7be998b81",
+  "customCSS" : "/*********************************************************\n * Font Declarations\n *********************************************************/\n\n@font-face {\n    font-family: 'APTypeText';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeText';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic-102401.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeText';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff\") format(\"woff\");\n    font-weight: bold;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeText';\n    src: url(\"/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff\") format(\"woff\");\n    font-weight: bold;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeText';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff\") format(\"woff\");\n    font-weight: 300;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeText';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff\") format(\"woff\");\n    font-weight: 300;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeText';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff\") format(\"woff\");\n    font-weight: 500;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeText';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumItalic-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumtItalic-102401.woff\") format(\"woff\");\n    font-weight: 500;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeDisplay';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeText-Regular-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeText-Regular-102401.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeDisplay';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeDisplay';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff\") format(\"woff\");\n    font-weight: bold;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeDisplay';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff\") format(\"woff\");\n    font-weight: bold;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeDisplay';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff\") format(\"woff\");\n    font-weight: 300;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeDisplay';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff\") format(\"woff\");\n    font-weight: 300;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APTypeDisplay';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff\") format(\"woff\");\n    font-weight: 500;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APTypeDisplay';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumItalic-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumtItalic-102401.woff\") format(\"woff\");\n    font-weight: 500;\n    font-style: italic;\n}\n\n@font-face {\n    font-family: 'APLetterFont';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2\") format(\"woff2\"),\n        url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APLetterBoldFont';\n    src: url(\"/s/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2\") format(\"woff2\"),\n        url(\"/sfsites/c/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff\") format(\"woff\");\n    font-weight: normal;\n    font-style: normal;\n}\n\n@font-face {\n    font-family: 'APIcon-web';\n    src: url('/s/sfsites/c/resource/APIconFontv2') format('woff');\n    font-weight: normal;\n    font-style: normal;\n\n}\n\n\n/*********************************************************\n * Body Styles\n *********************************************************/\n\nbody {\n    font-family: 'APTypeText', sans-serif;\n    font-size: 1rem;\n    color: #382F2D;\n    line-height: 1.5rem;\n    -webkit-font-smoothing: antialiased;\n    overflow-x: hidden;\n}\n\nh1,h2,h3,h4,h5,h6,b,strong {\n    font-family: 'APTypeDisplay', 'APTypeText', helvetica, arial, sans-serif;\n    font-weight: bold;\n}\n\nh1,h2,h3,h4,h5,h6 {\n    font-weight: 500;\n}\n\nh1 {\n    font-size: 1.5rem;\n    line-height: 2rem;\n    letter-spacing: .03rem;\n}\n\nh2 {\n    font-size: 1.25rem;\n    line-height: 1.5rem;\n    letter-spacing: .03rem;\n}\n\nh3 {\n    font-size: 1.125rem;\n    line-height: 1.5rem;\n    letter-spacing: .03rem;\n}\n\n\n/*********************************************************\n * SLDS Button Declarations\n *********************************************************/\n\n.slds-form-element__label {\n    color: #292f33;\n}\n\n.slds-button:focus,\n.slds-button:active {\n    box-shadow: none;\n}\n\n.slds-button:focus:after {\n    border: 1px dotted #382F2D;\n    border-radius: 3px;\n    content: \"\";\n    display: block;\n    height: calc(100% + 10px);\n    left: -5px;\n    pointer-events: none;\n    position: absolute;\n    top: -5px;\n    width: calc(100% + 10px);\n}\n\n.slds-button.loading-true {\n    display: inline-flex !important;\n    align-items: center;\n    justify-content: center;\n}\n\n.slds-button.loading-true lightning-primitive-icon {\n    display: none;\n}\n\n.slds-button.loading-true::after {\n    display: inline-block;\n    margin: 0 auto;\n    width: 20px;\n    height: 20px;\n    -webkit-animation: .75s linear infinite spinnerRotate;\n    animation: .75s linear infinite spinnerRotate;\n    border: 2px solid white;\n    border-bottom-color: transparent;\n    border-radius: 100%;\n    background: 0 0;\n    content: \"\";\n    position: relative;\n    left: auto;\n    top: auto;\n    color: inherit;\n}\n\n.slds-button.disabled-true.loading-true::after {\n    border-color: #6D6D72;\n    border-bottom-color: transparent;\n}\n\n.slds-button.slds-button_destructive:disabled {\n    opacity:.5;\n}\n\n/*********************************************************\n * Tooltip Popover Declarations\n *********************************************************/\n\n.slds-popover_tooltip,\n.slds-popover--tooltip {\n  background: white;\n  box-shadow: 0 1px 12px 0 rgba(83, 95, 103, 0.3);\n  border-radius: 0;\n}\n\n.slds-popover_tooltip .slds-popover__body,\n.slds-popover--tooltip .slds-popover__body {\n  color: inherit;\n  font-size: .875rem;\n  padding: 0.875rem 1rem;\n}\n\n@keyframes spinnerRotate {\n    0% {\n        -webkit-transform: rotate(0);\n        transform: rotate(0)\n    }\n\n    to {\n        -webkit-transform: rotate(360deg);\n        transform: rotate(360deg)\n    }\n}\n\n.slds-listbox__option_plain {\n    font-size: 1rem;\n}\n\n.slds-listbox__option:hover {\n    background-color: rgba(0, 0, 0, 0.05) !important;\n}\n\n.slds-listbox__option:focus {\n    background-color: rgba(0, 0, 0, 0.05) !important;\n}\n\n.slds-listbox__option.slds-has-focus{\n    background-color: rgba(0, 0, 0, 0.05) !important;\n}\n\n.slds-is-today.slds_day {\n    background-color: rgba(0, 0, 0, 0.05) !important;\n}\n\n/*********************************************************\n  * Modal Style Declarations\n  *********************************************************/\n.slds-backdrop {\n  background: rgba(41, 47, 51, 0.65);\n}\n\n.slds-modal .slds-modal__content {\n  border-radius: 0;\n  box-shadow: none;\n}\n\n.slds-modal__close {\n  top: 0.25rem;\n  right: 0.25rem;\n  color: #292f33;\n}\n\n.slds-modal__close.slds-button--icon-inverse:hover,\n.slds-modal__close.slds-button--icon-inverse:focus {\n  color: rgb(174, 20, 32);\n}\n\n.slds-modal__header {\n    border-top-right-radius: .4rem;\n    border-top-left-radius: .4rem;\n    border-bottom: 0;\n}\n\n.slds-modal__container {\n    overflow-y: auto;\n}\n.slds-modal__footer {\n    border-bottom-right-radius: .4rem;\n    border-bottom-left-radius: .4rem;\n    border-top: 0;\n    text-align: left;\n}\n\n/*********************************************************\n * SLDS File Selector Declarations\n *********************************************************/\n\n.slds-file-selector__dropzone {\n    padding: 0;\n    border: none;\n}\n\n.slds-file-selector__text {\n    display: none;\n}\n\n.slds-file-selector__button {\n    display: inline-flex;\n    align-items: center;\n    color: #212129;\n    height: 45px;\n    border-width: 2px;\n    border-color: #e2e2e2;\n    min-width: 120px;\n    border-radius: .4em;\n    font-weight: 800;\n    margin-top: .75rem;\n}\n.slds-file-selector__button:hover {\n    border-color: #212129;\n    background-color: #FFFFFF;\n    color: #212129;\n}\n\n.slds-form-element__label {\n    font-size: 15px;\n    font-weight: bold;\n}\n\n\n.uiButton--brand {\n    font-size: 16px;\n    font-weight: 600;\n    border-radius: .4em;\n}\n\n/*********************************************************\n * SLDS Input Declarations\n *********************************************************/\n\n/*.slds-input-has-icon .slds-input__icon {\n    margin-top: -0.55rem;\n}*/\n\n.slds-input-has-icon .slds-input__icon button {\n    line-height: 0;\n    display: block;\n}\n\n/*********************************************************\n * Media Style Declarations\n *********************************************************/\n@media (min-width: 680px) {\n    h1 {\n        font-size: 2rem;\n        line-height: 2.5rem;\n    }\n\n    h2 {\n        font-size: 1.5rem;\n        line-height: 2rem;\n    }\n\n    h3 {\n        font-size: 1.25rem;\n        line-height: 2rem;\n    }\n}\n\n.slds-grid.forceActionsContainer {\n    display: none;\n}\n\n/*********************************************************\n * Activity Timeline Fixes\n *********************************************************/\n#activityPanelContainer > div.grouped.runtime_sales_activitiesActivityTimelineFixedLayout > div.skip-timeline-wrapper.slds-p-top_none.slds-is-relative > div.slds-grid.slds-wrap.slds-grid_align-spread.slds-grid_vertical-align-center.slds-m-bottom_small > div.slds-col.columnWidth.slds-grid.slds-grid_align-end {\n    display: flex;\n    flex-direction: column;\n    align-items: flex-end;\n    max-width: 100%;\n}\n\n/*********************************************************\n * Modal close icon fix\n *********************************************************/\nbutton.closeIcon svg {\n    color: rgb(107, 109, 112);\n}\n\n/*********************************************************\n * Multi-select picklist fix\n *********************************************************/\n.slds-is-selected.slds-listbox__option {\n    background-color: rgb(220, 25, 40) !important;\n}\n\n/*********************************************************\n * Hide close button on Address component quick action\n *********************************************************/\n.cAddressLookupRecordWrapperAura > button {\n    display: none;\n}\n\n/*********************************************************\n * Hide Chatter buttons on Dashboard\n *********************************************************/\nspan[title='Follow'], .slds-button .slds-icon-utility-add {display: none}\nspan[title='Following'], .slds-button .slds-icon-utility-check {display: none}\nspan[title='Unfollow'], .slds-button .slds-icon-utility-close {display: none}",
+  "developerName" : "webster",
+  "id" : "67f2dbab-ad68-47d5-9c8d-7249ab1be833",
+  "label" : "Webster",
+  "layouts" : {
+    "Home" : "510c6f40-adbb-40f1-8942-d424158f3f15",
+    "Inner" : "d8d8aabc-a74f-4250-99b6-fb8874cb9034",
+    "Login" : "a19c7c4b-2176-4150-9cfe-7a7418701ef4",
+    "ServiceNotAvailable" : "8bf5aabb-f260-425c-932a-50b84c657cb8"
+  },
+  "type" : "theme",
+  "views" : [ {
+    "componentAttributes" : { },
+    "componentName" : "salesforceIdentity:loginBody2",
+    "id" : "a19c7c4b-2176-4150-9cfe-7a7418701ef4",
+    "label" : "Login",
+    "regions" : [ {
+      "id" : "7e5aaf68-2950-4218-8cd0-35320e5f0606",
+      "regionName" : "header",
+      "type" : "region"
+    }, {
+      "id" : "9d30af49-2786-428f-834d-bff8d295190f",
+      "regionName" : "content",
+      "type" : "region"
+    }, {
+      "id" : "8a19001e-36c5-4ad4-b72f-b0ba36de7398",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "fixedPageWidth" : 1440,
+      "headerBgColor" : "rgba(28, 22, 28, 0.9)",
+      "isHeaderPinned" : false,
+      "isHeroUnderHeader" : false,
+      "isPageWidthFixed" : true,
+      "showHeader" : true,
+      "showHero" : false
+    },
+    "componentName" : "siteforce:themeLayoutStarter",
+    "id" : "d8d8aabc-a74f-4250-99b6-fb8874cb9034",
+    "label" : "Default",
+    "regions" : [ {
+      "components" : [ {
+        "componentAttributes" : {
+          "background" : "background: rgba(40,31,35,0)",
+          "backgroundOverlayColor" : "rgba(0, 0, 0, 0.5)",
+          "borderBottomColor" : "rgba(0, 0, 0, 0)",
+          "centerAlignLogo" : false,
+          "collapseNavMenu" : false,
+          "containHeader" : true,
+          "containHeaderWidth" : 1440,
+          "dropdownBackgroundColor" : "#FFFFFF",
+          "dropdownBackgroundHoverColor" : "",
+          "dropdownBorderColor" : "#F0F0F0",
+          "dropdownTextColor" : "",
+          "dropdownTextHoverColor" : "",
+          "headerHeight" : 24,
+          "linkActiveBorderColor" : "",
+          "linkColor" : "rgb(255, 0, 0)",
+          "linkHoverColor" : "rgba(193, 8, 8, 0.95)",
+          "linkTextShadowColor" : "rgba(0, 0, 0, 0)",
+          "logoWidth" : 169,
+          "searchStyle" : "expanded",
+          "showAppLauncher" : false,
+          "showNavMenuOnLeft" : true,
+          "showNotifications" : false,
+          "showProfileMenu" : true,
+          "showSearch" : true
+        },
+        "componentName" : "forceCommunity:themeHeaderCompact",
+        "id" : "85668b1e-f57f-43be-8e95-19bc2fb49a1d",
+        "regions" : [ {
+          "components" : [ {
+            "componentAttributes" : {
+              "buttonBackgroundColor" : "",
+              "buttonBackgroundHoverColor" : "",
+              "buttonBorderColor" : "rgba(240, 240, 240, 0)",
+              "buttonBorderRadius" : 14,
+              "buttonText" : "Log in",
+              "buttonTextColor" : "",
+              "buttonTextHoverColor" : "",
+              "customizableUserProfileMenuEditor" : "LPO_Default_User_Profile_Menu",
+              "menuStyleSettings" : "{\"selectedMenuStyleSetting\":\"iconOnly\",\"selectedIconSetting\":\"userAvatar\",\"includeCompanyName\":false,\"selectedTextOrientationSetting\":\"right\"}"
+            },
+            "componentName" : "forceCommunity:customizableUserProfileMenu",
+            "id" : "bf3bdfb0-dc30-48b3-a31d-de9412a785e1",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
+          "id" : "d638f947-8519-47f7-9ee6-ff523b2251a6",
+          "regionName" : "themeHeaderProfileMenu",
+          "type" : "region"
+        }, {
+          "components" : [ {
+            "componentAttributes" : {
+              "backgroundColor" : "#FFFFFF",
+              "borderColor" : "#FFFFFF",
+              "borderRadius" : 5,
+              "borderStyle" : "outline",
+              "buttonColor" : "",
+              "buttonHoverColor" : "",
+              "crossObjectTypeaheadApiNames" : [ {
+                "isPublic" : false,
+                "name" : "Account"
+              }, {
+                "isPublic" : false,
+                "name" : "Lead"
+              }, {
+                "isPublic" : false,
+                "name" : "Contact"
+              } ],
+              "iconColor" : "rgb(0, 0, 0)",
+              "placeholderText" : "Search...",
+              "placeholderTextColor" : "rgb(0, 0, 0)",
+              "showSearchButton" : false,
+              "textColor" : "rgb(0, 0, 0)",
+              "typeaheadResultMax" : 5,
+              "useTypeahead" : true
+            },
+            "componentName" : "forceCommunity:themeSearch",
+            "id" : "541fbc16-9f6d-4987-b5c3-8b8d784d1adf",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
+          "id" : "b6c2a712-42e8-4524-acab-3105c0433a04",
+          "regionName" : "search",
+          "type" : "region"
+        }, {
+          "components" : [ {
+            "componentAttributes" : {
+              "navAlignment" : "center",
+              "navItemThreshold" : 8,
+              "navigationMenuEditorRefresh" : "LPO_Default_Navigation"
+            },
+            "componentName" : "forceCommunity:themeNav",
+            "id" : "ca85436f-586b-4867-bbdc-937246e5f2d8",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
+          "id" : "d85ade6c-315d-4b94-a474-a6b2f907466b",
+          "regionName" : "nav",
+          "type" : "region"
+        }, {
+          "id" : "860aa6b1-2ffc-4863-85e9-04a5e0f9ebc4",
+          "regionName" : "cartIcon",
+          "type" : "region"
+        } ],
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "4ca67a67-1554-4a8f-9e69-4c1ae4d77b32",
+      "regionName" : "themeHeader",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "bgImage" : "background: #281f23",
+          "bgOverlayColor" : "rgba(0, 0, 0, 0.5)",
+          "captionText" : "",
+          "captionTextColor" : "#FFFFFF",
+          "captionTextShadowColor" : "rgba(0, 0, 0, 0.5)",
+          "contentAlignment" : "center",
+          "contentWidth" : 65,
+          "ctaBtnOneBgColor" : "",
+          "ctaBtnOneBgHoverColor" : "",
+          "ctaBtnOneBorderColor" : "rgba(0, 0, 0, 0)",
+          "ctaBtnOneOpenNewTab" : false,
+          "ctaBtnOneText" : "Show Me",
+          "ctaBtnOneTextColor" : "",
+          "ctaBtnOneTextHoverColor" : "",
+          "ctaBtnOneUrl" : "",
+          "ctaBtnRadius" : 25,
+          "ctaBtnTwoBgColor" : "rgba(255, 255, 255, 0)",
+          "ctaBtnTwoBgHoverColor" : "#FFFFFF",
+          "ctaBtnTwoBorderColor" : "#FFFFFF",
+          "ctaBtnTwoOpenNewTab" : false,
+          "ctaBtnTwoText" : "Learn More",
+          "ctaBtnTwoTextColor" : "#FFFFFF",
+          "ctaBtnTwoTextHoverColor" : "rgba(0, 0, 0, 0.8)",
+          "ctaBtnTwoUrl" : "",
+          "ctaShowBtnOne" : true,
+          "ctaShowBtnTwo" : true,
+          "fixedHeroWidth" : true,
+          "heroHeight" : 150,
+          "heroWidth" : 1440,
+          "showCaption" : false,
+          "showSubtitle" : false,
+          "showTitle" : true,
+          "subtitleText" : "",
+          "subtitleTextColor" : "#FFFFFF",
+          "subtitleTextShadowColor" : "rgba(0, 0, 0, 0.5)",
+          "titleText" : "What can we help you with?",
+          "titleTextColor" : "#FFFFFF",
+          "titleTextShadowColor" : "rgba(0, 0, 0, 0.5)",
+          "type" : "showSearch"
+        },
+        "componentName" : "forceCommunity:themeHeroStarter",
+        "id" : "1497ee6c-d319-402e-b4b3-4007666b4e1b",
+        "regions" : [ {
+          "components" : [ {
+            "componentAttributes" : {
+              "backgroundColor" : "#FFFFFF",
+              "borderColor" : "rgba(0, 0, 0, 0)",
+              "borderRadius" : 25,
+              "borderStyle" : "outline",
+              "buttonColor" : "",
+              "buttonHoverColor" : "",
+              "crossObjectTypeaheadApiNames" : "",
+              "iconColor" : "#FFFFFF",
+              "placeholderText" : "Ask a question...",
+              "placeholderTextColor" : "rgba(0, 0, 0, 0.6)",
+              "publicDropdownBackgroundColor" : "#FFFFFF",
+              "publicDropdownBackgroundHoverColor" : "",
+              "publicDropdownBorderColor" : "#F0F0F0",
+              "publicDropdownTextColor" : "",
+              "publicDropdownTextHoverColor" : "",
+              "showSearchButton" : true,
+              "textColor" : "rgba(0, 0, 0, 0.8)",
+              "typeaheadResultMax" : 6,
+              "useTypeahead" : true
+            },
+            "componentName" : "forceCommunity:themeSearchHero",
+            "id" : "2d36e815-5621-43d1-a439-95e3506b6e53",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
+          "id" : "e2e48dc7-b875-4ae5-9e25-5abf16c599d9",
+          "regionName" : "search",
+          "type" : "region"
+        } ],
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "9ddb20e8-891b-49d1-9629-a63f08dbf070",
+      "regionName" : "themeHero",
+      "type" : "region"
+    }, {
+      "id" : "8b39bf57-fda1-4877-91f2-01e8c48b65db",
+      "regionName" : "themeFooter",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "fixedPageWidth" : 1440,
+      "headerBgColor" : "rgba(28, 22, 28, 0.9)",
+      "isHeaderPinned" : false,
+      "isHeroUnderHeader" : false,
+      "isPageWidthFixed" : true,
+      "showHeader" : true,
+      "showHero" : true
+    },
+    "componentName" : "siteforce:themeLayoutStarter",
+    "id" : "510c6f40-adbb-40f1-8942-d424158f3f15",
+    "label" : "Home",
+    "regions" : [ {
+      "components" : [ {
+        "componentAttributes" : {
+          "background" : "background: rgba(40,31,35,0)",
+          "backgroundOverlayColor" : "rgba(0, 0, 0, 0.5)",
+          "borderBottomColor" : "rgba(0, 0, 0, 0)",
+          "centerAlignLogo" : false,
+          "collapseNavMenu" : false,
+          "containHeader" : true,
+          "containHeaderWidth" : 1440,
+          "dropdownBackgroundColor" : "#FFFFFF",
+          "dropdownBackgroundHoverColor" : "",
+          "dropdownBorderColor" : "#F0F0F0",
+          "dropdownTextColor" : "",
+          "dropdownTextHoverColor" : "",
+          "headerHeight" : 24,
+          "linkActiveBorderColor" : "",
+          "linkColor" : "rgb(254, 20, 20)",
+          "linkHoverColor" : "rgba(236, 0, 0, 0.95)",
+          "linkTextShadowColor" : "rgba(0, 0, 0, 0)",
+          "logoWidth" : 169,
+          "searchStyle" : "expanded",
+          "showAppLauncher" : false,
+          "showNavMenuOnLeft" : true,
+          "showNotifications" : false,
+          "showProfileMenu" : true,
+          "showSearch" : true
+        },
+        "componentName" : "forceCommunity:themeHeaderCompact",
+        "id" : "098d07d2-ab02-4593-bc8b-fc1b84f46783",
+        "regions" : [ {
+          "components" : [ {
+            "componentAttributes" : {
+              "buttonBackgroundColor" : "",
+              "buttonBackgroundHoverColor" : "",
+              "buttonBorderColor" : "rgba(240, 240, 240, 0)",
+              "buttonBorderRadius" : 14,
+              "buttonText" : "Log in",
+              "buttonTextColor" : "",
+              "buttonTextHoverColor" : "",
+              "customizableUserProfileMenuEditor" : "LPO_Default_User_Profile_Menu",
+              "menuStyleSettings" : "{\"selectedMenuStyleSetting\":\"iconOnly\",\"selectedIconSetting\":\"userAvatar\",\"includeCompanyName\":false,\"selectedTextOrientationSetting\":\"right\"}"
+            },
+            "componentName" : "forceCommunity:customizableUserProfileMenu",
+            "id" : "89b0965c-c08b-4cae-b09c-2055893c1607",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
+          "id" : "db1c4df9-5fc2-4121-988c-36aa083cfd42",
+          "regionName" : "themeHeaderProfileMenu",
+          "type" : "region"
+        }, {
+          "components" : [ {
+            "componentAttributes" : {
+              "backgroundColor" : "#fff",
+              "borderColor" : "transparent",
+              "borderRadius" : 5,
+              "borderStyle" : "outline",
+              "buttonColor" : "rgba(255,255,255,1)",
+              "buttonHoverColor" : "rgba(0,0,0,0.2)",
+              "crossObjectTypeaheadApiNames" : [ {
+                "isPublic" : false,
+                "name" : "Account"
+              }, {
+                "isPublic" : false,
+                "name" : "Lead"
+              }, {
+                "isPublic" : false,
+                "name" : "Opportunity"
+              } ],
+              "iconColor" : "#000",
+              "placeholderText" : "Search...",
+              "placeholderTextColor" : "#000",
+              "showSearchButton" : false,
+              "textColor" : "#000",
+              "typeaheadResultMax" : 6,
+              "useTypeahead" : true
+            },
+            "componentName" : "forceCommunity:themeSearch",
+            "id" : "2d1879a5-49c7-47b7-b746-07cd8f7f41ca",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
+          "id" : "6fb60af2-1921-4ef2-8e31-f957db4ad161",
+          "regionName" : "search",
+          "type" : "region"
+        }, {
+          "components" : [ {
+            "componentAttributes" : {
+              "navAlignment" : "center",
+              "navItemThreshold" : 8,
+              "navigationMenuEditorRefresh" : "LPO_Default_Navigation"
+            },
+            "componentName" : "forceCommunity:themeNav",
+            "id" : "1151d826-4578-4d99-b095-6ac2953ff68b",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
+          "id" : "43d57bc1-a417-4d5d-b70f-5f50fca4a4d1",
+          "regionName" : "nav",
+          "type" : "region"
+        }, {
+          "id" : "e7318508-411d-4556-9d91-d5ada576e72e",
+          "regionName" : "cartIcon",
+          "type" : "region"
+        } ],
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "667e6aee-bbaa-4f0f-b9a4-89da2cf2c9eb",
+      "regionName" : "themeHeader",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "bgImage" : "background: rgb(255,255,255) url(/sfsites/c/file-asset/post_office_consumers_2812?v=1) center center /cover",
+          "bgOverlayColor" : "rgba(55, 47, 47, 0.59)",
+          "captionText" : "",
+          "captionTextColor" : "#FFFFFF",
+          "captionTextShadowColor" : "rgba(0, 0, 0, 0.5)",
+          "contentAlignment" : "center",
+          "contentWidth" : 65,
+          "ctaBtnOneBgColor" : "",
+          "ctaBtnOneBgHoverColor" : "",
+          "ctaBtnOneBorderColor" : "rgba(0, 0, 0, 0)",
+          "ctaBtnOneOpenNewTab" : false,
+          "ctaBtnOneText" : "Show Me",
+          "ctaBtnOneTextColor" : "",
+          "ctaBtnOneTextHoverColor" : "",
+          "ctaBtnOneUrl" : "",
+          "ctaBtnRadius" : 25,
+          "ctaBtnTwoBgColor" : "rgba(255, 255, 255, 0)",
+          "ctaBtnTwoBgHoverColor" : "#FFFFFF",
+          "ctaBtnTwoBorderColor" : "#FFFFFF",
+          "ctaBtnTwoOpenNewTab" : false,
+          "ctaBtnTwoText" : "Learn More",
+          "ctaBtnTwoTextColor" : "#FFFFFF",
+          "ctaBtnTwoTextHoverColor" : "rgba(0, 0, 0, 0.8)",
+          "ctaBtnTwoUrl" : "",
+          "ctaShowBtnOne" : true,
+          "ctaShowBtnTwo" : false,
+          "fixedHeroWidth" : true,
+          "heroHeight" : 25,
+          "heroWidth" : 1440,
+          "showCaption" : false,
+          "showSubtitle" : false,
+          "showTitle" : true,
+          "subtitleText" : "",
+          "subtitleTextColor" : "#FFFFFF",
+          "subtitleTextShadowColor" : "rgba(0, 0, 0, 0.5)",
+          "titleText" : "Search Organisations & Leads",
+          "titleTextColor" : "rgb(255, 255, 255)",
+          "titleTextShadowColor" : "rgba(0, 0, 0, 0.5)",
+          "type" : "showSearch"
+        },
+        "componentName" : "forceCommunity:themeHeroStarter",
+        "id" : "f30a5891-9335-43d2-b69b-1b9a3ee4a924",
+        "regions" : [ {
+          "components" : [ {
+            "componentAttributes" : {
+              "backgroundColor" : "#fff",
+              "borderColor" : "transparent",
+              "borderRadius" : 10,
+              "borderStyle" : "outline",
+              "buttonColor" : "rgba(255,255,255,1)",
+              "buttonHoverColor" : "rgb(220, 25, 40)",
+              "crossObjectTypeaheadApiNames" : [ {
+                "isPublic" : false,
+                "name" : "Account"
+              }, {
+                "isPublic" : false,
+                "name" : "Lead"
+              }, {
+                "isPublic" : false,
+                "name" : "Opportunity"
+              }, {
+                "isPublic" : false,
+                "name" : "Network__c"
+              } ],
+              "iconColor" : "#000",
+              "placeholderText" : "Enter search term here (e.g. ABN, Business Name, email address)...",
+              "placeholderTextColor" : "#000",
+              "publicDropdownBackgroundColor" : "rgba(255, 255, 255, 1)",
+              "publicDropdownBackgroundHoverColor" : "rgba(250, 250, 250, 1)",
+              "publicDropdownBorderColor" : "rgba(240, 240, 240, 1)",
+              "publicDropdownTextColor" : "rgba(0, 0, 0, 1)",
+              "publicDropdownTextHoverColor" : "rgba(0, 0, 0, 1)",
+              "showSearchButton" : true,
+              "textColor" : "#000",
+              "typeaheadResultMax" : 6,
+              "useTypeahead" : true
+            },
+            "componentName" : "forceCommunity:themeSearchHero",
+            "id" : "0a61aaf3-4ee2-4650-8da6-2d70346738e9",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
+          "id" : "f0379d76-0293-4665-86c0-8a3e20f1f1c7",
+          "regionName" : "search",
+          "type" : "region"
+        } ],
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "15028649-3f2c-4adc-8e59-5b46a09703eb",
+      "regionName" : "themeHero",
+      "type" : "region"
+    }, {
+      "id" : "ddee823b-a02d-4d10-acfd-3403d5fe012f",
+      "regionName" : "themeFooter",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "fixedPageWidth" : 1170,
+      "headerBgColor" : "rgba(0, 0, 0, 0)",
+      "isHeaderPinned" : false,
+      "isHeroUnderHeader" : false,
+      "isPageWidthFixed" : true,
+      "showHeader" : true,
+      "showHero" : true
+    },
+    "componentName" : "siteforce:themeLayoutStarter",
+    "id" : "8bf5aabb-f260-425c-932a-50b84c657cb8",
+    "label" : "ServiceNotAvailable",
+    "regions" : [ {
+      "id" : "7894aafa-ba7c-40d4-b914-cdaa63d67746",
+      "regionName" : "themeHeader",
+      "type" : "region"
+    }, {
+      "id" : "7daf5ec4-8d25-45f9-8411-42d8bd806b10",
+      "regionName" : "themeFooter",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  } ]
+}

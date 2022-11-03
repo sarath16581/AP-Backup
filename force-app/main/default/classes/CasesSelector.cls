@@ -65,7 +65,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.SlaExitDate, Case.SlaStartDate, Case.IsEscalated, Case.Comments, Case.LastModifiedDate, Case.LastModifiedById,
 			Case.ParentId, Case.Priority, Case.ProductId, Case.FeedItemId, Case.Status, Case.IsStopped, Case.StopStartDate, Case.Subject,
 			Case.Type, Case.SuppliedCompany, Case.SuppliedEmail, Case.SuppliedName, Case.SuppliedPhone, Case.ReferenceID__c, 
-			Case.First_Email_Response__c, Case.StarTrack_Calc_Email_Address__c, Case.Owner_is_Queue__c, Case.Approval_Status__c, Case.Business_Solutions_Customer__c, Case.Case_RecordType_Name__c, Case.StarTrack_RecordType__c, Case.ResolutionCode__c, Case.Enquiry_Type__c, Case.Call_Purpose__c, Case.Auto_Email_Response_sent__c
+			Case.First_Email_Response__c, Case.StarTrack_Calc_Email_Address__c, Case.Owner_is_Queue__c, Case.Approval_Status__c, Case.Business_Solutions_Customer__c, Case.Case_RecordType_Name__c, Case.StarTrack_RecordType__c, Case.ResolutionCode__c, Case.Enquiry_Type__c, Case.Call_Purpose__c, Case.Auto_Email_Response_sent__c, Case.LastIncomingEmailAddress__c
 		};
 	}
 

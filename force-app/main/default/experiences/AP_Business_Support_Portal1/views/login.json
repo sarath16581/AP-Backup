@@ -1,0 +1,65 @@
+{
+  "appPageId" : "b67e956c-d854-4559-b1e0-8969ea9a2b41",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "74a63940-87f1-4444-8ec5-0bdf1e979dd1",
+  "label" : "Login",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bspLogin",
+      "id" : "6a68056e-cb85-4694-a2eb-7c897996df0d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6bb7e3c5-2923-422e-97a5-022823bb86e7",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Business Support Portal Login"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "7f64ee4c-02c5-4670-90a3-b3cac6efdad5",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "d6fa9fb1-343b-4b46-b753-18d5d4dc137b",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "id" : "25bd826b-62fd-4420-a253-e453470ff9ee",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "9a97b262-ec4f-449e-98e2-bb4236a5d70d",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "id" : "1ffc6648-3203-437b-8ee8-7c5ef7f0a834",
+    "regionName" : "Sidebar",
+    "type" : "region"
+  }, {
+    "id" : "110e1c95-bac5-42aa-a9ce-364957aea681",
+    "regionName" : "sidebarAlt",
+    "type" : "region"
+  }, {
+    "id" : "e5655fb9-7925-4c3a-aa41-109828202224",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "id" : "544b3e23-0b88-4304-8166-a4e4e68d97bd",
+    "regionName" : "ContentHeaderBlock2",
+    "type" : "region"
+  }, {
+    "id" : "c1687f12-eef0-457d-9814-e9f5e0181c75",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "QUv5QU6Ecfxq0gA7AcuBuFjvwgMXSg",
+  "type" : "view",
+  "viewType" : "login-home"
+}

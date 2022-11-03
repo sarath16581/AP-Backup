@@ -1,0 +1,177 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>Australia Post</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		* {
+			-ms-text-size-adjust: 100%;
+			-webkit-text-size-adjust: none;
+			-webkit-text-resize: 100%;
+			text-resize: 100%;
+		}
+
+		@media only screen and (max-width:500px) {
+			table[class="wrapper"] {
+				min-width: 320px !important;
+			}
+
+			table[class="flexible"] {
+				width: 100% !important;
+			}
+
+			span[class="hide"] {
+				display: none !important;
+				width: 0 !important;
+				height: 0 !important;
+				padding: 0 !important;
+				font-size: 0 !important;
+				line-height: 0 !important;
+			}
+
+			td[class="alignjustify"] {
+				text-align: justify !important;
+			}
+
+			td[class="button"] {
+				padding-top: 0 !important;
+			}
+
+			td[class="button"] a {
+				padding: 8px 0;
+				display: block !important;
+				border-bottom: 1px solid #d7d2cb;
+				text-align: center !important;
+				font-size: 13px !important;
+				line-height: 15px !important;
+			}
+
+			td[class="style-01"] {
+				padding: 0 !important;
+			}
+		}
+
+		@media only screen and (max-width:343px) {
+			td[class="img-01"] {
+				width: 100px !important;
+			}
+
+			td[class="img-01"] img {
+				width: 100% !important;
+				height: auto !important;
+			}
+		}
+	</style>
+</head>
+
+<body style="margin:0; padding:0;" bgcolor="#f3f1ee" link="#dc1928">
+	<table class="wrapper" width="100%" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee">
+		<tr>
+			<td style="padding:19px 5px 30px;">
+				<table class="flexible" align="center" width="510" cellpadding="0" cellspacing="0">
+					<tr>
+						<td style="padding:0 0 25px;">
+							<table width="100%" cellpadding="0" cellspacing="0">
+								<tr>
+									<td valign="bottom"
+										style="font:bold 16px/20px Arial, Helvetica, sans-serif; color:#382f2d;">Help &
+										Support</td>
+									<td width="10"></td>
+									<td width="60" valign="bottom">
+										<table width="100%" cellpadding="0" cellspacing="0">
+											<tr>
+												<td><a href="http://auspost.com.au?ilink=track-em4-edm-aplogo"><img
+															src="http://auspost.com.au/images/emails/track/logo.png"
+															border="0" style="vertical-align:top;" width="60"
+															height="61" alt="Australia Post" /></a></td>
+											</tr>
+											<tr>
+												<td height="5" style="font-size:0; line-height:0;">&nbsp;</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
+							<table width="100%" cellpadding="0" cellspacing="0">
+								<tr>
+									<td
+										style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:1px solid #cdc6c5;">
+										<br />
+
+										<p>Hi {!Contact.FirstName},</p>
+
+										<p>Thanks for your patience while we've conducted our investigation for your
+											missing parcel.</p>
+
+										<p> <span style="font:bold 13px/18px Arial, Helvetica, sans-serif;">Case
+													Number: </span> {!Case.CaseNumber} </p>
+										<p> <span style="font:bold 13px/18px Arial, Helvetica, sans-serif;">Tracking
+													Number: </span> {!Case.ReferenceID__c} </p>
+
+										<p>We've checked our delivery network and found no further updates for your
+											parcel.
+											It hasn't been logged at our Returned Mail Redistribution Centre, where we
+											store undeliverable
+											items and loose contents.</p>
+
+										<p>We regret to advise that despite our investigation, we haven't been able to
+											locate your parcel.
+											With all possible checks completed, your parcel is now considered lost.</p>
+
+										<p>We had hoped to give you a happier outcome today, and we're sorry that we
+											couldn't.</p>
+
+										<p style="font:bold 13px/18px Arial, Helvetica, sans-serif;">What to do next</p>
+
+										<p>Please contact the sender of your parcel. Let them know your parcel is lost
+											and ask for assistance with your
+											order. You can share this email with them as confirmation of your lost
+											parcel.</p>
+
+										<p>You should contact the sender because they are best placed to offer you a
+											solution according to their policies. If the
+											sender can't assist you, please let us know.</p>
+
+										<p>We sincerely apologise for any disappointment or inconvenience this may have
+											caused you.</p>
+
+										<p>
+											Kind regards,
+											<br />
+											Customer Services
+											<br />
+											Australia Post
+										</p>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td height="14" style="font-size:0; line-height:0;">&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="alignjustify"
+							style="padding:0 2px 12px; font:11px/13px Arial, Helvetica, sans-serif; color:#444;">
+							<br>Nothing in this email is intended to exclude or limit any rights or remedies that you
+							may have under the Australian Consumer Law. For more information,
+							visit <a href="https://auspost.com.au/receiving/delayed-lost-or-damaged-items/compensation"
+								style="text-decoration:none; color:#0000FF;">compensation</a><br>
+
+							<br>Australia Post acknowledges the Traditional Custodians of the land on which we operate,
+							live and gather as employees and recognise their continuing connection to land, water and
+							community. We pay respect to Elders past, present and emerging.<br></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>

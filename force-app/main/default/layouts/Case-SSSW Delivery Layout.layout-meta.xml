@@ -190,6 +190,14 @@
                 <behavior>Readonly</behavior>
                 <field>CustomerQueueType__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Customer_Type__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>HasExtraCover__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -207,10 +215,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>EnquirySubType__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Customer_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

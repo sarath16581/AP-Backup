@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Display_ETA_to_Driver__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>false</defaultValue>
+    <description>To display the Start Time to the drivers hand held and within the dispatch portal.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>By checking the box the Start Time will be displayed within the dispatch portal and to the driver on their hand held scanner.</inlineHelpText>
+    <label>Display ETA to Driver</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

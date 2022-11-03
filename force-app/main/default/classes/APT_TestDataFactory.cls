@@ -185,6 +185,13 @@ public class APT_TestDataFactory {
 		}, count), generateIds);
 	}
 
+	// creating a test data for Apttus_Config2__ProductOptionComponent__c object
+	public static List<Apttus_Config2__ProductOptionComponent__c> getProductOptionComponentRecord(integer count,  integer itemSequence, Boolean generateIds){
+		return (List<Apttus_Config2__ProductOptionComponent__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ProductOptionComponent__c.SObjectType, new Map<SObjectField, Object> {			
+			Apttus_Config2__ProductOptionComponent__c.Apttus_Config2__Sequence__c => itemSequence			
+		}, count), generateIds);
+	}
+
 	// creating a test data for Apttus_Config2__ClassificationName__c object
 	public static List<Apttus_Config2__ClassificationName__c> getClassificationNameRecord(integer count,  String name, String hierarchyLabel, String type, String guidePage, Boolean generateIds){
 		return (List<Apttus_Config2__ClassificationName__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ClassificationName__c.SObjectType, new Map<SObjectField, Object> {			
@@ -256,4 +263,39 @@ public class APT_TestDataFactory {
 			Product2.APT_Is_Apttus_Product__c=>true
 		}, count), generateIds);
 	}
+
+	public static List<APT_Agreement_Lodgement_Point__c> getAgreementLodgementPoints(integer count, Id networkId, Id apttusContractId, Id accountId, Boolean generateIds){
+		return (List<APT_Agreement_Lodgement_Point__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(APT_Agreement_Lodgement_Point__c.SObjectType, new Map<SObjectField, Object> {
+			APT_Agreement_Lodgement_Point__c.APT_Lodgement_Point_Lookup__c => networkId,
+			APT_Agreement_Lodgement_Point__c.APT_Agreement__c => apttusContractId,
+			APT_Agreement_Lodgement_Point__c.APT_Organisation__c => accountId
+		}, count), generateIds);
+	}
+
+
+	public static List<Apttus_Config2__UsagePriceTier__c> getAPTUPTRecord(integer count, Id LineItemId, Boolean generateIds){
+		return (List<Apttus_Config2__UsagePriceTier__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__UsagePriceTier__c.SObjectType, new Map<SObjectField, Object> {      
+			Apttus_Config2__UsagePriceTier__c.Apttus_Config2__LineItemId__c => LineItemId,
+			Apttus_Config2__UsagePriceTier__c.Apttus_Config2__Dimension4Value__c => 'CASSLOS_KRSP00S006CA',
+			Apttus_Config2__UsagePriceTier__c.Apttus_Config2__AdjustmentAmount__c => 2.3
+		}, count), generateIds);
+	}
+    
+    public static List<Apttus_Config2__AppliedRuleInfo__c> getARIRecord(integer count, Id configId, Boolean generateIds){
+    return (List<Apttus_Config2__AppliedRuleInfo__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__AppliedRuleInfo__c.SObjectType, new Map<SObjectField, Object> {      
+      Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__Invalid__c => true,
+      Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__ConstraintRuleId__c => configId,    
+      Apttus_Config2__AppliedRuleInfo__c.Apttus_Config2__PrimaryLineNumber__c => 1  
+     
+    }, count), generateIds);
+  }
+  
+  public static List<Apttus_Config2__ConstraintRule__c> getConstraintRuleRecord(integer count,  Boolean generateIds){
+    return (List<Apttus_Config2__ConstraintRule__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(Apttus_Config2__ConstraintRule__c.SObjectType, new Map<SObjectField, Object> {      
+      Apttus_Config2__ConstraintRule__c.Name => 'const',
+      Apttus_Config2__ConstraintRule__c.Apttus_Config2__Active__c=> True,    
+      Apttus_Config2__ConstraintRule__c.Apttus_Config2__MatchInPrimaryLines__c=> True 
+     
+    }, count), generateIds);
+  }
 }

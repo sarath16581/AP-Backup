@@ -86,13 +86,28 @@
     }
     
     function checkPreventStatus(el){
+        try{
         var preventStatusChange = j$('#preventStatusChange');
-        if(!el.checked) {
-            preventStatusChange.attr('disabled','disabled');
-            preventStatusChange.attr('checked',false);
-        } else {
-            preventStatusChange.removeAttr('disabled');
+        var networkStatusCheck = '{!currentCase.status}';
+        var recordTypeCheck = '{!currentCase.RecordType.DeveloperName}';
+        if(networkStatusCheck == 'Awaiting Network Response' && recordTypeCheck.includes('SSSW') && el.checked){
+            preventStatusChange.prop('checked',true);
+            preventStatusChange.prop('disabled','disabled');
+            
+        }else{
+            if(!el.checked) {
+                preventStatusChange.prop('checked',false);
+                preventStatusChange.prop('disabled','disabled');
+            } else {
+                preventStatusChange.removeProp('disabled','disabled');
+            }
         }
+    }
+    catch(e){
+        console.log('error');
+        console.log(e);
+    }
+        
     }
 </script>
         <div class="bPageBlock brandSecondaryBrd bEditBlock secondaryPalette" id="ep">
