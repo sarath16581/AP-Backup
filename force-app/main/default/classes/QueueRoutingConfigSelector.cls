@@ -15,6 +15,10 @@ public inherited sharing class QueueRoutingConfigSelector extends ApplicationSel
 		return (QueueRoutingConfigSelector)Application.Selectors.newInstance(QueueRoutingConfigSelector.class);
 	}
 
+	public static QueueRoutingConfigSelector newInstance(Integer recordLimit) {
+		return (QueueRoutingConfigSelector)Application.Selectors.newInstance(QueueRoutingConfigSelector.class).setLimit(recordLimit);
+	}
+
 	public virtual override SObjectType getSObjectType() {
 		return QueueRoutingConfig.getSObjectType();
 	}

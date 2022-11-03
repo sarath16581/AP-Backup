@@ -37,6 +37,40 @@
 @IsTest
 public with sharing class ApplicationTestDataFactory {
 
+	public static List<ServiceChannel> getServiceChannels(Integer count, String relatedEntityName, String relatedEntrySecondaryRoutingPriorityField, Boolean generateIds) {
+		return (List<ServiceChannel>)maybeGenerateIds(populateSObjects(ServiceChannel.SObjectType, new Map<SObjectField, Object> {
+				ServiceChannel.DeveloperName => 'ServiceChannel_%count%',
+				ServiceChannel.RelatedEntity => relatedEntityName,
+				ServiceChannel.SecRoutingPriorityField => relatedEntrySecondaryRoutingPriorityField
+		}, count), generateIds);
+	}
+
+	public static List<PendingServiceRouting> getPendingServiceRoutings(Integer count, Id serviceChannelId, Set<Id> workitemIds, Boolean generateIds) {
+		return (List<PendingServiceRouting>)maybeGenerateIds(populateSObjects(PendingServiceRouting.SObjectType, new Map<SObjectField, Object> {
+			PendingServiceRouting.CustomRequestedDateTime => Datetime.now(), 
+            PendingServiceRouting.WorkItemId => workitemIds,
+            PendingServiceRouting.IsReadyForRouting => false,
+            PendingServiceRouting.RoutingModel => 'MostAvailable',
+            PendingServiceRouting.RoutingType => 'SkillsBased',
+			PendingServiceRouting.RoutingPriority => 10,
+			PendingServiceRouting.ServiceChannelId => serviceChannelId
+		}, count), generateIds);
+	}
+
+	public static List<QueueRoutingConfig> getQueueRoutingConfigs(Integer count, Boolean generateIds) {
+		return (List<QueueRoutingConfig>)maybeGenerateIds(populateSObjects(QueueRoutingConfig.SObjectType, new Map<SObjectField, Object> {
+			QueueRoutingConfig.CapacityPercentage => 100,
+            QueueRoutingConfig.CapacityWeight => 1.0,
+            QueueRoutingConfig.DropAdditionalSkillsTimeout => 1000,
+            QueueRoutingConfig.IsAttributeBased => true,
+            QueueRoutingConfig.OverflowAssigneeId => null,
+            QueueRoutingConfig.PushTimeout => 30,
+            QueueRoutingConfig.RoutingModel => 'MostAvailable', 
+            QueueRoutingConfig.RoutingPriority => 30,
+            QueueRoutingConfig.DeveloperName => 'QueueRoutingConfig_%count%'
+		}, count), generateIds);
+	}
+
 	public static List<MembershipContact__c> getMembershipContact(Integer count, Id membershipId, Id contactId, string status, Boolean generateIds) {
 		return (List<MembershipContact__c>)maybeGenerateIds(populateSObjects(MembershipContact__c.SObjectType, new Map<SObjectField, Object> {
 				MembershipContact__c.Status__c => status,

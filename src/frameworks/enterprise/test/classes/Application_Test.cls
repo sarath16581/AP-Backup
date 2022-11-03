@@ -11,7 +11,41 @@
  */
 @IsTest
 private with sharing class Application_Test {
+
+	@IsTest
+	static void serviceChannelsShouldReturnAllServiceChannels() {
+		CacheManager.settings.CacheEnabled__c = true;
+		Application.Cache.resetStaticVariablesForUnitTestOnly();
+
+		List<ServiceChannel> serviceChannels = [SELECT AfterConvoWorkMaxTime,DeveloperName,DoesMinimizeWidgetOnAccept,HasAfterConvoWorkTimer,RelatedEntity,SecRoutingPriorityField FROM ServiceChannel];
+
+		System.assertEquals(serviceChannels.size(), Application.Cache.serviceChannels.size(), 'it should return the same number of service channels');
+		System.assertEquals(serviceChannels[0].Id, Application.Cache.serviceChannels.get(serviceChannels[0].DeveloperName).Id, 'should match');
+		System.assertEquals(serviceChannels[serviceChannels.size() - 1].Id, Application.Cache.serviceChannels.get(serviceChannels[serviceChannels.size() - 1].DeveloperName).Id, 'should match');
+
+		// test loading from cache
+		Application.Cache.resetStaticVariablesForUnitTestOnly();
+		CacheManager.put('ALL_SERVICE_CHANNELS', new Map<String, ServiceChannel>{'test'=>serviceChannels[0]});
+		System.assertEquals(serviceChannels[0].Id, Application.Cache.serviceChannels.get('test').Id, 'should match');
+	}
 	
+	@IsTest
+	static void skillDeveloperNameVsIdsShouldReturnAllSkills() {
+		CacheManager.settings.CacheEnabled__c = true;
+		Application.Cache.resetStaticVariablesForUnitTestOnly();
+
+		List<Skill> skills = [SELECT DeveloperName FROM Skill];
+
+		System.assertEquals(skills.size(), Application.Cache.skillDeveloperNameVsIds.size(), 'it should return the same number of skills');
+		System.assertEquals(skills[0].Id, Application.Cache.skillDeveloperNameVsIds.get(skills[0].DeveloperName), 'should match');
+		System.assertEquals(skills[skills.size() - 1].Id, Application.Cache.skillDeveloperNameVsIds.get(skills[skills.size() - 1].DeveloperName), 'should match');
+
+		// test loading from cache
+		Application.Cache.resetStaticVariablesForUnitTestOnly();
+		CacheManager.put('ALL_SKILL_IDS', new Map<String, Id>{'test'=>skills[0].Id});
+		System.assertEquals(skills[0].Id, Application.Cache.skillDeveloperNameVsIds.get('test'), 'should match');
+	}
+
     @IsTest
 	static void organisationInfoShouldReturnTheCurrentOrg() {
 		CacheManager.settings.CacheEnabled__c = true;

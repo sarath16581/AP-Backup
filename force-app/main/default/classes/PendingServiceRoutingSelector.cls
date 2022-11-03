@@ -19,6 +19,10 @@ public inherited sharing class PendingServiceRoutingSelector extends Application
 		return (PendingServiceRoutingSelector)Application.Selectors.newInstance(PendingServiceRoutingSelector.class);
 	}
 
+	public static PendingServiceRoutingSelector newInstance(Integer recordLimit) {
+		return (PendingServiceRoutingSelector)Application.Selectors.newInstance(PendingServiceRoutingSelector.class).setLimit(recordLimit);
+	}
+
 	public virtual override SObjectType getSObjectType() {
 		return PendingServiceRouting.getSObjectType();
 	}
