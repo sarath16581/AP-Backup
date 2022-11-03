@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "ee7da558-5695-4837-8ddb-31c2b53d80eb",
+    "propertyOverrides" : {
+      "activeViewId" : "a0cf1563-7c4b-45b7-b058-9fe73c0f84f6"
+    },
+    "targetId" : "313fd730-cb7a-4bed-baa2-7a181896c7bb",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Organisation_Detail_Organisation_Detail_With_Revenue_Page",
+  "id" : "15be99a3-0e1d-4b96-bf8b-6296cf1a88f7",
+  "type" : "experienceVariation"
+}

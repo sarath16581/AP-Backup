@@ -26,9 +26,23 @@
 private with sharing class QueryBuilder_Test {
 
     @IsTest
-    private static void testEnsureAllFieldsMethodsAddToTheQuery() {
-        System.debug('testEnsureAllFieldsMethodsAddToTheQuery');
+    private static void ensureAggregateFieldsAreAddedToTheQuery() {
+        QueryBuilder qb = new QueryBuilder(Contact.SObjectType);
+        qb.addAggregate(Contact.Lead_Score__c, QueryBuilder.AggregateFunction.AVG);
+        qb.addAggregate(Contact.Lead_Score__c, QueryBuilder.AggregateFunction.COUNT);
+        qb.addAggregate(Contact.Lead_Score__c, QueryBuilder.AggregateFunction.MAX);
+        qb.addAggregate(Contact.Lead_Score__c, QueryBuilder.AggregateFunction.MIN);
+        qb.addAggregate(Contact.Lead_Score__c, QueryBuilder.AggregateFunction.SUM);
+        String soql = qb.toSoqlString();
+        System.assertEquals(true, Pattern.compile('\\bAVG\\(Lead_Score__c\\) AVG_Lead_Score__c\\b').matcher(soql).find(), 'Resulting query should contain field and alias');
+        System.assertEquals(true, Pattern.compile('\\bCOUNT\\(Lead_Score__c\\) COUNT_Lead_Score__c\\b').matcher(soql).find(), 'Resulting query should contain field and alias');
+        System.assertEquals(true, Pattern.compile('\\bMAX\\(Lead_Score__c\\) MAX_Lead_Score__c\\b').matcher(soql).find(), 'Resulting query should contain field and alias');
+        System.assertEquals(true, Pattern.compile('\\bMIN\\(Lead_Score__c\\) MIN_Lead_Score__c\\b').matcher(soql).find(), 'Resulting query should contain field and alias');
+        System.assertEquals(true, Pattern.compile('\\bSUM\\(Lead_Score__c\\) SUM_Lead_Score__c\\b').matcher(soql).find(), 'Resulting query should contain field and alias');
+    }
 
+    @IsTest
+    private static void testEnsureAllFieldsMethodsAddToTheQuery() {
         QueryBuilder qb = new QueryBuilder(Account.SObjectType);
         qb.addField('Name');
         qb.addField(Account.NumberOfEmployees);
@@ -52,8 +66,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureThatLimitAndOffsetProducesCorrectQueryOutput() {
-        System.debug('testEnsureThatLimitAndOffsetProducesCorrectQueryOutput');
-
         QueryBuilder qb = new QueryBuilder(Account.SObjectType);
         qb.addField('Name');
         qb.setLimit(20);
@@ -86,8 +98,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureThatOrderByProducesCorrectQueryOutput() {
-        System.debug('testEnsureThatOrderByProducesCorrectQueryOutput');
-
         QueryBuilder qb = new QueryBuilder(Account.SObjectType);
         qb.addField('Name');
         qb.addOrder(new QueryBuilder.Order('Id', 'Desc'));
@@ -146,8 +156,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureThatGroupByProducesCorrectQueryOutput() {
-        System.debug('testEnsureThatGroupByProducesCorrectQueryOutput');
-
         QueryBuilder qb = new QueryBuilder(Account.SObjectType);
         qb.addField('Name');
         qb.addGroupBy('Name');
@@ -173,8 +181,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureThatSelectCountProducesCorrectQueryOutput() {
-        System.debug('testEnsureThatSelectCountProducesCorrectQueryOutput');
-
         QueryBuilder qb = new QueryBuilder(Account.SObjectType);
         qb.addConditions().add(new QueryBuilder.CompareCondition('Name').eq('Nathan')).endConditions();
         String soql = qb.toCountString();
@@ -187,8 +193,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureRelatedParentFieldsCanBeAddedToQuery() {
-        System.debug('testEnsureRelatedParentFieldsCanBeAddedToQuery');
-
         QueryBuilder parentQb = new QueryBuilder(Account.SObjectType);
         parentQb.addFields(new List<SObjectField>{Account.Name});
 
@@ -207,8 +211,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureSubQueryCanBeAddedToQuery() {
-        System.debug('testEnsureSubQueryCanBeAddedToQuery');
-
         QueryBuilder childrenQb = new QueryBuilder('Contacts'); // note the extra 's' on the end
         childrenQb.addFields(new List<SObjectField>{Contact.FirstName, Contact.LastName});
 
@@ -229,8 +231,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureAllConstructorsLinkTheCorrectSObject() {
-        System.debug('testEnsureAllConstructorsLinkTheCorrectSObject');
-
         QueryBuilder qb;
 
         qb = QueryBuilder.newInstance().addFrom(Account.SObjectType);
@@ -249,8 +249,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureThatCorrectCompareConditionLogicHasBeenAppliedToQueryBuilderIntegration() {
-        System.debug('testEnsureThatCorrectCompareConditionLogicHasBeenAppliedToQueryBuilderIntegration');
-
         MockUtility.disableTriggerExecution();
 
         List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, false);
@@ -346,8 +344,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureThatCorrectNullConditionLogicHasBeenAppliedToQueryBuilderIntegration() {
-        System.debug('testEnsureThatCorrectNullConditionLogicHasBeenAppliedToQueryBuilderIntegration');
-
         MockUtility.disableTriggerExecution();
 
         List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, false);
@@ -382,8 +378,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureThatCorrectLikeConditionLogicHasBeenAppliedToQueryBuilderIntegration() {
-        System.debug('testEnsureThatCorrectLikeConditionLogicHasBeenAppliedToQueryBuilderIntegration');
-
         MockUtility.disableTriggerExecution();
 
         List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, false);
@@ -417,8 +411,6 @@ private with sharing class QueryBuilder_Test {
 
     @IsTest
     private static void testEnsureThatCorrectInConditionLogicHasBeenAppliedToQueryBuilderIntegration() {
-        System.debug('testEnsureThatCorrectInConditionLogicHasBeenAppliedToQueryBuilderIntegration');
-
         MockUtility.disableTriggerExecution();
 
         List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, false);

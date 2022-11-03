@@ -9,6 +9,7 @@
 * 2022-04-08 - seth.heang@auspost.com.au - Created
 * * 2022-08-11 - nasir.jawed@auspost.com.au - Created a method "testSuccessfulLinkingPSRForStandardDelegatedPricingSameTier"
   which test the update of Product Attribute value record and proposal from DSR
+  2022-08-23 - bharat.patel30@auspost.com.au - Updated for Conga API(s) related execution validation and respected data set
 */
 @IsTest
 public with sharing class APT_CompassPricingController_Test {
@@ -24,6 +25,10 @@ public with sharing class APT_CompassPricingController_Test {
         // =====================================
         Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
         Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Customer_Tier__c = 'T05';
         List<Deal_Support_Request__c> dealSupportReqList = ApplicationTestDataFactory.getDealSupportRequests(2, opportunityRecord.Id, account.Id, true);
         Id psrAPPCRecTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0].Id;
         dealSupportReqList[0].recordtypeId = dealSupportReqList[1].recordtypeId = psrAPPCRecTypeId;
@@ -40,17 +45,21 @@ public with sharing class APT_CompassPricingController_Test {
         // Stubbing
         // =====================================
         DealSupportRequestsSelector mockSelector = (DealSupportRequestsSelector) MockUtility.mockSelector(DealSupportRequestsSelector.class);
+        APT_ProductAttributeValuesSelector pavSelector = (APT_ProductAttributeValuesSelector) MockUtility.mockSelector(APT_ProductAttributeValuesSelector.class);
         MockUtility.Mocks.startStubbing();
         MockUtility.Mocks.when(
             mockSelector.search((Map<String, Object>)fflib_Match.anyObject(),
             (Set<Object>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyObject())).thenReturn(dealSupportReqList);
+        MockUtility.Mocks.when(pavSelector.selectByLineItemId((Set<id>)fflib_Match.anyObject())).thenReturn(
+        new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
+        
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
         // Testing
         // =====================================
         Test.startTest();
-        List<Deal_Support_Request__c> dsrList = APT_CompassPricingController.getPSRList(opportunityRecord.Id);
+        List<Deal_Support_Request__c> dsrList = APT_CompassPricingController.getPSRList(opportunityRecord.Id, lineItem.Id);
         Test.stopTest();
 
         System.assertEquals(dsrList[0].product__c, dealSupportReqList[0].product__c, 'Expected PSR product must be Australia Post Parcel Contract');
@@ -71,19 +80,28 @@ public with sharing class APT_CompassPricingController_Test {
         // =====================================
         Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
         Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
-        Id psrAPPCRecTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0].Id;
+        RecordType appcRecDSR = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Customer_Tier__c = 'T10';
         List<Deal_Support_Request__c> dealSupportReqList = new List<Deal_Support_Request__c>();
 
         Map<String, Object> searchParams = new Map<String, Object>();
         searchParams.put('opportunityIds', new Set<Id>{opportunityRecord.Id});
-        searchParams.put('recTypeIds', new Set<Id>{psrAPPCRecTypeId});
+        searchParams.put('recTypeIds', new Set<Id>{appcRecDSR.Id});
         searchParams.put('productNames', new Set<String>{APT_Constants.PSR_APPC_PRODUCT_NAME});
         // =====================================
         // Stubbing
         // =====================================
         DealSupportRequestsSelector mockSelector = (DealSupportRequestsSelector) MockUtility.mockSelector(DealSupportRequestsSelector.class);
+        APT_ProductAttributeValuesSelector pavSelector = (APT_ProductAttributeValuesSelector) MockUtility.mockSelector(APT_ProductAttributeValuesSelector.class);
+        RecordTypesSelector recTypeSelector = (RecordTypesSelector) MockUtility.mockSelector(RecordTypesSelector.class);
         MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(recTypeSelector.selectByDeveloperName((String)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id, RecordType>{appcRecDSR.Id => appcRecDSR});
         MockUtility.Mocks.when(mockSelector.search((Map<String, Set<Id>>)fflib_Match.eq(searchParams),(Set<Object>)fflib_Match.eq(new Set<Object>()),fflib_Match.eqBoolean(true))).thenReturn(dealSupportReqList);
+        MockUtility.Mocks.when(pavSelector.selectByLineItemId((Set<id>)fflib_Match.anyObject())).thenReturn(
+        new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
         MockUtility.Mocks.stopStubbing();
 
         // =====================================
@@ -92,7 +110,7 @@ public with sharing class APT_CompassPricingController_Test {
         Test.startTest();
         try{
             List<Deal_Support_Request__c> dsrList = new List<Deal_Support_Request__c>();
-            dsrList = APT_CompassPricingController.getPSRList(opportunityRecord.Id);
+            dsrList = APT_CompassPricingController.getPSRList(opportunityRecord.Id, lineItem.Id);
             System.assert(false, 'Expected No PSR Raised Exception is not thrown.');
         }catch(Exception e){
             System.assert(true, 'No PSR Raised Exception should be thrown');
@@ -103,7 +121,7 @@ public with sharing class APT_CompassPricingController_Test {
     /**
      * Test: when the method fetchConfigRequestId is called, validate that the method successfully query the Apttus_Config2__TempObject__c record 
      * by searching for related Apttus_Config2__ProductConfiguration__c and return the matching Apttus_Config2__TempObject__c Id
-     */
+     */    
     @IsTest
     public static void testFetchConfigRequestId(){
         // =====================================
@@ -133,129 +151,10 @@ public with sharing class APT_CompassPricingController_Test {
     }
 
     /**
-     * Test: when the method onApply is called, validate that the linking PSR functionality is completed successfully without any error.
-     * Then, the product config record should be updated with pricing pending set to TRUE and a success message is returned.
-     */
-    @IsTest
-    public static void testSuccessfulLinkingPSRForStandardDelegatedPricing(){
-        // =====================================
-        // Data Preparation
-        // =====================================
-        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
-        Contact con = APT_TestDataFactory.getAPTContactRecord(1, account.Id, true)[0];
-        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
-        Apttus_Proposal__Proposal__c proposal = APT_TestDataFactory.getAPTProposalRecord(1, opportunityRecord.id, account.Id, con.id, true)[0];
-        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
-        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];             
-        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
-        Map<Id, Apttus_Config2__ProductConfiguration__c> productConfig;
-        List<ID> pavIDList= new List<ID>();
-
-        APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
-
-        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
-        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
-        pav.APT_Lodgement_Zone__c = lodgementZone.Id;
-        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
-        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
-        pav.APT_Customer_Tier__c = 'T04';
-        pavList.add(pav);
-
-        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;
-        lineItem.Apttus_Config2__LineType__c = 'Option';
-        lineItemList.add(lineItem); 
-        pavIDList.add(lineItem.Apttus_Config2__AttributeValueId__c);
-        
-        //Query Selector for DSR
-        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
-        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_STANDARD_DELEGATED_PRICING;
-        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
-        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
-        dealSupportReq.Approved_Tier__c='T07';
-        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';
-        
-        // building compass pricing attributes to test a getter method
-        APT_CompassPricingController compassPricingCon = new APT_CompassPricingController();
-        compassPricingCon.lineItemId = lineItem.Id;
-        compassPricingCon.configId = prodConfig.Id;
-        compassPricingCon.opportunityId = opportunityRecord.Id;
-
-        // code coverage for the goBack() PageReference method
-        PageReference pageRef = Page.APT_Link_PSR;
-        Test.setCurrentPage(pageRef);
-        pageRef.getParameters().put('url','www.test.com');
-        APT_CompassPricingController.goBack();
-
-        // =====================================
-        // Stubbing
-        // =====================================
-        APT_ProductAttributeValuesSelector mockSelector = (APT_ProductAttributeValuesSelector) MockUtility.mockSelector(APT_ProductAttributeValuesSelector.class);
-        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockSelector.selectByLineItemId((Set<id>)fflib_Match.eq(new Set<Id>{lineItem.Id}))).thenReturn(
-            new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
-        MockUtility.Mocks.stopStubbing();
-
-        //Query Selector for Line item
-        LineItemsSelector mockSelector1 = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
-        ApplicationDatabase mockDatabase1 = MockUtility.mockDatabase();
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockSelector1.selectByProdConfId(new set<ID>{(ID)prodConfig.Id})).thenReturn(
-            new List<Apttus_Config2__LineItem__c>(new List<Apttus_Config2__LineItem__c>{lineItem}));      
-        MockUtility.Mocks.stopStubbing();
-        
-        //Query Selector for Product Attribute Values
-        APT_ProductAttributeValuesSelector mockSelector2 = (APT_ProductAttributeValuesSelector) MockUtility.mockSelector(APT_ProductAttributeValuesSelector.class);
-        ApplicationDatabase mockDatabase2 = MockUtility.mockDatabase();
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockSelector2.selectByPavID((List<Id>)fflib_Match.eq(pavIDList))).thenReturn(
-            new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));     
-        MockUtility.Mocks.stopStubbing();
-        
-        //Query Selector for Product Configuration
-        ProductConfigurationSelector mockSelector3 = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
-        ApplicationDatabase mockDatabase3 = MockUtility.mockDatabase();
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockSelector3.selectByConfigId(new set<ID>{(ID)prodConfig.Id})).thenReturn(
-            new List<Apttus_Config2__ProductConfiguration__c>(new List<Apttus_Config2__ProductConfiguration__c>{prodConfig}));     
-        MockUtility.Mocks.stopStubbing();
-
-        //Query Selector for Proposal
-        APT_ProposalObjectsSelector mockSelector4 = (APT_ProposalObjectsSelector) MockUtility.mockSelector(APT_ProposalObjectsSelector.class);
-        ApplicationDatabase mockDatabase4 = MockUtility.mockDatabase();
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockSelector4.selectByConfigId(new set<ID>{(ID)prodConfig.Id})).thenReturn(
-            new Map<Id,Apttus_Proposal__Proposal__c>(new List<Apttus_Proposal__Proposal__c>{proposal}));     
-        MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
-        MockUtility.Mocks.stopStubbing();
-
-
-        
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
-        String successMsg = APT_CompassPricingController.onApply(dealSupportReq,prodConfig.Id,lineItem.Id);
-        Test.stopTest();
-        System.assertNotEquals(null, compassPricingCon.compassPricingAttributes, 'Instance variables should not be null');
-        System.assertEquals(successMsg, System.Label.APT_LinkPSRSuccess, 'Link PSR must be successful');
-        fflib_ArgumentCaptor updateRecCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
-        //verify dml update has been made
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(2))).dmlUpdate((List<SObject>)updateRecCaptor.capture());
-        for(SObject obj: (List<SObject>)updateRecCaptor.getValue()){
-            if(obj instanceOf  Apttus_Config2__ProductConfiguration__c){
-                Apttus_Config2__ProductConfiguration__c prodConfigResult = (Apttus_Config2__ProductConfiguration__c)obj;
-                System.assertEquals(true, prodConfigResult.Apttus_Config2__IsPricePending__c, 'Price Pending is not set to TRUE');
-            }
-        }
-        
-    }
-
-    /**
      * Test: when the method onApply is called, validate that the linking PSR functionality is failed and multiple exceptions have occurred.
      * Three exceptions are tested below including expired quote validity date, lodgement zone mismatch between PSR and product selected in shopping cart
      * and a general exception such as invalid Id passed in as parameter.
-     */
+     */    
     @IsTest
     public static void testFailedValidationWhenLinkingPSR(){
         // =====================================
@@ -269,9 +168,9 @@ public with sharing class APT_CompassPricingController_Test {
         Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
         pav.APT_Lodgement_Zone__c = lodgementZone.Id;
         pav = (Apttus_Config2__ProductAttributeValue__c)ApplicationTestDataFactory.setUnwritableFields(pav, 
-				new Map<String, Object>{
-					'APT_Selected_Lodgement_Zone__c' => 'Capital'
-				});
+                new Map<String, Object>{
+                    'APT_Selected_Lodgement_Zone__c' => 'Capital'
+                });
         pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
         pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
         lineItem.Apttus_Config2__AttributeValueId__c = pav.Id;
@@ -321,65 +220,105 @@ public with sharing class APT_CompassPricingController_Test {
         }
         Test.stopTest();
     }
-     /**
-     * Test: when the method onApply is called, validate that the linking PSR functionality is successfull .
-     * It updates the Product Attribute value and Proposal record from DSR record.
-     */    
+
+    /**
+     *  Test: when the method onApply is called, validate that the linking PSR functionality is completed successfully without any error.
+     *  Will cover the Apply PSR functionality and following Conga CPQ API(s) during the execution flow:
+     *  Apttus_CPQApi.CPQWebService.associateConstraintRules()
+     *  Apttus_CPQApi.CPQWebService.applyConstraintRules()
+     *  Apttus_CPQApi.CPQWebService.getConstraintRuleResult()
+     *  Apttus_CpqApi.CPQWebService.updatePriceForCart()
+    */  
     @IsTest
     public static void testSuccessfulLinkingPSRForStandardDelegatedPricingSameTier(){
+        
         // =====================================
         // Data Preparation
-        // =====================================
-        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
-        Contact con = APT_TestDataFactory.getAPTContactRecord(1, account.Id, true)[0];
-        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
-        Apttus_Proposal__Proposal__c proposal = APT_TestDataFactory.getAPTProposalRecord(1, opportunityRecord.id, account.Id, con.id, true)[0];
-        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, proposal.id, true)[0];
-        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];             
-        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
+        // =====================================        
+        Account tempacct = ApplicationTestDataFactory.getAccounts(1, false)[0];
+        tempacct.Legacy_Id__c = '60000000';
+        insert tempacct;
+        //Contact con = APT_TestDataFactory.getAPTContactRecord(1, tempacct.Id, false)[0];
+
+        Contact con = ApplicationTestDataFactory.getContacts(1, tempacct.Id, false)[0];
+        insert con;
+
+        Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, tempacct.Id, false)[0];
+        insert opp;
         
+        //get Product and set Product Type
+        Product2 product =APT_TestUtils.createAPPCProduct('Car',APT_Constants.PRODUCT_CODE_APPC,'Postal Services');
+        product.APT_Product_type__c = 'Workforce Verification';//add product type to product
+        insert product;
+        
+        //get Price List and Price List Item
+        Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
+        insert priceList;        
+        Apttus_Config2__PriceListItem__c priceListItem = APT_TestUtils.createPriceListItem(priceList.id,product.id,'','');
+        insert priceListItem;
+
+        //get Proposal/Quote and Product Configuration
+        Apttus_Proposal__Proposal__c quote = APT_TestDataFactory.getAPTProposalRecord(1, opp.id, tempacct.Id, con.id, false)[0];
+        insert quote;
+        Apttus_Config2__ProductConfiguration__c config = APT_TestDataFactory.getAPTProductConfig(1, tempacct.Id, null, false)[0];
+        config.Apttus_QPConfig__Proposald__c=quote.id;
+        config.Apttus_Config2__PriceListId__c=priceList.id;
+        insert config;
+
+        //get summary group, Product Option Component, Classification and Hierarchy
+        Apttus_Config2__SummaryGroup__c summaryGroup = APT_TestDataFactory.getSummaryGroupRecord(1, config.Id, 78, 45, false)[0];
+        insert summaryGroup;
+        Apttus_Config2__ProductOptionComponent__c prodOptionComponent = APT_TestDataFactory.getProductOptionComponentRecord(1, 2, false)[0];
+        insert prodOptionComponent;
+        Apttus_Config2__ClassificationName__c category = APT_TestDataFactory.getClassificationNameRecord(1, 'Test', 'High', 'Offering', 'Sample', false)[0];
+        insert category;
+        Apttus_Config2__ClassificationHierarchy__c classHierarchy = APT_TestDataFactory.getClassificationHierarchyRecord(1, category.id, 'Sample', false)[0];
+        insert classHierarchy;
+
+        //get line item's data
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getConfigLineItemRecords(1,config.id,summaryGroup.id, 2, product.id, prodOptionComponent.id,
+             product.id,classHierarchy.id, 2.3,false,'',2,priceList.id,priceListItem.Id,'','','','', 22.00,24.00, 34.00,23.00,33.50, false)[0];
+        lineItem.Apttus_Config2__ConfigurationId__c = config.id;
+        insert lineItem;   
+
+        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
         List<ID> pavIDList= new List<ID>();
 
+         //get Lodgement zone
         APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
-
-        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
+        
+        //get Product Attribute Value record and set LZ, Tier, LI information
         Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
         pav.APT_Lodgement_Zone__c = lodgementZone.Id;
-        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';       
+        pav = (Apttus_Config2__ProductAttributeValue__c)ApplicationTestDataFactory.setUnwritableFields(pav, 
+                new Map<String, Object>{
+                    'APT_Selected_Lodgement_Zone__c' => 'Capital'
+                });
+        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
+        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
         pav.APT_Customer_Tier__c = 'T04';
-        pavList.add(pav);
-
-        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;
+        pav.Apttus_Config2__LineItemId__c = lineItem.Id;
+        lineItem.Apttus_Config2__AttributeValueId__c = pav.Id;
         lineItem.Apttus_Config2__LineType__c = 'Option';
+
         lineItemList.add(lineItem); 
         pavIDList.add(lineItem.Apttus_Config2__AttributeValueId__c);
         
-        //Query Selector for DSR
-        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
-        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_STANDARD_DELEGATED_PRICING;
-        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
-        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
-        dealSupportReq.Approved_Tier__c='T04';
-        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';        
-       
-
         // =====================================
         // Stubbing
         // =====================================
-        //Query Selector for Product Attribute Values
         APT_ProductAttributeValuesSelector mockSelector = (APT_ProductAttributeValuesSelector) MockUtility.mockSelector(APT_ProductAttributeValuesSelector.class);
         ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
         MockUtility.Mocks.startStubbing();
         MockUtility.Mocks.when(mockSelector.selectByLineItemId((Set<id>)fflib_Match.eq(new Set<Id>{lineItem.Id}))).thenReturn(
             new List<Apttus_Config2__ProductAttributeValue__c>(new List<Apttus_Config2__ProductAttributeValue__c>{pav}));
-        MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.eq(prodConfig))).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
         MockUtility.Mocks.stopStubbing();
 
         //Query Selector for Line item
         LineItemsSelector mockSelector1 = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
         ApplicationDatabase mockDatabase1 = MockUtility.mockDatabase();
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockSelector1.selectByProdConfId(new set<ID>{(ID)prodConfig.Id})).thenReturn(
+        MockUtility.Mocks.when(mockSelector1.selectByProdConfId(new set<ID>{(ID)config.Id})).thenReturn(
             new List<Apttus_Config2__LineItem__c>(new List<Apttus_Config2__LineItem__c>{lineItem}));      
         MockUtility.Mocks.stopStubbing();
         
@@ -395,101 +334,560 @@ public with sharing class APT_CompassPricingController_Test {
         ProductConfigurationSelector mockSelector3 = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
         ApplicationDatabase mockDatabase3 = MockUtility.mockDatabase();
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockSelector3.selectByConfigId(new set<ID>{(ID)prodConfig.Id})).thenReturn(
-            new List<Apttus_Config2__ProductConfiguration__c>(new List<Apttus_Config2__ProductConfiguration__c>{prodConfig}));     
+        MockUtility.Mocks.when(mockSelector3.selectByConfigId(new set<ID>{(ID)config.Id})).thenReturn(
+            new List<Apttus_Config2__ProductConfiguration__c>(new List<Apttus_Config2__ProductConfiguration__c>{config}));     
         MockUtility.Mocks.stopStubbing();
-        
+
         //Query Selector for Proposal
         APT_ProposalObjectsSelector mockSelector4 = (APT_ProposalObjectsSelector) MockUtility.mockSelector(APT_ProposalObjectsSelector.class);
         ApplicationDatabase mockDatabase4 = MockUtility.mockDatabase();
         MockUtility.Mocks.startStubbing();
-                                                                          MockUtility.Mocks.when(mockSelector4.selectByConfigId(new set<ID>{(ID)proposal.id})).thenReturn(
-            new Map<Id,Apttus_Proposal__Proposal__c>(new List<Apttus_Proposal__Proposal__c>{proposal}));     
+        MockUtility.Mocks.when(mockSelector4.selectByConfigId(new set<ID>{(ID)config.Id})).thenReturn(
+            new Map<Id,Apttus_Proposal__Proposal__c>(new List<Apttus_Proposal__Proposal__c>{quote}));     
+        MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
         MockUtility.Mocks.stopStubbing();
+     
+        List<Deal_Support_Request__c> dealSupportReqList = ApplicationTestDataFactory.getDealSupportRequests(2, opp.Id, tempacct.Id, true);
+        Id psrAPPCRecTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0].Id;
+        dealSupportReqList[0].recordtypeId = dealSupportReqList[1].recordtypeId = psrAPPCRecTypeId;
+        dealSupportReqList[0].product__c = dealSupportReqList[1].product__c = APT_Constants.PSR_APPC_PRODUCT_NAME;
+        dealSupportReqList[0].stage__c = dealSupportReqList[1].stage__c = APT_Constants.PSR_STAGE_COMPLETE;
+        dealSupportReqList[0].status__c = dealSupportReqList[1].status__c = APT_Constants.PSR_STATUS_COMPLETE;
 
+        dealSupportReqList[0].Approved_Event__c = APT_Constants.PSR_APPC_STANDARD_DELEGATED_PRICING;
 
+         //Query Selector for DSR
+         dealSupportReqList[0].Approved_lodgement_zone__c = 'Capital';
+         dealSupportReqList[0].Quote_Validity_End_Date__c= Date.today() + 60;
+         dealSupportReqList[0].Approved_Tier__c='T04';
+         dealSupportReqList[0].Approved_Pricing_Structure__c= 'Z006'; 
         
+        // building compass pricing attributes to test a getter method
+        APT_CompassPricingController compassPricingCon = new APT_CompassPricingController();
+        compassPricingCon.lineItemId = lineItem.Id;
+        compassPricingCon.configId = config.Id;
+        compassPricingCon.opportunityId = opp.Id;
+    
+        // code coverage for the goBack() PageReference method
+        PageReference pageRef = Page.APT_Link_PSR;
+        Test.setCurrentPage(pageRef);
+        pageRef.getParameters().put('url','www.auspost.com');
+        APT_CompassPricingController.goBack();
+
         // =====================================
         // Testing
         // =====================================
         Test.startTest();
-        String successMsg = APT_CompassPricingController.onApply(dealSupportReq,prodConfig.Id,lineItem.Id);
+            String successMsg = APT_CompassPricingController.onApply(dealSupportReqList[0],config.Id,lineItem.Id);
+            Boolean isConstraintRulesMoreProcess = APT_CompassPricingController.applyConstraintRules(config.Id, true);
         Test.stopTest();
-        System.assertEquals(dealSupportReq.Approved_Tier__c,pav.APT_Customer_Tier__c, 'Tier should be same');
-        System.assertEquals(successMsg, System.Label.APT_LinkPSRSuccess, 'Link PSR must be successful');
-        fflib_ArgumentCaptor updatedProdConfigCaptor = fflib_ArgumentCaptor.forClass(List<Apttus_Config2__ProductConfiguration__c>.class);
         
+        System.assertNotEquals(null, compassPricingCon.compassPricingAttributes, 'Instance variables should not be null');
+        System.assertEquals(successMsg, System.Label.APT_LinkPSRSuccess, 'Link PSR must be successful');        
+    }   
+  
+
+    @IsTest
+    public static void testUpdatePriceForCart(){
+        // =====================================
+        // Data Preparation
+        // =====================================
+        Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
+        account.LEGACY_ID__c = '4604376';
+        insert account;
+        Contact con = APT_TestDataFactory.getAPTContactRecord(1, account.Id, false)[0];
+        insert con;
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, false)[0];
+        insert opportunityRecord;
+        Apttus_Proposal__Proposal__c proposal = APT_TestDataFactory.getAPTProposalRecord(1, opportunityRecord.id, account.Id, con.id, false)[0];
+        insert proposal;
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, false)[0];
+        insert prodConfig;
+
+        APT_CompassPricingController.updatePriceForCart(prodConfig.id,false);
     }
 
-    /**
-     * Test: This method calls the apply constraint rule and repricing together.
-     * It updates the Product Attribute value and Proposal record from DSR record.
-     */  //@IsTest (SeeAllData=true)
+   
     
-    public static testMethod void testCongaCPQAPI(){
-
+     @isTest
+    public static void makeCustomPricingInvalidID() {
+        Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock.APT_HttpCallouts_MockInvalidCusID());
         
-        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
-        User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
-        EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
-        LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
-        TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-        UserName=APT_Constants.EMAIL_TEST_USER);
-        System.runAs(testuser) {
-            Contact con= APT_TestUtils.createContact();
-            insert con;
-            
-            Account tempacct = APT_TestUtils.createOrganisation();
-            tempacct.Legacy_Id__c = '60000000';
-            insert tempacct;
-            
-            Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
-            insert opp;
-            
-            Product2 product =APT_TestUtils.createInternationalProduct('Car',APT_Constants.PRODUCT_CODE_ePARCEL_STANDARD,'Postal Services');
-            product.APT_Product_type__c = 'Workforce Verification';//add product type to product
-            insert product;
-            
-            Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
-            insert priceList;
-            
-            Apttus_Config2__PriceListItem__c priceListItem = APT_TestUtils.createPriceListItem(priceList.id,product.id,'','');
-            insert priceListItem;
-            Apttus_Proposal__Proposal__c quote = APT_TestUtils.getQuoteProposal(tempacct.id,opp.Id,'Proposal','Test',priceList.id);
-            insert quote;
-            
-            Apttus_Config2__ProductConfiguration__c config =new  Apttus_Config2__ProductConfiguration__c(Name='Sample',Apttus_QPConfig__Proposald__c=quote.id,Apttus_Config2__PriceListId__c=priceList.id);
-            insert config;
-            
-            Apttus_Config2__SummaryGroup__c summaryGroup = new Apttus_Config2__SummaryGroup__c (Apttus_Config2__ConfigurationId__c=config.id, Apttus_Config2__ItemSequence__c=78, Apttus_Config2__LineNumber__c=45);
-            insert summaryGroup ;
-            
-            Apttus_Config2__ProductOptionComponent__c prodOptionComponent = new Apttus_Config2__ProductOptionComponent__c(Apttus_Config2__Sequence__c=2);
-            insert prodOptionComponent;
-            
-            Apttus_Config2__ClassificationName__c category = new Apttus_Config2__ClassificationName__c(Name='Test',Apttus_Config2__Active__c=true,
-                                                                Apttus_Config2__HierarchyLabel__c='High',Apttus_Config2__Type__c='Offering',Apttus_Config2__GuidePage__c='Sample');
-            insert category;
-            
-            Apttus_Config2__ClassificationHierarchy__c classHierarchy = new Apttus_Config2__ClassificationHierarchy__c(Apttus_Config2__HierarchyId__c=category.id, Apttus_Config2__Label__c='Sample');
-            insert classHierarchy ;
-            
-            Apttus_Config2__LineItem__c lineItem = APT_TestUtils.getConfigLineItem(config.id,summaryGroup.id  ,1,true,2,'',product.id,false,prodOptionComponent.id,
-                                                                                   product.id,classHierarchy.id,'',2.3,false,'',2,priceList.id,priceListItem.Id,'','','','',
-                                                                                   false,false,22.00,24.00,'',34.00,23.00,33.50,'');
-            insert lineItem;
+        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        account.LEGACY_ID__c = '46043';
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 
-        Test.startTest();
-        Boolean successMsg = APT_CompassPricingController.validateCongaCPQAPI(config.Id);
-        Test.stopTest();
-
+        APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];  
+        lineItem.Apttus_Config2__LineType__c = 'Option'; 
+        
+        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Lodgement_Zone__c = lodgementZone.Id;
+        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
+        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
+        pav.APT_Customer_Tier__c = 'T04';
+        pavList.add(pav); 
+        
+        List<ID> lineItemIDList= new List<ID>();       
+        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
+        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;        
+        lineItemList.add(lineItem); 
+        lineItemIDList.add(lineItem.id);        
+        
+        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_CUSTOM_PRICING;
+        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
+        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
+        dealSupportReq.Approved_Tier__c='T07';
+        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';  
+        dealSupportReq.Organisation__c =  account.id;  
+        dealSupportReq.Opportunity__c = opportunityRecord.id;
+        dealSupportReq.Compass_Quote_Reference__c = 'PDA-COMPASS-0000000103';      
+                   
+        
+        Test.startTest();   
+        try{           
+            APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD'); 
+            HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);                  
+            system.debug('res :'+ res );
+            system.assertEquals(400,res.getStatusCode());
+            APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id,dealSupportReq.Approved_Tier__c);
+        }catch(Exception e){
+        
         }
+        Test.stopTest();                
+    }
+    
+    
+     @isTest
+    public static void makeCustomPricingDataNotFound() {
+        Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock.APT_HttpCallouts_MockDataNotFound());
+        
+        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        account.LEGACY_ID__c = '4604376';
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 
-        /*
-        Test.startTest();      
-        Apttus_Config2__ProductConfiguration__c productConfiguration = [Select Id from Apttus_Config2__ProductConfiguration__c Limit 1];
-        Boolean successMsg = APT_CompassPricingController.validateCongaCPQAPI(productConfiguration.Id);
+        APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];  
+        lineItem.Apttus_Config2__LineType__c = 'Option'; 
+        
+        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Lodgement_Zone__c = lodgementZone.Id;
+        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
+        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
+        pav.APT_Customer_Tier__c = 'T04';
+        pavList.add(pav); 
+        
+        List<ID> lineItemIDList= new List<ID>();       
+        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
+        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;        
+        lineItemList.add(lineItem); 
+        lineItemIDList.add(lineItem.id);     
+        
+        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_CUSTOM_PRICING;
+        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
+        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
+        dealSupportReq.Approved_Tier__c='T07';
+        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';  
+        dealSupportReq.Organisation__c =  account.id;  
+        dealSupportReq.Opportunity__c = opportunityRecord.id;
+        dealSupportReq.Compass_Quote_Reference__c = 'PDA-COMPASS-0000000000';                      
+        
+        Test.startTest(); 
+        try{               
+            APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD'); 
+            HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);                  
+            system.debug('res :'+ res );
+            system.assertEquals(400,res.getStatusCode());
+            APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id,dealSupportReq.Approved_Tier__c);
+        }catch(Exception e){
+        
+        }
+        Test.stopTest();                
+    }
+    
+    
+     @isTest
+    public static void makeCustomPricingInvalidRatingModel() {
+        Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock.APT_HttpCallouts_MockInvalidRatingModel());
+        
+        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        account.LEGACY_ID__c = '4604376';
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+
+        APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];  
+        lineItem.Apttus_Config2__LineType__c = 'Option'; 
+        
+        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Lodgement_Zone__c = lodgementZone.Id;
+        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
+        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
+        pav.APT_Customer_Tier__c = 'T04';
+        pavList.add(pav); 
+        
+        List<ID> lineItemIDList= new List<ID>();       
+        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
+        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;        
+        lineItemList.add(lineItem); 
+        lineItemIDList.add(lineItem.id); 
+        
+        
+        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_CUSTOM_PRICING;
+        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
+        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
+        dealSupportReq.Approved_Tier__c='T07';
+        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';  
+        dealSupportReq.Organisation__c =  account.id;  
+        dealSupportReq.Opportunity__c = opportunityRecord.id;
+        dealSupportReq.Compass_Quote_Reference__c = 'PDA-COMPASS-0000000000';                   
+        
+        Test.startTest();  
+        try{               
+            APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD'); 
+            HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);               
+            system.debug('res :'+ res );
+            system.assertEquals(400,res.getStatusCode());
+            APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id,dealSupportReq.Approved_Tier__c);
+        }catch(Exception e){
+        
+        }
+        Test.stopTest();                
+    }
+
+    @isTest
+    public static void makeCustomPricingInvalidQuote() {
+        Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock.APT_HttpCallouts_MockINVALID_QUOTE());
+        
+        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        account.LEGACY_ID__c = '4604376';
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+
+        APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];  
+        lineItem.Apttus_Config2__LineType__c = 'Option'; 
+        
+        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Lodgement_Zone__c = lodgementZone.Id;
+        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
+        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
+        pav.APT_Customer_Tier__c = 'T04';
+        pavList.add(pav); 
+        
+        List<ID> lineItemIDList= new List<ID>();       
+        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
+        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;        
+        lineItemList.add(lineItem); 
+        lineItemIDList.add(lineItem.id); 
+        
+        
+        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_CUSTOM_PRICING;
+        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
+        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
+        dealSupportReq.Approved_Tier__c='T07';
+        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';  
+        dealSupportReq.Organisation__c =  account.id;  
+        dealSupportReq.Opportunity__c = opportunityRecord.id;
+        dealSupportReq.Compass_Quote_Reference__c = 'PDA-COMPASS-0000000000';                   
+        
+        Test.startTest();  
+        try{               
+            APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD'); 
+            HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);         
+            system.assertEquals(400,res.getStatusCode());
+            APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id,dealSupportReq.Approved_Tier__c);
+        }catch(Exception e){
+        
+        }
+        Test.stopTest();                
+    }
+
+    @isTest
+    public static void makeCustomPricingExpiredQuote() {
+        Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock.APT_HttpCallouts_MockEXPIRED_QUOTE());
+        
+        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        account.LEGACY_ID__c = '4604376';
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+
+        APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];  
+        lineItem.Apttus_Config2__LineType__c = 'Option'; 
+        
+        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Lodgement_Zone__c = lodgementZone.Id;
+        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
+        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
+        pav.APT_Customer_Tier__c = 'T04';
+        pavList.add(pav); 
+        
+        List<ID> lineItemIDList= new List<ID>();       
+        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
+        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;        
+        lineItemList.add(lineItem); 
+        lineItemIDList.add(lineItem.id); 
+        
+        
+        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_CUSTOM_PRICING;
+        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
+        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
+        dealSupportReq.Approved_Tier__c='T07';
+        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';  
+        dealSupportReq.Organisation__c =  account.id;  
+        dealSupportReq.Opportunity__c = opportunityRecord.id;
+        dealSupportReq.Compass_Quote_Reference__c = 'PDA-COMPASS-0000000000';                   
+        
+        Test.startTest();  
+        try{               
+            APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD'); 
+            HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);                   
+            system.debug('res :'+ res );
+            system.assertEquals(400,res.getStatusCode());
+            APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id,dealSupportReq.Approved_Tier__c);
+        }catch(Exception e){
+        
+        }
+        Test.stopTest();                
+    }
+    
+     @isTest
+    public static void makeCustomPricingSYSTEM_ERROR() {
+        Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock.APT_HttpCallouts_MockSYSTEM_ERROR());
+        
+        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        account.LEGACY_ID__c = '4604376';
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+
+        APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];  
+        lineItem.Apttus_Config2__LineType__c = 'Option'; 
+        
+        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Lodgement_Zone__c = lodgementZone.Id;
+        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
+        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
+        pav.APT_Customer_Tier__c = 'T04';
+        pavList.add(pav); 
+        
+        List<ID> lineItemIDList= new List<ID>();       
+        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
+        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;        
+        lineItemList.add(lineItem); 
+        lineItemIDList.add(lineItem.id); 
+        
+        
+        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_CUSTOM_PRICING;
+        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
+        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
+        dealSupportReq.Approved_Tier__c='T07';
+        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';  
+        dealSupportReq.Organisation__c =  account.id;  
+        dealSupportReq.Opportunity__c = opportunityRecord.id;
+        dealSupportReq.Compass_Quote_Reference__c = 'PDA-COMPASS-0000000000';                   
+        
+        Test.startTest(); 
+        try{                
+            APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD'); 
+            HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);        
+            system.assertEquals(500,res.getStatusCode());
+            APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id,dealSupportReq.Approved_Tier__c);
+        }catch(Exception e){
+        
+        }
+        Test.stopTest();                
+    }
+    
+    @isTest
+    public static void testFailAPT_HttpCallouts(){
+        Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock.APT_HttpCallouts_MockInvalidHttpCall());
+        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        account.LEGACY_ID__c = '4604376';
+        
+        Contact con = APT_TestDataFactory.getAPTContactRecord(1, account.Id, true)[0];
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+        
+        APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];  
+        lineItem.Apttus_Config2__LineType__c = 'Option'; 
+        
+        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Lodgement_Zone__c = lodgementZone.Id;
+        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
+        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
+        pav.APT_Customer_Tier__c = 'T04';
+        pavList.add(pav); 
+        
+        List<ID> lineItemIDList= new List<ID>();       
+        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
+        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;        
+        lineItemList.add(lineItem); 
+        lineItemIDList.add(lineItem.id); 
+        
+        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_CUSTOM_PRICING;
+        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
+        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
+        dealSupportReq.Approved_Tier__c='T07';
+        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';
+        dealSupportReq.Organisation__c =  account.id;  
+        dealSupportReq.Opportunity__c = opportunityRecord.id;
+        dealSupportReq.Compass_Quote_Reference__c = 'PDA-COMPASS-0000000103';
+        
+        
+        Test.startTest(); 
+        try{ 
+        APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD'); 
+        HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);  
+        APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id,dealSupportReq.Approved_Tier__c);  
+        }Catch(exception e){
+        
+        }           
         Test.stopTest();
-        */
-    }   
+        
+    }
+    
+     @isTest
+    public static void makeCustomPricingDATA_NOT_FOUND404() {
+        Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock.APT_HttpCallouts_MockDataNotFound404());
+        
+        Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        account.LEGACY_ID__c = '4604376';
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+
+        APT_Lodgement_Zone__c lodgementZone = APT_TestDataFactory.getAPTLodgementZone(1, true)[0];
+        Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, true)[0];
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getAPTLineItem(1, null, prodConfig.Id, true)[0];  
+        lineItem.Apttus_Config2__LineType__c = 'Option'; 
+        
+        List<Apttus_Config2__ProductAttributeValue__c> pavList= new List<Apttus_Config2__ProductAttributeValue__c>(); 
+        Apttus_Config2__ProductAttributeValue__c pav = APT_TestDataFactory.getAPTProductAttributeValues(1, lineItem.Id, true)[0];
+        pav.APT_Lodgement_Zone__c = lodgementZone.Id;
+        pav.APT_Additional_Lodgement_Zone_1__c = 'Capital';
+        pav.APT_Additional_Lodgement_Zone_2__c = 'Capital';
+        pav.APT_Customer_Tier__c = 'T04';
+        pavList.add(pav); 
+        
+        List<ID> lineItemIDList= new List<ID>();       
+        List<Apttus_Config2__LineItem__c> lineItemList= new List<Apttus_Config2__LineItem__c>();
+        lineItem.Apttus_Config2__AttributeValueId__c = pav.id;        
+        lineItemList.add(lineItem); 
+        lineItemIDList.add(lineItem.id); 
+        
+        
+        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true)[0];
+        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_CUSTOM_PRICING;
+        dealSupportReq.Approved_lodgement_zone__c = 'Capital';
+        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
+        dealSupportReq.Approved_Tier__c='T07';
+        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';  
+        dealSupportReq.Organisation__c =  account.id;  
+        dealSupportReq.Opportunity__c = opportunityRecord.id;
+        dealSupportReq.Compass_Quote_Reference__c = 'PDA-COMPASS-0000000000';                   
+        
+        Test.startTest(); 
+        try{                    
+        APT_CompassPricingController.HttpRequestWrapper reqWrap= new APT_CompassPricingController.HttpRequestWrapper(dealSupportReq.Compass_Quote_Reference__c, account.LEGACY_ID__c, 'PD'); 
+        HttpResponse res = APT_HttpCallouts.makeCompassAPIRequest(reqWrap);             
+        APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,prodConfig.id,lineItem.Id,dealSupportReq.Approved_Tier__c);
+        //APT_CompassPricingController.updateRecordForCustomPricing(prodConfig.id,dealSupportReq);
+        }catch(exception e){
+            
+        }
+        Test.stopTest();                
+    }
+    
+    @isTest
+    public static void setCustTierDefaultTest() {        
+        Test.setMock(HttpCalloutMock.class, new APT_HttpCallouts_Mock()); 
+        Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
+        account.LEGACY_ID__c = '61918806';
+        insert account;
+        
+        Contact con = ApplicationTestDataFactory.getContacts(1, account.Id, false)[0];
+        insert con;
+        
+        Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, false)[0];
+        insert opportunityRecord ;  
+        
+         //get Product and set Product Type
+        Product2 product =APT_TestUtils.createAPPCProduct('Car',APT_Constants.PRODUCT_CODE_APPC,'Postal Services');
+        product.APT_Product_type__c = 'Workforce Verification';//add product type to product
+        insert product;
+        
+        //get Price List and Price List Item
+        Apttus_Config2__PriceList__c priceList = APT_TestUtils.createPriceList();
+        insert priceList;        
+        Apttus_Config2__PriceListItem__c priceListItem = APT_TestUtils.createPriceListItem(priceList.id,product.id,'','');
+        insert priceListItem;
+
+        //get Proposal/Quote and Product Configuration
+        Apttus_Proposal__Proposal__c quote = APT_TestDataFactory.getAPTProposalRecord(1, opportunityRecord.id, account.Id, con.id, false)[0];
+        insert quote;
+        Apttus_Config2__ProductConfiguration__c config = APT_TestDataFactory.getAPTProductConfig(1, account.Id, null, false)[0];
+        config.Apttus_QPConfig__Proposald__c=quote.id;
+        config.Apttus_Config2__PriceListId__c=priceList.id;
+        insert config;
+
+        //get summary group, Product Option Component, Classification and Hierarchy
+        Apttus_Config2__SummaryGroup__c summaryGroup = APT_TestDataFactory.getSummaryGroupRecord(1, config.Id, 78, 45, false)[0];
+        insert summaryGroup;
+        Apttus_Config2__ProductOptionComponent__c prodOptionComponent = APT_TestDataFactory.getProductOptionComponentRecord(1, 2, false)[0];
+        insert prodOptionComponent;
+        Apttus_Config2__ClassificationName__c category = APT_TestDataFactory.getClassificationNameRecord(1, 'Test', 'High', 'Offering', 'Sample', false)[0];
+        insert category;
+        Apttus_Config2__ClassificationHierarchy__c classHierarchy = APT_TestDataFactory.getClassificationHierarchyRecord(1, category.id, 'Sample', false)[0];
+        insert classHierarchy;
+
+        //get line item's data
+        Apttus_Config2__LineItem__c lineItem = APT_TestDataFactory.getConfigLineItemRecords(1,config.id,summaryGroup.id, 2, product.id, prodOptionComponent.id,
+             product.id,classHierarchy.id, 2.3,false,'',2,priceList.id,priceListItem.Id,'','','','', 22.00,24.00, 34.00,23.00,33.50, false)[0];
+        lineItem.Apttus_Config2__ConfigurationId__c = config.id;
+        insert lineItem;      
+              
+        
+        Deal_Support_Request__c dealSupportReq = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, false)[0];
+        dealSupportReq.Quote_Validity_End_Date__c=system.today() + 60;
+        dealSupportReq.Approved_Event__c = APT_Constants.PSR_APPC_CUSTOM_PRICING;
+        dealSupportReq.Approved_lodgement_zone__c = 'Capital';        
+        dealSupportReq.Approved_Tier__c='T07';
+        dealSupportReq.Approved_Pricing_Structure__c= 'Z006';        
+        dealSupportReq.Compass_Quote_Reference__c = 'PDA-COMPASS-0000000103'; 
+        dealSupportReq.RecordTypeID= RecordTypesSelector.newInstance().selectByDeveloperName('Deal_Support_Request__c', new Set<String>{APT_Constants.PSR_APPC_RECORD_TYPE_APINAME}).values()[0].Id; 
+        dealSupportReq.Speed__c='Standard';
+        dealSupportReq.Returns__c=true;
+        dealSupportReq.Features__c='Signature on delivery';
+        dealSupportReq.Surcharges__c='Manual handling surcharge';
+        insert dealSupportReq;
+        system.debug('dealSupportReq :'+ dealSupportReq );              
+        
+        Test.startTest();        
+        APT_CompassPricingController.setCustTierDefault(config.id,dealSupportReq);
+        APT_CompassPricingController.updateCartForCustomPricing(dealSupportReq,config.id,lineItem.Id,dealSupportReq.Approved_Tier__c);        
+        APT_CompassPricingController.reSetCustTier(config.id,dealSupportReq.Approved_Tier__c);
+        APT_CompassPricingController.rePriceCartForCustomPricing(config.id);
+        Test.stopTest();                
+    }
+    
+    
+    
+   
 }

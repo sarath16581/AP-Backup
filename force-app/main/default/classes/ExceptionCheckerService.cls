@@ -11,6 +11,9 @@
  */
 public inherited sharing class ExceptionCheckerService {
     private static Consumer_Help_and_Support__c CHAS_SETTINGS = Consumer_Help_and_Support__c.getOrgDefaults();
+    private List<String> exceptionEventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
+    private List<String> notificationEventMessageString = EventMessageUtil.getCHASNotificationEventMessageTypes();
+
     @TestVisible private static String ORIGIN_ADDRESSEE = 'Addressee';
 
     /**
@@ -35,8 +38,7 @@ public inherited sharing class ExceptionCheckerService {
             for (ExceptionCheckDTO exceptionDTO : exceptionCheckDTOS) {
                 ExceptionResultDTO result = new ExceptionResultDTO();
                 // checking through for exceptions
-                result.cse = exceptionDTO?.CaseToCheck;
-                result.ArticleId = exceptionDTO?.ArticleId;
+                result.CaseToCheck = exceptionDTO?.CaseToCheck;
                 result.isException = checkForExceptions(exceptionDTO);
                 exceptionResultDTOS.add(result);
             }
@@ -53,13 +55,17 @@ public inherited sharing class ExceptionCheckerService {
      * @return returns a boolean based on the result
      */
     private Boolean checkForExceptions(ExceptionCheckDTO exceptionDTO) {
+        // if the exception checker is turned off return true will allow to create the case
+        if(!CHAS_SETTINGS.EnableExceptionChecker__c) {
+            return true;
+        }
         if (isExceptionAppliesOnEventType(exceptionDTO)) {
             return true;
         }
         if (isCaseRaisedRecently(exceptionDTO)) {
             return true;
         }
-        if (isCaseRaisedByReceiver(exceptionDTO)) {
+        if (!isCaseRaisedByReceiver(exceptionDTO)) {
             return true;
         }
         return false;
@@ -72,13 +78,11 @@ public inherited sharing class ExceptionCheckerService {
      * @return boolean
      */
     public Boolean isExceptionAppliesOnEventType(ExceptionCheckDTO exceptionDTO) {
-        // retrieving stored exceptionDTO message config
-        List<String> eventMessageString = EventMessageUtil.getCHASExceptionalEventMessageTypes();
         ExceptionResultDTO result = new ExceptionResultDTO();
         // checking through events for exceptions
         for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
             // if there's an exception found set the value to true in the DTO
-            if(eventMessageString.contains(eventMessageDTO.EventType)) {
+            if(exceptionEventMessageString.contains(eventMessageDTO.EventType)) {
                 return true;
             }
         }
@@ -96,7 +100,8 @@ public inherited sharing class ExceptionCheckerService {
         // checking through events for exceptions
         for(EventMessageDTO eventMessageDTO : exceptionDTO.eventMessages) {
             // if there was a recent scan we should get the agent to look at the case.
-            if(eventMessageDTO?.ActualDateTime >= Date.today().addDays(-recentScanDays)){
+            if((!notificationEventMessageString.contains(eventMessageDTO.EventType)) && 
+                (eventMessageDTO?.ActualDateTime >= Date.today().addDays(-recentScanDays))){
                 return true;
             }
         }
@@ -132,7 +137,6 @@ public inherited sharing class ExceptionCheckerService {
 
     public class ExceptionCheckDTO {
         public Case CaseToCheck { get; set; }
-        public String ArticleId { get; set; }
         public List<EventMessageDTO> eventMessages { get; set; }
     }
 
@@ -147,12 +151,7 @@ public inherited sharing class ExceptionCheckerService {
             set;
         }
 
-        public Case cse{
-            get;
-            set;
-        }
-
-        public String ArticleId{
+        public Case CaseToCheck{
             get;
             set;
         }
@@ -164,13 +163,14 @@ public inherited sharing class ExceptionCheckerService {
 	public void closeCases(List<Case> casesToClose) {
 		List<CaseComment> caseComments = new List<CaseComment>();
 		for (Case c: casesToClose) {
+            c.Status = 'Closed';
 			c.ClosedBySystem__c = true;
 			c.ByPassWorkflowRulesOnCreation__c = true; //populate the filed to trigger the email
 			//add comment
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: Yes';
+            caseComment.CommentBody = 'Auto-LIT exception: No';
             caseComments.add(caseComment);
 		}
         //update cases
@@ -196,7 +196,7 @@ public inherited sharing class ExceptionCheckerService {
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: No';
+            caseComment.CommentBody = 'Auto-LIT exception: Yes';
             caseComments.add(caseComment);
 		}
         //update cases

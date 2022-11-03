@@ -286,7 +286,6 @@ public with sharing class APT_Constants {
   public static final String PRODUCT_CODE_PriorityProd_RegularSpeedService='RSS9999';
   public static final String PRODUCT_CODE_PriorityProd_PremExpSpeedService='PESS12345';
   public static final String PRODUCT_CODE_INTERNATIONAL_RETURNS='RAX400000';
-
   
 
   public static final String PRODUCT_CODE_INTERNATIONAL_DIGITAL_PCMS_BUNDLE = 'InternationalDigitalPCMSBundle';
@@ -1646,4 +1645,13 @@ public static final String PRODUCT_CODE_NEW_AIRMAIL_LETTERS = 'AIRMAIL_LETTERS';
   public static final string PRICING_CATEGORY_STANDARD = 'Standard';
   public static final String RATING_PLAN_ACTIVATION_LABEL = 'RatingPlanActivation';
   public static final String RATING_CARD_ACTIVATION_LABEL = 'RateCardActivation';
+  
+  public static final String APPC_CUSTOMER_TIER_DEFAULT = 'CUST_TIER_DEFAULT';
+  public static final String ANYWHERE_PRICE_STRUCTURE = 'Z001';
+	
+  public static final String APT_KG_Rate = '_KR';
+  public static final String APT_Basic_Rate = '_BR';
+  public static final String RATING_MODEL_PD = 'PD';
+  
+  
 }

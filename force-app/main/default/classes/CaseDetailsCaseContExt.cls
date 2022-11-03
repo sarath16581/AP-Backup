@@ -967,7 +967,7 @@ global class CaseDetailsCaseContExt  {
     //added by kalpita for new case management - reassign
     public Boolean isChildCase {get;set;}
     private static final Map<String,String> CUST_TYPE_QUEUE_MAP = new Map<String,String>{'International' => 'SSSWInternationalBackOffice',
-    'Consumer' => 'SSSWConsumerBackOffice',
+    'Consumer' => 'SSSW_Consumer_Back_Office_Low_Priority',
     'Enterprise' => 'SSSWEnterpriseBackOffice',
     'SMB' => 'SSSWBusinessBackOffice',
     'Silver' => 'SSSWBusinessBackOffice',

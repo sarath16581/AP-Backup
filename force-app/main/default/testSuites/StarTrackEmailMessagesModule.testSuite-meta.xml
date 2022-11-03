@@ -10,7 +10,6 @@
     <testClassName>EmailMessagesSelector_Test</testClassName>
     <testClassName>StarTrackCalculateCaseDepotModule_Test</testClassName>
     <testClassName>StarTrackCloseCaseTaskEmail_Test</testClassName>
-    <testClassName>StarTrackEmailMessagesDomain_Test</testClassName>
     <testClassName>StarTrackEmailMessagesModule_Test</testClassName>
     <testClassName>StarTrackUtil_Test</testClassName>
     <testClassName>TestEmailMessageUtil</testClassName>

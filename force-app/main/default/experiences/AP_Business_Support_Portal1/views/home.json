@@ -1,0 +1,76 @@
+{
+  "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "d59d5aa2-3bcd-44a9-97da-e79daddd43cc",
+  "label" : "Home",
+  "regions" : [ {
+    "id" : "5b8433ac-36e9-49b3-881d-be01ecdb9c4a",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "d6b89a64-07f0-4444-983e-414462453191",
+    "regionName" : "featured",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:bspGreeting",
+      "id" : "0d4cf18e-c85d-40b1-acb5-aa460d772cbd",
+      "renderPriority" : "HIGHEST",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "slimTrackingBar" : false
+      },
+      "componentName" : "c:bspTrackingNumberSearch",
+      "id" : "6f0ad803-eb0b-4eb8-9657-aabbbe6817d4",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : { },
+      "componentName" : "c:bspCreateEnquiriesGrid",
+      "id" : "28dceafe-3ef9-4427-aba3-f9a921f3346e",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : { },
+      "componentName" : "c:bspEnquiryListWrapper",
+      "id" : "d5a7a2ff-6a29-4d78-836b-fe8feba2791f",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b1d72c0b-bc34-4611-83ad-bc9f1cdf75f1",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "9204dde2-b999-4975-9a88-40a35cdce2e0",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "e807bf34-98c0-4247-82b1-9ee0ea1f9397",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Business Support Portal"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "db359d28-6b98-4761-a66d-3dc7382bf9bc",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b9695371-8e00-4564-9f5e-448a11adfb8d",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "VVzT0mL4nCmITm0Vp7hT4r3Qht92it",
+  "type" : "view",
+  "viewType" : "home"
+}

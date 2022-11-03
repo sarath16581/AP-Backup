@@ -1,0 +1,142 @@
+{
+  "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
+  "componentName" : "siteforce:dynamicLayout",
+  "id" : "610ff942-5b88-466a-8519-e3a99ccc8db2",
+  "label" : "myNetwork Support",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "e4140bde-507b-4e0e-9dfb-ee54d1b7a42e",
+          "columns" : [ {
+            "UUID" : "89934a04-29c5-47e8-9f6a-3a9dc1512590",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 80
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "e4140bde-507b-4e0e-9dfb-ee54d1b7a42e",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "richTextValue" : "<div class=\"forms\">\n<h1>Help and Support Guides</h1>\n\t<br><p>\n      <br>\n\t</p>\n</div>"
+          },
+          "componentName" : "forceCommunity:htmlBlock",
+          "id" : "ed750400-2ee0-45fa-a96e-dde8adb2b848",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "89934a04-29c5-47e8-9f6a-3a9dc1512590",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "733f7db4-9d16-4e28-8bbf-c0f285c4fb64",
+          "columns" : [ {
+            "UUID" : "13b93d7d-8cbc-45de-97df-9d9d9470c497",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "4",
+            "seedComponents" : [ ]
+          }, {
+            "UUID" : "e80ca9fb-1a99-46db-8f0e-bdcc6a6fea52",
+            "columnKey" : "37c30",
+            "columnName" : "Column 2",
+            "columnWidth" : "4",
+            "seedComponents" : [ ]
+          }, {
+            "UUID" : "b6a33407-7081-4980-aa61-72ba3ba3e73c",
+            "columnKey" : "206a2",
+            "columnName" : "Column 3",
+            "columnWidth" : "4",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "733f7db4-9d16-4e28-8bbf-c0f285c4fb64",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png\"width=\"36\" height=\"36\">\n<a href=\"https://auspost--ptest--c.documentforce.com/servlet/servlet.FileDownload?file=0152v00000HpLX2\" title=\"MyNetwork Information Guide\" target=\"__blank\"><h3>MyNetwork Information Guide</h3></a>\n</div>"
+          },
+          "componentName" : "forceCommunity:htmlBlock",
+          "id" : "c1739d4a-d1bb-40df-a324-a12a956ee757",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "13b93d7d-8cbc-45de-97df-9d9d9470c497",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png\" width=\"36\" height=\"36\"><a href=\"https://auspost--ptest--c.documentforce.com/servlet/servlet.FileDownload?file=0152v00000HpLXC\" title=\"eParcel/Wine Damages User Guide\" target=\"_blank\"><h3>eParcel/Wine Damages User Guide</h3></a>\n</div>"
+          },
+          "componentName" : "forceCommunity:htmlBlock",
+          "id" : "d0854e17-7e2e-4aa7-b9a4-ad0f15744082",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "e80ca9fb-1a99-46db-8f0e-bdcc6a6fea52",
+        "regionLabel" : "Column 2",
+        "regionName" : "37c30",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "id" : "b6a33407-7081-4980-aa61-72ba3ba3e73c",
+        "regionLabel" : "Column 3",
+        "regionName" : "206a2",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "703d6bc6-1ebb-473a-9bc3-2c20124530ac",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "MyNetwork Support"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "554630fd-eca7-436f-9936-a8c1d306af2f",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a6c05709-dc26-481f-94bf-4a753d41a82c",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-support"
+}

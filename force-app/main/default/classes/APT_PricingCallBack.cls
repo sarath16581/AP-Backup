@@ -9,6 +9,7 @@
 * Last Modified By - Mausam Padhiyar
 * Last Modified Date - 26st Sept, 2016 | 1397 : PBP should have new status
 ********************************************/
+
 global with sharing class APT_PricingCallBack implements Apttus_Config2.CustomClass.IPricingCallback3 {
     // cart
     private Apttus_Config2.ProductConfiguration cart = null;
@@ -252,13 +253,28 @@ global with sharing class APT_PricingCallBack implements Apttus_Config2.CustomCl
      * @param itemColl the line item collection to post-process
      */
     global void afterPricing(Apttus_Config2.ProductConfiguration.LineItemColl itemColl) {
-        /*
-        for(Apttus_Config2.LineItem lineItem : itemColl.getAllLineItems()) {
-            Apttus_Config2__LineItem__c lineItemSO = lineItem.getLineItemSO();
-            system.debug('*** afterPricing Method Iterating itemColl ***' + '*** mode ***'+ mode + '*** lineItem id: ' +lineItemSO.Id + 'line type: ' + lineItemSO.Apttus_Config2__LineType__c + '*** product id ***'+lineItemSO.Apttus_Config2__ProductId__c +'*** option id ***'+lineItemSO.Apttus_Config2__OptionId__c);
-            listTemp.add('['+ i++ +']*** afterPricing Method Iterating itemColl ***' + '*** mode ***'+ mode + '*** lineItem id: ' +lineItemSO.Id + 'line type: ' + lineItemSO.Apttus_Config2__LineType__c + '*** product id ***'+lineItemSO.Apttus_Config2__ProductId__c +'*** option id ***'+lineItemSO.Apttus_Config2__OptionId__c);
+       
+         //CI-286 by Gopesh Banker (Conga) on 30/03/2022
+         for(Apttus_Config2.LineItem lineItem : itemColl.getAllLineItems()) {
+            Apttus_Config2__LineItem__c objLineItem = lineItem.getLineItemSO();
+
+            if(objLineItem.Apttus_Config2__LineType__c == 'Option' && objLineItem.Apttus_Config2__ProductId__r.APT_Product_type__c != null &&
+                objLineItem.Apttus_Config2__ProductId__r.APT_Product_type__c.contains(APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT))
+            {
+                if(objLineItem.Apttus_Config2__OptionId__r.APT_Product_type__c != null && 
+                    objLineItem.Apttus_Config2__OptionId__r.APT_Product_type__c == APT_Constants.PRODUCT_TYPE_PARCEL_CONTRACT )
+                {
+                    //NON FSR Products, populate compass line item identifier from product ext id
+                    objLineItem.Compass_LineItem_Identifier__c = objLineItem.Apttus_Config2__OptionId__r.APTS_Ext_ID__c;
+                }
+                else{
+
+                    //FSR product, populate compass line item identifier from price list item price point
+                    objLineItem.Compass_LineItem_Identifier__c = objLineItem.Apttus_Config2__PriceListItemId__r.APT_Price_Point__c;
+                }
+            }
         }
-        */
+        //end here
     }
      /**
      * Callback after pricing the line item collection

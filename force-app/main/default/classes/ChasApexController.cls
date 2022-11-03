@@ -254,8 +254,10 @@ public with sharing class ChasApexController extends ChasBase{
             Datetime EDDPlusBusinessDays = !String.isEmpty(wizardData.get('deliveredByDateToUntil')) ? Date.valueOf(wizardData.get('deliveredByDateToUntil')) : !String.isEmpty(wizardData.get('deliveredByDatePlusBusinessDays'))? Date.valueOf(wizardData.get('deliveredByDatePlusBusinessDays')): null;
             // cases which are raised within EDD or EDD plus business days, plus dont have a delivered scan are eligible for hold
             Boolean isEligibleForHold = false;
+            // RSolomon 2nd Apr: Sources value of radio button on form, that indicates if parcel contains essential medication
+            Boolean containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')));
             // DDS-5273: article that contains pharma should not be held
-             if ('No'.equalsIgnoreCase(wizardData.get('selectedRadio4Name'))) {
+             if (!containsPharma) {
                  if (!isMultipleArticlesSelected // DDS-8586 4. ignore holding for more than one tracking id and all of them are delivered but delivered by different delivery centres (non medication/medication priority set above in existing logic)
                          && String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
                          !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))) {
@@ -322,8 +324,7 @@ public with sharing class ChasApexController extends ChasBase{
             String datePostedStr= wizardData.get('itemSentDate');
             // if EDD range is available consider the "deliveredByDateTo" as EDD, otherwise consider deliveredByDateOrEDD
             String EDD= !String.isEmpty(wizardData.get('deliveredByDateTo'))? wizardData.get('deliveredByDateTo'): wizardData.get('deliveredByDateOrEDD');
-            // RSolomon 2nd Apr: Sources value of radio button on form, that indicates if parcel contains essential medication
-            Boolean containsPharma = ('yes'.equalsIgnoreCase(wizardData.get('selectedRadio4Name')));
+
             // Gets the field value of the sentimental field on the LOMI forms
             String containsSentimentalValue = ('yes'.equalsIgnoreCase(wizardData.get('selectedSentiValue')) ? 'Yes' : 'No');
 
@@ -501,7 +502,7 @@ public with sharing class ChasApexController extends ChasBase{
             // write to case comments if the case was held
             if(isEligibleForHold) {
                 commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessage;
-            } else {
+            } else if (!containsPharma) {
                 commentBody = commentBody + '\n'+ Label.ChasCaseEligibleForHoldMessageNo;
             }
             // write to case comments if edd was estimated
@@ -698,9 +699,8 @@ public with sharing class ChasApexController extends ChasBase{
                 toBeCreateCase.Priority = 'High';
             }
 
-             Boolean isException = false;
-             // DDS-12944  is before EDD + 10 and is after EDD + 10 comments
-             if (!isEligibleForHold) { // EDD plus 10 passed
+             // DDS-12944  is before EDD + 10 and is after EDD + 10 comments and does not contains pharma
+             if (!isEligibleForHold && !containsPharma) { // EDD plus 10 passed
                  // DDS-12734 exception check
                  // if a single article is searched or a single article being selected from multiple to raise a case
                  if(allArticles.size() == 1 || selectedArticles.size() == 1) {
@@ -714,8 +714,7 @@ public with sharing class ChasApexController extends ChasBase{
                      }
                      List<ExceptionCheckerService.ExceptionCheckDTO> exceptionCheckDTOS = new List<ExceptionCheckerService.ExceptionCheckDTO>();
                      ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO= new ExceptionCheckerService.ExceptionCheckDTO();
-                     // set article id
-                     exceptionCheckDTO.ArticleId = articlesDetail.articleId;
+
                      // set case, this is to check the receiver
                      exceptionCheckDTO.CaseToCheck = toBeCreateCase;
 
@@ -733,19 +732,16 @@ public with sharing class ChasApexController extends ChasBase{
                      //calling the exception checker service for to be created case
                      List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
                      if(exceptionResults != null && exceptionResults[0].isException) {
+                         // DDS-12944 Exception found upon case being raised
+                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
+                     } else if(exceptionResults == null || !exceptionResults[0].isException){
                          toBeCreateCase.ClosedBySystem__c = true;
                          toBeCreateCase.Status = 'Closed';
                          toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
-                         isException = true;
                          // Exception found upon case being raised (when EDD+10 has already passed at time of case raised)
-                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
+                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: No';
                      }
                  }
-             }
-
-             // DDS-12944 No exception found upon case being raised
-             if(!isException){
-                 commentBody = commentBody + '\n'+ 'Auto-LIT exception: No';
              }
 
             // 2019/10/09 - Issue Description to be set as Case Description, warning message to case reader is added if the user entered something in the issue details section

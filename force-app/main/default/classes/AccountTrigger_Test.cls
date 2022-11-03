@@ -48,12 +48,12 @@ private class AccountTrigger_Test {
 
     @IsTest
     static void makingSureThatTheDispatchMethodIsCalledFromTheCorrectClass() {
-        PersonAccountDomainTriggerHandler mock = (PersonAccountDomainTriggerHandler)MockUtility.mockUtility(PersonAccountDomainTriggerHandler.class);
+        AccountDomainTriggerHandler mock = (AccountDomainTriggerHandler)MockUtility.mockUtility(AccountDomainTriggerHandler.class);
 
         List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, false);
         insert accounts;
 
-        ((PersonAccountDomainTriggerHandler) MockUtility.Mocks.verify(mock, MockUtility.Mocks.atLeastOnce())).dispatch();
+        ((AccountDomainTriggerHandler) MockUtility.Mocks.verify(mock, MockUtility.Mocks.atLeastOnce())).dispatch();
 
         // PMD Warning
 		System.assert(true);
