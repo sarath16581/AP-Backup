@@ -686,9 +686,9 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 		}
 
 		/**
-		 * Reattempt to route cases that need it now that an article has been linked to the case
-		 * @param - Map of cases with article linked
-		 * @return - Map of cases (with Owner Id updated based on Original routing field values)
+		 * Reattempt to route cases that need to be routed
+		 * @param - Map of all cases
+		 * @return - Map of cases that were re-routed, as new case records
 		 */
 		private Map<Id, Case> rerouteCases(Map<Id, Case> cases) {
 			// NOTE The try/catch block as a fail safe, catch this error here will ensure the routing errors do not cause the whole transaction to fail
@@ -731,13 +731,13 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					// NOTE: we only want the owner id and not any othe fields as they might be out of date or irrelevant
 					for (Case reroutedCase : reroutableCases) {
 						if (reroutedCase.OwnerId != null) {
-//							cases.get(reroutedCase.Id).OwnerId = reroutedCase.OwnerId;
+//							casesWithArticlePopulated.get(reroutedCase.Id).OwnerId = reroutedCase.OwnerId;
 //
 //							// setting flag on case since selected routing rule is a strategic one
 //							// its required to avoid triggering the specific workflow rules that might reset the case owner
-//							cases.get(reroutedCase.Id).LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c;
+//							casesWithArticlePopulated.get(reroutedCase.Id).LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c;
 
-							casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); //cases.get(reroutedCase.Id));
+							casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); //casesWithArticlePopulated.get(reroutedCase.Id));
 						}
 					}
 				}
