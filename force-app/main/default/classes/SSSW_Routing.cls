@@ -387,11 +387,18 @@ public class SSSW_Routing {
             getArticleAttributesMap(referenceIds);
             system.debug('reference ids after getRelatedArticleMappings: '+referenceIds );            
         }
+
         for (Case cs : cases) {
             Id routingOwner; 
-            Case oldCase = oldMap != null ? oldMap.get(cs.Id) : null;          
+            Case oldCase = oldMap != null ? oldMap.get(cs.Id) : null;
 
-            if (!(isInsert && cs.ByPassRoutingRulesOnCreation__c)) {
+            // we only want to process the routing rules in these scenarios:
+            // 1. if the case is being reassigned (through the ui) - CaseDetails page
+            // 2. If a reroute is triggered by setting allocatetoqueue__c = true)
+            //
+            // There are some fringe scenarios where routing should be excluded and due to the mess in workflows a new attribute was introduced to achieve this  (ByPassRoutingRulesOnCreation__c)
+            if((reassignNoCheckOwnerQueue || (cs.AllocateToQueue__c != null && cs.AllocateToQueue__c == true)) && !(isInsert && cs.ByPassRoutingRulesOnCreation__c)) {
+
                 for (SSSWRouting__c rule : routeRule) {
                     System.debug(LoggingLevel.ERROR, 'cs.Type >> ' + cs.Type);
                     if (rule.Match_Rules_On__c.equals('ANY')) {
@@ -413,26 +420,23 @@ public class SSSW_Routing {
                             if (processAny(cs, rule, routingFields)) {
                                 System.debug(LoggingLevel.ERROR, 'Inside ANY rule Assign Case--->' + rule);
                                 routingOwner = rule.Queue_ID__c;
-                                system.debug('rule routing owner id: ' + routingOwner);
-                                if (!reassignNoCheckOwnerQueue) {
-                                    if (checkOwnerQueue(cs, routingOwner)) {
-                                        // setting flag on case since selected routing rule is a strategic one
-                                        // its required to avoid triggering the specific workflow rules that might reset the case owner
-                                        cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
-                                    }
-                                } else {
-                                    cs.OwnerId = routingOwner;
 
-                                    // setting flag on case since selected routing rule is a strategic one
-                                    // its required to avoid triggering the specific workflow rules that might reset the case owner
-                                    cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
-                                }
+                                system.debug('rule routing owner id: ' + routingOwner);
+
+                                // set the new owner
+                                setRoutingCaseOwner(cs, routingOwner);
+
+                                // setting flag on case since selected routing rule is a strategic one
+                                // its required to avoid triggering the specific workflow rules that might reset the case owner
+                                cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
+
                                 break;
                             }
 
                             // Cases being created from H&S can be routed direct to network (currently via a queueable)
                             // In this scenario we ignore any strategic routing checks
                         } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c)) && !casesForReroutingAttempt.contains(cs)) {
+
                             // if this is strategic customer routing rule but the case has no articlee linked, we store this to be routed later in MyCustomerCaseArticleModule (where the SAP EM queueable run that links the case to an article)
                             // NOTE that we skip this rerouting assignment if the case is created and directly assigned to a network.
                             // we skip this to ensure we don't overwrite the network owner
@@ -442,12 +446,12 @@ public class SSSW_Routing {
                             // workflows and other code may change these but we still need to route the case based on the original values when it entered into the routing method
                             // since we may not have the ID of the case yet, we store these in a list that corresponds to the index in the casesForReroutingAttempt
                             casesWithOriginalValues.add(getCaseWithFieldsMapping(cs));
-                            
-                            //Throw an exception if the default Queue has not been set, but allow the Case to be created                            
-                            String omniDefaultQueue =  QM__c.getOrgDefaults().OmniDefaultQueueId__c;                
-                            if(String.isEmpty(omniDefaultQueue) == false){
-                                cs.OwnerId = omniDefaultQueue;
-                            } 
+
+                            //Throw an exception if the default Queue has not been set, but allow the Case to be created
+                            String omniDefaultQueue = QM__c.getOrgDefaults().OmniDefaultQueueId__c;
+                            if (String.isEmpty(omniDefaultQueue) == false) {
+                                setRoutingCaseOwner(cs, omniDefaultQueue);
+                            }
 
                             break;
                         }
@@ -470,19 +474,13 @@ public class SSSW_Routing {
                                 System.debug(LoggingLevel.ERROR, 'Inside ALL rule Assign Case--->' + rule);
                                 routingOwner = rule.Queue_ID__c;
 
-                                if (!reassignNoCheckOwnerQueue) {
-                                    if (checkOwnerQueue(cs, routingOwner)) {
-                                        // setting flag on case since selected routing rule is a strategic one
-                                        // its required to avoid triggering the specific workflow rules that might reset the case owner
-                                        cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
-                                    }
-                                } else {
-                                    cs.OwnerId = routingOwner;
+                                // set the new owner
+                                setRoutingCaseOwner(cs, routingOwner);
 
-                                    // setting flag on case since selected routing rule is a strategic one
-                                    // its required to avoid triggering the specific workflow rules that might reset the case owner
-                                    cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
-                                }
+                                // setting flag on case since selected routing rule is a strategic one
+                                // its required to avoid triggering the specific workflow rules that might reset the case owner
+                                cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
+
                                 break;
                             }
                             // Cases being created from H&S can be routed direct to network (currently via a queueable)
@@ -499,16 +497,17 @@ public class SSSW_Routing {
                             casesWithOriginalValues.add(getCaseWithFieldsMapping(cs));
 
                             //Throw an exception if the default Queue has not been set, but allow the Case to be created
-                            String omniDefaultQueue =  QM__c.getOrgDefaults().OmniDefaultQueueId__c;
-                            if(String.isEmpty(omniDefaultQueue) == false){
-                                cs.OwnerId = omniDefaultQueue;
-                            } 
-                            
+                            String omniDefaultQueue = QM__c.getOrgDefaults().OmniDefaultQueueId__c;
+                            if (String.isEmpty(omniDefaultQueue) == false) {
+                                setRoutingCaseOwner(cs, omniDefaultQueue);
+                            }
+
                             break;
                         }
                     }
                 }
             }
+
             // skipDescriptionRules is false for cases in the normal context
             // its only set to true in re-routing context for Strategic cases
             if(!skipDescriptionRules) {
@@ -518,8 +517,8 @@ public class SSSW_Routing {
         }
     }
     @TestVisible
-    private static Boolean checkOwnerQueue(case cs, Id routingOwner){
-        if(cs.AllocateToQueue__c != null && cs.AllocateToQueue__c){
+    private static Boolean setRoutingCaseOwner(case cs, Id routingOwner){
+        //if(cs.AllocateToQueue__c != null && cs.AllocateToQueue__c){
             String queueKey = LOC_INTERNATIONAL.equalsIgnoreCase(cs.CaseLocality__c) ?
                                 LOC_INTERNATIONAL : cs.Customer_Type__c;
             cs.OwnerId = (routingOwner != null) ? routingOwner : (String.isNotBlank(queueKey) && groupNameMap.containsKey(CUST_TYPE_QUEUE_MAP.get(queueKey))) ?
@@ -527,9 +526,9 @@ public class SSSW_Routing {
             cs.AllocateToQueue__c = false;     // disable case queue allocation
 
             return true;
-        }
+        //}
 
-        return false;
+        //return false;
     }
     public static void applyNPSRules(List<Case> cases) {
         //Replacing it with GetRulesForAllProfiles
