@@ -25,7 +25,7 @@ private class ServiceAdvisorEmailMesAutomationMd_Test {
 		User adminUser = ApplicationTestDataFactory.getUsers(1, ApplicationTestDataFactory.defaultUserProfileId, true)[0];
 
 		// Generate caseList
-		List<Case> caseList = ApplicationTestDataFactory.getCases(4, true);
+		List<Case> caseList = ApplicationTestDataFactory.getCases(3, true);
 		// Closed Service Delivery case assigned to an User
 		caseList[0] = (Case) ApplicationTestDataFactory.setUnwritableFields(
 			caseList[0],
@@ -61,7 +61,7 @@ private class ServiceAdvisorEmailMesAutomationMd_Test {
 		);
 		Map<Id, Case> caseMap = new Map<Id, Case>(caseList);
 
-		// Generate Incoming Email Message for each of the above Cases
+		// Generate Email Messages for above Cases
 		List<EmailMessage> emailList = ApplicationTestDataFactory.getEmailMessages(
 			4,
 			true,
@@ -73,18 +73,45 @@ private class ServiceAdvisorEmailMesAutomationMd_Test {
 			'Subject Inbound',
 			null
 		);
-		// Incoming email having fromAddress different from related Case LastIncomingEmailAddress__c
+		// Incoming email with Status New for Closed Service Delivery case assigned to an User - Positive
 		emailList[0] = (EmailMessage) ApplicationTestDataFactory.setUnwritableFields(
 			emailList[0],
-			new Map<String, Object>{ 'Parent' => caseList[0], 'ParentId' => caseList[0].Id }
+			new Map<String, Object>{
+				'Parent' => caseList[0],
+				'ParentId' => caseList[0].Id,
+				'Status' => EmailMessageUtil.STATUS_NEW,
+				'FromAddress' => 'fromaddress0@test.com'
+			}
 		);
+		// Incoming email with Status Replied for Closed Service Delivery case assigned to an User - Negative
 		emailList[1] = (EmailMessage) ApplicationTestDataFactory.setUnwritableFields(
 			emailList[1],
-			new Map<String, Object>{ 'Parent' => caseList[0], 'ParentId' => caseList[1].Id }
+			new Map<String, Object>{
+				'Parent' => caseList[0],
+				'ParentId' => caseList[0].Id,
+				'Status' => EmailMessageUtil.STATUS_REPLIED,
+				'FromAddress' => 'fromaddress1@test.com'
+			}
 		);
+		// Incoming email with Status New for Closed Service Delivery case assigned to a Queue - Negative
 		emailList[2] = (EmailMessage) ApplicationTestDataFactory.setUnwritableFields(
 			emailList[2],
-			new Map<String, Object>{ 'Parent' => caseList[0], 'ParentId' => caseList[2].Id }
+			new Map<String, Object>{
+				'Parent' => caseList[1],
+				'ParentId' => caseList[1].Id,
+				'Status' => EmailMessageUtil.STATUS_NEW,
+				'FromAddress' => 'fromaddress2@test.com'
+			}
+		);
+		// Incoming email with Status New for New Service Delivery case assigned to an User - Negative
+		emailList[3] = (EmailMessage) ApplicationTestDataFactory.setUnwritableFields(
+			emailList[3],
+			new Map<String, Object>{
+				'Parent' => caseList[2],
+				'ParentId' => caseList[2].Id,
+				'Status' => EmailMessageUtil.STATUS_NEW,
+				'FromAddress' => 'fromaddress3@test.com'
+			}
 		);
 
 		//Stubbing, set up our responses
@@ -121,10 +148,15 @@ private class ServiceAdvisorEmailMesAutomationMd_Test {
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1))
 			.registerNew((List<SObject>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyObject(), (String) fflib_Match.anyObject());
 
-		// Expected only 1 Task to be created as only 1 email matches the filter
+		// Expected only 1 Task to be created as only 1 email matches the filter - Incoming email with Status New for Closed Service Delivery case assigned to an User
 		System.assertEquals(1, MockUtility.mockUnitOfWorkDMLs.size());
 		// Ensure Task is created for the expected Case
 		system.assertEquals(caseList[0].Id, ((Task) MockUtility.mockUnitOfWorkDMLs[0]).WhatId, 'Expected WhatId to match the CaseId');
+		system.assertEquals(
+			'fromaddress0@test.com',
+			((Task) MockUtility.mockUnitOfWorkDMLs[0]).Email__c,
+			'Expected Email__c to match the specific Email FromAddress'
+		);
 	}
 
 	private class MockException extends Exception {
