@@ -23,6 +23,7 @@
         onsearchfieldschange={searchfieldschangeHandler} loading-flag>
     </c-my-network-case-list-views>
 
+    
     <div class="slds-p-around_small">
         <lightning-card>
             <div if:true={assignToSelfHasErr} class="slds-align_absolute-center slds-m-top_x-small slds-p-left_xx-large ">
@@ -114,6 +115,7 @@
                         sorted-by={sortedBy} sorted-direction={sortedDirection} onrowselection={getSelectedRows}>
                     </lightning-datatable><br />
 
+                     
                     <div class="slds-col slds-size_12-of-12">
                         <!--PAGE NAVIGATION-->
                         <div style={controlPagination}>
