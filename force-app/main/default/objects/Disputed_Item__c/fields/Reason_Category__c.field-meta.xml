@@ -54,6 +54,16 @@
                 <label>Write off</label>
             </value>
             <value>
+                <fullName>Pick/Pack Errors</fullName>
+                <default>false</default>
+                <label>Pick/Pack Errors</label>
+            </value>
+            <value>
+                <fullName>Reimbursement of Shipping Costs</fullName>
+                <default>false</default>
+                <label>Reimbursement of Shipping Costs</label>
+            </value>
+            <value>
                 <fullName>Rebate</fullName>
                 <default>false</default>
                 <label>Rebate</label>

@@ -3,7 +3,7 @@
     <fullName>ReferenceID__c</fullName>
     <description>SSSW Reference ID, and used for Contact Us Form</description>
     <externalId>true</externalId>
-    <inlineHelpText>The Reference ID for this Case. i.e Article ID or MRS CRN.</inlineHelpText>
+    <inlineHelpText>The Reference ID for this Case. i.e Article ID or MRS CRN or Zendesk Reference.</inlineHelpText>
     <label>Reference ID</label>
     <length>255</length>
     <required>false</required>
