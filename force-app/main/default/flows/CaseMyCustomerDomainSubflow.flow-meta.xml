@@ -480,12 +480,26 @@
         </rules>
         <rules>
             <name>Case_Closed_Exception_Checker</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>(1 AND 2) OR (1 AND 3)</conditionLogic>
             <conditions>
                 <leftValueReference>vCaseClosedExceptionChecker</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vOldCase</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vOldCase.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>vCase.Status</elementReference>
                 </rightValue>
             </conditions>
             <connector>
