@@ -14,6 +14,11 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>AP Fulfilment</fullName>
+                <default>false</default>
+                <label>AP Fulfilment</label>
+            </value>
+            <value>
                 <fullName>Local marketplaces</fullName>
                 <default>false</default>
                 <label>Local marketplaces</label>
@@ -239,6 +244,10 @@
                 <label>Intermediaries</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>AP Fulfilment</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Parcels</controllingFieldValue>
             <valueName>Local marketplaces</valueName>
