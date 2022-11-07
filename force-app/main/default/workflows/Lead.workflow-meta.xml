@@ -731,22 +731,6 @@
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>Lead Seeker - New Lead received MPB</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Lead.Lead_Seeker__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Lead.LeadSource</field>
-            <operation>equals</operation>
-            <value>SBSub_Retail</value>
-        </criteriaItems>
-        <description>Lead Seeker - New Lead received</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>Lead Seeker - Populate lead creator text field</fullName>
         <actions>
             <name>Populate_Lead_Creator_First_Name_text</name>
