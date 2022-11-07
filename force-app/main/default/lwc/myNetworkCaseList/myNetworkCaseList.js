@@ -265,7 +265,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       if (data[i].myNetworkCase.PONUser__r != null) {
         caseRecord.Case_assignedTo = data[i].myNetworkCase.PONUser__r.Name;
       }
-      caseRecord.casePriority = data[i].casePriority;
       //caseRecord = Object.assign(caseRecord, data[i]);
   }
 
@@ -298,10 +297,10 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 
           //because case and case investigation need to be shown under one column,
           //caseLink and caseNum are populated with case investigation Id and Case Investigation Number.
-          caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/detail/" + cInvestigations[cInvestigationCnt].Id;
-          caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + '\n' +  caseRecord.caseInvestigation) : data[i].caseNum;
-          caseRecord.Case_Priority = data[i].myNetworkCase.Priority;
-          caseRecord.casePriority = data[i].casePriority;
+          caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/detail/" + data[i].caseId;
+          caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
+          caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
+          caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
 
            //populate common fields between case investigation and case object.
           this.populateCaseData(caseRecord, data, i);

@@ -230,7 +230,7 @@ public with sharing class MyNetworkCaseListController {
     private static String baseQueryForMyNetworkCases(){       
         String soqlSelect = 'SELECT Id, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
         soqlSelect  += '(SELECT Request_Hold_Case__c,to_CCC_action__c, to_Reassign_Network__c FROM Network_Responses1__r ORDER BY CreatedDate DESC), '
-                    + '( SELECT Name, Id, CreatedDate, Article__r.Name from CaseInvestigations__r ) '
+                    + '( SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c from CaseInvestigations__r ) '
                     +' FROM Case WHERE OwnerId= ' + '\'' + networkQueue + '\'';       
         //soqlSelect  += ' AND type IN (\'Investigation\', \'Feedback\') ';
         soqlSelect  += ' AND Id IN (SELECT ParentId FROM caseteammember WHERE MemberId =  ' + '\'' + userinfo.getUserId() + '\')';               
