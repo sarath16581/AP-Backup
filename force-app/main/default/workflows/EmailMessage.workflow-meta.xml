@@ -2678,31 +2678,6 @@ MyPost RTS (returned mail scanned from Decipher)</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Email for Closed Case</fullName>
-        <actions>
-            <name>Set_Last_Incoming_Email_Address</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Permanent_Close__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>contains</operation>
-            <value>SSSW</value>
-        </criteriaItems>
-        <description>SSSW - Used to update the Case - Last Email Address for a closed case.</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Outbound Customer Email %5BNo status change%5D</fullName>
         <actions>
             <name>SSSW_EM_Reset_Prevent_Status_Change</name>

@@ -323,7 +323,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			// given we are now in an 'after' trigger cycle, these records will now have an Id attached to them
 			// we use this to populate the id on the map that contains the original variables at the time was case routing was triggered
 			List<Case> casesForReroutingAttempt = SSSW_Routing.getAttemptableReroutableCases();
-			System.debug('ensureQueryJobEnqueued casesForReroutingAttempt:'+casesForReroutingAttempt);
 
 			List<Map<String, Object>> caseOriginalValues = SSSW_Routing.getCaseOriginalValuesForReroutingAttempt();
 			Map<Id, Map<String, Object>> caseOriginalValuesForQueueable = new Map<Id, Map<String, Object>>();

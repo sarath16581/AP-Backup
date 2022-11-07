@@ -3464,62 +3464,6 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <useDeadLetterQueue>true</useDeadLetterQueue>
     </outboundMessages>
     <rules>
-        <fullName>ACIC - Send Case Status Email Notification</fullName>
-        <actions>
-            <name>ACIC_Send_Case_Status_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Workflow rule to check ACIC Case and Case Status is either Approved or Rejected and trigger the actions</description>
-        <formula>AND(RecordType.DeveloperName = &apos;ACIC_Request&apos;, ISCHANGED(Status ), OR(ISPICKVAL(Status , &apos;Approved&apos;),ISPICKVAL(Status , &apos;Rejected&apos;)))</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>ASH - Email notification on Creation</fullName>
-        <actions>
-            <name>ASH_Email_Alert_on_new_case_creation</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Accounting Service Helpdesk</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.IsClosed</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Email</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Email notification on creation of a new case (where case is not closed)</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>BGS - Email when Case Closed</fullName>
-        <actions>
-            <name>BGS_Send_a_Bounce_Email_to_Sender_if_the_associated_Case_has_already_been_Closed</name>
-            <type>Alert</type>
-        </actions>
-        <actions>
-            <name>Bounce_Email_Sent_to_Customer</name>
-            <type>Task</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* BGS - This Workflow will email the Customer if the Case has been closed and they send a new email into the system.</description>
-        <formula>AND( NOT(ISBLANK(  LastIncomingEmailAddress__c  )), ISCHANGED(LastIncomingEmailAddress__c), RecordType.DeveloperName = &quot;Sales_Ops_Delivery&quot;, ISPICKVAL(Status, &apos;Closed&apos;), NOT( ISCHANGED(Status) ) )</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
         <fullName>BGS Update Case Status at creation</fullName>
         <actions>
             <name>BGS_Update_Status_On_Case_Accept</name>
@@ -3541,86 +3485,6 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
 if case is accepted manually, change case status from New to In Progress</description>
         <formula>AND (  RecordType.DeveloperName = &apos;Sales_Ops_Delivery&apos;,  TEXT(Status) = &apos;New&apos;,  ischanged(OwnerId),  BEGINS( priorvalue(OwnerId), &apos;00G&apos;),  !isblank(Owner:User.Id) )</formula>
         <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>BSI New Case Logged</fullName>
-        <actions>
-            <name>Send_email_to_BSI_Team</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Business Systems Integration</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* BSI Case - Advise through email that a case has been raised.</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Business Sales Implementation Case Escalation</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.Owner_is_Queue__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Business Sales Implementation</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Escalate BSI cases that are not assigned within 24 hours</description>
-        <triggerType>onCreateOnly</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>BSI_Set_Case_as_Escalated</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <offsetFromField>Case.CreatedDate</offsetFromField>
-            <timeLength>24</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>CFF Send Email on Survey Response</fullName>
-        <actions>
-            <name>CFF_Alert_of_New_Case_from_Survey_Response</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Service Delivery</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Work_Type__c</field>
-            <operation>equals</operation>
-            <value>Customer Feedback Call-back</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>CIA - eParcel Support Email Notification</fullName>
-        <actions>
-            <name>CIA_Send_Email_on_new_case_creation</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Integration Application</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Upon new case created for CIA team, send email notification with case number</description>
-        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>CTM - I2C Case Closure</fullName>
@@ -3712,83 +3576,6 @@ if case is accepted manually, change case status from New to In Progress</descri
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>Dispute Case Approved Notification</fullName>
-        <actions>
-            <name>Dispute_Case_Approved</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>AND(ISPICKVAL(Status, &apos;Closed&apos;), Exclude_Notification_Automation__c = false,  Number_of_Items__c &gt; 0, PriorityNumber__c &gt; 0,  Number_of_Items__c = PriorityNumber__c, RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;,  ISPICKVAL(Business_Unit__c, &apos;Australia Post&apos;), NOT(ISPICKVAL(ReasonforCreditClaim__c, &apos;Late payment&apos;)))</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Dispute Case Approved Notification Late Payment</fullName>
-        <actions>
-            <name>Late_Payment_Dispute_Case_Approved</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Late Payment Dispute Case approved notification to the customer.</description>
-        <formula>AND(ISPICKVAL(Status, &apos;Closed&apos;), Exclude_Notification_Automation__c = false, Number_of_Items__c &gt; 0, PriorityNumber__c &gt; 0,  Number_of_Items__c = PriorityNumber__c, RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;, OR(ISPICKVAL(Business_Unit__c, &apos;Australia Post&apos;), ISPICKVAL(Business_Unit__c, &apos;StarTrack&apos;)),ISPICKVAL(Enquiry_Type__c, &apos;Billing Dispute&apos;), ISPICKVAL(ReasonforCreditClaim__c, &apos;Late payment&apos;))</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Dispute Case Approved Notification StarTrack</fullName>
-        <actions>
-            <name>Dispute_Case_Approved_StarTrack</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>AND(ISPICKVAL(Status, &apos;Closed&apos;), Exclude_Notification_Automation__c = false,  Number_of_Items__c &gt; 0, PriorityNumber__c &gt; 0,  Number_of_Items__c = PriorityNumber__c, RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;,  ISPICKVAL(Business_Unit__c, &apos;StarTrack&apos;), NOT(ISPICKVAL(ReasonforCreditClaim__c, &apos;Late payment&apos;)))</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Dispute Case Result Notification Account Manager</fullName>
-        <actions>
-            <name>Notify_Account_Manager_Dispute_Case_Result</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Notification to Account Managers on the result of the Case for the Amount Credited to Customers</description>
-        <formula>AND(ISPICKVAL(Status, &apos;Closed&apos;), RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;,  Credit_Amount__c  &gt; 0)</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Dispute Claim Acknowledgement</fullName>
-        <actions>
-            <name>New_Dispute_Claim_Case_Created</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Dispute Case Creation acknowledgement to the customer.</description>
-        <formula>AND(ISPICKVAL(Status, &apos;New&apos;),  Exclude_Notification_Automation__c = false, RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;,  ISPICKVAL(Business_Unit__c, &apos;Australia Post&apos;), NOT(ISPICKVAL(ReasonforCreditClaim__c, &apos;Late payment&apos;)))</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Dispute Claim Acknowledgement Late Payment</fullName>
-        <actions>
-            <name>New_Late_Payment_Dispute_Claim_Case_Created</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Dispute Case Creation acknowledgement to the customer for Late Payment Dispute.</description>
-        <formula>AND(ISPICKVAL(Status, &apos;New&apos;),  Exclude_Notification_Automation__c = false, RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;,  OR(ISPICKVAL(Business_Unit__c, &apos;Australia Post&apos;), ISPICKVAL(Business_Unit__c, &apos;StarTrack&apos;)), ISPICKVAL(Enquiry_Type__c, &apos;Billing Dispute&apos;), ISPICKVAL(ReasonforCreditClaim__c, &apos;Late payment&apos;))</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Dispute Claim Acknowledgement StarTrack</fullName>
-        <actions>
-            <name>New_Dispute_Claim_Case_Created_StarTrack</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Dispute Case Creation acknowledgement to the star track customer.</description>
-        <formula>AND(ISPICKVAL(Status, &apos;New&apos;),  Exclude_Notification_Automation__c = false, RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;,  ISPICKVAL(Business_Unit__c, &apos;StarTrack&apos;), NOT(ISPICKVAL(ReasonforCreditClaim__c, &apos;Late payment&apos;)))</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>E2C Business Unit Update For StarTrack</fullName>
         <actions>
             <name>ST_Business_Unit_Update</name>
@@ -3798,48 +3585,6 @@ if case is accepted manually, change case status from New to In Progress</descri
         <description>Business Unit update For Email To Case for StarTrack</description>
         <formula>AND( Owner:Queue.DeveloperName = &apos;StarTrack_Credit_Claims_Queue&apos;, ISPICKVAL( Business_Unit__c, &apos;&apos; ), RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Email Alert for Non-compliance Lodgement case</fullName>
-        <actions>
-            <name>email_non_compliance_case</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* an email is sent to account managers when a non-compliance lodgement issue is raised as Salesforce case</description>
-        <formula>ISCHANGED(   OwnerId   )  &amp;&amp;  RecordType.Name =&quot;Non-compliance Lodgement Issue&quot; &amp;&amp; ( OwnerId = Account.Owner.Id )</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>Escalate Business Enablement Cases</fullName>
-        <active>false</active>
-        <booleanFilter>1 AND 2 AND 3</booleanFilter>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Sales Coordinator,CAR Request</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Request_Origin__c</field>
-            <operation>equals</operation>
-            <value>On Demand</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Owner_is_Queue__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Workflow rule to perform 1 or many actions if a Startrack business Enablement case has not been actioned appropriately in the expected timeframe. WF updated to include the CAR RecType.</description>
-        <triggerType>onCreateOnly</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>SSSW_Set_Case_as_Escalated</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <offsetFromField>Case.CreatedDate</offsetFromField>
-            <timeLength>24</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
     </rules>
     <rules>
         <fullName>MPBHSP - Mypost Business Portal to MPB Inbound</fullName>
@@ -3864,21 +3609,6 @@ if case is accepted manually, change case status from New to In Progress</descri
             <value>Enterprise</value>
         </criteriaItems>
         <description>Assign new Cases created from Mypost Business portal / community to the SSSW MyPost Business Inbound, SLA -Enterprise</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>New Case Logged</fullName>
-        <actions>
-            <name>Sales_Coordinator_Case_Created_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Sales Coordinator</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154*</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -3929,69 +3659,6 @@ if case is accepted manually, change case status from New to In Progress</descri
         </criteriaItems>
         <description>Defaults the Retail Fulfillment SLA on all new cases created with the Retail Fulfillment &amp; Support Record Type</description>
         <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>RFCC - Email Outlet on New Case From Webform</fullName>
-        <actions>
-            <name>RFCC_Email_Alert_on_New_Case_from_Webform</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Retail Fulfilment &amp; Support</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Calc_SuppliedEmail__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Web</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* RFCC - Email Outlet on New Case From Webform</description>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>RFCC - Escal to Team Leader %2848hrs%29</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Retail Fulfilment &amp; Support</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>contains</operation>
-            <value>Phone,Web</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* RFCC - Escalation to Team Leader (48hrs) after case status remain New.</description>
-        <triggerType>onCreateOnly</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>RFCC_Escalation_to_Team_Leader_48hrs</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>RFCC_Update_Escal_Checkbox</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <offsetFromField>Case.CreatedDate</offsetFromField>
-            <timeLength>48</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
     </rules>
     <rules>
         <fullName>RFCC - Set Case Closed</fullName>
@@ -4071,25 +3738,6 @@ Warehouse: 0200, 0350, 0600, 0990</description>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Case Hard Close_30days</fullName>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>IsClosed &amp;&amp; NOT(Permanent_Close__c)   &amp;&amp;   CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;)</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>Clear_Last_Incoming_Email_Value</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>SSSW_SetPermanentClose</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>30</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
         <fullName>SSSW - Clear Customer Escalation Email</fullName>
         <actions>
             <name>SetEscalationEmailNull</name>
@@ -4155,17 +3803,6 @@ Warehouse: 0200, 0350, 0600, 0990</description>
         <active>true</active>
         <description>REQ0998943 - Automatically set the resolution result to Closed by customer when a case is closed via portal or web</description>
         <formula>AND( 	IsClosed, 	CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;), 	OR( 		LastModifiedBy.Profile.Name == &apos;Mypost Business Help &amp; Support Community User&apos;, 		LastModifiedBy.Profile.Name == &apos;BSP Community User&apos;, 		LastModifiedBy.Profile.Name == &apos;DDC Consumer Community User&apos;, 		LastModifiedBy.Profile.Name == &apos;Merchant Portal Community User&apos;, 		ISPICKVAL(Origin, &quot;BSP Bulk Upload&quot;) 	) )</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Closed Case - Email for BSP Bulk Upload</fullName>
-        <actions>
-            <name>SSSW_Send_Customer_Closure_Email_for_BSP_Bulk_Upload</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>Subject == &apos;Bulk Upload&apos; &amp;&amp; CONTAINS(RecordType.DeveloperName,&apos;SSSW&apos;)   &amp;&amp;  TEXT(Origin) = &apos;BSP&apos;   &amp;&amp;  NOT(ISBLANK(Contact.Email))   &amp;&amp;  ISBLANK(ParentId)   &amp;&amp;  IsClosed</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -5069,50 +4706,6 @@ Warehouse: 0200, 0350, 0600, 0990</description>
         </workflowTimeTriggers>
     </rules>
     <rules>
-        <fullName>SSSW - Email on Creation</fullName>
-        <actions>
-            <name>SSSW_Send_a_Email_when_a_new_Case_has_been_created</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>(TEXT(Type) = &apos;Investigation&apos; || (TEXT(Type) = &apos;General Enquiry&apos; &amp;&amp; TEXT(Origin) = &apos;MyPost Business&apos;)  || TEXT(Origin) = &apos;BSP&apos; ) &amp;&amp;              Subject &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Web&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Email&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Portal&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Snap It&apos;&amp;&amp;             TEXT(Origin) &lt;&gt; &apos;BSP Bulk Upload&apos; &amp;&amp;              CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;) &amp;&amp;              (TEXT(Origin) &lt;&gt; &apos;Direct Email&apos; &amp;&amp;              TEXT(Origin) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp;              NOT(ISBLANK(Contact.Email)) &amp;&amp;              ISBLANK(ParentId)&amp;&amp;              NOT(CONTAINS(Subject,&apos;Enterprise Contact Registration&apos;))&amp;&amp;              NOT(TypeofDamage__c = &apos;Wine Damage&apos; &amp;&amp;             ISPICKVAL(EnquirySubType__c,&apos;Facility reported damages&apos;))</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Email on Creation Email</fullName>
-        <actions>
-            <name>SSSW_Send_a_Email_when_a_new_Email_to_Case_has_been_created</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>TEXT(Origin) = &apos;Email&apos; &amp;&amp;    CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;)   &amp;&amp;   NOT(ISBLANK(SuppliedEmail))   &amp;&amp;   ISBLANK(ParentId) &amp;&amp; (ISBLANK($Setup.QM__c.NoAutoreplyQueue__c) ||(NOT(ISBLANK($Setup.QM__c.NoAutoreplyQueue__c)) &amp;&amp;  NOT(CONTAINS($Setup.QM__c.NoAutoreplyQueue__c,RIGHT(SuppliedEmail,(LEN(SuppliedEmail)-FIND(&quot;@&quot;,SuppliedEmail)-1))))))</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Email on Creation Web%2FPortal</fullName>
-        <actions>
-            <name>SSSW_Send_a_Email_when_a_new_Case_has_been_created_Web_Portal</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>IF(OR(TEXT( CHASEnquiryType__c)==&apos;Delivery issue&apos;,AND(TEXT( CHASEnquiryType__c)==&apos;Products &amp; services&apos;,TEXT( EnquirySubType__c )==&apos;Item transfer&apos;)), ( TEXT(Origin) = &apos;Web&apos; || TEXT(Origin) = &apos;Portal&apos; ) &amp;&amp; CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;) &amp;&amp; (TEXT(Origin) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT(Origin) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK(Contact.Email)) &amp;&amp; ISBLANK(ParentId) &amp;&amp; NOT(CONTAINS(Subject,&apos;Enterprise Contact Registration&apos;)) &amp;&amp; Automated_Network_Assignment__c == false , ( TEXT(Origin) = &apos;Web&apos; || TEXT(Origin) = &apos;Portal&apos; ) &amp;&amp; CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;) &amp;&amp; (TEXT(Origin) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT(Origin) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK(Contact.Email)) &amp;&amp; ISBLANK(ParentId) &amp;&amp; NOT(CONTAINS(Subject,&apos;Enterprise Contact Registration&apos;)) &amp;&amp; ISBLANK(HeldToOpenOn__c) &amp;&amp; AND(TEXT( CHASEnquiryType__c)==&apos;Products &amp; services&apos;,TEXT( EnquirySubType__c ) &lt;&gt; &apos;Account Enquiry&apos;))</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Email when Case Permanently Closed</fullName>
-        <actions>
-            <name>Send_an_Email_to_the_Customer_if_they_are_sending_an_Email_to_a_Case_that_has_be</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* SSSW - This Workflow will email the Customer if the Case has been Permanently closed and they send a new email into the system.</description>
-        <formula>Permanent_Close__c  &amp;&amp;  (  (ISCHANGED(LastIncomingEmailAddress__c) &amp;&amp; NOT(ISBLANK(LastIncomingEmailAddress__c)) ) &amp;&amp;  LastIncomingEmailAddress__c &lt;&gt; $Setup.QM__c.CusEmail__c  &amp;&amp;  LastIncomingEmailAddress__c &lt;&gt; $Setup.QM__c.NetworkEmail__c  )  &amp;&amp;  CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;)</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Ensure Contact method is set</fullName>
         <actions>
             <name>Set_Comm_Method_as_Email</name>
@@ -5264,17 +4857,6 @@ Warehouse: 0200, 0350, 0600, 0990</description>
         <description>SSSW - Resets the Network Milestones when the Network is changed, but the Status remains the same.</description>
         <formula>BEGINS(RecordType.DeveloperName,&apos;SSSW&apos;)    &amp;&amp;    (  NOT(ISCHANGED(Status))   &amp;&amp; ISPICKVAL(Status,&apos;Awaiting Network Response&apos;)  )    &amp;&amp;    ISCHANGED(Network__c)  &amp;&amp;  CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;)</formula>
         <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - New Case Notification for Delete Account Web Portal</fullName>
-        <actions>
-            <name>SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* SSSW New Case Notification for Delete Account Web Portal</description>
-        <formula>TEXT( CHASEnquiryType__c)==&apos;Products &amp; services&apos;  &amp;&amp; TEXT( EnquirySubType__c )==&apos;Account Enquiry&apos;  &amp;&amp; ( TEXT(Origin) = &apos;Web&apos; || TEXT(Origin) = &apos;Portal&apos; )  &amp;&amp; CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;)  &amp;&amp; (TEXT(Origin) &lt;&gt; &apos;Direct Email&apos;  &amp;&amp; TEXT(Origin) &lt;&gt; &apos;Bulk Upload&apos;)  &amp;&amp; NOT(ISBLANK(Contact.Email))  &amp;&amp; ISBLANK(ParentId) &amp;&amp; NOT(CONTAINS(Subject,&apos;Enterprise Contact Registration&apos;))  &amp;&amp; Automated_Network_Assignment__c == false</formula>
-        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>SSSW - New SSSW Child Cases</fullName>
@@ -5543,33 +5125,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Reset Customer Tier Milestone Time</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.CustomerTierSLA__c</field>
-            <operation>equals</operation>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Awaiting Customer Response</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Previous_Milestone_Time__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Resets the Customer Tier Milestone Time - if it is updated to be prior to the Previous Milestone Time.</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>SSSW_Reset_Previous_Milestone_Time</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
         <fullName>SSSW - Reset Internal Milestones</fullName>
         <actions>
             <name>SSSW_Clear_Internal_Milestone</name>
@@ -5756,259 +5311,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW Article Damage Action Taken Notification</fullName>
-        <actions>
-            <name>SSSW_eParcel_Article_Damage_Action_Taken</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Sends Email notification for eParcel Action taken cases.</description>
-        <formula>AND( TypeofDamage__c = &apos;Wine Damage&apos;,  ISPICKVAL(ResolutionCode__c, &apos;MyNetwork Resolution&apos;), ISPICKVAL(EnquirySubType__c,&apos;Facility reported damages&apos;), RecordType.DeveloperName = &apos;SSSWDelivery&apos;, ContactId &lt;&gt; Null, IsClosedOnCreate )</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW New Case Notification for Delivery Issue automatic network assignment</fullName>
-        <actions>
-            <name>SSSW_New_Case_Notification_for_Delivery_Issue_automatic_network_assignment</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* This is to fire an email when a case is created from the delivery issue form and has an automatic network assignment flag turned on</description>
-        <formula>AND( Automated_Network_Assignment__c == true,TEXT(Origin) == &apos;Portal&apos;,TEXT( CHASEnquiryType__c)==&apos;Delivery issue&apos;,CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;),NOT(ISBLANK(Contact.Email)))</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW New Case Notification for Transfer to PO</fullName>
-        <actions>
-            <name>SSSW_New_Case_Notification_for_Transfer_to_PO</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* This is to fire an email when a case is created on products and services form for a transfer to po request and has an automatic network assignment flag turned on</description>
-        <formula>AND( Automated_Network_Assignment__c == true,    NOT(ISBLANK(Contact.Email)), TEXT(Origin) == &apos;Portal&apos;,TEXT( CHASEnquiryType__c)==&apos;Products &amp; services&apos;,TEXT(  EnquirySubType__c )==&apos;Item transfer&apos;,CONTAINS(RecordType.DeveloperName,&quot;SSSW&quot;),NOT(ISBLANK(Contact.Email)))</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW Send Within EDD Email</fullName>
-        <actions>
-            <name>SSSW_Email_on_within_EDD_case_created_Web_Portal</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Send an email when case is created within EDD and eligible for hold</description>
-        <formula>ISPICKVAL(CHASEnquiryType__c, &apos;Missing or lost item&apos;) &amp;&amp; OR(ISPICKVAL(Origin, &apos;Web&apos;), ISPICKVAL(Origin, &apos;Portal&apos;)) &amp;&amp;  CONTAINS(RecordType.DeveloperName, &apos;SSSW&apos;) &amp;&amp; NOT(ISBLANK(Contact.Email)) &amp;&amp; ISBLANK(ParentId) &amp;&amp; NOT(CONTAINS(Subject, &apos;Enterprise Contact Registration&apos;)) &amp;&amp; NOT(ISBLANK(HeldToOpenOn__c)) &amp;&amp; (EstimatedDelivery__c &gt;= TODAY())</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW Send Within EDD Plus Business Days Email</fullName>
-        <actions>
-            <name>SSSW_Email_on_within_EDD_plus_business_days_case_created_Web_Portal</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Send an email when case is created within EDD + X business days and eligible for hold</description>
-        <formula>ISPICKVAL(CHASEnquiryType__c, &apos;Missing or lost item&apos;) &amp;&amp; OR(ISPICKVAL(Origin, &apos;Web&apos;), ISPICKVAL(Origin, &apos;Portal&apos;)) &amp;&amp; CONTAINS(RecordType.DeveloperName, &apos;SSSW&apos;) &amp;&amp; NOT(ISBLANK(Contact.Email)) &amp;&amp; ISBLANK(ParentId) &amp;&amp; NOT(CONTAINS(Subject, &apos;Enterprise Contact Registration&apos;)) &amp;&amp; NOT(ISBLANK(HeldToOpenOn__c)) &amp;&amp; (EstimatedDelivery__c &lt; TODAY()) &amp;&amp; (DATEVALUE(HeldToOpenOn__c) &gt;= TODAY())</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW ServiceNow Case Escalate</fullName>
-        <actions>
-            <name>Create_Incident_Outbound_msg</name>
-            <type>OutboundMessage</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>ISPICKVAL(Network__r.Contact_Facility__c, &quot;ServiceNow&quot;) &amp;&amp;  ISBLANK(Service_Now_Ticket_Number__c )</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW ServiceNow Case Update</fullName>
-        <actions>
-            <name>Update_Incident_Outbound_Msg</name>
-            <type>OutboundMessage</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>NOT(ISBLANK( Service_Now_Ticket_Number__c )) &amp;&amp;  NOT(CONTAINS($Profile.Name,&apos;Integration&apos;))  &amp;&amp; ( ISCHANGED(Status) || ISCHANGED(Priority) || ISCHANGED(Description)|| ISCHANGED( Permanent_Close__c ))</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>Sales Implementation - High Complexity</fullName>
-        <actions>
-            <name>Sales_Implementation_Exceed_Email_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Sales Implementation Case</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Work_Type__c</field>
-            <operation>equals</operation>
-            <value>High Complexity</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Closed - Expired,Closed,Closed - Customer Viewed,Closed - Pending</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Case_Duration__c</field>
-            <operation>equals</operation>
-            <value>61</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Sales Implementation - High Complexity workflow. Send email notification to Manager of Sales Implementation for case work type = High Complexity exceeds 61 days.</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Sales Implementation - Intermediate</fullName>
-        <actions>
-            <name>Sales_Implementation_Exceed_Email_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Sales Implementation Case</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Work_Type__c</field>
-            <operation>equals</operation>
-            <value>Intermediate</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Closed - Expired,Closed,Closed - Customer Viewed,Closed - Pending</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Case_Duration__c</field>
-            <operation>equals</operation>
-            <value>21</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Sales Implementation - Intermediate workflow. Send email notification to Manager of Sales Implementation for case work type = Intermediate exceeds 29 days.</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Sales Implementation - Off the Shelf</fullName>
-        <actions>
-            <name>Sales_Implementation_Exceed_Email_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Sales Implementation Case</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Work_Type__c</field>
-            <operation>equals</operation>
-            <value>Off the Shelf</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Closed - Expired,Closed,Closed - Customer Viewed,Closed - Pending</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Case_Duration__c</field>
-            <operation>equals</operation>
-            <value>15</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Sales Implementation - Off the Shelf workflow. Send email notification to Manager of Sales Implementation for case work type = Off the shelf exceeds 15 days.</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>SalesImplementationRequest - Create</fullName>
-        <actions>
-            <name>Sales_Implementation_Request</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>E&amp;G Sales Implementation</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Salesforce</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Email Notification sent to Sales Implementation Manager when a new Sales Implementation Request case created</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SalesImplementationRequest - Rejected</fullName>
-        <actions>
-            <name>Sales_Implementation_Request_Rejected</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>E&amp;G Sales Implementation</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Salesforce</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Stage__c</field>
-            <operation>equals</operation>
-            <value>Closed - Rejected</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Email Notification sent to Record Creator when a new Sales Implementation Request case is Rejected</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>SalesImplementationRequest - Reminder</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>E&amp;G Sales Implementation</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Salesforce</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Stage__c</field>
-            <operation>notEqual</operation>
-            <value>Plan,Implement,Stabalise,Closed - Disengaged,Closed - Maintained,Closed - Rejected</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Email Notification Remainder sent to Sales Implementation Manager to review outstanding case</description>
-        <triggerType>onCreateOnly</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>Sales_Implementation_Request_Reminder</name>
-                <type>Alert</type>
-            </actions>
-            <offsetFromField>Case.CreatedDate</offsetFromField>
-            <timeLength>3</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>Security Express Case Creation Email</fullName>
-        <actions>
-            <name>Security_Express_Case_Creation_Email_Alert</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* workflow to auto-send security express case creation email to the customer once the case is created in salesforce</description>
-        <formula>AND (RecordType.DeveloperName = &quot;Security_Express&quot;, NOT (ISBLANK( Email_Address__c )))</formula>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>Send Case Comments</fullName>
         <actions>
             <name>Case_Comments_Updated</name>
@@ -6060,37 +5362,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
-        <fullName>Send Email Response - Customer Analytics %26 Reporting Team</fullName>
-        <actions>
-            <name>Customer_Analytics_Reporting_Cases_Auto_Email_Response</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Analytics &amp; Reporting Request (CAR)</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Owner_is_Queue__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* Customer Analytics &amp; Reporting (CAR) Team auto Email response</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Send Email SLA Case Allocation Notification</fullName>
-        <actions>
-            <name>Customer_Analytics_Reporting_Cases_Auto_Case_Allocation_Notification</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* Customer Analytics &amp; Reporting (CAR) Team auto email notification to the customer when the case is allocated to a CAR team member and SLA date and time is populated.</description>
-        <formula>AND(  RecordType.DeveloperName =&apos;CAR_Request&apos;,  ISPICKVAL(Status, &apos;In Progress&apos;),  NOT(ISNULL( SLATargetDate__c )), NOT(Owner_is_Queue__c)   )</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
         <fullName>Service Delivery SLA Breach</fullName>
         <actions>
             <name>SLA_Breach_Update</name>
@@ -6108,30 +5379,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <value>Sales_Ops_Delivery</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Shipster New Case Auto Reply</fullName>
-        <actions>
-            <name>Shipster_New_Case_Email_Notifaction</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Shipster</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Web,Internal - CCC</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Recent_Caller_Email__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154* This is an auto from a web-2-case creation to notify the customer of their case details.</description>
-        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>Social Case origin change</fullName>
@@ -6189,17 +5436,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>Special Services Case Creation Email</fullName>
-        <actions>
-            <name>Special_Services_Case_Creation_Email_Alert</name>
-            <type>Alert</type>
-        </actions>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154* work flow to send out case creation email for sperical services cases</description>
-        <formula>AND (RecordType.DeveloperName = &quot;Special_Services&quot;, NOT (ISBLANK( Email_Address__c )), TEXT(Status)==&apos;In Progress&apos;)</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
         <fullName>StarTrack Update Priority</fullName>
         <actions>
             <name>StarTrack_Update_Priority_to_High</name>
@@ -6230,77 +5466,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>StarTrack VOC Incident Overdue Rule</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Voice of Customer Incident</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Due_Date__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Nominated_Advocate_Email__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Closed</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>StarTrack_VOC_Incident_Overdue</name>
-                <type>Alert</type>
-            </actions>
-            <offsetFromField>Case.Due_Date__c</offsetFromField>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>StarTrack VOC System User Incident Overdue Rule</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Voice of Customer Incident</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Due_Date__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Closed</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Owner_is_Changed__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>StarTrack_VOC_System_User_Incident_Overdue</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>Update_Owner_is_Changed_Field</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <offsetFromField>Case.Due_Date__c</offsetFromField>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
         <fullName>Transfer Case to SWMY Immediate</fullName>
         <actions>
             <name>Change_Owner_to_SWMY</name>
@@ -6319,22 +5484,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         <active>true</active>
         <formula>StarTrack_RecordType__c &amp;&amp; ISPICKVAL(Call_Purpose__c , &apos;Depot Created&apos;) &amp;&amp; ISPICKVAL(Status , &apos;Waiting on operations&apos;) &amp;&amp;  OwnerId &lt;&gt; $Setup.StarTrack_Settings__c.SWMYTempQueue__c</formula>
         <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>Transfer Unresolved Case to SWMY After Sometime_1day</fullName>
-        <active>false</active>
-        <description>*DEACTIVATED-REQ2811154*</description>
-        <formula>StarTrack_RecordType__c &amp;&amp;  (NOT( ISPICKVAL(Case_Update__c, &apos;Waiting on Investigator&apos;) || IsClosed)) &amp;&amp;  OwnerId =  $Setup.StarTrack_Settings__c.SWMYTempQueue__c</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>Change_Owner_to_SWMY</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <offsetFromField>Case.Delivery_Collection_Date__c</offsetFromField>
-            <timeLength>1</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
     </rules>
     <rules>
         <fullName>Untick Checkbox field on case create</fullName>

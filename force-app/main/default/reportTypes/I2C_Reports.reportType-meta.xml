@@ -337,6 +337,11 @@
             <field>GSTAmount__c</field>
             <table>Adjustment__c.Credit_Approvals__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ReferenceID__c</field>
+            <table>Adjustment__c.Credit_Approvals__r</table>
+        </columns>
         <masterLabel>Credit Approvals</masterLabel>
     </sections>
     <sections>
@@ -648,6 +653,21 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>SAPDateOfTheExchangeRate__c</field>
+            <table>Adjustment__c.Credit_Approvals__r.Disputed_Items__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ReferenceID__c</field>
+            <table>Adjustment__c.Credit_Approvals__r.Disputed_Items__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Warehouse__c</field>
+            <table>Adjustment__c.Credit_Approvals__r.Disputed_Items__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>APProfitCentreCode__c</field>
             <table>Adjustment__c.Credit_Approvals__r.Disputed_Items__r</table>
         </columns>
         <masterLabel>Disputed Items</masterLabel>

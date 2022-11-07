@@ -4,10 +4,6 @@
     <description>Support Process for Sales Coordinator</description>
     <isActive>true</isActive>
     <values>
-        <fullName>Assigned Incorrectly</fullName>
-        <default>false</default>
-    </values>
-    <values>
         <fullName>Awaiting Information</fullName>
         <default>false</default>
     </values>

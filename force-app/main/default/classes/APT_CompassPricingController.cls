@@ -674,10 +674,12 @@ public with sharing class APT_CompassPricingController {
             if( pav.APTS_Price_Structure__c != APT_Constants.ANYWHERE_PRICE_STRUCTURE) {
                 pav.APTS_Price_Structure__c = compassPriceResponse == null? selectedPSR.Approved_Pricing_Structure__c: compassPriceResponse.priceStructure; 
             }           
-            pav.APT_RK_Code_AppliedYN__c=APT_Constants.OPTION_YES;           
-            pav.SAP_Weight_Rounding__c = compassPriceResponse == null? null : compassPriceResponse.weightRounding;                         
-            pav.SAP_Cubic_Conversion_Factor__c = compassPriceResponse ==null? null: compassPriceResponse.cubicConvfac;
-            pav.APT_Cubic_Status__c = compassPriceResponse ==null? null : compassPriceResponse.cubingFlag;
+            pav.APT_RK_Code_AppliedYN__c=APT_Constants.OPTION_YES;  
+            if(selectedPSR.Approved_Event__c == APT_Constants.PSR_APPC_CUSTOM_PRICING) {
+                pav.SAP_Weight_Rounding__c = compassPriceResponse == null? null : compassPriceResponse.weightRounding;                         
+                pav.SAP_Cubic_Conversion_Factor__c = compassPriceResponse ==null? null: compassPriceResponse.cubicConvfac;
+                pav.APT_Cubic_Status__c = compassPriceResponse ==null? null : compassPriceResponse.cubingFlag;
+            }
            
             pavListUpdate.add(pav);
         }

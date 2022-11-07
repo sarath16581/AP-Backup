@@ -16,11 +16,11 @@
     </values>
     <values>
         <field>PTEST_Oracle_IAM_Logout_URL__c</field>
-        <value xsi:type="xsd:string">https://login.microsoftonline.com/fced7ed8-363a-4005-8037-adc1290883f6/v2.0/logout</value>
+        <value xsi:type="xsd:string">https://login.microsoftonline.com/fced7ed8-363a-4005-8037-adc1290883f6/oauth2/v2.0/logout</value>
     </values>
     <values>
         <field>Prod_Oracle_IAM_Logout_URL__c</field>
-        <value xsi:type="xsd:string">https://sso-local.auspost.com.au/oam/server/logout</value>
+        <value xsi:type="xsd:string">https://login.microsoftonline.com/5195231b-cd74-45a4-b576-9bc88ae35b48/oauth2/v2.0/logout</value>
     </values>
     <values>
         <field>Production_Base_URL__c</field>
@@ -28,7 +28,7 @@
     </values>
     <values>
         <field>Production_Retail_Logout_URL__c</field>
-        <value xsi:type="xsd:string">https://sso-local.auspost.com.au/mynetwork</value>
+        <value xsi:type="xsd:string">https://login.microsoftonline.com/5195231b-cd74-45a4-b576-9bc88ae35b48/oauth2/v2.0/logout</value>
     </values>
     <values>
         <field>STEST_Base_URL__c</field>
@@ -36,6 +36,6 @@
     </values>
     <values>
         <field>Stest_Oracle_IAM_Logout_URL__c</field>
-        <value xsi:type="xsd:string">https://sso-stest-local.npe.auspost.com.au/oam/server/logout</value>
+        <value xsi:type="xsd:string">https://login.microsoftonline.com/41afef0e-7a9e-4584-9dba-86c335624811/oauth2/v2.0/logout</value>
     </values>
 </CustomMetadata>
