@@ -67,9 +67,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * Called when a new Case is being inserted.
 	 */
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		try {
-			System.debug('MyCustomerCaseArticlesModule:onBeforeInsert');
-
+		try {		
 			Set<String> processableReferenceIds = new Set<String>();
 			Set<Id> processableArticleIds = new Set<Id>();
 			List<Case> casesToLinkReferencesTo = new List<Case>();
@@ -98,8 +96,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			}
 
 			// grab the existing articles in SF to link the case that can be linked
-			System.debug('casesToLinkReferencesTo: ' + casesToLinkReferencesTo);
-			System.debug('casesToLinkArticlesTo: ' + casesToLinkArticlesTo);
 			if (!casesToLinkReferencesTo.isEmpty() || !casesToLinkArticlesTo.isEmpty()) {
 
 				// grab a list of existing articles to see if we can match them up to the cases that have been passed in
@@ -135,8 +131,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 */
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			System.debug('MyCustomerCaseArticlesModule:onBeforeUpdate');
-
 			Set<String> processableReferenceIds = new Set<String>();
 			Set<Id> subscribedArticleIds = new Set<Id>();
 			Set<Id> processableArticleIds = new Set<Id>();
@@ -144,7 +138,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			List<Case> casesToLinkArticlesTo = new List<Case>();
 
 			Map<Id, Set<SObjectField>> changedRecords = getIsChanged(records, existingRecords, new Set<SObjectField>{Case.ReferenceID__c, Case.ArticleTest__c, Case.Subscribed__c});
-			System.debug('changedRecords: ' + changedRecords);
 
 			// loop through our records to figure out what actions need to be taken
 			for(Case c : (List<Case>)records) {
@@ -183,7 +176,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 						// we don't need to do anything here if the reference id  and article fields are already in sync with each other.
 						// we utilise cache (if it exists) to confirm these values are in sync
-						System.debug('Found Case in Sync with Article');
 
 					} else if(changed.contains(Case.ArticleTest__c)) {
 
@@ -208,8 +200,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			}
 
 			// check if there is work to be done
-			System.debug('casesToLinkReferencesTo: ' + casesToLinkReferencesTo);
-			System.debug('casesToLinkArticlesTo: ' + casesToLinkArticlesTo);
 			if(!casesToLinkReferencesTo.isEmpty() || !casesToLinkArticlesTo.isEmpty()) {
 				// grab a list of existing articles to see if we can match them up to the cases that have been passed in
 				// this will also populate m_trackingReferenceIdMappings and m_trackingReferenceIdMappings cache which we use here
@@ -330,8 +320,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 			// TODO: Refactor this into a better enqueueing model
 			// enqueue the job here
-			System.debug('Enqueuing SAP-EM query: ' + caseIds);
-			System.debug('Enqueuing SAP-EM query: ' + caseOriginalValues);
 			AsyncLinkArticlesToCasesQueueable job = new AsyncLinkArticlesToCasesQueueable(caseIds, referenceIds, caseOriginalValuesForQueueable.values());
 			System.enqueueJob(job);
 
@@ -358,7 +346,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			if(!articleIds.isEmpty()) {
 				m_enqueuedArticleSubscriptionIds.addAll(articleIds);
 
-				System.debug('Enqueuing Article Subscription job: ' + articleIds);
 				AsyncSubscribeArticlesQueueable job = new AsyncSubscribeArticlesQueueable(articleIds);
 				System.enqueueJob(job);
 			}
@@ -442,7 +429,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 				}
 
 				//Article HasExtraCover is a boolean formula field
-				c.HasExtraCover__c = a.HasExtraCover__c; 
+				c.LinkedArticleHasExtraCover__c = a.HasExtraCover__c; 
 			}
 		}
 	}
@@ -452,9 +439,6 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * If an article isn't found, the case will be queued for async processing in the onAfter trigger handlers.
 	 */
 public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
-		System.debug('populateCaseArticleIds:cases: ' + cases);
-		System.debug('populateCaseArticleIds:queriedArticles: ' + queriedArticles);
-		System.debug('populateCaseArticleIds:existingReferenceIdMappings: ' + existingReferenceIdMappings);
 
 		List<Case> updateable = new List<Case>();
 		for(Case c : cases) {
@@ -502,8 +486,6 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 	 * given the article field is populated it means it will always exist in our selector so we can reliably retrieve the corresponding reference id to attach to the case
 	 */
 	private void populateCaseReferences(List<Case> cases, Map<Id, String> existingArticleIdMappings) {
-		System.debug('populateCaseArticleIds:cases: ' + cases);
-		System.debug('populateCaseArticleIds:existingArticleIdMappings: ' + existingArticleIdMappings);
 
 		for(Case c : cases) {
 			// cache was populated in selectAndCacheArticles method call above
@@ -535,8 +517,6 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 	 */
 	public Map<Id, Article__c> selectArticles(Set<String> processableReferenceIds, Set<Id> processableArticleIds) {
 		Map<Id, Article__c> articles = ArticlesSelector.newInstance().selectByIdOrTracking(processableReferenceIds, processableArticleIds, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, ArticlesSelector.Options.WITH_RECORDTYPE}, false);
-		System.debug('queried articles: ' + articles);
-		System.debug('processableReferenceIds: ' + processableReferenceIds);
 
 		populateCache(articles.values());
 
@@ -593,10 +573,6 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 
 		public void execute(QueueableContext context) {
 			try {
-				System.debug('Executing AsyncLinkArticlesToCasesQueueable Queueable');
-				System.debug('>> Processing IDs: ' + caseIds);
-				System.debug('>> Processing casesForReroutingAttempt: ' + casesForReroutingAttempt);
-
 				// as a failsafe, set this to ensure no more queueable instances will be created
 				// this is for example if an article isn't found or Tibco errors or some other type of error.
 				preventRecursiveReschedule = true;
@@ -629,13 +605,10 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					// loop through all processable cases and apply the article field id value to the case where possible
 					// m_trackingReferenceIdMappingsCache was populated in selectArticles call
 					Map<Id, Case> updateable = new Map<Id, Case>(module.populateCaseArticleIds(cases.values(), articles, m_trackingReferenceIdMappingsCache));
-					
-					System.debug('updateable before rerouting: '+updateable);
 
 					// attempt to reroute all cases passed to this queueable. This supports the design where cases requiring an Article not in the SF DB are placed in a holding Queue in SSSW_Routing.assignCasesAndDescription(), and re-routed here to the correct queue.
 					// original routing field values will be used			
-					Map<Id, Case> casesRerouted = rerouteCases(cases);
-					System.debug(casesRerouted.values());					
+					Map<Id, Case> casesRerouted = rerouteCases(cases);				
 
 					// apply and default values that are currently not already populated on the case
 					module.applyCaseArticleDefaults(updateable.values(), articles);
@@ -650,9 +623,7 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 						} else {
 							updateable.put(cs.Id, cs);
 						}
-					}					
-					
-					System.debug('AsyncLinkArticlesToCases >> ' + updateable);
+					}			
 
 					if(!updateable.isEmpty()) {
 						// as an added saftey measure, ensure that validation rules are bypassed and this update is allowed to occur
@@ -663,9 +634,7 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 						List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlUpdate(updateable.values(), false);
 
 						for (Database.SaveResult sr : srList) {
-							if (sr.isSuccess()) {
-								System.debug('Successfully updated: ' + sr.getId());
-							} else {
+							if (!sr.isSuccess()) {
 								for (Database.Error err : sr.getErrors()) {
 									System.debug('The following error has occurred.');
 									System.debug(err.getStatusCode() + ': ' + err.getMessage());
@@ -699,7 +668,6 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					// we need to first convert the map of case values into a list of case object
 					// NOTE: its stored as a map since some of the values we needed were formula fields not directly writable
 					Map<Id, Case> deserialisedCases = new Map<Id, Case>((List<Case>) JSON.deserialize(JSON.serialize(casesForReroutingAttempt), List<Case>.class));
-					System.debug('Deserialised cases for rerouting attempt: ' + deserialisedCases);
 
 					List<Case> reroutableCases = new List<Case>();
 					for (Id caseId : cases.keySet()) {
@@ -723,19 +691,12 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					}
 
 					// attempt to reroute the newly article linked cases to see if the article belongs to a strategic customer or extra cover applies or not
-					System.debug('Cases for rerouting attempt before assignment: ' + reroutableCases);
 					SSSW_Routing.assignCasesAndDescription(reroutableCases, null, false, true, true);
-					System.debug('Cases for rerouting attempt after assignment: ' + reroutableCases);
 
 					// the routing rules have been rerun and the newly set owner id will be added to the case
 					// NOTE: we only want the owner id and not any othe fields as they might be out of date or irrelevant
 					for (Case reroutedCase : reroutableCases) {
 						if (reroutedCase.OwnerId != null) {
-//							casesWithArticlePopulated.get(reroutedCase.Id).OwnerId = reroutedCase.OwnerId;
-//
-//							// setting flag on case since selected routing rule is a strategic one
-//							// its required to avoid triggering the specific workflow rules that might reset the case owner
-//							casesWithArticlePopulated.get(reroutedCase.Id).LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c;
 
 							casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); //casesWithArticlePopulated.get(reroutedCase.Id));
 						}
@@ -764,8 +725,6 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 
 		public void execute(QueueableContext context) {
 			try {
-				System.debug('Executing AsyncSubscribeArticlesQueueable Queueable');
-				System.debug('>> Processing IDs: ' + articleIds);
 
 				List<Article__c> updateableArticles = new List<Article__c>();
 
@@ -780,9 +739,7 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 				List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlUpdate(updateableArticles, false);
 
 				for (Database.SaveResult sr : srList) {
-					if (sr.isSuccess()) {
-						System.debug('Successfully updated: ' + sr.getId());
-					} else {
+					if (!sr.isSuccess()) {
 						for (Database.Error err : sr.getErrors()) {
 							System.debug('The following error has occurred.');
 							System.debug(err.getStatusCode() + ': ' + err.getMessage());

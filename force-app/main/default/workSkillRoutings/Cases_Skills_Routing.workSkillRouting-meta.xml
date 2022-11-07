@@ -158,7 +158,7 @@
         <value>Post Office &amp; Business Hub Services</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
-        <field>Case.HasExtraCover__c</field>
+        <field>Case.LinkedArticleHasExtraCover__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>Extra_Cover</skill>
         <skillLevel>5</skillLevel>
