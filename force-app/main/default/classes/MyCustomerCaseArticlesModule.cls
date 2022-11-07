@@ -138,7 +138,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 			List<Case> casesToLinkArticlesTo = new List<Case>();
 
 			Map<Id, Set<SObjectField>> changedRecords = getIsChanged(records, existingRecords, new Set<SObjectField>{Case.ReferenceID__c, Case.ArticleTest__c, Case.Subscribed__c});
-
+			
 			// loop through our records to figure out what actions need to be taken
 			for(Case c : (List<Case>)records) {
 				Set<SObjectField> changed = changedRecords.get(c.Id);
@@ -440,6 +440,10 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 */
 public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
 
+		System.debug('populateCaseArticleIds:cases: ' + cases);
+		System.debug('populateCaseArticleIds:queriedArticles: ' + queriedArticles);
+		System.debug('populateCaseArticleIds:existingReferenceIdMappings: ' + existingReferenceIdMappings);
+
 		List<Case> updateable = new List<Case>();
 		for(Case c : cases) {
 			if(existingReferenceIdMappings.get(nullToString(c.ReferenceID__c).toUpperCase()) != null) {
@@ -573,6 +577,9 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 
 		public void execute(QueueableContext context) {
 			try {
+				System.debug('>> Processing IDs: ' + caseIds);
+				System.debug('>> Processing casesForReroutingAttempt: ' + casesForReroutingAttempt);
+
 				// as a failsafe, set this to ensure no more queueable instances will be created
 				// this is for example if an article isn't found or Tibco errors or some other type of error.
 				preventRecursiveReschedule = true;
@@ -725,6 +732,7 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 
 		public void execute(QueueableContext context) {
 			try {
+				System.debug('>> Processing IDs: ' + articleIds);
 
 				List<Article__c> updateableArticles = new List<Article__c>();
 
