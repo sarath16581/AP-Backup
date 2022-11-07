@@ -296,7 +296,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
           caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
 
           //because case and case investigation need to be shown under one column,
-          //caseLink and caseNum are populated with case investigation Id and Case Investigation Number.
+          //caseNum is populated with case number and Case Investigation Number.
           caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/detail/" + data[i].caseId;
           caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
           caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
