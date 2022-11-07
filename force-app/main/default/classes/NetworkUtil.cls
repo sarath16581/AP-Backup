@@ -9,7 +9,7 @@
 16.10.2019    ajudd@salesforce.com  		 Added check to updateBookingLocationAddress to prevent recursion
 06.11.2019    ajudd@salesforce.com  		 Applied fix to updateBookingLocationAddress where check for networkIdSet size was inside for loop (Incident INC1497717)
 16.03.2022    saiswetha.pingali@auspost.com.au Updated updateBookingLocationAddress to invoke direct method for test class execution.
-
+2022-11-04    Naveen Rajanna     			REQ3018517 Add null check to prevent nullpointerexception for updateNetworkManagerOnLicence
 **/
 
 public class NetworkUtil
@@ -100,7 +100,7 @@ public class NetworkUtil
                 System.debug('net.RecordTypeId--->'+net.RecordTypeId);
 				//Check if Network Manager on Parent Network is changed
 				if (otherRTs.equals(net.RecordTypeId) &&
-						(!(net.Network_Manager__c.equals(oldNetworks.get(net.id).Network_Manager__c)))) {
+						(!(net.Network_Manager__c != null && net.Network_Manager__c.equals(oldNetworks.get(net.id).Network_Manager__c)))) { //REQ3018517
 					//Add Network Id in Set<id> to retrieve Licence and Partner Addendums
 					networkIds.add(net.id);
 					//Add Network Manager in Map along with Parent Network Id
