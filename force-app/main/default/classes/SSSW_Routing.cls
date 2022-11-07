@@ -224,7 +224,6 @@ public class SSSW_Routing {
              */
             if(!matchingField.equalsIgnoreCase('IsStrategic__c') && !matchingField.equalsIgnoreCase('HasExtraCover__c')) {
                 caseValue = cs.get(fieldsMapping.get(matchingField)) != null && !String.isEmpty(String.valueOf(cs.get(fieldsMapping.get(matchingField)))) ? String.valueOf(cs.get(fieldsMapping.get(matchingField))) : '';
-                system.debug('case value in processANY:::'+caseValue);
             } else if(matchingField.equalsIgnoreCase('IsStrategic__c') && articleAttributesMap.get(referenceId) != null ) {
                 caseValue = (!String.isEmpty(String.valueOf(articleAttributesMap.get(referenceId).isStrategic)) ? String.valueOf(articleAttributesMap.get(referenceId).isStrategic) : '');
             } else if(matchingField.equalsIgnoreCase('HasExtraCover__c') && articleAttributesMap.get(referenceId) != null ) {
@@ -241,7 +240,6 @@ public class SSSW_Routing {
             }
         }
         System.debug(LoggingLevel.ERROR, 'Against Rule ' + rule.Sequence__c + ':  ' + rule);
-        System.debug(LoggingLevel.ERROR, 'Rule Match: ' + ruleMatched);
 
         if(ruleMatched){
             System.debug(LoggingLevel.ERROR, 'Match identified with rule at Sequence: ' + rule.Sequence__c);
@@ -266,16 +264,12 @@ public class SSSW_Routing {
              */
             if(!matchingField.equalsIgnoreCase('IsStrategic__c') && !matchingField.equalsIgnoreCase('HasExtraCover__c')) {
                 caseValue = cs.get(fieldsMapping.get(matchingField)) != null && !String.isEmpty(String.valueOf(cs.get(fieldsMapping.get(matchingField)))) ? String.valueOf(cs.get(fieldsMapping.get(matchingField))) : '';
-            system.debug('caseValue:::: in processAll '+caseValue);
             } else if(matchingField.equalsIgnoreCase('IsStrategic__c') && articleAttributesMap.get(referenceId) != null ) {
                 caseValue = (!String.isEmpty(String.valueOf(articleAttributesMap.get(referenceId).isStrategic)) ? String.valueOf(articleAttributesMap.get(referenceId).isStrategic) : '');
             } else if(matchingField.equalsIgnoreCase('HasExtraCover__c') && articleAttributesMap.get(referenceId) != null ) {
                 caseValue = (!String.isEmpty(String.valueOf(articleAttributesMap.get(referenceId).hasExtraCover)) ? String.valueOf(articleAttributesMap.get(referenceId).hasExtraCover) : '');
             }
-            system.debug('ruleValues in processALL:::'+ruleValues);
             if(ruleValues != null && ruleValues != '' && ruleValues != 'false') {
-                System.debug(LoggingLevel.ERROR, 'RuleValues: ' + ruleValues);
-                System.debug(LoggingLevel.ERROR, 'caseValue: ' + caseValue);
 
                 for (String ruleValue : (String.valueOf(ruleValues)).split(SSSWRoutingController.MULTI_SELECT_DELIM)) {
                     if (valueMatches(matchingField, caseValue, ruleValue)) {
@@ -289,7 +283,6 @@ public class SSSW_Routing {
         }
 
         System.debug(LoggingLevel.ERROR, 'Against Rule ' + rule.Sequence__c + ':  ' + rule);
-        System.debug(LoggingLevel.ERROR, 'MatchMap: ' + valueMatches);
 
         Boolean ruleMatched = false;
         if(valueMatches.values().size() > 0) {
@@ -362,7 +355,7 @@ public class SSSW_Routing {
         //List<SSSWRouting__c> rules = getRules(recType);
         GetRulesForAllProfiles obj = new GetRulesForAllProfiles ();
         List<SSSWRouting__c> rules = obj.getRules(recType);
-        System.debug('rules--->'+rules);
+
         List<SSSWRouting__c> routeRule = new List<SSSWRouting__c>();
         List<SSSWRouting__c> descRule = new List<SSSWRouting__c>();
         for(SSSWRouting__c rule : rules){
@@ -382,10 +375,9 @@ public class SSSW_Routing {
                 referenceIds.add(c.ReferenceID__c);
             }
         }
-        system.debug('referenceIDs:::'+referenceIds);
+
         if(!referenceIds.isEmpty()) {
-            getArticleAttributesMap(referenceIds);
-            system.debug('reference ids after getRelatedArticleMappings: '+referenceIds );            
+            getArticleAttributesMap(referenceIds);         
         }
 
         for (Case cs : cases) {
@@ -399,8 +391,7 @@ public class SSSW_Routing {
             // There are some fringe scenarios where routing should be excluded and due to the mess in workflows a new attribute was introduced to achieve this  (ByPassRoutingRulesOnCreation__c)
             if((reassignNoCheckOwnerQueue || (cs.AllocateToQueue__c != null && cs.AllocateToQueue__c == true)) && !(isInsert && cs.ByPassRoutingRulesOnCreation__c)) {
 
-                for (SSSWRouting__c rule : routeRule) {
-                    System.debug(LoggingLevel.ERROR, 'cs.Type >> ' + cs.Type);
+                for (SSSWRouting__c rule : routeRule) {                    
                     if (rule.Match_Rules_On__c.equals('ANY')) {
                         System.debug(LoggingLevel.ERROR, '**Processing ANY rule');
 
@@ -418,10 +409,9 @@ public class SSSW_Routing {
                         // cases follow default logic if it is not either of these.
                         if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null)) {
                             if (processAny(cs, rule, routingFields)) {
-                                System.debug(LoggingLevel.ERROR, 'Inside ANY rule Assign Case--->' + rule);
                                 routingOwner = rule.Queue_ID__c;
 
-                                system.debug('rule routing owner id: ' + routingOwner);
+                                system.debug(LoggingLevel.ERROR,'Rule Routing Owner Id: ' + routingOwner);
 
                                 // set the new owner
                                 setRoutingCaseOwner(cs, routingOwner);
@@ -467,12 +457,11 @@ public class SSSW_Routing {
                         // if found in SAP-EM, explicit call to assignCasesAndDescription() to find the queue
                         //TODO: have to set AllocateToQueue = false for portal cases
                         // Network cases to be skipped from routing in Insert context
-                        system.debug('Rule required article attributes::: ' + rule.RuleRequiresArticleAttributes__c);
-                        system.debug('match strategic rule only::: ' + isFinalPass);
                         if (!rule.RuleRequiresArticleAttributes__c || (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c != null && (!isInsert || (isInsert && !cs.ByPassRoutingRulesOnCreation__c)))) {
                             if (processAll(cs, rule, routingFields) && rule.recordtype.developerName == SSSWConstants.RECTYPEROUTING) {
-                                System.debug(LoggingLevel.ERROR, 'Inside ALL rule Assign Case--->' + rule);
+
                                 routingOwner = rule.Queue_ID__c;
+                                system.debug(LoggingLevel.ERROR,'Rule Routing Owner Id: ' + routingOwner);
 
                                 // set the new owner
                                 setRoutingCaseOwner(cs, routingOwner);
@@ -617,8 +606,6 @@ public class SSSW_Routing {
         Set<String> queryableReferenceIds = new Set<String>(referenceIdSet);
 
         queryableReferenceIds.removeAll(articleAttributesMap.keySet());
-        system.debug('articleAttributesMap inside getRelatedArticleMappings: '+articleAttributesMap);
-        system.debug('queryableReferenceIds inside getRelatedArticleMappings: '+queryableReferenceIds);
 
         if(!queryableReferenceIds.isEmpty()) {
             SSSWCaseRelatedData obj = new SSSWCaseRelatedData();
@@ -635,7 +622,6 @@ public class SSSW_Routing {
                 articleAttributesMap.put(a.ArticleID__c.toLowerCase(), attributes);
             }
         }
-        System.debug('getRelatedArticleMappings :'+articleAttributesMap);
         return articleAttributesMap;
     }
 
