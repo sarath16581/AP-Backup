@@ -21,7 +21,8 @@ public with sharing class AccountDomainTriggerHandler extends ApplicationDomainT
 
 	public override List<Type> registerDomains() {
 		return new List<Type>{
-            AccountDomain.class
+                AccountDomain.class,
+				BusinessAccountDomain.class
 		};
 	}
 
