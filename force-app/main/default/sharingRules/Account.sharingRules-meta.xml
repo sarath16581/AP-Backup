@@ -239,7 +239,7 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Share_Intermediary_Accounts_with_CC_Intermediary_Users</fullName>
+        <fullName>ShareIntermediaryAccountsWithCCIntermediaryUsers</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
             <caseAccessLevel>Read</caseAccessLevel>
