@@ -11,7 +11,7 @@
 private class SSSW_Routing_Test {
 
 	/**
-	 * When a Case requires an Article that is not in the database, ensure it is assigned to the Omni Routing Default queue as a holding queue.
+	 * When a Case requires an Article that is not in the database, ensure it is assigned to the SSSW Routing Holding Queue as a holding queue.
 	 * 
 	 * The above test Scenario is simulated via the CaseUtility.routeCase() and not having an Article record that matches the Case Reference_ID__c
 	 *
@@ -53,8 +53,8 @@ private class SSSW_Routing_Test {
 
 
 		QM__c custSetting = QM__c.getOrgDefaults();
-		List<QueueSobject> omniDefaultRoutingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'Omni_Routing_Default' AND SobjectType = 'Case' LIMIT 1]);
-        custSetting.OmniDefaultQueueId__c = omniDefaultRoutingQueueList[0].QueueId;
+		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
+        custSetting.HoldingQueueId__c = routingHoldingQueueList[0].QueueId;
         Insert custSetting;
 
 
@@ -65,13 +65,13 @@ private class SSSW_Routing_Test {
 
 		CaseCommonUtility caseUtility = new CaseCommonUtility();
 
-		//Attempt to route the case with an Article that is not in the database, which will assign it to the Omni Routing Default queue
+		//Attempt to route the case with an Article that is not in the database, which will assign it to the SSSW Routing Holding Queue
 		caseUtility.routeCase(cases, null, true); 
 
 		Test.stopTest();
 
-		//Verify the case is assigned to the Omni Routing Default Queue
-		System.assertEquals( custSetting.OmniDefaultQueueId__c, cases[0].OwnerId, 'Expected case is assigned to the Omni Routing Default Queue');
+		//Verify the case is assigned to the SSSW Routing Holding Queue
+		System.assertEquals( custSetting.HoldingQueueId__c, cases[0].OwnerId, 'Expected case is assigned to the SSSW Routing Holding Queue');
     
     }
 
@@ -137,8 +137,8 @@ private class SSSW_Routing_Test {
 
 
 		QM__c custSetting = QM__c.getOrgDefaults();
-		List<QueueSobject> omniDefaultRoutingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'Omni_Routing_Default' AND SobjectType = 'Case' LIMIT 1]);
-        custSetting.OmniDefaultQueueId__c = omniDefaultRoutingQueueList[0].QueueId;
+		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
+        custSetting.HoldingQueueId__c = routingHoldingQueueList[0].QueueId;
         Insert custSetting;
 
 
@@ -152,7 +152,7 @@ private class SSSW_Routing_Test {
 
 		Test.stopTest();
 
-		//Verify the case is assigned to the Omni Routing Default Queue
+		//Verify the case is assigned to the SSSW Routing Holding Queue
 		System.assert( SSSW_Routing.casesForReroutingAttempt.size() <= 0, 'Expected the list casesForReroutingAttempt is empty');
     
     }

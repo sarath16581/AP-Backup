@@ -438,7 +438,7 @@ public class SSSW_Routing {
                             casesWithOriginalValues.add(getCaseWithFieldsMapping(cs));
 
                             //Throw an exception if the default Queue has not been set, but allow the Case to be created
-                            String omniDefaultQueue = QM__c.getOrgDefaults().OmniDefaultQueueId__c;
+                            String omniDefaultQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
                             if (String.isEmpty(omniDefaultQueue) == false) {
                                 setRoutingCaseOwner(cs, omniDefaultQueue);
                             }
@@ -486,7 +486,7 @@ public class SSSW_Routing {
                             casesWithOriginalValues.add(getCaseWithFieldsMapping(cs));
 
                             //Throw an exception if the default Queue has not been set, but allow the Case to be created
-                            String omniDefaultQueue = QM__c.getOrgDefaults().OmniDefaultQueueId__c;
+                            String omniDefaultQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
                             if (String.isEmpty(omniDefaultQueue) == false) {
                                 setRoutingCaseOwner(cs, omniDefaultQueue);
                             }
