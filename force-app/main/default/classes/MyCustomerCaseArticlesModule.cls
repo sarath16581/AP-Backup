@@ -302,7 +302,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * This method will ensure that the case is only enqueued once to limit scenarios where recursion may occur
 	 *
 	 * NOTE: referenceIds is also passed in so a soql does not need to be run prior to the integration callout to retrieve article details
-	 *          It's the callers responsibility to pass in a synchronised list of caseids/referenceids
+	 *		  It's the callers responsibility to pass in a synchronised list of caseids/referenceids
 	 */
 	private void ensureQueryJobEnqueued(Set<Id> caseIds, Set<String> referenceIds) {
 		// if the queueable has already fired or if we are already in an async context then we prevent the execution of a subsequent queueable from being fired.
@@ -334,7 +334,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 						// populate the case Id since we are now in an after trigger cycle
 						caseOriginalValues[i].put('Id', reroutableCase.Id);
-         				caseOriginalValuesForQueueable.put(reroutableCase.Id, caseOriginalValues[i]);
+		 				caseOriginalValuesForQueueable.put(reroutableCase.Id, caseOriginalValues[i]);
 					}
 
 					i++;
@@ -613,7 +613,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					TIBCOArticleService.getInstance().search(new List<String>(referenceIds), true, false, false, false, true);
 
 					// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
-					//      (Integration callout could take 5 or 10 seconds or sometimes more)
+					//	  (Integration callout could take 5 or 10 seconds or sometimes more)
 				Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{
 					Case.Id, Case.ReferenceID__c, Case.Origin, Case.ArticleTest__c, Case.Related_Billing_Account__c,
 					Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
@@ -638,7 +638,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 					// attempt to reroute the cases with Article linked
 					// and original routing field values
 					cases = rerouteCases(cases);
-                    system.debug(cases.values());
+					system.debug(cases.values());
 
 					// apply and default values that are currently not already populated on the case
 					module.applyCaseArticleDefaults(cases.values(), articles);					
@@ -719,7 +719,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 							casesWithArticlePopulated.get(reroutedCase.Id).HasExtraCover__c = reroutedCase.HasExtraCover__c;
 
 							// setting flag on case since selected routing rule is a strategic one
-                            // its required to avoid triggering the specific workflow rules that might reset the case owner
+							// its required to avoid triggering the specific workflow rules that might reset the case owner
 							casesWithArticlePopulated.get(reroutedCase.Id).LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c;
 						}
 					}
