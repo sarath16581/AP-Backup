@@ -45,7 +45,7 @@ public inherited sharing class BusinessAccountIntermediaryModule extends Applica
 					Map<String, List<String>> salesTeamMap = AP_FieldDescribeUtil.getDependentPicklistValues(Account.SalesTeamType__c.getDescribe().getSobjectField(), Account.Sales_Segment__c.getDescribe().getSobjectField());
 					List<String> types = salesTeamMap.get(acc.Sales_Segment__c);
 					if (types.size() != 1) {
-						throw new IntermediaryService.IntermediaryException('Multiple or null Sales Team retrieved');
+						throw new SalesIntermediaryService.IntermediaryException('Multiple or null Sales Team retrieved');
 					}
 					acc.SalesTeamType__c = types[0];
 				}

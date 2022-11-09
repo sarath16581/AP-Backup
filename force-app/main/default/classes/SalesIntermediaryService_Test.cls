@@ -1,5 +1,5 @@
 /**
- * @description Test class for IntermediaryService
+ * @description Test class for SalesIntermediaryService
  * @author Harry Wang
  * @date 2022-11-08
  * @group Domain
@@ -8,16 +8,16 @@
  * 2022-11-08 - Harry Wang - Created
 */
 @IsTest
-private class IntermediaryService_Test {
+private class SalesIntermediaryService_Test {
 	/**
 	 *  Test:
-	 *  Ensure IntermediaryService is initialised correctly
+	 *  Ensure SalesIntermediaryService is initialised correctly
 	 *  This is a placeholder test method
 	 *  This method can be removed when new test methods required
 	*/
 	@IsTest
 	public static void testInstance() {
-		IntermediaryService.getInstance();
+		SalesIntermediaryService.getInstance();
 		System.assert(true, 'PMD by-pass');
 	}
 }

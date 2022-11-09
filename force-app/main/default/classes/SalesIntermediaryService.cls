@@ -6,12 +6,12 @@
  * @changelog
  * 2022-11-07 - Harry Wang - Created
  */
-public inherited sharing class IntermediaryService {
+public inherited sharing class SalesIntermediaryService {
 
-	static IntermediaryService instance;
-	public static IntermediaryService getInstance() {
+	static SalesIntermediaryService instance;
+	public static SalesIntermediaryService getInstance() {
 		if (instance == null) {
-			instance = (IntermediaryService) Application.Utilities.newInstance(IntermediaryService.class);
+			instance = (SalesIntermediaryService) Application.Utilities.newInstance(SalesIntermediaryService.class);
 		}
 		return instance;
 	}
