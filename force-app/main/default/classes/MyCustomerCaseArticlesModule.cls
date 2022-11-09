@@ -637,28 +637,44 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 						for (Case c : updateable.values()) {
 							c.Bypass_Data_enforcement__c = true;
 						}
-						System.debug('May be Row lock issue???');
-						List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlUpdate(updateable.values(), false);
 
-						for (Database.SaveResult sr : srList) {
-							if (!sr.isSuccess()) {
-								for (Database.Error err : sr.getErrors()) {
-									System.debug('The following error has occurred.');
-									System.debug(err.getStatusCode() + ': ' + err.getMessage());
-									System.debug('Case fields that affected this error: ' + err.getFields());
+						List<Case> casesToUpdate = updateable.values();
+						List<Database.SaveResult> srList = ApplicationDatabase.getInstance().dmlUpdate(casesToUpdate, false);						
+
+						// Perform 1 DML retry if there are any database errors
+						// this can happen due to Row Lock issue between this Queueable and future method CaseMilestoneUtility.setSLA()
+						List<Case> casesToRetryDML = new List<Case>();
+						List<Database.SaveResult> srRetryDMLList = new List<Database.SaveResult>();
+
+						for(Integer i=0;i<srList.size();i++){
+							if (!srList.get(i).isSuccess()){
+								casesToRetryDML.add(casesToUpdate.get(i));
+							 }						
+						}						
+						if(casesToRetryDML.size() > 0){
+							srRetryDMLList = ApplicationDatabase.getInstance().dmlUpdate(casesToRetryDML, false);
+
+							for (Database.SaveResult sr : srRetryDMLList) {
+								if (!sr.isSuccess()) {	
+									for (Database.Error err : sr.getErrors()) {	
+										System.debug('The following error has occurred on the DML Retry.');
+										System.debug(err.getStatusCode() + ': ' + err.getMessage());
+									}
 								}
 							}
-						}
+						}						
 
-						// log any failed updates to ensure we can monitor save errors (especially for checking routing failures)
-						ApplicationLogger.getInstance().logFailedDatabaseResults(srList, SSSWConstants.SSSW_APP, AsyncLinkArticlesToCasesQueueable.class.getName(), 'execute', '', ApplicationLogger.LoggingLevel.ERROR);
+						if(srRetryDMLList.size() > 0){
+							// log any failed updates to ensure we can monitor save errors (especially for checking routing failures)
+							ApplicationLogger.getInstance().logFailedDatabaseResults(srRetryDMLList, SSSWConstants.SSSW_APP, AsyncLinkArticlesToCasesQueueable.class.getName(), 'execute', '', ApplicationLogger.LoggingLevel.ERROR);
+						}
 					}
 				}
 			} catch(Exception ex) {
 				
 				// Error Logged to Exception object for analysis
 				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, AsyncLinkArticlesToCasesQueueable.class.getName(), 'execute', '', LoggingLevel.ERROR);
-			}
+			} 
 		}
 
 		/**
