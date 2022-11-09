@@ -8,10 +8,10 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>Read</opportunityAccessLevel>
         </accountSettings>
-        <description>This rule enables all accounts to be shared within internal users except retail merchandise users who only need access retail data.</description>
-        <label>All Internal Users except Retail Merchandise</label>
+        <description>This rule enables all accounts to be shared within internal users except retail merchandise &amp; CC users who only need access retail data.</description>
+        <label>All Internal Users except Retail Merchandise &amp; CC</label>
         <sharedTo>
-            <group>All_Users_Ex_Retail_Merchandise</group>
+            <group>All_Users_Ex_Retail_Merchandise_CC</group>
         </sharedTo>
         <criteriaItems>
             <field>Is_a_facility__c</field>
