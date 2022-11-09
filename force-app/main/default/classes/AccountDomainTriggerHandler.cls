@@ -8,6 +8,7 @@
  * @changelog
  * 2022-05-30 - George Nguyen - Created.
  * 2022-09-29 - Noel Lim - Updated - relabelled from PersonAccountDomain to AccountDomain
+ * 2022-11-09 - Harry Wang - Updated - included BusinessAccountDomain in registerDomains method
  */
 public with sharing class AccountDomainTriggerHandler extends ApplicationDomainTriggerHandler  {
     
