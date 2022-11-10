@@ -7,7 +7,7 @@
  * @domain SSSW
  * @changelog
  * SaiSwetha Pingali - Removed the test method for SnapIt cases as it is no longer required.
- * 31.10.2022	Noel Lim - Updated method calls to MyCustomerCaseArticlesModule - queueAsyncArticleToCases() replaces old methods onAfterInsert() and onAfterUpdate() 
+ * 31.10.2022	Noel Lim - Updated tests relating to strategic rules, as case re-routing logic during the async call need to be in the holding Queue to be re-routed
  */
 @IsTest
 private class MyCustomerCaseArticlesModule_Test {
