@@ -10,7 +10,8 @@
  * @author Nathan Franklin
  * @date 2022-04-22
  * @changelog
-*/
+ * 2022-11-08 - Nathan Franklin - Increased API version
+ */
 global with sharing class AzureOIDCRegistrationHandler implements Auth.RegistrationHandler {
 	global class HandlerException extends Exception { }
 
@@ -20,26 +21,36 @@ global with sharing class AzureOIDCRegistrationHandler implements Auth.Registrat
 	global User createUser(Id portalId, Auth.UserData data){
 		System.debug('createUser');
 		System.debug(data);
+		// System.debug(portalId);
 
-		//	System.debug('email = ' + data.email);
-		//	System.debug('fullName = ' + data.fullName);
-		//	System.debug('firstName = ' + data.firstName);
-		//	System.debug('lastName = ' + data.lastName);
-		//	System.debug('identifier = ' + data.identifier);
-		//	System.debug('link = ' + data.link);
-		//	System.debug('locale = ' + data.locale);
-		//	System.debug('provider = ' + data.provider);
-		//	System.debug('username = ' + data.username);
-		//	System.debug('siteLoginUrl = ' + data.siteLoginUrl);
-		//	System.debug('portalId = ' + portalId);
-		//	System.debug('');
-		//
-		//	for(String key : data.attributeMap.keySet()) {
-		//	 System.debug(key + ' = ' + data.attributeMap.get(key));
-		//	}
+		// System.debug('email = ' + data.email);
+		// System.debug('fullName = ' + data.fullName);
+		// System.debug('firstName = ' + data.firstName);
+		// System.debug('lastName = ' + data.lastName);
+		// System.debug('identifier = ' + data.identifier);
+		// System.debug('link = ' + data.link);
+		// System.debug('locale = ' + data.locale);
+		// System.debug('provider = ' + data.provider);
+		// System.debug('username = ' + data.username);
+		// System.debug('siteLoginUrl = ' + data.siteLoginUrl);
+		// System.debug('portalId = ' + portalId);
+		// System.debug('');
+	
+		// for(String key : data.attributeMap.keySet()) {
+		// 	System.debug(key + ' = ' + data.attributeMap.get(key));
+		// }
+
+		System.debug('Network Id: ' + Network.getNetworkId());
 
 		String email = data.attributeMap.get('email');
+
+		// default to the traditional way of getting network id,
+		// for custom auth providers, the sfdc_networkid field is not set but we can use Network.getNetworkId()
+		// This reg hander is used by both standard and custom auth providers
 		String networkId = data.attributeMap.get('sfdc_networkid');
+		if(String.isEmpty(networkId)) {
+			networkId = Network.getNetworkId();
+		}
 
 		// based on the network we are authenticating the user into, we need to know which federation identifier field to use on the user object.
 		// this field is then used as the matching field when comparing the subject in the claim to a valid user record
