@@ -16,7 +16,7 @@ private class SSSW_Routing_Test {
 	 * The above test Scenario is simulated via the CaseUtility.routeCase() and not having an Article record that matches the Case Reference_ID__c
 	 *
 	 */
-    @IsTest
+	@IsTest
 	private static void testEnsureCaseInHoldingQueue() {
 		// =====================================
 		// Data Preparation
@@ -54,8 +54,8 @@ private class SSSW_Routing_Test {
 
 		QM__c custSetting = QM__c.getOrgDefaults();
 		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
-        custSetting.HoldingQueueId__c = routingHoldingQueueList[0].QueueId;
-        Insert custSetting;
+		custSetting.HoldingQueueId__c = routingHoldingQueueList[0].QueueId;
+		Insert custSetting;
 
 
 		// =====================================
@@ -72,8 +72,8 @@ private class SSSW_Routing_Test {
 
 		//Verify the case is assigned to the SSSW Routing Holding Queue
 		System.assertEquals( custSetting.HoldingQueueId__c, cases[0].OwnerId, 'Expected case is assigned to the SSSW Routing Holding Queue');
-    
-    }
+	
+	}
 
 	/**
 	 * When re-routing Cases from MyCustomerCaseArticlesModule, ensure it is not recursive by placing the re-routed cases in a holding queue
@@ -82,7 +82,7 @@ private class SSSW_Routing_Test {
 	 * Normally this would assign a Case to the holding queue, unless IsFinalPass is set to true
 	 *
 	 */
-    @IsTest
+	@IsTest
 	private static void testEnsureNoCaseForRerouteWhenFinalPass() {
 		// =====================================
 		// Data Preparation
@@ -93,7 +93,7 @@ private class SSSW_Routing_Test {
 		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
 		Id holdingQueue = routingHoldingQueueList[0].QueueId;
 		custSetting.HoldingQueueId__c = holdingQueue;
-        Insert custSetting;
+		Insert custSetting;
 
 		//Cases that need an article for routing are placed in a holding queue
 		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
@@ -137,7 +137,7 @@ private class SSSW_Routing_Test {
 		Test.stopTest();
 
 		System.assert( cases[0].OwnerId != holdingQueue, 'Expected the case is not assigned to the holding queue');
-    
-    }
+	
+	}
 
 }

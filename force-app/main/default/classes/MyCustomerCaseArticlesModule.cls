@@ -12,7 +12,7 @@
  * 30.06.2021	Steve.judd6@auspost.com.au  Added debug statement, description changes for extra cover.
  * 20.04.2022   SaiSwetha Pingali - Removed logic for SnapIT cases as it is no longer required.
  * 26.10.2022	Noel Lim:
- * 					a) update logic in AsyncLinkArticlesToCasesQueueable.execute() so that all cases are re-routed, and the cases sent for DML are cases with i) articles linked and ii) rerouted successfully. The logic change to re-rute supports the change in SSSW_Routing.cls where cases that reach a "Routing rule that requires Articles" are moved into a holding Queue
+ * 					a) update logic in AsyncLinkArticlesToCasesQueueable.execute() so that all cases are re-routed, and the cases sent for DML are cases with i) articles linked and ii) rerouted successfully. This change supports the logic change in SSSW_Routing.cls where cases are moved into a holding Queue for rules that require an article
  *					b) case re-route now uses the latest case values, and cases in holding queue are the ones to be re-routed. Previously there was a specified list of cases to reroute, and the rerouting was based on original case values during the syncronous process
  *
  */
@@ -67,7 +67,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * Called when a new Case is being inserted.
 	 */
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		try {		
+		try {
 			Set<String> processableReferenceIds = new Set<String>();
 			Set<Id> processableArticleIds = new Set<Id>();
 			List<Case> casesToLinkReferencesTo = new List<Case>();
@@ -568,6 +568,7 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
 					//	  (Integration callout could take 5 or 10 seconds or sometimes more).
 					//	  Fields queried include ones used in the case re-routing in SSSW_Routing.assignCasesAndDescription()
+					// TODO i) change routingFields var in SSSW_Routing to public ii) add the routingFields values into the Set below via addAll(), and remove fields in the current Set that are in routingFields 
 					Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{
 						Case.Id, Case.ReferenceID__c, Case.Origin, Case.ArticleTest__c, Case.Related_Billing_Account__c,
 						Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
@@ -681,9 +682,7 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					// the routing rules have been rerun and the newly set owner id will be added to the case
 					// NOTE: we only want the owner id and not any othe fields as they might be out of date or irrelevant
 					for (Case reroutedCase : reroutableCases) {
-						if (reroutedCase.OwnerId != null) {
-							casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); 
-						}
+						casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); 						
 					}				
 			
 			} catch(Exception ex) {

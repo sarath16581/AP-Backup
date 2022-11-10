@@ -200,8 +200,8 @@ private class MyCustomerCaseArticlesModule_Test {
 	/**
 	 * Test:
 	 *  When ArticleTest changes (either by the user or in the before update method), a workflow rule will check if that article has been subscribe to or not
-	 *          If not, the Workflow will trigger an outbound message, and will set the Subscribed flag on Case
-	 *          the before update method will reset that flag and queue a job to asynchronously update the article to be subscribed
+	 *		  If not, the Workflow will trigger an outbound message, and will set the Subscribed flag on Case
+	 *		  the before update method will reset that flag and queue a job to asynchronously update the article to be subscribed
 	 */
 	@IsTest
 	private static void testEnsureBeforeUpdateEnqueuesSubscribedArticleUpdate() {
@@ -217,7 +217,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		// set the article id/reference id values of the old cases to be different from the new ones
 
 		// on case0, Article id was changed from article0 to article1
-		//      additionally, Subscribed was set in SSSW - Article Subscription (the case was changed to an article that was currently not subscribed)
+		//	  additionally, Subscribed was set in SSSW - Article Subscription (the case was changed to an article that was currently not subscribed)
 		cases[0].ArticleTest__c = articles[1].Id;
 		cases[0].Subscribed__c = true;
 		oldCases[0].ArticleTest__c = articles[0].Id;
@@ -314,7 +314,7 @@ private class MyCustomerCaseArticlesModule_Test {
 	 * Ensures a case being handled asynchronously that is flagged for rerouting is correctly routed into the strategic queue
 	 *
 	 * NOTE: This calls SSSW_Routing which isn't correctly setup for mocking....It does however call ArticlesSelector -> selectByTracking which we will mock here
-	 *          It's slightly confusing to take this approach, however its better then running full end to end tests for every scenario
+	 *		  It's slightly confusing to take this approach, however its better then running full end to end tests for every scenario
 	 */
 	@IsTest
 	private static void testEnsureStrategicCaseIsReroutedInQueueable() {
@@ -342,7 +342,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
 		Id holdingQueue = routingHoldingQueueList[0].QueueId;
 		custSetting.HoldingQueueId__c = holdingQueue;
-        Insert custSetting;
+		Insert custSetting;
 
 		//Cases that need an article for routing are placed in a holding queue
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
@@ -438,7 +438,7 @@ private class MyCustomerCaseArticlesModule_Test {
 		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
 		Id holdingQueue = routingHoldingQueueList[0].QueueId;
 		custSetting.HoldingQueueId__c = holdingQueue;
-        Insert custSetting;
+		Insert custSetting;
 
 		//Cases that need an article for routing are placed in a holding queue
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, null, true);
@@ -520,7 +520,7 @@ private class MyCustomerCaseArticlesModule_Test {
 	
 	/**
 	 * Test:
-	 *      When a consignment that only contains 1 article is set on the case, the module logic should rewrite the case values to the article rather than the consignment
+	 *	  When a consignment that only contains 1 article is set on the case, the module logic should rewrite the case values to the article rather than the consignment
 	 */
 	@IsTest
 	private static void testEnsureSingleArticleConsignmentsRewriteToArticle() {
@@ -573,10 +573,10 @@ private class MyCustomerCaseArticlesModule_Test {
 
 	/************
 	 *  Scenario:
-	 *      A case is inserted without having the article queried.
-	 *      This will invoke a queueable that will performt he article search
+	 *	  A case is inserted without having the article queried.
+	 *	  This will invoke a queueable that will performt he article search
 	 *
-	 *      NOTE: This references TIBCO_Test for some test methods
+	 *	  NOTE: This references TIBCO_Test for some test methods
 	 ***********/
 	public static testMethod void testEndToEndFlowIntegration() {
 		System.Debug('TEST: testCaseInsertInvokeTibco');
