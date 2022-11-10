@@ -36,23 +36,26 @@ public inherited sharing class BusinessAccountIntermediaryModule extends Applica
 	@TestVisible
 	private void stampSalesTeamType(List<Account> records, Map<Id, SObject> existingRecords) {
 		try {
+			Map<String, List<String>> salesTeamMap = AP_FieldDescribeUtil.getDependentPicklistValues(Account.SalesTeamType__c.getDescribe().getSobjectField(), Account.Sales_Segment__c.getDescribe().getSobjectField());
 			for (Account acc: records) {
 				Account eAcc;
 				if (existingRecords != null && !existingRecords.isEmpty()) {
 					eAcc = (Account)existingRecords.get(acc.Id);
 				}
-				if (acc.Sales_Segment__c != null && (eAcc == null || (eAcc != null && eAcc.Sales_Segment__c != acc.Sales_Segment__c))) {
-					Map<String, List<String>> salesTeamMap = AP_FieldDescribeUtil.getDependentPicklistValues(Account.SalesTeamType__c.getDescribe().getSobjectField(), Account.Sales_Segment__c.getDescribe().getSobjectField());
-					List<String> types = salesTeamMap.get(acc.Sales_Segment__c);
-					if (types.size() != 1) {
-						throw new SalesIntermediaryService.IntermediaryException('Multiple or null Sales Team retrieved');
-					}
+				List<String> types = salesTeamMap.get(acc.Sales_Segment__c);
+				if (types.size() != 1) {
+					throw new SalesIntermediaryService.IntermediaryException('Multiple or null Sales Team retrieved');
+				}
+
+				String newSalesTeamType = types[0];
+				if (acc.Sales_Segment__c != null && (eAcc == null || (eAcc != null && (eAcc.SalesTeamType__c == null || eAcc.SalesTeamType__c != newSalesTeamType)))) {
 					acc.SalesTeamType__c = types[0];
 				}
+
 			}
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getUserId(), 'Intermediary', BusinessAccountIntermediaryModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', LoggingLevel.ERROR);
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getUserId(), 'Intermediary', BusinessAccountIntermediaryModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', LoggingLevel.ERROR, '');
 		}
 	}
 
