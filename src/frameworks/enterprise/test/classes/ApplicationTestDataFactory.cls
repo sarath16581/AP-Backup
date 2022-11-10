@@ -45,13 +45,6 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
-	public static List<AgentWork> getAgentWorks(Integer count, Id userId, Set<Id> workitemIds, Boolean generateIds) {
-		return (List<AgentWork>)maybeGenerateIds(populateSObjects(AgentWork.SObjectType, new Map<SObjectField, Object> {
-			AgentWork.UserId => userId,
-			AgentWork.WorkItemId => workitemIds
-		}, count), generateIds);
-	}
-
 	public static List<Account> getAccounts(Integer count, Boolean generateIds) {
 		return (List<Account>)maybeGenerateIds(populateSObjects(Account.SObjectType, new Map<SObjectField, Object> {
 				Account.RecordTypeId => accountRecordType,
