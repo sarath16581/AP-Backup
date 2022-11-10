@@ -67,7 +67,7 @@ global with sharing class AzureOIDCRegistrationHandler implements Auth.Registrat
 		// currently this will always be a field on the User object.
 		SObjectField federationIdentifierField = User.SObjectType.getDescribe().fields.getMap().get(mappings[0].FederationField__c);
 
-		// we always make sure there is an email address to match on to avoid matching to a random user
+		// we always make sure there is a subject value to match on to avoid matching to a random user
 		if(String.isEmpty(subjectValue)) {
 			throw new HandlerException('Subject is empty');
 		}
@@ -75,7 +75,7 @@ global with sharing class AzureOIDCRegistrationHandler implements Auth.Registrat
 		// grab the user based on federation id making sure they actually have access to the community requesting authentication
 		// note that if there is no community context, 'networkId' will be null the user will be matched by federationIdentifier only
 		Map<String, Object> params = new Map<String, Object>{
-			'federationIds' => email,
+			'federationIds' => subjectValue,
 			'federationField' => federationIdentifierField,
 			'isActive' => true
 		};
@@ -85,7 +85,7 @@ global with sharing class AzureOIDCRegistrationHandler implements Auth.Registrat
 
 		List<User> users = UsersSelector.newInstance().search(params, true);
 		if(users.isEmpty()) {
-			throw new HandlerException('Could not find matching user: ' + email);
+			throw new HandlerException('Could not find matching user: ' + subjectValue);
 		} else {
 			return users[0];
 		}
