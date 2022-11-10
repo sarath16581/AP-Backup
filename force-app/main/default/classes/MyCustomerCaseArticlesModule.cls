@@ -57,7 +57,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 	// Setup which triggers this module should respond to
 	public MyCustomerCaseArticlesModule() {
-		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
+		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
 	}
 
 	//	public override Set<SObjectField> getTriggerMonitoredFields() {
@@ -229,6 +229,24 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 		}
 	}
 
+	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		try {
+			queueAsyncArticleToCases((List<Case>)records);
+		} catch(Exception ex) {
+			// Error Logged to Exception object for analysis
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterInsert', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+		}
+	}
+
+	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		try {
+			queueAsyncArticleToCases((List<Case>)records);
+		} catch(Exception ex) {
+			// Error Logged to Exception object for analysis
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+		}
+	}
+
 	/**
 	 * Process records that have a Reference ID without an Article field populated
 	 * This would occur in the following scenarios:
@@ -242,34 +260,20 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * This Invocation Method called by a Flow approach is necessary as opposed to After Insert/After Update  as we need the AsyncLinkArticlesToCasesQueueable job to be queued after Workflow Field Updates.  
 	 * A Workflow Field Update sets Case.AllocateToQueue__c = true, which needs to fire before the above async job is enqueued.
 	 */
-	@InvocableMethod(label='Queue Async Article to Cases' description='This method queues up the AsyncLinkArticlesToCasesQueueable job that will call out to SAP-EM for articles that are not in the SF database' category= 'Case')
-	public static void queueAsyncArticleToCases(List<String> listCaseIds) {
-		try {
-			// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
-			Set<String> referencesToEnqueue = new Set<String>();
-			Set<Id> casesToEnqueue = new Set<Id>();
-			
-			Set<Id> caseIds = new Set<Id>();
-			for(String idString : listCaseIds){
-				caseIds.add(Id.valueOf(idString));
+	private void queueAsyncArticleToCases(List<Case> cases) {
+		// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
+		Set<String> referencesToEnqueue = new Set<String>();
+		Set<Id> casesToEnqueue = new Set<Id>();
+		
+		for(Case c : cases) {
+			if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
+				casesToEnqueue.add(c.Id);
+				referencesToEnqueue.add(c.ReferenceID__c);
 			}
-			
-			Map<Id, Case> cases = SSSWCasesSelector.newInstance().selectById(caseIds);
-			
-			for(Case c : cases.values()) {
-				if(!String.isEmpty(c.ReferenceID__c) && c.ArticleTest__c == null) {
-					casesToEnqueue.add(c.Id);
-					referencesToEnqueue.add(c.ReferenceID__c);
-				}
-			}
+		}
 
-			if(!casesToEnqueue.isEmpty()) {
-				MyCustomerCaseArticlesModule module = MyCustomerCaseArticlesModule.newInstance();
-				module.ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
-			}
-		} catch(Exception ex) {
-			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, MyCustomerCaseArticlesModule.class.getName(), 'queueAsyncArticleToCases', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+		if(!casesToEnqueue.isEmpty()) {
+			ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
 		}
 	}
 

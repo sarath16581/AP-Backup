@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <description>This calls an Invocation Method that will queue an asynchronous job that retrieves Articles not found in SF database from SAP-EM, assign the Article to Cases, and re-route Cases flagged for re-routing</description>
-        <name>Queue_Async_Article_to_Cases</name>
-        <label>Queue Async Article to Cases</label>
-        <locationX>2184</locationX>
-        <locationY>830</locationY>
-        <actionName>MyCustomerCaseArticlesModule</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>listCaseIds</name>
-            <value>
-                <elementReference>vCase.Id</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
         <name>SSSW_Article_Damage_Action_Taken_Notification</name>
         <label>SSSW Article Damage Action Taken Notification</label>
         <locationX>1106</locationX>
@@ -493,28 +477,6 @@
                 <targetReference>SSSW_Closed_Case_Email_for_BSP_Bulk_Upload</targetReference>
             </connector>
             <label>Case Closed BSP BulkUpload</label>
-        </rules>
-        <rules>
-            <name>Article_Required_via_Async_Callout</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>vCase.ArticleTest__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.ReferenceID__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Queue_Async_Article_to_Cases</targetReference>
-            </connector>
-            <label>Article Required via Async Callout</label>
         </rules>
         <rules>
             <name>Case_Closed_Exception_Checker</name>
