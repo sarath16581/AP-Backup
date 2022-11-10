@@ -9,6 +9,10 @@ Last Modified Date - 10th Nov, 2016 | 1742 | reduce logic
 */
 trigger APT_SAPContractTrigger on APT_SAP_Contracts__c (after insert, after update, before delete, before insert, before update) {
     
+    if(!TriggerHelper.isTriggerDisabled(String.valueOf(APT_SAP_Contracts__c.SObjectType))) {
+        APTSAPContractsDomainTriggerHandler.newInstance().dispatch();
+      }
+  
     
     //isbefore?
     if(trigger.isBefore){
