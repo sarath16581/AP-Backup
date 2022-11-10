@@ -14,6 +14,7 @@
  * 26.10.2022	Noel Lim:
  * 					a) update logic in AsyncLinkArticlesToCasesQueueable.execute() so that all cases are re-routed, and the cases sent for DML are cases with i) articles linked and ii) rerouted successfully. The logic change to re-rute supports the change in SSSW_Routing.cls where cases that reach a "Routing rule that requires Articles" are moved into a holding Queue
  *				    b) move logic in afterInsert() and afterUpdate() into an invocation method, called by a Flow. This moves enqueueing the AsyncLinkArticlesToCasesQueueable job to after Workflow updates, e.g. ones that set AllocateToQueue__c = true
+ *					c) case re-route now uses the latest values, and to cases in the holding queue are the ones to reroute. Previously there was a specified list of cases to reroute, and were rerouted based on original case values when it was put in the holding queue.
  *
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
@@ -289,7 +290,8 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 		caseIds.removeAll(m_enqueuedCaseIds);
 		if(!caseIds.isEmpty()) {
-
+			preventRecursiveReschedule = true; 
+			
 			// TODO: Refactor this into a better enqueueing model
 			// enqueue the job here
 			AsyncLinkArticlesToCasesQueueable job = new AsyncLinkArticlesToCasesQueueable(caseIds, referenceIds);
@@ -560,7 +562,8 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					TIBCOArticleService.getInstance().search(new List<String>(referenceIds), true, false, false, false, true);
 
 					// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
-					//	  (Integration callout could take 5 or 10 seconds or sometimes more)
+					//	  (Integration callout could take 5 or 10 seconds or sometimes more).
+					//	  Fields queried include ones used in the case re-routing in SSSW_Routing.assignCasesAndDescription()
 					Map<Id, Case> cases = SSSWCasesSelector.newInstance(new Set<SObjectField>{
 						Case.Id, Case.ReferenceID__c, Case.Origin, Case.ArticleTest__c, Case.Related_Billing_Account__c,
 						Case.ArticleWeight__c, Case.DatePosted__c, Case.Service_Value__c, Case.ArticleQuantity__c,
@@ -585,7 +588,6 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					Map<Id, Case> updateable = new Map<Id, Case>(module.populateCaseArticleIds(cases.values(), articles, m_trackingReferenceIdMappingsCache));
 
 					// attempt to reroute all cases passed to this queueable. This supports the design where cases requiring an Article not in the SF DB are placed in a holding Queue in SSSW_Routing.assignCasesAndDescription(), and re-routed here to the correct queue.
-					// original routing field values will be used			
 					Map<Id, Case> casesRerouted = rerouteCases(cases);				
 
 					// apply and default values that are currently not already populated on the case
@@ -661,9 +663,10 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 			try {
 					String omniDefaultQueue = QM__c.getOrgDefaults().HoldingQueueId__c;				
 
+					//Cases that were put in the holding queue during the synchronous execution need to be re-routed
 					for (Case cs : cases.values()) {				
 						if(cs.OwnerId.equals(Id.valueOf(omniDefaultQueue))){
-							cs.AllocateToQueue__c = true; 
+							cs.AllocateToQueue__c = true; //manually set to trigger routing logic
 							reroutableCases.add(cs);
 						}
 					}
@@ -675,8 +678,7 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 					// NOTE: we only want the owner id and not any othe fields as they might be out of date or irrelevant
 					for (Case reroutedCase : reroutableCases) {
 						if (reroutedCase.OwnerId != null) {
-
-							casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); //casesWithArticlePopulated.get(reroutedCase.Id));
+							casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); 
 						}
 					}				
 			
