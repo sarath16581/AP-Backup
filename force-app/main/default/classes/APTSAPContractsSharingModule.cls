@@ -16,7 +16,7 @@ public inherited sharing class APTSAPContractsSharingModule extends ApplicationD
 
 	// Setup which trigger events this module should respond to
 	public APTSAPContractsSharingModule() {
-		getTriggerEvents().enableAfterUpdate();
+		getTriggerEvents().enableAfterUpdate().enableAfterInsert();
 	}
 
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
