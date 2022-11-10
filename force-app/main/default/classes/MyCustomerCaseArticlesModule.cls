@@ -13,8 +13,7 @@
  * 20.04.2022   SaiSwetha Pingali - Removed logic for SnapIT cases as it is no longer required.
  * 26.10.2022	Noel Lim:
  * 					a) update logic in AsyncLinkArticlesToCasesQueueable.execute() so that all cases are re-routed, and the cases sent for DML are cases with i) articles linked and ii) rerouted successfully. The logic change to re-rute supports the change in SSSW_Routing.cls where cases that reach a "Routing rule that requires Articles" are moved into a holding Queue
- *				    b) move logic in afterInsert() and afterUpdate() into an invocation method, called by a Flow. This moves enqueueing the AsyncLinkArticlesToCasesQueueable job to after Workflow updates, e.g. ones that set AllocateToQueue__c = true
- *					c) case re-route now uses the latest values, and to cases in the holding queue are the ones to reroute. Previously there was a specified list of cases to reroute, and were rerouted based on original case values when it was put in the holding queue.
+ *					b) case re-route now uses the latest case values, and cases in holding queue are the ones to be re-routed. Previously there was a specified list of cases to reroute, and the rerouting was based on original case values during the syncronous process
  *
  */
 public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationDomain.Module {
@@ -260,6 +259,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 	 * This Invocation Method called by a Flow approach is necessary as opposed to After Insert/After Update  as we need the AsyncLinkArticlesToCasesQueueable job to be queued after Workflow Field Updates.  
 	 * A Workflow Field Update sets Case.AllocateToQueue__c = true, which needs to fire before the above async job is enqueued.
 	 */
+	@TestVisible 
 	private void queueAsyncArticleToCases(List<Case> cases) {
 		// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
 		Set<String> referencesToEnqueue = new Set<String>();
@@ -665,11 +665,11 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 			List<Case> reroutableCases = new List<Case>();
 
 			try {
-					String omniDefaultQueue = QM__c.getOrgDefaults().HoldingQueueId__c;				
+					String holdingQueue = QM__c.getOrgDefaults().HoldingQueueId__c;				
 
 					//Cases that were put in the holding queue during the synchronous execution need to be re-routed
 					for (Case cs : cases.values()) {				
-						if(cs.OwnerId.equals(Id.valueOf(omniDefaultQueue))){
+						if(cs.OwnerId.equals(Id.valueOf(holdingQueue))){
 							cs.AllocateToQueue__c = true; //manually set to trigger routing logic
 							reroutableCases.add(cs);
 						}

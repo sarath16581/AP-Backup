@@ -341,7 +341,7 @@ public class SSSW_Routing {
         //Replacing it with GetRulesForAllProfiles
         //List<SSSWRouting__c> rules = getRules(recType);
         GetRulesForAllProfiles obj = new GetRulesForAllProfiles ();
-        List<SSSWRouting__c> rules = obj.getRules(recType);
+        List<SSSWRouting__c> rules = obj.getRules(recType);		
 
         List<SSSWRouting__c> routeRule = new List<SSSWRouting__c>();
         List<SSSWRouting__c> descRule = new List<SSSWRouting__c>();
@@ -415,9 +415,9 @@ public class SSSW_Routing {
                         } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
                             //Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
-                            String omniDefaultQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
-                            if (String.isEmpty(omniDefaultQueue) == false) {
-                                setRoutingCaseOwner(cs, omniDefaultQueue);
+                            String holdingQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
+                            if (String.isEmpty(holdingQueue) == false) {
+                                setRoutingCaseOwner(cs, holdingQueue);
                             }
 
                             break;
@@ -454,9 +454,9 @@ public class SSSW_Routing {
                         } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
                             //Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
-                            String omniDefaultQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
-                            if (String.isEmpty(omniDefaultQueue) == false) {
-                                setRoutingCaseOwner(cs, omniDefaultQueue);
+                            String holdingQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
+                            if (String.isEmpty(holdingQueue) == false) {
+                                setRoutingCaseOwner(cs, holdingQueue);
                             }
 
                             break;
@@ -590,6 +590,7 @@ public class SSSW_Routing {
                 articleAttributesMap.put(a.ArticleID__c.toLowerCase(), attributes);
             }
         }
+		system.debug('articleAttributesMap'+articleAttributesMap);
         return articleAttributesMap;
     }
 

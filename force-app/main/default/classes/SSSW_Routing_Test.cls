@@ -17,7 +17,7 @@ private class SSSW_Routing_Test {
 	 *
 	 */
     @IsTest
-	private static void testEnsureCaseInOmniDefaultQueue() {
+	private static void testEnsureCaseInHoldingQueue() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -76,9 +76,10 @@ private class SSSW_Routing_Test {
     }
 
 	/**
-	 * When re-routing Cases from MyCustomerCaseArticlesModule, ensure there are no cases for re-routing
+	 * When re-routing Cases from MyCustomerCaseArticlesModule, ensure it is not recursive by placing the re-routed cases in a holding queue
 	 * 
-	 * The above test Scenario is simulated by having a rule that requires an article (for both ALL and ANY match), and a case with a Reference Id
+	 * The above test Scenario is simulated by having a rule that requires an article (for both ALL and ANY match), and a case with a Reference Id but no Article assigned.
+	 * Normally this would assign a Case to the holding queue, unless IsFinalPass is set to true
 	 *
 	 */
     @IsTest
@@ -87,16 +88,18 @@ private class SSSW_Routing_Test {
 		// Data Preparation
 		// =====================================
 
+		//For tests where cases are put in a holding queue to fetch articles and re-route the case asyncronously
+		QM__c custSetting = new QM__c();
+		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
+		Id holdingQueue = routingHoldingQueueList[0].QueueId;
+		custSetting.HoldingQueueId__c = holdingQueue;
+        Insert custSetting;
+
+		//Cases that need an article for routing are placed in a holding queue
 		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
-		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		cases[0].ReferenceID__c = 'ART1231'; 
 		cases[0].Origin = 'Email';		
-		cases[0].RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
-		cases[0].IsNewForRouting__c  = true;
-		cases[0].AllocateToQueue__c = true;
-
-		cases[0].ReferenceID__c = 'ART1232'; 
-		cases[0].Origin = 'Phone';		
 		cases[0].RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
 		cases[0].IsNewForRouting__c  = true;
 		cases[0].AllocateToQueue__c = true;
@@ -121,39 +124,19 @@ private class SSSW_Routing_Test {
 		routingRule.Sequence__c = 1;
 		routesToInsert.add(routingRule);
 
-		// Setup a rule that will match cases[1] and allow rule routing logic to execute
-		SSSWRouting__c routingRule2 = new SSSWRouting__c();
-		routingRule2.RecordTypeId = routingRuleRecordTypeId;
-		routingRule2.Match_Rules_On__c = 'Any';
-		routingRule2.Origin__c = 'Phone';
-		routingRule2.IsActive__c = true;
-		//To reach the routing logic where a Case is flagged for Queuable and rerouting, formula field SSSW_Routing__r.RuleRequiresArticleAttributes__c needs to be true
-		routingRule2.HasExtraCover__c = true; 
-		routingRule2.Queue_ID__c = queues[0].QueueId;
-		routingRule2.Sequence__c = 2;
-		routesToInsert.add(routingRule2);
-
 		Insert routesToInsert;
-
-
-		QM__c custSetting = QM__c.getOrgDefaults();
-		List<QueueSobject> routingHoldingQueueList = new List<QueueSobject>([SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Holding_Queue' AND SobjectType = 'Case' LIMIT 1]);
-        custSetting.HoldingQueueId__c = routingHoldingQueueList[0].QueueId;
-        Insert custSetting;
-
 
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
 
-		//Attempt to re-route cases as a final pass via the 5th param
+		//Attempt to re-route cases with IsFinalPass = true
 		SSSW_Routing.assignCasesAndDescription(cases, null, false, true, true);		
 
 		Test.stopTest();
 
-		//Verify the case is assigned to the SSSW Routing Holding Queue
-		System.assert( cases[0].OwnerId != routingHoldingQueueList[0].QueueId, 'Expected the case is not assigned to the holding queue');
+		System.assert( cases[0].OwnerId != holdingQueue, 'Expected the case is not assigned to the holding queue');
     
     }
 
