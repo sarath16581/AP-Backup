@@ -11,12 +11,12 @@
 * 2021-06-30 - Steve Judd - Replaced getStrategicCustomerMappings with getArticleAttributesMap to return Extra Cover(Boolean) as well as isStrategic(Boolean)
 * 2021-06-30 - Steve Judd - Modified assignCasesAndDescription to allow Extra Cover cases to be routed along with Strategic Cases.
 * 2021-08-17 - Alex Volkov - Swapped out Automated_Network_Assignment__c for more generic ByPassRoutingRulesOnCreation__c
-* 2022-10-26 - Noel Lim - change of existing boolean parameter's name and logic in assignCasesAndDescription(), from 'matchArticleRequiredRulesOnly' to 'isFinalPass'.
 * 2022-11-08 - Noel Lim - major update to the logic that handles cases that are sent to async queueable to fetch the Article from SAP-EM via MyCustomerCaseArticleModule queueable.
 *				a) route Cases to a holding Queue if it reaches a rule that requires an Article which is not currently in SF database.
 *				b) removed logic where cases sent to async queueable are rerouted based on case values at the time it is placed in the holding Queue. Cases are now rerouted with the latest case values
 *				c) fixed a bug where the AllocateToQueue__c was not checked and a case would be routed unintentionally
-
+*				d) change of existing boolean parameter's logic and label in assignCasesAndDescription(). Parameter is now 'isFinalPass' and prevents a rerouted Case from being put in the holding queue
+*
 **/
 
 public class SSSW_Routing {
