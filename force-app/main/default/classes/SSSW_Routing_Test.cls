@@ -153,7 +153,7 @@ private class SSSW_Routing_Test {
 		Test.stopTest();
 
 		//Verify the case is assigned to the SSSW Routing Holding Queue
-		System.assert( SSSW_Routing.casesForReroutingAttempt.size() <= 0, 'Expected the list casesForReroutingAttempt is empty');
+		System.assert( cases[0].OwnerId != routingHoldingQueueList[0].QueueId, 'Expected the case is not assigned to the holding queue');
     
     }
 

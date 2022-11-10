@@ -139,19 +139,6 @@ public class SSSW_Routing {
      */
     private static  Map<String, ArticleAttributes> articleAttributesMap = new Map<String, ArticleAttributes>();
 
-    /**
-     * Stores cases that are needed to be rerouted later in the context once the Article is linked
-     */
-    @TestVisible
-    private static List<Case> casesForReroutingAttempt = new List<Case>();
-
-    /**
-     * Stores list of Map case values that are used as the 'original state' when cases flagged for potentially strategic rerouting are processed in the MyCustomerCaseArticlesModule queueable
-     * NOTE: These are stored as a map since some of the values we need to keep are formulas which aren't writable directly to the case record
-     */
-    @TestVisible
-    private static List<Map<String, Object>> casesWithOriginalValues = new List<Map<String, Object>>();
-
     // Avoid Description change from Reassign Button
     public static Boolean reassignDescription = false;
 
@@ -425,19 +412,9 @@ public class SSSW_Routing {
 
                             // Cases being created from H&S can be routed direct to network (currently via a queueable)
                             // In this scenario we ignore any strategic routing checks
-                        } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c)) && !casesForReroutingAttempt.contains(cs)) {
+                        } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
-                            // if this is strategic customer routing rule but the case has no articlee linked, we store this to be routed later in MyCustomerCaseArticleModule (where the SAP EM queueable run that links the case to an article)
-                            // NOTE that we skip this rerouting assignment if the case is created and directly assigned to a network.
-                            // we skip this to ensure we don't overwrite the network owner
-                            casesForReroutingAttempt.add(cs);
-
-                            // as part of the strategic rerouting attempt we need to make, we need to route it based on the current case values as they are here
-                            // workflows and other code may change these but we still need to route the case based on the original values when it entered into the routing method
-                            // since we may not have the ID of the case yet, we store these in a list that corresponds to the index in the casesForReroutingAttempt
-                            casesWithOriginalValues.add(getCaseWithFieldsMapping(cs));
-
-                            //Throw an exception if the default Queue has not been set, but allow the Case to be created
+                            //Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
                             String omniDefaultQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
                             if (String.isEmpty(omniDefaultQueue) == false) {
                                 setRoutingCaseOwner(cs, omniDefaultQueue);
@@ -474,18 +451,9 @@ public class SSSW_Routing {
                             }
                             // Cases being created from H&S can be routed direct to network (currently via a queueable)
                             // In this scenario we ignore any strategic routing checks
-                        } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c)) && !casesForReroutingAttempt.contains(cs)) {
-                            // if this is strategic customer routing rule but the case has no articlee linked, we store this to be routed later in MyCustomerCaseArticleModule (where the SAP EM queueable run that links the case to an article)
-                            // NOTE that we skip this rerouting assignment if the case is created and directly assigned to a network.
-                            // we skip this to ensure we don't overwrite the network owner
-                            casesForReroutingAttempt.add(cs);
+                        } else if (rule.RuleRequiresArticleAttributes__c && cs.ArticleTest__c == null && !isFinalPass && ((!isInsert && !String.isEmpty(cs.ReferenceID__c)) || (isInsert && !String.isEmpty(cs.ReferenceID__c) && !cs.ByPassRoutingRulesOnCreation__c))) {
 
-                            // as part of the strategic rerouting attempt we need to make, we need to route it based on the current case values as they are here
-                            // workflows and other code may change these but we still need to route the case based on the original values when it entered into the routing method
-                            // since we may not have the ID of the case yet, we store these in a list that corresponds to the index in the casesForReroutingAttempt
-                            casesWithOriginalValues.add(getCaseWithFieldsMapping(cs));
-
-                            //Throw an exception if the default Queue has not been set, but allow the Case to be created
+                            //Assign the case to a holding queue. This case will be processed in a queueable which will fetch the Article data and then perform a re-route to move it out of the holding queue
                             String omniDefaultQueue = QM__c.getOrgDefaults().HoldingQueueId__c;
                             if (String.isEmpty(omniDefaultQueue) == false) {
                                 setRoutingCaseOwner(cs, omniDefaultQueue);
@@ -623,25 +591,6 @@ public class SSSW_Routing {
             }
         }
         return articleAttributesMap;
-    }
-
-    /**
-     * Get the cached list of cases that need to be rerouted
-     * @param - N/A
-     * @return - Case list
-     */
-    public static List<Case> getAttemptableReroutableCases() {
-        return casesForReroutingAttempt;
-    }
-
-    /**
-     * Grabs a list of cases
-     * These cases contain original values for routing fields
-     * @param - N/A
-     * @return - String
-     */
-    public static List<Map<String, Object>> getCaseOriginalValuesForReroutingAttempt() {
-        return casesWithOriginalValues;
     }
 
     /**

@@ -369,25 +369,6 @@ private class MyCustomerCaseArticlesModule_Test {
 
 		insert routesToInsert;
 
-		// populate the data to trigger a rerouting attempt
-		// in an end to end process, this data gets populated in the SSSW_Routing.assignCasesAndDescription method
-		// we fake it here for mocking and brevity
-		// NOTE: We rely on this being tested properly in the SSSW_Routing test class
-		SSSW_Routing.casesForReroutingAttempt = new List<Case>{
-				new Case(Id = cases[0].Id), // will be linked to a strategic account
-				new Case(Id = cases[1].Id) // will NOT be linked to a strategic account
-		};
-		SSSW_Routing.casesWithOriginalValues = new List<Map<String, Object>>{
-				new Map<String, Object>{
-					'Origin' => 'Email',
-					'Type' => 'General Enquiry'
-				},
-				new Map<String, Object>{
-						'Origin' => 'Phone',
-						'Type' => 'General Enquiry'
-				}
-		};
-
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -457,7 +438,6 @@ private class MyCustomerCaseArticlesModule_Test {
 		cases[0].ReferenceID__c = 'ART1231'; // links to articles[0]
 
 		// the 'new' value that may have 'magically' may have changed between the time SSSW_Routing.assignCasesAndDescription and the queueable were called
-		// NOTE: Original values in SSSW_Routing.casesWithOriginalValues are different
 		cases[0].Origin = 'Phone';
 		cases[0].Type = 'Investigation';
 
@@ -489,20 +469,6 @@ private class MyCustomerCaseArticlesModule_Test {
 		routesToInsert.add(routingRule);
 
 		insert routesToInsert;
-
-		// populate the data to trigger a rerouting attempt
-		// in an end to end process, this data gets populated in the SSSW_Routing.assignCasesAndDescription method
-		// we fake it here for mocking and brevity
-		// NOTE: We rely on this being tested properly in the SSSW_Routing test class
-		SSSW_Routing.casesForReroutingAttempt = new List<Case>{
-				new Case(Id = cases[0].Id) // will be linked to a strategic account
-		};
-		SSSW_Routing.casesWithOriginalValues = new List<Map<String, Object>>{
-				new Map<String, Object>{
-						'Origin' => 'Email',
-						'Type' => 'General Enquiry'
-				}
-		};
 
 		// =====================================
 		// Stubbing
@@ -588,20 +554,6 @@ private class MyCustomerCaseArticlesModule_Test {
 		routesToInsert.add(routingRule);
 
 		insert routesToInsert;
-
-		// populate the data to trigger a rerouting attempt
-		// in an end to end process, this data gets populated in the SSSW_Routing.assignCasesAndDescription method
-		// we fake it here for mocking and brevity
-		// NOTE: We rely on this being tested properly in the SSSW_Routing test class
-		SSSW_Routing.casesForReroutingAttempt = new List<Case>{
-				new Case(Id = cases[0].Id) // will be linked to a strategic account
-		};
-		SSSW_Routing.casesWithOriginalValues = new List<Map<String, Object>>{
-				new Map<String, Object>{
-						'Origin' => 'Email',
-						'Type' => 'General Enquiry'
-				}
-		};
 
 		// =====================================
 		// Stubbing

@@ -289,38 +289,10 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 		caseIds.removeAll(m_enqueuedCaseIds);
 		if(!caseIds.isEmpty()) {
-			m_enqueuedCaseIds.addAll(caseIds);
-
-			// NOTE: when routing is attempted is SSSW_Routing, we may hit a rule that requries an article to be linked to the case (Strategic routing)
-			// In this scenario SSSW_Routing stores a list of cases where routing needs to be reattempted after an article is linked
-			// We pass these into the queueable so we know which cases we need to attempt to reroute
-			Integer i = 0;
-
-
-			// given we are now in an 'after' trigger cycle, these records will now have an Id attached to them
-			// we use this to populate the id on the map that contains the original variables at the time was case routing was triggered
-			List<Case> casesForReroutingAttempt = SSSW_Routing.getAttemptableReroutableCases();
-
-			List<Map<String, Object>> caseOriginalValues = SSSW_Routing.getCaseOriginalValuesForReroutingAttempt();
-			Map<Id, Map<String, Object>> caseOriginalValuesForQueueable = new Map<Id, Map<String, Object>>();
-			if(!casesForReroutingAttempt.isEmpty()) {
-				for(Case reroutableCase : casesForReroutingAttempt) {
-					// we only pass the records in that need to be processed within this iteration
-					// this protects us from passing in the wrong records for rerouting
-					if(caseIds.contains(reroutableCase.Id)) {
-
-						// populate the case Id since we are now in an after trigger cycle
-						caseOriginalValues[i].put('Id', reroutableCase.Id);
-		 				caseOriginalValuesForQueueable.put(reroutableCase.Id, caseOriginalValues[i]);
-					}
-
-					i++;
-				}
-			}
 
 			// TODO: Refactor this into a better enqueueing model
 			// enqueue the job here
-			AsyncLinkArticlesToCasesQueueable job = new AsyncLinkArticlesToCasesQueueable(caseIds, referenceIds, caseOriginalValuesForQueueable.values());
+			AsyncLinkArticlesToCasesQueueable job = new AsyncLinkArticlesToCasesQueueable(caseIds, referenceIds);
 			System.enqueueJob(job);
 
 		}
@@ -567,18 +539,15 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 	private without sharing class AsyncLinkArticlesToCasesQueueable implements Queueable, Database.AllowsCallouts {
 		Set<Id> caseIds;
 		Set<String> referenceIds;
-		List<Map<String, Object>> casesForReroutingAttempt;
 
-		public AsyncLinkArticlesToCasesQueueable(Set<Id> caseIds, Set<String> referenceIds, List<Map<String, Object>> casesForReroutingAttempt) {
+		public AsyncLinkArticlesToCasesQueueable(Set<Id> caseIds, Set<String> referenceIds) {
 			this.caseIds = caseIds;
 			this.referenceIds = referenceIds;
-			this.casesForReroutingAttempt = casesForReroutingAttempt;
 		}
 
 		public void execute(QueueableContext context) {
 			try {
 				System.debug('>> Processing IDs: ' + caseIds);
-				System.debug('>> Processing casesForReroutingAttempt: ' + casesForReroutingAttempt);
 
 				// as a failsafe, set this to ensure no more queueable instances will be created
 				// this is for example if an article isn't found or Tibco errors or some other type of error.
@@ -599,7 +568,7 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 						Case.Primary_Name__c, Case.Primary_Company__c, Case.Primary_Email__c, Case.Address1__c, Case.Address1Postcode__c,
 						Case.Secondary_Contact__c, Case.Secondary_Companry__c, Case.Subject,
 						Case.SecondaryEmail__c, Case.Address2__c, Case.Address2Postcode__c, Case.ArticleRecordType__c, Case.ProductCategory__c,
-						Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c
+						Case.ProductSubcategory__c, Case.EnquirySubType__c, Case.ParentId, Case.LastRoutingRuleIsStrategic__c, Case.OwnerId, Case.AllocateToQueue__c
 					}).selectById(caseIds);
 
 					// TODO: This should be routed via the Domain class rather than invoked directly
@@ -685,31 +654,14 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 		private Map<Id, Case> rerouteCases(Map<Id, Case> cases) {
 			// NOTE The try/catch block as a fail safe, catch this error here will ensure the routing errors do not cause the whole transaction to fail
 			Map<Id, Case> casesRerouted = new Map<Id, Case>();
+			List<Case> reroutableCases = new List<Case>();
 
 			try {
-				if(!casesForReroutingAttempt.isEmpty()) {
-					// we need to first convert the map of case values into a list of case object
-					// NOTE: its stored as a map since some of the values we needed were formula fields not directly writable
-					Map<Id, Case> deserialisedCases = new Map<Id, Case>((List<Case>) JSON.deserialize(JSON.serialize(casesForReroutingAttempt), List<Case>.class));
+					String omniDefaultQueue = QM__c.getOrgDefaults().HoldingQueueId__c;				
 
-					List<Case> reroutableCases = new List<Case>();
-					for (Id caseId : cases.keySet()) {
-						// filtering out child cases from reroutable cases
-						if (deserialisedCases.containsKey(caseId) && cases.get(caseId).ParentId == null) {
-							// TODO: only exclude child if parent is a SSSW case
-							Case deserialisedCase = deserialisedCases.get(caseId);
-
-							//make sure the case owner is null
-							deserialisedCase.OwnerId = null;
-
-							// TODO: dodgy override to ensure the correct routing logic is triggered
-							deserialisedCase.AllocateToQueue__c = true;
-
-							// make sure that the newly linked case details are passed into the routing code to check for a strategic account mapping based on ArticleTest__c
-							deserialisedCase.ReferenceID__c = cases.get(caseId).ReferenceID__c;
-							deserialisedCase.ArticleTest__c = cases.get(caseId).ArticleTest__c;
-							deserialisedCase.LastRoutingRuleIsStrategic__c = cases.get(caseId).LastRoutingRuleIsStrategic__c;
-							reroutableCases.add(deserialisedCase);
+					for (Case cs : cases.values()) {				
+						if(cs.OwnerId.equals(Id.valueOf(omniDefaultQueue))){
+							reroutableCases.add(cs);
 						}
 					}
 
@@ -723,8 +675,8 @@ public List<Case> populateCaseArticleIds(List<Case> cases, Map<Id, Article__c> q
 
 							casesRerouted.put(reroutedCase.Id, new Case(Id = reroutedCase.Id, OwnerId = reroutedCase.OwnerId, LastRoutingRuleIsStrategic__c = reroutedCase.LastRoutingRuleIsStrategic__c)); //casesWithArticlePopulated.get(reroutedCase.Id));
 						}
-					}
-				}
+					}				
+			
 			} catch(Exception ex) {
 				// Error Logged to Exception object for analysis
 				UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, AsyncLinkArticlesToCasesQueueable.class.getName(), 'rerouteCases', '', LoggingLevel.ERROR);
