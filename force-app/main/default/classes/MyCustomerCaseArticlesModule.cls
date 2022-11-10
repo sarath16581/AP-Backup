@@ -294,7 +294,7 @@ public inherited sharing class MyCustomerCaseArticlesModule extends ApplicationD
 
 		caseIds.removeAll(m_enqueuedCaseIds);
 		if(!caseIds.isEmpty()) {
-			preventRecursiveReschedule = true; 
+			m_enqueuedCaseIds.addAll(caseIds);
 			
 			// TODO: Refactor this into a better enqueueing model
 			// enqueue the job here
