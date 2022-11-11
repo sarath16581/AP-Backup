@@ -43,4 +43,5 @@
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
+    <queueRoutingConfig></queueRoutingConfig>
 </Queue>
