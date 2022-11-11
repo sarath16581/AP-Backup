@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RedirectUrl__c</fullName>
+    <description>The redirect url to send the user back to after authentication completes in Azure. This will be the &apos;callback url&apos; of the specific community to redirect the user back to.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>The redirect url to send the user back to after authentication completes in Azure. This will be the &apos;callback url&apos; of the specific community to redirect the user back to.</inlineHelpText>
+    <label>Redirect Url</label>
+    <length>150</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

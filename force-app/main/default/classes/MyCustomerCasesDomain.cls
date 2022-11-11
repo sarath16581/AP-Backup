@@ -22,6 +22,8 @@ public inherited sharing class MyCustomerCasesDomain extends ApplicationDomain {
 
 		// this module checks for Closed Cases
 		registerModule(MyCustomerClosedCaseModule.class);
+
+		registerModule(MyCustomerCaseRoutingModule.class);
 	}
 
 	/**
