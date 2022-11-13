@@ -35,12 +35,10 @@ global with sharing class AzureOIDCRegistrationHandler implements Auth.Registrat
 		// System.debug('siteLoginUrl = ' + data.siteLoginUrl);
 		// System.debug('portalId = ' + portalId);
 		// System.debug('');
-	
 		// for(String key : data.attributeMap.keySet()) {
 		// 	System.debug(key + ' = ' + data.attributeMap.get(key));
 		// }
-
-		System.debug('Network Id: ' + Network.getNetworkId());
+		// System.debug('Network Id: ' + Network.getNetworkId());
 
 		String email = data.attributeMap.get('email');
 
