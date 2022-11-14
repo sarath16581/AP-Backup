@@ -8,6 +8,7 @@
  * @group Articles
  * @domain CHAS
  * @changelog
+ * 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
  */
 public inherited sharing class ExceptionCheckerService {
     private static Consumer_Help_and_Support__c CHAS_SETTINGS = Consumer_Help_and_Support__c.getOrgDefaults();
@@ -170,7 +171,7 @@ public inherited sharing class ExceptionCheckerService {
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: No';
+            caseComment.CommentBody = Label.AutoLITExceptionNo;
             caseComments.add(caseComment);
 		}
         //update cases
@@ -196,7 +197,7 @@ public inherited sharing class ExceptionCheckerService {
 			CaseComment caseComment = new CaseComment();
 			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: Yes';
+            caseComment.CommentBody = Label.AutoLITExceptionYes;
             caseComments.add(caseComment);
 		}
         //update cases
