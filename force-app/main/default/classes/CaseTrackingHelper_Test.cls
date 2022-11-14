@@ -200,7 +200,7 @@ private with sharing class CaseTrackingHelper_Test {
             csRec.OwnerId = UserInfo.getUserId();
             Database.insert(csRec);
             CaseTrackingHelper.isUpdateStatusTrackRecursive = false;
-            Group backOfficeQueue = [SELECT Id,DeveloperName FROM Group WHERE DeveloperName = 'SSSWConsumerBackOffice' LIMIT 1];
+            Group backOfficeQueue = [SELECT Id,DeveloperName FROM Group WHERE DeveloperName = 'SSSW_Consumer_Back_Office_Low_Priority' LIMIT 1];
             Test.startTest();
                 csRec.Status = 'On Hold';
                 csRec.OwnerId = backOfficeQueue.Id;

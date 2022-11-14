@@ -8,10 +8,11 @@
  * 2022-05-30 - Seth Heang - Created
  * 2022-06-01 - seth.heang@auspost.com.au - Added method selectByContractIdsAndLineType
  * 2022-08-04 - Seth Heang - Added related list WITH_OPTION, WITH_AGREEMENT_ATTRIBUTE_VALUE, ORDER_BY_ITEM_SEQUENCE_ASC and added fields to query
+ * 2022-10-17 - Seth Heang - Added WITH_APPLIED_PSR
  */
 public with sharing class APT_AgreementLineItemsSelector extends ApplicationSelector{
     public enum Options {
-		WITH_CONTRACT, WITH_PROPOSAL, WITH_OPTION, WITH_AGREEMENT_ATTRIBUTE_VALUE, ORDER_BY_ITEM_SEQUENCE_ASC
+		WITH_CONTRACT, WITH_PROPOSAL, WITH_OPTION, WITH_AGREEMENT_ATTRIBUTE_VALUE, ORDER_BY_ITEM_SEQUENCE_ASC, WITH_APPLIED_PSR
 	}
 	public static APT_AgreementLineItemsSelector newInstance() {
 		return (APT_AgreementLineItemsSelector)Application.Selectors.newInstance(APT_AgreementLineItemsSelector.class);
@@ -71,6 +72,9 @@ public with sharing class APT_AgreementLineItemsSelector extends ApplicationSele
 		}
 		if(selectorOptions.contains(Options.WITH_AGREEMENT_ATTRIBUTE_VALUE)) {
 			builder.addRelatedFields(AgreementProductAttributeValuesSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'Apttus_CMConfig__AttributeValueId__r');
+		}
+		if(selectorOptions.contains(Options.WITH_APPLIED_PSR)) {
+			builder.addRelatedFields(DealSupportRequestsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'Apttus_CMConfig__AttributeValueId__r.Applied_PSR__r');
 		}
 		if(selectorOptions.contains(Options.ORDER_BY_ITEM_SEQUENCE_ASC)) {
 			builder.addOrder(

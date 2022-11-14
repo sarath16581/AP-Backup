@@ -43,6 +43,10 @@ public with sharing class APT_AgreementLineItemsSelectorTest {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)Apttus_CMConfig__AttributeValueId__r\\..*?\\bfrom Apttus__AgreementLineItem__c\\b').matcher(soql).find(), 'Resulting query does not select related Attribute Value fields');
 
+		qb = selector.newQueryBuilder(new Set<Object>{APT_AgreementLineItemsSelector.Options.WITH_APPLIED_PSR});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)Apttus_CMConfig__AttributeValueId__r.Applied_PSR__r\\..*?\\bfrom Apttus__AgreementLineItem__c\\b').matcher(soql).find(), 'Resulting query does not select related DSR fields from attribute values');
+
 		qb = selector.newQueryBuilder(new Set<Object>{APT_AgreementLineItemsSelector.Options.WITH_CONTRACT});
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)Apttus__AgreementId__r\\..*?\\bfrom Apttus__AgreementLineItem__c\\b').matcher(soql).find(), 'Resulting query does not select related Contract fields');

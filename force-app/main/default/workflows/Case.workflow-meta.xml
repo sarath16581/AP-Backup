@@ -745,6 +745,19 @@
         <template>SSSWCaseTemplates/SSSW_Case_Enterprise_Bulk_Upload_Closure</template>
     </alerts>
     <alerts>
+        <fullName>SSSW_Send_Customer_Closure_Email_for_Exception_Checker</fullName>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <description>SSSW - Send Customer Closure Email for Exception Checker</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSWCaseTemplates/SSSW_Case_Exception_Checker_Closure</template>
+    </alerts>
+    <alerts>
         <fullName>SSSW_Send_Customer_Escalation_Closure</fullName>
         <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send Customer Escalation Closure</description>

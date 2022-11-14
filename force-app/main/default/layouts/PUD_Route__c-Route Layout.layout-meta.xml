@@ -164,7 +164,6 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Start_Time_Active__c</fields>
-        <fields>Display_Start_Time__c</fields>
         <fields>RECORDTYPE</fields>
         <fields>Booking_Type__c</fields>
         <fields>Booking_Location__c</fields>

@@ -38,7 +38,7 @@
         <label>SSSW - Closed Case - Email for Exception Checker</label>
         <locationX>2184</locationX>
         <locationY>830</locationY>
-        <actionName>Case.SSSW_Send_Customer_Closure_Email_for_BSP_Bulk_Upload</actionName>
+        <actionName>Case.SSSW_Send_Customer_Closure_Email_for_Exception_Checker</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -495,6 +495,7 @@
         </rules>
     </decisions>
     <description>subflow for MyCustomerDomain triggerred from CaseCommon AfterSave flow</description>
+    <environments>Default</environments>
     <formulas>
         <name>vCaseClosed</name>
         <dataType>Boolean</dataType>

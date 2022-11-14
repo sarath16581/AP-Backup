@@ -3936,7 +3936,7 @@ Test method for PCMS bundles
         listIdpData.add(ipd1);
         string data=listIdpData[0].APT_Band__c + APT_Constants.SEPERATOR_SIMILARITY + listIdpData[0].APT_Product__c + APT_Constants.SEPERATOR_SIMILARITY + listIdpData[0].APT_Zone__c;
         map<string, list<APT_International_Price_Data__c>> mapDataPrice=new map<string,list<APT_International_Price_Data__c>>();
-        mapDataPrice.put(data,listIdpData);
+        mapDataPrice.put(data,listIdpData); 
         
         //APT_ProductAttributeValueTriggerHandler.calculateProductRevenueforNewIntBundle(num,Null,'BAND 2','EXPRESS_DOCT',s11,'CSP',mapDataPrice,null);
         //APT_ProductAttributeValueTriggerHandler.calculateProductRevenueforNewIntBundle(num,Null,'BAND 2','EXPRESS_DOCT',s11,'CSP',mapDataPrice,null);
