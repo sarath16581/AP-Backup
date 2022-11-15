@@ -3,6 +3,7 @@
 * @author Harry Wang
 * @group Domains
 * @domain Account
+* @Test BusinessAccountDomain_Test
 * @changelog
 * 2022-11-04 - Harry Wang - Created.
 */

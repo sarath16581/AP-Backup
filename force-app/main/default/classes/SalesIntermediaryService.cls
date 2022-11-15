@@ -3,6 +3,7 @@
  * @date 2022-11-07
  * @domain Core
  * @description A service class that provides functionalities related o Intermediary
+ * @Test SalesIntermediaryService_Test
  * @changelog
  * 2022-11-07 - Harry Wang - Created
  */

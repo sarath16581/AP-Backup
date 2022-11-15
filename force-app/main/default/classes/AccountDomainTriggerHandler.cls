@@ -5,6 +5,7 @@
  * @group Domain
  * @tag AccountDomain
  * @domain Account
+ * @Test AccountDomainTriggerHandler_Test
  * @changelog
  * 2022-05-30 - George Nguyen - Created.
  * 2022-09-29 - Noel Lim - Updated - relabelled from PersonAccountDomain to AccountDomain

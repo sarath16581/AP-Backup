@@ -33,10 +33,11 @@ public inherited sharing class BusinessAccountIntermediaryModule extends Applica
 	 * @param records list of account records to be updated
 	 * @param existingRecords Map of existing account records if triggerred from update
 	 */
-	@TestVisible
 	private void stampSalesTeamType(List<Account> records, Map<Id, SObject> existingRecords) {
 		try {
 			Map<String, List<String>> salesTeamMap = AP_FieldDescribeUtil.getDependentPicklistValues(Account.SalesTeamType__c.getDescribe().getSobjectField(), Account.Sales_Segment__c.getDescribe().getSobjectField());
+			List<String> logMessages = new List<String>();
+			List<String> additionalInfo = new List<String>();
 			for (Account acc: records) {
 				Account eAcc;
 				if (existingRecords != null && !existingRecords.isEmpty()) {
@@ -44,18 +45,23 @@ public inherited sharing class BusinessAccountIntermediaryModule extends Applica
 				}
 				List<String> types = salesTeamMap.get(acc.Sales_Segment__c);
 				if (types.size() != 1) {
-					throw new SalesIntermediaryService.IntermediaryException('Multiple or null Sales Team retrieved');
+					logMessages.add('Stamping sales team type failed: ' + acc.Id);
+					additionalInfo.add('Multiple or null Sales Team retrieved for ' + acc.Sales_Segment__c);
 				}
 
 				String newSalesTeamType = types[0];
 				if (acc.Sales_Segment__c != null && (eAcc == null || (eAcc != null && (eAcc.SalesTeamType__c == null || eAcc.SalesTeamType__c != newSalesTeamType)))) {
 					acc.SalesTeamType__c = types[0];
 				}
-
 			}
-		} catch (Exception ex) {
+
+			// Logging failure message
+			if (!logMessages.isEmpty() && !additionalInfo.isEmpty()) {
+				ApplicationLogger.getInstance().logMessage(logMessages, additionalInfo, 'Sales Intermediary', BusinessAccountIntermediaryModule.class.getName(), 'stampSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+			}
+		} catch (Exception e) {
 			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getUserId(), 'Intermediary', BusinessAccountIntermediaryModule.class.getName(), 'onBeforeInsert', 'AccountTriggerClass', LoggingLevel.ERROR, '');
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales Intermediary', BusinessAccountIntermediaryModule.class.getName(), 'stampSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
