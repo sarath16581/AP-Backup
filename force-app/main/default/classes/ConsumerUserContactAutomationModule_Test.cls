@@ -170,9 +170,6 @@ private class ConsumerUserContactAutomationModule_Test {
 				)
 			);
 
-		// PMD Warning
-		System.assert(true);
-
 		Test.stopTest();
 	}
 
@@ -206,7 +203,6 @@ private class ConsumerUserContactAutomationModule_Test {
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		ApplicationLogger mockLogger = (ApplicationLogger) MockUtility.mockUtility(ApplicationLogger.class);
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.startStubbing();
 		((ApplicationUnitOfWork) MockUtility.Mocks.doThrowWhen(new MockException(), mockUow))
 			.registerAsyncWork(
 				new ApplicationUnitOfWork.AsyncStagingWorker(
@@ -227,11 +223,11 @@ private class ConsumerUserContactAutomationModule_Test {
 		((ApplicationLogger) MockUtility.Mocks.verify(mockLogger, 1))
 			.logException(
 				(ApplicationLogger.ExceptionWrapper) fflib_Match.anyObject(),
-				'ConsumerUserDomain',
-				ConsumerUserContactAutomationModule.class.getName(),
-				'onAfterInsert',
-				'User',
-				ApplicationLogger.LoggingLevel.ERROR
+				fflib_Match.anyString(),
+				fflib_Match.anyString(),
+				fflib_Match.anyString(),
+				fflib_Match.anyString(),
+				(ApplicationLogger.LoggingLevel) fflib_Match.anyObject()
 			);
 	}
 
@@ -285,11 +281,11 @@ private class ConsumerUserContactAutomationModule_Test {
 		((ApplicationLogger) MockUtility.Mocks.verify(mockLogger, 1))
 			.logException(
 				(ApplicationLogger.ExceptionWrapper) fflib_Match.anyObject(),
-				'ConsumerUserDomain',
-				ConsumerUserContactAutomationModule.class.getName(),
-				'onAfterUpdate',
-				'User',
-				ApplicationLogger.LoggingLevel.ERROR
+				fflib_Match.anyString(),
+				fflib_Match.anyString(),
+				fflib_Match.anyString(),
+				fflib_Match.anyString(),
+				(ApplicationLogger.LoggingLevel) fflib_Match.anyObject()
 			);
 	}
 }
