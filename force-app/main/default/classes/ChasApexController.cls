@@ -55,6 +55,7 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 *                                                       some of the common shared methods are moved to ChasBase
 * 2022-06-20 mahesh.parvathaneni@auspost.com.au DDS-6293 Fix for customer seen safe drop text in case description
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
+* 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -733,13 +734,13 @@ public with sharing class ChasApexController extends ChasBase{
                      List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
                      if(exceptionResults != null && exceptionResults[0].isException) {
                          // DDS-12944 Exception found upon case being raised
-                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
+                         commentBody = commentBody + '\n'+ Label.AutoLITExceptionYes;
                      } else if(exceptionResults == null || !exceptionResults[0].isException){
                          toBeCreateCase.ClosedBySystem__c = true;
                          toBeCreateCase.Status = 'Closed';
                          toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
                          // Exception found upon case being raised (when EDD+10 has already passed at time of case raised)
-                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: No';
+                         commentBody = commentBody + '\n'+ Label.AutoLITExceptionNo;
                      }
                  }
              }
