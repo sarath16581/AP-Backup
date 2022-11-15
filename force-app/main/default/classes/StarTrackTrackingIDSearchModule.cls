@@ -31,7 +31,7 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
     public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
         try {
             System.debug('StarTrackTrackingIDSearchModule:onAfterInsert');
-            getTrackingDetails(records,uow);
+            getTrackingDetails(records, null);
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchModule.class.getName(), 'onAfterInsert', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
@@ -41,15 +41,26 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         try {
             System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate');
-            getTrackingDetails(records,uow);
+            getTrackingDetails(records, existingRecords);
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchModule.class.getName(), 'onAfterUpdate', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
         }
     }
 
-    public void getTrackingDetails(List<SObject> records, ApplicationUnitOfWork uow) {
-        System.enqueueJob(new TrackingSearchQueueable((List<Case>) records));
+    public void getTrackingDetails(List<SObject> records, Map<Id, SObject> existingRecords) {
+        List<Case> selectedCases = new List<Case>();
+        for(Case cse:(List<Case>)records) {
+            // if the reference has been changed
+            if(existingRecords == null || cse.ReferenceID__c != existingRecords.get(cse.Id).get('ReferenceID__c')) {
+                // todo check for record types
+                selectedCases.add(cse);
+            }
+        }
+
+        if(!selectedCases.isEmpty()) {
+            System.enqueueJob(new TrackingSearchQueueable(selectedCases));
+        }
     }
 
 
