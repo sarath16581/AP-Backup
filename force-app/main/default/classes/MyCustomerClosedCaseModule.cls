@@ -12,7 +12,9 @@
  * @domain Routing 
  * @changelog
  * 2022-10-17 - Noel Lim - Created
- * 2022-15-17 - Noel LIm - Added inner class WithoutSharingRetrieveData to allow guest users to access the AgentWork object
+ * 2022-11-16 - Noel Lim - Update
+ 						a) Added inner class WithoutSharingRetrieveData to allow guest users to access the AgentWork object
+ * 						b) New logic to trigger a re-route for cases being reopened and are in the SSSW_Closed_Omnichannel_Cases queue
  */
 public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDomain.Module {
 
@@ -24,7 +26,7 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 	public MyCustomerClosedCaseModule() {
 		getTriggerEvents().enableAfterInsert().enableAfterUpdate();
 	}
-
+	
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
 			processClosedCases(records, null, uow);
@@ -44,7 +46,7 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 	}
 
 	/**
-	 * Filter based on the followin:
+	 * Filter based on the following:
 	 * a) Closed Cases via IsClosed field
 	 * b) Case Status changed or Case Owner changed
 	 * c) Case is assigned to a queue with a routing configuration
@@ -85,7 +87,6 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 					system.debug('case subject'+c.Subject);
 				}
 			}
-			system.debug('closedCases pre logic: '+closedCases);
 			reassignToPreviousAgentIfApplicable(closedCases, uow);
 		}
 	}
@@ -116,7 +117,7 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 					casesToUpdate.add(new Case(Id = c.Id, OwnerId = omnichannelClosedCaseQueueId));
 				}
 			}
-			system.debug('casesToUpdate: '+casesToUpdate);
+
 			uow.registerDirty(casesToUpdate, new List<SObjectField> {Case.OwnerId}, String.valueOf(MyCustomerClosedCaseModule.Class));
 		}
 	}
