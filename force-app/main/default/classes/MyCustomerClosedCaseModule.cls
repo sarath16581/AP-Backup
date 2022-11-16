@@ -106,7 +106,7 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 	/**
 	 *	Required to provide elevated privileges for guest users to query the AgentWork object 
 	 */
-	public with sharing class WithoutSharingRetrieveData{
+	public without sharing class WithoutSharingRetrieveData{
 		
 		private List<AgentWork> getAgentWorkItems(Set<Id> closedCaseIds){
 			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIds(closedCaseIds,new Set<Object>());
