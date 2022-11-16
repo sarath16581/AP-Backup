@@ -169,7 +169,6 @@ public inherited sharing class ExceptionCheckerService {
 			c.ByPassWorkflowRulesOnCreation__c = true; //populate the filed to trigger the email
 			//add comment
 			CaseComment caseComment = new CaseComment();
-			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
             caseComment.CommentBody = Label.AutoLITExceptionNo;
             caseComments.add(caseComment);
@@ -195,7 +194,6 @@ public inherited sharing class ExceptionCheckerService {
 			c.Bypass_Data_enforcement__c = true;
 			//add comment
 			CaseComment caseComment = new CaseComment();
-			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
             caseComment.CommentBody = Label.AutoLITExceptionYes;
             caseComments.add(caseComment);
