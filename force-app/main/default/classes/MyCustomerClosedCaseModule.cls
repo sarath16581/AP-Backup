@@ -1,8 +1,9 @@
 /*** 
  * @description
  * Domain Module to reassign Closed Cases from Omnichannel Queues.
- * This prevents Closed Cases from being routed by Omni-channel to an Agent
+ * This prevents Closed Cases from being routed by Omni-channel to an Agent.
  * Only Cases in Queues with a Routing Configuration are reassigned.
+ * NOTE: IsClosed is only set to True in Trigger.IsAfter, hence the logic runs onAfter
  * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
  * 
  * @author Noel Lim
@@ -43,23 +44,37 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 	}
 
 	/**
-	 * Filter to Closed Cases by IsClosed and eligible Queues
-	 * NOTE: IsClosed is only set to True in Trigger.IsAfter
+	 * Filter based on the followin:
+	 * a) Closed Cases via IsClosed field
+	 * b) Case Status changed or Case Owner changed
+	 * c) Case is assigned to a queue with a routing configuration
 	 */
 	private void processClosedCases(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		Map<Id, Case> closedCases = new Map<Id, Case>();
 		Map<Id, Group> queues = new Map<Id, Group>();
+		Case existingCase;
+
+		
+		system.debug('existingRecords init: '+existingRecords);
 
 		for(Case c: (List<Case>)records) {
-			if(((existingRecords == null && c.IsClosed == true) || 
-					(existingRecords != null && ((Case)existingRecords.get(c.Id)).IsClosed != c.IsClosed))
-				&& c.OwnerId != null
-				&& c.OwnerId.getSobjectType() == Group.sObjectType){
+			system.debug('Case: '+ c);
+			if(existingRecords != null){
+				existingCase = (Case)existingRecords.get(c.Id);
+			}
 
+			if(c.OwnerId != null && c.OwnerId.getSobjectType() == Group.sObjectType && c.IsClosed == true && 
+				(existingCase == null || (existingCase != null && 
+						((existingCase.IsClosed != c.IsClosed) ||
+						(existingCase.OwnerId != c.OwnerId))
+				))
+			){
 				closedCases.put(c.id, c);
 				queues.put(c.OwnerId, null);
 			}
-		}		
+		}	
+
+		system.debug('closedCases filter: '+closedCases);	
 
 		if(queues.isEmpty() == false) {
 			queues = GroupsSelector.newInstance().selectById(queues.keySet());
@@ -67,8 +82,10 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 			for(Case c: closedCases.values()) {
 				if(queues.get(c.OwnerId).QueueRoutingConfigId == null) { // only interested in Omni queues
 					closedCases.remove(c.Id);
+					system.debug('case subject'+c.Subject);
 				}
 			}
+			system.debug('closedCases pre logic: '+closedCases);
 			reassignToPreviousAgentIfApplicable(closedCases, uow);
 		}
 	}
@@ -99,6 +116,7 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 					casesToUpdate.add(new Case(Id = c.Id, OwnerId = omnichannelClosedCaseQueueId));
 				}
 			}
+			system.debug('casesToUpdate: '+casesToUpdate);
 			uow.registerDirty(casesToUpdate, new List<SObjectField> {Case.OwnerId}, String.valueOf(MyCustomerClosedCaseModule.Class));
 		}
 	}
