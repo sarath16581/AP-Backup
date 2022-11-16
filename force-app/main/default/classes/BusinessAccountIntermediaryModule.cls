@@ -47,11 +47,11 @@ public inherited sharing class BusinessAccountIntermediaryModule extends Applica
 				if (types.size() != 1) {
 					logMessages.add('Stamping sales team type failed: ' + acc.Id);
 					additionalInfo.add('Multiple or null Sales Team retrieved for ' + acc.Sales_Segment__c);
-				}
-
-				String newSalesTeamType = types[0];
-				if (acc.Sales_Segment__c != null && (eAcc == null || (eAcc != null && (eAcc.SalesTeamType__c == null || eAcc.SalesTeamType__c != newSalesTeamType)))) {
-					acc.SalesTeamType__c = types[0];
+				} else {
+					String newSalesTeamType = types[0];
+					if (acc.Sales_Segment__c != null && (eAcc == null || (eAcc != null && (eAcc.SalesTeamType__c == null || eAcc.SalesTeamType__c != newSalesTeamType)))) {
+						acc.SalesTeamType__c = newSalesTeamType;
+					}
 				}
 			}
 
