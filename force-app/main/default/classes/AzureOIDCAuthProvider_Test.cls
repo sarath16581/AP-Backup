@@ -95,14 +95,12 @@ private class AzureOIDCAuthProvider_Test {
 
 		String requestBody = EncodingUtil.urlDecode(httpMock.requestBody, 'UTF-8');
 
-		System.assertEquals('my-access-token', tokenResponse.oauthToken);
+		System.assertEquals(mockAccessToken, tokenResponse.oauthToken);
 		System.assertEquals(true, Pattern.compile('(?is)code=0AWcADu-vQZ56hEWduo').matcher(requestBody).find(), 'Auth Code was not present: ' + requestBody);
 		System.assertEquals(true, Pattern.compile('(?is)scope=openid profile email').matcher(requestBody).find(), 'Scope was not present: ' + requestBody);
 		System.assertEquals(true, Pattern.compile('(?is)grant_type=authorization_code').matcher(requestBody).find(), 'Authorisation Type was not present: ' + requestBody);
 		System.assertEquals(true, Pattern.compile('(?is)client_id=client-id-1234').matcher(requestBody).find(), 'Client Id was not present: ' + requestBody);
 		System.assertEquals(true, Pattern.compile('(?is)client_secret=').matcher(requestBody).find(), 'Client Secret was not present: ' + requestBody);
-
-		System.assertEquals(mockIdToken, authprovider.idTokenJwt);
 
 	}
 
@@ -157,10 +155,10 @@ private class AzureOIDCAuthProvider_Test {
 	}
 
 	/**
-	 * Scenario: Id_token was not return in payload so we throw an exception
+	 * Scenario: access token was not return in payload so we throw an exception
 	 */
 	@IsTest
-	private static void testEnsureCallbackMethodFailsSinceIdTokenIsMissing() {
+	private static void testEnsureCallbackMethodFailsSinceAccessTokenIsMissing() {
 
 		// =====================================
 		// Data Preparation
@@ -182,7 +180,7 @@ private class AzureOIDCAuthProvider_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		PartialSuccessfulAccessTokenWithoutIdTokenHttpMock httpMock = new PartialSuccessfulAccessTokenWithoutIdTokenHttpMock();
+		PartialSuccessfulAccessTokenWithoutAccessTokenHttpMock httpMock = new PartialSuccessfulAccessTokenWithoutAccessTokenHttpMock();
 		Test.setMock(HttpCalloutMock.class, httpMock);
 
 		// =====================================
@@ -196,7 +194,7 @@ private class AzureOIDCAuthProvider_Test {
 
 			System.assert(false, 'Expected exception');
 		} catch(AzureOIDCAuthProvider.OAuthException ex) {
-			// exception thrown since id_token was missing
+			// exception thrown since access token was missing
 			System.assert(true);
 		} catch(Exception ex) {
 			System.assert(false, 'Expected OAuthException: ' + ex.getMessage());
@@ -224,7 +222,7 @@ private class AzureOIDCAuthProvider_Test {
 		};
 
 		String state = 'nothingmeanginful';
-		String accessToken = 'my-access-token';
+		String accessToken = mockAccessToken;
 		Auth.AuthProviderTokenResponse tokenResponse = new Auth.AuthProviderTokenResponse('Azure', accessToken, '', state);
 
 		// =====================================
@@ -240,9 +238,6 @@ private class AzureOIDCAuthProvider_Test {
 
 		AzureOIDCAuthProvider authprovider = new AzureOIDCAuthProvider();
 
-		//special for setting the Id Token which would normally 
-		authprovider.idTokenJwt = mockIdToken;
-
 		Auth.UserData userData = authprovider.getUserInfo(customMetadataValues, tokenResponse);
 		
 		Test.stopTest();
@@ -254,7 +249,7 @@ private class AzureOIDCAuthProvider_Test {
 		System.assertEquals(userData.fullName, 'FRANKLIN, Nathan');
 		System.assertEquals(userData.username, 'franklinn1@test.npe.auspost.com.au');
 		System.assertEquals(userData.email, 'franklinn1@test.npe.auspost.com.au');
-		System.assertEquals(userData.attributeMap.get('preferred_username'), 'franklinn1@test.npe.auspost.com.au');
+		System.assertEquals(userData.attributeMap.get('upn'), 'franklinn1@test.npe.auspost.com.au');
 
 	}
 
@@ -291,9 +286,6 @@ private class AzureOIDCAuthProvider_Test {
 		Test.startTest();
 
 		AzureOIDCAuthProvider authprovider = new AzureOIDCAuthProvider();
-
-		//special for setting the Id Token which would normally 
-		authprovider.idTokenJwt = mockIdToken;
 
 		try {
 
@@ -339,7 +331,7 @@ private class AzureOIDCAuthProvider_Test {
 		Test.stopTest();
 	}
 
-	private class PartialSuccessfulAccessTokenWithoutIdTokenHttpMock implements HttpCalloutMock {
+	private class PartialSuccessfulAccessTokenWithoutAccessTokenHttpMock implements HttpCalloutMock {
 		public String requestBody = '';
 
 		public HTTPResponse respond(HTTPRequest req) {		
@@ -347,7 +339,7 @@ private class AzureOIDCAuthProvider_Test {
 
 			HttpResponse res = new HttpResponse();
 			res.setHeader('Content-Type', 'application/json');
-			res.setBody('{"token_type":"Bearer","scope":"email openid profile","expires_in":3739,"ext_expires_in":3739,"access_token":"my-access-token"}');
+			res.setBody('{"token_type":"Bearer","scope":"email openid profile","expires_in":3739,"ext_expires_in":3739}');
 			res.setStatusCode(200);
 			return res;
 		}
@@ -358,23 +350,11 @@ private class AzureOIDCAuthProvider_Test {
 		public HTTPResponse respond(HTTPRequest req) {		
 			requestBody = req.getBody();
 
-			String idToken = mockIdToken;
-
-			// id_token includes:
-			// {
-			// 	"aud": "3f7d16ea-6672-4d60-bcd1-fa5d2672009a",
-			// 	"iss": "https://login.microsoftonline.com/41afef0e-7a9e-4584-9dba-86c335624811/v2.0",
-			// 	"email": "franklinn1@test.npe.auspost.com.au",
-			// 	"name": "FRANKLIN, Nathan",
-			// 	"preferred_username": "franklinn1@test.npe.auspost.com.au",
-			// 	"upn": "franklinn1@test.npe.auspost.com.au",
-			// 	"ver": "2.0"
-			//   }
-			// ^^ subset of above id token
+			String accessToken = mockAccessToken;
 
 			HttpResponse res = new HttpResponse();
 			res.setHeader('Content-Type', 'application/json');
-			res.setBody('{"token_type":"Bearer","scope":"email openid profile","expires_in":3739,"ext_expires_in":3739,"access_token":"my-access-token","id_token":"' + idToken + '"}');
+			res.setBody('{"token_type":"Bearer","scope":"email openid profile","expires_in":3739,"ext_expires_in":3739,"access_token":"' + accessToken + '"}');
 			res.setStatusCode(200);
 			return res;
 		}
@@ -423,19 +403,18 @@ private class AzureOIDCAuthProvider_Test {
 
 	//
 
-	// id_token includes:
+	// access_token includes:
 	// {
 	// 	"aud": "3f7d16ea-6672-4d60-bcd1-fa5d2672009a",
 	// 	"iss": "https://login.microsoftonline.com/41afef0e-7a9e-4584-9dba-86c335624811/v2.0",
 	// 	"email": "franklinn1@test.npe.auspost.com.au",
 	// 	"name": "FRANKLIN, Nathan",
-	// 	"preferred_username": "franklinn1@test.npe.auspost.com.au",
 	// 	"upn": "franklinn1@test.npe.auspost.com.au",
 	// 	"ver": "2.0"
 	//   }
-	public static String mockIdToken {
+	public static String mockAccessToken {
 		get {
-			return 'ignored.eyJhdWQiOiIzZjdkMTZlYS02NjcyLTRkNjAtYmNkMS1mYTVkMjY3MjAwOWEiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vNDFhZmVmMGUtN2E5ZS00NTg0LTlkYmEtODZjMzM1NjI0ODExL3YyLjAiLCJpYXQiOjE2Njc5NDQ2MzIsIm5iZiI6MTY2Nzk0NDYzMiwiZXhwIjoxNjY3OTQ4NTMyLCJlbWFpbCI6ImZyYW5rbGlubjFAdGVzdC5ucGUuYXVzcG9zdC5jb20uYXUiLCJuYW1lIjoiRlJBTktMSU4sIE5hdGhhbiIsIm9pZCI6ImVkNzY5OTZiLTg0ZTQtNGViNy1hMGEzLWY1ODlkMGQ3NDQzMyIsInByZWZlcnJlZF91c2VybmFtZSI6ImZyYW5rbGlubjFAdGVzdC5ucGUuYXVzcG9zdC5jb20uYXUiLCJyaCI6IjAuQVdjQUR1LXZRWjU2aEVXZHVvYkROV0pJRWVvV2ZUOXlabUJOdk5INlhTWnlBSnBuQUI0LiIsInN1YiI6Imh3Y08xZGl3MnEwU1ZYd1hDR05MMEZQdW0xZHlaSkVoczgtanpQYnZuTTQiLCJ0aWQiOiI0MWFmZWYwZS03YTllLTQ1ODQtOWRiYS04NmMzMzU2MjQ4MTEiLCJ1cG4iOiJmcmFua2xpbm4xQHRlc3QubnBlLmF1c3Bvc3QuY29tLmF1IiwidXRpIjoieEdfaVpydlVORWlMRkRvbmFHT0xBQSIsInZlciI6IjIuMCJ9.ignored';
+			return 'ignored.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80MWFmZWYwZS03YTllLTQ1ODQtOWRiYS04NmMzMzU2MjQ4MTEvIiwiaWF0IjoxNjY4MTE2MzQ1LCJuYmYiOjE2NjgxMTYzNDUsImV4cCI6MTY2ODEyMTM5NywiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsidXJuOnVzZXI6cmVnaXN0ZXJzZWN1cml0eWluZm8iXSwiYWlvIjoiQVhRQWkvOFRBQUFBWWZzMHBTbzFkdTEzd3hsM0ZGc2NGdjhUZnJteWdsVGV4T0tzYW9zWHJKTVFpMWFoMzArbldvZUROZFpZVnkwd0NTUjA1bFFLbEtXSC9NeGRkK2RvMjN4UmNDcGdFaGtFWEVDOGZnYnhoR3ZmUk9IanZYVFBIZTR4RTUxTGhQKzVkOE9HTzFCSjI1T0tGdmNxYy9sdjZnPT0iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik15TmV0d29yay1TYWxlc2ZvcmNlKFNUZXN0KSIsImFwcGlkIjoiM2Y3ZDE2ZWEtNjY3Mi00ZDYwLWJjZDEtZmE1ZDI2NzIwMDlhIiwiYXBwaWRhY3IiOiIxIiwiZmFtaWx5X25hbWUiOiJGUkFOS0xJTiIsImdpdmVuX25hbWUiOiJOYXRoYW4iLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiIxMjAuODguMTI0LjE0MiIsIm5hbWUiOiJGUkFOS0xJTiwgTmF0aGFuIiwib2lkIjoiZWQ3Njk5NmItODRlNC00ZWI3LWEwYTMtZjU4OWQwZDc0NDMzIiwib25wcmVtX3NpZCI6IlMtMS01LTIxLTI2NTQ5ODYwNjUtMjM1NTk1MTk4Ni01OTAxMzE0NTAtMTIxMjM1IiwicGxhdGYiOiI1IiwicHVpZCI6IjEwMDMyMDAxRjFDNEI4QTgiLCJyaCI6IjAuQVdjQUR1LXZRWjU2aEVXZHVvYkROV0pJRVFNQUFBQUFBQUFBd0FBQUFBQUFBQUJuQUI0LiIsInNjcCI6ImVtYWlsIG9wZW5pZCBwcm9maWxlIiwic3ViIjoiYThGdHo0bWYzMU1Bdkd3U2szVmlJbnI1OUhuNlVTa1R4dGRLZ2pOa2EyQSIsInRlbmFudF9yZWdpb25fc2NvcGUiOiJPQyIsInRpZCI6IjQxYWZlZjBlLTdhOWUtNDU4NC05ZGJhLTg2YzMzNTYyNDgxMSIsInVuaXF1ZV9uYW1lIjoiZnJhbmtsaW5uMUB0ZXN0Lm5wZS5hdXNwb3N0LmNvbS5hdSIsInVwbiI6ImZyYW5rbGlubjFAdGVzdC5ucGUuYXVzcG9zdC5jb20uYXUiLCJ1dGkiOiJqdS1zc2EydUJVaWJWelhJelFQSUFBIiwidmVyIjoiMS4wIiwid2lkcyI6WyJiNzlmYmY0ZC0zZWY5LTQ2ODktODE0My03NmIxOTRlODU1MDkiXSwieG1zX3N0Ijp7InN1YiI6Imh3Y08xZGl3MnEwU1ZYd1hDR05MMEZQdW0xZHlaSkVoczgtanpQYnZuTTQifSwieG1zX3RjZHQiOjE0MTg4NzYyODZ9.ignored';
 		}
 	}
 

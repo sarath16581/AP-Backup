@@ -10,9 +10,6 @@
  * @changelog
 */
 global class AzureOIDCAuthProvider extends Auth.AuthProviderPluginClass {
-	
-	@TestVisible
-	String idTokenJwt = '';
 
 	global String getCustomMetadataType() {
 		return 'AzureOIDCAuthProvider__mdt';
@@ -42,7 +39,7 @@ global class AzureOIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		String code = queryParams.get('code');
 		String sfdcState = queryParams.get('state');
 
-		// convert the authorisation code to an access_token (with an id_token)
+		// convert the authorisation code to an access_token
 		HttpRequest req = new HttpRequest();
 		String url = 'callout:' + tokenNamedCredentialName;
 		req.setMethod('POST');
@@ -80,13 +77,9 @@ global class AzureOIDCAuthProvider extends Auth.AuthProviderPluginClass {
 			throw new OAuthException(errorMessage);
 		}
 
-		if(String.isEmpty(tokenResponse.id_token) || String.isEmpty(tokenResponse.access_token)) {
+		if(String.isEmpty(tokenResponse.access_token)) {
 			throw new OAuthException('The returned response was invalid');
 		}
-
-		// store the jwt token from the /token endpoint call
-		// this is used in the getUserInfo method where the details are extracted out form it
-		idTokenJwt = tokenResponse.id_token;
 
 		// note there is no refresh token for this flow
 		return new Auth.AuthProviderTokenResponse('Azure', String.valueOf(tokenResponse.access_token), '', sfdcState);
@@ -94,7 +87,7 @@ global class AzureOIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
 	/**
 	 * NOTE: This allows us to call the userinfo endpoint in Azure
-	 * Although this is not necessary, we do this anyway to validate the access token is current and functional (since we don't actually use the access token for anything else)
+	 * Although this is not necessary, we do this anyway to validate the access token is current and functional
 	 */
 	global Auth.UserData getUserInfo(Map<String, String> authProviderConfiguration, Auth.AuthProviderTokenResponse response) {
 
@@ -111,14 +104,14 @@ global class AzureOIDCAuthProvider extends Auth.AuthProviderPluginClass {
 		HttpResponse res = http.send(req);
 
 		String body = res.getBody();
-		UserInfoToken tokenResponse = (UserInfoToken)JSON.deserialize(body, UserInfoToken.Class);
+		UserInfoToken parsedUserInfoToken = (UserInfoToken)JSON.deserialize(body, UserInfoToken.Class);
 
-		if(tokenResponse == null) {
+		if(parsedUserInfoToken == null) {
 			throw new OAuthException('A UserInfo token error occurred');
 		}
 
-		if(tokenResponse.error != null && (!String.isEmpty(tokenResponse.error.code) || !String.isEmpty(tokenResponse.error.message))) {
-			errorMessage = 'UserInfo API: ' + (!String.isEmpty(tokenResponse.error.code) ? tokenResponse.error.code + ': ' : '') + (!String.isEmpty(tokenResponse.error.message) ? tokenResponse.error.message : 'A token error occurred');
+		if(parsedUserInfoToken.error != null && (!String.isEmpty(parsedUserInfoToken.error.code) || !String.isEmpty(parsedUserInfoToken.error.message))) {
+			errorMessage = 'UserInfo API: ' + (!String.isEmpty(parsedUserInfoToken.error.code) ? parsedUserInfoToken.error.code + ': ' : '') + (!String.isEmpty(parsedUserInfoToken.error.message) ? parsedUserInfoToken.error.message : 'A token error occurred');
 		}
 
 		if (res.getStatusCode() != 200 || !String.isEmpty(errorMessage)) {
@@ -128,47 +121,45 @@ global class AzureOIDCAuthProvider extends Auth.AuthProviderPluginClass {
 			throw new OAuthException(errorMessage);
 		}
 
-		Auth.UserData userData = parseIdToken();
-		userData.firstName = tokenResponse.given_name;
-		userData.lastName = tokenResponse.family_name;
+		Auth.UserData userData = parseAccessToken(response.oauthToken);
+		userData.email = parsedUserInfoToken.email;
 		return userData;
 	}
 
-	private Auth.UserData parseIdToken() {
+	private Auth.UserData parseAccessToken(String token) {
 
 		// a JWT token is split up into 3 parts. We only want to extract the claims out 
-		List<String> idTokenParts = String.valueOf(idTokenJwt).split('\\.');
-		if(idTokenParts.size() != 3) {
-			throw new OAuthException('id_token is invalid');
+		List<String> tokenParts = String.valueOf(token).split('\\.');
+		if(tokenParts.size() != 3) {
+			throw new OAuthException('access_token is invalid');
 		}
 
-		// TODO... If this is set here, it may cause failures if getUserInfo() is called outside the current instance of the class where the id_token value is held....
-		//			hmmmmmm
-		// parse the claims into a class so we can access it later on
-		// we store it in an instance variable for easy access
-		IdToken idTokenClaims = (IdToken)JSON.deserialize(EncodingUtil.base64Decode(idTokenParts[1]).toString(), IdToken.Class);
+		AccessToken tokenClaims = (AccessToken)JSON.deserialize(EncodingUtil.base64Decode(tokenParts[1]).toString(), AccessToken.Class);
 
-		String identifier = idTokenClaims.sub;
-		String fullName = idTokenClaims.name;
-		String username = idTokenClaims.preferred_username;
-		String email = idTokenClaims.email;
+		String identifier = tokenClaims.sub;
+		String fullName = tokenClaims.name;
+		String username = tokenClaims.upn;
 		String provider = 'Azure';
 		
 		Map<String, String> attributeMap = new Map<String, String>();
-		
-		attributeMap.put('sub', idTokenClaims.sub);
-		attributeMap.put('iss', idTokenClaims.iss);
-		attributeMap.put('iat', String.valueOf(idTokenClaims.iat));
-		attributeMap.put('nbf', String.valueOf(idTokenClaims.nbf));
-		attributeMap.put('exp', String.valueOf(idTokenClaims.exp));
-		attributeMap.put('email', idTokenClaims.email);
-		attributeMap.put('name', idTokenClaims.name);
-		attributeMap.put('oid', idTokenClaims.oid);
-		attributeMap.put('preferred_username', idTokenClaims.preferred_username);
-		attributeMap.put('upn', idTokenClaims.upn);
-		attributeMap.put('aud', idTokenClaims.aud);
+		attributeMap.put('sub', tokenClaims.sub);
+		attributeMap.put('iss', tokenClaims.iss);
+		attributeMap.put('iat', String.valueOf(tokenClaims.iat));
+		attributeMap.put('nbf', String.valueOf(tokenClaims.nbf));
+		attributeMap.put('exp', String.valueOf(tokenClaims.exp));
+		attributeMap.put('name', tokenClaims.name);
+		attributeMap.put('first_name', tokenClaims.given_name);
+		attributeMap.put('last_name', tokenClaims.family_name);
+		attributeMap.put('oid', tokenClaims.oid);
+		attributeMap.put('upn', tokenClaims.upn);
+		attributeMap.put('aud', tokenClaims.aud);
 
-		Auth.UserData userData = new Auth.UserData(identifier, '', '', fullName, email, '', username, '', provider, '', attributeMap);
+		// System.debug('attributeMap: ' + attributeMap);
+		// for(String key : attributeMap.keySet()) {
+		// 	System.debug(key + ' = ' + attributeMap.get(key));
+		// }
+
+		Auth.UserData userData = new Auth.UserData(identifier, tokenClaims.given_name, tokenClaims.family_name, fullName, '', '', username, '', provider, '', attributeMap);
 		return userData;
 	}
 
@@ -179,7 +170,6 @@ global class AzureOIDCAuthProvider extends Auth.AuthProviderPluginClass {
 	 */
 	global class Token {
 		public String access_token;
-		public String id_token;
 		public String token_type;
 		public Integer expires_in;
 		
@@ -188,18 +178,20 @@ global class AzureOIDCAuthProvider extends Auth.AuthProviderPluginClass {
 
 	}
 
-	global class IdToken {
+	global class AccessToken {
 		public String aud;
 		public String iss;
 		public Integer iat;
 		public Integer nbf;
 		public Integer exp;
 		public String email;
-		public String name;
 		public String oid;
 		public String preferred_username;
 		public String sub;
 		public String upn;
+		public String name;
+		public String family_name;
+		public String given_name;
 	}
 
 	global class UserInfoToken {
