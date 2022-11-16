@@ -3,6 +3,7 @@
  * @author Nathan Franklin
  * @date 2022-08-24
  * @changelog
+ * 2022-10-28	Naveen Rajanna	Included ConsumerUserDomain and added Contact to uowSobjectTypes
  */
 public inherited sharing class UserTriggerHandler extends ApplicationDomainTriggerHandler {
 
@@ -12,7 +13,8 @@ public inherited sharing class UserTriggerHandler extends ApplicationDomainTrigg
 
 	public override List<Type> registerDomains() {
 		return new List<Type>{
-			LBPUserDomain.class
+			LBPUserDomain.class,
+			ConsumerUserDomain.class
 		};
 	}
 
@@ -25,7 +27,8 @@ public inherited sharing class UserTriggerHandler extends ApplicationDomainTrigg
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-			User.SObjectType
+			User.SObjectType,
+			Contact.SObjectType
 		};
 	}
 

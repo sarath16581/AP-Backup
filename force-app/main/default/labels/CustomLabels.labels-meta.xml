@@ -7818,4 +7818,20 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
     </labels>
+    <labels>
+        <fullName>AutoLITExceptionYes</fullName>
+        <categories>Chas - Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Comment Message to be included when it is Auto LIT Exception found</shortDescription>
+        <value>Exception found. Auto close = No</value>
+    </labels>	
+    <labels>
+        <fullName>AutoLITExceptionNo</fullName>
+        <categories>Chas - Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Comment Message to be included when it is Auto LIT Exception NOT found</shortDescription>
+        <value>Receiver, Lost, Refer to sender. Auto close = Yes</value>
+    </labels>	
 </CustomLabels>
