@@ -199,6 +199,66 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>ShareDirectAccountswithCCDirectUsers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Read</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Read</opportunityAccessLevel>
+        </accountSettings>
+        <description>Share Direct accounts with only Direct Sales team</description>
+        <label>Share Direct Accounts with CC Direct Users</label>
+        <sharedTo>
+            <group>All_Direct_Sales_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>SalesTeamType__c</field>
+            <operation>equals</operation>
+            <value>Direct</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ShareHoldingAccountswithAllCCUsers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Read</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Read</opportunityAccessLevel>
+        </accountSettings>
+        <description>Share Holding accounts with all CC Sales team</description>
+        <label>Share Holding Accounts with All CC Users</label>
+        <sharedTo>
+            <group>All_CC_Sales_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>SalesTeamType__c</field>
+            <operation>equals</operation>
+            <value>Holding</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ShareIntermediaryAccountsWithCCIntermediaryUsers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Read</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Read</opportunityAccessLevel>
+        </accountSettings>
+        <description>Share Intermediary accounts with only Intermediary Sales team</description>
+        <label>Share Intermediary Accounts with CC Intermediary Users</label>
+        <sharedTo>
+            <group>All_Intermediary_Sales_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>SalesTeamType__c</field>
+            <operation>equals</operation>
+            <value>Intermediary</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Share_Organisations_to_LBPs</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
