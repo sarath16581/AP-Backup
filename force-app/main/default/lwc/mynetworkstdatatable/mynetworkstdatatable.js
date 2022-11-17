@@ -1,6 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import CADatatableStyles from '@salesforce/resourceUrl/DataTableStyles';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const DELAY = 300;
 const SHOWIT = 'visibility:visible';
@@ -43,7 +44,7 @@ export default class Mynetworkstdatatable extends LightningElement {
     _records; //Clone of Original records
     tableData; //Records modified according to table data structure
     tableData2Display; //Table data structured records available to display
-    pageData; //Records displayed on a page
+    @track pageData; //Records displayed on a page
     pageSize = 5;
     totalPages;
     pageNumber = 1;
@@ -56,7 +57,9 @@ export default class Mynetworkstdatatable extends LightningElement {
     isConnected = false;
     _tableLayout = 'fixed';
     tableStyle = 'table-layout:'+this._tableLayout;
-    @track selectedArticle
+    showPopUp = false;
+    @track 
+    selectedArticle
     delayTimeout;
     initialLoad = true;
     stylesLoaded = false;
@@ -68,10 +71,14 @@ export default class Mynetworkstdatatable extends LightningElement {
     mousePosition;
     resizerStyle;
     recsEdited = new Map();
-    @track defaultoptionwithrowindex=new Map();
-    relatedoptionswithrowindex=new Map();
+    @track defaultoptionwithrowindex = new Map();
+    relatedoptionswithrowindex = new Map();
     SelectedRowIndex;
-
+    @track recstoSave = [];
+    @track recstoSaveMap = new Map();
+    @api existingCaseInv;
+    showToast = false;
+    @api criticalincidents = [];
     connectedCallback(){
         this.isConnected = true;
         this.setupTable();
@@ -161,6 +168,7 @@ col.style.minWidth = col.style.minWidth ? col.style.minWidth : '50px';
         let recs = [], i=0;
         this._records.forEach(value => {
             let row = {}, fields = [], j=0;
+            row.index = i++;
             this.columns.forEach(col => {
                 //set data values
                 let field = {};
@@ -177,8 +185,7 @@ col.style.minWidth = col.style.minWidth ? col.style.minWidth : '50px';
                 field.minFractionDigits = col.minFractionDigits;
                 field.maxFractionDigits = col.maxFractionDigits;
                 field.currencyCode = col.currencyCode;
-
-                field.iconName = col.iconName;
+                 field.iconName = col.iconName;
                 field.iconSize = 'xx-small';
                 field.actionName = col.actionName;
                 field.iconVariant = col.iconVariant;
@@ -186,11 +193,9 @@ col.style.minWidth = col.style.minWidth ? col.style.minWidth : '50px';
                 //network PillCode Start
                 if(col.type ==='pill'|| col.fieldName === 'EventDescription'|| col.fieldName=== 'ActualDateTime')
                 {
-                    let pillItems =[];
-                    let networkArray = [];
                     let EventdescName;
                     let EventLastActualDate;
-                    if(value!==undefined && value!==null)
+                    if(value!==undefined && value!==null && value.Event_Messages__r!==undefined &&value.Event_Messages__r!==null)
                     {
 
                         let eventmessage = value.Event_Messages__r;
@@ -198,42 +203,44 @@ col.style.minWidth = col.style.minWidth ? col.style.minWidth : '50px';
                         let defaultoption=[];
                         console.log("Value@@:",JSON.stringify(value));
                         console.log("eventmessage",JSON.stringify(eventmessage));
-                        if(eventmessage !==undefined && eventmessage!==null)
+                        // Get related network for each article and event message
+                        if(eventmessage !==undefined && eventmessage !== null)
                         {
                          for(let i=0;i<eventmessage.length;i++)
-                         {
-                        let obj= {value:eventmessage[i].Facility__r.id, label:eventmessage[i].Facility__r.Name};
+                            {
+                             if(eventmessage[i].Facility__c !==undefined &&  eventmessage[i].Facility__c !==null){
+                        let obj= {value: eventmessage[i].Facility__r.Id, label: eventmessage[i].Facility__r.Name};
                         console.log("Related Networks:",networkoptions);
                         networkoptions.push(obj);
-                        if(eventmessage[i].ActualDateTime__c!== undefined && eventmessage[i].ActualDateTime__c!==null)
+                        if(eventmessage[i].ActualDateTime__c !== undefined && eventmessage[i].ActualDateTime__c !==null)
                         {
-                          if(defaultoption.length===0)
+                          if(defaultoption.length === 0)
 
                           {
-                            defaultoption.push({value:eventmessage[i].Facility__r.id, label:eventmessage[i].Facility__r.Name});
+                            defaultoption.push({value:eventmessage[i].Facility__r.Id, label:eventmessage[i].Facility__r.Name});
                             EventdescName=eventmessage[i].EventDescription__c;
                             EventLastActualDate=eventmessage[i].ActualDateTime__c;
 
                           }
 
-                            }
-
-                          }
+                        }
 
                         }
 
+                           }
+                    }
                         field.networkPills=[...defaultoption];
                         this.defaultoptionwithrowindex.set(row.index,field.networkPills);
                         this.relatedoptionswithrowindex.set(row.index,networkoptions);
 
-                    }
+                }
                  if(col.fieldName==='EventDescription')
                  {field.value=EventdescName;}
 
                  if(col.fieldName==='ActualDateTime')
                  {field.value=EventLastActualDate;}
 
-                }
+            }
                 // network Pillcode End
                 field.readOnly = !col.editable;
                 field.tdClass = col.editable ? 'ca-cell-edit' : '';
@@ -241,13 +248,15 @@ col.style.minWidth = col.style.minWidth ? col.style.minWidth : '50px';
                 fields.push(field);
             });
             row.id = value.Id;
-            row.index = i++;
             row.rowNumber = i;
             row.isSelected = false;
             row.mode = 'view';
             row.fields = fields;
             recs.push(row);
         });
+        console.log("Row index and default option",this.defaultoptionwithrowindex);
+        console.log("Row index and Related options",this.relatedoptionswithrowindex);
+        console.log("Records created are:-----",recs);
         this.tableData = recs;
         this.tableData2Display = JSON.parse(JSON.stringify(recs));
         this.setupPages();
@@ -454,6 +463,87 @@ col.style.minWidth = col.style.minWidth ? col.style.minWidth : '50px';
     }
     //END: SORTING
 
+        //Pass Row Index and Selected Article Network data on view network pills
+        handleViewNetworksClick(event){
+            this.showPopUp = true;
+            let index = Number(event.target.id.split('-')[0]);
+            console.log("the value",index);
+            this.selectedArticle = {...this._records[index]};
+            this.selectedRowIndex = index;
+            
+        }
+            //Open/Close Modal
+            handlePopUpCloseEvent(event){
+                this.showPopUp= event.detail;
+            }
+            //Handle Network Selection Event from Modal on seleted network submission
+            handleNetworkSelection(event)
+            {
+                this.showPopUp = false;
+                let updatedNetworkdata = event.detail;
+                console.log('****updatedNetworkdata',updatedNetworkdata);  
+        
+            //Get RowData from Index passed from Network Selection Modal
+            if(updatedNetworkdata !== undefined && updatedNetworkdata !== null && updatedNetworkdata.rowIndex !== undefined && updatedNetworkdata.rowIndex !== null){
+                let rowData = this.pageData[event.detail.rowIndex];
+                if(rowData !== undefined && rowData !== null && rowData.fields !== undefined && rowData.fields != null && rowData.fields.length > 1 && updatedNetworkdata.selectedNetwork !== undefined){
+                    rowData.fields[1].networkPills = [...updatedNetworkdata.selectedNetwork];
+                    this.defaultoptionwithrowindex.set(updatedNetworkdata.rowIndex,JSON.parse(JSON.stringify(rowData.fields[1].networkPills)));
+                    console.log('****networkpills row data ',rowData.fields[1].networkPills);  
+                }
+                let recedited = {...this._records[event.detail.rowIndex]};
+                    let caseInvList = [];
+                    //Create Case Investigation Records to Save
+                    for(let j = 0; j < rowData.fields[1].networkPills.length; j++){
+                        let caseInv = {
+                            Article__c : recedited.Id,
+                            Network__c : rowData.fields[1].networkPills[j].value,
+                            Case__c : this.recordId,
+                            Comments__c : this.comments,
+                            Subject__c : this.subject,
+                            ArticleNetwork : ''+recedited.Id + rowData.fields[1].networkPills[j].value
+                        }
+                        caseInvList.push(caseInv);
+                    }
+                    //Set Case Investigation in Row Index Map
+                    if(caseInvList !== undefined && caseInvList !== null && caseInvList.length > 0) {
+                        this.recstoSaveMap.set(event.detail.rowIndex,caseInvList);
+                    }
+                    console.log('Record to Save Map',this.recstoSaveMap);
+        
+                    //Set Records to Save list from Map Values
+                    if(this.recstoSaveMap !== undefined && this.recstoSaveMap !== null && this.recstoSaveMap.size > 0){
+                        this.recstoSave = ([...this.recstoSaveMap.values()]).flat(1);
+                        
+                    }
+                    console.log('Record to Save ',this.recstoSave);     
+                }
+                
+                this.isEdited = true;
+            }
+            //Handle network Pill Remove Event
+            handlePillRemoved(event){
+                if(this.recstoSave !==undefined && this.recstoSave !==null && this.recstoSave.length > 0){
+                    let recedited = {...this._records[event.detail.indexToRemove]};
+                    console.log(JSON.stringify(recedited));
+                    if(recedited !== undefined && recedited !== null){
+                        let articleId = recedited.Id;
+                        let networkId = event.detail.networkToRemove;
+                        this.recstoSave = this.recstoSave.filter(obj => obj.ArticleNetwork !== articleId+networkId);
+                        console.log("Pill Removed",JSON.stringify(this.recstoSave));
+
+                        let arrayAfterPillRemove = this.recstoSaveMap.get(event.detail.indexToRemove);
+                        arrayAfterPillRemove = arrayAfterPillRemove.filter(obj => obj.ArticleNetwork !== articleId+networkId);
+                        this.recstoSaveMap.set(event.detail.indexToRemove, arrayAfterPillRemove);
+                        console.log('Map after Pill removed'+ this.recstoSaveMap);
+                    }
+                }
+
+            }
+     
+        
+           
+
     //START: SEARCH
     handleSearch(event){
         window.clearTimeout(this.delayTimeout);
@@ -511,84 +601,39 @@ col.style.minWidth = col.style.minWidth ? col.style.minWidth : '50px';
     }
     //END: COL RESIZING
 
-    //START: ROW ACTION
-    handleRowAction(event){
-        let rowIndex = event.detail.rowIndex;
-        let actionName = event.detail.actionName;
-        let obj ={row: this._records[rowIndex], action: {name: actionName}};
-        console.log('rowactionobj-------- ',obj);
-        this.dispatchEvent(new CustomEvent('rowaction', {detail: obj}));
-    }
-    //END: ROW ACTION
 
-  //START: CELL EDITING
-handleCellEdit(event){
 
-this.isEdited = true;
-let resp = event.detail;
-
-//1. build "maps"
-let lookupData = {};
-for (var i = 0, len = this.tableData.length; i < len; i++)
-{
-lookupData[this.tableData[i].id] = this.tableData[i];
-}
-let lookupDisplay = {};
-for (var i = 0, len = this.tableData2Display.length; i < len; i++)
-{
-lookupDisplay[this.tableData2Display[i].id] = this.tableData2Display[i];
-}
-
-this.tableData2Display[this.tableData2Display.indexOf(lookupDisplay[this.tableData[resp.rowIndex].id])].mode = ''+'edit';
-this.setupPages();
-}
-handleCellChange(event){
-let resp = event.detail;
-let rec = {...this._records[resp.rowIndex]};
-
-let lookupData = {};
-for (var i = 0, len = this.tableData.length; i < len; i++) {
-lookupData[this.tableData[i].id] = this.tableData[i];
-}
-let lookupDisplay = {};
-for (var i = 0, len = this.tableData2Display.length; i < len; i++) {
-lookupDisplay[this.tableData2Display[i].id] = this.tableData2Display[i];
-}
-
-let rowIndexAUX = this.tableData2Display.indexOf(lookupDisplay[this.tableData[resp.rowIndex].id]);
-
-if(resp.value !== this._records[resp.rowIndex][resp.name]){
-this.tableData2Display[rowIndexAUX].fields[resp.colIndex].tdClass = 'ca-cell-edit ca-cell-edited';//resp.rowIndex
-this.tableData2Display[rowIndexAUX].fields[resp.colIndex].value = resp.value;//resp.rowIndex
-rec[resp.name] = resp.value;
-}else{
-this.tableData2Display[rowIndexAUX].fields[resp.colIndex].tdClass = 'ca-cell-edit';//resp.rowIndex
-this.tableData2Display[rowIndexAUX].fields[resp.colIndex].value = resp.value;//resp.rowIndex
-}
-let changedFields = this.tableData2Display[rowIndexAUX].fields.filter(field=>field.tdClass.includes('ca-cell-edited'));//resp.rowIndex
-if(changedFields.length > 0){
-this.tableData2Display[rowIndexAUX].isSelected = true;//resp.rowIndex
-this.recsEdited.set(resp.rowIndex,rec);
-}else{
-this.tableData2Display[rowIndexAUX].isSelected = false;//resp.rowIndex
-if(this.recsEdited.has(resp.rowIndex))
-this.recsEdited.delete(resp.rowIndex);
-}
-
-this.setupPages();
-}
+  
     cancelChanges(){
         this.isEdited = false;
         this.tableData2Display = JSON.parse(JSON.stringify(this.tableData));
+        this.recstoSave = [];//Empty records to Save
+        this.recstoSaveMap = new Map(); //Empty records to Save Map
+        var obj = {
+            showerror: false,
+            message : ''
+        }
+        this.dispatchEvent(new CustomEvent('handletoast', {detail : obj}));
         this.setupPages();
     }
-   /* handleSave(){
-        let recs2Save = [];
-        for(let [key,value] of this.recsEdited){
-            if(this.selRowsMap.has(key))
-                recs2Save.push(value);
+   
+     //Save case Investigation Handler
+     handleSaveCaseInvestigation(){
+        console.log(JSON.stringify(this.recstoSave));
+        if(this.recstoSave !== undefined && this.recstoSave !== null && this.recstoSave.length > 0){
+            var obj = {
+                showerror: false,
+                message : ''
+            }
+            this.dispatchEvent(new CustomEvent('handletoast', {detail : obj}));
+            this.dispatchEvent(new CustomEvent('savecaseinv', {detail: this.recstoSave}));
+        }else{
+            var obj = {
+                showerror: true,
+                message : 'No Network Selected. Atleast one Network is required.'
+               }
+               
+               this.dispatchEvent(new CustomEvent('handletoast', {detail : obj}));
         }
-        this.dispatchEvent(new CustomEvent('save', {detail: recs2Save}));
-    }*/
-    //END: CELL EDITING
+    }
 }

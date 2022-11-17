@@ -7,7 +7,6 @@
 -->
 <template>
     <div if:true={showTable} class="slds-is-relative">
-       <!--<c-spinner if:true={isLoading} size="small" message={spinnerMsg} alternative-text="Loading"></c-spinner>--> 
         <lightning-layout if:true={showPagination} horizontal-align="spread" vertical-align="center" class="slds-border_top">
             <lightning-layout-item class="slds-p-vertical_xx-small">
                 <lightning-layout style={controlPagination} vertical-align="center">
@@ -158,15 +157,13 @@
                                         max-value={field.maxValue}
                                         min-fraction-digits={field.minFractionDigits} 
                                         max-fraction-digits={field.maxFractionDigits}
-                                        onedit={handleCellEdit} 
-                                        onvaluechange={handleCellChange} 
-                                        onaction={handleRowAction}
-                                        network-pills={field.networkPills}>
+                                        network-pills={field.networkPills}
+                                        onpillremoved={handlePillRemoved}>
                                     </c-mynetworkstformelement>
                                 </td>
                             </template>
                             <td >
-                                <lightning-button style="text-align:left;"  label="View Networks" icon-name="utility:search" id={row.index} title="Non-primary action" class="slds-m-left_x-small"></lightning-button>
+                                <lightning-button style="text-align:left;"  label="View Networks" icon-name="utility:search" id={row.index}  onclick={handleViewNetworksClick} title="Non-primary action" class="slds-m-left_x-small"></lightning-button>
                             </td>
                         </tr>
                     </template>
@@ -176,6 +173,17 @@
             <div if:false={totalRecords} class="slds-var-p-vertical_xx-small slds-var-p-left_small slds-border_bottom">
                 This Consignment didn't go through any AusPost Mynetwork.
             </div>
+            <div if:true={isEdited} class="slds-modal__footer">
+                <div class="slds-grid slds-grid_align-center">
+					<lightning-button label="Cancel" onclick={cancelChanges} class="slds-p-right_x-small"></lightning-button>
+                    <lightning-button label="Save" variant="brand" onclick={handleSaveCaseInvestigation}></lightning-button>
+
+                </div>
+            </div>
         </div>
     </div>
+    <template if:true={showPopUp}>
+        <c-mynetworkapmodalpopup criticalincidents={criticalincidents}  selectedarticle={selectedArticle} defaultoptionwithrowindex={defaultoptionwithrowindex} relatedoptionswithrowindex={relatedoptionswithrowindex} row-index={selectedRowIndex}  onpopupclose={handlePopUpCloseEvent} onnetworkselect={handleNetworkSelection} >
+            </c-mynetworkapmodalpopup>
+    </template>
 </template>

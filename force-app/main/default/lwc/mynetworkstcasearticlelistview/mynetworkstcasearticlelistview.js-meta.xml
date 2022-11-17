@@ -6,7 +6,9 @@
     <target>lightning__AppPage</target>
     <target>lightning__HomePage</target>
     <target>lightning__RecordPage</target>
+    <target>lightning__RecordAction</target>
 </targets>
+
 <description>A LWC Bundle</description>
 <masterLabel>mynetworkstcasearticlelistview</masterLabel>
 </LightningComponentBundle>

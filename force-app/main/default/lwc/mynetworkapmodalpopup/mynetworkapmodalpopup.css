@@ -1,0 +1,11 @@
+.my-brand {
+    --sds-c-button-brand-color-background: #16325c;
+}
+
+.network-element {
+    display: flex;
+}
+
+.network-accordion {
+    --slds-c-accordion-heading-text-color: white;
+}

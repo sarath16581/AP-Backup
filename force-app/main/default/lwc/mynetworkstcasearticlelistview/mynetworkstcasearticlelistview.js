@@ -1,17 +1,20 @@
 import { LightningElement, wire, track, api } from 'lwc';
-import getNetworks from '@salesforce/apex/MyNetworkSTCaseArticlesController.getNetworks';
 import getArticles from '@salesforce/apex/MyNetworkSTCaseArticlesController.getArticles';
-import updateRecords from '@salesforce/apex/MyNetworkSTCaseArticlesController.saveRecords';
+import createCaseInv from '@salesforce/apex/MyNetworkSTCaseArticlesController.createCaseInv';
 import getNetworksFromEventMessage from '@salesforce/apex/MyNetworkSTCaseArticlesController.getNetworksFromEventMessage';
+import fetchCriticalIncident from '@salesforce/apex/MyNetworkSTCaseArticlesController.fetchCriticalIncidents';
+
+
 
 
 
 const columns = [
     {label: 'Article Name', fieldName: 'Id', type: 'link', linkLabel: 'Name', 
      sortable: true},
-     {label: 'Last Event Description', fieldName: 'EventDescription', type: 'text', linkLabel: 'EventdescName',sortable: true},
-     {label: 'Last Scan Date', fieldName: 'ActualDateTime', type: 'date', linkLabel: 'EventLastActualDate',sortable: true},
-     {label: 'Last AP Network Scan', fieldName: 'Network__c', type: 'pill', linkLabel: 'ntwname',sortable: true}
+     {label: 'Last AP Network Scan', fieldName: 'Network__c', type: 'pill', linkLabel: 'ntwname',sortable: true},
+     {label: 'Last Event Description', fieldName: 'EventDescription', type: 'text', linkLabel: 'EventdescName'},
+     {label: 'Last Scan Date', fieldName: 'ActualDateTime', type: 'date', linkLabel: 'EventLastActualDate'}
+    
 ];
 const PAGESIZEOPTIONS = [10,20,40,60,80,100];
 
@@ -26,27 +29,29 @@ export default class Mynetworkstcasearticlelistview extends LightningElement {
     @api recordId;
     subject;
     comments;
-    @wire(getNetworks)
-    wntws({error,data}){
-        if(data){
-            let networks = [];
-             console.log('Network Data'+JSON.stringify(data));
-            for(let i=0; i<data.length; i++){
-                let obj = {value: data[i].Id, label: data[i].Name};
-                console.log('networks'+JSON.stringify(networks));
-                networks.push(obj);
-            }
-            this.columns[1].options = networks;
-            console.log('columns[1].options'+JSON.stringify(columns[1].options));
-        }else{
-            this.error = error;
-        }       
-    }
-
+    existingCaseInv;
+    showData = false;
+    showToast = false;
+    showSuccess = false;
+    showerror = false;
+    errorMessage; 
+    successMessage;
+    @track criticalIncidents = [];
+ 
     connectedCallback(){
         this.getArticles_();
     }
-
+      
+    @wire(fetchCriticalIncident)
+    fetchCI(result){
+        if(result.data){
+            debugger;
+            this.criticalIncidents = result.data;
+            console.log('ci==>',this.criticalIncidents);
+        }else{
+            this.error = result.error;
+        }       
+    }
     getArticles_(){
         this.showTable = false;
         this.loadMessage = 'Loading...';
@@ -57,38 +62,29 @@ export default class Mynetworkstcasearticlelistview extends LightningElement {
             if(this.showData === true){
         getArticles({caseId : this.recordId})
         .then(data=>{
-            console.log('Article Data'+JSON.stringify(data));
             this.arts = [];
             
             for(let i=0; i<data.length; i++){
-                console.log('loop Article Data'+JSON.stringify(data));
-                let obj = {...data[i]};
-              
-              obj.ntwname = data[i].Network__r.Name;
-             //obj.EventdescName = data[i].Event_Messages__r.EventDescription__c;
-            // obj.EventLastActualDate=data[i].Event_Messages__r.ActualDateTime__c;
-               //obj.ntwname = data[i].Network__c ? data[i].Network__r.Id : "";
-                 
+                let obj = {...data[i]};                 
                 this.arts.push(obj);
             }
             this.showTable = true;
-            console.log('showTable***'+JSON.stringify(showTable));
             this.isLoading = false;
         })
         .catch(error=>{
-            console.log('showTable***error'+JSON.stringify(error));
             this.error = JSON.stringify(error);
-            this.showTable = true;
+            this.showTable = false;
+            this.showData = false;
             this.isLoading = false;
         });       
     }else {
         this.isLoading = false;
         this.showTable = false;
+        this.showData = false;
     }    
 }).catch(error => {
-    console.log('showData***error'+JSON.stringify(error));
     this.error = JSON.stringify(error);
-    this.showData = false;
+    this.showData= false;
     this.isLoading = false;
 }) 
 }
@@ -97,18 +93,58 @@ export default class Mynetworkstcasearticlelistview extends LightningElement {
         console.log('Records selected***'+JSON.stringify(event.detail));
     }
 
-    saveRecords(event){
+
+    saveCaseInv(event){
         this.loadMessage = 'Saving...';
         this.isLoading = true;
         this.error = '';
-        updateRecords({recsString: JSON.stringify(event.detail)})
-        .then(response=>{
-            if(response==='success') this.getArticles_();
-        })
-        .catch(error=>{
-            console.log('recs save error***'+error);
-            this.error = JSON.stringify(error);
-            this.isLoading = false;
-        });
+        if(event.detail !== undefined && event.detail !== null && event.detail.length > 0){
+            createCaseInv({recsString: JSON.stringify(event.detail), recordId : this.recordId})
+            .then(response=>{
+                if(response==='success') {
+                    this.getArticles_();
+                    this.isLoading = false;
+                    this.successMessage = 'Case investigation saved successfully.';
+                    this.showSuccess = true;
+                    this.showToast = true;
+                    this.showerror = false;
+                    setTimeout(() => {
+                        eval("$A.get('e.force:refreshView').fire();");
+                   }, 1000);
+                } else if(response === 'error'){
+                    this.errorMessage = 'There is already existing case investigation for this article and this network, please check the related case investigation list for latest status.';
+                    this.showerror = true;
+                    this.showToast = true;
+                    this.showSuccess = false;
+                    this.isLoading = false; 
+                    }
+            })
+            .catch(error=>{
+                console.log('recs save error***'+error);
+                this.error = JSON.stringify(error);
+                this.isLoading = false;
+            });
+        }
     }
+    handleInputChange(event){
+        console.log(JSON.stringify(event.target.dataset), JSON.stringify(event.target.value));
+        if(event.target.dataset.id === 'subject'){
+            this.subject = event.target.value
+        }else if(event.target.dataset.id === 'comment'){
+            this.comments = event.target.value
+        }
+    }
+    handleClose(){
+        this.showToast = false;
+    }
+    handleToast(event){
+        if(event.detail !== undefined && event.detail !== null){
+            this.errorMessage = event.detail.message;
+             this.showerror = event.detail.showerror;
+            this.showToast = event.detail.showerror;
+            this.showSuccess = false; 
+        }
+       
+    }
+    
 }

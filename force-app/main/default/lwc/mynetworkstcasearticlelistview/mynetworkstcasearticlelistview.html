@@ -1,13 +1,62 @@
 <template>
-   <!-- <c-spinner if:true={isLoading} variant="brand" message={loadMessage}></c-spinner>-->
     <lightning-card title="AusPost MyNetwork"  class="slds-text-align_center">
         <div if:true={error} class="slds-var-p-around_small slds-text-color_error">{error}</div>
+        <div if:true = {showToast}>
+            <div if:true = {showerror}>
+                <div class="slds-notify_container slds-is-relative">
+                    <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                        <span class="slds-assistive-text">error</span>
+                        <lightning-icon icon-name="utility:error"
+                        alternative-text="error"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading_small ">{errorMessage}</h2>
+                        </div>
+                        <div class="slds-notify__close">
+                            <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close" onclick={handleClose}>
+                                <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div if:true={showSuccess}>
+                <div class="slds-notify_container slds-is-relative">
+                    <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
+                    <span class="slds-assistive-text">success</span>
+                    <lightning-icon icon-name="utility:success"
+                        alternative-text="success"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                    
+                    <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small ">{successMessage}</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close" onclick={handleClose}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+        <div if:true={showData}>
         <lightning-layout>
             <lightning-layout-item padding="around-small" size="6">
-                <lightning-input type="text" label="Subject" value={subject} data-id="subject" ></lightning-input>
+                <legend class="slds-form-element__legend slds-form-element__label">Subject</legend><lightning-input type="text" value={subject} data-id="subject" onchange={handleInputChange}></lightning-input>
             </lightning-layout-item>
             <lightning-layout-item padding="around-small" size="6">
-                <lightning-textarea name="comments" label="Comments" value={comments} data-id="comment" ></lightning-textarea>                
+                <legend class="slds-form-element__legend slds-form-element__label">Comments</legend><lightning-textarea name="comments"  value={comments} data-id="comment" onchange={handleInputChange}></lightning-textarea>                
             </lightning-layout-item>
         </lightning-layout>
         <c-mynetworkstdatatable if:true={showTable}
@@ -19,10 +68,25 @@
             place-holder="Search..." 
             page-size-options={pageSizeOptions} 
             onrowselection={handleRowSelection} 
+            record-id={recordId}
             comments={comments}
             subject={subject}
-            onsave={saveRecords}>
+            onsavecaseinv={saveCaseInv}
+            existing-case-inv={existingCaseInv}
+            onhandletoast={handleToast}
+            criticalincidents={criticalIncidents}>
         </c-mynetworkstdatatable>
-        
+   </div> 
+   <div if:false={showData}>
+    <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+        <lightning-icon icon-name="utility:error"
+           alternative-text="error"
+           variant="inverse"
+           size="small" ></lightning-icon>
+        <span class="slds-assistive-text">Error</span>
+        <h2>This Consignment didn't go through any AusPost Mynetwork.
+        </h2>
+    </div>
+</div>   
     </lightning-card>
 </template>

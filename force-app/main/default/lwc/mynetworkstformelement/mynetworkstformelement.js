@@ -17,15 +17,11 @@ export default class mynetworkstFormElement extends LightningElement {
     isConnected = false;
 
     isText;
-    isPicklist;
     isCheckbox;
     isLink;
-    isLookup;
     isDate;
     isDateTime;
     isNumber;
-    isCurrency;
-    isPercent;
     isLinkAction;
     isImageAction;
     isButtonIcon;
@@ -46,7 +42,6 @@ export default class mynetworkstFormElement extends LightningElement {
     @api actionName;
 
     @api numberFormat;
-    @api currencyCode;
     @api maxFractionDigits;
     @api minFractionDigits;
     @api minValue;
@@ -70,14 +65,10 @@ export default class mynetworkstFormElement extends LightningElement {
         value = value ? value : 'text';
         this._type = value;
         this.isText = value.toLowerCase() === 'text' || value.toLowerCase() === 'string';
-        this.isPicklist = value.toLowerCase() === 'picklist';
         this.isCheckbox = value.toLowerCase() === 'checkbox' || value.toLowerCase() === 'boolean';
-       // this.isLookup = value.toLowerCase() === 'lookup' || value.toLowerCase() === 'reference';
         this.isDate = value.toLowerCase() === 'date';
         this.isDateTime = value.toLowerCase() === 'date-time' || value.toLowerCase() === 'datetime';
         this.isNumber = value.toLowerCase() === 'number' || value.toLowerCase() === 'integer';
-        this.isCurrency = value.toLowerCase() === 'currency';
-        this.isPercent = value.toLowerCase() === 'percent';
         this.isLink = value.toLowerCase() === 'link';
         this.isLinkAction = value.toLowerCase() === 'link-action';
         this.isImageAction = value.toLowerCase() === 'image-action';
@@ -96,7 +87,7 @@ export default class mynetworkstFormElement extends LightningElement {
     }
     @api set value(value){
         this._value = value !== undefined ? value : '';
-if(this.isLookup && this.isConnected) this.populateLookupValue(this._value);
+//if(this.isLookup && this.isConnected) this.populateLookupValue(this._value);
 
 }
     get value(){
@@ -156,7 +147,6 @@ if(this.isLookup && this.isConnected) this.populateLookupValue(this._value);
         this.isConnected = true;
         this.href = this.isLink && this._value ? '/'+this._value : '';
         this.readOnly = this.isLink;
-        if(this.isLookup) this.populateLookupValue(this._value);
     }
 
     disconnectedCallback() {
@@ -219,4 +209,23 @@ if(this.isLookup && this.isConnected) this.populateLookupValue(this._value);
         let obj ={rowIndex: this.rowIndex, colIndex: this.colIndex, actionName: actionName};
         this.dispatchEvent(new CustomEvent('action', {detail: obj}));
     }
+
+     //Remove Network Pill Handler
+     handleItemRemove(event) {
+        console.log(event.detail.item.label);
+        const index = event.detail.index;
+        const networkPillList = [...this.networkPills];
+        if(this.networkPills !== undefined && this.networkPills !== null && Array.isArray(this.networkPills) && this.networkPills.length > 0){
+            networkPillList.splice(index,1);
+            this.networkPills = [...networkPillList]; 
+            let obj = {
+                networkToRemove: event.detail.item.value,
+                indexToRemove: this.rowIndex
+            }
+            this.dispatchEvent(new CustomEvent('pillremoved', {detail: obj}));    
+                
+        }
+        console.log(this.networkPills);
+        
+    }   
 }
