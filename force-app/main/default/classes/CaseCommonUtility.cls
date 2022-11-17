@@ -40,7 +40,9 @@
     2021-08-26          Steve Judd                                  Modified notificationAutomationModel for new Network fields for MW0004540
     2021-09-23          Steve Judd                                  Added method for autoCaseClosure and modified compareRec for MW00045402
     2021-09-26          Steve Judd                                  Moved method for autoCaseClosure to StarTrack_Constants to allow for reuse
-************************************************/
+	2022-11-17			Noel Lim									Added 2 routing logic relating to Closed Cases added in routeCase(), a) Reopened Cases in SSSW Closed Omni queue are to be routed b) Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
+
+    ************************************************/
 public with sharing class CaseCommonUtility{
 
     // Constants
@@ -803,7 +805,7 @@ public with sharing class CaseCommonUtility{
         try{
             List<Case> casesTobeRouted = new List<Case>();
             Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
-            Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();   // map of case id and case key without origin
+            Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();   // map of case id and case key without origin			
 
             // Gunith (19-03-19): For edited cases, we have to find which Cases whose AllocateToQueue__c were updated
             List<Case> casesNeedToRoute =
@@ -821,11 +823,15 @@ public with sharing class CaseCommonUtility{
                 return;
             }
 
+			Map<Id, Case> closedSSSWCasesInOmniQueue = getClosedSSSWCases(casesNeedToRoute, oldMap); //Cases that 
+			Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id; //TODO move to Custom Setting
+			Case oldCase;
+
             for(Case csRec : casesNeedToRoute){
                 // Check if it is SSSW record type or Social record type.
                 if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
                     System.debug(LoggingLevel.ERROR,'**Case is SSSW Record Type');
-                    Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;    // get old values of case
+                    oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;    // get old values of case
                     // verify if network or description is null & case is set for queue allocation
                     System.debug(LoggingLevel.ERROR,'**csRec.Network__c: ' + csRec.Network__c);
                     //System.debug(LoggingLevel.ERROR,'**oldCase.Network__c: ' + oldCase.Network__c);
@@ -833,12 +839,20 @@ public with sharing class CaseCommonUtility{
                     //System.debug(LoggingLevel.ERROR,'**oldCase.Description: ' + oldCase.Description);
                     System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
                     //System.debug(LoggingLevel.ERROR,'**oldCase.AllocateToQueue__c: ' + oldCase.AllocateToQueue__c);
-                    if( (csRec.Network__c == null
+					
+					                 
+					if (csRec.IsClosed == false && oldCase.IsClosed != csRec.IsClosed && csRec.OwnerId == omnichannelClosedCaseQueueId){ //Reopened Cases in SSSW Closed Omni queue are to be routed 
+						csRec.allocateToQueue__c = true;
+						casesTobeRouted.add(csRec);
+					} else if(closedSSSWCasesInOmniQueue.containsKey(csRec.Id)){
+						csRec.OwnerId = omnichannelClosedCaseQueueId; //Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
+					} else if( (csRec.Network__c == null
                         && (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
                         ||
                         (String.isBlank(csRec.Description) && (oldCase == null || (oldCase != null && (oldCase.Description != csRec.Description))))
                         ||
                         (csRec.AllocateToQueue__c && (oldCase == null || (oldCase != null && (oldCase.AllocateToQueue__c != csRec.AllocateToQueue__c))))
+
                         ){
                         System.debug(LoggingLevel.ERROR,'**Case meets evaluation to go to routing method');
                         
@@ -848,6 +862,7 @@ public with sharing class CaseCommonUtility{
                     }
                 }
             }
+
             if(!casesTobeRouted.isEmpty()){
                 System.debug('casesTobeRouted--->'+casesTobeRouted+'<--oldMap-->'+oldMap);
                 SSSW_Routing.assignCasesAndDescription(casesTobeRouted, oldMap, isInsert);
@@ -861,6 +876,45 @@ public with sharing class CaseCommonUtility{
                                                     SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
         }
     }
+
+	/**
+	 * Filter based on the following:
+	 * a) Case Status is closed
+	 * b) Case Status changed or Case Owner changed
+	 * c) Case is assigned to a queue with a routing configuration
+	 */
+	private Map<Id, Case> getClosedSSSWCases(List<Case> casesNeedToRoute, Map<Id,Case> oldMap){
+		Map<Id, Case> closedCases = new Map<Id, Case>();
+		Map<Id, Group> closedCaseQueues = new Map<Id, Group>();
+		Map<String, CaseStatus> caseStatusMap = Utility.getCaseStatus();
+		Case oldCase;		 
+
+		for(Case csRec : casesNeedToRoute){
+			oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;
+
+			if(csRec.OwnerId != null && csRec.OwnerId.getSobjectType() == Group.sObjectType && caseStatusMap.get(csRec.Status).IsClosed && Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId) &&
+					(oldCase == null || (oldCase != null && 
+						((oldCase.Status != csRec.Status) ||
+						(oldCase.OwnerId != csRec.OwnerId))
+				))
+			){
+				closedCases.put(csRec.id, csRec);
+				closedCaseQueues.put(csRec.OwnerId, null);
+			}	
+		}
+
+		if(closedCaseQueues.isEmpty() == false) {
+			closedCaseQueues = GroupsSelector.newInstance().selectById(closedCaseQueues.keySet()); //TODO check other option GroupsSelector.selectOmniQueues()
+			
+			for(Case c: closedCases.values()) {
+				if(closedCaseQueues.get(c.OwnerId).QueueRoutingConfigId == null) { // only interested in Omni queues
+					closedCases.remove(c.Id);
+				}
+			}
+		}
+
+		return closedCases;
+	}
 
     /**
       * @description       This method sets key value pair of case & routing key

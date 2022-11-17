@@ -114,7 +114,7 @@ public with sharing class SSSWConstants {
     public static final String METH_CHECK_NPS_SOCIAL = 'checkOriginChangeForNPS'; 
     public static final String METH_ROUTE_CASE = 'routeCase'; 
     public static final String METH_PARENT_ROUTING = 'updateParentForRouting';
-    public static final String METH_UPDATE_MANAGER_HIERARCHY = 'updateHierarchyManager';
+    public static final String METH_UPDATE_MANAGER_HIERARCHY = 'updateHierarchyManager';	
    
     /*** CaseMilestoneUtility Constants  ***/
     public static final Decimal DEF_MILESTONE_WARNING_PERCENT = 0.2;
@@ -152,6 +152,7 @@ public with sharing class SSSWConstants {
     public static final String METH_GETGROUPS = 'getGroups';
     public static final String METH_GETGROUP_DETAILS = 'getGroupDetails';
     public static final String METH_GETUSERS = 'getUsers';    
+	public static final String METH_GETCASESTATUS = 'getCaseStatus';
     public static final String METH_GET_STD_ENTITLEMENT = 'getStandardEntitlement';    
     public static final String PERCENT = '%';
     public static final String ENTITLEMENT_ACC = 'SSSW Entitlements';
