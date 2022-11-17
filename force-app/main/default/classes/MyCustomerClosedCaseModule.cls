@@ -14,7 +14,7 @@
  * 2022-10-17 - Noel Lim - Created
  * 2022-11-16 - Noel Lim - Update
  						a) Added inner class WithoutSharingRetrieveData to allow guest users to access the AgentWork object
- * 						b) New logic to trigger a re-route for cases being reopened and are in the SSSW_Closed_Omnichannel_Cases queue
+ * 						b) New logic to route cases that are reopened and are in the SSSW_Closed_Omnichannel_Cases queue
  */
 public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDomain.Module {
 
@@ -24,12 +24,21 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 
 	// Setup which triggers this module should respond to
 	public MyCustomerClosedCaseModule() {
-		getTriggerEvents().enableAfterInsert().enableAfterUpdate();
+		getTriggerEvents().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
+	}
+
+	public override void onBeforeUpdate(List<SObject> records, ApplicationUnitOfWork uow) {
+		try {
+			routeReopenedCases(filterToReopenedCases(records, existingRecords), uow);
+		} catch(Exception ex) {
+			// Error Logged to Exception object for analysis
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'ClosedCase', MyCustomerClosedCaseModule.class.getName(), 'onAfterInsert', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+		}		
 	}
 	
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			processClosedCases(records, null, uow);
+			reassignClosedCases(filterToClosedCases(records, null), uow);
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'ClosedCase', MyCustomerClosedCaseModule.class.getName(), 'onAfterInsert', 'Case', ApplicationLogger.LoggingLevel.ERROR);
@@ -38,7 +47,7 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			processClosedCases(records, existingRecords, uow);
+			reassignClosedCases(filterToClosedCases(records, existingRecords), uow);
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'ClosedCase', MyCustomerClosedCaseModule.class.getName(), 'onAfterUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
@@ -47,20 +56,17 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 
 	/**
 	 * Filter based on the following:
-	 * a) Closed Cases via IsClosed field
+	 * a) Closed Cases, via IsClosed field
 	 * b) Case Status changed or Case Owner changed
 	 * c) Case is assigned to a queue with a routing configuration
 	 */
-	private void processClosedCases(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+	private Map<Id,Case> filterToClosedCases(List<SObject> records, Map<Id, SObject> existingRecords) {
+
 		Map<Id, Case> closedCases = new Map<Id, Case>();
 		Map<Id, Group> queues = new Map<Id, Group>();
 		Case existingCase;
 
-		
-		system.debug('existingRecords init: '+existingRecords);
-
 		for(Case c: (List<Case>)records) {
-			system.debug('Case: '+ c);
 			if(existingRecords != null){
 				existingCase = (Case)existingRecords.get(c.Id);
 			}
@@ -76,25 +82,24 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 			}
 		}	
 
-		system.debug('closedCases filter: '+closedCases);	
-
 		if(queues.isEmpty() == false) {
 			queues = GroupsSelector.newInstance().selectById(queues.keySet());
 			
 			for(Case c: closedCases.values()) {
 				if(queues.get(c.OwnerId).QueueRoutingConfigId == null) { // only interested in Omni queues
 					closedCases.remove(c.Id);
-					system.debug('case subject'+c.Subject);
 				}
-			}
-			reassignToPreviousAgentIfApplicable(closedCases, uow);
+			}	
 		}
+
+		return closedCases;
 	}
 
 	/**
-	 * Attempt to assign the Case to the previous Agent, otherwise assign to a default Queue
+	 * Assign the Case to the previous Agent, otherwise assign to the Closed Omnichannel Queue
 	 */
 	private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases, ApplicationUnitOfWork uow) {		
+
 		if(closedCases.isEmpty() == false) {
 			Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
 			Map<Id, Id> caseIdVsAgentId = new Map<Id, Id>();
@@ -119,6 +124,45 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 			}
 
 			uow.registerDirty(casesToUpdate, new List<SObjectField> {Case.OwnerId}, String.valueOf(MyCustomerClosedCaseModule.Class));
+		}
+	}
+
+	/**
+	 * Filter based on the following:
+	 * a) Reopened Cases, via IsClosed field
+	 * b) Case is assigned to the Closed Queue
+	 */
+	private Map<Id,Case> filterToReopenedCases(List<SObject> records, Map<Id, SObject> existingRecords) {
+
+		Map<Id, Case> reopenedCases = new Map<Id, Case>();
+		Case existingCase;
+
+		if(existingRecords != null){
+			Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
+
+			for(Case c: (List<Case>)records.values()) {
+				existingCase = (Case)existingRecords.get(c.Id);
+
+				if(c.IsClosed == false && existingCase.IsClosed != c.IsClosed && c.OwnerId == omnichannelClosedCaseQueueId){
+					reopenedCases.put(c.id, c);
+				}
+			}
+		}	
+
+		return reopenedCases;
+	}
+
+
+
+	/**
+	 * Set the Case to be routed in CaseTriggerHandler.cls
+	 */
+	private void routeReopenedCases(Map<Id, Case> reopenedCases, ApplicationUnitOfWork uow) {	
+
+		if(reopenedCases.isEmpty() == false) {
+			for(Case c: (List<Case>)reopenedCases.values()) {
+				c.AllocateToQueue__c = true;
+			}
 		}
 	}
 
