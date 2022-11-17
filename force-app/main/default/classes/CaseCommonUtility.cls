@@ -805,7 +805,7 @@ public with sharing class CaseCommonUtility{
         try{
             List<Case> casesTobeRouted = new List<Case>();
             Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
-            Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();   // map of case id and case key without origin			
+            Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();   // map of case id and case key without origin
 
             // Gunith (19-03-19): For edited cases, we have to find which Cases whose AllocateToQueue__c were updated
             List<Case> casesNeedToRoute =

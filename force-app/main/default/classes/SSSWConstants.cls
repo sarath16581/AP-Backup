@@ -114,7 +114,7 @@ public with sharing class SSSWConstants {
     public static final String METH_CHECK_NPS_SOCIAL = 'checkOriginChangeForNPS'; 
     public static final String METH_ROUTE_CASE = 'routeCase'; 
     public static final String METH_PARENT_ROUTING = 'updateParentForRouting';
-    public static final String METH_UPDATE_MANAGER_HIERARCHY = 'updateHierarchyManager';	
+    public static final String METH_UPDATE_MANAGER_HIERARCHY = 'updateHierarchyManager';
    
     /*** CaseMilestoneUtility Constants  ***/
     public static final Decimal DEF_MILESTONE_WARNING_PERCENT = 0.2;
