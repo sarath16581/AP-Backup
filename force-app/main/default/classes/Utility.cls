@@ -406,39 +406,6 @@ public without sharing class Utility{
         return groupId;
     }
 
-	/**
-      * @description       This method returns a group of CaseStatus where the key is the Picklist Api Name
-      * @return            Map<String,CaseStatus>
-      * @throws            NA
-      */
-	  public static Map<String,CaseStatus> getCaseStatus(){		
-        
-		Map<String,CaseStatus> caseStatusMap;
-        try{
-            // check session cache
-            caseStatusMap = (Map<String,CaseStatus>)CacheManager.get('UTILITY_CASE_STATUS');
-            if(caseStatusMap != null) {
-                return caseStatusMap;
-            }
-
-            Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());    // get dynamic query row limit
-			List<CaseStatus> listCaseStatus = new List<CaseStatus>([SELECT Id, MasterLabel, ApiName, IsClosed, IsDefault FROM CaseStatus LIMIT : rowLimit]);
-			caseStatusMap = new Map<String,CaseStatus>();
-			for(CaseStatus caseStatus : listCaseStatus){
-				caseStatusMap.put(caseStatus.ApiName, caseStatus);
-			}
-
-            CacheManager.put('UTILITY_CASE_STATUS', caseStatusMap);
-        }
-        catch(Exception exp){
-            // Error Logged to Exception object for analysis
-            UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP,
-                    Utility.class.getName(), SSSWConstants.METH_GETCASESTATUS,
-                    SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-        }
-        return caseStatusMap;
-    }
-
     /**
       * @description       This method completes milestone for the cases of the milestoneType provided
       * @param             caseNumber - String, milestoneTypes - Set<String>, Boolean completeVioltedMilestone

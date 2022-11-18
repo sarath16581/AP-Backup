@@ -841,11 +841,15 @@ public with sharing class CaseCommonUtility{
                     //System.debug(LoggingLevel.ERROR,'**oldCase.AllocateToQueue__c: ' + oldCase.AllocateToQueue__c);
 					
 					                 
-					if (csRec.IsClosed == false && oldCase.IsClosed != csRec.IsClosed && csRec.OwnerId == omnichannelClosedCaseQueueId){ //Reopened Cases in SSSW Closed Omni queue are to be routed 
+					if (Application.Cache.caseStatuses.get(csRec.Status).IsClosed == false && 
+						Application.Cache.caseStatuses.get(oldCase.Status).IsClosed != Application.Cache.caseStatuses.get(csRec.Status).IsClosed && 
+						csRec.OwnerId == omnichannelClosedCaseQueueId){ //Reopened Cases in SSSW Closed Omni queue are to be routed 
 						csRec.allocateToQueue__c = true;
 						casesTobeRouted.add(csRec);
+						System.debug('******* CASE REOPENED *******');
 					} else if(closedSSSWCasesInOmniQueue.containsKey(csRec.Id)){
 						csRec.OwnerId = omnichannelClosedCaseQueueId; //Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
+						System.debug('******* CASE TO CLOSED QUEUE *******');
 					} else if( (csRec.Network__c == null
                         && (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
                         ||
@@ -886,13 +890,13 @@ public with sharing class CaseCommonUtility{
 	private Map<Id, Case> getClosedSSSWCases(List<Case> casesNeedToRoute, Map<Id,Case> oldMap){
 		Map<Id, Case> closedCases = new Map<Id, Case>();
 		Map<Id, Group> closedCaseQueues = new Map<Id, Group>();
-		Map<String, CaseStatus> caseStatusMap = Utility.getCaseStatus();
+		Map<String, CaseStatus> caseStatusMap =Application.Cache.caseStatuses;
 		Case oldCase;		 
-
+		
 		for(Case csRec : casesNeedToRoute){
 			oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;
 
-			if(csRec.OwnerId != null && csRec.OwnerId.getSobjectType() == Group.sObjectType && caseStatusMap.get(csRec.Status).IsClosed && Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId) &&
+			if(csRec.OwnerId != null && csRec.OwnerId.getSobjectType() == Group.sObjectType && Application.Cache.caseStatuses.get(csRec.Status).IsClosed && Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId) &&
 					(oldCase == null || (oldCase != null && 
 						((oldCase.Status != csRec.Status) ||
 						(oldCase.OwnerId != csRec.OwnerId))
@@ -902,9 +906,11 @@ public with sharing class CaseCommonUtility{
 				closedCaseQueues.put(csRec.OwnerId, null);
 			}	
 		}
+		System.debug('******* closedCases before Queue check *******' + closedCases);
 
 		if(closedCaseQueues.isEmpty() == false) {
 			closedCaseQueues = GroupsSelector.newInstance().selectById(closedCaseQueues.keySet()); //TODO check other option GroupsSelector.selectOmniQueues()
+			System.debug('******* closedCaseQueues *******' + closedCaseQueues);
 			
 			for(Case c: closedCases.values()) {
 				if(closedCaseQueues.get(c.OwnerId).QueueRoutingConfigId == null) { // only interested in Omni queues
@@ -913,6 +919,7 @@ public with sharing class CaseCommonUtility{
 			}
 		}
 
+		System.debug('******* closedCases before Return *******' + closedCases);
 		return closedCases;
 	}
 

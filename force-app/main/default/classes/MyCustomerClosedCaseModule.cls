@@ -27,7 +27,7 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 		getTriggerEvents().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
 	}
 
-	public override void onBeforeUpdate(List<SObject> records, ApplicationUnitOfWork uow) {
+	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
 			routeReopenedCases(filterToReopenedCases(records, existingRecords), uow);
 		} catch(Exception ex) {
@@ -98,7 +98,7 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 	/**
 	 * Assign the Case to the previous Agent, otherwise assign to the Closed Omnichannel Queue
 	 */
-	private void reassignToPreviousAgentIfApplicable(Map<Id, Case> closedCases, ApplicationUnitOfWork uow) {		
+	private void reassignClosedCases(Map<Id, Case> closedCases, ApplicationUnitOfWork uow) {		
 
 		if(closedCases.isEmpty() == false) {
 			Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;

@@ -74,6 +74,26 @@ public with sharing class Application {
 			}
 			private set;
 		}
+
+		public Map<String, CaseStatus> caseStatuses {
+			get {
+				if(caseStatuses == null) {
+					caseStatuses = (Map<String, CaseStatus>)CacheManager.get('UTILITY_CASE_STATUS');
+					if(caseStatuses == null) {
+
+						caseStatuses = new Map<String, CaseStatus>();						
+						List<CaseStatus> listCaseStatus = new List<CaseStatus>([SELECT Id, MasterLabel, ApiName, IsClosed, IsDefault FROM CaseStatus]);
+
+						for(CaseStatus caseStatus : listCaseStatus){
+							caseStatuses.put(caseStatus.ApiName, caseStatus);
+						}
+						CacheManager.put('UTILITY_CASE_STATUS', caseStatuses);
+					}
+				}
+				return caseStatuses;
+			}
+			private set;
+		}		
 	}
 
 	public class OrganizationWrapper {
