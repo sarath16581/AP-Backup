@@ -249,7 +249,7 @@
         <accessLevel>Read</accessLevel>
         <label>Ex-Gratia Credit Dispute</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+            <group>All_Sales_Team_Ex_CC</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
