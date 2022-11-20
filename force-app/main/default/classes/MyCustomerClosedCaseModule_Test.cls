@@ -252,8 +252,6 @@ private class MyCustomerClosedCaseModule_Test {
 		//User (Community User)
 
 		Profile profile = [Select Id from Profile where name='Consumer Help and Support Profile' LIMIT 1];
-        //List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
-        //List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].id, true);
 		User communityUser = ApplicationTestDataFactory.getUsers(1, profile.id, false)[0];
 		insert communityUser;
 		
