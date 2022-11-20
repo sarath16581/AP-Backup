@@ -140,7 +140,7 @@ public inherited sharing class MyCustomerClosedCaseModule extends ApplicationDom
 		if(existingRecords != null){
 			Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
 
-			for(Case c: (List<Case>)records.values()) {
+			for(Case c: (List<Case>)records) {
 				existingCase = (Case)existingRecords.get(c.Id);
 
 				if(c.IsClosed == false && existingCase.IsClosed != c.IsClosed && c.OwnerId == omnichannelClosedCaseQueueId){

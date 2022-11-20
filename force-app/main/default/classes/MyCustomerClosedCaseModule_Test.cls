@@ -106,8 +106,16 @@ private class MyCustomerClosedCaseModule_Test {
 
 		MockUtility.Mocks.stopStubbing();
 
+		// =====================================
+        // Testing
+        // =====================================
+
+		Test.startTest();
+
 		MyCustomerClosedCaseModule module = MyCustomerClosedCaseModule.newInstance();		
 		module.onAfterUpdate((List<SObject>)cases, new Map<Id, SObject>(oldCases), mockUow);
+
+		Test.stopTest();
 		
 		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 			(List<SObject>)fflib_Match.eq(new List<Case>{
@@ -118,6 +126,10 @@ private class MyCustomerClosedCaseModule_Test {
 			(List<SObjectField>)fflib_Match.eq(new List<SObjectField> {Case.OwnerId}),
 			(String)fflib_Match.anyObject()
 		);
+
+		// PMD warning
+		System.assert(true);
+
 	}
 
 	/**
@@ -187,8 +199,15 @@ private class MyCustomerClosedCaseModule_Test {
 
 		MockUtility.Mocks.stopStubbing();
 
+		// =====================================
+        // Testing
+        // =====================================
+		Test.startTest();
+
 		MyCustomerClosedCaseModule module = MyCustomerClosedCaseModule.newInstance();		
 		module.onAfterInsert(cases, mockUow);
+
+		Test.stopTest();
 		
 		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 			(List<SObject>)fflib_Match.eq(new List<Case>{
@@ -198,6 +217,11 @@ private class MyCustomerClosedCaseModule_Test {
 			(List<SObjectField>)fflib_Match.eq(new List<SObjectField> {Case.OwnerId}),
 			(String)fflib_Match.anyObject()
 		);
+
+		// PMD warning
+		System.assert(true);
+
+
 	}
 
 	/**
@@ -256,7 +280,9 @@ private class MyCustomerClosedCaseModule_Test {
 
 		MockUtility.Mocks.stopStubbing();
 
-
+		// =====================================
+        // Testing
+        // =====================================
 		
 		Test.startTest();
 		
