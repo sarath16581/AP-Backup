@@ -823,8 +823,10 @@ public with sharing class CaseCommonUtility{
                 return;
             }
 
-			Map<Id, Case> closedSSSWCasesInOmniQueue = getClosedSSSWCases(casesNeedToRoute, oldMap); //Cases that 
-			Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id; //TODO move to Custom Setting
+			//Map<Id, Case> closedUpdatedCasesInOmniQueue = filterExistingClosedSSSWCases(casesNeedToRoute, oldMap); //Closed Cases in a Queue with Routing configuration
+			String closedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
+			Map<Id, Group> omniQueues = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>()); 
+
 			Case oldCase;
 
             for(Case csRec : casesNeedToRoute){
@@ -839,17 +841,12 @@ public with sharing class CaseCommonUtility{
                     //System.debug(LoggingLevel.ERROR,'**oldCase.Description: ' + oldCase.Description);
                     System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
                     //System.debug(LoggingLevel.ERROR,'**oldCase.AllocateToQueue__c: ' + oldCase.AllocateToQueue__c);
-					
-					                 
-					if (Application.Cache.caseStatuses.get(csRec.Status).IsClosed == false && 
-						Application.Cache.caseStatuses.get(oldCase.Status).IsClosed != Application.Cache.caseStatuses.get(csRec.Status).IsClosed && 
-						csRec.OwnerId == omnichannelClosedCaseQueueId){ //Reopened Cases in SSSW Closed Omni queue are to be routed 
-						csRec.allocateToQueue__c = true;
-						casesTobeRouted.add(csRec);
-						System.debug('******* CASE REOPENED *******');
-					} else if(closedSSSWCasesInOmniQueue.containsKey(csRec.Id)){
-						csRec.OwnerId = omnichannelClosedCaseQueueId; //Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
-						System.debug('******* CASE TO CLOSED QUEUE *******');
+
+					if(isCaseBeingClosed(csRec, oldCase) && omniQueues.containsKey(csRec.OwnerId)){	
+							if (String.isEmpty(closedCaseQueueId) == false) {					
+								csRec.OwnerId = closedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
+								csRec.AllocateToQueue__c = false;
+							}
 					} else if( (csRec.Network__c == null
                         && (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
                         ||
@@ -885,42 +882,18 @@ public with sharing class CaseCommonUtility{
 	 * Filter based on the following:
 	 * a) Case Status is closed
 	 * b) Case Status changed or Case Owner changed
-	 * c) Case is assigned to a queue with a routing configuration
 	 */
-	private Map<Id, Case> getClosedSSSWCases(List<Case> casesNeedToRoute, Map<Id,Case> oldMap){
-		Map<Id, Case> closedCases = new Map<Id, Case>();
-		Map<Id, Group> closedCaseQueues = new Map<Id, Group>();
-		Map<String, CaseStatus> caseStatusMap =Application.Cache.caseStatuses;
-		Case oldCase;		 
+	private Boolean isCaseBeingClosed(Case csRec, Case oldCase){
+		Map<String, CaseStatus> caseStatusMap = Application.Cache.caseStatuses;
+		Boolean isClosed = false;
 		
-		for(Case csRec : casesNeedToRoute){
-			oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;
-
-			if(csRec.OwnerId != null && csRec.OwnerId.getSobjectType() == Group.sObjectType && Application.Cache.caseStatuses.get(csRec.Status).IsClosed && Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId) &&
-					(oldCase == null || (oldCase != null && 
-						((oldCase.Status != csRec.Status) ||
-						(oldCase.OwnerId != csRec.OwnerId))
-				))
-			){
-				closedCases.put(csRec.id, csRec);
-				closedCaseQueues.put(csRec.OwnerId, null);
-			}	
-		}
-		System.debug('******* closedCases before Queue check *******' + closedCases);
-
-		if(closedCaseQueues.isEmpty() == false) {
-			closedCaseQueues = GroupsSelector.newInstance().selectById(closedCaseQueues.keySet()); //TODO check other option GroupsSelector.selectOmniQueues()
-			System.debug('******* closedCaseQueues *******' + closedCaseQueues);
-			
-			for(Case c: closedCases.values()) {
-				if(closedCaseQueues.get(c.OwnerId).QueueRoutingConfigId == null) { // only interested in Omni queues
-					closedCases.remove(c.Id);
-				}
-			}
+		if(Application.Cache.caseStatuses.get(csRec.Status).IsClosed 
+			&& (oldCase == null || (oldCase != null && ((oldCase.Status != csRec.Status) ||	(oldCase.OwnerId != csRec.OwnerId))))
+		){
+			isClosed = true;
 		}
 
-		System.debug('******* closedCases before Return *******' + closedCases);
-		return closedCases;
+		return isClosed;
 	}
 
     /**
@@ -1256,15 +1229,25 @@ public with sharing class CaseCommonUtility{
                                     'IsHLC__c', 'IsCR__c'
                                 });
 
+		String closedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
+
         for (Case newCase : casesNeedToRoute){
 
             Case oldCase = oldMap != null ? oldMap.get(newCase.Id) : null;    // get old values of case
+			Boolean newCaseIsClosed = Application.Cache.caseStatuses.get(newCase.Status).IsClosed;
+			Boolean oldCaseIsClosed = Application.Cache.caseStatuses.get(oldCase.Status).IsClosed;
 
-            if (isStatusChangedToNew(oldCase, newCase)
+            if (
+				(oldCase != null 
+					&& isStatusChangedToNew(oldCase, newCase)
                     && !newCase.AllocateToQueue__c
-                    && (isCategoriesAndTypesPopulated(newCase) ||
-                                (isNotHlcAndCr(newCase) && Utility.isValidRecordType(socialAndSsswRecordTypeIds, newCase.RecordTypeId))
-                       )
+                    && ((isCategoriesAndTypesPopulated(newCase) || 
+                                (isNotHlcAndCr(newCase) && Utility.isValidRecordType(socialAndSsswRecordTypeIds, newCase.RecordTypeId))))
+				) || 
+				(oldCase != null && newCaseIsClosed != null && oldCaseIsClosed != null
+					&& newCaseIsClosed == false 
+					&& oldCaseIsClosed != newCaseIsClosed 
+					&& String.isEmpty(closedCaseQueueId) == false && newCase.OwnerId == closedCaseQueueId)
                ){
 
                 newCase.AllocateToQueue__c = true; // Flag to re-route cases again

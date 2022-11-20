@@ -12,6 +12,7 @@ History:
 2019-05-08    seth.p.heang@accenture.com            Adding test class to assert 'CAR' Case requestor field is populated with current user if left empty upon case creation
 2020-11-17 - Ranjeewa Silva - Added test casses to verify Social Case routing behaviour
 2022-04-22   SaiSwetha Pingali - Removed test methods for snapIt cases as it is no longer required.
+2022-11-18	 Noel Lim - added test methods routeReopenedCases() and closedCasesToClosedQueue() 
 
 **************************************************/
 @isTest
@@ -1185,7 +1186,7 @@ private with sharing class CaseCommonUtility_Test {
         Map<Id,Case> casesAfterTrigger = new Map<Id, Case>();
 
         // Refers to a Case which hasn't gone through any changes => shouldn't route
-        Case unchanged = new Case(Id = makeFakeId(Case.SObjectType, idSeed++));
+        Case unchanged = new Case(Id = makeFakeId(Case.SObjectType, idSeed++), Status = 'New');
         casesAfterTrigger.put(unchanged.Id, unchanged);
         casesBeforeTrigger.add(unchanged);
 
@@ -1310,4 +1311,200 @@ private with sharing class CaseCommonUtility_Test {
             
         }
     }
+
+	 /**
+	 * Test logic in markRenewedCasesToRoute() that sets reopened Cases for routing
+	 *
+	 * Covers the following positive test scenarios:
+	 * a) Closed Case in the Closed Omni Queue is changing to a Status where IsClosed = false
+	 * 
+	 * Covers the following negative testing scenarios:
+	 * a) Closed Case in the Closed Omni Queue is changing to a Status where IsClosed = true
+	 * 
+	 */
+	@isTest
+    static void routeReopenedCases(){
+
+		QM__c custSetting = QM__c.getOrgDefaults();
+		QueueSobject closedOmniqueue = [SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Closed_Omnichannel_Cases' AND SobjectType = 'Case' LIMIT 1];
+		custSetting.ClosedQueueId__c = closedOmniqueue.QueueId;
+		Insert custSetting;
+
+		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(1, 'Queue', true));	
+		Group nonOmniQueue = queues.values()[0];
+
+		Map<String,CaseStatus> caseStatusMap = Application.Cache.caseStatuses;
+		String closedStatus1;
+		String closedStatus2;
+		String nonClosedStatus;
+		for(CaseStatus cStatus: caseStatusMap.values()){
+			if(closedStatus1 == null && cStatus.IsClosed == true){
+				closedStatus1 = cStatus.ApiName;
+			} else if(closedStatus2 == null && cStatus.IsClosed == true){
+				closedStatus2 = cStatus.ApiName;
+			} else if(nonClosedStatus == null && cStatus.IsClosed == false){
+				nonClosedStatus = cStatus.ApiName;
+			}
+		}
+
+		
+		//Cases
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+		
+		cases[0].OwnerId = closedOmniqueue.QueueId; //Case reopened and in Closed Omni queue
+		cases[0].Status = nonClosedStatus;
+
+		cases[1].OwnerId = closedOmniqueue.QueueId; //Case changing from a Closed Status to another Closed Status
+		cases[1].Status = closedStatus1;
+
+
+		//Clone to simulate existing Case records to test Case Update 
+        List<Case> oldCases = new List<Case>{
+            cases[0].clone(true),
+            cases[1].clone(true)
+        };
+		oldCases[0].Status = closedStatus2;
+		oldCases[1].Status = closedStatus2;
+		
+		// =====================================
+        // Testing
+        // =====================================
+
+		Test.startTest();
+		
+		CaseCommonUtility.markRenewedCasesToRoute(cases, new Map<Id,Case>(oldCases));
+
+		Test.stopTest();
+		
+		System.assertEquals(true, cases[0].AllocateToQueue__c, 'Closed Case changing to a non-closed Status based => should route');
+        System.assertEquals(false, cases[1].AllocateToQueue__c, 'Closed Case changing to another closed Status => should not route');
+		
+	}
+
+	/**
+	 * Test logic in routeCase() that moves closed Cases to the Closed Omni queue
+	 * 
+	 * Covers the following positive test scenarios:
+	 * a) Closed Case status changed from Open => Close
+	 * b) Closed Case Owner changed 
+	 * c) Closed Case is inserted
+	 * 
+	 * Covers the following test scenarios (negative testing):
+	 * a) Closed Case in a Queue without Routing config
+	 * b) Case not in a Closed Status
+	 * c) Case with no change in Status
+	 * 
+	 */
+	@IsTest
+	static void closedCasesToClosedQueue(){
+
+		//Queues
+		QM__c custSetting = QM__c.getOrgDefaults();
+		QueueSobject closedOmniqueue = [SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Closed_Omnichannel_Cases' AND SobjectType = 'Case' LIMIT 1];
+		custSetting.ClosedQueueId__c = closedOmniqueue.QueueId;
+		Insert custSetting;
+		Id closedCaseQueueId = closedOmniqueue.QueueId;
+
+		QueueRoutingConfig qrc = new QueueRoutingConfig();
+		ApplicationTestDataFactory.generateRecordIds(new List<SObject>{qrc});
+		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(2, 'Queue', true));	
+		Group omniQueue = queues.values()[0];
+		omniQueue.QueueRoutingConfigId = qrc.Id;
+		Group nonOmniQueue = queues.values()[1];
+
+		Map<String,CaseStatus> caseStatusMap = Application.Cache.caseStatuses;
+		String closedStatus;
+		String nonClosedStatus;
+		for(CaseStatus cStatus: caseStatusMap.values()){
+			if(closedStatus == null && cStatus.IsClosed == true){
+				closedStatus = cStatus.ApiName;
+			} else if(nonClosedStatus == null && cStatus.IsClosed == false){
+				nonClosedStatus = cStatus.ApiName;
+			}
+		}
+		
+		//Cases
+		List<Case> cases = ApplicationTestDataFactory.getCases(6, true);
+		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
+
+		for(Case cs: cases){
+			cs.RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
+		}
+
+		//positive scenarios 
+		Map<Id, Case> validCases = new Map<Id, Case>();
+		Map<Id, Case> validCasesInsert = new Map<Id, Case>();
+
+		cases[0].OwnerId = omniQueue.Id;
+		cases[0].Status = closedStatus;
+		validCases.put(cases[0].id, cases[0]); //Closed Case status changed from Open => Close
+
+		cases[1].OwnerId = omniQueue.Id;
+		cases[1].Status = closedStatus;
+		validCases.put(cases[1].id, cases[1]); //Closed Case Owner changed 
+
+		cases[5].OwnerId = omniQueue.Id;
+		cases[5].Status = closedStatus;
+		validCasesInsert.put(cases[5].id, cases[5]); //Closed Case Owner changed 
+
+		
+		//negative scenarios 
+		cases[2].OwnerId = nonOmniQueue.Id; //Closed Case in a Queue without Routing config
+		cases[2].Status = closedStatus;
+
+		cases[3].OwnerId = omniQueue.Id; //Case not in a Closed Status
+		cases[3].Status = nonClosedStatus;
+
+		cases[4].OwnerId = omniQueue.Id; //Case with no change in both Status and OwnerId
+		cases[4].Status = closedStatus;
+
+		//Clone to simulate existing Case records to test Case Update 
+        List<Case> oldCases = new List<Case>{
+            cases[0].clone(true),
+            cases[1].clone(true),
+            cases[2].clone(true),
+            cases[3].clone(true),
+            cases[4].clone(true)
+        };
+		oldCases[0].Status = nonClosedStatus;
+		oldcases[1].Status = closedStatus;
+		oldcases[1].OwnerId = UserInfo.getUserId();
+		oldcases[2].Status = nonClosedStatus;
+		oldcases[3].Status = nonClosedStatus;
+		oldcases[4].Status = closedStatus;
+		
+		// =====================================
+		// Stubbing
+		// =====================================
+		
+		GroupsSelector mockGroupsSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);	 
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();   
+		
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		
+		MockUtility.Mocks.when(mockGroupsSelector.selectOmniQueues(new Set<Object>())).thenReturn(queues); //only queues of cases that fit the criteria are queried
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+        // Testing
+        // =====================================
+
+		Test.startTest();
+
+		CaseCommonUtility helper = new CaseCommonUtility();            
+        helper.routeCase(validCases.values(),new Map<Id,Case>(oldCases),false);
+		helper.routeCase(validCasesInsert.values(),null,true);
+
+		Test.stopTest();
+
+		System.assert(cases[0].OwnerId == closedCaseQueueId, 'Closed Case status changed from Open to Close => moved to Closed Case Queue');
+        System.assert(cases[1].OwnerId == closedCaseQueueId, 'Closed Case Owner changed  => moved to Closed Case Queue');
+		System.assert(cases[5].OwnerId == closedCaseQueueId, 'Closed Case inserted  => moved to Closed Case Queue');
+		System.assert(cases[2].OwnerId != closedCaseQueueId, 'Closed Case in a Queue without Routing config => not in Closed Case Queue');
+        System.assert(cases[3].OwnerId != closedCaseQueueId, 'Case not in a Closed Status => not in Closed Case Queue');
+		System.assert(cases[4].OwnerId != closedCaseQueueId, 'Case with no change in Status => not in Closed Case Queue');
+	}
+
 }
