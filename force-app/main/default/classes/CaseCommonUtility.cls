@@ -86,7 +86,7 @@ public with sharing class CaseCommonUtility{
     public static Boolean isNotifyAutoRecursive = false;
     public static Boolean isduplicateSTRcursive = false;
 
-    private static Set<String> NON_CLOSED_STATUSES = new Set<String>();
+    private static Set<String> nonClosedStatuses = new Set<String>();
     private static Set<Id> validRecTypes;
     private static Set<Id> socialAndSsswRecordTypeIds;
 
@@ -99,11 +99,11 @@ public with sharing class CaseCommonUtility{
     static{
         try{
             // fetch all non-closed status values of case
-            if(NON_CLOSED_STATUSES.isEmpty()){
+            if(nonClosedStatuses.isEmpty()){
                 
                 for(Schema.PicklistEntry pickList : Case.Status.getDescribe().getPicklistValues()){
                     if(!SSSWConstants.STAT_CLOSED.equalsIgnoreCase(pickList.getValue())){   // check if status is not closed
-                        NON_CLOSED_STATUSES.add(pickList.getValue());
+                        nonClosedStatuses.add(pickList.getValue());
                     }
                 }
             }
@@ -653,7 +653,7 @@ public with sharing class CaseCommonUtility{
                     Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());    // get dynamic query row limit
                     // fetch all open child cases, set resolution code & status
                     for(Case childCase : [SELECT Status, ResolutionCode__c, Parent.ResolutionCode__c,Resolution_Result__c, Parent.Resolution_Result__c FROM Case
-                                            WHERE ParentId IN: caseIds AND Status IN: NON_CLOSED_STATUSES
+                                            WHERE ParentId IN: caseIds AND Status IN: nonClosedStatuses
                                             LIMIT : rowLimit]){
                         childCase.Status = SSSWConstants.STAT_CLOSED;
                         childCase.ResolutionCode__c = String.isNotBlank(childCase.Parent.ResolutionCode__c) ? 
@@ -688,8 +688,6 @@ public with sharing class CaseCommonUtility{
       */
     public void setOwnerToCurrentUser(List<Case> caseList,Map<Id,Case> oldMap){
         try{
-            Set<Id> caseIds = new Set<Id>();
-            List<Case> childCasesToUpdate = new List<Case>();
             //isXferCaseRecursive = true; // -- kalpita 4.11.17 - moved recursion flag up
             // verify if caseList & oldMap got values
             if(caseList != null && !caseList.isEmpty() && oldMap != null && !oldMap.isEmpty()){
@@ -884,7 +882,6 @@ public with sharing class CaseCommonUtility{
 	 * b) Case Status changed or Case Owner changed
 	 */
 	private Boolean isCaseBeingClosed(Case csRec, Case oldCase){
-		Map<String, CaseStatus> caseStatusMap = Application.Cache.caseStatuses;
 		Boolean isClosed = false;
 		
 		if(Application.Cache.caseStatuses.get(csRec.Status).IsClosed 
@@ -1313,10 +1310,10 @@ public with sharing class CaseCommonUtility{
             // send case with 'null' requestor to the handler class
             if(!nullRequestorCases.isEmpty()){
                 // query and get 'CAR' case record type id
-                Id caseCAR_RecordTypeId = [Select id, DeveloperName from RecordType where DeveloperName = 'CAR_Request'].id;
+                Id caseCARRecordTypeId = [Select id, DeveloperName from RecordType where DeveloperName = 'CAR_Request'].id;
                 for(Case cCAR: nullRequestorCases){
                     // populate requestor's field with current user after confirm that the case is 'CAR' record type
-                    if(cCAR.recordTypeId.equals(caseCAR_RecordTypeId)){
+                    if(cCAR.recordTypeId.equals(caseCARRecordTypeId)){
                         cCAR.requestor__c = UserInfo.getUserId();
                     }
                 }

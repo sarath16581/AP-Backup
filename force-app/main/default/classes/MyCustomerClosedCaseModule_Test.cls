@@ -235,8 +235,6 @@ private class MyCustomerClosedCaseModule_Test {
 
 
 		//Queues
-		Id omnichannelClosedCaseQueueId = [SELECT Id FROM Group WHERE DeveloperName = 'SSSW_Closed_Omnichannel_Cases' LIMIT 1].Id;
-
 		QueueRoutingConfig qrc = new QueueRoutingConfig();
 		ApplicationTestDataFactory.generateRecordIds(new List<SObject>{qrc});
 		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(1, 'Queue', true));	
@@ -258,10 +256,6 @@ private class MyCustomerClosedCaseModule_Test {
         //List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].id, true);
 		User communityUser = ApplicationTestDataFactory.getUsers(1, profile.id, false)[0];
 		insert communityUser;
-
-		//AgentWork
-		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{cases[0].Id}, true);
-
 		
 		// =====================================
 		// Stubbing
