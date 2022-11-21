@@ -39,9 +39,9 @@ public inherited sharing class ServiceResourceSkillSelector extends ApplicationS
 		return (List<ServiceResourceSkill>)Database.query(qb.toSoqlString());
 	}
 
-	public List<ServiceResourceSkill> selectByActiveServiceResourceRelatedRecordIds(Set<Id> relatedRecordIds, Set<Object> selectorOptions) {
+	public List<ServiceResourceSkill> selectByActiveServiceResourceRelatedRecordIds(Set<Id> serviceResourceRelatedRecordIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-							.add(new QueryBuilder.SimpleCondition(ServiceResource.getsObjectType() + '.' + ServiceResource.RelatedRecordId + ' IN :relatedRecordIds'))
+							.add(new QueryBuilder.SimpleCondition(ServiceResource.getsObjectType() + '.' + ServiceResource.RelatedRecordId + ' IN :serviceResourceRelatedRecordIds'))
 							.add(new QueryBuilder.SimpleCondition(ServiceResource.getsObjectType() + '.' + ServiceResource.IsActive + ' = TRUE'))
 							.setConditionOrder('1 AND 2')
 							.endConditions();

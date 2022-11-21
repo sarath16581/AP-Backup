@@ -27,7 +27,8 @@ public with sharing class ServiceResourceSkillSelector_Test {
 		Id serviceChannelId = OmniChannelTestDataFactory.getServiceChannels(1, 'Case', 'Priority', true)[0].Id;
 		Map<Id, PendingServiceRouting> pendingServiceRoutings = new Map<Id, PendingServiceRouting>(OmniChannelTestDataFactory.getPendingServiceRoutings(2, serviceChannelId, cases.keySet(), true));
 		Map<Id, Skill> skills = new Map<Id, Skill>(OmniChannelTestDataFactory.getSkills(2, true));
-		Map<Id, ServiceResourceSkill> serviceResourceSkills = new Map<Id, ServiceResourceSkill>(OmniChannelTestDataFactory.getServiceResourceSkills(2, skills.keySet(), pendingServiceRoutings.keySet(), true));
+		Map<Id, ServiceResource> serviceResources = new Map<Id, ServiceResource>(OmniChannelTestDataFactory.getServiceResources(1, 'A', true));
+		Map<Id, ServiceResourceSkill> serviceResourceSkills = new Map<Id, ServiceResourceSkill>(OmniChannelTestDataFactory.getServiceResourceSkills(2, skills.keySet(), serviceResources.keySet(), true));
 
 
 		ServiceResourceSkillSelector selector = ServiceResourceSkillSelector.newInstance();
@@ -40,7 +41,7 @@ public with sharing class ServiceResourceSkillSelector_Test {
 
 		qa = QueryBuilder.newInstance();
 		QueryBuilder.mockFactory.put(ServiceResourceSkillSelector.class, qa); 
-		selector.selectByRelatedRecordIds(pendingServiceRoutings.keySet(), new Set<Object>());
+		selector.selectByActiveServiceResourceRelatedRecordIds(pendingServiceRoutings.keySet(), new Set<Object>());
 		queryString = qa.toSoqlString();
 		System.assertEquals(true, Pattern.compile('\\b' + ServiceResource.getsObjectType() + '.' + ServiceResource.RelatedRecordId + ' IN :relatedRecordIds AND ' + ServiceResource.getsObjectType() + '.' + ServiceResource.IsActive + ' = TRUE\\b').matcher(queryString).find(), 'Filters by relatedRecordIds in query');
 

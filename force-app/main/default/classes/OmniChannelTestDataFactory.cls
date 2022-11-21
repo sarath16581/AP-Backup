@@ -10,6 +10,13 @@
 @IsTest
 public with sharing class OmniChannelTestDataFactory {
 
+	public static List<ServiceResourceSkill> getServiceResourceSkills(Integer count, Set<Id> skillIds, Set<Id> serviceResourceIds, Boolean generateIds) {
+		return (List<ServiceResourceSkill>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(SkillRequirement.SObjectType, new Map<SObjectField, Object> {
+			ServiceResourceSkill.SkillId => skillIds,
+			ServiceResourceSkill.SkillLevel => 1,
+			ServiceResourceSkill.ServiceResourceId => serviceResourceIds
+		}, count), generateIds);
+	}
 	
 	public static List<ServiceResource> getServiceResources(Integer count, String resourceType, Boolean generateIds) {
 		return (List<ServiceResource>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ServiceResource.SObjectType, new Map<SObjectField, Object> {
