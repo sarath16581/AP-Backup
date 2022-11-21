@@ -1325,6 +1325,7 @@ private with sharing class CaseCommonUtility_Test {
 	@isTest
     static void routeReopenedCases(){
 
+		//Queues
 		QM__c custSetting = QM__c.getOrgDefaults();
 		QueueSobject closedOmniqueue = [SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Closed_Omnichannel_Cases' AND SobjectType = 'Case' LIMIT 1];
 		custSetting.ClosedQueueId__c = closedOmniqueue.QueueId;
@@ -1333,29 +1334,29 @@ private with sharing class CaseCommonUtility_Test {
 		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(1, 'Queue', true));	
 		Group nonOmniQueue = queues.values()[0];
 
-		Map<String,CaseStatus> caseStatusMap = Application.Cache.caseStatuses;
-		String closedStatus1;
-		String closedStatus2;
-		String nonClosedStatus;
-		for(CaseStatus cStatus: caseStatusMap.values()){
-			if(closedStatus1 == null && cStatus.IsClosed == true){
-				closedStatus1 = cStatus.ApiName;
-			} else if(closedStatus2 == null && cStatus.IsClosed == true){
-				closedStatus2 = cStatus.ApiName;
-			} else if(nonClosedStatus == null && cStatus.IsClosed == false){
-				nonClosedStatus = cStatus.ApiName;
-			}
-		}
+		//Case Status
+		CacheManager.settings.CacheEnabled__c = true;
+
+		List<CaseStatus> caseStatuses = ApplicationTestDataFactory.getCaseStatuses(3, false);
+		CaseStatus closedStatus1 = caseStatuses[0];
+		closedStatus1 = (CaseStatus)ApplicationTestDataFactory.setUnwritableFields(closedStatus1, new Map<String, Object>{'IsClosed' => true});
+		CaseStatus closedStatus2 = caseStatuses[1];
+		closedStatus2 = (CaseStatus)ApplicationTestDataFactory.setUnwritableFields(closedStatus2, new Map<String, Object>{'IsClosed' => true});
+		CaseStatus nonClosedStatus = caseStatuses[2];
+		nonClosedStatus = (CaseStatus)ApplicationTestDataFactory.setUnwritableFields(nonClosedStatus, new Map<String, Object>{'IsClosed' => false});
+
+		Map<String, CaseStatus> cacheCaseStatus = new Map<String, CaseStatus>{closedStatus1.ApiName => closedStatus1, closedStatus2.ApiName => closedStatus2, nonClosedStatus.ApiName => nonClosedStatus};
+		CacheManager.put('UTILITY_CASE_STATUS',cacheCaseStatus );
 
 		
 		//Cases
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
 		
 		cases[0].OwnerId = closedOmniqueue.QueueId; //Case reopened and in Closed Omni queue
-		cases[0].Status = nonClosedStatus;
+		cases[0].Status = nonClosedStatus.ApiName;
 
 		cases[1].OwnerId = closedOmniqueue.QueueId; //Case changing from a Closed Status to another Closed Status
-		cases[1].Status = closedStatus1;
+		cases[1].Status = closedStatus1.ApiName;
 
 
 		//Clone to simulate existing Case records to test Case Update 
@@ -1363,8 +1364,8 @@ private with sharing class CaseCommonUtility_Test {
             cases[0].clone(true),
             cases[1].clone(true)
         };
-		oldCases[0].Status = closedStatus2;
-		oldCases[1].Status = closedStatus2;
+		oldCases[0].Status = closedStatus2.ApiName;
+		oldCases[1].Status = closedStatus2.ApiName;
 		
 		// =====================================
         // Testing
@@ -1412,16 +1413,17 @@ private with sharing class CaseCommonUtility_Test {
 		omniQueue.QueueRoutingConfigId = qrc.Id;
 		Group nonOmniQueue = queues.values()[1];
 
-		Map<String,CaseStatus> caseStatusMap = Application.Cache.caseStatuses;
-		String closedStatus;
-		String nonClosedStatus;
-		for(CaseStatus cStatus: caseStatusMap.values()){
-			if(closedStatus == null && cStatus.IsClosed == true){
-				closedStatus = cStatus.ApiName;
-			} else if(nonClosedStatus == null && cStatus.IsClosed == false){
-				nonClosedStatus = cStatus.ApiName;
-			}
-		}
+		//Case Status
+		CacheManager.settings.CacheEnabled__c = true;
+
+		List<CaseStatus> caseStatuses = ApplicationTestDataFactory.getCaseStatuses(3, false);
+		CaseStatus closedStatus = caseStatuses[0];
+		closedStatus = (CaseStatus)ApplicationTestDataFactory.setUnwritableFields(closedStatus, new Map<String, Object>{'IsClosed' => true});
+		CaseStatus nonClosedStatus = caseStatuses[2];
+		nonClosedStatus = (CaseStatus)ApplicationTestDataFactory.setUnwritableFields(nonClosedStatus, new Map<String, Object>{'IsClosed' => false});
+
+		Map<String, CaseStatus> cacheCaseStatus = new Map<String, CaseStatus>{closedStatus.ApiName => closedStatus, nonClosedStatus.ApiName => nonClosedStatus};
+		CacheManager.put('UTILITY_CASE_STATUS',cacheCaseStatus );
 		
 		//Cases
 		List<Case> cases = ApplicationTestDataFactory.getCases(6, true);
@@ -1436,27 +1438,27 @@ private with sharing class CaseCommonUtility_Test {
 		Map<Id, Case> validCasesInsert = new Map<Id, Case>();
 
 		cases[0].OwnerId = omniQueue.Id;
-		cases[0].Status = closedStatus;
+		cases[0].Status = closedStatus.ApiName;
 		validCases.put(cases[0].id, cases[0]); //Closed Case status changed from Open => Close
 
 		cases[1].OwnerId = omniQueue.Id;
-		cases[1].Status = closedStatus;
+		cases[1].Status = closedStatus.ApiName;
 		validCases.put(cases[1].id, cases[1]); //Closed Case Owner changed 
 
 		cases[5].OwnerId = omniQueue.Id;
-		cases[5].Status = closedStatus;
+		cases[5].Status = closedStatus.ApiName;
 		validCasesInsert.put(cases[5].id, cases[5]); //Closed Case Owner changed 
 
 		
 		//negative scenarios 
 		cases[2].OwnerId = nonOmniQueue.Id; //Closed Case in a Queue without Routing config
-		cases[2].Status = closedStatus;
+		cases[2].Status = closedStatus.ApiName;
 
 		cases[3].OwnerId = omniQueue.Id; //Case not in a Closed Status
-		cases[3].Status = nonClosedStatus;
+		cases[3].Status = nonClosedStatus.ApiName;
 
 		cases[4].OwnerId = omniQueue.Id; //Case with no change in both Status and OwnerId
-		cases[4].Status = closedStatus;
+		cases[4].Status = closedStatus.ApiName;
 
 		//Clone to simulate existing Case records to test Case Update 
         List<Case> oldCases = new List<Case>{
@@ -1466,12 +1468,12 @@ private with sharing class CaseCommonUtility_Test {
             cases[3].clone(true),
             cases[4].clone(true)
         };
-		oldCases[0].Status = nonClosedStatus;
-		oldcases[1].Status = closedStatus;
+		oldCases[0].Status = nonClosedStatus.ApiName;
+		oldcases[1].Status = closedStatus.ApiName;
 		oldcases[1].OwnerId = UserInfo.getUserId();
-		oldcases[2].Status = nonClosedStatus;
-		oldcases[3].Status = nonClosedStatus;
-		oldcases[4].Status = closedStatus;
+		oldcases[2].Status = nonClosedStatus.ApiName;
+		oldcases[3].Status = nonClosedStatus.ApiName;
+		oldcases[4].Status = closedStatus.ApiName;
 		
 		// =====================================
 		// Stubbing

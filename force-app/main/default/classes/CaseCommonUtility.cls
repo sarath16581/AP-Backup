@@ -821,8 +821,7 @@ public with sharing class CaseCommonUtility{
                 return;
             }
 
-			//Map<Id, Case> closedUpdatedCasesInOmniQueue = filterExistingClosedSSSWCases(casesNeedToRoute, oldMap); //Closed Cases in a Queue with Routing configuration
-			String closedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
+			String omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
 			Map<Id, Group> omniQueues = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>()); 
 
 			Case oldCase;
@@ -840,9 +839,13 @@ public with sharing class CaseCommonUtility{
                     System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
                     //System.debug(LoggingLevel.ERROR,'**oldCase.AllocateToQueue__c: ' + oldCase.AllocateToQueue__c);
 
-					if(isCaseBeingClosed(csRec, oldCase) && omniQueues.containsKey(csRec.OwnerId)){	
-							if (String.isEmpty(closedCaseQueueId) == false) {					
-								csRec.OwnerId = closedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
+					if(Application.Cache.caseStatuses.get(csRec.Status).IsClosed 
+						&& omniQueues.containsKey(csRec.OwnerId)
+						&& (oldCase == null 
+							|| (oldCase != null && ((oldCase.Status != csRec.Status) ||	(oldCase.OwnerId != csRec.OwnerId))))
+					){	
+							if (String.isEmpty(omniClosedCaseQueueId) == false) {					
+								csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
 								csRec.AllocateToQueue__c = false;
 							}
 					} else if( (csRec.Network__c == null
@@ -875,23 +878,6 @@ public with sharing class CaseCommonUtility{
                                                     SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
         }
     }
-
-	/**
-	 * Filter based on the following:
-	 * a) Case Status is closed
-	 * b) Case Status changed or Case Owner changed
-	 */
-	private Boolean isCaseBeingClosed(Case csRec, Case oldCase){
-		Boolean isClosed = false;
-		
-		if(Application.Cache.caseStatuses.get(csRec.Status).IsClosed 
-			&& (oldCase == null || (oldCase != null && ((oldCase.Status != csRec.Status) ||	(oldCase.OwnerId != csRec.OwnerId))))
-		){
-			isClosed = true;
-		}
-
-		return isClosed;
-	}
 
     /**
       * @description       This method sets key value pair of case & routing key
@@ -1226,7 +1212,7 @@ public with sharing class CaseCommonUtility{
                                     'IsHLC__c', 'IsCR__c'
                                 });
 
-		String closedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
+		String omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
 
         for (Case newCase : casesNeedToRoute){
 
@@ -1244,7 +1230,7 @@ public with sharing class CaseCommonUtility{
 				(oldCase != null && newCaseIsClosed != null && oldCaseIsClosed != null
 					&& newCaseIsClosed == false 
 					&& oldCaseIsClosed != newCaseIsClosed 
-					&& String.isEmpty(closedCaseQueueId) == false && newCase.OwnerId == closedCaseQueueId)
+					&& String.isEmpty(omniClosedCaseQueueId) == false && newCase.OwnerId == omniClosedCaseQueueId)
                ){
 
                 newCase.AllocateToQueue__c = true; // Flag to re-route cases again
