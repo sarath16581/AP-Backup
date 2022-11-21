@@ -279,6 +279,17 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
+	public static List<CaseStatus> getCaseStatuses(Integer count, Boolean generateIds) {
+		List<CaseStatus> output = (List<CaseStatus>)maybeGenerateIds(populateSObjects(CaseStatus.SObjectType, new Map<SObjectField, Object> {
+		}, count), generateIds);
+
+		for(Integer i = 0; i < output.size(); i++) {
+			output[i] = (CaseStatus)setUnwritableFields(output[i], new Map<String, Object>{'ApiName' => 'Case Status ' + (i+1), 'MasterLabel' => 'Case Status ' + (i+1), 'IsClosed' => false});
+		}
+
+		return output;
+	}
+
 	public static List<Article__c> getArticles(Integer count, Boolean generateIds) {
 		return getArticles(count, null, generateIds);
 	}
