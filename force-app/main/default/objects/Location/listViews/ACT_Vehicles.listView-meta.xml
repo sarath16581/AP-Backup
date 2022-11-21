@@ -13,7 +13,6 @@
     <columns>Line_Haul__c</columns>
     <columns>Model__c</columns>
     <columns>Make__c</columns>
-    <columns>Service_Territory__c</columns>
     <columns>State__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
@@ -25,11 +24,6 @@
         <field>LocationType</field>
         <operation>equals</operation>
         <value>Vehicle</value>
-    </filters>
-    <filters>
-        <field>Service_Territory__c</field>
-        <operation>equals</operation>
-        <value>Canberra</value>
     </filters>
     <label>ACT Vehicles</label>
 </ListView>

@@ -8,7 +8,6 @@
         if(component.get("v.enableWebAnalytics")){
             this.logSiteAnalytics(component, component.get('v.name') , pageData['key']);
         }
-        console.log(component.getReference('v.wizardData'));
         var compAttributes = {
             "wizardData": component.getReference('v.wizardData'),
             "wizardPageEvent" : component.getReference("c.handleWizardPageEvent"),

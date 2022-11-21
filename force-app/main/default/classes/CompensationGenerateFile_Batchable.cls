@@ -144,7 +144,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
                           CompensationGenerateFile_Batchable.class.getName(), 'File Save',
                           null, LoggingLevel.ERROR);
           //send notification
-          CompensationGenerateFile_Batchable.sendEmail('Compensation File Save Error','dlitcandssalesforcesupport@auspost.com.au');
+          CompensationGenerateFile_Batchable.sendEmail('Compensation File Save Error','DLITCandSSalesForceSupport@auspost.com.au');
           
               }
           }
@@ -182,7 +182,7 @@ global without sharing class CompensationGenerateFile_Batchable implements Datab
           }
           //send notification
           if(!gotErrors.isEmpty()) {
-        CompensationGenerateFile_Batchable.sendEmail('Compensation update batch Error','dlitcandssalesforcesupport@auspost.com.au');
+        CompensationGenerateFile_Batchable.sendEmail('Compensation update batch Error','DLITCandSSalesForceSupport@auspost.com.au');
           }
       }
   }

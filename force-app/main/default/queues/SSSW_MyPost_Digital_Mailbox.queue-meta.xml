@@ -19,7 +19,6 @@
             <user>vanessa.highland@auspost.com.au</user>
         </users>
     </queueMembers>
-    <queueRoutingConfig></queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

@@ -7,7 +7,6 @@
     <inlineHelpText>Async action processing end time</inlineHelpText>
     <label>End Time</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>

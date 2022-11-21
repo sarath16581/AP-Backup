@@ -6,6 +6,7 @@
     <formula>if(isblank(DMAPP__Opportunity__c), false, if(OR(DMAPP__Opportunity__r.CreatedDate &gt; CreatedDate, DMAPP__Qualified_Flag__c == TRUE), true, false))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Was Qualified</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

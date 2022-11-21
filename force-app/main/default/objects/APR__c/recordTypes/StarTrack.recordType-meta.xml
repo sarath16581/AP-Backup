@@ -129,10 +129,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Changed Channel</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Contract under negotiation</fullName>
             <default>false</default>
         </values>

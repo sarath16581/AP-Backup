@@ -4,11 +4,11 @@
     <protected>false</protected>
     <values>
         <field>AuthoriseEndpointUrl__c</field>
-        <value xsi:type="xsd:string">https://login.microsoftonline.com/41afef0e-7a9e-4584-9dba-86c335624811/oauth2/v2.0/authorize</value>
+        <value xsi:type="xsd:string">https://login.microsoftonline.com/fced7ed8-363a-4005-8037-adc1290883f6/oauth2/v2.0/authorize</value>
     </values>
     <values>
         <field>ClientId__c</field>
-        <value xsi:type="xsd:string">3f7d16ea-6672-4d60-bcd1-fa5d2672009a</value>
+        <value xsi:type="xsd:string">5258feb2-ab4d-402a-bd95-78b984114197</value>
     </values>
     <values>
         <field>ExternalCredentialName__c</field>
@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>RedirectUrl__c</field>
-        <value xsi:type="xsd:string">https://auspost--devnathan.sandbox.my.site.com/myNetwork/services/authcallback/AzureCorpMyNetwork</value>
+        <value xsi:type="xsd:string">https://ptest.npe.mynetwork.auspost.com.au/services/authcallback/AzureCorpMyNetworkV2</value>
     </values>
     <values>
         <field>Scope__c</field>

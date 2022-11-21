@@ -9,7 +9,6 @@
     <referenceTo>Product2</referenceTo>
     <relationshipName>BAM_Applications</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

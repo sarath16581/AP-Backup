@@ -12,7 +12,7 @@
 02.09.2019    spingali REQ1886703 - Type of damage picklist is dependent on Missing contents or Damaged article.
 26.05.2021    Naveen Rajanna           REQ2513603 Show Print button when submitted and hide few tags upon print
 18.08.2021    Naveen Rajanna           REQ2588480 Introduce Copy to buttons and logic to Copy customer details to sender/addressee
-10.01.2022    SaiSwetha Pingali        REQ2689571 Add custom validity on "Type of Damage" field on 'Damaged/Missing Contents form'. 
+10.01.2022    SaiSwetha Pingali        REQ2689571 Added custom error message on "Type of Damage" field on 'Damaged/Missing Contents form'. 
 07.07.2022    Talib Raza               REQ2859463: Changed the label for article-search to "Article ID" from Tracking number
 **/
 
@@ -164,9 +164,6 @@ export default class myNetworkMissingContentsForm extends LwcForm {
     maxlength=255
 
     @track
-    damagedOrMissingSelection = ''
-
-    @track
     damagedOrMissingerror = DAMAGE_MISSING_CONTENTS_ERROR_MESSAGE;
 
     handleUploadFinished(event) {
@@ -275,8 +272,7 @@ export default class myNetworkMissingContentsForm extends LwcForm {
     handleDamagedOrMissingChange(event){
         console.log('handleDamagedOrMissingChange...'+event.target.value)
 
-        this.damagedOrMissingSelection = event.target.value;
-        this.damagedOrMissingerror ='';
+        this.damagedOrMissingerror = '';
 
         if(event.target.value === 'Missing contents')
         {this.typeOfDamageOptions = this.typeOfMissingDamageOptions;}else
@@ -356,18 +352,6 @@ export default class myNetworkMissingContentsForm extends LwcForm {
         console.log('datatosubmit:'+ formJson)
         console.log('formId:'+ formId)
         const allValid = this.validateInputs()
-
-        const typeofDamageCmp = this.template.querySelector(".typeOfDamage");
-        const typeofDamageVal = typeofDamageCmp.value;
-        const damagedOrMissingSelectionval = this.damagedOrMissingSelection;
-        
-        if (!damagedOrMissingSelectionval && !typeofDamageVal) {
-            typeofDamageCmp.setCustomValidity("Scroll up and select either Damage article or missing contents.");
-        } else {
-            typeofDamageCmp.setCustomValidity("");
-        }
-
-        typeofDamageCmp.reportValidity();
         
         const formData = [{
             formId,

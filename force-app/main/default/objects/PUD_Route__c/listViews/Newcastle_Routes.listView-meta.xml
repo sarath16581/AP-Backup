@@ -6,8 +6,8 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>New</value>
+        <operation>equals</operation>
+        <value>NEWCASTLE VAN OPS</value>
     </filters>
     <label>Newcastle Routes</label>
 </ListView>

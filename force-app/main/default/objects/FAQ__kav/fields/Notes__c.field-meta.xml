@@ -6,5 +6,6 @@
     <label>Notes</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>true</trackHistory>
     <type>TextArea</type>
 </CustomField>

@@ -166,6 +166,7 @@
         <customTabListAdditionalFields>APXT_BPM__Description__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
         <searchResultsAdditionalFields>APXT_BPM__Title__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>APXT_BPM__Consolidated_PDF_Output_File__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

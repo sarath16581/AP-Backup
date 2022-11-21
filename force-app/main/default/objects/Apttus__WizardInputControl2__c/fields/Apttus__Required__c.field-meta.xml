@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates that an input value is required for the end user to continue the wizard</inlineHelpText>
     <label>Required</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

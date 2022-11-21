@@ -9,7 +9,6 @@
 * 2019-10-15 - ajudd@salesforce.com  - Created and Added set of Legacy Id
 * 2019-11-26 - ajudd@salesforce.com  - Added set of Route_Prior__c
 * 2020-06-17 - Dheeraj Mandavilli    - Added set of Account_Manager_Email__c
-* 2022-03-10 - SaiSwetha Pingali     - INC1932337 - Reset route_prior__C field on PUD_Booking_Location__c.
 */
 trigger PUD_Booking_LocationTrigger on PUD_Booking_Location__c (before insert, before update, after update) {
     

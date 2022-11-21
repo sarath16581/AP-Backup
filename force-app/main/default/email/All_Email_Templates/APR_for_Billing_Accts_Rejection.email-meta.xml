@@ -4,7 +4,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>APR for Billing Accts Rejection</name>
     <style>none</style>
-    <subject>APR Rejected - Account No:{!APR__c.Billing_Account_No__c} {!APR__c.Billing_Account_Name__c}</subject>
+    <subject>APR Rejected - Account No:{!APR__c.Billing_Account_No__c} {!Billing_Account__c.Name}</subject>
     <textOnly>The following APR has been rejected by {!ApprovalRequest.Process_Approver}
 
 Rejection Comments: {!ApprovalRequest.Comments}

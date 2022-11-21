@@ -6,6 +6,7 @@
     <customObjects>Rate_List</customObjects>
     <label>Retail Admin</label>
     <loginAccess>false</loginAccess>
+    <permissionSets>MFA Authorization for User Logins</permissionSets>
     <permissionSets>PartnerInfo Network Manager</permissionSets>
     <permissionSets>PartnerInfo RNP Manager</permissionSets>
     <permissionSets>PartnerInfo State Admin Manager</permissionSets>

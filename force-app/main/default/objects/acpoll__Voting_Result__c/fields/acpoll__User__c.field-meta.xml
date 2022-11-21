@@ -8,6 +8,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>Voting_Results</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

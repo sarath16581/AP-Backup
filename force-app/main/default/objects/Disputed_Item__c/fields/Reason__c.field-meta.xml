@@ -704,6 +704,12 @@
                 <label>Hand Rate - Incorrect/Missed Quote</label>
             </value>
             <value>
+                <fullName>Incorrect Cubic Data (Customer)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Incorrect Cubic Data (Customer)</label>
+            </value>
+            <value>
                 <fullName>Incorrect Misc Charges</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -978,6 +984,12 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Operations Sub Docket Charge</label>
+            </value>
+            <value>
+                <fullName>Oversize</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Oversize</label>
             </value>
             <value>
                 <fullName>Performance Failure - Fleet</fullName>

@@ -811,7 +811,6 @@
         </rules>
     </decisions>
     <description>subflow for CaseDomain triggerred from CaseCommon AfterSave flow</description>
-    <environments>Default</environments>
     <formulas>
         <name>vClosedACK</name>
         <dataType>Boolean</dataType>

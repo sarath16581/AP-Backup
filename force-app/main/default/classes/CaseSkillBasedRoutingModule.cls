@@ -13,14 +13,14 @@
  */
 
 public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDomain.Module  {
-	
+    
     private static Set<Id> validRecTypes;
     public static final String SERVICESLA_CONSUMER = 'Consumer';
 
     /*
-	 * Creates a new instance of the utility to facilitate dependency injection for mocking
-	 * @return the new instance
-	 */
+     * Creates a new instance of the utility to facilitate dependency injection for mocking
+     * @return the new instance
+     */
     public static CaseSkillBasedRoutingModule newInstance() {
         return (CaseSkillBasedRoutingModule)Application.Utilities.newInstance(CaseSkillBasedRoutingModule.class);
     }
@@ -36,6 +36,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
     public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
         try {
             populateCustomerQueueType(filterToOnlySSSWCases(records), null , uow);
+            System.debug('694 in before insert');
         } catch (Exception ex) {
             // Error Logged to Exception object for analysis
             ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CaseSkillRouting', CaseSkillBasedRoutingModule.class.getName(), 'onBeforeInsert', 'Case', ApplicationLogger.LoggingLevel.ERROR);
@@ -47,6 +48,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
     public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         try {
             populateCustomerQueueType(filterToOnlySSSWCases(records), existingRecords, uow);
+            System.debug('694 in before update');
         } catch (Exception ex) {
             // Error Logged to Exception object for analysis
             ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CaseSkillRouting', CaseSkillBasedRoutingModule.class.getName(), 'onBeforeUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
@@ -54,11 +56,11 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
     }
 
     /*
-	 * This method populates the Case field CustomerQueueType based on the Case Contact's Account.
-	 * @param records the list of updated or new records from the trigger.
-	 * @param existingRecords a Map of the pre-update records from the trigger. 
+     * This method populates the Case field CustomerQueueType based on the Case Contact's Account.
+     * @param records the list of updated or new records from the trigger.
+     * @param existingRecords a Map of the pre-update records from the trigger. 
      * @param uow instance of UnitOfWork to flag records for DML operations
-	 */
+     */
     private void populateCustomerQueueType(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
         
         Set<Id> contactIds = new Set<Id>();
@@ -71,6 +73,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
                 (existingRecords.isEmpty() == false &&
                     cs.ContactId != ((Case)existingRecords.get(cs.Id)).ContactId)
             ){                    
+                System.debug('694 case flagged to process');
                 caseToProcess.add(cs);      
                 if(cs.ContactId != null){
                     contactIds.add(cs.ContactId);  
@@ -93,9 +96,9 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
     }
 
     /*
-	 * This method returns a list of Case records that are related to SSSW
-	 * @param caseRecords the list of Cases to filter to SSSW only
-	 */
+     * This method returns a list of Case records that are related to SSSW
+     * @param caseRecords the list of Cases to filter to SSSW only
+     */
     private List<SObject> filterToOnlySSSWCases(List<SObject> caseRecords){
         if(validRecTypes == null){
             validRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
@@ -106,6 +109,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
         for (Case c : (List<Case>) caseRecords) {
             if(Utility.isValidRecordType(validRecTypes,c.RecordTypeId)){
                 ssswCases.add(c);
+                System.debug('694 case added');
             }                
         }
 

@@ -3,29 +3,23 @@
     <fullName>Chullora_s_Today_s_booking</fullName>
     <columns>NAME</columns>
     <columns>Booking_Type__c</columns>
-    <columns>Route_Lookup__c</columns>
-    <columns>Booking_Location__c</columns>
-    <columns>Booking_Location_Street__c</columns>
     <columns>City__c</columns>
     <columns>Post_Code__c</columns>
     <columns>Status__c</columns>
     <columns>Effective_Date__c</columns>
     <columns>CREATEDBY_USER</columns>
+    <columns>Location__c</columns>
+    <columns>Street__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>CREATED_DATE</field>
+        <field>RECORDTYPE</field>
         <operation>equals</operation>
-        <value>TODAY</value>
+        <value>PUD_Booking__c.MPB_Pickup</value>
     </filters>
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>chul</value>
+        <value>Chullora</value>
     </filters>
-    <filters>
-        <field>CREATEDBY_USER</field>
-        <operation>notContain</operation>
-        <value>john,famil,dheeraj</value>
-    </filters>
-    <label>Chullora&apos;s Today&apos;s booking</label>
+    <label>Chullora- MPB Bookings Today</label>
 </ListView>

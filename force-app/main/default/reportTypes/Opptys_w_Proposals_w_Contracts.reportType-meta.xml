@@ -321,7 +321,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Internal_Resources__c</field>
+            <field>INTERNAL_Resources__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -616,7 +616,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Hidden_Internal_Resources__c</field>
+            <field>Hidden_INTERNAL_Resources__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -2255,11 +2255,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>APT_TotalOPLineItemPrice__c</field>
-            <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Creator_Role__c</field>
             <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r</table>
         </columns>
         <masterLabel>Proposals</masterLabel>
@@ -3976,13 +3971,5 @@
             <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.Apttus_QPComply__Agreements__r</table>
         </columns>
         <masterLabel>Contracts</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Creator_Role__c</field>
-            <table>Opportunity.Apttus_Proposal__R00N70000001yUfDEAU__r.Apttus_QPComply__Agreements__r</table>
-        </columns>
-        <masterLabel>Apttus Contracts</masterLabel>
     </sections>
 </ReportType>

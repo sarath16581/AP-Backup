@@ -12,12 +12,17 @@
     <filters>
         <field>ResourceType</field>
         <operation>equals</operation>
-        <value>C</value>
+        <value>T,C</value>
     </filters>
     <filters>
-        <field>Location</field>
-        <operation>contains</operation>
-        <value>Redbank</value>
+        <field>Name</field>
+        <operation>startsWith</operation>
+        <value>GT</value>
+    </filters>
+    <filters>
+        <field>IsActive</field>
+        <operation>equals</operation>
+        <value>1</value>
     </filters>
     <label>All Service Resources</label>
 </ListView>

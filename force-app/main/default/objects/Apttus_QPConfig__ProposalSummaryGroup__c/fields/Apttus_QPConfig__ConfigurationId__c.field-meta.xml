@@ -10,6 +10,7 @@
     <relationshipLabel>Proposal Summary Groups</relationshipLabel>
     <relationshipName>ProposalSummaryGroups</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

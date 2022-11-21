@@ -447,6 +447,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>MPB_BSP_Tech_Enquiry_Type__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Rating__c</field>
             <table>Case</table>
         </columns>
@@ -1778,6 +1783,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Refer_to_Third_Party__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Area_to_Benefit__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Other_CoE_s_Involved__c</field>
             <table>Case</table>
         </columns>
         <columns>
@@ -3168,6 +3183,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ServiceTypeCode__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>

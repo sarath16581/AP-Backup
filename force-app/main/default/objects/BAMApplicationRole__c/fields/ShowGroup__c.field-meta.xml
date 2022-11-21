@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Determines whether this Role should expose a Group selector when it&apos;s selected</inlineHelpText>
     <label>Show Groups</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

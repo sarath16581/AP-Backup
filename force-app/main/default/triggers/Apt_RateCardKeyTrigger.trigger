@@ -15,10 +15,11 @@ trigger Apt_RateCardKeyTrigger on Apttus_Config2__LineItem__c (before insert,bef
         /* Modified By: Mathew Jose- updated as per User Story - STP-5812 */
         if(trigger.isUpdate){
             APT_LineItemTriggerHandler.onRateCardKeyUpdate(trigger.new,trigger.oldMap); 
-            APT_LineItemTriggerHandler.onPriceChange(trigger.newMap,trigger.oldMap);
-            APT_LineItemTriggerHandler.onSTEProductUpdate(trigger.new);
+            APT_LineItemTriggerHandler.onPriceChange(trigger.newMap,trigger.oldMap); 
+
         }       
     }
+    
     if(Trigger.isAfter){
         if(Trigger.isInsert || Trigger.isUpdate){
          /* Modified By: Mansi Shah - Commented as per User Story - STP-5810 */

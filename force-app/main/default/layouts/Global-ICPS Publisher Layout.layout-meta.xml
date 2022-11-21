@@ -3,6 +3,11 @@
     <platformActionList>
         <actionListContext>Global</actionListContext>
         <platformActionListItems>
+            <actionName>New_WA_ICPS_Record</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>3</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>New_NSW_ICPS_Record</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>0</sortOrder>
@@ -16,11 +21,6 @@
             <actionName>New_VIC_ICPS_Record</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>New_WA_ICPS_Record</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>3</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>

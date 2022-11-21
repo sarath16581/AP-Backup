@@ -24,7 +24,7 @@
     <filters>
         <field>Year__c</field>
         <operation>equals</operation>
-        <value>2020</value>
+        <value>2022</value>
     </filters>
     <filters>
         <field>Entered_in_Team_PeopleSoft__c</field>

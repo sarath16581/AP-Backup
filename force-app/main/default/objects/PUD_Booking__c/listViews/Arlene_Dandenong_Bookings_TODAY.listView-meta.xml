@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Arlene_Dandenong_Bookings_TODAY</fullName>
+    <columns>RECORDTYPE</columns>
+    <columns>Booking_Type__c</columns>
+    <columns>NAME</columns>
+    <columns>Location__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Route_Lookup__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Effective_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Dandenong T</value>
+    </filters>
+    <filters>
+        <field>Route_Lookup__c</field>
+        <operation>equals</operation>
+        <value>DTFSA,adhoc custs,DTFSA nreg</value>
+    </filters>
+    <label>Arlene Dandenong Bookings - TODAY</label>
+</ListView>

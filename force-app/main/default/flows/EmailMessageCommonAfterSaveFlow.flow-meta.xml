@@ -3,10 +3,13 @@
     <actionCalls>
         <name>BGS_Send_a_Bounce_Email_to_Sender</name>
         <label>BGS - Send a Bounce Email to Sender</label>
-        <locationX>50</locationX>
-        <locationY>1031</locationY>
+        <locationX>182</locationX>
+        <locationY>695</locationY>
         <actionName>Case.BGS_Send_a_Bounce_Email_to_Sender_if_the_associated_Case_has_already_been_Closed</actionName>
         <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Generic_Notify_Owner</targetReference>
+        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
@@ -19,12 +22,9 @@
         <name>Notify_Case_Owner_on_New_Email_BGS</name>
         <label>Notify Case Owner on New Email BGS</label>
         <locationX>50</locationX>
-        <locationY>695</locationY>
+        <locationY>935</locationY>
         <actionName>Case.Notify_Case_Owner_on_New_Email_BGS</actionName>
         <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>ServiceAdvisor_Scenarios</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
@@ -38,10 +38,7 @@
         <name>Generic_Notify_Owner</name>
         <label>Generic Notify Owner</label>
         <locationX>182</locationX>
-        <locationY>575</locationY>
-        <defaultConnector>
-            <targetReference>ServiceAdvisor_Scenarios</targetReference>
-        </defaultConnector>
+        <locationY>815</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Notify_Case_Owner</name>
@@ -70,7 +67,7 @@
     <decisions>
         <name>Identify_Case_Domain</name>
         <label>Identify Case Domain</label>
-        <locationX>380</locationX>
+        <locationX>611</locationX>
         <locationY>455</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -84,7 +81,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Generic_Notify_Owner</targetReference>
+                <targetReference>ServiceAdvisor_Scenarios</targetReference>
             </connector>
             <label>ServiceAdvisors</label>
         </rules>
@@ -92,7 +89,7 @@
     <decisions>
         <name>is_Incoming_Case_Email</name>
         <label>is Incoming Case Email?</label>
-        <locationX>611</locationX>
+        <locationX>858</locationX>
         <locationY>335</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -121,8 +118,8 @@
     <decisions>
         <name>ServiceAdvisor_Scenarios</name>
         <label>ServiceAdvisor Scenarios</label>
-        <locationX>182</locationX>
-        <locationY>911</locationY>
+        <locationX>380</locationX>
+        <locationY>575</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Case_already_Closed_Bounce</name>
@@ -156,7 +153,6 @@
         </rules>
     </decisions>
     <description>record triggered flow upon After save on Email Message</description>
-    <environments>Default</environments>
     <interviewLabel>Email Message Common After Save Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>EmailMessage Common After Save Flow</label>
     <processMetadataValues>
@@ -179,7 +175,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>485</locationX>
+        <locationX>732</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>is_Incoming_Case_Email</targetReference>

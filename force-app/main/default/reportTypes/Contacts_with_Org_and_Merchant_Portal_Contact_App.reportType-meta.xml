@@ -280,11 +280,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OperatingHours</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Organisation_Alternate_Name__c</field>
             <table>Account</table>
         </columns>
@@ -3351,21 +3346,6 @@
             <field>Primary_Organisation__c.Role_Type_Roll_Up__c</field>
             <table>Account.Contacts</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Unique_Mobile__c</field>
-            <table>Account.Contacts</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Account.Contacts</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Account.Contacts</table>
-        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -4455,18 +4435,5 @@
             <table>Account.Contacts.ContactApplications__r</table>
         </columns>
         <masterLabel>Merchant Portal Contact Applications</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

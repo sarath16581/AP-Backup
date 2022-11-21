@@ -240,7 +240,7 @@
             <tr>
             <td>{!PainChain.KeyContact__r.Name}</td>
             <td>{!PainChain.Name}</td>
-            <td>{!PainChain.Internal_Stakeholder_Impact__c}</td>
+            <td>{!PainChain.INTERNAL_Stakeholder_Impact__c}</td>
             </tr>
             </apex:repeat>
         

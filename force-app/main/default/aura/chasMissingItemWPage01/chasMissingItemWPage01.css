@@ -56,8 +56,3 @@
     transition: none;
     text-decoration: underline;
 }
-
-.THIS .tabbed-bullet {
-    list-style-type:disc;
-    margin-left: 15px;
-}

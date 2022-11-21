@@ -55,7 +55,7 @@ public with sharing class APT_DetermineZoneTypesBatch_Test {
         System.runAs(testuser) {
             
             //Insert EXP product.
-            List<Product2> prodList = new List<Product2>(); 
+            List<Product2> prodList = new List<Product2>();	
             Product2 product1 = APT_TestUtils.createStarTrackProduct('Express Road Tier 1', 'ExpressRoadTier1', 'Parcel Services', 'T01', 'EXP', 'StarTrack');
             product1.APT_Domestic_Pricing__c = true;
             insert product1;

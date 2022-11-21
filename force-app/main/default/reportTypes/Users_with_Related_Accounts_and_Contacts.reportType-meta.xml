@@ -102,6 +102,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>BSPSignupMerchantPortal__c</field>
+            <table>User</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>CallCentreManager__c</field>
             <table>User</table>
         </columns>
@@ -162,6 +167,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Legal_Entity_Type__c</field>
+            <table>User.Account$OwnerId</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Country</field>
             <table>User</table>
         </columns>
@@ -198,6 +208,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Department</field>
+            <table>User</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Profile_Name_in_Text__c</field>
             <table>User</table>
         </columns>
         <columns>
@@ -998,14 +1013,14 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
+            <field>PA_Contact__c.Id</field>
             <table>User.Account$OwnerId</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
+            <field>PA_Contact__c.Name</field>
             <table>User.Account$OwnerId</table>
         </columns>
-        <masterLabel>Organisations</masterLabel>
+        <masterLabel>Accounts (Account Owner)</masterLabel>
     </sections>
 </ReportType>

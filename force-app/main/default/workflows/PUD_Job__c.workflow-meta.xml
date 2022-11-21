@@ -33,14 +33,10 @@
         <fields>Date__c</fields>
         <fields>Deliver_Product__c</fields>
         <fields>Depot_Organisation_Id__c</fields>
-        <fields>Display_ETA_to_Driver__c</fields>
-        <fields>Dock_Number__c</fields>
         <fields>Dwell_Time_Planned__c</fields>
         <fields>Earliest_Start_Time_Text__c</fields>
         <fields>Express_Bags__c</fields>
         <fields>Express_Product__c</fields>
-        <fields>Geo__Latitude__s</fields>
-        <fields>Geo__Longitude__s</fields>
         <fields>Hazards__c</fields>
         <fields>Id</fields>
         <fields>International_Product__c</fields>
@@ -49,8 +45,6 @@
         <fields>Large_Letter_Tubs__c</fields>
         <fields>Latest_End_Time_Text__c</fields>
         <fields>Location_DPID__c</fields>
-        <fields>Location_Frontage_Geo__Latitude__s</fields>
-        <fields>Location_Frontage_Geo__Longitude__s</fields>
         <fields>Location_Side_Of_Street_Code__c</fields>
         <fields>Location_Type__c</fields>
         <fields>Location__c</fields>

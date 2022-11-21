@@ -419,11 +419,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.OperatingHoursId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Account.Opportunity__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1669,6 +1664,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Area_to_Benefit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.ArticleCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2425,6 +2425,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Originating_OPC__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Other_CoE_s_Involved__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

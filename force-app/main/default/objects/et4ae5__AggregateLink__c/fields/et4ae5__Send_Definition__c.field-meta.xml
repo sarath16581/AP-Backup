@@ -9,6 +9,7 @@
     <relationshipLabel>Aggregate Link Level Details</relationshipLabel>
     <relationshipName>Aggregate_Link_Level_Details</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

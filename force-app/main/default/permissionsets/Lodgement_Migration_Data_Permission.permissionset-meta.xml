@@ -747,6 +747,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.APT_Ready_For_APPC_Migration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.ASIC_Lookup__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2087,11 +2092,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.OperatingHoursId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Account.Opportunity__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2978,11 +2978,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.eParcelDamagesDelegate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.hiddenTieContactToServicePartner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5203,6 +5198,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Config2__ProductConfiguration__c.APT_Proposal_Record_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus_Config2__ProductConfiguration__c.APT_Ready_For_APPC_Migration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10596,16 +10596,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Asset.Availability</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Asset.AverageUptimePerDay</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Asset.ConsequenceOfFailure</field>
         <readable>true</readable>
@@ -10731,11 +10721,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Asset.Reliability</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Asset.SerialNumber</field>
         <readable>true</readable>
@@ -10753,16 +10738,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Asset.StockKeepingUnit</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Asset.SumDowntime</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Asset.SumUnplannedDowntime</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10788,16 +10763,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Asset.Transaction_Id__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Asset.UptimeRecordEnd</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Asset.UptimeRecordStart</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -19032,12 +18997,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.Hidden_In_Year_Revenue_Estimate__c</field>
+        <field>Opportunity.Hidden_INTERNAL_Resources__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.Hidden_Internal_Resources__c</field>
+        <field>Opportunity.Hidden_In_Year_Revenue_Estimate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -19092,6 +19057,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.INTERNAL_Resources__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Implementation_End_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -19133,11 +19103,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Initial_Contact__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Internal_Resources__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -22015,15 +21980,6 @@
         <modifyAllRecords>false</modifyAllRecords>
         <object>Product2</object>
         <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>ProductItem</object>
-        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>false</allowCreate>

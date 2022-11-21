@@ -6,6 +6,7 @@
     <inlineHelpText>The date and time the send was actually sent by ExactTarget</inlineHelpText>
     <label>Date Sent</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>

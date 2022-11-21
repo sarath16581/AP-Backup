@@ -37,6 +37,11 @@
                 <label>Executive complaints</label>
             </value>
             <value>
+                <fullName>Exec Letter</fullName>
+                <default>false</default>
+                <label>Exec Letter</label>
+            </value>
+            <value>
                 <fullName>FOI</fullName>
                 <default>false</default>
                 <label>FOI</label>
@@ -115,11 +120,6 @@
                 <fullName>Tribunal</fullName>
                 <default>false</default>
                 <label>Tribunal</label>
-            </value>
-            <value>
-                <fullName>Exec Letter</fullName>
-                <default>false</default>
-                <label>Exec Letter</label>
             </value>
         </valueSetDefinition>
     </valueSet>

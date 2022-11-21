@@ -13,6 +13,7 @@
     <inlineHelpText>A forumla field that shows up as a link on the Agreement Explorer tab, which will direct user to the result page once clicked.</inlineHelpText>
     <label>Title</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

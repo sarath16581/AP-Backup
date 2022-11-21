@@ -15,7 +15,7 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>lessOrEqual</operation>
+        <operation>equals</operation>
         <value>TODAY</value>
     </filters>
     <filters>

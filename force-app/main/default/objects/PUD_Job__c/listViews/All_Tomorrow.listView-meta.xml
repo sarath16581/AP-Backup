@@ -18,5 +18,10 @@
         <operation>equals</operation>
         <value>TOMORROW</value>
     </filters>
+    <filters>
+        <field>State__c</field>
+        <operation>contains</operation>
+        <value>Vic</value>
+    </filters>
     <label>All - Tomorrow</label>
 </ListView>

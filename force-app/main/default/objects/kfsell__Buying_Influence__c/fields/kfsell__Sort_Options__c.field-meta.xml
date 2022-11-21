@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Sort_Options__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Sorting Options available to sort buying influences on account dashboard.</description>
+    <externalId>false</externalId>
+    <label>Sort Options</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Overdue to Contact</fullName>
+                <default>false</default>
+                <label>Overdue to Contact</label>
+            </value>
+            <value>
+                <fullName>Recently Added</fullName>
+                <default>false</default>
+                <label>Recently Added</label>
+            </value>
+            <value>
+                <fullName>Recently Contacted</fullName>
+                <default>false</default>
+                <label>Recently Contacted</label>
+            </value>
+            <value>
+                <fullName>Involved in Most Opportunities</fullName>
+                <default>false</default>
+                <label>Involved in Most Opportunities</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -7,6 +7,7 @@
     <referenceTo>Idea</referenceTo>
     <relationshipName>Idea_Subscriptions</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

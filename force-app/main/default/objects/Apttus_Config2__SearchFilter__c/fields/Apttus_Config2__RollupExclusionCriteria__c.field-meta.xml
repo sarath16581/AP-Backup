@@ -7,6 +7,7 @@
     <inlineHelpText>The rollup exclusion filter criteria specification</inlineHelpText>
     <label>Rollup Exclusion Criteria</label>
     <length>16000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>25</visibleLines>

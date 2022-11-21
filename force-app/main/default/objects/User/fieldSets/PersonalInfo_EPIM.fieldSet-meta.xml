@@ -3,6 +3,31 @@
     <fullName>PersonalInfo_EPIM</fullName>
     <description>Fieldset for User Field Masking</description>
     <displayedFields>
+        <field>FirstName</field>
+        <isFieldManaged>true</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Title</field>
+        <isFieldManaged>true</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Country</field>
+        <isFieldManaged>true</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Extension</field>
+        <isFieldManaged>true</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Email</field>
+        <isFieldManaged>true</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>SenderName</field>
         <isFieldManaged>true</isFieldManaged>
         <isRequired>false</isRequired>
@@ -124,31 +149,6 @@
     </displayedFields>
     <displayedFields>
         <field>EmployeeNumber</field>
-        <isFieldManaged>true</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>FirstName</field>
-        <isFieldManaged>true</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>Title</field>
-        <isFieldManaged>true</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>Country</field>
-        <isFieldManaged>true</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>Extension</field>
-        <isFieldManaged>true</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>Email</field>
         <isFieldManaged>true</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>

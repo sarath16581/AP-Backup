@@ -7,6 +7,7 @@
     <inlineHelpText>Merge fields used both in the template and clauses nested in the template. Automatically maintained by the Apttus Author.</inlineHelpText>
     <label>Mergefields</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>10</visibleLines>

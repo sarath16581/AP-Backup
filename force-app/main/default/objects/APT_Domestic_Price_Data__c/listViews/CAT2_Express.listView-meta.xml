@@ -22,7 +22,7 @@
     <filters>
         <field>APT_Price_Structure__c</field>
         <operation>equals</operation>
-        <value>BANDED SPECIAL EXPRESS {Z40}</value>
+        <value>BANDED {Z6}</value>
     </filters>
     <filters>
         <field>APT_Lodgement_Zone_Code__c</field>
@@ -35,4 +35,5 @@
         <value>Express</value>
     </filters>
     <label>CAT2 Express</label>
+    <language>en_US</language>
 </ListView>

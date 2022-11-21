@@ -47,11 +47,11 @@
                 <field>Impacted_Areas__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Campaign__c</field>
+                <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
-                <emptySpace>true</emptySpace>
+                <behavior>Edit</behavior>
+                <field>Primary_Campaign__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

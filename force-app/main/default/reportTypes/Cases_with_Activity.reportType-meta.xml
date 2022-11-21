@@ -182,6 +182,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Area_to_Benefit__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>ArticleTest__c</field>
             <table>Case</table>
         </columns>
@@ -1202,6 +1207,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Other_CoE_s_Involved__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Other_Party__c</field>
             <table>Case</table>
         </columns>
@@ -2055,6 +2065,11 @@
             <field>ArticleTest__c.ArticleType__c</field>
             <table>Case</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
+            <table>Case</table>
+        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
@@ -2421,12 +2436,27 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>mh_Last_Updated_Green_Sheet__c</field>
+            <table>Case.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Sub_Type__c</field>
             <table>Case.Activities</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>TaskSubtype</field>
+            <table>Case.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Events__c</field>
+            <table>Case.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Tasks__c</field>
             <table>Case.Activities</table>
         </columns>
         <masterLabel>Activities</masterLabel>

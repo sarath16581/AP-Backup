@@ -4,6 +4,6 @@
     <forceLogout>false</forceLogout>
     <profile xsi:nil="true"/>
     <sessionPersistence>false</sessionPersistence>
-    <sessionTimeout>0</sessionTimeout>
+    <sessionTimeout>720</sessionTimeout>
     <sessionTimeoutWarning>false</sessionTimeoutWarning>
 </ProfileSessionSetting>

@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>While this checkbox is selected, this plan type is unavailable in the Plan Type list when a user is creating a new account plan.</inlineHelpText>
     <label>Inactive</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

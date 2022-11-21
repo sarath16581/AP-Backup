@@ -8,7 +8,8 @@ History:
 2018-06-14  TDO-45 : rahul.kapoor@coroma.com.au Refactored comments and indentation,
             added assertEquals and assertNotEquals, added new tests to handle
             send SMS for Star Track Tasks, tests to sendSMS using Mock class.
-2022-04-20  Remove test methods for snapIt Cases and lead as it is no longer needed
+20.04.2022    SaiSwetha Pingali   Removed snapIt logic as it is no longer required.
+
 ***********************************************************************************/
 @isTest
 private class ActivityUtil_Test {
@@ -573,7 +574,6 @@ private class ActivityUtil_Test {
         ActivityUtil.sendSMSForTasks(new List<Task>{testTask});
     }
 
-    
     /*****************************************************
     *  Scenario:
     *      Method to test populates lead first activity of sales person

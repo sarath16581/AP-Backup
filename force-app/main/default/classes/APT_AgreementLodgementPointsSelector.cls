@@ -50,6 +50,7 @@ public virtual inherited sharing class APT_AgreementLodgementPointsSelector exte
     /**
      * @description Run a simple query to get records based on charge Account request Id
      */
+
     public virtual Map<Id, APT_Agreement_Lodgement_Point__c> selectByApttusContractId(Set<Id> ids, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions)
             .addConditions()
@@ -69,8 +70,8 @@ public virtual inherited sharing class APT_AgreementLodgementPointsSelector exte
 			builder.addRelatedFields(NetworksSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'APT_Lodgement_Point_Lookup__r');
 		}
 		if(selectorOptions.contains(Options.FILTER_ACTIVE_STATUS)) {
-            builder.addConditions().add(new QueryBuilder.CompareCondition(APT_Agreement_Lodgement_Point__c.APT_Status__c).eq(APT_Constants.ACTIVE)).endConditions();
-        }
+			builder.addConditions().add(new QueryBuilder.CompareCondition(APT_Agreement_Lodgement_Point__c.APT_Status__c).eq(APT_Constants.ACTIVE)).endConditions();
+		}
 		if(selectorOptions.contains(Options.WITH_BILLING_ACCOUNT)) {
 			builder.addRelatedFields(BillingAccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'APT_Billing_Account__r');
 		}

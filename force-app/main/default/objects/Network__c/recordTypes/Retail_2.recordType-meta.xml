@@ -3,7 +3,6 @@
     <fullName>Retail_2</fullName>
     <active>true</active>
     <compactLayoutAssignment>Network_Compact_Layout</compactLayoutAssignment>
-    <description>AP Retail Deliveries</description>
     <label>Retail</label>
     <picklistValues>
         <picklist>ANZNSWGovtSchoolBanking__c</picklist>

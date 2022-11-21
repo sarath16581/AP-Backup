@@ -323,7 +323,7 @@
     <tabs>standard-OmniSupervisor</tabs>
     <tabs>ICPSArticle__c</tabs>
     <tabs>ICPS__c</tabs>
-	<tabs>standard-ServiceResource</tabs>
+    <tabs>standard-ServiceResource</tabs>
     <workspaceConfig>
         <mappings>
             <tab>APR_Contact__c</tab>

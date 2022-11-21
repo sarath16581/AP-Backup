@@ -9,6 +9,7 @@ When this setting is disabled, the Plan Details tab is included in account plans
     <externalId>false</externalId>
     <inlineHelpText>When enabled, the Plan Details tab is not in these plans, and plan details can’t be in a Powerpoint export. When disabled, the tab is included, and plan details can be exported if AM Add Plan Details is enabled in Powerpoint custom settings.</inlineHelpText>
     <label>Disable Plan Details</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

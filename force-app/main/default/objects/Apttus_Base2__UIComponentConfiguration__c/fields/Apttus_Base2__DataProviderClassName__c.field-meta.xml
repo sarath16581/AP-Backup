@@ -6,7 +6,6 @@
     <label>Class name for data provider</label>
     <length>128</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

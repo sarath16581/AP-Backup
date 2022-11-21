@@ -4,6 +4,7 @@
         <enabled>true</enabled>
         <name>C360_PortfolioView_Access</name>
     </customPermissions>
+    <description>Enables user to view specific TCRM dashboard called Customer 360 Portfolio View, which will provide insights to our Sales people via their Salesforce homepage</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>C360_PortfolioView_Access</label>
     <license>Salesforce</license>

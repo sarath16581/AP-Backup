@@ -48,7 +48,6 @@ export default class CreateBillingAccount extends LightningElement {
                       '<li>Can you provide a short description:  SAP Billing Account & Sub Account integration not working</li><ul></h3>';         
                       
     connectedCallback() {
-        debugger;
         this.validateRequestHandler();
     }
     validateRequestHandler(){

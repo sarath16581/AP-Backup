@@ -6,7 +6,6 @@
     <description>Indicates whether the adjustment is modifiable</description>
     <externalId>false</externalId>
     <label>Is Modifiable</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

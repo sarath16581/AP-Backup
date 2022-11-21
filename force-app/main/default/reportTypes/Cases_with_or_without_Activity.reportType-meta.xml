@@ -1777,6 +1777,16 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Area_to_Benefit__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Other_CoE_s_Involved__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Others_Involved__c</field>
             <table>Case</table>
         </columns>
@@ -1943,6 +1953,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Number_of_Cases__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>
@@ -2231,6 +2246,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Manager__c</field>
+            <table>Case.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Events__c</field>
+            <table>Case.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Tasks__c</field>
             <table>Case.Activities</table>
         </columns>
         <masterLabel>Activities</masterLabel>

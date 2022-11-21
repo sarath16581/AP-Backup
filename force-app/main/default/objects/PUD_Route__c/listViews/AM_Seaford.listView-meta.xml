@@ -13,7 +13,7 @@
     <filters>
         <field>NAME</field>
         <operation>contains</operation>
-        <value>SEA01,SEA02,SEA03,SEA04,SEA05</value>
+        <value>SEA01,SEA02,SEA03,SEA04,SEA05,SEATO1,SEATO3,SEATO5</value>
     </filters>
     <label>AM Seaford</label>
     <sharedTo>

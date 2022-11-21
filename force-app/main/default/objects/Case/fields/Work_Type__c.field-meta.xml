@@ -771,21 +771,6 @@
                 <default>false</default>
                 <label>Salesforce Administration</label>
             </value>
-            <value>
-                <fullName>Organisations &amp; Contacts</fullName>
-                <default>false</default>
-                <label>Organisations &amp; Contacts</label>
-            </value>
-            <value>
-                <fullName>Opportunities &amp; Leads</fullName>
-                <default>false</default>
-                <label>Opportunities &amp; Leads</label>
-            </value>
-            <value>
-                <fullName>LBP Program</fullName>
-                <default>false</default>
-                <label>LBP Program</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

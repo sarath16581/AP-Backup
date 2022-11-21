@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>To waive MFA for integration/system users for valid reasons such as API calls via connected apps, SFMC</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Waive Multi-Factor Authentication for Exempt Users</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>BypassMFAForUiLogins</name>
+    </userPermissions>
+</PermissionSet>
