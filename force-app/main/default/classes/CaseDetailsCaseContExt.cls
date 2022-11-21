@@ -1140,11 +1140,7 @@ global class CaseDetailsCaseContExt  {
 							if(skillsRequirements.isEmpty() == false) {
 
 								Map<Id, Decimal> userSkillIdVsSkillLevel = new Map<Id, Decimal>();
-								for(ServiceResourceSkill srs: [SELECT 
-																	SkillId,SkillLevel
-																FROM ServiceResourceSkill
-																WHERE ServiceResourceId IN (SELECT Id FROM ServiceResource WHERE RelatedRecordId = :previousOwnerId)]) {
-
+								for(ServiceResourceSkill srs: ServiceResourceSkillSelector.newInstance().selectByServiceResourceRelatedRecordIds(new Set<Id>{ previousOwnerId }, new Set<Object>())) {
 									userSkillIdVsSkillLevel.put(srs.SkillId, srs.SkillLevel);
 								}
 								
