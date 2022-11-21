@@ -152,7 +152,6 @@ public with sharing class SSSWConstants {
     public static final String METH_GETGROUPS = 'getGroups';
     public static final String METH_GETGROUP_DETAILS = 'getGroupDetails';
     public static final String METH_GETUSERS = 'getUsers';    
-	public static final String METH_GETCASESTATUS = 'getCaseStatus';
     public static final String METH_GET_STD_ENTITLEMENT = 'getStandardEntitlement';    
     public static final String PERCENT = '%';
     public static final String ENTITLEMENT_ACC = 'SSSW Entitlements';
