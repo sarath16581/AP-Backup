@@ -12,6 +12,7 @@
 * 2020-08-24 - Disha Kariya - Added fields override with Map
 * 2020-08-28 - Disha Kariya - Added With Network Response
 * 2021-12-02 - Alex Volkov - Added selectCasesEligibleForReopenByOwnerAndDate method
+* 2022-11-21 - Thang Nguyen - DDS-13756 Added CHASEnquiryType__c field
 */
 public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	public enum Options {
@@ -88,7 +89,7 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 				Case.ProductCategory__c, Case.ProductSubCategory__c, Case.Reason_Code__c, Case.Refer_to_Third_Party__c, Case.ReferenceID__c, Case.RelatedCase__c,
 				Case.Resolution_Result__c, Case.Resolution_Status__c, Case.ResolutionCode__c, Case.Role__c, Case.Send_Case_Comments__c, Case.Service_Now_Ticket_Number__c,
 				Case.SignatureOnDelivery__c, Case.SLACharterBreach__c, Case.SLATargetDate__c, Case.Source__c, Case.Time_to_Resolve_mins__c, Case.Updated_Case_Comments__c,
-				Case.Vendor_Case_Number__c
+				Case.Vendor_Case_Number__c, Case.CHASEnquiryType__c
 		});
 		return fields;
 	}
