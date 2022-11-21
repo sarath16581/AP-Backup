@@ -59,7 +59,7 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
         }
 
         if(!selectedCases.isEmpty()) {
-            System.enqueueJob(new TrackingSearchQueueable(selectedCases));
+            System.enqueueJob(new TrackingSearchQueueable(selectedCases[0]));
         }
     }
 
@@ -68,25 +68,29 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
         Id caseId;
         String referenceId;
         String articleId;
-        public TrackingSearchQueueable(List<Case> records) {
-            this.articleId = records[0].ArticleTest__c;
-            this.caseId = records[0].Id;
-            this.referenceId = records[0].ReferenceID__c;
+        Case cse;
+        Set<Id> caseRecordTypes = new Set<Id>{
+                SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId()
+        , SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_General_Enquiry').getRecordTypeId()
+        , SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_Voice_of_Customer').getRecordTypeId()};
 
+        public TrackingSearchQueueable(Case record) {
+            this.cse = record;
         }
 
         public void execute(QueueableContext context) {
             try {
-                if(this.articleId == null) {
+                if(this.cse.ArticleTest__c == null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId)) {
                     StarTrackTrackingIDSearchService cont = StarTrackTrackingIDSearchService.newInstance();
                     cont.dateRange = '1';
-                    cont.searchString = this.referenceId;
+                    cont.searchString = this.cse.ReferenceID__c;
                     cont.isConsole = false;
                     cont.map_searchCustomSettings.get(cont.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
                     cont.searchConsignment();
+                    // TODO separate method for assign to case stuff and other validations
                     case cse = new Case();
-                    cse.Id = this.caseId;
-                    cse.ArticleTest__c = cont.lst_article[0].Id;
+                    cse.Id = this.cse.Id;
+                    cse.ArticleTest__c = cont.lst_article[0].Id; // TODO multiple consignments check
                     update cse;
                 }
             } catch (Exception ex) {

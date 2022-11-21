@@ -217,8 +217,6 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
         system.debug('HASANTHA TEST 7 ');
         StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap;
         try {
-
-
             reqTimeStamp = StarTrackIntegrationLogging.timeNowFormatted();
             system.debug('HASANTHA TEST 8 ');
             emsResponse = emsStub.Search_x(request);
@@ -260,6 +258,15 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
     }
 
     public list<sobject> query() {
+        ArticlesSelector selector = ArticlesSelector.newInstance();
+
+        Map<Id, Article__c> articles = selector.selectByArticleNames(
+                new Set<String> {searchString},
+                'Consignment',
+                new Set<String> {'TEAM', 'TRACK & TRACE'},
+                new Set<Object>{ ArticlesSelector.Options.WITH_RECORDTYPE, ArticlesSelector.Options.WITH_CONSIGNMENT});
+        return articles.values();
+        /*
         String articleFilter = '(SELECT articleTest__c FROM Case WHERE ' + filterType(map_searchCustomSettings.get(fieldName).Field_Name__c, searchString, map_searchCustomSettings.get(fieldName).Exact_Search__c) + ')';
         String query1 = 'SELECT Id, ArticleID__c, Freight_Amount__c, CID__c, Billing_Account__c ';
         for (Schema.FieldSetMember f : SObjectType.Article__c.FieldSets.Consignment_Search_Results.getFields()) {
@@ -267,50 +274,6 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
         }
 
         query1 += ' FROM Article__c WHERE RecordType.Name = \'Consignment\' AND ';
-
-        String query = 'SELECT Id, ArticleID__c, Freight_Amount__c, CID__c, Billing_Account__c';
-        for (Schema.FieldSetMember f : SObjectType.Article__c.FieldSets.Consignment_Search_Results.getFields()) {
-            query += ',' + f.getFieldPath();
-        }
-
-        if (stSettings.SearchforSTConsignmentsOnly__c) {
-            query += ' FROM Article__c WHERE Source_System__c IN (\'TEAM\', \'TRACK & TRACE\') AND RecordType.Name = \'Consignment\' AND ';
-        } else {
-            query += ' FROM Article__c WHERE RecordType.Name = \'Consignment\' AND ';
-        }
-
-        if (map_searchCustomSettings.get(fieldName).Article_Case_field__c) {
-            query += filterType(fieldName, searchString, map_searchCustomSettings.get(fieldName).Exact_Search__c);
-        } else {
-            query += 'ID IN ' + articleFilter;
-        }
-
-        if (map_searchCustomSettings.get(fieldName).Show_Suburb_Field__c) {
-            query += ' AND ' + filterType('Receiver_Suburb__c', suburb, true);
-        }
-
-        if (map_searchCustomSettings.get(fieldName).Show_Date_Field__c && map_searchCustomSettings.get(dateRange).Field_Name__c != 'Custom') {
-            query += ' AND ' + map_searchCustomSettings.get(dateType).Field_Name__c + '= LAST_N_DAYS:' + map_searchCustomSettings.get(dateRange).Field_Name__c;
-        }
-/*
-        if (StarTrack_Constants.CUSTOM.equals(map_searchCustomSettings.get(dateRange).Field_Name__c)) {
-            Date startdate = datesFilter.Closed_Date__c;
-            Date enddate = datesFilter.Action_Date__c;
-            query += ' AND ' + map_searchCustomSettings.get(dateType).Field_Name__c + ' >=: startDate';
-            query += ' AND ' + map_searchCustomSettings.get(dateType).Field_Name__c + ' <=: endDate';
-        }*/
-
-
-        if (stSettings.SOQLLimitonArticle__c != null) {
-            query += ' LIMIT ' + Integer.valueOf(stSettings.SOQLLimitonArticle__c);
-        }
-
-        System.debug('*** Query ***  ' + query);
-        return Database.query(query);
-    }
-
-    /*public list<sobject> query() {
-        String articleFilter = '(SELECT articleTest__c FROM Case WHERE ' + filterType(map_searchCustomSettings.get(fieldName).Field_Name__c, searchString, map_searchCustomSettings.get(fieldName).Exact_Search__c) + ')';
 
         String query = 'SELECT Id, ArticleID__c, Freight_Amount__c, CID__c, Billing_Account__c';
         for (Schema.FieldSetMember f : SObjectType.Article__c.FieldSets.Consignment_Search_Results.getFields()) {
@@ -350,7 +313,50 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
         }
 
         System.debug('*** Query ***  ' + query);
-        return Database.query(query);
-    }*/
+        return Database.query(query);*/
+    }
 
+    // TODO old query method to be removed
+    public list<sobject> query1() {
+        String articleFilter = '(SELECT articleTest__c FROM Case WHERE ' + filterType(map_searchCustomSettings.get(fieldName).Field_Name__c, searchString, map_searchCustomSettings.get(fieldName).Exact_Search__c) + ')';
+        String query1 = 'SELECT Id, ArticleID__c, Freight_Amount__c, CID__c, Billing_Account__c ';
+        for (Schema.FieldSetMember f : SObjectType.Article__c.FieldSets.Consignment_Search_Results.getFields()) {
+            query1 += ',' + f.getFieldPath();
+        }
+
+        query1 += ' FROM Article__c WHERE RecordType.Name = \'Consignment\' AND ';
+
+        String query = 'SELECT Id, ArticleID__c, Freight_Amount__c, CID__c, Billing_Account__c';
+        for (Schema.FieldSetMember f : SObjectType.Article__c.FieldSets.Consignment_Search_Results.getFields()) {
+            query += ',' + f.getFieldPath();
+        }
+
+        if (stSettings.SearchforSTConsignmentsOnly__c) {
+            query += ' FROM Article__c WHERE Source_System__c IN (\'TEAM\', \'TRACK & TRACE\') AND RecordType.Name = \'Consignment\' AND ';
+        } else {
+            query += ' FROM Article__c WHERE RecordType.Name = \'Consignment\' AND ';
+        }
+
+        if (map_searchCustomSettings.get(fieldName).Article_Case_field__c) {
+            query += filterType(fieldName, searchString, map_searchCustomSettings.get(fieldName).Exact_Search__c);
+        } else {
+            query += 'ID IN ' + articleFilter;
+        }
+
+        if (map_searchCustomSettings.get(fieldName).Show_Suburb_Field__c) {
+            query += ' AND ' + filterType('Receiver_Suburb__c', suburb, true);
+        }
+
+        if (map_searchCustomSettings.get(fieldName).Show_Date_Field__c && map_searchCustomSettings.get(dateRange).Field_Name__c != 'Custom') {
+            query += ' AND ' + map_searchCustomSettings.get(dateType).Field_Name__c + '= LAST_N_DAYS:' + map_searchCustomSettings.get(dateRange).Field_Name__c;
+        }
+
+
+        if (stSettings.SOQLLimitonArticle__c != null) {
+            query += ' LIMIT ' + Integer.valueOf(stSettings.SOQLLimitonArticle__c);
+        }
+
+        System.debug('*** Query *** HASANTHA  ' + query);
+        return Database.query(query);
+    }
 }
