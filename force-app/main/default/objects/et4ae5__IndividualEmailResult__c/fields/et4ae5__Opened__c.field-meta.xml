@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether the subscriber opened the email or not</inlineHelpText>
     <label>Opened</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

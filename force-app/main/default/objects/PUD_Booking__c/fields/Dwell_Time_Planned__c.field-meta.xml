@@ -9,7 +9,6 @@
     <precision>4</precision>
     <required>false</required>
     <scale>0</scale>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

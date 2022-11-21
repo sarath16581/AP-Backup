@@ -185,6 +185,8 @@ global class CaseDetailsCaseContExt_Test {
 
 		CaseDetailsCaseContExt cdcc = new CaseDetailsCaseContExt(sc);
 
+		Test.startTest();
+
 		//Set mock callout class.
 		Test.setMock(HttpCalloutMock.class, new InitPageMock('CaseDescribe'));
 		//Call initializePage on page load to set the values.
@@ -197,8 +199,6 @@ global class CaseDetailsCaseContExt_Test {
 		cdcc.relatedArticle.mls_State__c = 'VIC';
 		cdcc.relatedArticle.mls_Instructions__c = 'Leave at front door';
 		cdcc.relatedArticle.mls_Description__c = 'Big red box';
-
-		Test.startTest();
 
 		//Set mock callout class with call type as respond200.
 		Test.setMock(HttpCalloutMock.class, new InitPageMock('respond200'));
@@ -251,6 +251,8 @@ global class CaseDetailsCaseContExt_Test {
 
 		CaseDetailsCaseContExt cdcc = new CaseDetailsCaseContExt(sc);
 
+		Test.startTest();
+
 		//Set mock callout class.
 		Test.setMock(HttpCalloutMock.class, new InitPageMock('CaseDescribe'));
 		//Call initializePage on page load to set the values.
@@ -263,8 +265,6 @@ global class CaseDetailsCaseContExt_Test {
 		cdcc.relatedArticle.mls_State__c = '';
 		cdcc.relatedArticle.mls_Instructions__c = '';
 		cdcc.relatedArticle.mls_Description__c = '';
-
-		Test.startTest();
 
 		//Call save method to save the case record.
 		cdcc.save();

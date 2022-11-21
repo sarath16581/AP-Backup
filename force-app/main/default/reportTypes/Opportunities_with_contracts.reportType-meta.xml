@@ -52,7 +52,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Hidden_Internal_Resources__c</field>
+            <field>Hidden_INTERNAL_Resources__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -712,7 +712,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Internal_Resources__c</field>
+            <field>INTERNAL_Resources__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -3086,11 +3086,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Apttus__Related_Opportunity__c</field>
-            <table>Opportunity.Apttus__R00N50000001Xl0FEAS__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Creator_Role__c</field>
             <table>Opportunity.Apttus__R00N50000001Xl0FEAS__r</table>
         </columns>
         <masterLabel>Apttus Contracts</masterLabel>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle</fullName>
+    <active>false</active>
+    <description>Truck, trailer or other vehicle record.</description>
+    <label>Vehicle</label>
+    <picklistValues>
+        <picklist>LocationType</picklist>
+        <values>
+            <fullName>Vehicle</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Max_Vehicle_Cat_Name__c</picklist>
+        <values>
+            <fullName>1-3T Enclosed Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1-3T Open Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10 ULD Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12 Metre Skel Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Truck %28Tailgate%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Truck Aircan Equipped</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Truck No tail gate lifter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>28 ULD Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>28 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30 ULD Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 ULDs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>40%2F44 ULD Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5T Enclosed Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5T Open Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5T Open Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6 Metre Skel Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>60 ULD Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7T Enclosed Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7T Open Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8 ULD Gated Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8 ULD Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>90 ULD Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>B Double</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dual Cab Ute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dual Seat Van</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>L%2FWBase Van</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Long WB %2F High Roof Transit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prime Mover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Utility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Van</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Node_Type__c</picklist>
+        <values>
+            <fullName>Adhoc customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Airport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Hubs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Country Mail Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Facility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Handover Point</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Licenced Post Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Sorting Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Node</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Delivery Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pick Up %26 Deliver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SPB Gold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SPB Red</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SPB Street Post Box</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shipping Terminal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transport Depot</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Available</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decommissioned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fault</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Use</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scheduled Maintainance</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Prime Mover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rigid Vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trailer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

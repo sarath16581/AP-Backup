@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Photos of all DGs labelling and packaging. Upload the photos in the file upload section.</inlineHelpText>
     <label>Photos of all DGs</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

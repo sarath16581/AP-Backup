@@ -59,7 +59,7 @@ public class AgreementDocumentTriggerHandler {
         Map<Id,RecordType> licenceRTs = new Map<Id,RecordType>(RecordTypes.getRecordTypesByName(cmaCpaRecordStrings,accountString));
         //Get the licence details
         for(Account licence : [SELECT Id, Assignment_Effective_To_Date__c, Licence_Status__c, Approval_Status__c FROM Account WHERE Id IN :parentAccountIds AND RecordTypeId IN :licenceRTs.keySet()]){
-            //Add 4 (previously 3) years to Assignment Effective To Date as Renew is signed and Active
+            //Add 4 years to Assignment Effective To Date as Renew is signed and Active
             licence.Assignment_Effective_To_Date__c = licence.Assignment_Effective_To_Date__c.addYears(4);
             mapParentAccounts.put(licence.Id, licence);
         }

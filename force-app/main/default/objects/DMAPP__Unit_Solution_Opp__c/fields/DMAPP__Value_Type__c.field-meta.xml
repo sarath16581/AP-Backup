@@ -6,6 +6,7 @@
     <inlineHelpText>Type of opportunity as defined by the value map</inlineHelpText>
     <label>Value Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

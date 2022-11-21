@@ -1305,7 +1305,6 @@ Test method for PCMS bundles
                                  UserName=APT_Constants.EMAIL_TEST_USER, UserRoleId = role.Id);
         System.runAs(testuser) {    
             //Create Account
-            //Test.starttest(); //Seth Added
             Account acc = APT_TestUtils.createOrganisation();
             acc.Industry = 'Logistics';
             insert acc;

@@ -1,11 +1,6 @@
 /**
  * @deprecated NOTE: No new methods should be added to this class. New methods should be added to DeliveryProofService
  *
- * NOTE: This class uses Digital Repository Documents API v1 to retrieve images. Please see 'DigitalRepositoryService'
- * for an implementation based on the new Digital Repository Documents API v2.
- * Please use 'DigitalRepositoryService' for calling Digital Repository APIs when a decision has been made to migrate
- * Safe Drop images integration to new Digital Repository API v2.
- *
  * @author Nathan Franklin
  * @date
  * @group Articles

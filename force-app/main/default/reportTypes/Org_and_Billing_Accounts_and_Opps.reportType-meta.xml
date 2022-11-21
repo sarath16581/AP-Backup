@@ -280,11 +280,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OperatingHours</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Organisation_Alternate_Name__c</field>
             <table>Account</table>
         </columns>
@@ -3426,7 +3421,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Internal_Resources__c</field>
+            <field>INTERNAL_Resources__c</field>
             <table>Account.Billing_Accounts__r.Opportunities__r</table>
         </columns>
         <columns>
@@ -3726,7 +3721,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Hidden_Internal_Resources__c</field>
+            <field>Hidden_INTERNAL_Resources__c</field>
             <table>Account.Billing_Accounts__r.Opportunities__r</table>
         </columns>
         <columns>
@@ -4723,18 +4718,5 @@
             <table>Account.Billing_Accounts__r.Opportunities__r.Apttus_Config2__RelatedOpportunityLineItems2__r</table>
         </columns>
         <masterLabel>Related Opportunity Line Items</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

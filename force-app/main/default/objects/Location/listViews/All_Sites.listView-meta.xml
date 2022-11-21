@@ -3,12 +3,12 @@
     <fullName>All_Sites</fullName>
     <columns>Name</columns>
     <columns>Node_Type__c</columns>
-    <columns>LocationType</columns>
     <columns>Street__c</columns>
     <columns>City__c</columns>
     <columns>State__c</columns>
-    <columns>Status__c</columns>
-    <columns>TimeZone</columns>
+    <columns>Max_Vehicle_Access__c</columns>
+    <columns>Post_Code__c</columns>
+    <columns>Expiry_Date__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>LocationType</field>
@@ -16,9 +16,14 @@
         <value>Site</value>
     </filters>
     <filters>
-        <field>Status__c</field>
-        <operation>equals</operation>
-        <value>Available</value>
+        <field>State__c</field>
+        <operation>contains</operation>
+        <value>Vic</value>
+    </filters>
+    <filters>
+        <field>Node_Type__c</field>
+        <operation>contains</operation>
+        <value>Adhoc customer,Customer</value>
     </filters>
     <label>All Sites</label>
 </ListView>

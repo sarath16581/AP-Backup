@@ -7011,6 +7011,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>DA_Event__b.kfsell_ActionPlanId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>DA_Event__b.mh_Associated_Green_Sheet__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10162,6 +10167,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>DA_Task__b.WrapTime__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>DA_Task__b.kfsell_ActionPlanId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

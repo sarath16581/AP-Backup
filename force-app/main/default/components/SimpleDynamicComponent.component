@@ -1,5 +1,0 @@
-<apex:component controller="SimpleDynamicController">
-    <apex:pageBlock title="Interactions">
-        <apex:dynamicComponent componentValue="{!dynamicDetail}" />
-    </apex:pageBlock>
-</apex:component>

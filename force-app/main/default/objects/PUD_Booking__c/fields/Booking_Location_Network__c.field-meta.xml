@@ -6,7 +6,6 @@
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Location Network</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

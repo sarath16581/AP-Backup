@@ -9,6 +9,7 @@
     <relationshipLabel>Lookup Children (Lookup Parent 2)</relationshipLabel>
     <relationshipName>LookupChildren2</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

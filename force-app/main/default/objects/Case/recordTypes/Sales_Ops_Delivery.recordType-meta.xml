@@ -1171,6 +1171,13 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>OmniRoutingSecondaryPriority__c</picklist>
+        <values>
+            <fullName>950</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>Customer - Email</fullName>

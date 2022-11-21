@@ -7,6 +7,10 @@
         <publicGroups>
             <publicGroup>StarTrack_Transit_Warranty_Team</publicGroup>
         </publicGroups>
+        <users>
+            <user>jade.zingle@startrack.com.au</user>
+            <user>michelle.fuimaono@startrack.com.au</user>
+        </users>
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>

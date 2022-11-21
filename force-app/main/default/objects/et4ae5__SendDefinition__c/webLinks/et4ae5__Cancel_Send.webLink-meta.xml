@@ -7,5 +7,5 @@
     <masterLabel>Cancel Send</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>alert(&quot;{!$Label.et4ae5__deprecateSendDefinitionJSComponents}&quot;);</url>
+    <url>alert(&quot;{!$Label.et4ae5__deprecatesenddefinitionjscomponents}&quot;);</url>
 </WebLink>

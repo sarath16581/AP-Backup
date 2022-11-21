@@ -16,8 +16,6 @@ private class APRTriggerHandler_Test {
 		APRTriggerHandler domain = new APRTriggerHandler();
 		domain.newUnitOfWork();
 		domain.registerDomains();
-
-		// PMD warning
-		System.assert(true);
+		System.assert(true, ''); // PMD warning
 	}
 }

@@ -20,7 +20,7 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>lessThan</operation>
+        <operation>lessOrEqual</operation>
         <value>TODAY</value>
     </filters>
     <filters>
@@ -49,7 +49,6 @@
         <value>2042,2043,2044,2048,2049,2050,2203,2204</value>
     </filters>
     <label>Alexandria - MPB Bookings Today</label>
-    <language>en_US</language>
     <sharedTo>
         <group>ALEXANDRIA_VAN_OPS</group>
     </sharedTo>

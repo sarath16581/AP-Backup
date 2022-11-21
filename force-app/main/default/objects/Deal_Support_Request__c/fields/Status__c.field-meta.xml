@@ -265,12 +265,6 @@
                 <label>Submitted for Approval</label>
             </value>
             <value>
-                <fullName>TEST AJ</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>TEST AJ</label>
-            </value>
-            <value>
                 <fullName>Under Review</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

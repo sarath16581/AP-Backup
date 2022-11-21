@@ -173,6 +173,11 @@ Requested by SS - ServiceNow Ticket INC0506675</description>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Area_to_Benefit__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>ArticleTest__c</field>
             <table>Case</table>
         </columns>
@@ -1109,6 +1114,11 @@ Requested by SS - ServiceNow Ticket INC0506675</description>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Other__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Other_CoE_s_Involved__c</field>
             <table>Case</table>
         </columns>
         <columns>
@@ -2524,6 +2534,11 @@ Requested by SS - ServiceNow Ticket INC0506675</description>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Network__c.WWC_WA__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>

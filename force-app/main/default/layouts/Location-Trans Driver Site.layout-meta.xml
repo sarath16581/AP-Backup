@@ -96,13 +96,6 @@
     </layoutSections>
     <relatedLists>
         <fields>Name</fields>
-        <fields>Product2</fields>
-        <fields>QuantityOnHand</fields>
-        <fields>QuantityUnitOfMeasure</fields>
-        <relatedList>ProductItems</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Name</fields>
         <fields>ParentRecord</fields>
         <fields>Type</fields>
         <relatedList>AssociatedLocations</relatedList>

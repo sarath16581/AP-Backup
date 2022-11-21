@@ -8,6 +8,7 @@
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicator to send agreement for signatures</inlineHelpText>
     <label>Send For Signatures</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

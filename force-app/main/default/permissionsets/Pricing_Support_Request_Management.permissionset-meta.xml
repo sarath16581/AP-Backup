@@ -3,21 +3,6 @@
     <description>For users who need to manage Pricing Support Requests - but don&apos;t have Pricing Management profile</description>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Deal_Support_Request__c.Opportunity_Stage__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Deal_Support_Request__c.Pricing_Directory__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Deal_Support_Request__c.Review_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Internal_Request__c.Account_Manager_BAR__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -404,15 +389,6 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Pricing Support Request Management</label>
     <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>Deal_Support_Request__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
@@ -421,10 +397,6 @@
         <object>Internal_Request__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>Deal_Support_Request__c.Pricing_Support_Request_StarTrack</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Internal_Request__c.Pricing_Request_Domestic_Parcels</recordType>
         <visible>true</visible>

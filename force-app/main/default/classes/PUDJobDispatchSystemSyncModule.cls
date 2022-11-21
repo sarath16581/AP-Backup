@@ -12,8 +12,6 @@
  * 2022-02-09 - Seth Heang - REQ2742514 Added 'Revenue_Check__c' into the monitoring fields check where Job is in 'Schedule' and 'Accepted' Status and push the updates to Dispatch system 
  * 2022-03-08 - Seth Heang - Add 'Containers_Payload__c', 'Regular_Product__c', 'International_Product__c', 'Express_Product__c' into the monitoring fields 
  * 2022-08-26 - Dattaraj Deshmukh - Updated job dispatch date criteria in 'onBeforeInsert' and 'onBeforeUpdate' method.
- * 2022-09-05 - Dattaraj Deshmukh - Added 'PUD_Job__c.Dock_Number__c' to monitored fields.
- * 2022-09-12 - Dattaraj Deshmukh - Added 'Display_ETA_To_Driver__c' and removed 'Display_Start_Time__c'.
  */
 
 public inherited sharing class PUDJobDispatchSystemSyncModule extends ApplicationDomain.Module {
@@ -26,13 +24,13 @@ public inherited sharing class PUDJobDispatchSystemSyncModule extends Applicatio
 				MONITORED_FIELDS_FOR_UPDATES = new Set<SObjectField>{
 						PUD_Job__c.Article_Count__c, PUD_Job__c.Bags_Quantity__c, PUD_Job__c.Blue_Bags__c, PUD_Job__c.Booking_Comments__c,
 						PUD_Job__c.Comments__c, PUD_Job__c.Contact_Email__c, PUD_Job__c.Contact_Name__c, PUD_Job__c.Contact_Phone_Number__c,
-						PUD_Job__c.Display_ETA_To_Driver__c, PUD_Job__c.Dwell_Time_Planned__c, PUD_Job__c.Earliest_Start_Time__c,
+						PUD_Job__c.Display_Start_Time__c, PUD_Job__c.Dwell_Time_Planned__c, PUD_Job__c.Earliest_Start_Time__c,
 						PUD_Job__c.Express_Bags__c, PUD_Job__c.Hazards__c, PUD_Job__c.Job_Instructions__c, PUD_Job__c.Key_Number__c,
 						PUD_Job__c.Large_Letter_Tubs__c, PUD_Job__c.Latest_End_Time__c, PUD_Job__c.Pallets_Quantity__c,
 						PUD_Job__c.Red_Tubs__c, PUD_Job__c.Site_Instructions__c, PUD_Job__c.Small_Letter_Trays__c,
 						PUD_Job__c.Start_Time__c, PUD_Job__c.Trays_Quantity__c, PUD_Job__c.Tubs_Quantity__c, PUD_Job__c.Volume_Cubic_Metre__c,
 						PUD_Job__c.White_Bags__c, PUD_Job__c.Revenue_Check__c, PUD_Job__c.Containers_Payload__c, PUD_Job__c.Regular_Product__c,
-						PUD_Job__c.International_Product__c,PUD_Job__c.Express_Product__c, PUD_Job__c.Dock_Number__c
+						PUD_Job__c.International_Product__c,PUD_Job__c.Express_Product__c
 				};
 			}
 			return MONITORED_FIELDS_FOR_UPDATES;
@@ -91,7 +89,7 @@ public inherited sharing class PUDJobDispatchSystemSyncModule extends Applicatio
 				Set<SObjectField> changed = changedRecords.get(job.Id);
 				if (changed == null) changed = new Set<SObjectField>();
 
-				//	- monitor jobs which are within date range where
+				//	- monitor jobs which are within date range where 
 				// Date__c >= PUDUtility.JOB_DISPATCH_FROM_DATE && Date__c <= PUDUtility.JOB_DISPATCH_TO_DATE. These dates are fetched as per config defined.
 				//  - job details changing where Status = Schedule, Accepted
 				//  - status changing to Cancel

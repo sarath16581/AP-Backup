@@ -123,6 +123,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Apttus_CMConfig__LegalEntityId__c</field>
+            <table>Apttus__APTS_Agreement__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>APT_Amendment_Effective_Date_Temp_Disply__c</field>
             <table>Apttus__APTS_Agreement__c</table>
         </columns>
@@ -1859,11 +1864,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Operational_Schedule__c.APT_Minimum_Monthly_Revenue__c</field>
-            <table>Apttus__APTS_Agreement__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Creator_Role__c</field>
             <table>Apttus__APTS_Agreement__c</table>
         </columns>
         <masterLabel>Apttus Contracts</masterLabel>

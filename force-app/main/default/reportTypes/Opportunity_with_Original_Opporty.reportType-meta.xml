@@ -312,7 +312,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Internal_Resources__c</field>
+            <field>INTERNAL_Resources__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -577,7 +577,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Hidden_Internal_Resources__c</field>
+            <field>Hidden_INTERNAL_Resources__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -1275,7 +1275,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Internal_Resources__c</field>
+            <field>INTERNAL_Resources__c</field>
             <table>Opportunity.Opportunities__r</table>
         </columns>
         <columns>
@@ -1540,7 +1540,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Hidden_Internal_Resources__c</field>
+            <field>Hidden_INTERNAL_Resources__c</field>
             <table>Opportunity.Opportunities__r</table>
         </columns>
         <columns>

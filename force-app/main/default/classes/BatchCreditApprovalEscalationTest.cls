@@ -44,7 +44,6 @@ private class BatchCreditApprovalEscalationTest
         cs.Related_Billing_Account__c = testBillingAcc.Id;
         cs.ownerId = UserInfo.getUserId();
         cs.Billing_Number__c = '12345';
-       
         insert cs;
              Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User' Limit 1];
             User usr1 = new User(Alias = 'standt1b', Email='test1b@testorg.com', 
@@ -68,10 +67,9 @@ private class BatchCreditApprovalEscalationTest
         cam1.Product_Family__c = 'default';
         cam1.Product_Sub_Category__c = 'default';
         cam1.GMOfSales__c = usr1.Id;
-        cam1.SalesDirector__c = usr3.Id;
+        cam1.SalesDirector__c =usr3.Id;
         cam1.AutoApprove__c=true;
         insert cam1;
-        
         credAppProcSetting = new Credit_Approval_Process_Setting__c(Active__c=true, Approval_Process_Name__c='Enterprise Credit Disputesv1.3',
                                     Escalate_Process__c=true, Escalation_Comment__c='Auto Approved through escalation process',
                                         EscalationTimeinBusinessDays__c = 1, Object__c='Credit_Approval__c', Name__c='Amount Including GST = 1,650.00');
@@ -132,6 +130,6 @@ private class BatchCreditApprovalEscalationTest
         Test.stopTest();
         Credit_Approval__c credApp1 = [Select Id, Status__c from Credit_Approval__c
                                         where Id =: creditApproval.Id];
-       // System.assertEquals('Pending Approval Decision', credApp1.Status__c);
+        //System.assertEquals('Pending Approval Decision', credApp1.Status__c);
     }
 }

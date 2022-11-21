@@ -606,7 +606,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>dfsle:Status</componentName>
-                <identifier>dfsle_Status1</identifier>
+                <identifier>dfsle_Status</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$User.dfsle__Status__c}</leftValue>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Redbank_MPB_Bookings_Tomorrow</fullName>
-    <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
+    <booleanFilter>1 AND (2 or 6) AND (3 OR 4 OR 5)</booleanFilter>
     <columns>NAME</columns>
     <columns>Location__c</columns>
     <columns>Street__c</columns>
@@ -37,6 +37,11 @@
         <field>Post_Code__c</field>
         <operation>contains</operation>
         <value>4305,4306</value>
+    </filters>
+    <filters>
+        <field>Effective_Date__c</field>
+        <operation>equals</operation>
+        <value>YESTERDAY</value>
     </filters>
     <label>Redbank - MPB Bookings Today</label>
 </ListView>

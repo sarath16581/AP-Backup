@@ -4,8 +4,8 @@
     @Description :  Visualforce page for BSP portal
     history ---
     5-11-2018   disha.kariya@aupost.com.au - updated code to display different text for AusPost
-	2018-11-21  hasantha.liyanage@auspost.com.au   -   adding download all link to case list.
-	2019-06-05  nathan.franklin@auspost.com.au  updated to support new BAM access rules
+    2018-11-21  hasantha.liyanage@auspost.com.au   -   adding download all link to case list.
+    2019-06-05  nathan.franklin@auspost.com.au  updated to support new BAM access rules
     2019-12-06  gunith.devasurendra@auspost.com.au Fix CSV export to export the correct status (INC1511690)
     2020-07-13  saiswetha.pingali@auspost.com.au - REQ2138663 - Remove 'Depot Created' and 'Not Case Related' case purpose for Startrack 
 -->

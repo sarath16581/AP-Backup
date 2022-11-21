@@ -239,13 +239,6 @@
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
-        <fields>Name</fields>
-        <fields>Product2</fields>
-        <fields>QuantityOnHand</fields>
-        <fields>QuantityUnitOfMeasure</fields>
-        <relatedList>ProductItems</relatedList>
-    </relatedLists>
-    <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <relatedLists>

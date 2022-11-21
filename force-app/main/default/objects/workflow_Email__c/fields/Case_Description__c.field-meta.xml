@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Case Description</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

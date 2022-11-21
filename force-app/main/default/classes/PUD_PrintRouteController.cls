@@ -8,9 +8,8 @@
 * @description Controller class to for printing CCP routes with bookings.
 * @changelog 
  * 2022-06-24 - created
- * 2022-08-09 - Dattaraj Deshmukh - Updated class to use wrapper classes for Route and Bookings.
- * 2022-08-31 - Dattaraj Deshmukh - Sorted overnight route bookings to appear on top.
- * 2022-09-14 - Dattaraj Deshmukh - Removed 'Display_Start_Time__c' and added 'Display_ETA_to_Driver__c' in fieldOverrides map.
+ * 2022-08-09- Dattaraj Deshmukh - Updated class to use wrapper classes for Route and Bookings.
+ * 2022-08-31- Dattaraj Deshmukh - Sorted overnight route bookings to appear on top. 
  * 2022-09-21- Ranjeewa Silva - Filter out expired bookings from appearing in the print out.
  */
 
@@ -59,7 +58,7 @@ public with sharing class PUD_PrintRouteController {
 				PUD_Booking__c.getSObjectType() => new Set <SObjectField>{
 						PUD_Booking__c.Id, PUD_Booking__c.Name, PUD_Booking__c.Status__c, PUD_Booking__c.Article_Count__c, PUD_Booking__c.Parent_Booking__c,
 						PUD_Booking__c.Route_Lookup__c, PUD_Booking__c.Start_Time__c, PUD_Booking__c.Booking_Comments__c,
-						PUD_Booking__c.Display_ETA_to_Driver__c, PUD_Booking__c.Dwell_Time_Planned__c, PUD_Booking__c.Booking_Type__c,
+						PUD_Booking__c.Display_Start_Time__c, PUD_Booking__c.Dwell_Time_Planned__c, PUD_Booking__c.Booking_Type__c,
 						PUD_Booking__c.Location__c, PUD_Booking__c.Booking_Location_Street__c, PUD_Booking__c.Booking_Location_City__c,
 						PUD_Booking__c.Booking_Location_Name_LU__c, PUD_Booking__c.Comments__c, PUD_Booking__c.Key_Number__c, PUD_Booking__c.Dock_Number__c, PUD_Booking__c.Latest_End_Time__c,
 						PUD_Booking__c.Monday__c, PUD_Booking__c.Tuesday__c, PUD_Booking__c.Wednesday__c, PUD_Booking__c.Thursday__c, PUD_Booking__c.Friday__c,

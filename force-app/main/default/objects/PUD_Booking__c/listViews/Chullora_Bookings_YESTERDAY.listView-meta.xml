@@ -15,10 +15,10 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>Chul</value>
+        <value>Chullora</value>
     </filters>
     <filters>
-        <field>Effective_Date__c</field>
+        <field>CREATED_DATE</field>
         <operation>equals</operation>
         <value>YESTERDAY</value>
     </filters>

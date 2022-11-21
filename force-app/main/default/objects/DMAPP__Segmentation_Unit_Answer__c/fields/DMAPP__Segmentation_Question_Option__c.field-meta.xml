@@ -8,6 +8,7 @@
     <referenceTo>DMAPP__DM_Segmentation_Question_Option__c</referenceTo>
     <relationshipName>Segmentation_Unit_Answers</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

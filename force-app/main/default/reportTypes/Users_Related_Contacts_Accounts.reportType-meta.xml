@@ -693,6 +693,36 @@
             <field>Contact.Title</field>
             <table>User</table>
         </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Contact.Id</field>
+            <table>User</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Contact.RecordType</field>
+            <table>User</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Contact.Email</field>
+            <table>User</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Contact.Name</field>
+            <table>User</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Contact.is_Inactive_Customer__c</field>
+            <table>User</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Contact.IsPersonAccount</field>
+            <table>User</table>
+        </columns>
         <masterLabel>Users</masterLabel>
     </sections>
     <sections>
@@ -1588,17 +1618,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Unique_Mobile__c</field>
-            <table>User.Contacts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>User.Contacts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
+            <field>Account.Id</field>
             <table>User.Contacts__r</table>
         </columns>
         <masterLabel>Contacts</masterLabel>
@@ -3091,11 +3111,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OperatingHours</field>
-            <table>User.Contacts__r.Accounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Opportunity__c</field>
             <table>User.Contacts__r.Accounts__r</table>
         </columns>
@@ -3974,6 +3989,31 @@
             <field>Zone__c</field>
             <table>User.Contacts__r.Accounts__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Parent.Id</field>
+            <table>User.Contacts__r.Accounts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Related_to_Organisation__c.Id</field>
+            <table>User.Contacts__r.Accounts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Related_to_Organisation__c.Name</field>
+            <table>User.Contacts__r.Accounts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Related_to_Organisation__c.AccountNumber</field>
+            <table>User.Contacts__r.Accounts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Related_to_Organisation__c.LEGACY_ID__c</field>
+            <table>User.Contacts__r.Accounts__r</table>
+        </columns>
         <masterLabel>Accounts</masterLabel>
     </sections>
     <sections>
@@ -4543,18 +4583,5 @@
             <table>User.Contacts__r.Accounts__r.Billing_Accounts__r</table>
         </columns>
         <masterLabel>Billing Accounts</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>User.Contacts__r.Accounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>User.Contacts__r.Accounts__r</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

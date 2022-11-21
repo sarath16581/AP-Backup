@@ -22,11 +22,12 @@
     <filters>
         <field>OWNER_NAME</field>
         <operation>equals</operation>
-        <value>Trixie Atienza,Cisca Tan,Ana Aguirre,Ben Richards,Virginia Escueta,Amy Lewis</value>
+        <value>Trixie Atienza,Cisca Tan,Ana Aguirre,Ben Richards,Virginia Escueta,Amy Lewis,Nadia Skinner,Frank Fallace,Nancy Patsiouris</value>
     </filters>
     <label>BGS Government Team</label>
     <sharedTo>
-        <group>SalesOpsSupport</group>
-        <group>Sales_Ops_Delivery</group>
+        <role>Service_Business_Service_Manager</role>
+        <role>Service_Enterprise_Service_Manager</role>
+        <role>Service_Government_Head_of_Service</role>
     </sharedTo>
 </ListView>

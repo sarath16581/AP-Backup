@@ -20,9 +20,6 @@ public inherited sharing class MyCustomerCasesDomain extends ApplicationDomain {
 		// additionally, each module will specify a list of fields that it monitors changes for.
 		registerModule(MyCustomerCaseArticlesModule.class);
 
-		// this module checks for Closed Cases
-		registerModule(MyCustomerClosedCaseModule.class);
-
 		registerModule(MyCustomerCaseRoutingModule.class);
 	}
 

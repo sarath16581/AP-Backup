@@ -165,8 +165,8 @@ private class PUDJobDispatchEventHandler_Test {
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[3].Id, Status__c='invalid', Event_Timestamp__c = System.now().addHours(-1)));
 		//exception scenario - invalid parent id in event.
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c='invalid', Status__c='Accepted', Event_Timestamp__c = System.now().addHours(-1)));
-		//'Failed' event for jobs[4]. Confirming the driver was not able to complete the job and PhotoGUID is supplied
-		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[4].Id, Status__c='Failed', Reason__c='No Access', Comments__c='driver comments', Photo_GUID__c='777123456', Event_Timestamp__c = System.now().addHours(-1)));
+		//'Failed' event for jobs[4]. Confirming the driver was not able to complete the job
+		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[4].Id, Status__c='Failed', Reason__c='No Access', Comments__c='driver comments', Event_Timestamp__c = System.now().addHours(-1)));
 		//'Cancelled' event for jobs[5]. Confirming the job has been cancelled in dispatch system.
 		events.add(new PUD_Job_Dispatch_Event__e(Source_System__c='MOBILESTAR', Type__c='Job_Action', Parent_Id__c=jobs[5].Id, Status__c='Cancelled', Event_Timestamp__c = System.now().addHours(-1)));
 
@@ -226,8 +226,6 @@ private class PUDJobDispatchEventHandler_Test {
 		System.assert(updatableJobs.containsKey(jobs[4].Id), 'Job status not updated on receiving \'Failed\' action');
 		System.assertEquals(PUDConstants.PUD_JOB_STATUS_FAILED, updatableJobs.get(jobs[4].Id).Status__c, 'Job status not updated on receiving \'Failed\' action');
 		System.assertEquals(events[5].Event_Timestamp__c, updatableJobs.get(jobs[4].Id).Failed_Timestamp__c, 'Failed timestamp not updated on receiving \'Failed\' action');
-		//Assert that Photo GUID is populated on PUD Job from Platform event for Failed status
-		System.assertEquals('777123456', updatableJobs.get(jobs[4].Id).Photo_GUID__c, 'Photo GUID is updated with the value received in \'Failed\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[4].Id).Failure_Reason__c, 'Failure Reason not updated with the value received in \'Failed\' action');
 		System.assertNotEquals(null, updatableJobs.get(jobs[4].Id).Driver_Comments__c, 'Driver Comments not updated with the value received in \'Failed\' action');
 

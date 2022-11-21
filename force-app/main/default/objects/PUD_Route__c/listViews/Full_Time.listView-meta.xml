@@ -11,7 +11,7 @@
     <filters>
         <field>NAME</field>
         <operation>contains</operation>
-        <value>SEA10,SEA11,SEA13,SEA14,SEA15,SEATO1,SEATO2</value>
+        <value>SEA10,SEA11,SEA13,SEA14,SEA15</value>
     </filters>
     <label>Full Time Seaford</label>
     <sharedTo>

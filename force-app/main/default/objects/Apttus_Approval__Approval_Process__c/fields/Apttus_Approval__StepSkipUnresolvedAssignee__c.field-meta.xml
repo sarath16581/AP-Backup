@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>When this box is checked if the assignee cannot be resolved at runtime then the step will be skipped instead of getting assigned to the Backup Admin.</inlineHelpText>
     <label>Step Skip Unresolved Assignee</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

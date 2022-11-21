@@ -109,6 +109,18 @@
         <template>All_Email_Templates/Lead_Seeker_New_Lead_received1</template>
     </alerts>
     <alerts>
+        <fullName>Lead_Seeker_New_Lead_Received_Email_Alert_MPB</fullName>
+        <description>Lead Seeker - New Lead Received Email Alert MPB</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_New_Lead_received_MPB</template>
+    </alerts>
+    <alerts>
         <fullName>Lead_Seeker_Verified_and_Disqualified_Existing_or_LPO_Customer</fullName>
         <description>Lead Seeker - Verified Existing or LPO Customer</description>
         <protected>false</protected>
@@ -905,8 +917,9 @@
         </criteriaItems>
         <description>To update the employee number, name and email onto the lead record &amp; set &apos;lead seeker&apos; as TRUE.
 To capture into the lead seeker program for possible reward points.
-REQ2268744 added additional logic for &apos;Service Partner&apos;
-REQ2276204 added Service Manager</description>
+REQ2268744 added for &apos;Service Partner&apos;
+REQ2276204 added Service Manager
+REQ2731961</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>

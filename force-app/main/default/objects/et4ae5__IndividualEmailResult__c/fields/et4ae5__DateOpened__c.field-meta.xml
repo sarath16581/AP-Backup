@@ -6,6 +6,7 @@
     <inlineHelpText>The date and time when the subscriber opened the email</inlineHelpText>
     <label>Date Opened</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>

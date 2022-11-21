@@ -4,6 +4,7 @@
     <description>StarTrack Depot Area User Count field stores the number of area user related to a depot.</description>
     <externalId>false</externalId>
     <label>Depot Area User Count</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Depot_Area__c.Depot_Area_User_Count__c</summarizedField>
     <summaryForeignKey>Depot_Area__c.Depot__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

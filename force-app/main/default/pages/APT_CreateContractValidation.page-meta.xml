@@ -5,8 +5,8 @@
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <label>APT_CreateContractValidation</label>
     <packageVersions>
-        <majorNumber>8</majorNumber>
-        <minorNumber>347</minorNumber>
+        <majorNumber>11</majorNumber>
+        <minorNumber>582</minorNumber>
         <namespace>Apttus</namespace>
     </packageVersions>
 </ApexPage>

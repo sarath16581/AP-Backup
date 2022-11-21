@@ -740,21 +740,6 @@
             <field>CreatedBy.Profile.Name</field>
             <table>Contact</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Unique_Mobile__c</field>
-            <table>Contact</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Contact</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Contact</table>
-        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -951,6 +936,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Area_Affected__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Area_to_Benefit__c</field>
             <table>Contact.Cases</table>
         </columns>
         <columns>
@@ -2010,6 +2000,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Other_CoE_s_Involved__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Other_Party__c</field>
             <table>Contact.Cases</table>
         </columns>
@@ -2861,6 +2856,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CCUYourReference__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Contact.Cases</table>
         </columns>
         <masterLabel>Cases</masterLabel>

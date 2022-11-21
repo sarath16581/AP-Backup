@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Enables use of NPE connected app in non prod orgs. Perm set exists in prod to be refreshed to sandbox. After refresh, integration clients connecting to non-prod must be assigned perm set. Perm set must be assigned the NPEConnectedApp in sandbox</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>NPE Connected App Clients</label>
+</PermissionSet>

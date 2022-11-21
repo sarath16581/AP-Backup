@@ -26,7 +26,6 @@
     <relationshipLabel>Related Delivery Booking</relationshipLabel>
     <relationshipName>Bookings</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

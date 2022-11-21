@@ -10,7 +10,6 @@
     <relationshipLabel>Approval Rules (Dimension 3)</relationshipLabel>
     <relationshipName>ApprovalRules3</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

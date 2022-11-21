@@ -276,11 +276,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OperatingHours</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Organisation_Alternate_Name__c</field>
             <table>Account</table>
         </columns>
@@ -3211,18 +3206,5 @@
             <table>Account.Apttus_Config2__AssetLineItemsBillTo__r.Apttus_Config2__AssetUsagePriceTiers__r</table>
         </columns>
         <masterLabel>Asset Usage Price Tiers</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

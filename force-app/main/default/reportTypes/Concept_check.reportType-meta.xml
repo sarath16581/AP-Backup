@@ -1356,21 +1356,6 @@
             <field>Verified_Name__c</field>
             <table>Billing_Account__c.Contacts__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Unique_Mobile__c</field>
-            <table>Billing_Account__c.Contacts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Billing_Account__c.Contacts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Billing_Account__c.Contacts__r</table>
-        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -1632,11 +1617,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>SicDesc</field>
-            <table>Billing_Account__c.Contacts__r.Accounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OperatingHours</field>
             <table>Billing_Account__c.Contacts__r.Accounts__r</table>
         </columns>
         <columns>
@@ -4008,18 +3988,5 @@
             <table>Billing_Account__c.Contacts__r.Accounts__r.Revenue_by_Billing_Account__r</table>
         </columns>
         <masterLabel>Revenue by Billing Account</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Billing_Account__c.Contacts__r.Accounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Billing_Account__c.Contacts__r.Accounts__r</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

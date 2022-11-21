@@ -1055,4 +1055,17 @@
         </columns>
         <masterLabel>Activities (Created By)</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Events__c</field>
+            <table>User.Activity$CreatedById</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Tasks__c</field>
+            <table>User.Activity$CreatedById</table>
+        </columns>
+        <masterLabel>Activities</masterLabel>
+    </sections>
 </ReportType>

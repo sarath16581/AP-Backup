@@ -11,6 +11,11 @@
     <columns>RECORDTYPE</columns>
     <filterScope>Everything</filterScope>
     <filters>
+        <field>Logged_In_User_Primary_Depot__c</field>
+        <operation>equals</operation>
+        <value>Pickup</value>
+    </filters>
+    <filters>
         <field>Type__c</field>
         <operation>equals</operation>
         <value>Pick Up</value>
@@ -29,11 +34,6 @@
         <field>Parent_Job_Status__c</field>
         <operation>notEqual</operation>
         <value>Cancelled</value>
-    </filters>
-    <filters>
-        <field>Logged_In_User_Primary_Depot__c</field>
-        <operation>equals</operation>
-        <value>Pickup</value>
     </filters>
     <label>My SS Pickup</label>
     <language>en_US</language>

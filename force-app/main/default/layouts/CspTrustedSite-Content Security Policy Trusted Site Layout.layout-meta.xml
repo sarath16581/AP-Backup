@@ -26,10 +26,6 @@
                 <behavior>Required</behavior>
                 <field>Context</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>MobileExtensionId</field>
-            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>

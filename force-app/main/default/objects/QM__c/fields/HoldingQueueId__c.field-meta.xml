@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>HoldingQueueId__c</fullName>
-    <defaultValue></defaultValue>
     <description>The ID of the SSSW Routing Holding queue, which is a holding queue for Case that require Articles to be fetched via queueable before being routed</description>
     <externalId>false</externalId>
     <label>Holding Queue ID</label>
