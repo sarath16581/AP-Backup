@@ -19,11 +19,6 @@ private with sharing class CaseCommonUtility_Test {
 	
 	
 	@testSetup static void testDataCreate() {
-		insert new Conveyancer_Number__c(SetupOwnerId=UserInfo.getOrganizationId(), Next_Id__c=123456);
-	}
-
-	//Added by David Catindoy - Sept 20, 2016
-	@testSetup static void createUser(){
 		Profile p = [SELECT Id FROM Profile WHERE Name='StarTrack Support']; 
 		UserRole r = [SELECT Id FROM UserRole WHERE Name = 'CEO/Reporting'];
 		User supportUser = new User(Alias = 'spUser', Email='user@testorg.a', EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='user@testorg.a');
