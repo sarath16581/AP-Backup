@@ -2,8 +2,8 @@
  * @description Yet another Test data factory... hopefully the last one before a tidyup... eek!
  *
  * IMPORTANT - New methods for generating test data are to be added in a domain specific (e.g. SSSW, StarTrack) application
- *			 test data factory. Please refer PUDTestDataFactory for an example.
- *			 Test data helpers currently in this class will be incrementally moved to domain specific test data factories.
+ *		   test data factory. Please refer PUDTestDataFactory for an example.
+ *		   Test data helpers currently in this class will be incrementally moved to domain specific test data factories.
  *
  * @author Nathan Franklin
  * @date 2020-04-24
@@ -33,17 +33,10 @@
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Added caseStarTransitWarrantyClaimRecordType, getter for MilestoneType and CaseMilestones
  * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
  * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
+ * 2022-11-18 - Noel - Added getCaseStatuses method
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
-
-	public static List<MembershipContact__c> getMembershipContact(Integer count, Id membershipId, Id contactId, string status, Boolean generateIds) {
-		return (List<MembershipContact__c>)maybeGenerateIds(populateSObjects(MembershipContact__c.SObjectType, new Map<SObjectField, Object> {
-				MembershipContact__c.Status__c => status,
-				MembershipContact__c.Contact__c => contactId,
-				MembershipContact__c.Membership__c => membershipId
-		}, count), generateIds);
-	}
 
 	public static List<Account> getAccounts(Integer count, Boolean generateIds) {
 		return (List<Account>)maybeGenerateIds(populateSObjects(Account.SObjectType, new Map<SObjectField, Object> {
@@ -182,7 +175,7 @@ public with sharing class ApplicationTestDataFactory {
 	public static List<Membership__c> getMembership(Integer count, String stat, String licType,Id licenseId, Id memberId, Boolean generateIds) {
 		return (List<Membership__c>)maybeGenerateIds(populateSObjects(Membership__c.SObjectType, new Map<SObjectField, Object> {
 				Membership__c.Status__c => stat,
-//				Membership__c.ABN__c => '12345678910',
+//			  Membership__c.ABN__c => '12345678910',
 				Membership__c.Licensee_Type__c => licType,
 				Membership__c.WCC__c => '123456',
 				Membership__c.Contact__c => memberId,
@@ -576,7 +569,7 @@ public with sharing class ApplicationTestDataFactory {
 		return (List<Apttus__APTS_Agreement__c>)maybeGenerateIds(populateSObjects(Apttus__APTS_Agreement__c.SObjectType, new Map<SObjectField, Object> {
 			Apttus__APTS_Agreement__c.Name => 'testApttusContract',
 			Apttus__APTS_Agreement__c.Apttus__Primary_Contact__c => primaryContactId,
-			Apttus__APTS_Agreement__c.Apttus__Related_Opportunity__c => relatedOpportunityId,		   
+			Apttus__APTS_Agreement__c.Apttus__Related_Opportunity__c => relatedOpportunityId,		  
 			Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c => date.Today(),
 			Apttus__APTS_Agreement__c.RecordTypeId =>  Schema.SObjectType.Apttus__APTS_Agreement__c.getRecordTypeInfosByName().get('MSA & Service Schedule').getRecordTypeId(),
 			Apttus__APTS_Agreement__c.Apttus__Agreement_Category__c => APT_Constants.NETWORK_TYPE_STANDARD
@@ -601,7 +594,7 @@ public with sharing class ApplicationTestDataFactory {
 			BAMExternalOnboardingRequest__c.Request_Object_Id__c => requestObjId,
 			BAMExternalOnboardingRequest__c.Request_Object_Name__c => objectName
 		}, count), generateIds);
-	}	
+	}   
 	public static List<Holding_Role_Reference__c> getHoldingRoleRef(Integer count, Boolean generateIds){
 		return (List<Holding_Role_Reference__c>)maybeGenerateIds(populateSObjects(Holding_Role_Reference__c.SObjectType, new Map<SObjectField, Object> {
 				Holding_Role_Reference__c.Name => 'New Accounts'
