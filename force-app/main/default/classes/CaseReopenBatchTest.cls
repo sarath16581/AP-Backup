@@ -6,6 +6,7 @@
 * @changelog
 * 02/12/2021 - Alex Volkov - Initial creation
 * 28/09/2022 - Mahesh Parvathaneni - DDS-12732 - Included the exception checker logic
+* 21/11/2022 - Thang Nguyen - DDS-13756 - Add logic to filter only the LOMI form cases
 */
 
 @IsTest
@@ -20,6 +21,7 @@ private with sharing class CaseReopenBatchTest {
 	 */
 	@IsTest
 	private static void testReopen() {
+		Boolean isWithComment = false;
 		//Case records
 		List<Case> vCases = ApplicationTestDataFactory.getCases(200, true);
 		for (Case c: vCases) {
@@ -29,7 +31,7 @@ private with sharing class CaseReopenBatchTest {
 		ExceptionCheckerService exceptionService = (ExceptionCheckerService)MockUtility.mockUtility(ExceptionCheckerService.class);
 
 		MockUtility.Mocks.startStubbing();
-		((ExceptionCheckerService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), exceptionService)).assignCasesToAgentQueue((List<Case>)fflib_Match.eq(vCases));
+		((ExceptionCheckerService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), exceptionService)).assignCasesToAgentQueue((List<Case>)fflib_Match.eq(vCases), (Boolean)fflib_Match.eq(isWithComment));
 		MockUtility.Mocks.stopStubbing();
 		//Test
 		Test.startTest();
@@ -42,7 +44,7 @@ private with sharing class CaseReopenBatchTest {
 		System.assertEquals('Completed', vJob[0].Status, 'Batch status: failed');
 
 		// should have called ExceptionCheckerService methods
-        ((ExceptionCheckerService)MockUtility.Mocks.verify(exceptionService, MockUtility.Mocks.times(1))).assignCasesToAgentQueue((List<Case>)fflib_Match.eq(vCases));
+        ((ExceptionCheckerService)MockUtility.Mocks.verify(exceptionService, MockUtility.Mocks.times(1))).assignCasesToAgentQueue((List<Case>)fflib_Match.eq(vCases), (Boolean)fflib_Match.eq(isWithComment));
 	}
 
 	/**
@@ -112,6 +114,7 @@ private with sharing class CaseReopenBatchTest {
 			} else {
 				vCases[i].ArticleTest__c = articles[3].Id;
 			}
+			vCases[i].CHASEnquiryType__c = 'Missing or lost item';
 		}
 
 		List<ExceptionCheckerService.ExceptionResultDTO> exceptionResult = new List<ExceptionCheckerService.ExceptionResultDTO>();
