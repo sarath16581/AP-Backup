@@ -25,6 +25,7 @@
  2021-09.20 seth.heang@auspost.com.au   INC1852893 Fix SOQL query bug which caused 'Reassign' button functionality to not working 
  2021.10.01	seth.heang@auspost.com.au	INC1859157, INC1859449 Fix SOQL query issue with ReferenceID__c, Status, EnquirySubType__c
  2022-04-08 Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
+ 2022-11-18 George Nguyen - Added logic to check against the target ownerId: If it is omni and the skills are matching the previous owner's skills then do not allow the case to be Reassigned. 
 ***********************************/
 global class CaseDetailsCaseContExt  {
 
@@ -988,6 +989,7 @@ global class CaseDetailsCaseContExt  {
     public Boolean doUpdate {get;set;}
     public Boolean isAssign {get;set;}
     public String assignedQueueName {get;set;}
+	public Boolean notAllowedToReassign {get;set;}
 
     /**
       * @description       This method will check the new case assign logic and based on routing rules, assign case to respective owner
@@ -1008,15 +1010,18 @@ global class CaseDetailsCaseContExt  {
             String custType = String.isNotBlank(reassignCase.Account.ServiceSLA__c) ? reassignCase.Account.ServiceSLA__c :
                     reassignCase.Account.Role_Type_Roll_Up__c == 'Customer' ? 'Silver' : 'Consumer';
             String reOpenQId = [Select Id from Group where Name = :REOPEN_QUEUE_NAME limit 1].Id;
-            isAssign = false;
 
-            boolean hasChild = false;
-            string previousOwner = myCase.Ownerid;
+            isAssign = false;
             sameOwner = false;
+
+			groupNameMapUI = new Map<String,String>();
+
+			Boolean hasChild = false;
+            String previousOwnerId = myCase.Ownerid;
             Boolean doUpdate = false;
             List<Case> childNWRespCaseList = new List<Case>();
             List<Case> childCustRespCaseList = new List<Case>();
-            groupNameMapUI = new Map<String,String>();
+            
             //check if case has child cases
             //check if case has child cases of status - awaiting n/w response
             for(Case cse: [Select Id, Status from Case where parentId =: mycase.id]) {
@@ -1035,7 +1040,7 @@ global class CaseDetailsCaseContExt  {
                     childCustRespCaseList.add(myCase);
                 }
                 hasChild = true;
-                if( myCase.ownerId == previousOwner) {
+                if( myCase.ownerId == previousOwnerId) {
                     sameOwner = true;
                     isAssign = true;
                     assignedQueueName  = REOPEN_QUEUE_NAME ;
@@ -1046,14 +1051,16 @@ global class CaseDetailsCaseContExt  {
             if(!childNWRespCaseList.isEmpty() && !sameOwner ) {
                 flag = false;
                 database.update(childNWRespCaseList);
-            }
-            else if(hasChild && DAMAGES_IN_TRANSIT.equalsIgnoreCase(myCase.EnquirySubType__c )) {
+            
+			} else if(hasChild && DAMAGES_IN_TRANSIT.equalsIgnoreCase(myCase.EnquirySubType__c )) {
                 if(!childCustRespCaseList.isEmpty() && !sameOwner ) {
                     flag = false;
                     database.update(childCustRespCaseList);
                 }
             }
+
             if(flag){
+				notAllowedToReassign = false;
                 sameOwner = false;
                 // fetch all non-closed status values of case
                 if(NON_CLOSED_STATUSES.isEmpty()){
@@ -1110,14 +1117,54 @@ global class CaseDetailsCaseContExt  {
                                     groupNameMapUI.get(routingOwner) :
                                     groupNameMapUI.get(groupNameMap.get(CUST_TYPE_QUEUE_MAP.get(queueKey)).Id); //groupNameMapUI.get(CUST_TYPE_QUEUE_MAP.get(queueKey));
                             //System.Debug('assignedQueueName--->'+assignedQueueName);
-                            if(caseRec.OwnerId == previousOwner && caseRec.OwnerId==userinfo.getUserId()) {
+                            if(caseRec.OwnerId == previousOwnerId && caseRec.OwnerId==userinfo.getUserId()) {
                                 sameOwner = true;
                             }
                             caseRec.AllocateToQueue__c = false;     // disable case queue allocation
                         }
                     }
-                    //System.Debug('caseRec.OwnerId--->'+casesTobeRouted[0].OwnerId);
-                    if(!sameOwner && doUpdate) database.update(casesTobeRouted);
+
+					// set save point so we can revert the update to omni queue (if applicable). We need the PSR in order to compare the target skills vs the skills of the current agent. 
+					// If they are the same then the whole process should be reverted and show an error message to the user. 
+					Savepoint sp = Database.setSavepoint();
+
+					if(!sameOwner && doUpdate) {
+						Database.update(casesTobeRouted);
+
+						Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(PendingServiceRoutingSelector.newInstance().selectByWorkItemId(new Set<Id>{this.myCAse.Id}, new Set<Object>()));
+						// If PSR was created then the new owner is an Omni queue
+						if(psrs.isEmpty() == false) {
+
+							List<SkillRequirement> skillsRequirements = SkillRequirementSelector.newInstance().selectByRelatedRecordIds(psrs.keySet(), new Set<Object>());
+							
+							if(skillsRequirements.isEmpty() == false) {
+
+								Map<Id, Decimal> userSkillIdVsSkillLevel = new Map<Id, Decimal>();
+								for(ServiceResourceSkill srs: [SELECT 
+																	SkillId,SkillLevel
+																FROM ServiceResourceSkill
+																WHERE ServiceResourceId IN (SELECT Id FROM ServiceResource WHERE RelatedRecordId = :previousOwnerId)]) {
+
+									userSkillIdVsSkillLevel.put(srs.SkillId, srs.SkillLevel);
+								}
+								
+								Boolean hasAllSkills = true;
+								for(SkillRequirement sr: skillsRequirements) {
+									// if previous owner does not have the same skill or does have the same skill but lower level then it is a mis-match. 
+									if(userSkillIdVsSkillLevel.containsKey(sr.SkillId) == false || (userSkillIdVsSkillLevel.get(sr.SkillId) != null && userSkillIdVsSkillLevel.get(sr.SkillId) < sr.SkillLevel)) {
+										hasAllSkills = false;
+										break;
+									}
+								}
+
+								// user has all the required skills so we should revert the update and show the error to the user. 
+								if(hasAllSkills == true) {
+									Database.rollback(sp);
+									notAllowedToReassign = true; // showing the error to the user. 
+								}								
+							}
+						}
+					}
                 }
             }
 
