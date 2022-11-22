@@ -1420,10 +1420,10 @@ private with sharing class CaseCommonUtility_Test {
 		//Case Status
 		CacheManager.settings.CacheEnabled__c = true;
 
-		List<CaseStatus> caseStatuses = ApplicationTestDataFactory.getCaseStatuses(3, false);
+		List<CaseStatus> caseStatuses = ApplicationTestDataFactory.getCaseStatuses(2, false);
 		CaseStatus closedStatus = caseStatuses[0];
 		closedStatus = (CaseStatus)ApplicationTestDataFactory.setUnwritableFields(closedStatus, new Map<String, Object>{'IsClosed' => true});
-		CaseStatus nonClosedStatus = caseStatuses[2];
+		CaseStatus nonClosedStatus = caseStatuses[1];
 		nonClosedStatus = (CaseStatus)ApplicationTestDataFactory.setUnwritableFields(nonClosedStatus, new Map<String, Object>{'IsClosed' => false});
 
 		Set<String> closedCaseStatuses = new Set<String>{closedStatus.MasterLabel};
@@ -1451,7 +1451,7 @@ private with sharing class CaseCommonUtility_Test {
 
 		cases[5].OwnerId = omniQueue.Id;
 		cases[5].Status = closedStatus.MasterLabel;
-		validCasesInsert.put(cases[5].id, cases[5]); //Closed Case Owner changed 
+		validCasesInsert.put(cases[5].id, cases[5]); //Closed Case inserted
 
 		
 		//negative scenarios 
