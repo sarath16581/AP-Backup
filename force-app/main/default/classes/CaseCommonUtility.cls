@@ -668,6 +668,7 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 					){	
 						csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
 						csRec.AllocateToQueue__c = false;
+						casesTobeRouted.add(csRec);
 					} else if( (csRec.Network__c == null
 						&& (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
 						||
