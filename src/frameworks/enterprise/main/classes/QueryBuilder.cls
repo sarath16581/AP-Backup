@@ -30,6 +30,7 @@
  * @changelog
  * 2020-08-02 - Nathan Franklin - Added option for fieldOverrides
  * 2021-12-02 - Alex Volkov - Added datetime comparison conditions
+ * 2022-11-23 - Mahesh Parvathaneni - Added notInCollection conditions
  */
 public virtual inherited sharing class QueryBuilder {
 
@@ -1503,6 +1504,18 @@ public virtual inherited sharing class QueryBuilder {
                 return this;
             }
             this.formedCondition = this.fieldName + ' NOT IN ' + this.bracket(builtSubQuery);
+            return this;
+        }
+
+        public Condition notInCollection(Set<String> notInSet) {
+            return notInCollection(new List<String>(notInSet));
+        }
+
+        public Condition notInCollection(List<String> notInList) {
+            if (notInList.isEmpty()) {
+                this.formedCondition = '';
+            }
+            this.formedCondition = this.fieldName + ' NOT IN ' + this.buildIn(notInList);
             return this;
         }
     }

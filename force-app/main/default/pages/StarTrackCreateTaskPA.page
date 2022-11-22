@@ -7,35 +7,39 @@
     NOV.05.2015 Patrick James Franco - Added rendered filter to Is Bulk Task to hide it for Pickup Booking Enquiry Cases
     NOV.16.2015 Patrick James Franco - Renamed Parent_Network_Facility references to Parent_Network
     NOV.25.2015 Patrick James Franco - Content replaced by StarTrackCreateTask component
-    Oct.20.2022 Manish Jhingran      - Added App to invoke LWC cmp to Show the AP MyNetwork/ Creation of Case Investigations
+    NOV.18.2022 Mahesh Parvathaneni  - SF-689 Added App to invoke LWC cmp to Show the AP MyNetwork/ Creation of Case Investigations
 -->
 <apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="false"
     sidebar="false">
-    <div id="main" style="overflow:scroll; height:100%; width: 100%;">
-        <div id="VFCmp" class="slds-wrap">
+    <div id="main">
+        <div id="VFCmp">
             <c:StarTrackCreateTask case="{!Case}" />
         </div>
 
         <apex:includeLightning />
-
         <!-- This is where the component gets embeded -->
-        <div id="lightning" class=" slds-wrap" />
+        <div id="lightning" />
 
         <script>
-            var caseId = "{!Case}";
             //1.Lightning App
-            $Lightning.use("c:mynetworkStCaseArticlesApp", function () {
+            $Lightning.use("c:myNetworkStarTrackApp", function () {
                 //2.Component that has LWC in it
-                $Lightning.createComponent("c:mynetworkstcasearticlelistview", {
-                        "recordId": caseId
+                $Lightning.createComponent("c:myNetworkStarTrackCaseArticlesContainer", {
+                        "recordId": "{!Case}"
                     },
                     "lightning",
                     function (cmp) {
-                        console.log('recordId');
+                        console.log('myNetworkStarTrackCaseArticlesContainer component created');
                     }
 
                 );
             });
         </script>
+
+        <style>
+            div#VFCmp {
+                display: inline-block;
+            }
+        </style>
     </div>
 </apex:page>

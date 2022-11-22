@@ -1,0 +1,42 @@
+<template>
+    <div>
+        <table class="slds-table slds-table_bordered" role="grid">
+            <thead>
+            <tr class="slds-line-height_reset">
+                <!-- Iterating columns-->
+                <template for:each={bookingsTableColumns} for:item="col">
+
+                    <th key={col.fieldName} data-id={col.fieldName} onclick={handleSort}>
+                        <a class={col.headerCssClass}  data-id={col.fieldName}>
+                            <div class="slds-truncate slds-text-align_left" data-id={col.fieldName}>
+                                {col.label}
+                            </div>
+                        </a>
+                    </th>
+                </template>
+            </tr>
+            </thead>
+            <tbody class="brand-table">
+                <!-- Iterating bookings-->
+                <template for:each={computedBookings} for:item="booking">
+                    <tr class="slds-hint-parent" key={booking.Id}>
+                        <template for:each={booking._columns} for:item="column">
+                            <td class={column.styleCss} key={column.key} role="gridcell" data-id={column.key}>
+                                <c-pud-bulk-edit-bookings-datatable-cell
+                                    booking-id={booking.Id}
+                                    label={column.label}
+                                    type={column.fieldType}
+                                    name={column.fieldName}
+                                    value={column.fieldValue}
+                                    editable={column.editable}
+                                    cell-attributes={column.cellAttributes}
+                                    type-attributes={column.typeAttributes}
+                                    onvaluechange={handleValueChange}></c-pud-bulk-edit-bookings-datatable-cell>
+                            </td>
+                        </template>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+</template>
