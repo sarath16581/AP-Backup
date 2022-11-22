@@ -136,11 +136,11 @@ private static Boolean isAutoCloseEnabled = false;
 												SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 	}
 }
-		
-		
+
+
 /**
   * @description	   This method assign cases to existing contact based on supplied email,
-					creates new contact if doesn't exist.
+					   creates new contact if doesn't exist.
   * @param			 caseList - List<Case>
   * @return			Void
   * @throws			Method might throw exception which is handled by Try-Catch block
@@ -194,7 +194,7 @@ public void assignContactIDToCase(List<Case> caseList){
 /**
   * @description	   This method populates contact map - contactsMap,uniqueContactMap
   * @param			 emailSet - Set<String>, contactsMap - Map<String,List<Contact>>,
-					uniqueContactMap - Map<String,String>
+					   uniqueContactMap - Map<String,String>
   * @return			Void
   * @throws			Method might throw exception which is handled by calling method
   */
@@ -231,7 +231,7 @@ private static void handleContactAssignment(List<Case> caseList,Map<String,List<
 	/*
 		If contact id for a case is not available, contact is linked based on the combination of firstName,
 		lastName, person account & billing number else new person account is created and linked to case.
-	*/
+	 */
 	if(isShortListed){  //scenairo where contact is linked based on name, email, person account & billing number
 		List<Case> newAccCases = new List<Case>();
 		Map<String,Account> accMap = new Map<String,Account>(); // map of new accounts to be created
@@ -320,7 +320,7 @@ public void validateCase(List<Case> caseList){
 		/*
 			Currently duplicate check is for BSP cases only for below combination :
 			Customer + Enquiry SubType + Type + Article Number (Reference Id) + Parent Case + IsClosed
-		*/
+		 */
 		// Fetch org wide custom setting values to determine if duplicate check required
 		UniqueCaseTrigger__c uniqueCaseSetting = UniqueCaseTrigger__c.getOrgDefaults();
 		Set<String> uniqueKeySet = new Set<String>();
@@ -387,7 +387,7 @@ public void validateCase_Update(List<Case> caseList){
 		/*
 			Currently duplicate check is for BSP & DDC cases only for below combination :
 			Customer + Enquiry SubType + Type + Article Number (Reference Id) + Parent Case + IsClosed
-		*/
+		 */
 		// Fetch org wide custom setting values to determine if duplicate check required
 		UniqueCaseTrigger__c uniqueCaseSetting = UniqueCaseTrigger__c.getOrgDefaults();
 		for(Case caseRec : caseList){
@@ -491,7 +491,7 @@ public void closeChildCases(List<Case> caseList,Map<Id,Case> oldMap){
 					childCase.Status = SSSWConstants.STAT_CLOSED;
 					childCase.ResolutionCode__c = String.isNotBlank(childCase.Parent.ResolutionCode__c) ? 
 													childCase.Parent.ResolutionCode__c : childCase.ResolutionCode__c ; 
-						childcase.Resolution_Result__c = String.isNotBlank(childCase.Parent.Resolution_Result__c) ? childCase.Parent.Resolution_Result__c : childCase.Resolution_Result__c;
+													childcase.Resolution_Result__c = String.isNotBlank(childCase.Parent.Resolution_Result__c) ? childCase.Parent.Resolution_Result__c : childCase.Resolution_Result__c;
 											
 											
 					childCase.Bypass_Data_enforcement__c = true;	// setting to force close the child case
@@ -661,7 +661,7 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 						){
 						System.debug(LoggingLevel.ERROR,'**Case meets evaluation to go to routing method');
 						
-						setCaseKeyMap(csRec,caseOriginKeyMap,caseNoOriginKeyMap);	// set case key maps
+						setCaseKeyMap(csRec,caseOriginKeyMap,caseNoOriginKeyMap);   // set case key maps
 
 						casesTobeRouted.add(csRec);
 					}
@@ -780,26 +780,26 @@ public void updateHierarchyManager(List<Case> caseList){
 									where id =:currentUser ];
 
 
-	System.debug('updateHierarchyManager : Current User is ' + currentUser  );
-	System.debug('updateHierarchyManager : managerHierarchy FirstName ' + managerHierarchy.Manager.FirstName  );
+									System.debug('updateHierarchyManager : Current User is ' + currentUser  );
+									System.debug('updateHierarchyManager : managerHierarchy FirstName ' + managerHierarchy.Manager.FirstName  );
 		for(Case caseRec : caseList){
 			if(Utility.isValidRecordType(validRecTypes,caseRec.RecordTypeId)){  // verify if its SSSW recordtype
 
-					if ( (managerHierarchy.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.FirstName)) ||
-						(managerHierarchy.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.LastName)))
-					{
-						caseRec.ManagerLevel1__c = managerHierarchy.Manager.FirstName + ' ' + managerHierarchy.Manager.LastName;
-					}
-					if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
-						(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
-					{
-						caseRec.ManagerLevel2__c = managerHierarchy.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.LastName;
-					}
-					if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
-						(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
-					{
-						caseRec.ManagerLevel3__c = managerHierarchy.Manager.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.Manager.LastName;
-					}
+				if ( (managerHierarchy.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.FirstName)) ||
+				(managerHierarchy.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.LastName)))
+		   {
+			   caseRec.ManagerLevel1__c = managerHierarchy.Manager.FirstName + ' ' + managerHierarchy.Manager.LastName;
+		   }
+		   if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
+				(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
+		   {
+			   caseRec.ManagerLevel2__c = managerHierarchy.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.LastName;
+		   }
+		   if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
+				(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
+		   {
+			   caseRec.ManagerLevel3__c = managerHierarchy.Manager.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.Manager.LastName;
+		   }
 
 			}
 
@@ -834,10 +834,10 @@ public static void notificationAutomationModel(Map<Id, Case> newCases, Map<Id, C
 		//Query cases that matches criteria
 		//MW0004540 Added Special Instructions field
 		newCases = new Map<Id, Case>([SELECT Id, RecordType.Name, Status, FCR__c, Subscription_Consign_Summary_Status__c, Enquiry_Type__c, Call_Purpose__c, Exclude_Notification_Automation__c, ArticleTest__r.Consignment_Summary_Status__c, ArticleTest__c, ArticleTest__r.Name,
-										CaseNumber, Description_of_contents__c, Description_of_packaging__c, Number_of_Items__c, Network__r.Name, Network__r.Special_Instructions__c,Business_Solutions_Customer__c, ResolutionCode__c, All_Manual_Communications_Completed__c,
-										(SELECT Id, Calc_Contact_Email__c, Case__c, Calc_Contact_Mobile_Number__c, Calc_First_Name__c, Calc_Last_Name__c, Notification_Required__c, Notified_on_Status__c, Pref_Method_of_Contact__c, Name
-										FROM Authorised_Contacts__r WHERE Notification_Required__c = :StarTrack_Constants.ST_TRUE AND Pref_Method_of_Contact__c != null)
-									FROM Case WHERE Id IN :newCases.keySet() AND ArticleTest__c != null AND ResolutionCode__c NOT IN :excResCodeList AND FCR__c = :StarTrack_Constants.ST_FALSE AND RecordType.DeveloperName LIKE :(StarTrack_Constants.CASE_STARTRACK_RECTYPE + '%') AND Status != :StarTrack_Constants.CASE_STATUS_NEW]);
+										 CaseNumber, Description_of_contents__c, Description_of_packaging__c, Number_of_Items__c, Network__r.Name, Network__r.Special_Instructions__c,Business_Solutions_Customer__c, ResolutionCode__c, All_Manual_Communications_Completed__c,
+										 (SELECT Id, Calc_Contact_Email__c, Case__c, Calc_Contact_Mobile_Number__c, Calc_First_Name__c, Calc_Last_Name__c, Notification_Required__c, Notified_on_Status__c, Pref_Method_of_Contact__c, Name
+										 FROM Authorised_Contacts__r WHERE Notification_Required__c = :StarTrack_Constants.ST_TRUE AND Pref_Method_of_Contact__c != null)
+									 FROM Case WHERE Id IN :newCases.keySet() AND ArticleTest__c != null AND ResolutionCode__c NOT IN :excResCodeList AND FCR__c = :StarTrack_Constants.ST_FALSE AND RecordType.DeveloperName LIKE :(StarTrack_Constants.CASE_STARTRACK_RECTYPE + '%') AND Status != :StarTrack_Constants.CASE_STATUS_NEW]);
 		//Check if retrieved cases is not empty
 		if(!newCases.isEmpty()){
 			for(Case caseRec : newCases.values()){
@@ -864,7 +864,7 @@ public static void notificationAutomationModel(Map<Id, Case> newCases, Map<Id, C
 			Map<Id, String> caseSMSTemplate = new Map<Id, String>();
 			Map<Id, String> caseEmailTemplate = new Map<Id, String>();
 			List<StarTrack_Automation_Rule__c> stARList = [SELECT Id, Consignment_Summary_Status__c, Case_RecordType__c, Case_Type__c, Case_Purpose__c, Case_Status__c, Case_Action__c, Order__c, Email_Template__c, SMS_Template__c, RecordType.Name, RecordTypeId, BSC__c
-														FROM StarTrack_Automation_Rule__c WHERE RecordType.Name = :StarTrack_Constants.NOTIFAUTO_RULEFUNC ORDER BY Order__c];
+			FROM StarTrack_Automation_Rule__c WHERE RecordType.Name = :StarTrack_Constants.NOTIFAUTO_RULEFUNC ORDER BY Order__c];
 			if(!stARList.isEmpty()){
 				for(Case caseRec : newCases.values()){
 					for(StarTrack_Automation_Rule__c stRule : stARList){
@@ -904,11 +904,11 @@ public static void notificationAutomationModel(Map<Id, Case> newCases, Map<Id, C
 						// MW0004540 Modified to ensure Depot Collection always gets email if customer has given one - not just SMS because email has important Depot Collection Details.
 					} else if((StarTrack_Constants.CASE_ORIGIN_EMAIL.equals(relCont.Pref_Method_of_Contact__c) || StarTrack_Constants.CASE_ENQUIRY_DEPOTCOLLECTION.equals(caseRec.Enquiry_Type__c)) && String.isNotBlank(caseEmailTemplate.get(caseRec.Id)) && String.isNotBlank(relCont.Calc_Contact_Email__c)){
 						workflow_Email__c wfe = new workflow_Email__c(Case__c = caseRec.Id, Status__c = StarTrack_Constants.WFE_STATUS_CLOSE, Task_Description__c = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id),
-																	Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING, Workflow_Email_Alert__c = caseEmailTemplate.get(caseRec.Id), To_Address__c = relCont.Calc_Contact_Email__c,
-																	Name = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id), Task_Subject__c = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id),
-																	Consignment_Number__c = String.isNotBlank(caseRec.ArticleTest__c) ? caseRec.ArticleTest__r.Name : '', Enquiry_Type__c = caseRec.Enquiry_Type__c,
-																	Case_Number__c = caseRec.CaseNumber, Description_Of_Contents__c = caseRec.Description_of_contents__c, Description_Of_Packaging__c = caseRec.Description_of_packaging__c,
-																	Number_of_Items__c = String.valueOf(caseRec.Number_of_Items__c), Network_Name__c = caseRec.Network__r.Name, Special_Instructions__c = caseRec.Network__r.Special_Instructions__c, Contact_First_Name__c = relCont.Calc_First_Name__c);
+						Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING, Workflow_Email_Alert__c = caseEmailTemplate.get(caseRec.Id), To_Address__c = relCont.Calc_Contact_Email__c,
+						Name = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id), Task_Subject__c = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id),
+						Consignment_Number__c = String.isNotBlank(caseRec.ArticleTest__c) ? caseRec.ArticleTest__r.Name : '', Enquiry_Type__c = caseRec.Enquiry_Type__c,
+						Case_Number__c = caseRec.CaseNumber, Description_Of_Contents__c = caseRec.Description_of_contents__c, Description_Of_Packaging__c = caseRec.Description_of_packaging__c,
+						Number_of_Items__c = String.valueOf(caseRec.Number_of_Items__c), Network_Name__c = caseRec.Network__r.Name, Special_Instructions__c = caseRec.Network__r.Special_Instructions__c, Contact_First_Name__c = relCont.Calc_First_Name__c);
 						newWFRecords.add(wfe);
 						if(!caseStatusList.get(caseRec.Id).equals(relCont.Notified_on_Status__c)){
 							relCont.Notified_on_Status__c = caseStatusList.get(caseRec.Id);
