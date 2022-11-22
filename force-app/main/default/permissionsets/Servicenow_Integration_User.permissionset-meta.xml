@@ -9,14 +9,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ServiceNow_LookupListApexController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ServiceNow_LookupListApexControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>ServiceNow_UploadFIleController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -25,21 +17,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <description>All the permissions required for a user to create data in service now using External Data Source</description>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.OID_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Servicenow Integration User</label>
     <license>Salesforce</license>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>Contact</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
 </PermissionSet>

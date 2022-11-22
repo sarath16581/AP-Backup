@@ -12,7 +12,7 @@ History:
 15.01.2020 Victor Cheng (Salesforce.com) - Added ABN format validation when saving Status as Verified
 12.03.2020 Victor Cheng (Salesforce.com) - ABN format validation rules updated to include Status = Qualified, and exclude Primary Product = MyPost Business
 13-03-2020  Jansi(avula.jansirani@crmit.com)  - Added isBefore &isInsert if Block
-11-08-2020	arjun.singh@auspost.com.au		- Modified the code related to ABN validation
+11-08-2020  arjun.singh@auspost.com.au      - Modified the code related to ABN validation
 26-08-2020  arjun.singh@auspost.com.au      - Added leadScoring feature to update Lead Score Field on Lead Insert/Update
 15-10-2020  suman.gunaganti@auspost.com.au  - Added validation for lead details
 27-10-2020  Mav3rik                         - Added LPOLeadWccController.updateWCC

@@ -2,6 +2,7 @@
 <PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <profiles>
+            <profile>startrack support</profile>
             <profile>startrack voc</profile>
         </profiles>
     </assignments>

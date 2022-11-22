@@ -4,10 +4,6 @@
     <category>other</category>
     <deployed>true</deployed>
     <description>Locations and Product Items</description>
-    <join>
-        <outerJoin>true</outerJoin>
-        <relationship>ProductItems</relationship>
-    </join>
     <label>Locations and Product Items</label>
     <sections>
         <columns>
@@ -123,11 +119,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>IsInventoryLocation</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>VisitorAddress</field>
             <table>Location</table>
         </columns>
         <columns>
@@ -272,11 +263,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Service_Territory__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Hire_Vehicle__c</field>
             <table>Location</table>
         </columns>
@@ -298,61 +284,6 @@
         <masterLabel>Locations</masterLabel>
     </sections>
     <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>Name</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Product2</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>SerialNumber</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>QuantityOnHand</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>QuantityUnitOfMeasure</field>
-            <table>Location.ProductItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>UniqueConstraint</field>
-            <table>Location.ProductItems</table>
-        </columns>
         <masterLabel>Product Items</masterLabel>
     </sections>
 </ReportType>

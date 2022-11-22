@@ -10,6 +10,7 @@
 26.05.2021    Naveen Rajanna        REQ2513603 Show Print button when submitted and hide few tags upon print
 19.08.2021    Naveen Rajanna        REQ2595177 Introduce Copy to buttons and logic to Copy customer details to sender/addressee and 
                                     validation to restrict having same addressfor 'Old' and 'New' Mailhold
+25.02.2022    Naveen Rajanna        INC1929810 Fix template.querySelector throwing null after SF release update for hidden tags by adding prechecks
 **/
 
 import { track } from 'lwc'

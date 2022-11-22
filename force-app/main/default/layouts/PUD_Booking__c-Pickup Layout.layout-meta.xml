@@ -48,10 +48,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Display_ETA_to_Driver__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Earliest_Start_Time__c</field>
             </layoutItems>
             <layoutItems>
@@ -69,6 +65,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Stop_Credit__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Display_Start_Time__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

@@ -74,7 +74,13 @@
         <inputParameters>
             <name>ContactKey</name>
             <value>
-                <stringValue>{&quot;relationshipIdName&quot;:&quot;ContactId&quot;,&quot;relationshipName&quot;:&quot;Contact&quot;,&quot;isPolymorphic&quot;:false,&quot;referenceObjectName&quot;:&quot;Contact&quot;,&quot;fieldName&quot;:&quot;Id&quot;}</stringValue>
+                <stringValue>{
+  &quot;relationshipIdName&quot;: &quot;ContactId&quot;,
+  &quot;relationshipName&quot;: &quot;Contact&quot;,
+  &quot;isPolymorphic&quot;: false,
+  &quot;referenceObjectName&quot;: &quot;Contact&quot;,
+  &quot;fieldName&quot;: &quot;Id&quot;
+}</stringValue>
             </value>
         </inputParameters>
         <inputParameters>

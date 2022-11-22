@@ -150,7 +150,7 @@ private class StarTrackSupportCaseOwnerModule_Test {
         Test.stopTest();
 
         // Make sure fields were updated correctly (Case status not updated for System support user)
-        System.assertEquals(
+		System.assertEquals(
             'Awaiting Investigation',
             updatedCases[0].Status,
             'Expected status to be Awaiting Investigation on case'

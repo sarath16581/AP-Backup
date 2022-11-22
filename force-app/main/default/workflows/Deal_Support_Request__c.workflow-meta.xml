@@ -211,7 +211,7 @@
         <description>E&amp;G Sales Implementation DSR Request submit Notification</description>
         <protected>false</protected>
         <recipients>
-            <recipient>reed.feely@auspost.com.au</recipient>
+            <recipient>helen.tonkin@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>

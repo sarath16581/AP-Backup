@@ -9,6 +9,7 @@
 If Contract is Fixed Term this field represents Contract End Date (Expiration Date)</inlineHelpText>
     <label>Agreement End Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

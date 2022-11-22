@@ -24,7 +24,7 @@
     <filters>
         <field>Year__c</field>
         <operation>equals</operation>
-        <value>2021</value>
+        <value>2022</value>
     </filters>
     <filters>
         <field>Status__c</field>
@@ -36,6 +36,6 @@
         <operation>equals</operation>
         <value>APR__c.StarTrack</value>
     </filters>
-    <label>My Exemptions (2021)</label>
+    <label>My Exemptions (2022 | FY23)</label>
     <language>en_US</language>
 </ListView>

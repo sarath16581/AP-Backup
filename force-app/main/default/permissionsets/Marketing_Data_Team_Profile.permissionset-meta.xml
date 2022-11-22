@@ -793,6 +793,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.INTERNAL_Resources__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Implementation_End_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -814,11 +819,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Incumbents__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Internal_Resources__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

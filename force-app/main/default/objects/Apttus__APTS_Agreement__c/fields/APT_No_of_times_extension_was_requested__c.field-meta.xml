@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Calculates number of times user requested extension whether it was approved or not</inlineHelpText>
     <label># Of Times Extension Was Requested</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>APT_Contract_Extension__c.APT_Contract__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

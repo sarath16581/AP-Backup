@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <inlineHelpText>A roll up of the Standard &amp; restricted Licences attached to this order.</inlineHelpText>
     <label>TotalLicencesAttachedToThisOrder</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Salesforce_Licence__c.Licence_Orders__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
     <trackHistory>false</trackHistory>

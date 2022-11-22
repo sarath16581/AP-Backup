@@ -17,6 +17,7 @@ HYPERLINK(&quot;/apex/Apttus__AgreementTermExAdd?agreementId=&quot;+Id+&quot;&am
     <inlineHelpText>Total Contract Value must be above certain threshold set by Australia Post for this button to be available. Contract must be in &apos;Request&apos; or &apos;In Authoring&apos; Stage.</inlineHelpText>
     <label>Request T&amp;C Changes</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

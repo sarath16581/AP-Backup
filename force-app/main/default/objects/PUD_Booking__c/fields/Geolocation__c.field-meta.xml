@@ -6,7 +6,6 @@
     <formula>TEXT(Geo__Latitude__s) &amp; &quot; &quot; &amp; TEXT(Geo__Longitude__s)</formula>
     <label>Geolocation</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

@@ -9,12 +9,12 @@
  * 2022-05-30 - George Nguyen - Created.
  * 2022-09-05 - Nathan Franklin - Added LBPContactDomain
  */
-public with sharing class ContactDomainTriggerHandler extends ApplicationDomainTriggerHandler {
+public with sharing class ContactDomainTriggerHandler extends ApplicationDomainTriggerHandler  {
 
 	public static ContactDomainTriggerHandler newInstance() {
-		return (ContactDomainTriggerHandler) Application.Utilities.newInstance(ContactDomainTriggerHandler.class);
+		return (ContactDomainTriggerHandler)Application.Utilities.newInstance(ContactDomainTriggerHandler.class);
 	}
-
+    
 	public override SObjectType getSObjectType() {
 		return Contact.SObjectType;
 	}
@@ -37,7 +37,7 @@ public with sharing class ContactDomainTriggerHandler extends ApplicationDomainT
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-				Contact.SObjectType
+            Contact.SObjectType
 		};
 	}
 }

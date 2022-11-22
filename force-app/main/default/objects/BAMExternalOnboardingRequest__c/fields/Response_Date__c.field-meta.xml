@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Response Date</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

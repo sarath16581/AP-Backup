@@ -4649,6 +4649,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Area_to_Benefit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.ArticleCubing__c</field>
         <readable>true</readable>
@@ -5656,6 +5661,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Other_ATL_Instructions__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Other_CoE_s_Involved__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9685,7 +9695,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.Hidden_Internal_Resources__c</field>
+        <field>Opportunity.Hidden_INTERNAL_Resources__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9730,6 +9740,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.INTERNAL_Resources__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.Implementation_End_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9751,11 +9766,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Incumbents__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.Internal_Resources__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10150,6 +10160,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity_Assessment__c.INTERNAL_Resources__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity_Assessment__c.Incumbent_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10161,11 +10176,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity_Assessment__c.Incumbents__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity_Assessment__c.Internal_Resources__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10235,7 +10245,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pain_Point__c.Internal_Stakeholder_Impact__c</field>
+        <field>Pain_Point__c.INTERNAL_Stakeholder_Impact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

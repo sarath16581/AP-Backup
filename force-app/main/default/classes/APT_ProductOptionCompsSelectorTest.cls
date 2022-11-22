@@ -52,16 +52,7 @@ private with sharing class APT_ProductOptionCompsSelectorTest {
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
-		/*Account acc = ApplicationTestDataFactory.getAccounts(1, false)[0]; 
-		insert acc;
-		Contact con = ApplicationTestDataFactory.getContacts(1, acc.id, false)[0];
-		insert con;
-		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, acc.id, false)[0];
-		insert opp;
-		Apttus__APTS_Agreement__c contract = ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.Id, false)[0];
-		insert contract;
-		APT_Agreement_Lodgement_Point__c agreementLP = ApplicationTestDataFactory.getAgreementLodgementPoints(1, null, contract.Id,acc.Id, false)[0];
-		insert agreementLP;*/
+
 		Product2 parentProduct = ApplicationTestDataFactory.getPSRProducts(1, false)[0];
 		insert parentProduct;
 

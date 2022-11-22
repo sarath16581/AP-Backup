@@ -42,10 +42,6 @@
                 <behavior>Edit</behavior>
                 <field>Compensation_Limit__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>LBPFederationIdentifier__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

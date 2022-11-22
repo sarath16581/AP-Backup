@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Unable_to_change_Stage_back_when_Closed</fullName>
+    <fullName>Unable_to_change_stage_back_when_Closed</fullName>
     <active>true</active>
-    <description>Customer Onboarding DSR , unable to change the Stage from closed back to another stage.</description>
+    <description>You cannot change the stage if the DSR stage is Closed. For Customer Onboarding RT only.</description>
     <errorConditionFormula>IF($Profile.Name = &quot;System Administrator&quot;, FALSE,
 AND(
 $RecordType.Name = &quot;Customer Onboarding&quot;,

@@ -153,7 +153,6 @@
         </rules>
     </decisions>
     <description>record triggered flow upon After save on Email Message</description>
-    <environments>Default</environments>
     <interviewLabel>Email Message Common After Save Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>EmailMessage Common After Save Flow</label>
     <processMetadataValues>

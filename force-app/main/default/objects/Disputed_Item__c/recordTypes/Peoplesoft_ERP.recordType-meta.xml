@@ -513,4 +513,27 @@
             <default>false</default>
         </values>
     </picklistValues>
+    <picklistValues>
+        <picklist>Warehouse__c</picklist>
+        <values>
+            <fullName>BNE01</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MEL01</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PER01</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SYD01</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

@@ -13,5 +13,6 @@
     <columns>et4ae5__NumberSent__c</columns>
     <columns>et4ae5__Number_Delivered__c</columns>
     <filterScope>Everything</filterScope>
-    <label>All2</label>
+    <label>BUS_SB_OSH_PRO_20220405_eCommReport2022</label>
+    <language>en_US</language>
 </ListView>

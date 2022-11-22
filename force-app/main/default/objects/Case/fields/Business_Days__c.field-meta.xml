@@ -7,7 +7,6 @@
 (5 * ( FLOOR( ( datevalue(CreatedDate) - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( datevalue(CreatedDate)- DATE( 1900, 1, 8), 7 ) )), 
 1+ (5 * ( FLOOR( ( today() - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( today()- DATE( 1900, 1, 8), 7 ) ) )-
 (5 * ( FLOOR( ( datevalue(CreatedDate) - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( datevalue(CreatedDate)- DATE( 1900, 1, 8), 7 ) ) ))</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Working days elapsed since case is created.</inlineHelpText>
     <label>Business Days</label>
     <precision>18</precision>

@@ -2160,11 +2160,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OperatingHours</field>
-            <table>User.Account$OwnerId</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Opportunity__c</field>
             <table>User.Account$OwnerId</table>
         </columns>
@@ -3049,18 +3044,5 @@
             <table>User.Account$OwnerId</table>
         </columns>
         <masterLabel>Accounts (Account Owner)</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>User.Account$OwnerId</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>User.Account$OwnerId</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

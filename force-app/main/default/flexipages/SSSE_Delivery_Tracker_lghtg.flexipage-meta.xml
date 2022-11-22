@@ -53,7 +53,6 @@
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>SSSE Delivery Tracker</masterLabel>
-    <sobjectType>WorkOrder</sobjectType>
     <template>
         <name>flexipage:recordHomeWithSubheaderTemplateDesktop</name>
     </template>

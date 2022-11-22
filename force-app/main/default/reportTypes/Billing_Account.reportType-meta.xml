@@ -256,6 +256,51 @@
             <field>Credit_Limit_Formula__c</field>
             <table>Billing_Account__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>MLID__c</field>
+            <table>Billing_Account__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Credit_Limit__c</field>
+            <table>Billing_Account__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Credit_Person_Phone__c</field>
+            <table>Billing_Account__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Credit_Representative_Email__c</field>
+            <table>Billing_Account__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Credit_Status_Formula__c</field>
+            <table>Billing_Account__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Calc_Customer_ID__c</field>
+            <table>Billing_Account__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Credit_Status_Image__c</field>
+            <table>Billing_Account__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Email__c</field>
+            <table>Billing_Account__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>PAYER_ACCOUNT_ID__c</field>
+            <table>Billing_Account__c</table>
+        </columns>
         <masterLabel>Billing Accounts</masterLabel>
     </sections>
 </ReportType>

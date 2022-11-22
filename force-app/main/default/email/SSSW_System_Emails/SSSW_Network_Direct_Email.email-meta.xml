@@ -6,7 +6,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>SSSW Network Direct Email</name>
     <style>none</style>
-    <subject>Australia Post - Auto Reply - Could not locate Case | Case number: {!Case.CaseNumber}</subject>
+    <subject>Unanswered:  - Case:</subject>
     <type>visualforce</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

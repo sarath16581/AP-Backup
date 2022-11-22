@@ -2,10 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Prevent_Booking_Location_edit_on_Booking</fullName>
     <active>true</active>
-    <description>This validation rule prevents the Booking Location change on Booking record once it gets created. Location updates are allowed on bookings with a record type of &apos;Other&apos;.</description>
-    <errorConditionFormula>AND(
-RecordType.DeveloperName &lt;&gt; &apos;Other&apos;,
-ISCHANGED( Booking_Location__c )
-)</errorConditionFormula>
+    <description>This validation rule prevents the Booking Location change on Booking record once it gets created.</description>
+    <errorConditionFormula>ISCHANGED( Booking_Location__c )</errorConditionFormula>
     <errorMessage>Location cannot be changed.</errorMessage>
 </ValidationRule>

@@ -1179,16 +1179,6 @@
             <field>Account_Owner_Role_Group__c</field>
             <table>Account</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Account</table>
-        </columns>
         <masterLabel>Organisations</masterLabel>
     </sections>
     <sections>
@@ -1813,6 +1803,21 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>RecordType</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Communicated_to_customer__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Communicated_to_customer_Date__c</field>
+            <table>Account.Billing_Accounts__r.APRs__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Customer_Correspondence_Method__c</field>
             <table>Account.Billing_Accounts__r.APRs__r</table>
         </columns>
         <masterLabel>APRs</masterLabel>

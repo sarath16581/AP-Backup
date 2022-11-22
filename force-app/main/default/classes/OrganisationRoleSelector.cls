@@ -41,7 +41,7 @@ public with sharing class OrganisationRoleSelector extends ApplicationSelector{
     }    
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
-            Organisation_Role__c.Id, Organisation_Role__c.Role_Type__c
+            Organisation_Role__c.Id,Organisation_Role__c.Role_Type__c
         };
     }
     /**

@@ -5,6 +5,7 @@
     <formula>Apttus__AgreementId__r.APT_Date_of_Generation_Rate_Card__c</formula>
     <label>Date of Generation Rate Card</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

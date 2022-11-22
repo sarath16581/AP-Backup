@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Disables ‘Completeness’. You should disable ‘Scorecard’ and ‘Completeness’ if you have disabled any of the other tabs because ‘Scorecard’ and ‘Completeness’ cover all aspects of an account plan. So when tabs are disabled they may be misleading.</inlineHelpText>
     <label>Disable Completeness</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

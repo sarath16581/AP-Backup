@@ -3,11 +3,6 @@
     <description>Permission Set for SSSW Team Leads and Managers granting greater access to object and system permissions which can create/manage report</description>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Business_Days__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Compensation__c.Bank_Detail_Provided_By_Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>

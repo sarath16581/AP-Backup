@@ -4,8 +4,6 @@
  * @date 2022-02-11
  * @changelog
  * 2022-02-11 - Ranjeewa Silva - Created
- * 2022-09-14 - Dattaraj Deshmukh - Added 'Display ETA To Driver' and removed 'Display Start Time' field.
- * 				Updated FIELD_TYPES to include 'Checkbox' column.
  */
 
 // server calls
@@ -24,7 +22,7 @@ import PUD_BOOKING_OBJECT from '@salesforce/schema/PUD_Booking__c';
 
 // fields
 import FIELD_START_TIME from '@salesforce/schema/PUD_Booking__c.Start_Time__c';
-import FIELD_DISPLAY_ETA_TO_DRIVER from '@salesforce/schema/PUD_Booking__c.Display_ETA_to_Driver__c';
+import FIELD_DISPLAY_START_TIME from '@salesforce/schema/PUD_Booking__c.Display_Start_Time__c';
 import FIELD_ROUTE_LOOKUP from '@salesforce/schema/PUD_Booking__c.Route_Lookup__c';
 import FIELD_ROUTE_LOOKUP_NAME from '@salesforce/schema/PUD_Booking__c.Route_Lookup__r.Name';
 import FIELD_BOOKING_LOCATION_ADDRESS from '@salesforce/schema/PUD_Booking__c.Booking_Location_Address__c';
@@ -63,7 +61,7 @@ export const CONSTANTS = {
 	    FIELD_START_TIME : FIELD_START_TIME.fieldApiName,
 	    FIELD_ROUTE_LOOKUP : FIELD_ROUTE_LOOKUP.fieldApiName,
 	    FIELD_ROUTE_LOOKUP_NAME : FIELD_ROUTE_LOOKUP_NAME.fieldApiName,
-		FIELD_DISPLAY_ETA_TO_DRIVER : FIELD_DISPLAY_ETA_TO_DRIVER.fieldApiName,
+	    FIELD_DISPLAY_START_TIME : FIELD_DISPLAY_START_TIME.fieldApiName,
 	    FIELD_BOOKING_COMMENTS : FIELD_BOOKING_COMMENTS.fieldApiName,
 	    FIELD_BOOKING_LOCATION_ADDRESS : FIELD_BOOKING_LOCATION_ADDRESS.fieldApiName,
 	    FIELD_STREET : FIELD_STREET.fieldApiName,
@@ -81,8 +79,7 @@ export const CONSTANTS = {
     	DATE: 'DATE',
     	DATETIME: 'DATETIME',
     	TIME: 'TIME',
-    	INTEGER: 'INTEGER',
-		CHECKBOX: 'CHECKBOX'
+    	INTEGER: 'INTEGER'
     },
 
 	CLIENT_FORM_FACTOR: CLIENT_FORM_FACTOR,

@@ -3,8 +3,4 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>FSL Admin License</label>
     <license>FieldServiceStandardPsl</license>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>FieldServiceAccess</name>
-    </userPermissions>
 </PermissionSet>

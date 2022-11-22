@@ -6,6 +6,7 @@
     <inlineHelpText>This due date may display differently for users not in the assigner&apos;s same timezone.</inlineHelpText>
     <label>Due</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>

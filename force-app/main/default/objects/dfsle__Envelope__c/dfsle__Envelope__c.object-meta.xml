@@ -167,8 +167,8 @@
         <customTabListAdditionalFields>dfsle__EmailSubject__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>dfsle__DocuSignId__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>dfsle__Sent__c</customTabListAdditionalFields>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>dfsle__EmailSubject__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>dfsle__DocuSignId__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>dfsle__Sent__c</lookupDialogsAdditionalFields>

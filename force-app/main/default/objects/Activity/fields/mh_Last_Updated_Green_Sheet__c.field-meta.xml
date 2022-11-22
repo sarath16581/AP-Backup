@@ -4,6 +4,6 @@
     <externalId>false</externalId>
     <label>Last Updated Green Sheet</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <type>DateTime</type>
 </CustomField>

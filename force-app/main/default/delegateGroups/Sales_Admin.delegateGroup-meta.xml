@@ -2,19 +2,19 @@
 <DelegateGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>Sales Admin</label>
     <loginAccess>true</loginAccess>
-    <permissionSets>MFA Authorization for User Logins</permissionSets>
     <permissionSets>Service Partner Changes</permissionSets>
     <permissionSets>LBP Program field changes</permissionSets>
     <permissionSets>myTrailhead Content Access</permissionSets>
+    <permissionSets>MFA Authorization for User Logins</permissionSets>
     <permissionSets>Sales Directors / Managers</permissionSets>
     <permissionSets>Sales Access for SSSW Users</permissionSets>
     <permissionSets>View Sales Manager Coaching Records</permissionSets>
     <permissionSets>Create Sales Manager Coaching Records</permissionSets>
     <permissionSets>SSSW Knowledge for inside sales</permissionSets>
+    <profiles>Marketing User</profiles>
     <profiles>Customer Onboarding</profiles>
     <profiles>BG Base</profiles>
     <profiles>Coverage Sales</profiles>
-    <profiles>Marketing User</profiles>
     <profiles>Customer Team</profiles>
     <profiles>Sales Operations</profiles>
     <profiles>Solution Sales</profiles>
@@ -27,8 +27,8 @@
     <profiles>Business Enablement</profiles>
     <profiles>Sales Contracts CME</profiles>
     <profiles>SecurePay SuperUser</profiles>
-    <profiles>Sales Admin</profiles>
     <profiles>Sales 3rd Party</profiles>
+    <profiles>Sales Admin</profiles>
     <roles>Sales Operations</roles>
     <roles>Marketing</roles>
     <roles>Sales</roles>

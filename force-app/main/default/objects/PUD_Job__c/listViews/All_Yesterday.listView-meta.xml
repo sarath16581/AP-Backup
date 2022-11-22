@@ -19,5 +19,10 @@
         <operation>equals</operation>
         <value>YESTERDAY</value>
     </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Failed</value>
+    </filters>
     <label>All - Yesterday</label>
 </ListView>

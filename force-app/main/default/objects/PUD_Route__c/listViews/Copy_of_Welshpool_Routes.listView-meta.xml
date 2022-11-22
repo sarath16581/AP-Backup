@@ -6,9 +6,9 @@
     <columns>Depot__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Depot__c</field>
+        <field>NAME</field>
         <operation>startsWith</operation>
-        <value>Wel</value>
+        <value>wat</value>
     </filters>
     <label>Copy of Welshpool Routes</label>
 </ListView>

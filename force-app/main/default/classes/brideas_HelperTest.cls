@@ -5,7 +5,7 @@ private class brideas_HelperTest {
     static void setup() {
         Test.startTest();
         TestDataFactory.createStandardUser();
-       // TestDataFactory.createCommunityUser();
+        //TestDataFactory.createCommunityUser();
 
         String cId = brideas_Helper.getCommunityId('');
 

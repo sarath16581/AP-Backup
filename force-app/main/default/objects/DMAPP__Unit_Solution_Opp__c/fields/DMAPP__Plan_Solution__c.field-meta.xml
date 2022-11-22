@@ -8,6 +8,7 @@
     <referenceTo>DMAPP__AM_Plan_Solution__c</referenceTo>
     <relationshipName>Unit_Opps</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

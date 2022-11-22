@@ -4,6 +4,7 @@
     <description>Used for the Workforce Verification product and counts when Feature Type equals Working with Children</description>
     <externalId>false</externalId>
     <label>WFV Count Working with Children</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>Apttus__AgreementLineItem__c.APT_WFV_Working_with_Children_Check__c</field>
         <operation>equals</operation>

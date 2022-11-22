@@ -1,9 +1,3 @@
-<!--
- - component used to list jobs on pdf
- - @changelog:
- - 12/09/2022 - Dattaraj Deshmukh - updated to add 'Display_ETA_To_Driver__c' condition when displaying start_time__c
- -->
-
 <apex:component >
 	<apex:attribute name="jobs" type="PUD_Job__c[]" description="List of jobs for a given route"/>
 
@@ -20,7 +14,7 @@
 			             width="50px"
 			             style="padding-bottom:20px;"
 			             headerClass="job-headers">
-				<apex:outputText rendered="{! AND(job.Display_ETA_To_Driver__c, !ISNULL(job.Start_Time__c)) }">
+				<apex:outputText rendered="{! !ISNULL(job.Start_Time__c)}">
 					{! IF(LEN(TEXT(HOUR(job.Start_Time__c)))<2 , '0'+ TEXT(HOUR(job.Start_Time__c)), HOUR(job.Start_Time__c))}:
 					<apex:outputText value="{0,number,00}">
 						<apex:param value="{!MINUTE(job.Start_Time__c)}"/>

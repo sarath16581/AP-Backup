@@ -159,7 +159,7 @@ public with sharing class LineItemsSelector_Test {
         System.assertEquals(1, results.size(), 'Result count was wrong');
 
         results = selector.selectById(new Set<Id>{bundleLine.id}, new Set<Object>{LineItemsSelector.Options.WITH_PRODUCT_ATTRIBUTE_VALUE});
-        System.assertEquals(1, results.size(), 'Result count was wrong');
+         System.assertEquals(1, results.size(), 'Result count was wrong');
         
         List<Apttus_Config2__LineItem__c> resultList = new List<Apttus_Config2__LineItem__c>();
         resultList = selector.selectByProdConfId(new set<ID>{(ID)prodConfig.id});

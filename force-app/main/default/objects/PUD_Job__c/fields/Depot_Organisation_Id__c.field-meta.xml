@@ -4,7 +4,6 @@
     <description>Organisation Id of the Depot that service the parent booking.</description>
     <externalId>false</externalId>
     <formula>Depot__r.Org_ID__c</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Organisation Id of the Depot that service the parent booking.</inlineHelpText>
     <label>Depot Organisation Id</label>
     <required>false</required>

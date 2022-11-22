@@ -11,10 +11,10 @@
  */
 @IsTest
 public with sharing class MembershipContactsSelector_Test {
-    
+    private static final string MEMBERSHIP_CONTACT_STATUS_REVIEW = 'Review';
     @IsTest
     static void ensureCorrectSObjectType() {
-        System.assertEquals(MembershipContact__c.getSObjectType(), MembershipContactsSelector.newInstance().getSObjectType(), 'Should be MembershipContact__c');
+        System.assertEquals(MembershipContact__c.getSObjectType(), MembershipContactsSelector.newInstance(1).getSObjectType(), 'Should be MembershipContact__c');
     }
 
     @IsTest
@@ -63,14 +63,10 @@ public with sharing class MembershipContactsSelector_Test {
 		memberships[1].Member_Type__c = 'Partner';
 
 		insert memberships;
-        List<MembershipContact__c> membershipContacts = ApplicationTestDataFactory.getMembershipContact(2, memberships[0].id, contacts[1].id, 'Review', false);
-		membershipContacts[0].Membership__c = memberships[0].id;
-        membershipContacts[0].Status__c = 'Review';
-        membershipContacts[0].CompletionDate__c = null;
+        List<MembershipContact__c> membershipContacts = new List<MembershipContact__c>();
+        MembershipContacts.add(new MembershipContact__c (Membership__c = memberships[0].id, Contact__c = contacts[1].id, Status__c = MEMBERSHIP_CONTACT_STATUS_REVIEW ,CompletionDate__c = null ));
+        MembershipContacts.add(new MembershipContact__c (Membership__c = memberships[1].id, Contact__c = contacts[1].id, Status__c = MembershipContactsSelector.MEMBERSHIP_CONTACT_STATUS_COMPLETED, CompletionDate__c = Datetime.now().date()));
 
-        membershipContacts[1].Membership__c = memberships[1].id;
-        membershipContacts[1].Status__c = MembershipContactsSelector.MEMBERSHIP_CONTACT_STATUS_COMPLETED;
-        membershipContacts[1].CompletionDate__c = Datetime.now().date();
         insert membershipContacts;
 
         Map<Id, MembershipContact__c> membershipContactsMap = new Map<Id, MembershipContact__c>(membershipContacts);

@@ -19,17 +19,12 @@
     <filters>
         <field>APT_Pricing_Value_1__c</field>
         <operation>equals</operation>
-        <value>BAND 2</value>
+        <value>BAND 3</value>
     </filters>
     <filters>
         <field>APT_Pricing_Value_12__c</field>
         <operation>equals</operation>
         <value>Zone1</value>
-    </filters>
-    <filters>
-        <field>APT_Pricing_Value_4__c</field>
-        <operation>startsWith</operation>
-        <value>STANDARD</value>
     </filters>
     <label>myView</label>
     <language>en_US</language>

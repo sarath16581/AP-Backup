@@ -113,16 +113,6 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>Update_Status_rejected_by_triage</fullName>
-        <field>Status__c</field>
-        <literalValue>Rejected by Triage</literalValue>
-        <name>Update Status rejected by triage</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Update_Status_to_Approved</fullName>
         <field>Approval_Status__c</field>
         <literalValue>Approved</literalValue>
@@ -192,38 +182,6 @@
         <name>Update Status to Submitted for Approval</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>escalated_to_comment</fullName>
-        <field>Escalation_Comments__c</field>
-        <formula>&quot;Auto Escalated&quot;</formula>
-        <name>escalated to comment</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>update_Escalated_to_North</fullName>
-        <field>Escalated_To__c</field>
-        <lookupValue>lauren.torrance@auspost.com.au</lookupValue>
-        <lookupValueType>User</lookupValueType>
-        <name>update Escalated to North</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>update_Escalated_to_South</fullName>
-        <field>Escalated_To__c</field>
-        <lookupValue>martin.siney@auspost.com.au</lookupValue>
-        <lookupValueType>User</lookupValueType>
-        <name>update Escalated to South</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
         <protected>false</protected>
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>

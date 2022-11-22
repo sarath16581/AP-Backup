@@ -2063,6 +2063,11 @@
         <masterLabel>NPS Surveys</masterLabel>
     </sections>
     <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
+            <table>User.Case$CreatedById</table>
+        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

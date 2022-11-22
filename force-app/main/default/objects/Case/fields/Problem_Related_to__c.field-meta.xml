@@ -12,7 +12,6 @@
     <type>Picklist</type>
     <valueSet>
         <controllingField>ProductSubCategory__c</controllingField>
-        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -885,6 +884,11 @@
                 <default>false</default>
                 <label>Spoils</label>
             </value>
+            <value>
+                <fullName>UPMS</fullName>
+                <default>false</default>
+                <label>UPMS</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Post Office Accounting</controllingFieldValue>
@@ -1588,6 +1592,10 @@
         <valueSettings>
             <controllingFieldValue>MMM</controllingFieldValue>
             <valueName>Spoils</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MMM</controllingFieldValue>
+            <valueName>UPMS</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

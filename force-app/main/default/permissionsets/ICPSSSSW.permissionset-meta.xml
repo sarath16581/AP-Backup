@@ -378,10 +378,10 @@
     </objectPermissions>
     <tabSettings>
         <tab>ICPSArticle__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>ICPS__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

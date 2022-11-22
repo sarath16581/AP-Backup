@@ -8,14 +8,14 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>CAS</value>
+        <value>Seven Hills</value>
     </filters>
     <filters>
         <field>NAME</field>
         <operation>notContain</operation>
         <value>CH10,CH20</value>
     </filters>
-    <label>Castle Hill Afternoon Routes</label>
+    <label>Seven Hills Van Ops Afternoon Routes</label>
     <sharedTo>
         <group>CASTLE_HILL_VAN_OPS</group>
     </sharedTo>

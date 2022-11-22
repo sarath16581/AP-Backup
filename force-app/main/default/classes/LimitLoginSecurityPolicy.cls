@@ -57,10 +57,9 @@ global class LimitLoginSecurityPolicy implements TxnSecurity.EventCondition {
 		// Fetch a map of policies from the custom setting based on user, profile, and organisation settings for the current logging user
 		// Would return a maximum of 3 rows
 		Set<Id> targetIds = new Set<Id>{ loginEvent.UserId, targetUser.ProfileId, UserInfo.getOrganizationId() };
-		System.debug('NRLOG '+targetIds);
 		Map<Id, SecurityPolicy__c> setUpOwnerMap = SecurityPolicyUtil.getSecurityPolicyOwnerMap(targetIds);
 		Id setupOwnerId;
-		System.debug('NRLOG '+setUpOwnerMap);
+
 		if (setupOwnerMap.containsKey(loginEvent.UserId)) {
 			setupOwnerId = loginEvent.UserId; // User setting overrides other settings
 		} else if (setupOwnerMap.containsKey(targetUser.ProfileId)) {
@@ -68,7 +67,7 @@ global class LimitLoginSecurityPolicy implements TxnSecurity.EventCondition {
 		} else {
 			setupOwnerId = UserInfo.getOrganizationId(); // Default setting
 		}
-		System.debug('NRLOG '+setupOwnerId);
+
 		return evaluateLoginPolicies(setupOwnerMap.get(setupOwnerId), loginEvent); // Evaluates login polices as per existing custom setting
 	}
 
@@ -80,7 +79,6 @@ global class LimitLoginSecurityPolicy implements TxnSecurity.EventCondition {
 	 * @return  `Boolean`
 	 */
 	private Boolean evaluateLoginPolicies(SecurityPolicy__c policySetting, LoginEvent event) {
-		if(policySetting == null) { return false; } // if policy doesn't exist it should allow login
 		return platformCheck(policySetting, event);
 	}
 
@@ -91,10 +89,7 @@ global class LimitLoginSecurityPolicy implements TxnSecurity.EventCondition {
 	 * @return  `Boolean`
 	 */
 	private Boolean platformCheck(SecurityPolicy__c policySetting, LoginEvent loginEvent) {
-		System.debug('NRLOG '+policySetting);
-		System.debug('NRLOG '+!(loginEvent.Platform.containsIgnoreCase(SecurityPolicyUtil.PERMITTEDPLATFORM)));
-
-		if (policySetting.Login_BlockNonWindowsPlatform__c && !(loginEvent.Platform.containsIgnoreCase(SecurityPolicyUtil.PERMITTEDPLATFORM))
+		if (policySetting.Login_BlockNonWindowsPlatform__c &&!(loginEvent.Platform.containsIgnoreCase(SecurityPolicyUtil.PERMITTEDPLATFORM))
 		) {
 			return true; // Block login attempts from Non-Windows platform
 		} else {

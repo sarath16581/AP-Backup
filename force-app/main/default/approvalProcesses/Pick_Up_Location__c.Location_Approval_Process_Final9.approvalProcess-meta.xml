@@ -734,10 +734,6 @@
                 <name>graeme.edwards@startrack.com.au</name>
                 <type>user</type>
             </approver>
-            <approver>
-                <name>shane.francis@startrack.com.au</name>
-                <type>user</type>
-            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>

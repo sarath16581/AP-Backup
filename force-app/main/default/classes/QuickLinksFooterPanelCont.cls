@@ -13,9 +13,6 @@ History:
 
 06.07.2021 prerna.rahangdale@auspost.com.au Added remoteAction getChatDetails to get the LiveChatranscript details from
 			Agent Accepted Work Item.
-
-29.10.2022  dattaraj.deshmukh@auspost.com.au - Updated getChatDetails method to query LiveChatButton details.
-
 **************************************************/
 
 global with sharing class QuickLinksFooterPanelCont
@@ -61,7 +58,7 @@ global with sharing class QuickLinksFooterPanelCont
 	//Method to get the ChatDetails from AgentWork - Work Item Id from LiveChatTranscript.
 	@RemoteAction
 	global static LiveChatTranscript getChatDetails(Id workItemId){
-		return [SELECT Id, ChatKey, Tracking_Number__c, LiveChatButtonId, LiveChatButton.DeveloperName FROM LiveChatTranscript  WHERE Id = :workItemId LIMIT 1];
+		return [SELECT Id, ChatKey, Tracking_Number__c FROM LiveChatTranscript  WHERE Id = :workItemId LIMIT 1];
 	}
 
 	/**

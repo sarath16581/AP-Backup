@@ -9,6 +9,7 @@
 Note - this field is not used by StarTrack</inlineHelpText>
     <label>Subtype</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

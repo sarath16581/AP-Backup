@@ -27,10 +27,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>VisitorAddressId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>TimeZone</field>
             </layoutItems>
             <layoutItems>
@@ -55,28 +51,9 @@
     </miniLayout>
     <relatedLists>
         <fields>Name</fields>
-        <fields>AddressType</fields>
-        <fields>Description</fields>
-        <relatedList>Addresses</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Name</fields>
         <fields>ParentRecord</fields>
         <fields>Type</fields>
         <relatedList>AssociatedLocations</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Name</fields>
-        <fields>Product2</fields>
-        <fields>QuantityOnHand</fields>
-        <fields>QuantityUnitOfMeasure</fields>
-        <relatedList>ProductItems</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Name</fields>
-        <fields>ServiceTerritory</fields>
-        <fields>Location</fields>
-        <relatedList>ServiceTerritoryLocations</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>ASSET.NAME</fields>

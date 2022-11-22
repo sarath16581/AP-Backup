@@ -3579,30 +3579,6 @@
             <valueName>ULD/Pallet Issues</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <valueName>Label Support</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <valueName>Band Discount Enquiry</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <valueName>Sending Volume Enquiry</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <valueName>System Outage</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Feedback|Web &amp; Apps|MRS Online</controllingFieldValue>
             <controllingFieldValue>Investigation|Web &amp; Apps|MRS Online</controllingFieldValue>
             <valueName>MRSO issue</valueName>
@@ -3610,31 +3586,6 @@
         <valueSettings>
             <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Deliveries</controllingFieldValue>
             <valueName>Account Enquiry</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <valueName>Disputed Payment</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <valueName>Refund Request</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <valueName>Transaction History Request</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <valueName>Error Codes</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
-            <valueName>Platform Partner Integration</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Investigation|Post Office &amp; Business Hub Services|Post office locator</controllingFieldValue>
@@ -3673,11 +3624,60 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Label Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Band Discount Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Sending Volume Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Disputed Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
             <valueName>More Pricing Information</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Refund Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Transaction History Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Error Codes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
             <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Feedback|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>System Outage</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Enquiry|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <controllingFieldValue>Investigation|Web &amp; Apps|MyPost Business</controllingFieldValue>
+            <valueName>Platform Partner Integration</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

@@ -8,6 +8,8 @@
  * @group Articles
  * @domain CHAS
  * @changelog
+ * 2022-11-14 - Thang Nguyen - DDS-13602 update case comments
+ * 2022-11-21 - Thang Nguyen - DDS-13756 Added isWithComment parameter of assignCasesToAgentQueue
  */
 public inherited sharing class ExceptionCheckerService {
     private static Consumer_Help_and_Support__c CHAS_SETTINGS = Consumer_Help_and_Support__c.getOrgDefaults();
@@ -168,9 +170,8 @@ public inherited sharing class ExceptionCheckerService {
 			c.ByPassWorkflowRulesOnCreation__c = true; //populate the filed to trigger the email
 			//add comment
 			CaseComment caseComment = new CaseComment();
-			caseComment.IsPublished = true;
             caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: No';
+            caseComment.CommentBody = Label.AutoLITExceptionNo;
             caseComments.add(caseComment);
 		}
         //update cases
@@ -187,26 +188,33 @@ public inherited sharing class ExceptionCheckerService {
      * Assign cases to agent queue
      */
 	public void assignCasesToAgentQueue(List<Case> casesToAgentQueue) {
+		this.assignCasesToAgentQueue(casesToAgentQueue, true);
+	}
+
+	public void assignCasesToAgentQueue(List<Case> casesToAgentQueue, Boolean isWithComment) {
 		List<CaseComment> caseComments = new List<CaseComment>();
 		for (Case c: casesToAgentQueue) {
 			c.AllocateToQueue__c = true;
 			c.Case_Reopen_Date__c = null;
-			c.Bypass_Data_enforcement__c = true;
+			c.Bypass_Data_enforcement__c = true;			
 			//add comment
-			CaseComment caseComment = new CaseComment();
-			caseComment.IsPublished = true;
-            caseComment.ParentId = c.Id;
-            caseComment.CommentBody = 'Auto-LIT exception: Yes';
-            caseComments.add(caseComment);
+			if (isWithComment){
+				CaseComment caseComment = new CaseComment();
+				caseComment.ParentId = c.Id;
+				caseComment.CommentBody = Label.AutoLITExceptionYes;
+				caseComments.add(caseComment);	
+			}
 		}
         //update cases
 		List<Database.SaveResult> vResult = ApplicationDatabase.getInstance().dmlUpdate(casesToAgentQueue, false);
 		UTIL_LoggingService.logDmlResults(vResult, null, casesToAgentQueue, 'Case Reopen',
             ExceptionCheckerService.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
-		//insert case comments
-		List<Database.SaveResult> commentsResult = ApplicationDatabase.getInstance().dmlInsert(caseComments, false);
-		UTIL_LoggingService.logDmlResults(commentsResult, null, caseComments, 'Case Reopen',
-            ExceptionCheckerService.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
+		if (isWithComment){
+			//insert case comments
+			List<Database.SaveResult> commentsResult = ApplicationDatabase.getInstance().dmlInsert(caseComments, false);
+			UTIL_LoggingService.logDmlResults(commentsResult, null, caseComments, 'Case Reopen',
+				ExceptionCheckerService.class.getName(), 'assignCasesToAgentQueue',null, LoggingLevel.ERROR);
+		}
 	}
 
 }

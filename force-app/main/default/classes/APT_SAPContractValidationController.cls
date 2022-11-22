@@ -28,6 +28,7 @@ o   System to rename all previous SAP Contract records with postfix of .old (doi
 o   24/12/2021 - REQ2703652 : Adding New Contract Type : DoV From ST Revision
     08/02/2022 - REQ2725624 - Added condition in cloneSapCon method to ignore Contracts with type 'DOV from ST Revision' as they do not have original agreement.  
 
+
 */
 
 public class APT_SAPContractValidationController {
@@ -92,7 +93,6 @@ public class APT_SAPContractValidationController {
             return null;
         }
         
-        // Adding REQ2703652 : Contract_Type__c == 'DoV From ST Revision'
         if(renewAgreeVar.APT_Contract_Type__c == 'Renewal Contract' || 
            renewAgreeVar.APT_Contract_Type__c == 'DoV Contract' || renewAgreeVar.APT_Contract_Type__c == 'DoV From ST Revision'){
             Boolean failClone = false;

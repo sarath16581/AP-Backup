@@ -18,7 +18,12 @@
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Case.Sales_Coordinator</value>
+        <value>Case.Sales_Coordinator,Case.Data_Quality_Management</value>
+    </filters>
+    <filters>
+        <field>CASES.SUBJECT</field>
+        <operation>notEqual</operation>
+        <value>Invalid TEAM Billing Account</value>
     </filters>
     <label>Sales Coordinator</label>
     <language>en_US</language>

@@ -9,13 +9,17 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
-        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
                 <fullName>Pickup</fullName>
                 <default>true</default>
                 <label>Pickup</label>
+            </value>
+            <value>
+                <fullName>Pickup &amp; Delivery</fullName>
+                <default>false</default>
+                <label>Pickup &amp; Delivery</label>
             </value>
             <value>
                 <fullName>Delivery</fullName>
@@ -41,11 +45,6 @@
                 <fullName>Work As Directed(Special Instructions)</fullName>
                 <default>false</default>
                 <label>Work As Directed(Special Instructions)</label>
-            </value>
-            <value>
-                <fullName>Pickup &amp; Delivery</fullName>
-                <default>false</default>
-                <label>Pickup &amp; Delivery</label>
             </value>
         </valueSetDefinition>
     </valueSet>

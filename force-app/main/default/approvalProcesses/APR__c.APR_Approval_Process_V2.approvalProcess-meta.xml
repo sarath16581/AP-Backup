@@ -97,21 +97,16 @@ $User.Manager__c &lt;&gt; $Setup.APRs__c.Parcel_eCommerce_Sales_Manager__c</form
     <emailTemplate>All_Email_Templates/APR_for_Billing_Accts</emailTemplate>
     <enableMobileDeviceAccess>true</enableMobileDeviceAccess>
     <entryCriteria>
-        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
-            <field>APR__c.MHS_Status__c</field>
+            <field>APR__c.RecordType</field>
             <operation>equals</operation>
-            <value>Reduction,Exemption</value>
+            <value>StarTrack</value>
         </criteriaItems>
         <criteriaItems>
             <field>APR__c.Status__c</field>
             <operation>equals</operation>
             <value>Exemption,Reduction,Deferral,Go early</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>APR__c.RecordType</field>
-            <operation>equals</operation>
-            <value>StarTrack</value>
         </criteriaItems>
     </entryCriteria>
     <finalApprovalActions>

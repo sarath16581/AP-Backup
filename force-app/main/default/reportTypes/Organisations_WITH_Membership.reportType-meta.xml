@@ -272,11 +272,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OperatingHours</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Organisation_Alternate_Name__c</field>
             <table>Account</table>
         </columns>
@@ -2535,11 +2530,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Compliance_Officer__c</field>
-            <table>Account.Memberships__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Parent_Lic_Facility_WCC__c</field>
             <table>Account.Memberships__r</table>
         </columns>
@@ -2690,11 +2680,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Ineligible_reason__c</field>
-            <table>Account.Memberships__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Awaiting_Workforce_Verification_Date__c</field>
             <table>Account.Memberships__r</table>
         </columns>
@@ -2710,6 +2695,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Compliance_Officer__c</field>
+            <table>Account.Memberships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Last_Confirmation_email_date__c</field>
             <table>Account.Memberships__r</table>
         </columns>
@@ -2719,18 +2709,5 @@
             <table>Account.Memberships__r</table>
         </columns>
         <masterLabel>Memberships</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Account</table>
-        </columns>
-        <masterLabel>Organisations</masterLabel>
     </sections>
 </ReportType>

@@ -6,6 +6,7 @@
     <inlineHelpText>Add a video URL from YouTube or Vimeo. Must start with http:// or https://</inlineHelpText>
     <label>Video Embed URL</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Url</type>
 </CustomField>

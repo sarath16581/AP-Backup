@@ -33,8 +33,7 @@
  * 2020-08-20 - Nathan Franklin - Deprecated syncArticlesToCase
  * 2020-10-15 - Naseer Abbasi						Modified calls to routeCase(), additional parameter added
  * 2021-10-04 - Nathan Franklin - Deprecated shareUtility.createSignatureAttachments
- * 2022-04-20 - SaiSwetha Pingali - Removed call to assignContactIDToSnapItCase as it is no lonmger required. 
- *
+ * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
  */
 public with sharing class CaseTriggerHandler{
 

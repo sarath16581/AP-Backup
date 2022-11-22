@@ -461,30 +461,30 @@ public with sharing class APT_AgreementTriggerHandler{
                                     opSchedule.APT_Startrack__c = true;
                                     // set the operational schedule record type to star track
                                     opSchedule.RecordTypeId = opSchedRecTypeMap.values()?.get(1)?.Id;
-//                                    string productName = propLineItem.Apttus_Proposal__Product__r.Name;
-//                                    if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_EXPRESS_ROAD_PRODUCT)) {
-//                                        opSchedule.APT_Express_Road__c = true;
-//                                    }
-//                                    else if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_SPECIAL_SERVICES_PRODUCT)){
-//                                        opSchedule.APT_Special_Services_Tailgate__c = true;
-//                                    }
-//                                    else if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_PRIORITY_AIR_SERVICES_PRODUCT)){
-//                                        String serviceType = propLineItem.Apttus_QPConfig__DerivedFromId__r?.Apttus_Config2__AttributeValueId__r?.APT_StarTrack_Service_Type__c;
-//                                        System.debug('Service Type::'+serviceType);
-//                                        if(serviceType != null){
-//                                            if(serviceType.equalsIgnoreCase('FPP')){
-//                                                opSchedule.Fixed_Price_Premium__c = true;
-//                                            }else if(serviceType.equalsIgnoreCase('PRM')){
-//                                                opSchedule.Premium_Priority_Air_Services__c = true;
-//                                            }
-//                                        }
-//                                    }
-//                                    else if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_SECURITY_SERVICES_PRODUCT)) {
-//                                        opSchedule.APT_Security_Services__c = true;
-//                                    }
-//                                    else if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_NEXT_FLIGHT_PRODUCT)) {
-//                                        opSchedule.APT_Next_Flight__c = true;
-//                                    }
+                                    string productName = propLineItem.Apttus_Proposal__Product__r.Name;
+                                    if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_EXPRESS_ROAD_PRODUCT)) {
+                                        opSchedule.APT_Express_Road__c = true;                                           
+                                    }   
+                                    else if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_SPECIAL_SERVICES_PRODUCT)){  
+                                        opSchedule.APT_Special_Services_Tailgate__c = true;
+                                    }
+                                    else if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_PRIORITY_AIR_SERVICES_PRODUCT)){  
+                                        String serviceType = propLineItem.Apttus_QPConfig__DerivedFromId__r?.Apttus_Config2__AttributeValueId__r?.APT_StarTrack_Service_Type__c;
+                                        System.debug('Service Type::'+serviceType);
+                                        if(serviceType != null){
+                                            if(serviceType.equalsIgnoreCase('FPP')){
+                                                opSchedule.Fixed_Price_Premium__c = true;
+                                            }else if(serviceType.equalsIgnoreCase('PRM')){
+                                                opSchedule.Premium_Priority_Air_Services__c = true;
+                                            }
+                                        }
+                                    }                                    
+                                    else if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_SECURITY_SERVICES_PRODUCT)) {  
+                                        opSchedule.APT_Security_Services__c = true;    
+                                    }
+                                    else if(productName.equalsIgnoreCase(APT_Constants.OPERATIONAL_SCHEDULE_NEXT_FLIGHT_PRODUCT)) {  
+                                        opSchedule.APT_Next_Flight__c = true;     
+                                    }                                                                              
 
                                 }       
 

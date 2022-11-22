@@ -1,10 +1,9 @@
 <font face="Calibri" size="3">
 The following APR  <strong><u>requires</u></strong> your approval (or rejection):
 <br/><br/>
-<strong><u>Summary Information</u></strong><br/>
-<br/><br/>
 View APR record in Salesforce here: {!APR__c.Link}
 <br/><br/>
+<strong><u>Summary Information</u></strong><br/>
 APR No: {!APR__c.Name}
 <br/>
 Legal Entity Name: {!APR__c.Legal_Entity_Name__c}

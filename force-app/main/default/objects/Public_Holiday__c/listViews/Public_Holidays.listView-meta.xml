@@ -3,7 +3,7 @@
     <fullName>Public_Holidays</fullName>
     <columns>NAME</columns>
     <columns>OBJECT_ID</columns>
-    <columns>Public_Holiday_Name__c</columns>
+    <columns>PUBLIC_Holiday_Name__c</columns>
     <columns>Fiscal_Year__c</columns>
     <filterScope>Everything</filterScope>
     <label>Public Holidays</label>

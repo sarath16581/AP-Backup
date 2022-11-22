@@ -20,11 +20,6 @@
         <operation>contains</operation>
         <value>BUS</value>
     </filters>
-    <filters>
-        <field>et4ae5__EmailName__c</field>
-        <operation>contains</operation>
-        <value>NL</value>
-    </filters>
-    <label>BUS_SB_OTHER</label>
+    <label>Business EDMs</label>
     <language>en_US</language>
 </ListView>

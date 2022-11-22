@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BGS_Enterprise_Team</fullName>
-    <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
+    <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>ACCOUNT.NAME</columns>
     <columns>CASES.SUBJECT</columns>
@@ -28,11 +28,17 @@
     <filters>
         <field>OWNER_NAME</field>
         <operation>equals</operation>
-        <value>Roger Pio,Nancy Patsiouris,Asha Nand</value>
+        <value>Roger Pio,Nancy Patsiouris,Asha Nand,Nadeeja PERERA,Fatima Papasin</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>equals</operation>
+        <value>Katherine Vayenas</value>
     </filters>
     <label>BGS Enterprise Team</label>
     <sharedTo>
-        <group>SalesOpsSupport</group>
-        <group>Sales_Ops_Delivery</group>
+        <role>Service_Business_Service_Manager</role>
+        <role>Service_Enterprise_Service_Manager</role>
+        <role>Service_Government_Head_of_Service</role>
     </sharedTo>
 </ListView>

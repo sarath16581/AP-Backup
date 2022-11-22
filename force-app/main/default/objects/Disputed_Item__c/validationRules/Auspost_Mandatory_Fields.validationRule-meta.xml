@@ -12,13 +12,15 @@ ST Destination
 Service Type
 3.</description>
     <errorConditionFormula>AND (
-				ISPICKVAL(Status__c ,&apos;Verified Claim&apos;), 
-				Target_ERP__c = &apos;SAP ERP&apos;,
-				OR(
-  								ISBLANK( Product_Code__c ),
-								ISBLANK( AP_Profit_Centre_Code__c  )
-	
-				   )
-				)</errorConditionFormula>
+  ISPICKVAL(Status__c ,&apos;Verified Claim&apos;), 
+  Target_ERP__c = &apos;SAP ERP&apos;,
+  OR( 							 
+    ISBLANK( Product_Code__c ),
+    AND(
+       ISBLANK( AP_Profit_Centre_Code__c ), 
+       ISBLANK( TEXT( Warehouse__c ))
+    )
+   )	
+)</errorConditionFormula>
     <errorMessage>Please review all mandatory fields &quot;Product Code and AP Profit Center&quot; to continue</errorMessage>
 </ValidationRule>

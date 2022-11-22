@@ -17,7 +17,7 @@
     <filters>
         <field>CREATED_DATE</field>
         <operation>greaterThan</operation>
-        <value>LAST_WEEK</value>
+        <value>YESTERDAY</value>
     </filters>
     <label>Application Sales</label>
     <language>en_US</language>

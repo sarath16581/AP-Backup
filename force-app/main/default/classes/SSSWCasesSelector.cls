@@ -12,6 +12,7 @@
 * 2020-08-24 - Disha Kariya - Added fields override with Map
 * 2020-08-28 - Disha Kariya - Added With Network Response
 * 2021-12-02 - Alex Volkov - Added selectCasesEligibleForReopenByOwnerAndDate method
+* 2022-11-21 - Thang Nguyen - DDS-13756 Added CHASEnquiryType__c field
 */
 public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	public enum Options {
@@ -75,7 +76,7 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 				Case.Case_Reopen_Date__c, Case.Case_Reopen_Status__c, Case.CaseLocality__c, Case.CaseOriginator__c, Case.CashOnDelivery__c,
 				Case.CCU3rdPartyReference__c, Case.CCUEnquiryType__c, Case.CCUItemContents__c, Case.CCUServiceUsed__c, Case.CCUYourReference__c,
 				Case.CollectionCardColour__c, Case.Complaint__c, Case.Completed_Customer_Conversion__c, Case.Contact_Email__c, Case.Contact_Mobile__c,
-				Case.CRN__c, Case.Customer_Email_Notification__c, Case.Customer_Milestones_Violated__c, Case.Customer_Number__c,
+				Case.CRN__c, Case.Customer_Email_Notification__c, Case.Customer_Milestones_Violated__c, Case.Customer_Number__c, Case.Customer_Relationship__c,
 				Case.Customer_Type__c, Case.DateofIncident__c, Case.DDC_Receiver_First_Name__c, Case.DDC_Receiver_Last_Name__c, Case.Deployment_Duration__c,
 				Case.EmailThreadID__c, Case.Employee_Email__c, Case.Employee_Lastname__c, Case.Employee_Mobile__c, Case.EnquirySubType__c,
 				Case.ExtraCover__c, Case.Facility_Milestones_Violated__c, Case.Facility_Tier_Escalation_Email__c, Case.First_Name__c, Case.FirstName1__c,
@@ -88,7 +89,7 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 				Case.ProductCategory__c, Case.ProductSubCategory__c, Case.Reason_Code__c, Case.Refer_to_Third_Party__c, Case.ReferenceID__c, Case.RelatedCase__c,
 				Case.Resolution_Result__c, Case.Resolution_Status__c, Case.ResolutionCode__c, Case.Role__c, Case.Send_Case_Comments__c, Case.Service_Now_Ticket_Number__c,
 				Case.SignatureOnDelivery__c, Case.SLACharterBreach__c, Case.SLATargetDate__c, Case.Source__c, Case.Time_to_Resolve_mins__c, Case.Updated_Case_Comments__c,
-				Case.Vendor_Case_Number__c
+				Case.Vendor_Case_Number__c, Case.CHASEnquiryType__c
 		});
 		return fields;
 	}

@@ -4,7 +4,6 @@
     <active>true</active>
     <businessProcess>BG Sales Process</businessProcess>
     <compactLayoutAssignment>BG_Opportunity_Compact_Layout</compactLayoutAssignment>
-    <description>Complex</description>
     <label>Complex</label>
     <picklistValues>
         <picklist>Approval_Status__c</picklist>
@@ -542,6 +541,10 @@
         </values>
         <values>
             <fullName>Cold Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Driver Network</fullName>
             <default>false</default>
         </values>
         <values>

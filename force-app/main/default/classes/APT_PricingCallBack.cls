@@ -9,7 +9,6 @@
 * Last Modified By - Mausam Padhiyar
 * Last Modified Date - 26st Sept, 2016 | 1397 : PBP should have new status
 ********************************************/
-
 global with sharing class APT_PricingCallBack implements Apttus_Config2.CustomClass.IPricingCallback3 {
     // cart
     private Apttus_Config2.ProductConfiguration cart = null;

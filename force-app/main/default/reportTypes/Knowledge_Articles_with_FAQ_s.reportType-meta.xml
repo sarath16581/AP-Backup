@@ -68,4 +68,10 @@
         </columns>
         <masterLabel>FAQs</masterLabel>
     </sections>
+    <sections>
+        <masterLabel>Feed: FAQ</masterLabel>
+    </sections>
+    <sections>
+        <masterLabel>Comments</masterLabel>
+    </sections>
 </ReportType>

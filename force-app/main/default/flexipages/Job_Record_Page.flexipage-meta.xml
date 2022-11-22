@@ -9,18 +9,6 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>pudJobDispatchPhotos</componentName>
-                <identifier>pudJobDispatchPhotos</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Photo_GUID__c}</leftValue>
-                        <operator>NE</operator>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>PUD_Job__c.Id</value>

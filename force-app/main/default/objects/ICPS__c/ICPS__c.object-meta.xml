@@ -194,6 +194,7 @@
         <searchFilterFields>MigratedICPSReference__c</searchFilterFields>
         <searchFilterFields>OrderNumber__c</searchFilterFields>
         <searchFilterFields>ReceiverName__c</searchFilterFields>
+        <searchFilterFields>VNumberGCP__c</searchFilterFields>
         <searchResultsAdditionalFields>RECORDTYPE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CountryofOrigin__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ItemType__c</searchResultsAdditionalFields>

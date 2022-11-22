@@ -13,6 +13,7 @@ OR(ISPICKVAL(Apttus__Status__c,&quot;Request&quot;),ISPICKVAL(Apttus__Status__c,
 ), HYPERLINK(&quot;/apex/Apttus_Approval__ApprovalContextSubmit?sObjectType=Apttus__APTS_Agreement__c&amp;sObjectId=&quot;&amp;Id, IMAGE(&quot;/resource/Apttus__Button_SubmitRequest&quot;, &quot;Submit Request&quot;),&quot;_self&quot;), NULL)</formula>
     <label>Submit TE for Approval</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -7,15 +7,15 @@
         <notifications>
             <inApp>false</inApp>
             <sendEmail>true</sendEmail>
-            <user>swati.mogadala2@auspost.com.au</user>
+            <user>danielle.larson@auspost.com.au</user>
         </notifications>
         <twoFactorAuthentication>false</twoFactorAuthentication>
     </action>
     <active>true</active>
     <apexClass>LimitLoginSecurityPolicy</apexClass>
-    <description>Logged in from Non WIndows Platform</description>
-    <developerName>NonWIndowsPlatformLoginAl</developerName>
+    <description>The user tried accessing Salesforce via a non-windows device.</description>
+    <developerName>NonWindowsPlatformLoginAl</developerName>
     <eventName>LoginEvent</eventName>
-    <masterLabel>Non WIndows Platform Login Alert</masterLabel>
+    <masterLabel>Non Windows Platform Login Alert</masterLabel>
     <type>CustomApexPolicy</type>
 </TransactionSecurityPolicy>
