@@ -41,12 +41,12 @@
 	2021-09-23		Steve Judd								  Added method for autoCaseClosure and modified compareRec for MW00045402
 	2021-09-26		Steve Judd								  Moved method for autoCaseClosure to StarTrack_Constants to allow for reuse
 	16.05.2022		SaiSwetha Pingali						   Removed snapIt logic as it is no longer required.
-	2022-11-17		Noel Lim									Added 2 routing logic relating to Closed Cases added in routeCase(), a) Reopened Cases in SSSW Closed Omni queue are to be routed b) Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
+	2022-11-17		Noel Lim									Added routing logic relating to Reopened Cases - SSSW Closed Omni queue are to be routed
 
 	************************************************/
 	public with sharing class CaseCommonUtility{
 
-// Constants// Constants
+// Constants
 private static final String EMAIL_ORIGIN = 'Email';
 private static final String SOCIAL_ORIGIN = 'Social';
 private static final String ROUTING_TRUE = 'true';
@@ -89,16 +89,16 @@ private static Map<Id,Group> groupIdMap = new Map<Id,Group>();
 private static Map<String,Group> groupNameMap = new Map<String,Group>();
 //MW004540 Added for determining if user has Autoclosure permission
 private static Boolean isAutoCloseEnabled = false;
-		
-		static Map<Id, Group> omniGroups {
-			get {
-				if(omniGroups == null) {
-					omniGroups = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>());
-				}
-				return omniGroups;
+	
+	static String omniClosedCaseQueueId {
+		get {
+			if(omniClosedCaseQueueId == null) {
+				omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
 			}
-			private set;
+			return omniClosedCaseQueueId;
 		}
+		private set;
+	}
 		
 	static{
 		try{
@@ -139,12 +139,12 @@ private static Boolean isAutoCloseEnabled = false;
 		
 		
 /**
-	 * @description	   This method assign cases to existing contact based on supplied email,
-						creates new contact if doesn't exist.
-	* @param			 caseList - List<Case>
-	* @return			Void
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method assign cases to existing contact based on supplied email,
+					creates new contact if doesn't exist.
+  * @param			 caseList - List<Case>
+  * @return			Void
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 public void assignContactIDToCase(List<Case> caseList){
 	List<Case> emailCases = new List<Case>();		   // list of cases with email origin
 	List<Case> shortListedCases = new List<Case>();	 // list of cases with name & email populated
@@ -190,14 +190,14 @@ public void assignContactIDToCase(List<Case> caseList){
 												SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 	}
 }
-	
+
 /**
-	 * @description	   This method populates contact map - contactsMap,uniqueContactMap
-	* @param			 emailSet - Set<String>, contactsMap - Map<String,List<Contact>>,
-						uniqueContactMap - Map<String,String>
-	* @return			Void
-	* @throws			Method might throw exception which is handled by calling method
-	*/
+  * @description	   This method populates contact map - contactsMap,uniqueContactMap
+  * @param			 emailSet - Set<String>, contactsMap - Map<String,List<Contact>>,
+					uniqueContactMap - Map<String,String>
+  * @return			Void
+  * @throws			Method might throw exception which is handled by calling method
+  */
 private static void populateContactMaps(Set<String> emailSet,Map<String,List<Contact>> contactsMap,
 											Map<String,Contact> uniqueContactMap){
 
@@ -222,16 +222,16 @@ private static void populateContactMaps(Set<String> emailSet,Map<String,List<Con
 }
 
 /**
-	 * @description	   This method assigns contact id to case from a contact map
-	* @return			Void
-	* @throws			Method might throw exception which is handled by calling method
-	*/
+  * @description	   This method assigns contact id to case from a contact map
+  * @return			Void
+  * @throws			Method might throw exception which is handled by calling method
+  */
 private static void handleContactAssignment(List<Case> caseList,Map<String,List<Contact>> contactsMap,
 												Map<String,Contact> uniqueContactMap,Boolean isShortListed){
 	/*
 		If contact id for a case is not available, contact is linked based on the combination of firstName,
 		lastName, person account & billing number else new person account is created and linked to case.
-		*/
+	*/
 	if(isShortListed){  //scenairo where contact is linked based on name, email, person account & billing number
 		List<Case> newAccCases = new List<Case>();
 		Map<String,Account> accMap = new Map<String,Account>(); // map of new accounts to be created
@@ -272,10 +272,10 @@ private static void handleContactAssignment(List<Case> caseList,Map<String,List<
 }
 
 /**
-	 * @description	   This method creates Account record
-	* @return			Account
-	* @throws			Method might throw exception which is handled by calling method
-	*/
+  * @description	   This method creates Account record
+  * @return			Account
+  * @throws			Method might throw exception which is handled by calling method
+  */
 private static Account createAccount(String firstName,String lastName,String email,String phone){
 	Account acc = new Account(FirstName = firstName,LastName = lastName,
 								PersonEmail = email,PersonMobilePhone = phone);
@@ -283,10 +283,10 @@ private static Account createAccount(String firstName,String lastName,String ema
 }
 
 /**
-	 * @description	   This method creates Account record
-	* @return			Account
-	* @throws			Method might throw exception which is handled by calling method
-	*/
+  * @description	   This method creates Account record
+  * @return			Account
+  * @throws			Method might throw exception which is handled by calling method
+  */
 private static void linkNewContacts(Map<String,Account> accMap,List<Case> caseList){
 	if(!accMap.isEmpty()){
 		Database.insert(accMap.values());   // create new accounts for cases with no billing number & contact not linked
@@ -307,20 +307,20 @@ private static void linkNewContacts(Map<String,Account> accMap,List<Case> caseLi
 }
 
 /**
-	 * @description	   This method is executed whenever case is created & updated, assigns case locality to
-						international if product category contains international and also checks for duplicate
-						cases for BSP & DDC only based on the combination of
-						Customer + Enquiry SubType + Type + Article Number (Reference Id) + Parent Case + IsClosed
-	* @param			 caseList - List<Case>
-	* @return			Void
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method is executed whenever case is created & updated, assigns case locality to
+					   international if product category contains international and also checks for duplicate
+					   cases for BSP & DDC only based on the combination of
+					   Customer + Enquiry SubType + Type + Article Number (Reference Id) + Parent Case + IsClosed
+  * @param			 caseList - List<Case>
+  * @return			Void
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 public void validateCase(List<Case> caseList){
 	try{
 		/*
 			Currently duplicate check is for BSP cases only for below combination :
 			Customer + Enquiry SubType + Type + Article Number (Reference Id) + Parent Case + IsClosed
-			*/
+		*/
 		// Fetch org wide custom setting values to determine if duplicate check required
 		UniqueCaseTrigger__c uniqueCaseSetting = UniqueCaseTrigger__c.getOrgDefaults();
 		Set<String> uniqueKeySet = new Set<String>();
@@ -376,18 +376,18 @@ public void validateCase(List<Case> caseList){
 }
 
 /**
-	 * @description	   This method is executed whenever case is  updated, assigns case locality to
-						international if product category contains international.
-	* @param			 caseList - List<Case>
-	* @return			Void
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method is executed whenever case is  updated, assigns case locality to
+					   international if product category contains international.
+  * @param			 caseList - List<Case>
+  * @return			Void
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 public void validateCase_Update(List<Case> caseList){
 	try{
 		/*
 			Currently duplicate check is for BSP & DDC cases only for below combination :
 			Customer + Enquiry SubType + Type + Article Number (Reference Id) + Parent Case + IsClosed
-			*/
+		*/
 		// Fetch org wide custom setting values to determine if duplicate check required
 		UniqueCaseTrigger__c uniqueCaseSetting = UniqueCaseTrigger__c.getOrgDefaults();
 		for(Case caseRec : caseList){
@@ -416,12 +416,12 @@ public void validateCase_Update(List<Case> caseList){
 }
 
 /**
-	 * @description	   This method when a case is created, checks if incoming case is sent from spam mail
-						and prevents email sent out in future
-	* @param			 caseList - List<Case>
-	* @return			Void
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method when a case is created, checks if incoming case is sent from spam mail
+					   and prevents email sent out in future
+  * @param			 caseList - List<Case>
+  * @return			Void
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 public void detectPermanentSpam(List<Case> caseList){
 	try{
 		Set<String> emailSet = new Set<String>();
@@ -459,12 +459,12 @@ public void detectPermanentSpam(List<Case> caseList){
 }
 
 /**
-	 * @description	   This method closes all child cases of the case being closed
-						with parent's resolution code
-	* @param			 caseList - List<Case> , oldMap - Map<Id,Case>
-	* @return			Void
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method closes all child cases of the case being closed
+					   with parent's resolution code
+  * @param			 caseList - List<Case> , oldMap - Map<Id,Case>
+  * @return			Void
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 public void closeChildCases(List<Case> caseList,Map<Id,Case> oldMap){
 	try{
 		Set<Id> caseIds = new Set<Id>();
@@ -514,11 +514,11 @@ public void closeChildCases(List<Case> caseList,Map<Id,Case> oldMap){
 }
 
 	/**
-		 * @description	   This method transfers case to current user if status is set to 'On Hold'
-		* @param			 caseList - List<Case> , oldMap - Map<Id,Case>
-		* @return			Void
-		* @throws			Method might throw exception which is handled by Try-Catch block
-		*/
+	  * @description	   This method transfers case to current user if status is set to 'On Hold'
+	  * @param			 caseList - List<Case> , oldMap - Map<Id,Case>
+	  * @return			Void
+	  * @throws			Method might throw exception which is handled by Try-Catch block
+	  */
 	public void setOwnerToCurrentUser(List<Case> caseList,Map<Id,Case> oldMap){
 		try{
 			//isXferCaseRecursive = true; // -- kalpita 4.11.17 - moved recursion flag up
@@ -546,13 +546,13 @@ public void closeChildCases(List<Case> caseList,Map<Id,Case> oldMap){
 	}
 
 /**
-	 * @description	   This method links the article to case based on the reference id provided by customer.
-						future call made to invokeTibcoService which fetch details from SAP first and then
-						links to case.
-	* @param			 caseList - List<Case>, oldMap - Map<Id,Case>
-	* @return			Void
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method links the article to case based on the reference id provided by customer.
+					   future call made to invokeTibcoService which fetch details from SAP first and then
+					   links to case.
+  * @param			 caseList - List<Case>, oldMap - Map<Id,Case>
+  * @return			Void
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 	try{
 		Map<String, EnquirySubTypes__c> enqSubTypes = EnquirySubTypes__c.getAll();  // fetch enquiry subtypes from custom setting
@@ -626,19 +626,17 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 //	}
 
 	/**
-		 * @description	   This method is fetch routing keys based on case key and assigns case to queue. From all the updated Cases, we need to identify which Cases need routing. Within the same Tx, some Cases have AllocateToQueue__c been updated (ex: child cases). Those will have to be re-routed.
-		* @param			 caseList - Changed Cases
-		* @param			 oldMap - Older Case objects. NULL if it is caused by an insert
-		* @return			Void
-		* @throws			Method might throw exception which is handled by Try-Catch block
-		*/
+	  * @description	   This method is fetch routing keys based on case key and assigns case to queue. From all the updated Cases, we need to identify which Cases need routing. Within the same Tx, some Cases have AllocateToQueue__c been updated (ex: child cases). Those will have to be re-routed.
+	  * @param			 caseList - Changed Cases
+	  * @param			 oldMap - Older Case objects. NULL if it is caused by an insert
+	  * @return			Void
+	  * @throws			Method might throw exception which is handled by Try-Catch block
+	  */
 	public void routeCase(List<Case> caseList, Map<Id,Case> oldMap, Boolean isInsert){
 		try{
 			List<Case> casesTobeRouted = new List<Case>();
 			Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
 			Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();	// map of case id and case key without origin
-
-			String omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
 
 			for(Case csRec : caseList){
 				// Check if it is SSSW record type or Social record type.
@@ -653,15 +651,7 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 					System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
 					//System.debug(LoggingLevel.ERROR,'**oldCase.AllocateToQueue__c: ' + oldCase.AllocateToQueue__c);
 
-					if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 
-						&& String.isEmpty(omniClosedCaseQueueId) == false 
-						&& Utility.getCaseClosedStatus().contains(csRec.Status) 
-						&& omniGroups.containsKey(csRec.OwnerId) 			
-					){	
-						csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
-						csRec.AllocateToQueue__c = false;
-						casesTobeRouted.add(csRec);
-					} else if( (csRec.Network__c == null
+					if( (csRec.Network__c == null
 						&& (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
 						||
 						(String.isBlank(csRec.Description) && (oldCase == null || (oldCase != null && (oldCase.Description != csRec.Description))))
@@ -693,11 +683,11 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 	}
 
 /**
-	 * @description	   This method sets key value pair of case & routing key
-	* @param			 csRec - Case, caseOriginKeyMap - Map<Id,String>, caseNoOriginKeyMap - Map<Id,String>
-	* @return			void
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method sets key value pair of case & routing key
+  * @param			 csRec - Case, caseOriginKeyMap - Map<Id,String>, caseNoOriginKeyMap - Map<Id,String>
+  * @return			void
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 private static void setCaseKeyMap(Case csRec,Map<Id,String> caseOriginKeyMap,Map<Id,String> caseNoOriginKeyMap){
 	String keyWithOrigin = SSSWConstants.EMPTY_SPACE ;
 	String keyWithOutOrigin = SSSWConstants.EMPTY_SPACE ;
@@ -718,11 +708,11 @@ private static void setCaseKeyMap(Case csRec,Map<Id,String> caseOriginKeyMap,Map
 }
 
 /**
-	 * @description	   This method returns the sssw routing records for the case combination
-	* @param			 caseKeys - Set<String>
-	* @return			Map<String,SSSWRouting__c>
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method returns the sssw routing records for the case combination
+  * @param			 caseKeys - Set<String>
+  * @return			Map<String,SSSWRouting__c>
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 //  private static Map<String,SSSWRouting__c> getSSSWRoutings(Set<String> caseKeys){
 //	 Map<String,SSSWRouting__c> routingMap = new Map<String,SSSWRouting__c>();
 //	 Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());	// get dynamic query row limit
@@ -734,12 +724,12 @@ private static void setCaseKeyMap(Case csRec,Map<Id,String> caseOriginKeyMap,Map
 // } 
 
 /**
-	 * @description	   This method checked the child case for 'Network Responded' and 'Customer Responded' and updated the
-						parent status to 'child case updated' and again runs it to route - set 'allocate to queue' flag
-	* @param			 (List<Case> childCases
-	* @return			NA
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method checked the child case for 'Network Responded' and 'Customer Responded' and updated the
+					   parent status to 'child case updated' and again runs it to route - set 'allocate to queue' flag
+  * @param			 (List<Case> childCases
+  * @return			NA
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 public void updateParentForRouting(List<Case> childCases, Map<Id,Case> oldMapCases){
 	try {
 		List<Case> parentCaseUpd = new List<Case>();
@@ -772,11 +762,11 @@ public void updateParentForRouting(List<Case> childCases, Map<Id,Case> oldMapCas
 }
 
 /**
-	 * @description	   This method when a case is created, updates the hierarchy manager fields in the Case object
-	* @param			 caseList - List<Case>
-	* @return			Void
-	* @throws			Method might throw exception which is handled by Try-Catch block
-	*/
+  * @description	   This method when a case is created, updates the hierarchy manager fields in the Case object
+  * @param			 caseList - List<Case>
+  * @return			Void
+  * @throws			Method might throw exception which is handled by Try-Catch block
+  */
 public void updateHierarchyManager(List<Case> caseList){
 	try{
 
@@ -790,23 +780,23 @@ public void updateHierarchyManager(List<Case> caseList){
 									where id =:currentUser ];
 
 
-		System.debug('updateHierarchyManager : Current User is ' + currentUser  );
-		System.debug('updateHierarchyManager : managerHierarchy FirstName ' + managerHierarchy.Manager.FirstName  );
+	System.debug('updateHierarchyManager : Current User is ' + currentUser  );
+	System.debug('updateHierarchyManager : managerHierarchy FirstName ' + managerHierarchy.Manager.FirstName  );
 		for(Case caseRec : caseList){
 			if(Utility.isValidRecordType(validRecTypes,caseRec.RecordTypeId)){  // verify if its SSSW recordtype
 
 					if ( (managerHierarchy.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.FirstName)) ||
-							(managerHierarchy.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.LastName)))
+						(managerHierarchy.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.LastName)))
 					{
 						caseRec.ManagerLevel1__c = managerHierarchy.Manager.FirstName + ' ' + managerHierarchy.Manager.LastName;
 					}
 					if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
-							(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
+						(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
 					{
 						caseRec.ManagerLevel2__c = managerHierarchy.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.LastName;
 					}
 					if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
-							(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
+						(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
 					{
 						caseRec.ManagerLevel3__c = managerHierarchy.Manager.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.Manager.LastName;
 					}
@@ -844,10 +834,10 @@ public static void notificationAutomationModel(Map<Id, Case> newCases, Map<Id, C
 		//Query cases that matches criteria
 		//MW0004540 Added Special Instructions field
 		newCases = new Map<Id, Case>([SELECT Id, RecordType.Name, Status, FCR__c, Subscription_Consign_Summary_Status__c, Enquiry_Type__c, Call_Purpose__c, Exclude_Notification_Automation__c, ArticleTest__r.Consignment_Summary_Status__c, ArticleTest__c, ArticleTest__r.Name,
-											CaseNumber, Description_of_contents__c, Description_of_packaging__c, Number_of_Items__c, Network__r.Name, Network__r.Special_Instructions__c,Business_Solutions_Customer__c, ResolutionCode__c, All_Manual_Communications_Completed__c,
-											(SELECT Id, Calc_Contact_Email__c, Case__c, Calc_Contact_Mobile_Number__c, Calc_First_Name__c, Calc_Last_Name__c, Notification_Required__c, Notified_on_Status__c, Pref_Method_of_Contact__c, Name
-											FROM Authorised_Contacts__r WHERE Notification_Required__c = :StarTrack_Constants.ST_TRUE AND Pref_Method_of_Contact__c != null)
-										FROM Case WHERE Id IN :newCases.keySet() AND ArticleTest__c != null AND ResolutionCode__c NOT IN :excResCodeList AND FCR__c = :StarTrack_Constants.ST_FALSE AND RecordType.DeveloperName LIKE :(StarTrack_Constants.CASE_STARTRACK_RECTYPE + '%') AND Status != :StarTrack_Constants.CASE_STATUS_NEW]);
+										CaseNumber, Description_of_contents__c, Description_of_packaging__c, Number_of_Items__c, Network__r.Name, Network__r.Special_Instructions__c,Business_Solutions_Customer__c, ResolutionCode__c, All_Manual_Communications_Completed__c,
+										(SELECT Id, Calc_Contact_Email__c, Case__c, Calc_Contact_Mobile_Number__c, Calc_First_Name__c, Calc_Last_Name__c, Notification_Required__c, Notified_on_Status__c, Pref_Method_of_Contact__c, Name
+										FROM Authorised_Contacts__r WHERE Notification_Required__c = :StarTrack_Constants.ST_TRUE AND Pref_Method_of_Contact__c != null)
+									FROM Case WHERE Id IN :newCases.keySet() AND ArticleTest__c != null AND ResolutionCode__c NOT IN :excResCodeList AND FCR__c = :StarTrack_Constants.ST_FALSE AND RecordType.DeveloperName LIKE :(StarTrack_Constants.CASE_STARTRACK_RECTYPE + '%') AND Status != :StarTrack_Constants.CASE_STATUS_NEW]);
 		//Check if retrieved cases is not empty
 		if(!newCases.isEmpty()){
 			for(Case caseRec : newCases.values()){
@@ -874,7 +864,7 @@ public static void notificationAutomationModel(Map<Id, Case> newCases, Map<Id, C
 			Map<Id, String> caseSMSTemplate = new Map<Id, String>();
 			Map<Id, String> caseEmailTemplate = new Map<Id, String>();
 			List<StarTrack_Automation_Rule__c> stARList = [SELECT Id, Consignment_Summary_Status__c, Case_RecordType__c, Case_Type__c, Case_Purpose__c, Case_Status__c, Case_Action__c, Order__c, Email_Template__c, SMS_Template__c, RecordType.Name, RecordTypeId, BSC__c
-															FROM StarTrack_Automation_Rule__c WHERE RecordType.Name = :StarTrack_Constants.NOTIFAUTO_RULEFUNC ORDER BY Order__c];
+														FROM StarTrack_Automation_Rule__c WHERE RecordType.Name = :StarTrack_Constants.NOTIFAUTO_RULEFUNC ORDER BY Order__c];
 			if(!stARList.isEmpty()){
 				for(Case caseRec : newCases.values()){
 					for(StarTrack_Automation_Rule__c stRule : stARList){
@@ -914,11 +904,11 @@ public static void notificationAutomationModel(Map<Id, Case> newCases, Map<Id, C
 						// MW0004540 Modified to ensure Depot Collection always gets email if customer has given one - not just SMS because email has important Depot Collection Details.
 					} else if((StarTrack_Constants.CASE_ORIGIN_EMAIL.equals(relCont.Pref_Method_of_Contact__c) || StarTrack_Constants.CASE_ENQUIRY_DEPOTCOLLECTION.equals(caseRec.Enquiry_Type__c)) && String.isNotBlank(caseEmailTemplate.get(caseRec.Id)) && String.isNotBlank(relCont.Calc_Contact_Email__c)){
 						workflow_Email__c wfe = new workflow_Email__c(Case__c = caseRec.Id, Status__c = StarTrack_Constants.WFE_STATUS_CLOSE, Task_Description__c = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id),
-																		Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING, Workflow_Email_Alert__c = caseEmailTemplate.get(caseRec.Id), To_Address__c = relCont.Calc_Contact_Email__c,
-																		Name = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id), Task_Subject__c = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id),
-																		Consignment_Number__c = String.isNotBlank(caseRec.ArticleTest__c) ? caseRec.ArticleTest__r.Name : '', Enquiry_Type__c = caseRec.Enquiry_Type__c,
-																		Case_Number__c = caseRec.CaseNumber, Description_Of_Contents__c = caseRec.Description_of_contents__c, Description_Of_Packaging__c = caseRec.Description_of_packaging__c,
-																		Number_of_Items__c = String.valueOf(caseRec.Number_of_Items__c), Network_Name__c = caseRec.Network__r.Name, Special_Instructions__c = caseRec.Network__r.Special_Instructions__c, Contact_First_Name__c = relCont.Calc_First_Name__c);
+																	Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING, Workflow_Email_Alert__c = caseEmailTemplate.get(caseRec.Id), To_Address__c = relCont.Calc_Contact_Email__c,
+																	Name = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id), Task_Subject__c = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id),
+																	Consignment_Number__c = String.isNotBlank(caseRec.ArticleTest__c) ? caseRec.ArticleTest__r.Name : '', Enquiry_Type__c = caseRec.Enquiry_Type__c,
+																	Case_Number__c = caseRec.CaseNumber, Description_Of_Contents__c = caseRec.Description_of_contents__c, Description_Of_Packaging__c = caseRec.Description_of_packaging__c,
+																	Number_of_Items__c = String.valueOf(caseRec.Number_of_Items__c), Network_Name__c = caseRec.Network__r.Name, Special_Instructions__c = caseRec.Network__r.Special_Instructions__c, Contact_First_Name__c = relCont.Calc_First_Name__c);
 						newWFRecords.add(wfe);
 						if(!caseStatusList.get(caseRec.Id).equals(relCont.Notified_on_Status__c)){
 							relCont.Notified_on_Status__c = caseStatusList.get(caseRec.Id);
@@ -970,10 +960,10 @@ public static Boolean compareRec(StarTrack_Automation_Rule__c stRule, Case caseR
 		return false;
 	}
 	if((String.isNotBlank(stRule.Consignment_Summary_Status__c) ? stRule.Consignment_Summary_Status__c.equalsIgnoreCase(caseRec.ArticleTest__r.Consignment_Summary_Status__c) : true) &&
-		(String.isNotBlank(stRule.Case_RecordType__c) ? stRule.Case_RecordType__c.equals(caseRec.RecordType.Name) : true) &&
-		(String.isNotBlank(stRule.Case_Type__c) ? stRule.Case_Type__c.equals(caseRec.Enquiry_Type__c) : true) && (String.isNotBlank(stRule.Case_Purpose__c) ? stRule.Case_Purpose__c.equals(caseRec.Call_Purpose__c) : true) &&
-		(String.isNotBlank(stRule.Case_Status__c) ? stRule.Case_Status__c.equals(caseRec.Status) : true) && (stRule.BSC__c == caseRec.Business_Solutions_Customer__c)){
-		return true;
+	(String.isNotBlank(stRule.Case_RecordType__c) ? stRule.Case_RecordType__c.equals(caseRec.RecordType.Name) : true) &&
+	(String.isNotBlank(stRule.Case_Type__c) ? stRule.Case_Type__c.equals(caseRec.Enquiry_Type__c) : true) && (String.isNotBlank(stRule.Case_Purpose__c) ? stRule.Case_Purpose__c.equals(caseRec.Call_Purpose__c) : true) &&
+	(String.isNotBlank(stRule.Case_Status__c) ? stRule.Case_Status__c.equals(caseRec.Status) : true) && (stRule.BSC__c == caseRec.Business_Solutions_Customer__c)){
+	return true;
 	}
 	return false;
 }
@@ -1011,7 +1001,7 @@ public static void duplicateStarTrackCases(Map<Id, Case> newCases){
 public static void markRenewedCasesToRoute(List<Case> newCases, Map<Id,Case> oldMap){
 
 	if (oldMap == null){
-		return; 
+		return;
 	}
 
 	// Listing of the variables we're monitoring for change
@@ -1024,8 +1014,6 @@ public static void markRenewedCasesToRoute(List<Case> newCases, Map<Id,Case> old
 								'ProductCategory__c', 'ProductSubCategory__c', 'EnquirySubType__c', 'Type',
 								'IsHLC__c', 'IsCR__c'
 							});
-
-		String omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
 
 		for (Case newCase : casesNeedToRoute){
 
@@ -1127,8 +1115,8 @@ private static Boolean isNotHlcAndCr(Case newCase){
  *
  * IMPORTANT: Not intended for general use. Only for handling special scenarios where it is necessary to query data beyond
  *			what the current user is allowed to see as per sharing.
-	*			E.g. : Public Guest users submitting a case should be linked to existing contacts matching the email address on case.
-	*/
+ *			E.g. : Public Guest users submitting a case should be linked to existing contacts matching the email address on case.
+ */
 private without sharing class WithoutSharingDataAccessHelper {
 
 	/**
