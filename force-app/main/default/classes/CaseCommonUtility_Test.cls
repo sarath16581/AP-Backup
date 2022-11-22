@@ -19,11 +19,16 @@ private with sharing class CaseCommonUtility_Test {
 	
 	
 	@testSetup static void testDataCreate() {
-		Profile p = [SELECT Id FROM Profile WHERE Name='StarTrack Support']; 
-		UserRole r = [SELECT Id FROM UserRole WHERE Name = 'CEO/Reporting'];
-		User supportUser = new User(Alias = 'spUser', Email='user@testorg.a', EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='user@testorg.a');
-		Database.insert(supportUser);
-	}
+        insert new Conveyancer_Number__c(SetupOwnerId=UserInfo.getOrganizationId(), Next_Id__c=123456);
+    }
+
+    //Added by David Catindoy - Sept 20, 2016
+    @testSetup static void createUser(){
+        Profile p = [SELECT Id FROM Profile WHERE Name='StarTrack Support']; 
+        UserRole r = [SELECT Id FROM UserRole WHERE Name = 'CEO/Reporting'];
+        User supportUser = new User(Alias = 'spUser', Email='user@testorg.a', EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='user@testorg.a');
+        Database.insert(supportUser);
+    }
 	
 	// Constants
 	private static final String ADMIN_PROFILE = 'System Administrator';
@@ -1344,18 +1349,18 @@ private with sharing class CaseCommonUtility_Test {
 		CaseStatus nonClosedStatus = caseStatuses[2];
 		nonClosedStatus = (CaseStatus)ApplicationTestDataFactory.setUnwritableFields(nonClosedStatus, new Map<String, Object>{'IsClosed' => false});
 
-		Map<String, CaseStatus> cacheCaseStatus = new Map<String, CaseStatus>{closedStatus1.ApiName => closedStatus1, closedStatus2.ApiName => closedStatus2, nonClosedStatus.ApiName => nonClosedStatus};
-		CacheManager.put('UTILITY_CASE_STATUS',cacheCaseStatus );
+		Set<String> closedCaseStatuses = new Set<String>{closedStatus1.MasterLabel, closedStatus2.MasterLabel};
+		CacheManager.put('CASE_CLOSED_STATUSES',closedCaseStatuses );
 
 		
 		//Cases
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
 		
 		cases[0].OwnerId = closedOmniqueue.QueueId; //Case reopened and in Closed Omni queue
-		cases[0].Status = nonClosedStatus.ApiName;
+		cases[0].Status = nonClosedStatus.MasterLabel;
 
 		cases[1].OwnerId = closedOmniqueue.QueueId; //Case changing from a Closed Status to another Closed Status
-		cases[1].Status = closedStatus1.ApiName;
+		cases[1].Status = closedStatus1.MasterLabel;
 
 
 		//Clone to simulate existing Case records to test Case Update 
@@ -1363,8 +1368,8 @@ private with sharing class CaseCommonUtility_Test {
 			cases[0].clone(true),
 			cases[1].clone(true)
 		};
-		oldCases[0].Status = closedStatus2.ApiName;
-		oldCases[1].Status = closedStatus2.ApiName;
+		oldCases[0].Status = closedStatus2.MasterLabel;
+		oldCases[1].Status = closedStatus2.MasterLabel;
 		
 		// =====================================
 		// Testing
@@ -1421,8 +1426,8 @@ private with sharing class CaseCommonUtility_Test {
 		CaseStatus nonClosedStatus = caseStatuses[2];
 		nonClosedStatus = (CaseStatus)ApplicationTestDataFactory.setUnwritableFields(nonClosedStatus, new Map<String, Object>{'IsClosed' => false});
 
-		Map<String, CaseStatus> cacheCaseStatus = new Map<String, CaseStatus>{closedStatus.ApiName => closedStatus, nonClosedStatus.ApiName => nonClosedStatus};
-		CacheManager.put('UTILITY_CASE_STATUS',cacheCaseStatus );
+		Set<String> closedCaseStatuses = new Set<String>{closedStatus.MasterLabel};
+		CacheManager.put('CASE_CLOSED_STATUSES',closedCaseStatuses );
 		
 		//Cases
 		List<Case> cases = ApplicationTestDataFactory.getCases(6, true);
@@ -1437,27 +1442,27 @@ private with sharing class CaseCommonUtility_Test {
 		Map<Id, Case> validCasesInsert = new Map<Id, Case>();
 
 		cases[0].OwnerId = omniQueue.Id;
-		cases[0].Status = closedStatus.ApiName;
+		cases[0].Status = closedStatus.MasterLabel;
 		validCases.put(cases[0].id, cases[0]); //Closed Case status changed from Open => Close
 
 		cases[1].OwnerId = omniQueue.Id;
-		cases[1].Status = closedStatus.ApiName;
+		cases[1].Status = closedStatus.MasterLabel;
 		validCases.put(cases[1].id, cases[1]); //Closed Case Owner changed 
 
 		cases[5].OwnerId = omniQueue.Id;
-		cases[5].Status = closedStatus.ApiName;
+		cases[5].Status = closedStatus.MasterLabel;
 		validCasesInsert.put(cases[5].id, cases[5]); //Closed Case Owner changed 
 
 		
 		//negative scenarios 
 		cases[2].OwnerId = nonOmniQueue.Id; //Closed Case in a Queue without Routing config
-		cases[2].Status = closedStatus.ApiName;
+		cases[2].Status = closedStatus.MasterLabel;
 
 		cases[3].OwnerId = omniQueue.Id; //Case not in a Closed Status
-		cases[3].Status = nonClosedStatus.ApiName;
+		cases[3].Status = nonClosedStatus.MasterLabel;
 
 		cases[4].OwnerId = omniQueue.Id; //Case with no change in both Status and OwnerId
-		cases[4].Status = closedStatus.ApiName;
+		cases[4].Status = closedStatus.MasterLabel;
 
 		//Clone to simulate existing Case records to test Case Update 
 		List<Case> oldCases = new List<Case>{
@@ -1467,12 +1472,12 @@ private with sharing class CaseCommonUtility_Test {
 			cases[3].clone(true),
 			cases[4].clone(true)
 		};
-		oldCases[0].Status = nonClosedStatus.ApiName;
-		oldcases[1].Status = closedStatus.ApiName;
+		oldCases[0].Status = nonClosedStatus.MasterLabel;
+		oldcases[1].Status = closedStatus.MasterLabel;
 		oldcases[1].OwnerId = UserInfo.getUserId();
-		oldcases[2].Status = nonClosedStatus.ApiName;
-		oldcases[3].Status = nonClosedStatus.ApiName;
-		oldcases[4].Status = closedStatus.ApiName;
+		oldcases[2].Status = nonClosedStatus.MasterLabel;
+		oldcases[3].Status = nonClosedStatus.MasterLabel;
+		oldcases[4].Status = closedStatus.MasterLabel;
 		
 		// =====================================
 		// Stubbing

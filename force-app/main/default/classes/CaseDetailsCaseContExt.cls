@@ -1143,7 +1143,7 @@ global class CaseDetailsCaseContExt  {
 								for(ServiceResourceSkill srs: ServiceResourceSkillSelector.newInstance().selectByActiveServiceResourceRelatedRecordIds(new Set<Id>{ previousOwnerId }, new Set<Object>())) {
 									userSkillIdVsSkillLevel.put(srs.SkillId, srs.SkillLevel);
 								}
- 
+
 								Boolean hasAllSkills = true;
 								for(SkillRequirement sr: skillsRequirements) {
 									// if previous owner does not have the same skill or does have the same skill but lower level then it is a mis-match. 
