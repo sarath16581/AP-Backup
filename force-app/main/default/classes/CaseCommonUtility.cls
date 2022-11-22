@@ -99,6 +99,16 @@ private static Boolean isAutoCloseEnabled = false;
 		}
 		private set;
 	}
+
+	static Map<Id, Group> omniGroups {
+		get {
+			if(omniGroups == null) {
+				omniGroups = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>());
+			}
+			return omniGroups;
+		}
+		private set;
+	}
 		
 	static{
 		try{
@@ -651,7 +661,14 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 					System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
 					//System.debug(LoggingLevel.ERROR,'**oldCase.AllocateToQueue__c: ' + oldCase.AllocateToQueue__c);
 
-					if( (csRec.Network__c == null
+					if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 
+						&& String.isEmpty(omniClosedCaseQueueId) == false 
+						&& Utility.getCaseClosedStatus().contains(csRec.Status) 
+						&& omniGroups.containsKey(csRec.OwnerId) 			
+					){	
+						csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
+						csRec.AllocateToQueue__c = false;
+					} else if( (csRec.Network__c == null
 						&& (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
 						||
 						(String.isBlank(csRec.Description) && (oldCase == null || (oldCase != null && (oldCase.Description != csRec.Description))))
