@@ -779,28 +779,26 @@ public void updateHierarchyManager(List<Case> caseList){
 									from User
 									where id =:currentUser ];
 
-
-									System.debug('updateHierarchyManager : Current User is ' + currentUser  );
-									System.debug('updateHierarchyManager : managerHierarchy FirstName ' + managerHierarchy.Manager.FirstName  );
+	   System.debug('updateHierarchyManager : Current User is ' + currentUser  );
+	   System.debug('updateHierarchyManager : managerHierarchy FirstName ' + managerHierarchy.Manager.FirstName  );
 		for(Case caseRec : caseList){
 			if(Utility.isValidRecordType(validRecTypes,caseRec.RecordTypeId)){  // verify if its SSSW recordtype
 
 				if ( (managerHierarchy.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.FirstName)) ||
 				(managerHierarchy.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.LastName)))
-		   {
-			   caseRec.ManagerLevel1__c = managerHierarchy.Manager.FirstName + ' ' + managerHierarchy.Manager.LastName;
-		   }
-		   if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
+				{
+					caseRec.ManagerLevel1__c = managerHierarchy.Manager.FirstName + ' ' + managerHierarchy.Manager.LastName;
+				}
+				if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
 				(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
-		   {
-			   caseRec.ManagerLevel2__c = managerHierarchy.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.LastName;
-		   }
-		   if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
+				{
+					caseRec.ManagerLevel2__c = managerHierarchy.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.LastName;
+				}
+				if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
 				(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
-		   {
-			   caseRec.ManagerLevel3__c = managerHierarchy.Manager.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.Manager.LastName;
-		   }
-
+				{
+					caseRec.ManagerLevel3__c = managerHierarchy.Manager.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.Manager.LastName;
+				}
 			}
 
 		}
@@ -864,7 +862,7 @@ public static void notificationAutomationModel(Map<Id, Case> newCases, Map<Id, C
 			Map<Id, String> caseSMSTemplate = new Map<Id, String>();
 			Map<Id, String> caseEmailTemplate = new Map<Id, String>();
 			List<StarTrack_Automation_Rule__c> stARList = [SELECT Id, Consignment_Summary_Status__c, Case_RecordType__c, Case_Type__c, Case_Purpose__c, Case_Status__c, Case_Action__c, Order__c, Email_Template__c, SMS_Template__c, RecordType.Name, RecordTypeId, BSC__c
-			FROM StarTrack_Automation_Rule__c WHERE RecordType.Name = :StarTrack_Constants.NOTIFAUTO_RULEFUNC ORDER BY Order__c];
+														   FROM StarTrack_Automation_Rule__c WHERE RecordType.Name = :StarTrack_Constants.NOTIFAUTO_RULEFUNC ORDER BY Order__c];
 			if(!stARList.isEmpty()){
 				for(Case caseRec : newCases.values()){
 					for(StarTrack_Automation_Rule__c stRule : stARList){
@@ -904,11 +902,11 @@ public static void notificationAutomationModel(Map<Id, Case> newCases, Map<Id, C
 						// MW0004540 Modified to ensure Depot Collection always gets email if customer has given one - not just SMS because email has important Depot Collection Details.
 					} else if((StarTrack_Constants.CASE_ORIGIN_EMAIL.equals(relCont.Pref_Method_of_Contact__c) || StarTrack_Constants.CASE_ENQUIRY_DEPOTCOLLECTION.equals(caseRec.Enquiry_Type__c)) && String.isNotBlank(caseEmailTemplate.get(caseRec.Id)) && String.isNotBlank(relCont.Calc_Contact_Email__c)){
 						workflow_Email__c wfe = new workflow_Email__c(Case__c = caseRec.Id, Status__c = StarTrack_Constants.WFE_STATUS_CLOSE, Task_Description__c = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id),
-						Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING, Workflow_Email_Alert__c = caseEmailTemplate.get(caseRec.Id), To_Address__c = relCont.Calc_Contact_Email__c,
-						Name = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id), Task_Subject__c = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id),
-						Consignment_Number__c = String.isNotBlank(caseRec.ArticleTest__c) ? caseRec.ArticleTest__r.Name : '', Enquiry_Type__c = caseRec.Enquiry_Type__c,
-						Case_Number__c = caseRec.CaseNumber, Description_Of_Contents__c = caseRec.Description_of_contents__c, Description_Of_Packaging__c = caseRec.Description_of_packaging__c,
-						Number_of_Items__c = String.valueOf(caseRec.Number_of_Items__c), Network_Name__c = caseRec.Network__r.Name, Special_Instructions__c = caseRec.Network__r.Special_Instructions__c, Contact_First_Name__c = relCont.Calc_First_Name__c);
+																	  Email_Type__c = StarTrack_Constants.TASK_SUBTYPE_SINGLETASKING, Workflow_Email_Alert__c = caseEmailTemplate.get(caseRec.Id), To_Address__c = relCont.Calc_Contact_Email__c,
+																	  Name = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id), Task_Subject__c = relCont.Name + ': ' + caseEmailTemplate.get(caseRec.Id),
+																	  Consignment_Number__c = String.isNotBlank(caseRec.ArticleTest__c) ? caseRec.ArticleTest__r.Name : '', Enquiry_Type__c = caseRec.Enquiry_Type__c,
+																	  Case_Number__c = caseRec.CaseNumber, Description_Of_Contents__c = caseRec.Description_of_contents__c, Description_Of_Packaging__c = caseRec.Description_of_packaging__c,
+																	  Number_of_Items__c = String.valueOf(caseRec.Number_of_Items__c), Network_Name__c = caseRec.Network__r.Name, Special_Instructions__c = caseRec.Network__r.Special_Instructions__c, Contact_First_Name__c = relCont.Calc_First_Name__c);
 						newWFRecords.add(wfe);
 						if(!caseStatusList.get(caseRec.Id).equals(relCont.Notified_on_Status__c)){
 							relCont.Notified_on_Status__c = caseStatusList.get(caseRec.Id);
@@ -960,9 +958,9 @@ public static Boolean compareRec(StarTrack_Automation_Rule__c stRule, Case caseR
 		return false;
 	}
 	if((String.isNotBlank(stRule.Consignment_Summary_Status__c) ? stRule.Consignment_Summary_Status__c.equalsIgnoreCase(caseRec.ArticleTest__r.Consignment_Summary_Status__c) : true) &&
-	(String.isNotBlank(stRule.Case_RecordType__c) ? stRule.Case_RecordType__c.equals(caseRec.RecordType.Name) : true) &&
-	(String.isNotBlank(stRule.Case_Type__c) ? stRule.Case_Type__c.equals(caseRec.Enquiry_Type__c) : true) && (String.isNotBlank(stRule.Case_Purpose__c) ? stRule.Case_Purpose__c.equals(caseRec.Call_Purpose__c) : true) &&
-	(String.isNotBlank(stRule.Case_Status__c) ? stRule.Case_Status__c.equals(caseRec.Status) : true) && (stRule.BSC__c == caseRec.Business_Solutions_Customer__c)){
+	   (String.isNotBlank(stRule.Case_RecordType__c) ? stRule.Case_RecordType__c.equals(caseRec.RecordType.Name) : true) &&
+	   (String.isNotBlank(stRule.Case_Type__c) ? stRule.Case_Type__c.equals(caseRec.Enquiry_Type__c) : true) && (String.isNotBlank(stRule.Case_Purpose__c) ? stRule.Case_Purpose__c.equals(caseRec.Call_Purpose__c) : true) &&
+	   (String.isNotBlank(stRule.Case_Status__c) ? stRule.Case_Status__c.equals(caseRec.Status) : true) && (stRule.BSC__c == caseRec.Business_Solutions_Customer__c)){
 	return true;
 	}
 	return false;
