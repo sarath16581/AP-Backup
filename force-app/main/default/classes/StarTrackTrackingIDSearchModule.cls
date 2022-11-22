@@ -40,7 +40,8 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
 
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         try {
-            System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate');
+            System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate records '+records.size());
+            System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate existingRecords '+existingRecords.size());
             getTrackingDetails(records, existingRecords);
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
@@ -51,12 +52,16 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
     public void getTrackingDetails(List<SObject> records, Map<Id, SObject> existingRecords) {
         List<Case> selectedCases = new List<Case>();
         for(Case cse:(List<Case>)records) {
+            System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate  cse '+cse);
             // if the reference has been changed
-            if(existingRecords == null || cse.ReferenceID__c != existingRecords.get(cse.Id).get('ReferenceID__c')) {
+            if(existingRecords == null && cse.ReferenceID__c != null) {
                 // todo check for record types
                 selectedCases.add(cse);
             }
+            selectedCases.add(cse);
         }
+
+        System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate selectedCases '+selectedCases.size());
 
         if(!selectedCases.isEmpty()) {
             System.enqueueJob(new TrackingSearchQueueable(selectedCases[0]));
@@ -80,7 +85,9 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
 
         public void execute(QueueableContext context) {
             try {
-                if(this.cse.ArticleTest__c == null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId)) {
+                System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate IN queable');
+                if(this.cse.ArticleTest__c == null/* && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId)*/) {
+                    System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate IN queable CALLING SERVICE ');
                     StarTrackTrackingIDSearchService cont = StarTrackTrackingIDSearchService.newInstance();
                     cont.dateRange = '1';
                     cont.searchString = this.cse.ReferenceID__c;

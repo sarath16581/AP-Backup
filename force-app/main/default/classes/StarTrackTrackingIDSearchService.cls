@@ -45,9 +45,6 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
     //case record for validation and insert
     public Case c { get; set; }
 
-    //flag to capture validation error and display error on UI
-    public boolean flag { get; set; }
-
     //Capture field user selected for search, default with consignment #
     public String fieldName {
         get {
@@ -83,8 +80,6 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
     public String dateType { get; set; }
     //capture selected date range, default is This Dat
     public String dateRange { get; set; }
-    //capture suburb field data for search
-    public String suburb { get; set; }
     //capture selected article id
     public String selectedArticle { get; set; }
     //map to capture all custom settings data for consignment search page
@@ -133,9 +128,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                     }
 
                     request.Header = header;
-                    if (map_searchCustomSettings.get(fieldName).Show_Suburb_Field__c) {
-                        request.Suburb = suburb;
-                    }
+
                     request.Type_x = map_searchCustomSettings.get(fieldName).Callout_Search_Type__c;
                     request.Value = searchString;
 
@@ -341,10 +334,6 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
             query += filterType(fieldName, searchString, map_searchCustomSettings.get(fieldName).Exact_Search__c);
         } else {
             query += 'ID IN ' + articleFilter;
-        }
-
-        if (map_searchCustomSettings.get(fieldName).Show_Suburb_Field__c) {
-            query += ' AND ' + filterType('Receiver_Suburb__c', suburb, true);
         }
 
         if (map_searchCustomSettings.get(fieldName).Show_Date_Field__c && map_searchCustomSettings.get(dateRange).Field_Name__c != 'Custom') {
