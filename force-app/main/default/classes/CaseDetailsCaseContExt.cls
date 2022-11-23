@@ -1090,7 +1090,7 @@ global class CaseDetailsCaseContExt  {
                     if(!String.isBlank(reassignCase.Description))
                         SSSW_Routing.FlipReassignDescription();
                     SSSW_Routing.reassignNoCheckOwnerQueue = True;
-                    SSSW_Routing.assignCasesAndDescription(new List<Case>{reassignCase}, null, false);
+                    SSSW_Routing.assignCasesAndDescription(new List<Case>{reassignCase}, null, false, false, true);
                     routedCase = reassignCase;
                 }
                 //System.Debug('routedCase.OwnerId--->'+routedCase.OwnerId);
