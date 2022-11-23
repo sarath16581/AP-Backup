@@ -661,15 +661,7 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 					System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
 					//System.debug(LoggingLevel.ERROR,'**oldCase.AllocateToQueue__c: ' + oldCase.AllocateToQueue__c);
 
-					if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 
-						&& String.isEmpty(omniClosedCaseQueueId) == false 
-						&& Utility.getCaseClosedStatus().contains(csRec.Status) 
-						&& omniGroups.containsKey(csRec.OwnerId) 			
-					){	
-						csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
-						csRec.AllocateToQueue__c = false;
-						casesTobeRouted.add(csRec);
-					} else if( (csRec.Network__c == null
+					if( (csRec.Network__c == null
 						&& (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
 						||
 						(String.isBlank(csRec.Description) && (oldCase == null || (oldCase != null && (oldCase.Description != csRec.Description))))
@@ -690,6 +682,24 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 				System.debug('casesTobeRouted--->'+casesTobeRouted+'<--oldMap-->'+oldMap);
 				SSSW_Routing.assignCasesAndDescription(casesTobeRouted, oldMap, isInsert);
 			}
+
+			for(Case csRec : caseList){
+				// Check if it is SSSW record type or Social record type.
+				if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
+					
+					Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case					
+
+					if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 
+						&& String.isEmpty(omniClosedCaseQueueId) == false 
+						&& Utility.getCaseClosedStatus().contains(csRec.Status) 
+						&& omniGroups.containsKey(csRec.OwnerId) 			
+					){	
+						csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
+					}
+				}
+			}
+
+			
 
 		}
 		catch(Exception exp){
