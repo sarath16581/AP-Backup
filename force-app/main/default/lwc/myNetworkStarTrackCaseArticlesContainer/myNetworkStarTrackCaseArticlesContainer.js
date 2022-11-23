@@ -13,7 +13,6 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
     hasPassedThroughAPNetwork = false; //flag to determine the articles passed through AP Network scans
     isLoading = false; //flag to show/hide the spinner on server call
     articleDetails; //articles related to case from apex
-    articles = {}; //formatted articles data
 
     connectedCallback() {
         this.isLoading = true;
@@ -23,9 +22,6 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
                 this.hasPassedThroughAPNetwork = response.hasPassedThroughAPNetwork;
                 if (this.hasPassedThroughAPNetwork) {
                     this.articleDetails = response.articleDetails;
-                    this.articleDetails.forEach(articleDetail => {
-                        this.articles[articleDetail.article.Id] = articleDetail;
-                    });
                 }
                 this.isLoading = false;
             })
