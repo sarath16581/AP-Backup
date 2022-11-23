@@ -1127,7 +1127,7 @@ global class CaseDetailsCaseContExt  {
 					// set save point so we can revert the update to omni queue (if applicable). We need the PSR in order to compare the target skills vs the skills of the current agent. 
 					// If they are the same then the whole process should be reverted and show an error message to the user. 
 					Savepoint sp = Database.setSavepoint();
-system.debug('>>>>>>>>>>>>>>> sameOwner: ' + sameOwner);
+					
 					if(!sameOwner && doUpdate) {
 						Database.update(casesTobeRouted);
 

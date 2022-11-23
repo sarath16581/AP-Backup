@@ -108,9 +108,11 @@ global class CaseDetailsCaseContExt_Test {
 	static void ensureAssignCaseChecksForSkills() {
 		Map<String, Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
 		MockUtility.disableTriggerExecution();
+		List<User> agents = ApplicationTestDataFactory.getUsers(1, true);
 		Case testCase = ApplicationTestDataFactory.getCases(1, true)[0];
 		testCase.RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
-		testCase.OwnerId = UserInfo.getUserId();
+		testCase.OwnerId = agents[0].Id;
+
 		ApexPages.StandardController sc = new ApexPages.StandardController(testCase);
 		CaseDetailsCaseContExt controller = new CaseDetailsCaseContExt(sc);
 		controller.reassignCase = testCase; // TODO: clean up these silly business
