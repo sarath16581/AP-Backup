@@ -31,13 +31,6 @@ public inherited sharing class CasesDomain extends ApplicationDomain{
 		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. It has logic that depends on Case.AccountId
 		// Refactor Guidance - the logic in this code needs to be positioned: i) in CaseTriggerUtility.beforeHandler() ii) when caseUtility.assignContactIDToCase() is called
 		registerModule(CaseSkillBasedRoutingModule.class);
-
-		// reassign Closed Cases from Omnichannel Queues to a Closed Cases Omni queue, so they are not routed to an Agent
-		// Related to SSSW Cases only, the module filters to SSSW Cases only
-		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. The Case routing logic in CaseCommonUtility.routeCase() must run first 
-		// 		e.g. for inserted Closed Cases with AllocateToQueue = True, these Closed Cases may then be routed to an Omni queue.
-		// Refactor Guidance - the logic in this code needs to be positioned: i) in CaseTriggerUtility.beforeHandler() ii) after CaseCommonUtility.routeCase() is called
-		registerModule(CaseClosedRoutingModule.class);
 	}
 	/**
 	 * Trigger instantiation context
