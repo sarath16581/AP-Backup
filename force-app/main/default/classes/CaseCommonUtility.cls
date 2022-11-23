@@ -692,7 +692,7 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 					if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 
 						&& String.isEmpty(omniClosedCaseQueueId) == false 
 						&& Utility.getCaseClosedStatus().contains(csRec.Status) 
-						&& omniGroups.containsKey(csRec.OwnerId) m			
+						&& omniGroups.containsKey(csRec.OwnerId)
 					){	
 						csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
 					}
