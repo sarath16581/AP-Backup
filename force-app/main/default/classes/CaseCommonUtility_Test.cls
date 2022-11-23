@@ -1386,6 +1386,7 @@ private with sharing class CaseCommonUtility_Test {
 		
 	}
 
+
 	/**
 	 * Test logic in routeCase() that moves closed Cases to the Closed Omni queue
 	 * 
@@ -1512,5 +1513,4 @@ private with sharing class CaseCommonUtility_Test {
 		System.assert(cases[3].OwnerId != closedCaseQueueId, 'Case not in a Closed Status => not in Closed Case Queue');
 		System.assert(cases[4].OwnerId != closedCaseQueueId, 'Case with no change in Status => not in Closed Case Queue');
 	}
-
 }

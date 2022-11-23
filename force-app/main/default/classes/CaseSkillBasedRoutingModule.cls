@@ -36,7 +36,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
     public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
         try {
             populateCustomerQueueType(filterToOnlySSSWCases(records), null , uow);
-            System.debug('694 in before insert');
+            
         } catch (Exception ex) {
             // Error Logged to Exception object for analysis
             ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CaseSkillRouting', CaseSkillBasedRoutingModule.class.getName(), 'onBeforeInsert', 'Case', ApplicationLogger.LoggingLevel.ERROR);
@@ -48,7 +48,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
     public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         try {
             populateCustomerQueueType(filterToOnlySSSWCases(records), existingRecords, uow);
-            System.debug('694 in before update');
+            
         } catch (Exception ex) {
             // Error Logged to Exception object for analysis
             ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CaseSkillRouting', CaseSkillBasedRoutingModule.class.getName(), 'onBeforeUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
@@ -73,7 +73,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
                 (existingRecords.isEmpty() == false &&
                     cs.ContactId != ((Case)existingRecords.get(cs.Id)).ContactId)
             ){                    
-                System.debug('694 case flagged to process');
+                
                 caseToProcess.add(cs);      
                 if(cs.ContactId != null){
                     contactIds.add(cs.ContactId);  
@@ -109,7 +109,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
         for (Case c : (List<Case>) caseRecords) {
             if(Utility.isValidRecordType(validRecTypes,c.RecordTypeId)){
                 ssswCases.add(c);
-                System.debug('694 case added');
+                
             }                
         }
 
