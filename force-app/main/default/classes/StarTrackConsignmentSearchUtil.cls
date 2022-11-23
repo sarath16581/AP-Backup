@@ -191,6 +191,11 @@ public without sharing class StarTrackConsignmentSearchUtil {
         return null;
     }
 
+
+    public static ConsignmentWrapper processResponse(wwwAuspostComAuSchemaCustomercarema.ConsignmentData emsResponse, boolean isConsole){
+        return processResponse(emsResponse, isConsole, true);
+    }
+
     /*------------------------------------------------------------
     Author:        Patrick James Franco
     Company:       Cloud Sherpas
@@ -200,7 +205,7 @@ public without sharing class StarTrackConsignmentSearchUtil {
     History:
     January 21, 2016 - Patrick James Franco - Created
     ------------------------------------------------------------*/
-    public static ConsignmentWrapper processResponse(wwwAuspostComAuSchemaCustomercarema.ConsignmentData emsResponse, boolean isConsole){
+    public static ConsignmentWrapper processResponse(wwwAuspostComAuSchemaCustomercarema.ConsignmentData emsResponse, boolean isConsole, boolean isUI){
         try{
 
             // Single result
@@ -355,7 +360,12 @@ public without sharing class StarTrackConsignmentSearchUtil {
                 }
                 catch(Exception e){
                     System.debug('~~~ UPSERT ERROR ' + e.getMessage());
-                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, e.getMessage()));
+                    if(isUI) {
+                        ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, e.getMessage()));
+                    } else {
+                        GlobalUtility.logMessage('ERROR', 'StarTrackConsignmentSearchUtil', 'processResponse', '', 'Exception', e.getMessage(), '', e, 0);
+                        throw e;
+                    }
                 }
                 
                 // Save Articles

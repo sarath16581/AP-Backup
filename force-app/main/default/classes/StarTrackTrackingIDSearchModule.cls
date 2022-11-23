@@ -31,7 +31,7 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
     public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
         try {
             System.debug('StarTrackTrackingIDSearchModule:onAfterInsert');
-            getTrackingDetails(records, null);
+            StarTrackTrackingIDSearchUtil.getTrackingDetails(records, null);
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchModule.class.getName(), 'onAfterInsert', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
@@ -40,70 +40,15 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
 
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
         try {
+            // TODO to be removed by Hasantha once the logic is confirmed
             System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate records '+records.size());
             System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate existingRecords '+existingRecords.size());
-            getTrackingDetails(records, existingRecords);
+            StarTrackTrackingIDSearchUtil.getTrackingDetails(records, existingRecords);
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchModule.class.getName(), 'onAfterUpdate', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
         }
     }
 
-    public void getTrackingDetails(List<SObject> records, Map<Id, SObject> existingRecords) {
-        List<Case> selectedCases = new List<Case>();
-        for(Case cse:(List<Case>)records) {
-            System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate  cse '+cse);
-            // if the reference has been changed
-            if(existingRecords == null && cse.ReferenceID__c != null) {
-                // todo check for record types
-                selectedCases.add(cse);
-            }
-            selectedCases.add(cse);
-        }
 
-        System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate selectedCases '+selectedCases.size());
-
-        if(!selectedCases.isEmpty()) {
-            System.enqueueJob(new TrackingSearchQueueable(selectedCases[0]));
-        }
-    }
-
-
-    private without sharing class TrackingSearchQueueable implements Queueable, Database.AllowsCallouts {
-        Id caseId;
-        String referenceId;
-        String articleId;
-        Case cse;
-        Set<Id> caseRecordTypes = new Set<Id>{
-                SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId()
-        , SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_General_Enquiry').getRecordTypeId()
-        , SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_Voice_of_Customer').getRecordTypeId()};
-
-        public TrackingSearchQueueable(Case record) {
-            this.cse = record;
-        }
-
-        public void execute(QueueableContext context) {
-            try {
-                System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate IN queable');
-                if(this.cse.ArticleTest__c == null/* && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId)*/) {
-                    System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate IN queable CALLING SERVICE ');
-                    StarTrackTrackingIDSearchService cont = StarTrackTrackingIDSearchService.newInstance();
-                    cont.dateRange = '1';
-                    cont.searchString = this.cse.ReferenceID__c;
-                    cont.isConsole = false;
-                    cont.map_searchCustomSettings.get(cont.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
-                    cont.searchConsignment();
-                    // TODO separate method for assign to case stuff and other validations
-                    case cse = new Case();
-                    cse.Id = this.cse.Id;
-                    cse.ArticleTest__c = cont.lst_article[0].Id; // TODO multiple consignments check
-                    update cse;
-                }
-            } catch (Exception ex) {
-                // Error Logged to Exception object for analysis
-                UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, TrackingSearchQueueable.class.getName(), 'execute', '', LoggingLevel.ERROR);
-            }
-        }
-    }
 }
