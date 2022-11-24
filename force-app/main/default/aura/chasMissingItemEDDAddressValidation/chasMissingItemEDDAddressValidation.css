@@ -224,3 +224,23 @@ display: block;
     transition: none;
     text-decoration: underline;
 }
+
+.THIS .outer-message-text{
+    color: #000000;
+    padding: 40px 32px 40px 32px;
+    align-items: flex-end;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    width: 612px;
+    height: 24px;
+    text-align: center;
+}
+
+.THIS .padding-header-bottom{
+    padding: 0px 32px 32px 0px;
+}
