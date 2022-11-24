@@ -9,7 +9,6 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Added methods for Domain classes
- * 2022-11-18 - Noel Lim - Addded caseStatuses in CacheFactory
  */
 public with sharing class Application {
 
