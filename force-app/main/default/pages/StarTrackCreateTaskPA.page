@@ -39,6 +39,13 @@
         <style>
             div#VFCmp {
                 display: inline-block;
+                padding: 1rem;
+                border-radius: 0.25rem;
+                border: 1px solid rgb(201, 201, 201);
+            }
+
+            div#lightning {
+                margin-top: 1rem;
             }
         </style>
     </div>
