@@ -7,6 +7,9 @@
  * 3. Reopen Case - Update FCR__c to false when case status is changed
  * 
  * @Test StarTrackSupCaseAutomationModule_Test
+ * 
+ * @changelog
+ * 2022-11-24	Noel Lim - minor additions of safe navigation operators to fix an null ExceptionLog error
  */
 
 public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationDomain.Module {
@@ -110,7 +113,7 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 					}
 				}
 
-				if(omniQueues.containsKey(c.OwnerId) == true && (changedFields.contains(Case.OwnerId) || changedFields.contains(Case.Priority))) {
+				if(omniQueues?.containsKey(c.OwnerId) == true && (changedFields?.contains(Case.OwnerId) || changedFields?.contains(Case.Priority))) {
 					validCasesInOmniQueues.add(c);
 				}
 			}

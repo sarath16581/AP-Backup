@@ -41,7 +41,7 @@
 	2021-09-23		Steve Judd								  Added method for autoCaseClosure and modified compareRec for MW00045402
 	2021-09-26		Steve Judd								  Moved method for autoCaseClosure to StarTrack_Constants to allow for reuse
 	16.05.2022		SaiSwetha Pingali						   Removed snapIt logic as it is no longer required.
-	2022-11-17		Noel Lim									Added 2 routing logic relating to Closed Cases added in routeCase(), a) Reopened Cases in SSSW Closed Omni queue are to be routed b) Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
+	2022-11-17		Noel Lim									Added routing logic relating to Reopened Cases - SSSW Closed Omni queue are to be routed
 
 	************************************************/
 	public with sharing class CaseCommonUtility{
@@ -81,7 +81,7 @@ public static Boolean isReferenceIDUpdateRecursive = false;
 public static Boolean isNotifyAutoRecursive = false;
 public static Boolean isduplicateSTRcursive = false;
 
-	private static Set<String> nonClosedStatuses = new Set<String>();
+	private static Set<String> NON_CLOSED_STATUSES = new Set<String>();
 	private static Set<Id> validRecTypes;
 	private static Set<Id> socialAndSsswRecordTypeIds;
 
@@ -89,16 +89,35 @@ private static Map<Id,Group> groupIdMap = new Map<Id,Group>();
 private static Map<String,Group> groupNameMap = new Map<String,Group>();
 //MW004540 Added for determining if user has Autoclosure permission
 private static Boolean isAutoCloseEnabled = false;
+	
+	static String omniClosedCaseQueueId {
+		get {
+			if(omniClosedCaseQueueId == null) {
+				omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
+			}
+			return omniClosedCaseQueueId;
+		}
+		private set;
+	}
 
-
+	static Map<Id, Group> omniGroups {
+		get {
+			if(omniGroups == null) {
+				omniGroups = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>());
+			}
+			return omniGroups;
+		}
+		private set;
+	}
+		
 	static{
 		try{
 			// fetch all non-closed status values of case
-			if(nonClosedStatuses.isEmpty()){
+			if(NON_CLOSED_STATUSES.isEmpty()){
 				
 				for(Schema.PicklistEntry pickList : Case.Status.getDescribe().getPicklistValues()){
 					if(!SSSWConstants.STAT_CLOSED.equalsIgnoreCase(pickList.getValue())){   // check if status is not closed
-						nonClosedStatuses.add(pickList.getValue());
+						NON_CLOSED_STATUSES.add(pickList.getValue());
 					}
 				}
 			}
@@ -477,12 +496,12 @@ public void closeChildCases(List<Case> caseList,Map<Id,Case> oldMap){
 				Integer rowLimit = (Limits.getLimitQueryRows() - Limits.getQueryRows());	// get dynamic query row limit
 				// fetch all open child cases, set resolution code & status
 				for(Case childCase : [SELECT Status, ResolutionCode__c, Parent.ResolutionCode__c,Resolution_Result__c, Parent.Resolution_Result__c FROM Case
-										WHERE ParentId IN: caseIds AND Status IN: nonClosedStatuses
+										WHERE ParentId IN: caseIds AND Status IN: NON_CLOSED_STATUSES
 										LIMIT : rowLimit]){
 					childCase.Status = SSSWConstants.STAT_CLOSED;
 					childCase.ResolutionCode__c = String.isNotBlank(childCase.Parent.ResolutionCode__c) ? 
 													childCase.Parent.ResolutionCode__c : childCase.ResolutionCode__c ; 
-					 childcase.Resolution_Result__c = String.isNotBlank(childCase.Parent.Resolution_Result__c) ? childCase.Parent.Resolution_Result__c : childCase.Resolution_Result__c;
+													childcase.Resolution_Result__c = String.isNotBlank(childCase.Parent.Resolution_Result__c) ? childCase.Parent.Resolution_Result__c : childCase.Resolution_Result__c;
 											
 											
 					childCase.Bypass_Data_enforcement__c = true;	// setting to force close the child case
@@ -627,34 +646,13 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 		try{
 			List<Case> casesTobeRouted = new List<Case>();
 			Map<Id,String> caseOriginKeyMap = new Map<Id,String>(); // map of case id and case key with origin
-			Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();   // map of case id and case key without origin
+			Map<Id,String> caseNoOriginKeyMap = new Map<Id,String>();	// map of case id and case key without origin
 
-			// Gunith (19-03-19): For edited cases, we have to find which Cases whose AllocateToQueue__c were updated
-			List<Case> casesNeedToRoute =
-					(oldMap != null)
-							?
-							RecursionUtility.getUnprocessedRecords(
-									'CaseRoutingTriggerContext',
-									caseList,
-									new Set<String>{'AllocateToQueue__c','Description','Network__c'}
-							)
-							:
-							caseList;
-
-			if (casesNeedToRoute.isEmpty()) {
-				return;
-			}
-
-			String omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
-			Map<Id, Group> omniQueues = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>()); 
-
-			Case oldCase;
-
-			for(Case csRec : casesNeedToRoute){
+			for(Case csRec : caseList){
 				// Check if it is SSSW record type or Social record type.
 				if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
 					System.debug(LoggingLevel.ERROR,'**Case is SSSW Record Type');
-					oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case
+					Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case
 					// verify if network or description is null & case is set for queue allocation
 					System.debug(LoggingLevel.ERROR,'**csRec.Network__c: ' + csRec.Network__c);
 					//System.debug(LoggingLevel.ERROR,'**oldCase.Network__c: ' + oldCase.Network__c);
@@ -663,16 +661,7 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 					System.debug(LoggingLevel.ERROR,'**csRec.AllocateToQueue__c: ' + csRec.AllocateToQueue__c);
 					//System.debug(LoggingLevel.ERROR,'**oldCase.AllocateToQueue__c: ' + oldCase.AllocateToQueue__c);
 
-					if(Application.Cache.caseStatuses.get(csRec.Status).IsClosed 
-						&& omniQueues.containsKey(csRec.OwnerId)
-						&& (oldCase == null 
-							|| (oldCase != null && ((oldCase.Status != csRec.Status) ||	(oldCase.OwnerId != csRec.OwnerId))))
-					){	
-							if (String.isEmpty(omniClosedCaseQueueId) == false) {					
-								csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
-								csRec.AllocateToQueue__c = false;
-							}
-					} else if( (csRec.Network__c == null
+					if( (csRec.Network__c == null
 						&& (oldCase == null || (oldCase != null && (oldCase.Network__c != csRec.Network__c))))
 						||
 						(String.isBlank(csRec.Description) && (oldCase == null || (oldCase != null && (oldCase.Description != csRec.Description))))
@@ -693,6 +682,24 @@ public void avoidCustomerClose(List<Case> caseList,Map<Id,Case> oldMap){
 				System.debug('casesTobeRouted--->'+casesTobeRouted+'<--oldMap-->'+oldMap);
 				SSSW_Routing.assignCasesAndDescription(casesTobeRouted, oldMap, isInsert);
 			}
+
+			for(Case csRec : caseList){
+				// Check if it is SSSW record type or Social record type.
+				if(Utility.isValidRecordType(socialAndSsswRecordTypeIds, csRec.RecordTypeId)){
+					
+					Case oldCase = oldMap != null ? oldMap.get(csRec.Id) : null;	// get old values of case					
+
+					if ((oldCase?.Status != csRec.Status || oldCase?.OwnerId != csRec.OwnerId) 
+						&& String.isEmpty(omniClosedCaseQueueId) == false 
+						&& Utility.getCaseClosedStatus().contains(csRec.Status) 
+						&& omniGroups.containsKey(csRec.OwnerId) 			
+					){	
+						csRec.OwnerId = omniClosedCaseQueueId; //move eligible Closed Cases to the SSSW Closed Omni Queue
+					}
+				}
+			}
+
+			
 
 		}
 		catch(Exception exp){
@@ -800,28 +807,26 @@ public void updateHierarchyManager(List<Case> caseList){
 									from User
 									where id =:currentUser ];
 
-
 	   System.debug('updateHierarchyManager : Current User is ' + currentUser  );
 	   System.debug('updateHierarchyManager : managerHierarchy FirstName ' + managerHierarchy.Manager.FirstName  );
 		for(Case caseRec : caseList){
 			if(Utility.isValidRecordType(validRecTypes,caseRec.RecordTypeId)){  // verify if its SSSW recordtype
 
-					if ( (managerHierarchy.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.FirstName)) ||
-						 (managerHierarchy.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.LastName)))
-					{
-						caseRec.ManagerLevel1__c = managerHierarchy.Manager.FirstName + ' ' + managerHierarchy.Manager.LastName;
-					}
-					if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
-						 (managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
-					{
-						caseRec.ManagerLevel2__c = managerHierarchy.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.LastName;
-					}
-					if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
-						 (managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
-					{
-						caseRec.ManagerLevel3__c = managerHierarchy.Manager.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.Manager.LastName;
-					}
-
+				if ( (managerHierarchy.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.FirstName)) ||
+				(managerHierarchy.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.LastName)))
+				{
+					caseRec.ManagerLevel1__c = managerHierarchy.Manager.FirstName + ' ' + managerHierarchy.Manager.LastName;
+				}
+				if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
+				(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
+				{
+					caseRec.ManagerLevel2__c = managerHierarchy.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.LastName;
+				}
+				if ( (managerHierarchy.Manager.Manager.FirstName != null && String.isNotBlank(managerHierarchy.Manager.Manager.FirstName)) ||
+				(managerHierarchy.Manager.Manager.LastName  != null && String.isNotBlank(managerHierarchy.Manager.Manager.LastName)))
+				{
+					caseRec.ManagerLevel3__c = managerHierarchy.Manager.Manager.Manager.FirstName + ' ' + managerHierarchy.Manager.Manager.Manager.LastName;
+				}
 			}
 
 		}
@@ -984,7 +989,7 @@ public static Boolean compareRec(StarTrack_Automation_Rule__c stRule, Case caseR
 	   (String.isNotBlank(stRule.Case_RecordType__c) ? stRule.Case_RecordType__c.equals(caseRec.RecordType.Name) : true) &&
 	   (String.isNotBlank(stRule.Case_Type__c) ? stRule.Case_Type__c.equals(caseRec.Enquiry_Type__c) : true) && (String.isNotBlank(stRule.Case_Purpose__c) ? stRule.Case_Purpose__c.equals(caseRec.Call_Purpose__c) : true) &&
 	   (String.isNotBlank(stRule.Case_Status__c) ? stRule.Case_Status__c.equals(caseRec.Status) : true) && (stRule.BSC__c == caseRec.Business_Solutions_Customer__c)){
-	   return true;
+	return true;
 	}
 	return false;
 }
@@ -1036,26 +1041,20 @@ public static void markRenewedCasesToRoute(List<Case> newCases, Map<Id,Case> old
 								'IsHLC__c', 'IsCR__c'
 							});
 
-		String omniClosedCaseQueueId = QM__c.getOrgDefaults().ClosedQueueId__c;
-
 		for (Case newCase : casesNeedToRoute){
 
-			Case oldCase = oldMap != null ? oldMap.get(newCase.Id) : null;	// get old values of case
-			Boolean newCaseIsClosed = Application.Cache.caseStatuses.get(newCase.Status).IsClosed;
-			Boolean oldCaseIsClosed = Application.Cache.caseStatuses.get(oldCase.Status).IsClosed;
+			Case oldCase = oldMap != null ? oldMap.get(newCase.Id) : null;  // get old values of case
 
-			if (
-				(oldCase != null 
-					&& isStatusChangedToNew(oldCase, newCase)
-					&& !newCase.AllocateToQueue__c
-					&& ((isCategoriesAndTypesPopulated(newCase) || 
-								(isNotHlcAndCr(newCase) && Utility.isValidRecordType(socialAndSsswRecordTypeIds, newCase.RecordTypeId))))
-				) || 
-				(oldCase != null && newCaseIsClosed != null && oldCaseIsClosed != null
-					&& newCaseIsClosed == false 
-					&& oldCaseIsClosed != newCaseIsClosed 
-					&& String.isEmpty(omniClosedCaseQueueId) == false && newCase.OwnerId == omniClosedCaseQueueId)
-			   ){
+			if ((isStatusChangedToNew(oldCase, newCase)
+				&& !newCase.AllocateToQueue__c
+				&& ((isCategoriesAndTypesPopulated(newCase) || 
+							(isNotHlcAndCr(newCase) && Utility.isValidRecordType(socialAndSsswRecordTypeIds, newCase.RecordTypeId))))
+			) || 
+			(oldCase != null 
+				&& Utility.getCaseClosedStatus().contains(newCase.Status) == false
+				&& newCase.Status != oldCase.Status 
+				&& String.isEmpty(omniClosedCaseQueueId) == false && newCase.OwnerId == omniClosedCaseQueueId)
+			){
 
 			newCase.AllocateToQueue__c = true; // Flag to re-route cases again
 		}
@@ -1120,10 +1119,10 @@ private static Boolean isNotHlcAndCr(Case newCase){
 			// send case with 'null' requestor to the handler class
 			if(!nullRequestorCases.isEmpty()){
 				// query and get 'CAR' case record type id
-				Id caseCARRecordTypeId = [Select id, DeveloperName from RecordType where DeveloperName = 'CAR_Request'].id;
+				Id caseCAR_RecordTypeId = [Select id, DeveloperName from RecordType where DeveloperName = 'CAR_Request'].id;
 				for(Case cCAR: nullRequestorCases){
 					// populate requestor's field with current user after confirm that the case is 'CAR' record type
-					if(cCAR.recordTypeId.equals(caseCARRecordTypeId)){
+					if(cCAR.recordTypeId.equals(caseCAR_RecordTypeId)){
 						cCAR.requestor__c = UserInfo.getUserId();
 					}
 				}

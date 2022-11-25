@@ -90,6 +90,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Article__c.ArticleID__c + ' in :ids')).endConditions();
 		return new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
 	}
+
 	public Map<Id, Article__c> selectByTracking(Set<String> trackingIds, Boolean includeConsignmentSearch) {
 		return selectByTracking(trackingIds, new Set<Object>(), includeConsignmentSearch);
 	}
@@ -159,17 +160,5 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 
 		return builder;
 	}
-	public virtual Map<Id, Article__c> selectByArticleNames(Set<String> names, String recordTypeName,  Set<String> sourceSystems,  Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-				.addConditions()
-				.add(new QueryBuilder.CompareCondition(Article__c.RecordTypeId).eq(SObjectType.Article__c.getRecordTypeInfosByDeveloperName().get(recordTypeName).getRecordTypeId()))
-				.add(new QueryBuilder.SimpleCondition(Article__c.Name + ' in :names'))
-				.add(new QueryBuilder.SimpleCondition(Article__c.Source_System__c + ' in :sourceSystems'))
 
-				.endConditions();
-		system.debug(qb.toSoqlString());
-		Map<Id, Article__c> res = new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
-		system.debug(res);
-		return res;
-	}
 }

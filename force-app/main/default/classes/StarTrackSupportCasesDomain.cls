@@ -25,7 +25,6 @@ public virtual inherited sharing class StarTrackSupportCasesDomain extends Appli
         registerModule(StarTrackSupportCaseOwnerModule.class);
         registerModule(StarTrackSupportCaseCustomerModule.class); 
         registerModule(StarTrackDeliveryEnquiryProcessModule.class);
-        registerModule(StarTrackTrackingIDSearchModule.class);
     }
 
     /**
