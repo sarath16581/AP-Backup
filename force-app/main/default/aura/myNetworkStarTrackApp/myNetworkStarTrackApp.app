@@ -5,7 +5,5 @@
  -->
 
 <aura:application description="MyNetwork StarTrack App used for Lightning out for Visualforce" extends="ltng:outApp">
-    <aura:dependency resource="c:myNetworkCaseArticlesContainer" />
-    <aura:dependency resource="markup://force:*" type="EVENT" />
-    <aura:dependency resource="markup://force:showToast" type="EVENT" />
+    <aura:dependency resource="c:myNetworkStarTrackCaseArticlesContainer" />
 </aura:application>
