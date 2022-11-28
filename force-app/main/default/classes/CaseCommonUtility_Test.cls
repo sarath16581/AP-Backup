@@ -12,7 +12,7 @@ History:
 2019-05-08	seth.p.heang@accenture.com			Adding test class to assert 'CAR' Case requestor field is populated with current user if left empty upon case creation
 2020-11-17 - Ranjeewa Silva - Added test casses to verify Social Case routing behaviour
 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
-2022-11-18	 Noel Lim - added test methods routeReopenedCases() and closedCasesToClosedQueue() 
+2022-11-18	 Noel Lim - added test method routeReopenedCases()
 **************************************************/
 @isTest
 private with sharing class CaseCommonUtility_Test {
