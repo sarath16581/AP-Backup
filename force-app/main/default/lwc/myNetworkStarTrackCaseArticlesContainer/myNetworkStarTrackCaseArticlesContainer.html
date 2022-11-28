@@ -7,14 +7,15 @@
             <template if:false={isLoading}>
                 <template if:true={hasPassedThroughAPNetwork}>
                     <lightning-layout-item size="12" class="slds-var-p-horizontal_medium slds-var-p-vertical_large">
-                        <c-my-network-star-track-case-articles-datatable article-details={articleDetails}>
+                        <c-my-network-star-track-case-articles-datatable article-details={articleDetailsToDisplay}
+                            onrowselect={handleRowSelect}>
                         </c-my-network-star-track-case-articles-datatable>
                     </lightning-layout-item>
-                    <lightning-layout-item size="8" class="slds-var-p-top_medium flex-el">
-                        <span class="label-heading comments">Comments</span>
-                        <lightning-textarea class="field-element" variant="label-hidden" value={comments}
-                            data-id="comment" onchange={handleInputChange}>
-                        </lightning-textarea>
+                    <!-- PAGINATOR -->
+                    <lightning-layout-item size="12"
+                        class="slds-var-p-horizontal_medium slds-var-p-top_medium">
+                        <c-paginator current-page={currentPage} total-pages={totalPages} onpageclick={handlePageClick}>
+                        </c-paginator>
                     </lightning-layout-item>
                     <lightning-layout-item size="12" class="slds-var-p-top_medium">
                         <lightning-button variant="brand" label="Submit" onclick={handleSubmitClick} class="submitBtn">
@@ -23,7 +24,7 @@
                 </template>
                 <template if:false={hasPassedThroughAPNetwork}>
                     <lightning-layout-item size="12" class="slds-align_absolute-center slds-var-p-around_large">
-                        <p class="label-heading">This consignment didn't go through any AusPost MyNetwork</p>
+                        <p class="label-heading">{label.consignmentErrorMessage}</p>
                     </lightning-layout-item>
                 </template>
             </template>

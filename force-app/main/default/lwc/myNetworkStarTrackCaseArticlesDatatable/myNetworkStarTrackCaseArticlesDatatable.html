@@ -23,14 +23,15 @@
                     <tr class="slds-hint-parent" key={articleData.article.Id}>
                         <td scope="row">
                             <lightning-input type="checkbox" label="" variant="label-hidden" onchange={handleRowChange}
-                                data-id={articleData.article.Id} data-row={articleData}>
+                                data-id={articleData.article.Id}>
                             </lightning-input>
                         </td>
                         <template for:each={articleData.rowData} for:item="row">
                             <td key={row.key} role="gridcell" data-id={row.key}>
-                                <c-my-network-star-track-case-articles-table-cell article-id={row.key} label={row.label}
-                                    type={row.fieldType} name={row.fieldName} value={row.fieldValue} url={row.fieldUrl}
-                                    pill-items={row.networkPillItems}>
+                                <c-my-network-star-track-case-articles-table-cell article-id={row.key}
+                                    event-message-id={row.eventMessageId} label={row.label} type={row.fieldType}
+                                    name={row.fieldName} value={row.fieldValue} url={row.fieldUrl}
+                                    pill-items={row.networkPillItems} onnetworksearch={handleNetworkSearch}>
                                 </c-my-network-star-track-case-articles-table-cell>
                             </td>
                         </template>

@@ -1,0 +1,32 @@
+.inactive-page {
+    padding-right: 8px;
+    cursor: pointer;
+}
+
+.active-page {
+    font-weight: 700;
+    font-size: 1rem;
+    font-style: normal;
+    padding-right: 8px;
+    cursor: pointer;
+}
+
+.ellipsis {
+    padding-right: 8px;
+    cursor: not-allowed;
+    font-weight: 700;
+    font-size: 1rem;
+    font-style: normal;
+}
+
+.chevron-right,
+.chevron-left {
+    fill: #303030;
+    cursor: pointer;
+}
+
+.chevron-right-inactive,
+.chevron-left-inactive {
+    fill: #767676;
+    cursor: not-allowed;
+}

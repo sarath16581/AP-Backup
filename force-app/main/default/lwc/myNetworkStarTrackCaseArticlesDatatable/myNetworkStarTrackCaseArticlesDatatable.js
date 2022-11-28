@@ -1,5 +1,6 @@
 import {
     api,
+    track,
     LightningElement
 } from 'lwc';
 import {
@@ -9,6 +10,7 @@ import {
 export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningElement {
 
     @api articleDetails; //article details received from parent
+    @track selectedRows = []; //selected rows
 
     tableColumns = [{
             label: 'Article',
@@ -58,15 +60,15 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
      * Formatted table data with required columns to render
      */
     get formattedArticles() {
-        debugger;
-        const tableData = this.articleDetails.map(item => {
-            const rowData = this.tableColumns.map(column => {
-                const row = {
+        let tableData = this.articleDetails.map(item => {
+            let rowData = this.tableColumns.map(column => {
+                let row = {
                     ...column,
                     fieldValue: column.objName === 'Article__c' ? getValue(item.article, column.fieldName, null) : getValue(item.eventMessages[0]?.eventMessage ?? null, column.fieldName, null),
                     key: item.article.Id,
                     networkPillItems: this.getNeworkPillItems(item.eventMessages[0]?.eventMessage ?? null, column),
-                    fieldUrl: this.getFieldUrl(item, column)
+                    fieldUrl: this.getFieldUrl(item, column),
+                    eventMessageId: item.eventMessages[0] !== null || item.eventMessages[0] !== undefined ? item.eventMessages[0].eventMessage.Id : null
                 };
                 return row;
             });
@@ -99,4 +101,41 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
         }
         return target;
     }
+
+    //handler for networksearch event from the child
+    handleNetworkSearch(event) {
+        console.log('in parent');
+        console.log(JSON.parse(JSON.stringify(event.detail)));
+    }
+
+    //handler on article select checkbox
+    handleRowChange(event) {
+        if (event.target.checked) {
+            let networks = this.getSelectedNetworks(event.target.dataset.id);
+            let networkIds = networks.map(n => n.name);
+            let row = {
+                articleId: event.target.dataset.id,
+                networkIds: networkIds
+            }
+            this.selectedRows.push(row);
+        } else {
+            let index = this.selectedRows.findIndex(row => row.articleId === event.target.dataset.id);
+            if (index > -1) {
+                this.selectedRows.splice(index, 1);
+            }
+        }
+        this.selectedRows = [...this.selectedRows];
+        this.dispatchEvent(new CustomEvent('rowselect', {
+            detail: {
+                selectedRows: this.selectedRows
+            }
+        }));
+    }
+
+    getSelectedNetworks(articleId) {
+        let selectedRowData = this.tableData.find(data => data.article.Id === articleId).rowData;
+        return selectedRowData.find(row => row.fieldName === 'Facility__c').networkPillItems;
+    }
+
+
 }

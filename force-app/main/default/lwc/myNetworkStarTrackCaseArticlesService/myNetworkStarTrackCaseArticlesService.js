@@ -6,12 +6,20 @@
 
 // server calls
 import getArticlesByCase from '@salesforce/apex/MyNetworkStarTrackCaseController.getArticlesByCase';
+import saveCaseInvestigations from '@salesforce/apex/MyNetworkStarTrackCaseController.saveCaseInvestigations';
+
+// custom labels
+import LABEL_CONSIGNMENT_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkConsignmentErrorMessage';
+import LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE from '@salesforce/label/c.MyNetworkCaseInvestigationSuccessMessage';
+import LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkInvalidCaseInvestigationErrorMessage';
 
 import { get } from 'c/utils';
 
 
 export const CONSTANTS = {
-    
+    LABEL_CONSIGNMENT_ERROR_MESSAGE: LABEL_CONSIGNMENT_ERROR_MESSAGE,
+	LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE: LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE,
+    LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE: LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE
 }
 
 
@@ -24,6 +32,19 @@ export const CONSTANTS = {
 
     const result = await getArticlesByCase({
         caseId: caseId
+    });
+	return result;
+}
+
+/**
+ * save case investigation records related to case and articles
+ * @param {Array} recordsToSave 
+ * @returns save result from the server
+ */
+ export const submitCaseInvestigations = async (recordsToSave) => {
+
+    const result = await saveCaseInvestigations({
+        recordsToSave: recordsToSave
     });
 	return result;
 }

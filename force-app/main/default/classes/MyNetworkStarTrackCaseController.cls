@@ -13,21 +13,29 @@ public with sharing class MyNetworkStarTrackCaseController {
     public static ArticleResponseWrapper getArticlesByCase(String caseId){
         try {
             ArticleResponseWrapper wrapper = new ArticleResponseWrapper();
+            wrapper.hasPassedThroughAPNetwork = false;
             //get articles with related event messages with AP Network scans
             List<Article__c> articles = ArticlesSelector.newInstance()
                                         .selectByCaseIds(new Set<Id>{Id.valueOf(caseId)}, 
                                                          new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER, 
                                                          ArticlesSelector.Options.FILTER_NETWORK}).values();
-            if (articles.size() > 0) {
-                wrapper.hasPassedThroughAPNetwork = true;
+            
+            //check if any of the articles related event messages passed through AP Network
+            for (Article__c article : articles) {
+                if (!wrapper.hasPassedThroughAPNetwork && article.Event_Messages__r.size() > 0) {
+                    wrapper.hasPassedThroughAPNetwork = true;
+                }
+            }
 
+            if (wrapper.hasPassedThroughAPNetwork) {
                 List<ArticleDetails> articleDetails = new List<ArticleDetails>();
                 for (Article__c article : articles) {
-                    articleDetails.add(new ArticleDetails(article));
+                    //add the articles if related event messages passed through AP network
+                    if (article.Event_Messages__r.size() > 0) {
+                        articleDetails.add(new ArticleDetails(article));
+                    }
                 }           
-                wrapper.articleDetails = articleDetails;     
-            } else {
-                wrapper.hasPassedThroughAPNetwork = false;
+                wrapper.articleDetails = articleDetails;
             }
             return wrapper;
             
@@ -35,6 +43,66 @@ public with sharing class MyNetworkStarTrackCaseController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    /**
+     * Function to create the case investigation records to AP Network
+     */
+    @AuraEnabled
+	public static SaveResult saveCaseInvestigations(List<CaseInvestigation__c> recordsToSave) {
+        try {
+            SaveResult result = new SaveResult();
+            Set<Id> articleIds = new Set<Id>();
+            Set<Id> networkIds = new Set<Id>();
+            Map<Id, List<Id>> existingArticleToNetworkIdsMap = new Map<Id, List<Id>>();
+
+            //get article and network ids
+            for (CaseInvestigation__c obj : recordsToSave) {
+                articleIds.add(obj.Article__c);
+                networkIds.add(obj.Network__c);
+            }
+
+            //get existing case investigation related to the case, network and article ids
+            List<CaseInvestigation__c> existingCaseInvestigations = CaseInvestigationsSelector.newInstance()
+                                                                    .selectOpenCaseInvestigationsByCaseArticleNetworkId(new Set<Id>{recordsToSave[0].Case__c},
+                                                                                                                    new Set<Id>(articleIds), new Set<Id>(networkIds)).values();
+            for (CaseInvestigation__c eci : existingCaseInvestigations) {
+                if (existingArticleToNetworkIdsMap.containsKey(eci.Article__c)) {
+                    existingArticleToNetworkIdsMap.get(eci.Article__c).add(eci.Network__c);
+                } else {
+                    existingArticleToNetworkIdsMap.put(eci.Article__c, new List<Id> {eci.Network__c});
+                }
+            }
+
+            for (CaseInvestigation__c ci : recordsToSave) {
+                if (existingArticleToNetworkIdsMap.containsKey(ci.Article__c) && existingArticleToNetworkIdsMap.get(ci.Article__c).contains(ci.Network__c)) {
+                    result.status = Status.ERROR.name();
+					result.errorMessage = System.Label.MyNetworkDuplicateCaseInvestigationErrorMessage;
+                }
+            }
+
+            if (String.isBlank(result.errorMessage)) {
+                // insert case investigation records
+			    ApplicationDatabase.getInstance().dmlInsert(recordsToSave);
+                result.status = Status.SUCCESSFUL.name();
+            }
+            return result;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    // Status of Case Investigation creation
+	public enum Status {
+		SUCCESSFUL,
+		ERROR
+	}
+
+	public class SaveResult {
+		@AuraEnabled 
+        public String status {get; set;}
+		@AuraEnabled 
+        public String errorMessage {get; set;}
+	}
 
     public class ArticleResponseWrapper {
         @AuraEnabled

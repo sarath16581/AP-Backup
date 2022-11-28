@@ -8,7 +8,7 @@
         </template>
         <template if:true={isPill}>
             <div>
-                <lightning-icon data-article-id={articleId} class="search-icon" icon-name="utility:search" size="x-small" onclick={handleSearchClick}>
+                <lightning-icon data-article-id={articleId} data-event-msg-id={eventMessageId} class="search-icon" icon-name="utility:search" size="x-small" onclick={handleSearchClick}>
                 </lightning-icon>
                 <lightning-pill-container class="pill-container" items={pillItems} onitemremove={handleItemRemove}></lightning-pill-container>
             </div>
