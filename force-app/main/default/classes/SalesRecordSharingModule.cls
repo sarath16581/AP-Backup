@@ -11,7 +11,9 @@
  */
 
 public inherited sharing class SalesRecordSharingModule extends ApplicationDomain.Module {
-   
+   	private static final String APP = 'SalesRecordSharing'; 
+    private static final String ACTION_INSERT = 'INSERT';
+    private static final String ACTION_UPDATE = 'UPDATE';
     // new instance
     public static SalesRecordSharingModule newInstance() {
 		return (SalesRecordSharingModule)Application.Utilities.newInstance(SalesRecordSharingModule.class);
@@ -29,26 +31,38 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
       	// retrive object type for sharing service
  		Schema.sobjectType objectType = records[0].getSObjectType();
  		// Share records using sharing service
-		SalesRecordSharingService.getInstance().shareRecords(objectType, new Map <Id, SObject>(records), false, uow);
+        try {
+        	SalesRecordSharingService.getInstance().shareRecords(objectType, new Map <Id, SObject>(records), false, uow);
+        } catch (Exception ex) {
+        	UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
+                                                    SalesRecordSharingModule.class.getName(), ACTION_INSERT, 
+                                                    objectType.getDescribe().getName(), LoggingLevel.ERROR);
+        }
+
     }
     
     // after update trigger handler
     public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-        // retrieve object type for sharing service
+    	// retrieve object type for sharing service
         Schema.sobjectType objectType = records[0].getSObjectType();
-        // obtain sharing service instance
-		SalesRecordSharingService sharingService = SalesRecordSharingService.getInstance();
-
-		// obtain any records which has a changed lookup to the parent record.
-        Map<Id,SObject> changedParentRecordMap = getChangedParentRecordMap(records,existingRecords, sharingService.getSharingConfiguration(objectType).lookupField);
-        
-        if (changedParentRecordMap.isEmpty()) {
-            return;
+        try {
+            // obtain sharing service instance
+            SalesRecordSharingService sharingService = SalesRecordSharingService.getInstance();
+    
+            // obtain any records which has a changed lookup to the parent record.
+            Map<Id,SObject> changedParentRecordMap = getChangedParentRecordMap(records,existingRecords, sharingService.getSharingConfiguration(objectType).lookupField);
+            
+            if (changedParentRecordMap.isEmpty()) {
+                return;
+            }
+            
+            // recalculate sharing rules for objects having changed parent lookup.
+                sharingService.shareRecords(objectType, changedParentRecordMap, true, uow);
+        } catch (Exception ex) {
+        	UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
+                                                    SalesRecordSharingModule.class.getName(), ACTION_UPDATE, 
+                                                    objectType.getDescribe().getName(), LoggingLevel.ERROR);
         }
-        
-        // recalculate sharing rules for objects having changed parent lookup.
-        sharingService.shareRecords(objectType, changedParentRecordMap, true, uow);
-        
     }
   
     /*
