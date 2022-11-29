@@ -1,7 +1,8 @@
 /**
   * @author       : dattaraj.deshmukh@auspost.com.au
   * @date         : 29/11/2022
-  * @description  : Component to add user responses on ST cases on myNetwork Community
+  * @description  : Component to add user responses on ST cases on myNetwork Community.
+  * 				This component updates case investigation records, post a chatter feed on the same record.
 --------------------------------------- History --------------------------------------------------
 29.11.2022    dattaraj.deshmukh@auspost.com.au    Created
 */
