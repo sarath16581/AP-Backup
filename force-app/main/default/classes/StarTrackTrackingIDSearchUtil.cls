@@ -1,19 +1,19 @@
-/**
- * Created by hasan on 24/11/2022.
- */
-
+/**************************************************
+Description:  Utility class for the startrack ID search module, this will hold all the validation and the detail logics for functionality
+History:
+--------------------------------------------------
+2022-11-24 - H Liyanage - Created
+**************************************************/
 public with sharing class StarTrackTrackingIDSearchUtil {
 
-    public static void getTrackingDetails(List<SObject> records, Map<Id, SObject> existingRecords) {
+    public static void getTrackingDetails(List<SObject> records) {
         List<Case> selectedCases = new List<Case>();
         for(Case cse:(List<Case>)records) {
             System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate  cse '+cse);
             // if the reference has been changed
-            if(existingRecords == null && cse.ReferenceID__c != null) {
-                // todo check for record types
+            if(cse.ReferenceID__c != null) {
                 selectedCases.add(cse);
             }
-            selectedCases.add(cse);
         }
 
         System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate selectedCases '+selectedCases.size());
@@ -26,6 +26,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
 
     private without sharing class TrackingSearchQueueable implements Queueable, Database.AllowsCallouts {
         Case cse;
+        //TODO : Hasantha move strings to constants or custom metadata
         Set<Id> caseRecordTypes = new Set<Id>{
                 SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId()
                 , SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_General_Enquiry').getRecordTypeId()
@@ -47,36 +48,65 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                     cont.isConsole = false;
                     cont.map_searchCustomSettings.get(cont.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
                     cont.searchConsignment();
-
+                    System.debug('HASANTHA TEST MODULE 3 :cont.lst_article[0]'+ cont.lst_article[0]);
                     if(validate(cont.lst_article[0])) {
-                        assignAndUpdateCase(cont.lst_article[0], this.cse);
+                        System.debug('HASANTHA TEST MODULE 3 VALIDATED GOOD ');
+                        System.enqueueJob(new AssignAndUpdateCaseQueueable(cont.lst_article[0],this.cse));
                     }
                 }
             } catch (Exception ex) {
                 // Error Logged to Exception object for analysis
-                UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, TrackingSearchQueueable.class.getName(), 'execute', '', LoggingLevel.ERROR);
+                UTIL_LoggingService.logHandledException(
+                        ex
+                        , UserInfo.getOrganizationId()
+                        , StarTrack_Constants.STARTRACK
+                        , TrackingSearchQueueable.class.getName()
+                        , 'TrackingSearchQueueable'
+                        , StarTrack_Constants.ASYNC_QUEUEABLE
+                        , LoggingLevel.ERROR);
             }
         }
     }
 
     /**
-         * validate and assign the found article details
-         * @param article
-         * @param cse
-         */
-    public static void assignAndUpdateCase(Article__c article, Case cse) {
-        case  caseToBeUpdated = new Case();
-        caseToBeUpdated.Id = cse.Id;
-        caseToBeUpdated.ArticleTest__c = article.Id; // TODO multiple consignments check
-        caseToBeUpdated.Consignment_Unique_External_ID__c = article.ArticleID__c ;
-
-        // Only if Case’s Enquiry Type is LDC
-        if(StarTrack_Constants.CASE_ENQUIRY_LDC.equalsIgnoreCase(cse.Enquiry_Type__c)) {
-            caseToBeUpdated.Total_Amount_of_Claim__c = article.Freight_Amount__c;
+     * validate and assign the found article details
+     * this will allow us to separate the case update from all other logics
+     * @param article
+     * @param cse
+     */
+    private without sharing class AssignAndUpdateCaseQueueable implements Queueable {
+        Article__c article;
+        Case cse;
+        public AssignAndUpdateCaseQueueable(Article__c article, Case cse) {
+            this.cse = cse;
+            this.article = article;
         }
-        caseToBeUpdated.Delivery_Date__c = String.isNotBlank(article.CID__c) ? Date.valueOf(article.CID__c.left(4) + '-' + article.CID__c.mid(4, 2) + '-' + article.CID__c.right(2)) : null;
-        System.debug('HASANTHA TEST MODULE 4  IN queable cse ' + caseToBeUpdated);
-        update caseToBeUpdated;
+        public void execute(QueueableContext param1) {
+            try {
+                case caseToBeUpdated = new Case();
+                caseToBeUpdated.Id = cse.Id;
+                caseToBeUpdated.ArticleTest__c = article.Id; // TODO multiple consignments check
+                caseToBeUpdated.Consignment_Unique_External_ID__c = article.ArticleID__c ;
+
+                // Only if Case’s Enquiry Type is LDC
+                if (StarTrack_Constants.CASE_ENQUIRY_LDC.equalsIgnoreCase(cse.Enquiry_Type__c)) {
+                    caseToBeUpdated.Total_Amount_of_Claim__c = article.Freight_Amount__c;
+                }
+                caseToBeUpdated.Delivery_Date__c = String.isNotBlank(article.CID__c) ? Date.valueOf(article.CID__c.left(4) + '-' + article.CID__c.mid(4, 2) + '-' + article.CID__c.right(2)) : null;
+                System.debug('HASANTHA TEST MODULE 4  IN queable cse ' + caseToBeUpdated);
+                update caseToBeUpdated;
+            } catch (Exception e) {
+                UTIL_LoggingService.logHandledException(
+                        e
+                        , UserInfo.getOrganizationId()
+                        , StarTrack_Constants.STARTRACK
+                        , StarTrackTrackingIDSearchUtil.class.getName()
+                        , 'AssignAndUpdateCaseQueueable'
+                        , StarTrack_Constants.ASYNC_QUEUEABLE
+                        , LoggingLevel.ERROR
+                );
+            }
+        }
     }
 
     /**

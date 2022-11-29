@@ -1,6 +1,11 @@
-/**
- * Created by hasan on 7/11/2022.
- */
+/**************************************************
+Description:    As a part of the Startrack case creation via the new community portal,
+this module will bring the tracking details from SAP then create artifices and update data on the relevant case,
+this is developed only to support single case record.
+History:
+--------------------------------------------------
+2022-11-07 - H Liyanage - Created
+**************************************************/
 
 public inherited sharing class StarTrackTrackingIDSearchModule extends ApplicationDomain.Module {
 
@@ -19,7 +24,7 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
 
     // Setup which triggers this module should respond to
     public StarTrackTrackingIDSearchModule() {
-        getTriggerEvents().enableAfterInsert().enableAfterUpdate();
+        getTriggerEvents().enableAfterInsert();
     }
 
     /**
@@ -31,24 +36,13 @@ public inherited sharing class StarTrackTrackingIDSearchModule extends Applicati
     public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
         try {
             System.debug('StarTrackTrackingIDSearchModule:onAfterInsert');
-            StarTrackTrackingIDSearchUtil.getTrackingDetails(records, null);
+            if (!System.isBatch() && !System.isScheduled()) {
+                StarTrackTrackingIDSearchUtil.getTrackingDetails(records);
+            }
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchModule.class.getName(), 'onAfterInsert', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
         }
     }
-
-/*    public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-        try {
-            // TODO to be removed by Hasantha once the logic is confirmed
-            System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate records '+records.size());
-            System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate existingRecords '+existingRecords.size());
-            StarTrackTrackingIDSearchUtil.getTrackingDetails(records, existingRecords);
-        } catch(Exception ex) {
-            // Error Logged to Exception object for analysis
-            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchModule.class.getName(), 'onAfterUpdate', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
-        }
-    }*/
-
 
 }

@@ -317,8 +317,8 @@ public class StarTrack_Constants {
      public static final String CASE_CONTACT_TYPE_SENDER = 'Sender';
        
      // Madhusudhan | PBRP 2021 *** CaseTriggerHelper Constants  ***/
-     public static final String CASE_TRIGGER = 'CaseTrigger'; 
-     
+     public static final String CASE_TRIGGER = 'CaseTrigger';
+    public static final String ASYNC_QUEUEABLE = 'Queueable';
      // a list of fields which define an IVR case as non 'transactional'
      // this is applicable to any cases with Origin of 'IVR'
      public static final Map<String, Set<String>> NON_TRANSACTIONAL_IVR_EXCLUSIONS = new Map<String, Set<String>>{
