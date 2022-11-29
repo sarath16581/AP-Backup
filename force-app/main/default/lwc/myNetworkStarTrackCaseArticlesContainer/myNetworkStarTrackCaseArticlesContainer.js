@@ -14,6 +14,7 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
 
     @api recordId; //case id
     @track articleDetails; //articles related to case from apex
+    @track articleDetailsToDisplay = []; //articles to display
     hasPassedThroughAPNetwork = false; //flag to determine the articles passed through AP Network scans
     isLoading = false; //flag to show/hide the spinner on server call
     selectedRecords = []; //selected records to save 
@@ -21,14 +22,15 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
     totalPages; //total pages
     recordsPerPage = 5; //records displayed per page
     totalRecords; //total records
-    @track articleDetailsToDisplay = []; //articles to display
+    comments; //chatter feed
 
     // expose custom labels
-	label = {
-		consignmentErrorMessage: CONSTANTS.LABEL_CONSIGNMENT_ERROR_MESSAGE,
-		caseInvestigationSuccessMessage: CONSTANTS.LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE,
-        invalidCaseInvestigationErrorMessage: CONSTANTS.LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE
-	};
+    label = {
+        consignmentErrorMessage: CONSTANTS.LABEL_CONSIGNMENT_ERROR_MESSAGE,
+        caseInvestigationSuccessMessage: CONSTANTS.LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE,
+        invalidCaseInvestigationErrorMessage: CONSTANTS.LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE,
+        invalidNetworkErrorMessage: CONSTANTS.LABEL_INVALID_NETWORK_ERROR_MESSAGE
+    };
 
     connectedCallback() {
         this.loadArticles();
@@ -56,6 +58,7 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
             })
     }
 
+    //load the records for the table
     setRecordsToDisplay() {
         this.articleDetailsToDisplay = [];
         for (let index = (this.currentPage - 1) * this.recordsPerPage; index < this.currentPage * this.recordsPerPage; index++) {
@@ -66,6 +69,7 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
         }
     }
 
+    //handler for pageclick event from the paginator component
     handlePageClick(event) {
         this.currentPage = event.detail.pageNumber;
         this.setRecordsToDisplay();
@@ -76,55 +80,85 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
         this.selectedRecords = event.detail.selectedRows;
     }
 
+    //reset the selected records, errors etc
     resetPageDetails() {
         this.selectedRecords = [];
+    }
+
+    //handler for comments
+    handleCommentsChange(event) {
+        this.comments = event.detail.value;
+    }
+
+    //validate the records
+    isValidRecords() {
+        let isValid = true;
+        this.selectedRecords.forEach(rec => {
+            rec.networks.forEach(network => {
+                //throw error message when selected record network is not related to MyNetwork
+                if (network.contactMethod !== 'MyNetwork') {
+                    isValid = false;
+                    LightningAlert.open({
+                        message: `${network.label} ` + this.label.invalidNetworkErrorMessage,
+                        theme: 'error', // a red theme intended for error states
+                        label: 'Error', // this is the header text
+                    });
+                }
+            })
+        });
+        return isValid;
     }
 
     //submit the case investigation records
     handleSubmitClick(event) {
         if (this.selectedRecords.length > 0) {
-            this.isLoading = true;
             let recordsToSave = [];
-            this.selectedRecords.forEach(rec => {
-                rec.networkIds.forEach(network => {
-                    let caseInvestigationRec = {
-                        Article__c: rec.articleId,
-                        Case__c: this.recordId,
-                        Network__c: network,
-                        sobjectType: 'CaseInvestigation__c'
-                    }
-                    recordsToSave.push(caseInvestigationRec);
-                })
-            });
-
-            //save the case investigations
-            submitCaseInvestigations(recordsToSave)
-                .then(response => {
-                    if (response.status === 'SUCCESSFUL') {
+            //validate records
+            if (this.isValidRecords()) {
+                this.isLoading = true;
+                this.selectedRecords.forEach(rec => {
+                    rec.networks.forEach(network => {
+                        let caseInvestigationRec = {
+                            Article__c: rec.articleId,
+                            Case__c: this.recordId,
+                            Network__c: network.name,
+                            sobjectType: 'CaseInvestigation__c'
+                        }
+                        recordsToSave.push(caseInvestigationRec);
+                    })
+                });
+                
+                //save the case investigations
+                submitCaseInvestigations(recordsToSave, this.comments)
+                    .then(response => {
+                        if (response.status === 'SUCCESSFUL') {
+                            LightningAlert.open({
+                                message: this.label.caseInvestigationSuccessMessage,
+                                theme: 'success', // a green theme intended for success states
+                                label: 'Success', // this is the header text
+                            });
+                            this.loadArticles();
+                        } else {
+                            LightningAlert.open({
+                                message: response.errorMessage,
+                                theme: 'error', // a red theme intended for error states
+                                label: 'Error', // this is the header text
+                            });
+                        }
+                        this.resetPageDetails();
+                        this.isLoading = false;
+                    })
+                    .catch(error => {
+                        this.isLoading = false;
+                        console.error('submitCaseInvestigations call failed: ' + error);
                         LightningAlert.open({
-                            message: this.label.caseInvestigationSuccessMessage,
-                            theme: 'success', // a green theme intended for success states
-                            label: 'Success', // this is the header text
-                        });
-                        this.loadArticles();
-                    } else {
-                        LightningAlert.open({
-                            message: response.errorMessage,
+                            message: error.body.message,
                             theme: 'error', // a red theme intended for error states
                             label: 'Error', // this is the header text
                         });
-                    }
-                    this.resetPageDetails();
-                })
-                .catch(error => {
-                    this.isLoading = false;
-                    console.error('submitCaseInvestigations call failed: ' + error);
-                    LightningAlert.open({
-                        message: error.body.message,
-                        theme: 'error', // a red theme intended for error states
-                        label: 'Error', // this is the header text
-                    });
-                })
+                    })
+            }
+
         } else {
             LightningAlert.open({
                 message: this.label.invalidCaseInvestigationErrorMessage,

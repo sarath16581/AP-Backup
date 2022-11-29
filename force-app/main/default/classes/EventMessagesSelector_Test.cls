@@ -10,6 +10,7 @@
  * 2020-08-24 - Disha Kariya - Created
  * 2020-10-06 - Disha Kariya - Updated test for safe drop guid filter
  * 2021-06-15 - Ranjeewa Silva - Updated test for attachment guid filter
+ * 2022-11-29 - Mahesh Parvathaneni - Updated test for newInstance with sort filter
  */
 @IsTest
 public with sharing class EventMessagesSelector_Test {
@@ -87,6 +88,11 @@ public with sharing class EventMessagesSelector_Test {
         qb = selector.newQueryBuilder();
         soql = qb.toSoqlString();
         System.assertEquals(true, Pattern.compile('(?ism)Booking_Reference__c.*?\\bfrom EventMessage__c\\b').matcher(soql).find(), 'Resulting query does not select Booking_Reference__c field: ' + soql);
+
+        selector = EventMessagesSelector.newInstance(EventMessagesSelector.sortfieldAPIName, EventMessagesSelector.sortOrder);
+        qb = selector.newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK});
+        soql = qb.toSoqlString();
+        System.assertEquals(true, Pattern.compile('(?ism)Facility__r.*?\\bfrom EventMessage__c\\b').matcher(soql).find(), 'Resulting query does not select Facility__r field: ' + soql);
 
 
         Test.stopTest();

@@ -7894,4 +7894,12 @@ Compass quote end date has passed, please request re-activation</value>
         <shortDescription>MyNetwork Duplicate Invalid Investigation Error Message</shortDescription>
         <value>Please select an article to submit a case investigation</value>
     </labels>
+    <labels>
+        <fullName>MyNetworkInvalidNetworkErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Invalid Network Error Message</shortDescription>
+        <value>Network is not available on MyNetwork Portal</value>
+    </labels>
 </CustomLabels>

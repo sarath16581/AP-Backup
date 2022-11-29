@@ -6,6 +6,7 @@
  * @description Test Class covering ArticlesSelector
  * @changelog
  * 2020-08-02 - Nathan Franklin - Updated for new return values in ApplicationDatabase
+ * 2022-11-29 - Mahesh Parvathaneni - Updated for selectByCaseIds method
  */
 @IsTest
 private class ArticlesSelector_Test {
@@ -81,6 +82,10 @@ private class ArticlesSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)Billing_Account__r\\..*?\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting query does not select Billing_Account__r fields: ' + soql);
 
+		qb = selector.newQueryBuilder(new Set<Object>{ArticlesSelector.Options.FILTER_NETWORK});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)\\bNetwork__c\\b').matcher(soql).find(), 'Resulting query does not filter Network__c field: ' + soql);
+
 		qb = selector.newQueryBuilder(new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE, ArticlesSelector.Options.WITH_CONSIGNMENT, ArticlesSelector.Options.WITH_CHILDARTICLES, ArticlesSelector.Options.WITH_BILLINGACCOUNT});
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)RecordType\\..*?\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields: ' + soql);
@@ -148,6 +153,12 @@ private class ArticlesSelector_Test {
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, consignment.Id, false);
 		insert articles;
 
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+		insert cases;
+
+		articles[0].Case__c = cases[0].Id;
+		update articles[0];
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -181,6 +192,9 @@ private class ArticlesSelector_Test {
 		results = selector.selectByIdOrTracking(new Set<String>{articles[0].ArticleID__c}, new Set<Id>{articles[1].Id}, new Set<Object>{ArticlesSelector.Options.WITH_CONSIGNMENT}, true);
 		System.assertNotEquals(null, results.values()[0].Consignment__r, 'Expected Consignment__r to be populated');
 		System.assertEquals(2, results.size(), 'Expected Articles__r to be populated');
+
+		results = selector.selectByCaseIds(new Set<Id>{cases[0].Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER});
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
 
 		Test.stopTest();
 

@@ -88,7 +88,8 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
         if (column.fieldType === 'PILL' && item !== null) {
             networkPillItems.push({
                 label: item.Facility__r.Name,
-                name: item.Facility__c
+                name: item.Facility__c,
+                contactMethod: item.Facility__r.Contact_Facility__c
             });
         }
         return networkPillItems;
@@ -112,10 +113,9 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
     handleRowChange(event) {
         if (event.target.checked) {
             let networks = this.getSelectedNetworks(event.target.dataset.id);
-            let networkIds = networks.map(n => n.name);
             let row = {
                 articleId: event.target.dataset.id,
-                networkIds: networkIds
+                networks: networks
             }
             this.selectedRows.push(row);
         } else {

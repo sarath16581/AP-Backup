@@ -33,7 +33,7 @@
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Added caseStarTransitWarrantyClaimRecordType, getter for MilestoneType and CaseMilestones
  * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
  * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
- * 2022-11-17 - Mahesh Parvathaneni - Added getCriticalIncidents method
+ * 2022-11-28 - Mahesh Parvathaneni - Added getCaseInvestigations, getCriticalIncidents method
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -88,6 +88,14 @@ public with sharing class ApplicationTestDataFactory {
 		}
 
 		return output;
+	}
+
+ 	public static List<CaseInvestigation__c> getCaseInvestigations(Integer count, Id caseId, Id articleId, Id networkId, Boolean generateIds) {
+		return (List<CaseInvestigation__c>)maybeGenerateIds(populateSObjects(CaseInvestigation__c.SObjectType, new Map<SObjectField, Object> {
+				CaseInvestigation__c.Case__c => caseId,
+				CaseInvestigation__c.Article__c => articleId,
+				CaseInvestigation__c.Network__c => networkId
+				}, count), generateIds);
 	}
 
 	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {

@@ -48,7 +48,7 @@ public with sharing class MyNetworkStarTrackCaseController {
      * Function to create the case investigation records to AP Network
      */
     @AuraEnabled
-	public static SaveResult saveCaseInvestigations(List<CaseInvestigation__c> recordsToSave) {
+	public static SaveResult saveCaseInvestigations(List<CaseInvestigation__c> recordsToSave, String comments) {
         try {
             SaveResult result = new SaveResult();
             Set<Id> articleIds = new Set<Id>();
@@ -82,13 +82,48 @@ public with sharing class MyNetworkStarTrackCaseController {
 
             if (String.isBlank(result.errorMessage)) {
                 // insert case investigation records
-			    ApplicationDatabase.getInstance().dmlInsert(recordsToSave);
-                result.status = Status.SUCCESSFUL.name();
+			    Database.SaveResult[] srList = ApplicationDatabase.getInstance().dmlInsert(recordsToSave);
+                // get feed items to post
+                if (String.isNotBlank(comments)) {
+                    List<FeedItem> feedItems = getChatterFeedItems(srList, comments);
+                    // insert chatter feed items
+                    if (feedItems.size() > 0) {
+                        ApplicationDatabase.getInstance().dmlInsert(feedItems);
+                        result.status = Status.SUCCESSFUL.name();
+                    } 
+                } else {
+                    result.status = Status.SUCCESSFUL.name();
+                }
             }
             return result;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
+    }
+
+    /**
+     * Function to return the feed items based on network comments
+     */
+    private static List<FeedItem> getChatterFeedItems(Database.SaveResult[] srList, String comments) {
+        Set<Id> caseInvestigationIds = new Set<Id>();
+        List<FeedItem> feedItems = new List<FeedItem>();
+        // Iterate through each returned result
+        for (Database.SaveResult sr : srList) {
+            if (sr.isSuccess()) {
+                caseInvestigationIds.add(sr.getId());
+            }
+        }
+
+        //create feed items
+        if (caseInvestigationIds.size() > 0) {
+            for (Id ciId : caseInvestigationIds) {
+                FeedItem item = new FeedItem();
+                item.ParentId = ciId;
+                item.Body = comments;
+                feedItems.add(item);
+            }
+        }
+        return feedItems;
     }
 
     // Status of Case Investigation creation
