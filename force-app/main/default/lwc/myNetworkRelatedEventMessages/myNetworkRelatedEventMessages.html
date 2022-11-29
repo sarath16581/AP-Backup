@@ -9,202 +9,210 @@
 10.08.2020    disha.kariya@auspost.com.au   Added a button to display google map direction in new tab
 02.09.2020    disha.kariya@auspost.com.au   Changes to add help text for map directions
 29.07.2021    neha.mehta@auspost.com.au     Added changes related to REQ2547720
+18.11.2022    dattaraj.deshmukh@auspost.com.au  Added 'showComponent' to hide component when a ST case is open from global search 
 -->
 <template>
+    <template if:true={showComponent}>
     <lightning-card>
-        <div class="slds-m-around_medium">
-            <template if:false={hasEventMessage}>
-                <p> There are no Event Messages to display</p>
-            </template>
-            <template if:true={hasEventMessage}>
-                <div if:true={safeDropDataAvailable}>
-                    <div class="slds-float_right slds-box slds-box_xx-small">
-                        <table class="slds-table slds-no-row-hover ">
-                            <tr><td class="blue">
-                                <a href="javascript:void(0);" onclick={navigateToGoogleMap} class="slds-text-link--reset " name= "Map Direction">Map Directions</a>
-                                <lightning-helptext content={helpText} style="position:relative;top:-3px;left:4px"></lightning-helptext>
-                            </td>
-                            <td><lightning-button variant="Neutral" label="GPS Pin Drop"
-                                onclick={safeDropInfoOnGoogleMap} title="GPS Pin Drop"
-                                class="slds-m-left_x-small"></lightning-button>
-                            </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div><br /><br />
-                <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
-                    active-section-name={activeSections}>
-                    <lightning-accordion-section name="A" label="Event Details">
-                        <div class="slds-box slds-theme_default slds-scrollable_x">
-                            <table
-                                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <div class="slds-truncate" title="Status">Status</div>
-                                        </th>
-                                        <th class="" style="width:200px;">
-                                            <div class="slds-truncate" title="Event Description">Event Description</div>
-                                        </th>
-                                        <th class="" style="width:120px;">
-                                            <div class="slds-truncate" title="Actual Time">Actual Time</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Event Location">Event Location</div>
-                                        </th>
-                                        <th class="" style="width:120px;">
-                                            <div class="slds-truncate" title="Planned time">Planned Time</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Planned Location">Planned Location</div>
-                                        </th>
-                                        <th>
-                                            <div class="slds-truncate" title="GeoLocation">Driver Contract No.</div>
-                                        </th>
-
-                                        <th>
-                                            <div class="slds-truncate" title="GeoLocation">Round No.</div>
-                                        </th>
-
-                                        <th>
-                                            <div class="slds-truncate" title="GeoLocation">Geolocation</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Device User">Device User</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Comment">Comment</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Signatory Name">Signatory Name</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Event Source">Event Source</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Sender ID">Sender ID</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Event Type">Event Type</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Container ID">Container ID</div>
-                                        </th>
-                                        <!--Added by Neha Mehta for changes related to REQ2547720 Start-->
-                                        <th class="">
-                                            <div class="slds-truncate" title="Container ID">Outside Delivery Radius</div>
-                                        </th>
-                                        <th class="">
-                                            <div class="slds-truncate" title="Container ID">Geo Precision (metres)</div>
-                                        </th>
-                                        <!--Added by Neha Mehta for changes related to REQ2547720 End-->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <template for:each={eventMessages} for:item="eventMessage">
-                                        <tr key={eventMessage.eventMessageRecord.Id}>
-                                            <td class={eventMessage.imageColorCss}>
-                                                <lightning-icon icon-name={eventMessage.displayIconName} title="Image">
-                                                </lightning-icon>
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                <div style="width:200px;">
-                                                    {eventMessage.eventMessageRecord.EventDescription__c}</div>
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.actualDate}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.Event_Location__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.PlannedDateTime__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.PlannedLocation__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.DriverContract__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.RoundNo__c}
-                                            </td>
-                                            <td class="slds-cell-wrap blue"
-                                                onclick={geoLocationHandlerForSingleMap}>
-                                                <template if:true={eventMessage.geoLocationFound}>
-                                                    <a href="javascript:void(0);" class="slds-text-link--reset "
-                                                        name={eventMessage.eventMessageRecord.Id}> Click To View Map</a>
-                                                </template>
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.DeviceUser__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.CommentText__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.SignatoryName__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.EventSource__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.SenderID__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.EventType__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.Container_ID__c}
-                                            </td>
-                                            <!--Added by Neha Mehta for changes related to REQ2547720 Start-->
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.Outside_Delivery_Radius__c}
-                                            </td>
-                                            <td class="slds-cell-wrap">
-                                                {eventMessage.eventMessageRecord.Geo_Precision__c}
-                                            </td>
-                                            <!--Added by Neha Mehta for changes related to REQ2547720 End-->
-                                        </tr>
-                                    </template>
-                                </tbody>
+        <!-- <lightning-accordion>
+            <lightning-accordion-section name="eventMessages" label="Event Messages">
+            <div class="slds-m-around_medium"> -->
+            
+                <template if:false={hasEventMessage}>
+                    <p> There are no Event Messages to display</p>
+                </template>
+                <template if:true={hasEventMessage}>
+                    <div if:true={safeDropDataAvailable}>
+                        <div class="slds-float_right slds-box slds-box_xx-small">
+                            <table class="slds-table slds-no-row-hover ">
+                                <tr><td class="blue">
+                                    <a href="javascript:void(0);" onclick={navigateToGoogleMap} class="slds-text-link--reset " name= "Map Direction">Map Directions</a>
+                                    <lightning-helptext content={helpText} style="position:relative;top:-3px;left:4px"></lightning-helptext>
+                                </td>
+                                <td><lightning-button variant="Neutral" label="GPS Pin Drop"
+                                    onclick={safeDropInfoOnGoogleMap} title="GPS Pin Drop"
+                                    class="slds-m-left_x-small"></lightning-button>
+                                </td>
+                                </tr>
                             </table>
                         </div>
-                    </lightning-accordion-section>
-                    <lightning-accordion-section name="B" label="Sorting Details">
-                       <c-my-network-related-sorting-event-message sorting-event-message-found={sortingEventMessageFound} sorting-event-messages={sortingEventMessage}></c-my-network-related-sorting-event-message>   
-                    </lightning-accordion-section>
-                </lightning-accordion>
-                <template if:true={bShowModal}>
-                    <div>
-                        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
-                            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
-                            <div class="slds-modal__container">
-                                <!-- modal header start -->
-                                <header class="slds-modal__header">
-                                    <button
-                                        class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
-                                        title="Close" onclick={closeModal}>
-                                        <lightning-icon icon-name="utility:close" alternative-text="close"
-                                            variant="inverse" size="small"></lightning-icon>
-                                        <span class="slds-assistive-text">Close</span>
-                                    </button>
-                                    <!--  <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Modal Header with LWC</h2>-->
-                                    <template if:true={unableToFetchDetailsFromGoogleApi}>
-                                        <p style="color:red">Unable to Fetch Data From Google Map </p>
-                                    </template>
-                                </header>
-                                <!-- modal body start -->
-                                <div class="slds-modal__content slds-p-around_medium slds-scrollable--none" id="modal-content-id-1">
-                                    <lightning-map map-markers={mapMarkers}  markers-title={mapMarkers}>
-                                    </lightning-map>
-                                </div>
+                    </div><br /><br />
+                    <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
+                        active-section-name={activeSections}>
+                        <lightning-accordion-section name="A" label="Event Details">
+                            <div class="slds-box slds-theme_default slds-scrollable_x">
+                                <table
+                                    class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="slds-truncate" title="Status">Status</div>
+                                            </th>
+                                            <th class="" style="width:200px;">
+                                                <div class="slds-truncate" title="Event Description">Event Description</div>
+                                            </th>
+                                            <th class="" style="width:120px;">
+                                                <div class="slds-truncate" title="Actual Time">Actual Time</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Event Location">Event Location</div>
+                                            </th>
+                                            <th class="" style="width:120px;">
+                                                <div class="slds-truncate" title="Planned time">Planned Time</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Planned Location">Planned Location</div>
+                                            </th>
+                                            <th>
+                                                <div class="slds-truncate" title="GeoLocation">Driver Contract No.</div>
+                                            </th>
+
+                                            <th>
+                                                <div class="slds-truncate" title="GeoLocation">Round No.</div>
+                                            </th>
+
+                                            <th>
+                                                <div class="slds-truncate" title="GeoLocation">Geolocation</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Device User">Device User</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Comment">Comment</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Signatory Name">Signatory Name</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Event Source">Event Source</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Sender ID">Sender ID</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Event Type">Event Type</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Container ID">Container ID</div>
+                                            </th>
+                                            <!--Added by Neha Mehta for changes related to REQ2547720 Start-->
+                                            <th class="">
+                                                <div class="slds-truncate" title="Container ID">Outside Delivery Radius</div>
+                                            </th>
+                                            <th class="">
+                                                <div class="slds-truncate" title="Container ID">Geo Precision (metres)</div>
+                                            </th>
+                                            <!--Added by Neha Mehta for changes related to REQ2547720 End-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={eventMessages} for:item="eventMessage">
+                                            <tr key={eventMessage.eventMessageRecord.Id}>
+                                                <td class={eventMessage.imageColorCss}>
+                                                    <lightning-icon icon-name={eventMessage.displayIconName} title="Image">
+                                                    </lightning-icon>
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    <div style="width:200px;">
+                                                        {eventMessage.eventMessageRecord.EventDescription__c}</div>
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.actualDate}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.Event_Location__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.PlannedDateTime__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.PlannedLocation__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.DriverContract__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.RoundNo__c}
+                                                </td>
+                                                <td class="slds-cell-wrap blue"
+                                                    onclick={geoLocationHandlerForSingleMap}>
+                                                    <template if:true={eventMessage.geoLocationFound}>
+                                                        <a href="javascript:void(0);" class="slds-text-link--reset "
+                                                            name={eventMessage.eventMessageRecord.Id}> Click To View Map</a>
+                                                    </template>
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.DeviceUser__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.CommentText__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.SignatoryName__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.EventSource__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.SenderID__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.EventType__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.Container_ID__c}
+                                                </td>
+                                                <!--Added by Neha Mehta for changes related to REQ2547720 Start-->
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.Outside_Delivery_Radius__c}
+                                                </td>
+                                                <td class="slds-cell-wrap">
+                                                    {eventMessage.eventMessageRecord.Geo_Precision__c}
+                                                </td>
+                                                <!--Added by Neha Mehta for changes related to REQ2547720 End-->
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
                             </div>
-                        </section>
-                        <div class="slds-backdrop slds-backdrop_open"></div>
-                    </div>
+                        </lightning-accordion-section>
+                        <lightning-accordion-section name="B" label="Sorting Details">
+                        <c-my-network-related-sorting-event-message sorting-event-message-found={sortingEventMessageFound} sorting-event-messages={sortingEventMessage}></c-my-network-related-sorting-event-message>   
+                        </lightning-accordion-section>
+                    </lightning-accordion>
+                    <template if:true={bShowModal}>
+                        <div>
+                            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+                                <div class="slds-modal__container">
+                                    <!-- modal header start -->
+                                    <header class="slds-modal__header">
+                                        <button
+                                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                            title="Close" onclick={closeModal}>
+                                            <lightning-icon icon-name="utility:close" alternative-text="close"
+                                                variant="inverse" size="small"></lightning-icon>
+                                            <span class="slds-assistive-text">Close</span>
+                                        </button>
+                                        <!--  <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Modal Header with LWC</h2>-->
+                                        <template if:true={unableToFetchDetailsFromGoogleApi}>
+                                            <p style="color:red">Unable to Fetch Data From Google Map </p>
+                                        </template>
+                                    </header>
+                                    <!-- modal body start -->
+                                    <div class="slds-modal__content slds-p-around_medium slds-scrollable--none" id="modal-content-id-1">
+                                        <lightning-map map-markers={mapMarkers}  markers-title={mapMarkers}>
+                                        </lightning-map>
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="slds-backdrop slds-backdrop_open"></div>
+                        </div>
+                    </template>
                 </template>
-            </template>
-        </div>
+            <!-- </div>
+        </lightning-accordion-section>
+    </lightning-accordion> -->
     </lightning-card>
+    </template>
 </template>

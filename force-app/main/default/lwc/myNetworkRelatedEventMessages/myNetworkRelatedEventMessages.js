@@ -9,9 +9,14 @@
 10.08.2020    disha.kariya@auspost.com.au   Added changes to display a link to google map direction
 17.08.2020    disha.kariya@auspost.com.au   Updated to display Attempted Delivery on GPS Pin Drop
 02.09.2020    disha.kariya@auspost.com.au   Changes to add helptext for map direction
+18.11.2022    dattaraj.deshmukh@auspost.com.au  Added 'showComponent' and 'checkComponentVisibility()' 
+                                                to hide component when a ST case is open from global search.
+                                                Updated 'connectedCallback()' method to check component visibility. 
+
 /*******************************  History ************************************************/
 
 import { LightningElement, api, track, wire } from "lwc";
+import checkComponentVisibility from "@salesforce/apex/MyNetworkCaseListController.checkComponentVisibility";
 import getRelatedEventMessages from "@salesforce/apex/MyNetworkCaseListController.getRelatedEventMessages";
 import getSafeDropInformation from "@salesforce/apex/MyNetworkCaseListController.getSafeDropInformation";
 import getAddressFromGeoLocationForEventMessage from "@salesforce/apex/MyNetworkCaseListController.getAddressFromGeoLocationForEventMessage";
@@ -33,6 +38,7 @@ const dateFormat ={
 
 export default class RelatedEventMessages extends NavigationMixin(LightningElement) {
   @api recordId;
+  @api caseInvestigationRecordId;
   @track eventMessages = [];
   @track hasEventMessage = false;
   @track statusIcon = "checkMark";
@@ -47,7 +53,8 @@ export default class RelatedEventMessages extends NavigationMixin(LightningEleme
   @track sortingEventMessage =[];
   @track sortingEventMessageFound = false;
   @track unableToFetchDetailsFromGoogleApi = false;
-  @track googleDirectionURL = 'javascript:void(0);'
+  @track googleDirectionURL = 'javascript:void(0);';
+  @track showComponent = true;
 
   connectedCallback() {
     this.bShowModal = false;
@@ -58,7 +65,17 @@ export default class RelatedEventMessages extends NavigationMixin(LightningEleme
     });
     /* @Description: Method used to get the related event messages for a Case.
     */
-    getRelatedEventMessages({ caseRecordId: this.recordId })
+    let caseInvestigationId = this.caseInvestigationRecordId ? this.caseInvestigationRecordId : '';
+    checkComponentVisibility({ caseRecordId: this.recordId, caseInvestigationRecordId: this.caseInvestigationRecordId })
+      .then(result => {
+        if(!result){
+          this.showComponent = result;
+        }
+      }).catch(error => {
+        console.log("error>>>", error);
+      });
+
+    getRelatedEventMessages({ caseRecordId: this.recordId, caseInvestigationRecordId: this.caseInvestigationRecordId })
       .then(result => {
         if (result) {
           let eventMessageList = [];
