@@ -26,14 +26,17 @@
 						<span  slot="title" class="slds-truncate slds-text-title_caps slds-line-height_reset ">
 							<center><h2 class="au_post_color">ADD NETWORK RESPONSE</h2></center>
 						</span>
+						<template if:true={errorMsg}> {errorMsg} </template>
 						<div class="slds-m-around_small">
 									<lightning-record-edit-form object-api-name="CaseInvestigation__c" record-id={recordId}>
-
-											<lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
-											<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
-											<lightning-input-field class="slds-hidden" field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
-											<lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
-											<lightning-input-field field-name="Comments__c" onchange={handleCommentsChange}></lightning-input-field>
+											<template if:true={isDelieryFieldVisible}>
+												<lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
+												<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
+												<lightning-input-field class="slds-hidden" field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
+												<lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
+											</template>
+											<lightning-textarea value={comments} label="Comments" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
+											<!-- <lightning-input-field field-name="Comments__c" onchange={handleCommentsChange}></lightning-input-field> -->
 											<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
 											<lightning-input-field field-name="Stillunderinvestigation__c" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
 											<lightning-input-field field-name="Requiremoreinformation__c" onchange={handleRequireMoreInfoChange}></lightning-input-field>

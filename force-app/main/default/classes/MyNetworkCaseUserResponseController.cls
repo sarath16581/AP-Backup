@@ -12,12 +12,18 @@ public without sharing class MyNetworkCaseUserResponseController {
     public static string postCaseInvestigationChatterFeed(String newtorkComments, String caseInvestigationId){
         try {
             
-            FeedItem post = new FeedItem();
-            post.ParentId = caseInvestigationId;
-            post.Body = newtorkComments;
-            insert post;
+			if(String.isNotBlank(newtorkComments)){
+				FeedItem post = new FeedItem();
+				post.ParentId = caseInvestigationId;
+				post.Body = newtorkComments;
+				insert post;
 
-            return 'success';
+				return 'success';
+			}
+			
+			return 'error';
+			
+            
 
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());

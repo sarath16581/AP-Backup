@@ -15,7 +15,7 @@ import postCaseInvestigationChatterFeed from "@salesforce/apex/MyNetworkCaseUser
 import getNetworkComments from "@salesforce/apex/MyNetworkCaseUserResponseController.getNetworkComments";
 import checkComponentVisibility from "@salesforce/apex/MyNetworkCaseUserResponseController.checkComponentVisibility";
 
-import { updateRecord, getRecord } from 'lightning/uiRecordApi';
+import { updateRecord, getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
 import { NavigationMixin } from 'lightning/navigation';
 import CASE_INVESTIGATION_OBJECT from '@salesforce/schema/CaseInvestigation__c';
@@ -30,7 +30,16 @@ import NETWORK_FIELD from '@salesforce/schema/CaseInvestigation__c.Network__c';
 import QUALITY_OF_THE_CASE_FIELD from '@salesforce/schema/CaseInvestigation__c.Qualityofthecase__c';
 import REQUIRE_MORE_INFORMATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Requiremoreinformation__c';
 import STILL_UNDER_INVESTIGATION_FIELD from '@salesforce/schema/CaseInvestigation__c.Stillunderinvestigation__c';
+import CASE_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Enquiry_Type__c';
+import PURPOSE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Call_Purpose__c';
+import STATUS_FIELD from '@salesforce/schema/CaseInvestigation__c.Status__c';
+
+
 import CASE_INVESTIGATION_RECORD_ID from '@salesforce/schema/CaseInvestigation__c.Id';
+
+const CASE_TYPE = 'Delivery Dispute';
+const CASE_PURPOSE = 'Delivered';
+
 
 export default class MyNetworkCaseUserResponse extends LightningElement {
 
@@ -50,7 +59,8 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
     qualityOfCase= false;
     requireMoreInformation ='';
     stillUnderInvestigation = false;
-
+	status='';
+	errorMsg = '';
 
 	handleCommentsChange(event) {
         this.comments = event.target.value;
@@ -61,11 +71,38 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
         console.log("networkId",this.networkId);
     }
     handleRequireMoreInfoChange(event) {
-        this.requireMoreInformation = event.target.value;
-        console.log("mon",this.monday);
+
+		this.errorMsg ='';
+		this.requireMoreInformation = event.target.value;
+
+		//Require More Information and Still Under Investigation cannot be true at same time.
+		if(event.target.value && this.stillUnderInvestigation) {
+			this.errorMsg = 'Still under investigation and Require more informaation can not be selected at the same time';
+			return;;
+		} 
+		else if(event.target.value && !this.stillUnderInvestigation) {
+			this.status = 'Closed - Required More Information' ;
+		}
+		else if(!event.target.value && !this.stillUnderInvestigation) {
+			this.status = 'Closed' ;
+		}
     }
     handleStillUnderInvestigationChange(event) {
-        this.stillUnderInvestigation = event.target.value;
+        
+		this.errorMsg ='';
+		this.stillUnderInvestigation = event.target.value;
+
+		//Require More Information and Still Under Investigation cannot be true at same time.
+		if(event.target.value && this.requireMoreInformation) {
+			this.errorMsg = 'Still under investigation and Require more informaation can not be selected at the same time';
+			return;
+		} 
+		else if(event.target.value && !this.requireMoreInformation) {
+			this.status = 'Responded' ;
+		}
+		else if(!event.target.value && !this.requireMoreInformation) {
+			this.status = 'Closed' ;
+		}
     }
     handleQualityOfCaseChange(event) {
         this.qualityOfCase = event.target.value;
@@ -102,7 +139,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	}
 
 	@wire(getRecord, { recordId: '$caseInvestigationRecordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
-		NETWORK_FIELD,  QUALITY_OF_THE_CASE_FIELD, STILL_UNDER_INVESTIGATION_FIELD, REQUIRE_MORE_INFORMATION_FIELD] })
+		NETWORK_FIELD,  QUALITY_OF_THE_CASE_FIELD, STILL_UNDER_INVESTIGATION_FIELD, REQUIRE_MORE_INFORMATION_FIELD, CASE_TYPE_FIELD, PURPOSE_FIELD, STATUS_FIELD] })
     wiredRecord({ error, data }) {
         if (error) {
             let message = 'Unknown error';
@@ -120,7 +157,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
             );
         } else if (data) {
             this.caseInvestigationRecord = data;
-            this.comments = this.caseInvestigationRecord.fields.Comments__c.value;
+            // this.comments = this.caseInvestigationRecord.fields.Comments__c.value;
             this.networkId = this.caseInvestigationRecord.fields.Network__c.value;
 			this.addressType = this.caseInvestigationRecord.fields.AddressType__c.value;
 			this.deliveryInformation = this.caseInvestigationRecord.fields.Deliveryinformation__c.value;
@@ -129,6 +166,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 			this.requireMoreInformation = this.caseInvestigationRecord.fields.Requiremoreinformation__c.value;
 			this.deliveryOptions = this.caseInvestigationRecord.fields.DeliveryOptions__c.value;
 			this.stillUnderInvestigation = this.caseInvestigationRecord.fields.Stillunderinvestigation__c.value;
+
         }
     }
 
@@ -136,7 +174,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 
         const fields = {};
         fields[CASE_INVESTIGATION_RECORD_ID.fieldApiName] = this.recordId;
-        fields[COMMENTS_FIELD.fieldApiName] = this.comments;
+        // fields[COMMENTS_FIELD.fieldApiName] = this.comments;
         fields[NETWORK_FIELD.fieldApiName] = this.networkId;
 
 		fields[ADDRESS_TYPE_FIELD.fieldApiName] = this.addressType;
@@ -146,7 +184,8 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		fields[STILL_UNDER_INVESTIGATION_FIELD.fieldApiName] = this.stillUnderInvestigation;
 		fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
 		fields[DELIVERY_OPTIONS_FIELD.fieldApiName] = this.deliveryOptions;
-
+		fields[STATUS_FIELD.fieldApiName] = this.status;
+		
         const recordInput = { fields };
         updateRecord(recordInput)
             .then(CaseInvestigation__c => {
@@ -162,7 +201,9 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
             // )
 			
 			//create a chatter feed for comments entered.
-			this.createChatterFeed();
+			if(this.comments){
+				this.createChatterFeed();
+			}
 
 		})
 		.catch(error => {
@@ -202,6 +243,15 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
                 })
             );
 		});
+	}
+
+	 get isDelieryFieldVisible(){
+		console.log('Case Type: '+ getFieldValue(this.caseInvestigationRecord, CASE_TYPE_FIELD));
+		console.log('Case PURPOSE_FIELD: '+ getFieldValue(this.caseInvestigationRecord, PURPOSE_FIELD));
+		
+		return ( (getFieldValue(this.caseInvestigationRecord, CASE_TYPE_FIELD) == CASE_TYPE ) 
+					&& (getFieldValue(this.caseInvestigationRecord, PURPOSE_FIELD) == CASE_PURPOSE) ? true : false
+					);
 	}
     
 }
