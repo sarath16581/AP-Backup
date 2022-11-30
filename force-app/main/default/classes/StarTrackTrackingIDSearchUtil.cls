@@ -51,7 +51,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                     System.debug('HASANTHA TEST MODULE 3 :cont.lst_article[0]'+ cont.lst_article[0]);
                     if(validate(cont.lst_article[0])) {
                         System.debug('HASANTHA TEST MODULE 3 VALIDATED GOOD ');
-                        System.enqueueJob(new AssignAndUpdateCaseQueueable(cont.lst_article[0],this.cse));
+                        assignAndUpdateCase(cont.lst_article[0],this.cse);
                     }
                 }
             } catch (Exception ex) {
@@ -69,44 +69,35 @@ public with sharing class StarTrackTrackingIDSearchUtil {
     }
 
     /**
-     * validate and assign the found article details
-     * this will allow us to separate the case update from all other logics
-     * @param article
-     * @param cse
-     */
-    private without sharing class AssignAndUpdateCaseQueueable implements Queueable {
-        Article__c article;
-        Case cse;
-        public AssignAndUpdateCaseQueueable(Article__c article, Case cse) {
-            this.cse = cse;
-            this.article = article;
-        }
-        public void execute(QueueableContext param1) {
-            try {
-                case caseToBeUpdated = new Case();
-                caseToBeUpdated.Id = cse.Id;
-                caseToBeUpdated.ArticleTest__c = article.Id;
-                caseToBeUpdated.Consignment_Unique_External_ID__c = article.ArticleID__c ;
-                caseToBeUpdated.Connote_number__c  = article.Name ;
+         * validate and assign the found article details
+         * @param article
+         * @param cse
+         */
+    public static void assignAndUpdateCase(Article__c article, Case cse) {
+        try {
+            case caseToBeUpdated = new Case();
+            caseToBeUpdated.Id = cse.Id;
+            caseToBeUpdated.ArticleTest__c = article.Id;
+            caseToBeUpdated.Consignment_Unique_External_ID__c = article.ArticleID__c ;
+            caseToBeUpdated.Connote_number__c  = article.Name ;
 
-                // Only if Case’s Enquiry Type is LDC
-                if (StarTrack_Constants.CASE_ENQUIRY_LDC.equalsIgnoreCase(cse.Enquiry_Type__c)) {
-                    caseToBeUpdated.Total_Amount_of_Claim__c = article.Freight_Amount__c;
-                }
-                caseToBeUpdated.Delivery_Date__c = String.isNotBlank(article.CID__c) ? Date.valueOf(article.CID__c.left(4) + '-' + article.CID__c.mid(4, 2) + '-' + article.CID__c.right(2)) : null;
-                System.debug('HASANTHA TEST MODULE 4  IN queable cse ' + caseToBeUpdated);
-                update caseToBeUpdated;
-            } catch (Exception e) {
-                UTIL_LoggingService.logHandledException(
-                        e
-                        , UserInfo.getOrganizationId()
-                        , StarTrack_Constants.STARTRACK
-                        , StarTrackTrackingIDSearchUtil.class.getName()
-                        , 'AssignAndUpdateCaseQueueable'
-                        , StarTrack_Constants.ASYNC_QUEUEABLE
-                        , LoggingLevel.ERROR
-                );
+            // Only if Case’s Enquiry Type is LDC
+            if (StarTrack_Constants.CASE_ENQUIRY_LDC.equalsIgnoreCase(cse.Enquiry_Type__c)) {
+                caseToBeUpdated.Total_Amount_of_Claim__c = article.Freight_Amount__c;
             }
+            caseToBeUpdated.Delivery_Date__c = String.isNotBlank(article.CID__c) ? Date.valueOf(article.CID__c.left(4) + '-' + article.CID__c.mid(4, 2) + '-' + article.CID__c.right(2)) : null;
+            System.debug('HASANTHA TEST MODULE 4  IN queable cse ' + caseToBeUpdated);
+            update caseToBeUpdated;
+        } catch (Exception e) {
+            UTIL_LoggingService.logHandledException(
+                    e
+                    , UserInfo.getOrganizationId()
+                    , StarTrack_Constants.STARTRACK
+                    , StarTrackTrackingIDSearchUtil.class.getName()
+                    , 'AssignAndUpdateCaseQueueable'
+                    , StarTrack_Constants.ASYNC_QUEUEABLE
+                    , LoggingLevel.ERROR
+            );
         }
     }
 
