@@ -8,8 +8,12 @@
 */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { refreshApex } from '@salesforce/apex';
+
 
 import postCaseInvestigationChatterFeed from "@salesforce/apex/MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed";
+import getNetworkComments from "@salesforce/apex/MyNetworkCaseUserResponseController.getNetworkComments";
+import checkComponentVisibility from "@salesforce/apex/MyNetworkCaseUserResponseController.checkComponentVisibility";
 
 import { updateRecord, getRecord } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
@@ -35,6 +39,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
     @track error = false;
     @track errorMessage = null;
 	caseInvestigationRecord;
+	@track isComponentVisible = false;
 
     addressType = '';
     comments= '';
@@ -78,7 +83,25 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
         this.deliveryOptions = event.target.value;
     }
 	
-	@wire(getRecord, { recordId: '$recordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
+	@wire(getNetworkComments, { recordId: '$caseInvestigationRecordId', feedType:'TextPost' })
+    feedItems;
+
+	
+	connectedCallback(){
+		//get component visibility
+		checkComponentVisibility({ caseInvestigationRecordId: this.caseInvestigationRecordId})
+            .then((result) =>{
+				if(result){
+					this.isComponentVisible = result;
+				}
+			})
+			.catch(error => {
+				console.log('error in checking componnent visibility');
+				console.log(error);
+			});
+	}
+
+	@wire(getRecord, { recordId: '$caseInvestigationRecordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
 		NETWORK_FIELD,  QUALITY_OF_THE_CASE_FIELD, STILL_UNDER_INVESTIGATION_FIELD, REQUIRE_MORE_INFORMATION_FIELD] })
     wiredRecord({ error, data }) {
         if (error) {
@@ -140,16 +163,17 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 			
 			//create a chatter feed for comments entered.
 			this.createChatterFeed();
-    })
-    .catch(error => {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Error creating record',
-                    message: reduceErrors(error).join(', '),
-                    variant: 'error'
-                })
-            );
-    });
+
+		})
+		.catch(error => {
+				this.dispatchEvent(
+					new ShowToastEvent({
+						title: 'Error creating record',
+						message: reduceErrors(error).join(', '),
+						variant: 'error'
+					})
+				);
+		});
         
 
     }
@@ -163,6 +187,8 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
                     message: 'Network response updated successfully',
                     variant: 'success'
                 })
+
+				refreshApex(this.feedItems);
 			}
 		})
 		.catch((error) => {

@@ -6,44 +6,53 @@
 					29.11.2022    dattaraj.deshmukh@auspost.com.au    Created
 -->
 <template>
-    <lightning-layout>
-		<lightning-layout-item padding="around-small" size="3">
-			<div class="page-section page-right">
-				<h2>Left Sidebar</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-					ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-					ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-					in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-					cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				</p>
-			</div>
-		</lightning-layout-item>
-		<lightning-layout-item padding="around-small" size="6">
-			<div class="page-section page-main">
-				<div class="slds-m-around_small">
-                            <lightning-record-edit-form object-api-name="CaseInvestigation__c" record-id={recordId}>
+	<template if:true={isComponentVisible}>
+		<lightning-layout>
+			<lightning-layout-item size="4">
+				<lightning-card>
+					<div class="page-section ">
+						<span slot="title" class="slds-truncate slds-text-title_caps slds-line-height_reset ">
+							<center><h2 class="au_post_color">CUSTOMER CONTACT CENTRE COMMENTS</h2></center>
+						</span>
+						
+						<c-my-network-custom-chatter-feed feed-items={feedItems.data}></c-my-network-custom-chatter-feed>
+					</div>
+				</lightning-card>				
 
-                                    <lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
-                                    <lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
-									<lightning-input-field class="slds-hidden" field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
-                                    <lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
-                                    <lightning-input-field field-name="Comments__c" onchange={handleCommentsChange}></lightning-input-field>
-                                    <lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
-                                    <lightning-input-field field-name="Stillunderinvestigation__c" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
-                                    <lightning-input-field field-name="Requiremoreinformation__c" onchange={handleRequireMoreInfoChange}></lightning-input-field>
-                                    <lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
-                                </lightning-record-edit-form>
-                                 </br>
-                                <lightning-button
-                                        label="Save Update"
-                                        variant="brand"
-                                        onclick={updateCaseInvestigation}
-                                ></lightning-button>
-                    <template if:true={error}>
-                        {errorMessage}
-                    </template>
-        </div>
-			</div>
-		</lightning-layout-item>
-	</lightning-layout>
+			</lightning-layout-item>
+			<lightning-layout-item size="6" padding="horizontal-small">
+				<lightning-card>
+					<div class="page-section page-main">
+						<span  slot="title" class="slds-truncate slds-text-title_caps slds-line-height_reset ">
+							<center><h2 class="au_post_color">ADD NETWORK RESPONSE</h2></center>
+						</span>
+						<div class="slds-m-around_small">
+									<lightning-record-edit-form object-api-name="CaseInvestigation__c" record-id={recordId}>
+
+											<lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
+											<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
+											<lightning-input-field class="slds-hidden" field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
+											<lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
+											<lightning-input-field field-name="Comments__c" onchange={handleCommentsChange}></lightning-input-field>
+											<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
+											<lightning-input-field field-name="Stillunderinvestigation__c" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
+											<lightning-input-field field-name="Requiremoreinformation__c" onchange={handleRequireMoreInfoChange}></lightning-input-field>
+											<lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
+										</lightning-record-edit-form>
+										</br>
+										<lightning-button
+												label="Save Update"
+												variant="brand"
+												onclick={updateCaseInvestigation}
+										></lightning-button>
+							<template if:true={error}>
+								{errorMessage}
+							</template>
+						</div>
+					</div>
+				</lightning-card>
+			</lightning-layout-item>
+		</lightning-layout>
+	</template>
+
 </template>
