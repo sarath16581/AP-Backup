@@ -74,7 +74,7 @@ public with sharing class CaseInvestigationsSelector_Test {
         // =====================================
         // Stubbing
         // =====================================
-        PUDBookingsSelector mockBookingSelector = (PUDBookingsSelector)MockUtility.mockSelector(PUDBookingsSelector.class);
+        // None!
 
         // =====================================
         // Testing
@@ -86,7 +86,7 @@ public with sharing class CaseInvestigationsSelector_Test {
 		System.assert(results.size() >= 1, 'Expected result size greater than or equal to 1');
 
         CaseInvestigationsSelector selectorLimit = CaseInvestigationsSelector.newInstance(1);
-		Map<Id, CaseInvestigation__c> resultsLimit = selector.selectById(new Set<Id> {caseInvestigations[0].Id});
+		Map<Id, CaseInvestigation__c> resultsLimit = selectorLimit.selectById(new Set<Id> {caseInvestigations[0].Id});
 		System.assertEquals(1, resultsLimit.size(), 'Expected result size of 1');
 
         CaseInvestigationsSelector selectorOpenCaseInvestion = CaseInvestigationsSelector.newInstance();

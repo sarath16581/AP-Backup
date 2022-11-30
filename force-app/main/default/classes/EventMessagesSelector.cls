@@ -42,10 +42,12 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	}
 
 	public static EventMessagesSelector newInstance(String sortField, String order){
-        if(!String.isEmpty(sortField))
-            sortfieldAPIName = sortField;
-        if(!String.isEmpty(order))
-            sortOrder = order;
+        if(!String.isEmpty(sortField)) {
+			sortfieldAPIName = sortField;
+		}
+        if(!String.isEmpty(order)) {
+			sortOrder = order;
+		}
         return (EventMessagesSelector)Application.Selectors.newInstance(EventMessagesSelector.class);
     }
 
