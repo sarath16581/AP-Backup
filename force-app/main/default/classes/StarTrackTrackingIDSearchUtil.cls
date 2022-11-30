@@ -85,8 +85,9 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             try {
                 case caseToBeUpdated = new Case();
                 caseToBeUpdated.Id = cse.Id;
-                caseToBeUpdated.ArticleTest__c = article.Id; // TODO multiple consignments check
+                caseToBeUpdated.ArticleTest__c = article.Id;
                 caseToBeUpdated.Consignment_Unique_External_ID__c = article.ArticleID__c ;
+                caseToBeUpdated.Connote_number__c  = article.Name ;
 
                 // Only if Case’s Enquiry Type is LDC
                 if (StarTrack_Constants.CASE_ENQUIRY_LDC.equalsIgnoreCase(cse.Enquiry_Type__c)) {
@@ -116,6 +117,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
      * @return
      */
     public static Boolean validate(Article__c article) {
+        // TODO multiple consignments check
         return validateAddressFields(article);
     }
 
