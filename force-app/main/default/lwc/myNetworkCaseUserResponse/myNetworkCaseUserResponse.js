@@ -33,6 +33,7 @@ import STILL_UNDER_INVESTIGATION_FIELD from '@salesforce/schema/CaseInvestigatio
 import CASE_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Enquiry_Type__c';
 import PURPOSE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Call_Purpose__c';
 import STATUS_FIELD from '@salesforce/schema/CaseInvestigation__c.Status__c';
+import INTERNAL_FACILITY_NOTES_FIELD from '@salesforce/schema/CaseInvestigation__c.InternalFacilityNotes__c';
 
 
 import CASE_INVESTIGATION_RECORD_ID from '@salesforce/schema/CaseInvestigation__c.Id';
@@ -59,6 +60,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
     qualityOfCase= false;
     requireMoreInformation ='';
     stillUnderInvestigation = false;
+	internalFacilityNotes = '';
 	status='';
 	errorMsg = '';
 
@@ -119,8 +121,12 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	handleDeliveryOptionsChange(event) {
         this.deliveryOptions = event.target.value;
     }
+	handleInternalFacilityNotesChange(event) {
+        this.internalFacilityNotes = event.target.value;
+    }
 	
-	@wire(getNetworkComments, { recordId: '$caseInvestigationRecordId', feedType:'TextPost' })
+	
+	@wire(getNetworkComments, { recordId: '$caseInvestigationRecordId'})
     feedItems;
 
 	
@@ -139,7 +145,8 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	}
 
 	@wire(getRecord, { recordId: '$caseInvestigationRecordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
-		NETWORK_FIELD,  QUALITY_OF_THE_CASE_FIELD, STILL_UNDER_INVESTIGATION_FIELD, REQUIRE_MORE_INFORMATION_FIELD, CASE_TYPE_FIELD, PURPOSE_FIELD, STATUS_FIELD] })
+		NETWORK_FIELD,  QUALITY_OF_THE_CASE_FIELD, STILL_UNDER_INVESTIGATION_FIELD, REQUIRE_MORE_INFORMATION_FIELD, CASE_TYPE_FIELD, PURPOSE_FIELD, STATUS_FIELD,
+		INTERNAL_FACILITY_NOTES_FIELD] })
     wiredRecord({ error, data }) {
         if (error) {
             let message = 'Unknown error';
@@ -185,6 +192,8 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		fields[REQUIRE_MORE_INFORMATION_FIELD.fieldApiName] = this.requireMoreInformation;
 		fields[DELIVERY_OPTIONS_FIELD.fieldApiName] = this.deliveryOptions;
 		fields[STATUS_FIELD.fieldApiName] = this.status;
+		fields[INTERNAL_FACILITY_NOTES_FIELD.fieldApiName] = this.internalFacilityNotes;
+		
 		
         const recordInput = { fields };
         updateRecord(recordInput)

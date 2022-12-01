@@ -41,6 +41,10 @@
 											<lightning-input-field field-name="Stillunderinvestigation__c" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
 											<lightning-input-field field-name="Requiremoreinformation__c" onchange={handleRequireMoreInfoChange}></lightning-input-field>
 											<lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
+											<lightning-textarea max-lengt="300"	value={internalFacilityNotes} label="Internal Facility Notes" onchange={handleInternalFacilityNotesChange} variant="label-inline"
+												placeholder="Use this as a scribble pad for internal facility notes only and not investigation responses. Notes recorded here are not private. Please make use of the Still Under Investigation checkbox when adding updates to the investigation."
+											> 
+											</lightning-textarea>
 										</lightning-record-edit-form>
 										</br>
 										<lightning-button
