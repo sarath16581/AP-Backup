@@ -21,7 +21,7 @@ private class SalesRecordSharingModule_Test {
         testModule.onAfterInsert(testInsertData, uow);
         
         fflib_ArgumentCaptor shareRecordsCapture = fflib_ArgumentCaptor.forClass(Map<Id, SObject>.class);
-       
+        
         ((SalesRecordSharingService) MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).shareRecords((SObjectType)fflib_Match.anyObject(),(Map<Id, SObject>) shareRecordsCapture.capture(),fflib_Match.anyBoolean(),(ApplicationUnitOfWork)fflib_Match.anyObject());
         Map<Id, SObject> shareRecordsCaptureParams = (Map<Id, SObject>)shareRecordsCapture.getValue();
         
@@ -44,10 +44,11 @@ private class SalesRecordSharingModule_Test {
 		ApplicationUnitOfWork uow = new ApplicationUnitOfWork();       
         
         SalesRecordSharingService.SalesSharingObjectMapping objectMapping = 
-        new SalesRecordSharingService.SalesSharingObjectMapping();
-        objectMapping.objectType = Lead.getSObjectType();
-        objectMapping.lookupField = Lead.FirstName.getDescribe().getSObjectField();
-         
+        new SalesRecordSharingService.SalesSharingObjectMapping(
+        	Lead.getSObjectType(),
+        	Lead.FirstName.getDescribe().getSObjectField(),
+            'Name',
+            'Reason');
         
         // =====================================
         // Stubbing
