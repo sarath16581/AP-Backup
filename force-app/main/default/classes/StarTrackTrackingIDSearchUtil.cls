@@ -87,7 +87,9 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             }
             caseToBeUpdated.Delivery_Date__c = String.isNotBlank(article.CID__c) ? Date.valueOf(article.CID__c.left(4) + '-' + article.CID__c.mid(4, 2) + '-' + article.CID__c.right(2)) : null;
             System.debug('HASANTHA TEST MODULE 4  IN queable cse ' + caseToBeUpdated);
-            update caseToBeUpdated;
+
+            ElevatedSharingContext sharedContext = new ElevatedSharingContext();
+            sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
         } catch (Exception e) {
             UTIL_LoggingService.logHandledException(
                     e
@@ -126,5 +128,16 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             }
         }
         return false;
+    }
+
+    private without sharing class ElevatedSharingContext {
+
+        /**
+		 * Insert a list of sObject records in system mode
+		 * @param List<sObject>
+		*/
+        private void updateRecords(List<sObject> recordList) {
+            ApplicationDatabase.getInstance().dmlUpdate(recordList);
+        }
     }
 }
