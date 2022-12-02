@@ -793,9 +793,11 @@ public with sharing class MyNetworkCaseListController {
 
         Boolean showComponent = true;
         if(caseRecordId != null){
-            Case caseRecord = [Select Id, RecordType.DeveloperName From Case Where Id =: caseRecordId];
-
-           
+            
+			//query case record based on Id
+			Case caseRecord = CasesSelector.newInstance(new Set<SObjectField>{Case.PONUser__c, Case.Id})
+											.selectById(new Set<Id>{caseRecordId}, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE}).values()[0];
+			
             if(MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(caseRecord.RecordType.DeveloperName) && String.isBlank(caseInvestigationRecordId)) {
                 showComponent = false;
             }
@@ -949,12 +951,15 @@ public with sharing class MyNetworkCaseListController {
             //identifying user id to update on records.
             Id userId = isAssignSelf ? UserInfo.getUserId() : selectedUserId;
 
-            for(Case caseRecord: [Select id, PONUser__c from Case where id IN : caseIdSet]) {
-                caseRecord.PONUser__c = userId;
-                recordListToUpdate.add(caseRecord);
+			
+            //for(Case caseRecord: [Select id, PONUser__c from Case where id IN : caseIdSet]) {
+			for(Id caseId: CasesSelector.newInstance(new Set<SObjectField>{Case.PONUser__c, Case.Id}).selectById(caseIdSet).keySet()) {
+                //caseRecord.PONUser__c = userId;
+                recordListToUpdate.add(new Case(PONUser__c = userId, Id = caseId));
             }
 
             if(!caseInvestigationIdSet.isEmpty()) {
+				//replace with case investigation selectors
                 for(CaseInvestigation__c cInveRecord: [Select id, OwnerId from CaseInvestigation__c where id IN : caseInvestigationIdSet]) {
                     cInveRecord.OwnerId = userId;
                     recordListToUpdate.add(cInveRecord);
@@ -962,10 +967,14 @@ public with sharing class MyNetworkCaseListController {
             }
             
 
-            if(!recordListToUpdate.isEmpty()) {
-                update recordListToUpdate ;            
-                userName = isAssignSelf ? UserInfo.getName() : [Select Id, Name from User where id =: selectedUserId].Name;
-            }else {
+            if(!recordListToUpdate.isEmpty()) {			    
+				
+				//update recordListToUpdate ;
+				Database.SaveResult[] srList = ApplicationDatabase.getInstance().dmlUpdate(recordListToUpdate);
+
+                //userName = isAssignSelf ? UserInfo.getName() : [Select Id, Name from User where id =: selectedUserId].Name;
+                userName = isAssignSelf ? UserInfo.getName() : UsersSelector.newInstance().selectById(new Set<Id>{selectedUserId}).values()[0].Name;
+			}else {
                 errWhileUpdate = true;
                 ErrMsg = 'There was an issue when assigning the record. Please contact your System Administrator';
             }
