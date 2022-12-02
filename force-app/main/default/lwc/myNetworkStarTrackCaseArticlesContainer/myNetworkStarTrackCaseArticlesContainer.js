@@ -122,6 +122,7 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
                             Article__c: rec.articleId,
                             Case__c: this.recordId,
                             Network__c: network.name,
+                            ReferenceID__c: rec.referenceId,
                             sobjectType: 'CaseInvestigation__c'
                         }
                         recordsToSave.push(caseInvestigationRec);

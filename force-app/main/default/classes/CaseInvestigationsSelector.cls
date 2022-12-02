@@ -28,7 +28,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
     public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
             CaseInvestigation__c.Id, CaseInvestigation__c.Article__c, CaseInvestigation__c.Case__c,
-            CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c
+            CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c
 		};
 	}
 
@@ -48,20 +48,20 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	}
 
     /**
-     * Select case investigation records that are not closed and related to AP Network based on case Id, article id and network id
+     * Select case investigation records that are not closed and related to AP Network based on case Id, article number and network id
      */
-    public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<Id> articleIds, Set<Id> networkIds) {
-        return selectOpenCaseInvestigationsByCaseArticleNetworkId(caseIds, articleIds, networkIds, new Set<Object>());
+    public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds) {
+        return selectOpenCaseInvestigationsByCaseArticleNetworkId(caseIds, articleNums, networkIds, new Set<Object>());
     }
 
     /**
-     * Select case investigation records that are not closed and related to AP Network based on case Id, article id and network id
+     * Select case investigation records that are not closed and related to AP Network based on case Id, article number and network id
      */
-    public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<Id> articleIds, Set<Id> networkIds, Set<Object> selectorOptions) {
+    public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
                 .add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Case__c + ' in :caseIds'))
-                .add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Article__c + ' in :articleIds'))
+                .add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.ReferenceID__c + ' in :articleNums'))
                 .add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
                 .add(new QueryBuilder.CompareCondition(CaseInvestigation__c.Status__c).ne('Closed'))
 				.endConditions();

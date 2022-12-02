@@ -51,30 +51,30 @@ public with sharing class MyNetworkStarTrackCaseController {
 	public static SaveResult saveCaseInvestigations(List<CaseInvestigation__c> recordsToSave, String comments) {
         try {
             SaveResult result = new SaveResult();
-            Set<Id> articleIds = new Set<Id>();
+            Set<String> articleReferenceIds = new Set<String>();
             Set<Id> networkIds = new Set<Id>();
-            Map<Id, List<Id>> existingArticleToNetworkIdsMap = new Map<Id, List<Id>>();
+            Map<String, List<Id>> existingArticleReferenceToNetworkIdsMap = new Map<String, List<Id>>();
 
             //get article and network ids
             for (CaseInvestigation__c obj : recordsToSave) {
-                articleIds.add(obj.Article__c);
+                articleReferenceIds.add(obj.ReferenceID__c);
                 networkIds.add(obj.Network__c);
             }
 
-            //get existing case investigation related to the case, network and article ids
+            //get existing case investigation related to the case, network and article reference ids
             List<CaseInvestigation__c> existingCaseInvestigations = CaseInvestigationsSelector.newInstance()
                                                                     .selectOpenCaseInvestigationsByCaseArticleNetworkId(new Set<Id>{recordsToSave[0].Case__c},
-                                                                                                                    new Set<Id>(articleIds), new Set<Id>(networkIds)).values();
+                                                                                                                    new Set<String>(articleReferenceIds), new Set<Id>(networkIds)).values();
             for (CaseInvestigation__c eci : existingCaseInvestigations) {
-                if (existingArticleToNetworkIdsMap.containsKey(eci.Article__c)) {
-                    existingArticleToNetworkIdsMap.get(eci.Article__c).add(eci.Network__c);
+                if (existingArticleReferenceToNetworkIdsMap.containsKey(eci.ReferenceID__c)) {
+                    existingArticleReferenceToNetworkIdsMap.get(eci.ReferenceID__c).add(eci.Network__c);
                 } else {
-                    existingArticleToNetworkIdsMap.put(eci.Article__c, new List<Id> {eci.Network__c});
+                    existingArticleReferenceToNetworkIdsMap.put(eci.ReferenceID__c, new List<Id> {eci.Network__c});
                 }
             }
 
             for (CaseInvestigation__c ci : recordsToSave) {
-                if (existingArticleToNetworkIdsMap.containsKey(ci.Article__c) && existingArticleToNetworkIdsMap.get(ci.Article__c).contains(ci.Network__c)) {
+                if (existingArticleReferenceToNetworkIdsMap.containsKey(ci.ReferenceID__c) && existingArticleReferenceToNetworkIdsMap.get(ci.ReferenceID__c).contains(ci.Network__c)) {
                     result.status = Status.ERROR.name();
 					result.errorMessage = System.Label.MyNetworkDuplicateCaseInvestigationErrorMessage;
                 }

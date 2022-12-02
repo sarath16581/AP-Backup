@@ -58,8 +58,8 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
         List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
         List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0].Id, networks[0].Id, true);
-        List<CaseInvestigation__c> existingCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[1].Id, networks[1].Id, true);
+        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+        List<CaseInvestigation__c> existingCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[1], networks[1].Id, true);
         String stJson = '{"success":true,"id":' +'"'+ caseInvestigations[0].Id + '"'+ '}';
         Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
         List<Database.SaveResult> svResultList = new List<Database.SaveResult>{sr};
@@ -72,7 +72,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 
         // set up our responses
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockCaseInvestigationsSelector.selectOpenCaseInvestigationsByCaseArticleNetworkId((Set<Id>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, CaseInvestigation__c>{existingCaseInvestigations[0].Id => existingCaseInvestigations[0]});
+        MockUtility.Mocks.when(mockCaseInvestigationsSelector.selectOpenCaseInvestigationsByCaseArticleNetworkId((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, CaseInvestigation__c>{existingCaseInvestigations[0].Id => existingCaseInvestigations[0]});
         MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenReturn(svResultList);
         MockUtility.Mocks.stopStubbing();
 
@@ -101,7 +101,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
         List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
         List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0].Id, networks[0].Id, true);
+        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 
 		// =====================================
 		// Stubbing
@@ -110,7 +110,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 
         // set up our responses
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockCaseInvestigationsSelector.selectOpenCaseInvestigationsByCaseArticleNetworkId((Set<Id>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0]});
+        MockUtility.Mocks.when(mockCaseInvestigationsSelector.selectOpenCaseInvestigationsByCaseArticleNetworkId((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0]});
         MockUtility.Mocks.stopStubbing();
 
 		// =====================================

@@ -14,7 +14,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
 
     tableColumns = [{
             label: 'Article',
-            fieldName: 'ArticleID__c',
+            fieldName: 'Name',
             objName: 'Article__c',
             editable: false,
             sortedColumn: false,
@@ -83,6 +83,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
         return this.tableData;
     }
 
+    //get network pill items data object for the event messages
     getNeworkPillItems(item, column) {
         let networkPillItems = [];
         if (column.fieldType === 'PILL' && item !== null) {
@@ -95,6 +96,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
         return networkPillItems;
     }
 
+    //format url for the field
     getFieldUrl(item, column) {
         let target = null;
         if (column.fieldType === 'URL' && column.objName === 'Article__c') {
@@ -115,6 +117,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
             let networks = this.getSelectedNetworks(event.target.dataset.id);
             let row = {
                 articleId: event.target.dataset.id,
+                referenceId: event.target.dataset.referenceId,
                 networks: networks
             }
             this.selectedRows.push(row);
@@ -132,6 +135,7 @@ export default class MyNetworkStarTrackCaseArticlesDatatable extends LightningEl
         }));
     }
 
+    //get networks related to article selected
     getSelectedNetworks(articleId) {
         let selectedRowData = this.tableData.find(data => data.article.Id === articleId).rowData;
         return selectedRowData.find(row => row.fieldName === 'Facility__c').networkPillItems;

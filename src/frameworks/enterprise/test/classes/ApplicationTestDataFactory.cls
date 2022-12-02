@@ -90,10 +90,11 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
- 	public static List<CaseInvestigation__c> getCaseInvestigations(Integer count, Id caseId, Id articleId, Id networkId, Boolean generateIds) {
+ 	public static List<CaseInvestigation__c> getCaseInvestigations(Integer count, Id caseId, Article__c article, Id networkId, Boolean generateIds) {
 		return (List<CaseInvestigation__c>)maybeGenerateIds(populateSObjects(CaseInvestigation__c.SObjectType, new Map<SObjectField, Object> {
 				CaseInvestigation__c.Case__c => caseId,
-				CaseInvestigation__c.Article__c => articleId,
+				CaseInvestigation__c.Article__c => article.Id,
+				CaseInvestigation__c.ReferenceID__c => article.Name,
 				CaseInvestigation__c.Network__c => networkId
 				}, count), generateIds);
 	}

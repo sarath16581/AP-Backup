@@ -23,7 +23,7 @@
                     <tr class="slds-hint-parent" key={articleData.article.Id}>
                         <td scope="row">
                             <lightning-input type="checkbox" label="" variant="label-hidden" onchange={handleRowChange}
-                                data-id={articleData.article.Id}>
+                                data-id={articleData.article.Id} data-reference-id={articleData.article.Name}>
                             </lightning-input>
                         </td>
                         <template for:each={articleData.rowData} for:item="row">

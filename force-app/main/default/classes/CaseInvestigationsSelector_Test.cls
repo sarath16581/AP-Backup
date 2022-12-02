@@ -67,7 +67,7 @@ public with sharing class CaseInvestigationsSelector_Test {
 		networks[0].Org_ID__c = '1234';
 		insert networks;
 
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0].Id, networks[0].Id, false);
+        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
         caseInvestigations[0].Status__c = 'Open';
         insert caseInvestigations;
         
@@ -90,7 +90,7 @@ public with sharing class CaseInvestigationsSelector_Test {
 		System.assertEquals(1, resultsLimit.size(), 'Expected result size of 1');
 
         CaseInvestigationsSelector selectorOpenCaseInvestion = CaseInvestigationsSelector.newInstance();
-		Map<Id, CaseInvestigation__c> resultsOpenCaseInvestion = selectorOpenCaseInvestion.selectOpenCaseInvestigationsByCaseArticleNetworkId(new Set<Id> {cases[0].Id}, new Set<Id> {articles[0].Id}, new Set<Id> {networks[0].Id});
+		Map<Id, CaseInvestigation__c> resultsOpenCaseInvestion = selectorOpenCaseInvestion.selectOpenCaseInvestigationsByCaseArticleNetworkId(new Set<Id> {cases[0].Id}, new Set<String> {articles[0].Name}, new Set<Id> {networks[0].Id});
 		System.assertEquals(1, resultsOpenCaseInvestion.size(), 'Expected result size of 1');
 
         Test.stopTest();
