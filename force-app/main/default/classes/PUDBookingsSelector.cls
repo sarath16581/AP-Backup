@@ -8,6 +8,7 @@
  * 2021-08-13 - arjun.singh@austpost.com.au - Created
  * 2022-03-13 - Ranjeewa Silva - Added support for more selector options.
  * 2022-07-18 - Dattaraj Deshmukh - Added subquery for containers.
+ * 2022-09-14 - Removed 'Display_Start_Time__c' and added 'Display_ETA_To_Driver__c' to getSObjectFieldList set.
  */
 public virtual inherited sharing class PUDBookingsSelector extends ApplicationSelector {
 
@@ -57,10 +58,10 @@ public virtual inherited sharing class PUDBookingsSelector extends ApplicationSe
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField>{
 				PUD_Booking__c.Id, PUD_Booking__c.Name, PUD_Booking__c.Status__c, PUD_Booking__c.Article_Count__c, PUD_Booking__c.Parent_Booking__c,
-				PUD_Booking__c.Route_Lookup__c, PUD_Booking__c.Start_Time__c, PUD_Booking__c.Booking_Comments__c,
-				PUD_Booking__c.Display_Start_Time__c, PUD_Booking__c.Dwell_Time_Planned__c, PUD_Booking__c.Street__c,
+				PUD_Booking__c.Route_Lookup__c, PUD_Booking__c.Start_Time__c, PUD_Booking__c.Booking_Comments__c, 
+				PUD_Booking__c.Dwell_Time_Planned__c, PUD_Booking__c.Street__c,
 				PUD_Booking__c.City__c, PUD_Booking__c.State__c, PUD_Booking__c.Post_Code__c, PUD_Booking__c.Booking_Type__c,
-				PUD_Booking__c.RecordTypeId, PUD_Booking__c.Location__c
+				PUD_Booking__c.RecordTypeId, PUD_Booking__c.Location__c, PUD_Booking__c.Display_ETA_To_Driver__c
 		};
 	}
 
