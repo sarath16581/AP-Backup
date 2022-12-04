@@ -21,7 +21,7 @@
  * @changelog
  * 2022-12-01 - Ranjeewa Silva - Created
  */
-public inherited sharing class SalesRecordSharingService {
+public without sharing class SalesRecordSharingService {
 
 	// sales team segments
 	public static final String SALES_TEAM_TYPE_DIRECT = 'Direct';
