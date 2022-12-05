@@ -90,6 +90,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
 
             ElevatedSharingContext sharedContext = new ElevatedSharingContext();
             sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
+            System.enqueueJob(new TransferCaseQueueable(caseToBeUpdated));
         } catch (Exception e) {
             UTIL_LoggingService.logHandledException(
                     e
@@ -101,6 +102,42 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                     , LoggingLevel.ERROR
             );
         }
+    }
+
+    private without sharing class TransferCaseQueueable implements Queueable{
+        Case cse;
+        Set<Id> caseRecordTypes = new Set<Id>{
+                SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId()
+        };
+
+        public  TransferCaseQueueable(Case record) {
+            this.cse = record;
+        }
+
+        public void execute(QueueableContext context) {
+            try {
+                System.debug('Prerna about to update the TransferCaseQueuable');
+                if(this.cse.ArticleTest__c == null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId) && 'Web'.equalsIgnoreCase(this.cse.Origin)) {
+                    Case caseToBeUpdated = new Case();
+                    caseToBeUpdated.Id = cse.Id;
+                    caseToBeUpdated.OwnerId = transferCase(this.cse);
+                    ElevatedSharingContext sharedContext = new ElevatedSharingContext();
+                    sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
+                }
+
+            } catch (Exception ex) {
+                // Error Logged to Exception object for analysis
+                UTIL_LoggingService.logHandledException(
+                        ex
+                        , UserInfo.getOrganizationId()
+                        , StarTrack_Constants.STARTRACK
+                        , TransferCaseQueueable.class.getName()
+                        , 'TransferCaseQueueable'
+                        , StarTrack_Constants.ASYNC_QUEUEABLE
+                        , LoggingLevel.ERROR);
+            }
+        }
+
     }
 
     /**
@@ -140,4 +177,71 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             ApplicationDatabase.getInstance().dmlUpdate(recordList);
         }
     }
+
+    /**
+   * @description : This method is used to transfer the Startrack Cases created from the form and assign to valid queue
+   * as per StarTrack_Transfer_Case_Rule__c.
+   * @param Case whose Owner needs to be transferred.
+   */
+    public static Id transferCase(Case c){
+        StartTrackTransferCaseRulesSelector selector = StartTrackTransferCaseRulesSelector.newInstance();
+        Boolean ruleSatisfied = false;
+        String queueName = null;
+        Id ownerId = c.OwnerId;
+
+        List<StarTrack_Transfer_Case_Rule__c> tc_rules = selector.selectAll(new Set<Object>{
+                StartTrackTransferCaseRulesSelector.Options.ORDER_BY_ORDERFIELD,ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER});
+        try{
+        for(StarTrack_Transfer_Case_Rule__c tc_rule : tc_rules){
+            if((String.isNotBlank(tc_rule.Case_Purpose__c) ? c.Call_Purpose__c == tc_rule.Case_Purpose__c : true) && (String.isNotBlank(tc_rule.Case_RecordType__c) ? c.RecordType.Name == tc_rule.Case_RecordType__c : true) &&
+                    (String.isNotBlank(tc_rule.Case_Type__c) ? c.Enquiry_Type__c == tc_rule.Case_Type__c : true) && (String.isNotBlank(tc_rule.Customer_Stream__c) ? c.Account.StarTrack_Customer_Stream__c == tc_rule.Customer_Stream__c : true) &&
+                    (String.isNotBlank(tc_rule.Initial_Caller_Type__c) ? c.Initial_Caller_Type__c == tc_rule.Initial_Caller_Type__c : true) && (String.isNotBlank(tc_rule.Product_Group__c) ? c.ArticleTest__r.Product_Group__c == tc_rule.Product_Group__c : true) &&
+                    (tc_rule.Business_Solutions_Customer__c ? c.Business_Solutions_Customer__c == tc_rule.Business_Solutions_Customer__c : true) && tc_rule.Service_Cloud_Rule__c){
+                if(tc_rule.Queue_Name__c == StarTrack_Constants.TRANSFER_QUEUE) {
+                    if (!String.isBlank(c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c)) {
+                        queueName = c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c;
+                        ruleSatisfied = true;
+                        break;
+                    }
+                } else if(tc_rule.Queue_Name__c == StarTrack_Constants.ST_NETWORK_CUST_NOTIF && !StarTrack_Constants.CURRENT_USER_CAN_AUTO_CLOSE_CASE_FROM_TASK) {
+                    ruleSatisfied = false;
+                    continue;
+                } else{
+                   // c.OwnerId = queryQueue(tc_rule.Queue_Name__c);
+                    queueName = tc_rule.Queue_Name__c;
+                    ruleSatisfied = true;
+                    break;
+                }
+            }
+        }
+            if(queueName != null) {
+                GroupsSelector groupsSelector = GroupsSelector.newInstance();
+                Map<Id,Group> queue = groupsSelector.selectByGroupTypeAndName(new Set<String>{'Queue'},new Set<String>{queueName});
+
+                if(queue != null && !queue.isEmpty()){
+                   // c.OwnerId = queue.keySet().iterator().next();
+                    ownerId = queue.keySet().iterator().next();
+                } else{
+                   // c.OwnerId = null;
+                    ownerId = null;
+                    throw new ErrorException(StarTrack_Error_Messages__c.getValues('Queue not found') != null ?
+                            StarTrack_Error_Messages__c.getValues('Queue not found').Value__c :
+                            'Queue not found. Please make sure to reference the correct queue name.');
+                }
+
+            }
+        }catch (Exception e) {
+            System.debug('Error in transferring the Case'+e.getCause());
+            UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchModule.class.getName(), 'transferCase', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
+            ruleSatisfied = false;
+        }
+        System.debug('The Owner Id of the case is '+ownerId);
+        return ownerId;
+    }
+
+    /**
+    * Custom Exception
+    * */
+    class ErrorException extends Exception{}
+
 }
