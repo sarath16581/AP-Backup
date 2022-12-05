@@ -7,82 +7,92 @@
  * @test SalesRecordSharingModule_Test
  * @changelog
  * 2022-11-28 - Ken McGuire - Created.
- * 
+ * 2022-12-05 - Ken McGuire - added capability to disable sharing.
  */
 
 public inherited sharing class SalesRecordSharingModule extends ApplicationDomain.Module {
-   	private static final String APP = 'SalesRecordSharing'; 
-    private static final String ACTION_INSERT = 'INSERT';
-    private static final String ACTION_UPDATE = 'UPDATE';
-    // new instance
-    public static SalesRecordSharingModule newInstance() {
+	private static final String APP = 'SalesRecordSharing'; 
+	private static final String ACTION_INSERT = 'INSERT';
+	private static final String ACTION_UPDATE = 'UPDATE';
+	// new instance
+	public static SalesRecordSharingModule newInstance() {
 		return (SalesRecordSharingModule)Application.Utilities.newInstance(SalesRecordSharingModule.class);
 	}
-	
-    // Constructor
+ 
+	// Constructor
 	public SalesRecordSharingModule() {
-        // Setup which trigger events this module should respond to
+		// Setup which trigger events this module should respond to
 		getTriggerEvents().enableAfterInsert().enableAfterUpdate();
 	}
-    
+ 
 
-    // after insert trigger handler
-    public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-      	// retrive object type for sharing service
- 		Schema.sobjectType objectType = records[0].getSObjectType();
- 		// Share records using sharing service
-        try {
-        	SalesRecordSharingService.getInstance().shareRecords(objectType, new Map <Id, SObject>(records), false, uow);
-        } catch (Exception ex) {
-        	UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
-                                                    SalesRecordSharingModule.class.getName(), ACTION_INSERT, 
-                                                    objectType.getDescribe().getName(), LoggingLevel.ERROR);
-        }
+	// after insert trigger handler
+	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		
+		// retrive object type for sharing service
+		Schema.sobjectType objectType = records[0].getSObjectType();
+		
+		// do not share records if apex sharing is disabled for this object
+		if(TriggerHelper.isApexSharingDisabled(String.valueOf(objectType))) return;
+		
+		// Share records using sharing service
+		try {
+			SalesRecordSharingService.getInstance().shareRecords(objectType, new Map <Id, SObject>(records), false, uow);
+		} catch (Exception ex) {
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
+													SalesRecordSharingModule.class.getName(), ACTION_INSERT, 
+													objectType.getDescribe().getName(), LoggingLevel.ERROR);
+		}
 
-    }
-    
-    // after update trigger handler
-    public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-    	// retrieve object type for sharing service
-        Schema.sobjectType objectType = records[0].getSObjectType();
-        try {
-            // obtain sharing service instance
-            SalesRecordSharingService sharingService = SalesRecordSharingService.getInstance();
-    
-            // obtain any records which has a changed lookup to the parent record.
-            Map<Id,SObject> changedParentRecordMap = getChangedParentRecordMap(records,existingRecords, sharingService.getSharingConfiguration(objectType).lookupField);
-            
-            if (changedParentRecordMap.isEmpty()) {
-                return;
-            }
-            
-            // recalculate sharing rules for objects having changed parent lookup.
-                sharingService.shareRecords(objectType, changedParentRecordMap, true, uow);
-        } catch (Exception ex) {
-        	UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
-                                                    SalesRecordSharingModule.class.getName(), ACTION_UPDATE, 
-                                                    objectType.getDescribe().getName(), LoggingLevel.ERROR);
-        }
-    }
-  
-    /*
-	 * Filters updated records for changed values in a field.
-	 * @param records The specified SObject records
-	 * @param existingRecords The existing SObject record values
-	 * @return a Map of records for those records which have had a change to the specified field
-	 */    
-    private Map<Id,SObject> getChangedParentRecordMap(List<SObject> records, Map<Id, SObject> existingRecords, SObjectField field ) {
+	}
+ 
+	// after update trigger handler
+	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+	
+		// retrieve object type for sharing service
+		Schema.sobjectType objectType = records[0].getSObjectType();
+		
+		// do not share records if apex sharing is disabled for this object
+		if(TriggerHelper.isApexSharingDisabled(String.valueOf(objectType))) return;
+		
+		try {
+			// obtain sharing service instance
+			SalesRecordSharingService sharingService = SalesRecordSharingService.getInstance();
+	
+			// obtain any records which has a changed lookup to the parent record.
+			Map<Id,SObject> changedParentRecordMap = getChangedParentRecordMap(records,existingRecords, sharingService.getSharingConfiguration(objectType).lookupField);
+			
+			if (changedParentRecordMap.isEmpty()) {
+				return;
+			}
+			
+			// recalculate sharing rules for objects having changed parent lookup.
+				sharingService.shareRecords(objectType, changedParentRecordMap, true, uow);
+		} catch (Exception ex) {
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), APP, 
+													SalesRecordSharingModule.class.getName(), ACTION_UPDATE, 
+													objectType.getDescribe().getName(), LoggingLevel.ERROR);
+		}
+	}
 
-        Map<Id,SObject> changedParentRecordMap = new Map<Id,SObject>();
+	/*
+	* Filters updated records for changed values in a field.
+	* @param records The specified SObject records
+	* @param existingRecords The existing SObject record values
+	* @return a Map of records for those records which have had a change to the specified field
+	*/    
+	private Map<Id,SObject> getChangedParentRecordMap(List<SObject> records, Map<Id, SObject> existingRecords, SObjectField field ) {
 
-        for (SObject currentRecord : records) {
-            String currentFieldValue = (String)currentRecord.get(field);
-            String existingFieldValue = (String)(existingRecords.get(currentRecord.id)).get(field);
-            if (currentFieldValue != existingFieldValue) {
-                changedParentRecordMap.put(currentRecord.id,currentRecord);
-            }
-        }
-                                   
-        return changedParentRecordMap;
-    }
+		Map<Id,SObject> changedParentRecordMap = new Map<Id,SObject>();
+
+		for (SObject currentRecord : records) {
+			String currentFieldValue = (String)currentRecord.get(field);
+			String existingFieldValue = (String)(existingRecords.get(currentRecord.id)).get(field);
+			if (currentFieldValue != existingFieldValue) {
+				changedParentRecordMap.put(currentRecord.id,currentRecord);
+			}
+		}
+									
+		return changedParentRecordMap;
+	}
 }
