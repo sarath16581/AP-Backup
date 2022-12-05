@@ -63,10 +63,17 @@ public without sharing class MyNetworkCaseUserResponseController {
         Boolean showComponent = false;
         if(caseInvestigationRecordId != null){
 
-			//todo: Query using selectors.
-            CaseInvestigation__c caseInvestigationRecord = [Select Id, Case__r.RecordType.DeveloperName From CaseInvestigation__c Where Id =: caseInvestigationRecordId];
-           
-            if(MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(caseInvestigationRecord.Case__r.RecordType.DeveloperName) && caseInvestigationRecordId != null) {
+			Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>> {Case.getSObjectType() => new Set<SObjectField>{Case.RecordTypeId}};
+			//query case investigation record along with case details
+			CaseInvestigation__c caseInvestigationRecord = CaseInvestigationsSelector.newInstance(1, fieldOverrides).selectById(new Set<Id>{caseInvestigationRecordId}).values()[0];	
+			
+			//get case record type ids
+			Map<Id, Schema.RecordTypeInfo> caseRecordTypes = Schema.SObjectType.Case.getRecordTypeInfosById();
+			String rtDeveloperName = caseRecordTypes.get(caseInvestigationRecord.Case__r.RecordTypeId).getDeveloperName();
+
+
+			//check if case is STAR Track case.
+            if(MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(rtDeveloperName) && caseInvestigationRecordId != null) {
                 showComponent = true;
             }
         }

@@ -9,16 +9,29 @@
  * @tag Name SObject
  * @domain Core
  * @changelog
+ * 				2022-12-05	dattaraj.deshmukh@austpost.com.au	Added Options ENUM, added overridden 'newQueryBuilder()' method.
  */
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
-    
+	public enum Options {
+		WITH_RECORDTYPES, WITH_CASE_DETAILS
+	}
+
     public static CaseInvestigationsSelector newInstance() {
 		return (CaseInvestigationsSelector)Application.Selectors.newInstance(CaseInvestigationsSelector.class);
 	}
 
     public static CaseInvestigationsSelector newInstance(Integer recordLimit) {
 		return (CaseInvestigationsSelector)Application.Selectors.newInstance(CaseInvestigationsSelector.class).setLimit(recordLimit);
+	}
+
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static CaseInvestigationsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		CaseInvestigationsSelector selector = (CaseInvestigationsSelector)Application.Selectors.newInstance(CaseInvestigationsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
 	}
 
     public virtual override SObjectType getSObjectType() {
@@ -67,4 +80,19 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 				.endConditions();
 		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
     }
+
+	/**
+	 * overridden method to generate QueryBuilder instance
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if(selectorOptions.contains(Options.WITH_RECORDTYPES)) {
+			builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(selectorOptions), 'RecordType');
+		}
+		if(selectorOptions.contains(Options.WITH_CASE_DETAILS)) {
+			builder.addRelatedFields(CasesSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Case__r');
+		}
+		return builder;
+	}
 }
