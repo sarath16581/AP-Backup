@@ -116,8 +116,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
 
         public void execute(QueueableContext context) {
             try {
-                System.debug('Prerna about to update the TransferCaseQueuable');
-                if(this.cse.ArticleTest__c == null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId) && 'Web'.equalsIgnoreCase(this.cse.Origin)) {
+                if(this.cse.ArticleTest__c != null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId) && 'Web'.equalsIgnoreCase(this.cse.Origin)) {
                     Case caseToBeUpdated = new Case();
                     caseToBeUpdated.Id = cse.Id;
                     caseToBeUpdated.OwnerId = transferCase(this.cse);
