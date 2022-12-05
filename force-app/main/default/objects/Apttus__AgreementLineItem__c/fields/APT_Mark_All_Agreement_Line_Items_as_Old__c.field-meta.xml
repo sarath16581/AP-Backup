@@ -5,6 +5,7 @@
     <formula>Apttus__AgreementId__r.APT_Mark_All_Agreement_Line_Items_as_Old__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Mark All Agreement Line Items as Old</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

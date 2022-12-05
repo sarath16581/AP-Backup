@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VIC_Contractor_Routes</fullName>
+    <columns>NAME</columns>
+    <columns>Depot__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>MTN5021,MTN5022,MTN5023,MTN5024,MTN5025,MTN5026,MTN5027,MTN5028,MTN5029,MTN5030,MTN5031,MTN5032,MTN5033,MTN5034 MTN5035,MT5017,MT5018,MT5019,MT5020,DT5010,DT2011,DT5012,DT5013,DT5014,DT5015,DT5016</value>
+    </filters>
+    <label>VIC - Contractor Routes</label>
+</ListView>

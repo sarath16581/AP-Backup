@@ -14,6 +14,11 @@
         <operation>equals</operation>
         <value>Case.Sales_Manager_Review_Exception</value>
     </filters>
+    <filters>
+        <field>Reason_Code__c</field>
+        <operation>contains</operation>
+        <value>OPC1.8 - Lost Opportunity</value>
+    </filters>
     <label>Sales Manager Review</label>
     <sharedTo>
         <group>Sales_Business_System_Team</group>

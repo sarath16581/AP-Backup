@@ -7,7 +7,6 @@
     <inlineHelpText>The encoded column tokens.</inlineHelpText>
     <label>Keys</label>
     <length>32768</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

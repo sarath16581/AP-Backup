@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HasExtraCover__c</fullName>
+    <description>2022-11-01 - moved from Apex logic into formula. Used in Apex classes to determine business logic</description>
+    <externalId>false</externalId>
+    <formula>AND(
+  NOT(ISBLANK(ArticleID__c)),
+  NOT(ISBLANK(InsuranceAmount__c)),
+  InsuranceAmount__c &gt; 0,
+  ISBLANK(MLID__c)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Determine if the Article is considered to have Extra Cover based on Insurance Amount and Merchant Location ID (MLID)</inlineHelpText>
+    <label>Has Extra Cover</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

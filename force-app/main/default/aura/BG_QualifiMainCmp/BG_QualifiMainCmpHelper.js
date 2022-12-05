@@ -140,8 +140,6 @@
     },
     loadProductsSelectionCmp: function(cmp, event) {
         cmp.set('v.editFlow', event.getParam('v.editFlow'));
-      	// Chaitanya Added
-        debugger;
         cmp.set('v.hasBgSalesPermissionSet', event.getParam('hasBgSalesPermissionSet'));
         cmp.set('v.discoveryCategoryQuestions', event.getParam('discoveryCategoryQuestions'));
         cmp.set('v.existingQualification', event.getParam('existingQualification'));

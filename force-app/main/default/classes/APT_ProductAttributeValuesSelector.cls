@@ -28,8 +28,7 @@ public virtual inherited sharing class APT_ProductAttributeValuesSelector extend
             Apttus_Config2__ProductAttributeValue__c.Id,  Apttus_Config2__ProductAttributeValue__c.APT_Selected_Lodgement_Zone__c, Apttus_Config2__ProductAttributeValue__c.APT_Additional_Lodgement_Zone_1__c, 
             Apttus_Config2__ProductAttributeValue__c.APT_Additional_Lodgement_Zone_2__c, Apttus_Config2__ProductAttributeValue__c.Apttus_Config2__LineItemId__c,Apttus_Config2__ProductAttributeValue__c.APT_Customer_Tier__c,
             Apttus_Config2__ProductAttributeValue__c.APTS_Price_Structure__c ,Apttus_Config2__ProductAttributeValue__c.Applied_PSR__c,Apttus_Config2__ProductAttributeValue__c.SAP_Weight_Rounding__c,
-            Apttus_Config2__ProductAttributeValue__c.SAP_Rating_Plan_DWT_Conversion_Factor__c,Apttus_Config2__ProductAttributeValue__c.SAP_Cubic_Conversion_Factor__c
-            
+            Apttus_Config2__ProductAttributeValue__c.SAP_Rating_Plan_DWT_Conversion_Factor__c,Apttus_Config2__ProductAttributeValue__c.SAP_Cubic_Conversion_Factor__c,Apttus_Config2__ProductAttributeValue__c.APT_StarTrack_Service_Type__c,Apttus_Config2__ProductAttributeValue__c.Service_Code_Startrack__c
         };
     }
 

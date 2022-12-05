@@ -5,5 +5,10 @@
     <columns>Network__c</columns>
     <columns>UniqueKey__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Suburb__c</field>
+        <operation>equals</operation>
+        <value>Spring mountain</value>
+    </filters>
     <label>All</label>
 </ListView>

@@ -123,9 +123,9 @@
     </layoutSections>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>Public_Holiday_Name__c</fields>
+        <fields>PUBLIC_Holiday_Name__c</fields>
         <fields>State__c</fields>
-        <fields>Total_Public_Holiday__c</fields>
+        <fields>Total_PUBLIC_Holiday__c</fields>
         <fields>Q1_Holiday__c</fields>
         <fields>Q2_Holiday__c</fields>
         <fields>Q3_Holiday__c</fields>

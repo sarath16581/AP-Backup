@@ -2,7 +2,7 @@
  * @File Name          : STHSCommunityService.cls
  * @Description        : Service class for StarTrack Help and Support Community
  * @Author             : Mahesh Parvathaneni
- * @Modified           : Jacob Isaac - REQ2995236 - Commented out Calc_Email_Address field
+ * @Modified           : Mahesh Parvathaneni - DDS-13293,13294 - Reference Id update to the case
  **/
 
 public inherited sharing class STHSCommunityService {
@@ -42,7 +42,7 @@ public inherited sharing class STHSCommunityService {
         caseObj.Notification_Required__c = true;
         caseObj.Recent_Caller_Pref_Method_of_Contact__c = caseObj.Initical_CallPreferred_method_of_contact__c = STHSConstants.PREF_CONTACT_METHOD_EMAIL;
         caseObj.Recent_Caller_Type__c = STHSConstants.CASE_CONTYPE_SENDER;
-        //caseObj.StarTrack_Calc_Email_Address__c = StarTrackUtil.getCaseSTCalcEmailAddress(String.valueOf(caseObj.SuppliedEmail)); //REQ2995236 - Commented out this line
+        caseObj.StarTrack_Calc_Email_Address__c = StarTrackUtil.getCaseSTCalcEmailAddress(String.valueOf(caseObj.SuppliedEmail));
 
         // if there is an active case assignment rule set the DML Options to ensure assignment rule is executed on case insert
         if (CASE_ASSIGNMENT_RULE.Id != null) {
@@ -69,6 +69,10 @@ public inherited sharing class STHSCommunityService {
             caseObj.Recent_Caller_Phone_Number__c = phNumber;
         }
         caseObj.Recent_Caller_Email__c = caseObj.Initial_Caller_Email__c = formData.get(STHSConstants.FORM_DATA_EMAIL);
+		//DDS-13293,13294 Populate reference Id in the case
+        if (formData.get(STHSConstants.FORM_DATA_REFERENCE) != null) {
+            caseObj.ReferenceID__c = formData.get(STHSConstants.FORM_DATA_REFERENCE);
+        }
     }
 
     //function to check mobile number

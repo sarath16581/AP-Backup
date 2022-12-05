@@ -267,8 +267,6 @@ public with sharing class APT_GuidedSellingFlowController {
         pageRef.getParameters().put(PARAM_CALLER_PAGE_ID, callerPage);
                     
         system.debug('!!..PARAM_INTERVIEW_NAME ' + PARAM_INTERVIEW_NAME);
-         system.debug('Check Page Ref in Class'+pageRef);
-        system.debug('Check pageURL in Class'+pageURL);
         pageRef.getParameters().putAll(base.getFinishPage().getParameters());
         pageRef.getParameters().put(PARAM_INTERVIEW_NAME, APT_Constants.CASE_ORIGIN_SALESFORCE);        
         // add step name

@@ -10,6 +10,7 @@ HYPERLINK(&quot;/apex/Apttus__OfflineDocumentImport?id=&quot;&amp;Id+&quot;&amp;
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Import Document Signed By Customer Only</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

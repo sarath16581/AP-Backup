@@ -293,13 +293,13 @@ public class SSSW_MyNetworkResponsePageContr {
                             
                  for(PON_Update_EmailTemplates__c mp: ponCS){
                        //check if case condition matches the custom setting value
-                       if(relatedCse.ResolutionCode__c!='MyNetwork Resolution'){
+                    if(relatedCse.ResolutionCode__c!='MyNetwork Resolution'){
                         if(caseCond.equalsIgnoreCase(mp.CaseCondition__c)) {
                             templateName = mp.Template_API_Name__c;
                             system.debug(templateName);
                             doNotShowEmail = false;
                         }
-                       }
+                     }   
                  }
                             
                     if(!String.isBlank(templateName)) { // if valid template exists, continue for automation email

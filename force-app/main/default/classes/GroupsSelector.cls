@@ -12,6 +12,7 @@
 * 2020-10-21 - Ranjeewa Silva	- Added new methods to select by developer name.
 * 2020-12-18 - Seth Heang   - Added new methods to select by Group Type AND Group Name
 * 2021-02-17 - Seth Heang - Updated - Add selectByGroupTypeAndDeveloperName method 
+* 2022-11-06 - George Nguyen - added selectOmniQueues
 */
 public inherited sharing class GroupsSelector extends ApplicationSelector {
 
@@ -38,6 +39,20 @@ public inherited sharing class GroupsSelector extends ApplicationSelector {
 		};
 	}
 
+	public virtual override QueryBuilder newQueryBuilder() {
+		return newQueryBuilder(new Set<Object>());
+	}
+
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if(selectorOptions.contains(Options.WITH_OWNER)) {
+			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
+		}
+
+		return builder;
+	}
+
 	/**
 	 * @description Run a simple query to get records based on Id's
 	 */
@@ -49,7 +64,7 @@ public inherited sharing class GroupsSelector extends ApplicationSelector {
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public Map<Id, Group> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Group.Id + ' in :ids')).endConditions();
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Group.Id + ' in :ids')).endConditions();
 		return new Map<Id, Group>((List<Group>)Database.query(qb.toSoqlString()));
 	}
 
@@ -71,10 +86,6 @@ public inherited sharing class GroupsSelector extends ApplicationSelector {
 	public Map<Id, Group> selectByDeveloperName(Set<String> developerNames, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Group.DeveloperName + ' in :developerNames')).endConditions();
 		return new Map<Id, Group>((List<Group>)Database.query(qb.toSoqlString()));
-	}
-
-	public virtual override QueryBuilder newQueryBuilder() {
-		return newQueryBuilder(new Set<Object>());
 	}
 	
 	/**
@@ -100,8 +111,8 @@ public inherited sharing class GroupsSelector extends ApplicationSelector {
 		.add(new QueryBuilder.SimpleCondition(Group.Type + ' = :groupType'))
 		.add(new QueryBuilder.SimpleCondition(Group.Name + ' = :groupName'))
 		.endConditions();
-        return new Map<Id, Group>((List<Group>)Database.query(qb.toSoqlString()));
-        
+		return new Map<Id, Group>((List<Group>)Database.query(qb.toSoqlString()));
+		
 	}
 
 	/**
@@ -127,20 +138,22 @@ public inherited sharing class GroupsSelector extends ApplicationSelector {
 		.add(new QueryBuilder.SimpleCondition(Group.Type + ' = :groupType'))
 		.add(new QueryBuilder.SimpleCondition(Group.DeveloperName + ' = :groupDevName'))
 		.endConditions();
-        return new Map<Id, Group>((List<Group>)Database.query(qb.toSoqlString()));
-        
+		return new Map<Id, Group>((List<Group>)Database.query(qb.toSoqlString()));
 	}
 
-	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+	/**
+	 * @description Run a simple query to get records based on group type = Queue and Routing Config enabled
+	 * @param selectorOptions Additional selector options
+	 * @return Queues with Routing Configs
+	 */
+	public Map<Id, Group> selectOmniQueues(Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+							.addConditions()
+							.add(new QueryBuilder.SimpleCondition(Group.Type + ' = \'Queue\''))
+							.add(new QueryBuilder.SimpleCondition(Group.QueueRoutingConfigId + ' != NULL'))
+							.endConditions();
 
-		if(selectorOptions.contains(Options.WITH_OWNER)) {
-			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
-		}
-
-		return builder;
+		return new Map<Id, Group>((List<Group>)Database.query(qb.toSoqlString()));
 	}
-
-
 
 }

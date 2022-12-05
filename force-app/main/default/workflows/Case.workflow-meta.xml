@@ -869,7 +869,7 @@
         <description>Sales Implementation Request</description>
         <protected>false</protected>
         <recipients>
-            <recipient>reed.feely@auspost.com.au</recipient>
+            <recipient>helen.tonkin@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -903,7 +903,7 @@
         <description>Sales Implementation Request - Reminder</description>
         <protected>false</protected>
         <recipients>
-            <recipient>reed.feely@auspost.com.au</recipient>
+            <recipient>helen.tonkin@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -1248,17 +1248,6 @@
         <operation>Literal</operation>
         <protected>false</protected>
         <reevaluateOnChange>true</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>CAR_Update_LastIncomingEmail</fullName>
-        <description>CAR - Update LastIncomingEmail</description>
-        <field>LastIncomingEmailAddress__c</field>
-        <formula>Requestor__r.Email</formula>
-        <name>CAR - Update LastIncomingEmail</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>CIA_F_U_on_Priority_to_Critic</fullName>
@@ -2155,7 +2144,6 @@ IF(AND (Customer_Type__c =&quot;Consumer&quot; || Customer_Type__c =&quot;Silver
 - Gunith REQ2122521: Support Customer Care Escalation</description>
         <field>PriorityNumber__c</field>
         <formula>IF(ISPICKVAL(EnquirySubType__c, &apos;Customer Care Escalation&apos;), 100,
-IF(Contact.Email=&apos;aukad.aupost@dhl.com.invalid&apos;,80,
 
 IF(ISPICKVAL(ProductSubCategory__c, &apos;Premium Unaddressed Mail&apos;), 70,
 			
@@ -2195,7 +2183,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
 
 (IF(AND (Customer_Type__c =&quot;Consumer&quot; || Customer_Type__c =&quot;Silver&quot; || Customer_Type__c = &quot;MyPost Business&quot;, NOT(ISPICKVAL(Status,&apos;Customer Responded&apos;))),10,10
 
-)))))))))))))))))))))))))))</formula>
+))))))))))))))))))))))))))</formula>
         <name>SSSW - Set Priority Number NCCC</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
@@ -4721,7 +4709,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_to_Admin_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>false</active>
+        <active>true</active>
         <criteriaItems>
             <field>Case.Subject</field>
             <operation>equals</operation>
@@ -4790,7 +4778,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 3 AND 4 AND 5 AND 2 AND 6 AND 7 AND 8</booleanFilter>
+        <booleanFilter>1 AND 3 AND 4 AND 5 AND 2</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4815,21 +4803,6 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.Type</field>
             <operation>equals</operation>
             <value>Investigation,Feedback</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.IsHLC__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.IsCR__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.OwnerId</field>
-            <operation>notEqual</operation>
-            <value>SSSW High Level Complaints</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -5569,29 +5542,5 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         <protected>false</protected>
         <status>Completed</status>
         <subject>Bounce Email Sent to Customer</subject>
-    </tasks>
-    <tasks>
-        <fullName>CARCase_Closed_Bounce_Back</fullName>
-        <assignedToType>owner</assignedToType>
-        <description>An automatic email response email has been sent to the customer who had requested an update for this Closed Case.</description>
-        <dueDateOffset>0</dueDateOffset>
-        <notifyAssignee>false</notifyAssignee>
-        <offsetFromField>Case.Closed_Date__c</offsetFromField>
-        <priority>Normal</priority>
-        <protected>false</protected>
-        <status>Completed</status>
-        <subject>Case Closed Bounce Back</subject>
-    </tasks>
-    <tasks>
-        <fullName>Send_email_to_requstor_on_closed_case</fullName>
-        <assignedToType>owner</assignedToType>
-        <description>An automatic email response email has been sent to the requestor on the case has closed.</description>
-        <dueDateOffset>0</dueDateOffset>
-        <notifyAssignee>false</notifyAssignee>
-        <offsetFromField>Case.Closed_Date__c</offsetFromField>
-        <priority>Normal</priority>
-        <protected>false</protected>
-        <status>Completed</status>
-        <subject>Send email to requstor on closed case</subject>
     </tasks>
 </Workflow>

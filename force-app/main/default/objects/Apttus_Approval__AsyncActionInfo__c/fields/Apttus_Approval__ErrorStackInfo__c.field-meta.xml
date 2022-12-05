@@ -7,7 +7,6 @@
     <inlineHelpText>Technical information about the failure. Error call stack and other related information</inlineHelpText>
     <label>Error Stack Info</label>
     <length>32768</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

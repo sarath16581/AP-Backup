@@ -357,6 +357,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Area_to_Benefit__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Ariba_Prep_work_Required__c</field>
             <table>Case</table>
         </columns>
@@ -2207,6 +2212,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>MPB_BSP_Tech_Enquiry_Type__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>MyPost_Number__c</field>
             <table>Case</table>
         </columns>
@@ -2448,6 +2458,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Other_ATL_Instructions__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Other_CoE_s_Involved__c</field>
             <table>Case</table>
         </columns>
         <columns>
@@ -3828,6 +3843,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Network__c.Contact_Facility__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>

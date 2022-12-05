@@ -38,6 +38,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>CapacityModel</field>
+            <table>AgentWork</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>CloseDateTime</field>
             <table>AgentWork</table>
         </columns>

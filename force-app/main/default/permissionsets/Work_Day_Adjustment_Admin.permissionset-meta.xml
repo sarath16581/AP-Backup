@@ -713,7 +713,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Public_Holiday__c.Public_Holiday_Name__c</field>
+        <field>Public_Holiday__c.PUBLIC_Holiday_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -748,7 +748,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Public_Holiday__c.Total_Public_Holiday__c</field>
+        <field>Public_Holiday__c.Total_PUBLIC_Holiday__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

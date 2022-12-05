@@ -12,7 +12,7 @@
     <columns>Effective_Date__c</columns>
     <columns>CREATED_DATE</columns>
     <columns>Depot__c</columns>
-    <filterScope>Everything</filterScope>
+    <filterScope>Mine</filterScope>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
@@ -39,8 +39,4 @@
         <value>2198,2199,2200,2211,2212,2213,2214</value>
     </filters>
     <label>Leightonfield - MPB Bookings Today</label>
-    <language>en_US</language>
-    <sharedTo>
-        <group>LEIGHTONFIELD_VAN_OPS</group>
-    </sharedTo>
 </ListView>

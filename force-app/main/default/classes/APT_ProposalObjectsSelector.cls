@@ -20,7 +20,7 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
     public static APT_ProposalObjectsSelector newInstance(Integer recordLimit) {
         return (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setLimit(recordLimit);
     }
-
+    
 	/**
 	* @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	*						  This approach removes data consistency and prevents possible caching of results
@@ -36,8 +36,8 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
             Apttus_Proposal__Proposal__c.Id,Apttus_Proposal__Proposal__c.createddate,Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Expiration_Date__c,Apttus_Proposal__Proposal__c.APT_Method_of_Payment__c
-        };
-    }
+                };
+                    }
     
     /**
 * @description Run a simple query to get records based on Apttus shopping cart config Id's

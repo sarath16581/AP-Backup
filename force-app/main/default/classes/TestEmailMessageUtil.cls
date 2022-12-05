@@ -1,15 +1,7 @@
-/**************************************************
-Description:    Test class to cover EmailMessageUtil
-History:
---------------------------------------------------
-2022-03-25  naveen.rajanna@auspost.com.au   Update API version to 52 and fix failing test class
-2022.05.11  saiswetha.pingali@auspost.com.au REQ2723491 - Removed references for snapIT related.
-
-**************************************************/@isTest
+@isTest
 private class TestEmailMessageUtil {
     //Added by David Catindoy - Nov 29, 2016
-    @testSetup 
-    static void testDataCreate() {
+    @testSetup static void testDataCreate() {
         StarTrack_Settings__c customSetting = StarTrack_Settings__c.getOrgDefaults();
         customSetting.Email2Case_Check_Last_X_Days__c = 2;
         customSetting.ST_Duplicate_Inbound_Email_Prefix__c = 'DUPLICATE EMAIL - ';
@@ -39,10 +31,18 @@ private class TestEmailMessageUtil {
 
         EmailMessage newEmail = new EmailMessage(ParentId = listOfCases[0].Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'RE: FWD: FW: Update Consignment Details', HTMLBody = 'Sample', ToAddress = 'support@test.com', Headers = 'Return-Path: Testing header');
         insert newEmail;
+                }
+
+    //Added by David Catindoy - Nov 29, 2016
+    @testSetup static void createUser(){
+        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
+        UserRole r = [SELECT Id FROM UserRole WHERE Name = 'User Support - Business Systems Consultant'];
+        User systemSupport = new User(Alias = 'ssupp', Email='systemsupport@testorg.a', EmailEncodingKey='UTF-8', FirstName = 'System', LastName='Support', LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = p.Id, UserRoleId = r.Id, TimeZoneSidKey='America/Los_Angeles', UserName='systemsupport@testorg.a');
+        Database.insert(systemSupport);
     }
     
     @isTest
-    private static void testCloningPermanentlyClosedCases() {
+    static void testCloningPermanentlyClosedCases() {
         Case c = TestDataProvider.createCase('subject', 'description', 'SSSWDelivery');
         c.Status = 'Closed';
         c.ResolutionCode__c = 'Network resolution';
@@ -57,73 +57,87 @@ private class TestEmailMessageUtil {
         q.CusEmail__c = [select address from orgwideemailaddress where displayname='Australia Post' limit 1].address;
         q.NetworkEmail__c = [select address from orgwideemailaddress where displayname='Customer Enquiry' limit 1].address;
         insert q;
-
         Test.startTest();
-            SpamEmail__c spam = TestUtility.createSpamEmail('test@test.com');
-            Database.insert(spam);
-
-            EmailMessage email = new EmailMessage();
-            email.ParentId = c.Id;
-            email.Incoming = true;
-            email.Subject = 'subject';
-            email.TextBody = 'text body';
-            email.FromAddress = 'test@test.com';
-            email.FromName = 'from name';
-            email.Headers = 'Return-Path: Testing header';
-            email.ToAddress = [select address from orgwideemailaddress where displayname='Customer Enquiry' limit 1].address;
-            email.MessageDate = Datetime.now();
-            insert email;
-        Test.stopTest();        
-    }
-    
-    @isTest
-    private static void testStarTrackDuplicateInboundEmail(){        
-        Id deliveryRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Delivery Enquiry').getRecordTypeId();
-        Case newCase = new Case(RecordTypeId = deliveryRecType, Subject = 'RE: FWD: FW: Update Consignment Details', Origin = StarTrack_Constants.CASE_ORIGIN_BSC);
-        insert newCase;
         
-        EmailMessage newEmail = new EmailMessage(ParentId = newCase.Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'RE: FWD: FW: Update Consignment Details', HTMLBody = 'Sample', ToAddress = 'support@test.com', Headers = 'Return-Path: Testing header');
-        Test.startTest();
-            insert newEmail;
+        SpamEmail__c spam = TestUtility.createSpamEmail('test@test.com');
+        Database.insert(spam);
+
+        EmailMessage email = new EmailMessage();
+        email.ParentId = c.Id;
+        email.Incoming = true;
+        email.Subject = 'subject ';
+        email.TextBody = 'text body';
+        email.FromAddress = 'test@test.com';
+        email.FromName = 'from name';
+        email.Headers = 'Return-Path: Testing header';
+        email.ToAddress = [select address from orgwideemailaddress where displayname='Customer Enquiry' limit 1].address;
+        email.MessageDate = Datetime.now();
+        insert email;
+
         Test.stopTest();
         
-        newCase = [SELECT Id, Subject, ResolutionCode__c, Status, Enquiry_Type__c, Call_Purpose__c FROM Case WHERE Id =: newCase.Id];
-        System.assertEquals(StarTrack_Constants.CASE_RESOLUTION_DUPLICATE, newCase.ResolutionCode__c);
-        System.assertEquals(StarTrack_Constants.CASE_STAT_CLOSED, newCase.Status);
-        System.assertEquals(StarTrack_Constants.CASE_ENQUIRY_DEF, newCase.Enquiry_Type__c);
-        System.assertEquals(StarTrack_Constants.CASE_PURPOSE_DEF, newCase.Call_Purpose__c);
     }
     
-    @isTest
-    private static void testVOCInboundEmail(){
-        Case caseRec = [SELECT Id FROM Case WHERE Subject = 'Test VOC Enquiry' LIMIT 1];
-        Id incidentRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Voice of Customer Incident').getRecordTypeId();
-        Case vocIncident = new Case(Subject = 'Test VOC 1', Description = 'Sample VOC 1', ParentId = caseRec.Id, Recent_Caller_First_Name__c = 'David', Recent_Caller_Last_Name__c = 'Catindoy', Parent_Status__c = 'New', Status = 'New', Business_Unit__c = 'Commercial', Nominated_Advocate_Email__c = 'david.catindoy@cloudsherpas.com', Nominated_Advocate__c = 'David', CallBackRequired__c = true, RecordTypeId = incidentRecType);
-        vocIncident.BusinessHoursId = [SELECT Id FROM BusinessHours WHERE IsDefault = true LIMIT 1].Id;
+    static testmethod void testStarTrackDuplicateInboundEmail(){
+        User systemSupport = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'ssupp' LIMIT 1];
         
-        Test.startTest();            
-            Database.insert(vocIncident); 
-            EmailMessage newEmail = new EmailMessage(ParentId = vocIncident.Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'VOC Incident Inbound Email ', HTMLBody = 'Sample', ToAddress = 'support@test.com');
-            Database.insert(newEmail);
-        Test.stopTest();
+        System.runAs(systemSupport){
+            Id deliveryRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Delivery Enquiry').getRecordTypeId();
+            Case newCase = new Case(RecordTypeId = deliveryRecType, Subject = 'RE: FWD: FW: Update Consignment Details', Origin = StarTrack_Constants.CASE_ORIGIN_BSC);
+            Database.insert(newCase);
+            String previousCaseSubject = newCase.Subject;
+            
+            Test.startTest();
+                EmailMessage newEmail = new EmailMessage(ParentId = newCase.Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'RE: FWD: FW: Update Consignment Details', HTMLBody = 'Sample', ToAddress = 'support@test.com', Headers = 'Return-Path: Testing header');
+                Database.insert(newEmail);
+            Test.stopTest();
+            
+            newCase = [SELECT Id, Subject, ResolutionCode__c, Status, Enquiry_Type__c, Call_Purpose__c FROM Case WHERE Id =: newCase.Id];
+            System.assertEquals(StarTrack_Constants.CASE_RESOLUTION_DUPLICATE, newCase.ResolutionCode__c);
+            System.assertEquals(StarTrack_Constants.CASE_STAT_CLOSED, newCase.Status);
+            System.assertEquals(StarTrack_Constants.CASE_ENQUIRY_DEF, newCase.Enquiry_Type__c);
+            System.assertEquals(StarTrack_Constants.CASE_PURPOSE_DEF, newCase.Call_Purpose__c);
+        }
+    }
+    
+    static testmethod void testVOCInboundEmail(){
+        User systemSupport = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'ssupp' LIMIT 1];
         
-        System.assertEquals([SELECT Id, Status FROM Case WHERE Id =: caseRec.Id].Status, StarTrack_Constants.CASE_STAT_AWAITINGREVIEW);
+        System.runAs(systemSupport){
+            Test.startTest();
+                Case caseRec = [SELECT Id FROM Case WHERE Subject = 'Test VOC Enquiry' LIMIT 1];
+                Id incidentRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Voice of Customer Incident').getRecordTypeId();
+                Case vocIncident = new Case(Subject = 'Test VOC 1', Description = 'Sample VOC 1', ParentId = caseRec.Id, Recent_Caller_First_Name__c = 'David', Recent_Caller_Last_Name__c = 'Catindoy', Parent_Status__c = 'New', Status = 'New', Business_Unit__c = 'Commercial', Nominated_Advocate_Email__c = 'david.catindoy@cloudsherpas.com', Nominated_Advocate__c = 'David', CallBackRequired__c = true, RecordTypeId = incidentRecType);
+                vocIncident.BusinessHoursId = [SELECT Id FROM BusinessHours WHERE IsDefault = true LIMIT 1].Id;
+                Database.insert(vocIncident); 
+                EmailMessage newEmail = new EmailMessage(ParentId = vocIncident.Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'VOC Incident Inbound Email ', HTMLBody = 'Sample', ToAddress = 'support@test.com');
+                Database.insert(newEmail);
+            Test.stopTest();
+            
+            System.assertEquals([SELECT Id, Status FROM Case WHERE Id =: caseRec.Id].Status, StarTrack_Constants.CASE_STAT_AWAITINGREVIEW);
+        }
     }
 
     // Added below method for Secure Post
-    @isTest
-    private static void testSecurePost(){
-        Id onboardRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Customer Onboarding').getRecordTypeId();
-        Case newCase = new Case(RecordTypeId = onboardRecType, Subject = 'Registration for test user', Origin = 'Email');
-        Database.insert(newCase);
-        String previousCaseSubject = newCase.Subject;
-        SecurePost__c securePostSetting = SecurePost__c.getInstance();
-        EmailMessage newEmail = new EmailMessage(ParentId = newCase.Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'RE: FWD: FW: Update Consignment Details', HTMLBody = 'Sample', ToAddress = securePostSetting.Email_to_Case_address__c);
+    static testmethod void testSecurePost(){
+        User systemSupport = [SELECT Id, Alias, Email, LastName, ProfileId, UserRoleId, UserName FROM User WHERE Alias = 'ssupp' LIMIT 1];
 
-        Test.startTest();
+        System.runAs(systemSupport){
+            Id onboardRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Customer Onboarding').getRecordTypeId();
+            Case newCase = new Case(RecordTypeId = onboardRecType, Subject = 'Registration for test user', Origin = 'Email');
+            Database.insert(newCase);
+            String previousCaseSubject = newCase.Subject;
+            SecurePost__c securePostSetting = SecurePost__c.getInstance();
+            Test.startTest();
+            EmailMessage newEmail = new EmailMessage(ParentId = newCase.Id, FromAddress = 'test@test.com', Incoming = true, Subject = 'RE: FWD: FW: Update Consignment Details', HTMLBody = 'Sample', ToAddress = securePostSetting.Email_to_Case_address__c);
             Database.insert(newEmail);
-        Test.stopTest();
+            Test.stopTest();
 
-        newCase = [SELECT Id, Subject, ResolutionCode__c, Status, Enquiry_Type__c, Call_Purpose__c FROM Case WHERE Id =: newCase.Id];
+            newCase = [SELECT Id, Subject, ResolutionCode__c, Status, Enquiry_Type__c, Call_Purpose__c FROM Case WHERE Id =: newCase.Id];
+//            System.assertEquals(StarTrack_Constants.CASE_RESOLUTION_DUPLICATE, newCase.ResolutionCode__c);
+//            System.assertEquals(StarTrack_Constants.CASE_STAT_CLOSED, newCase.Status);
+//            System.assertEquals(StarTrack_Constants.CASE_ENQUIRY_DEF, newCase.Enquiry_Type__c);
+//            System.assertEquals(StarTrack_Constants.CASE_PURPOSE_DEF, newCase.Call_Purpose__c);
+        }
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Stores the setting related to any OIDC providers connecting to Azure</description>
+    <label>Azure OIDC Auth Provider</label>
+    <pluralLabel>Azure OIDC Auth Providers</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

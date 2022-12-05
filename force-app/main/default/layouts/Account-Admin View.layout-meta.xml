@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <customButtons>DecaK40p000000000pCAA</customButtons>
+    <customButtons>DecaKC2v000000PAxJGAW</customButtons>
     <customButtons>MassUpload</customButtons>
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
-    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
+    <excludeButtons>DataDotComAccountInsights</excludeButtons>
+    <excludeButtons>DataDotComClean</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -608,23 +609,6 @@
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
-        <customLabel>false</customLabel>
-        <detailHeading>false</detailHeading>
-        <editHeading>false</editHeading>
-        <label>Custom Links</label>
-        <layoutColumns>
-            <layoutItems>
-                <customLink>Revenue_and_Budget_Hierarchy_Roll_Up</customLink>
-            </layoutItems>
-            <layoutItems>
-                <customLink>Org_structure_to_Excel</customLink>
-            </layoutItems>
-        </layoutColumns>
-        <layoutColumns/>
-        <layoutColumns/>
-        <style>CustomLinks</style>
-    </layoutSections>
-    <layoutSections>
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>false</editHeading>
@@ -678,6 +662,31 @@
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>false</customLabel>
+        <detailHeading>false</detailHeading>
+        <editHeading>false</editHeading>
+        <label>Custom Links</label>
+        <layoutColumns>
+            <layoutItems>
+                <customLink>Revenue_and_Budget_Hierarchy_Roll_Up</customLink>
+            </layoutItems>
+            <layoutItems>
+                <customLink>Org_structure_to_Excel</customLink>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns/>
+        <layoutColumns/>
+        <style>CustomLinks</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>false</editHeading>
+        <label>Relationship Map</label>
+        <layoutColumns/>
+        <style>OneColumn</style>
     </layoutSections>
     <miniLayout>
         <fields>Name</fields>
@@ -918,7 +927,11 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Financial_Year__c</fields>
+        <fields>Total_Original_Budget__c</fields>
+        <fields>Total_Revised_Budget__c</fields>
+        <fields>Planned_YTD_revenue__c</fields>
         <fields>Total_Revenue_Amount__c</fields>
+        <fields>Variance_Actual_Budget_YTD_Percent__c</fields>
         <fields>Not_Traded_for_3_Months__c</fields>
         <fields>Int_Last_Upd_Date__c</fields>
         <relatedList>Budget_and_Revenue__c.Organisation__c</relatedList>
@@ -1131,21 +1144,18 @@
         <relatedList>ContractAssistanceForm__c.Legal_Entity__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>NAME</fields>
+        <fields>CREATED_DATE</fields>
         <fields>ParentAccount__c</fields>
         <fields>Relationship__c</fields>
         <fields>Connection__c</fields>
-        <fields>CREATEDBY_USER</fields>
-        <fields>CREATED_DATE</fields>
         <fields>EndDate__c</fields>
         <relatedList>AccountRelationship__c.RelatedAccount__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>NAME</fields>
+        <fields>CREATED_DATE</fields>
         <fields>RelatedAccount__c</fields>
         <fields>Relationship__c</fields>
         <fields>Connection__c</fields>
-        <fields>CREATEDBY_USER</fields>
         <fields>EndDate__c</fields>
         <relatedList>AccountRelationship__c.ParentAccount__c</relatedList>
     </relatedLists>

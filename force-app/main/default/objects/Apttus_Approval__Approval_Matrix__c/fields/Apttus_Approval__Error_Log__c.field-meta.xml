@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Error Log</label>
     <length>4000</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

@@ -14,7 +14,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>MITCHELL</value>
+        <value>NORTH CANBERRA</value>
     </filters>
     <filters>
         <field>Effective_Date__c</field>

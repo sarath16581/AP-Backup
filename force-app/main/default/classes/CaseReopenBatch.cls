@@ -9,11 +9,13 @@
 * 02/12/2021 - Alex Volkov - Initial creation
 * 28/09/2022 - Mahesh Parvathaneni - DDS-12732 - Included the exception checker logic
 * 19/10/2022 - Thang Nguyen - DDS-13106 - Refactor the code based on the ExceptionCheckerService refactor
+* 21/11/2022 - Thang Nguyen - DDS-13756 - Add logic to filter only the LOMI form cases
 */
 
 public class CaseReopenBatch implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
 
 	private Integer BATCH_SIZE = 25;
+	private String LOMI_CHAS_ENQUIRY_TYPE = 'Missing or lost item';
 
 	/**
 	 * @description Overridable query
@@ -36,7 +38,7 @@ public class CaseReopenBatch implements Database.Batchable<SObject>, Database.St
 
 			// loop through cases associated with/without articles
 			for (Case c : (List<Case>) scope) {
-				if (c.ArticleTest__c != null) {
+				if (c.ArticleTest__c != null && c.CHASEnquiryType__c == LOMI_CHAS_ENQUIRY_TYPE) {
 					articleIdSet.add(c.ArticleTest__c);
 					caseListWithArticles.add(c);
 				} else {
@@ -51,7 +53,7 @@ public class CaseReopenBatch implements Database.Batchable<SObject>, Database.St
 
 			//process the consignments to allocate to queue
 			if (caseListWithoutArticles.size() > 0) {
-				ExceptionCheckerService.getInstance().assignCasesToAgentQueue(caseListWithoutArticles);
+				ExceptionCheckerService.getInstance().assignCasesToAgentQueue(caseListWithoutArticles, false);
 			}
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis

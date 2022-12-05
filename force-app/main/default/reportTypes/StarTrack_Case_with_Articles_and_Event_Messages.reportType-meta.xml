@@ -251,6 +251,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Area_to_Benefit__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>ArticleTest__c</field>
             <table>Case</table>
         </columns>
@@ -1371,6 +1376,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Other_CoE_s_Involved__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Other_Party__c</field>
             <table>Case</table>
         </columns>
@@ -2183,6 +2193,11 @@
             <checkedByDefault>false</checkedByDefault>
             <field>ArticleLodgementDate__c</field>
             <table>Case.Articles__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
+            <table>Case</table>
         </columns>
         <masterLabel>Cases</masterLabel>
     </sections>

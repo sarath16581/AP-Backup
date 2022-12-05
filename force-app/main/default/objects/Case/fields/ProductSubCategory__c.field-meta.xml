@@ -914,6 +914,11 @@
                 <label>Premium Express Parcel</label>
             </value>
             <value>
+                <fullName>UMPS</fullName>
+                <default>false</default>
+                <label>UMPS</label>
+            </value>
+            <value>
                 <fullName>Product &amp; service information</fullName>
                 <default>false</default>
                 <label>Product &amp; service information</label>

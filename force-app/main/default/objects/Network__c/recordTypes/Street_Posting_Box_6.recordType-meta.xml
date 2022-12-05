@@ -3,7 +3,6 @@
     <fullName>Street_Posting_Box_6</fullName>
     <active>true</active>
     <compactLayoutAssignment>Network_Compact_Layout</compactLayoutAssignment>
-    <description>Street Posting Box</description>
     <label>Street Posting Box</label>
     <picklistValues>
         <picklist>Contact_Facility__c</picklist>

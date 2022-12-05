@@ -44,7 +44,7 @@ public class ExceptionCheckerServiceTest {
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
-        eventMessageDTO.EventType = 'DD-ER13';
+        eventMessageDTO.EventType = 'DDR-ER13';
 
         exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
 
@@ -85,7 +85,7 @@ public class ExceptionCheckerServiceTest {
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
-        eventMessageDTO.EventType = 'DD-ER13';
+        eventMessageDTO.EventType = 'DDR-ER13';
         eventMessageDTO.ActualDateTime = Date.today().addDays(-10);
 
         exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};
@@ -106,7 +106,7 @@ public class ExceptionCheckerServiceTest {
         ExceptionCheckerService.ExceptionCheckDTO exceptionCheckDTO = new ExceptionCheckerService.ExceptionCheckDTO();
         exceptionCheckDTO.CaseToCheck = cases[0];
         ExceptionCheckerService.EventMessageDTO eventMessageDTO = new ExceptionCheckerService.EventMessageDTO();
-        eventMessageDTO.EventType = 'DD-ER13';
+        eventMessageDTO.EventType = 'DDR-ER13';
         eventMessageDTO.ActualDateTime = Date.today().addDays(-10);
 
         exceptionCheckDTO.eventMessages =  new List<ExceptionCheckerService.EventMessageDTO> {eventMessageDTO};

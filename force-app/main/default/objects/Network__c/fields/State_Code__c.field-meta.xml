@@ -22,6 +22,7 @@ IF( ISPICKVAL( State__c , &quot;ACT&quot;), &quot;2&quot;,
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>State Code</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

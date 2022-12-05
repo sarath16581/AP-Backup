@@ -78,7 +78,7 @@ public with sharing class FeedItemTriggerHandler{
                 StarTrackTaskHandler.updateTaskUpdateField((List<FeedItem>)Trigger.new);
 
                 //TDF Enhance 20.08.2020: Add call to process posts on Work Orders
-               // TDF_UpdateServiceAppointmentOnMessage.updateOnPost((List<FeedItem>)Trigger.new);
+                //TDF_UpdateServiceAppointmentOnMessage.updateOnPost((List<FeedItem>)Trigger.new);
             }
         }
         else if(Trigger.isUpdate){

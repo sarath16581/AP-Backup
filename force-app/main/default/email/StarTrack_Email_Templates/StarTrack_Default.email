@@ -76,8 +76,9 @@
 								<td style="padding:5px 7px 0 0; font:12px/13px Arial; color:#009fda;">          
                                                      T {!User.Phone}
                                                         <br> <br/>
-</tr><tr>
- <td style=" font:2px/3px Arial; color:White;"> {!Case.Thread_Id} <br>
+                                                              </tr>
+                                                               <tr>
+                                                                         <td style=" font:2px/3px Arial; color:White;"> {!Case.Thread_Id} <br>
                                                               </td>
                                                               </td>
 										</tr>

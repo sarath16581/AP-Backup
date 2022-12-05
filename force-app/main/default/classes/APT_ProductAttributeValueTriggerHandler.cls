@@ -564,7 +564,7 @@ pav.addError('Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). 
                                                             Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.APT_Band_Range_Max__c from 
                                                             Apttus_Config2__PriceMatrixEntry__c 
                                                             where Apttus_Config2__PriceMatrixId__c in :pmIds];
-                                                       //End of INC1977875 fix - To fix query not being selective error//End of INC1977875 fix - To fix query not being selective error
+                                                       //End of INC1977875 fix - To fix query not being selective error
 
                                                        for(Apttus_Config2__PriceMatrixEntry__c pme : priceMatrixEntries){
                                                            setProduct.add(pme.Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.ProductCode);

@@ -7,6 +7,13 @@
         <locationY>0</locationY>
         <actionName>et4ae5__JBintFireBulkEvent</actionName>
         <actionType>apex</actionType>
+        <connector>
+            <targetReference>JB_Decision_Null_Check_SalesforceObj680f4b327c9cedabd76bb0afbe487417</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>JB_Decision_Null_Check_SalesforceObj680f4b327c9cedabd76bb0afbe487417</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>ContactKey</name>
             <value>
@@ -69,6 +76,7 @@
         <faultConnector>
             <targetReference>JB_Decision_Null_Check_SalesforceObj68b8fb85660fc29fcbbf00f9ea34aa63</targetReference>
         </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>ContactKey</name>
             <value>
@@ -125,12 +133,7 @@
         <locationY>0</locationY>
         <actionName>et4ae5__JBintFireBulkEvent</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <targetReference>JB_Decision_Null_Check_SalesforceObj1c78abaf335b40118732f8560adefccb</targetReference>
-        </connector>
-        <faultConnector>
-            <targetReference>JB_Decision_Null_Check_SalesforceObj1c78abaf335b40118732f8560adefccb</targetReference>
-        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>ContactKey</name>
             <value>
@@ -186,6 +189,9 @@
         <label>JB_Decision_Null_Check_SalesforceObj1c78abaf335b40118732f8560adefccb</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>JB_Decision_Null_Check_SalesforceObj680f4b327c9cedabd76bb0afbe487417</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>JB_SalesforceObj1c78abaf335b40118732f8560adefccb_Parameters_ContactKey_Null</name>
@@ -197,6 +203,9 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>JB_Decision_Null_Check_SalesforceObj680f4b327c9cedabd76bb0afbe487417</targetReference>
+            </connector>
             <label>JB_SalesforceObj1c78abaf335b40118732f8560adefccb_Parameters_ContactKey_Null</label>
         </rules>
         <rules>
@@ -260,9 +269,6 @@
         <label>JB_Decision_Null_Check_SalesforceObj68b8fb85660fc29fcbbf00f9ea34aa63</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>JB_Decision_Null_Check_SalesforceObj1c78abaf335b40118732f8560adefccb</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>JB_SalesforceObj68b8fb85660fc29fcbbf00f9ea34aa63_Parameters_ContactKey_Null</name>
@@ -274,9 +280,6 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-            <connector>
-                <targetReference>JB_Decision_Null_Check_SalesforceObj1c78abaf335b40118732f8560adefccb</targetReference>
-            </connector>
             <label>JB_SalesforceObj68b8fb85660fc29fcbbf00f9ea34aa63_Parameters_ContactKey_Null</label>
         </rules>
         <rules>
@@ -300,6 +303,9 @@
         <label>JB_SalesforceObj1c78abaf335b40118732f8560adefccb_Decision</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>JB_Decision_Null_Check_SalesforceObj680f4b327c9cedabd76bb0afbe487417</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>SalesforceObj1c78abaf335b40118732f8560adefccb</name>
@@ -347,9 +353,6 @@
         <label>JB_SalesforceObj68b8fb85660fc29fcbbf00f9ea34aa63_Decision</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>JB_Decision_Null_Check_SalesforceObj1c78abaf335b40118732f8560adefccb</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>SalesforceObj68b8fb85660fc29fcbbf00f9ea34aa63</name>
@@ -369,7 +372,7 @@
     </decisions>
     <label>JBSystemFlow_CampaignMember</label>
     <processType>AutoLaunchedFlow</processType>
-    <startElementReference>JB_Decision_Null_Check_SalesforceObj680f4b327c9cedabd76bb0afbe487417</startElementReference>
+    <startElementReference>JB_Decision_Null_Check_SalesforceObj1c78abaf335b40118732f8560adefccb</startElementReference>
     <status>Active</status>
     <variables>
         <name>new_object</name>

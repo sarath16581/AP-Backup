@@ -5,6 +5,7 @@
     <description>used for workflow to trigger the new week record via process builder</description>
     <externalId>false</externalId>
     <label>{hidden ready for new week</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

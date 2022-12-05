@@ -9,7 +9,7 @@
  04.06.18    kalpita.talwadekar@auspost.com.au            updated code for test class failure fix and coding standards TDO-201
  2018-11-27    nathan.franklin@auspost.com.au            Adding new test method to test visualforce array chunking
  2019-11-26 gunith.devasurendra@auspost.com.au REQ1982330/REQ1962663 - Order by Priority and highlight High priority ones
- 2022-03-16 saiswetha.pingali@auspost.com.au Added custom settings to disable triggers on case object to fix soql error.
+ 2022-04-04 saiswetha.pingali@auspost.com.au Added custom settings to disable triggers on case object to fix soql error.
  *******************************  History ************************************************/
 @isTest
 private class SSSW_MyNetworkLandingContr_Test{

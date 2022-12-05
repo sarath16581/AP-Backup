@@ -161,11 +161,6 @@
                 <label>International Outward Letters L3</label>
             </value>
             <value>
-                <fullName>International Parcel Post</fullName>
-                <default>false</default>
-                <label>International Parcel Post</label>
-            </value>
-            <value>
                 <fullName>Inward Letters</fullName>
                 <default>false</default>
                 <label>Inward Letters</label>
@@ -399,6 +394,11 @@
                 <fullName>AP Other Parcel Fees</fullName>
                 <default>false</default>
                 <label>AP Other Parcel Fees</label>
+            </value>
+            <value>
+                <fullName>International Parcel Post</fullName>
+                <default>false</default>
+                <label>International Parcel Post</label>
             </value>
         </valueSetDefinition>
     </valueSet>

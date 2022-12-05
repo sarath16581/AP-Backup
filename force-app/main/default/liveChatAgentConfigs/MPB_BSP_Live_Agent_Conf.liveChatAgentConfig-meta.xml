@@ -2,12 +2,10 @@
 <LiveChatAgentConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <users>
-            <user>jonathon.mabey@auspost.com.au</user>
             <user>natasha.sitkowski@auspost.com.au</user>
             <user>queeny.chan@auspost.com.au</user>
             <user>sree.kenche@auspost.com.au</user>
             <user>srinivasa.ramachandran@auspost.com.au</user>
-            <user>tori.muller2@auspost.com.au</user>
         </users>
     </assignments>
     <autoGreeting>Hello and welcome to MyPost Business. 
@@ -29,7 +27,7 @@ My name is {!User_FirstName}, how may I help you?</autoGreeting>
     <enableNotifications>true</enableNotifications>
     <enableRequestSound>true</enableRequestSound>
     <enableSneakPeek>true</enableSneakPeek>
-    <enableVisitorBlocking>true</enableVisitorBlocking>
+    <enableVisitorBlocking>false</enableVisitorBlocking>
     <enableWhisperMessage>true</enableWhisperMessage>
     <label>MPB BSP Live Agent Conf</label>
     <transferableSkills>

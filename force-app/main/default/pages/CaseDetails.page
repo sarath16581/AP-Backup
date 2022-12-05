@@ -228,14 +228,23 @@
                     <img src="/img/msg_icons/error16.png" class="saved-img"/>
                     <div class="error-msg-content">
                         <div class="error-msg-title">Error!</div>
-                        <div class="error-msg-text">The case has not been reassigned as you are member of the
-                            queue {!assignedQueueName}.
+                        <div class="error-msg-text">The case has not been reassigned as you are member of the queue {!assignedQueueName}.
                         </div>
-                        <div class="error-msg-text">Refer to Knowledge for information on how to manage this case, or ask a
-                            manager for assistance
+                        <div class="error-msg-text">Refer to Knowledge for information on how to manage this case, or ask a manager for assistance.
                         </div>
                     </div>
                 </apex:outputPanel>
+				<apex:outputPanel rendered="{!notAllowedToReassign}">
+                    <img src="/img/msg_icons/error16.png" class="saved-img"/>
+                    <div class="error-msg-content">
+                        <div class="error-msg-title">Error!</div>
+                        <div class="error-msg-text">The case has not been reassigned as you are assigned to skills to manage this type of case.
+                        </div>
+                        <div class="error-msg-text">Refer to Knowledge for information on how to manage this case, or ask a manager for assistance.
+                        </div>
+                    </div>
+                </apex:outputPanel>
+				
             </div>
 
             <input id="dummyToAvoidLoadingDatepicker" style="margin-left:-500px;width:1px" autofocus="true"/>
@@ -280,7 +289,7 @@
                 function showErrorDialog() {
                     console.log('SameOwner--->'+{!sameOwner});
                     console.log('isAssign--->'+{!isAssign});
-                    if({!sameOwner}) {
+                    if({!sameOwner} || {!notAllowedToReassign}) {
                         var element1 = document.getElementById('error-dialog');
                         element1.className = "show";
                     }

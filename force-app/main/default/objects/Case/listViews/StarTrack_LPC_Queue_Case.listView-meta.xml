@@ -39,5 +39,6 @@
         <role>Credit_Management</role>
         <role>Credit_Officer</role>
         <role>Credit_Team_Lead</role>
+        <role>FBU_Pricing</role>
     </sharedTo>
 </ListView>

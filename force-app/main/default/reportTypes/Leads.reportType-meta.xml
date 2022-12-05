@@ -742,4 +742,17 @@
         </columns>
         <masterLabel>Leads</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Events__c</field>
+            <table>Lead.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Tasks__c</field>
+            <table>Lead.Activities</table>
+        </columns>
+        <masterLabel>Activities</masterLabel>
+    </sections>
 </ReportType>

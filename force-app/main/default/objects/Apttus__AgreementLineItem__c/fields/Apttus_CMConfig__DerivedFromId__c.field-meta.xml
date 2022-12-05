@@ -10,6 +10,7 @@
     <relationshipLabel>Derived Agreement Line Items</relationshipLabel>
     <relationshipName>DerivedAgreementLineItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

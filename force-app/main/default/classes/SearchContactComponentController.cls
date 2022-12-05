@@ -810,8 +810,7 @@ public with sharing class SearchContactComponentController {
 	//verify if the current logged in user is live agent user
 	@TestVisible
 	private void isLiveAgent(){
-		isLiveAgentUser = [SELECT Id, UserPermissionsLiveAgentUser FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1].UserPermissionsLiveAgentUser;
-		
+		isLiveAgentUser = UsersSelector.newInstance().selectById(new Set<Id>{UserInfo.getUserId()}).get(UserInfo.getUserId()).UserPermissionsLiveAgentUser;
 	}
   
 	@RemoteAction

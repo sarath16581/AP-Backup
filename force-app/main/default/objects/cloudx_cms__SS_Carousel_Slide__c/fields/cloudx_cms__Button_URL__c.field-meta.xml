@@ -6,6 +6,7 @@
     <inlineHelpText>Add a destination URL for button. Must start with http:// or https://</inlineHelpText>
     <label>Button URL</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Url</type>
 </CustomField>

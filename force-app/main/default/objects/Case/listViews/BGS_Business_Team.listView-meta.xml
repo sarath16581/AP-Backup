@@ -33,12 +33,12 @@
     <filters>
         <field>OWNER_NAME</field>
         <operation>equals</operation>
-        <value>Lynn Zhang,Anna Ramos</value>
+        <value>Lynn Zhang,Anna Ramos,Edward Pua,Madhvi Punj,Leo Kwon</value>
     </filters>
     <label>BGS Business Team</label>
-    <language>en_US</language>
     <sharedTo>
-        <group>SalesOpsSupport</group>
-        <group>Sales_Ops_Delivery</group>
+        <role>Service_Business_Service_Manager</role>
+        <role>Service_Enterprise_Service_Manager</role>
+        <role>Service_Government_Head_of_Service</role>
     </sharedTo>
 </ListView>

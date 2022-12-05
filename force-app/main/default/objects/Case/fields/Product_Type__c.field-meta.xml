@@ -11,7 +11,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Access issues</fullName>
                 <default>false</default>
@@ -288,11 +288,6 @@
                 <label>Others</label>
             </value>
             <value>
-                <fullName>Pallets - Startrack</fullName>
-                <default>false</default>
-                <label>Pallets - Startrack</label>
-            </value>
-            <value>
                 <fullName>Parcel</fullName>
                 <default>false</default>
                 <label>Parcel</label>
@@ -461,6 +456,11 @@
                 <fullName>Workforce Verification</fullName>
                 <default>false</default>
                 <label>Workforce Verification</label>
+            </value>
+            <value>
+                <fullName>Pallets - Startrack</fullName>
+                <default>false</default>
+                <label>Pallets - Startrack</label>
             </value>
         </valueSetDefinition>
     </valueSet>

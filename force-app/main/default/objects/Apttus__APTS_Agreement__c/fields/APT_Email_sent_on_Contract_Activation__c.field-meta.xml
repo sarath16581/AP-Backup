@@ -5,6 +5,7 @@
     <description>Check box to determine whether an email has been sent on activating a contract</description>
     <externalId>false</externalId>
     <label>Email sent on Contract Activation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

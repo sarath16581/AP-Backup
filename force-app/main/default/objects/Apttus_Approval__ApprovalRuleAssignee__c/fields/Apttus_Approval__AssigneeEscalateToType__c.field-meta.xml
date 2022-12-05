@@ -7,7 +7,6 @@
     <inlineHelpText>The type of assignee the request will be escalated to if it is escalated at the rule assignee level.</inlineHelpText>
     <label>Assignee Escalate To Type</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

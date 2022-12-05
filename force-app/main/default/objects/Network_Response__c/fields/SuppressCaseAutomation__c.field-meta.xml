@@ -5,6 +5,7 @@
     <description>Suppresses the case automation for the record when enabled</description>
     <externalId>false</externalId>
     <label>Suppress Case Automation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

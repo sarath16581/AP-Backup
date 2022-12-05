@@ -57,7 +57,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 				Article__c.InsuranceAmount__c, Article__c.InsuranceChargeAmount__c, Article__c.InsuranceSDR__c, Article__c.CTCDollarAmount__c, Article__c.AdditionalServices__c,
 				Article__c.AdditionalServicesPayload__c, Article__c.CustCommDecisionCode__c, Article__c.CustCommDecisionDescription__c, Article__c.CustDelPrefOptionCode__c,
 				Article__c.CustDelPrefDescription__c, Article__c.Notification__c, Article__c.RecordTypeId, Article__c.Description_of_Goods__c, Article__c.Customer_Ref__c,
-				Article__c.Delivered__c, Article__c.TrackingID__c, Article__c.Consignment__c, Article__c.MLID__c
+				Article__c.Delivered__c, Article__c.TrackingID__c, Article__c.Consignment__c, Article__c.MLID__c, Article__c.HasExtraCover__c
 		};
 	}
 
@@ -160,5 +160,17 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 
 		return builder;
 	}
+    public virtual Map<Id, Article__c> selectByArticleNames(Set<String> names, String recordTypeName,  Set<String> sourceSystems,  Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions)
+                .addConditions()
+                .add(new QueryBuilder.CompareCondition(Article__c.RecordTypeId).eq(SObjectType.Article__c.getRecordTypeInfosByDeveloperName().get(recordTypeName).getRecordTypeId()))
+                .add(new QueryBuilder.SimpleCondition(Article__c.Name + ' in :names'))
+                .add(new QueryBuilder.SimpleCondition(Article__c.Source_System__c + ' in :sourceSystems'))
 
+                .endConditions();
+        system.debug(qb.toSoqlString());
+        Map<Id, Article__c> res = new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
+        system.debug(res);
+        return res;
+    }
 }

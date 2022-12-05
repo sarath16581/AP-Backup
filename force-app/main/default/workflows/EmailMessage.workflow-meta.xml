@@ -2746,9 +2746,7 @@ Doesn&apos;t change status of case if case.Preventstatuschange__c is true.</desc
         </actions>
         <active>true</active>
         <description>SSSW - Used to update the Case Status when an incoming Network email is received. NEEDS PROD UPDATE</description>
-        <formula>Incoming  &amp;&amp;  (  (  CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c)  ||  CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c)  )  &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c))  )  &amp;&amp;  NOT(Parent.Permanent_Close__c)  &amp;&amp; TEXT(Parent.Status) = $Setup.QM__c.Network_Status__c  &amp;&amp;  CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; 
-NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; 
-NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
+        <formula>Incoming &amp;&amp; ( ( CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c) || CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c) ) &amp;&amp; NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c)) ) &amp;&amp; NOT(Parent.Permanent_Close__c) &amp;&amp; TEXT(Parent.Status) = $Setup.QM__c.Network_Status__c &amp;&amp; CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -2830,9 +2828,7 @@ NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula
         </actions>
         <active>true</active>
         <description>SSSW - Used to update the Case Status when an incoming Network email is received.</description>
-        <formula>Incoming    &amp;&amp;  ( ( CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c)  ||  CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c)  ) &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c))  ) &amp;&amp;   NOT(Parent.Permanent_Close__c)    &amp;&amp;    (TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Network_Status__c &amp;&amp; NOT(Parent.IsClosed))  &amp;&amp;    CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; 
-NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; 
-NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
+        <formula>Incoming &amp;&amp; ( ( CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c) || CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c) ) &amp;&amp; NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c)) ) &amp;&amp; NOT(Parent.Permanent_Close__c) &amp;&amp; (TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Network_Status__c &amp;&amp; NOT(Parent.IsClosed)) &amp;&amp; CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>

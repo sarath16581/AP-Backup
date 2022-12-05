@@ -3,8 +3,8 @@
     * 
     * @Author kalpita.talwadekar@auspost.com.au
     * @Date 21/09/2015
-    * saiswetha.pingali@auspost.com.au - Fix the user creation to resolve test class failures and version update to 52. 
-     */
+    *   
+    */
 @isTest
 public with sharing class RetailFaxTemplateCompCont_Test{
 

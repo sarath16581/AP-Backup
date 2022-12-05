@@ -303,8 +303,4 @@
         <apexPage>seismic__SeismicWebApplication</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>ApiEnabled</name>
-    </userPermissions>
 </PermissionSet>

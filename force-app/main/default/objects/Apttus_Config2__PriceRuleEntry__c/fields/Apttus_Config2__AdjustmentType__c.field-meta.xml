@@ -10,6 +10,7 @@ For Promotions, it indicates discount rate type
 For Pricing, it indicates discount or markup</inlineHelpText>
     <label>Adjustment Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

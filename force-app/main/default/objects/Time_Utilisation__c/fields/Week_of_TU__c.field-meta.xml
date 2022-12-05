@@ -18,6 +18,7 @@ MOD( DATE(YEAR(Work_Week_Start__c), 1, 1) - DATE (1900, 1, 7), 7),
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

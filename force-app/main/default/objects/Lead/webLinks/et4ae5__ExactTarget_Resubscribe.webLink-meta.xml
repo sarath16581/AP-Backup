@@ -7,5 +7,5 @@
     <masterLabel>Marketing Cloud Resubscribe</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>alert(&quot;{!$Label.et4ae5__deprecateLeadJSComponents}&quot;);</url>
+    <url>alert(&quot;{!$Label.et4ae5__deprecateleadjscomponents}&quot;);</url>
 </WebLink>

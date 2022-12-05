@@ -7,5 +7,5 @@
     <masterLabel>Cancel Mobile Send</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>alert(&quot;{!$Label.et4ae5__deprecateSMSDefinitionJSComponents}&quot;);</url>
+    <url>alert(&quot;{!$Label.et4ae5__deprecatesmsdefinitionjscomponents}&quot;);</url>
 </WebLink>

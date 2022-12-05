@@ -13,6 +13,7 @@
         <locationY>0</locationY>
         <actionName>JBSystemFlow_CampaignMember</actionName>
         <actionType>flow</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <processMetadataValues>
                 <name>dataType</name>

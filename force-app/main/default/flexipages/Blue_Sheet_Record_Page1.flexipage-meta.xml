@@ -24,7 +24,7 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel1</identifier>
+                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -60,7 +60,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>kfsell:blueSheet</componentName>
-                <identifier>blueSheet</identifier>
+                <identifier>kfsell_blueSheet</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>

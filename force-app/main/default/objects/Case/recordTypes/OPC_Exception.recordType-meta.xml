@@ -3,7 +3,6 @@
     <fullName>OPC_Exception</fullName>
     <active>true</active>
     <businessProcess>Internal</businessProcess>
-    <description>OPC Exception</description>
     <label>OPC Exception</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>
@@ -136,6 +135,13 @@
         </values>
         <values>
             <fullName>Upgrade equipment</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OmniRoutingSecondaryPriority__c</picklist>
+        <values>
+            <fullName>950</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -85,8 +85,8 @@
         }
     }
     
+    //REQ3004583 : Jacob Isaac : Updating method to automatically enable Prevent Status Change field checkbox when Case Status is Awaiting Network Response
     function checkPreventStatus(el){
-        try{
         var preventStatusChange = j$('#preventStatusChange');
         var networkStatusCheck = '{!currentCase.status}';
         var recordTypeCheck = '{!currentCase.RecordType.DeveloperName}';
@@ -103,12 +103,7 @@
             }
         }
     }
-    catch(e){
-        console.log('error');
-        console.log(e);
-    }
-        
-    }
+	
 </script>
         <div class="bPageBlock brandSecondaryBrd bEditBlock secondaryPalette" id="ep">
             <div class="pbHeader">

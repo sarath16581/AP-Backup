@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>This indicates whether the LPO gets paid for clearing local SPB</inlineHelpText>
     <label>Posting Box Indicator</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

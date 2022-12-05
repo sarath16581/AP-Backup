@@ -17,18 +17,13 @@ private class APT_GuidedSellingFlowController_Test {
         LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
         TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
         UserName=APT_Constants.EMAIL_TEST_USER);
-        System.runAs(testuser) {  
-            
-            List<User> userList = [Select id, UserRole.Name from User where isActive = TRUE Limit 2];
+        System.runAs(testuser) {       
             //Create Account
             Account acc = APT_TestUtils.createOrganisation();
-            acc.Legacy_Id__c = '60000000';
             insert acc;
             
             //Create Opportunity
             Opportunity opty = APT_TestUtils.createOpportunity(acc.Id);
-            opty.Type_of_billing_account_required__c = 'Charge account and sub-account';
-        	opty.Sender_name_to_appear_on_parcel_label__c = 'Tony';
             insert opty;
             
             //Create PriceList
@@ -95,7 +90,6 @@ private class APT_GuidedSellingFlowController_Test {
             
             //Create Proposal
             Apttus_Proposal__Proposal__c Proposal= APT_TestUtils.getQuoteProposal(acc.ID,opty.ID,'Proposal','Quote', priceList.ID);
-            proposal.Apttus_Proposal__Approval_Stage__c = 'Accepted';
             insert Proposal;
             
             //Create Product Configuration             
@@ -213,8 +207,6 @@ private class APT_GuidedSellingFlowController_Test {
             ApexPages.currentPage().getParameters().put('step', 'Option' );
             ApexPages.currentPage().getParameters().put('opportunityId', opty.ID);  
             ApexPages.currentPage().getParameters().put('productId', bundle1.ID);
-            
-            system.debug('Check Page Ref in Test Class'+pageRef);
             
             APT_Utils.getApproversList(prodconfig.ID, UserInfo.getName());
             APT_Utils.submitForApprovals(prodconfig.ID, 'Test');

@@ -6,6 +6,8 @@
     <errorConditionFormula>Bypass_Data_enforcement__c = FALSE 
 &amp;&amp;
 BEGINS(RecordType.DeveloperName, &apos;SSSW&apos;) 
+&amp;&amp;
+$Profile.Name != &apos;System Administrator&apos; 
 &amp;&amp; 
 ISBLANK(TEXT(Type)) 
 &amp;&amp; 

@@ -3,7 +3,6 @@
     <fullName>Sales_Manager_Review_Exception</fullName>
     <active>true</active>
     <businessProcess>Internal</businessProcess>
-    <description>Sales Manager Review Exception</description>
     <label>Sales Manager Review Exception</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>
@@ -109,6 +108,13 @@
         <values>
             <fullName>OPC Sales Exception Resolved</fullName>
             <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OmniRoutingSecondaryPriority__c</picklist>
+        <values>
+            <fullName>950</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>

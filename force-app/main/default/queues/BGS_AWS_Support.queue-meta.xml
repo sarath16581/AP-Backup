@@ -3,6 +3,27 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>vernon.keogh@auspost.com.au</email>
     <name>BGS AWS Support</name>
+    <queueMembers>
+        <users>
+            <user>dean.purves@auspost.com.au</user>
+            <user>fahad.saeed@auspost.com.au</user>
+            <user>fatima.papasin@auspost.com.au</user>
+            <user>frank.fallace@auspost.com.au</user>
+            <user>jonathan.yap@auspost.com.au</user>
+            <user>katherine.vayenas@auspost.com.au</user>
+            <user>katrina.vincze@auspost.com.au</user>
+            <user>nadeeja.perera@auspost.com.au</user>
+            <user>nadia.skinner@auspost.com.au</user>
+            <user>nancy.patsiouris@auspost.com.au</user>
+            <user>neil.valmeo@auspost.com.au</user>
+            <user>poonam.faraz@auspost.com.au</user>
+            <user>rodney.jackson@auspost.com.au</user>
+            <user>shereen.mcphie@auspost.com.au</user>
+            <user>steve.khatib@auspost.com.au</user>
+            <user>sujata.shrestha@auspost.com.au</user>
+            <user>uma.govindan@auspost.com.au</user>
+        </users>
+    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

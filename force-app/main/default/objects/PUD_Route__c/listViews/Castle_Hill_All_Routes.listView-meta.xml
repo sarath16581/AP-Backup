@@ -8,9 +8,9 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>CAS</value>
+        <value>Seven Hills</value>
     </filters>
-    <label>Castle Hill All Routes</label>
+    <label>Seven  Hills Van Ops All Routes</label>
     <sharedTo>
         <group>CASTLE_HILL_VAN_OPS</group>
     </sharedTo>
