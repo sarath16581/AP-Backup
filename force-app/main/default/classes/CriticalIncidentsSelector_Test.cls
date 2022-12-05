@@ -36,6 +36,8 @@ public with sharing class CriticalIncidentsSelector_Test {
         String soql = qb.toSoqlString();
 
         System.assertEquals(true, Pattern.compile('(?is)\\bfrom Critical_Incident__kav\\b').matcher(soql).find(), 'Resulting query does not select from Critical_Incident__kav');
+        System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(Critical_Incident__kav.KnowledgeArticleId) + '\\b').matcher(soql).find(), 'KnowledgeArticleId field does not exists in query');
+        System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(Critical_Incident__kav.URLName) + '\\b').matcher(soql).find(), 'URLName field does not exists in query');
 
         Test.stopTest();
 

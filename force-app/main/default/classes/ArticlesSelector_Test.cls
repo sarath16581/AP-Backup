@@ -82,7 +82,7 @@ private class ArticlesSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)Billing_Account__r\\..*?\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting query does not select Billing_Account__r fields: ' + soql);
 
-		qb = selector.newQueryBuilder(new Set<Object>{ArticlesSelector.Options.FILTER_NETWORK});
+		qb = selector.newQueryBuilder(new Set<Object>{ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL});
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)\\bNetwork__c\\b').matcher(soql).find(), 'Resulting query does not filter Network__c field: ' + soql);
 

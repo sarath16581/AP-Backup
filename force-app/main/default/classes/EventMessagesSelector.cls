@@ -20,13 +20,6 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	public static String sortOrder ='Asc';
     public static String sortfieldAPIName = 'ActualDateTime__c';
 
-	private static final Set<String> ST_NETWORK_RECORD_TYPES = new Set<String>{
-		StarTrack_Constants.RECORDTYPE_DEPOT_AGENT,
-		StarTrack_Constants.RECORDTYPE_DEPOT_CARE_AGENT,
-		StarTrack_Constants.RECORDTYPE_DEPOT_METRO,
-		StarTrack_Constants.RECORDTYPE_DEPOT_REGIONAL
-	};
-
 	/**
 	 * NOTE: WITH_SIGNATURE_FIELD allows us to conditionally add the signature long text field only when it's needed
 	 */
@@ -201,7 +194,7 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 
 		if (selectorOptions.contains(Options.FILTER_AP_NETWORK)) {
 			builder.addRelatedFields(NetworksSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Facility__r');
-			builder.addConditions().add((new QueryBuilder.InCondition('RecordType.DeveloperName')).notInCollection(ST_NETWORK_RECORD_TYPES)).endConditions();
+			builder.addConditions().add((new QueryBuilder.InCondition('RecordType.DeveloperName')).notInCollection(NetworksSelector.ST_NETWORK_RECORD_TYPES)).endConditions();
 		}
 
 		return builder;

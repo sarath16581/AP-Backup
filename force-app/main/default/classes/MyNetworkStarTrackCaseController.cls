@@ -18,7 +18,7 @@ public with sharing class MyNetworkStarTrackCaseController {
             List<Article__c> articles = ArticlesSelector.newInstance()
                                         .selectByCaseIds(new Set<Id>{Id.valueOf(caseId)}, 
                                                          new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER, 
-                                                         ArticlesSelector.Options.FILTER_NETWORK}).values();
+                                                         ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL}).values();
             
             //check if any of the articles related event messages passed through AP Network
             for (Article__c article : articles) {
@@ -64,7 +64,7 @@ public with sharing class MyNetworkStarTrackCaseController {
             //get existing case investigation related to the case, network and article reference ids
             List<CaseInvestigation__c> existingCaseInvestigations = CaseInvestigationsSelector.newInstance()
                                                                     .selectOpenCaseInvestigationsByCaseArticleNetworkId(new Set<Id>{recordsToSave[0].Case__c},
-                                                                                                                    new Set<String>(articleReferenceIds), new Set<Id>(networkIds)).values();
+                                                                                                                    new Set<String>(articleReferenceIds), networkIds).values();
             for (CaseInvestigation__c eci : existingCaseInvestigations) {
                 if (existingArticleReferenceToNetworkIdsMap.containsKey(eci.ReferenceID__c)) {
                     existingArticleReferenceToNetworkIdsMap.get(eci.ReferenceID__c).add(eci.Network__c);
@@ -80,7 +80,7 @@ public with sharing class MyNetworkStarTrackCaseController {
                 }
             }
 
-            if (String.isBlank(result.errorMessage)) {
+            if (String.isBlank(result.errorMessage) && !recordsToSave.isEmpty()) {
                 // insert case investigation records
 			    Database.SaveResult[] srList = ApplicationDatabase.getInstance().dmlInsert(recordsToSave);
                 // get feed items to post

@@ -16,7 +16,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		WITH_RECORDTYPE, WITH_CONSIGNMENT, WITH_CHILDARTICLES,
 		WITH_BILLINGACCOUNT, // using BillingAccountsSelector
 		WITH_EVENTMESSAGES_NETWORK_DESC_ORDER,
-		FILTER_NETWORK
+		FILTER_BY_NETWORK_NOT_NULL
 	}
 
 	public static ArticlesSelector newInstance() {
@@ -180,7 +180,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 			builder.addSubQuery(EventMessagesSelector.newInstance('ActualDateTime__c', 'Desc').newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK}), 'Event_Messages__r');
 		}
 
-		if(selectorOptions.contains(Options.FILTER_NETWORK)) {
+		if(selectorOptions.contains(Options.FILTER_BY_NETWORK_NOT_NULL)) {
 			builder.addConditions().add(new QueryBuilder.CompareCondition(Article__c.Network__c).ne('')).endConditions();
 			builder.addConditions().add(new QueryBuilder.NullCondition(Article__c.Network__c).notNull()).endConditions();
 		}

@@ -133,6 +133,9 @@ public with sharing class NetworksSelector_Test {
 		List<Network__c> selectedNetworks = selector.selectByName(new Set<String>{'Melbourne'});
 		System.assertEquals(1, selectedNetworks.size(), 'Expected result size of 1 for exact match based on name');
 
+		List<RecordType> stNetworkRecordTypes = RecordTypesSelector.newInstance().selectByDeveloperName('Network__c', NetworksSelector.ST_NETWORK_RECORD_TYPES).values();
+		System.assertEquals(4, stNetworkRecordTypes.size(), 'Expected result size of 4 for exact match based on record types');
+
 		Test.stopTest();
 
 	}

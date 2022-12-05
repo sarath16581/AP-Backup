@@ -22,6 +22,9 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
         article.Case__c = c.Id;
         //associating event messages with articles.
         article = (Article__c)ApplicationTestDataFactory.setChildRelationships(article, new Map<String, List<SObject>>{'Event_Messages__r' => new List<SObject>{eventMessage}});
+        MyNetworkStarTrackCaseController.ArticleDetails mockDetails = new MyNetworkStarTrackCaseController.ArticleDetails(article);
+        MyNetworkStarTrackCaseController.ArticleResponseWrapper mockWrapper = new MyNetworkStarTrackCaseController.ArticleResponseWrapper();
+        mockWrapper.articleDetails = new List<MyNetworkStarTrackCaseController.ArticleDetails>{mockDetails};
 
 		// =====================================
 		// Stubbing
@@ -43,7 +46,8 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
         Test.stopTest();
 
         System.assertNotEquals(false, wrapper.hasPassedThroughAPNetwork, 'Expected true but instead returned false.');
-        System.assertNotEquals(null, wrapper.articleDetails, 'Expected articles for the case but instead returned null');
+        System.assertEquals(article.Id, wrapper.articleDetails[0].article.Id, 'Expected article details for the case');
+        System.assertEquals(mockWrapper.articleDetails[0].eventMessages[0].eventMessage.Id, wrapper.articleDetails[0].eventMessages[0].eventMessage.Id, 'Article details are not returned correctly');
 	}
 
     /**
