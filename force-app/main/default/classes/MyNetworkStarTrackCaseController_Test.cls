@@ -129,4 +129,38 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
         System.assertNotEquals(MyNetworkStarTrackCaseController.Status.SUCCESSFUL.name(), saveResult.status, 'Expected error creation of case investigation record');
 	}
 
+    /**
+	 * Scenario: Testing to get the chatter feed items for save
+	 */
+	@IsTest
+	private static void testGetChatterFeedItems() {
+        // =====================================
+		// Data Preparation
+		// =====================================
+        List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
+        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+        List<CaseInvestigation__c> existingCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[1], networks[1].Id, true);
+        String stJson = '{"success":true,"id":' +'"'+ caseInvestigations[0].Id + '"'+ '}';
+        Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
+        List<Database.SaveResult> svResultList = new List<Database.SaveResult>{sr};
+
+        // =====================================
+		// Stubbing
+		// =====================================
+        // None!
+
+        // =====================================
+		// Testing
+		// =====================================
+        Test.startTest();
+
+        List<FeedItem> feedItems = MyNetworkStarTrackCaseController.getChatterFeedItems(svResultList, 'Posting to chatter');
+
+        Test.stopTest();
+
+        System.assertEquals(1, feedItems.size(), 'Expected feed items to return');
+    }
+
 }

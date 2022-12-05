@@ -465,5 +465,11 @@ private with sharing class QueryBuilder_Test {
         records = Database.query(soql);
         System.assertEquals(0, records.size());
 
+        qb = qb.newQuery().addFrom(Account.SObjectType);
+        qb.addFields(new List<SObjectField>{Account.Id});
+        soql = qb.addConditions().add(new QueryBuilder.InCondition(Account.Name).notInCollection(new Set<String>{'Test Name 1'})).endConditions().toSoqlString();
+        records = Database.query(soql);
+        System.assertEquals(0, records.size());
+
     }
 }

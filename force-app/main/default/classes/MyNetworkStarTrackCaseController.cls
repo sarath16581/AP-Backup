@@ -104,6 +104,7 @@ public with sharing class MyNetworkStarTrackCaseController {
     /**
      * Function to return the feed items based on network comments
      */
+    @TestVisible
     private static List<FeedItem> getChatterFeedItems(Database.SaveResult[] srList, String comments) {
         Set<Id> caseInvestigationIds = new Set<Id>();
         List<FeedItem> feedItems = new List<FeedItem>();
