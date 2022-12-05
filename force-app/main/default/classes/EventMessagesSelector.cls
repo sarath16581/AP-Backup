@@ -13,14 +13,18 @@
  * 								selector option 'FILTER_NOT_BLANK_GUID' to 'FILTER_SAFE_DROP_GUID'.
  * 2021-10-01 - Nathan Franklin - Added selectByArticleNumber and uplifted to version 52 and also the WITH_SIGNATURE_FIELD option
  * 2021-10-03 - Nathan Franklin - Updated to pass selectorOptions into all related object selectors
+ * 2022-11-23 - Mahesh Parvathaneni - Added newInstance method with sort field and order and also added the selector FILTER_AP_NETWORK
  */
 public virtual inherited sharing class EventMessagesSelector extends ApplicationSelector {
+
+	public static String sortOrder ='Asc';
+    public static String sortfieldAPIName = 'ActualDateTime__c';
 
 	/**
 	 * NOTE: WITH_SIGNATURE_FIELD allows us to conditionally add the signature long text field only when it's needed
 	 */
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, WITH_ARTICLE, WITH_ATTACHMENT, WITH_SIGNATURE_FIELD, FILTER_SAFE_DROP_GUID, FILTER_ATTACHMENT_GUID
+		WITH_RECORDTYPE, WITH_OWNER, WITH_ARTICLE, WITH_ATTACHMENT, WITH_SIGNATURE_FIELD, FILTER_SAFE_DROP_GUID, FILTER_ATTACHMENT_GUID, FILTER_AP_NETWORK
 	}
 
 	public static EventMessagesSelector newInstance() {
@@ -29,6 +33,16 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	public static EventMessagesSelector newInstance(Integer recordLimit) {
 		return (EventMessagesSelector)Application.Selectors.newInstance(EventMessagesSelector.class).setLimit(recordLimit);
 	}
+
+	public static EventMessagesSelector newInstance(String sortField, String order){
+        if(!String.isEmpty(sortField)) {
+			sortfieldAPIName = sortField;
+		}
+        if(!String.isEmpty(order)) {
+			sortOrder = order;
+		}
+        return (EventMessagesSelector)Application.Selectors.newInstance(EventMessagesSelector.class);
+    }
 
 	/**
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
@@ -178,6 +192,11 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 			builder.addConditions().add(new QueryBuilder.NullCondition(EventMessage__c.AttachmentGUID__c).notNull()).endConditions();
 		}
 
+		if (selectorOptions.contains(Options.FILTER_AP_NETWORK)) {
+			builder.addRelatedFields(NetworksSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Facility__r');
+			builder.addConditions().add((new QueryBuilder.InCondition('RecordType.DeveloperName')).notInCollection(NetworksSelector.ST_NETWORK_RECORD_TYPES)).endConditions();
+		}
+
 		return builder;
 	}
 
@@ -185,7 +204,7 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	 * This should only be changed with caution!
 	 */
 	public override List<QueryBuilder.Order> getOrderBy() {
-		return new List<QueryBuilder.Order>{new QueryBuilder.Order('ActualDateTime__c', 'Asc')};
+		return new List<QueryBuilder.Order>{new QueryBuilder.Order(sortfieldAPIName, sortOrder)};
 	}
 
 }

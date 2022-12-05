@@ -16,6 +16,7 @@
 17/08/2020         Disha Kariya                Updated - Changes to consider attempted delivery over delivered delivery event message
 29/10/2020         SaiSwetha Pingali           Updated - REQ2297137 - Updated criteria to consider last 15 days on Contact centre updated cases
 29/07/2021         Neha Mehta                  Updated - REQ2547720 - Added Outside_Delivery_Radius__c,Geo_Precision__c fields in SOQL
+01/11/2022         Dattaraj Deshmukh           Updated - Added 'CaseInvestigations__r' as a subquery in 'baseQueryForMyNetworkCases()' method.
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
     
@@ -228,7 +229,9 @@ public with sharing class MyNetworkCaseListController {
      */
     private static String baseQueryForMyNetworkCases(){       
         String soqlSelect = 'SELECT Id, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
-        soqlSelect  += '(SELECT Request_Hold_Case__c,to_CCC_action__c, to_Reassign_Network__c FROM Network_Responses1__r ORDER BY CreatedDate DESC) FROM Case WHERE OwnerId= ' + '\'' + networkQueue + '\'';       
+        soqlSelect  += '(SELECT Request_Hold_Case__c,to_CCC_action__c, to_Reassign_Network__c FROM Network_Responses1__r ORDER BY CreatedDate DESC), '
+                    + '( SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c from CaseInvestigations__r ) '
+                    +' FROM Case WHERE OwnerId= ' + '\'' + networkQueue + '\'';       
         //soqlSelect  += ' AND type IN (\'Investigation\', \'Feedback\') ';
         soqlSelect  += ' AND Id IN (SELECT ParentId FROM caseteammember WHERE MemberId =  ' + '\'' + userinfo.getUserId() + '\')';               
 

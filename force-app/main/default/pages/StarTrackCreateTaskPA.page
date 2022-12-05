@@ -7,7 +7,46 @@
     NOV.05.2015 Patrick James Franco - Added rendered filter to Is Bulk Task to hide it for Pickup Booking Enquiry Cases
     NOV.16.2015 Patrick James Franco - Renamed Parent_Network_Facility references to Parent_Network
     NOV.25.2015 Patrick James Franco - Content replaced by StarTrackCreateTask component
+    NOV.18.2022 Mahesh Parvathaneni  - SF-689 Added App to invoke LWC cmp to Show the AP MyNetwork/ Creation of Case Investigations
 -->
-<apex:page id="page" standardController="Case" docType="html-5.0" showHeader="false" sidebar="false">
-    <c:StarTrackCreateTask case="{!Case}"/>
+<apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="false"
+    sidebar="false">
+    <div id="main">
+        <div id="VFCmp">
+            <c:StarTrackCreateTask case="{!Case}" />
+        </div>
+
+        <apex:includeLightning />
+        <!-- This is where the component gets embeded -->
+        <div id="lightning" />
+
+        <script>
+            //1.Lightning App
+            $Lightning.use("c:myNetworkStarTrackApp", function () {
+                //2.Component that has LWC in it
+                $Lightning.createComponent("c:myNetworkStarTrackCaseArticlesContainer", {
+                        "recordId": "{!Case}"
+                    },
+                    "lightning",
+                    function (cmp) {
+                        console.log('myNetworkStarTrackCaseArticlesContainer component created');
+                    }
+
+                );
+            });
+        </script>
+
+        <style>
+            div#VFCmp {
+                display: inline-block;
+                padding: 1rem;
+                border-radius: 0.25rem;
+                border: 1px solid rgb(201, 201, 201);
+            }
+
+            div#lightning {
+                margin-top: 1rem;
+            }
+        </style>
+    </div>
 </apex:page>
