@@ -91,6 +91,14 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		return new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
 	}
 
+	/*
+	This is required as both articles from SAP EM and .Net are storing the actual tracking number in the name field. StarTrack appends prefix and postfix to the ArticleID__c field. 
+	*/
+	public virtual List<Article__c> selectByArticleNames(Set<String> trackingIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Article__c.Name + ' in :trackingIds')).endConditions();
+		return (List<Article__c>)Database.query(qb.toSoqlString());
+	}
+
 	public Map<Id, Article__c> selectByTracking(Set<String> trackingIds, Boolean includeConsignmentSearch) {
 		return selectByTracking(trackingIds, new Set<Object>(), includeConsignmentSearch);
 	}

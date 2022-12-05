@@ -57,6 +57,17 @@ public class TIBCOArticleService {
 		return TIBCOArticleService.searchArticles(articleIds, searchSAPFirst, deprecated1 /*refreshCaseDetails*/, showMessages, deprecated2 /*linkToChildArticleIfSingleArticleConsignment*/, throwException);
 	}
 
+	/*
+	Leveraging the searchArticlesInSAP method to fetch the articles from SAP and then save it via the translator
+	*/
+	public void retrieveArticlesFromSAP(Set<String> articleIds) {
+		TIBCOSearchResult result = TIBCOArticleService.searchArticlesInSAP(new List<String>(articleIds));
+		if (result.success && result.trackResults.isEmpty() == false) {
+			TIBCODataTranslator.newInstance().translate(result.trackResults).save(false, true);
+		}
+	}
+
+
 	/************************************************************
 	 * Static methods
 	 ************************************************************/
@@ -431,6 +442,7 @@ public class TIBCOArticleService {
 			System.debug('---Headers' + service.Header);
 			AuspostQueryTrackEventsSchema.TrackingResults_element trackResults = service.queryTrackEvents_v1(articleIds, 'NAMED_USER');
 			System.debug('---After sending request' + trackResults);
+			System.debug('>>>> response: ' + json.serialize(trackResults));
 
 			for (AuspostQueryTrackEventsSchema.TrackingResults tr : trackResults.TrackingResult) {
 				result.trackResults.add(new TIBCOTrackingResultWrapper(tr));
