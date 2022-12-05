@@ -6,7 +6,7 @@
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Name of apex sharing reason, which is used to indicate why sharing was implemented for the custom object.</inlineHelpText>
     <label>Sharing Reason Name</label>
-    <length>255</length>
+    <length>40</length>
     <required>true</required>
     <type>Text</type>
     <unique>false</unique>
