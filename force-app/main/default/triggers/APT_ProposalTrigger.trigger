@@ -2,6 +2,7 @@
 Description: Share Quote/Proposal with Opportunity Team Members
 Created By: Mausam Padhiyar
 Created Date: 14th Aug, 2015
+@test APT_ProposalTrigger_Test
 Last Modified By: Mausam Padhiyar
 Last Modified Date: 21st Oct, 2015 > Sync with Opportunity
 
