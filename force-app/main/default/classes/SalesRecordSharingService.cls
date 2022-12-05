@@ -31,6 +31,10 @@ public without sharing class SalesRecordSharingService {
 	// only standard public groups are supported for configuring sharing groups
 	@TestVisible private static final Set<String> PUBLIC_GROUP_TYPES_SUPPORTED = new Set<String>{'Regular'};
 
+	// sharing configuration cached for reuse later. sharing configuration is derived from custom metadata and translated into
+	// a form suitable for use by this service class and it's clients.
+	private static Map<SObjectType, SalesSharingObjectMapping> salesSharingObjectMappingCache = new Map<SObjectType, SalesSharingObjectMapping>();
+
 	// custom metadata configured. arranged into a map where SObject API name is the key for ease of access.
 	@TestVisible private static Map<String, SalesSharingObjectMapping__mdt> salesSharingMetadata {
 		get {
@@ -81,10 +85,6 @@ public without sharing class SalesRecordSharingService {
 		}
 		private set;
 	}
-
-	// sharing configuration cached for reuse later. sharing configuration is derived from custom metadata and translated into
-	// a form suitable for use by this service class and it's clients.
-	private static Map<SObjectType, SalesSharingObjectMapping> salesSharingObjectMappingCache = new Map<SObjectType, SalesSharingObjectMapping>();
 
 	public static SalesRecordSharingService getInstance() {
 		return (SalesRecordSharingService) Application.Utilities.getInstance(SalesRecordSharingService.class);
