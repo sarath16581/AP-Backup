@@ -1,5 +1,5 @@
 /**
-* @description Provides test coverage for APT_ProposalDomain
+* @description Provides test coverage for APTProposalDomain
 * @author Ken McGuire
 * @group Domains
 * @domain Apttus_Proposal__Proposal__c
@@ -7,12 +7,12 @@
 * 2022-12-01 - Ken McGuire - Created
 */
 @isTest
-private class APT_ProposalDomain_Test{
+private class APTProposalDomain_Test{
     
     @isTest
     private static void TestProposalDomain() {
         List<Apttus_Proposal__Proposal__c> sObjectList = new List<Apttus_Proposal__Proposal__c> { new Apttus_Proposal__Proposal__c()}; 
-        APT_ProposalDomain domain = APT_ProposalDomain.newInstance(sObjectList);
+        APTProposalDomain domain = APTProposalDomain.newInstance(sObjectList);
         domain.registerModules();
         ApplicationTestDataFactory.generateRecordIds(sObjectList);
         System.assertEquals(1, domain.records.size(), 'Expected Proposal Record');

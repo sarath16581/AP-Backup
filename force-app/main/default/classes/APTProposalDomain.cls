@@ -3,14 +3,14 @@
 * @author Ken McGuire
 * @group Domains
 * @domain Apttus_Proposal__Proposal__c
-* @test APT_ProposalDomain_Test
+* @test APTProposalDomain_Test
 * @changelog
 * 2022-12-01 - Ken McGuire - Created
 */
-public inherited sharing class APT_ProposalDomain extends ApplicationDomain {
+public inherited sharing class APTProposalDomain extends ApplicationDomain {
 
-    public static APT_ProposalDomain newInstance(List<SObject> sObjectList) {
-        return (APT_ProposalDomain)ApplicationDomain.newInstance(APT_ProposalDomain.class, sObjectList);
+    public static APTProposalDomain newInstance(List<SObject> sObjectList) {
+        return (APTProposalDomain)ApplicationDomain.newInstance(APTProposalDomain.class, sObjectList);
     }
 
     /**

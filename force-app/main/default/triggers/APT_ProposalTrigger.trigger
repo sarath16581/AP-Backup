@@ -32,7 +32,7 @@ trigger APT_ProposalTrigger on Apttus_Proposal__Proposal__c (before insert, afte
     
 	// Application Domain
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Apttus_Proposal__Proposal__c.SObjectType))) {
-		APT_ProposalDomainTriggerHandler.newInstance().dispatch();
+		APTProposalDomainTriggerHandler.newInstance().dispatch();
 	}
 	
 	if(trigger.isAfter == true) {

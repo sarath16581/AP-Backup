@@ -5,14 +5,14 @@
  * @group Domain
  * @tag APT_ProposalDomain
  * @domain Apttus_Proposal__Proposal__c
- * @test APT_ProposalDomainTriggerHandler_Test
+ * @test APTProposalDomainTriggerHandler_Test
  * @changelog
  * 22022-12-01- Ken McGuire - Created.
  */
-public with sharing class APT_ProposalDomainTriggerHandler extends ApplicationDomainTriggerHandler  {
+public with sharing class APTProposalDomainTriggerHandler extends ApplicationDomainTriggerHandler  {
     
-    public static APT_ProposalDomainTriggerHandler newInstance() {
-        return (APT_ProposalDomainTriggerHandler)Application.Utilities.newInstance(APT_ProposalDomainTriggerHandler.class);
+    public static APTProposalDomainTriggerHandler newInstance() {
+        return (APTProposalDomainTriggerHandler)Application.Utilities.newInstance(APTProposalDomainTriggerHandler.class);
     }
 
     public override SObjectType getSObjectType() {
@@ -21,7 +21,7 @@ public with sharing class APT_ProposalDomainTriggerHandler extends ApplicationDo
 
     public override List<Type> registerDomains() {
         return new List<Type>{
-            APT_ProposalDomain.class
+            APTProposalDomain.class
         };
     }
 
