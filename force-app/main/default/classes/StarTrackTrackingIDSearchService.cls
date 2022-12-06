@@ -75,30 +75,25 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
     }
 
     public void searchConsignment() {
-        system.debug('HASANTHA TEST 2');
         StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap;
-
         lst_article = null;
         map_article = new Map<String, Article__c>();
 
         if (validate()) {
-            system.debug('HASANTHA TEST 3');
+
             searchLocalConsignments();
             try {
                 // Check if there is a callout search type
                 if (String.isNotBlank(map_searchCustomSettings.get(fieldName).Callout_Search_Type__c)) {
-                    system.debug('HASANTHA TEST 4');
                     header = new wwwAuspostComAuSchemaCustomercarema.Header();
                     DateTime nowDT = DateTime.now();
                     header.TimeStamp = nowDT;
                     header.TransactionId = UserInfo.getUserName() + '_' + (nowDT).format(StarTrack_Constants.DATETIMEFORMAT);
                     header.SourceId = StarTrack_Constants.SOURCEID_SALESFORCE;
                     header.Action = StarTrack_Constants.ACTION_SEARCH;
-
                     request = new wwwAuspostComAuSchemaCustomercarema.SearchRequest();
                     request.ToDate = DateTime.now();
                     request.Date_x = (DateTime.now()).addDays(-(Integer.valueOf(dateRange)));
-
                     request.Header = header;
                     request.Type_x = map_searchCustomSettings.get(fieldName).Callout_Search_Type__c;
                     request.Value = searchString;
@@ -119,7 +114,6 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                         clientCert = stSettings.StarTrack_ConSearch_Client_Cert__c;
                     }
 
-                    system.debug('HASANTHA TEST 5');
                     emsStub.endpoint_x = endpoint;
                     if (!httpHeaders.isEmpty()) {
                         emsStub.inputHttpHeaders_x = httpHeaders;
@@ -128,17 +122,17 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                         emsStub.clientCertName_x = clientCert;
                     }
                     emsStub.timeout_x = Integer.valueOf(stSettings.Sync_Web_Service_Callout_Timeout__c * 1000);
-                    system.debug('HASANTHA TEST 6');
+                    system.debug('HASANTHA TEST IN SERVICE 1 about to call processSearchConsignment()');
                     processSearchConsignment();
 
                 }
             } catch (CalloutException e) {
-                GlobalUtility.logMessage(StarTrack_Constants.ERROR, StarTrack_Constants.CLASS_CONSIGNSEARCH,
-                        StarTrack_Constants.METHOD_SEARCHCONSIGNMENT, '', StarTrack_Constants.CALLOUTEXCEPTION,
+                GlobalUtility.logMessage(StarTrack_Constants.ERROR, StarTrackTrackingIDSearchService.class.getName(),
+                        'searchConsignment', '', StarTrack_Constants.CALLOUTEXCEPTION,
                         e.getMessage(), String.valueOf(request), e, 0);
             } catch (Exception e) {
-                GlobalUtility.logMessage(StarTrack_Constants.ERROR, StarTrack_Constants.CLASS_CONSIGNSEARCH,
-                        StarTrack_Constants.METHOD_SEARCHCONSIGNMENT, '', StarTrack_Constants.EXCEPTION_KYWRD,
+                GlobalUtility.logMessage(StarTrack_Constants.ERROR, StarTrackTrackingIDSearchService.class.getName(),
+                        'searchConsignment', '', StarTrack_Constants.EXCEPTION_KYWRD,
                         e.getMessage(), String.valueOf(request), e, 0);
                 system.debug(e.getStackTraceString());
             }
@@ -176,23 +170,20 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
     }
 
     public Object processSearchConsignment() {
-        system.debug('HASANTHA TEST 7 ');
         StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap;
         try {
             reqTimeStamp = StarTrackIntegrationLogging.timeNowFormatted();
-            system.debug('HASANTHA TEST 8 ');
             emsResponse = emsStub.Search_x(request);
-            system.debug('HASANTHA TEST 8 after search');
             respTimeStamp = StarTrackIntegrationLogging.timeNowFormatted();
 
             // REQUEST/RESPONSE LOG
             if (StarTrackIntegrationLogging.validForLogging(stSettings)) {
-                StarTrackIntegrationLogging.logRequestResponse(StarTrack_Constants.CLASS_CONSIGNSEARCH, StarTrack_Constants.METHOD_PROCESSSEARCHCONSIGNMENT,
+                StarTrackIntegrationLogging.logRequestResponse(StarTrackTrackingIDSearchService.class.getName(), StarTrack_Constants.METHOD_PROCESSSEARCHCONSIGNMENT,
                         searchString, 'INT-REQ - consignmentSearch', reqTimeStamp, request);
-                StarTrackIntegrationLogging.logRequestResponse(StarTrack_Constants.CLASS_CONSIGNSEARCH, StarTrack_Constants.METHOD_PROCESSSEARCHCONSIGNMENT,
+                StarTrackIntegrationLogging.logRequestResponse(StarTrackTrackingIDSearchService.class.getName(), StarTrack_Constants.METHOD_PROCESSSEARCHCONSIGNMENT,
                         searchString, 'INT-RES - consignmentSearch', respTimeStamp, emsResponse);
             }
-            system.debug('HASANTHA TEST 9 ');
+
             conWrap = StarTrackConsignmentSearchUtil.processResponse(emsResponse, isConsole, false);
 
             if (StarTrack_Constants.ERR_CODE_0.equals(conWrap.errorCode)) {
@@ -206,13 +197,23 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
             }
 
         } catch (CalloutException e) {
-            GlobalUtility.logMessage(StarTrack_Constants.ERROR, StarTrack_Constants.CLASS_CONSIGNSEARCH,
-                    StarTrack_Constants.METHOD_PROCESSSEARCHCONSIGNMENT, '', StarTrack_Constants.CALLOUTEXCEPTION,
-                    e.getMessage(), String.valueOf(request), e, 0);
+            GlobalUtility.logMessage(StarTrack_Constants.ERROR
+                    , StarTrackTrackingIDSearchService.class.getName(),
+                    'processSearchConsignment'
+                    , ''
+                    , StarTrack_Constants.CALLOUTEXCEPTION,
+                    e.getMessage()
+                    , String.valueOf(request)
+                    , e
+                    , 0);
 
             if (StarTrackIntegrationLogging.validForLogging(stSettings)) {
-                StarTrackIntegrationLogging.logRequestResponse(StarTrack_Constants.CLASS_CONSIGNSEARCH, StarTrack_Constants.METHOD_PROCESSSEARCHCONSIGNMENT,
-                        searchString, 'INT-REQ - consignmentSearch - ERROR', reqTimeStamp, request);
+                StarTrackIntegrationLogging.logRequestResponse(StarTrackTrackingIDSearchService.class.getName()
+                        , 'processSearchConsignment()'
+                        , searchString
+                        ,'INT-REQ - consignmentSearch - ERROR'
+                        , reqTimeStamp
+                        , request);
             }
         }
 
@@ -229,8 +230,8 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
 
         Map<Id, Article__c> articles = selector.selectByArticleNames(
                 new Set<String> {searchString},
-                'Consignment',
-                new Set<String> {'TEAM', 'TRACK & TRACE'},
+                StarTrack_Constants.TYPE_CONSIGNMENT,
+                new Set<String> {StarTrack_Constants.SOURCE_SYSTEM_TEAM, StarTrack_Constants.SOURCE_SYSTEM_TRACK_AND_TRACE},
                 new Set<Object>{ ArticlesSelector.Options.WITH_RECORDTYPE, ArticlesSelector.Options.WITH_CONSIGNMENT});
         return articles.values();
     }
