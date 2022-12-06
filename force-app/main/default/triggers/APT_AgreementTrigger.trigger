@@ -19,6 +19,10 @@ trigger APT_AgreementTrigger on Apttus__APTS_Agreement__c (after insert,before i
     List<Opportunity> listOpportunity = new List<Opportunity>();
     Opportunity oppty;
 
+	// Application Domain
+	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Apttus__APTS_Agreement__c.SObjectType))) {
+		APTAgreementDomainTriggerHandler.newInstance().dispatch();
+	}
 //before
     if (Trigger.isBefore) {
         //insert
