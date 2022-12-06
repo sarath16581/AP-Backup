@@ -93,6 +93,7 @@ public with sharing class EventMessagesSelector_Test {
         qb = selector.newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK});
         soql = qb.toSoqlString();
         System.assertEquals(true, Pattern.compile('(?ism)Facility__r.*?\\bfrom EventMessage__c\\b').matcher(soql).find(), 'Resulting query does not select Facility__r field: ' + soql);
+        System.assertEquals(true, Pattern.compile('(?ism)Facility__r.*?\\bfrom EventMessage__c\\b.*Facility__r.RecordType.DeveloperName NOT IN*').matcher(soql).find(), 'Resulting query does not select Facility__r record type field: ' + soql);
 
 
         Test.stopTest();
@@ -113,10 +114,15 @@ public with sharing class EventMessagesSelector_Test {
         Article__c article = ApplicationTestDataFactory.getConsignments(1, false)[0];
         insert article;
 
+        Network__c network = ApplicationTestDataFactory.getNetworks(1, false)[0];
+        insert network;
+
         Map<String, List<EventMessageTypeMapping__mdt>> eventMessageType = EventMessageUtil.getEventMessageTypesByCategory();
         List<EventMessage__c> events = ApplicationTestDataFactory.getEventMessages(2, article.Id, false);
         events[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
         events[1].EventType__c = eventMessageType.get('Delivered')[0].Label;
+        events[0].Facility__c = network.Id;
+        events[1].Facility__c = network.Id;
         insert events;
 
         // =====================================
@@ -149,6 +155,12 @@ public with sharing class EventMessagesSelector_Test {
         List<EventMessage__c> resultsList = selector.selectByArticleNumber(new Set<String>{'CON1231'}, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE});
         System.assertEquals(2, resultsList.size(), 'Expected result size of 2');
         System.assertNotEquals(null, resultsList[0].Article__r, 'Expected article object');
+
+        selector = EventMessagesSelector.newInstance();
+        List<EventMessage__c> eventsList = selector.selectByArticleNumber(new Set<String>{'CON1231'}, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.FILTER_AP_NETWORK});
+        System.assertEquals(2, eventsList.size(), 'Expected result size of 2');
+        System.assertNotEquals(null, eventsList[0].Facility__c, 'Expected network record');
+        System.assertNotEquals(null, eventsList[0].Facility__r.Name, 'Expected facility name');
 
         Test.stopTest();
     }

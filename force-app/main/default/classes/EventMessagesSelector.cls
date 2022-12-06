@@ -194,7 +194,7 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 
 		if (selectorOptions.contains(Options.FILTER_AP_NETWORK)) {
 			builder.addRelatedFields(NetworksSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Facility__r');
-			builder.addConditions().add((new QueryBuilder.InCondition('RecordType.DeveloperName')).notInCollection(NetworksSelector.ST_NETWORK_RECORD_TYPES)).endConditions();
+			builder.addConditions().add((new QueryBuilder.InCondition('Facility__r.RecordType.DeveloperName')).notInCollection(NetworksSelector.ST_NETWORK_RECORD_TYPES)).endConditions();
 		}
 
 		return builder;
