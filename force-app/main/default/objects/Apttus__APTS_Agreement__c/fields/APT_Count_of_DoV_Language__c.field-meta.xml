@@ -4,6 +4,7 @@
     <description>Counter for sentence/plural sentences in DOV Template</description>
     <externalId>false</externalId>
     <label>Count of DoV Language</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>APT_DoV_Language__c.APT_DoV_Action__c</field>
         <operation>equals</operation>

@@ -311,7 +311,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Internal_Resources__c</field>
+            <field>INTERNAL_Resources__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -808,6 +808,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Last_Activity_Days__c</field>
+            <table>Opportunity.Bids_or_Tenders__r.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Events__c</field>
+            <table>Opportunity.Bids_or_Tenders__r.Activities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Tasks__c</field>
             <table>Opportunity.Bids_or_Tenders__r.Activities</table>
         </columns>
         <masterLabel>Activities</masterLabel>

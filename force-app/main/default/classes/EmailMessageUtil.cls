@@ -9,8 +9,8 @@ History:
 2018-12-11  disha.kariya@auspost.com.au     Update Case from Email for Secure Post
 2022-02-22  naveen.rajanna@auspost.com.au - Added constants for REQ2723199
 2022-04-08  naveen.rajanna@auspost.com.au - REQ2804764 - Remove debug and Add null check to prevent nullpointerexception for parseEmailbodySnapIt,setEmailToCaseAddress
-2022-05-06  naveen.rajanna@auspost.com.au - Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
 2022-05-03  saiswetha.pingali@auspost.com.au - Removed parseEmailbodySnapIT as it is no more used.
+2022-11-04  Naveen Rajanna - REQ3018517 Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
 
 **************************************************/
 public class EmailMessageUtil {
@@ -200,6 +200,7 @@ public class EmailMessageUtil {
                     //Validate if email body contains parent case thread Id.
                     // System.debug('Case Thread Id: ' + getThreadId(newEmail.ParentId));
                     // System.debug('Current parent id: ' + newEmail.ParentId);
+                    //REQ3018517
                     if (emailSubject != null && newEmail.Incoming && 
                             (String.isBlank(newEmail.HTMLBody) || 
                                 (String.isNotBlank(newEmail.HTMLBody) && !newEmail.HTMLBody.contains(getThreadId(newEmail.ParentId))))) {

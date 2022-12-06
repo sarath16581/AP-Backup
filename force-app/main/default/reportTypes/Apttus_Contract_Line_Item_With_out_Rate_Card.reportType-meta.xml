@@ -1969,11 +1969,6 @@
             <field>APT_Count_of_DoV_Language__c</field>
             <table>Apttus__APTS_Agreement__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Creator_Role__c</field>
-            <table>Apttus__APTS_Agreement__c</table>
-        </columns>
         <masterLabel>Apttus Contracts</masterLabel>
     </sections>
     <sections>
@@ -3506,13 +3501,5 @@
             <table>Apttus__APTS_Agreement__c.Apttus__AgreementLineItems__r.Agreement_Rate_Card__r</table>
         </columns>
         <masterLabel>Agreement Rate Card</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Cubic_Status__c</field>
-            <table>Apttus__APTS_Agreement__c.Apttus__AgreementLineItems__r</table>
-        </columns>
-        <masterLabel>Agreement Line Items</masterLabel>
     </sections>
 </ReportType>

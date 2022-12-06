@@ -23,7 +23,6 @@ public with sharing class BillingAccountCreationEventHandler {
 			List<BillingAccountCreationEvent__e> billingAccPEs = new List<BillingAccountCreationEvent__e>();
 			List<BillingAccountCreationEvent__e> ratingPlanPEs = new List<BillingAccountCreationEvent__e>();
 			for(BillingAccountCreationEvent__e platformEvent : (List<BillingAccountCreationEvent__e>)Trigger.New){
-                System.debug('Trigger platformEvent: ' + platformEvent);
 				// Rating Plan Platform event has Additional Info set to RatingPlanActivation or RateCardActivation
 				if(platformEvent.Additional_Info__c == APT_Constants.RATING_PLAN_ACTIVATION_LABEL || platformEvent.Additional_Info__c == APT_Constants.RATING_CARD_ACTIVATION_LABEL){
 					ratingPlanPEs.add(platformEvent);

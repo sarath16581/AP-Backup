@@ -7,8 +7,8 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>Depot__c</field>
-        <operation>startsWith</operation>
-        <value>North W</value>
+        <operation>equals</operation>
+        <value>WOLLONGONG VAN OPERATIONS</value>
     </filters>
     <label>North Wollongong Routes</label>
     <sharedTo>

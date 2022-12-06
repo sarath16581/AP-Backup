@@ -49,7 +49,13 @@ public inherited sharing class ServiceAdvisorEmailMesAutomationModule extends Ap
 		for (EmailMessage em : records) {
 			Case parent = caseMap.containsKey(em.ParentId) ? caseMap.get(em.ParentId) : null;
 			// If Parent is a 'Closed Service Delivery Case assigned to an User' then create a Activity
-			if (parent != null && ('Closed').equals(parent.Status) && !parent.Owner_is_Queue__c) {
+			if (
+				em.Incoming &&
+				EmailMessageUtil.STATUS_NEW.equals(em.Status) &&
+				parent != null &&
+				('Closed').equals(parent.Status) &&
+				!parent.Owner_is_Queue__c
+			) {
 				// Define a task record which needs to be created
 				Task bounceTask = new Task();
 				bounceTask.ActivityDate = (parent.ClosedDate != null) ? parent.ClosedDate.Date() : null;

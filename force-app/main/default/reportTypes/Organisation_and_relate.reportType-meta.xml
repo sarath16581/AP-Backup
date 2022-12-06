@@ -1066,11 +1066,6 @@
             <field>APT_Zone_9Digital_Dispersion__c</field>
             <table>Apttus__AgreementLineItem__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Cubic_Status__c</field>
-            <table>Apttus__AgreementLineItem__c</table>
-        </columns>
         <masterLabel>Agreement Line Items</masterLabel>
     </sections>
     <sections>

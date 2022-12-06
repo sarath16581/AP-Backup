@@ -1035,11 +1035,6 @@
             <field>APT_Zone__c</field>
             <table>Apttus_Proposal__Proposal_Line_Item__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>APT_Cubic_Status__c</field>
-            <table>Apttus_Proposal__Proposal_Line_Item__c</table>
-        </columns>
         <masterLabel>Proposal Line Items</masterLabel>
     </sections>
     <sections>

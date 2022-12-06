@@ -107,6 +107,7 @@
     <loginAccess>false</loginAccess>
     <permissionSets>Knowledge Management Manager Article Permisssions</permissionSets>
     <permissionSets>StarTrack Autoclose Case from Task</permissionSets>
+    <permissionSets>MFA Authorization for User Logins</permissionSets>
     <permissionSets>StarTrack Delegated Users</permissionSets>
     <permissionSets>StarTrack Due Date Override</permissionSets>
     <permissionSets>StarTrack Edit Case Priority Permission Set</permissionSets>

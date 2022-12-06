@@ -8,7 +8,6 @@
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

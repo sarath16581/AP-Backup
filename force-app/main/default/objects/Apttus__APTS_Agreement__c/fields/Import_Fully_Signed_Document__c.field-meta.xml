@@ -12,6 +12,7 @@ ISPICKVAL(Apttus__Status__c, &quot;Ready for Signatures&quot;)
 HYPERLINK(&quot;/apex/Apttus__OfflineDocumentImport?id=&quot;&amp;Id+&quot;&amp;finishPage=APT_ImportFullySignedDoc&quot;, IMAGE(&quot;/resource/APT_ImportFullySignedDocument&quot;, &quot;Import Fully Signed Document&quot;),&quot;_self&quot;), NULL)</formula>
     <label>Import Fully Signed Document</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

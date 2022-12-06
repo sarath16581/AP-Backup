@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether the recurring item would auto renew at end of term</inlineHelpText>
     <label>Auto Renew</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

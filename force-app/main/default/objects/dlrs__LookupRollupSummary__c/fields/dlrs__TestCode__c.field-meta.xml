@@ -6,6 +6,7 @@
     <inlineHelpText>This tool utilises a dynamically generated Apex Trigger and by default a generated Apex Test. Use this field if instructed by a developer to replace the generated test code. For more information see the tools Wiki on GitHub.</inlineHelpText>
     <label>Test Code</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>12</visibleLines>

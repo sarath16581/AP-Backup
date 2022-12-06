@@ -9,6 +9,7 @@
     <relationshipLabel>Lookup Child Big</relationshipLabel>
     <relationshipName>LookupChildBig</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

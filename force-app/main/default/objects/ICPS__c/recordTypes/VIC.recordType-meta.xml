@@ -739,10 +739,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>SEA</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>SEA MAIL</fullName>
             <default>false</default>
         </values>
@@ -821,7 +817,7 @@
         </values>
         <values>
             <fullName>IN STORE</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>L%2FADDRESS</fullName>

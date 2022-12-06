@@ -739,20 +739,12 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>SEA</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>SEA MAIL</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>MailCategory__c</picklist>
-        <values>
-            <fullName>EXPRESS</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>INSURED</fullName>
             <default>false</default>
@@ -849,7 +841,7 @@
         </values>
         <values>
             <fullName>IN STORE</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>L%2FADDRESS</fullName>
@@ -877,10 +869,6 @@
         </values>
         <values>
             <fullName>RTS-AIR</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>SEIZED</fullName>
             <default>false</default>
         </values>
         <values>

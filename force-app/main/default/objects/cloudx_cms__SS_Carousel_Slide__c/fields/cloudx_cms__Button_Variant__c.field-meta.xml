@@ -6,6 +6,7 @@
     <inlineHelpText>Choose a button design: Branding Editor, Neutral, or Bare.</inlineHelpText>
     <label>Button Variant</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

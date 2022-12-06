@@ -43,6 +43,7 @@
     <groups>NAMBOUR PUD TRANSPORT</groups>
     <label>AP Depot Admin</label>
     <loginAccess>false</loginAccess>
+    <permissionSets>Auspost Depot Super User</permissionSets>
     <permissionSets>MFA Authorization for User Logins</permissionSets>
     <profiles>AusPost Depot Supervisor</profiles>
     <roles>AP Vans Depot Users</roles>

@@ -4,12 +4,4 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>FSL Dispatcher License</label>
     <license>FieldServiceDispatcherPsl</license>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>FieldServiceAccess</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>FieldServiceDispatcher</name>
-    </userPermissions>
 </PermissionSet>

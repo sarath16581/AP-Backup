@@ -9,7 +9,6 @@
     <relationshipLabel>External Onboarding Requests</relationshipLabel>
     <relationshipName>applications</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

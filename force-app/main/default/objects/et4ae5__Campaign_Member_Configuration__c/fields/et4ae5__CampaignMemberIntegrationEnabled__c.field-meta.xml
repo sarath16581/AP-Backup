@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>If this box is checked, Campaign Member Status or Activity Field will be updated depending on the value of  the UpdateStatusOrActivity field.</inlineHelpText>
     <label>CampaignMemberConnectorEnabled</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

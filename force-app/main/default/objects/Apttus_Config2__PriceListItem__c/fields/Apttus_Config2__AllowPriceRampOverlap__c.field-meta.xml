@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether overlapping price ramps are allowed</inlineHelpText>
     <label>Allow Price Ramp Overlap</label>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

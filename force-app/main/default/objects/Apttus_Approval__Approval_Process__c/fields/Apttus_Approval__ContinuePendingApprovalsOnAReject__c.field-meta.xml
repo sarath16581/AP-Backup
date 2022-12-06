@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Continue with approval process even when a step is rejected.</inlineHelpText>
     <label>Continue Pending Approvals on a Reject</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

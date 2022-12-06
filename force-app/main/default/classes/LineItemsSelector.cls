@@ -99,19 +99,19 @@ public with sharing class LineItemsSelector extends ApplicationSelector{
 	/**
 	 * @description Using query builder to get the fields from Product Attribute Value objects
 	 */
-	public virtual override QueryBuilder newQueryBuilder() {
-		return newQueryBuilder(new Set<Object>());
-	}
+    public virtual override QueryBuilder newQueryBuilder() {
+        return newQueryBuilder(new Set<Object>());
+    }
 
-	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+    public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+        QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
-		if(selectorOptions.contains(Options.WITH_PRODUCT_ATTRIBUTE_VALUE)) {
+        if(selectorOptions.contains(Options.WITH_PRODUCT_ATTRIBUTE_VALUE)) {
 			builder.addRelatedFields(APT_ProductAttributeValuesSelector.newInstance().newQueryBuilder(), 'Apttus_Config2__AttributeValueId__r');
 		}
 		return builder;
-	}
-    
+        }
+
     public virtual Map<Id, Apttus_Config2__LineItem__c> selectByProdConfId(ID lineItemIds) {
         return selectByProdConfId(lineItemIds, new Set<Object>());
     }

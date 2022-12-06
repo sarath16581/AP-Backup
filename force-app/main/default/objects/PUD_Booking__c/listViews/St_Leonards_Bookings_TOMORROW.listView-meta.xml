@@ -26,6 +26,11 @@
         <operation>notEqual</operation>
         <value>PUD_Booking__c.Other</value>
     </filters>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Macquarie Park</value>
+    </filters>
     <label>St Leonards Bookings - TOMORROW</label>
     <sharedTo>
         <group>ST_LEONARDS_VAN_OPS</group>

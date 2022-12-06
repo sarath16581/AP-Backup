@@ -9,9 +9,14 @@
     <columns>State__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>NAME</field>
-        <operation>startsWith</operation>
-        <value>IGA</value>
+        <field>Customer__c</field>
+        <operation>lessOrEqual</operation>
+        <value>unassigned</value>
+    </filters>
+    <filters>
+        <field>Account_Manager_Email__c</field>
+        <operation>equals</operation>
+        <value>unassigned</value>
     </filters>
     <label>All Network Booking Locations</label>
 </ListView>

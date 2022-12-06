@@ -10,6 +10,7 @@
     <relationshipLabel>Agreement Option Line Items</relationshipLabel>
     <relationshipName>AgreementOptionLineItems</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

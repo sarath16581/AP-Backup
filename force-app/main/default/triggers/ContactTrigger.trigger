@@ -15,12 +15,11 @@ History
 01-AUG-2022 Kamil Szyc          Added reparentToNewAccount call after update
 2022-08-29 - Nathan Franklin - Moved reparentToNewAccount into domain framework
 
-@Test ContactTrigger_Test
+@Test ContactTrigger_Test 
 ------------------------------------------------------------------------------*/
 
 trigger ContactTrigger on Contact (before insert, before update, after insert, after update, before Delete) {
 
-	//ContactUtility.reparentToNewAccount(Trigger.newMap, Trigger.oldMap);
     if(!TriggerHelper.isTriggerDisabled(String.valueOf(Contact.SObjectType))) {
 		ContactDomainTriggerHandler.newInstance().dispatch();
 	}

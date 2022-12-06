@@ -12,71 +12,16 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>AUD</fullName>
-                <default>false</default>
-                <label>Australian Dollar (AUD)</label>
-            </value>
-            <value>
-                <fullName>USD</fullName>
-                <default>false</default>
-                <label>United States Dollar (USD)</label>
-            </value>
-            <value>
-                <fullName>CAN</fullName>
-                <default>false</default>
-                <label>Canadian Dollar (CAN)</label>
-            </value>
-            <value>
-                <fullName>GBP</fullName>
-                <default>false</default>
-                <label>British Pound (GBP)</label>
-            </value>
-            <value>
-                <fullName>EUR</fullName>
-                <default>false</default>
-                <label>Euro (EUR)</label>
-            </value>
-            <value>
-                <fullName>NZD</fullName>
-                <default>false</default>
-                <label>New Zealand Dollar (NZD)</label>
-            </value>
-            <value>
-                <fullName>SGD</fullName>
-                <default>false</default>
-                <label>Singapore Dollar (SGD)</label>
-            </value>
-            <value>
-                <fullName>CHF</fullName>
-                <default>false</default>
-                <label>Swiss Franc (CHF)</label>
-            </value>
-            <value>
-                <fullName>CNY</fullName>
-                <default>false</default>
-                <label>Chinese Yuan (CNY)</label>
-            </value>
-            <value>
-                <fullName>HKD</fullName>
-                <default>false</default>
-                <label>Hong Kong Dollar (HKD)</label>
-            </value>
-            <value>
-                <fullName>IDR</fullName>
-                <default>false</default>
-                <label>Indonesian Rupiah (IDR)</label>
-            </value>
-            <value>
-                <fullName>JPY</fullName>
-                <default>false</default>
-                <label>Japanese Yen (JPY)</label>
-            </value>
+            <sorted>true</sorted>
             <value>
                 <fullName>ARS</fullName>
                 <default>false</default>
                 <label>Argentine Peso (ARS)</label>
+            </value>
+            <value>
+                <fullName>AUD</fullName>
+                <default>false</default>
+                <label>Australian Dollar (AUD)</label>
             </value>
             <value>
                 <fullName>BBD</fullName>
@@ -87,6 +32,21 @@
                 <fullName>BRL</fullName>
                 <default>false</default>
                 <label>Brazilian Real (BRL)</label>
+            </value>
+            <value>
+                <fullName>GBP</fullName>
+                <default>false</default>
+                <label>British Pound (GBP)</label>
+            </value>
+            <value>
+                <fullName>CAN</fullName>
+                <default>false</default>
+                <label>Canadian Dollar (CAN)</label>
+            </value>
+            <value>
+                <fullName>CNY</fullName>
+                <default>false</default>
+                <label>Chinese Yuan (CNY)</label>
             </value>
             <value>
                 <fullName>HRK</fullName>
@@ -104,9 +64,19 @@
                 <label>Danish Krone (DKK)</label>
             </value>
             <value>
+                <fullName>EUR</fullName>
+                <default>false</default>
+                <label>Euro (EUR)</label>
+            </value>
+            <value>
                 <fullName>FJD</fullName>
                 <default>false</default>
                 <label>Fiji Dollar (FJD)</label>
+            </value>
+            <value>
+                <fullName>HKD</fullName>
+                <default>false</default>
+                <label>Hong Kong Dollar (HKD)</label>
             </value>
             <value>
                 <fullName>HUF</fullName>
@@ -119,9 +89,19 @@
                 <label>Indian Rupee (INR)</label>
             </value>
             <value>
+                <fullName>IDR</fullName>
+                <default>false</default>
+                <label>Indonesian Rupiah (IDR)</label>
+            </value>
+            <value>
                 <fullName>ILS</fullName>
                 <default>false</default>
                 <label>Israeli New Shekel (ILS)</label>
+            </value>
+            <value>
+                <fullName>JPY</fullName>
+                <default>false</default>
+                <label>Japanese Yen (JPY)</label>
             </value>
             <value>
                 <fullName>JOD</fullName>
@@ -152,6 +132,11 @@
                 <fullName>TWD</fullName>
                 <default>false</default>
                 <label>New Taiwan Dollar (TWD)</label>
+            </value>
+            <value>
+                <fullName>NZD</fullName>
+                <default>false</default>
+                <label>New Zealand Dollar (NZD)</label>
             </value>
             <value>
                 <fullName>NOK</fullName>
@@ -189,6 +174,11 @@
                 <label>Saudi Riyal (SAR)</label>
             </value>
             <value>
+                <fullName>SGD</fullName>
+                <default>false</default>
+                <label>Singapore Dollar (SGD)</label>
+            </value>
+            <value>
                 <fullName>ZAR</fullName>
                 <default>false</default>
                 <label>South African Rand (ZAR)</label>
@@ -204,6 +194,11 @@
                 <label>Swedish Krona (SEK)</label>
             </value>
             <value>
+                <fullName>CHF</fullName>
+                <default>false</default>
+                <label>Swiss Franc (CHF)</label>
+            </value>
+            <value>
                 <fullName>THB</fullName>
                 <default>false</default>
                 <label>Thai Bhat (THB)</label>
@@ -217,6 +212,11 @@
                 <fullName>AED</fullName>
                 <default>false</default>
                 <label>United Arab Emirates Dirham (AED)</label>
+            </value>
+            <value>
+                <fullName>USD</fullName>
+                <default>false</default>
+                <label>United States Dollar (USD)</label>
             </value>
             <value>
                 <fullName>VND</fullName>

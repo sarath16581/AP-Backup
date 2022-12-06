@@ -17,6 +17,13 @@
                         </valueListItems>
                         <valueListItems>
                             <value>CustomButton.ICPS__c.PrintFirstNotice</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.NumberofArticles__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>0</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>CustomButton.ICPS__c.PrintFinalNotice</value>
@@ -31,7 +38,7 @@
                         <valueListItems>
                             <value>CustomButton.ICPS__c.EmailFirstNotice</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.IsEmailEnabled__c}</leftValue>
                                     <operator>EQUAL</operator>
@@ -40,6 +47,11 @@
                                 <criteria>
                                     <leftValue>{!Record.ReceiverEmail__c}</leftValue>
                                     <operator>NE</operator>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.NumberofArticles__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>0</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

@@ -128,7 +128,7 @@
                 <!--<li><a href="#sap" data-toggle="tab"><apex:image value="{!$Resource.SAPIcon}" height="20" alt="SAP-EM"/></a></li>-->
                 <li><a href="#happyparcel" data-toggle="tab"><apex:image value="{!$Resource.SAPIcon}" height="20" alt="Happy Parcel"/></a></li>
                 <li><a href="#track" data-toggle="tab" id="trackUrl"><apex:image url="{!URLFOR($Resource.SSSWIcons,'logo.png')}" height="20" alt="Tracking"/>&nbsp;&nbsp;Track</a></li>
-                <!-- <li><a href="#edd" data-toggle="tab"><apex:image url="{!URLFOR($Resource.SSSWIcons,'EDDIcon.png')}" height="20" alt="EDD"/>&nbsp;&nbsp;EDD</a></li> -->
+                <!--<li><a href="#edd" data-toggle="tab"><apex:image url="{!URLFOR($Resource.SSSWIcons,'EDDIcon.png')}" height="20" alt="EDD"/>&nbsp;&nbsp;EDD</a></li> -->
             </ul>
             <div class="tab-content">
                 <div id="existingCases" class="tab-pane active existingCasesOrActivities">

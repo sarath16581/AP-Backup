@@ -11,7 +11,7 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Administrative fee</fullName>
                 <default>false</default>
@@ -41,6 +41,12 @@
                 <fullName>Unmanifested article</fullName>
                 <default>false</default>
                 <label>Unmanifested article</label>
+            </value>
+            <value>
+                <fullName>Security management surcharge</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Security management surcharge</label>
             </value>
         </valueSetDefinition>
     </valueSet>

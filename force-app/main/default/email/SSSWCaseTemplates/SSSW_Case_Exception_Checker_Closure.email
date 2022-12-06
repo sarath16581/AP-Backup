@@ -106,40 +106,26 @@
 
 										<p>Hi {!Contact.FirstName},</p>
 
-										<p>Thanks for your patience while we've conducted our investigation for your
-											missing parcel.</p>
+										<p>Thanks for your patience while we looked into your missing parcel.</p>
 
 										<p> <span style="font:bold 13px/18px Arial, Helvetica, sans-serif;">Case
-													Number: </span> {!Case.CaseNumber} </p>
+													reference: </span> {!Case.CaseNumber} </p>
 										<p> <span style="font:bold 13px/18px Arial, Helvetica, sans-serif;">Tracking
 													Number: </span> {!Case.ReferenceID__c} </p>
 
-										<p>We've checked our delivery network and found no further updates for your
-											parcel.
-											It hasn't been logged at our Returned Mail Redistribution Centre, where we
-											store undeliverable
-											items and loose contents.</p>
+										<p>We've found no further traces of your parcel in our delivery network. It also hasn't been scanned at our Returned Mail Redistribution Centre, where we store undeliverable items and loose contents.</p>
 
-										<p>We regret to advise that despite our investigation, we haven't been able to
-											locate your parcel.
-											With all possible checks completed, your parcel is now considered lost.</p>
+										<p>With all possible checks completed, we regret to advise that we can't locate your parcel. Your parcel is now considered lost.</p>
 
-										<p>We had hoped to give you a happier outcome today, and we're sorry that we
-											couldn't.</p>
+										<p>We had hoped to give you a happier outcome today, and we're sorry that we couldn't.</p>
 
 										<p style="font:bold 13px/18px Arial, Helvetica, sans-serif;">What to do next</p>
 
-										<p>Please contact the sender of your parcel. Let them know your parcel is lost
-											and ask for assistance with your
-											order. You can share this email with them as confirmation of your lost
-											parcel.</p>
+										<p>Please contact the sender of your parcel. Let them know your parcel is lost and ask for assistance with your order. You can share this email with them as confirmation of your lost parcel.</p>
 
-										<p>You should contact the sender because they are best placed to offer you a
-											solution according to their policies. If the
-											sender can't assist you, please let us know.</p>
+										<p>You should contact the sender because they are best placed to offer you a solution according to their policies. If the sender can't assist you, please let us know.</p>
 
-										<p>We sincerely apologise for any disappointment or inconvenience this may have
-											caused you.</p>
+										<p>We sincerely apologise for any disappointment or inconvenience this may have caused you.</p>
 
 										<p>
 											Kind regards,

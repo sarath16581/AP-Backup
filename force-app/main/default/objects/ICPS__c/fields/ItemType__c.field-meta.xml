@@ -19,12 +19,6 @@
                 <label>Air</label>
             </value>
             <value>
-                <fullName>Air - OLD</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Air - OLD</label>
-            </value>
-            <value>
                 <fullName>EMS</fullName>
                 <default>false</default>
                 <label>EMS</label>
@@ -43,18 +37,6 @@
                 <fullName>SEA MAIL</fullName>
                 <default>false</default>
                 <label>Sea Mail</label>
-            </value>
-            <value>
-                <fullName>Sea Mail - OLD</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Sea Mail - OLD</label>
-            </value>
-            <value>
-                <fullName>Sea - OLD</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Sea - OLD</label>
             </value>
         </valueSetDefinition>
     </valueSet>

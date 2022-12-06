@@ -8,47 +8,22 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>AlternateAddress__c</field>
+            <field>Id</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
             <table>Location</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Barcode_A__c</field>
+            <field>RecordType</field>
             <table>Location</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Billing_Account__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Capacity__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>City__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CloseDate</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ConstructionEndDate</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ConstructionStartDate</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Country__c</field>
+            <field>CreatedDate</field>
             <table>Location</table>
         </columns>
         <columns>
@@ -58,7 +33,132 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
+            <field>LastModifiedDate</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LocationType</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Latitude</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Longitude</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Description</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>DrivingDirections</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TimeZone</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ParentLocation</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>PossessionDate</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ConstructionStartDate</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ConstructionEndDate</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OpenDate</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CloseDate</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RemodelStartDate</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RemodelEndDate</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsMobile</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsInventoryLocation</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RootLocation</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LocationLevel</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ExternalReference</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Logo</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>AlternateAddress__c</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Billing_Account__c</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>City__c</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Country__c</field>
             <table>Location</table>
         </columns>
         <columns>
@@ -69,21 +169,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Default_B_Trailer__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Description</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Despatch_ID__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DrivingDirections</field>
             <table>Location</table>
         </columns>
         <columns>
@@ -103,11 +188,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>ExternalReference</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>FleetNumber__c</field>
             <table>Location</table>
         </columns>
@@ -118,62 +198,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>IsInventoryLocation</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Latitude</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Line_Haul__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Location_ID__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LocationLevel</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>Name</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LocationType</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Logo</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Longitude</field>
             <table>Location</table>
         </columns>
         <columns>
@@ -189,16 +214,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Max_Vehicle_Cat_Name__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>MLID__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>IsMobile</field>
             <table>Location</table>
         </columns>
         <columns>
@@ -223,7 +238,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OpenDate</field>
+            <field>OrganisationID__c</field>
             <table>Location</table>
         </columns>
         <columns>
@@ -233,22 +248,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OrganisationID__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ParentLocation</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>ParkingBay__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>PossessionDate</field>
             <table>Location</table>
         </columns>
         <columns>
@@ -258,47 +258,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>ptestname__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>RecordType</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Registration_Number__c</field>
             <table>Location</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>RemodelEndDate</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>RemodelStartDate</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>RootLocation</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Service_Territory__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>SiteInstructions__c</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Site_Instructions__c</field>
             <table>Location</table>
         </columns>
         <columns>
@@ -323,11 +288,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>TimeZone</field>
-            <table>Location</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Type__c</field>
             <table>Location</table>
         </columns>
@@ -338,27 +298,37 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>VisitorAddress</field>
+            <field>ptestname__c</field>
             <table>Location</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Billing_Account__c.Calc_Customer_ID__c</field>
+            <field>Barcode_A__c</field>
             <table>Location</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Billing_Account__c.LEGACY_ID__c</field>
+            <field>Site_Instructions__c</field>
             <table>Location</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Billing_Account__c.Name</field>
+            <field>Despatch_ID__c</field>
             <table>Location</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Billing_Account__c.Customer_Name__c</field>
+            <field>Location_ID__c</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>MLID__c</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Capacity__c</field>
             <table>Location</table>
         </columns>
         <masterLabel>Locations</masterLabel>

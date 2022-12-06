@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Enables tracking of agreement clause changes</inlineHelpText>
     <label>Enable Agreement Clause Tracking</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

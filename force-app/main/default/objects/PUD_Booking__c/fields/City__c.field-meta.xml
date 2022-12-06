@@ -9,7 +9,6 @@
     <label>City</label>
     <length>40</length>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -3,6 +3,7 @@
  * @Description        : Constants for StarTrack Help and Support Community
  * @Author             : Mahesh Parvathaneni
  **/
+
 public with sharing class STHSConstants {
     public static final String CASE_STATUS_NEW = 'New';
     public static final String CASE_PRIOIRITY_NORMAL = 'Normal';

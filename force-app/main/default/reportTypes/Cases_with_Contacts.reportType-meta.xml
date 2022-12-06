@@ -955,21 +955,6 @@
             <field>Total_Lead_Score__c</field>
             <table>Contact</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Unique_Mobile__c</field>
-            <table>Contact</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hidden_Tie_Contact_To_Service_Partner__c</field>
-            <table>Contact</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>hiddenTieContactToServicePartner__c</field>
-            <table>Contact</table>
-        </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
     <sections>
@@ -1166,11 +1151,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedBy</field>
-            <table>Contact.Cases</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>AssetWarranty</field>
             <table>Contact.Cases</table>
         </columns>
         <columns>
@@ -1421,6 +1401,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Initiated_By__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>MPB_BSP_Tech_Enquiry_Type__c</field>
             <table>Contact.Cases</table>
         </columns>
         <columns>
@@ -2951,6 +2936,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Refer_to_Third_Party__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Area_to_Benefit__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Other_CoE_s_Involved__c</field>
             <table>Contact.Cases</table>
         </columns>
         <columns>
@@ -4956,6 +4951,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>UserSurveyDateSent__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Contact.Cases</table>
         </columns>
         <masterLabel>Cases</masterLabel>

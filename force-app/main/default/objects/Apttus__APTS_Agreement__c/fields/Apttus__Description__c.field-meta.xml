@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <label>Description</label>
     <length>32000</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

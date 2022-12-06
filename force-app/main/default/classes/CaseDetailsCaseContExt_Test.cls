@@ -104,6 +104,62 @@ global class CaseDetailsCaseContExt_Test {
 		Database.insert(testCase);
 	}
 
+	@IsTest
+	static void ensureAssignCaseChecksForSkills() {
+		Map<String, Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
+		MockUtility.disableTriggerExecution();
+		Case testCase = ApplicationTestDataFactory.getCases(1, true)[0];
+		testCase.RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
+		testCase.OwnerId = UserInfo.getUserId();
+		ApexPages.StandardController sc = new ApexPages.StandardController(testCase);
+		CaseDetailsCaseContExt controller = new CaseDetailsCaseContExt(sc);
+		controller.reassignCase = testCase; // TODO: clean up these silly business
+		controller.myCase = testCase; // TODO: clean up these silly business
+		controller.remediationAvailable = false; // skipping article fetch
+
+		List<ServiceChannel> serviceChannels = OmniChannelTestDataFactory.getServiceChannels(1, 'Case', 'Priority', true);
+		Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(OmniChannelTestDataFactory.getPendingServiceRoutings(1, serviceChannels[0].Id, new Set<Id>{testCase.Id}, true));
+
+		Map<Id, Skill> skills = new Map<Id, Skill>(OmniChannelTestDataFactory.getSkills(1, true));
+		List<SkillRequirement> skillsRequirements = OmniChannelTestDataFactory.getSkillRequirements(1, skills.keySet(), psrs.keySet(), true);
+
+		Map<Id, ServiceResource> serviceResources = new Map<Id, ServiceResource>(OmniChannelTestDataFactory.getServiceResources(1, 'A', true));
+		List<ServiceResourceSkill> serviceResourceSkills = OmniChannelTestDataFactory.getServiceResourceSkills(1, skills.keySet(), serviceResources.keySet(), true);
+
+		//mock selectors
+		PendingServiceRoutingSelector pendingServiceRoutingSelector = (PendingServiceRoutingSelector) MockUtility.mockSelector(PendingServiceRoutingSelector.class);
+		SkillRequirementSelector skillRequirementSelector = (SkillRequirementSelector) MockUtility.mockSelector(SkillRequirementSelector.class);
+		ServiceResourceSkillSelector serviceResourceSkillSelector = (ServiceResourceSkillSelector) MockUtility.mockSelector(ServiceResourceSkillSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(pendingServiceRoutingSelector.selectByWorkItemId(
+									(Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }),
+									(Set<Object>) fflib_Match.eq(new Set<Object>())
+								)).thenReturn(psrs.values());
+
+		MockUtility.Mocks.when(skillRequirementSelector.selectByRelatedRecordIds(
+									(Set<Id>) fflib_Match.eq(psrs.keySet()),
+									(Set<Object>) fflib_Match.eq(new Set<Object>())
+								)).thenReturn(skillsRequirements);
+		
+		MockUtility.Mocks.when(serviceResourceSkillSelector.selectByActiveServiceResourceRelatedRecordIds(
+									(Set<Id>) fflib_Match.eq(new Set<Id>{testCase.OwnerId}),
+									(Set<Object>) fflib_Match.eq(new Set<Object>())
+								)).thenReturn(serviceResourceSkills);
+
+		MockUtility.Mocks.stopStubbing();
+
+		//test start and stop
+		Test.startTest();
+
+		controller.assignCase();
+
+		Test.stopTest();
+
+		System.assertEquals(true, controller.notAllowedToReassign, 'Should not allow user to reassign case');
+	}
+
 	/*****************************************************************************************
 	*  Scenario:
 	*      Test to call remote action method to get the recordTypeId.
@@ -185,6 +241,8 @@ global class CaseDetailsCaseContExt_Test {
 
 		CaseDetailsCaseContExt cdcc = new CaseDetailsCaseContExt(sc);
 
+		Test.startTest();
+
 		//Set mock callout class.
 		Test.setMock(HttpCalloutMock.class, new InitPageMock('CaseDescribe'));
 		//Call initializePage on page load to set the values.
@@ -197,8 +255,6 @@ global class CaseDetailsCaseContExt_Test {
 		cdcc.relatedArticle.mls_State__c = 'VIC';
 		cdcc.relatedArticle.mls_Instructions__c = 'Leave at front door';
 		cdcc.relatedArticle.mls_Description__c = 'Big red box';
-
-		Test.startTest();
 
 		//Set mock callout class with call type as respond200.
 		Test.setMock(HttpCalloutMock.class, new InitPageMock('respond200'));
@@ -251,6 +307,8 @@ global class CaseDetailsCaseContExt_Test {
 
 		CaseDetailsCaseContExt cdcc = new CaseDetailsCaseContExt(sc);
 
+		Test.startTest();
+
 		//Set mock callout class.
 		Test.setMock(HttpCalloutMock.class, new InitPageMock('CaseDescribe'));
 		//Call initializePage on page load to set the values.
@@ -263,8 +321,6 @@ global class CaseDetailsCaseContExt_Test {
 		cdcc.relatedArticle.mls_State__c = '';
 		cdcc.relatedArticle.mls_Instructions__c = '';
 		cdcc.relatedArticle.mls_Description__c = '';
-
-		Test.startTest();
 
 		//Call save method to save the case record.
 		cdcc.save();

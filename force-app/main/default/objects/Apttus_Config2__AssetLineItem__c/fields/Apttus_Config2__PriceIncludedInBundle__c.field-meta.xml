@@ -6,7 +6,6 @@
     <description>Indicates whether the option price is included in the bundle. Only applicable to Option line types.</description>
     <externalId>false</externalId>
     <label>Price Included In Bundle</label>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

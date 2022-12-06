@@ -11,12 +11,12 @@
 */
 public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 
-    public enum Options {
+	public enum Options {
 		WITH_USER,
-        WITH_CASE
+		WITH_CASE
 	}
 
-    public static AgentWorkSelector newInstance() {
+	public static AgentWorkSelector newInstance() {
 		return (AgentWorkSelector)Application.Selectors.newInstance(AgentWorkSelector.class);
 	}
 
@@ -30,9 +30,9 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-            AgentWork.WorkItemId,
-            AgentWork.Status,
-            AgentWork.UserId
+			AgentWork.WorkItemId,
+			AgentWork.Status,
+			AgentWork.UserId
 		};
 	}
 
@@ -40,38 +40,38 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 		return selectById(ids, new Set<Object>());
 	}
 
-    public List<AgentWork> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(AgentWork.Id + ' in :ids')).endConditions();
+	public List<AgentWork> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(AgentWork.Id + ' in :ids')).endConditions();
 		return (List<AgentWork>)Database.query(qb.toSoqlString());
 	}
 
-    public List<AgentWork> selectByWorkItemIds(Set<Id> workItemIds, Set<Object> selectorOptions) {
+	public List<AgentWork> selectByWorkItemIds(Set<Id> workItemIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds')).endConditions();
 		return (List<AgentWork>)Database.query(qb.toSoqlString());
 	}
 
-    public List<AgentWork> selectByAcceptedWorkItemIds(Set<Id> workItemIds, Set<Object> selectorOptions) {
-        selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-            .add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds'))
-            .add(new QueryBuilder.SimpleCondition(AgentWork.AcceptDateTime + ' != NULL'))
-            .setConditionOrder('1 AND 2')
-            .endConditions();
+	public List<AgentWork> selectByAcceptedWorkItemIds(Set<Id> workItemIds, Set<Object> selectorOptions) {
+		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+			.add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds'))
+			.add(new QueryBuilder.SimpleCondition(AgentWork.AcceptDateTime + ' != NULL'))
+			.setConditionOrder('1 AND 2')
+			.endConditions();
 
-        qb.addOrder(new QueryBuilder.Order(AgentWork.WorkItemId))
-            .addOrder(new QueryBuilder.Order(AgentWork.AcceptDateTime).setSortingOrderDesc());
+		qb.addOrder(new QueryBuilder.Order(AgentWork.WorkItemId))
+			.addOrder(new QueryBuilder.Order(AgentWork.AcceptDateTime).setSortingOrderDesc());
 
-        return (List<AgentWork>)Database.query(qb.toSoqlString());
-    }
+		return (List<AgentWork>)Database.query(qb.toSoqlString());
+	}
 
-    public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if(selectorOptions.contains(Options.WITH_USER)) {
 			builder.addRelatedFields(UsersSelector.newInstance().newQueryBuilder(), 'User');
 		}
 
-        if(selectorOptions.contains(Options.WITH_CASE)) {
+		if(selectorOptions.contains(Options.WITH_CASE)) {
 			builder.addRelatedFields(CasesSelector.newInstance().newQueryBuilder(), 'WorkItem');
 		}
 

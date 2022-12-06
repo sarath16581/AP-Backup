@@ -632,7 +632,10 @@
             sforce.console.fireEvent('CTIPhone_Callback', '{!id}_CTIPhoneCallback');
         });
 
-        //following block retrieves 'Email Address' from chat session.
+        //Following block retrieves 'Email Address' from chat session.
+        //For consumer chat, unauthenticated users can initiate the chat session from website.
+        //Below code grabs email address entered by user from primary tab details and trigger contact search.
+        //This avoids agents having to enter email address and manually trigger contact search.
         if('{!isLiveAgentUser}' == 'true') {
             sforce.console.getEnclosingPrimaryTabId(function(result) {
                 var tabId = result.id;

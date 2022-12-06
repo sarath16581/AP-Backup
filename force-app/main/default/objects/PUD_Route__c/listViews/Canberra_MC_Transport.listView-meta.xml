@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Canberra_MC_Transport</fullName>
+    <columns>NAME</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>equals</operation>
+        <value>CANBERRA MC TRANSPORT</value>
+    </filters>
+    <label>Canberra Transport</label>
+</ListView>

@@ -36,6 +36,10 @@
         <milestoneName>Resolution Time BGS</milestoneName>
         <minutesToComplete>2400</minutesToComplete>
         <timeTriggers>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
             <actions>
                 <name>Warn_BGS_Resolution_TAS</name>
                 <type>FlowAction</type>
@@ -43,14 +47,10 @@
             <timeLength>-3</timeLength>
             <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </timeTriggers>
-        <timeTriggers>
-            <timeLength>1</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>
     <name>Standard Entitlement BGS - TAS</name>
     <versionMaster>5520k00000001hz</versionMaster>
-    <versionNotes>MW003944 uplift</versionNotes>
+    <versionNotes>REQ2952617</versionNotes>
     <versionNumber>4</versionNumber>
 </EntitlementProcess>

@@ -177,7 +177,6 @@
         </rules>
     </decisions>
     <description>This flow will allow users to create Deal Support requests from BAR with limited DSR record Types</description>
-    <environments>Default</environments>
     <formulas>
         <name>RunningUser</name>
         <dataType>String</dataType>

@@ -27,6 +27,7 @@
     <relationshipLabel>Network Responses</relationshipLabel>
     <relationshipName>Network_Responses</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Link URL</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Url</type>
 </CustomField>

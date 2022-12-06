@@ -211,6 +211,77 @@ private class CampaignMemberSurveysModule_Test {
 
 	/**
 	 * Test:
+	 *  Ensures that the contact assignment record is updated when campaign member is updated to (CampaignContactAssignmentConstants.CONTACT_ASSIGNMENT_CHANGED)
+	 *  NOTE: This should handle at least 2 different campaigns / campaign members
+	 */
+	@IsTest
+	private static void testEndToEndCampaignMemberUpdateToChangedContact() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+		List<User> users = ApplicationTestDataFactory.getUsers(1,false);
+		insert users;
+		//Create two accounts
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, false);
+		accounts[0].ownerId = users[0].Id;
+		accounts[1].ownerId = users[0].Id;
+		insert accounts;
+
+		//Create one contact for each account
+		List<Contact> contacts  = new List<contact>{ApplicationTestDataFactory.getContacts(1, accounts[0].Id, false)[0],ApplicationTestDataFactory.getContacts(1, accounts[1].Id, false)[0]};
+		insert contacts;
+
+		//Create two campaigns
+		List<Campaign> campaigns = ApplicationTestDataFactoryCampaigns.getCampaigns(2, false);
+		campaigns[0].ContactAssignmentDefaultStatus__c = 'Default Status';
+		campaigns[1].ContactAssignmentDefaultStatus__c = 'Default Status';
+		insert campaigns;
+
+		//Create camapign member statuses
+		List<CampaignMemberStatus>cmsList = new List<CampaignMemberStatus>{
+				new CampaignMemberStatus(CampaignId = campaigns[0].Id, Label = 'Default Status'),
+				new CampaignMemberStatus(CampaignId = campaigns[0].Id, Label = CampaignContactAssignmentConstants.CONTACT_ASSIGNMENT_CHANGED),
+				new CampaignMemberStatus(CampaignId = campaigns[1].Id, Label = 'Default Status'),
+				new CampaignMemberStatus(CampaignId = campaigns[1].Id, Label = CampaignContactAssignmentConstants.CONTACT_ASSIGNMENT_CHANGED)
+		};
+		insert cmsList;
+
+		//Create two contact assignments (one for each campaign) and set contacts on the assignments.
+		//This should create campaign member records for each of the contact.
+		List<CampaignContactAssignment__c> campaignContactAssignments = new List<CampaignContactAssignment__c>{ApplicationTestDataFactoryCampaigns.getCampaignContactAssignments(1,accounts[0].Id,campaigns[0].Id, false)[0],ApplicationTestDataFactoryCampaigns.getCampaignContactAssignments(1,accounts[1].Id,campaigns[1].Id, false)[0]};
+		campaignContactAssignments[0].Contact__c = contacts[0].Id;
+		campaignContactAssignments[1].Contact__c = contacts[1].Id;
+		insert campaignContactAssignments;
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		//Get the campaign member records created from inserting contact assignments via SOQL.
+		List<CampaignMember>cmList = new List<CampaignMember>([Select Id, Status from CampaignMember where campaignId IN : campaigns]);
+		System.AssertEquals(cmList.size(),2, 'Ensure campaign members are created from assignments.');
+		//Update the status of the campaign members to changed contact
+		cmList[0].Status = CampaignContactAssignmentConstants.CONTACT_ASSIGNMENT_CHANGED;
+		cmList[1].Status = CampaignContactAssignmentConstants.CONTACT_ASSIGNMENT_CHANGED;
+		update cmList;
+		Test.stopTest();
+		//Check is the contact assignments are updated to remove the contact lookup value.
+		List<CampaignContactAssignment__c>assignmentList = new List<CampaignContactAssignment__c>([Select Id, Contact__c from CampaignContactAssignment__c where Id IN : campaignContactAssignments]);
+		System.AssertEquals(assignmentList[0].Contact__c,null, 'Ensure contact is removed');
+		System.AssertEquals(assignmentList[1].Contact__c,null, 'Ensure contact is removed');
+
+
+	}
+
+	/**
+	 * Test:
 	 *  Ensures that the contact assignment record update is ignored when the Campaign Member status is set to something other than 'cancelled' (CampaignContactAssignmentConstants.CONTACT_ASSIGNMENT_CHANGED)
 	 *  NOTE: This should handle at least 2 different campaigns / campaign members
 	 */

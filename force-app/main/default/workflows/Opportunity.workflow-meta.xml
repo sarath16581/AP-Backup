@@ -575,8 +575,8 @@ date(
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Update_hidden_internal_resources</fullName>
-        <field>Hidden_Internal_Resources__c</field>
-        <formula>left( Internal_Resources__c ,10)</formula>
+        <field>Hidden_INTERNAL_Resources__c</field>
+        <formula>left( INTERNAL_Resources__c ,10)</formula>
         <name>Update hidden internal resources</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>

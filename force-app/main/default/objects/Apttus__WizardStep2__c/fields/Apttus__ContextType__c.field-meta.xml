@@ -11,6 +11,7 @@ All means that any input can be used in the step design.
 Object means that only aligned (same object) inputs can be used in the step design.</inlineHelpText>
     <label>Context Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

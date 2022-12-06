@@ -5,6 +5,7 @@
     <formula>IF( APT_Customer_Type__c == &apos;Charity&apos;,&apos;Charity&apos;,IF(APT_Customer_Type__c ==&apos;Charity/Council&apos;,&apos;Council&apos;,null))</formula>
     <label>Charity or Council</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

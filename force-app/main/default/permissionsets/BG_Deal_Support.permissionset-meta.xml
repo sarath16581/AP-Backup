@@ -47,16 +47,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Apttus_CMConfig__AgreementProductAttributeValue__c.APT_Selected_Lodgement_Zone__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APT_Selected_Lodgement_Zone__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Apttus__APTS_Agreement__c.Apttus__Status_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2347,11 +2337,11 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>AccountRelationship__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>

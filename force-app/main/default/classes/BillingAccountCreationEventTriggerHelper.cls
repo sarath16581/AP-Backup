@@ -616,7 +616,7 @@ public with sharing class BillingAccountCreationEventTriggerHelper {
 						car.id = dealsupportRequestMap.get(billingAccountNumberDSRMap.get(billingAccountRecord?.LEGACY_ID__c))?.APT_Contract__r?.Apttus_QPComply__RelatedProposalId__r?.APT_Credit_Assessment__r?.APT_Charge_Account__c;
 						if(car.id!=null) {
 							if(hasAPPCProduct == true){
-								//Populating the new field APPC_Primary_Lodgement_Point__c on the billing Account and on charge Account on field APT_Principal_Lodgement_Location__c.
+								//Populating the new field APPC_Primary_Lodgement_Point__c on the billing Account and on charge Account on field APT_Principal_Lodgement_Location__c
 								for(APT_Agreement_Lodgement_Point__c alp : alpList){
 									// rating plan linked at Charge Account Request level or Org level
 									if(alp.APT_Charge_Account__c != null || 

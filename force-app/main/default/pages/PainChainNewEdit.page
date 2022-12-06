@@ -39,7 +39,7 @@
             </apex:pageBlockSectionItem>
             <apex:pageBlockSectionItem helpText="Which other internal stakeholders does this affect?" >
                 <apex:outputLabel value="Internal Stakeholder Impact" for="Internal_Stakeholder_Impact__c"/>
-                <apex:inputTextarea value="{!Pain_Point__c.Internal_Stakeholder_Impact__c}" id="Internal_Stakeholder_Impact__c" style="width:400px; height:40px;"/>
+                <apex:inputTextarea value="{!Pain_Point__c.INTERNAL_Stakeholder_Impact__c}" id="Internal_Stakeholder_Impact__c" style="width:400px; height:40px;"/>
             </apex:pageBlockSectionItem>
         </apex:pageBlockSection>
     </apex:pageBlock> 

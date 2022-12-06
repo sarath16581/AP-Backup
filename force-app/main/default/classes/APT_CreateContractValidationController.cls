@@ -29,7 +29,7 @@ public with sharing class APT_CreateContractValidationController {
     */
     public PageReference generateAPPCContractDocument(){    
         
-        
+
         if(apConVar.APT_APPC_Count__c > 0){
             IsAPPC = true;   
 
@@ -38,7 +38,7 @@ public with sharing class APT_CreateContractValidationController {
         }
         
         List<id> listTemplateId = new List<id>();
-        for(Apttus__APTS_Template__c a : [select id from Apttus__APTS_Template__c where name = :APT_Constants.R2T_APPC_CONTRACT]){               
+        for(Apttus__APTS_Template__c a : [select id from Apttus__APTS_Template__c where name = :APT_Constants.R2T_APPC_CONTRACT]){
             listTemplateId.add(a.id);
         }
         map<Id, String> templatepLevelMap = new map<Id, String>();
@@ -81,22 +81,22 @@ public with sharing class APT_CreateContractValidationController {
                     
             String instanceURL = complySystemProperties.Apttus__InstanceUrl__c;
             String serverURL = instanceURL + APT_Constants.services_Soap_u_52_0  + orgId; //Merge server URL
-                        
+            
             if(!test.isRunningTest()) {
                 Apttus.MergeWebService.generateDoc2(templateIdList[0], idAgreement, templatepLevelMap.get(templateIdList[0]), templateOutputFormatMap.get(templateIdList[0]), false, sessionId, serverURL);
             }
- 
+            
             Apttus__APTS_Agreement__c apConVar = new  Apttus__APTS_Agreement__c();
             apConVar.Id = idAgreement;
             apConVar.APT_Is_Create_Contract_Batch_Job_Running__c = false;
             update apConVar;
-
+            
             set<String> setErrorMessages = new set<String>();
             APT_CreateContractUtility.sendEmailNotification(idAgreement, instanceURL, null, setErrorMessages);
 
         }
         catch(Exception ex){
-            System.debug('APT_CreateContractValidationController.createContract() Exception: ' + ex.getMessage());
+            System.debug(ex.getMessage());
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'CPQ', 
                                                     APT_CreateContractValidationController.class.getName(), 'createContract', 
                                                     null, LoggingLevel.ERROR);

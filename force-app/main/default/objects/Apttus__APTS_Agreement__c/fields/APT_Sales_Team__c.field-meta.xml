@@ -6,6 +6,7 @@
     <inlineHelpText>Sales Team of the Owner of the Record</inlineHelpText>
     <label>Sales Team</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

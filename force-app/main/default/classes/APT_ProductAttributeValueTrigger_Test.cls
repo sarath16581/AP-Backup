@@ -1468,49 +1468,49 @@ Test method for PCMS bundles
                                                                                       APT_Constants.PRODUCT_CODE_NEW_AIRMAIL_LETTERS, 'Parcel Services');
             internationalProduct7.APT_International_Pricing__c = true;
             products.add( internationalProduct7);
-			
-			Product2 internationalProduct8 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRLET_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct8 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRLET_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRLET_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct8.APT_International_Pricing__c = true;
             products.add( internationalProduct8);
-			
-			Product2 internationalProduct9 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct9 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct9.APT_International_Pricing__c = true;
             products.add( internationalProduct9);
-			
-			Product2 internationalProduct10 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct10 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct10.APT_International_Pricing__c = true;
             products.add( internationalProduct10);
-			
-			Product2 internationalProduct11 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct11 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct11.APT_International_Pricing__c = true;
             products.add( internationalProduct11);
-			
-			Product2 internationalProduct12 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRSMPCL_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct12 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRSMPCL_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRSMPCL_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct12.APT_International_Pricing__c = true;
             products.add( internationalProduct12);
-			
-			Product2 internationalProduct13 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSDOCT_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct13 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSDOCT_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.EMSDOCT_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct13.APT_International_Pricing__c = true;
             products.add( internationalProduct13);
-			
-			Product2 internationalProduct14 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMERCH_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct14 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMERCH_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.EMSMERCH_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct14.APT_International_Pricing__c = true;
             products.add( internationalProduct14);
-			
-			Product2 internationalProduct15 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMER20_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct15 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMER20_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.EMSMER20_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct15.APT_International_Pricing__c = true;
             products.add( internationalProduct15);
-			
+            
             insert products;
-			
+            
             list<Product2> internationalProducts = new list<Product2> {internationalProduct1,
                 internationalProduct2,
                 internationalProduct3/*,
@@ -1530,7 +1530,7 @@ Test method for PCMS bundles
             List<Apttus_Config2__PriceListItem__c> priceListItemList = new List<Apttus_Config2__PriceListItem__c>();
             //pli for productCAT1STD
             Apttus_Config2__PriceListItem__c priceListItem = APT_TestUtils.createPriceListItem(priceList.id,productCAT1STD.id,'','');
-            priceListItem.APT_Pricing_Key__c = productCAT1STD.Id + '~' + 'BANDED {Z6}' + '~' + 'CB';	
+            priceListItem.APT_Pricing_Key__c = productCAT1STD.Id + '~' + 'BANDED {Z6}' + '~' + 'CB';    
             priceListItem.APT_Band__c = 'Band 2';
             priceListItemList.add(priceListItem);
             //pli for product NXF
@@ -1586,61 +1586,61 @@ Test method for PCMS bundles
             priceListItemIP_6.APT_Band_Range_Max__c = 1000;
             priceListItemIP_6.APT_Pricing_Key__c = internationalProduct6.Id + '~' + internationalProduct6.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_6);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_7 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct7.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_7 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct7.id,'','');
             priceListItemIP_7.APT_Band__c = 'Band 2';
             priceListItemIP_7.APT_Band_Range_Max__c = 1000;
             priceListItemIP_7.APT_Pricing_Key__c = internationalProduct7.Id + '~' + internationalProduct7.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_7);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_8 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct8.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_8 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct8.id,'','');
             priceListItemIP_8.APT_Band__c = 'Band 2';
             priceListItemIP_8.APT_Band_Range_Max__c = 1000;
             priceListItemIP_8.APT_Pricing_Key__c = internationalProduct8.Id + '~' + internationalProduct8.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_8);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_9 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct9.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_9 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct9.id,'','');
             priceListItemIP_9.APT_Band__c = 'Band 2';
             priceListItemIP_9.APT_Band_Range_Max__c = 1000;
             priceListItemIP_9.APT_Pricing_Key__c = internationalProduct9.Id + '~' + internationalProduct9.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_9);
             
-			Apttus_Config2__PriceListItem__c priceListItemIP_10  = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct10.id,'','');
+            Apttus_Config2__PriceListItem__c priceListItemIP_10  = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct10.id,'','');
             priceListItemIP_10 .APT_Band__c = 'Band 2';
             priceListItemIP_10 .APT_Band_Range_Max__c = 1000;
             priceListItemIP_10 .APT_Pricing_Key__c = internationalProduct10.Id + '~' + internationalProduct10.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_10 );
 
-			Apttus_Config2__PriceListItem__c priceListItemIP_11 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct11.id,'','');
+            Apttus_Config2__PriceListItem__c priceListItemIP_11 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct11.id,'','');
             priceListItemIP_11.APT_Band__c = 'Band 2';
             priceListItemIP_11.APT_Band_Range_Max__c = 1000;
             priceListItemIP_11.APT_Pricing_Key__c = internationalProduct11.Id + '~' + internationalProduct11.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_11);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_12 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct12.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_12 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct12.id,'','');
             priceListItemIP_12.APT_Band__c = 'Band 2';
             priceListItemIP_12.APT_Band_Range_Max__c = 1000;
             priceListItemIP_12.APT_Pricing_Key__c = internationalProduct12.Id + '~' + internationalProduct12.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_12);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_13 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct13.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_13 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct13.id,'','');
             priceListItemIP_13.APT_Band__c = 'Band 2';
             priceListItemIP_13.APT_Band_Range_Max__c = 1000;
             priceListItemIP_13.APT_Pricing_Key__c = internationalProduct13.Id + '~' + internationalProduct13.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_13);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_14 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct14.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_14 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct14.id,'','');
             priceListItemIP_14.APT_Band__c = 'Band 2';
             priceListItemIP_14.APT_Band_Range_Max__c = 1000;
             priceListItemIP_14.APT_Pricing_Key__c = internationalProduct14.Id + '~' + internationalProduct14.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_14);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_15 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct15.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_15 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct15.id,'','');
             priceListItemIP_15.APT_Band__c = 'Band 2';
             priceListItemIP_15.APT_Band_Range_Max__c = 1000;
             priceListItemIP_15.APT_Pricing_Key__c = internationalProduct15.Id + '~' + internationalProduct15.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_15);
-			
+            
             insert priceListItemList;
             
             Apttus_Config2__ProductAttributeGroup__c productAttributeGroup = APT_TestUtils.createProductAttributeGroup('Apttus_Config2__ProductAttributeValue__c');
@@ -1726,40 +1726,40 @@ Test method for PCMS bundles
             
             Apttus_Config2__PriceMatrix__c priceMatrixIP_4 = APT_TestUtils.createPriceMatrix(priceListItemIP_4.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_4);                     
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_5 = APT_TestUtils.createPriceMatrix(priceListItemIP_5.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_5 = APT_TestUtils.createPriceMatrix(priceListItemIP_5.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_5);  
 
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_6 = APT_TestUtils.createPriceMatrix(priceListItemIP_6.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
-            listPM.add(priceMatrixIP_6);  			
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_6 = APT_TestUtils.createPriceMatrix(priceListItemIP_6.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            listPM.add(priceMatrixIP_6);            
             
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_7 = APT_TestUtils.createPriceMatrix(priceListItemIP_7.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_7 = APT_TestUtils.createPriceMatrix(priceListItemIP_7.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_7);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_8 = APT_TestUtils.createPriceMatrix(priceListItemIP_8.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_8 = APT_TestUtils.createPriceMatrix(priceListItemIP_8.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_8);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_9 = APT_TestUtils.createPriceMatrix(priceListItemIP_9.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_9 = APT_TestUtils.createPriceMatrix(priceListItemIP_9.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_9);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_10 = APT_TestUtils.createPriceMatrix(priceListItemIP_10.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_10 = APT_TestUtils.createPriceMatrix(priceListItemIP_10.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_10);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_11 = APT_TestUtils.createPriceMatrix(priceListItemIP_11.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_11 = APT_TestUtils.createPriceMatrix(priceListItemIP_11.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_11);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_12 = APT_TestUtils.createPriceMatrix(priceListItemIP_12.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_12 = APT_TestUtils.createPriceMatrix(priceListItemIP_12.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_12);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_13 = APT_TestUtils.createPriceMatrix(priceListItemIP_13.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_13 = APT_TestUtils.createPriceMatrix(priceListItemIP_13.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_13);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_14 = APT_TestUtils.createPriceMatrix(priceListItemIP_14.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_14 = APT_TestUtils.createPriceMatrix(priceListItemIP_14.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_14);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_15 = APT_TestUtils.createPriceMatrix(priceListItemIP_15.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_15 = APT_TestUtils.createPriceMatrix(priceListItemIP_15.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_15);  
-			
+            
             insert listPM;
             System.debug('Line: 1387');
             list<Apttus_Config2__PriceMatrixEntry__c> listPME = new list<Apttus_Config2__PriceMatrixEntry__c>();
@@ -1850,8 +1850,8 @@ Test method for PCMS bundles
             pmeIP_4.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_4.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_4);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_5 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_5 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_5.Apttus_Config2__Dimension1Value__c = 'Zone5';
             pmeIP_5.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_5.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1861,8 +1861,8 @@ Test method for PCMS bundles
             pmeIP_5.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_5.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_5);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6.Apttus_Config2__Dimension1Value__c = 'Zone6';
             pmeIP_6.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1872,8 +1872,8 @@ Test method for PCMS bundles
             pmeIP_6.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_6.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6_1 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6_1 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6_1.Apttus_Config2__Dimension1Value__c = 'Zone7';
             pmeIP_6_1.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6_1.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1883,8 +1883,8 @@ Test method for PCMS bundles
             pmeIP_6_1.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_6_1.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6_1);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6_2 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6_2 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6_2.Apttus_Config2__Dimension1Value__c = 'Zone8';
             pmeIP_6_2.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6_2.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1894,8 +1894,8 @@ Test method for PCMS bundles
             pmeIP_6_2.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_6_2.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6_2);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6_3 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6_3 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6_3.Apttus_Config2__Dimension1Value__c = 'Zone9';
             pmeIP_6_3.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6_3.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1905,8 +1905,8 @@ Test method for PCMS bundles
             pmeIP_6_3.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_6_3.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6_3);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6_4 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6_4 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6_4.Apttus_Config2__Dimension1Value__c = 'Zone10';
             pmeIP_6_4.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6_4.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1917,7 +1917,7 @@ Test method for PCMS bundles
             pmeIP_6_4.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6_4);         
             
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7.Apttus_Config2__Dimension1Value__c = 'Zone7';
             pmeIP_7.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1927,8 +1927,8 @@ Test method for PCMS bundles
             pmeIP_7.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7);    
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_1 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_1 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_1.Apttus_Config2__Dimension1Value__c = 'Zone1';
             pmeIP_7_1.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_1.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1938,8 +1938,8 @@ Test method for PCMS bundles
             pmeIP_7_1.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7_1.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_1);    
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_2 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_2 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_2.Apttus_Config2__Dimension1Value__c = 'Zone2';
             pmeIP_7_2.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_2.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1950,7 +1950,7 @@ Test method for PCMS bundles
             pmeIP_7_2.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_2);    
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_3 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_3 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_3.Apttus_Config2__Dimension1Value__c = 'Zone3';
             pmeIP_7_3.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_3.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1960,8 +1960,8 @@ Test method for PCMS bundles
             pmeIP_7_3.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7_3.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_3);    
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_4 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_4 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_4.Apttus_Config2__Dimension1Value__c = 'Zone4';
             pmeIP_7_4.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_4.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1970,9 +1970,9 @@ Test method for PCMS bundles
             pmeIP_7_4.Apttus_Config2__UsageRate__c = 1;
             pmeIP_7_4.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7_4.Apttus_Config2__PriceOverride__c = 1;
-            listPME.add(pmeIP_7_4);    		
+            listPME.add(pmeIP_7_4);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_5 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_5 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_5.Apttus_Config2__Dimension1Value__c = 'Zone5';
             pmeIP_7_5.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_5.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1983,7 +1983,7 @@ Test method for PCMS bundles
             pmeIP_7_5.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_5);    
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_6 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_6 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_6.Apttus_Config2__Dimension1Value__c = 'Zone6';
             pmeIP_7_6.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_6.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -1994,7 +1994,7 @@ Test method for PCMS bundles
             pmeIP_7_6.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_6);    
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_8 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_8 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_8.Apttus_Config2__Dimension1Value__c = 'Zone8';
             pmeIP_7_8.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_8.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2003,9 +2003,9 @@ Test method for PCMS bundles
             pmeIP_7_8.Apttus_Config2__UsageRate__c = 1;
             pmeIP_7_8.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7_8.Apttus_Config2__PriceOverride__c = 1;
-            listPME.add(pmeIP_7_8);    			
-		
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_8 = new Apttus_Config2__PriceMatrixEntry__c();
+            listPME.add(pmeIP_7_8);             
+        
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_8 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_8.Apttus_Config2__Dimension1Value__c = 'Zone8';
             pmeIP_8.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_8.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2016,7 +2016,7 @@ Test method for PCMS bundles
             pmeIP_8.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_8);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_9 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_9 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_9.Apttus_Config2__Dimension1Value__c = 'Zone9';
             pmeIP_9.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_9.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2027,7 +2027,7 @@ Test method for PCMS bundles
             pmeIP_9.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_9);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_10 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_10 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_10.Apttus_Config2__Dimension1Value__c = 'Zone1';
             pmeIP_10.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_10.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2038,7 +2038,7 @@ Test method for PCMS bundles
             pmeIP_10.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_10);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_11 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_11 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_11.Apttus_Config2__Dimension1Value__c = 'Zone2';
             pmeIP_11.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_11.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2049,7 +2049,7 @@ Test method for PCMS bundles
             pmeIP_11.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_11);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_12 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_12 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_12.Apttus_Config2__Dimension1Value__c = 'Zone3';
             pmeIP_12.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_12.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2060,7 +2060,7 @@ Test method for PCMS bundles
             pmeIP_12.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_12);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_13 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_13 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_13.Apttus_Config2__Dimension1Value__c = 'Zone4';
             pmeIP_13.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_13.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2070,8 +2070,8 @@ Test method for PCMS bundles
             pmeIP_13.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_13.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_13);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_14 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_14 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_14.Apttus_Config2__Dimension1Value__c = 'Zone5';
             pmeIP_14.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_14.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2080,9 +2080,9 @@ Test method for PCMS bundles
             pmeIP_14.Apttus_Config2__UsageRate__c = 1;
             pmeIP_14.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_14.Apttus_Config2__PriceOverride__c = 1;
-            listPME.add(pmeIP_14);         			
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_15 = new Apttus_Config2__PriceMatrixEntry__c();
+            listPME.add(pmeIP_14);                  
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_15 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_15.Apttus_Config2__Dimension1Value__c = 'Zone6';
             pmeIP_15.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_15.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2092,7 +2092,7 @@ Test method for PCMS bundles
             pmeIP_15.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_15.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_15);         
-			
+            
             insert listPME; 
             System.debug('Test PME Count Start: ');              
             integer  count= database.countQuery('select count() from Apttus_Config2__PriceMatrixEntry__c where Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_International_Pricing__c = true');
@@ -2118,7 +2118,7 @@ Test method for PCMS bundles
             Catch(Exception e){
                 
             }
-            try{
+            /*try{
                 attribute1.Category__c = APT_Constants.CATEGORY_CAT2;
                 attribute1.APT_BAND__c = APT_Constants.BAND_2;
                 Update attribute1;
@@ -2158,7 +2158,7 @@ Test method for PCMS bundles
             }
             Catch(Exception e){
                 
-            }
+            }*/
             
             for(product2 product : internationalProducts){
                 try
@@ -2196,11 +2196,11 @@ Test method for PCMS bundles
                 
                 attribute_IP.Category__c = APT_Constants.CATEGORY_CAT2;
                     
-                    try{
+                    /*try{
                     
                         update attribute_IP;
                     }
-                    catch(Exception e){}
+                    catch(Exception e){}*/
                     if(product.ProductCode == APT_Constants.STANDARD_INTERNATIONAL_PRODUCT){
                         try{
                             attribute_IP.APT_International_Standard_Weight_Kgs__c = 1;
@@ -2264,7 +2264,7 @@ Test method for PCMS bundles
                             update attribute_IP;
                         }catch(Exception e){}
                     }
-					 else if(product.ProductCode == APT_Constants.ECONOMY_SIGN_INTERNATIONAL_PRODUCT){
+                     else if(product.ProductCode == APT_Constants.ECONOMY_SIGN_INTERNATIONAL_PRODUCT){
                         try{
                             attribute_IP.APT_International_Eco_W_Sig_Weight_Kgs__c = 1;
                             update attribute_IP;
@@ -2274,7 +2274,7 @@ Test method for PCMS bundles
                             update attribute_IP;
                         }catch(Exception e){}
                     }
-					
+                    
                     
                 }
                 catch(Exception e){
@@ -2480,49 +2480,49 @@ Test method for PCMS bundles
                                                                                       APT_Constants.PRODUCT_CODE_NEW_AIRMAIL_LETTERS, 'Parcel Services');
             internationalProduct7.APT_International_Pricing__c = true;
             products.add( internationalProduct7);
-			
-			Product2 internationalProduct8 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRLET_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct8 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRLET_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRLET_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct8.APT_International_Pricing__c = true;
             products.add( internationalProduct8);
-			
-			Product2 internationalProduct9 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct9 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct9.APT_International_Pricing__c = true;
             products.add( internationalProduct9);
-			
-			Product2 internationalProduct10 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct10 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct10.APT_International_Pricing__c = true;
             products.add( internationalProduct10);
-			
-			Product2 internationalProduct11 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct11 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct11.APT_International_Pricing__c = true;
             products.add( internationalProduct11);
-			
-			Product2 internationalProduct12 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRSMPCL_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct12 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRSMPCL_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRSMPCL_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct12.APT_International_Pricing__c = true;
             products.add( internationalProduct12);
-			
-			Product2 internationalProduct13 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSDOCT_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct13 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSDOCT_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.EMSDOCT_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct13.APT_International_Pricing__c = true;
             products.add( internationalProduct13);
-			
-			Product2 internationalProduct14 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMERCH_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct14 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMERCH_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.EMSMERCH_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct14.APT_International_Pricing__c = true;
             products.add( internationalProduct14);
-			
-			Product2 internationalProduct15 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMER20_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct15 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMER20_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.EMSMER20_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct15.APT_International_Pricing__c = true;
             products.add( internationalProduct15);
-			
+            
             insert products;
-			
+            
             list<Product2> internationalProducts = new list<Product2> {/*internationalProduct1,
                 internationalProduct2,
                 internationalProduct3,*/
@@ -2542,7 +2542,7 @@ Test method for PCMS bundles
             List<Apttus_Config2__PriceListItem__c> priceListItemList = new List<Apttus_Config2__PriceListItem__c>();
             //pli for productCAT1STD
             Apttus_Config2__PriceListItem__c priceListItem = APT_TestUtils.createPriceListItem(priceList.id,productCAT1STD.id,'','');
-            priceListItem.APT_Pricing_Key__c = productCAT1STD.Id + '~' + 'BANDED {Z6}' + '~' + 'CB';	
+            priceListItem.APT_Pricing_Key__c = productCAT1STD.Id + '~' + 'BANDED {Z6}' + '~' + 'CB';    
             priceListItem.APT_Band__c = 'Band 2';
             priceListItemList.add(priceListItem);
             //pli for product NXF
@@ -2598,61 +2598,61 @@ Test method for PCMS bundles
             priceListItemIP_6.APT_Band_Range_Max__c = 1000;
             priceListItemIP_6.APT_Pricing_Key__c = internationalProduct6.Id + '~' + internationalProduct6.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_6);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_7 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct7.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_7 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct7.id,'','');
             priceListItemIP_7.APT_Band__c = 'Band 2';
             priceListItemIP_7.APT_Band_Range_Max__c = 1000;
             priceListItemIP_7.APT_Pricing_Key__c = internationalProduct7.Id + '~' + internationalProduct7.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_7);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_8 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct8.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_8 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct8.id,'','');
             priceListItemIP_8.APT_Band__c = 'Band 3';
             priceListItemIP_8.APT_Band_Range_Max__c = 1000;
             priceListItemIP_8.APT_Pricing_Key__c = internationalProduct8.Id + '~' + internationalProduct8.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_8);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_9 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct9.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_9 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct9.id,'','');
             priceListItemIP_9.APT_Band__c = 'Band 4';
             priceListItemIP_9.APT_Band_Range_Max__c = 1000;
             priceListItemIP_9.APT_Pricing_Key__c = internationalProduct9.Id + '~' + internationalProduct9.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_9);
             
-			Apttus_Config2__PriceListItem__c priceListItemIP_10  = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct10.id,'','');
+            Apttus_Config2__PriceListItem__c priceListItemIP_10  = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct10.id,'','');
             priceListItemIP_10 .APT_Band__c = 'Band 5';
             priceListItemIP_10 .APT_Band_Range_Max__c = 1000;
             priceListItemIP_10 .APT_Pricing_Key__c = internationalProduct10.Id + '~' + internationalProduct10.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_10 );
 
-			Apttus_Config2__PriceListItem__c priceListItemIP_11 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct11.id,'','');
+            Apttus_Config2__PriceListItem__c priceListItemIP_11 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct11.id,'','');
             priceListItemIP_11.APT_Band__c = 'Band 2';
             priceListItemIP_11.APT_Band_Range_Max__c = 1000;
             priceListItemIP_11.APT_Pricing_Key__c = internationalProduct11.Id + '~' + internationalProduct11.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_11);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_12 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct12.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_12 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct12.id,'','');
             priceListItemIP_12.APT_Band__c = 'Band 2';
             priceListItemIP_12.APT_Band_Range_Max__c = 1000;
             priceListItemIP_12.APT_Pricing_Key__c = internationalProduct12.Id + '~' + internationalProduct12.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_12);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_13 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct13.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_13 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct13.id,'','');
             priceListItemIP_13.APT_Band__c = 'Band 3';
             priceListItemIP_13.APT_Band_Range_Max__c = 1000;
             priceListItemIP_13.APT_Pricing_Key__c = internationalProduct13.Id + '~' + internationalProduct13.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_13);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_14 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct14.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_14 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct14.id,'','');
             priceListItemIP_14.APT_Band__c = 'Band 4';
             priceListItemIP_14.APT_Band_Range_Max__c = 1000;
             priceListItemIP_14.APT_Pricing_Key__c = internationalProduct14.Id + '~' + internationalProduct14.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_14);
-			
-			Apttus_Config2__PriceListItem__c priceListItemIP_15 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct15.id,'','');
+            
+            Apttus_Config2__PriceListItem__c priceListItemIP_15 = APT_TestUtils.createPriceListItem(priceList.id,internationalProduct15.id,'','');
             priceListItemIP_15.APT_Band__c = 'Band 5';
             priceListItemIP_15.APT_Band_Range_Max__c = 1000;
             priceListItemIP_15.APT_Pricing_Key__c = internationalProduct15.Id + '~' + internationalProduct15.Productcode+'~'+'BAND 2';
             priceListItemList.add(priceListItemIP_15);
-			
+            
             insert priceListItemList;
             
             Apttus_Config2__ProductAttributeGroup__c productAttributeGroup = APT_TestUtils.createProductAttributeGroup('Apttus_Config2__ProductAttributeValue__c');
@@ -2738,40 +2738,40 @@ Test method for PCMS bundles
             
             Apttus_Config2__PriceMatrix__c priceMatrixIP_4 = APT_TestUtils.createPriceMatrix(priceListItemIP_4.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_4);                     
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_5 = APT_TestUtils.createPriceMatrix(priceListItemIP_5.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_5 = APT_TestUtils.createPriceMatrix(priceListItemIP_5.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_5);  
 
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_6 = APT_TestUtils.createPriceMatrix(priceListItemIP_6.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
-            listPM.add(priceMatrixIP_6);  			
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_6 = APT_TestUtils.createPriceMatrix(priceListItemIP_6.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            listPM.add(priceMatrixIP_6);            
             
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_7 = APT_TestUtils.createPriceMatrix(priceListItemIP_7.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_7 = APT_TestUtils.createPriceMatrix(priceListItemIP_7.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_7);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_8 = APT_TestUtils.createPriceMatrix(priceListItemIP_8.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_8 = APT_TestUtils.createPriceMatrix(priceListItemIP_8.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_8);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_9 = APT_TestUtils.createPriceMatrix(priceListItemIP_9.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_9 = APT_TestUtils.createPriceMatrix(priceListItemIP_9.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_9);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_10 = APT_TestUtils.createPriceMatrix(priceListItemIP_10.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_10 = APT_TestUtils.createPriceMatrix(priceListItemIP_10.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_10);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_11 = APT_TestUtils.createPriceMatrix(priceListItemIP_11.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_11 = APT_TestUtils.createPriceMatrix(priceListItemIP_11.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_11);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_12 = APT_TestUtils.createPriceMatrix(priceListItemIP_12.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_12 = APT_TestUtils.createPriceMatrix(priceListItemIP_12.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_12);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_13 = APT_TestUtils.createPriceMatrix(priceListItemIP_13.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_13 = APT_TestUtils.createPriceMatrix(priceListItemIP_13.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_13);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_14 = APT_TestUtils.createPriceMatrix(priceListItemIP_14.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_14 = APT_TestUtils.createPriceMatrix(priceListItemIP_14.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_14);  
-			
-			Apttus_Config2__PriceMatrix__c priceMatrixIP_15 = APT_TestUtils.createPriceMatrix(priceListItemIP_15.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
+            
+            Apttus_Config2__PriceMatrix__c priceMatrixIP_15 = APT_TestUtils.createPriceMatrix(priceListItemIP_15.Id,priceDimension11.Id,priceDimension12.Id, priceDimension13.Id);
             listPM.add(priceMatrixIP_15);  
-			
+            
             insert listPM;
             System.debug('Line: 1387');
             list<Apttus_Config2__PriceMatrixEntry__c> listPME = new list<Apttus_Config2__PriceMatrixEntry__c>();
@@ -2862,8 +2862,8 @@ Test method for PCMS bundles
             pmeIP_4.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_4.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_4);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_5 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_5 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_5.Apttus_Config2__Dimension1Value__c = 'Zone5';
             pmeIP_5.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_5.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2873,8 +2873,8 @@ Test method for PCMS bundles
             pmeIP_5.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_5.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_5);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6.Apttus_Config2__Dimension1Value__c = 'Zone6';
             pmeIP_6.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2884,8 +2884,8 @@ Test method for PCMS bundles
             pmeIP_6.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_6.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6_1 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6_1 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6_1.Apttus_Config2__Dimension1Value__c = 'Zone7';
             pmeIP_6_1.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6_1.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2895,8 +2895,8 @@ Test method for PCMS bundles
             pmeIP_6_1.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_6_1.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6_1);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6_2 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6_2 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6_2.Apttus_Config2__Dimension1Value__c = 'Zone8';
             pmeIP_6_2.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6_2.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2906,8 +2906,8 @@ Test method for PCMS bundles
             pmeIP_6_2.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_6_2.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6_2);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6_3 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6_3 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6_3.Apttus_Config2__Dimension1Value__c = 'Zone9';
             pmeIP_6_3.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6_3.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2917,8 +2917,8 @@ Test method for PCMS bundles
             pmeIP_6_3.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_6_3.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6_3);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_6_4 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_6_4 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_6_4.Apttus_Config2__Dimension1Value__c = 'Zone10';
             pmeIP_6_4.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_6_4.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2929,7 +2929,7 @@ Test method for PCMS bundles
             pmeIP_6_4.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_6_4);         
             
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7.Apttus_Config2__Dimension1Value__c = 'Zone7';
             pmeIP_7.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2939,8 +2939,8 @@ Test method for PCMS bundles
             pmeIP_7.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7);    
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_1 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_1 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_1.Apttus_Config2__Dimension1Value__c = 'Zone1';
             pmeIP_7_1.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_1.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2950,8 +2950,8 @@ Test method for PCMS bundles
             pmeIP_7_1.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7_1.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_1);    
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_2 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_2 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_2.Apttus_Config2__Dimension1Value__c = 'Zone2';
             pmeIP_7_2.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_2.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2962,7 +2962,7 @@ Test method for PCMS bundles
             pmeIP_7_2.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_2);    
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_3 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_3 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_3.Apttus_Config2__Dimension1Value__c = 'Zone3';
             pmeIP_7_3.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_3.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2972,8 +2972,8 @@ Test method for PCMS bundles
             pmeIP_7_3.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7_3.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_3);    
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_4 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_4 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_4.Apttus_Config2__Dimension1Value__c = 'Zone4';
             pmeIP_7_4.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_4.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2982,9 +2982,9 @@ Test method for PCMS bundles
             pmeIP_7_4.Apttus_Config2__UsageRate__c = 1;
             pmeIP_7_4.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7_4.Apttus_Config2__PriceOverride__c = 1;
-            listPME.add(pmeIP_7_4);    		
+            listPME.add(pmeIP_7_4);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_5 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_5 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_5.Apttus_Config2__Dimension1Value__c = 'Zone5';
             pmeIP_7_5.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_5.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -2995,7 +2995,7 @@ Test method for PCMS bundles
             pmeIP_7_5.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_5);    
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_6 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_6 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_6.Apttus_Config2__Dimension1Value__c = 'Zone6';
             pmeIP_7_6.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_6.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3006,7 +3006,7 @@ Test method for PCMS bundles
             pmeIP_7_6.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_7_6);    
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_7_8 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_7_8 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_7_8.Apttus_Config2__Dimension1Value__c = 'Zone8';
             pmeIP_7_8.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_7_8.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3015,9 +3015,9 @@ Test method for PCMS bundles
             pmeIP_7_8.Apttus_Config2__UsageRate__c = 1;
             pmeIP_7_8.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_7_8.Apttus_Config2__PriceOverride__c = 1;
-            listPME.add(pmeIP_7_8);    			
-		
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_8 = new Apttus_Config2__PriceMatrixEntry__c();
+            listPME.add(pmeIP_7_8);             
+        
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_8 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_8.Apttus_Config2__Dimension1Value__c = 'Zone8';
             pmeIP_8.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_8.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3028,7 +3028,7 @@ Test method for PCMS bundles
             pmeIP_8.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_8);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_9 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_9 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_9.Apttus_Config2__Dimension1Value__c = 'Zone9';
             pmeIP_9.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_9.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3039,7 +3039,7 @@ Test method for PCMS bundles
             pmeIP_9.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_9);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_10 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_10 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_10.Apttus_Config2__Dimension1Value__c = 'Zone1';
             pmeIP_10.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_10.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3050,7 +3050,7 @@ Test method for PCMS bundles
             pmeIP_10.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_10);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_11 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_11 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_11.Apttus_Config2__Dimension1Value__c = 'Zone2';
             pmeIP_11.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_11.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3061,7 +3061,7 @@ Test method for PCMS bundles
             pmeIP_11.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_11);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_12 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_12 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_12.Apttus_Config2__Dimension1Value__c = 'Zone3';
             pmeIP_12.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_12.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3072,7 +3072,7 @@ Test method for PCMS bundles
             pmeIP_12.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_12);         
 
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_13 = new Apttus_Config2__PriceMatrixEntry__c();
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_13 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_13.Apttus_Config2__Dimension1Value__c = 'Zone4';
             pmeIP_13.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_13.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3082,8 +3082,8 @@ Test method for PCMS bundles
             pmeIP_13.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_13.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_13);         
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_14 = new Apttus_Config2__PriceMatrixEntry__c();
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_14 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_14.Apttus_Config2__Dimension1Value__c = 'Zone5';
             pmeIP_14.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_14.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3092,9 +3092,9 @@ Test method for PCMS bundles
             pmeIP_14.Apttus_Config2__UsageRate__c = 1;
             pmeIP_14.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_14.Apttus_Config2__PriceOverride__c = 1;
-            listPME.add(pmeIP_14);         			
-			
-			Apttus_Config2__PriceMatrixEntry__c pmeIP_15 = new Apttus_Config2__PriceMatrixEntry__c();
+            listPME.add(pmeIP_14);                  
+            
+            Apttus_Config2__PriceMatrixEntry__c pmeIP_15 = new Apttus_Config2__PriceMatrixEntry__c();
             pmeIP_15.Apttus_Config2__Dimension1Value__c = 'Zone6';
             pmeIP_15.Apttus_Config2__Dimension2Value__c = '2';
             pmeIP_15.Apttus_Config2__Dimension3Value__c = APT_Constants.Weight_Upto500g;
@@ -3104,7 +3104,7 @@ Test method for PCMS bundles
             pmeIP_15.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_15.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_15);         
-			
+            
             insert listPME; 
             System.debug('Test PME Count Start: ');              
             integer  count= database.countQuery('select count() from Apttus_Config2__PriceMatrixEntry__c where Apttus_Config2__PriceMatrixId__r.Apttus_Config2__PriceListItemId__r.Apttus_Config2__ProductId__r.APT_International_Pricing__c = true');
@@ -3127,7 +3127,7 @@ Test method for PCMS bundles
             }
             Catch(Exception e){
                 
-            }
+            }/*
             try{
                 attribute1.Category__c = APT_Constants.CATEGORY_CAT2;
                 Update attribute1;
@@ -3165,7 +3165,7 @@ Test method for PCMS bundles
             Catch(Exception e){
                 
             }
-            
+            */
             for(product2 product : internationalProducts){
                 try
                 {
@@ -3201,12 +3201,12 @@ Test method for PCMS bundles
             insert attribute_IP; 
                 
                 attribute_IP.Category__c = APT_Constants.CATEGORY_CAT2;
-                    
+                    /*
                     try{
                     
                         update attribute_IP;
                     }
-                    catch(Exception e){}
+                    catch(Exception e){}*/
                     if(product.ProductCode == APT_Constants.STANDARD_INTERNATIONAL_PRODUCT){
                         try{
                             attribute_IP.APT_International_Standard_Weight_Kgs__c = 1;
@@ -3423,7 +3423,7 @@ Test method for PCMS bundles
             pme_1.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pme_1);    
             
-            insert listPME;	
+            insert listPME; 
             
             attribute_IP.Category__c = APT_Constants.CATEGORY_CAT2;
             
@@ -3436,9 +3436,9 @@ Test method for PCMS bundles
             
             Test.stoptest();
             
-        }			 
+        }            
     }*/
-	
+    
     
     @isTest
     public static void testInternationalProduct_EXPRESS_DOCT_INTERNATIONAL_PRODUCT_Zone1(){
@@ -3620,49 +3620,49 @@ Test method for PCMS bundles
                                                                                       APT_Constants.PRODUCT_CODE_NEW_AIRMAIL_LETTERS, 'Parcel Services');
             internationalProduct7.APT_International_Pricing__c = true;
             products.add( internationalProduct7);
-			
-			Product2 internationalProduct8 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRLET_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct8 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRLET_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRLET_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct8.APT_International_Pricing__c = true;
             products.add( internationalProduct8);
-			
-			Product2 internationalProduct9 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct9 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRPCL_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct9.APT_International_Pricing__c = true;
             products.add( internationalProduct9);
-			
-			Product2 internationalProduct10 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct10 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRPTI_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct10.APT_International_Pricing__c = true;
             products.add( internationalProduct10);
-			
-			Product2 internationalProduct11 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct11 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRRPI_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct11.APT_International_Pricing__c = true;
             products.add( internationalProduct11);
-			
-			Product2 internationalProduct12 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRSMPCL_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct12 = APT_TestUtils.createInternationalProduct(APT_Constants.AIRSMPCL_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.AIRSMPCL_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct12.APT_International_Pricing__c = true;
             products.add( internationalProduct12);
-			
-			Product2 internationalProduct13 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSDOCT_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct13 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSDOCT_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.EMSDOCT_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct13.APT_International_Pricing__c = true;
             products.add( internationalProduct13);
-			
-			Product2 internationalProduct14 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMERCH_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct14 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMERCH_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.EMSMERCH_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct14.APT_International_Pricing__c = true;
             products.add( internationalProduct14);
-			
-			Product2 internationalProduct15 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMER20_INTERNATIONAL_PRODUCT,
+            
+            Product2 internationalProduct15 = APT_TestUtils.createInternationalProduct(APT_Constants.EMSMER20_INTERNATIONAL_PRODUCT,
                                                                                       APT_Constants.EMSMER20_INTERNATIONAL_PRODUCT, 'Parcel Services');
             internationalProduct15.APT_International_Pricing__c = true;
             products.add( internationalProduct15);
-			
+            
             insert products;
-			
+            
             list<Product2> internationalProducts = new list<Product2> {internationalProduct};
                   
             List<Apttus_Config2__PriceListItem__c> priceListItemList = new List<Apttus_Config2__PriceListItem__c>();
@@ -3742,9 +3742,9 @@ Test method for PCMS bundles
             pmeIP_3.Apttus_Config2__AdjustmentAmount__c = 1;
             pmeIP_3.Apttus_Config2__PriceOverride__c = 1;
             listPME.add(pmeIP_3);         
-			
+            
             insert listPME; 
-			
+            
             
             Test.starttest();    
             // update product Attribute value
@@ -3903,7 +3903,7 @@ Test method for PCMS bundles
                             update attribute_IP;
                         }catch(Exception e){}
                     }
-					 else if(product.ProductCode == APT_Constants.ECONOMY_SIGN_INTERNATIONAL_PRODUCT){
+                     else if(product.ProductCode == APT_Constants.ECONOMY_SIGN_INTERNATIONAL_PRODUCT){
                         try{
                             attribute_IP.APT_International_Eco_W_Sig_Weight_Kgs__c = 1;
                             update attribute_IP;
@@ -3913,7 +3913,7 @@ Test method for PCMS bundles
                             update attribute_IP;
                         }catch(Exception e){}
                     }
-					
+                    
                     
                 }
                 catch(Exception e){

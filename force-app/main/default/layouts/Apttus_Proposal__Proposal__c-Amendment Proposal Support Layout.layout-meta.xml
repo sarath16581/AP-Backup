@@ -45,6 +45,10 @@
                 <behavior>Readonly</behavior>
                 <field>APT_Make_Primary__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>APT_Document_Generation_in_Progress__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -71,6 +75,10 @@
                 <behavior>Readonly</behavior>
                 <field>APT_STE_Pricing_Tier__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Apttus_Proposal__Primary__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -87,6 +95,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Apttus_Proposal__Opportunity__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Apttus_Proposal__Account__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -272,12 +284,12 @@
             <sortOrder>2</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Apttus_CQApprov__Approvals</actionName>
+            <actionName>Apttus_CQApprov__MyApprovals</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>3</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Apttus_CQApprov__MyApprovals</actionName>
+            <actionName>Apttus_CQApprov__Approvals</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>4</sortOrder>
         </platformActionListItems>

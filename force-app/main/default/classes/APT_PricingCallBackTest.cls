@@ -105,6 +105,7 @@ public class APT_PricingCallBackTest {
                
            Product2 bundle3 =APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_CODE_INTERNATIONAL_BUNDLE,'InternationalBundle','Parcel Services');
             //product2.APT_Product_type__c = 'International';
+            bundle3.APT_Cascade_Adjustments__c = true;
                
             listOfProducts.add(bundle3);   
             
@@ -154,7 +155,7 @@ public class APT_PricingCallBackTest {
                
             Apttus_Config2__LineItem__c bundleLine3 = APT_TestUtils.getConfigLineItem(prodconfig.Id, null, 1, true,//Config Id, grpId, LineNum, isPrimary
             1, APT_Constants.LINE_TYPE_PRODUCT_SERVICE, bundle3.Id, true, null,//ItemSeq, lineType, bundleId, customizable, productOptionId
-            null, null, null, 1, true,//optionId, class Id, class hierarchy, qty, qty Modifiable 
+            bundle3.Id, null, null, 1, true,//optionId, class Id, class hierarchy, qty, qty Modifiable 
             'Each', 1, priceList.Id, pli.Id,//Uom, term, priceList, Pli,
             'One Time', 'Per Unit', 'Standard Price', 'One Time',//priceType, priceMethod, chargeType, frequency
             true, true, 5500, 5500, 'Per Unit',//allowManualAdj, allocateGroupAdj, listPrice, basePrice, basePriceMethod, 

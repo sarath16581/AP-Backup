@@ -11,6 +11,7 @@ It&apos;s used in the listing tree view in the agreement hierarchy to identify t
     <precision>3</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

@@ -4,6 +4,7 @@ History:
 --------------------------------------------------
 2018-07-09  nathan.franklin@auspost.com.au  refactored code. added NPS methods into class
 2022-04-08 Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
+2022-11-03 Naveen Rajanna REQ3018517 - Fix Null pointer exception
 **************************************************/
 public with sharing class NPSSurveyUtil {
 
@@ -87,8 +88,8 @@ public with sharing class NPSSurveyUtil {
                     if(caseEmailExclusions.get(caseRec.Id))
                         continue;
 
-                    // set NPS required to true if there is no NPS on contact or over 7 days
-                    DateTime lastNPSDate = conMap.get(caseRec.contactId).LastNPSDate__c;   // get case contact details
+                    // set NPS required to true if there is no NPS on contact or over 7 days //REQ3018517 Add null check for conMap
+                    DateTime lastNPSDate = conMap.get(caseRec.contactId) != null ? conMap.get(caseRec.contactId).LastNPSDate__c : null;   // get case contact details
                     if (lastNPSDate == null || lastNPSDate.addDays(npsCutOffDays) < currentTime) {
                         caseNPS.add(caseRec);
                     }

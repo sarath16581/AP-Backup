@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
     <SObjectType>Case</SObjectType>
-    <active>false</active>
+    <active>true</active>
     <businessHours>Service Delivery QLD</businessHours>
     <description>Standard entitlement process for BGS Service Delivery for Brisbane QLD Time Zone</description>
     <entryStartDateField>Case.CreatedDate</entryStartDateField>

@@ -9,6 +9,7 @@ text(MONTH(  datevalue(et4ae5__Scheduled_Date_Time__c )))  &amp; &quot;/&quot; &
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>InitiatedDate</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

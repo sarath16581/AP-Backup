@@ -13,6 +13,7 @@ HYPERLINK(&quot;/apex/Apttus__ChildAgreement?id=&quot;&amp;Id&amp;&quot;&amp;rec
     <inlineHelpText>After Letter of Intent is Fully Signed - Create Post Billpay Contract, this button will remain hidden until Letter of Intent is signed.</inlineHelpText>
     <label>Create Post Billpay Contract</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

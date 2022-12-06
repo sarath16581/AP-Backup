@@ -10,7 +10,7 @@
 2014-06-24 Frank Chen <di.chen@bluewolf.com>       Created   Test coverage  88%
 16.11.2015    kalpita.talwadekar@auspost.com.au    Updated the code to check for business and consumer records and 
                                                    send template accordingly.
-01.03.2022   saiswetha.pingali@auspost.com.au      REQ2723594 - Fix test class failures with validation rule error on compensation records.
+04.04.2022   saiswetha.pingali@auspost.com.au      REQ2723594 - Fix test class failures with validation rule error on compensation records.
 **************************************************/
 @isTest
 private class SSSWCompensationLetterContExt_Test {

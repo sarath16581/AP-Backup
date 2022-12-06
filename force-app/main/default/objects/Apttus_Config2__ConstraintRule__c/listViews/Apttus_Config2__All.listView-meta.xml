@@ -9,10 +9,6 @@
     <columns>APTS_Ext_ID__c</columns>
     <columns>OWNER.ALIAS</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>NAME</field>
-        <operation>contains</operation>
-        <value>APPC</value>
-    </filters>
     <label>All</label>
+    <language>en_US</language>
 </ListView>

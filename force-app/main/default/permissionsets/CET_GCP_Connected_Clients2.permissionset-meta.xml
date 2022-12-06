@@ -1803,11 +1803,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.OperatingHoursId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Account.Opportunity__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3213,16 +3208,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Asset.Availability</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Asset.AverageUptimePerDay</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Asset.ContactId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3343,11 +3328,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Asset.Reliability</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Asset.SerialNumber</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3364,16 +3344,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Asset.StockKeepingUnit</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Asset.SumDowntime</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Asset.SumUnplannedDowntime</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3399,16 +3369,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Asset.Transaction_Id__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Asset.UptimeRecordEnd</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Asset.UptimeRecordStart</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5488,6 +5448,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Area_to_Benefit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Ariba_Prep_work_Required__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5639,11 +5604,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.AssetId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.AssetWarrantyId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7734,6 +7694,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Other_ATL_Instructions__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Other_CoE_s_Involved__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10318,11 +10283,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Entitlement.AssetWarrantyId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Entitlement.BusinessHoursId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10374,11 +10334,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Entitlement.Status</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Entitlement.SvcApptBookingWindowsId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14933,12 +14888,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.Hidden_In_Year_Revenue_Estimate__c</field>
+        <field>Opportunity.Hidden_INTERNAL_Resources__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.Hidden_Internal_Resources__c</field>
+        <field>Opportunity.Hidden_In_Year_Revenue_Estimate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14993,6 +14948,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.INTERNAL_Resources__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Implementation_End_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -15034,11 +14994,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Initial_Contact__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Internal_Resources__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -16338,6 +16293,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>PUD_Booking__c.Dock_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>PUD_Booking__c.Dwell_Time_Planned__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -16899,6 +16859,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>PUD_Job__c.Contact_Phone_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PUD_Job__c.Container_Actuals_Payload__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

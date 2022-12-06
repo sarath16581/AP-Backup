@@ -527,6 +527,18 @@
                 <name>APT_Update_Reminder_Count</name>
                 <type>FieldUpdate</type>
             </actions>
+            <timeLength>21</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>APT_Credit_Assessment_Reject_Notification_for_Seller</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>APT_Update_Reminder_Count</name>
+                <type>FieldUpdate</type>
+            </actions>
             <timeLength>14</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </workflowTimeTriggers>
@@ -552,18 +564,6 @@
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>28</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-        <workflowTimeTriggers>
-            <actions>
-                <name>APT_Credit_Assessment_Reject_Notification_for_Seller</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
-                <name>APT_Update_Reminder_Count</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>21</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </workflowTimeTriggers>
     </rules>

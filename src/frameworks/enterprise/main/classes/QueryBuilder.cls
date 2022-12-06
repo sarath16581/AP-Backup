@@ -590,6 +590,7 @@ public virtual inherited sharing class QueryBuilder {
      * @param aggregateFunction
      *
      * @return this - current instance of QueryBuilder.class
+     * 
      */
     public QueryBuilder addAggregate(SObjectField field, AggregateFunction aggregate) {
         switch on aggregate {

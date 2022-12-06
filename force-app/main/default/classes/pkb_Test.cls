@@ -1,16 +1,8 @@
 /**************************************************
-
 Type:       Test Class  
-
 Purpose:    Test class for pkb_controller
-
-
-History:
-
 --------------------------------------------------
-
-01.03.2022  saiswetha.pingali@auspost.com.au REQ2723594 - Fixed test class failure with SOQL 101 when emails are sent. Updated System settings to disable triggers when sending email so emailmessage triggers are not executed.
-
+04.04.2022  saiswetha.pingali@auspost.com.au REQ2723594 - Fixed test class failure with SOQL 101 when emails are sent. Updated System settings to disable triggers when sending email so emailmessage triggers are not executed.
 **************************************************/
 @isTest
 private class pkb_Test {
@@ -219,9 +211,7 @@ private class pkb_Test {
     TestException e = new TestException('Test Exception!!');
     pkb_Controller.debugException(e);
     SystemSettings__c settings = SystemSettings__c.getInstance();
-
     settings.Disable_Triggers__c = true;
-
     upsert settings;
     pkbCon.notifyAdmin(null, e, 'some message here');
 

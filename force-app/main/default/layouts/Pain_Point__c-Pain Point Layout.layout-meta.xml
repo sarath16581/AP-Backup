@@ -36,7 +36,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Internal_Stakeholder_Impact__c</field>
+                <field>INTERNAL_Stakeholder_Impact__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>

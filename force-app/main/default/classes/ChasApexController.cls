@@ -55,6 +55,8 @@ Note chasDevliveryIssuesWPage01.cmp and chasDevliveryIssuesWPage01Controller.js 
 *                                                       some of the common shared methods are moved to ChasBase
 * 2022-06-20 mahesh.parvathaneni@auspost.com.au DDS-6293 Fix for customer seen safe drop text in case description
 * 2022-10-10 hasantha.liyanage@auspost.com.au DDS-12734 exception cheker
+* 2022-11-14 thang.nguyen231@auspost.com.au DDS-13602 update case comments
+* 2022-11-16 thang.nguyen231@auspost.com.au DDS-13697 exclude the eligible for network from the exception checker
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -700,7 +702,7 @@ public with sharing class ChasApexController extends ChasBase{
             }
 
              // DDS-12944  is before EDD + 10 and is after EDD + 10 comments and does not contains pharma
-             if (!isEligibleForHold && !containsPharma) { // EDD plus 10 passed
+             if (!isEligibleForHold && !containsPharma && !isEligibleForMyNetwork) { // EDD plus 10 passed + not essential medication + not eligible for network
                  // DDS-12734 exception check
                  // if a single article is searched or a single article being selected from multiple to raise a case
                  if(allArticles.size() == 1 || selectedArticles.size() == 1) {
@@ -733,13 +735,13 @@ public with sharing class ChasApexController extends ChasBase{
                      List<ExceptionCheckerService.ExceptionResultDTO> exceptionResults = ExceptionCheckerService.getInstance().isExceptionApplies(exceptionCheckDTOS);
                      if(exceptionResults != null && exceptionResults[0].isException) {
                          // DDS-12944 Exception found upon case being raised
-                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: Yes';
-                     } else if(exceptionResults == null || !exceptionResults[0].isException){
+                         commentBody = commentBody + '\n'+ Label.AutoLITExceptionYes;
+                     } else if(exceptionResults != null && !exceptionResults[0].isException){
                          toBeCreateCase.ClosedBySystem__c = true;
                          toBeCreateCase.Status = 'Closed';
                          toBeCreateCase.ByPassWorkflowRulesOnCreation__c = true;
                          // Exception found upon case being raised (when EDD+10 has already passed at time of case raised)
-                         commentBody = commentBody + '\n'+ 'Auto-LIT exception: No';
+                         commentBody = commentBody + '\n'+ Label.AutoLITExceptionNo;
                      }
                  }
              }

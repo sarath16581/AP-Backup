@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APProfitCentreCode__c</fullName>
+    <description>This formula field calculates the AP Profit Centre Code based on the Warehouse and if the Warehouse is empty, it will set it to the value specified by the user.  This will be used in the SAP Daily Extracts report</description>
+    <externalId>false</externalId>
+    <formula>CASE( TEXT( Warehouse__c ), 
+        &quot;HQ&quot;, &quot;113697&quot;, 
+        &quot;MEL01&quot;, &quot;311546&quot;,
+        &quot;SYD01&quot;, &quot;207036&quot;,
+        &quot;BNE01&quot;, &quot;429456&quot;,
+        &quot;PER01&quot;, &quot;607451&quot;,
+        AP_Profit_Centre_Code__c )</formula>
+    <inlineHelpText>This formula field calculates the AP Profit Centre Code based on the Warehouse and if the Warehouse is empty, it will set it to the value specified by the user.  This will be used in the SAP Daily Extracts report</inlineHelpText>
+    <label>AP Profit Centre Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

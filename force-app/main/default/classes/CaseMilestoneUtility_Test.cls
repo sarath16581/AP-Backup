@@ -7,6 +7,7 @@
  * 09/07/2019		  gunith.devasurendra@auspost.com.au		  Set Network Email 1 to Case Network Escalation Email in Level 1 (INC1370890)
  * 07/10/2021		  naveen.rajanna@auspost.com.au			   REQ2616056 Changed api version to 52
  * 2022-02-17 - Nathan Franklin - copied test for BGS entitlement assignment from another class
+ * 2022-11-24	Noel Lim - updated testInternalEscalationScenario(), assert for taskCount from 1 to 2 as a temporary fix. Refer to assert for reasoning and technical details.
  */
 @isTest
 private with sharing class CaseMilestoneUtility_Test {
@@ -358,7 +359,23 @@ private with sharing class CaseMilestoneUtility_Test {
 										WHERE Case__c =: csRec.Id ORDER BY Case__c,StartDate__c DESC LIMIT 1];
 			Integer taskCount = [SELECT Count() FROM Task WHERE WhatId =: csRec.Id];
 			System.assertEquals(3,tracking.EscalationTier__c);
-			System.assertEquals(1,taskCount);
+
+			//===== SUMMARY =====
+			//The assertEquals below has been changed from 1 to 2 as a temporary fix.
+			//The assertEquals was passing for 1 due to a bug that prevented CaseMilestonesUtility.updateMilestones() in the Workflow Case DML's trigger execution to be called.
+			//A fix introduced on 2022-11-13 now means the CaseMilestonesUtility.updateMilestones() is called during the aforementioned Workflow Case DML, and a 2nd Task is created, hence assertEquals() should be 2.
+			//===== TECHNICAL DETAILS =====
+			//The bug is due to:
+			// 1) CaseTriggerHelper.processHLCCases() called in AfterUpdate context, which in most scenarios needlessly fired a Case DML (lets call this AfterUpdate Case DML) to fire in CaseTriggerHelper.updateHLC(). 
+			// 2) In the trigger execution from the Case DML, CaseMilestonesUtility.updateMilestones() would execute, and set isMilestoneUpdated to true to prevent recursion. This before the Workflow Case DML. 
+			// 3) When the Workflow Rules run and performs a Case DML (Workflow Case DML), the trigger execution not run CaseMilestonesUtility.updateMilestones() because isMilestoneUpdated = true 
+			// 4) A fix introduced on 2022-11-13 means the Case DML in Step 1 only fires if the Case is a HLC or CR, which means for most Cases the 2nd Task is being created. Hence the assertEquals below needs to be 2.
+			//===== WHAT TO FIX =====
+			// The following areas need to be assessed to resolve the above bug
+			// - recursion check in CaseMilestonesUtility.cls via the flag isMilestoneUpdated
+			// - CaseTriggerHelper.updateHLC() and CaseTriggerHelper.processHLCCases() - does it need to perform the current Case DML or can it be deferred 
+			// - CaseTriggerHandler.cls that orchestrates CaseMilestonesUtility.cls and CaseTriggerHelper.updateHLC()
+			System.assertEquals(2,taskCount); 
 		}
 	}
 

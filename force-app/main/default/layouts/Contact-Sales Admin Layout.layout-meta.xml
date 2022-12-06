@@ -166,10 +166,6 @@
                 <field>ConveyancerContact__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>ServicePartnerManagedContact__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Data_Quality_Score_Individual__c</field>
             </layoutItems>

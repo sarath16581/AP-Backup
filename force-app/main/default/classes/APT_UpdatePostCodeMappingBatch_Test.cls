@@ -74,12 +74,12 @@ public with sharing class APT_UpdatePostCodeMappingBatch_Test {
             list<APT_Post_Code_Mapping__c > listPostCodeMapping = new list<APT_Post_Code_Mapping__c >();
             APT_Post_Code_Mapping__c  pcm2 = APT_TestUtils.createPostCodeMapping('5001', 'QUEENSLAND ZONE 4', 'QC4' , null, null);    
             listPostCodeMapping.add(pcm2);
-            System.debug('About to insert');            
+			System.debug('About to insert');            
             insert listPostCodeMapping;
             listPostCodeMapping[0].Name   = 'abcdedfffffffffabcdedfffffffffabcdedfffffffffabcdedfffffffff'+
-                                            'abcdedfffffffffabcdedfffffffffabcdedfffffffffabcdedfffffffff'+
-                                            'abcdedfffffffffabcdedfffffffffabcdedfffffffffabcdedfffffffff'+
-                                            'abcdedfffffffffabcdedfffffffffabcdedfffffffffabcdedfffffffff';
+                							'abcdedfffffffffabcdedfffffffffabcdedfffffffffabcdedfffffffff'+
+                							'abcdedfffffffffabcdedfffffffffabcdedfffffffffabcdedfffffffff'+
+                							'abcdedfffffffffabcdedfffffffffabcdedfffffffffabcdedfffffffff';
             listPostCodeMapping[0].APTS_Ext_ID__c = 'abcd';                                 
             set<String> prodId = new set<String>();
             map<String, String> lodgementZonesWithType = new Map<String, String>();

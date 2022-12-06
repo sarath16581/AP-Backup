@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__High_Win_Deal_Sort_Options__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Sorting Options for High Win deals with blue sheet on account dashboard</description>
+    <externalId>false</externalId>
+    <label>High Win Deal Sort Options</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Highest Scorecard</fullName>
+                <default>false</default>
+                <label>Highest Scorecard</label>
+            </value>
+            <value>
+                <fullName>Highest Probability</fullName>
+                <default>false</default>
+                <label>Highest Probability</label>
+            </value>
+            <value>
+                <fullName>Nearest Close Date</fullName>
+                <default>false</default>
+                <label>Nearest Close Date</label>
+            </value>
+            <value>
+                <fullName>Highest Revenue</fullName>
+                <default>false</default>
+                <label>Highest Revenue</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
