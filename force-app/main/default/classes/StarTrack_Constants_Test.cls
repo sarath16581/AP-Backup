@@ -302,5 +302,11 @@ private class StarTrack_Constants_Test {
 		for(String str: expectedARTICLE_ADDRESS_FIELDS) {
 			System.assert(StarTrack_Constants.ARTICLE_ADDRESS_FIELDS.contains(str), 'List should contain ' + str);
 		}
+
+		StarTrack_Settings__c stSettings = StarTrack_Settings__c.getOrgDefaults();
+		stSettings.StarTrack_AutoClose_Case_from_Task__c = true;
+		update stSettings;
+		System.assertEquals(true, StarTrack_Constants.CURRENT_USER_CAN_AUTO_CLOSE_CASE_FROM_TASK);
+
 	}
 }
