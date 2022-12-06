@@ -50,7 +50,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                 if(UserInfo.getProfileId() == communityUserProfileId // only execute for startrack community
                         && this.cse.ArticleTest__c == null // if no article record is linked
                         && this.cse.ReferenceID__c != null // and there's a reference ID
-                        && 'WEB'.equalsIgnoreCase(this.cse.Origin__c) // origin is web only
+                        && StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin__c) // origin is web only
                         && caseRecordTypes.contains(this.cse.RecordTypeId)) { // only startrack record types created via STHS
 
                     StarTrackTrackingIDSearchService idSearchService = StarTrackTrackingIDSearchService.newInstance();
