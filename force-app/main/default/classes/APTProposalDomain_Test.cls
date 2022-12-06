@@ -10,7 +10,7 @@
 private class APTProposalDomain_Test{
     
     @isTest
-    private static void TestProposalDomain() {
+    private static void testProposalDomain() {
         List<Apttus_Proposal__Proposal__c> sObjectList = new List<Apttus_Proposal__Proposal__c> { new Apttus_Proposal__Proposal__c()}; 
         APTProposalDomain domain = APTProposalDomain.newInstance(sObjectList);
         domain.registerModules();
