@@ -8,12 +8,15 @@
  * 2020-05-10 - Nathan Franklin - Created
  * 2020-07-22 - Nathan Franklin - Added field override capability
  * 2021-10-01 - Nathan Franklin - Added new fields list
+ * 2022-11-23 - Mahesh Parvathaneni - Added selectByCaseIds method
  */
 public virtual inherited sharing class ArticlesSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_RECORDTYPE, WITH_CONSIGNMENT, WITH_CHILDARTICLES,
-		WITH_BILLINGACCOUNT // using BillingAccountsSelector
+		WITH_BILLINGACCOUNT, // using BillingAccountsSelector
+		WITH_EVENTMESSAGES_NETWORK_DESC_ORDER,
+		FILTER_BY_NETWORK_NOT_NULL
 	}
 
 	public static ArticlesSelector newInstance() {
@@ -98,6 +101,21 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		return selectByIdOrTracking(trackingIds, new Set<Id>(), selectorOptions, includeConsignmentSearch);
 	}
 
+	/**
+	 * @description Run a simple query to get records based on case id's
+	 */
+	public virtual Map<Id, Article__c> selectByCaseIds(Set<Id> ids) {
+		return selectByCaseIds(ids, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public virtual Map<Id, Article__c> selectByCaseIds(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Article__c.Case__c + ' in :ids')).endConditions();
+		return new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
+	}
+
 	public Map<Id, Article__c> selectByIdOrTracking(Set<String> trackingIds, Set<Id> ids, Boolean includeConsignmentSearch) {
 		return selectByIdOrTracking(trackingIds, ids, new Set<Object>{}, includeConsignmentSearch);
 	}
@@ -156,6 +174,15 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 
 		if(selectorOptions.contains(Options.WITH_BILLINGACCOUNT)) {
 			builder.addRelatedFields(BillingAccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'Billing_Account__r');
+		}
+
+		if(selectorOptions.contains(Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER)) {
+			builder.addSubQuery(EventMessagesSelector.newInstance('ActualDateTime__c', 'Desc').newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK}), 'Event_Messages__r');
+		}
+
+		if(selectorOptions.contains(Options.FILTER_BY_NETWORK_NOT_NULL)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Article__c.Network__c).ne('')).endConditions();
+			builder.addConditions().add(new QueryBuilder.NullCondition(Article__c.Network__c).notNull()).endConditions();
 		}
 
 		return builder;

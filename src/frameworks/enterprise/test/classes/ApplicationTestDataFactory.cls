@@ -33,6 +33,7 @@
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Added caseStarTransitWarrantyClaimRecordType, getter for MilestoneType and CaseMilestones
  * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
  * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
+ * 2022-11-28 - Mahesh Parvathaneni - Added getCaseInvestigations, getCriticalIncidents method
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -85,6 +86,26 @@ public with sharing class ApplicationTestDataFactory {
 		for(Integer i=0;i<output.size();i++) {
 			output[i] = (AssignmentRule)setUnwritableFields(output[i], new Map<String, Object>{'SobjectType' => objType, 'Active' => true});
 		}
+
+		return output;
+	}
+
+ 	public static List<CaseInvestigation__c> getCaseInvestigations(Integer count, Id caseId, Article__c article, Id networkId, Boolean generateIds) {
+		return (List<CaseInvestigation__c>)maybeGenerateIds(populateSObjects(CaseInvestigation__c.SObjectType, new Map<SObjectField, Object> {
+				CaseInvestigation__c.Case__c => caseId,
+				CaseInvestigation__c.Article__c => article.Id,
+				CaseInvestigation__c.ReferenceID__c => article.Name,
+				CaseInvestigation__c.Network__c => networkId
+				}, count), generateIds);
+	}
+
+	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
+		List<Critical_Incident__kav> output = (List<Critical_Incident__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Critical_Incident__kav.SObjectType, new Map<SObjectField, Object> {
+			Critical_Incident__kav.Title => 'Test Title %count%',
+			Critical_Incident__kav.UrlName => 'Test-UrlName-%count%',
+			Critical_Incident__kav.Time_To_Remind__c => System.today(),
+			Critical_Incident__kav.language => 'en_US'
+		}, count), generateIds);
 
 		return output;
 	}

@@ -12,6 +12,7 @@ October 02, 2017 - Angelo Rivera - Added for Minor Work MWT0004521
 2020-04-22 - Nathan Franklin - Removing unused code
 2021-09-09 - Steve Judd - Added values for MW0004540
 2022-02-22  naveen.rajanna@auspost.com.au - Added constants for REQ2723199
+2022-11-23 - Mahesh Parvathaneni - Addded constants for StarTrack Agent and Care agent
 **************************************************/
 public class StarTrack_Constants {
 
@@ -66,6 +67,8 @@ public class StarTrack_Constants {
     public static final String DEPOTAREA_AREA_BRANCHMANAGEMENT = 'Management';
     public static final String RECORDTYPE_DEPOT_METRO = 'StarTrack_Metro_9';
     public static final String RECORDTYPE_DEPOT_REGIONAL = 'StarTrack_Regional_10';
+    public static final String RECORDTYPE_DEPOT_AGENT = 'StarTrack_Agent_11';
+    public static final String RECORDTYPE_DEPOT_CARE_AGENT = 'StarTrack_Care_Agent_12';
     public static final String TASK_DEPOT_FILTER_ALL_STATE = 'All by State';
     public static final String VALIDATION_REQUIRE_FIELD_VALUE = 'Please provide a value.';
     public static final String TASK_VALIDATION_RESOLUTION_CODE = 'Resolution Code is required when status is set to \'Finished\'.';
