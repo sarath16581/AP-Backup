@@ -41,7 +41,7 @@ public inherited sharing class CaseInvestigationArticleModule extends Applicatio
 		}
 	}
 
-	public without sharing class AsyncCaseInvestigationArticleWorker extends ApplicationUnitOfWork.AsyncWorker {
+	public without sharing class AsyncCaseInvestigationArticleWorker extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts {
 		@TestVisible
 		Set<String> referenceIds;
 
@@ -54,13 +54,12 @@ public inherited sharing class CaseInvestigationArticleModule extends Applicatio
 				for(Article__c a: ArticlesSelector.newInstance().selectByArticleNames(referenceIds, new Set<Object>())) {
 					referenceIds.remove(a.Name); // no need to fetch existing articles
 				}
-
 				if(referenceIds.isEmpty() == false) {
-					//try {
+					try {
 						TibcoArticleService.getInstance().retrieveArticlesFromSAP(referenceIds);
-				//	} catch(Exception exp){
-					//	UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseInvestigationArticleModule.class.getName(), 'retrieveArticles', SSSWConstants.CASE_INVESTIGATION_TRIGGER, LoggingLevel.ERROR);
-				//	}
+					} catch(Exception exp){
+						UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseInvestigationArticleModule.class.getName(), 'retrieveArticles', SSSWConstants.CASE_INVESTIGATION_TRIGGER, LoggingLevel.ERROR);
+					}
 				}
 			}
 		}
