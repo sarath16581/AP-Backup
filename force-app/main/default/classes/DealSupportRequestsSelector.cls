@@ -12,6 +12,7 @@
  * 2022-06-02 - dattaraj.deshmukh@slalom.com - updated to add LastImplementationStageUpdate__c field. 
  * 2022-04-08 - Seth.Heang@auspost.com.au - added APPC related field in SOQL and added search method
  * 2022-05-27 - nasir.jawed@auspost.com.au - added account related field in SOQL  WITH_ORGANISATION
+ * 2022-11-26 - Harry Wang - added selector method for sales intermediary
  */
 public with sharing class DealSupportRequestsSelector extends ApplicationSelector{
     public enum Options {
@@ -31,6 +32,16 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
         DealSupportRequestsSelector selector = (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
         return selector;
     }
+
+    /**
+	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	* This approach removes data consistency and prevents possible caching of results
+	*/
+    public static DealSupportRequestsSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+        DealSupportRequestsSelector selector = (DealSupportRequestsSelector)Application.Selectors.newInstance(DealSupportRequestsSelector.class).setFieldOverrides(fieldOverrides);
+        return selector;
+    }
+
     /**
      * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
      * This approach removes data consistency and prevents possible caching of results
@@ -80,6 +91,18 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
     public virtual Map<Id, Deal_Support_Request__c> selectByRecordList(List<Deal_Support_Request__c> dsrList, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Id + ' in :dsrList')).endConditions();
         return new Map<Id, Deal_Support_Request__c>((List<Deal_Support_Request__c>)Database.query(qb.toSoqlString()));
+    }
+
+    /**
+	* This method is used to get query builder of DSR records where organisation not null
+	* @return query locator of DSR records
+	*/
+    public Database.QueryLocator selectByAccountRelationshipQueryLocator(Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions)
+                .addConditions()
+                .add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Organisation__c + ' != null'))
+                .endConditions();
+        return Database.getQueryLocator(qb.toSoqlString());
     }
 
     /**
@@ -168,10 +191,6 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
         
 		if(selectorOptions.contains(Options.WITH_CONTRACT)) {
             builder.addRelatedFields(ApttusContractsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r');
-        }
-
-		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
-            builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Organisation__r');
         }
 		
         return builder;

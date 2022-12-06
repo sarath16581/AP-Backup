@@ -9,9 +9,11 @@
 * 2022-05-30 - Seth Heang - updated getSObjectFieldList
 * 2022-05-30 - Nasir JAwed Added method selectByConfigIds
 * 2022-08-15 - Seth Heang - Added recordLimit, fieldOverrides to newInstance() method
+* 2022-11-22 - Harry Wang - added selector method for sales intermediary
 */
 public virtual inherited sharing class APT_ProposalObjectsSelector extends ApplicationSelector {
     public enum Options {
+        WITH_ACCOUNT
     }
     
     public static APT_ProposalObjectsSelector newInstance() {
@@ -19,6 +21,14 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
     }
     public static APT_ProposalObjectsSelector newInstance(Integer recordLimit) {
         return (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setLimit(recordLimit);
+    }
+    /**
+	* NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	* This approach removes data consistency and prevents possible caching of results
+	*/
+    public static APT_ProposalObjectsSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+        APT_ProposalObjectsSelector selector = (APT_ProposalObjectsSelector)Application.Selectors.newInstance(APT_ProposalObjectsSelector.class).setFieldOverrides(fieldOverrides);
+        return selector;
     }
     
 	/**
@@ -69,10 +79,25 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
             .add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.ID + ' = :ProposalIds'))
             .endConditions();
         return new List<Apttus_Proposal__Proposal__c>((List<Apttus_Proposal__Proposal__c>)Database.query(qb.toSoqlString()));
-    } 
+    }
+
+    /**
+   * This method is used to get query builder of Apttus Proposal records where proposal account not null
+   * @return query locator of Apttus Proposal records
+   */
+    public Database.QueryLocator selectByAccountRelationshipQueryLocator(Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions)
+                .addConditions()
+                .add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c + ' != null'))
+                .endConditions();
+        return Database.getQueryLocator(qb.toSoqlString());
+    }
     
     public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
         QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+        if (selectorOptions.contains(Options.WITH_ACCOUNT)) {
+            builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Apttus_Proposal__Account__r');
+        }
         return builder;
     }
     
