@@ -228,7 +228,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			builder.addSubQuery(EmailMessagesSelector.newInstance(EmailMessage.CreatedDate, 'Asc', 1).newQueryBuilder(clonedOptions), 'EmailMessages');
 		}
 		if(selectorOptions.contains(Options.WITH_CHILD_INVESTIGATIONS)) {
-			builder.addSubQuery(CaseInvestigationsSelector.newInstance().newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Status__c + ' != \'Closed\'' )).endConditions(), 'CaseInvestigations__r');  // new Set<Object>()), 'CaseInvestigations__r');
+			builder.addSubQuery(CaseInvestigationsSelector.newInstance().newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Status__c + ' != \'Closed\'' )).endConditions(), 'CaseInvestigations__r');
 		}
 		
 		return builder;

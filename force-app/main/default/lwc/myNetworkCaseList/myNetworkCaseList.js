@@ -15,8 +15,6 @@
 import { LightningElement, track, wire } from "lwc";
 import myNetworkCases from "@salesforce/apex/MyNetworkCaseListController.myNetworkCases";
 import getFilteredCases from "@salesforce/apex/MyNetworkCaseListController.getFilteredCases";
-import assignToSelf from "@salesforce/apex/MyNetworkCaseListController.assignToSelf";
-import assignToUser from "@salesforce/apex/MyNetworkCaseListController.assignToUser";
 import assignSelectedRecords from "@salesforce/apex/MyNetworkCaseListController.assignSelectedRecords";
 
 import { NavigationMixin } from "lightning/navigation";
@@ -306,7 +304,9 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 
           //As case and case investigation need to be shown under one column,
           //caseNum is populated with case number and Case Investigation Number.
-          caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId+'?caseInvestigationRecordId='+cInvestigations[cInvestigationCnt].Id;
+
+		  caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigations[cInvestigationCnt].Id;
+          //caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId+'?caseInvestigationRecordId='+cInvestigations[cInvestigationCnt].Id;
           caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
           caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
           caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;

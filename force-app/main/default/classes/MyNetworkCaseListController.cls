@@ -780,66 +780,45 @@ public with sharing class MyNetworkCaseListController {
         return (MyNetworkConstants.MY_NETWORK_PORTAL_LIST_VIEWS);
     }
 
-
-    /**
-     * @desc: Rules to show component
-     *          1. If AP Case is accessed from Global Search or from home page list view, show component.
-     *          2. If ST Case is accessed from home page list view, show component.
-     *          3. If ST Case is accessed from global search, hide component.
-     * 
-     */
-    @AuraEnabled
-    public static Boolean checkComponentVisibility(Id caseRecordId, Id caseInvestigationRecordId) { 
-
-        Boolean showComponent = true;
-        if(caseRecordId != null){
-            
-			//query case record based on Id
-			Case caseRecord = CasesSelector.newInstance(new Set<SObjectField>{Case.PONUser__c, Case.Id})
-											.selectById(new Set<Id>{caseRecordId}, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE}).values()[0];
-			
-            if(MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(caseRecord.RecordType.DeveloperName) && String.isBlank(caseInvestigationRecordId)) {
-                showComponent = false;
-            }
-        }
-
-        return showComponent;
-    }
-    
-
     /**
      @ Description : Method returns all the related Event Messages for a specific case
      @Param      : String caseRecordId
      @Return     : list<EventMessage__c>  
     */
    @AuraEnabled(cacheable=true)
-   public static EventMessagesWithSortingDetails getRelatedEventMessages(String caseRecordId, String caseInvestigationRecordId){
+   public static EventMessagesWithSortingDetails getRelatedEventMessages(Id recordId){
         list<EventMessageWithGeoCode> eventMessageList = new list<EventMessageWithGeoCode>();
         list<EventMessage__c>  sortingRelatedEventMessage = new list<EventMessage__c>();
         Boolean sortingEventMessageFound = false;
         Set<String> sortingEventCodeSet = new Set<String>();
         EventMessagesWithSortingDetails eventMessagesWithSortingDetailsVar ;
 
+		String sObjectTypeName = recordId.getSObjectType().getDescribe().getName();
+		Case caseRecord;
+		CaseInvestigation__c caseInvestigation;
+        Id articleId;
+
+		
         for(MyNetworkSortingEventTypes__mdt mdtVar :[Select  MasterLabel From MyNetworkSortingEventTypes__mdt]){
             sortingEventCodeSet.add(mdtVar.MasterLabel);
         }
-        
-        String articleId;
-        List<CaseInvestigation__c> caseInvestigations;
-        if(caseInvestigationRecordId != null){
-            caseInvestigations = [Select Id, Article__r.Id, Article__c from CaseInvestigation__c where Id =: caseInvestigationRecordId];
-            
-        }
-        if(caseRecordId != null){
-            Case caseRecord = [Select Id, ArticleTest__c,RecordType.DeveloperName From Case Where Id =: caseRecordId];
 
-            if(MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(caseRecord.RecordType.DeveloperName) && caseInvestigationRecordId == null) {
-               articleId = null;
-            }
-            else {
-                articleId = (caseInvestigationRecordId != null && caseInvestigations[0].Article__r.Id !=null) ?
-                 (caseInvestigations[0].Article__r.Id) : (caseRecord.ArticleTest__c != null ? caseRecord.ArticleTest__c : null);
-            }
+		//if record is of the type = CASE, query case details
+		if(sObjectTypeName.equalsIgnoreCase('Case')) {
+			caseRecord = [Select Id, ArticleTest__c,RecordType.DeveloperName From Case Where Id =: recordId LIMIT 1];
+		}
+		//if record is of the type = CaseInvestigation, query case investigation details
+		else if(sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c')) {
+            caseInvestigation = [Select Id, Article__r.Id, Article__c from CaseInvestigation__c where Id =: recordId LIMIT 1];
+		}
+
+		
+        if(recordId != null){
+
+			//If record ID is of the type = Case Investigation then it's article ID should be passed.
+			//If record ID is of the type = Case, then it's Article id should be passed.
+			articleId = (sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c') && caseInvestigation.Article__r.Id !=null) ?
+				(caseInvestigation.Article__r.Id) : (caseRecord.ArticleTest__c != null ? caseRecord.ArticleTest__c : null);
 
             if(articleId != null){
                 for(EventMessage__c ev:[Select Id, EventGeoLocation__Longitude__s, EventGeoLocation__Latitude__s, 
@@ -1004,21 +983,76 @@ public with sharing class MyNetworkCaseListController {
             resultValue = resultVarStr;
         }
     }
+
+
+	public class RecordDetailsWrapper{
+        @AuraEnabled
+        public String sObjectTypeName{get; set;}
+        @AuraEnabled
+        public Case caseRecord{get;set;}
+
+        public RecordDetailsWrapper(String sObjectTypeNameVar, Case caseRecordVar){
+            this.sObjectTypeName = sObjectTypeNameVar;
+            this.caseRecord = caseRecordVar;
+        }
+    }
+
+	/**
+    @description: method used to get case record id when a component is rendered on CI detail page
+    */
+
+	@AuraEnabled
+    public static RecordDetailsWrapper getCaseRecord(Id recordId){
+		Case cRecord;
+		String sObjectTypeName = recordId.getSObjectType().getDescribe().getName();
+		if(sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c')) {
+			//query case investigation for case Id.
+			CaseInvestigation__c caseInvestigation = CaseInvestigationsSelector.newInstance().
+														selectById(new Set<Id>{recordId}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES})
+														.values()[0];
+			cRecord = CasesSelector.newInstance().
+						selectById(new Set<Id>{caseInvestigation.Case__c}, new Set<Object>{CasesSelector.Options.WITH_CHILD_INVESTIGATIONS,
+						CaseInvestigationsSelector.Options.WITH_ARTICLES})
+						.values()[0];
+		}
+		else if(sObjectTypeName.equalsIgnoreCase('Case')) {
+			cRecord = CasesSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CasesSelector.Options.WITH_CHILD_INVESTIGATIONS, CaseInvestigationsSelector.Options.WITH_ARTICLES}).values()[0];
+		} 
+
+		RecordDetailsWrapper tw = new RecordDetailsWrapper(sObjectTypeName, cRecord);
+		return tw;
+	}
+
+
     /**
      @Description : Method used to get the selected case details and 
                     used on case detail page to display the details
      */
     @AuraEnabled
-    public static case getSelectedCases(String caseRecordId){
-        Case cRecord = new Case();
-        if(caseRecordId != null){
-            cRecord = [Select id, CaseNumber, Status, ContactId, Subject, EnquirySubType__c, ReferenceID__c,
-                                   CreatedDate, Primary_Name__c, Address1__c, Secondary_Contact__c, Address2__c, OwnerId, 
-                                   LastModifiedDate, Description, 
-                                   (SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c, Status__c, Network__c, Network__r.Name from CaseInvestigations__r Where 
-                                    Status__c != : CASE_INVESTIGATION_CLOSED_STATUS)
-                                    from Case where Id =: caseRecordId];
-        }
+    public static case getSelectedCases(Id recordId){
+		Case cRecord = new Case();
+		if(recordId != null){
+			if(recordId.getSObjectType().getDescribe().getName().equalsIgnoreCase('Case')) {
+				// cRecord = [Select id, CaseNumber, Status, ContactId, Subject, EnquirySubType__c, ReferenceID__c,
+				// 			CreatedDate, Primary_Name__c, Address1__c, Secondary_Contact__c, Address2__c, OwnerId, 
+				// 			LastModifiedDate, Description, 
+				// 			(SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c, Status__c, Network__c, Network__r.Name from CaseInvestigations__r Where 
+				// 			Status__c != : CASE_INVESTIGATION_CLOSED_STATUS)
+				// 			from Case where Id =: recordId];
+				cRecord = CasesSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CasesSelector.Options.WITH_CHILD_INVESTIGATIONS, CaseInvestigationsSelector.Options.WITH_ARTICLES}).values()[0];
+			} 
+			else if(recordId.getSObjectType().getDescribe().getName().equalsIgnoreCase('CaseInvestigation__c')) {
+				
+				//query case investigation for case Id.
+				CaseInvestigation__c caseInvestigation = CaseInvestigationsSelector.newInstance().
+															selectById(new Set<Id>{recordId}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES})
+															.values()[0];
+				cRecord = CasesSelector.newInstance().
+										selectById(new Set<Id>{caseInvestigation.Case__c}, new Set<Object>{CasesSelector.Options.WITH_CHILD_INVESTIGATIONS,
+											CaseInvestigationsSelector.Options.WITH_ARTICLES})
+										.values()[0];
+			}
+		}
         return cRecord;
     }
     /**
@@ -1036,24 +1070,30 @@ public with sharing class MyNetworkCaseListController {
      @Description : This method is used to display differnt messages related to a case  
      */
     @AuraEnabled
-    public static list<CaseMessage> getCaseMessages(String caseRecordId){
+    public static list<CaseMessage> getCaseMessages(Id caseRecordId){
         list<CaseMessage> caseMessageList = new list<CaseMessage>();
-        Case caseRecord = [Select Id, Facility_Milestones_Violated__c, Root_cause__c, Owner.Name, Status, type From Case where Id=: caseRecordId];
-                      
-        if(caseRecord.Root_cause__c == 'Awaiting Network Response' &&  (caseRecord.Owner.Name != 'SSSW Network Queue' || 
-        (caseRecord.Owner.Name == 'SSSW Network Queue' && caseRecord.Status!= 'Awaiting Network Response' )) ){
-                if(caseRecord.status == 'Closed' ){
-                    if(caseRecord.type !=  'Feedback')
-                        caseMessageList.add(new CaseMessage('Case', 'This case is now closed. No further action is required.')) ;
-                }else{
-                    caseMessageList.add(new CaseMessage('Case', 'This case has received further information and is now under review by the Customer Contact Centre.')) ;
-                }
-        }
-        list<Network_Response__c> nrList = [Select id from Network_Response__c where (RelatedCase__c =: caseRecordId OR Related_Case__c =: caseRecordId)  AND Request_Hold_Case__c = false limit 1];
 
-        if(!nrList.isEmpty()){
-            caseMessageList.add(new CaseMessage('Network Response', 'Please review existing network responses before updating case.')) ;
-        }
+		if(caseRecordId.getSObjectType().getDescribe().getName().equalsIgnoreCase('Case')) {
+				// Case caseRecord = [Select Id, Facility_Milestones_Violated__c, Root_cause__c, Owner.Name, Status, type From Case where Id=: caseRecordId];
+			Case caseRecord = CasesSelector.newInstance().selectById(new Set<Id>{caseRecordId}, new Set<Object> {CasesSelector.Options.WITH_OWNER}).values()[0];
+
+			if(caseRecord.Root_cause__c == 'Awaiting Network Response' &&  (caseRecord.Owner.Name != 'SSSW Network Queue' || 
+			(caseRecord.Owner.Name == 'SSSW Network Queue' && caseRecord.Status!= 'Awaiting Network Response' )) ){
+					if(caseRecord.status == 'Closed' ){
+						if(caseRecord.type !=  'Feedback')
+							caseMessageList.add(new CaseMessage('Case', 'This case is now closed. No further action is required.')) ;
+					}else{
+						caseMessageList.add(new CaseMessage('Case', 'This case has received further information and is now under review by the Customer Contact Centre.')) ;
+					}
+			}
+
+			list<Network_Response__c> nrList = [Select id from Network_Response__c where (RelatedCase__c =: caseRecordId OR Related_Case__c =: caseRecordId)  AND Request_Hold_Case__c = false limit 1];
+			if(!nrList.isEmpty()){
+				caseMessageList.add(new CaseMessage('Network Response', 'Please review existing network responses before updating case.')) ;
+			}
+		}
+        
+
          
         return caseMessageList ;
     }
