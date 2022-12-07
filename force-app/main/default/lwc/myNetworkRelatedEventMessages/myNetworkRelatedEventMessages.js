@@ -16,7 +16,6 @@
 /*******************************  History ************************************************/
 
 import { LightningElement, api, track, wire } from "lwc";
-import checkComponentVisibility from "@salesforce/apex/MyNetworkCaseListController.checkComponentVisibility";
 import getRelatedEventMessages from "@salesforce/apex/MyNetworkCaseListController.getRelatedEventMessages";
 import getSafeDropInformation from "@salesforce/apex/MyNetworkCaseListController.getSafeDropInformation";
 import getAddressFromGeoLocationForEventMessage from "@salesforce/apex/MyNetworkCaseListController.getAddressFromGeoLocationForEventMessage";
@@ -63,19 +62,10 @@ export default class RelatedEventMessages extends NavigationMixin(LightningEleme
     ]).catch(error => {
       console.log("error in loading the style>>", error);
     });
-    /* @Description: Method used to get the related event messages for a Case.
-    */
-    let caseInvestigationId = this.caseInvestigationRecordId ? this.caseInvestigationRecordId : '';
-    checkComponentVisibility({ caseRecordId: this.recordId, caseInvestigationRecordId: this.caseInvestigationRecordId })
-      .then(result => {
-        if(!result){
-          this.showComponent = result;
-        }
-      }).catch(error => {
-        console.log("error>>>", error);
-      });
 
-    getRelatedEventMessages({ caseRecordId: this.recordId, caseInvestigationRecordId: this.caseInvestigationRecordId })
+	/* @Description: Method used to get the related event messages for a Case.
+    */
+	getRelatedEventMessages({ recordId: this.recordId})
       .then(result => {
         if (result) {
           let eventMessageList = [];
