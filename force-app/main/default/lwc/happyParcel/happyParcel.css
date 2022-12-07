@@ -1,5 +1,7 @@
 /*
 2020-04-01 nathan.franklin@auspost.com.au Created
+2022-11-18 dattaraj.deshmukh@auspost.com.au Added 'clickableDiv',clickableDiv:hover, slds-pill__remove class
+                                            to show case investigations pills.
 */
 article.is-article .article-selector {
     border-bottom-right-radius: 0 !important;
@@ -15,4 +17,20 @@ article.is-article .article-selector {
     .article-status-slot {
 
     }
+}
+
+.clickableDiv{
+    cursor: pointer;
+    display: inline-flex;
+    border-radius: 0.25rem;
+    border-color: var(--sds-c-pill-color-border,#dddbda);
+    border-style: solid;
+    align-items : center; 
+}
+.clickableDiv:hover{
+    background-color: rgba(204, 0, 0, 0.05);
+}
+
+.slds-pill__remove{
+    display: none !important;
 }
