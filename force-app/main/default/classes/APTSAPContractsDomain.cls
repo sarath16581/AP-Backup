@@ -1,11 +1,11 @@
 /**
-* @description Domain class to handle Account related capability
-* @author George Nguyen
+* @description Domain class for sharing SAP Contracts
+* @author Ken McGuire
 * @group Domains
-* @domain Account
+* @domain APT_SAP_Contracts__c
+* @test APTSAPContractsDomain_Test
 * @changelog
-* 2022-05-31 - George Nguyen - Created.
-* 2022-09-29 - Noel Lim - Updated - relabelled from PersonAccountDomain to AccountDomain 
+* 2022-12-01 - Ken McGuire - Created
 */
 public inherited sharing class APTSAPContractsDomain extends ApplicationDomain {
 
@@ -18,8 +18,7 @@ public inherited sharing class APTSAPContractsDomain extends ApplicationDomain {
 	 */
 	public override void registerModules() {
 		// these module will be available for domain operations and trigger execution
-		registerModule(APTSAPContractsSharingModule.class);
+		registerModule(SalesRecordSharingModule.class);
 
-	}
-
+    }
 }

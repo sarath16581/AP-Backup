@@ -5,6 +5,7 @@
  * @group Domain
  * @tag APTSAPContractsDomain
  * @domain APT_SAP_Contracts__c
+ * @test APTSAPContractsDomainTriggerHandler_Test
  * @changelog
  * 22022-11-10- Ken McGuire - Created.
  */
