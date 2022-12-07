@@ -7,7 +7,7 @@
  * @changelog
  * 2022-11-22 - Harry Wang - Created
  */
-public class SalesAPRSharingBatchable extends SalesRecordSharingBatchable {
+public without sharing class SalesAPRSharingBatchable extends SalesRecordSharingBatchable {
 
 	public SalesAPRSharingBatchable() {
 		super(APR__c.SObjectType);

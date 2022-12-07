@@ -7,7 +7,7 @@
  * @changelog
  * 2022-11-22 - Harry Wang - Created
  */
-public class SalesSAPContractSharingBatchable extends SalesRecordSharingBatchable {
+public without sharing class SalesSAPContractSharingBatchable extends SalesRecordSharingBatchable {
 
 	public SalesSAPContractSharingBatchable() {
 		super(APT_SAP_Contracts__c.SObjectType);

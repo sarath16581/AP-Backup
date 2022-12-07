@@ -7,7 +7,7 @@
  * @changelog
  * 2022-11-22 - Harry Wang - Created
  */
-public class SalesProposalSharingBatchable extends SalesRecordSharingBatchable {
+public without sharing class SalesProposalSharingBatchable extends SalesRecordSharingBatchable {
 
 	public SalesProposalSharingBatchable() {
 		super(Apttus_Proposal__Proposal__c.SObjectType);

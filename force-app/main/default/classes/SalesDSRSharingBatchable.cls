@@ -7,7 +7,7 @@
  * @changelog
  * 2022-11-22 - Harry Wang - Created
  */
-public class SalesDSRSharingBatchable extends SalesRecordSharingBatchable {
+public without sharing class SalesDSRSharingBatchable extends SalesRecordSharingBatchable {
 
 	public SalesDSRSharingBatchable() {
 		super(Deal_Support_Request__c.SObjectType);
