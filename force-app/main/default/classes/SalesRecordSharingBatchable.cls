@@ -51,7 +51,7 @@ public abstract class SalesRecordSharingBatchable implements Database.Batchable<
 	public void finish(Database.BatchableContext bc) {
 		// Logging count of success out of total processed
 		String message = sObjectType + ' Record Sharing Batch completed with ' + successCount + '/' + totalCount + ' processed.';
-		ApplicationLogger.getInstance().logGenericMessage(new List<String>{message}, 'Sales Intermediary', SalesRecordSharingBatchable.class.getName(), 'finish', 'SalesRecordSharingBatchable: ' + sObjectType, ApplicationLogger.LoggingLevel.ERROR);
+		ApplicationLogger.getInstance().logGenericMessage(new List<String>{message}, 'Sales Intermediary', SalesRecordSharingBatchable.class.getName(), 'finish', 'SalesRecordSharingBatchable: ' + sObjectType, ApplicationLogger.LoggingLevel.INFO);
 	}
 
 }
