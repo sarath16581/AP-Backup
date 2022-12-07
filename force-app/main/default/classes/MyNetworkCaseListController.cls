@@ -1115,8 +1115,10 @@ public with sharing class MyNetworkCaseListController {
      *               2. Manifest address is fetched from Article Address
      *               3. Delivered address is fetched from Event Message of certain event code types
      */
+	//This method is passed either case id or case investigation id based on the placement of its component.
+	//If CI id is passed then additional query is introduced to pass relevant Case Id.
     @AuraEnabled
-    public static  SafeLocationDetails getSafeDropInformation(String caseRecordId){
+    public static  SafeLocationDetails getSafeDropInformation(Id recordId){
         Boolean isValidManifestAddress = false;
         Boolean isValidAddresseeAddress = false;
         Boolean isValidDeliveredAddress = false;
@@ -1134,7 +1136,23 @@ public with sharing class MyNetworkCaseListController {
         Set<String> attemptedEventTypes = new Set<String>();
         Map<String, String> getAddressOrGeoLocationAME = new Map<String, String>();
         Map<String, String> addressType = new Map<String, String>();
+		CaseInvestigation__c caseInvestigation;
+		String sObjectTypeName;
+		Id caseRecordId;
         try{
+
+			//get SObject type as this component is called from Case Detail and Case Investigation detail page on mynetwork community.
+			sObjectTypeName = recordId.getSObjectType().getDescribe().getName();
+			
+			//if recordId is of the type = CaseInvestigation, query case investigation details
+			if(sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c')) {
+				caseInvestigation = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{recordId}).values()[0];
+				caseRecordId = caseInvestigation.Case__c;
+			}
+			else { 
+				caseRecordId = recordId;
+			}
+
             Case caseRecord = [Select Id, ArticleTest__c, ArticleTest__r.ReceiverAddressLine1__c, ArticleTest__r.ReceiverAddressLine2__c, ArticleTest__r.ReceiverCity__c,
                 ArticleTest__r.ReceiverState__c, ArticleTest__r.ReceiverPostcode__c, ArticleTest__r.ReceiverCountry__c,
                 Address2__c, ArticleTest__r.ReceiverAddress__c

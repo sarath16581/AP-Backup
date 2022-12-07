@@ -130,8 +130,8 @@ export default class RelatedEventMessages extends NavigationMixin(LightningEleme
     *                These data will be used to display the Actual/Delivered Address in Google map 
     * @param  :       Case record Id
     */  
-  SafeDropInformationFromServer(recordId){
-    getSafeDropInformation({ caseRecordId: recordId })
+  SafeDropInformationFromServer(recId){
+    getSafeDropInformation({ recordId: recId })
     .then(result => {
       console.log('result>>>>>',result);
       if (result != null && result.isValid) {

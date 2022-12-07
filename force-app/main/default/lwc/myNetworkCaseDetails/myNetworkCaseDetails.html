@@ -5,26 +5,66 @@
 --------------------------------------- History --------------------------------------------------
 2020-03-23 - Arjun Singh - Created
 2021-06-15 - Ranjeewa Silva - Embedded Happy Parcels into Case Details accordion
+2022-11-08 - Dattaraj Deshmukh - Added accordion for StarTrack cases.
 -->
 <template>
     <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
         active-section-name={activeSections}>
         <lightning-card>
-            <lightning-accordion-section name="A" label="Case Details">
-                <div class="slds-m-around_medium">
-                    <lightning-record-form record-id={recordId} object-api-name={objectApiName} fields={fields}
+            
+    
+            <!-- Markup for AP cases.-->
+            <template if:false={isStarTrackCase}>
+                <lightning-accordion-section name="A" label="Case Details">
+                    <div class="slds-m-around_medium">
+                        <lightning-record-form record-id={caseId} object-api-name={objectApiName} fields={fields}
+                            columns="3" mode="readonly" density="comfy">
+                        </lightning-record-form>
+                    </div>
+                </lightning-accordion-section>
+                
+                <lightning-accordion-section name="C" label="More Details">
+                    <lightning-record-form record-id={caseId} object-api-name={objectApiName} layout-type="Full"
                         columns="3" mode="readonly" density="comfy">
                     </lightning-record-form>
-                </div>
-            </lightning-accordion-section>
-            <lightning-accordion-section name="B" label="More Details">
-                <lightning-record-form record-id={recordId} object-api-name={objectApiName} layout-type="Full"
-                    columns="3" mode="readonly" density="comfy">
-                </lightning-record-form>
-            </lightning-accordion-section>
+                </lightning-accordion-section>
+            </template>
+
+			<!--Markup for ST Cases -->
+            <template if:true={isStarTrackCase}> 
+
+                <!-- Markup for case detail from home page custom list view LWC component-->
+                <lightning-accordion-section name="A" label="Case Details">
+                    <div class="slds-m-around_medium">
+                        <lightning-record-form record-id={caseId} object-api-name={objectApiName} fields={caseInvestigation_casefields}
+                            columns="3" mode="readonly" density="comfy">
+                        </lightning-record-form>
+                    </div>
+                </lightning-accordion-section>
+                
+                <lightning-accordion-section name="C" label="More Details">
+                    <lightning-record-form record-id={caseId} object-api-name={objectApiName} fields={starTrack_more_details_casefields}
+                        columns="3" mode="readonly" density="comfy">
+                    </lightning-record-form>
+                </lightning-accordion-section>
+
+				<!-- Show CI Details only when it is accessed from MyNetwork Home Page list view -->
+				<template if:false={isGlobalSearch}>
+					<lightning-accordion-section name="B" label="Case Investigation Details">
+						 <div class="slds-m-around_medium">
+							 <lightning-record-form record-id={recordId} object-api-name={caseInvestigationObjectApiName} fields={caseInvestigation_fields}
+								 columns="3" mode="readonly" density="comfy">
+							 </lightning-record-form>
+						 </div>
+					 </lightning-accordion-section>
+				 </template>
+            </template>
+            
+            
             <lightning-accordion-section name="happyparcles" label="Happy Parcels">
                 <template if:true={recordFound}>
-                    <c-happy-parcel tracking-id={selectedCaseRecordWrapper.ReferenceID__c} read-only={recordFound}>
+                    <c-happy-parcel tracking-id={happyParcelId} read-only={recordFound}
+                    has-case-investigations={isGlobalSearch} case-investigations={caseInvestigations}>
                     </c-happy-parcel>
                 </template>
             </lightning-accordion-section>
