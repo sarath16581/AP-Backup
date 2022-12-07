@@ -1,11 +1,11 @@
 /**
 * @author Dattaraj Deshmukh
 * @date 2022-11-29
-* @domain PUD
-* @description Constants used across classes in PUD domain.
+* @domain MyNetwork
+* @description Controller to list feed items against case investigations
 * @changelog
 * 2022-11-29 - Dattaraj Deshmukh - Created.
-								 - Controller is marked as without sharing as all chatter feeds on the record needs to be queried irrespective of who created them.
+			NOTE - Controller is marked as without sharing as all chatter feeds on the record needs to be queried irrespective of who created them.
 								  
 */
 public without sharing class MyNetworkCaseUserResponseController {
@@ -27,6 +27,7 @@ public without sharing class MyNetworkCaseUserResponseController {
 				post.ParentId = caseInvestigationId;
 				post.Body = newtorkComments;
 				
+				//create new records
 				uow.registerNew(post);
 				uow.commitWork();
 			}
@@ -48,38 +49,6 @@ public without sharing class MyNetworkCaseUserResponseController {
     public static List<FeedItem> getNetworkComments(String recordId){
    		return FeedItemsSelector.newInstance().selectByTextPostParentIds(new Set<Id>{recordId}, new Set<Object>{FeedItemsSelector.Options.WITH_CREATEDBY}).values();
 	}
-
-	/**
-     * @desc: Method returns Boolean based on following Rules to show/hide component.
-     *          1. If AP Case is accessed from Global Search or from home page list view, show component.
-     *          2. If ST Case is accessed from home page list view, show component.
-     *          3. If ST Case is accessed from global search, hide component.
-     * @param  caseInvestigationRecordId
-	 * @return Boolean
-     */
-    @AuraEnabled
-    public static Boolean checkComponentVisibility(Id caseInvestigationRecordId) { 
-
-        Boolean showComponent = false;
-        if(caseInvestigationRecordId != null){
-
-			Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>> {Case.getSObjectType() => new Set<SObjectField>{Case.RecordTypeId}};
-			//query case investigation record along with case details
-			CaseInvestigation__c caseInvestigationRecord = CaseInvestigationsSelector.newInstance(1, fieldOverrides).selectById(new Set<Id>{caseInvestigationRecordId}).values()[0];	
-			
-			//get case record type ids
-			Map<Id, Schema.RecordTypeInfo> caseRecordTypes = Schema.SObjectType.Case.getRecordTypeInfosById();
-			String rtDeveloperName = caseRecordTypes.get(caseInvestigationRecord.Case__r.RecordTypeId).getDeveloperName();
-
-
-			//check if case is STAR Track case.
-            if(MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(rtDeveloperName) && caseInvestigationRecordId != null) {
-                showComponent = true;
-            }
-        }
-
-        return showComponent;
-    }
 
 	/**
 	 * Unit of work that encapsulates all the required objects for this Service.

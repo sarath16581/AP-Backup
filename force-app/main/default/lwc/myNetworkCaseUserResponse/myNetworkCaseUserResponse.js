@@ -1,11 +1,11 @@
 /**
-  * @author       : dattaraj.deshmukh@auspost.com.au
-  * @date         : 29/11/2022
-  * @description  : Component to add user responses on ST cases on myNetwork Community.
-  * 				This component updates case investigation records, post a chatter feed on the same record.
---------------------------------------- History --------------------------------------------------
-29.11.2022    dattaraj.deshmukh@auspost.com.au    Created
-*/
+ * @description Component to add user responses on ST cases on myNetwork Community.
+ * 				This component updates case investigation records, post a chatter feed on the same record.
+ * @author Dattaraj Deshmukh
+ * @date 2022-11-29
+ * @changelog
+ * 2022-11-29 - Dattaraj Deshmukh - Created
+ */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
@@ -13,13 +13,9 @@ import { refreshApex } from '@salesforce/apex';
 
 import postCaseInvestigationChatterFeed from "@salesforce/apex/MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed";
 import getNetworkComments from "@salesforce/apex/MyNetworkCaseUserResponseController.getNetworkComments";
-import checkComponentVisibility from "@salesforce/apex/MyNetworkCaseUserResponseController.checkComponentVisibility";
 
 import { updateRecord, getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
-import { NavigationMixin } from 'lightning/navigation';
-import CASE_INVESTIGATION_OBJECT from '@salesforce/schema/CaseInvestigation__c';
-import FEEDITEM from '@salesforce/schema/FeedItem';
 
 import ADDRESS_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.AddressType__c';
 import COMMENTS_FIELD from '@salesforce/schema/CaseInvestigation__c.Comments__c';
@@ -126,25 +122,10 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
     }
 	
 	
-	@wire(getNetworkComments, { recordId: '$caseInvestigationRecordId'})
+	@wire(getNetworkComments, { recordId: '$recordId'})
     feedItems;
 
-	
-	connectedCallback(){
-		//get component visibility
-		checkComponentVisibility({ caseInvestigationRecordId: this.caseInvestigationRecordId})
-            .then((result) =>{
-				if(result){
-					this.isComponentVisible = result;
-				}
-			})
-			.catch(error => {
-				console.log('error in checking componnent visibility');
-				console.log(error);
-			});
-	}
-
-	@wire(getRecord, { recordId: '$caseInvestigationRecordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
+	@wire(getRecord, { recordId: '$recordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
 		NETWORK_FIELD,  QUALITY_OF_THE_CASE_FIELD, STILL_UNDER_INVESTIGATION_FIELD, REQUIRE_MORE_INFORMATION_FIELD, CASE_TYPE_FIELD, PURPOSE_FIELD, STATUS_FIELD,
 		INTERNAL_FACILITY_NOTES_FIELD] })
     wiredRecord({ error, data }) {
