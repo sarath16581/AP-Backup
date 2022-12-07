@@ -1,3 +1,8 @@
+/*
+* @test DealSupportRequestTriggerHandler2_Test
+* Change Log
+* 7/12/2022 Ken McGuire Added sharing to unit of work
+*/
 public with sharing class DealSupportRequestTriggerHandler2 extends ApplicationDomainTriggerHandler {
     
 	public override SObjectType getSObjectType() {

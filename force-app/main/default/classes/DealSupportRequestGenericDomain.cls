@@ -2,6 +2,7 @@
  * @auth: Dattaraj Deshmukh (dattaraj.deshmukh@slalom.com)
  * @date: 2022-06-02
  * @desc: Generic Domain class created to perform logic as per trigger framework.
+ * @test DealSupportRequestGenericDomain_Test
  * @change log:
  * Dattaraj Deshmukh - 2022-06-02  - Created
  * Ken McGuire - 2022-08-08 registered survey invitation module
