@@ -12,6 +12,11 @@
 @isTest
 private class TIBCOArticleService_Test {
 
+	@IsTest
+	static void retrieveArticlesFromSAP() {
+		
+	}
+
 	static testMethod void myUnitTest() {
 		
 		AusPostSettings__c testSetting = new AusPostSettings__c();

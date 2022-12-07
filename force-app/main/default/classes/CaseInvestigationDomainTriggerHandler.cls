@@ -25,6 +25,6 @@ public inherited sharing class CaseInvestigationDomainTriggerHandler extends App
 	}
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
-		return new List<SObjectType>{ Case.SObjectType, CaseInvestigation__c.SObjectType };
+		return new List<SObjectType>{ CaseInvestigation__c.SObjectType };
 	}
 }

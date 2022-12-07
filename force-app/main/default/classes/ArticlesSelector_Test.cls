@@ -11,6 +11,17 @@
 @IsTest
 private class ArticlesSelector_Test {
 
+	@IsTest
+	private static void selectByArticleNames() {
+		ArticlesSelector selector = ArticlesSelector.newInstance();
+		QueryBuilder qa = QueryBuilder.newInstance();
+		QueryBuilder.mockFactory.put(ArticlesSelector.class, qa); 
+		selector.selectByArticleNames(new Set<String>{'test-ref-1'}, new Set<Object>());
+		String queryString = qa.toSoqlString();
+		System.assertEquals(true, Pattern.compile('\\b' + Article__c.Name + ' IN :trackingIds\\b').matcher(queryString).find(), 'Filters by Name in query');
+
+	}
+
 	/**
 	 * Test:
 	 *  Ensures that the selectors QueryBuilder is generating the correct output
