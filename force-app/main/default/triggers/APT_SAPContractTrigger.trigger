@@ -6,9 +6,12 @@ Created Date - 9th Aug, 2016
 
 Last Modified By - Mausam Padhiyar
 Last Modified Date - 10th Nov, 2016 | 1742 | reduce logic
+* @changelog
+* 2022-12-01 - Ken McGuire - Added application domain.
 */
 trigger APT_SAPContractTrigger on APT_SAP_Contracts__c (after insert, after update, before delete, before insert, before update) {
     
+    // Application Domain
     if(!TriggerHelper.isTriggerDisabled(String.valueOf(APT_SAP_Contracts__c.SObjectType))) {
         APTSAPContractsDomainTriggerHandler.newInstance().dispatch();
       }
