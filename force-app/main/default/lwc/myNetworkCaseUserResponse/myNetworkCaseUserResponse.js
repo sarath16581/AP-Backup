@@ -12,7 +12,7 @@ import { refreshApex } from '@salesforce/apex';
 
 
 import postCaseInvestigationChatterFeed from "@salesforce/apex/MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed";
-import getNetworkComments from "@salesforce/apex/MyNetworkCaseUserResponseController.getNetworkComments";
+import getCaseInvestigationChatterFeeds from "@salesforce/apex/MyNetworkCaseUserResponseController.getCaseInvestigationChatterFeeds";
 
 import { updateRecord, getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
@@ -122,7 +122,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
     }
 	
 	
-	@wire(getNetworkComments, { recordId: '$recordId'})
+	@wire(getCaseInvestigationChatterFeeds, { recordId: '$recordId'})
     feedItems;
 
 	@wire(getRecord, { recordId: '$recordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,

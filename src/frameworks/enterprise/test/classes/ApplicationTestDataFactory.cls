@@ -35,6 +35,7 @@
  * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
  * 2022-11-28 - Mahesh Parvathaneni - Added getCaseInvestigations, getCriticalIncidents method
  * 2022-11-18 - Noel - Added getCaseStatuses method
+ * 2022-12-07 - Dattaraj - Added 'getChatterFeeds' method.
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -82,6 +83,12 @@ public with sharing class ApplicationTestDataFactory {
 				CaseInvestigation__c.Article__c => article.Id,
 				CaseInvestigation__c.ReferenceID__c => article.Name,
 				CaseInvestigation__c.Network__c => networkId
+				}, count), generateIds);
+	}
+
+	public static List<FeedItem> getChatterFeeds(Integer count, Id parentId, Boolean generateIds) {
+		return (List<FeedItem>)maybeGenerateIds(populateSObjects(FeedItem.SObjectType, new Map<SObjectField, Object> {
+			FeedItem.ParentId => parentId
 				}, count), generateIds);
 	}
 

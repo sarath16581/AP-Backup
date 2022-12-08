@@ -19,17 +19,13 @@ public without sharing class MyNetworkCaseUserResponseController {
     public static string postCaseInvestigationChatterFeed(String newtorkComments, String caseInvestigationId){
         try {
             
-			//creating UnitOfWork explicitly to be able to commit DMLs
-			ApplicationUnitOfWork uow = newUnitOfWork();
-
 			if(String.isNotBlank(newtorkComments)){
 				FeedItem post = new FeedItem();
 				post.ParentId = caseInvestigationId;
 				post.Body = newtorkComments;
 				
-				//create new records
-				uow.registerNew(post);
-				uow.commitWork();
+				//create new feed item record
+				ApplicationDatabase.getInstance().dmlInsert(new List<FeedItem>{post});
 			}
 			return 'success';
 			
@@ -44,21 +40,9 @@ public without sharing class MyNetworkCaseUserResponseController {
 	 * @param:  recordId
 	 * @return  List<FeedItems>
 	 */
-
 	@AuraEnabled(cacheable=true)
-    public static List<FeedItem> getNetworkComments(String recordId){
+    public static List<FeedItem> getCaseInvestigationChatterFeeds(String recordId){
    		return FeedItemsSelector.newInstance().selectByTextPostParentIds(new Set<Id>{recordId}, new Set<Object>{FeedItemsSelector.Options.WITH_CREATEDBY}).values();
 	}
 
-	/**
-	 * Unit of work that encapsulates all the required objects for this Service.
-	 * Note that this is a stopgap until the pattern for using Unit of Work for service operations are defined.
-	 *
-	 * @return unit or work instance
-	 */
-	private static ApplicationUnitOfWork newUnitOfWork() {
-		return ApplicationUnitOfWork.newInstance(new List<SObjectType>{
-				FeedItem.SObjectType
-		});
-	}
 }

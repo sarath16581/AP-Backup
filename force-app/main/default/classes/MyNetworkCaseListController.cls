@@ -891,17 +891,17 @@ public with sharing class MyNetworkCaseListController {
     
 
     /**
-     @desc      : Generic method is used to update 'PONUser__c' field on case and 'OwnerId' field on Case Investigations.
+     @desc      : Generic method used to update 'PONUser__c' field on case and 'OwnerId' field on Case Investigations.
      @Param     : Case and Case Investigation recordsIds, SelectedUserId from LWC component for 'Assign to user' and 
                     Boolean flag to assign to self.
      @Return    : AssignToSelfWrapper, Return the assigned user or error message if there is any issue while case update               
      */
 
     @AuraEnabled
-    public static assignToSelfWrapper assignSelectedRecords(String recordIds, String selectedUserId, Boolean isAssignSelf){
+    public static AssignToSelfWrapper assignSelectedRecords(String recordIds, String selectedUserId, Boolean isAssignSelf){
         Boolean errWhileUpdate = false;
         String ErrMsg;
-        assignToSelfWrapper assignToSelfWrap ;
+        AssignToSelfWrapper assignToSelfWrap ;
         String userName;
         try{   
 
@@ -930,28 +930,30 @@ public with sharing class MyNetworkCaseListController {
             //identifying user id to update on records.
             Id userId = isAssignSelf ? UserInfo.getUserId() : selectedUserId;
 
-			
-            //for(Case caseRecord: [Select id, PONUser__c from Case where id IN : caseIdSet]) {
-			for(Id caseId: CasesSelector.newInstance(new Set<SObjectField>{Case.PONUser__c, Case.Id}).selectById(caseIdSet).keySet()) {
-                //caseRecord.PONUser__c = userId;
-                recordListToUpdate.add(new Case(PONUser__c = userId, Id = caseId));
+			//loop through Case ids and updated PONUser__c field.
+			for(Id caseId: caseIdSet) {
+				
+				//add case record in recordsToUpdate list
+				recordListToUpdate.add(new Case(PONUser__c = userId, Id = caseId));
             }
 
             if(!caseInvestigationIdSet.isEmpty()) {
-				//replace with case investigation selectors
-                for(CaseInvestigation__c cInveRecord: [Select id, OwnerId from CaseInvestigation__c where id IN : caseInvestigationIdSet]) {
-                    cInveRecord.OwnerId = userId;
-                    recordListToUpdate.add(cInveRecord);
+
+				//loop through CI ids and assign new ownerId.
+                for(Id caseInvestigationId : caseInvestigationIdSet) {
+					//add case investigation record in recordsToUpdate list
+					recordListToUpdate.add(new CaseInvestigation__c(Id = caseInvestigationId, OwnerId = userId));
                 }
             }
             
 
             if(!recordListToUpdate.isEmpty()) {			    
 				
-				//update recordListToUpdate ;
+				//update records ;
 				Database.SaveResult[] srList = ApplicationDatabase.getInstance().dmlUpdate(recordListToUpdate);
 
-                //userName = isAssignSelf ? UserInfo.getName() : [Select Id, Name from User where id =: selectedUserId].Name;
+
+				//get user name if AssignTo user is other than logged in user
                 userName = isAssignSelf ? UserInfo.getName() : UsersSelector.newInstance().selectById(new Set<Id>{selectedUserId}).values()[0].Name;
 			}else {
                 errWhileUpdate = true;
@@ -964,10 +966,10 @@ public with sharing class MyNetworkCaseListController {
             System.debug('Err>>>'+e.getMessage());
         }
         if(errWhileUpdate) {
-            assignToSelfWrap = new assignToSelfWrapper(errWhileUpdate, ErrMsg);
+            assignToSelfWrap = new AssignToSelfWrapper(errWhileUpdate, ErrMsg);
         }else {
             errWhileUpdate = false;
-            assignToSelfWrap = new assignToSelfWrapper(errWhileUpdate, userName);
+            assignToSelfWrap = new AssignToSelfWrapper(errWhileUpdate, userName);
         }
         return assignToSelfWrap;
     }
