@@ -400,78 +400,81 @@
         System.assertEquals(cMessage[0].messageString ,'This case has received further information and is now under review by the Customer Contact Centre.');
     }
 
-    /**
-     * @desc: Test method to simulate 'Assign to user' button.
-     *        This method assign case investigation ownership to selected user for ST cases and 
-     *          if AP Case is selected then it updates PONUser__c field on case.
-     */
 
-    @isTest
-    static void test_assignSelectedRecords() {
-        List<CaseInvestigation__c> caseInvestigations = [Select ID, OwnerId from CaseInvestigation__c LIMIT 2];
-        Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByDeveloperName();
-        Id apCaseRecordTypeId = caseRecTypeMap.get('SSSWDelivery').getRecordTypeId();
-
-         //get AP cases
-         List<Case> cases = [Select ID, PONUser__c from Case WHERE RecordTypeId =:apCaseRecordTypeId AND PONUser__c = null LIMIT 1];
-
-        //adding a portal user in case team member for AP cases.
-        User uRecrd = [Select id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
-        CaseTeamMember ctmem = new CaseTeamMember(ParentId = cases[0].id,MemberId = uRecrd.Id,TeamRoleId = cTeamRorl.Id);
-        insert ctmem;           
-        
-        String[] recordIds = new String[]{caseInvestigations[0].Id, caseInvestigations[1].Id, cases[0].Id};
-        String recordIdString = JSON.serialize(recordIds);
-
-        System.runAs(uRecrd){
-            Test.StartTest();
-                //assigning records to passed user Id.
-                MyNetworkCaseListController.assignSelectedRecords(recordIdString, uRecrd.Id, false);
-            Test.StopTest();  
-        }
-
-        List<CaseInvestigation__c> updatedCaseInvestigations = [Select ID, OwnerId from CaseInvestigation__c LIMIT 2];
-        List<Case> updatedCases = [Select ID, PONUser__c from Case WHERE ID =: cases[0].Id];
-
-        system.assertEquals(uRecrd.Id, updatedCases[0].PONUser__c);
-        system.assertEquals(uRecrd.Id, updatedCaseInvestigations[0].OwnerId);
-    }
-
-
-    /**
+	/**
      * @desc: Test method to simulate 'Assign to self' button.
      *        This method assign case investigation ownership to selected user for ST cases and 
      *          if AP Case is selected then it updates PONUser__c field on case.
      */
     @isTest
-    static void test_assignSelectedRecords_self() {
-        List<CaseInvestigation__c> caseInvestigations = [Select ID, OwnerId from CaseInvestigation__c LIMIT 2];
-        Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByDeveloperName();
-        Id apCaseRecordTypeId = caseRecTypeMap.get('SSSWDelivery').getRecordTypeId();
-
-         //get AP cases
-         List<Case> cases = [Select ID, PONUser__c from Case WHERE RecordTypeId =:apCaseRecordTypeId AND PONUser__c = null LIMIT 1];
-
-        //adding a portal user in case team member for AP cases.
-        User uRecrd = [Select id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
-        CaseTeamMember ctmem = new CaseTeamMember(ParentId = cases[0].id,MemberId = uRecrd.Id,TeamRoleId = cTeamRorl.Id);
-        insert ctmem;           
+    static void test_assignSelectedRecords_withMocks() {
         
-        String[] recordIds = new String[]{caseInvestigations[0].Id, caseInvestigations[1].Id, cases[0].Id};
+		
+		// =====================================
+        // Data Preparation
+        // =====================================
+		Id profileId = Application.Cache.profileIds.get('MyNetwork Portal');
+
+		User myNetworkPortalUser = ApplicationTestDataFactory.getUsers(1, profileId, true)[0];
+		myNetworkPortalUser.Id = UserInfo.getUserId();
+		
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+
+        List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+        cases[0].ArticleTest__c = articles[0].Id;
+		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+
+		cases[1].RecordTypeId = ApplicationTestDataFactory.caseSSSWGeneralEnquiryRecordType;
+
+        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		networks[0].Org_ID__c = '1234';
+
+        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
+        caseInvestigations[0].Status__c = 'Open';
+		caseInvestigations[1].Status__c = 'Open';
+
+		String stJson = '{"success":true,"id":' +'"'+ caseInvestigations[0].Id + '"'+ '}';
+        Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
+        List<Database.SaveResult> svResultList = new List<Database.SaveResult>{sr};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		UsersSelector mockUserSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.stopStubbing();
+
+		//passign 2 CIs and 1 AP Case.
+        String[] recordIds = new String[]{caseInvestigations[0].Id, caseInvestigations[1].Id, cases[1].Id};
         String recordIdString = JSON.serialize(recordIds);
 
-        System.runAs(uRecrd){
-            Test.StartTest();
-                //assigning records self. 
-                MyNetworkCaseListController.assignSelectedRecords(recordIdString, null, true);
-            Test.StopTest();  
-        }
+		Test.StartTest();
+		//assigning records self. 
+		MyNetworkCaseListController.assignSelectedRecords(recordIdString, null, true);
+		Test.StopTest();  
 
-        List<CaseInvestigation__c> updatedCaseInvestigations = [Select ID, OwnerId from CaseInvestigation__c LIMIT 2];
-        List<Case> updatedCases = [Select ID, PONUser__c from Case WHERE ID =: cases[0].Id];
+		// should have updated Case and CI Records
+		fflib_ArgumentCaptor updatableRecordsCaptor = fflib_ArgumentCaptor.forClass(List<CaseInvestigation__c>.class);
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<CaseInvestigation__c>) updatableRecordsCaptor.capture());
 
-        system.assertEquals(uRecrd.Id, updatedCases[0].PONUser__c);
-        system.assertEquals(uRecrd.Id, updatedCaseInvestigations[0].OwnerId);
+		List<SObject> updatableRecords = (List<Sobject>) updatableRecordsCaptor.getValue();
+		System.assertEquals(3, updatableRecords.size(), 'Expected to update 3 records');
+
+		//loop through updated records and asserts if relevant fields are updated.
+		for(SObject sobj : updatableRecords){
+			if(sobj.getSObjectType() === Case.getSObjectType()){
+				System.assertEquals(UserInfo.getUserId(), ((Case)sobj).PONUser__c, 'Expected to update PONUser__c ID to self for a case');
+			}
+			if(sobj.getSObjectType() === CaseInvestigation__c.getSObjectType()){
+				System.assertEquals(UserInfo.getUserId(), ((CaseInvestigation__c)sobj).OwnerId, 'Expected to update OwnerId ID to self for a case investigation');
+			}
+		}
+		
     }
 
     /**
@@ -514,16 +517,8 @@
         //get ST cases
         List<Case> cases = [Select ID, Status from Case WHERE RecordTypeId =:stCaseRecordTypeId LIMIT 2];
         User uRecrd = [Select id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
-        // Id queueId = [Select Id,Name from Group where Name='SSSW Consumer Back Office Premium' and type = 'Queue' limit 1].Id;
-        // //changing owner Ids of cases and Last_Status_change__c to -1 day.
-        // for(Case c : cases){
-        //     c.OwnerId = queueId;
-        //     c.Last_Status_change__c = System.today().addDays(-1);
-        // }
-
-        // update cases;
-
-        list<MyNetworkCaseListController.myNetworkCasesWrapper> wrapperList = new list<MyNetworkCaseListController.myNetworkCasesWrapper>();
+       
+		list<MyNetworkCaseListController.myNetworkCasesWrapper> wrapperList = new list<MyNetworkCaseListController.myNetworkCasesWrapper>();
 
         System.runAs(uRecrd){
             Test.StartTest();
