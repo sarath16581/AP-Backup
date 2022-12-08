@@ -44,6 +44,46 @@ public with sharing class ApttusContractsSelector_Test {
     }
 
     /**
+	* Test:
+	*  Ensures that the selectors QueryBuilder is generating the correct output
+	*/
+    @IsTest
+    public static void testEnsureQueryBuilderProducesCorrectStringForFieldOverride() {
+        Test.startTest();
+
+        ApttusContractsSelector selector = ApttusContractsSelector.newInstance();
+        QueryBuilder qb = selector.newQueryBuilder();
+        String soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Apttus__APTS_Agreement__c\\b').matcher(soql).find(), 'Resulting query does not select from Apttus__APTS_Agreement__c');
+
+        selector = ApttusContractsSelector.newInstance(1, new Set<SObjectField>{
+                Apttus__APTS_Agreement__c.Id
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Apttus__APTS_Agreement__c\\b').matcher(soql).find(), 'Resulting query does not select from Apttus__APTS_Agreement__c');
+
+        selector = ApttusContractsSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>>{
+                Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.Id}
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Apttus__APTS_Agreement__c\\b').matcher(soql).find(), 'Resulting query does not select from Apttus__APTS_Agreement__c');
+
+        selector = ApttusContractsSelector.newInstance(new Map<SObjectType, Set<SObjectField>>{
+                Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.Id}
+        });
+        qb = selector.newQueryBuilder();
+        soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Apttus__APTS_Agreement__c\\b').matcher(soql).find(), 'Resulting query does not select from Apttus__APTS_Agreement__c');
+        Test.stopTest();
+    }
+
+    /**
      * Test:
      *  Ensures that the selectors QueryBuilder is generating the correct output
      */
@@ -151,6 +191,9 @@ public with sharing class ApttusContractsSelector_Test {
         System.assertEquals(1, results.size(), 'Result count was wrong');
         System.assertNotEquals(null, results.values()[0].RecordType, 'Expected RecordType object');
         System.assertNotEquals(null, results.values()[0].OwnerId, 'Expected Owner object');
+
+        Database.QueryLocator queryLocator = ApttusContractsSelector.newInstance().selectByAccountRelationshipQueryLocator(new Set<Object>{ApttusContractsSelector.Options.WITH_ACCOUNT});
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom Apttus__APTS_Agreement__c\\b').matcher(queryLocator.getQuery()).find(), 'Resulting query does not select from Apttus__APTS_Agreement__c');
 
         Test.stopTest();
 
