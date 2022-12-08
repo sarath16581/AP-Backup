@@ -37,6 +37,9 @@ public with sharing class CaseInvestigationsSelector_Test {
         String soql = qb.toSoqlString();
 
         System.assertEquals(true, Pattern.compile('(?is)\\bfrom CaseInvestigation__c\\b').matcher(soql).find(), 'Resulting query does not select from CaseInvestigation__c');
+        System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(CaseInvestigation__c.Article__c) + '\\b').matcher(soql).find(), 'Article__c field does not exists in query');
+        System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(CaseInvestigation__c.Case__c) + '\\b').matcher(soql).find(), 'Case__c field does not exists in query');
+        System.assertEquals(true, Pattern.compile('\\b' + String.valueOf(CaseInvestigation__c.Case__c) + '\\b').matcher(soql).find(), 'ReferenceID__c field does not exists in query');
 
         Test.stopTest();
 

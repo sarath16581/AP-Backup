@@ -133,6 +133,13 @@ public with sharing class NetworksSelector_Test {
 		List<Network__c> selectedNetworks = selector.selectByName(new Set<String>{'Melbourne'});
 		System.assertEquals(1, selectedNetworks.size(), 'Expected result size of 1 for exact match based on name');
 
+		Set<String> stNetworkRecordTypes = NetworksSelector.ST_NETWORK_RECORD_TYPES;
+		System.assertEquals(4, stNetworkRecordTypes.size(), 'Expected result size of 4 for exact match based on record types');
+		System.assertEquals(true, stNetworkRecordTypes.contains(StarTrack_Constants.RECORDTYPE_DEPOT_AGENT), 'Expected Agent record type');
+		System.assertEquals(true, stNetworkRecordTypes.contains(StarTrack_Constants.RECORDTYPE_DEPOT_CARE_AGENT), 'Expected Care Agent record type');
+		System.assertEquals(true, stNetworkRecordTypes.contains(StarTrack_Constants.RECORDTYPE_DEPOT_METRO), 'Expected Metro record type');
+		System.assertEquals(true, stNetworkRecordTypes.contains(StarTrack_Constants.RECORDTYPE_DEPOT_REGIONAL), 'Expected Regional record type');
+
 		Test.stopTest();
 
 	}

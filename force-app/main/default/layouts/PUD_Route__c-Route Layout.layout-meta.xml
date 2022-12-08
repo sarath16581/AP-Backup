@@ -131,11 +131,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Print_Todays_Adhocs_and_Perm_variations</actionName>
-            <actionType>CustomButton</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Print_Full_Duty_Board_Single</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>1</sortOrder>
@@ -160,11 +155,15 @@
             <actionType>StandardButton</actionType>
             <sortOrder>5</sortOrder>
         </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Print_Todays_Adhocs_and_Perm_variations</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
     </platformActionList>
     <relatedLists>
         <fields>NAME</fields>
         <fields>Start_Time_Active__c</fields>
-        <fields>Display_Start_Time__c</fields>
         <fields>RECORDTYPE</fields>
         <fields>Booking_Type__c</fields>
         <fields>Booking_Location__c</fields>

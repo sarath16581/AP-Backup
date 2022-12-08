@@ -1,0 +1,49 @@
+<!--
+  	Component responsible for retrieving dispatch photos from digital repository and make them available on PUD Job record pages.
+  	Changelog:
+  	2022-04-07 - Ranjeewa Silva - Created.
+ -->
+<template>
+	<div>
+		<article class="slds-card slds-card_boundary">
+			<div class="slds-card__header slds-grid">
+				<header class="slds-media slds-media_center slds-has-flexi-truncate">
+					<div class="slds-media__figure">
+						<lightning-icon icon-name="standard:photo" size="small" alternative-text="Utility image" title="Image"></lightning-icon>
+					</div>
+					<div class="slds-media__body">
+						<h2 class="slds-card__header-title">
+							<span>Scanner Photo</span>
+						</h2>
+					</div>
+				</header>
+
+				<template if:false={showPhoto}>
+					<lightning-button icon-name="utility:photo" label="View" variant="brand" onclick={handleViewPhoto} disabled={isViewPhotoDisabled}></lightning-button>
+				</template>
+				<template if:true={showPhoto}>
+					<lightning-button-icon icon-name="utility:close"  alternative-text="Close Image" variant="border-filled" title="Close" onclick={handleClosePhoto}></lightning-button-icon>
+				</template>
+
+			</div>
+
+			<div class="slds-card__body slds-card__body_inner">
+				<template if:true={loadingPhoto}>
+					<div class="slds-p-around_medium slds-is-relative slds-align_absolute-center">
+						<lightning-spinner variant="brand" size="small" alternative-text="Loading Photo..."></lightning-spinner>
+					</div>
+				</template>
+				<template if:false={loadingPhoto}>
+					<div if:true={errorMessage} class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+						<span class="slds-assistive-text">error</span>
+						<h2>{errorMessage}</h2>
+					</div>
+					<div if:true={showPhoto} class="job-photo slds-align_absolute-center">
+						<img src={base64JobPhotoImage} />
+					</div>
+
+				</template>
+			</div>
+		</article>
+	</div>
+</template>

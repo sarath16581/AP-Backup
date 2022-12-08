@@ -14,12 +14,20 @@
 * 2021-07-20 - Seth Heang - Added method selectByNetworkNameANDOrgIdANDNotID_OR_ENDWITH_SUBSTRING()
 * 2021-07-27 - Naveen Rajanna - Added method selectByNetworkNameANDOrgIdANDNotID_OR_ENDWITH_SUBSTRING_OR_WORKCENTRE()
 * 2022-03-23 - Ranjeewa Silva - Added methods to select by name
+* 2022-12-05 - Mahesh Parvathaneni - Added StarTrack network record types variable
 */
 public virtual inherited sharing class NetworksSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER
 	}
+
+	public static final Set<String> ST_NETWORK_RECORD_TYPES = new Set<String>{
+		StarTrack_Constants.RECORDTYPE_DEPOT_AGENT,
+		StarTrack_Constants.RECORDTYPE_DEPOT_CARE_AGENT,
+		StarTrack_Constants.RECORDTYPE_DEPOT_METRO,
+		StarTrack_Constants.RECORDTYPE_DEPOT_REGIONAL
+	};
 
     public static String sortOrder ='Desc';
     public static String sortfieldAPIName = 'CreatedDate';

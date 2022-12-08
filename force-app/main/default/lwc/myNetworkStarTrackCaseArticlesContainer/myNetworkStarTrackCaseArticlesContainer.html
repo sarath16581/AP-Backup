@@ -1,0 +1,41 @@
+<template>
+    <div class="slds-box slds-theme_default slds-is-relative">
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12">
+                <p class="heading slds-align_absolute-center">AusPost MyNetwork</p>
+            </lightning-layout-item>
+
+            <template if:true={hasPassedThroughAPNetwork}>
+                <lightning-layout-item size="12" class="slds-var-p-horizontal_medium slds-var-p-vertical_large">
+                    <c-my-network-star-track-case-articles-datatable article-details={articleDetailsToDisplay}
+                        onrowselect={handleRowSelect}>
+                    </c-my-network-star-track-case-articles-datatable>
+                </lightning-layout-item>
+                <!-- PAGINATOR -->
+                <lightning-layout-item size="12" class="slds-var-p-horizontal_medium slds-var-p-top_medium">
+                    <c-paginator current-page={currentPage} total-pages={totalPages} onpageclick={handlePageClick}>
+                    </c-paginator>
+                </lightning-layout-item>
+                <lightning-layout-item size="8" class="slds-var-p-top_medium flex-el">
+                    <span class="label-heading comments">Comments</span>
+                    <lightning-textarea class="field-element" variant="label-hidden" value={comments} data-id="comment"
+                        onchange={handleCommentsChange}>
+                    </lightning-textarea>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" class="slds-var-p-top_medium">
+                    <lightning-button variant="brand" label="Submit" onclick={handleSubmitClick} class="submitBtn">
+                    </lightning-button>
+                </lightning-layout-item>
+            </template>
+            <template if:false={hasPassedThroughAPNetwork}>
+                <lightning-layout-item size="12" class="slds-align_absolute-center slds-var-p-around_large">
+                    <p class="label-heading">{label.consignmentErrorMessage}</p>
+                </lightning-layout-item>
+            </template>
+            <template if:true={isLoading}>
+                <lightning-spinner variant="brand" size="large" alternative-text="Loading...">
+                </lightning-spinner>
+            </template>
+        </lightning-layout>
+    </div>
+</template>
