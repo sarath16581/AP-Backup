@@ -12,7 +12,6 @@
 	<targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
             <property name="recordId" type="String"/>
-			<property name="caseInvestigationRecordId" type="String"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
