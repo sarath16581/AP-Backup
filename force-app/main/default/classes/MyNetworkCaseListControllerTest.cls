@@ -200,7 +200,7 @@
         database.insert(ctmList);
 
         //creating case investigations for ST cases.
-        List<CaseInvestigation__c> caseInvestigations = TestUtility.createCaseInvestigations(stCase1.Id, testArticle1.Id, nw.Id, 'Open', 'Test comments', 3);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(3, stCase1.Id, testArticle1, nw.Id, false);
         //updating article id for 2nd case investigations.
         caseInvestigations[1].Article__c = testArticle2.Id;
 
