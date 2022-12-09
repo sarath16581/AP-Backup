@@ -92,7 +92,6 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 	private void assignToPreferredAgent(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
 		
 		Map<Id,Id> caseIdsToAcceptedAgentWorkUserId = OmniChannelService.getInstance().getUserIdsFromLatestAcceptedAgentWork(existingRecords.keySet());
-		Map<Id,Id> caseIdsToOmniQueueId = new Map<Id,Id>();
 
 		Map<Id, Case> processable = new Map<Id, Case>(); 	
 
@@ -104,11 +103,8 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 				&& String.isEmpty(preferredAgentQueueId) == false 
 				&& Application.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false 
 				&& Application.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 
-				&& caseIdsToAcceptedAgentWorkUserId.containsKey(csRec.Id)
+				&& caseIdsToAcceptedAgentWorkUserId.containsKey(csRec.Id) //TODO add logic that checks the User in AgentWork is Active
 			){
-				
-				caseIdsToOmniQueueId.put(csRec.Id,csRec.OwnerId);
-				csRec.OwnerId = preferredAgentQueueId;
 				processable.put(csRec.Id, csRec);
 			}
 		}
@@ -138,8 +134,12 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 
 			for(Case csRec : processable.values()) {
 				if(excludedManualPsrCreation.contains(csRec.Id) == false) {
+
+					
 					//use the routing configuration of the Omni queue the Case was being routed to
-					QueueRoutingConfig routingConfiguration = Application.Cache.queueIdVsRoutingConfig.get(caseIdsToOmniQueueId.get(csRec.Id)); 
+					QueueRoutingConfig routingConfiguration = Application.Cache.queueIdVsRoutingConfig.get(csRec.OwnerId); 
+					
+					csRec.OwnerId = preferredAgentQueueId;
 
 					//PushTimeout cannot be set when IsPreferredUserRequired is set
 					casePsrRecords.put(csRec.Id, new PendingServiceRouting(
