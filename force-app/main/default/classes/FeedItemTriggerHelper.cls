@@ -126,5 +126,4 @@ public with sharing class FeedItemTriggerHelper{
             }
         }
     }
-
 }
