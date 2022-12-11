@@ -12,6 +12,35 @@
 @isTest
 private class TIBCOArticleService_Test {
 
+	@IsTest
+	static void retrieveAndSaveArticlesFromSAPSuccess() {
+
+		TibcoArticleService mockTibcoArticleService = (TibcoArticleService)MockUtility.mockUtility(TibcoArticleService.class);
+		TIBCODataTranslator mockTIBCODataTranslator = (TIBCODataTranslator)MockUtility.mockUtility(TIBCODataTranslator.class);
+
+		
+		Set<String> articleIds = new Set<String>{'test'};
+
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockTibcoArticleService.searchArticlesInSAP(
+												(List<String>) fflib_Match.eq(new List<String>(articleIds))
+											)).thenReturn(
+												result
+											);
+
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();
+
+		TIBCOArticleService.getInstance().retrieveAndSaveArticlesFromSAP(articleIds);
+
+		Test.stopTest();
+
+		((TIBCODataTranslator) MockUtility.Mocks.verify(mockTIBCODataTranslator, 1)).translate((List<TIBCOTrackingResultWrapper>) fflib_Match.eq(result.trackResults));
+		((TIBCODataTranslator) MockUtility.Mocks.verify(mockTIBCODataTranslator, 1)).save(fflib_Match.eqBoolean(false), fflib_Match.eqBoolean(true));
+	}
+
 	static testMethod void myUnitTest() {
 		
 		AusPostSettings__c testSetting = new AusPostSettings__c();
