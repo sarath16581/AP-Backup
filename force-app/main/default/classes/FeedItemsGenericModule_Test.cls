@@ -34,14 +34,20 @@
 		
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
 
+		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
+		Map<Id, Profile> profileIdMap = ProfilesSelector.newInstance().selectByName(new Set<String>{'SSSW - Service Agent'});
+
 		// =====================================
 		// Stubbing
 		// =====================================
 		FeedItemTriggerHelper mockFeedItemUtil = (FeedItemTriggerHelper) MockUtility.mockUtility(FeedItemTriggerHelper.class);
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ProfilesSelector mockProfilesSelector = (ProfilesSelector)MockUtility.mockSelector(ProfilesSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-	
-		//(FeedItemTriggerHelper)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockFeedItemUtil)).updateCaseInvestigations((List<SObject>)fflib_Match.anyObject(), (ApplicationUnitOfWork) fflib_Match.anyObject());
+
+		MockUtility.Mocks.when(mockProfilesSelector.selectByName((Set<String>)fflib_Match.anyObject())).thenReturn(profileIdMap);
+		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -56,8 +62,65 @@
 
 		Test.stopTest();
 
-
+		//verifying registerDirty is not called as criteria of updating case investigations will not meet.
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerDirty((List<SObject>)fflib_Match.anyObject());
 	}
+
+	@IsTest
+	public static void test_updateCaseInvestigations() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// =====================================
+        // Data Preparation
+        // =====================================
+        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+        cases[0].ArticleTest__c = articles[0].Id;
+		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+
+        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		networks[0].Org_ID__c = '1234';
+
+        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+		
+		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
+		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
+		Map<Id, Profile> profileIdMap = ProfilesSelector.newInstance().selectByName(new Set<String>{'SSSW - Service Agent'});
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		FeedItemTriggerHelper mockFeedItemUtil = (FeedItemTriggerHelper) MockUtility.mockUtility(FeedItemTriggerHelper.class);
+		ProfilesSelector mockProfilesSelector = (ProfilesSelector)MockUtility.mockSelector(ProfilesSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockProfilesSelector.selectByName((Set<String>)fflib_Match.anyObject())).thenReturn(profileIdMap);
+		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		MockUtility.Mocks.stopStubbing();
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		FeedItemsGenericModule module = FeedItemsGenericModule.newInstance();
+
+		module.updateCaseInvestigations(profileId, new List<FeedItem>{feedItems[0]}, mockUow);
+
+		Test.stopTest();
+
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<SObject>)fflib_Match.anyObject());
+	}
+	
+
 
 	@IsTest
 	static void testEndToEndTriggerIntegrationForInsert() {

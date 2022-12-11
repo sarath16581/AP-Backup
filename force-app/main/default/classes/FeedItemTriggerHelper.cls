@@ -127,38 +127,4 @@ public with sharing class FeedItemTriggerHelper{
         }
     }
 
-
-    /**
-      * @description       This method updates timestamp whenever any StarTrack Contact Center user Post feed on Case Investigation Object.
-      * @param             recList - List<SObject> 
-      * @return            Void
-      * @throws            Method might throw exception which is handled by try-catch block
-      */
-      
-      public static void updateCaseInvestigations( List<SObject> feedItems, ApplicationUnitOfWork uow) {
-
-		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
-            
-        List<CaseInvestigation__c> caseInvestigationToUpdate = new List<CaseInvestigation__c>();
-        for(FeedItem fItem :  (List<FeedItem>)  feedItems) {
-
-            system.debug(fItem);
-            system.debug(fItem.CreatedBy.ProfileId);
-
-			//update LastContactCentreUpdate__c field on CaseInvestigation ONLY WHEN a chatter is added
-			//by users with 'SSSW - Service Agent' profiles.
-            if(UserInfo.getProfileId() == profileId){
-                caseInvestigationToUpdate.add( new CaseInvestigation__c(Id = fItem.ParentId, LastContactCentreUpdate__c = System.now()) );
-            }
-        }
-
-        if(!caseInvestigationToUpdate.isEmpty()){
-
-			//update case investigation records.
-			uow.registerDirty(caseInvestigationToUpdate);
-
-            //update caseInvestigationToUpdate;
-        }
-      }
-    
 }

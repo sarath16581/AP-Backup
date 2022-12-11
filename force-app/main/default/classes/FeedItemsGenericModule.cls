@@ -22,7 +22,7 @@ public inherited sharing class FeedItemsGenericModule extends ApplicationDomain.
 
     public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
         try {
-			FeedItemTriggerHelper.updateCaseInvestigations(records, uow);
+			updateCaseInvestigations(Userinfo.getProfileId(), records, uow);
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'MyNetwork', FeedItemsGenericModule.class.getName(), 'onAfterInsert', 'FeedItemTrigger', LoggingLevel.ERROR);
@@ -37,4 +37,33 @@ public inherited sharing class FeedItemsGenericModule extends ApplicationDomain.
 			return (ApplicationDomain.Module)FeedItemsGenericModule.newInstance();
 		}
 	}
+
+	/**
+      * @description       This method updates timestamp whenever any StarTrack Contact Center user Post feed on Case Investigation Object.
+      * @param             feedItems - List<SObject>, uow - APplicationUnitOfWork
+      * @return            Void
+      */
+      @TestVisible
+      private void updateCaseInvestigations( Id loggedInUserProfileId, List<SObject> feedItems, ApplicationUnitOfWork uow) {
+
+		Id profileId = ProfilesSelector.newInstance().selectByName(new Set<String>{'SSSW - Service Agent'}).values()[0].Id;
+            
+        List<CaseInvestigation__c> caseInvestigationToUpdate = new List<CaseInvestigation__c>();
+        for(FeedItem fItem :  (List<FeedItem>)  feedItems) {
+
+            system.debug(fItem);
+            system.debug(fItem.CreatedBy.ProfileId);
+
+			//update LastContactCentreUpdate__c field on CaseInvestigation ONLY WHEN a chatter is added
+			//by users with 'SSSW - Service Agent' profiles.
+            if(loggedInUserProfileId == profileId){
+                caseInvestigationToUpdate.add( new CaseInvestigation__c(Id = fItem.ParentId, LastContactCentreUpdate__c = System.now()) );
+            }
+        }
+
+        if(!caseInvestigationToUpdate.isEmpty()){
+			//update case investigation records.
+			uow.registerDirty(caseInvestigationToUpdate);
+        }
+      }
 }
