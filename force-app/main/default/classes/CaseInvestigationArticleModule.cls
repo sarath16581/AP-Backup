@@ -51,15 +51,24 @@ public inherited sharing class CaseInvestigationArticleModule extends Applicatio
 		public override void execute(ApplicationUnitOfWork uow) {
 			if(referenceIds.isEmpty() == false) {
 				// check if they exist in SF first
+				system.debug('>>>>>>>>>>>> referenceIds: ' + referenceIds);
 				for(Article__c a: ArticlesSelector.newInstance().selectByArticleNames(referenceIds, new Set<Object>())) {
 					referenceIds.remove(a.Name); // no need to fetch existing articles
 				}
 				if(referenceIds.isEmpty() == false) {
-					try {
-						TibcoArticleService.getInstance().retrieveArticlesFromSAP(referenceIds);
-					} catch(Exception exp){
-						UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseInvestigationArticleModule.class.getName(), 'retrieveArticles', SSSWConstants.CASE_INVESTIGATION_TRIGGER, LoggingLevel.ERROR);
-					}
+					//try {
+						// Leveraging the searchByArticleIdsInSAP method to fetch the articles from SAP and then save it via the translator
+						TIBCOSearchResult result = TibcoArticleService.getInstance().searchByArticleIdsInSAP(new List<String>(referenceIds));
+						system.debug('>>>>>>>>>>>> result: ' + result);
+						system.debug('>>>>>>>>>>>> result.trackResults: ' + result.trackResults);
+						if (result.success && result.trackResults.isEmpty() == false) {
+							TIBCODataTranslator translator = TIBCODataTranslator.newInstance();
+							translator.translate(result.trackResults);
+							translator.save(false, true);
+						}
+					//} catch(Exception exp){
+						//UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseInvestigationArticleModule.class.getName(), 'retrieveArticles', SSSWConstants.CASE_INVESTIGATION_TRIGGER, LoggingLevel.ERROR);
+					//}
 				}
 			}
 		}

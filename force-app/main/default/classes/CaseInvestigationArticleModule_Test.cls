@@ -75,8 +75,23 @@ private class CaseInvestigationArticleModule_Test {
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		ArticlesSelector mockArticlesSelector = (ArticlesSelector)MockUtility.mockSelector(ArticlesSelector.class);
 		TibcoArticleService mockTibcoArticleService = (TibcoArticleService)MockUtility.mockUtility(TibcoArticleService.class);
+		TIBCODataTranslator mockTIBCODataTranslator = (TIBCODataTranslator)MockUtility.mockUtility(TIBCODataTranslator.class);
 
 		Set<String> referenceIds = new Set<String>{'test1', 'test2'};
+
+		Article__c a = ApplicationTestDataFactory.getArticles(1, true)[0];
+		a.trackingID__c = 'test2';
+		Map<String, List<Article__c>> consArticles = new Map<String, List<Article__c>>{
+			a.trackingID__c => null
+		};
+		Map<Id, List<EventMessage__c>> articleToEventMessages = new Map<Id, List<EventMessage__c>>{
+			a.id => ApplicationTestDataFactory.getEventMessages(2, a.id, true)
+		};
+
+		TIBCOSearchResult result = new TIBCOSearchResult();
+		result.errors = new List<String>();
+		result.success = true;
+		result.trackResults = new List<TIBCOTrackingResultWrapper>{ new TIBCOTrackingResultWrapper(a, consArticles, articleToEventMessages)  };
 
 		MockUtility.Mocks.startStubbing();
 
@@ -84,9 +99,15 @@ private class CaseInvestigationArticleModule_Test {
 														(Set<String>) fflib_Match.eq(referenceIds), 
 														(Set<Object>)fflib_Match.eq(new Set<Object>())
 													)).thenReturn(
-														new List<Article__c>{ new Article__c(Name = 'test1') }
+														new List<Article__c>{ a }
 													);
-		
+
+		MockUtility.Mocks.when(mockTibcoArticleService.searchByArticleIdsInSAP(
+												(List<String>) fflib_Match.eq(new List<String>(referenceIds))
+											)).thenReturn(
+												result
+											);
+
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
@@ -106,6 +127,7 @@ private class CaseInvestigationArticleModule_Test {
 
 		Test.stopTest();
 
-		((TibcoArticleService) MockUtility.Mocks.verify(mockTibcoArticleService, 1)).retrieveArticlesFromSAP((Set<String>) fflib_Match.eq(new Set<String>{'test2'}));
+		((TIBCODataTranslator) MockUtility.Mocks.verify(mockTIBCODataTranslator, 1)).translate((List<TIBCOTrackingResultWrapper>) fflib_Match.eq(result.trackResults));
+		((TIBCODataTranslator) MockUtility.Mocks.verify(mockTIBCODataTranslator, 1)).save(fflib_Match.eqBoolean(false), fflib_Match.eqBoolean(true));
 	}
 }
