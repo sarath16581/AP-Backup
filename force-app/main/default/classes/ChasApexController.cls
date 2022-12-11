@@ -702,7 +702,7 @@ public with sharing class ChasApexController extends ChasBase{
             }
 
              // DDS-12944  is before EDD + 10 and is after EDD + 10 comments and does not contains pharma
-             if (!isEligibleForHold && !containsPharma && !isEligibleForMyNetwork) { // EDD plus 10 passed + not essential medication + not eligible for network
+             if (!isEligibleForHold && !containsPharma && !isEligibleForMyNetwork && convertedEDD !=null) { // EDD plus 10 passed + not essential medication + not eligible for network + has EDD
                  // DDS-12734 exception check
                  // if a single article is searched or a single article being selected from multiple to raise a case
                  if(allArticles.size() == 1 || selectedArticles.size() == 1) {
