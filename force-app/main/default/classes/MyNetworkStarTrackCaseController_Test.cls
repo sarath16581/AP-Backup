@@ -44,10 +44,8 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
         // set up our responses
         MockUtility.Mocks.startStubbing();
         MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{c.Id => c});
-        MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{consignment.Id}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, 
-            ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL})).thenReturn(new Map<Id, Article__c>{consignment.Id => consignment});
-        MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{article.Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER, 
-            ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL})).thenReturn(new Map<Id, Article__c>{article.Id => article});
+        MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{consignment.Id}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES})).thenReturn(new Map<Id, Article__c>{consignment.Id => consignment});
+        MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{article.Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER})).thenReturn(new Map<Id, Article__c>{article.Id => article});
         MockUtility.Mocks.stopStubbing();
 
 		// =====================================

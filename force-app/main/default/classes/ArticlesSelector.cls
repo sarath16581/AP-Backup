@@ -177,7 +177,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		}
 
 		if(selectorOptions.contains(Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER)) {
-			builder.addSubQuery(EventMessagesSelector.newInstance('ActualDateTime__c', 'Desc').newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK}), 'Event_Messages__r');
+			builder.addSubQuery(EventMessagesSelector.newInstance('ActualDateTime__c', 'Desc').newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK_NOT_NULL}), 'Event_Messages__r');
 		}
 
 		if(selectorOptions.contains(Options.FILTER_BY_NETWORK_NOT_NULL)) {

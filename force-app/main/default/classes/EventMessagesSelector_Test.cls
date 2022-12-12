@@ -90,7 +90,7 @@ public with sharing class EventMessagesSelector_Test {
         System.assertEquals(true, Pattern.compile('(?ism)Booking_Reference__c.*?\\bfrom EventMessage__c\\b').matcher(soql).find(), 'Resulting query does not select Booking_Reference__c field: ' + soql);
 
         selector = EventMessagesSelector.newInstance(EventMessagesSelector.sortfieldAPIName, EventMessagesSelector.sortOrder);
-        qb = selector.newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK});
+        qb = selector.newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK_NOT_NULL});
         soql = qb.toSoqlString();
         System.assertEquals(true, Pattern.compile('(?ism)Facility__r.*?\\bfrom EventMessage__c\\b').matcher(soql).find(), 'Resulting query does not select Facility__r field: ' + soql);
         System.assertEquals(true, Pattern.compile('(?ism)Facility__r.*?\\bfrom EventMessage__c\\b.*Facility__r.RecordType.DeveloperName NOT IN*').matcher(soql).find(), 'Resulting query does not select Facility__r record type field: ' + soql);
@@ -157,7 +157,7 @@ public with sharing class EventMessagesSelector_Test {
         System.assertNotEquals(null, resultsList[0].Article__r, 'Expected article object');
 
         selector = EventMessagesSelector.newInstance();
-        List<EventMessage__c> eventsList = selector.selectByArticleNumber(new Set<String>{'CON1231'}, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.FILTER_AP_NETWORK});
+        List<EventMessage__c> eventsList = selector.selectByArticleNumber(new Set<String>{'CON1231'}, new Set<Object>{EventMessagesSelector.Options.WITH_ARTICLE, EventMessagesSelector.Options.FILTER_AP_NETWORK_NOT_NULL});
         System.assertEquals(2, eventsList.size(), 'Expected result size of 2');
         System.assertNotEquals(null, eventsList[0].Facility__c, 'Expected network record');
         System.assertNotEquals(null, eventsList[0].Facility__r.Name, 'Expected facility name');

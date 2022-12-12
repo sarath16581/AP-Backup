@@ -23,8 +23,7 @@ public with sharing class MyNetworkStarTrackCaseController {
             if (cases.size() > 0 && cases[0].ArticleTest__c != null) {
                 Id consignmentId = cases[0].ArticleTest__c;
                 //get child articles for the consignments
-                List<Article__c> articles = ArticlesSelector.newInstance().selectById(new Set<Id>{consignmentId}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, 
-                                                ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL}).values();
+                List<Article__c> articles = ArticlesSelector.newInstance().selectById(new Set<Id>{consignmentId}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES}).values();
 
                 for(Article__c article : articles) {
                     if(article.Articles__r != null && article.Articles__r.size() > 0) {
@@ -36,8 +35,7 @@ public with sharing class MyNetworkStarTrackCaseController {
 
                 if (articleIds.size() > 0) {
                     //get articles with event messages
-                    List<Article__c> articlesWithEventMessages = ArticlesSelector.newInstance().selectById(articleIds, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER, 
-                                                                    ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL}).values();
+                    List<Article__c> articlesWithEventMessages = ArticlesSelector.newInstance().selectById(articleIds, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER}).values();
                     
                     for (Article__c aem : articlesWithEventMessages) {
                         //add the articles if related event messages passed through AP network

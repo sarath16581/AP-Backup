@@ -13,7 +13,7 @@
  * 								selector option 'FILTER_NOT_BLANK_GUID' to 'FILTER_SAFE_DROP_GUID'.
  * 2021-10-01 - Nathan Franklin - Added selectByArticleNumber and uplifted to version 52 and also the WITH_SIGNATURE_FIELD option
  * 2021-10-03 - Nathan Franklin - Updated to pass selectorOptions into all related object selectors
- * 2022-11-23 - Mahesh Parvathaneni - Added newInstance method with sort field and order and also added the selector FILTER_AP_NETWORK
+ * 2022-11-23 - Mahesh Parvathaneni - Added newInstance method with sort field and order and also added the selector FILTER_AP_NETWORK_NOT_NULL
  */
 public virtual inherited sharing class EventMessagesSelector extends ApplicationSelector {
 
@@ -24,7 +24,7 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	 * NOTE: WITH_SIGNATURE_FIELD allows us to conditionally add the signature long text field only when it's needed
 	 */
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, WITH_ARTICLE, WITH_ATTACHMENT, WITH_SIGNATURE_FIELD, FILTER_SAFE_DROP_GUID, FILTER_ATTACHMENT_GUID, FILTER_AP_NETWORK
+		WITH_RECORDTYPE, WITH_OWNER, WITH_ARTICLE, WITH_ATTACHMENT, WITH_SIGNATURE_FIELD, FILTER_SAFE_DROP_GUID, FILTER_ATTACHMENT_GUID, FILTER_AP_NETWORK_NOT_NULL
 	}
 
 	public static EventMessagesSelector newInstance() {
@@ -192,8 +192,10 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 			builder.addConditions().add(new QueryBuilder.NullCondition(EventMessage__c.AttachmentGUID__c).notNull()).endConditions();
 		}
 
-		if (selectorOptions.contains(Options.FILTER_AP_NETWORK)) {
+		if (selectorOptions.contains(Options.FILTER_AP_NETWORK_NOT_NULL)) {
 			builder.addRelatedFields(NetworksSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Facility__r');
+			builder.addConditions().add(new QueryBuilder.CompareCondition(EventMessage__c.Facility__c).ne('')).endConditions();
+			builder.addConditions().add(new QueryBuilder.NullCondition(EventMessage__c.Facility__c).notNull()).endConditions();
 			builder.addConditions().add((new QueryBuilder.InCondition('Facility__r.RecordType.DeveloperName')).notInCollection(NetworksSelector.ST_NETWORK_RECORD_TYPES)).endConditions();
 		}
 
