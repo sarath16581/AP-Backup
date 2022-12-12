@@ -9,14 +9,14 @@
  * @changelog
  * 2022-11-04 - Harry Wang - Created.
  */
-public inherited sharing class BusinessAccountIntermediaryModule extends ApplicationDomain.Module {
+public inherited sharing class SalesAutomationModule extends ApplicationDomain.Module {
 
-	public static BusinessAccountIntermediaryModule newInstance() {
-		return (BusinessAccountIntermediaryModule)Application.Utilities.newInstance(BusinessAccountIntermediaryModule.class);
+	public static SalesAutomationModule newInstance() {
+		return (SalesAutomationModule)Application.Utilities.newInstance(SalesAutomationModule.class);
 	}
 
 	// Setup which trigger events this module should respond to
-	public BusinessAccountIntermediaryModule() {
+	public SalesAutomationModule() {
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
 	}
 
@@ -57,11 +57,11 @@ public inherited sharing class BusinessAccountIntermediaryModule extends Applica
 
 			// Logging failure message
 			if (!logMessages.isEmpty() && !additionalInfo.isEmpty()) {
-				ApplicationLogger.getInstance().logMessage(logMessages, additionalInfo, 'Sales Intermediary', BusinessAccountIntermediaryModule.class.getName(), 'stampSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+				ApplicationLogger.getInstance().logMessage(logMessages, additionalInfo, 'Sales Intermediary', SalesAutomationModule.class.getName(), 'stampSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 			}
 		} catch (Exception e) {
 			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales Intermediary', BusinessAccountIntermediaryModule.class.getName(), 'stampSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales Intermediary', SalesAutomationModule.class.getName(), 'stampSalesTeamType', 'AccountTriggerClass', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -70,7 +70,7 @@ public inherited sharing class BusinessAccountIntermediaryModule extends Applica
 	 */
 	public class Constructor implements ApplicationDomain.IConstructableModule {
 		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module)BusinessAccountIntermediaryModule.newInstance();
+			return (ApplicationDomain.Module) SalesAutomationModule.newInstance();
 		}
 	}
 }

@@ -20,7 +20,7 @@ private class BusinessAccountDomain_Test {
 		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
 
 		ApplicationDomain appDomain = constructor.construct(accounts);
-		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(BusinessAccountIntermediaryModule.class);
+		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(SalesAutomationModule.class);
 
 		// PMD by-pass
 		System.assert(true, 'PMD by-pass');
