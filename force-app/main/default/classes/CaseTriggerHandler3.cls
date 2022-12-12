@@ -8,7 +8,7 @@
  * @group Domain
  * @domain Case
  * @changelog
- * 2022-12-12 - Noel Lim - added PendingServiceRouting.SObjectType in getUnitOfWorkSObjectTypes()
+ * 2022-12-12 - Noel Lim - added PendingServiceRouting.SObjectType
  */
 public inherited sharing class CaseTriggerHandler3 extends ApplicationDomainTriggerHandler {
 
