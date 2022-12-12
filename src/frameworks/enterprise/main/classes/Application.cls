@@ -9,7 +9,7 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Added methods for Domain classes
- * 2022-12-07 - Noel Lim		- Added Cache variables queuesWithRoutingConfig, queueIdVsRoutingConfig
+ * 2022-12-07 - Noel Lim		- Added Cache variable queuesWithRoutingConfig
  */
 public with sharing class Application {
 
@@ -45,8 +45,6 @@ public with sharing class Application {
 			CacheManager.put('ALL_PROFILE_IDS', null);
 			serviceChannels = null;
 			CacheManager.put('ALL_SERVICE_CHANNELS', null);
-			queueIdVsRoutingConfig = null;
-			CacheManager.put('QUEUE_TO_ROUTING_CONFIG', null);
 			queuesWithRoutingConfig = null;
 			CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', null);
 		}
@@ -99,50 +97,36 @@ public with sharing class Application {
 			private set;
 		}
 
-		public Map<Id, Group> queuesWithRoutingConfig {
+		public Map<Id, QueueWrapper> queuesWithRoutingConfig {
 			get {
 				if(queuesWithRoutingConfig == null) {
-					queuesWithRoutingConfig = (Map<Id, Group>)CacheManager.get('QUEUES_WITH_ROUTING_CONFIG');
+					queuesWithRoutingConfig = (Map<Id, QueueWrapper>)CacheManager.get('QUEUES_WITH_ROUTING_CONFIG');
 					if(queuesWithRoutingConfig == null) {
-						queuesWithRoutingConfig = new Map<Id, Group>();
-						for(Group queue: [SELECT Id, DeveloperName, QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL]) {
-							queuesWithRoutingConfig.put(queue.Id, queue);
-						}
-						CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', queuesWithRoutingConfig);
-					}
-				}
-				return queuesWithRoutingConfig;
-			}
-			private set;
-		}
-
-		public Map<Id, QueueRoutingConfig> queueIdVsRoutingConfig {
-			get {
-				if(queueIdVsRoutingConfig == null) {
-					queueIdVsRoutingConfig = (Map<Id, QueueRoutingConfig>)CacheManager.get('QUEUE_TO_ROUTING_CONFIG');
-					if(queueIdVsRoutingConfig == null) {
-						queueIdVsRoutingConfig = new Map<Id, QueueRoutingConfig>();
-
+						queuesWithRoutingConfig = new Map<Id, QueueWrapper>();
+	
+						List<Group> queues = [SELECT DeveloperName, QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
 						Set<Id> queueRoutingConfigIds = new Set<Id>();	
-						for(Group queue : queuesWithRoutingConfig.values()){
+	
+						for(Group queue : queues) {
 							queueRoutingConfigIds.add(queue.QueueRoutingConfigId);
 						}
-
+	
 						if(queueRoutingConfigIds.isEmpty() == false){
-							List<QueueRoutingConfig> routingConfigs = [SELECT Id, CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, 
-																PushTimeout, RoutingModel, RoutingPriority, DeveloperName FROM QueueRoutingConfig];
-							for(Group queue : queuesWithRoutingConfig.values()){
+							List<QueueRoutingConfig> routingConfigs = [SELECT CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, 
+																PushTimeout, RoutingModel, RoutingPriority, DeveloperName FROM QueueRoutingConfig WHERE Id IN :queueRoutingConfigIds];
+							for(Group queue : queues){
 								for(QueueRoutingConfig routingConfig : routingConfigs){
 									if(queue.QueueRoutingConfigId == routingConfig.Id){
-										queueIdVsRoutingConfig.put(queue.Id, routingConfig);
+										queuesWithRoutingConfig.put(queue.Id, new QueueWrapper(queue, routingConfig));
 									}
 								}					
 							}
 						}		
-						CacheManager.put('QUEUE_TO_ROUTING_CONFIG', queueIdVsRoutingConfig);
+	
+						CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', queuesWithRoutingConfig);
 					}
 				}
-				return queueIdVsRoutingConfig;
+				return queuesWithRoutingConfig;
 			}
 			private set;
 		}
@@ -159,6 +143,16 @@ public with sharing class Application {
 			} else {
 				sandboxName = '';
 			}
+		}
+	}
+
+	public class QueueWrapper {
+		public Group queue {get; private set;}
+		public QueueRoutingConfig routingConfiguration {get; private set;}
+
+		public QueueWrapper(Group inputQueue, QueueRoutingConfig inputRoutingConfig) {
+			queue = inputQueue;
+			routingConfiguration = inputRoutingConfig;
 		}
 	}
 

@@ -137,7 +137,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 
 					
 					//use the routing configuration of the Omni queue the Case was being routed to
-					QueueRoutingConfig routingConfiguration = Application.Cache.queueIdVsRoutingConfig.get(csRec.OwnerId); 
+					QueueRoutingConfig routingConfiguration = Application.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
 					
 					csRec.OwnerId = preferredAgentQueueId;
 

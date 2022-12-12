@@ -206,7 +206,7 @@ private class CaseSkillBasedRoutingModule_Test {
 		Insert custSetting;
 		Id preferredAgentQueueId = preferredAgentQueue.QueueId;
 
-		Group omniQueue = Application.Cache.queuesWithRoutingConfig.values()[0];		
+		Group omniQueue = Application.Cache.queuesWithRoutingConfig.values()[0].queue;		
 
 		//User
 		Id userId = UserInfo.getUserId();

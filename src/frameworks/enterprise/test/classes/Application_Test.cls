@@ -81,23 +81,8 @@ private with sharing class Application_Test {
 		CacheManager.settings.CacheEnabled__c = true;
 		Application.Cache.resetStaticVariablesForUnitTestOnly();
 
-		List<Group> queues = [SELECT Id FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
-
-		System.assertEquals(queues.size(), Application.Cache.queuesWithRoutingConfig.size(), 'it should return the same number of queues');
-
-		// test loading from cache
-		Application.Cache.resetStaticVariablesForUnitTestOnly();
-		CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', new Map<Id, Group>{queues[0].Id=>queues[0]});
-		System.assertEquals(queues[0].Id, Application.Cache.queuesWithRoutingConfig.get(queues[0].Id).Id, 'should match');
-	}
-
-	@IsTest
-	static void queueIdVsRoutingConfigShouldReturnFilteredMap() {
-		CacheManager.settings.CacheEnabled__c = true;
-		Application.Cache.resetStaticVariablesForUnitTestOnly();
-
-		List<Group> queues = [SELECT Id, QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
-		List<QueueRoutingConfig> queueRoutingConfigs = [SELECT Id, DeveloperName FROM QueueRoutingConfig];
+		List<Group> queues = [SELECT QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
+		List<QueueRoutingConfig> queueRoutingConfigs = [SELECT DeveloperName FROM QueueRoutingConfig];
 		Map<Id,QueueRoutingConfig> qrcMap = new Map<Id,QueueRoutingConfig>(queueRoutingConfigs);
 		Map<Id,Id> queueIdToRoutingId = new Map<Id,Id>();
 
@@ -105,15 +90,21 @@ private with sharing class Application_Test {
 			queueIdToRoutingId.put(queue.Id, queue.QueueRoutingConfigId);
 		}
 
-
-		System.assertEquals(queues.size(), Application.Cache.queueIdVsRoutingConfig.size(), 'it should return the same number of queues');
-		System.assertEquals(qrcMap.get(queueIdToRoutingId.get(queues[0].Id)).Id, Application.Cache.queueIdVsRoutingConfig.get(queues[0].Id).Id, 'returned QueueRoutingConfig Ids should match');
-		System.assertEquals(qrcMap.get(queueIdToRoutingId.get(queues[queues.size()-1].Id)).Id, Application.Cache.queueIdVsRoutingConfig.get(queues[queues.size()-1].Id).Id, 'returned QueueRoutingConfig Ids should match');
+		System.assertEquals(queues.size(), Application.Cache.queuesWithRoutingConfig.size(), 'it should return the same number of queues');
+		System.assertEquals(
+			qrcMap.get(queueIdToRoutingId.get(queues[0].Id)).Id, 
+			Application.Cache.queuesWithRoutingConfig.get(queues[0].Id).routingConfiguration.Id, 
+			'returned QueueRoutingConfig Ids should match');
+		System.assertEquals(
+			qrcMap.get(queueIdToRoutingId.get(queues[queues.size()-1].Id)).Id, 
+			Application.Cache.queuesWithRoutingConfig.get(queues[queues.size()-1].Id).routingConfiguration.Id, 
+			'returned QueueRoutingConfig Ids should match');
 
 		// test loading from cache
 		Application.Cache.resetStaticVariablesForUnitTestOnly();
-		CacheManager.put('QUEUE_TO_ROUTING_CONFIG', new Map<Id, QueueRoutingConfig>{queues[0].Id=>qrcMap.get(queueIdToRoutingId.get(queues[0].Id))});
-		System.assertEquals(qrcMap.get(queueIdToRoutingId.get(queues[0].Id)).Id, Application.Cache.queueIdVsRoutingConfig.get(queues[0].Id).Id, 'returned QueueRoutingConfig Ids via Cache should match');
+		CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', new Map<Id, Application.QueueWrapper>{queues[0].Id=> new Application.QueueWrapper(queues[0],qrcMap.get(queueIdToRoutingId.get(queues[0].Id)))});
+		System.assertEquals(queues[0].Id, Application.Cache.queuesWithRoutingConfig.get(queues[0].Id).queue.Id, 'should match');
+		System.assertEquals(qrcMap.get(queueIdToRoutingId.get(queues[0].Id)).Id, Application.Cache.queuesWithRoutingConfig.get(queues[0].Id).routingConfiguration.Id, 'returned QueueRoutingConfig Ids via Cache should match');
 	}
 
 	/**
