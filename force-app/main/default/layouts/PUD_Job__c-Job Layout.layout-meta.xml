@@ -29,6 +29,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>Display_ETA_to_Driver__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>Earliest_Start_Time__c</field>
             </layoutItems>
             <layoutItems>
@@ -122,8 +126,8 @@
                 <field>Deliver_Product__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Display_Start_Time__c</field>
+                <behavior>Readonly</behavior>
+                <field>Dock_Number__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -353,6 +357,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Driver_Comments__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Photo_GUID__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

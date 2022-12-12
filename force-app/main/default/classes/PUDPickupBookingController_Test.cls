@@ -8,6 +8,7 @@
  * 2021-08-17 - Ranjeewa Silva - Created.
  * 2022-03-23 - Ranjeewa Silva - Added new test methods to test bulk edit functionality.
  * 2022-04-04 - Seth Heang - Added new test method to test update dispatch job integration flag on network
+ * 2022-04-21 - Ranjeewa Silva - Added test methods for retrieving dispatch photo from Digital Repository.
  * 2022-08-24 - Dattaraj Deshmukh - Updated test method 'testEnsureCancelJobActionNotAllowedForFutureJobs' to allow cancellation for today and tomorrow.
  * 								  - Renamed test method 'testEnsureTriggerDispatchSystemSyncOnlyForCurrentDayJobs' with 'testEnsureTriggerDispatchSystemSyncOnlyForJobsWithInDispatchWindow'
  * 								  - Added test comments in 'testEnsureTriggerDispatchSystemSyncOnlyForJobsWithInDispatchWindow' regarding dispatch window.
@@ -739,6 +740,49 @@ private class PUDPickupBookingController_Test {
 		Test.stopTest();
 		// verify that dmlUpdate has been made 
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+	}
+
+	// ensure retrieving dispatch photos from digital repository is delegated to DigitalRepositoryService
+	@IsTest
+	private static void testGetDispatchPhoto() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Pickup_Booking_Settings__c settings = new Pickup_Booking_Settings__c();
+		settings.Dispatch_Photo_Bucket_Name__c = 'testbucket';
+		insert(settings);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		DigitalRepositoryService mockDigitalRepositoryService = (DigitalRepositoryService) MockUtility.mockUtility(DigitalRepositoryService.class);
+
+		HttpResponse mockHttpResponse = new HttpResponse();
+		mockHttpResponse.setStatusCode(200);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockDigitalRepositoryService.getContinuation(fflib_Match.anyString(), (String) fflib_Match.anyObject())).thenReturn(new Continuation(60));
+		DigitalRepositoryService.DocumentApiResponse mockResponse = new DigitalRepositoryService.DocumentApiResponse();
+		MockUtility.Mocks.when(mockDigitalRepositoryService.parseResponse((HttpResponse)fflib_Match.eq(mockHttpResponse))).thenReturn(mockResponse);
+		MockUtility.Mocks.stopStubbing();
+
+		Test.setContinuationResponse('reqlabel', mockHttpResponse);
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		// Invoke the continuation
+		Continuation cont = (Continuation)PUDPickupBookingController.getDispatchPhoto('TEST');
+		DigitalRepositoryService.DocumentApiResponse response = (DigitalRepositoryService.DocumentApiResponse) PUDPickupBookingController.dispatchPhotoCallback(new List<String>{'reqlabel'}, null);
+
+		Test.stopTest();
+
+		System.assertNotEquals(null, cont, 'Expected a valid continuation instance, but received null.');
+		System.assertEquals(mockResponse, response, 'Expected to return parsed response from DigitalRepositoryService, but got something different.');
 	}
 
 	private class MockException extends Exception {}

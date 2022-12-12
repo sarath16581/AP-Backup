@@ -55,8 +55,8 @@
 							<tr>
 								<td style="padding:0 0 0px; font:12px/13px Arial, Helvetica, sans-serif; color:#807370;">
                                                                   <p>Hi  {!Case.Recent_Caller_First_Name__c},<br><br>Please find Proof of Delivery for Consignment Number {!Case.Calc_Case_Consignment__c} attached.
-                                                                  <br><br>If you have any further queries regarding the delivery of this consignment, please reply to this email or call 13 2345 to speak with a member of our Customer Service team.<br><br><hr>
-                                                                         Thank you,<br>StarTrack Customer Service<p/>
+                                                                  <br><br>If you have any further queries regarding the delivery of this consignment, please reply to this email or call 13 23 45 to speak with a member of our Customer Service team.<br><br><hr>
+                                                                         Thank you,<br>{!User.FirstName}<br>StarTrack Customer Service<p/>
                                                              </td>
                                                   </tr>
 							<tr>

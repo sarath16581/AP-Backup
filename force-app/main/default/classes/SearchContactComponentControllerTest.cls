@@ -10,6 +10,7 @@
   *     15/11/2019 - seth.p.heang@accenture.com - Added coverage for Contact Block Duplicate Rule
   *     20/07/2020 - Swati.Mogadala@auspost.com.au -Add EmailNotAvailable checkbox for Contacts and person accounts(REQ2065161)
   *     20/05/2021 - Madhuri.awasthi@auspost.com.au - Add PreferredName field for Contact and person accounts(REQ2476162)
+  *		26/10/2022 - Dattaraj.deshmukh@auspost.com.au - Added 'test_isLiveAgentUser' methods to test isLiveAgentUser flag, updated metadata version to 55.
   */
 
 
@@ -402,4 +403,54 @@ public with sharing class SearchContactComponentControllerTest {
         System.assert(result != null);
     }
     //Maumita Ends
+
+	/** 
+	 * @desc: Testing 'isLiveAgentUser()' method to assert that context user has Live Agent permissions.
+	 */
+	@isTest
+	static void test_isLiveAgentUser(){
+		
+		// =====================================
+        // Data Preparation
+        // =====================================
+		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
+
+		User liveAgentUser = ApplicationTestDataFactory.getUsers(1, profileId, true)[0];
+		liveAgentUser.UserPermissionsLiveAgentUser = true;
+		liveAgentUser.Id = UserInfo.getUserId();
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		UsersSelector mockUserSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{liveAgentUser.Id})).thenReturn(new Map<Id, User>{liveAgentUser.Id => liveAgentUser});
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+        // Testing
+        // =====================================
+		
+		Test.startTest();
+		Test.stopTest();
+
+		SearchContactComponentController controller = new SearchContactComponentController();
+
+		// should have attempted to call UsersSelector
+        ((UsersSelector)MockUtility.Mocks.verify(mockUserSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{UserInfo.getUserId()}));
+
+		//assert if passed user has a live agent permission
+		system.assert(controller.isLiveAgentUser, 'Looks like context user is not live agent. Not Expected..');
+
+		//Set live agent permission to false and assert again
+		liveAgentUser.UserPermissionsLiveAgentUser = false;
+		controller.isLiveAgent();
+
+		system.assert(!controller.isLiveAgentUser, 'Looks like context user is live agent. Not Expected..');
+
+	}
+
+	
 }

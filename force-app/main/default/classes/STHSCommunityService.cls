@@ -2,6 +2,7 @@
  * @File Name          : STHSCommunityService.cls
  * @Description        : Service class for StarTrack Help and Support Community
  * @Author             : Mahesh Parvathaneni
+ * @Modified           : Mahesh Parvathaneni - DDS-13293,13294 - Reference Id update to the case
  **/
 
 public inherited sharing class STHSCommunityService {
@@ -68,6 +69,10 @@ public inherited sharing class STHSCommunityService {
             caseObj.Recent_Caller_Phone_Number__c = phNumber;
         }
         caseObj.Recent_Caller_Email__c = caseObj.Initial_Caller_Email__c = formData.get(STHSConstants.FORM_DATA_EMAIL);
+		//DDS-13293,13294 Populate reference Id in the case
+        if (formData.get(STHSConstants.FORM_DATA_REFERENCE) != null) {
+            caseObj.ReferenceID__c = formData.get(STHSConstants.FORM_DATA_REFERENCE);
+        }
     }
 
     //function to check mobile number

@@ -110,11 +110,11 @@ public with sharing class CaseTriggerHandler{
 				caseUtility.validateCase_Update(Trigger.new);  // assigns case locality to international & update key for duplicate (BSP & DDC Profiles)
 			}
 
-			if(!CaseTriggerHelper.isUpdateParentCaseRecursive) {
+			if(!CaseTriggerHelper.isUpdateParentCaseRecursive) { 
 				helper.updateParentCase((Map<Id,Case>)Trigger.newMap);// reallocates parent case when child case is set for queue allocation
 			}
 
-			CaseCommonUtility.markRenewedCasesToRoute(Trigger.new, (Map<Id,Case>)Trigger.oldMap); // If a Case status is changed to New, those cases are re-routed.
+			CaseCommonUtility.markRenewedCasesToRoute(Trigger.new, (Map<Id,Case>)Trigger.oldMap); // If a Case status is changed to New, or Case is in the Closed Omni queue and Status changes to an non-Closed Status, those cases are re-routed.
 
 			caseUtility.routeCase(Trigger.new, (Map<Id,Case>)Trigger.oldMap, false);   // route the case based on the SSSW routing or default mapping
 
@@ -124,7 +124,7 @@ public with sharing class CaseTriggerHandler{
 
 			milestoneUtility.updateNetworkEscalationEmails(Trigger.new,(Map<Id,Case>)Trigger.oldMap);
 
-			if(!CaseMilestoneUtility.isMilestoneUpdated) {
+			if(!CaseMilestoneUtility.isMilestoneUpdated) { //NOTE: this recursion check will prevent updateMilestones to be called during Workflow Case DML when a Case is a HLC or CR. CaseTriggerHelper.updateHLC() will fire a Case DML and flag isMilestoneUpdated to true
 				milestoneUtility.updateMilestones(Trigger.new,(Map<Id,Case>)Trigger.oldMap); // creates activity for milestone violation, updates the escalation tier in status tracking
 			}
 

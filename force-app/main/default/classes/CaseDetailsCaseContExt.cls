@@ -1090,10 +1090,10 @@ global class CaseDetailsCaseContExt  {
                     if(!String.isBlank(reassignCase.Description))
                         SSSW_Routing.FlipReassignDescription();
                     SSSW_Routing.reassignNoCheckOwnerQueue = True;
-                    SSSW_Routing.assignCasesAndDescription(new List<Case>{reassignCase}, null, false);
+                    SSSW_Routing.assignCasesAndDescription(new List<Case>{reassignCase}, null, false, false, true);
                     routedCase = reassignCase;
                 }
-                //System.Debug('routedCase.OwnerId--->'+routedCase.OwnerId);
+
                 if(!casesTobeRouted.isEmpty()){
                     for(Case caseRec : casesTobeRouted) {
                         if(routedCase != null){
@@ -1127,11 +1127,11 @@ global class CaseDetailsCaseContExt  {
 					// set save point so we can revert the update to omni queue (if applicable). We need the PSR in order to compare the target skills vs the skills of the current agent. 
 					// If they are the same then the whole process should be reverted and show an error message to the user. 
 					Savepoint sp = Database.setSavepoint();
-
+					
 					if(!sameOwner && doUpdate) {
 						Database.update(casesTobeRouted);
 
-						Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(PendingServiceRoutingSelector.newInstance().selectByWorkItemId(new Set<Id>{this.myCAse.Id}, new Set<Object>()));
+						Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(PendingServiceRoutingSelector.newInstance().selectByWorkItemId(new Set<Id>{this.myCase.Id}, new Set<Object>()));
 						// If PSR was created then the new owner is an Omni queue
 						if(psrs.isEmpty() == false) {
 
@@ -1163,7 +1163,6 @@ global class CaseDetailsCaseContExt  {
 					}
                 }
             }
-
         }
         catch(Exception exp){
             // Error Logged to Exception object for analysis

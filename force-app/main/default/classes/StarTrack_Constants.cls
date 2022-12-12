@@ -23,6 +23,7 @@ public class StarTrack_Constants {
     public static final String ST_CASE_AUTOCLOSE_CUST_PERM = 'StarTrack_Autoclose_Case_from_Task';
 
     public static final Set<String> CONSIGN_SUMSTATUS = new Set<String>{'Notified', 'Picked Up', 'In Transit', 'Delivered', 'Partially Picked Up', 'Partially Delivered', 'Partially On Forwarded', 'On Forwarded'};
+    public static final Set<String> ARTICLE_ADDRESS_FIELDS = new Set<String>{'SenderCompany__c', 'SenderName__c', 'SenderAddress__c', 'Sender_Suburb__c', 'SenderState__c', 'SenderPostcode__c', 'ReceiverCompany__c', 'ReceiverName__c', 'ReceiverAddress__c', 'Receiver_Suburb__c', 'ReceiverState__c', 'ReceiverPostcode__c'};
     public static final String TASK_TYPE_OPERATION = 'Operations Task';
     public static final Boolean ST_TRUE = true;
     public static final Boolean ST_FALSE = false;
@@ -316,8 +317,11 @@ public class StarTrack_Constants {
      public static final String CASE_CONTACT_TYPE_SENDER = 'Sender';
        
      // Madhusudhan | PBRP 2021 *** CaseTriggerHelper Constants  ***/
-     public static final String CASE_TRIGGER = 'CaseTrigger'; 
-     
+     public static final String CASE_TRIGGER = 'CaseTrigger';
+    public static final String ASYNC_QUEUEABLE = 'Queueable';
+
+    public static final String SOURCE_SYSTEM_TEAM = 'TEAM';
+    public static final String SOURCE_SYSTEM_TRACK_AND_TRACE = 'TRACK & TRACE';
      // a list of fields which define an IVR case as non 'transactional'
      // this is applicable to any cases with Origin of 'IVR'
      public static final Map<String, Set<String>> NON_TRANSACTIONAL_IVR_EXCLUSIONS = new Map<String, Set<String>>{

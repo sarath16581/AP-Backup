@@ -88678,6 +88678,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Sales_Team_Segment__c.NPS_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Sales_Team_Segment__c.Reporting_Segment__c</field>
         <readable>true</readable>
     </fieldPermissions>

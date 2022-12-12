@@ -12,12 +12,7 @@
     <filters>
         <field>ResourceType</field>
         <operation>equals</operation>
-        <value>T,C</value>
-    </filters>
-    <filters>
-        <field>Name</field>
-        <operation>startsWith</operation>
-        <value>GT</value>
+        <value>A</value>
     </filters>
     <filters>
         <field>IsActive</field>
@@ -25,4 +20,5 @@
         <value>1</value>
     </filters>
     <label>All Service Resources</label>
+    <language>en_US</language>
 </ListView>
