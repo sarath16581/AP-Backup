@@ -3,7 +3,7 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW Consumer Back Office Low Priority</name>
-    <queueRoutingConfig></queueRoutingConfig>
+    <queueRoutingConfig>AP_SSSW_Consumer_BOH_Low_Priority</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
