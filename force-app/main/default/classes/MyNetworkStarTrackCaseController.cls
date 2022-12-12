@@ -64,8 +64,10 @@ public with sharing class MyNetworkStarTrackCaseController {
      */
     @AuraEnabled
 	public static SaveResult saveCaseInvestigations(List<CaseInvestigation__c> recordsToSave, String comments) {
+		// since we have multiple DML statements we use this to roll back if errors occur
+		Savepoint sp = ApplicationDatabase.getInstance().dmlSetSavePoint();
+		SaveResult result = new SaveResult();
         try {
-            SaveResult result = new SaveResult();
             Set<String> articleReferenceIds = new Set<String>();
             Set<Id> networkIds = new Set<Id>();
             Map<String, List<Id>> existingArticleReferenceToNetworkIdsMap = new Map<String, List<Id>>();
@@ -112,6 +114,8 @@ public with sharing class MyNetworkStarTrackCaseController {
             }
             return result;
         } catch (Exception e) {
+			// because we are doing multiple DML statements, we want all the DML's to be rolled back
+			ApplicationDatabase.getInstance().dmlRollback(sp);
             throw new AuraHandledException(e.getMessage());
         }
     }

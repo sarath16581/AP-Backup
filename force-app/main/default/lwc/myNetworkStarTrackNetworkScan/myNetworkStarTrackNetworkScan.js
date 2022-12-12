@@ -28,7 +28,7 @@ export default class MyNetworkStarTrackNetworkScan extends LightningElement {
             };
             let actualDatetime = this.formattedDateTime(eventMessages[i].ActualDateTime__c);
             //set title
-            let title = 'Event Message: ' + eventMessages[i].EventDescription__c;
+            let title = eventMessages[i].EventDescription__c;
             if (actualDatetime !== null) {
                 title += ' @ ' + actualDatetime;
             }

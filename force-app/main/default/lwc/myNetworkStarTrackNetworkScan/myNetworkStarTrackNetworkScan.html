@@ -8,7 +8,7 @@
                     variant="bare-inverse" onclick={handleModalClose} icon-name="utility:close" alternative-text="Close"
                     title="Close">
                 </lightning-button-icon>
-                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate heading-text">Full AP Network Scan
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate heading-text">AP Network Events
                 </h2>
             </header>
             <!-- Modal body -->
@@ -27,38 +27,38 @@
                             <lightning-layout-item size="11">
                                 <lightning-accordion-section name={it.value.Id} label={it.value.title}>
                                     <lightning-layout multiple-rows>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
                                             <span>Network Name:</span>
                                             <span class="slds-var-p-left_x-small">
                                                 <a data-url={it.value.Facility__c}
                                                     onclick={handleUrlClick}>{it.value.Facility__r.Name}</a>
                                             </span>
                                         </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
                                             <span>Contact Method:</span>
                                             <span class="slds-var-p-left_x-small">
                                                 {it.value.Facility__r.Contact_Facility__c}
                                             </span>
                                         </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
                                             <span>Contact Number:</span>
                                             <span class="slds-var-p-left_x-small">
                                                 {it.value.Facility__r.Phone_Number__c}
                                             </span>
                                         </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
                                             <span>Network Address:</span>
                                             <span class="slds-var-p-left_x-small">
                                                 {it.value.Facility__r.Network_Address__c}
                                             </span>
                                         </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
                                             <span>Comment:</span>
                                             <span class="slds-var-p-left_x-small">
                                                 {it.value.Facility__r.Comment__c}
                                             </span>
                                         </lightning-layout-item>
-                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                        <lightning-layout-item size="6" class="slds-var-p-around_xx-small">
                                             <span>Critical Incidents:</span>
                                             <span class="ci-list">
                                                 <template iterator:ci={it.value.criticalIncidents}>
