@@ -4,6 +4,8 @@
     2018-11-01 nathan.franklin@auspost.com.au Removed the need to broadcast and received Type_and_Product__c events
     2019-04-05 ramtej.juloori@auspost.com.au  Added primary tab open and close events to style chat tabs with different colors
     2021-07-04 prerna.rahangdale@auspost.com.au Added tracking number and product category on Chat started which is received from Smart Speak.
+    2022-10-26 deshmukh.dattaraj@auspost.com.au Updated condition to set product category as 'Domestic/International' 
+                                                    based on button names when Chat started. (Chat is received from SmartSpeak)
 -->
 <apex:page controller="QuickLinksFooterPanelCont">
 
@@ -204,19 +206,22 @@
     <script type="text/javascript">
 
         // This would set the tracking Number from the Smart Speak chat bot escalation to live agent.
-        // and also set Product category to Domestic Parcels to trigger the SAP search.
+        // and also set Product category to International/Domestic Parcels to trigger the SAP search.
         sforce.console.addEventListener(
             sforce.console.ConsoleEvent.PRESENCE.WORK_ACCEPTED,
             function (agentWork) {
-                if('{!isLiveAgentUser}' == 'true'){
-                     QuickLinksFooterPanelCont.getChatDetails(agentWork.workItemId,function(result,event){
+                if('{!isLiveAgentUser}' == 'true') {
+                     QuickLinksFooterPanelCont.getChatDetails(agentWork.workItemId,function(result,event) {
                          if(event.status) {
-                            if(result.ChatKey != null && result.Tracking_Number__c != null){
+                            if(result.ChatKey != null && result.Tracking_Number__c != null) {
                                   var trackingNumberMessage = {value: result.Tracking_Number__c,syncContext: result.ChatKey};
                                   var tNMessage = JSON.stringify(trackingNumberMessage);
+
+                                  //If livechat button name contains 'International', product category is set as 'International Parcels'. Else, 'Domestic Parcels'.
+                                  var productCategory = (result.LiveChatButton.DeveloperName != null && result.LiveChatButton.DeveloperName.indexOf('International') != -1) ? 'International Parcels' : 'Domestic Parcels';
                                   sforce.console.fireEvent('MiniCaseFieldSet_ReferenceID__c',tNMessage);
-                                  sforce.console.fireEvent('MiniCaseFieldSet_ProductCategory__c',JSON.stringify({syncContext: result.ChatKey, value: 'Domestic Parcels'}));
-                           }
+                                  sforce.console.fireEvent('MiniCaseFieldSet_ProductCategory__c',JSON.stringify({syncContext: result.ChatKey, value: productCategory}));
+                                }
                          }
                      }); // Closing of getChatDetails
                 }

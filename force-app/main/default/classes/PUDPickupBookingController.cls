@@ -8,9 +8,21 @@
 * 2021-08-10 - Ranjeewa Silva - Created.
 * 2022-03-16 - Ranjeewa Silva - Added new methods to support 'Bulk Edit UI'.
 * 2022-04-01 - Seth Heang - Added new methods to update job dispatch flag on network and bypass sharing setting
+* 2022-04-08 - Ranjeewa Silva - Added methods for retrieving dispatch photo from Digital Repository.
 * 2022-08-26 - Dattaraj Deshmukh - Updated 'canCancelJob' and 'canTriggerDispatchSystemSync' method to use date criteria from custom settings from PUDUtility class.
 */
 public with sharing class PUDPickupBookingController {
+
+	// grab settings configured in custom setting
+	private static Pickup_Booking_Settings__c pickupBookingSettings {
+		get {
+			if(pickupBookingSettings == null) {
+				pickupBookingSettings = Pickup_Booking_Settings__c.getInstance();
+			}
+			return pickupBookingSettings;
+		}
+		private set;
+	}
 
 	/**
 	 * Validate the job to see if it is eligible for sending to external dispatch system. If eligible, trigger an
@@ -259,6 +271,39 @@ public with sharing class PUDPickupBookingController {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Asynchronously retrieve photo from digital repository.
+	 * @param guidId guid to pass into digital repository to retrieve the image
+	 *
+	 * @return continuation instance
+	 */
+	@AuraEnabled(Continuation=true)
+	public static Object getDispatchPhoto(String guidId) {
+		Continuation con = DigitalRepositoryService.getInstance().getContinuation(guidId + '.JPG', pickupBookingSettings?.Dispatch_Photo_Bucket_Name__c);
+		con.continuationMethod = 'dispatchPhotoCallback';
+		// Return it to the system for processing
+		return con;
+	}
+
+	/**
+	 * Callback for async callout to digital repository to retrieve dispatch photo. Invoked by the platform on receiving
+	 * the response for continuation callout.
+	 * @param labels labels associated with the callout request
+	 * @param state continuation state
+	 *
+	 * @return parsed response
+	 */
+	@AuraEnabled
+	public static Object dispatchPhotoCallback(List<String> labels, Object state) {
+		HttpResponse resp = Continuation.getResponse(labels[0]);
+		String responseBody = resp.getBody();
+		System.debug('API RAW REPONSE: ' + responseBody);
+		// parse the json
+		DigitalRepositoryService.DocumentApiResponse response = DigitalRepositoryService.getInstance().parseResponse(resp);
+		System.debug('API PARSED RESPONSE: ' + response);
+		return response;
 	}
 
 	/**
