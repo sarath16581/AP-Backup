@@ -106,11 +106,14 @@ global class CaseDetailsCaseContExt_Test {
 
 	@IsTest
 	static void ensureAssignCaseChecksForSkills() {
+		
 		Map<String, Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
 		MockUtility.disableTriggerExecution();
+		List<User> agents = ApplicationTestDataFactory.getUsers(1, true);
 		Case testCase = ApplicationTestDataFactory.getCases(1, true)[0];
 		testCase.RecordTypeId = caseRecTypeMap.get('SSSW Delivery').getRecordTypeId();
-		testCase.OwnerId = UserInfo.getUserId();
+		testCase.OwnerId = agents[0].Id;
+
 		ApexPages.StandardController sc = new ApexPages.StandardController(testCase);
 		CaseDetailsCaseContExt controller = new CaseDetailsCaseContExt(sc);
 		controller.reassignCase = testCase; // TODO: clean up these silly business
@@ -130,6 +133,7 @@ global class CaseDetailsCaseContExt_Test {
 		PendingServiceRoutingSelector pendingServiceRoutingSelector = (PendingServiceRoutingSelector) MockUtility.mockSelector(PendingServiceRoutingSelector.class);
 		SkillRequirementSelector skillRequirementSelector = (SkillRequirementSelector) MockUtility.mockSelector(SkillRequirementSelector.class);
 		ServiceResourceSkillSelector serviceResourceSkillSelector = (ServiceResourceSkillSelector) MockUtility.mockSelector(ServiceResourceSkillSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		MockUtility.Mocks.startStubbing();
 
@@ -147,6 +151,9 @@ global class CaseDetailsCaseContExt_Test {
 									(Set<Id>) fflib_Match.eq(new Set<Id>{testCase.OwnerId}),
 									(Set<Object>) fflib_Match.eq(new Set<Object>())
 								)).thenReturn(serviceResourceSkills);
+
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(),(Boolean)fflib_Match.anyBoolean())).thenReturn(true);
+		MockUtility.Mocks.when(mockDatabase.dmlRollback((Savepoint)fflib_Match.anyObject())).thenReturn(true);
 
 		MockUtility.Mocks.stopStubbing();
 
