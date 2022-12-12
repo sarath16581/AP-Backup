@@ -1,15 +1,16 @@
 /**
- * @File Name		  : OmniChannelService_Test.cls
- * @Description		: 
- * @Author			 : rajesh.punjabi@mav3rik.com
- * @Group			  : 
+ * @File Name		 : OmniChannelService_Test.cls
+ * @Description	 : 
+ * @Author		   : rajesh.punjabi@mav3rik.com
+ * @Group			 : 
  * @Last Modified By   : rajesh.punjabi@mav3rik.com
  * @Last Modified On   : 9/25/2019, 12:13:33 PM
  * @Modification Log   : 
  *==============================================================================
- * Ver		 Date					 Author	  			  Modification
+ * Ver	   Date					Author			   Modification
  *==============================================================================
- * 1.0	8/21/2019, 10:54:47 AM   rajesh.punjabi@mav3rik.com	 Initial Version
+ * 1.0  8/21/2019, 10:54:47 AM   rajesh.punjabi@mav3rik.com	Initial Version
+ * 1.1  7/12/2022, 01:00:00 PM   Noel Lim					Added test method getUserIdFromLatestAcceptedAgentWork
  * 
 **/
 @IsTest (IsParallel=true)
@@ -213,5 +214,68 @@ public class OmniChannelService_Test {
 		Test.stopTest();
 		
 		System.assert(bReturn, 'Reminder request assigned to agent');
+	}
+
+	/**
+	 * Tests the following scenarios:
+	 * a) the returned Map has a unique set of Case Ids
+	 * b) a guest user is able to query the AgentWork object
+	 * 
+	 * isParallel=false is n
+	 */
+	@IsTest
+	public static void getUserIdFromLatestAcceptedAgentWork(){
+		//User
+		Id userId = UserInfo.getUserId();
+
+		//Cases
+		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
+		Set<Id> caseIds = new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id};
+
+		//AgentWork - both are for the same case to simulate multiple Accepted AgentWorks
+		List<AgentWork> agentWorks = new List<AgentWork>{
+			OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{cases[0].Id}, true)[0],
+			OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{cases[0].Id}, true)[0]
+		};
+
+
+		//User (Community User)
+		User communityUser = [SELECT Id FROM User WHERE IsActive = True AND ProfileId IN (SELECT Id FROM Profile WHERE Name='Consumer Help and Support Profile') LIMIT 1];
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);	 
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		
+		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIds(
+			(Set<Id>)fflib_Match.eq(caseIds), 
+			(Set<Object>)fflib_Match.eq(new Set<Object>())		
+		)).thenReturn(agentWorks);
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		Map<Id,Id> caseIdToUserId = new Map<Id,Id>();
+		Boolean exceptionThrown = false;
+
+		System.runAs(communityUser){
+			try{
+				caseIdToUserId = OmniChannelService.getInstance().getUserIdsFromLatestAcceptedAgentWork(caseIds);   
+			} catch(Exception ex) {
+				exceptionThrown = true;
+			}		   
+		}
+
+		Test.stopTest();
+
+		System.assertEquals(1, caseIdToUserId.size(), 'caseIdToUserId map should only contain 1 record');
+		System.assertEquals(false, exceptionThrown, 'There should be no Exceptions thrown');
+
 	}
 }

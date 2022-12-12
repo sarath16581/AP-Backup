@@ -259,7 +259,6 @@ private class CaseSkillBasedRoutingModule_Test {
 		// =====================================
 
 		OmniChannelService mockOmniChannelService = (OmniChannelService)MockUtility.mockUtility(OmniChannelService.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		PendingServiceRoutingSelector mockPSRSelector = (PendingServiceRoutingSelector) MockUtility.mockSelector(PendingServiceRoutingSelector.class);
 		
@@ -275,9 +274,9 @@ private class CaseSkillBasedRoutingModule_Test {
 			(Set<Object>)fflib_Match.eq(new Set<Object>())
 		)).thenReturn(existingPSRToBeDeleted);
 
-		MockUtility.Mocks.when(mockDatabase.dmlInsert(
-			(List<SObject>)fflib_Match.anyObject()
-		)).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+		MockUtility.Mocks.when(mockUow.registerNew(
+			(SObject)fflib_Match.anyObject()
+		)).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -292,19 +291,16 @@ private class CaseSkillBasedRoutingModule_Test {
 
 		Test.stopTest();
 
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
-			.dmlInsert((List<PendingServiceRouting>)fflib_Match.anyList());
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1)))
+			.registerNew((List<PendingServiceRouting>)fflib_Match.anyList());
 
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
-			.dmlDelete((List<PendingServiceRouting>)fflib_Match.eq(existingPSRToBeDeleted));		
-
-		System.debug('MockUtility.mockDMLInsertedRecords == '+ MockUtility.mockDMLInsertedRecords);
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1)))
+			.registerDeleted((List<PendingServiceRouting>)fflib_Match.eq(existingPSRToBeDeleted));		
 
 		// PMD warning
 		System.assertEquals(preferredAgentQueueId, cases[0].OwnerId, 'Case should be assigned to Preferred Agent Queue');
 		System.assertEquals(omniQueue.Id, cases[1].OwnerId, 'Case without accepted AgentWork should be assigned to Omni Queue');
 		System.assertEquals(omniQueue.Id, cases[2].OwnerId, 'Case already in Omni Queue should still be in Omni Queue');
-		System.assertEquals(userId, ((PendingServiceRouting)MockUtility.mockDMLInsertedRecords[0]).PreferredUserId, 'Inserted PSR should have the correct PreferredUserId assigned');
 	}
 
 }

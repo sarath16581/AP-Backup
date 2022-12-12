@@ -162,11 +162,11 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 
 			// remove all existing psr records for the work items here since we are creating new ones
 			if(!deletablePsrRecords.isEmpty()) {
-				ApplicationDatabase.getInstance().dmlDelete(deletablePsrRecords);
+				uow.registerDeleted(deletablePsrRecords);
 			}
 
 			if(casePsrRecords.isEmpty() == false) {
-				ApplicationDatabase.getInstance().dmlInsert(casePsrRecords.values());
+				uow.registerNew(casePsrRecords.values());
 			}
 		}
 

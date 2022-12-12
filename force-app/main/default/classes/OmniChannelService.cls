@@ -113,9 +113,7 @@ public inherited sharing class OmniChannelService {
 	* This method returns a map of CaseIds and UserIds, the UserId is the latest Agent who accepted the Case via Omni routing
 	*/
 	public Map<Id,Id> getUserIdsFromLatestAcceptedAgentWork(Set<Id> caseIds) {
-		System.debug('caseIds:'+caseIds);
 		List<AgentWork> aws = new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds);
-		System.debug('aws:'+aws);
 
 		Map<Id,Id> mapCaseIdToUserId = new Map<Id,Id>();
 
