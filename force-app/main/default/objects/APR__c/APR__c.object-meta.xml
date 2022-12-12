@@ -184,5 +184,8 @@
         <searchResultsAdditionalFields>Comments__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
+    <sharingRecalculations>
+        <className>SalesAPRSharingBatchable</className>
+    </sharingRecalculations>
     <visibility>Public</visibility>
 </CustomObject>
