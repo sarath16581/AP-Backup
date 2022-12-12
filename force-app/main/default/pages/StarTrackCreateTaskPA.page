@@ -11,6 +11,8 @@
 -->
 <apex:page id="page" lightningStylesheets="true" standardController="Case" docType="html-5.0" showHeader="false"
     sidebar="false">
+    <c:ScriptLoader jsLibraries="integration,jquery" />
+    
     <div id="main">
         <div id="VFCmp">
             <c:StarTrackCreateTask case="{!Case}" />
@@ -34,6 +36,21 @@
 
                 );
             });
+
+            // listen for the custom dom event subtab so we can handle anytime when a user click a record 
+			document.getElementById('lightning').addEventListener('subtab', handleMyNetworkStarTrackLightningEvent);
+
+            /**
+             * This is the callback for anytime a lightning event is generated from MyNetwork StarTrack container
+             */
+            function handleMyNetworkStarTrackLightningEvent(e) {
+                if(e && e.detail && e.type === 'subtab' && e.detail.recordId) {
+                    // this occurs if a link is clicked in MyNetwork StarTrack container that requires a record page to be opened in subtab
+                    sforce.console.getEnclosingPrimaryTabId(function(result) {  
+            		sforce.console.openSubtab(result.id, '/' + e.detail.recordId, true, '', null);
+        		    });
+                }
+            }
         </script>
 
         <style>

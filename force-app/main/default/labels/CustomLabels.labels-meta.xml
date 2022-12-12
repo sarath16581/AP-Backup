@@ -7874,4 +7874,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>MyNetwork Invalid Network Error Message</shortDescription>
         <value>Network is not available on MyNetwork Portal</value>
     </labels>
+	<labels>
+        <fullName>MyNetworkBlankNetworkErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Blank Network Error Message</shortDescription>
+        <value>Please select a network to submit a case investigation for this article</value>
+    </labels>
 </CustomLabels>

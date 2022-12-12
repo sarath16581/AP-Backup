@@ -16,10 +16,19 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
-        EventMessage__c eventMessage = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
+        Article__c consignment = ApplicationTestDataFactory.getConsignments(1, true)[0];
         Case c = ApplicationTestDataFactory.getCases(1, true)[0];
-        article.Case__c = c.Id;
+	    c.ReferenceID__c = consignment.ArticleID__c;
+	    c.ArticleTest__c = consignment.Id;
+	    consignment = (Article__c)ApplicationTestDataFactory.setUnwritableFields(consignment, new Map<String, Object>{'RecordType.Name' => 'Consignment'});
+
+        Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
+        article.Consignment__c = consignment.Id;
+        EventMessage__c eventMessage = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
+
+        //associating articles with consignment.
+        consignment = (Article__c)ApplicationTestDataFactory.setChildRelationships(consignment, new Map<String, List<SObject>>{'Articles__r' => new List<SObject>{article}});
+
         //associating event messages with articles.
         article = (Article__c)ApplicationTestDataFactory.setChildRelationships(article, new Map<String, List<SObject>>{'Event_Messages__r' => new List<SObject>{eventMessage}});
         MyNetworkStarTrackCaseController.ArticleDetails mockDetails = new MyNetworkStarTrackCaseController.ArticleDetails(article);
@@ -29,11 +38,16 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
+        CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
         ArticlesSelector mockArticlesSelector = (ArticlesSelector)MockUtility.mockSelector(ArticlesSelector.class);
 
         // set up our responses
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockArticlesSelector.selectByCaseIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Article__c>{article.Id => article});
+        MockUtility.Mocks.when(mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{c.Id => c});
+        MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{consignment.Id}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, 
+            ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL})).thenReturn(new Map<Id, Article__c>{consignment.Id => consignment});
+        MockUtility.Mocks.when(mockArticlesSelector.selectById(new Set<Id>{article.Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER, 
+            ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL})).thenReturn(new Map<Id, Article__c>{article.Id => article});
         MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -162,6 +176,41 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
         System.assertEquals(1, feedItems.size(), 'Expected feed items to return');
         System.assertEquals(caseInvestigations[0].Id, feedItems[0].ParentId, 'Invalid parent id for the feed item');
         System.assertEquals('Posting to chatter', feedItems[0].Body, 'Invalid body for the feed item');
+    }
+
+    /**
+	 * Scenario: Testing to get the critical incidents knowledge articles
+	 */
+	@IsTest
+	private static void testGetCriticalIncidents() {
+        // =====================================
+		// Data Preparation
+		// =====================================
+        List<Critical_Incident__kav> criticalIncidents = ApplicationTestDataFactory.getCriticalIncidents(1, true);
+        criticalIncidents[0].Network_Org_Id__c = '1234;4321';
+
+        // =====================================
+		// Stubbing
+		// =====================================
+        CriticalIncidentsSelector mockCriticalIncidentsSelector = (CriticalIncidentsSelector)MockUtility.mockSelector(CriticalIncidentsSelector.class);
+
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockCriticalIncidentsSelector.selectCriticalIncidentsByPublishStatus((String)fflib_Match.anyObject())).thenReturn(new Map<Id, Critical_Incident__kav>{criticalIncidents[0].Id => criticalIncidents[0]});
+        MockUtility.Mocks.stopStubbing();
+
+        // =====================================
+		// Testing
+		// =====================================
+        Test.startTest();
+
+        List<MyNetworkStarTrackCaseController.CriticalIncidentWrapper> ciWrapper = MyNetworkStarTrackCaseController.getCriticalIncidents();
+
+        Test.stopTest();
+
+        System.assertNotEquals(null, ciWrapper, 'Expected critical incidents wrapper to return');
+        System.assertEquals(1, ciWrapper[0].criticalIncidentList.size(), 'Expected critical incidents knowledge articles to return');
+
     }
 
 }

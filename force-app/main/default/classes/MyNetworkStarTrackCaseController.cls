@@ -14,28 +14,43 @@ public with sharing class MyNetworkStarTrackCaseController {
         try {
             ArticleResponseWrapper wrapper = new ArticleResponseWrapper();
             wrapper.hasPassedThroughAPNetwork = false;
-            //get articles with related event messages with AP Network scans
-            List<Article__c> articles = ArticlesSelector.newInstance()
-                                        .selectByCaseIds(new Set<Id>{Id.valueOf(caseId)}, 
-                                                         new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER, 
-                                                         ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL}).values();
-            
-            //check if any of the articles related event messages passed through AP Network
-            for (Article__c article : articles) {
-                if (!wrapper.hasPassedThroughAPNetwork && article.Event_Messages__r.size() > 0) {
-                    wrapper.hasPassedThroughAPNetwork = true;
-                }
-            }
+            List<ArticleDetails> articleDetails = new List<ArticleDetails>();
+            Set<Id> articleIds = new Set<Id>();
 
-            if (wrapper.hasPassedThroughAPNetwork) {
-                List<ArticleDetails> articleDetails = new List<ArticleDetails>();
-                for (Article__c article : articles) {
-                    //add the articles if related event messages passed through AP network
-                    if (article.Event_Messages__r.size() > 0) {
-                        articleDetails.add(new ArticleDetails(article));
+            //get consignment for the case
+            List<Case> cases = CasesSelector.newInstance().selectById(new Set<Id>{Id.valueOf(caseId)}).values();
+
+            if (cases.size() > 0 && cases[0].ArticleTest__c != null) {
+                Id consignmentId = cases[0].ArticleTest__c;
+                //get child articles for the consignments
+                List<Article__c> articles = ArticlesSelector.newInstance().selectById(new Set<Id>{consignmentId}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES, 
+                                                ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL}).values();
+
+                for(Article__c article : articles) {
+                    if(article.Articles__r != null && article.Articles__r.size() > 0) {
+                        for (Article__c a : article.Articles__r) {
+                            articleIds.add(a.Id);
+                        }
                     }
-                }           
-                wrapper.articleDetails = articleDetails;
+                }
+
+                if (articleIds.size() > 0) {
+                    //get articles with event messages
+                    List<Article__c> articlesWithEventMessages = ArticlesSelector.newInstance().selectById(articleIds, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER, 
+                                                                    ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL}).values();
+                    
+                    for (Article__c aem : articlesWithEventMessages) {
+                        //add the articles if related event messages passed through AP network
+                        if (aem.Event_Messages__r.size() > 0) {
+                            articleDetails.add(new ArticleDetails(aem));
+                        }
+                    }
+                }
+
+                if (articleDetails.size() > 0) {
+                    wrapper.hasPassedThroughAPNetwork = true;
+                    wrapper.articleDetails = articleDetails;
+                }
             }
             return wrapper;
             
@@ -125,6 +140,56 @@ public with sharing class MyNetworkStarTrackCaseController {
             }
         }
         return feedItems;
+    }
+
+    /**
+     * Function to return the critical incidents knowledge articles
+     */
+    @AuraEnabled(cacheable=true)
+    public static List<CriticalIncidentWrapper> getCriticalIncidents() {
+        List<CriticalIncidentWrapper> wrapperList = new List<CriticalIncidentWrapper>();
+        Map<String, List<CriticalIncident>> criticalIncidentMap = new Map<String, List<CriticalIncident>>();
+        // query critical incidents knowledge articles
+        for (Critical_Incident__kav ci : CriticalIncidentsSelector.newInstance().selectCriticalIncidentsByPublishStatus('Online').values()) {
+            if (!String.isBlank(ci.Network_Org_Id__c)) {
+                for (String networkOrgId : ci.Network_Org_Id__c.split(';')) {
+                    if(!String.isEmpty(networkOrgId)) {
+                        if(criticalIncidentMap.get(networkOrgId) == null) {
+                            criticalIncidentMap.put(networkOrgId, new List<CriticalIncident>());
+                        }
+                        CriticalIncident incident = new CriticalIncident();
+                        incident.id = ci.Id;
+                        incident.urlName = ci.UrlName;
+                        incident.knowledgeArticleId = ci.KnowledgeArticleId;
+                        criticalIncidentMap.get(networkOrgId).add(incident);
+                    }
+                }
+            }
+        }
+ 
+        for (String networkId : criticalIncidentMap.keySet()) {
+            CriticalIncidentWrapper wrapper = new CriticalIncidentWrapper();
+            wrapper.networkOrgId = networkId;
+            wrapper.criticalIncidentList = criticalIncidentMap.get(networkId);
+            wrapperList.add(wrapper);
+        }
+        return wrapperList;
+    }
+ 
+    public class CriticalIncidentWrapper {
+        @AuraEnabled
+        public String networkOrgId {get;set;}
+        @AuraEnabled
+        public List<CriticalIncident> criticalIncidentList {get;set;}
+    }
+ 
+    public class CriticalIncident {
+        @AuraEnabled
+        public Id id {get;set;}
+        @AuraEnabled
+        public String urlName {get;set;}
+        @AuraEnabled
+        public String knowledgeArticleId {get;set;}
     }
 
     // Status of Case Investigation creation

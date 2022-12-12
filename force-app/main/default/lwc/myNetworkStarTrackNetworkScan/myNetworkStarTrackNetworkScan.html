@@ -1,0 +1,84 @@
+<template>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+        <div class="slds-modal__container">
+            <!-- Modal header -->
+            <header class="slds-modal__header">
+                <lightning-button-icon class="slds-modal__close slds-button_icon-inverse" size="large"
+                    variant="bare-inverse" onclick={handleModalClose} icon-name="utility:close" alternative-text="Close"
+                    title="Close">
+                </lightning-button-icon>
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate heading-text">Full AP Network Scan
+                </h2>
+            </header>
+            <!-- Modal body -->
+            <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                <lightning-button variant="brand" label="Select" title="Select" onclick={handleSelectBtnClick}
+                    class="slds-align_absolute-center"></lightning-button>
+                <lightning-accordion allow-multiple-sections-open class="events-accordion">
+                    <template iterator:it={eventMessagesList}>
+                        <lightning-layout key={it.value.Id} multiple-rows>
+                            <lightning-layout-item size="1" class="checkbox-el">
+                                <lightning-input type="checkbox" variant="label-hidden"
+                                    data-event-message-id={it.value.Id} onchange={handleCheckboxChange}
+                                    name={it.value.Id} disabled={it.value.isDisabled}>
+                                </lightning-input>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="11">
+                                <lightning-accordion-section name={it.value.Id} label={it.value.title}>
+                                    <lightning-layout multiple-rows>
+                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                            <span>Network Name:</span>
+                                            <span class="slds-var-p-left_x-small">
+                                                <a data-url={it.value.Facility__c}
+                                                    onclick={handleUrlClick}>{it.value.Facility__r.Name}</a>
+                                            </span>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                            <span>Contact Method:</span>
+                                            <span class="slds-var-p-left_x-small">
+                                                {it.value.Facility__r.Contact_Facility__c}
+                                            </span>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                            <span>Contact Number:</span>
+                                            <span class="slds-var-p-left_x-small">
+                                                {it.value.Facility__r.Phone_Number__c}
+                                            </span>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                            <span>Network Address:</span>
+                                            <span class="slds-var-p-left_x-small">
+                                                {it.value.Facility__r.Network_Address__c}
+                                            </span>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                            <span>Comment:</span>
+                                            <span class="slds-var-p-left_x-small">
+                                                {it.value.Facility__r.Comment__c}
+                                            </span>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="6" class="slds-var-p-around_small">
+                                            <span>Critical Incidents:</span>
+                                            <span class="ci-list">
+                                                <template iterator:ci={it.value.criticalIncidents}>
+                                                    <span class="slds-var-p-left_x-small" key={ci.value.Id}>
+                                                        <p>
+                                                            <a data-url={ci.value.knowledgeArticleId}
+                                                                onclick={handleUrlClick}>{ci.value.urlName}</a>
+                                                        </p>
+                                                    </span>
+                                                </template>
+                                            </span>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                </lightning-accordion-section>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                </lightning-accordion>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>
