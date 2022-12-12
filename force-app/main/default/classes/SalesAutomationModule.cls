@@ -1,11 +1,11 @@
 /**
  * @description
- * Domain Module to handle business account object functionality
+ * Domain Module to handle sales automation functionality
  * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
  * @author Harry Wang
  * @group Domain
  * @domain Account
- * @Test BusinessAccountIntermediaryModule_Test
+ * @Test SalesAutomationModule_Test
  * @changelog
  * 2022-11-04 - Harry Wang - Created.
  */

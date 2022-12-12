@@ -1,5 +1,5 @@
 /**
- * @description Test class for BusinessAccountIntermediaryModule
+ * @description Test class for SalesAutomationModule
  * @author Harry Wang
  * @date 2022-11-08
  * @group Domain
