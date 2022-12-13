@@ -71,7 +71,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Business_Solutions_Customer__c, Case.Case_RecordType_Name__c, Case.StarTrack_RecordType__c, Case.ResolutionCode__c, 
 			Case.Enquiry_Type__c, Case.Call_Purpose__c, Case.Auto_Email_Response_sent__c, Case.LastIncomingEmailAddress__c,
 			Case.EnquirySubType__c, Case.Primary_Name__c, Case.Address1__c, Case.Secondary_Contact__c, Case.Address2__c,
-			Case.Facility_Milestones_Violated__c, Case.Root_cause__c
+			Case.Facility_Milestones_Violated__c, Case.Root_cause__c, Case.ArticleTest__c
 		};
 	}
 
