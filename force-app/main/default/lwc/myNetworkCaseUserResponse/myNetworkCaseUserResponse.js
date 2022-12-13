@@ -14,7 +14,7 @@ import { refreshApex } from '@salesforce/apex';
 import postCaseInvestigationChatterFeed from "@salesforce/apex/MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed";
 import getCaseInvestigationChatterFeeds from "@salesforce/apex/MyNetworkCaseUserResponseController.getCaseInvestigationChatterFeeds";
 
-import { updateRecord, getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import { updateRecord, getRecord, getFieldValue, getRecordNotifyChange  } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
 
 import ADDRESS_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.AddressType__c';
@@ -46,6 +46,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
     @track errorMessage = null;
 	caseInvestigationRecord;
 	@track isComponentVisible = false;
+	@track isLoaded = false;
 
     addressType = '';
     comments= '';
@@ -143,6 +144,8 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
                     variant: 'error',
                 }),
             );
+			this.isLoaded = true;
+
         } else if (data) {
             this.caseInvestigationRecord = data;
             // this.comments = this.caseInvestigationRecord.fields.Comments__c.value;
@@ -154,6 +157,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 			this.requireMoreInformation = this.caseInvestigationRecord.fields.Requiremoreinformation__c.value;
 			this.deliveryOptions = this.caseInvestigationRecord.fields.DeliveryOptions__c.value;
 			this.stillUnderInvestigation = this.caseInvestigationRecord.fields.Stillunderinvestigation__c.value;
+			this.isLoaded = true;
 
         }
     }
@@ -185,7 +189,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
             // this.dispatchEvent(
             //     new ShowToastEvent({
             //         title: 'Success',
-            //         message: 'Network response updated successfully',
+            //         message: 'Case investigation updated successfully',
             //         variant: 'success'
             //     })
             // )
@@ -213,13 +217,16 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId })
 		.then((result) => {
 			if (result) {
-				new ShowToastEvent({
-                    title: 'Success',
-                    message: 'Network response updated successfully',
-                    variant: 'success'
-                })
 
-				refreshApex(this.feedItems);
+				//reset text area values
+				const inputFields = this.template.querySelectorAll(
+					'lightning-textarea'
+				);
+				if(inputFields) {
+					inputFields.forEach(field => {
+						field.value = '';
+					});
+				}
 			}
 		})
 		.catch((error) => {
@@ -236,9 +243,6 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	}
 
 	 get isDelieryFieldVisible(){
-		console.log('Case Type: '+ getFieldValue(this.caseInvestigationRecord, CASE_TYPE_FIELD));
-		console.log('Case PURPOSE_FIELD: '+ getFieldValue(this.caseInvestigationRecord, PURPOSE_FIELD));
-		
 		return ( (getFieldValue(this.caseInvestigationRecord, CASE_TYPE_FIELD) == CASE_TYPE ) 
 					&& (getFieldValue(this.caseInvestigationRecord, PURPOSE_FIELD) == CASE_PURPOSE) ? true : false
 					);

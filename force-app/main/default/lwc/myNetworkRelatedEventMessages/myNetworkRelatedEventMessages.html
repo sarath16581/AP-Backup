@@ -9,6 +9,7 @@
 10.08.2020    disha.kariya@auspost.com.au   Added a button to display google map direction in new tab
 02.09.2020    disha.kariya@auspost.com.au   Changes to add help text for map directions
 29.07.2021    neha.mehta@auspost.com.au     Added changes related to REQ2547720
+13.12.2022	  dattaraj.deshmukh@auspost.com.au	Removed '<br /><br />' tags before start of Accordion.
 -->
 <template>
     <lightning-card>
@@ -34,7 +35,7 @@
                                 </tr>
                             </table>
                         </div>
-                    </div><br /><br />
+                    </div>
                     <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
                         active-section-name={activeSections}>
                         <lightning-accordion-section name="A" label="Event Details">

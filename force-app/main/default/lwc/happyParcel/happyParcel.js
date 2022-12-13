@@ -96,6 +96,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	
 	@api hasCaseInvestigations = false;
 	@api caseInvestigations;
+	@api caseConsignmentId;
 
 	/**
 	 * Handles when case investigation's article ids are clicked.
@@ -114,6 +115,14 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 	disconnectedCallback() {
 		this.template.removeEventListener('idclick', this.handleIdLinkClick);
+	}
+
+	/**
+	 * When case investigation detail is accessed from list view, show its parent case consignment number. 
+	 * If ST case is searched globally and accessed then do not show case consignement number.
+	 */
+	get isRenderConsigmentNumber(){
+		return (this.hasCaseInvestigations ? false : true);
 	}
 
 	/**

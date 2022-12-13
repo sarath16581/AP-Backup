@@ -27,10 +27,10 @@
 				</div>
 				<template if:true={isRenderConsigmentNumber}>
 					<div class="slds-col slds-grow-none slds-m-right_xx-small" >
-						<h3 class="slds-tile__title slds-truncate"> Consignment - {consignment.trackingId}</h3>
-						<div class="slds-grid slds-p-vertical_medium"> 
-							<div class="slds-col slds-grow-none slds-m-right_xx-small clickableDiv"  data-id={consignment.trackingId}   onclick={updateHappyParcels}> 
-								{consignment.trackingId}
+						<h3 class="slds-tile__title slds-truncate"> Consignment </h3>
+						<div class="slds-grid slds-p-vertical_small"> 
+							<div class="slds-col slds-grow-none slds-m-right_xx-small clickableDiv"  data-id={caseConsignmentId}   onclick={updateHappyParcels}> 
+								{caseConsignmentId}
 							</div>
 						</div>
 					</div>
