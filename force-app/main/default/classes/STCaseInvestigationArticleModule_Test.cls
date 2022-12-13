@@ -1,12 +1,12 @@
 /**
- * @description       : Test class for CaseInvestigationArticleModule
+ * @description       : Test class for STCaseInvestigationArticleModule
  * @author            : George Nguyen
  * @domain            : Case
  * @changelog
  * 2022-12-05 - George Nguyen - created
  **/
 @IsTest
-private class CaseInvestigationArticleModule_Test {
+private class STCaseInvestigationArticleModule_Test {
 	
 	@IsTest
 	static void onAfterInsert() {
@@ -24,7 +24,7 @@ private class CaseInvestigationArticleModule_Test {
 
 		Test.startTest();
 
-		CaseInvestigationArticleModule.newInstance().onAfterInsert(records, mockUow);
+		STCaseInvestigationArticleModule.newInstance().onAfterInsert(records, mockUow);
 
 		Test.stopTest();
 
@@ -56,7 +56,7 @@ private class CaseInvestigationArticleModule_Test {
 
 		Test.startTest();
 
-		CaseInvestigationArticleModule.newInstance().onAfterUpdate(records, existingRecords, mockUow);
+		STCaseInvestigationArticleModule.newInstance().onAfterUpdate(records, existingRecords, mockUow);
 
 		Test.stopTest();
 
@@ -111,12 +111,12 @@ private class CaseInvestigationArticleModule_Test {
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
-		CaseInvestigationArticleModule.AsyncCaseInvestigationArticleWorker worker = new CaseInvestigationArticleModule.AsyncCaseInvestigationArticleWorker();
+		STCaseInvestigationArticleModule.AsyncCaseInvestigationArticleWorker worker = new STCaseInvestigationArticleModule.AsyncCaseInvestigationArticleWorker();
 
 		System.assertEquals(worker.getClassType(), CaseInvestigationArticleModule.AsyncCaseInvestigationArticleWorker.class, 'Should be AsyncCaseInvestigationArticleWorker');
 		System.assertEquals(worker.getSObjectTypeGroup(), CaseInvestigation__c.SObjectType, 'Should be CaseInvestigation__c.SObjectType');
 
-		CaseInvestigationArticleModule.AsyncCaseInvestigationArticleWorkerParameters params = new CaseInvestigationArticleModule.AsyncCaseInvestigationArticleWorkerParameters();
+		STCaseInvestigationArticleModule.AsyncCaseInvestigationArticleWorkerParameters params = new STCaseInvestigationArticleModule.AsyncCaseInvestigationArticleWorkerParameters();
 		params.referenceIds = referenceIds;
 		worker.deserialiseParams(JSON.serialize(params));
 		System.assertEquals(worker.referenceIds.size(), 2, 'Should be 2');
