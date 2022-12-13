@@ -26,11 +26,18 @@ private class STCaseInvestigationDomain_Test {
 	}
 
 	@IsTest
-	static void checkDomainFilter() {
-		Set<Id> validRecordTypes = new RecordTypesSelector().selectByDeveloperNameLike(CaseInvestigation__c.class.getName(), 'StarTrack').keySet();
+	static void domainFilter() {
+		List<Id> validRecordTypes = new List<Id>(new RecordTypesSelector().selectByDeveloperNameLike(CaseInvestigation__c.class.getName(), 'StarTrack').keySet());
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(validRecordTypes.size() + 1, null, null, null, true);
-		for(Id validRTId: validRecordTypes) {
-			caseInvestigations
+		for(Integer i = 0; i < validRecordTypes.size(); i++) {
+			caseInvestigations[0].recordTypeId = validRecordTypes[0];
 		}
+		List<RecordType> invalidRTs = new List<RecordType>{new RecordType()};
+		ApplicationTestDataFactory.generateRecordIds(invalidRTs);
+		caseInvestigations[validRecordTypes.size()].recordTypeId = invalidRTs[0].Id;
+
+		List<CaseInvestigation__c> filteredList = (List<CaseInvestigation__c>)STCaseInvestigationDomain.newInstance(caseInvestigations).filter(caseInvestigations);
+		System.assertEquals(validRecordTypes.size(), filteredList.size(), 'should be the same size as the RT list');
+		System.assert(filteredList.contains(caseInvestigations[validRecordTypes.size()]) == false, 'should filter out this record');
 	}
 }

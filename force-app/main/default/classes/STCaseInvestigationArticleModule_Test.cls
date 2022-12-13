@@ -95,13 +95,6 @@ private class STCaseInvestigationArticleModule_Test {
 
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockArticlesSelector.selectByArticleNames(
-														(Set<String>) fflib_Match.eq(referenceIds), 
-														(Set<Object>)fflib_Match.eq(new Set<Object>())
-													)).thenReturn(
-														new List<Article__c>{ a }
-													);
-
 		MockUtility.Mocks.when(mockTibcoArticleService.searchByArticleIdsInSAP(
 												(List<String>) fflib_Match.eq(new List<String>(referenceIds))
 											)).thenReturn(

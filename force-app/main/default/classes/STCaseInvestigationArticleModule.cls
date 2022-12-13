@@ -51,9 +51,9 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 		public override void execute(ApplicationUnitOfWork uow) {
 			if(referenceIds.isEmpty() == false) {
 				// check if they exist in SF first
-				for(Article__c a: ArticlesSelector.newInstance().selectByArticleNames(referenceIds, new Set<Object>())) {
-					referenceIds.remove(a.Name); // no need to fetch existing articles
-				}
+				//for(Article__c a: ArticlesSelector.newInstance().selectByArticleNames(referenceIds, new Set<Object>())) {
+				//	referenceIds.remove(a.Name); // no need to fetch existing articles
+				//}
 				if(referenceIds.isEmpty() == false) {
 					try {
 						// Leveraging the searchByArticleIdsInSAP method to fetch the articles from SAP and then save it via the translator
@@ -64,7 +64,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 							translator.save(false, true);
 						}
 					} catch(Exception exp){
-						UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseInvestigationArticleModule.class.getName(), 'retrieveArticles', SSSWConstants.CASE_INVESTIGATION_TRIGGER, LoggingLevel.ERROR);
+						UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, STCaseInvestigationArticleModule.class.getName(), 'retrieveArticles', SSSWConstants.CASE_INVESTIGATION_TRIGGER, LoggingLevel.ERROR);
 					}
 				}
 			}
