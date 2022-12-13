@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>ProductSubCategory__c</fullName>
+    <fullName>NetworkTierEscalationEmail__c</fullName>
     <externalId>false</externalId>
-    <label>Product Sub Category</label>
-    <length>255</length>
+    <label>Network Tier Escalation Email</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
+    <type>Email</type>
     <unique>false</unique>
 </CustomField>
