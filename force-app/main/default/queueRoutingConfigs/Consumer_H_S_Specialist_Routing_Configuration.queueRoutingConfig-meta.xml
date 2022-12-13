@@ -5,5 +5,5 @@
     <label>Consumer H&amp;S Specialist Routing Configuration</label>
     <pushTimeout>60</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
-    <routingPriority>4</routingPriority>
+    <routingPriority>2</routingPriority>
 </QueueRoutingConfig>
