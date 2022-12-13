@@ -66,35 +66,6 @@ public with sharing class MyNetworkStarTrackCaseController {
 		Savepoint sp = ApplicationDatabase.getInstance().dmlSetSavePoint();
 		SaveResult result = new SaveResult();
         try {
-            Set<String> articleReferenceIds = new Set<String>();
-            Set<Id> networkIds = new Set<Id>();
-            Map<String, List<Id>> existingArticleReferenceToNetworkIdsMap = new Map<String, List<Id>>();
-
-            //get article and network ids
-            for (CaseInvestigation__c obj : recordsToSave) {
-                articleReferenceIds.add(obj.ReferenceID__c);
-                networkIds.add(obj.Network__c);
-            }
-
-            //get existing case investigation related to the case, network and article reference ids
-            List<CaseInvestigation__c> existingCaseInvestigations = CaseInvestigationsSelector.newInstance()
-                                                                    .selectOpenCaseInvestigationsByCaseArticleNetworkId(new Set<Id>{recordsToSave[0].Case__c},
-                                                                                                                    new Set<String>(articleReferenceIds), networkIds).values();
-            for (CaseInvestigation__c eci : existingCaseInvestigations) {
-                if (existingArticleReferenceToNetworkIdsMap.containsKey(eci.ReferenceID__c)) {
-                    existingArticleReferenceToNetworkIdsMap.get(eci.ReferenceID__c).add(eci.Network__c);
-                } else {
-                    existingArticleReferenceToNetworkIdsMap.put(eci.ReferenceID__c, new List<Id> {eci.Network__c});
-                }
-            }
-
-            for (CaseInvestigation__c ci : recordsToSave) {
-                if (existingArticleReferenceToNetworkIdsMap.containsKey(ci.ReferenceID__c) && existingArticleReferenceToNetworkIdsMap.get(ci.ReferenceID__c).contains(ci.Network__c)) {
-                    result.status = Status.ERROR.name();
-					result.errorMessage = System.Label.MyNetworkDuplicateCaseInvestigationErrorMessage;
-                }
-            }
-
             if (String.isBlank(result.errorMessage) && !recordsToSave.isEmpty()) {
                 // insert case investigation records
 			    Database.SaveResult[] srList = ApplicationDatabase.getInstance().dmlInsert(recordsToSave);
@@ -111,9 +82,22 @@ public with sharing class MyNetworkStarTrackCaseController {
                 }
             }
             return result;
+        } catch (DmlException e) {
+			// because we are doing multiple DML statements, we want all the DML's to be rolled back
+			ApplicationDatabase.getInstance().dmlRollback(sp);
+            result.status = Status.ERROR.name();
+			for(Integer i = 0; i < e.getNumDml(); i++) {
+				result.errorMessage = e.getDmlMessage(i);
+				//find the custom validation message by type.
+				if (e.getDmlType(i) == StatusCode.FIELD_CUSTOM_VALIDATION_EXCEPTION) {
+					result.errorMessage = System.Label.MyNetworkDuplicateCaseInvestigationErrorMessage;
+				}          
+			} 
+			return result;
         } catch (Exception e) {
 			// because we are doing multiple DML statements, we want all the DML's to be rolled back
 			ApplicationDatabase.getInstance().dmlRollback(sp);
+			//throw all other exceptions
             throw new AuraHandledException(e.getMessage());
         }
     }

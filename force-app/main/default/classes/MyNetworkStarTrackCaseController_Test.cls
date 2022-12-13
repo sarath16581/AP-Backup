@@ -169,30 +169,28 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
-        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
-		System.Savepoint sSavePoint = Database.setSavepoint();
+        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, false);
+		insert articles;
+        List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+		insert cases;
+        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
+		insert networks;
+        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
+		insert caseInvestigations;
+		List<CaseInvestigation__c> caseInvestigationsToSave = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
+
 
 		// =====================================
 		// Stubbing
 		// =====================================
-        CaseInvestigationsSelector mockCaseInvestigationsSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-		MockUtility.Mocks.when(mockDatabase.dmlSetSavePoint()).thenReturn(sSavePoint);
-
-        // set up our responses
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockCaseInvestigationsSelector.selectOpenCaseInvestigationsByCaseArticleNetworkId((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0]});
-        MockUtility.Mocks.stopStubbing();
+		// None
 
 		// =====================================
 		// Testing
 		// =====================================
         Test.startTest();
 
-        MyNetworkStarTrackCaseController.SaveResult saveResult = MyNetworkStarTrackCaseController.saveCaseInvestigations(caseInvestigations, 'Posting to Chatter feed');
+        MyNetworkStarTrackCaseController.SaveResult saveResult = MyNetworkStarTrackCaseController.saveCaseInvestigations(caseInvestigationsToSave, 'Posting to Chatter feed');
 
         Test.stopTest();
 

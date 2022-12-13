@@ -19,7 +19,6 @@
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2021-11-26 - Ashapriya Gadi - Added enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER and a condition for it in the newQueryBuilder
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Add fields to getSObjectFieldList
- * 2022-12-12 - Mahesh Parvathaneni - Added fields
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -66,8 +65,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.SlaExitDate, Case.SlaStartDate, Case.IsEscalated, Case.Comments, Case.LastModifiedDate, Case.LastModifiedById,
 			Case.ParentId, Case.Priority, Case.ProductId, Case.FeedItemId, Case.Status, Case.IsStopped, Case.StopStartDate, Case.Subject,
 			Case.Type, Case.SuppliedCompany, Case.SuppliedEmail, Case.SuppliedName, Case.SuppliedPhone, Case.ReferenceID__c, 
-			Case.First_Email_Response__c, Case.StarTrack_Calc_Email_Address__c, Case.Owner_is_Queue__c, Case.Approval_Status__c, Case.Business_Solutions_Customer__c, Case.Case_RecordType_Name__c, Case.StarTrack_RecordType__c, Case.ResolutionCode__c, Case.Enquiry_Type__c, Case.Call_Purpose__c, Case.Auto_Email_Response_sent__c, Case.LastIncomingEmailAddress__c,
-			Case.ArticleTest__c
+			Case.First_Email_Response__c, Case.StarTrack_Calc_Email_Address__c, Case.Owner_is_Queue__c, Case.Approval_Status__c, Case.Business_Solutions_Customer__c, Case.Case_RecordType_Name__c, Case.StarTrack_RecordType__c, Case.ResolutionCode__c, Case.Enquiry_Type__c, Case.Call_Purpose__c, Case.Auto_Email_Response_sent__c, Case.LastIncomingEmailAddress__c
 		};
 	}
 
