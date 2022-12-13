@@ -129,7 +129,6 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
                 this.selectedRecords.forEach(rec => {
                     rec.networks.forEach(network => {
                         let caseInvestigationRec = {
-                            Article__c: rec.articleId,
                             Case__c: this.recordId,
                             Network__c: network.name,
                             ReferenceID__c: rec.referenceId,
