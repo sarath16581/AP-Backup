@@ -44,8 +44,7 @@ public inherited sharing class CaseInvestigationArticleModule extends Applicatio
 			if (caseArticleNetworkKeys.contains(key)) {
 				//add error if there are duplicate records in the new list
 				ci.addError(String.format(Label.CaseInvestigationDuplicateErrorMessage, new List<String>{ci.ReferenceID__c, ci.Network__c, ci.Case__c}));
-			} 
-        	else {
+			} else {
 				caseArticleNetworkKeys.add(key);
 			}
 
