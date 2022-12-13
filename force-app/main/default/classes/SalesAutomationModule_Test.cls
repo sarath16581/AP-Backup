@@ -1,5 +1,5 @@
 /**
- * @description Test class for BusinessAccountIntermediaryModule
+ * @description Test class for SalesAutomationModule
  * @author Harry Wang
  * @date 2022-11-08
  * @group Domain
@@ -8,7 +8,7 @@
  * 2022-11-08 - Harry Wang - Created
 */
 @IsTest
-private class BusinessAccountIntermediaryModule_Test {
+private class SalesAutomationModule_Test {
 
 	/**
 	* Test:
@@ -39,11 +39,11 @@ private class BusinessAccountIntermediaryModule_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		BusinessAccountIntermediaryModule module = BusinessAccountIntermediaryModule.newInstance();
+		SalesAutomationModule module = SalesAutomationModule.newInstance();
 		module.onBeforeUpdate(new List<Account>{newAcc}, new Map<Id, SObject>{oldAcc.Id => oldAcc}, mockUow);
 		System.assertEquals('Holding', newAcc.SalesTeamType__c, 'Expected sales team type stamped');
 
-		BusinessAccountIntermediaryModule.Constructor constructor = new BusinessAccountIntermediaryModule.Constructor();
+		SalesAutomationModule.Constructor constructor = new SalesAutomationModule.Constructor();
 		constructor.construct();
 		module.onBeforeInsert(null, mockUow);
 		System.assert(true, 'PMD by-pass');
