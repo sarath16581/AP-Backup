@@ -7,7 +7,6 @@
  * @test SalesRecordSharingModule_Test
  * @changelog
  * 2022-11-28 - Ken McGuire - Created.
- * 2022-12-05 - Ken McGuire - added capability to disable sharing.
  */
 
 public inherited sharing class SalesRecordSharingModule extends ApplicationDomain.Module {
@@ -32,8 +31,6 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
 		// retrive object type for sharing service
 		Schema.sobjectType objectType = records[0].getSObjectType();
 		
-		// do not share records if apex sharing is disabled for this object
-		if(TriggerHelper.isApexSharingDisabled(String.valueOf(objectType))) return;
 		
 		// Share records using sharing service
 		try {
@@ -52,8 +49,6 @@ public inherited sharing class SalesRecordSharingModule extends ApplicationDomai
 		// retrieve object type for sharing service
 		Schema.sobjectType objectType = records[0].getSObjectType();
 		
-		// do not share records if apex sharing is disabled for this object
-		if(TriggerHelper.isApexSharingDisabled(String.valueOf(objectType))) return;
 		
 		try {
 			// obtain sharing service instance
