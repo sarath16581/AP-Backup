@@ -20,11 +20,16 @@ private class SalesAutomationModule_Test {
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
-		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, true);
-		Account newAcc = accounts[0];
-		newAcc.Sales_Segment__c = 'Holding Sales Team';
-		Account oldAcc = accounts[1];
-		oldAcc.Sales_Segment__c = 'Intermediaries';
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(4, true);
+		Account newAcc1 = accounts[0];
+		newAcc1.Sales_Segment__c = 'Holding Sales Team';
+		Account oldAcc1 = accounts[1];
+		oldAcc1.Sales_Segment__c = 'Intermediaries';
+
+		Account newAcc2 = accounts[2];
+		newAcc2.Sales_Segment__c = 'Holding';
+		Account oldAcc2 = accounts[3];
+		oldAcc2.Sales_Segment__c = 'Intermediaries';
 
 		// =====================================
 		// Stubbing
@@ -40,8 +45,9 @@ private class SalesAutomationModule_Test {
 		// =====================================
 		Test.startTest();
 		SalesAutomationModule module = SalesAutomationModule.newInstance();
-		module.onBeforeUpdate(new List<Account>{newAcc}, new Map<Id, SObject>{oldAcc.Id => oldAcc}, mockUow);
-		System.assertEquals('Holding', newAcc.SalesTeamType__c, 'Expected sales team type stamped');
+		module.onBeforeUpdate(new List<Account>{newAcc1, newAcc2}, new Map<Id, SObject>{oldAcc1.Id => oldAcc1, oldAcc2.Id => oldAcc2}, mockUow);
+		System.assertEquals('Holding', newAcc1.SalesTeamType__c, 'Expected sales team type stamped');
+		System.assert(String.isEmpty(newAcc2.SalesTeamType__c), 'Expected sales team type emptied');
 
 		SalesAutomationModule.Constructor constructor = new SalesAutomationModule.Constructor();
 		constructor.construct();

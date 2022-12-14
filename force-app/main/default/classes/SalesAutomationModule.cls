@@ -43,15 +43,21 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 				if (existingRecords != null && !existingRecords.isEmpty()) {
 					eAcc = (Account)existingRecords.get(acc.Id);
 				}
-				List<String> types = salesTeamMap.get(acc.Sales_Segment__c);
-				if (types.size() != 1) {
-					logMessages.add('Stamping sales team type failed: ' + acc.Id);
-					additionalInfo.add('Multiple or null Sales Team retrieved for ' + acc.Sales_Segment__c);
-				} else {
-					String newSalesTeamType = types[0];
-					if (acc.Sales_Segment__c != null && (eAcc == null || (eAcc != null && (eAcc.SalesTeamType__c == null || eAcc.SalesTeamType__c != newSalesTeamType)))) {
-						acc.SalesTeamType__c = newSalesTeamType;
+				if (salesTeamMap != null && salesTeamMap.containsKey(acc.Sales_Segment__c)) {
+					List<String> types = salesTeamMap.get(acc.Sales_Segment__c);
+					if (types.size() != 1) {
+						logMessages.add('Stamping sales team type failed: ' + acc.Id);
+						additionalInfo.add('Multiple or null Sales Team retrieved for ' + acc.Sales_Segment__c);
+					} else {
+						String newSalesTeamType = types[0];
+						if (acc.Sales_Segment__c != null && (eAcc == null || (eAcc != null && (eAcc.SalesTeamType__c == null || eAcc.SalesTeamType__c != newSalesTeamType)))) {
+							acc.SalesTeamType__c = newSalesTeamType;
+						}
 					}
+				}
+				// empty sales team type if no sales team mapped
+				if (salesTeamMap != null && !salesTeamMap.containsKey(acc.Sales_Segment__c)) {
+					acc.SalesTeamType__c = null;
 				}
 			}
 
