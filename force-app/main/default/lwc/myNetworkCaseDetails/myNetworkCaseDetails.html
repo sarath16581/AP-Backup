@@ -64,7 +64,7 @@
             <lightning-accordion-section name="happyparcles" label="Happy Parcels">
                 <template if:true={recordFound}>
                     <c-happy-parcel tracking-id={happyParcelId} read-only={recordFound}
-                    has-case-investigations={isGlobalSearch} case-investigations={caseInvestigations} case-consignment-id={selectedCaseRecordWrapper.ReferenceID__c}>
+                    has-case-investigations={isGlobalSearch} case-investigations={caseInvestigations} case-consignment-id={selectedCaseRecordWrapper.Calc_Case_Consignment__c}>
                     </c-happy-parcel>
                 </template>
             </lightning-accordion-section>

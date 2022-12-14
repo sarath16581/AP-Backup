@@ -29,7 +29,9 @@ import DESCRIPTION_CONTENT from "@salesforce/schema/Case.DescriptionofContents__
 import SENT_TO_NETWORK from '@salesforce/schema/Case.Sent_To_Network_Date__c';
 import VALUE_OF_CONTENTS from '@salesforce/schema/Case.ValueofContents__c';
 import PURPOSE_FIELD from '@salesforce/schema/Case.Call_Purpose__c';
-import CONSIGNMENT_ID_FIELD from '@salesforce/schema/Case.Consignment_Unique_External_ID__c';
+//import CONSIGNMENT_ID_FIELD from '@salesforce/schema/Case.Consignment_Unique_External_ID__c';
+import CONSIGNMENT_ID_FIELD from '@salesforce/schema/Case.Calc_Case_Consignment__c';
+
 import RECEIVER_NAME_FIELD from '@salesforce/schema/Case.StarTrack_Receiver_Name__c';
 import RECEIVER_ADDRESS_FIELD from '@salesforce/schema/Case.Address4__c';
 import CREATED_BY_FIELD from '@salesforce/schema/Case.CreatedById';
@@ -61,7 +63,7 @@ import CASEINVISTIGATION_NETWORK_MILESSTONES_VIOLATED_FIELD from "@salesforce/sc
 import CASEINVISTIGATION_PRODUCT_CATEGORY_FIELD from "@salesforce/schema/CaseInvestigation__c.ProductCategory__c";
 import CASEINVISTIGATION_PRODUCT_SUB_CATEGORY_FIELD from "@salesforce/schema/CaseInvestigation__c.ProductSubCategory__c";
 import CASEINVISTIGATION_NETWORK_TIER_ESCALATION_EMAIL_FIELD from "@salesforce/schema/CaseInvestigation__c.NetworkTierEscalationEmail__c";
-
+import CASEINVISTIGATION_NETWORK_FIELD from "@salesforce/schema/CaseInvestigation__c.Network__c";
 
 
 import getCaseRecord from "@salesforce/apex/MyNetworkCaseListController.getCaseRecord";
@@ -122,7 +124,7 @@ export default class CaseDetails extends LightningElement {
   //array of CASE INVESTIGATION fields to be used ONLY for StarTrack cases.
   //Section: Case Investigation Details 
   caseInvestigation_fields = [
-    CASEINVISTIGATION_ARTICLE_FIELD, 
+    CASEINVISTIGATION_ARTICLE_FIELD, CASEINVISTIGATION_NETWORK_FIELD,
     CASEINVISTIGATION_NAME_FIELD,
     CASEINVISTIGATION_PRIORITY_FIELD, 
     CASEINVISTIGATION_STATUS_FIELD, 
@@ -194,7 +196,7 @@ export default class CaseDetails extends LightningElement {
             let caseInvestigation  = caseInvestigationsRecords.find(cInv => cInv.Id === recordIdToFind);
             console.log('Article Id found for happy parcel ');
             console.log(caseInvestigation);
-            this.happyParcelArticleId = caseInvestigation ? caseInvestigation.Article__r.Name : caseDetails.ReferenceID__c;
+            this.happyParcelArticleId = caseInvestigation ? caseInvestigation.Article__r.Name : caseDetails.Calc_Case_Consignment__c;
           }
          
           
@@ -235,7 +237,7 @@ export default class CaseDetails extends LightningElement {
   }
 
   get happyParcelId() {
-    return (this.sObjectTypeName === 'CaseInvestigation__c' && this.happyParcelArticleId ? this.happyParcelArticleId : this.selectedCaseRecordWrapper.ReferenceID__c);
+    return (this.sObjectTypeName === 'CaseInvestigation__c' && this.happyParcelArticleId ? this.happyParcelArticleId : this.selectedCaseRecordWrapper.Calc_Case_Consignment__c);
   }
   
   /**

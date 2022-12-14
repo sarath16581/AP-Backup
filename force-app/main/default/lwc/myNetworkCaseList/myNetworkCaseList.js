@@ -190,6 +190,8 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   @track loadLandingPageErrMsg;
   @track sortedRecords = [];
   @track selectedRecords = [];
+  @track casesRecords = [];
+
   sfdcBaseURL;
   constructor() {
     super();
@@ -299,7 +301,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
           caseRecord.caseInvestigation = '';
           caseRecord.caseInvestigation = cInvestigations[cInvestigationCnt].Name;
           caseRecord.Case_sentToNetworkDate = cInvestigations[cInvestigationCnt].CreatedDate;
-          caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r.Name;
+          caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r ? cInvestigations[cInvestigationCnt].Article__r.Name : '';
           caseRecord.caseInvestigationId = cInvestigations[cInvestigationCnt].Id;
 
           //As case and case investigation need to be shown under one column,
@@ -318,6 +320,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
           //create new instance of caseRecord to store next case investigation record wrapper.
           caseRecord = new Object();
         }
+
       }
       else{
         this.populateCaseData(caseRecord, data, i);
@@ -352,7 +355,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       this.noCasesFoundMsg = "No Case Result Found";
       this.showTable = false;
     }
-    this.totalNumberOfFilteredCases = this.cases.length;
+    this.totalNumberOfFilteredCases = data.length;//this.cases.length;
     this.loadLandingPage = false;
   }
   /* This method is handler of event fired from when the case list view is changed.It takes the selected
