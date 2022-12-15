@@ -1,0 +1,8 @@
+.ci-list {
+    display: inline-grid;
+}
+
+.checkbox-el {
+    width: fit-content;
+    padding-top: 0.75rem;
+}

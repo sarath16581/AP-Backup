@@ -9,6 +9,7 @@
  * 2020-07-22 - Nathan Franklin - Added field override capability
  * 2021-10-01 - Nathan Franklin - Added new fields list
  * 2022-11-23 - Mahesh Parvathaneni - Added selectByCaseIds method
+ * 2022-12-15 - Mahesh Parvathaneni - Updated WITH_EVENTMESSAGES_NETWORK_DESC_ORDER options 
  */
 public virtual inherited sharing class ArticlesSelector extends ApplicationSelector {
 
@@ -177,7 +178,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		}
 
 		if(selectorOptions.contains(Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER)) {
-			builder.addSubQuery(EventMessagesSelector.newInstance('ActualDateTime__c', 'Desc').newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK}), 'Event_Messages__r');
+			builder.addSubQuery(EventMessagesSelector.newInstance('ActualDateTime__c', 'Desc').newQueryBuilder(new Set<Object>{EventMessagesSelector.Options.FILTER_AP_NETWORK_NOT_NULL}), 'Event_Messages__r');
 		}
 
 		if(selectorOptions.contains(Options.FILTER_BY_NETWORK_NOT_NULL)) {

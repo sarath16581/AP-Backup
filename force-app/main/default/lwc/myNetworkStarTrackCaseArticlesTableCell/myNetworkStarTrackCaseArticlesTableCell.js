@@ -26,6 +26,16 @@ export default class MyNetworkStarTrackCaseArticlesTableCell extends LightningEl
         return this.type === 'PILL';
     }
 
+    //returns true if this field is a URL field
+    get isURL() {
+        return this.type === 'URL';
+    }
+
+    //returns true if this field is not pill or URL
+    get isOther() {
+        return this.type !== 'PILL' && this.type !== 'URL';
+    }
+
     //dispatches event to the parent to show the modal for related networks
     handleSearchClick(event) {
         this.dispatchEvent(new CustomEvent('networksearch', {
@@ -36,10 +46,33 @@ export default class MyNetworkStarTrackCaseArticlesTableCell extends LightningEl
             }
         }));
     }
-    
+
     //returns selected networks
     getSelectedNetworks() {
         return this.pillItems.map(item => item.name);
+    }
+
+    //handler for pill item remove click
+    handleItemRemove(event) {
+        this.dispatchEvent(new CustomEvent('networkremoved', {
+            detail: {
+                articleId: event.target.dataset.articleId,
+                network: event.detail.item.name
+            }
+        }))
+    }
+
+    //handler for url click
+    handleUrlClick(event) {
+        let recordId = event.target.dataset.url;
+        //dispatches event to the vf page to open record in the subtab
+        this.dispatchEvent(new CustomEvent('subtab', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                recordId: recordId
+            }
+        }));
     }
 
 }

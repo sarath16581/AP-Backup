@@ -2,6 +2,8 @@
  * @File Name          : MyNetworkStarTrackCaseController.cls
  * @Description        : Controller class for StarTrack MyNetwork Console App
  * @Author             : Mahesh Parvathaneni
+ * @changelog
+ * 2022-12-12 - Mahesh Parvathaneni - Added getCriticalIncidents method and updates to getArticlesByCase method
  **/
 
 public with sharing class MyNetworkStarTrackCaseController {
@@ -14,28 +16,41 @@ public with sharing class MyNetworkStarTrackCaseController {
         try {
             ArticleResponseWrapper wrapper = new ArticleResponseWrapper();
             wrapper.hasPassedThroughAPNetwork = false;
-            //get articles with related event messages with AP Network scans
-            List<Article__c> articles = ArticlesSelector.newInstance()
-                                        .selectByCaseIds(new Set<Id>{Id.valueOf(caseId)}, 
-                                                         new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER, 
-                                                         ArticlesSelector.Options.FILTER_BY_NETWORK_NOT_NULL}).values();
-            
-            //check if any of the articles related event messages passed through AP Network
-            for (Article__c article : articles) {
-                if (!wrapper.hasPassedThroughAPNetwork && article.Event_Messages__r.size() > 0) {
-                    wrapper.hasPassedThroughAPNetwork = true;
-                }
-            }
+            List<ArticleDetails> articleDetails = new List<ArticleDetails>();
+            Set<Id> articleIds = new Set<Id>();
 
-            if (wrapper.hasPassedThroughAPNetwork) {
-                List<ArticleDetails> articleDetails = new List<ArticleDetails>();
-                for (Article__c article : articles) {
-                    //add the articles if related event messages passed through AP network
-                    if (article.Event_Messages__r.size() > 0) {
-                        articleDetails.add(new ArticleDetails(article));
+            //get consignment for the case
+            List<Case> cases = CasesSelector.newInstance().selectById(new Set<Id>{Id.valueOf(caseId)}).values();
+
+            if (cases.size() > 0 && cases[0].ArticleTest__c != null) {
+                Id consignmentId = cases[0].ArticleTest__c;
+                //get child articles for the consignments
+                List<Article__c> articles = ArticlesSelector.newInstance().selectById(new Set<Id>{consignmentId}, new Set<Object>{ArticlesSelector.Options.WITH_CHILDARTICLES}).values();
+
+                for(Article__c article : articles) {
+                    if(article.Articles__r != null && article.Articles__r.size() > 0) {
+                        for (Article__c a : article.Articles__r) {
+                            articleIds.add(a.Id);
+                        }
                     }
-                }           
-                wrapper.articleDetails = articleDetails;
+                }
+
+                if (articleIds.size() > 0) {
+                    //get articles with event messages
+                    List<Article__c> articlesWithEventMessages = ArticlesSelector.newInstance().selectById(articleIds, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_NETWORK_DESC_ORDER}).values();
+                    
+                    for (Article__c aem : articlesWithEventMessages) {
+                        //add the articles if related event messages passed through AP network
+                        if (aem.Event_Messages__r.size() > 0) {
+                            articleDetails.add(new ArticleDetails(aem));
+                        }
+                    }
+                }
+
+                if (articleDetails.size() > 0) {
+                    wrapper.hasPassedThroughAPNetwork = true;
+                    wrapper.articleDetails = articleDetails;
+                }
             }
             return wrapper;
             
@@ -49,37 +64,10 @@ public with sharing class MyNetworkStarTrackCaseController {
      */
     @AuraEnabled
 	public static SaveResult saveCaseInvestigations(List<CaseInvestigation__c> recordsToSave, String comments) {
+		// since we have multiple DML statements we use this to roll back if errors occur
+		Savepoint sp = ApplicationDatabase.getInstance().dmlSetSavePoint();
+		SaveResult result = new SaveResult();
         try {
-            SaveResult result = new SaveResult();
-            Set<String> articleReferenceIds = new Set<String>();
-            Set<Id> networkIds = new Set<Id>();
-            Map<String, List<Id>> existingArticleReferenceToNetworkIdsMap = new Map<String, List<Id>>();
-
-            //get article and network ids
-            for (CaseInvestigation__c obj : recordsToSave) {
-                articleReferenceIds.add(obj.ReferenceID__c);
-                networkIds.add(obj.Network__c);
-            }
-
-            //get existing case investigation related to the case, network and article reference ids
-            List<CaseInvestigation__c> existingCaseInvestigations = CaseInvestigationsSelector.newInstance()
-                                                                    .selectOpenCaseInvestigationsByCaseArticleNetworkId(new Set<Id>{recordsToSave[0].Case__c},
-                                                                                                                    new Set<String>(articleReferenceIds), networkIds).values();
-            for (CaseInvestigation__c eci : existingCaseInvestigations) {
-                if (existingArticleReferenceToNetworkIdsMap.containsKey(eci.ReferenceID__c)) {
-                    existingArticleReferenceToNetworkIdsMap.get(eci.ReferenceID__c).add(eci.Network__c);
-                } else {
-                    existingArticleReferenceToNetworkIdsMap.put(eci.ReferenceID__c, new List<Id> {eci.Network__c});
-                }
-            }
-
-            for (CaseInvestigation__c ci : recordsToSave) {
-                if (existingArticleReferenceToNetworkIdsMap.containsKey(ci.ReferenceID__c) && existingArticleReferenceToNetworkIdsMap.get(ci.ReferenceID__c).contains(ci.Network__c)) {
-                    result.status = Status.ERROR.name();
-					result.errorMessage = System.Label.MyNetworkDuplicateCaseInvestigationErrorMessage;
-                }
-            }
-
             if (String.isBlank(result.errorMessage) && !recordsToSave.isEmpty()) {
                 // insert case investigation records
 			    Database.SaveResult[] srList = ApplicationDatabase.getInstance().dmlInsert(recordsToSave);
@@ -96,7 +84,22 @@ public with sharing class MyNetworkStarTrackCaseController {
                 }
             }
             return result;
+        } catch (DmlException e) {
+			// because we are doing multiple DML statements, we want all the DML's to be rolled back
+			ApplicationDatabase.getInstance().dmlRollback(sp);
+			result.status = Status.ERROR.name();
+			for(Integer i = 0; i < e.getNumDml(); i++) {
+				result.errorMessage = e.getDmlMessage(i);
+				//find the custom validation message by type.
+				if (e.getDmlType(i) == StatusCode.FIELD_CUSTOM_VALIDATION_EXCEPTION) {
+					result.errorMessage = System.Label.MyNetworkDuplicateCaseInvestigationErrorMessage;
+				}          
+			} 
+			return result;
         } catch (Exception e) {
+			// because we are doing multiple DML statements, we want all the DML's to be rolled back
+			ApplicationDatabase.getInstance().dmlRollback(sp);
+			//throw all other exceptions
             throw new AuraHandledException(e.getMessage());
         }
     }
@@ -125,6 +128,56 @@ public with sharing class MyNetworkStarTrackCaseController {
             }
         }
         return feedItems;
+    }
+
+    /**
+     * Function to return the critical incidents knowledge articles
+     */
+    @AuraEnabled(cacheable=true)
+    public static List<CriticalIncidentWrapper> getCriticalIncidents() {
+        List<CriticalIncidentWrapper> wrapperList = new List<CriticalIncidentWrapper>();
+        Map<String, List<CriticalIncident>> criticalIncidentMap = new Map<String, List<CriticalIncident>>();
+        // query critical incidents knowledge articles
+        for (Critical_Incident__kav ci : CriticalIncidentsSelector.newInstance().selectCriticalIncidentsByPublishStatus('Online').values()) {
+            if (!String.isBlank(ci.Network_Org_Id__c)) {
+                for (String networkOrgId : ci.Network_Org_Id__c.split(';')) {
+                    if(!String.isEmpty(networkOrgId)) {
+                        if(criticalIncidentMap.get(networkOrgId) == null) {
+                            criticalIncidentMap.put(networkOrgId, new List<CriticalIncident>());
+                        }
+                        CriticalIncident incident = new CriticalIncident();
+                        incident.id = ci.Id;
+                        incident.urlName = ci.UrlName;
+                        incident.knowledgeArticleId = ci.KnowledgeArticleId;
+                        criticalIncidentMap.get(networkOrgId).add(incident);
+                    }
+                }
+            }
+        }
+ 
+        for (String networkId : criticalIncidentMap.keySet()) {
+            CriticalIncidentWrapper wrapper = new CriticalIncidentWrapper();
+            wrapper.networkOrgId = networkId;
+            wrapper.criticalIncidentList = criticalIncidentMap.get(networkId);
+            wrapperList.add(wrapper);
+        }
+        return wrapperList;
+    }
+ 
+    public class CriticalIncidentWrapper {
+        @AuraEnabled
+        public String networkOrgId {get;set;}
+        @AuraEnabled
+        public List<CriticalIncident> criticalIncidentList {get;set;}
+    }
+ 
+    public class CriticalIncident {
+        @AuraEnabled
+        public Id id {get;set;}
+        @AuraEnabled
+        public String urlName {get;set;}
+        @AuraEnabled
+        public String knowledgeArticleId {get;set;}
     }
 
     // Status of Case Investigation creation

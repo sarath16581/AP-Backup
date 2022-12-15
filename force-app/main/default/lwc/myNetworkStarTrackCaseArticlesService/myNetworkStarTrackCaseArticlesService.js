@@ -7,12 +7,14 @@
 // server calls
 import getArticlesByCase from '@salesforce/apex/MyNetworkStarTrackCaseController.getArticlesByCase';
 import saveCaseInvestigations from '@salesforce/apex/MyNetworkStarTrackCaseController.saveCaseInvestigations';
+import getCriticalIncidentsKav from '@salesforce/apex/MyNetworkStarTrackCaseController.getCriticalIncidents';
 
 // custom labels
 import LABEL_CONSIGNMENT_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkConsignmentErrorMessage';
 import LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE from '@salesforce/label/c.MyNetworkCaseInvestigationSuccessMessage';
 import LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkInvalidCaseInvestigationErrorMessage';
 import LABEL_INVALID_NETWORK_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkInvalidNetworkErrorMessage';
+import LABEL_BLANK_NETWORK_ERROR_MESSAGE from '@salesforce/label/c.MyNetworkBlankNetworkErrorMessage';
 
 import { get } from 'c/utils';
 
@@ -21,7 +23,10 @@ export const CONSTANTS = {
     LABEL_CONSIGNMENT_ERROR_MESSAGE: LABEL_CONSIGNMENT_ERROR_MESSAGE,
 	LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE: LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE,
     LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE: LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE,
-    LABEL_INVALID_NETWORK_ERROR_MESSAGE: LABEL_INVALID_NETWORK_ERROR_MESSAGE
+    LABEL_INVALID_NETWORK_ERROR_MESSAGE: LABEL_INVALID_NETWORK_ERROR_MESSAGE,
+    LABEL_BLANK_NETWORK_ERROR_MESSAGE: LABEL_BLANK_NETWORK_ERROR_MESSAGE,
+
+    MY_NETWORK: 'MyNetwork'
 }
 
 
@@ -61,4 +66,14 @@ export const CONSTANTS = {
  */
 export const getValue = (record, fieldName, defaultValue) => {
     return get(record, fieldName, defaultValue);
+}
+
+/**
+ * Retrieve the online published critical incidents knowledge articles
+ * @returns critical incidents knowledge articles
+ */
+export const getCriticalIncidents = async () => {
+
+    const result = await getCriticalIncidentsKav();
+	return result;
 }
