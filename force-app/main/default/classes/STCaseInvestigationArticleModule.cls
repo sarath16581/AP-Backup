@@ -12,7 +12,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 	}
 
 	// Setup which trigger events this module should respond to
-	public CaseInvestigationArticleModule() {
+	public STCaseInvestigationArticleModule() {
 		getTriggerEvents().enableAfterInsert().enableAfterUpdate().enableBeforeInsert();
 	}
 
@@ -104,9 +104,10 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 		public override void execute(ApplicationUnitOfWork uow) {
 			if(referenceIds.isEmpty() == false) {
 				// check if they exist in SF first
-				//for(Article__c a: ArticlesSelector.newInstance().selectByArticleNames(referenceIds, new Set<Object>())) {
-				//	referenceIds.remove(a.Name); // no need to fetch existing articles
-				//}
+				for(Article__c a: ArticlesSelector.newInstance().selectByTracking(referenceIds, false).values()) {
+					referenceIds.remove(a.ArticleID__c); // no need to fetch existing articles
+				}
+
 				if(referenceIds.isEmpty() == false) {
 					try {
 						// Leveraging the searchByArticleIdsInSAP method to fetch the articles from SAP and then save it via the translator
