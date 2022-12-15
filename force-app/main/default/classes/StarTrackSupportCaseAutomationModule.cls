@@ -9,7 +9,7 @@
  * @Test StarTrackSupCaseAutomationModule_Test
  * 
  * @changelog
- * 2022-11-24	Noel Lim - minor additions of safe navigation operators to fix an null ExceptionLog error
+ * 2022-12-15	Noel Lim - update logic in onBeforeUpdate to fix a NullException bug for cases generated from Startrack Support portal
  */
 
 public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationDomain.Module {
@@ -111,11 +111,12 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 						
 						c.FCR__c = false;
 					}
-				}
 
-				if(omniQueues?.containsKey(c.OwnerId) == true && (changedFields?.contains(Case.OwnerId) || changedFields?.contains(Case.Priority))) {
-					validCasesInOmniQueues.add(c);
-				}
+					if(omniQueues.containsKey(c.OwnerId) == true 
+						&& (changedFields.contains(Case.OwnerId) || changedFields.contains(Case.Priority))) {
+						validCasesInOmniQueues.add(c);
+					}
+				}	
 			}
 
 			// StarTrack Case Automation: Populate Case Subject (Decision node)
