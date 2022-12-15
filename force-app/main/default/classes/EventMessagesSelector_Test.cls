@@ -11,6 +11,7 @@
  * 2020-10-06 - Disha Kariya - Updated test for safe drop guid filter
  * 2021-06-15 - Ranjeewa Silva - Updated test for attachment guid filter
  * 2022-11-29 - Mahesh Parvathaneni - Updated test for newInstance with sort filter
+ * 2022-12-15 - Mahesh Parvathaneni - Updated options FILTER_AP_NETWORK_NOT_NULL in tests
  */
 @IsTest
 public with sharing class EventMessagesSelector_Test {

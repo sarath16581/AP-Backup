@@ -139,9 +139,9 @@ private class CaseInvestigationArticleModule_Test {
 		// Data Preparation
 		// =====================================
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
-        Case aCase = ApplicationTestDataFactory.getCases(1, true)[0];
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
-        List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[0], networks[0].Id, true);
+    	Case aCase = ApplicationTestDataFactory.getCases(1, true)[0];
+    	List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+    	List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[0], networks[0].Id, true);
 		records.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[1], networks[0].Id, true));
 
 		// =====================================
@@ -153,7 +153,7 @@ private class CaseInvestigationArticleModule_Test {
 		// =====================================
 		// Testing
 		// =====================================
-        Test.startTest();
+    	Test.startTest();
 
 		CaseInvestigationArticleModule.newInstance().onBeforeInsert(records, mockUow);
 
@@ -171,9 +171,9 @@ private class CaseInvestigationArticleModule_Test {
 		// Data Preparation
 		// =====================================
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
-        Case aCase = ApplicationTestDataFactory.getCases(1, true)[0];
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
-        List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[0], networks[0].Id, true);
+		Case aCase = ApplicationTestDataFactory.getCases(1, true)[0];
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[0], networks[0].Id, true);
 		records.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[1], networks[0].Id, true));
 		List<CaseInvestigation__c> existingCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[1], networks[0].Id, true);
 
@@ -191,7 +191,7 @@ private class CaseInvestigationArticleModule_Test {
 		// =====================================
 		// Testing
 		// =====================================
-        Test.startTest();
+		Test.startTest();
 
 		CaseInvestigationArticleModule.newInstance().onBeforeInsert(records, mockUow);
 

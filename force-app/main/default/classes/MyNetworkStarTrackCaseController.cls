@@ -2,6 +2,8 @@
  * @File Name          : MyNetworkStarTrackCaseController.cls
  * @Description        : Controller class for StarTrack MyNetwork Console App
  * @Author             : Mahesh Parvathaneni
+ * @changelog
+ * 2022-12-12 - Mahesh Parvathaneni - Added getCriticalIncidents method and updates to getArticlesByCase method
  **/
 
 public with sharing class MyNetworkStarTrackCaseController {
@@ -85,7 +87,7 @@ public with sharing class MyNetworkStarTrackCaseController {
         } catch (DmlException e) {
 			// because we are doing multiple DML statements, we want all the DML's to be rolled back
 			ApplicationDatabase.getInstance().dmlRollback(sp);
-            result.status = Status.ERROR.name();
+        	result.status = Status.ERROR.name();
 			for(Integer i = 0; i < e.getNumDml(); i++) {
 				result.errorMessage = e.getDmlMessage(i);
 				//find the custom validation message by type.
