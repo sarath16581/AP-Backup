@@ -17,7 +17,7 @@ public inherited sharing class CaseInvestigationDomainTriggerHandler extends App
 	}
 
 	public override List<Type> registerDomains() {
-		return new List<Type>{ CaseInvestigationDomain.class };
+		return new List<Type>{ STCaseInvestigationDomain.class };
 	}
 
 	public override ApplicationUnitOfWork newUnitOfWork() {
