@@ -6,13 +6,13 @@
  * 2022-12-05 - George Nguyen - created
  * 2022-12-13 - Mahesh Parvathaneni - Added beforeInsert trigger event and checkDuplicateCaseInvestigationRecords method
  **/
-public inherited sharing class CaseInvestigationArticleModule extends ApplicationDomain.Module {
-	public static CaseInvestigationArticleModule newInstance() {
-		return (CaseInvestigationArticleModule) Application.Utilities.newInstance(CaseInvestigationArticleModule.class);
+public inherited sharing class STCaseInvestigationArticleModule extends ApplicationDomain.Module {
+	public static STCaseInvestigationArticleModule newInstance() {
+		return (STCaseInvestigationArticleModule) Application.Utilities.newInstance(STCaseInvestigationArticleModule.class);
 	}
 
 	// Setup which trigger events this module should respond to
-	public CaseInvestigationArticleModule() {
+	public STCaseInvestigationArticleModule() {
 		getTriggerEvents().enableAfterInsert().enableAfterUpdate().enableBeforeInsert();
 	}
 
@@ -104,24 +104,22 @@ public inherited sharing class CaseInvestigationArticleModule extends Applicatio
 		public override void execute(ApplicationUnitOfWork uow) {
 			if(referenceIds.isEmpty() == false) {
 				// check if they exist in SF first
-				system.debug('>>>>>>>>>>>> referenceIds: ' + referenceIds);
-				for(Article__c a: ArticlesSelector.newInstance().selectByArticleNames(referenceIds, new Set<Object>())) {
-					referenceIds.remove(a.Name); // no need to fetch existing articles
+				for(Article__c a: ArticlesSelector.newInstance().selectByTracking(referenceIds, false).values()) {
+					referenceIds.remove(a.ArticleID__c); // no need to fetch existing articles
 				}
+
 				if(referenceIds.isEmpty() == false) {
-					//try {
+					try {
 						// Leveraging the searchByArticleIdsInSAP method to fetch the articles from SAP and then save it via the translator
 						TIBCOSearchResult result = TibcoArticleService.getInstance().searchByArticleIdsInSAP(new List<String>(referenceIds));
-						system.debug('>>>>>>>>>>>> result: ' + result);
-						system.debug('>>>>>>>>>>>> result.trackResults: ' + result.trackResults);
 						if (result.success && result.trackResults.isEmpty() == false) {
 							TIBCODataTranslator translator = TIBCODataTranslator.newInstance();
 							translator.translate(result.trackResults);
 							translator.save(false, true);
 						}
-					//} catch(Exception exp){
-						//UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseInvestigationArticleModule.class.getName(), 'retrieveArticles', SSSWConstants.CASE_INVESTIGATION_TRIGGER, LoggingLevel.ERROR);
-					//}
+					} catch(Exception exp){
+						UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, STCaseInvestigationArticleModule.class.getName(), 'retrieveArticles', SSSWConstants.CASE_INVESTIGATION_TRIGGER, LoggingLevel.ERROR);
+					}
 				}
 			}
 		}
