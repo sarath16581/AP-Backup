@@ -284,9 +284,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       //check if case investigations exists under a case. For all ST Cases, investigations exists under a case.
       if(data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) {
         
-        //setting Case.Type for wrapper variable for ST cases.
-        caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
-
+        
 
         let cInvestigations = data[i].myNetworkCase.CaseInvestigations__r;
 
@@ -294,6 +292,9 @@ export default class CaseList extends NavigationMixin(LightningElement) {
           
           caseRecord.rowNumber = (i + cInvestigationCnt) ;
 
+		  //setting Case.Type for wrapper variable for ST cases.
+		  caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
+	
           //populate common fields between case investigation and case object.
           this.populateCaseData(caseRecord, data, i);
           
