@@ -34,13 +34,11 @@
 		
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
 
-		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
 		Map<Id, Profile> profileIdMap = ProfilesSelector.newInstance().selectByName(new Set<String>{'SSSW - Service Agent'});
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		FeedItemTriggerHelper mockFeedItemUtil = (FeedItemTriggerHelper) MockUtility.mockUtility(FeedItemTriggerHelper.class);
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		ProfilesSelector mockProfilesSelector = (ProfilesSelector)MockUtility.mockSelector(ProfilesSelector.class);
 
@@ -67,7 +65,7 @@
 	}
 
 	@IsTest
-	public static void test_updateCaseInvestigations() {
+	public static void testUpdateCaseInvestigations() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -96,7 +94,6 @@
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
-		FeedItemTriggerHelper mockFeedItemUtil = (FeedItemTriggerHelper) MockUtility.mockUtility(FeedItemTriggerHelper.class);
 		ProfilesSelector mockProfilesSelector = (ProfilesSelector)MockUtility.mockSelector(ProfilesSelector.class);
 
 		// set up our responses

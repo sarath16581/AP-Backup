@@ -51,9 +51,6 @@ public inherited sharing class FeedItemsGenericModule extends ApplicationDomain.
         List<CaseInvestigation__c> caseInvestigationToUpdate = new List<CaseInvestigation__c>();
         for(FeedItem fItem :  (List<FeedItem>)  feedItems) {
 
-            system.debug(fItem);
-            system.debug(fItem.CreatedBy.ProfileId);
-
 			//update LastContactCentreUpdate__c field on CaseInvestigation ONLY WHEN a chatter is added
 			//by users with 'SSSW - Service Agent' profiles.
             if(loggedInUserProfileId == profileId){

@@ -34,7 +34,7 @@ export default class MyNetworkCaseMilestonesWrapper extends LightningElement {
 
 			//prepare VF page URL with iFrame.
 			let sfdcBaseURL = window.location.origin;
-           	this.siteURL = sfdcBaseURL +  "/myNetwork/apex/myNetworkCaseMilestoneTracker?id=" + data.fields.Case__c.value;
+			this.siteURL = sfdcBaseURL +  "/myNetwork/apex/myNetworkCaseMilestoneTracker?id=" + data.fields.Case__c.value;
 			this.isComponentVisible = true;
         }
     }

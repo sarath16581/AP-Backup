@@ -9,7 +9,7 @@
  */
 /*******************************  History ************************************************
 /* eslint-disable no-console */
-import { LightningElement, track, api, wire } from "lwc";
+import { LightningElement, track, api } from "lwc";
 import CASENUMBER_FIELD from "@salesforce/schema/Case.CaseNumber";
 import CASE_PRIORITY from "@salesforce/schema/Case.Priority";
 import SUBJECT_FIELD from "@salesforce/schema/Case.Subject";
@@ -68,8 +68,6 @@ import CASEINVISTIGATION_NETWORK_FIELD from "@salesforce/schema/CaseInvestigatio
 
 import getCaseRecord from "@salesforce/apex/MyNetworkCaseListController.getCaseRecord";
 
-import getSelectedCases from "@salesforce/apex/MyNetworkCaseListController.getSelectedCases";
-import getCaseMessages from "@salesforce/apex/MyNetworkCaseListController.getCaseMessages";
 import { loadStyle } from "lightning/platformResourceLoader";
 import customStyle from "@salesforce/resourceUrl/MYNetworkCustomStyle";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
@@ -181,7 +179,6 @@ export default class CaseDetails extends LightningElement {
   }
 
   populateCaseDetails(caseDetails){
-		let sfdcBaseURL = window.location.origin;
 
 		this.recordFound = true;
         this.selectedCaseRecordWrapper = caseDetails;

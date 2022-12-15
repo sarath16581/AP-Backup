@@ -11,7 +11,7 @@
 private class MyNetworkOtherCaseInvestigationsTest {
     
 	@IsTest
-	public static void test_getOtherCaseInvestigations() {
+	public static void testGetOtherCaseInvestigations() {
 
 		// =====================================
         // Data Preparation

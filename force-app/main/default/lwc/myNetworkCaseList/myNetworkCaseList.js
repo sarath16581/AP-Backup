@@ -12,7 +12,7 @@
 */
 /* eslint-disable default-case */
 /* eslint-disable no-console */
-import { LightningElement, track, wire } from "lwc";
+import { LightningElement, track } from "lwc";
 import myNetworkCases from "@salesforce/apex/MyNetworkCaseListController.myNetworkCases";
 import getFilteredCases from "@salesforce/apex/MyNetworkCaseListController.getFilteredCases";
 import assignSelectedRecords from "@salesforce/apex/MyNetworkCaseListController.assignSelectedRecords";
@@ -288,56 +288,56 @@ export default class CaseList extends NavigationMixin(LightningElement) {
 
         let cInvestigations = data[i].myNetworkCase.CaseInvestigations__r;
 
-        for(let cInvestigationCnt = 0; cInvestigationCnt < cInvestigations.length; cInvestigationCnt++){
+        for(let cInvestigationCnt = 0; cInvestigationCnt < cInvestigations.length; cInvestigationCnt++) {
           
-          caseRecord.rowNumber = (i + cInvestigationCnt) ;
+			caseRecord.rowNumber = (i + cInvestigationCnt) ;
 
-		  //setting Case.Type for wrapper variable for ST cases.
-		  caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
+		  	//setting Case.Type for wrapper variable for ST cases.
+		  	caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
 	
-          //populate common fields between case investigation and case object.
-          this.populateCaseData(caseRecord, data, i);
-          
-          //setting caseInvestigations to blank
-          caseRecord.caseInvestigation = '';
-          caseRecord.caseInvestigation = cInvestigations[cInvestigationCnt].Name;
-          caseRecord.Case_sentToNetworkDate = cInvestigations[cInvestigationCnt].CreatedDate;
-          caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r ? cInvestigations[cInvestigationCnt].Article__r.Name : '';
-          caseRecord.caseInvestigationId = cInvestigations[cInvestigationCnt].Id;
+			//populate common fields between case investigation and case object.
+			this.populateCaseData(caseRecord, data, i);
 
-          //As case and case investigation need to be shown under one column,
-          //caseNum is populated with case number and Case Investigation Number.
+			//setting caseInvestigations to blank
+			caseRecord.caseInvestigation = '';
+			caseRecord.caseInvestigation = cInvestigations[cInvestigationCnt].Name;
+			caseRecord.Case_sentToNetworkDate = cInvestigations[cInvestigationCnt].CreatedDate;
+			caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r ? cInvestigations[cInvestigationCnt].Article__r.Name : '';
+			caseRecord.caseInvestigationId = cInvestigations[cInvestigationCnt].Id;
 
-		  caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigations[cInvestigationCnt].Id;
-          //caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId+'?caseInvestigationRecordId='+cInvestigations[cInvestigationCnt].Id;
-          caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
-          caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
-          caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
+			//As case and case investigation need to be shown under one column,
+			//caseNum is populated with case number and Case Investigation Number.
 
-          let investigationArray = caseRecord.myNetworkCase.CaseInvestigations__r.filter(cInvest => cInvest.Id === caseRecord.caseInvestigationI);
-          caseRecord.myNetworkCase.CaseInvestigations__r = investigationArray;
-          
-          caseRecordList.push(caseRecord);
-          //create new instance of caseRecord to store next case investigation record wrapper.
-          caseRecord = new Object();
+			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigations[cInvestigationCnt].Id;
+			//caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId+'?caseInvestigationRecordId='+cInvestigations[cInvestigationCnt].Id;
+			caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
+			caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
+			caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
+
+			let investigationArray = caseRecord.myNetworkCase.CaseInvestigations__r.filter(cInvest => cInvest.Id === caseRecord.caseInvestigationI);
+			caseRecord.myNetworkCase.CaseInvestigations__r = investigationArray;
+
+			caseRecordList.push(caseRecord);
+			//create new instance of caseRecord to store next case investigation record wrapper.
+			caseRecord = new Object();
         }
 
       }
-      else{
+      else {
         this.populateCaseData(caseRecord, data, i);
 
-        caseRecord.rowNumber = i;
-        caseRecord.Case_sentToNetworkDate = data[i].myNetworkCase.Sent_To_Network_Date__c;
-        caseRecord.Case_RefereceId = data[i].myNetworkCase.ReferenceID__c;
-        caseRecord.Case_enquirySubtype = data[i].isStarTrackCase ? data[i].myNetworkCase.Type : data[i].myNetworkCase.EnquirySubType__c;
-        caseRecord.caseNumberCSSClass = "blue";
-        caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId;
-        caseRecord.caseNum = data[i].caseNum;
-        caseRecord.Case_Priority = data[i].myNetworkCase.Priority;
-        caseRecord.casePriority = data[i].casePriority;
-        
+			caseRecord.rowNumber = i;
+			caseRecord.Case_sentToNetworkDate = data[i].myNetworkCase.Sent_To_Network_Date__c;
+			caseRecord.Case_RefereceId = data[i].myNetworkCase.ReferenceID__c;
+			caseRecord.Case_enquirySubtype = data[i].isStarTrackCase ? data[i].myNetworkCase.Type : data[i].myNetworkCase.EnquirySubType__c;
+			caseRecord.caseNumberCSSClass = "blue";
+			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId;
+			caseRecord.caseNum = data[i].caseNum;
+			caseRecord.Case_Priority = data[i].myNetworkCase.Priority;
+			caseRecord.casePriority = data[i].casePriority;
 
-        caseRecordList.push(caseRecord);
+
+			caseRecordList.push(caseRecord);
       }
     }
 
@@ -444,7 +444,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   sortData(fieldName, sortDirection) {
     // var data = JSON.parse(JSON.stringify(this.recordsToDisplay));
     let  data = [];
-    if(fieldName == 'Case_Priority'){
+    if(fieldName === 'Case_Priority'){
       fieldName = 'casePriority';
     }
      data = JSON.parse(JSON.stringify(this.cases));
@@ -634,14 +634,15 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   
   handleClick(evt) {
     console.log('this.selectedRecords',this.selectedRecords);
+	var hostname = window.location.hostname;
+
     //this.selectedRecords == null modified with length() to get message when no case is selected  
-    if(this.selectedRecords.length== 0){
+    if(this.selectedRecords.length === 0){
       this.assignToSelfHasErr = true;
       this.assignToSelfErrMsg = 'Please select case(s) for printing'
     }else{
       evt.preventDefault();
       evt.stopPropagation();
-      var hostname = window.location.hostname;
       this.VFpage = {
         type: "standard__webPage",
         attributes: {
@@ -754,7 +755,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
     this.assignToSelfHasErr = false;
 
     let selecteduserId = event.detail;
-    let selectedCaseIdSelected = this.selectedCaseId;
    
     let result = await assignSelectedRecords({
       recordIds: this.selectedRecordIdJson,
@@ -812,7 +812,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
         this.searchingFlag = true;
         this.showTable = false;
         this.assignToSelfHasErr = false;
-        let selectedCaseIdJson = JSON.stringify(selectedCaseId);
         let selectedRecordIdJson = JSON.stringify(selectedCaseId.concat(selectedCaseInvestigationId));
 
         //let result = await assignToSelf({ caseIds: selectedCaseIdJson });

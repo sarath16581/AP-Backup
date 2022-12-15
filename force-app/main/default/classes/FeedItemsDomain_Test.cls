@@ -48,7 +48,6 @@ private class FeedItemsDomain_Test {
 
         //asserting feeditems are filtered
 		System.assertEquals(2, domain.records.size(), 'Records should have been filtered in call to newInstance');
-		system.debug(domain.records[0]);
 		System.assertEquals(feedItems[0].Id, domain.records[0].Id, 'Expected record');
     }
 }

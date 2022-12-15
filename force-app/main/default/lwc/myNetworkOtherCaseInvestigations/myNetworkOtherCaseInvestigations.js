@@ -6,7 +6,7 @@
  * 2019-12-05 - Dattaraj Deshmukh - Created
  */
 
-import { LightningElement, wire, api, track  } from 'lwc';
+import { LightningElement, api, track  } from 'lwc';
 import getOtherCaseInvestigations from "@salesforce/apex/MyNetworkOtherCaseInvestigationsCntr.getOtherCaseInvestigations";
 
 export default class MyNetworkOtherCaseInvestigations extends LightningElement {
@@ -14,35 +14,35 @@ export default class MyNetworkOtherCaseInvestigations extends LightningElement {
 
 	dataTable_columns = [
 		{
-		  label: "Case Investigation #",
-		  fieldName: "caseInvestigationLink",
-		  wrapText: true,
-		  hideDefaultActions : true, 
-		  type: "url",
-		  typeAttributes: {
+			label: "Case Investigation #",
+			fieldName: "caseInvestigationLink",
+			wrapText: true,
+			hideDefaultActions : true, 
+			type: "url",
+			typeAttributes: {
 			label: { fieldName: "Name" },
 			tooltip: "Go to detail page",
 			target: "_self",
 			variant: "base",
-		  },
+			},
 		},
 		{
-		  label: "Article ID",
-		  fieldName: "Article__r",
-		  wrapText: true,
-		  hideDefaultActions : true
+			label: "Article ID",
+			fieldName: "Article__r",
+			wrapText: true,
+			hideDefaultActions : true
 		},
 		{
-		  label: "Status",
-		  fieldName: "Status__c",
-		  wrapText: true,
-		  hideDefaultActions : true
+			label: "Status",
+			fieldName: "Status__c",
+			wrapText: true,
+			hideDefaultActions : true
 		},
 		{
-		  label: "Network",
-		  fieldName: "Network__r",
-		  wrapText: true,
-		  hideDefaultActions : true
+			label: "Network",
+			fieldName: "Network__r",
+			wrapText: true,
+			hideDefaultActions : true
 		}
 	  ];
 	
@@ -68,7 +68,6 @@ export default class MyNetworkOtherCaseInvestigations extends LightningElement {
               else if(c === 'Id') {
                 cInvestigationRecord[c] = cInvestigationRec[c];
                 cInvestigationRecord['caseInvestigationLink']  = (sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigationRec[c];
-
               }
               else {
                 cInvestigationRecord[c] = cInvestigationRec[c];
@@ -80,9 +79,6 @@ export default class MyNetworkOtherCaseInvestigations extends LightningElement {
         }
 
         this.caseInvestigations = tempCaseInvestigations;
-        console.log(this.caseInvestigations);
-        
-        
       })
       .catch(error => {
         console.log("error>>>", error);

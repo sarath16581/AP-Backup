@@ -15,7 +15,7 @@ private class MyNetworkCaseUserResponseControllerTest {
 	 * @desc test if method creates chatter feed record for a case investigation record.
 	 */
 	@IsTest
-	public static void test_postCaseInvestigationChatterFeed() {
+	public static void testPostCaseInvestigationChatterFeed() {
 		// =====================================
         // Data Preparation
         // =====================================
@@ -58,7 +58,7 @@ private class MyNetworkCaseUserResponseControllerTest {
 	 * @desc test if method returns chatter feed for a case investigation record.
 	 */
 	@IsTest
-	public static void test_getCaseInvestigationChatterFeeds() {
+	public static void testGetCaseInvestigationChatterFeeds() {
 
 		// =====================================
         // Data Preparation

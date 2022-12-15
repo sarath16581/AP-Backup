@@ -8,13 +8,11 @@
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { refreshApex } from '@salesforce/apex';
-
 
 import postCaseInvestigationChatterFeed from "@salesforce/apex/MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed";
 import getCaseInvestigationChatterFeeds from "@salesforce/apex/MyNetworkCaseUserResponseController.getCaseInvestigationChatterFeeds";
 
-import { updateRecord, getRecord, getFieldValue, getRecordNotifyChange  } from 'lightning/uiRecordApi';
+import { updateRecord, getRecord, getFieldValue  } from 'lightning/uiRecordApi';
 import { reduceErrors } from 'c/ldsUtils';
 
 import ADDRESS_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.AddressType__c';
@@ -77,7 +75,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		//Require More Information and Still Under Investigation cannot be true at same time.
 		if(event.target.value && this.stillUnderInvestigation) {
 			this.errorMsg = 'Still under investigation and Require more informaation can not be selected at the same time';
-			return;;
+			return;
 		} 
 		else if(event.target.value && !this.stillUnderInvestigation) {
 			this.status = 'Closed - Required More Information' ;
@@ -94,7 +92,6 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		//Require More Information and Still Under Investigation cannot be true at same time.
 		if(event.target.value && this.requireMoreInformation) {
 			this.errorMsg = 'Still under investigation and Require more informaation can not be selected at the same time';
-			return;
 		} 
 		else if(event.target.value && !this.requireMoreInformation) {
 			this.status = 'Responded' ;
@@ -183,8 +180,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
         const recordInput = { fields };
         updateRecord(recordInput)
             .then(CaseInvestigation__c => {
-            this.recordId = CaseInvestigation__c.id;
-            console.log('Record Id', this.recordId);
+            // this.recordId = CaseInvestigation__c.id;
 
             // this.dispatchEvent(
             //     new ShowToastEvent({
@@ -243,9 +239,8 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 	}
 
 	 get isDelieryFieldVisible(){
-		return ( (getFieldValue(this.caseInvestigationRecord, CASE_TYPE_FIELD) == CASE_TYPE ) 
-					&& (getFieldValue(this.caseInvestigationRecord, PURPOSE_FIELD) == CASE_PURPOSE) ? true : false
+		return ( (getFieldValue(this.caseInvestigationRecord, CASE_TYPE_FIELD) === CASE_TYPE ) 
+					&& (getFieldValue(this.caseInvestigationRecord, PURPOSE_FIELD) === CASE_PURPOSE) ? true : false
 					);
 	}
-    
 }
