@@ -112,7 +112,8 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 						c.FCR__c = false;
 					}
 
-					if(omniQueues.containsKey(c.OwnerId) == true 
+					if(omniQueues != null 
+						&& omniQueues.containsKey(c.OwnerId) == true 
 						&& (changedFields.contains(Case.OwnerId) || changedFields.contains(Case.Priority))) {
 						validCasesInOmniQueues.add(c);
 					}
