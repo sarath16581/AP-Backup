@@ -29,7 +29,8 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
         consignmentErrorMessage: CONSTANTS.LABEL_CONSIGNMENT_ERROR_MESSAGE,
         caseInvestigationSuccessMessage: CONSTANTS.LABEL_CASE_INVESTIGATION_SUCCESS_MESSAGE,
         invalidCaseInvestigationErrorMessage: CONSTANTS.LABEL_INVALID_CASE_INVESTIGATION_ERROR_MESSAGE,
-        invalidNetworkErrorMessage: CONSTANTS.LABEL_INVALID_NETWORK_ERROR_MESSAGE
+        invalidNetworkErrorMessage: CONSTANTS.LABEL_INVALID_NETWORK_ERROR_MESSAGE,
+        blankNetworkErrorMessage: CONSTANTS.LABEL_BLANK_NETWORK_ERROR_MESSAGE
     };
 
     connectedCallback() {
@@ -38,6 +39,7 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
 
     //load the articles related to case
     loadArticles() {
+        this.resetPageDetails();
         this.isLoading = true;
         //get articles related to case
         getArticles(this.recordId)
@@ -48,7 +50,6 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
                     this.totalRecords = response.articleDetails.length;
                     this.totalPages = Math.ceil(this.totalRecords / this.recordsPerPage);
                     this.setRecordsToDisplay();
-                    //this.articleDetails = response.articleDetails;
                 }
                 this.isLoading = false;
             })
@@ -94,17 +95,26 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
     isValidRecords() {
         let isValid = true;
         this.selectedRecords.forEach(rec => {
-            rec.networks.forEach(network => {
-                //throw error message when selected record network is not related to MyNetwork
-                if (network.contactMethod !== 'MyNetwork') {
-                    isValid = false;
-                    LightningAlert.open({
-                        message: `${network.label} ` + this.label.invalidNetworkErrorMessage,
-                        theme: 'error', // a red theme intended for error states
-                        label: 'Error', // this is the header text
-                    });
-                }
-            })
+            if (rec.networks && rec.networks.length > 0) {
+                rec.networks.forEach(network => {
+                    //throw error message when selected record network is not related to MyNetwork
+                    if (network.contactMethod !== CONSTANTS.MY_NETWORK) {
+                        isValid = false;
+                        LightningAlert.open({
+                            message: `${network.label} ` + this.label.invalidNetworkErrorMessage,
+                            theme: 'error', // a red theme intended for error states
+                            label: 'Error', // this is the header text
+                        });
+                    }
+                })
+            } else {
+                isValid = false;
+                LightningAlert.open({
+                    message: this.label.blankNetworkErrorMessage + ` ${rec.referenceId} `,
+                    theme: 'error', // a red theme intended for error states
+                    label: 'Error', // this is the header text
+                });
+            }
         });
         return isValid;
     }
@@ -119,7 +129,6 @@ export default class MyNetworkStarTrackCaseArticlesContainer extends LightningEl
                 this.selectedRecords.forEach(rec => {
                     rec.networks.forEach(network => {
                         let caseInvestigationRec = {
-                            Article__c: rec.articleId,
                             Case__c: this.recordId,
                             Network__c: network.name,
                             ReferenceID__c: rec.referenceId,

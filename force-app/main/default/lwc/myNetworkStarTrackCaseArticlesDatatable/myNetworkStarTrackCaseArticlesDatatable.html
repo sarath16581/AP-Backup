@@ -23,7 +23,8 @@
                     <tr class="slds-hint-parent" key={articleData.article.Id}>
                         <td scope="row">
                             <lightning-input type="checkbox" label="" variant="label-hidden" onchange={handleRowChange}
-                                data-id={articleData.article.Id} data-reference-id={articleData.article.Name}>
+                                data-id={articleData.article.Id} data-reference-id={articleData.article.Name}
+                                checked={articleData.isArticleSelected}>
                             </lightning-input>
                         </td>
                         <template for:each={articleData.rowData} for:item="row">
@@ -31,7 +32,8 @@
                                 <c-my-network-star-track-case-articles-table-cell article-id={row.key}
                                     event-message-id={row.eventMessageId} label={row.label} type={row.fieldType}
                                     name={row.fieldName} value={row.fieldValue} url={row.fieldUrl}
-                                    pill-items={row.networkPillItems} onnetworksearch={handleNetworkSearch}>
+                                    pill-items={row.networkPillItems} onnetworksearch={handleNetworkSearch}
+                                    onnetworkremoved={handleNetworkRemoved}>
                                 </c-my-network-star-track-case-articles-table-cell>
                             </td>
                         </template>
@@ -39,5 +41,11 @@
                 </template>
             </tbody>
         </table>
+        <template if:true={showNetworkScanModal}>
+            <!-- NETWORK SEARCH MODAL -->
+            <c-my-network-star-track-network-scan event-messages-network-wrapper={eventMessagesNetworkWrapper}
+                critical-incidents={criticalIncidents} onmodalclose={handleModalclose} onrowselect={handleRowSelect}>
+            </c-my-network-star-track-network-scan>
+        </template>
     </div>
 </template>

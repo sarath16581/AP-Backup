@@ -4,6 +4,7 @@
  * @domain            : Case
  * @changelog
  * 2022-12-05 - George Nguyen - created
+ * 2022-12-13 - Mahesh Parvathaneni - Added test methods for beforeInsert events
  **/
 @IsTest
 private class CaseInvestigationArticleModule_Test {
@@ -130,4 +131,74 @@ private class CaseInvestigationArticleModule_Test {
 		((TIBCODataTranslator) MockUtility.Mocks.verify(mockTIBCODataTranslator, 1)).translate((List<TIBCOTrackingResultWrapper>) fflib_Match.eq(result.trackResults));
 		((TIBCODataTranslator) MockUtility.Mocks.verify(mockTIBCODataTranslator, 1)).save(fflib_Match.eqBoolean(false), fflib_Match.eqBoolean(true));
 	}
+
+	@IsTest
+	static void onBeforeInsert() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
+		Case aCase = ApplicationTestDataFactory.getCases(1, true)[0];
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[0], networks[0].Id, true);
+		records.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[1], networks[0].Id, true));
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseInvestigationArticleModule.newInstance().onBeforeInsert(records, mockUow);
+
+		Test.stopTest();
+
+		// make sure there is no validation error
+		System.assertEquals(false, records[0].hasErrors(), 'Expected no validation error for case investigation record');
+		System.assertEquals(false, records[1].hasErrors(), 'Expected no validation error for case investigation record');
+	}
+
+	@IsTest
+	static void testBeforeInsertCheckDuplicateCaseInvestigationRecords() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
+		Case aCase = ApplicationTestDataFactory.getCases(1, true)[0];
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		List<CaseInvestigation__c> records = ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[0], networks[0].Id, true);
+		records.addAll(ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[1], networks[0].Id, true));
+		List<CaseInvestigation__c> existingCaseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, aCase.Id, articles[1], networks[0].Id, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		CaseInvestigationsSelector mockCaseInvestigationsSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockCaseInvestigationsSelector.selectOpenCaseInvestigationsByCaseArticleNetworkId((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject(), (Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, CaseInvestigation__c>{existingCaseInvestigations[0].Id => existingCaseInvestigations[0]});
+		MockUtility.Mocks.stopStubbing();
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseInvestigationArticleModule.newInstance().onBeforeInsert(records, mockUow);
+
+		// make sure new case investigation creation is prevented under same case, article reference and network.
+		System.assertEquals(true, records[1].hasErrors(), 'Expected validation error duplicated case investigation is being created');
+
+		Test.stopTest();
+	}
+
 }

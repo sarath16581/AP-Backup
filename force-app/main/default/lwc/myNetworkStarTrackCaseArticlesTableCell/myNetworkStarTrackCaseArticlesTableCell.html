@@ -1,16 +1,22 @@
 <!--
   	Single cell (field) of the articles data table in Startrack service console user interface. 
  -->
-<template>
+ <template>
     <span class="slds-grid slds-grid_align-spread">
-        <template if:false={isPill}>
-            <c-formatted-text-label type={type} value={value} url={url} url-target="_blank"></c-formatted-text-label>
+        <template if:true={isURL}>
+            <a data-url={url} onclick={handleUrlClick}>{value}</a>
+        </template>
+        <template if:true={isOther}>
+            <c-formatted-text-label type={type} value={value}></c-formatted-text-label>
         </template>
         <template if:true={isPill}>
             <div>
-                <lightning-icon data-article-id={articleId} data-event-msg-id={eventMessageId} class="search-icon" icon-name="utility:search" size="x-small" onclick={handleSearchClick}>
+                <lightning-icon data-article-id={articleId} data-event-msg-id={eventMessageId} class="search-icon"
+                    icon-name="utility:search" size="x-small" onclick={handleSearchClick}>
                 </lightning-icon>
-                <lightning-pill-container class="pill-container" items={pillItems} onitemremove={handleItemRemove}></lightning-pill-container>
+                <lightning-pill-container class="pill-container" data-article-id={articleId} items={pillItems}
+                    onitemremove={handleItemRemove}>
+                </lightning-pill-container>
             </div>
         </template>
     </span>
