@@ -8,5 +8,5 @@
     Profile.Name  = &apos;System Administrator&apos;,
 				OR(ISCHANGED(ProfileId), ISNEW())
 )</errorConditionFormula>
-    <errorMessage>Only users with &apos;Upgrade users to Sys admin&apos; permission can create users with a System Admin profile.</errorMessage>
+    <errorMessage>You are not eligible to enable System Administrator access for others. Please reach out to Salesforce Support.</errorMessage>
 </ValidationRule>
