@@ -9,7 +9,8 @@
  * @Test StarTrackSupCaseAutomationModule_Test
  * 
  * @changelog
- * 2022-11-24	Noel Lim - minor additions of safe navigation operators to fix an null ExceptionLog error
+ * 2022-11-07	George Nguyen	- add logic to set case field OmniRoutingSecondaryPriority 
+ * 2022-12-15	Noel Lim 		- bugfix for a NullException for cases generated from Startrack Support portal
  */
 
 public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationDomain.Module {
@@ -111,11 +112,13 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 						
 						c.FCR__c = false;
 					}
-				}
 
-				if(omniQueues?.containsKey(c.OwnerId) == true && (changedFields?.contains(Case.OwnerId) || changedFields?.contains(Case.Priority))) {
-					validCasesInOmniQueues.add(c);
-				}
+					if(omniQueues != null 
+						&& omniQueues.containsKey(c.OwnerId) == true 
+						&& (changedFields.contains(Case.OwnerId) || changedFields.contains(Case.Priority))) {
+						validCasesInOmniQueues.add(c);
+					}
+				}	
 			}
 
 			// StarTrack Case Automation: Populate Case Subject (Decision node)
