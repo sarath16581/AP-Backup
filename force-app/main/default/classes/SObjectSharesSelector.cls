@@ -82,7 +82,7 @@ public virtual inherited sharing class SObjectSharesSelector extends Application
 	}
 
 	protected override Set<SObjectField> getSObjectFieldList() {
-		return new Set<SObjectField>(shareSObjectType.getDescribe().fields.getMap().values());
+		return shareSObjectFields;
 	}
 
 	public virtual override List<QueryBuilder.Order> getOrderBy() {

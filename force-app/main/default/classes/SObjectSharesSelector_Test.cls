@@ -80,6 +80,12 @@ private class SObjectSharesSelector_Test {
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
+		// this integration test creates APR__Share records (test data) which is asserted at the end. disabling the
+		// APR trigger execution here as the test does not want additional APR__Share records created through triggers.
+		// this should probably be part of the MockUtility.disableTriggerExecution() framework method above. Adding in
+		// this here for the moment.
+		SystemSwitch__c settings = new SystemSwitch__c(DisableTriggers__c = true, ObjectTriggersToBeDisabled__c= 'APR__c');
+		insert settings;
 
 		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(2, false);
 		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
