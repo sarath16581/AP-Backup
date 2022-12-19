@@ -16,7 +16,9 @@
 17/08/2020         Disha Kariya                Updated - Changes to consider attempted delivery over delivered delivery event message
 29/10/2020         SaiSwetha Pingali           Updated - REQ2297137 - Updated criteria to consider last 15 days on Contact centre updated cases
 29/07/2021         Neha Mehta                  Updated - REQ2547720 - Added Outside_Delivery_Radius__c,Geo_Precision__c fields in SOQL
-01/11/2022         Dattaraj Deshmukh           Updated - Added 'CaseInvestigations__r' as a subquery in 'baseQueryForMyNetworkCases()' method.
+01/11/2022         Dattaraj Deshmukh           Updated - Added logic to include CaseInvestigation__c in all queries. 
+                                                         Added methods for StarTrack dynamic SOQL, updated existing methods to filter star track cases.
+                                                         Added star_track_cases listview filter.
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
     
@@ -24,6 +26,12 @@ public with sharing class MyNetworkCaseListController {
     public static Set<String> enqubTypeNotVisible = new Set<String>{'Damage to property','Staff Complaint'};    
     public static String managerRoleId = [Select Id from UserRole where Name = 'SSSW MyNetwork Manager' limit 1].Id;
     private static final Integer MAX_RESULTS = 10;
+    static final String CASE_INVESTIGATION_CLOSED_STATUS = 'Closed';
+
+    //get StarTrack case record type developer names.
+    //Declaring it here as SOQL are executed dynamically.
+    private static final List<String>  stRecordTypeDeveloperNames =  MyNetworkConstants.STAR_TRACK_RECORD_TYPES;
+            
     public MyNetworkCaseListController() {
 
     }
@@ -50,6 +58,8 @@ public with sharing class MyNetworkCaseListController {
         public String caseId{get; set;}
         @AuraEnabled
         public String casePriority{get;set;}
+        @AuraEnabled
+        public Boolean isStarTrackCase{get;set;}
 
         public MyNetworkCasesWrapper(case myNetworkCaseVar, String caseIconVar, String caseColorVar, String caseHoverTextVar, String caseNumVar, String caseIdVar, String casePriorityVar){
             this.myNetworkCase = myNetworkCaseVar;            
@@ -59,6 +69,7 @@ public with sharing class MyNetworkCaseListController {
             this.caseNum = caseNumVar;
             this.caseId = caseIdVar;
             this.CasePriority = casePriorityVar;
+            this.isStarTrackCase = MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(myNetworkCaseVar.RecordType.DeveloperName);
         }
         public MyNetworkCasesWrapper(){}
     }
@@ -84,6 +95,84 @@ public with sharing class MyNetworkCaseListController {
             Database.update(updateCase);
         }
     }
+
+    /**
+        @ Description : Method is used to get the cases based
+        @               on the different combination of filters and list view seletected
+        @               by the logged in user
+        @ param       : String filteredString Json string of filters and selected list view
+        @ return      : List<MyNetworkCasesWrapper> Cases with additional details 
+     */
+    @AuraEnabled
+    public static List<MyNetworkCasesWrapper> getFilteredCases(String filteredString){
+        
+        List<MyNetworkCasesWrapper> myNetworkCasesWrapperList = new List<MyNetworkCasesWrapper>();
+        MyNetworkCasesWrapper myNetworkCasesWrapperVar ;  
+        CacheManager.put('MYNETWORK_FILTERS', filteredString); 
+
+        String baseQuery ;
+        SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp = constructDynamicFilters(filteredString);
+        String filterVar = selectedViewWithFiltersWrp.filter;
+
+        if(selectedViewWithFiltersWrp.selectedView =='All_Cases'){
+            
+            //get all cases where OwnerId = 'SSSW Network Queue' and 'logged in user is a part of team member'
+            list<Case> caseListResult = getAllMYNetworkCases(filterVar, selectedViewWithFiltersWrp);
+            //create a wrapper
+            CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
+
+            //get updated cases for AP
+            list<Case> updatedCaseList = getUpdatedCasesBySOQL(filterVar, selectedViewWithFiltersWrp);
+            
+            //get updated cases for ST
+            list<Case> updatedStarTrackCaseList = getUpdatedStarTrackCases(filterVar, selectedViewWithFiltersWrp);
+            
+            //merge updated AP and StarTrack (ST) cases in a list.
+            updatedCaseList.addAll(updatedStarTrackCaseList);
+
+            //filter out AP and ST cases based on criteria
+            //Refer to method comments for all filter criteria.
+            myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, caseWrap.myNetworkCasesWrap, caseWrap.caseIdSet);
+
+        }else if(selectedViewWithFiltersWrp.selectedView =='Cases_updated'){
+
+            //get updated cases for AP
+            list<Case> updatedCaseList = getUpdatedCasesBySOQL(filterVar, selectedViewWithFiltersWrp);
+
+            //get updated cases for ST
+            list<Case> updatedStarTrackCaseList = getUpdatedStarTrackCases(filterVar, selectedViewWithFiltersWrp);
+            
+
+            //merging AP and StarTrack (ST) cases ina single list.
+            updatedCaseList.addAll(updatedStarTrackCaseList);
+
+            //filter out AP and ST cases based on criteria
+            //Refer to method comments for all filter criteria.
+            myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, null, null) ;
+            
+        }else if(selectedViewWithFiltersWrp.selectedView =='star_track_cases'){ // filter star track cases and case investigations
+            
+            //get ST cases
+            list<Case> starTrackCases = getAllMYNetworkStarTrackCases(selectedViewWithFiltersWrp);
+            //create a wrapper
+            CaseWrapper caseWrap = getNetworkQueueCases(starTrackCases);
+            
+            //get updated cases for ST
+            list<Case> updatedCaseList = getUpdatedStarTrackCases(filterVar, selectedViewWithFiltersWrp);
+
+            //filter out AP and ST cases based on criteria
+            //Refer to method comments for all filter criteria.
+            myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, caseWrap.myNetworkCasesWrap, caseWrap.caseIdSet) ;
+
+        }else{
+
+            list<Case> caseListResult = getAllMYNetworkCases(filterVar, selectedViewWithFiltersWrp);
+            CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
+            myNetworkCasesWrapperList =caseWrap.myNetworkCasesWrap;
+        }
+        return myNetworkCasesWrapperList;
+    }
+
     /**
         @ Description : Get all the MyNetwork Cases when user logs in to community.By default, it will fetch
                         all the Cases assigned to "SSSW network Queue" and having type as either 'investigation' or 'feedback'
@@ -95,58 +184,160 @@ public with sharing class MyNetworkCaseListController {
     public static List<MyNetworkCasesWrapper> myNetworkCases(String selectedViewString){
         List<MyNetworkCasesWrapper> myNetworkCasesWrapperList = new List<MyNetworkCasesWrapper>();
         try{
-            list<Case> caseListResult = getAllMYNetworkCases(null);
+            //get all cases where OwnerId = 'SSSW Network Queue' and 'logged in user is a part of team member'
+            list<Case> caseListResult = getAllMYNetworkCases(null, null);
+
+            //create a wrapper
             CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
-            list<Case> updatedCaseList = getUpdatedCasesBySOQL(null);
+
+            list<Case> updatedCaseList = getUpdatedCasesBySOQL(null, null);
+            list<Case> updatedStarTrackCaseList = getUpdatedStarTrackCases(null, null);
+            
+            //merging AP and StarTrack (ST) cases ina single list.
+            updatedCaseList.addAll(updatedStarTrackCaseList);
+            
+
+            //getContactCenterUpdatedCases() method merge network cases and updated cases. Returns single list of wrapper.
             myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, caseWrap.myNetworkCasesWrap, caseWrap.caseIdSet) ;
         }catch(Exception e){
             System.debug('Error in fetching the data ::'+e.getMessage());
         }
         return myNetworkCasesWrapperList;
     }
+
+    /**
+     * @desc: This method generate inner query for case investigation ONLY for ST case..
+     *      : When ST Product category is selected, records need to be filtered based on Case Investigation's article ID.
+     *      : When AP Product category is selected, records need to be filltered based on Case.ProductCategory. 
+     */
+    private static string generateCaseInvestigationInnerQuery(String baseQuery, SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp){
+        String innerQueryFilter='';
+        String selectedProductCategoryVal;
+
+        if(selectedViewWithFiltersWrp != null ){
+            selectedProductCategoryVal = (String)selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject.get('selectedProductCategoryVal');
+        }
+
+        if(selectedViewWithFiltersWrp != null 
+            && selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject.get('isStarTrackSearch') != null 
+            && (Boolean) selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject.get('isStarTrackSearch')
+             && selectedProductCategoryVal != null && selectedProductCategoryVal != '--Select--') {
+            innerQueryFilter = ' WHERE Article__r.ProductCategory__c = \''+selectedProductCategoryVal+'\' ';
+        }
+        String generateCaseInvestigationInnerQuery = '( SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c, LastContactCentreUpdate__c from CaseInvestigations__r '+innerQueryFilter +' ) ';
+
+        return generateCaseInvestigationInnerQuery;
+    }
+
     /**
         @ Description : inner method to get all the MyNetwork Cases on logging to MyNetwork
         @ param       : String viewTypeString as "All Cases"
         @ return      : List<case> return the wrapper of cases
      */
-    private static list<case> getAllMYNetworkCases(String filterStr){
-        String baseQuery = baseQueryForMyNetworkCases();
+    private static list<case> getAllMYNetworkCases(String filterStr, SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp){
+
+        //get cases where ownerId =: networkQueue and logged in user is case team member
+        String baseQuery = baseQueryForMyNetworkCases();    
+        String caseInvestigationInnerQuery = generateCaseInvestigationInnerQuery(baseQuery, selectedViewWithFiltersWrp);
+        String formattedBaseQuery = String.format(baseQuery, new List<String>{caseInvestigationInnerQuery});
+
         String finalQueryString = baseQuery;
         list<Case> caseList = new list<Case>();
         
         if(filterStr != null){
-            finalQueryString += filterStr ; 
+            formattedBaseQuery += filterStr ; 
         }
-        finalQueryString += ' Order By Priority ASC,Sent_To_Network_Date__c ASC NULLS LAST  LIMIT 10000' ;
-        System.debug('finalQueryString>>>'+finalQueryString);
-        caseList = database.query(finalQueryString);
+        formattedBaseQuery += ' Order By Priority ASC,Sent_To_Network_Date__c ASC NULLS LAST  LIMIT 10000' ;
+        System.debug('formattedBaseQuery>>>'+formattedBaseQuery);
+        caseList = database.query(formattedBaseQuery);
         return caseList;
     }
+
+    //get st cases
+    private static list<case> getAllMYNetworkStarTrackCases(SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp){
+        String baseQuery = baseQueryForStarTrackCases();
+        String caseInvestigationInnerQuery = generateCaseInvestigationInnerQuery(baseQuery, selectedViewWithFiltersWrp);
+        String formattedBaseQuery = String.format(baseQuery, new List<String>{caseInvestigationInnerQuery});
+
+        String finalQueryString = baseQuery;
+        list<Case> caseList = new list<Case>();
+        
+        if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.filter != null){
+            formattedBaseQuery += selectedViewWithFiltersWrp.filter  ; 
+        }
+        formattedBaseQuery += ' Order By Priority ASC,Sent_To_Network_Date__c ASC NULLS LAST  LIMIT 10000' ;
+        System.debug('formattedBaseQuery>>>'+formattedBaseQuery);
+        caseList = database.query(formattedBaseQuery);
+        return caseList;
+    }
+
      /**
         @ Description : inner method to get all the updated Cases on logging to MyNetwork
         @ param       : String viewTypeString as "All Cases"
         @ return      : List<case> return the wrapper of cases
      */
-    private static list<case> getUpdatedCasesBySOQL( String filterStr){
-        String baseQuery = baseQueryForCasesUpdateByContactCenter();
+    private static list<case> getUpdatedCasesBySOQL( String filterStr, SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp) {
+
+        //if selectedview is star track, then call star track base query.
+        String baseQuery = (selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.selectedView.equalsIgnoreCase('star_track_cases')) 
+                            ? baseQueryForStarTrackCasesUpdateByContactCenter() : baseQueryForCasesUpdateByContactCenter();
+
         String finalQueryString = baseQuery;
         list<Case> caseList = new list<Case>();
-        if(filterStr != null){
-            finalQueryString += filterStr ;
+        if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.filter != null){
+            finalQueryString += selectedViewWithFiltersWrp.filter ;
         }
         finalQueryString += ' Order By Priority ASC ,Sent_To_Network_Date__c ASC NULLS LAST  LIMIT 10000' ;
         System.debug('finalQueryString1>>>'+finalQueryString);
         caseList = database.query(finalQueryString);
         return caseList;
     }
+
+
+     /**
+        @ Description : method to get all the star track updated Cases 
+        @ param       : 
+        @ return      : List<case> return the wrapper of cases
+     */
+    private static list<case> getUpdatedStarTrackCases( String filterStr, SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp) {
+
+        //if selectedview is star track, then call star track base query.
+        String baseQuery = baseQueryForStarTrackCasesUpdateByContactCenter();
+        String caseInvestigationInnerQuery = generateCaseInvestigationInnerQuery(baseQuery, selectedViewWithFiltersWrp);
+        String formattedBaseQuery = String.format(baseQuery, new List<String>{caseInvestigationInnerQuery});
+
+        String finalQueryString = baseQuery;
+        list<Case> caseList = new list<Case>();
+        if(selectedViewWithFiltersWrp != null && selectedViewWithFiltersWrp.filter != null){
+            formattedBaseQuery += selectedViewWithFiltersWrp.filter ;
+        }
+        formattedBaseQuery += ' Order By Priority ASC ,Sent_To_Network_Date__c ASC NULLS LAST  LIMIT 10000' ;
+        System.debug('formattedBaseQuery>>>'+formattedBaseQuery);
+        caseList = database.query(formattedBaseQuery);
+        return caseList;
+    }
+
+    
     
     /**
         @ Description : inner method to getting the contact center updated case in wrapper format 
         @ param       : list<case> caseList, list<MyNetworkCasesWrapper> myNetworkCasesWrapperList
         @ return      : list<MyNetworkCasesWrapper>
      */
+    /**  This method checks if queried cases are valid based following criteria:
+     *      1. For AP Cases --> Last_status_change__c (DateTime Field) is within last 5 days. 
+     *                      --> AND OwnerId IS NOT 'SSSW Network Queue'. 
+     *                      --> AND Root_Cause__c = 'Awaiting Network Response'.
+     * 
+     *      2. For ST Cases --> OwnerId IS NOT 'SSSW Network Queue'. AND             *                          
+     *                      --> AND (Last_status_change__c (DateTime Field) is within last 5 days. 
+     *                      -->         OR  Any Case Investigations 'LastContactCenterUpdate__c' (DateTime Field) is withing 5 days.)
+     * */ 
     private static list<MyNetworkCasesWrapper> getContactCenterUpdatedCases(list<case> caseList, list<MyNetworkCasesWrapper> myNetworkCasesWrapperList, Set<Id> excludeCaseSet){
         list<MyNetworkCasesWrapper> myNetworkCasesWrapRec = new list<MyNetworkCasesWrapper>();
+        system.debug('caselist:'+caseList);
+        system.debug('myNetworkCasesWrapperList:'+myNetworkCasesWrapperList);
+        system.debug('excludeCaseSet:'+excludeCaseSet);
         if(myNetworkCasesWrapperList != null)
                 myNetworkCasesWrapRec = myNetworkCasesWrapperList;
         for(Case cse : caseList)
@@ -156,10 +347,35 @@ public with sharing class MyNetworkCaseListController {
                 MyNetworkCasesWrapper myNetworkCasesWrapperVar = new MyNetworkCasesWrapper();
                 Boolean caseFound = false;
                 //spingali - REQ2297137 updated the last_status_Change__c criteria from 1 to 15 days
-                if(cse.OwnerId != networkQueue && cse.Root_cause__c == 'Awaiting Network Response' && (cse.Last_Status_Change__c >= System.today() - 5)){
+                //checking if case is NOT ST case.
+                if( !MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(cse.recordtype.developerName) &&
+                         cse.OwnerId != networkQueue && cse.Root_cause__c == 'Awaiting Network Response' && (cse.Last_Status_Change__c >= System.today() - 5)){
+                    
                     myNetworkCasesWrapperVar = validationCasesUpdatedByContactCenter(cse);
                     caseFound = true;
-                } 
+                }
+                //check if case is ST case and owner is not Network Queue
+                else if(MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(cse.recordtype.developerName) &&
+                            cse.OwnerId != networkQueue) {
+                        
+                        //if ST case is updated withing last 5 days, consider it as updated case.
+                        //else, check if child case investigations are updated.
+                        if( cse.Last_Status_Change__c >= System.today() - 5) {
+                            myNetworkCasesWrapperVar = validationCasesUpdatedByContactCenter(cse);
+                            caseFound = true;
+                        }
+                        else if( !cse.CaseInvestigations__r.isEmpty() ) {
+                            
+                            for(CaseInvestigation__c cInv : cse.CaseInvestigations__r) {
+
+                                //LastContactCentreUpdate__c timestamp is set when a Chatter Post is added on case investigation record by ST Contact Users.
+                                if(cInv.LastContactCentreUpdate__c != null && (cInv.LastContactCentreUpdate__c >= System.today() - 5)) {
+                                    myNetworkCasesWrapperVar = validationCasesUpdatedByContactCenter(cse);
+                                    caseFound = true;
+                                }
+                            }
+                        }
+                }
                 if(myNetworkCasesWrapperVar != null && myNetworkCasesWrapperVar.caseId != null){
                     myNetworkCasesWrapRec.add(myNetworkCasesWrapperVar);
                 }
@@ -182,7 +398,7 @@ public with sharing class MyNetworkCaseListController {
             if('Awaiting Network Response'.equalsIgnoreCase(cse.Status) && cse.type == 'Investigation'){
                         myNetworkCasesWrapperVar = userRoleAndCaseColourValidation(cse);
                         cFound = true;
-            }else if(cse.type == 'Feedback'){                
+            }else if(cse.type == 'Feedback'){ //this condition should only be valid for AP cases. 
                 if( (cse.closedDate > System.today() - 15 )&& ('Awaiting Network Response'.equalsIgnoreCase(cse.Status) || 
                     (cse.Network_Responses1__r.isEmpty() ) ||  'Awaiting Network Response'.equalsIgnoreCase(cse.Root_cause__c)  ||
                     (!cse.Network_Responses1__r.isEmpty() && cse.Network_Responses1__r[0].Request_Hold_Case__c  ) ||
@@ -209,13 +425,32 @@ public with sharing class MyNetworkCaseListController {
             myNetworkCasesWrap = myNetworkCasesWrapVar ;
        }
     }
+
+    private static string baseQueryForStarTrackCases(){
+        String soqlSelect = 'SELECT  RecordTypeId,  RecordType.DeveloperName, Id, OwnerId, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
+        soqlSelect  += ' {0} '
+                    +' FROM Case WHERE OwnerId= ' + '\'' + networkQueue + '\'';       
+        soqlSelect  += ' AND Id IN (SELECT ParentId FROM caseteammember WHERE MemberId =  ' + '\'' + userinfo.getUserId() + '\')';  
+      
+        return soqlSelect;
+         
+    }
+
+    private static string baseQueryForStarTrackCasesUpdateByContactCenter(){
+        String soqlSelect = 'SELECT RecordTypeId,  RecordType.DeveloperName, Id, OwnerId, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
+        soqlSelect  += '{0} FROM Case WHERE ';               
+        soqlSelect  += ' Id IN (SELECT ParentId FROM caseteammember WHERE MemberId =  ' + '\'' + userinfo.getUserId() + '\')';
+      
+        return soqlSelect;
+         
+    }
     /**
         @ Description : Base query to get the cases updated by Contact Center
         @ param       : N/A
         @ return      : Query String
      */
     private static string baseQueryForCasesUpdateByContactCenter(){
-        String soqlSelect = 'SELECT Id, OwnerId, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
+        String soqlSelect = 'SELECT RecordTypeId, RecordType.DeveloperName, Id, OwnerId, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
         soqlSelect  += '(SELECT Request_Hold_Case__c,to_CCC_action__c, to_Reassign_Network__c FROM Network_Responses1__r ORDER BY CreatedDate DESC) FROM Case WHERE ';               
         soqlSelect  += ' Id IN (SELECT ParentId FROM caseteammember WHERE MemberId =  ' + '\'' + userinfo.getUserId() + '\')';
         soqlSelect  += ' AND (Root_cause__c = ' + '\'Awaiting Network Response\')';
@@ -228,15 +463,34 @@ public with sharing class MyNetworkCaseListController {
         @ return      : Query String
      */
     private static String baseQueryForMyNetworkCases(){       
-        String soqlSelect = 'SELECT Id, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
+        String soqlSelect = 'SELECT RecordTypeId,  RecordType.DeveloperName, Id, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
         soqlSelect  += '(SELECT Request_Hold_Case__c,to_CCC_action__c, to_Reassign_Network__c FROM Network_Responses1__r ORDER BY CreatedDate DESC), '
-                    + '( SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c from CaseInvestigations__r ) '
+                    + ' {0} '
                     +' FROM Case WHERE OwnerId= ' + '\'' + networkQueue + '\'';       
         //soqlSelect  += ' AND type IN (\'Investigation\', \'Feedback\') ';
         soqlSelect  += ' AND Id IN (SELECT ParentId FROM caseteammember WHERE MemberId =  ' + '\'' + userinfo.getUserId() + '\')';               
 
         return soqlSelect ;         
     }
+
+    /**
+        @ Description : Base query to get all the cases owned by Network queue of type 'Investigation' and 'Feedback'
+        @ param       : N/A
+        @ return      : Query String
+     */
+    private static String baseQueryForMyNetworkCaseWithCaseInvestigationArticles(){       
+        String soqlSelect = 'SELECT RecordTypeId,  RecordType.DeveloperName, Id, Sent_To_Network_Date__c, Last_Status_Change__c,closedDate,Status, type, Root_cause__c, Checkbox__c, Facility_Milestones_Violated__c, CaseNumber, Priority, ReferenceID__c, Customer_Type__c, EnquirySubType__c, Address2__c, Address2Postcode__c, Network__c,Network__r.Name, PONUser__c, PONUser__r.Name, ' ;
+        soqlSelect  += '(SELECT Request_Hold_Case__c,to_CCC_action__c, to_Reassign_Network__c FROM Network_Responses1__r ORDER BY CreatedDate DESC), '
+                    + '( SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c, LastContactCentreUpdate__c from CaseInvestigations__r '
+                    +'    ) '
+                    +' FROM Case WHERE OwnerId= ' + '\'' + networkQueue + '\'';       
+
+        soqlSelect  += ' AND Id IN (SELECT ParentId FROM caseteammember WHERE MemberId =  ' + '\'' + userinfo.getUserId() + '\')';               
+
+        return soqlSelect ;         
+    }
+
+    
     /**
         @ Description : Used to get below details of cases
                         a.Details as 'SUI' or 'NEW' or 'Updated'
@@ -337,48 +591,18 @@ public with sharing class MyNetworkCaseListController {
         CacheManager.put('MYNETWORK_FILTERS', cacheStr); 
         return true;
     }
-    /**
-        @ Description : Method is used to get the cases based
-        @               on the different combination of filters and list view seletected
-        @               by the logged in user
-        @ param       : String filteredString Json string of filters and selected list view
-        @ return      : List<MyNetworkCasesWrapper> Cases with additional details 
-     */
-    @AuraEnabled
-    public static List<MyNetworkCasesWrapper> getFilteredCases(String filteredString){
-        
-        List<MyNetworkCasesWrapper> myNetworkCasesWrapperList = new List<MyNetworkCasesWrapper>();
-        MyNetworkCasesWrapper myNetworkCasesWrapperVar ;  
-        CacheManager.put('MYNETWORK_FILTERS', filteredString); 
-
-        String baseQuery ;
-        SelectedViewWithFiltersWrapper selectedViewWithFiltersWrp = constructDynamicFilters(filteredString);
-        String filterVar = selectedViewWithFiltersWrp.filter;
-
-        if(selectedViewWithFiltersWrp.selectedView =='All_Cases'){
-            list<Case> caseListResult = getAllMYNetworkCases(filterVar);
-            CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
-            list<Case> updatedCaseList = getUpdatedCasesBySOQL(filterVar);
-            myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, caseWrap.myNetworkCasesWrap, caseWrap.caseIdSet) ;
-        }else if(selectedViewWithFiltersWrp.selectedView =='Cases_updated'){
-            list<Case> updatedCaseList = getUpdatedCasesBySOQL(filterVar);
-            myNetworkCasesWrapperList = getContactCenterUpdatedCases(updatedCaseList, null, null) ;
-        }else{
-            list<Case> caseListResult = getAllMYNetworkCases(filterVar);
-            CaseWrapper caseWrap = getNetworkQueueCases(caseListResult);
-            myNetworkCasesWrapperList =caseWrap.myNetworkCasesWrap;
-        }
-        return myNetworkCasesWrapperList;
-    }
+    
     /**
      * @Description: Wrapper class for selectedview and selected filters
      */
     private class SelectedViewWithFiltersWrapper{
         String selectedView;
         String filter;
-        public SelectedViewWithFiltersWrapper(String selectedViewStr, String filterStr){
+        Map<String, Object> selectedViewAndFiltersJsonObject;
+        public SelectedViewWithFiltersWrapper(String selectedViewStr, String filterStr, Map<String, Object> selectedViewAndFiltersJson){
             selectedView = selectedViewStr ;
             filter = filterStr ;
+            selectedViewAndFiltersJsonObject = selectedViewAndFiltersJson;
         }
     }
     /**
@@ -399,6 +623,7 @@ public with sharing class MyNetworkCaseListController {
         String selectedlistview;
         String dynamicFilter ;
         Boolean searchButtonClickedFlag;
+        Boolean isStartCaseFilterSelected = false;
 
         Map<string,object> filtersMap = (Map<string,object>)JSON.deserializeUntyped(filteredString);
         for(string strKey: filtersMap.keySet()){
@@ -420,6 +645,9 @@ public with sharing class MyNetworkCaseListController {
                 selectedlistview = (String)filtersMap.get('selectedlistview');
             }else if(strKey.equalsIgnoreCase('searchButtonClicked')){
                 searchButtonClickedFlag = (Boolean)filtersMap.get('searchButtonClicked');
+            }
+            else if(strKey.equalsIgnoreCase('isStarTrackSearch')){
+                isStartCaseFilterSelected = (Boolean)filtersMap.get('isStarTrackSearch');
             }
         }
         if(isPrintedVal.equalsIgnoreCase('Yes')){
@@ -444,7 +672,12 @@ public with sharing class MyNetworkCaseListController {
                        
                     }
                     if( !String.isBlank(enquirySubTypeVal ) && enquirySubTypeVal != '--Select--'){
-                        String filterVar = ' AND (EnquirySubType__c =' + '\'' + enquirySubTypeVal + '\')' ;
+
+                        //if StarTrack case field is selected then select 'Enquiry_Type__c' field.
+                        //if AP enquiry values are selected then filter based on 'EnquirySubType__c'.
+                        String enquiryField = isStartCaseFilterSelected ? 'Enquiry_Type__c' : 'EnquirySubType__c';
+
+                        String filterVar = ' AND ( '+ enquiryField+'= ' + '\'' + enquirySubTypeVal + '\')' ;
                         if(dynamicFilter != null){
                             dynamicFilter += filterVar ;
                         } else{
@@ -475,7 +708,11 @@ public with sharing class MyNetworkCaseListController {
                             dynamicFilter = filterVar ;
                         }
                     }
-                    if(!String.isBlank(selectedProductCategoryVal) && selectedProductCategoryVal != '--Select--'){
+                    system.debug('isStartCaseFilterSelected: '+isStartCaseFilterSelected);
+                    system.debug('selectedProductCategoryVal: '+selectedProductCategoryVal);
+                    
+                    if(!isStartCaseFilterSelected && !String.isBlank(selectedProductCategoryVal) && selectedProductCategoryVal != '--Select--'){
+
                         String filterVar = ' AND (ProductCategory__c =' + '\'' + selectedProductCategoryVal + '\')' ;
                         if(dynamicFilter != null){
                             dynamicFilter += filterVar ;
@@ -489,12 +726,16 @@ public with sharing class MyNetworkCaseListController {
             String listViewFilterVar ;
             String facilityReportedDamages = 'Facility reported damages';
             String enterpriseVar = 'Enterprise';
+            
             if(selectedlistview.equalsIgnoreCase('My_Cases')){
                 listViewFilterVar = ' AND (PONUser__c = ' + '\'' + userinfo.getUserId() + '\')';                 
             }else if(selectedlistview.equalsIgnoreCase('Facility_reported')){
                 listViewFilterVar = ' AND (EnquirySubType__c = ' + '\'' + facilityReportedDamages + '\')';                 
             }else if(selectedlistview.equalsIgnoreCase('Enterprise_customers')){
                 listViewFilterVar = ' AND (contact.SLA__c = '  + '\'' + enterpriseVar + '\')';             
+            }else if( (isStartCaseFilterSelected && !String.isBlank(selectedProductCategoryVal) && selectedProductCategoryVal != '--Select--') 
+                        || selectedlistview.equalsIgnoreCase('star_track_cases')){ // filter out ST cases based on record types.
+                listViewFilterVar = ' AND (RecordType.DeveloperName IN:stRecordTypeDeveloperNames)';             
             }
            if(listViewFilterVar != null){
                 if(dynamicFilter != null){
@@ -504,7 +745,7 @@ public with sharing class MyNetworkCaseListController {
                 }
             }
         }
-        SelectedViewWithFiltersWrapper selectedViewWithFiltersWrap = new SelectedViewWithFiltersWrapper(selectedlistview, dynamicFilter);
+        SelectedViewWithFiltersWrapper selectedViewWithFiltersWrap = new SelectedViewWithFiltersWrapper(selectedlistview, dynamicFilter, filtersMap);
         return selectedViewWithFiltersWrap ;
     }
     /**
@@ -531,55 +772,84 @@ public with sharing class MyNetworkCaseListController {
         }    
         return postCodeFilter;
     }
+
+    @AuraEnabled(cacheable=true)
+    public static Map<String, String> getListViewValues() { 
+        Map<String, String> listViewValues = new Map<String, String>();
+        
+        return (MyNetworkConstants.MY_NETWORK_PORTAL_LIST_VIEWS);
+    }
+
     /**
      @ Description : Method returns all the related Event Messages for a specific case
      @Param      : String caseRecordId
      @Return     : list<EventMessage__c>  
     */
    @AuraEnabled(cacheable=true)
-   public static EventMessagesWithSortingDetails getRelatedEventMessages(String caseRecordId){
+   public static EventMessagesWithSortingDetails getRelatedEventMessages(Id recordId){
         list<EventMessageWithGeoCode> eventMessageList = new list<EventMessageWithGeoCode>();
         list<EventMessage__c>  sortingRelatedEventMessage = new list<EventMessage__c>();
         Boolean sortingEventMessageFound = false;
         Set<String> sortingEventCodeSet = new Set<String>();
         EventMessagesWithSortingDetails eventMessagesWithSortingDetailsVar ;
 
+		String sObjectTypeName = recordId.getSObjectType().getDescribe().getName();
+		Case caseRecord;
+		CaseInvestigation__c caseInvestigation;
+        Id articleId;
+
+		
         for(MyNetworkSortingEventTypes__mdt mdtVar :[Select  MasterLabel From MyNetworkSortingEventTypes__mdt]){
             sortingEventCodeSet.add(mdtVar.MasterLabel);
         }
-            if(caseRecordId != null){
-                Case caseRecord = [Select Id, ArticleTest__c From Case Where Id =: caseRecordId];
-                
-                if(caseRecord.ArticleTest__c != null){
-                    for(EventMessage__c ev:[Select Id, EventGeoLocation__Longitude__s, EventGeoLocation__Latitude__s, 
-                                                        StatusText__c, EventDescription__c, ActualDateTime__c, 
-                                                        Event_Location__c, PlannedDateTime__c, PlannedLocation__c, 
-                                                        DriverContract__c, RoundNo__c, Event_Comment__c, SignatoryName__c, 
-                                                        EventSource__c, SenderID__c, EventType__c,Container_ID__c
-                                                        ,SortOutputStatus__c, SortOutputReason__c, SortInductMode__c,
-                                                        OCRVCSResultSource__c, OCRVCSResultStatus__c, OCRVCSRejectStatus__c,
-                                                        OCRVCS_DPID__c, OCRVCSPostcode__c, OCRVCS_OS_Zone__c, DefaultHeight__c,
-                                                        Height__c,Length__c,Width__c,Weight__c,
-                                                        DefaultLength__c, DefaultWidth__c, DefaultWeight__c, PhysicalContainerID__c,VISALabelLine1__c,
-                                                        VISALabelLine2__c, DeliveryNetworkState__c, DeliveryNetworkPostcode__c, RoutingResultSource__c,
-                                                        Article__c,Article__r.Name, Article__r.ProductCategory__c, Article__r.SubProduct__c,
-                                                        DeviceID__c,Machine_Device_Name__c, SortDest__c, Logical_Destination_Name__c,
-                                                        SortOutputComp__c, Actual_Destination_Name__c, DeviceUser__c,Outside_Delivery_Radius__c,Geo_Precision__c
-                                                         From EventMessage__c where Article__c =:caseRecord.ArticleTest__c order by ActualDateTime__c desc]){
-                        String geoLocationStr ;
-                        if(ev.EventGeoLocation__Longitude__s != null && ev.EventGeoLocation__Latitude__s != null){
-                            geoLocationStr =  ev.EventGeoLocation__Latitude__s + ',' + ev.EventGeoLocation__Longitude__s;                        
-                            eventMessageList.add(new EventMessageWithGeoCode(geoLocationStr, true,ev));
-                        }else{
-                            eventMessageList.add(new EventMessageWithGeoCode(geoLocationStr,false ,ev));
-                        }
-                        if(sortingEventCodeSet.contains(ev.EventType__c) ){
-                            sortingEventMessageFound = true;
-                            sortingRelatedEventMessage.add(ev);
-                        }
+
+		//if record is of the type = CASE, query case details
+		if(sObjectTypeName.equalsIgnoreCase('Case')) {
+			caseRecord = [Select Id, ArticleTest__c,RecordType.DeveloperName From Case Where Id =: recordId LIMIT 1];
+		}
+		//if record is of the type = CaseInvestigation, query case investigation details
+		else if(sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c')) {
+            caseInvestigation = [Select Id, Article__r.Id, Article__c from CaseInvestigation__c where Id =: recordId LIMIT 1];
+		}
+
+		
+        if(recordId != null){
+
+			//If record ID is of the type = Case Investigation then it's article ID should be passed.
+			//If record ID is of the type = Case, then it's Article id should be passed.
+			articleId = (sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c') && caseInvestigation.Article__r.Id !=null) ?
+				(caseInvestigation.Article__r.Id) : (caseRecord.ArticleTest__c != null ? caseRecord.ArticleTest__c : null);
+
+            if(articleId != null){
+                for(EventMessage__c ev:[Select Id, EventGeoLocation__Longitude__s, EventGeoLocation__Latitude__s, 
+                                                    StatusText__c, EventDescription__c, ActualDateTime__c, 
+                                                    Event_Location__c, PlannedDateTime__c, PlannedLocation__c, 
+                                                    DriverContract__c, RoundNo__c, Event_Comment__c, SignatoryName__c, 
+                                                    EventSource__c, SenderID__c, EventType__c,Container_ID__c
+                                                    ,SortOutputStatus__c, SortOutputReason__c, SortInductMode__c,
+                                                    OCRVCSResultSource__c, OCRVCSResultStatus__c, OCRVCSRejectStatus__c,
+                                                    OCRVCS_DPID__c, OCRVCSPostcode__c, OCRVCS_OS_Zone__c, DefaultHeight__c,
+                                                    Height__c,Length__c,Width__c,Weight__c,
+                                                    DefaultLength__c, DefaultWidth__c, DefaultWeight__c, PhysicalContainerID__c,VISALabelLine1__c,
+                                                    VISALabelLine2__c, DeliveryNetworkState__c, DeliveryNetworkPostcode__c, RoutingResultSource__c,
+                                                    Article__c,Article__r.Name, Article__r.ProductCategory__c, Article__r.SubProduct__c,
+                                                    DeviceID__c,Machine_Device_Name__c, SortDest__c, Logical_Destination_Name__c,
+                                                    SortOutputComp__c, Actual_Destination_Name__c, DeviceUser__c,Outside_Delivery_Radius__c,Geo_Precision__c
+                                                        From EventMessage__c where Article__c =:articleId order by ActualDateTime__c desc]){
+                    String geoLocationStr ;
+                    if(ev.EventGeoLocation__Longitude__s != null && ev.EventGeoLocation__Latitude__s != null){
+                        geoLocationStr =  ev.EventGeoLocation__Latitude__s + ',' + ev.EventGeoLocation__Longitude__s;                        
+                        eventMessageList.add(new EventMessageWithGeoCode(geoLocationStr, true,ev));
+                    }else{
+                        eventMessageList.add(new EventMessageWithGeoCode(geoLocationStr,false ,ev));
                     }
-                 }
+                    if(sortingEventCodeSet.contains(ev.EventType__c) ){
+                        sortingEventMessageFound = true;
+                        sortingRelatedEventMessage.add(ev);
+                    }
+                }
             }
+        }
             eventMessagesWithSortingDetailsVar  = new  EventMessagesWithSortingDetails(sortingRelatedEventMessage, eventMessageList);
         return eventMessagesWithSortingDetailsVar;    
    }
@@ -618,92 +888,93 @@ public with sharing class MyNetworkCaseListController {
         String cachedFiltersCached = (String)CacheManager.get('MYNETWORK_FILTERS');
         return cachedFiltersCached;
     }
-    /**
-     @Description : Method used to assign the cases to logged in user. This method will
-                    update the "Case Assigned To" field of the selected cases
-     @Param       : String caseIds
-     @Return      :  AssignToSelfWrapper, Return the assigned user or error message if there is any issue while case update               
-     */
     
+
+    /**
+     @desc      : Generic method used to update 'PONUser__c' field on case and 'OwnerId' field on Case Investigations.
+     @Param     : Case and Case Investigation recordsIds, SelectedUserId from LWC component for 'Assign to user' and 
+                    Boolean flag to assign to self.
+     @Return    : AssignToSelfWrapper, Return the assigned user or error message if there is any issue while case update               
+     */
+
     @AuraEnabled
-    public static AssignToSelfWrapper assignToSelf(String caseIds){
+    public static AssignToSelfWrapper assignSelectedRecords(String recordIds, String selectedUserId, Boolean isAssignSelf){
         Boolean errWhileUpdate = false;
-        String errMsg;
+        String ErrMsg;
         AssignToSelfWrapper assignToSelfWrap ;
         String userName;
         try{   
-            list<Object> cList = (list<Object>)Json.deserializeUntyped(caseIds);
-            set<Id> caseIdSet = new set<Id>();            
-            for(Object caseId : cList){
-                String cId = (String)caseId ;
-                caseIdSet.add(cId);
+
+            //get caseids and caseinvestigationids 
+            List<Object> rList = (List<Object>)Json.deserializeUntyped(recordIds);
+            
+            Set<Id> caseIdSet = new set<Id>();  
+            Set<Id> caseInvestigationIdSet = new set<Id>();  
+
+            //loop through list of ids and identify SObjectType.
+            //As different fields need to be updated, identification of SObjectType is required.
+            for(Object recId : rList) {
+                Id rId = (Id)recId ;
+
+                //check rId SOBJECT TYPE
+                if(rId.getSObjectType().getDescribe().getName().equalsIgnoreCase('Case')) {
+                    caseIdSet.add(rId);
+                } 
+                else if(rId.getSObjectType().getDescribe().getName().equalsIgnoreCase('CaseInvestigation__c')) {
+                    caseInvestigationIdSet.add(rId);
+                }
+            }
+           
+            List<SObject> recordListToUpdate = new List<SObject>();
+
+            //identifying user id to update on records.
+            Id userId = isAssignSelf ? UserInfo.getUserId() : selectedUserId;
+
+			//loop through Case ids and updated PONUser__c field.
+			for(Id caseId: caseIdSet) {
+				
+				//add case record in recordsToUpdate list
+				recordListToUpdate.add(new Case(PONUser__c = userId, Id = caseId));
             }
 
-            list<case> caseList = new list<Case>();
-            for(Case caseRecord: [Select id, PONUser__c from Case where id IN : caseIdSet]){
-                caseRecord.PONUser__c = userInfo.getUserId();
-                caseList.add(caseRecord);
+            if(!caseInvestigationIdSet.isEmpty()) {
+
+				//loop through CI ids and assign new ownerId.
+                for(Id caseInvestigationId : caseInvestigationIdSet) {
+					//add case investigation record in recordsToUpdate list
+					recordListToUpdate.add(new CaseInvestigation__c(Id = caseInvestigationId, OwnerId = userId));
+                }
             }
             
-            if(!caseList.isEmpty()){
-                update caseList ;            
-                userName = userInfo.getName();
-            }else{
+
+            if(!recordListToUpdate.isEmpty()) {			    
+				
+				//update records ;
+				Database.SaveResult[] srList = ApplicationDatabase.getInstance().dmlUpdate(recordListToUpdate);
+
+
+				//get user name if AssignTo user is other than logged in user
+                userName = isAssignSelf ? UserInfo.getName() : UsersSelector.newInstance().selectById(new Set<Id>{selectedUserId}).values()[0].Name;
+			}else {
                 errWhileUpdate = true;
-                errMsg = 'There was an issue when assigning the case. Please contact your System Administrator';
+                ErrMsg = 'There was an issue when assigning the record. Please contact your System Administrator';
             }
-        }Catch (Exception e){
+
+        }catch(Exception e) {
             errWhileUpdate = true;
-            errMsg = 'There was an issue when assigning the case. Please contact your System Administrator';
-            //errMsg= e.getMessage();
+            ErrMsg = 'There was an issue when assigning the record. Please contact your System Administrator';
+            System.debug('Err>>>'+e.getMessage());
         }
-        if(errWhileUpdate){
-            assignToSelfWrap = new AssignToSelfWrapper(errWhileUpdate, errMsg);
-        }else{
-            errWhileUpdate = false ;
+        if(errWhileUpdate) {
+            assignToSelfWrap = new AssignToSelfWrapper(errWhileUpdate, ErrMsg);
+        }else {
+            errWhileUpdate = false;
             assignToSelfWrap = new AssignToSelfWrapper(errWhileUpdate, userName);
         }
         return assignToSelfWrap;
     }
-    @AuraEnabled
-    public static assignToSelfWrapper assignToUser(String caseIds, String selectedUserId){
-        Boolean errWhileUpdate = false;
-        String ErrMsg;
-        assignToSelfWrapper assignToSelfWrap ;
-        String userName;
-        try{   
-            list<Object> cList = (list<Object>)Json.deserializeUntyped(caseIds);
-            set<Id> caseIdSet = new set<Id>();            
-            for(Object caseId : cList){
-                String cId = (String)caseId ;
-                caseIdSet.add(cId);
-            }
-            list<case> caseList = new list<Case>();
-            for(Case caseRecord: [Select id, PONUser__c from Case where id IN : caseIdSet]){
-                caseRecord.PONUser__c = selectedUserId;
-                caseList.add(caseRecord);
-            }
-            if(!caseList.isEmpty()){
-                update caseList ;            
-                userName = [Select Id, Name from User where id =: selectedUserId].Name;
-            }else{
-                errWhileUpdate = true;
-                ErrMsg = 'There was an issue when assigning the case. Please contact your System Administrator';
-            }
-        }Catch (Exception e){
-            errWhileUpdate = true;
-            ErrMsg = 'There was an issue when assigning the case. Please contact your System Administrator';
-            //ErrMsg= e.getMessage();
-            System.debug('Err>>>'+e.getMessage());
-        }
-        if(errWhileUpdate){
-            assignToSelfWrap = new assignToSelfWrapper(errWhileUpdate, ErrMsg);
-        }else{
-            errWhileUpdate = false;
-            assignToSelfWrap = new assignToSelfWrapper(errWhileUpdate, userName);
-        }
-        return assignToSelfWrap;
-    }
+
+    
     public class AssignToSelfWrapper{
         @AuraEnabled
         public Boolean hasError{get; set;}
@@ -714,18 +985,76 @@ public with sharing class MyNetworkCaseListController {
             resultValue = resultVarStr;
         }
     }
+
+
+	public class RecordDetailsWrapper{
+        @AuraEnabled
+        public String sObjectTypeName{get; set;}
+        @AuraEnabled
+        public Case caseRecord{get;set;}
+
+        public RecordDetailsWrapper(String sObjectTypeNameVar, Case caseRecordVar){
+            this.sObjectTypeName = sObjectTypeNameVar;
+            this.caseRecord = caseRecordVar;
+        }
+    }
+
+	/**
+    @description: method used to get case record id when a component is rendered on CI detail page
+    */
+
+	@AuraEnabled
+    public static RecordDetailsWrapper getCaseRecord(Id recordId){
+		Case cRecord;
+		String sObjectTypeName = recordId.getSObjectType().getDescribe().getName();
+		if(sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c')) {
+			//query case investigation for case Id.
+			CaseInvestigation__c caseInvestigation = CaseInvestigationsSelector.newInstance().
+														selectById(new Set<Id>{recordId}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES})
+														.values()[0];
+			cRecord = CasesSelector.newInstance().
+						selectById(new Set<Id>{caseInvestigation.Case__c}, new Set<Object>{CasesSelector.Options.WITH_CHILD_INVESTIGATIONS,
+						CaseInvestigationsSelector.Options.WITH_ARTICLES})
+						.values()[0];
+		}
+		else if(sObjectTypeName.equalsIgnoreCase('Case')) {
+			cRecord = CasesSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CasesSelector.Options.WITH_CHILD_INVESTIGATIONS, CaseInvestigationsSelector.Options.WITH_ARTICLES}).values()[0];
+		} 
+
+		RecordDetailsWrapper tw = new RecordDetailsWrapper(sObjectTypeName, cRecord);
+		return tw;
+	}
+
+
     /**
      @Description : Method used to get the selected case details and 
                     used on case detail page to display the details
      */
     @AuraEnabled
-    public static case getSelectedCases(String caseRecordId){
-        Case cRecord = new Case();
-        if(caseRecordId != null){
-            cRecord = [Select id, CaseNumber, Status, ContactId, Subject, EnquirySubType__c, ReferenceID__c,
-                                   CreatedDate, Primary_Name__c, Address1__c, Secondary_Contact__c, Address2__c, OwnerId, 
-                                   LastModifiedDate, Description from Case where Id =: caseRecordId];
-        }
+    public static case getSelectedCases(Id recordId){
+		Case cRecord = new Case();
+		if(recordId != null){
+			if(recordId.getSObjectType().getDescribe().getName().equalsIgnoreCase('Case')) {
+				// cRecord = [Select id, CaseNumber, Status, ContactId, Subject, EnquirySubType__c, ReferenceID__c,
+				// 			CreatedDate, Primary_Name__c, Address1__c, Secondary_Contact__c, Address2__c, OwnerId, 
+				// 			LastModifiedDate, Description, 
+				// 			(SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c, Status__c, Network__c, Network__r.Name from CaseInvestigations__r Where 
+				// 			Status__c != : CASE_INVESTIGATION_CLOSED_STATUS)
+				// 			from Case where Id =: recordId];
+				cRecord = CasesSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CasesSelector.Options.WITH_CHILD_INVESTIGATIONS, CaseInvestigationsSelector.Options.WITH_ARTICLES}).values()[0];
+			} 
+			else if(recordId.getSObjectType().getDescribe().getName().equalsIgnoreCase('CaseInvestigation__c')) {
+				
+				//query case investigation for case Id.
+				CaseInvestigation__c caseInvestigation = CaseInvestigationsSelector.newInstance().
+															selectById(new Set<Id>{recordId}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES})
+															.values()[0];
+				cRecord = CasesSelector.newInstance().
+										selectById(new Set<Id>{caseInvestigation.Case__c}, new Set<Object>{CasesSelector.Options.WITH_CHILD_INVESTIGATIONS,
+											CaseInvestigationsSelector.Options.WITH_ARTICLES})
+										.values()[0];
+			}
+		}
         return cRecord;
     }
     /**
@@ -743,24 +1072,30 @@ public with sharing class MyNetworkCaseListController {
      @Description : This method is used to display differnt messages related to a case  
      */
     @AuraEnabled
-    public static list<CaseMessage> getCaseMessages(String caseRecordId){
+    public static list<CaseMessage> getCaseMessages(Id caseRecordId){
         list<CaseMessage> caseMessageList = new list<CaseMessage>();
-        Case caseRecord = [Select Id, Facility_Milestones_Violated__c, Root_cause__c, Owner.Name, Status, type From Case where Id=: caseRecordId];
-                      
-        if(caseRecord.Root_cause__c == 'Awaiting Network Response' &&  (caseRecord.Owner.Name != 'SSSW Network Queue' || 
-        (caseRecord.Owner.Name == 'SSSW Network Queue' && caseRecord.Status!= 'Awaiting Network Response' )) ){
-                if(caseRecord.status == 'Closed' ){
-                    if(caseRecord.type !=  'Feedback')
-                        caseMessageList.add(new CaseMessage('Case', 'This case is now closed. No further action is required.')) ;
-                }else{
-                    caseMessageList.add(new CaseMessage('Case', 'This case has received further information and is now under review by the Customer Contact Centre.')) ;
-                }
-        }
-        list<Network_Response__c> nrList = [Select id from Network_Response__c where (RelatedCase__c =: caseRecordId OR Related_Case__c =: caseRecordId)  AND Request_Hold_Case__c = false limit 1];
 
-        if(!nrList.isEmpty()){
-            caseMessageList.add(new CaseMessage('Network Response', 'Please review existing network responses before updating case.')) ;
-        }
+		if(caseRecordId.getSObjectType().getDescribe().getName().equalsIgnoreCase('Case')) {
+				// Case caseRecord = [Select Id, Facility_Milestones_Violated__c, Root_cause__c, Owner.Name, Status, type From Case where Id=: caseRecordId];
+			Case caseRecord = CasesSelector.newInstance().selectById(new Set<Id>{caseRecordId}, new Set<Object> {CasesSelector.Options.WITH_OWNER}).values()[0];
+
+			if(caseRecord.Root_cause__c == 'Awaiting Network Response' &&  (caseRecord.Owner.Name != 'SSSW Network Queue' || 
+			(caseRecord.Owner.Name == 'SSSW Network Queue' && caseRecord.Status!= 'Awaiting Network Response' )) ){
+					if(caseRecord.status == 'Closed' ){
+						if(caseRecord.type !=  'Feedback')
+							caseMessageList.add(new CaseMessage('Case', 'This case is now closed. No further action is required.')) ;
+					}else{
+						caseMessageList.add(new CaseMessage('Case', 'This case has received further information and is now under review by the Customer Contact Centre.')) ;
+					}
+			}
+
+			list<Network_Response__c> nrList = [Select id from Network_Response__c where (RelatedCase__c =: caseRecordId OR Related_Case__c =: caseRecordId)  AND Request_Hold_Case__c = false limit 1];
+			if(!nrList.isEmpty()){
+				caseMessageList.add(new CaseMessage('Network Response', 'Please review existing network responses before updating case.')) ;
+			}
+		}
+        
+
          
         return caseMessageList ;
     }
@@ -782,8 +1117,10 @@ public with sharing class MyNetworkCaseListController {
      *               2. Manifest address is fetched from Article Address
      *               3. Delivered address is fetched from Event Message of certain event code types
      */
+	//This method is passed either case id or case investigation id based on the placement of its component.
+	//If CI id is passed then additional query is introduced to pass relevant Case Id.
     @AuraEnabled
-    public static  SafeLocationDetails getSafeDropInformation(String caseRecordId){
+    public static  SafeLocationDetails getSafeDropInformation(Id recordId){
         Boolean isValidManifestAddress = false;
         Boolean isValidAddresseeAddress = false;
         Boolean isValidDeliveredAddress = false;
@@ -801,7 +1138,23 @@ public with sharing class MyNetworkCaseListController {
         Set<String> attemptedEventTypes = new Set<String>();
         Map<String, String> getAddressOrGeoLocationAME = new Map<String, String>();
         Map<String, String> addressType = new Map<String, String>();
+		CaseInvestigation__c caseInvestigation;
+		String sObjectTypeName;
+		Id caseRecordId;
         try{
+
+			//get SObject type as this component is called from Case Detail and Case Investigation detail page on mynetwork community.
+			sObjectTypeName = recordId.getSObjectType().getDescribe().getName();
+			
+			//if recordId is of the type = CaseInvestigation, query case investigation details
+			if(sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c')) {
+				caseInvestigation = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{recordId}).values()[0];
+				caseRecordId = caseInvestigation.Case__c;
+			}
+			else { 
+				caseRecordId = recordId;
+			}
+
             Case caseRecord = [Select Id, ArticleTest__c, ArticleTest__r.ReceiverAddressLine1__c, ArticleTest__r.ReceiverAddressLine2__c, ArticleTest__r.ReceiverCity__c,
                 ArticleTest__r.ReceiverState__c, ArticleTest__r.ReceiverPostcode__c, ArticleTest__r.ReceiverCountry__c,
                 Address2__c, ArticleTest__r.ReceiverAddress__c

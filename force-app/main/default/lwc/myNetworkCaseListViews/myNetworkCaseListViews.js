@@ -3,6 +3,7 @@
  * @date         : 23/03/2020
  * @description  : Component that has custom list view and search filters
  * --------------------------------------- History --------------------------------------------------
+ * 2022-11-28 	Dattaraj Deshmukh	Added 'star_track_cases' list view. Added Enquiry Type and Product Catergory values.
  **/
 /* eslint-disable no-console */
 import { LightningElement, track, wire, api } from "lwc";
@@ -30,6 +31,7 @@ export default class CaseListViews extends LightningElement {
   @track caseNumberVal = "";
   @track selectedNetworkRecrdId = "";
   @track searchButtonClickedFlag = false;
+  @track listEnquiryType; // this is used only for StarTrack cases.
 
   @api loadingFlag;
 
@@ -48,7 +50,14 @@ export default class CaseListViews extends LightningElement {
         }else if(data[i].FieldName__c === 'ProductCategory'){
           let dataVar = { label: data[i].MasterLabel, value: data[i].MasterLabel };
           this.listProductCategory.push(dataVar);
+        }else if(data[i].FieldName__c === 'EnquiryType') { //check for ST cases ONLY.
+          let dataVar = { label: data[i].MasterLabel, value: data[i].MasterLabel, isStarTrackCase : true };
+          this.listEnquirySubType.push(dataVar);
+        }else if(data[i].FieldName__c === 'StarTrackProductCategory') { //check for ST cases ONLY.
+          let dataVar = { label: data[i].MasterLabel, value: data[i].MasterLabel, isStarTrackCase : true };
+          this.listProductCategory.push(dataVar);
         }
+        
       }
       this.loadingFlag = false;
     } else {
@@ -88,8 +97,11 @@ export default class CaseListViews extends LightningElement {
         value: "Facility_reported"
       }
       ,
-      { label: "Updated Cases", value: "Cases_updated" }
+      { label: "Updated Cases", value: "Cases_updated" },
+      { label: "StarTrack Cases", value: "star_track_cases" },
+      
     ];
+
     this.listIsPrinted = [
       { label: "--Select--", value: "--Select--" },
       { label: "Yes", value: "Yes" },
@@ -172,6 +184,12 @@ export default class CaseListViews extends LightningElement {
                     to return the case result.
      */
   searchFilteredCase() {
+
+    //searching if selected EnquiryType value is of the type StarTrack.
+
+    let enquirySubType = this.listEnquirySubType.find(el => el.value === this.selectEnquirySubType );
+    let stProductCategory = this.listProductCategory.find(el => el.value === this.selectedProductCategoryValue );
+   
     this.searchFieldDetails = {
       isPrinted: this.casePrintedFlag,
       priorityVal: this.selectedPriorityValue,
@@ -181,7 +199,8 @@ export default class CaseListViews extends LightningElement {
       selectedNetworkRecrdIdVal: this.selectedNetworkRecrdId,
       selectedlistview: this.selectedListView,
       searchButtonClicked: this.searchButtonClickedFlag,
-      caseNumberVal: this.caseNumberVal
+      caseNumberVal: this.caseNumberVal,
+      isStarTrackSearch : ( (enquirySubType && enquirySubType.isStarTrackCase) || (stProductCategory && stProductCategory.isStarTrackCase ) ) ? true : false
     };
 
     let searchFieldJson = JSON.stringify(this.searchFieldDetails);

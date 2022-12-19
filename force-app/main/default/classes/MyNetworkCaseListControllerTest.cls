@@ -6,6 +6,9 @@
 /*******************************  History ************************************************
  * 19-06-2020 Hara Sahoo Added test method for myNetworkupdatePrintedCaseFlag
  * 12-08-2020 Disha Kariya Updated http mock for AME API
+ * 28-11-2-22 Dattaraj Deshmukh - Removed 'myNetworkAssignToselfMethodTest' and 'myNetworkAssignToUserMethodTest'. 
+ *                                Added 'test_assignSelectedRecords' and 'test_assignSelectedRecords_self' methods to test generic 'assignSelectedRecords' method.
+ *                                Added   'test_GetFilteredCases_StarTrackCasesListViewFilters' & 'test_GetFilteredCases_StarTrackUpdatedListViewFilters' method.
  * ***************************************************************************************/
 @isTest
  private  class MyNetworkCaseListControllerTest {
@@ -86,9 +89,9 @@
         System.debug('uRecr>>>'+uRecr);
         //insert Case
         list<case> cList = new list<case>();
-        Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByName();
+        Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByDeveloperName();
         Case csRec = TestUtility.createCase('Enquiry','In Progress','Investigation',acc.Id,con.Id,
-                caseRecTypeMap.get('SSSW Delivery').getRecordTypeId());
+                caseRecTypeMap.get('SSSWDelivery').getRecordTypeId());
         csRec.ArticleTest__c = testArticle2.Id;
         csRec.ReferenceId__c ='testArticle2';
         csRec.Status = 'Awaiting Network Response';
@@ -101,7 +104,7 @@
         csRec.OwnerId = [Select Id,Name from Group where Name='SSSW Network Queue' and type = 'Queue' limit 1].Id;
         cList.add(csRec);
         Case csRecord = TestUtility.createCase('Enquiry','In Progress','Investigation',acc.Id,con.Id,
-                caseRecTypeMap.get('SSSW Delivery').getRecordTypeId());
+                caseRecTypeMap.get('SSSWDelivery').getRecordTypeId());
         csRecord.ArticleTest__c = testArticle1.Id;
         csRecord.ReferenceId__c ='testArticle1';
         csRecord.Status = 'Awaiting Network Response';
@@ -116,7 +119,7 @@
         cList.add(csRecord);
 
         Case csRecord1 = TestUtility.createCase('Enquiry','In Progress','Investigation',acc.Id,con.Id,
-                caseRecTypeMap.get('SSSW Delivery').getRecordTypeId());
+                caseRecTypeMap.get('SSSWDelivery').getRecordTypeId());
         csRecord1.ArticleTest__c = testArticle1.Id;
         csRecord1.ReferenceId__c ='testArticle1';
         csRecord1.Status = 'Awaiting Network Response';
@@ -128,6 +131,51 @@
         csRecord1.Root_cause__c = 'Awaiting Network Response';
         csRecord1.OwnerId = userinfo.getuserid();
         cList.add(csRecord1);
+
+
+        //creating StarTrack cases.
+        Case stCase1 = TestUtility.createCase('Enquiry','In Progress','Investigation',acc.Id,con.Id,
+        caseRecTypeMap.get('StarTrack_General_Enquiry').getRecordTypeId());
+        stCase1.ArticleTest__c = testArticle1.Id;
+        stCase1.ReferenceId__c ='testArticle1';
+        stCase1.Status = 'Awaiting Network Response';
+        stCase1.Network__c = nw.id;
+        stCase1.Type = 'Investigation';
+        stCase1.CaseOriginator__c = 'Addressee';
+        stCase1.Checkbox__c = true;  
+        stCase1.Priority = 'High';       
+        stCase1.OwnerId = [Select Id,Name from Group where Name='SSSW Network Queue' and type = 'Queue' limit 1].Id;
+        cList.add(stCase1);
+
+        //creating StarTrack cases.
+        Case stCase2 = TestUtility.createCase('Enquiry','In Progress','Investigation',acc.Id,con.Id,
+        caseRecTypeMap.get('StarTrack_General_Enquiry').getRecordTypeId());
+        stCase2.ArticleTest__c = testArticle1.Id;
+        stCase2.ReferenceId__c ='testArticle1';
+        stCase2.Status = 'Awaiting Network Response';
+        stCase2.Network__c = nw.id;
+        stCase2.Type = 'Investigation';
+        stCase2.CaseOriginator__c = 'Addressee';
+        stCase2.Checkbox__c = true;  
+        stCase2.Priority = 'High';       
+        stCase2.OwnerId = [Select Id,Name from Group where Name='SSSW Network Queue' and type = 'Queue' limit 1].Id;
+        cList.add(stCase2);
+
+
+        //creating StarTrack cases.
+        Case stCase3 = TestUtility.createCase('Enquiry','In Progress','Investigation',acc.Id,con.Id,
+        caseRecTypeMap.get('StarTrack_General_Enquiry').getRecordTypeId());
+        stCase3.ArticleTest__c = testArticle1.Id;
+        stCase3.ReferenceId__c ='testArticle1';
+        stCase3.Status = 'Awaiting Network Response';
+        stCase3.Network__c = nw.id;
+        stCase3.Type = 'Investigation';
+        stCase3.CaseOriginator__c = 'Addressee';
+        stCase3.Checkbox__c = true;  
+        stCase3.Priority = 'High';       
+        stCase3.OwnerId = [Select Id,Name from Group where Name='SSSW Consumer Back Office Premium' and type = 'Queue' limit 1].Id;
+        cList.add(stCase3);
+
         Database.insert(cList);
         System.debug('cList>>>>>>>>'+cList);
 
@@ -135,10 +183,33 @@
         CaseTeamMember ctm = new CaseTeamMember(ParentId = csRec.id,MemberId = userinfo.getuserid(),TeamRoleId = cTeamRorl.Id);
         CaseTeamMember ctm1 = new CaseTeamMember(ParentId = csRecord.id,MemberId = userinfo.getuserid(),TeamRoleId = cTeamRorl.Id);
         CaseTeamMember ctm2 = new CaseTeamMember(ParentId = csRecord1.id,MemberId = userinfo.getuserid(),TeamRoleId = cTeamRorl.Id);
+
+        //adding case team member for ST cases
+        CaseTeamMember stctm3 = new CaseTeamMember(ParentId = stCase1.id, MemberId = myNetworkUser.Id, TeamRoleId = cTeamRorl.Id);
+        CaseTeamMember stctm4 = new CaseTeamMember(ParentId = stCase2.id, MemberId = myNetworkUser.Id, TeamRoleId = cTeamRorl.Id);
+        CaseTeamMember stctm5 = new CaseTeamMember(ParentId = stCase3.id, MemberId = myNetworkUser.Id, TeamRoleId = cTeamRorl.Id);
+
         ctmList.add(ctm);
         ctmList.add(ctm1);
         ctmList.add(ctm2);
+        ctmList.add(stctm3);
+        ctmList.add(stctm4);
+        ctmList.add(stctm5);
+
+
         database.insert(ctmList);
+
+        //creating case investigations for ST cases.
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(3, stCase1.Id, testArticle1, nw.Id, false);
+        //updating article id for 2nd case investigations.
+        caseInvestigations[1].Article__c = testArticle2.Id;
+
+        //updating LastContactCentreUpdate__c field for 3rd case investigation.
+        caseInvestigations[2].LastContactCentreUpdate__c = System.today().addDays(-1);
+
+
+        //adding case investigations
+        Database.insert(caseInvestigations);
 
         List<EventMessage__c> eventMessages = new List<EventMessage__c>();
         EventMessage__c eventMessage = new EventMessage__c();
@@ -236,40 +307,7 @@
             system.assert(!wrapperList.isEmpty());
         }
     }
-    @isTest
-    static void myNetworkAssignToselfMethodTest() {
-        case cRecrd = [Select Id, PONUser__c from case where PONUser__c = null limit 1 ] ;
-        User uRecrd = [Select id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
-       
-        CaseTeamMember ctmem = new CaseTeamMember(ParentId = cRecrd.id,MemberId = uRecrd.Id,TeamRoleId = cTeamRorl.Id);
-        insert ctmem;           
-        System.debug('cRecrd>>>'+cRecrd);
-        String cId = '["'+ cRecrd.Id+ '"]' ;
-        System.runAs(uRecrd){
-            Test.StartTest();
-                MyNetworkCaseListController.assignToSelf(cId);
-            Test.StopTest();  
-        }
-        case  cRecord = [Select id , PONUser__c from Case where id =: cRecrd.Id];
-        System.assertEquals(cRecord.PONUser__c, uRecrd.Id); 
-    }
-    @isTest
-    static void myNetworkAssignToUserMethodTest() {
-        case cRecrd = [Select Id, PONUser__c from case where PONUser__c = null limit 1 ] ;
-        User uRecrd = [Select Id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
-       
-        CaseTeamMember ctmem = new CaseTeamMember(ParentId = cRecrd.id,MemberId = uRecrd.Id,TeamRoleId = cTeamRorl.Id);
-        insert ctmem;
-        String cId = '["'+ cRecrd.Id+ '"]' ;
-        String uId =  uRecrd.Id  ;
-        System.runAs(uRecrd){
-            Test.StartTest();
-                MyNetworkCaseListController.assignToUser(cId, uId);
-            Test.StopTest();  
-        }
-        case  cRecord = [Select id , PONUser__c from Case where id =: cRecrd.Id];
-        System.assertEquals(cRecord.PONUser__c, uRecrd.Id); 
-    }
+    
     @isTest
     static void getSafeDropInformationTest() {
         case cRecrd = [Select Id,ArticleTest__c from case where ArticleTest__r.Name = 'testArticle2' limit 1 ] ;
@@ -337,7 +375,7 @@
         Case caseRecordVar = [Select id, ArticleTest__c from Case limit 1];
         Test.StartTest();
         MyNetworkCaseListController.getSelectedCases(string.valueOf(caseRecordVar.Id));        
-        MyNetworkCaseListController.EventMessagesWithSortingDetails lEventMsg = MyNetworkCaseListController.getRelatedEventMessages(string.valueOf(caseRecordVar.Id));
+        MyNetworkCaseListController.EventMessagesWithSortingDetails lEventMsg = MyNetworkCaseListController.getRelatedEventMessages(caseRecordVar.Id);
         Test.StopTest();
         System.assert(!lEventMsg.eventMessageWithGeoCodeList.isEmpty());
     }
@@ -361,4 +399,137 @@
         Test.StopTest();
         System.assertEquals(cMessage[0].messageString ,'This case has received further information and is now under review by the Customer Contact Centre.');
     }
+
+
+	/**
+     * @desc: Test method to simulate 'Assign to self' button.
+     *        This method assign case investigation ownership to selected user for ST cases and 
+     *          if AP Case is selected then it updates PONUser__c field on case.
+     */
+    @isTest
+    static void test_assignSelectedRecords_withMocks() {
+        
+		
+		// =====================================
+        // Data Preparation
+        // =====================================
+		Id profileId = Application.Cache.profileIds.get('MyNetwork Portal');
+
+		User myNetworkPortalUser = ApplicationTestDataFactory.getUsers(1, profileId, true)[0];
+		myNetworkPortalUser.Id = UserInfo.getUserId();
+		
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+
+        List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+        cases[0].ArticleTest__c = articles[0].Id;
+		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+
+		cases[1].RecordTypeId = ApplicationTestDataFactory.caseSSSWGeneralEnquiryRecordType;
+
+        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		networks[0].Org_ID__c = '1234';
+
+        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
+        caseInvestigations[0].Status__c = 'Open';
+		caseInvestigations[1].Status__c = 'Open';
+
+		String stJson = '{"success":true,"id":' +'"'+ caseInvestigations[0].Id + '"'+ '}';
+        Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
+        List<Database.SaveResult> svResultList = new List<Database.SaveResult>{sr};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		UsersSelector mockUserSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockUserSelector.selectById(new Set<Id>{myNetworkPortalUser.Id})).thenReturn(new Map<Id, User>{myNetworkPortalUser.Id => myNetworkPortalUser});
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.stopStubbing();
+
+		//passign 2 CIs and 1 AP Case.
+        String[] recordIds = new String[]{caseInvestigations[0].Id, caseInvestigations[1].Id, cases[1].Id};
+        String recordIdString = JSON.serialize(recordIds);
+
+		Test.StartTest();
+		//assigning records self. 
+		MyNetworkCaseListController.assignSelectedRecords(recordIdString, null, true);
+		Test.StopTest();  
+
+		// should have updated Case and CI Records
+		fflib_ArgumentCaptor updatableRecordsCaptor = fflib_ArgumentCaptor.forClass(List<CaseInvestigation__c>.class);
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<CaseInvestigation__c>) updatableRecordsCaptor.capture());
+
+		List<SObject> updatableRecords = (List<Sobject>) updatableRecordsCaptor.getValue();
+		System.assertEquals(3, updatableRecords.size(), 'Expected to update 3 records');
+
+		//loop through updated records and asserts if relevant fields are updated.
+		for(SObject sobj : updatableRecords){
+			if(sobj.getSObjectType() === Case.getSObjectType()){
+				System.assertEquals(UserInfo.getUserId(), ((Case)sobj).PONUser__c, 'Expected to update PONUser__c ID to self for a case');
+			}
+			if(sobj.getSObjectType() === CaseInvestigation__c.getSObjectType()){
+				System.assertEquals(UserInfo.getUserId(), ((CaseInvestigation__c)sobj).OwnerId, 'Expected to update OwnerId ID to self for a case investigation');
+			}
+		}
+		
+    }
+
+    /**
+     * @desc: Method to test ONLY 'ST Cases' are returned if List view is changed to 'Star track cases'.
+     */
+
+    @isTest
+    static void test_GetFilteredCases_StarTrackCasesListViewFilters() {
+        String filteredString = '{"isPrinted":"","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"star_track_cases","searchButtonClicked":true,"caseNumberVal":""}';
+        User uRecrd = [Select id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
+
+        list<MyNetworkCaseListController.myNetworkCasesWrapper> wrapperList = new list<MyNetworkCaseListController.myNetworkCasesWrapper>();
+
+        System.runAs(uRecrd){
+            Test.StartTest();
+                //assigning records self. 
+                wrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
+            Test.StopTest();  
+        }
+        //asserting list is not empty
+        system.assert(!wrapperList.isEmpty());
+
+        //asserting returned list contains only star track cases.
+        for(MyNetworkCaseListController.myNetworkCasesWrapper wrapRecord : wrapperList){
+            system.assert(wrapRecord.isStarTrackCase);
+        }
+    }
+
+    /**
+     * @desc: Method to test if cases are returned if List view is changed to 'Updated Cases'.
+     */
+
+    @isTest
+    static void test_GetFilteredCases_StarTrackUpdatedListViewFilters() {
+
+        String filteredString = '{"isPrinted":"","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"Cases_updated","searchButtonClicked":true,"caseNumberVal":""}';
+        Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByDeveloperName();
+        Id stCaseRecordTypeId = caseRecTypeMap.get('StarTrack_General_Enquiry').getRecordTypeId();
+
+        //get ST cases
+        List<Case> cases = [Select ID, Status from Case WHERE RecordTypeId =:stCaseRecordTypeId LIMIT 2];
+        User uRecrd = [Select id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
+       
+		list<MyNetworkCaseListController.myNetworkCasesWrapper> wrapperList = new list<MyNetworkCaseListController.myNetworkCasesWrapper>();
+
+        System.runAs(uRecrd){
+            Test.StartTest();
+                //assigning records self. 
+                wrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
+            Test.StopTest();  
+        }
+
+        //asserting list is not empty
+        system.assert(!wrapperList.isEmpty());
+
+    }
+
 }

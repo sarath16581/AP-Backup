@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deliveryinformation__c</fullName>
+    <description>Used on MyNetwork community to add network response for ST cases.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Relevant information about the delivery</inlineHelpText>
+    <label>Delivery Information</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>DeliveryOptions__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Accepted by authorised building staff</fullName>
+                <default>false</default>
+                <label>Accepted by authorised building staff</label>
+            </value>
+            <value>
+                <fullName>Business reception</fullName>
+                <default>false</default>
+                <label>Business reception</label>
+            </value>
+            <value>
+                <fullName>Letterbox</fullName>
+                <default>false</default>
+                <label>Letterbox</label>
+            </value>
+            <value>
+                <fullName>Front door</fullName>
+                <default>false</default>
+                <label>Front door</label>
+            </value>
+            <value>
+                <fullName>Side Door</fullName>
+                <default>false</default>
+                <label>Side Door</label>
+            </value>
+            <value>
+                <fullName>Mailroom</fullName>
+                <default>false</default>
+                <label>Mailroom</label>
+            </value>
+            <value>
+                <fullName>Via dock</fullName>
+                <default>false</default>
+                <label>Via dock</label>
+            </value>
+            <value>
+                <fullName>Back Door</fullName>
+                <default>false</default>
+                <label>Back Door</label>
+            </value>
+            <value>
+                <fullName>Porch</fullName>
+                <default>false</default>
+                <label>Porch</label>
+            </value>
+            <value>
+                <fullName>Carport/Verandah</fullName>
+                <default>false</default>
+                <label>Carport/Verandah</label>
+            </value>
+            <value>
+                <fullName>Side Gate</fullName>
+                <default>false</default>
+                <label>Side Gate</label>
+            </value>
+            <value>
+                <fullName>Garage</fullName>
+                <default>false</default>
+                <label>Garage</label>
+            </value>
+            <value>
+                <fullName>Apartment mailroom/concierge</fullName>
+                <default>false</default>
+                <label>Apartment mailroom/concierge</label>
+            </value>
+            <value>
+                <fullName>Behind pot plant</fullName>
+                <default>false</default>
+                <label>Behind pot plant</label>
+            </value>
+            <value>
+                <fullName>Behind pillar</fullName>
+                <default>false</default>
+                <label>Behind pillar</label>
+            </value>
+            <value>
+                <fullName>Behind rubbish bin</fullName>
+                <default>false</default>
+                <label>Behind rubbish bin</label>
+            </value>
+            <value>
+                <fullName>Customer is now in possession of the item</fullName>
+                <default>false</default>
+                <label>Customer is now in possession of the item</label>
+            </value>
+            <value>
+                <fullName>Accepted by apartment/complex concierge</fullName>
+                <default>false</default>
+                <label>Accepted by apartment/complex concierge</label>
+            </value>
+            <value>
+                <fullName>RTS - Sender has the item</fullName>
+                <default>false</default>
+                <label>RTS - Sender has the item</label>
+            </value>
+            <value>
+                <fullName>Signed for by occupant</fullName>
+                <default>false</default>
+                <label>Signed for by occupant</label>
+            </value>
+            <value>
+                <fullName>Accepted by occupant</fullName>
+                <default>false</default>
+                <label>Accepted by occupant</label>
+            </value>
+            <value>
+                <fullName>Incorrect address on parcel - delivered as addressed</fullName>
+                <default>false</default>
+                <label>Incorrect address on parcel - delivered as addressed</label>
+            </value>
+            <value>
+                <fullName>Delivered to incorrect address - retrieval and redelivery</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address - retrieval and redelivery</label>
+            </value>
+            <value>
+                <fullName>Delivered to incorrect address - retrieval and carded to outlet</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address - retrieval and carded to outlet</label>
+            </value>
+            <value>
+                <fullName>Incorrect address on parcel - delivered by resident</fullName>
+                <default>false</default>
+                <label>Incorrect address on parcel - delivered by resident</label>
+            </value>
+            <value>
+                <fullName>Delivered to incorrect address - not recovered - DC to pay compensation*</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address - not recovered - DC to pay compensation*</label>
+            </value>
+            <value>
+                <fullName>Delivered to incorrect address - retrieval attempt - delivered by resident</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address - retrieval attempt - delivered by resident</label>
+            </value>
+            <value>
+                <fullName>Delivered to incorrect address - retrieval attempt - delivered by another business</fullName>
+                <default>false</default>
+                <label>Delivered to incorrect address - retrieval attempt - delivered by another business</label>
+            </value>
+            <value>
+                <fullName>PO BOX</fullName>
+                <default>false</default>
+                <label>PO BOX</label>
+            </value>
+            <value>
+                <fullName>PO BOX diversion</fullName>
+                <default>false</default>
+                <label>PO BOX diversion</label>
+            </value>
+            <value>
+                <fullName>Redirection failure - retrieval and redelivery</fullName>
+                <default>false</default>
+                <label>Redirection failure - retrieval and redelivery</label>
+            </value>
+            <value>
+                <fullName>Redirection failure - customer now has article</fullName>
+                <default>false</default>
+                <label>Redirection failure - customer now has article</label>
+            </value>
+            <value>
+                <fullName>Redirection failure - unable to recover - DC prepared to compensate for loss*</fullName>
+                <default>false</default>
+                <label>Redirection failure - unable to recover - DC prepared to compensate for loss*</label>
+            </value>
+            <value>
+                <fullName>Nearby outlet - retrieval and redelivery</fullName>
+                <default>false</default>
+                <label>Nearby outlet - retrieval and redelivery</label>
+            </value>
+            <value>
+                <fullName>Collected from Outlet by occupant of address with ID</fullName>
+                <default>false</default>
+                <label>Collected from Outlet by occupant of address with ID</label>
+            </value>
+            <value>
+                <fullName>Collected from Outlet via written order</fullName>
+                <default>false</default>
+                <label>Collected from Outlet via written order</label>
+            </value>
+            <value>
+                <fullName>Considered delivered as addressed(believes front door)</fullName>
+                <default>false</default>
+                <label>Considered delivered as addressed(believes front door)</label>
+            </value>
+            <value>
+                <fullName>Considered delivered via dock or authorised building staff</fullName>
+                <default>false</default>
+                <label>Considered delivered via dock or authorised building staff</label>
+            </value>
+            <value>
+                <fullName>Considered delivered as addressed (believes reception)</fullName>
+                <default>false</default>
+                <label>Considered delivered as addressed (believes reception)</label>
+            </value>
+            <value>
+                <fullName>Considered delivered as addressed (believes letterbox)</fullName>
+                <default>false</default>
+                <label>Considered delivered as addressed (believes letterbox)</label>
+            </value>
+            <value>
+                <fullName>Considered delivered as addressed(believes front door or letterbox)</fullName>
+                <default>false</default>
+                <label>Considered delivered as addressed(believes front door or letterbox)</label>
+            </value>
+            <value>
+                <fullName>Does not service that area</fullName>
+                <default>false</default>
+                <label>Does not service that area</label>
+            </value>
+            <value>
+                <fullName>Admits fault - DC prepared to compensate for loss*</fullName>
+                <default>false</default>
+                <label>Admits fault - DC prepared to compensate for loss*</label>
+            </value>
+            <value>
+                <fullName>Other - back to CCC for resolution*</fullName>
+                <default>false</default>
+                <label>Other - back to CCC for resolution*</label>
+            </value>
+            <value>
+                <fullName>Accepted by apartment/complex manager</fullName>
+                <default>false</default>
+                <label>Accepted by apartment/complex manager</label>
+            </value>
+            <value>
+                <fullName>Delivered to sender at RTS address</fullName>
+                <default>false</default>
+                <label>Delivered to sender at RTS address</label>
+            </value>
+            <value>
+                <fullName>In-transit redirection missed - retreived an on-forwarded to new address</fullName>
+                <default>false</default>
+                <label>In-transit redirection missed - retreived an on-forwarded to new address</label>
+            </value>
+            <value>
+                <fullName>In-transit redirection missed - unable to recover - DC prepared to pay compensation*</fullName>
+                <default>false</default>
+                <label>In-transit redirection missed - unable to recover - DC prepared to pay compensation*</label>
+            </value>
+            <value>
+                <fullName>Part Consignment</fullName>
+                <default>false</default>
+                <label>Part Consignment</label>
+            </value>
+            <value>
+                <fullName>Collected by authorised courier</fullName>
+                <default>false</default>
+                <label>Collected by authorised courier</label>
+            </value>
+            <value>
+                <fullName>Incorrect address - retrieval attempt - delivered by business on site</fullName>
+                <default>false</default>
+                <label>Incorrect address - retrieval attempt - delivered by business on site</label>
+            </value>
+            <value>
+                <fullName>Delivered to central mailroom</fullName>
+                <default>false</default>
+                <label>Delivered to central mailroom</label>
+            </value>
+            <value>
+                <fullName>Admits fault - Unable to recover - DC prepared to pay compensation*</fullName>
+                <default>false</default>
+                <label>Admits fault - Unable to recover - DC prepared to pay compensation*</label>
+            </value>
+            <value>
+                <fullName>Pot plant</fullName>
+                <default>false</default>
+                <label>Pot plant</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Letterbox</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Front door</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Side Door</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Back Door</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Porch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Carport/Verandah</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Side Gate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Garage</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Apartment mailroom/concierge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Behind pot plant</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Behind pillar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Behind rubbish bin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Customer is now in possession of the item</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Incorrect address on parcel - delivered as addressed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <valueName>Incorrect address on parcel - delivered by resident</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address - not recovered - DC to pay compensation*</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>ResidentialCannot recall</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessCannot recall</controllingFieldValue>
+            <valueName>Other - back to CCC for resolution*</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Accepted by apartment/complex concierge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>RTS - Sender has the item</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Signed for by occupant</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Accepted by occupant</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address - retrieval and redelivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address - retrieval and carded to outlet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address - retrieval attempt - delivered by resident</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>PO BOX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Redirection failure - retrieval and redelivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Redirection failure - customer now has article</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Redirection failure - unable to recover - DC prepared to compensate for loss*</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Nearby outlet - retrieval and redelivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Collected from Outlet by occupant of address with ID</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Collected from Outlet via written order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Does not service that area</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialCannot recall</controllingFieldValue>
+            <valueName>Considered delivered as addressed(believes front door)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialCannot recall</controllingFieldValue>
+            <controllingFieldValue>BusinessCannot recall</controllingFieldValue>
+            <valueName>Considered delivered as addressed (believes letterbox)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialCannot recall</controllingFieldValue>
+            <valueName>Considered delivered as addressed(believes front door or letterbox)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialCannot recall</controllingFieldValue>
+            <controllingFieldValue>BusinessCannot recall</controllingFieldValue>
+            <valueName>Admits fault - DC prepared to compensate for loss*</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Accepted by authorised building staff</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Business reception</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Mailroom</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Via dock</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address - retrieval attempt - delivered by another business</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>PO BOX diversion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessCannot recall</controllingFieldValue>
+            <valueName>Considered delivered via dock or authorised building staff</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessCannot recall</controllingFieldValue>
+            <valueName>Considered delivered as addressed (believes reception)</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

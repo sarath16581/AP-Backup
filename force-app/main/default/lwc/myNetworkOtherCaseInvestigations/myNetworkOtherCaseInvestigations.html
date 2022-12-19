@@ -1,0 +1,22 @@
+<!--
+  	Case investigations datatable to render on my network community.
+  	Changelog:
+  	2022-12-05 - Dattaraj Deshmukh - Created.
+-->
+<template>
+	<template if:true={isCaseInvestigationAvailable}>
+		<lightning-card title="Other Open Case Investigations" icon-name="standard:related_list">
+			<lightning-datatable key-field="Id" data={caseInvestigations} columns={dataTable_columns}
+					hide-checkbox-column resize-column-disabled	>
+			</lightning-datatable><br />
+		</lightning-card>
+		<!-- <lightning-accordion active-section-name="opencaseinvestigations">
+			<lightning-accordion-section name="opencaseinvestigations" label="Other Open Case Investigations">
+				<lightning-datatable key-field="Id" data={caseInvestigations} columns={dataTable_columns}
+					hide-checkbox-column resize-column-disabled	>
+			</lightning-datatable><br />
+			</lightning-accordion-section>
+		</lightning-accordion> -->
+	</template>
+	
+</template>
