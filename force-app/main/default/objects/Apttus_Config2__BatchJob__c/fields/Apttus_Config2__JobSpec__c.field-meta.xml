@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <label>Job Spec</label>
     <length>32000</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

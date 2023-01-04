@@ -1,10 +1,10 @@
 <!--
-    2017-09-17 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+	2017-09-17 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
 -->
 <apex:page sidebar="false">
 
-    <c:ScriptLoader jsLibraries="jquery,jqueryui,ssswconsole,jquery.cookie,interaction,integration,bootstrap,webanalyser"
-                    cssLibraries="jqueryui,bootstrap,ssswconsole" />
+	<c:ScriptLoader jsLibraries="jquery,jqueryui,ssswconsole,jquery.cookie,interaction,integration,bootstrap,webanalyser"
+					cssLibraries="jqueryui,bootstrap,ssswconsole" />
 
     <style type="text/css">
         .detailPage .bPageBlock, .editPage .bPageBlock, .bPageBlock.apexDefaultPageBlock {

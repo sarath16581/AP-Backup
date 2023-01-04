@@ -19,14 +19,14 @@ public inherited sharing class MyCustomerCasesDomain extends ApplicationDomain {
 		// each module will register their trigger entry points
 		// additionally, each module will specify a list of fields that it monitors changes for.
 		registerModule(MyCustomerCaseArticlesModule.class);
+
+		registerModule(MyCustomerCaseRoutingModule.class);
 	}
 
 	/**
 	 * Prefilter the records passed in to ensure this domain class only processes applicable records.
 	 */
 	public override List<SObject> filter(List<SObject> records) {
-		System.debug('filter: ' + className);
-
 		Set<Id> validRecordTypes = new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet();
 		List<SObject> output = new List<SObject>();
 		for(SObject record : records) {

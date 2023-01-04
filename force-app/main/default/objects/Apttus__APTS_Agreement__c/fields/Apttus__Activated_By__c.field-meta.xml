@@ -10,6 +10,7 @@
     <referenceTo>User</referenceTo>
     <relationshipName>APTS_Agreement</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

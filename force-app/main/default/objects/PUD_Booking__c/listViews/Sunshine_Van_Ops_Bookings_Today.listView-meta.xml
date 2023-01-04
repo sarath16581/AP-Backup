@@ -25,7 +25,7 @@
     <filters>
         <field>Depot__c</field>
         <operation>startsWith</operation>
-        <value>derrimut</value>
+        <value>Sunshine West van</value>
     </filters>
     <label>Sunshine Van Ops Bookings - Today</label>
 </ListView>

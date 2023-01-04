@@ -229,7 +229,7 @@
             <td>{!ppts.Opportunity__r.Name}</td>
             <td>{!ppts.name}</td>
             <td>{!ppts.KeyContact__r.Name}</td>
-            <td>{!ppts.Internal_Stakeholder_Impact__c}</td>
+            <td>{!ppts.INTERNAL_Stakeholder_Impact__c}</td>
         </tr>
         </apex:repeat>
     </table>

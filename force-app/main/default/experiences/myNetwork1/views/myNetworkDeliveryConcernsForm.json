@@ -1,0 +1,44 @@
+{
+  "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "8a247ecb-37e0-48f5-a040-a8da075c369a",
+  "label" : "myNetwork Delivery concerns form",
+  "regions" : [ {
+    "id" : "2f0a4cf1-0433-4862-9fc4-cc53dbf1df7b",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:myNetworkDeliveryConcernsFormContainer",
+      "id" : "bfe7c27e-2076-4980-96a9-31a43c8cc2f4",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b609e322-800a-4701-91f6-3a0955f2375e",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "81210493-937f-4e2f-a7cb-986f6811ec4d",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "title" : "Delivery concerns form"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "4c095139-0654-4bd9-b3ee-be2ef95d3dd9",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "ea65dac5-9ce8-41e2-a87a-95980bcfdcd8",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-delivery-concerns"
+}

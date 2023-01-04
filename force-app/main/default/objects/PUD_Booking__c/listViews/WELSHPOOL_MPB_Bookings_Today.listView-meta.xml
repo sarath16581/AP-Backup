@@ -12,6 +12,8 @@
     <columns>Effective_Date__c</columns>
     <columns>CREATED_DATE</columns>
     <columns>Depot__c</columns>
+    <columns>Empty_ULD__c</columns>
+    <columns>Full_ULD__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
@@ -20,7 +22,7 @@
     </filters>
     <filters>
         <field>Effective_Date__c</field>
-        <operation>greaterOrEqual</operation>
+        <operation>lessOrEqual</operation>
         <value>TODAY</value>
     </filters>
     <filters>

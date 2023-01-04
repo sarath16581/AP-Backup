@@ -257,7 +257,7 @@
             <p style="Margin-top: 16px;Margin-bottom: 0;font-size: 16px;line-height: 20px;text-align: left;" lang="x-size-16">
 Hi,
 <br/><br/>
-We received your email however case (#{!Case.CaseNumber}) has already been closed. 
+We received your email however case ({!Case.CaseNumber}) has already been closed. 
 But don't worry; we can certainly help you.
 <br/><br/>
 If you'd like us to investigate further or have a new enquiry, please create and send a new email to your Service Advisor team.

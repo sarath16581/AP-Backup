@@ -231,11 +231,6 @@
             <field>Stage__c</field>
             <table>At_Risk_Business__c</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Campaign__c</field>
-            <table>At_Risk_Business__c</table>
-        </columns>
         <masterLabel>At Risk Business</masterLabel>
     </sections>
 </ReportType>

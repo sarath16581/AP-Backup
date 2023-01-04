@@ -7,10 +7,6 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SchedulingConstraintId</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Name</field>
             </layoutItems>
@@ -24,10 +20,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IsCapacityBased</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Description</field>
             </layoutItems>
         </layoutColumns>
@@ -35,10 +27,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IsActive</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsOptimizationCapable</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -76,27 +64,12 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
-    <miniLayout>
-        <fields>SchedulingConstraintId</fields>
-    </miniLayout>
-    <relatedLists>
-        <fields>ServiceAppointment</fields>
-        <relatedList>ServiceAppointments</relatedList>
-    </relatedLists>
     <relatedLists>
         <fields>SkillMasterLabel</fields>
         <fields>SkillLevel</fields>
         <fields>EffectiveStartDate</fields>
         <fields>EffectiveEndDate</fields>
         <relatedList>ServiceResourceSkills</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Name</fields>
-        <fields>ServiceTerritory</fields>
-        <fields>TerritoryType</fields>
-        <fields>EffectiveStartDate</fields>
-        <fields>EffectiveEndDate</fields>
-        <relatedList>ServiceTerritoryRelatedList</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
@@ -109,26 +82,6 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Start</fields>
-        <fields>End</fields>
-        <fields>Type</fields>
-        <relatedList>ResourceAbsences</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>StartDate</fields>
-        <fields>EndDate</fields>
-        <fields>CapacityInHours</fields>
-        <fields>CapacityInWorkItems</fields>
-        <fields>TimePeriod</fields>
-        <relatedList>ResourceCapacities</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Name</fields>
-        <fields>StartDate</fields>
-        <fields>EndDate</fields>
-        <relatedList>TimeSheets</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>

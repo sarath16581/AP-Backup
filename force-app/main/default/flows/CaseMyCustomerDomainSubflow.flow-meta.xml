@@ -21,9 +21,24 @@
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_BSP_Bulk_Upload</name>
         <label>SSSW - Closed Case - Email for BSP Bulk Upload</label>
-        <locationX>2052</locationX>
+        <locationX>1920</locationX>
         <locationY>830</locationY>
         <actionName>Case.SSSW_Send_Customer_Closure_Email_for_BSP_Bulk_Upload</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>SSSW_Closed_Case_Email_for_Exception_Checker</name>
+        <label>SSSW - Closed Case - Email for Exception Checker</label>
+        <locationX>2184</locationX>
+        <locationY>830</locationY>
+        <actionName>Case.SSSW_Send_Customer_Closure_Email_for_Exception_Checker</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -90,7 +105,7 @@
     <actionCalls>
         <name>SSSW_Email_when_Case_Permanently_Closed</name>
         <label>SSSW - Email when Case Permanently Closed</label>
-        <locationX>1788</locationX>
+        <locationX>1656</locationX>
         <locationY>830</locationY>
         <actionName>Case.Send_an_Email_to_the_Customer_if_they_are_sending_an_Email_to_a_Case_that_has_be</actionName>
         <actionType>emailAlert</actionType>
@@ -463,9 +478,37 @@
             </connector>
             <label>Case Closed BSP BulkUpload</label>
         </rules>
+        <rules>
+            <name>Case_Closed_Exception_Checker</name>
+            <conditionLogic>(1 AND 2) OR (1 AND 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>vCaseClosedExceptionChecker</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vOldCase</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vOldCase.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>vCase.Status</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SSSW_Closed_Case_Email_for_Exception_Checker</targetReference>
+            </connector>
+            <label>Case Closed Exception Checker</label>
+        </rules>
     </decisions>
     <description>subflow for MyCustomerDomain triggerred from CaseCommon AfterSave flow</description>
-    <environments>Default</environments>
     <formulas>
         <name>vCaseClosed</name>
         <dataType>Boolean</dataType>
@@ -475,6 +518,12 @@
         <name>vCaseClosedBSPBulkUpload</name>
         <dataType>Boolean</dataType>
         <expression>{!vCase.Subject} == &apos;Bulk Upload&apos; &amp;&amp; TEXT({!vCase.Origin}) = &apos;BSP&apos; &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; {!vCase.IsClosed}</expression>
+    </formulas>
+    <formulas>
+        <description>Automatic case closure by the exception checker</description>
+        <name>vCaseClosedExceptionChecker</name>
+        <dataType>Boolean</dataType>
+        <expression>{!vCase.IsClosed} &amp;&amp; {!vCase.ClosedBySystem__c} &amp;&amp; {!vCase.ByPassWorkflowRulesOnCreation__c}</expression>
     </formulas>
     <formulas>
         <name>vNewACK</name>
@@ -524,7 +573,7 @@
     <formulas>
         <name>vNewCaseWebPortal</name>
         <dataType>Boolean</dataType>
-        <expression>IF(OR(TEXT({!vCase.CHASEnquiryType__c})==&apos;Delivery issue&apos;,AND(TEXT({!vCase.CHASEnquiryType__c})==&apos;Products &amp; services&apos;,TEXT({!vCase.EnquirySubType__c})==&apos;Item transfer&apos;)), ( TEXT({!vCase.Origin}) = &apos;Web&apos; || TEXT({!vCase.Origin}) = &apos;Portal&apos; ) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;)) &amp;&amp; {!vCase.Automated_Network_Assignment__c} == false , ( TEXT({!vCase.Origin}) = &apos;Web&apos; || TEXT({!vCase.Origin}) = &apos;Portal&apos; ) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;)) &amp;&amp; ISBLANK({!vCase.HeldToOpenOn__c}) &amp;&amp; TEXT({!vCase.EnquirySubType__c}) &lt;&gt; &apos;Account Enquiry&apos;)</expression>
+        <expression>IF(OR(TEXT({!vCase.CHASEnquiryType__c})==&apos;Delivery issue&apos;,AND(TEXT({!vCase.CHASEnquiryType__c})==&apos;Products &amp; services&apos;,TEXT({!vCase.EnquirySubType__c})==&apos;Item transfer&apos;)), ( TEXT({!vCase.Origin}) = &apos;Web&apos; || TEXT({!vCase.Origin}) = &apos;Portal&apos; ) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;)) &amp;&amp; {!vCase.Automated_Network_Assignment__c} == false , ( TEXT({!vCase.Origin}) = &apos;Web&apos; || TEXT({!vCase.Origin}) = &apos;Portal&apos; ) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; (TEXT({!vCase.Origin}) &lt;&gt; &apos;Direct Email&apos; &amp;&amp; TEXT({!vCase.Origin}) &lt;&gt; &apos;Bulk Upload&apos;) &amp;&amp; NOT(ISBLANK({!vCase.Contact.Email})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; NOT(CONTAINS({!vCase.Subject},&apos;Enterprise Contact Registration&apos;)) &amp;&amp; ISBLANK({!vCase.HeldToOpenOn__c}) &amp;&amp; TEXT({!vCase.EnquirySubType__c}) &lt;&gt; &apos;Account Enquiry&apos; &amp;&amp; TEXT({!vCase.Status}) &lt;&gt; &apos;Closed&apos;)</expression>
     </formulas>
     <formulas>
         <name>vNewCasewithinEDD</name>
@@ -568,7 +617,7 @@
     <subflows>
         <name>CaseMyCustomer_CardedCaseModule</name>
         <label>Carded Case module</label>
-        <locationX>1524</locationX>
+        <locationX>1392</locationX>
         <locationY>830</locationY>
         <flowName>CaseMyCustomer_CardedCaseModule</flowName>
         <inputAssignments>

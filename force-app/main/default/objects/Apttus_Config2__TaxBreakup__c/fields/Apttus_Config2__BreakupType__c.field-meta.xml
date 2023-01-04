@@ -7,7 +7,6 @@
     <inlineHelpText>The tax break type</inlineHelpText>
     <label>Breakup Type</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

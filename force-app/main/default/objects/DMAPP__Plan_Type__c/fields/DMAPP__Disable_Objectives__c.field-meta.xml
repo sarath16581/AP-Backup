@@ -9,6 +9,7 @@ When this setting is disabled, the Objectives tab is included in account plans o
     <externalId>false</externalId>
     <inlineHelpText>When enabled, the Objectives tab is not in these plans, and objectives can’t be in a Powerpoint export. When disabled, the tab is included, and objectives can be exported if AM Add Objectives is enabled in Powerpoint custom settings.</inlineHelpText>
     <label>Disable Objectives</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

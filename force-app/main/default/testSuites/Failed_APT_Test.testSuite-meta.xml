@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ApexTestSuite xmlns="http://soap.sforce.com/2006/04/metadata">
-    <testClassName>APT_CalcInternationalPricingSched_Test</testClassName>
-    <testClassName>APT_CalculateDomesticPricingSched_Test</testClassName>
-</ApexTestSuite>

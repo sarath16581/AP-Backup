@@ -12,7 +12,7 @@
     <valueSet>
         <controllingField>Work_Type__c</controllingField>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>3PL</fullName>
                 <default>false</default>

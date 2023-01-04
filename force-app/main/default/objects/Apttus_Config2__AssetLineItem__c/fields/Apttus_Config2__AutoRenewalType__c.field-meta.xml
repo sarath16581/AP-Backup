@@ -7,7 +7,6 @@
     <inlineHelpText>The auto renewal type</inlineHelpText>
     <label>Auto Renewal Type</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

@@ -11,7 +11,7 @@
     <filters>
         <field>NAME</field>
         <operation>contains</operation>
-        <value>SEA19,SEA20,SEA22,SEA23,SEA24,SEA25,SEA26,SEA27,SEA28,SEA29</value>
+        <value>SEA19,SEA20,SEA21,SEA22,SEA23,SEA24,SEA25,SEA26,SEA27,SEA28,SEA29</value>
     </filters>
     <label>PartTime - PM Seaford</label>
     <sharedTo>

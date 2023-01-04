@@ -3,7 +3,6 @@
     <fullName>My_Teams_Deal_Support_Requests</fullName>
     <columns>NAME</columns>
     <columns>RECORDTYPE</columns>
-    <columns>Work_Type__c</columns>
     <columns>Organisation__c</columns>
     <columns>Opportunity__c</columns>
     <columns>Stage__c</columns>

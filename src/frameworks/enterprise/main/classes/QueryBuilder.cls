@@ -61,6 +61,15 @@ public virtual inherited sharing class QueryBuilder {
         Team
     }
 
+    public enum AggregateFunction {
+        COUNT,
+        MIN,
+        MAX,
+        AVG,
+        SUM
+    }
+
+
     @TestVisible
     private String fromSobject;
 
@@ -565,6 +574,45 @@ public virtual inherited sharing class QueryBuilder {
     }
 
     /**
+     * Adds a field in an SObjectField form to the Set of fields.
+     *
+     * <br/><br/>
+     * <p><b>Example</b></p>
+     * <pre>
+     * <code>
+     * new QueryBuilder(Account.class)
+     *     .addAggregate(Account.Name, AggregateFunction.COUNT);
+     * </code>
+     * </pre>
+     *
+     * @param field
+     * @param aggregateFunction
+     *
+     * @return this - current instance of QueryBuilder.class
+     * 
+     */
+    public QueryBuilder addAggregate(SObjectField field, AggregateFunction aggregate) {
+        switch on aggregate {
+            when COUNT {
+                this.addField('COUNT(' + field + ') COUNT_' + field);
+            }
+            when MIN {
+                this.addField('MIN(' + field + ') MIN_' + field);
+            }
+            when MAX {
+                this.addField('MAX(' + field + ') MAX_' + field);
+            }
+            when AVG {
+                this.addField('AVG(' + field + ') AVG_' + field);
+            }
+            when SUM {
+                this.addField('SUM(' + field + ') SUM_' + field);
+            }
+        }
+        return this;
+    }
+
+    /**
      * Adds a field or number of comma-separated fields to the
      * group by Set of fields.
      *
@@ -608,6 +656,30 @@ public virtual inherited sharing class QueryBuilder {
     }
 
     /**
+     * Adds a set of fields in an SObjectField form to the
+     * group by Set of fields.
+     *
+     * <br/><br/>
+     * <p><b>Example</b></p>
+     * <pre>
+     * <code>
+     * new QueryBuilder(Account.class)
+     *     .groupBy(new Set<SObjectField> { Account.Name} );
+     * </code>
+     * </pre>
+     *
+     * @param fields
+     *
+     * @return this - current instance of QueryBuilder.class
+     */
+    public QueryBuilder addGroupBy(Set<SObjectField> fields) {
+        for(SObjectField f: fields) {
+            this.addGroupBy(String.valueOf(f));
+        }
+        return this;
+    }
+
+    /**
      * Adds a list of field to the
      * group by Set of fields.
      *
@@ -628,6 +700,8 @@ public virtual inherited sharing class QueryBuilder {
         this.groupByFields.addAll(fields);
         return this;
     }
+
+
 
     /**
      * Adds a set of field to the

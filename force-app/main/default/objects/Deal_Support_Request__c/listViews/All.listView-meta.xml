@@ -6,9 +6,12 @@
     <columns>Stage__c</columns>
     <columns>RECORDTYPE</columns>
     <columns>OWNER.ALIAS</columns>
-    <columns>CREATED_DATE</columns>
-    <columns>Product__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.Surcharge_Exemption_Request</value>
+    </filters>
     <label>All</label>
     <sharedTo>
         <group>SystemAdmin</group>

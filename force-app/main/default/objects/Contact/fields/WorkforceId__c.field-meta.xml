@@ -3,7 +3,7 @@
     <fullName>WorkforceId__c</fullName>
     <description>Workforce Id Number for Contact.</description>
     <externalId>true</externalId>
-    <inlineHelpText>Workforce Id Number</inlineHelpText>
+    <inlineHelpText>Workforce Id Number.</inlineHelpText>
     <label>WFID</label>
     <length>8</length>
     <required>false</required>

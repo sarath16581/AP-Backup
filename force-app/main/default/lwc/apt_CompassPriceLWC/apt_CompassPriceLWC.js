@@ -12,10 +12,8 @@ import getPSRList from "@salesforce/apex/APT_CompassPricingController.getPSRList
 import fetchConfigRequestId from "@salesforce/apex/APT_CompassPricingController.fetchConfigRequestId";
 import linkPSR from "@salesforce/apex/APT_CompassPricingController.onApply";
 import LABEL_INCOMPLETE_APPC_PSR from '@salesforce/label/c.APT_IncompleteAPPCPSR';
-//import associateConstraintRule from "@salesforce/apex/APT_CompassPricingController.associateConstraintRule";
-//import updateCartForCustomPricing from "@salesforce/apex/APT_CompassPricingController.updateCartForCustomPricing";
-//import repriceCartRequest from "@salesforce/apex/APT_CompassPricingController.rePriceCartForCustomPricing";
-
+import updateCartForCustomPricing from "@salesforce/apex/APT_CompassPricingController.updateCartForCustomPricing";
+import repriceCartRequest from "@salesforce/apex/APT_CompassPricingController.rePriceCartForCustomPricing";
 
 // building table columns for incomplete PSR table
 const incompletePSRColumns = [
@@ -56,6 +54,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 	preSelectedRow = [];
 	isLoading;
 	errorMsgPSRNotselected = 'Please select one PSR';
+	customerTierDefault = "CUST_TIER_DEFAULT:";
 
 	completedPSRTableColumns = completedPSRColumns;
 	incompletePSRTableColumns = incompletePSRColumns;
@@ -67,7 +66,7 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 	 * @param opportunityId
 	 * @return List of PSR records
 	 */
-	@wire(getPSRList, {oppID : '$opportunityId'})
+	@wire(getPSRList, {oppID : '$opportunityId', selectedLineItemId: '$lineitemId'})
 	wiredPSR({data, error}){
 		if(data){
 			let psrIds = [];
@@ -145,92 +144,6 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 	}
 
 	/**
-	 * This method is to convert the call from client to Server specific to custom pricing execution. As cart constraint rule
-     * execution is performed on client side.
-	 */
-	/*
-	associateConstraintRuleRequest(){
-		var that=this;
-		associateConstraintRule(
-			{
-				selectedLineItemId: this.lineitemId, 
-				objDSR: this.selectedPSR,
-				configId: this.configId,
-				cartTier : this.cartTier
-			})
-			.then((result)=>{								
-				associateConstraintRule(
-					{
-						selectedLineItemId: this.lineitemId, 
-						objDSR: this.selectedPSR,
-						configId: this.configId,
-						cartTier : this.selectedPSR.Approved_Tier__c
-					})
-					.then((result)=>{						
-						that.template.querySelector('.customRePriceCartClass').click();
-					})
-					.catch((error) => {
-						that.isLoading = false;
-						that.error = error.body.message;
-					})
-
-			})
-			.catch((error) => {
-				this.isLoading = false;
-				this.error = error.body.message;
-			})
-	}
-	*/
-
-	/**
-	 * This method is to convert the call from client to Server specific to custom pricing execution. As cart constraint rule
-     * execution is performed on client side.
-	 */
-	/*
-	customRePriceCartRequest(){
-		repriceCartRequest(
-			{				
-				configId: this.configId			
-			})
-			.then((result)=>{				
-				this.template.querySelector('.updateCartForCustomPricingClass').click();
-			})
-			.catch((error) => {
-				this.isLoading = false;
-				this.error = error.body.message;
-			})			
-	}
-	*/
-
-	/**
-	 * This method is to convert the call from client to Server specific to custom pricing execution. As cart constraint rule
-     * execution is performed on client side.
-	 */
-	/*
-	updateCartForCustomPricingRequest(){
-		updateCartForCustomPricing(
-			{
-				selectedLineItemId: this.lineitemId, 
-				objDSR: this.selectedPSR,
-				configId: this.configId,
-				cartTier: this.cartTier
-			})
-			.then((result)=>{				
-				// display success message on successful link
-				this.success = result;
-				this.error = void 0;
-				// disable Apply PSR button once successful link
-				this.disableApplyPSR = true;
-				this.isLoading = false;
-			})
-			.catch((error) => {
-				this.isLoading = false;
-				this.error = error.body.message;
-			})			
-	}
-	*/
-
-	/**
 	 * function to link PSR by running through various validation scenarios 
 	 * and determine if standard delegated pricing or custom pricing is required in apex controller.
 	 */
@@ -242,8 +155,6 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 			return;
 		}
 
-		debugger;
-
 		linkPSR(
 			{
 				selectedLineItemId: this.lineitemId, 
@@ -252,11 +163,54 @@ export default class Apt_CompassPriceLWC extends LightningElement{
 			})
 			.then((result)=>{
 				// display success message on successful link
-				this.success = result;
-				this.error = void 0;
-				// disable Apply PSR button once successful link
-				this.disableApplyPSR = true;
-				this.isLoading = false;				
+			
+				var reseultValue = result;				
+				if(result != null && reseultValue.indexOf(this.customerTierDefault) > -1 ) {
+
+					//reset old cust tier
+					var resultList = reseultValue.split(this.customerTierDefault);
+					if(resultList.length > 1) {
+						this.cartTier = resultList[1];
+						repriceCartRequest(
+							{				
+								configId: this.configId			
+							})
+							.then((result)=>{				
+								updateCartForCustomPricing(
+									{
+										selectedLineItemId: this.lineitemId, 
+										objDSR: this.selectedPSR,
+										configId: this.configId,
+										cartTier: this.cartTier
+									})
+									.then((result)=>{				
+										// display success message on successful link
+										this.success = result;
+										this.error = void 0;
+										// disable Apply PSR button once successful link
+										this.disableApplyPSR = true;
+										this.isLoading = false;
+									})
+									.catch((error) => {
+										this.isLoading = false;
+										this.error = error.body.message;
+									})	
+							})
+							.catch((error) => {
+								this.isLoading = false;
+								this.error = error.body.message;
+							})	
+					}
+				}
+				else {
+					// display success message on successful link
+					this.success = result;
+					this.error = void 0;
+					// disable Apply PSR button once successful link
+					this.disableApplyPSR = true;
+					this.isLoading = false;
+							
+				}
 			})
 			.catch((error) => {
 				this.isLoading = false;

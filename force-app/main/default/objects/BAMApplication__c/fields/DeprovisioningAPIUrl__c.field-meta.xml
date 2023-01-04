@@ -6,7 +6,6 @@
     <inlineHelpText>API Endpoint to consume when the Application is deactivated or deprovisioned from the user</inlineHelpText>
     <label>Deprovisioning API Url</label>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Url</type>
 </CustomField>

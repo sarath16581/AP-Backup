@@ -80,7 +80,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>kfsell:greenSheetNavigate</componentName>
-                <identifier>kfsell_greenSheetNavigate1</identifier>
+                <identifier>kfsell_greenSheetNavigate</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-4648ff27-3b63-469e-a0ea-2baae0620fb1</name>
@@ -144,7 +144,7 @@
                     <value>Green Sheet</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab1</identifier>
+                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

@@ -26,7 +26,6 @@
     <relationshipLabel>Bookings (Depot)</relationshipLabel>
     <relationshipName>Managed_Bookings</relationshipName>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

@@ -1,0 +1,45 @@
+{
+  "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "6f409d84-9f30-48fa-8c63-26e25d09972c",
+  "label" : "Happy Parcels",
+  "regions" : [ {
+    "id" : "8e4fc1e7-cdf4-4cfd-9c72-af2ad0c716f1",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:happyParcel",
+      "id" : "0f79a31d-005b-4b0f-9699-f7fbed192b48",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "1383bb7e-bce6-4f66-b4e2-e115613a17c3",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "fe920040-aa9a-4a3e-80d7-52d8d120e59c",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Happy Parcels"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "e631abcf-c9b1-4b44-b121-12fc7fd71e25",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a8461501-9aaf-456e-a2f9-7f9f53153dcd",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-happy-parcels"
+}

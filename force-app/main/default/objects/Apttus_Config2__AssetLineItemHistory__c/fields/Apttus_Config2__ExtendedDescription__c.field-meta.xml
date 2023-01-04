@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <label>Extended Description</label>
     <length>2048</length>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

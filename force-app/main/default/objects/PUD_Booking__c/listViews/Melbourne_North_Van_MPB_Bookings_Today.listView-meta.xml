@@ -3,6 +3,9 @@
     <fullName>Melbourne_North_Van_MPB_Bookings_Today</fullName>
     <booleanFilter>1 AND 2 AND (3 OR 4 OR 5 OR 6 OR 7)</booleanFilter>
     <columns>NAME</columns>
+    <columns>City__c</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>Booking_Location__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>

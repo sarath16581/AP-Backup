@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <email>no-reply@auspost.com.au</email>
     <name>R2T Legal Team</name>
     <queueMembers>
         <publicGroups>
             <publicGroup>Sales_Business_System_Team</publicGroup>
         </publicGroups>
         <users>
+            <user>carmelene.dimartino@auspost.com.au</user>
             <user>david.gunson@auspost.com.au</user>
             <user>david.walker@auspost.com.au</user>
             <user>eddy.addicks@auspost.com.au</user>
@@ -14,7 +16,9 @@
             <user>hue.pham@auspost.com.au</user>
             <user>jane.albert@auspost.com.au</user>
             <user>jasper.kjar-cruttenden@auspost.com.au</user>
+            <user>jeremy.tan@auspost.com.au</user>
             <user>kate.cropper@auspost.com.au</user>
+            <user>levina.chim@auspost.com.au</user>
             <user>lyndall.henry@auspost.com.au</user>
             <user>marina.panagacos@auspost.com.au</user>
             <user>nick.macdonald@auspost.com.au</user>

@@ -4,12 +4,4 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>FSL Mobile License</label>
     <license>FieldServiceMobilePsl</license>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>FieldServiceAccess</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>FieldServiceMobileApp</name>
-    </userPermissions>
 </PermissionSet>

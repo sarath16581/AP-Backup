@@ -19,7 +19,8 @@ History
 21/10/2018     Melissa Carino           Added code comments to the AttachmentTriggerHandler  
 29/03/2019     Ramtej Juloori           Commented linkExisting files from contentdocumentlinktriggerhandler and moved to scheduler class, which is invoked on 
                                         activating a contract and uploading a file to apttus contract
-------------------------------------------------------------*/
+2022-11-04     Naveen Rajanna           REQ3018517 Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
+                                        ------------------------------------------------------------*/
 public class AttachmentTriggerHandler {
     //Constants
     private static final String ATTACHMENT_PREVENTION_ERROR_MSG_1 = 'You are not allowed to attach a file if the Agreement Document Status is not [ALLOWED_STATUS_LIST].';
@@ -73,7 +74,8 @@ public class AttachmentTriggerHandler {
 
             //Check If attachment name matches agreement document name, and if yes, set current date time
             //on document generated date for the given agreement document record.
-            if(parentDocMap.get(agreementDoc.Id).containsIgnoreCase(agreementDoc.Document_Name__c)){
+            //REQ3018517
+            if(parentDocMap.get(agreementDoc.Id) != null && parentDocMap.get(agreementDoc.Id).containsIgnoreCase(agreementDoc.Document_Name__c)){
                 agreementDoc.Document_Generated_Date__c = DateTime.Now();
             }
             //Prepare the Floor Plan URLs based on base content URL and attachment Id Id for floor plan attachments.

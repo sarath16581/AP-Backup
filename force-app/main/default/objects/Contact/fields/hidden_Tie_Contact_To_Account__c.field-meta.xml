@@ -4,7 +4,6 @@
     <description>Could this allow us to show the Users Contacts where they were the Account Owner?</description>
     <externalId>false</externalId>
     <formula>IF ( Account.OwnerId  = $User.Id , &quot;True&quot;, &quot;False&quot;)</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>{hidden} Tie Contact To Account</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

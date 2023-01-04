@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether the usage price tier is modifiable for the product or option</inlineHelpText>
     <label>Is Usage Tier Modifiable</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

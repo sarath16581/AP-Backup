@@ -7,5 +7,5 @@
     <masterLabel>Deactivate</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>alert(&quot;{!$Label.et4ae5__deprecateautomatedsendjscomponents}&quot;);</url>
+    <url>alert(&quot;{!$Label.et4ae5__deprecateAutomatedSendJSComponents}&quot;);</url>
 </WebLink>

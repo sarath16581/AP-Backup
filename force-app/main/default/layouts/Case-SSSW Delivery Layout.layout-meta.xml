@@ -188,7 +188,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>CustomerQueueType__c</field>
+                <field>LinkedArticleHasExtraCover__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -715,6 +715,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>BSP_Addressee_Address__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>MPB_BSP_Tech_Enquiry_Type__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

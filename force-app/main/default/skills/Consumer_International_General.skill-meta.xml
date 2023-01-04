@@ -2,9 +2,8 @@
 <Skill xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <users>
-            <user>chris.partridge@auspost.com.au</user>
-            <user>seiji.rus@auspost.com.au</user>
             <user>shannon.mcgowan@auspost.com.au</user>
+            <user>tess.duffy@auspost.com.au</user>
         </users>
     </assignments>
     <label>Consumer International General</label>

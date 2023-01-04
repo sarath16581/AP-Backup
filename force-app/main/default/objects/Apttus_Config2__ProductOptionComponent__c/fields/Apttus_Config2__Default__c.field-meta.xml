@@ -6,6 +6,7 @@
     <description>Indicates whether the option is a default for the product.</description>
     <externalId>false</externalId>
     <label>Default</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

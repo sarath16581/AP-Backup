@@ -238,7 +238,7 @@
     </choices>
     <decisions>
         <description>(Check_if_Opp_stage_is_Qualify_or_Identify_and_DSQ_record_type_is_Pricing_Support)
-Check if Opp stage is &apos;Qualify&apos; or &apos;Identify&apos; and DSQ record type is &apos;Pricing Support Request - International&apos; OR &apos;Pricing Support Request - Domestic&apos; OR &apos;Pricing Support Request - StarTrack&apos;</description>
+Check if Opp stage is &apos;Qualify&apos; or &apos;Identify&apos; and DSQ record type is &apos;Pricing Support Request - International&apos; OR &apos;Pricing Support Request - Domestic&apos; OR &apos;Pricing Support Request - StarTrack&apos; OR &apos;Pricing_Support_Request_Australia_Post_Parcel_Contract&apos;</description>
         <name>Check_if_Opp_stage_is_Qualify_or_Identify_and_DSQ_record_type_is_Pricing_Support</name>
         <label>Check if Opp stage is Qualify or Identify and DSQ record type is Pricing Support Request</label>
         <locationX>281</locationX>
@@ -358,7 +358,6 @@ Check if Opp stage is &apos;Qualify&apos; or &apos;Identify&apos; and DSQ record
         </rules>
     </decisions>
     <description>This flow is to show limited record types to user on Opportunity to choose from while creating new DSR from Opportunity</description>
-    <environments>Default</environments>
     <formulas>
         <name>RunningUser</name>
         <dataType>String</dataType>

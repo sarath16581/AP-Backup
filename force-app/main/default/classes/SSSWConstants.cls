@@ -16,8 +16,8 @@
   * 15.06.2021  Hara Sahoo Added new constants for case reopen queue
   * 16.08.2021  alex.volkov@auspost.com.au Added a constant for Network Queue developer name
   * 10.09.2021  hara.sahoo@auspost.com.au Added constants for Compensation statuses
-  * 06.05.2022  saiswetha.pingali@auspost.com.au REQ2723491 - Removed snapIT related constants. 
-
+  * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
+ 
 */  
 public with sharing class SSSWConstants {
 
@@ -115,7 +115,7 @@ public with sharing class SSSWConstants {
     public static final String METH_ROUTE_CASE = 'routeCase'; 
     public static final String METH_PARENT_ROUTING = 'updateParentForRouting';
     public static final String METH_UPDATE_MANAGER_HIERARCHY = 'updateHierarchyManager';
-   
+    
     /*** CaseMilestoneUtility Constants  ***/
     public static final Decimal DEF_MILESTONE_WARNING_PERCENT = 0.2;
     public static final String STAT_COMPLETED = 'Completed';

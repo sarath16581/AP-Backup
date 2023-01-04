@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Green_Sheet_Compact_Layout_For_Event</fullName>
+    <fields>kfsell__Task_Name__c</fields>
+    <fields>kfsell__Related_To__c</fields>
+    <fields>kfsell__Task_Owner__c</fields>
+    <fields>kfsell__Start_Date_Time__c</fields>
+    <fields>kfsell__End_Date_Time__c</fields>
+    <fields>kfsell__Last_Updated__c</fields>
+    <label>Green Sheet Compact Layout For Event</label>
+</CompactLayout>

@@ -3,6 +3,7 @@
     <fullName>Request_to_In_Signatures__c</fullName>
     <externalId>false</externalId>
     <label>Request to In Signatures</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Apttus__CycleTimeGroupData__c.Apttus__Duration_Business_Hours__c</summarizedField>
     <summaryFilterItems>
         <field>Apttus__CycleTimeGroupData__c.Apttus__From__c</field>

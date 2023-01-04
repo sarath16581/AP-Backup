@@ -9,15 +9,6 @@
     <columns>LastModifiedDate</columns>
     <columns>Location</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>ResourceType</field>
-        <operation>equals</operation>
-        <value>C</value>
-    </filters>
-    <filters>
-        <field>Location</field>
-        <operation>contains</operation>
-        <value>Redbank</value>
-    </filters>
     <label>All Service Resources</label>
+    <language>en_US</language>
 </ListView>

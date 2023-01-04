@@ -11,6 +11,7 @@ March 08, 2017 - David Catindoy - Transferred closeRelatedTasksAndWFEmails metho
 2019-02-23  nathan.franklin@auspost.com.au  Small refactoring of closeRelatedTasksAndWFEmails to minimise additional DML operations
 2022-02-22  naveen.rajanna@auspost.com.au   REQ2723199  Added  updateSTCaseFields, getCaseSTCalcEmailAddress and updateSTCaseFields methods
 2022-06-03  naveen.rajanna@auspost.com.au   REQ2859167 Modify the Startrack DueDate logic for Normal priority case
+2022-04-11  Naveen Rajanna  REQ3018517  Add null check for toAddress in getCaseSTCalcEmailAddress
 ------------------------------------------------------------*/
 public without sharing class StarTrackUtil {
 
@@ -570,6 +571,9 @@ public without sharing class StarTrackUtil {
 
     public static String getCaseSTCalcEmailAddress(String toAdd) {
         StarTrack_Settings__c starTrackSettings = StarTrack_Settings__c.getOrgDefaults();
+        if(String.isBlank(toAdd)) { //REQ3018517
+            return starTrackSettings.Default_From_Email__c;
+        }
         return toAdd.containsIgnoreCase(starTrackSettings.DHL2__c) ? starTrackSettings.DHL2__c
             : toAdd.containsIgnoreCase(starTrackSettings.BSC_Apple__c) ? starTrackSettings.BSC_Apple__c
             : toAdd.containsIgnoreCase(starTrackSettings.BSC_Defence_Force__c) ? starTrackSettings.BSC_Defence_Force__c

@@ -6,7 +6,7 @@
     </applicationVisibilities>
     <description>Provide access to the High Velocity Sales Console to be used by specific B&amp;G Sales users.</description>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>AccountRelationship__c.Connection__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1920,6 +1920,15 @@
         <modifyAllRecords>false</modifyAllRecords>
         <object>Account</object>
         <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>AccountRelationship__c</object>
+        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>false</allowCreate>

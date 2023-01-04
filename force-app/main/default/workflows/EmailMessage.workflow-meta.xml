@@ -2678,31 +2678,6 @@ MyPost RTS (returned mail scanned from Decipher)</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>SSSW - Email for Closed Case</fullName>
-        <actions>
-            <name>Set_Last_Incoming_Email_Address</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>EmailMessage.Incoming</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Permanent_Close__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>contains</operation>
-            <value>SSSW</value>
-        </criteriaItems>
-        <description>SSSW - Used to update the Case - Last Email Address for a closed case.</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
         <fullName>SSSW - Outbound Customer Email %5BNo status change%5D</fullName>
         <actions>
             <name>SSSW_EM_Reset_Prevent_Status_Change</name>
@@ -2745,7 +2720,7 @@ Doesn&apos;t change status of case if case.Preventstatuschange__c is true.</desc
         </actions>
         <active>true</active>
         <description>SSSW - Used to update the Case Status when an incoming email is received. NEEDS PROD UPDATE</description>
-        <formula>Incoming    &amp;&amp;    (CONTAINS($Setup.QM__c.CusEmail__c,ToAddress) || CONTAINS($Setup.QM__c.SharedMailboxEmails1__c ,ToAddress) || CONTAINS($Setup.QM__c.SharedMailboxEmails2__c,ToAddress))  &amp;&amp;    NOT(Parent.Permanent_Close__c)   &amp;&amp;  (   TEXT(Parent.Status) = $Setup.QM__c.Customer_Status__c || (  NOT(ISBLANK(Parent.HeldToOpenOn__c )) &amp;&amp; CONTAINS($Setup.QM__c.Awaiting_Reopen_Queue__c,Parent.OwnerId))   ||    Parent.IsClosed )   &amp;&amp;   CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)  &amp;&amp;  NOT(CONTAINS(Parent.Subject,&apos;Bulk Upload&apos;)) &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.CusEmail__c)) &amp;&amp; NOT(CONTAINS(FromAddress,$Setup.QM__c.Mailer_Daemon_Email__c))&amp;&amp; Subject &lt;&gt; &apos;My case can be closed&apos; &amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
+        <formula>Incoming    &amp;&amp;    (CONTAINS(ToAddress,$Setup.QM__c.CusEmail__c) || CONTAINS($Setup.QM__c.SharedMailboxEmails1__c ,ToAddress) || CONTAINS($Setup.QM__c.SharedMailboxEmails2__c,ToAddress))  &amp;&amp;    NOT(Parent.Permanent_Close__c)   &amp;&amp;  (   TEXT(Parent.Status) = $Setup.QM__c.Customer_Status__c || (  NOT(ISBLANK(Parent.HeldToOpenOn__c )) &amp;&amp; CONTAINS($Setup.QM__c.Awaiting_Reopen_Queue__c,Parent.OwnerId))   ||    Parent.IsClosed )   &amp;&amp;   CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)  &amp;&amp;  NOT(CONTAINS(Parent.Subject,&apos;Bulk Upload&apos;)) &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.CusEmail__c)) &amp;&amp; NOT(CONTAINS(FromAddress,$Setup.QM__c.Mailer_Daemon_Email__c))&amp;&amp; Subject &lt;&gt; &apos;My case can be closed&apos; &amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -2771,9 +2746,7 @@ Doesn&apos;t change status of case if case.Preventstatuschange__c is true.</desc
         </actions>
         <active>true</active>
         <description>SSSW - Used to update the Case Status when an incoming Network email is received. NEEDS PROD UPDATE</description>
-        <formula>Incoming  &amp;&amp;  (  (  CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c)  ||  CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c)  )  &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c))  )  &amp;&amp;  NOT(Parent.Permanent_Close__c)  &amp;&amp; TEXT(Parent.Status) = $Setup.QM__c.Network_Status__c  &amp;&amp;  CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; 
-NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; 
-NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
+        <formula>Incoming &amp;&amp; ( ( CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c) || CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c) ) &amp;&amp; NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c)) ) &amp;&amp; NOT(Parent.Permanent_Close__c) &amp;&amp; TEXT(Parent.Status) = $Setup.QM__c.Network_Status__c &amp;&amp; CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -2855,9 +2828,7 @@ NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula
         </actions>
         <active>true</active>
         <description>SSSW - Used to update the Case Status when an incoming Network email is received.</description>
-        <formula>Incoming    &amp;&amp;  ( ( CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c)  ||  CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c)  ) &amp;&amp;  NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c))  ) &amp;&amp;   NOT(Parent.Permanent_Close__c)    &amp;&amp;    (TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Network_Status__c &amp;&amp; NOT(Parent.IsClosed))  &amp;&amp;    CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; 
-NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; 
-NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
+        <formula>Incoming &amp;&amp; ( ( CONTAINS(ToAddress,$Setup.QM__c.NetworkEmail__c) || CONTAINS(CcAddress,$Setup.QM__c.NetworkEmail__c) ) &amp;&amp; NOT(CONTAINS(FromAddress,$Setup.QM__c.NetworkEmail__c)) ) &amp;&amp; NOT(Parent.Permanent_Close__c) &amp;&amp; (TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Network_Status__c &amp;&amp; NOT(Parent.IsClosed)) &amp;&amp; CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;)&amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-generated&apos;)) &amp;&amp; NOT(CONTAINS(LOWER(Headers), &apos;auto-submitted: auto-replied&apos;))</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>

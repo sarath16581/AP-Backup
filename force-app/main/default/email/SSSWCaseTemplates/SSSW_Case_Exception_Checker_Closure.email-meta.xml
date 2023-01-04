@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the customer that the case has been closed automatically by the system if there are no exceptions</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Case Exception Checker Closure</name>
+    <style>none</style>
+    <subject>Your missing parcel enquiry - Case: {!Case.CaseNumber} {!Case.Thread_Id}</subject>
+    <textOnly>Australia Post
+
+Help &amp; 										Support
+
+
+Hi {!Contact.FirstName},
+
+Thanks for your patience while we looked into your missing parcel.
+
+Case 													reference:  {!Case.CaseNumber}
+
+Tracking 													Number:  {!Case.ReferenceID__c}
+
+We&apos;ve found no further traces of your parcel in our delivery network. It also hasn&apos;t been scanned at our Returned Mail Redistribution Centre, where we store undeliverable items and loose contents.
+
+With all possible checks completed, we regret to advise that we can&apos;t locate your parcel. Your parcel is now considered lost.
+
+We had hoped to give you a happier outcome today, and we&apos;re sorry that we couldn&apos;t.
+
+What to do next
+
+Please contact the sender of your parcel. Let them know your parcel is lost and ask for assistance with your order. You can share this email with them as confirmation of your lost parcel.
+
+You should contact the sender because they are best placed to offer you a solution according to their policies. If the sender can&apos;t assist you, please let us know.
+
+We sincerely apologise for any disappointment or inconvenience this may have caused you.
+
+Kind regards,
+Customer Services
+Australia Post
+
+
+Nothing in this email is intended to exclude or limit any rights or remedies that you 							may have under the Australian Consumer Law. For more information, 							visit compensation
+
+Australia Post acknowledges the Traditional Custodians of the land on which we operate, 							live and gather as employees and recognise their continuing connection to land, water and 							community. We pay respect to Elders past, present and emerging.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

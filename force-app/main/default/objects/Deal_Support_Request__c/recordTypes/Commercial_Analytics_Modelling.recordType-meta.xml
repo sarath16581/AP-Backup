@@ -114,6 +114,10 @@
     <picklistValues>
         <picklist>Approved_Event__c</picklist>
         <values>
+            <fullName>Customised Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Delegated Pricing</fullName>
             <default>false</default>
         </values>
@@ -3452,10 +3456,6 @@
         </values>
         <values>
             <fullName>Manual handling surcharge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Security management charge</fullName>
             <default>false</default>
         </values>
         <values>

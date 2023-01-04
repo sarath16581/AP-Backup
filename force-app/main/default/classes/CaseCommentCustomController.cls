@@ -14,7 +14,7 @@ global with sharing class CaseCommentCustomController {
                 caseNumber,
                 ProductCategory__c,
                 ProductSubCategory__c,
-                Description 
+                Description,Status,RecordType.DeveloperName 
               from Case 
               where id=:stdController.getId() 
               limit 1];

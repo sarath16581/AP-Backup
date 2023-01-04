@@ -7,6 +7,7 @@
     <label>Lookup Rollup Summary 2</label>
     <length>80</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

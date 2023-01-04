@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_PUBLIC_Holiday__c</fullName>
+    <externalId>false</externalId>
+    <formula>April__c + 
+August__c + 
+December__c + 
+February__c + 
+January__c + 
+July__c + 
+June__c + 
+March__c + 
+May__c + 
+November__c + 
+October__c + 
+September__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Public Holiday</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

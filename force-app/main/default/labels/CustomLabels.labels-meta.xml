@@ -15,6 +15,50 @@
         <value>a8O</value>
     </labels>
     <labels>
+        <fullName>EXPIRED_QUOTE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EXPIRED_QUOTE</shortDescription>
+        <value>We should never have this error occur as we are validating Valid To date SF side.
+
+Compass quote end date has passed, please request re-activation</value>
+    </labels>
+    <labels>
+        <fullName>INVALID_CUSTOMER_ID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>INVALID_CUSTOMER_ID</shortDescription>
+        <value>The customer ID is not valid for this Compass quote.  Please check the Customer linked to the PSR and ensure the same one is used for the Opportunity</value>
+    </labels>
+    <labels>
+        <fullName>INVALID_QUOTE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>INVALID_QUOTE</shortDescription>
+        <value>The quote ID is not valid in Compass, please have the pricing team member helping with the PSR revise it</value>
+    </labels>
+    <labels>
+        <fullName>INVALID_RATING_MODEL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>INVALID_RATING_MODEL</shortDescription>
+        <value>Product code does not match in Compass, please ensure Shopping cart and PSR products match</value>
+    </labels>
+    <labels>
+        <fullName>SYSTEM_ERROR</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SYSTEM_ERROR</shortDescription>
+        <value>An unexpected error has occurred. Try again later. For further assistance, please create a MyIT CI request - selecting PES-Compass Support in CI channel</value>
+    </labels>
+    <labels>
+        <fullName>DATA_NOT_FOUND</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DATA_NOT_FOUND</shortDescription>
+        <value>The quote ID does not exist in Compass, please have the pricing team member helping with the PSR revise it</value>
+    </labels>
+    <labels>
         <fullName>APT_IncompleteAPPCPSR</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -658,7 +702,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APT_EmailServiceAddress</shortDescription>
-        <value>approvalreplyservice@j-6tcktgyadynesdr84ku9cnl83po3iu80owkfs0xke85w6e5tu.0p-1xrseay.cs74.apex.sandbox.salesforce.com</value>
+        <value>approvalreplyservice@s-2e0qb4mvauzbol5piqo43h11g76aowtg7j35fyx40j2fpd9wuz.1e-jbteaq.cs111.apex.sandbox.salesforce.com</value>
     </labels>
     <labels>
         <fullName>APT_Enter_Billing_Account_Details</fullName>
@@ -2176,14 +2220,14 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_ApLogo</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000GVHDk&amp;oid=00D0p0000001xRS</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000GVHDk&amp;oid=00D1e0000000jbT</value>
     </labels>
     <labels>
         <fullName>CHAS_ApLogoWithText</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_ApLogoWithText</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkb&amp;oid=00D0p0000001xRS</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkb&amp;oid=00D1e0000000jbT</value>
     </labels>
     <labels>
         <fullName>CHAS_CommunityUrl</fullName>
@@ -2204,28 +2248,28 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_FB_Icon</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=01590000007Zasx&amp;oid=00D0p0000001xRS</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=01590000007Zasx&amp;oid=00D1e0000000jbT</value>
     </labels>
     <labels>
         <fullName>CHAS_Insta_Icon</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_Insta_Icon</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4t&amp;oid=00D0p0000001xRS</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4t&amp;oid=00D1e0000000jbT</value>
     </labels>
     <labels>
         <fullName>CHAS_LockIcon</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_LockIcon</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkc&amp;oid=00D0p0000001xRS</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkc&amp;oid=00D1e0000000jbT</value>
     </labels>
     <labels>
         <fullName>CHAS_TraditionalCustodians</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_TraditionalCustodians</shortDescription>
-        <value>src=&quot;https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4u&amp;oid=00D0p0000001xRS</value>
+        <value>src=&quot;https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4u&amp;oid=00D1e0000000jbT</value>
     </labels>
     <labels>
         <fullName>CHATTER_POST_ACCESS_MSG</fullName>
@@ -6503,7 +6547,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Record Type Developer Name of Special Services</shortDescription>
-        <value>Special Services</value>
+        <value>Special_Services</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_KEYWORD_SSSW</fullName>
@@ -7773,5 +7817,21 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>STHS Max Characters Validation Message</shortDescription>
         <value>Maximum 40 characters allowed</value>
+    </labels>
+    <labels>
+        <fullName>AutoLITExceptionYes</fullName>
+        <categories>Chas - Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Comment Message to be included when it is Auto LIT Exception found</shortDescription>
+        <value>Exception found. Auto close = No</value>
+    </labels>
+    <labels>
+        <fullName>AutoLITExceptionNo</fullName>
+        <categories>Chas - Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Comment Message to be included when it is Auto LIT Exception NOT found</shortDescription>
+        <value>Receiver, Lost, Refer to sender. Auto close = Yes</value>
     </labels>
 </CustomLabels>

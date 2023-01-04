@@ -5,6 +5,11 @@
  * 1. Clear Case Update Time when Case_Update field is updated to null
  * 2. Populate Case Subject - Update case subject if article or Pickup_Booking_Reference__c is not null
  * 3. Reopen Case - Update FCR__c to false when case status is changed
+ * 
+ * @Test StarTrackSupCaseAutomationModule_Test
+ * 
+ * @changelog
+ * 2022-12-15	Noel Lim - update logic in onBeforeUpdate to fix a NullException bug for cases generated from Startrack Support portal
  */
 
 public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationDomain.Module {
@@ -46,6 +51,16 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 		// StarTrack Case Automation: Populate Case Subject (Decision node)
 		try {
 			setCaseSubjects((List<Case>) records);
+
+			List<Case> validCases = new List<Case>();
+			for(Case c : (List<Case>)records) {
+				if(omniQueues.containsKey(c.OwnerId) == true && String.isBlank(c.Priority) == false) {
+					validCases.add(c);
+				}
+			}
+			OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(validCases, true);
+
+
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackSupportCaseAutomationModule.class.getName(), 'onBeforeInsert', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
@@ -62,7 +77,7 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 			Map<Id, Set<SObjectField>> changedRecords = getIsChanged(
 				records,
 				existingRecords,
-				new Set<SObjectField>{ Case.RecordTypeId, Case.Case_Update__c, Case.Status }
+				new Set<SObjectField>{ Case.RecordTypeId, Case.Case_Update__c, Case.Status, Case.OwnerId, Case.Priority }
 			);
 
 			// get reccordTypeId for Delivery Enquiry and Booking Enquiry record types
@@ -74,6 +89,8 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 				}
 			}
 			Set<String> fcrIgnoredCaseStatuses = new Set<String>{ 'Reopened', 'New' };
+
+			List<Case> validCasesInOmniQueues = new List<Case>();
 
 			// loop through our records to figure out what actions need to be taken
 			for (Case c : (List<Case>) records) {
@@ -94,15 +111,34 @@ public inherited sharing class StarTrackSupportCaseAutomationModule extends Appl
 						
 						c.FCR__c = false;
 					}
-				}
+
+					if(omniQueues != null 
+						&& omniQueues.containsKey(c.OwnerId) == true 
+						&& (changedFields.contains(Case.OwnerId) || changedFields.contains(Case.Priority))) {
+						validCasesInOmniQueues.add(c);
+					}
+				}	
 			}
 
 			// StarTrack Case Automation: Populate Case Subject (Decision node)
 			setCaseSubjects((List<Case>) records);
+
+			OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(validCasesInOmniQueues, false);
+
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackSupportCaseAutomationModule.class.getName(), 'onBeforeUpdate', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
+	}
+
+	private Map<Id, Group> omniQueues {
+		get {
+			if(omniQueues == null) {
+				omniQueues = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>());
+			}
+			return omniQueues;
+		}
+		set;
 	}
 
 	/**

@@ -6,6 +6,7 @@
     <inlineHelpText>Reason for Cancellation</inlineHelpText>
     <label>Cancellation Reason</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

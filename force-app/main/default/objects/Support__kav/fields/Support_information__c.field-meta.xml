@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Support information</label>
     <length>65536</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Html</type>
     <visibleLines>30</visibleLines>

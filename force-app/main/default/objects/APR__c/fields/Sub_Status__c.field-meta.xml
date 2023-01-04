@@ -13,16 +13,11 @@
     <valueSet>
         <controllingField>Status__c</controllingField>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Account lost</fullName>
                 <default>false</default>
                 <label>Account lost</label>
-            </value>
-            <value>
-                <fullName>Changed Channel</fullName>
-                <default>false</default>
-                <label>Changed Channel</label>
             </value>
             <value>
                 <fullName>Contract under negotiation</fullName>

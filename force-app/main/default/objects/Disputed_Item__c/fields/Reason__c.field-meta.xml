@@ -704,6 +704,12 @@
                 <label>Hand Rate - Incorrect/Missed Quote</label>
             </value>
             <value>
+                <fullName>Incorrect Cubic Data (Customer)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Incorrect Cubic Data (Customer)</label>
+            </value>
+            <value>
                 <fullName>Incorrect Misc Charges</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -980,6 +986,12 @@
                 <label>Operations Sub Docket Charge</label>
             </value>
             <value>
+                <fullName>Oversize</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Oversize</label>
+            </value>
+            <value>
                 <fullName>Performance Failure - Fleet</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -1053,6 +1065,26 @@
             <valueName>International Linehaul Surcharge</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>Operator Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pick/Pack Errors</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reimbursement of Shipping Costs</controllingFieldValue>
+            <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
+            <valueName>Customer Claim Met</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reimbursement of Shipping Costs</controllingFieldValue>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Duplicate Billing</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Accounting adjustment</controllingFieldValue>
             <valueName>Duplicate Cash Receipts</valueName>
         </valueSettings>
@@ -1118,10 +1150,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Billing Processing error</controllingFieldValue>
-            <valueName>Duplicate Billing</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Billing Processing error</controllingFieldValue>
             <valueName>Incorrect Bill</valueName>
         </valueSettings>
         <valueSettings>
@@ -1162,10 +1190,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
-            <valueName>Operator Error</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
             <valueName>BML - Duplicate Mail</valueName>
         </valueSettings>
         <valueSettings>
@@ -1196,10 +1220,6 @@
             <controllingFieldValue>Customer Data Issue</controllingFieldValue>
             <controllingFieldValue>Order Processing Error</controllingFieldValue>
             <valueName>Cubic Negotiated Settlement</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
-            <valueName>Incorrect service</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer Data Issue</controllingFieldValue>
@@ -1297,10 +1317,6 @@
         <valueSettings>
             <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
             <valueName>Minimum Value - Shortfall Fee</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
-            <valueName>Customer Claim Met</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Discretionary Settlement</controllingFieldValue>

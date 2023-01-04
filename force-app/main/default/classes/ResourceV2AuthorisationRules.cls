@@ -14,6 +14,7 @@
  * 2019-07-06		nathan.franklin@auspost.com.au		Added custom 404 response and a custom cache key identifier
  * 2019-09-05		nathan.franklin@auspost.com.au		Added location id and mlid to group location payloads
  * 2022-04-22 - Nathan Franklin - Added fields specific for Conveyancer's as a part of the Property VOI MP onboarding
+ * 2022-12-19 - Nathan Franklin - Fixed cache bug and Organisation type mapping
  */
 public with sharing class ResourceV2AuthorisationRules extends ResourceAPIService.IApi {
 	// Organisation Id (salesforce Id) - uri request parameter - optional
@@ -40,6 +41,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 		String orgId = requestParams.queryStringParams.get('orgId');
 		String orgNumber = requestParams.queryStringParams.get('orgNumber');
 		String cNumber = requestParams.dynamicUriParams[0];
+		String appName = (requestParams.dynamicUriParams.size() > 1 ? requestParams.dynamicUriParams[1] : '');
 		if (String.isEmpty(orgId)) {
             orgId = '';
         }
@@ -47,7 +49,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
             orgNumber = '';
         }
 
-		String output = requestParams.version + '/auth/' + cNumber + '/' + orgId + '/' + orgNumber;
+		String output = requestParams.version + '/auth/' + cNumber + '/' + orgId + '/' + orgNumber + '/' + appName;
 		System.debug(output);
 		return output;
 	}
@@ -406,7 +408,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 						accAO.organisationId = contactRole.ContactApplication__r.Contact__r.Account.Id;
 						accAO.name = contactRole.ContactApplication__r.Contact__r.Account.Name;
 						accAO.accountNumber = contactRole.ContactApplication__r.Contact__r.Account.LEGACY_ID__c;
-						accAO.type = contactRole.ApplicationRole__r.Role__c ;
+						accAO.type = contactRole.ContactApplication__r.Contact__r.Account.Role_Type_Roll_Up__c;
 						accAO.tradingName = contactRole.ContactApplication__r.Contact__r.Account.Organisation_Trading_Name__c;
 						accAO.billingAddress = new AuthAddress(contactRole.ContactApplication__r.Contact__r.Account.BillingStreet, contactRole.ContactApplication__r.Contact__r.Account.BillingStreet2__c,
 																contactRole.ContactApplication__r.Contact__r.Account.BillingCity, contactRole.ContactApplication__r.Contact__r.Account.BillingState,

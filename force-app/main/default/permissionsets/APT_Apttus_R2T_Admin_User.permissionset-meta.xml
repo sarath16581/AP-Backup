@@ -305,22 +305,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>APT_GuideMeController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>APT_GuideMeController_Test</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>APT_GuidedSellingFlowController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>APT_GuidedSellingFlowController_Test</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>APT_HelptotheSellerController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -8099,6 +8083,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Config2__ProductAttributeValue__c.Warning__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Config2__ProductAttribute__c.APTS_Ext_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8933,7 +8922,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_COMPASS_Quote_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9128,7 +9117,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.APT_PSR_Applied__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9870,6 +9859,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Proposal__Proposal_Line_Item__c.Proposal_Product_name_del__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal_Line_Item__c.SAP_Custom_Reference__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14254,11 +14248,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.APT_Product_Group__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.APT_Sum_Contract_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -15342,14 +15331,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>APT_GetRenewalRates</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>APT_GuideMe</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>APT_GuidedSellingFlow</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

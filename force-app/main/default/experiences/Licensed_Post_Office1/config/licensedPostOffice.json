@@ -1,0 +1,11 @@
+{
+  "forgotPasswordRouteId" : "12cb4d5b-3af1-4a1b-9310-797d8c631550",
+  "isAvailableToGuests" : false,
+  "isFilteredComponentsView" : false,
+  "isProgressiveRenderingEnabled" : false,
+  "loginAppPageId" : "c6b7f4a5-f763-4342-b468-e2db1efea64a",
+  "mainAppPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
+  "preferredDomain" : "ptest.npe.localbusinesspartner.auspost.com.au",
+  "selfRegistrationRouteId" : "a3a05844-a90a-42d2-9420-8eca497af8cd",
+  "type" : "site"
+}

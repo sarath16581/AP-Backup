@@ -12,9 +12,10 @@
         var currentUrl = new URL(window.location.href);
         var originalUrlString = currentUrl.searchParams.get("url");
         var originalUrl = new URLSearchParams(originalUrlString);
-
         var orgDomainUrl = '{!orgDomainUrl}';
+
         if(originalUrlString.startsWith(orgDomainUrl) == true || originalUrlString.startsWith('/') == true) {
+
                 if(originalUrl.get('isdtp=vw') == undefined) {
                         if(originalUrlString.includes('?') == false) {
                                 originalUrlString += '?isdtp=vw';   
@@ -22,11 +23,21 @@
                                 originalUrlString += '&isdtp=vw';
                         }
                 }
-                location.href = originalUrlString;
+                
+                if(originalUrlString.startsWith('/') == true) {
+                        location.href = orgDomainUrl + originalUrlString;
+                } else {
+                        location.href = originalUrlString;
+                }
+                
         } else {
+                console.log('InElseCONDITION');
+                
                 var msgBox = document.getElementById("msgBox");
                 var text = document.createTextNode("Unauthorised redirection: " + originalUrlString);
                 msgBox.appendChild(text);
+                console.log('msgBox');
+                console.log(JSON.stringify(msgBox));
         }
 	
         </script>

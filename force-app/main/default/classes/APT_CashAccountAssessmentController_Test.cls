@@ -71,14 +71,14 @@ private class APT_CashAccountAssessmentController_Test{
             insert Proposal;
              
               
-                        
+            
             Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator());
             
             
             system.debug('@@cssetting'+r2tSystemProperty);
             
             system.debug('@@endpoint'+r2tSystemProperty.APT_Org_Id_Service_End_Point_URL__c);
-             
+            
             PageReference pageRef = Page.APT_CashAccountAssessment;
             Test.setCurrentPage(pageRef);
              

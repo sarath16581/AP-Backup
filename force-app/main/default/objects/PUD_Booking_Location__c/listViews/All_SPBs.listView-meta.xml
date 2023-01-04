@@ -9,11 +9,6 @@
     <columns>City__c</columns>
     <columns>Post_Code__c</columns>
     <columns>State__c</columns>
-    <filterScope>Everything</filterScope>
-    <filters>
-        <field>Network_Type__c</field>
-        <operation>equals</operation>
-        <value>Street Posting Box</value>
-    </filters>
+    <filterScope>Mine</filterScope>
     <label>All SPBs</label>
 </ListView>

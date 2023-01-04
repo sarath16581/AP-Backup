@@ -95,7 +95,7 @@ private class AP_ConnectorController_Test {
         insert testCaseList;
 
         //Fetch the case number of the inserted case.
-        //Adding limit in the query
+       	//Adding limit in the query
         testCaseList = [SELECT CaseNumber FROM Case limit 5];
         Case testCase = new Case();
         for(Case myCase : testCaseList){

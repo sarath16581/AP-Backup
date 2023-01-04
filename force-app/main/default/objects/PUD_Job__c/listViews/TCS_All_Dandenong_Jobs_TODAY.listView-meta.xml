@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TCS_All_Dandenong_Jobs_TODAY</fullName>
+    <columns>NAME</columns>
+    <columns>Booking_Id__c</columns>
+    <columns>Depot__c</columns>
+    <columns>Booking_Type_Fx__c</columns>
+    <columns>Booking_Location__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Post_Code__c</columns>
+    <columns>Display_Start_Time__c</columns>
+    <columns>Status__c</columns>
+    <columns>Accepted_Timestamp__c</columns>
+    <columns>Completed_Timestamp__c</columns>
+    <columns>Route_Lookup__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Date__c</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>Booking_Record_Type__c</field>
+        <operation>equals</operation>
+        <value>Adhoc Pickup/Delivery</value>
+    </filters>
+    <filters>
+        <field>CREATEDBY_USER</field>
+        <operation>contains</operation>
+        <value>Phillipou,Caitlin Mascall,Stephen Olivero,Biagio Occhino,Patricia Lainez,Merissa Dobbe,Aihleen Sebastian,Kaleem Sheriff,Bella Takitaki,Jane Choeung,Jason Jones,Patrick Duggan,Desiree Sabolic,Lisa Barkla</value>
+    </filters>
+    <label>TCS All Jobs - TODAY</label>
+</ListView>

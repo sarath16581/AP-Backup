@@ -12,11 +12,11 @@
     <columns>State__c</columns>
     <columns>Geo__Latitude__s</columns>
     <columns>Geo__Longitude__s</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
-        <field>State__c</field>
+        <field>Street_Fx__c</field>
         <operation>equals</operation>
-        <value>VIC</value>
+        <value>australis</value>
     </filters>
     <label>All VIC Locations</label>
 </ListView>

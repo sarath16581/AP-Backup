@@ -7,10 +7,10 @@
             <components>Console.BuiltInComponent.mostRecentlyUsed</components>
             <components>QuickLinks</components>
             <components>ContactSearch</components>
-            <components>Console.BuiltInComponent.knowledgeOne</components>
             <components>URLShortenerComponent</components>
             <components>Fill_Inbox</components>
             <components>ConsoleChatterScrollBar</components>
+            <components>Console.BuiltInComponent.knowledgeOne</components>
         </componentList>
         <detailPageRefreshMethod>autoRefresh</detailPageRefreshMethod>
         <keyboardShortcuts>
@@ -180,6 +180,61 @@
             <pageNamesToOpen>LiveChatBotTranscript</pageNamesToOpen>
             <showKnowledgeArticles>false</showKnowledgeArticles>
         </liveAgentConfig>
+        <pushNotifications>
+            <fieldNames>Address1__c</fieldNames>
+            <fieldNames>Address3Postcode__c</fieldNames>
+            <fieldNames>Address3Suburb__c</fieldNames>
+            <fieldNames>Address3__c</fieldNames>
+            <fieldNames>Address4Postcode__c</fieldNames>
+            <fieldNames>Address4Suburb__c</fieldNames>
+            <fieldNames>Address4__c</fieldNames>
+            <fieldNames>Article_Receiver_Address__c</fieldNames>
+            <fieldNames>Article_Receiver_Name__c</fieldNames>
+            <fieldNames>Article_Receiver_Postcode__c</fieldNames>
+            <fieldNames>Article_Receiver_Suburb__c</fieldNames>
+            <fieldNames>Article_Sender_Address__c</fieldNames>
+            <fieldNames>Article_Sender_Name__c</fieldNames>
+            <fieldNames>Article_Sender_Postcode__c</fieldNames>
+            <fieldNames>Article_Sender_Suburb__c</fieldNames>
+            <fieldNames>Article_Service_Type__c</fieldNames>
+            <fieldNames>Article_Unit_Type__c</fieldNames>
+            <fieldNames>Business_Name__c</fieldNames>
+            <fieldNames>Call_Purpose__c</fieldNames>
+            <fieldNames>Caller_Data_Capture_DateTime__c</fieldNames>
+            <fieldNames>Callers_Data_Change__c</fieldNames>
+            <fieldNames>Case_Update_Time__c</fieldNames>
+            <fieldNames>Case_Update__c</fieldNames>
+            <fieldNames>DeliveryInstructions__c</fieldNames>
+            <fieldNames>Enquiry_Type__c</fieldNames>
+            <fieldNames>MilestoneStatus</fieldNames>
+            <fieldNames>MilestoneWarningTarget__c</fieldNames>
+            <fieldNames>No_Data_Capture_DateTime__c</fieldNames>
+            <fieldNames>No_Data_Change__c</fieldNames>
+            <fieldNames>Number_of_Callers__c</fieldNames>
+            <fieldNames>Number_of_Items__c</fieldNames>
+            <fieldNames>Number_of_No_Data_Consignment_Updates__c</fieldNames>
+            <fieldNames>Owner</fieldNames>
+            <fieldNames>Owner_is_Queue__c</fieldNames>
+            <fieldNames>Phone__c</fieldNames>
+            <fieldNames>Primary_Name__c</fieldNames>
+            <fieldNames>Product__c</fieldNames>
+            <fieldNames>Recent_Caller_Email__c</fieldNames>
+            <fieldNames>Recent_Caller_First_Name__c</fieldNames>
+            <fieldNames>Recent_Caller_Last_Name__c</fieldNames>
+            <fieldNames>Recent_Caller_Phone_Number__c</fieldNames>
+            <fieldNames>Recent_Caller_Pref_Method_of_Contact__c</fieldNames>
+            <fieldNames>Recent_Caller_Type__c</fieldNames>
+            <fieldNames>Service_Type__c</fieldNames>
+            <fieldNames>SlaExitDate</fieldNames>
+            <fieldNames>SlaStartDate</fieldNames>
+            <fieldNames>StarTrack_Queue_Is_Not_Owner__c</fieldNames>
+            <fieldNames>StarTrack_Receiver_Name__c</fieldNames>
+            <fieldNames>Status</fieldNames>
+            <fieldNames>Subject</fieldNames>
+            <fieldNames>Unit_Type__c</fieldNames>
+            <fieldNames>Update__c</fieldNames>
+            <objectName>Case</objectName>
+        </pushNotifications>
         <whitelistedDomains>auspost.com.au</whitelistedDomains>
         <whitelistedDomains>www.google.com.au</whitelistedDomains>
         <whitelistedDomains>www.dhl.com.au</whitelistedDomains>
@@ -266,6 +321,8 @@
     <tabs>APT_Charge_Code__c</tabs>
     <tabs>Callback_Request__c</tabs>
     <tabs>standard-OmniSupervisor</tabs>
+    <tabs>ICPSArticle__c</tabs>
+    <tabs>ICPS__c</tabs>
     <tabs>standard-ServiceResource</tabs>
     <workspaceConfig>
         <mappings>
@@ -303,6 +360,12 @@
         </mappings>
         <mappings>
             <tab>Fax__c</tab>
+        </mappings>
+        <mappings>
+            <tab>ICPSArticle__c</tab>
+        </mappings>
+        <mappings>
+            <tab>ICPS__c</tab>
         </mappings>
         <mappings>
             <tab>MiniCaseFieldMapping__c</tab>

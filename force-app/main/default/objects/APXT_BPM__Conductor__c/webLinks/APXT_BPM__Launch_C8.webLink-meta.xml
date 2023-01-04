@@ -4,18 +4,18 @@
     <availability>online</availability>
     <displayType>button</displayType>
     <encodingKey>UTF-8</encodingKey>
-    <hasMenubar>true</hasMenubar>
+    <hasMenubar>false</hasMenubar>
     <hasScrollbars>true</hasScrollbars>
-    <hasToolbar>true</hasToolbar>
-    <height>900</height>
+    <hasToolbar>false</hasToolbar>
+    <height>500</height>
     <isResizable>true</isResizable>
     <linkType>url</linkType>
     <masterLabel>Launch C8</masterLabel>
     <openType>newWindow</openType>
-    <position>fullScreen</position>
+    <position>none</position>
     <protected>false</protected>
-    <showsLocation>true</showsLocation>
-    <showsStatus>true</showsStatus>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
     <url>https://{!SUBSTITUTE(TEXT(APXT_BPM__Conductor__c.APXT_BPM__Conductor_Environment__c), &quot;prod-&quot;, &quot;&quot;)}conductor.congamerge.com/conductor8/index.html?
 Id={!APXT_BPM__Conductor__c.Id}
 &amp;ReportId={!APXT_BPM__Conductor__c.APXT_BPM__Report_Id__c}

@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Flag for soft delete of the record while the provisioning flow is Pending.  When the provisioning flow completes the record will be deleted.</inlineHelpText>
     <label>Pending Delete</label>
-    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

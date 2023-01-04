@@ -4,6 +4,7 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Total Badges Awarded</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>
         <field>trailheadapp__User_Badge__c.trailheadapp__Finished_Date__c</field>
         <operation>notEqual</operation>

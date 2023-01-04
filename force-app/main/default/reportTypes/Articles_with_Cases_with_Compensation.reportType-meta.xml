@@ -2,7 +2,7 @@
 <ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
     <baseObject>Article__c</baseObject>
     <category>cases</category>
-    <deployed>false</deployed>
+    <deployed>true</deployed>
     <description>Used to generate Compensation Reporting, utilising the Article Details.</description>
     <join>
         <join>
@@ -2195,6 +2195,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Within_KPI__c</field>
+            <table>Article__c.Cases__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
             <table>Article__c.Cases__r</table>
         </columns>
         <masterLabel>Cases</masterLabel>

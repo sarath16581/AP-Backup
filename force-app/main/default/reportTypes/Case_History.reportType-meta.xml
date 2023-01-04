@@ -357,6 +357,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Area_to_Benefit__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Ariba_Prep_work_Required__c</field>
             <table>Case</table>
         </columns>
@@ -2232,6 +2237,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>MPB_BSP_Tech_Enquiry_Type__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>MyPost_Number__c</field>
             <table>Case</table>
         </columns>
@@ -2473,6 +2483,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Other_ATL_Instructions__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Other_CoE_s_Involved__c</field>
             <table>Case</table>
         </columns>
         <columns>
@@ -4282,6 +4297,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>mh_Last_Updated_Green_Sheet__c</field>
+            <table>Case.Activities__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>IWS_CallUUID__c</field>
             <table>Case.Activities__r</table>
         </columns>
@@ -4515,6 +4535,24 @@
             <field>Operations_Outcome_Comment__c</field>
             <table>Case.Activities__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OmniRoutingSecondaryPriority__c</field>
+            <table>Case</table>
+        </columns>
         <masterLabel>Cases</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Events__c</field>
+            <table>Case.Activities__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Count_of_Tasks__c</field>
+            <table>Case.Activities__r</table>
+        </columns>
+        <masterLabel>Activities</masterLabel>
     </sections>
 </ReportType>

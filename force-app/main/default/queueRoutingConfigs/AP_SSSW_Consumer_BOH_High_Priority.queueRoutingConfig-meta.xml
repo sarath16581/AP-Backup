@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QueueRoutingConfig xmlns="http://soap.sforce.com/2006/04/metadata">
-    <capacityWeight>1.0</capacityWeight>
+    <capacityPercentage>100.0</capacityPercentage>
     <isAttributeBased>true</isAttributeBased>
     <label>AP SSSW Consumer BOH High Priority</label>
     <routingModel>MOST_AVAILABLE</routingModel>
-    <routingPriority>1</routingPriority>
+    <routingPriority>20</routingPriority>
 </QueueRoutingConfig>

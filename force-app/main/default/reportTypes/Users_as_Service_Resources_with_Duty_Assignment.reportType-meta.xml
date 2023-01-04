@@ -646,11 +646,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>IsCapacityBased</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>CreatedBy</field>
             <table>User.ServiceResources</table>
         </columns>
@@ -662,26 +657,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Description</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>IsOptimizationCapable</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastKnownLatitude</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastKnownLocationDate</field>
-            <table>User.ServiceResources</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastKnownLongitude</field>
             <table>User.ServiceResources</table>
         </columns>
         <columns>

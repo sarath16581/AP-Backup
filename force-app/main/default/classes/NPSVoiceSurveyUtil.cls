@@ -158,7 +158,7 @@ public with sharing class NPSVoiceSurveyUtil {
         if (Utility.isValidRecordType(taskRecTypeIds,tRec.RecordTypeId)
                 && tRec.whatId !=null && tRec.whatId.getSObjectType() == Case.getSObjectType()
                 && tRec.whoId !=null && tRec.whoId.getSObjectType() == Contact.getSObjectType()
-           	    && tRec.Queue__c != null
+                && tRec.Queue__c != null
                 &&
                 (
                         tRec.CallType == CALLTYPE_INBOUND

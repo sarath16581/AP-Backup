@@ -14,11 +14,11 @@ History:
                                                         attempting SOQL queries and milestone updates.
 12.08.2020    Suman Gunaganti                           Updated updateAssociatedCaseMilestones to only process completed tasks.
 18.12.2020    Suman Gunaganti                           Added method to capture datetime of first activity of sales person on lead
-20.04.2022    SaiSwetha Pingali                         Removed snapIt logic as it is no longer required.
-
+16.05.2022    SaiSwetha Pingali                         Removed snapIt logic as it is no longer required.
 **************************************************/
 
 public with sharing class ActivityUtil {
+
 
     // Adrian Recio
     // Task and Event recortype getbylabel describe
@@ -204,8 +204,7 @@ public with sharing class ActivityUtil {
                 contactIdAndMobiles.put(ct.Id, ct.MobilePhone);  
             }
         }
-
-        //30-May-16 Eric Shen Populates all maps into the finalmap.
+       //30-May-16 Eric Shen Populates all maps into the finalmap.
 
         if (!contactIdAndMobiles.isEmpty()) {
 

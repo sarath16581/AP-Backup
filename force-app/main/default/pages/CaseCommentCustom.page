@@ -85,15 +85,25 @@
         }
     }
     
+    //REQ3004583 : Jacob Isaac : Updating method to automatically enable Prevent Status Change field checkbox when Case Status is Awaiting Network Response
     function checkPreventStatus(el){
         var preventStatusChange = j$('#preventStatusChange');
-        if(!el.checked) {
-            preventStatusChange.attr('disabled','disabled');
-            preventStatusChange.attr('checked',false);
-        } else {
-            preventStatusChange.removeAttr('disabled');
+        var networkStatusCheck = '{!currentCase.status}';
+        var recordTypeCheck = '{!currentCase.RecordType.DeveloperName}';
+        if(networkStatusCheck == 'Awaiting Network Response' && recordTypeCheck.includes('SSSW') && el.checked){
+            preventStatusChange.prop('checked',true);
+            preventStatusChange.prop('disabled','disabled');
+            
+        }else{
+            if(!el.checked) {
+                preventStatusChange.prop('checked',false);
+                preventStatusChange.prop('disabled','disabled');
+            } else {
+                preventStatusChange.removeProp('disabled','disabled');
+            }
         }
     }
+	
 </script>
         <div class="bPageBlock brandSecondaryBrd bEditBlock secondaryPalette" id="ep">
             <div class="pbHeader">
