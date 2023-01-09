@@ -203,6 +203,7 @@
         <fields>UnitPrice</fields>
         <fields>TotalPrice</fields>
         <fields>In_Year_Revenue__c</fields>
+        <fields>Hidden_Annualised_Value__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>

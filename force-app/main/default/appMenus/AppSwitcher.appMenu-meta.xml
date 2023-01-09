@@ -497,10 +497,6 @@
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Security_Compliance_Documentation_Portal</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>Lightning_Readiness</name>
         <type>ConnectedApp</type>
     </appMenuItems>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>no-reply@auspost.com.au</email>
     <name>SSSW Chat - Consumer H&amp;S General Queue</name>
     <queueMembers>
         <users>
@@ -52,6 +53,7 @@
             <user>mahamudur.rahman@auspost.com.au</user>
             <user>mathew.larkin@auspost.com.au</user>
             <user>melanie.jayatilake@auspost.com.au</user>
+            <user>melissa.langdale.ap@startrack.com.au</user>
             <user>michael.abbott@auspost.com.au</user>
             <user>michael.young@auspost.com.au</user>
             <user>miranda.richardson14@auspost.com.au</user>
@@ -74,6 +76,7 @@
             <user>ross.davenport@auspost.com.au</user>
             <user>rubaina.seth@auspost.com.au</user>
             <user>sara.lori@auspost.com.au</user>
+            <user>support@smartspeak.ai</user>
             <user>sarah.tran14@auspost.com.au</user>
             <user>scott.haupt@auspost.com.au</user>
             <user>scott.hunter@auspost.com.au</user>
