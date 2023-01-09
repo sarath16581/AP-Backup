@@ -6,181 +6,299 @@
  * @description Test class for CaseSkillBasedRoutingModule
  * @changelog
  * 2022-09-23 - Noel Lim - Created
+ * 2022-12-06 - Noel Lim - added test method for testAssignToPreferredAgent
  */
 @IsTest
 private class CaseSkillBasedRoutingModule_Test {
-    /*
-    * Check that the Case field values are updated based on Account field values
-    * Check that Case fields values are updated only when the Case Account changes
-    */
-    @IsTest
-    static void checkCaseSLABasedOnAccount() { 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+	/**
+	 * Check that the Case field values are updated based on Account field values
+	 * Check that Case fields values are updated only when the Case Account changes
+	 */
+	@IsTest
+	static void checkCaseSLABasedOnAccount() { 
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 
-        //Generate Accounts with different SLA values
-        List<Account> accounts = ApplicationTestDataFactory.getAccounts(3, true);
+		//Generate Accounts with different SLA values
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(3, true);
 
-        Account accountNoServiceSLA = accounts[0];
-        accountNoServiceSLA.ServiceSLA__c = null;
+		Account accountNoServiceSLA = accounts[0];
+		accountNoServiceSLA.ServiceSLA__c = null;
 
-        Account accountWithServiceSLASMB = accounts[1];
-        accountWithServiceSLASMB.ServiceSLA__c = 'SMB';
+		Account accountWithServiceSLASMB = accounts[1];
+		accountWithServiceSLASMB.ServiceSLA__c = 'SMB';
 
-        Account accountWithServiceSLAGold = accounts[2];
-        accountWithServiceSLAGold.ServiceSLA__c = 'Gold';
+		Account accountWithServiceSLAGold = accounts[2];
+		accountWithServiceSLAGold.ServiceSLA__c = 'Gold';
 
-        //Generate Contacts and link to Accounts
-        List<Contact> contacts = ApplicationTestDataFactory.getContacts(4, accountWithServiceSLASMB.id, true);        
-        
-        
-        Contact contactNoServiceSLA = contacts[0];
-        contactNoServiceSLA.account = accountNoServiceSLA;
-        
-        Contact contactWithServiceSLASMB = contacts[1];
-        contactWithServiceSLASMB.account = accountWithServiceSLASMB;
-        
-        Contact contactWithServiceSLAGold = contacts[2];
-        contactWithServiceSLAGold.account = accountWithServiceSLAGold;
-        
-        Contact contactWithoutAccount = contacts[3];
-        contactWithoutAccount.account = null;
-        
-        //Generate Cases with Account data
-        List<Case> cases = ApplicationTestDataFactory.getCases(6, true);        
+		//Generate Contacts and link to Accounts
+		List<Contact> contacts = ApplicationTestDataFactory.getContacts(4, accountWithServiceSLASMB.id, true);		
+		
+		
+		Contact contactNoServiceSLA = contacts[0];
+		contactNoServiceSLA.account = accountNoServiceSLA;
+		
+		Contact contactWithServiceSLASMB = contacts[1];
+		contactWithServiceSLASMB.account = accountWithServiceSLASMB;
+		
+		Contact contactWithServiceSLAGold = contacts[2];
+		contactWithServiceSLAGold.account = accountWithServiceSLAGold;
+		
+		Contact contactWithoutAccount = contacts[3];
+		contactWithoutAccount.account = null;
+		
+		//Generate Cases with Account data
+		List<Case> cases = ApplicationTestDataFactory.getCases(6, true);		
 
-        Case c1 = cases[0]; 
-        c1.ContactId = contactNoServiceSLA.Id; 
-        
-        Case c2 = cases[1];
-        c2.ContactId = contactNoServiceSLA.Id; 
-        
-        Case c3 = cases[2];
-        c3.ContactId = contactWithServiceSLASMB.Id; 
-        
-        Case c4 = cases[3];
-        c4.ContactId = contactWithServiceSLAGold.Id; 
-        
-        Case c5 = cases[4];
-        c5.ContactId = contactWithServiceSLASMB.Id; 
+		Case c1 = cases[0]; 
+		c1.ContactId = contactNoServiceSLA.Id; 
+		
+		Case c2 = cases[1];
+		c2.ContactId = contactNoServiceSLA.Id; 
+		
+		Case c3 = cases[2];
+		c3.ContactId = contactWithServiceSLASMB.Id; 
+		
+		Case c4 = cases[3];
+		c4.ContactId = contactWithServiceSLAGold.Id; 
+		
+		Case c5 = cases[4];
+		c5.ContactId = contactWithServiceSLASMB.Id; 
 
-        Case c6 = null;
+		Case c6 = null;
 
-        Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
-        if(ssswRecTypes.size()>0){
-            Id recTypeId = ssswRecTypes.iterator().next(); 
-            c1.recordTypeId = recTypeId;
-            c2.recordTypeId = recTypeId;
-            c3.recordTypeId = recTypeId;
-            c4.recordTypeId = recTypeId;
-            c5.recordTypeId = recTypeId;
-        }
+		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
+		if(ssswRecTypes.size()>0){
+			Id recTypeId = ssswRecTypes.iterator().next(); 
+			c1.recordTypeId = recTypeId;
+			c2.recordTypeId = recTypeId;
+			c3.recordTypeId = recTypeId;
+			c4.recordTypeId = recTypeId;
+			c5.recordTypeId = recTypeId;
+		}
 
-        List<Case> casesInsert = new List<Case>();
-        casesInsert.add(c1);
-        casesInsert.add(c2);
-        casesInsert.add(c3);
+		List<Case> casesInsert = new List<Case>();
+		casesInsert.add(c1);
+		casesInsert.add(c2);
+		casesInsert.add(c3);
 
-        
-        Set<Id> nonSSSWRecTypes = Utility.searchRecordTypes(String.valueOf(Case.getsObjectType()),'StarTrack','DeveloperName');
-        if(nonSSSWRecTypes.size()>0){ //Case with non-SSSW recordtype
-            c6 = cases[5];
-            c6.RecordTypeId = nonSSSWRecTypes.iterator().next(); 
-            casesInsert.add(c6);
-        }
-
-
-        //Clone to simulate existing Case records to test Case Update 
-        List<Case> oldCases = new List<Case>{
-            cases[0].clone(true),
-            cases[1].clone(true),
-            cases[2].clone(true),
-            cases[3].clone(true),
-            cases[4].clone(true),
-            cases[5].clone(true)
-        };
-
-        oldCases[0].ContactId = contactWithServiceSLASMB.Id; //Contact change: no Account
-        oldCases[1].ContactId = contactWithServiceSLASMB.Id; //Contact change: With SLA > No SLA
-        oldCases[2].ContactId = contactNoServiceSLA.Id; //Contact change: No SLA > With SLA
-        oldCases[3].ContactId = contactWithServiceSLASMB.Id; //Contact change: With SLA > With different SLA (SMB > Gold)
-        oldCases[4].ContactId = contactWithServiceSLASMB.Id; //Contact NOT changed
-        oldCases[5].ContactId = contactWithServiceSLASMB.Id; //Case is not SSSW
-
-        // =====================================
-        // Stubbing
-        // =====================================
-        
-
-        ContactsSelector mockContactsSelector = (ContactsSelector)MockUtility.mockSelector(ContactsSelector.class);
-        // set up our responses
-        MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockContactsSelector.selectById((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Contact>(contacts));
-        MockUtility.Mocks.stopStubbing();
-
-        // =====================================
-        // Testing
-        // =====================================
-        Test.startTest();
-        CaseSkillBasedRoutingModule module = CaseSkillBasedRoutingModule.newInstance();
-
-        module.onBeforeInsert((List<SObject>) casesInsert, mockUow);
-        module.onBeforeUpdate((List<SObject>) cases, new Map<Id, SObject>(oldCases), mockUow);
-
-        Test.stopTest();
-
-        //Asserts for Insert  
-        System.assertEquals(CaseSkillBasedRoutingModule.SERVICESLA_CONSUMER, c1.CustomerQueueType__c, 'The expected CustomerQueueType for Cases without an Account is incorrect');
-        System.assertEquals(CaseSkillBasedRoutingModule.SERVICESLA_CONSUMER, c2.CustomerQueueType__c, 'The expected CustomerQueueType for Cases with an Account without ServiceSLA is incorrect');
-        System.assertEquals('SMB', c3.CustomerQueueType__c, 'The expected CustomerQueueType for Cases with an Account with ServiceSLA is incorrect');
-        if(c6 != null){
-            System.assertEquals(null, c6.CustomerQueueType__c, 'The expected CustomerQueueType for non-SSSW Cases is incorrect');
-        }
-
-        //Asserts for Update        
-        System.assertEquals('Consumer',c1.CustomerQueueType__c,  'The expected CustomerQueueType for Cases without an Account is incorrect');
-        System.assertEquals('Consumer',c2.CustomerQueueType__c, 'The expected CustomerQueueType for Cases with an Account without ServiceSLA is incorrect');
-        System.assertEquals('SMB',c3.CustomerQueueType__c, 'The expected CustomerQueueType for Cases updated to an Account with ServiceSLA is incorrect');
-        System.assertEquals('Gold',c4.CustomerQueueType__c,'The expected CustomerQueueType for Cases updated to an Account with different ServiceSLA is incorrect');
-        System.assertEquals(null,c5.CustomerQueueType__c, 'Cases where AccountId does not change should have no change to its CustomerQueueType');
-
-    }      
+		
+		Set<Id> nonSSSWRecTypes = Utility.searchRecordTypes(String.valueOf(Case.getsObjectType()),'StarTrack','DeveloperName');
+		if(nonSSSWRecTypes.size()>0){ //Case with non-SSSW recordtype
+			c6 = cases[5];
+			c6.RecordTypeId = nonSSSWRecTypes.iterator().next(); 
+			casesInsert.add(c6);
+		}
 
 
-    @isTest
+		//Clone to simulate existing Case records to test Case Update 
+		List<Case> oldCases = new List<Case>{
+			cases[0].clone(true),
+			cases[1].clone(true),
+			cases[2].clone(true),
+			cases[3].clone(true),
+			cases[4].clone(true),
+			cases[5].clone(true)
+		};
+
+		oldCases[0].ContactId = contactWithServiceSLASMB.Id; //Contact change: no Account
+		oldCases[1].ContactId = contactWithServiceSLASMB.Id; //Contact change: With SLA > No SLA
+		oldCases[2].ContactId = contactNoServiceSLA.Id; //Contact change: No SLA > With SLA
+		oldCases[3].ContactId = contactWithServiceSLASMB.Id; //Contact change: With SLA > With different SLA (SMB > Gold)
+		oldCases[4].ContactId = contactWithServiceSLASMB.Id; //Contact NOT changed
+		oldCases[5].ContactId = contactWithServiceSLASMB.Id; //Case is not SSSW
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		
+
+		ContactsSelector mockContactsSelector = (ContactsSelector)MockUtility.mockSelector(ContactsSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContactsSelector.selectById((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Contact>(contacts));
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		CaseSkillBasedRoutingModule module = CaseSkillBasedRoutingModule.newInstance();
+
+		module.onBeforeInsert((List<SObject>) casesInsert, mockUow);
+		module.onBeforeUpdate((List<SObject>) cases, new Map<Id, SObject>(oldCases), mockUow);
+
+		Test.stopTest();
+
+		//Asserts for Insert
+		System.assertEquals(CaseSkillBasedRoutingModule.SERVICESLA_CONSUMER, c1.CustomerQueueType__c, 'The expected CustomerQueueType for Cases without an Account is incorrect');
+		System.assertEquals(CaseSkillBasedRoutingModule.SERVICESLA_CONSUMER, c2.CustomerQueueType__c, 'The expected CustomerQueueType for Cases with an Account without ServiceSLA is incorrect');
+		System.assertEquals('SMB', c3.CustomerQueueType__c, 'The expected CustomerQueueType for Cases with an Account with ServiceSLA is incorrect');
+		if(c6 != null){
+			System.assertEquals(null, c6.CustomerQueueType__c, 'The expected CustomerQueueType for non-SSSW Cases is incorrect');
+		}
+
+		//Asserts for Update		
+		System.assertEquals('Consumer',c1.CustomerQueueType__c, 'The expected CustomerQueueType for Cases without an Account is incorrect');
+		System.assertEquals('Consumer',c2.CustomerQueueType__c, 'The expected CustomerQueueType for Cases with an Account without ServiceSLA is incorrect');
+		System.assertEquals('SMB',c3.CustomerQueueType__c, 'The expected CustomerQueueType for Cases updated to an Account with ServiceSLA is incorrect');
+		System.assertEquals('Gold',c4.CustomerQueueType__c,'The expected CustomerQueueType for Cases updated to an Account with different ServiceSLA is incorrect');
+		System.assertEquals(null,c5.CustomerQueueType__c, 'Cases where AccountId does not change should have no change to its CustomerQueueType');
+
+	}
+
+	/**
+	 * test the Exception handling on the module onBeforeInsert and onBeforeUpdate methods
+	 */
+	@isTest
 	static void testExceptionHandling(){
 
-        // =====================================
-        // Data Preparation
-        // =====================================
-        LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
+		// =====================================
+		// Data Preparation
+		// =====================================
+		LogSeverityLevelValue__c logLevel = LogSeverityLevelValue__c.getInstance(UserInfo.getOrganizationId());
 		logLevel.LoggingLevel__c = UTIL_ErrorConstants.SEVERITY_LEVEL_ERROR;
 		insert logLevel;
 
-        // =====================================
-        // Stubbing
-        // =====================================
-        ApplicationLogger mockLogger = (ApplicationLogger)MockUtility.mockUtility(ApplicationLogger.class);
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationLogger mockLogger = (ApplicationLogger)MockUtility.mockUtility(ApplicationLogger.class);
 
-         // =====================================
-        // Testing
-        // =====================================
+		 // =====================================
+		// Testing
+		// =====================================
 		Test.startTest();
 
 		CaseSkillBasedRoutingModule module = CaseSkillBasedRoutingModule.newInstance();
 		module.onBeforeInsert(null,null);
-        module.onBeforeUpdate(null,null,null);
+		module.onBeforeUpdate(null,null,null);
 
 		Test.stopTest();
 
 		//An exception should be created when thre are invalid parameters in the onBeforeInsert and onBeforeUpdate
-        ((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 2)).logException((ApplicationLogger.ExceptionWrapper)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
-        
-        // PMD warning
+		((ApplicationLogger)MockUtility.Mocks.verify(mockLogger, 2)).logException((ApplicationLogger.ExceptionWrapper)fflib_Match.anyObject(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString(), (ApplicationLogger.LoggingLevel)fflib_Match.anyObject());
+		
+		// PMD warning
 		System.assert(true);
+	}
+
+
+	/**
+	 * Tests the logic in method CaseSkillBasedRoutingModule.assignToPreferredAgent.
+	 * Scenarios:
+	 * a) PSR inserted with correct PreferredUserId
+	 * b) PSR not inserted - no Accepted AgentWork exists
+	 * c) PSR not inserted - has Accepted AgentWork, but in Omni Queue 
+	 * d) Existing PSRs are deleted on cases where a PSR was inserted
+	 * 
+	 */
+	@isTest
+	static void assignToPreferredAgent(){
+
+		//Queues
+		QM__c custSetting = QM__c.getOrgDefaults();
+		QueueSobject preferredAgentQueue = [SELECT QueueId FROM QueueSobject WHERE Queue.DeveloperName = 'SSSW_Routing_Preferred_Agent_Queue' AND SobjectType = 'Case' LIMIT 1];
+		custSetting.PreferredAgentQueueId__c = preferredAgentQueue.QueueId;
+		Insert custSetting;
+		Id preferredAgentQueueId = preferredAgentQueue.QueueId;
+
+		Group omniQueue = Application.Cache.queuesWithRoutingConfig.values()[0].queue;		
+
+		//User
+		Id userId = UserInfo.getUserId();
+
+		//Cases
+		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
+		Map<Id, Case> allCases = new Map<Id, Case>();
+		Map<Id, Case> validCases = new Map<Id, Case>();
+
+		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
+		if(ssswRecTypes.size()>0){
+			Id recTypeId = ssswRecTypes.iterator().next(); 
+			cases[0].recordTypeId = recTypeId;
+			cases[1].recordTypeId = recTypeId;
+			cases[2].recordTypeId = recTypeId;
+		}
+
+		cases[0].OwnerId = omniQueue.Id; //a) PSR inserted with correct PreferredUserId
+		cases[0].Priority = 'Low';
+		validCases.put(cases[0].id, cases[0]);
+		allCases.put(cases[0].id, cases[0]);
+
+		cases[1].OwnerId = omniQueue.Id; //b) PSR not inserted - no Accepted Agent Work exists
+		allCases.put(cases[1].id, cases[1]);
+
+		cases[2].OwnerId = omniQueue.Id; //c) PSR not inserted - has Accepted AgentWork, but in Omni Queue
+		allCases.put(cases[2].id, cases[2]);
+
+
+		//Clone to simulate existing Case records to test Case Update 
+		List<Case> oldCases = new List<Case>{
+			cases[0].clone(true),
+			cases[1].clone(true),
+			cases[2].clone(true)
+		};
+		oldCases[0].OwnerId = userId;
+		oldcases[1].OwnerId = userId;
+		oldcases[2].OwnerId = omniQueue.Id;
+
+		//PSRs
+		List<ServiceChannel> serviceChannels = OmniChannelTestDataFactory.getServiceChannels(1, 'Case', 'Priority', true);
+		Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(OmniChannelTestDataFactory.getPendingServiceRoutings(2, serviceChannels[0].Id, new Set<Id>{cases[0].Id, cases[1].Id}, true));
+		List<PendingServiceRouting> existingPSRToBeDeleted = new List<PendingServiceRouting>{psrs.values()[0]};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+
+		OmniChannelService mockOmniChannelService = (OmniChannelService)MockUtility.mockUtility(OmniChannelService.class);
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		PendingServiceRoutingSelector mockPSRSelector = (PendingServiceRoutingSelector) MockUtility.mockSelector(PendingServiceRoutingSelector.class);
+		
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(mockOmniChannelService.getUserIdsFromLatestAcceptedAgentWork(
+			(Set<Id>)fflib_Match.eq(allCases.keySet())
+		)).thenReturn(new Map<Id,Id>{cases[0].Id => userId} );
+
+		MockUtility.Mocks.when(mockPSRSelector.selectByWorkItemId(
+			(Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id}),
+			(Set<Object>)fflib_Match.eq(new Set<Object>())
+		)).thenReturn(existingPSRToBeDeleted);
+
+		MockUtility.Mocks.when(mockUow.registerNew(
+			(List<PendingServiceRouting>)fflib_Match.anyList()
+		)).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+
+		MockUtility.Mocks.stopStubbing();
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseSkillBasedRoutingModule module = CaseSkillBasedRoutingModule.newInstance();		
+		module.onBeforeUpdate(cases, new Map<Id,Case>(oldCases), mockUow);
+
+		Test.stopTest();
+
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1)))
+			.registerNew((List<PendingServiceRouting>)fflib_Match.anyList());
+
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1)))
+			.registerDeleted((List<PendingServiceRouting>)fflib_Match.eq(existingPSRToBeDeleted));		
+
+		// PMD warning
+		System.assertEquals(preferredAgentQueueId, cases[0].OwnerId, 'Case should be assigned to Preferred Agent Queue');
+		System.assertEquals(omniQueue.Id, cases[1].OwnerId, 'Case without accepted AgentWork should be assigned to Omni Queue');
+		System.assertEquals(omniQueue.Id, cases[2].OwnerId, 'Case already in Omni Queue should still be in Omni Queue');
+		System.assertEquals(userId, ((PendingServiceRouting)MockUtility.mockUnitOfWorkDMLs[0]).PreferredUserId, 'Inserted PSR should have the correct PreferredUserId assigned');
 	}
 
 }

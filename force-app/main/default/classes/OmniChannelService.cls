@@ -12,6 +12,7 @@
 * 1.0	7/25/2019, 2:19:17 PM   rajesh.punjabi@mav3rik.com	 Initial Version
 * 1.1	16/08/2022				George Nguyen				Added isOmniGroupUser
 * 1.1	04/11/2022				George Nguyen				Added instance and setOmniRoutingSecondaryPriority methods
+* 1.2	06/12/2022				Noel Lim					Added inner class WithoutSharingRetrieveData and method getUserIdFromLatestAcceptedAgentWork
 **/
 public inherited sharing class OmniChannelService {
 
@@ -108,6 +109,28 @@ public inherited sharing class OmniChannelService {
 		return result;
 	}
 	
+	/*
+	* This method returns a map of CaseIds and UserIds, the UserId is the latest Agent who accepted the Case via Omni routing
+	*/
+	public Map<Id,Id> getUserIdsFromLatestAcceptedAgentWork(Set<Id> caseIds) {
+		List<AgentWork> aws = new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds);
+
+		Map<Id,Id> mapCaseIdToUserId = new Map<Id,Id>();
+
+		if(aws.isEmpty() == false){
+			for(Id caseId : caseIds){
+				for(AgentWork agentWork : aws){
+					if(agentWork.WorkItemId == caseId 
+						&& mapCaseIdToUserId.containsKey(caseId) == false){
+						mapCaseIdToUserId.put(caseId,agentWork.UserId);
+					}
+				}
+			}
+		}
+
+		return mapCaseIdToUserId;
+	}
+
 	/**
 	* @description create work item for agents if agent is online.
 	* @author rajesh.punjabi@mav3rik.com | 8/8/2019
@@ -139,5 +162,15 @@ public inherited sharing class OmniChannelService {
 		}
 		
 		return bReturn;
+	}
+
+	/**
+	 * Required to provide elevated privileges for guest users to query the AgentWork object 
+	 */
+	public without sharing class WithoutSharingRetrieveData{
+		
+		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
+			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIds(caseIds, new Set<Object>());
+		}
 	}
 }

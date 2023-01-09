@@ -8,10 +8,28 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2020-08-02 - Nathan Franklin - Added new test methods for domains
+ * 2022-12-07 - Noel Lim 		- Added test methods for new Cache variables queuesWithRoutingConfig, queueIdVsRoutingConfig
  */
 @IsTest
 private with sharing class Application_Test {
-	
+
+	@IsTest
+	static void serviceChannelsShouldReturnAllServiceChannels() {
+		CacheManager.settings.CacheEnabled__c = true;
+		Application.Cache.resetStaticVariablesForUnitTestOnly();
+
+		List<ServiceChannel> serviceChannels = [SELECT AfterConvoWorkMaxTime,DeveloperName,DoesMinimizeWidgetOnAccept,HasAfterConvoWorkTimer,RelatedEntity,SecRoutingPriorityField FROM ServiceChannel];
+
+		System.assertEquals(serviceChannels.size(), Application.Cache.serviceChannels.size(), 'it should return the same number of service channels');
+		System.assertEquals(serviceChannels[0].Id, Application.Cache.serviceChannels.get(serviceChannels[0].DeveloperName).Id, 'should match');
+		System.assertEquals(serviceChannels[serviceChannels.size() - 1].Id, Application.Cache.serviceChannels.get(serviceChannels[serviceChannels.size() - 1].DeveloperName).Id, 'should match');
+
+		// test loading from cache
+		Application.Cache.resetStaticVariablesForUnitTestOnly();
+		CacheManager.put('ALL_SERVICE_CHANNELS', new Map<String, ServiceChannel>{'test'=>serviceChannels[0]});
+		System.assertEquals(serviceChannels[0].Id, Application.Cache.serviceChannels.get('test').Id, 'should match');
+	}
+
     @IsTest
 	static void organisationInfoShouldReturnTheCurrentOrg() {
 		CacheManager.settings.CacheEnabled__c = true;
@@ -56,6 +74,37 @@ private with sharing class Application_Test {
 		Application.Cache.resetStaticVariablesForUnitTestOnly();
 		CacheManager.put('ALL_PROFILE_IDS', new Map<String, Id>{'test'=>profiles[0].Id});
 		System.assertEquals(profiles[0].Id, Application.Cache.profileIds.get('test'), 'should match');
+	}
+
+	@IsTest
+	static void queuesWithRoutingConfigShouldReturnFilteredQueues() {
+		CacheManager.settings.CacheEnabled__c = true;
+		Application.Cache.resetStaticVariablesForUnitTestOnly();
+
+		List<Group> queues = [SELECT QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
+		List<QueueRoutingConfig> queueRoutingConfigs = [SELECT DeveloperName FROM QueueRoutingConfig];
+		Map<Id,QueueRoutingConfig> qrcMap = new Map<Id,QueueRoutingConfig>(queueRoutingConfigs);
+		Map<Id,Id> queueIdToRoutingId = new Map<Id,Id>();
+
+		for(Group queue : queues){
+			queueIdToRoutingId.put(queue.Id, queue.QueueRoutingConfigId);
+		}
+
+		System.assertEquals(queues.size(), Application.Cache.queuesWithRoutingConfig.size(), 'it should return the same number of queues');
+		System.assertEquals(
+			qrcMap.get(queueIdToRoutingId.get(queues[0].Id)).Id, 
+			Application.Cache.queuesWithRoutingConfig.get(queues[0].Id).routingConfiguration.Id, 
+			'returned QueueRoutingConfig Ids should match');
+		System.assertEquals(
+			qrcMap.get(queueIdToRoutingId.get(queues[queues.size()-1].Id)).Id, 
+			Application.Cache.queuesWithRoutingConfig.get(queues[queues.size()-1].Id).routingConfiguration.Id, 
+			'returned QueueRoutingConfig Ids should match');
+
+		// test loading from cache
+		Application.Cache.resetStaticVariablesForUnitTestOnly();
+		CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', new Map<Id, Application.QueueWrapper>{queues[0].Id=> new Application.QueueWrapper(queues[0],qrcMap.get(queueIdToRoutingId.get(queues[0].Id)))});
+		System.assertEquals(queues[0].Id, Application.Cache.queuesWithRoutingConfig.get(queues[0].Id).queue.Id, 'should match');
+		System.assertEquals(qrcMap.get(queueIdToRoutingId.get(queues[0].Id)).Id, Application.Cache.queuesWithRoutingConfig.get(queues[0].Id).routingConfiguration.Id, 'returned QueueRoutingConfig Ids via Cache should match');
 	}
 
 	/**

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BypassPreferredAgent__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This flag is used by the Routing Engine to bypass the Preferred Agent logic. It will be set to False whenever the owner of the case changes from a Queue to a User.</description>
+    <externalId>false</externalId>
+    <label>Bypass Preferred Agent</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>
