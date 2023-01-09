@@ -1129,7 +1129,7 @@ global class CaseDetailsCaseContExt  {
 					Savepoint sp = Database.setSavepoint();
 					
 					if(!sameOwner && doUpdate) {
-						Database.update(casesTobeRouted);
+						ApplicationDatabase.getInstance().dmlUpdate(casesTobeRouted);
 
 						Map<Id, PendingServiceRouting> psrs = new Map<Id, PendingServiceRouting>(PendingServiceRoutingSelector.newInstance().selectByWorkItemId(new Set<Id>{this.myCase.Id}, new Set<Object>()));
 						// If PSR was created then the new owner is an Omni queue
@@ -1155,7 +1155,7 @@ global class CaseDetailsCaseContExt  {
 
 								// user has all the required skills so we should revert the update and show the error to the user. 
 								if(hasAllSkills == true) {
-									Database.rollback(sp);
+									ApplicationDatabase.getInstance().dmlRollback(sp);
 									notAllowedToReassign = true; // showing the error to the user. 
 								}								
 							}
