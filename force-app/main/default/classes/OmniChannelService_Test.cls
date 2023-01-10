@@ -308,7 +308,7 @@ public class OmniChannelService_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		Map<Id,Id> caseIdToUserId = new Map<Id,Id>();
+		Map<Id, AgentWork> caseIdToUserId = new Map<Id, AgentWork>();
 		Boolean exceptionThrown = false;
 
 		System.runAs(communityUser){
