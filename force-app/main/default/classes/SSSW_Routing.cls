@@ -186,7 +186,7 @@ public class SSSW_Routing {
 			List<String> sswFields = new List<String>();
 			sswFields.addAll(routingFields);
 			String queryString = String.format('select {0},Sequence__c, Match_Rules_On__c, NPS_criteria__c, AutoEscalate__c, Recordtype.DeveloperName, ' +
-											   'Queue_ID__c, DefaultCaseDetails__c, RuleRequiresArticleAttributes__c from SSSWRouting__c WHERE IsActive__c = true and Match_Rules_On__c != null and ' +
+											   'Queue_ID__c, DefaultCaseDetails__c, RuleRequiresArticleAttributes__c,PreferredAgentExpiry__c from SSSWRouting__c WHERE IsActive__c = true and Match_Rules_On__c != null and ' +
 											   '(RecordType.DeveloperName=\'\'{1}\'\') order by Sequence__c',
 											   new List<String>{
 												   String.escapeSingleQuotes(String.join(sswFields, ',').removeEnd(',')),
