@@ -10,7 +10,8 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	private static final String SFID = 'SFID';
 	private static final Integer NO_LIMIT = 0;
 	private ID personAccId;
-	private Map<String, List<Account>> custMap = new Map<String, List<Account>>{ APCN => new List<Account>(), SFID => new List<Account>() };
+	private Map<Id, Account> accountMapById = new Map<Id, Account>();
+	private Map<String, Account> accountMapByAPCN = new Map<String, Account>();
 	private Map<ID, Account> custSuccessMap = new Map<ID, Account>();
 
 	/**
@@ -46,27 +47,21 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 					}
 				}
 
-				//these are the records to upsert
-				List<SObject> accupsertAPCNList = new List<SObject>();
-				List<SObject> accupsertSFIDList = new List<SObject>();
-
 				//customer logic
 				apcnNumbers = customerLogic(apcnMap, recIdMap, events);
-				accupsertAPCNList = (List<SObject>) custMap.get(APCN);
-				accupsertSFIDList = (List<SObject>) custMap.get(SFID);
 
-				if (accupsertAPCNList.size() > 0) {
-					resultUpsertAPCN = ApplicationDatabase.getInstance().dmlUpsert(accupsertAPCNList, Account.apcn__c);
+				if (accountMapByAPCN.size() > 0) {
+					resultUpsertAPCN = ApplicationDatabase.getInstance().dmlUpsert(accountMapByAPCN.values(), Account.apcn__c);
 				}
-				if (accupsertSFIDList.size() > 0) {
-					resultUpsertSFID = ApplicationDatabase.getInstance().dmlUpsert(accupsertSFIDList, Account.Id);
+				if (accountMapById.size() > 0) {
+					resultUpsertSFID = ApplicationDatabase.getInstance().dmlUpsert(accountMapById.values(), Account.Id);
 				}
 
 				custSuccessMap = genSuccessCustomerMap(genSuccessCustIds(resultUpsertAPCN, resultUpsertSFID));
 
 				//query customer to get the contactid and create a map of salesforce id, person contactid
 				resAPCNmap = genCustomerUpsertResult(
-					(List<Account>) combineListsAccount(accupsertAPCNList, accupsertSFIDList),
+					(List<Account>) combineListsAccount(accountMapByAPCN.values(), accountMapById.values()),
 					(List<Database.UpsertResult>) combineListsUpsertResult(resultUpsertAPCN, resultUpsertSFID)
 				);
 
@@ -133,7 +128,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				apcnNumbers += (String.isBlank(e.apcn__c) == false ? e.apcn__c : '') + ',';
 				//if the salsforce record id is null then its a new consumer record
 				if (String.isEmpty(e.salesforceRecordID__c)) {
-					custMap.get(APCN).add(genNewCustomer(e));
+					accountMapByAPCN.put(e.apcn__c, genNewCustomer(e));
 				} else {
 					checkExistingCustomer(apcnMap, recIdMap, e);
 				}
@@ -190,14 +185,17 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		//if the salsforce record id is not null,then retrieve the person account
 		Account acc = genCustomerWithAPCNKey(apcnMap, e);
 		if (apcnMap.containsKey(e.apcn__c) && acc != null) {
-			custMap.get(APCN).add(acc);
+			accountMapByAPCN.put(e.apcn__c, acc);
 		} else {
 			//if  salesforce id is not null, and no apcn is found, then search for the salesforce id
 			if (recIdMap.containsKey(e.salesforceRecordID__c)) {
-				custMap.get(SFID).add(genCustomerWithRecIdKey(recIdMap, e));
+				acc = genCustomerWithRecIdKey(recIdMap, e);
+				if(accountMapById.containsKey(acc.Id) == false) {
+					accountMapById.put(acc.id, acc);
+				}
 			} else {
 				// Invalid SF id, need to create new Account by APCN
-				custMap.get(APCN).add(mapPersonAccountFields(e));
+				accountMapByAPCN.put(e.apcn__c, mapPersonAccountFields(e));
 			}
 		}
 	}
