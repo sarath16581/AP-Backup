@@ -26,7 +26,17 @@ public inherited sharing class OmniChannelService {
 
 	private final Integer defaultSecondaryPriority = 2500;
 
-	private final Map<String, Integer> priorityMappingToSecondaryPriorityRange = new Map<String, Integer>{
+	public String preferredAgentQueueId {
+		get {
+			if(preferredAgentQueueId == null) {
+				preferredAgentQueueId = QM__c.getOrgDefaults().PreferredAgentQueueId__c;
+			}
+			return preferredAgentQueueId;
+		}
+		private set;
+	}
+
+	public final Map<String, Integer> priorityMappingToSecondaryPriorityRange = new Map<String, Integer>{
 		'Critical' => 1000,
 		'Urgent' => 1000,
 		'Normal' => 2000,
@@ -112,23 +122,15 @@ public inherited sharing class OmniChannelService {
 	/*
 	* This method returns a map of CaseIds and UserIds, the UserId is the latest Agent who accepted the Case via Omni routing
 	*/
-	public Map<Id,Id> getUserIdsFromLatestAcceptedAgentWork(Set<Id> caseIds) {
+	public Map<Id,AgentWork> getUserIdsFromLatestAcceptedAgentWork(Set<Id> caseIds) {
+		Map<Id,AgentWork> result = new Map<Id,AgentWork>();
 		List<AgentWork> aws = new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds);
 
-		Map<Id,Id> mapCaseIdToUserId = new Map<Id,Id>();
-
-		if(aws.isEmpty() == false){
-			for(Id caseId : caseIds){
-				for(AgentWork agentWork : aws){
-					if(agentWork.WorkItemId == caseId 
-						&& mapCaseIdToUserId.containsKey(caseId) == false){
-						mapCaseIdToUserId.put(caseId,agentWork.UserId);
-					}
-				}
-			}
+		for(AgentWork agentWork : aws){
+			result.put(agentWork.WorkItemId, agentWork);
 		}
-
-		return mapCaseIdToUserId;
+		
+		return result;
 	}
 
 	/**
