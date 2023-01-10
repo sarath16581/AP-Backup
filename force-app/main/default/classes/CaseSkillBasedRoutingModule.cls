@@ -128,9 +128,12 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 
 				Case oldCase = existingRecords?.get(c.Id);	
 
-				if(oldCase != null 
+				if(c.BypassPreferredAgent__c == false 
+					&& oldCase != null 
 					&& c.OwnerId != oldCase.OwnerId
-					&& Application.Cache.queuesWithRoutingConfig.containsKey(c.OwnerId) == true 
+					&& c.PreferredAgentExpiry__c != null // this is set by the routing engine
+					&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni
+					&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(c.OwnerId) == true // omni queue check
 				){
 					validCases.put(c.Id, c);
 				}
@@ -142,14 +145,14 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 
 				if(caseIdsVsAgentWorks.isEmpty() == false) {
 
-					ServiceChannel sc = Application.Cache.serviceChannels.get('Case_Channel');
+					ServiceChannel sc = OmniChannelService.Cache.serviceChannels.get('Case_Channel');
 					List<PendingServiceRouting> newPSRs = new List<PendingServiceRouting>();			
 
 					for(Case csRec : validCases.values()) {
 						if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true) {
 							
 							//use the routing configuration of the Omni queue the Case was being routed to
-							QueueRoutingConfig routingConfiguration = Application.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
+							QueueRoutingConfig routingConfiguration = OmniChannelService.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
 							
 							csRec.OwnerId = preferredAgentQueueId;
 
