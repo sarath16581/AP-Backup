@@ -3372,6 +3372,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>OperatingHours</field>
+            <table>User.Contacts__r.Accounts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Opportunity__c</field>
             <table>User.Contacts__r.Accounts__r</table>
         </columns>

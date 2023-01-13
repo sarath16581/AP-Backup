@@ -1621,6 +1621,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>OperatingHours</field>
+            <table>Billing_Account__c.Contacts__r.Accounts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Organisation_Alternate_Name__c</field>
             <table>Billing_Account__c.Contacts__r.Accounts__r</table>
         </columns>

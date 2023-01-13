@@ -1,0 +1,4 @@
+<design:component>
+   <design:attribute name="pageName" label="VisualforcePageName" />
+   <design:attribute name="proposalId" label="ProposalId" />
+</design:component>

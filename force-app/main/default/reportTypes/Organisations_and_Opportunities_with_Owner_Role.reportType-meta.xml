@@ -272,6 +272,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>OperatingHours</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Organisation_Alternate_Name__c</field>
             <table>Account</table>
         </columns>
