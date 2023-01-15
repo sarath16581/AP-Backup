@@ -334,7 +334,7 @@ public without sharing class SalesRecordSharingService {
 				currentContextProcessableChildRecordCount += totalChildRecordCount;
 				currentContextProcessableAccounts.put(parentAccount.Id, parentAccount);
 				// populate result to return at the end.
-				results.add(new AccountChildRecordsSharingRecalculationResult(parentAccount.Id, true, false, new Map<SObjectType, Integer>()));
+				results.add(new AccountChildRecordsSharingRecalculationResult(parentAccount.Id, parentAccount.SalesTeamType__c, true, false, new Map<SObjectType, Integer>()));
 			} else {
 				// current parent account's child records cannot be processed synchronously in current transaction together with
 				// all the other accounts marked for processing in this transaction.
@@ -342,10 +342,10 @@ public without sharing class SalesRecordSharingService {
 				if (totalChildRecordCount > MAX_ACC_MOVEMENT_RELATED_RECORD_SIZE_PER_TRANSACTION) {
 					// child records of this parent account cannot be processed in a single transaction due to the volume
 					// do not process now and return 'retryInPartialMode=true' so the caller can retry partially (each sobject type in a separate transaction).
-					results.add(new AccountChildRecordsSharingRecalculationResult(parentAccount.Id, false, true, childSObjectRecordCounts));
+					results.add(new AccountChildRecordsSharingRecalculationResult(parentAccount.Id, parentAccount.SalesTeamType__c, false, true, childSObjectRecordCounts));
 				} else {
 					// account does not need to be split per sobject type
-					results.add(new AccountChildRecordsSharingRecalculationResult(parentAccount.Id, false, false, childSObjectRecordCounts));
+					results.add(new AccountChildRecordsSharingRecalculationResult(parentAccount.Id, parentAccount.SalesTeamType__c, false, false, childSObjectRecordCounts));
 				}
 			}
 		}
@@ -530,7 +530,7 @@ public without sharing class SalesRecordSharingService {
 	 */
 	 public void recalculateChildRecordSharing(Set<Id> parentAccountIds, SObjectType sobjectType) {
 
-		ApplicationUnitOfWork uow = newUnitOfWork();
+		ApplicationUnitOfWork uow = newUnitOfWork(new Set<SObjectType>{sobjectType});
 
 		// retrieve sharing configuration for the specified sobject type
 		SalesRecordSharingService.SalesSharingObjectMapping sharingObjectMapping = getSharingConfiguration(sobjectType);
@@ -784,7 +784,7 @@ public without sharing class SalesRecordSharingService {
 		public SObjectField lookupField {get; private set;}
 		public String lookupRelationshipName {get; private set;}
 		@TestVisible private String sharingReason {get; set;}
-		@TestVisible private String shareObjectApiName {get; set;}
+		@TestVisible private String shareObjectApiName {get; set;}//TODO translate to SOBject Type??
 		// list of sharing group mappings for this sobject.
 		@TestVisible private List<SalesSharingGroupMapping> groupMappings {get;set;}
 
@@ -852,8 +852,11 @@ public without sharing class SalesRecordSharingService {
 		public Boolean processed {get; private set;}
 		public Boolean retryInPartialMode {get; private set;}
 		public Map<SObjectType, Integer> unprocessedChildSObjectTypes {get; private set;}
-		@TestVisible private AccountChildRecordsSharingRecalculationResult(Id accountId, Boolean processed, Boolean retryInPartialMode, Map<SObjectType, Integer> unprocessedSObjectTypes) {
+		public String salesTeamType {get; private set;}
+
+		@TestVisible private AccountChildRecordsSharingRecalculationResult(Id accountId, String salesTeamType, Boolean processed, Boolean retryInPartialMode, Map<SObjectType, Integer> unprocessedSObjectTypes) {
 			this.accountId = accountId;
+			this.salesTeamType = salesTeamType;
 			this.processed = processed;
 			this.retryInPartialMode = retryInPartialMode;
 			this.unprocessedChildSObjectTypes = unprocessedSObjectTypes;

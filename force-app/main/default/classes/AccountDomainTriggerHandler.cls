@@ -43,7 +43,12 @@ public with sharing class AccountDomainTriggerHandler extends ApplicationDomainT
 			User.SObjectType,
 			ContactPointPhone.SObjectType,
 			ContactPointEmail.SObjectType,
-			ContactPointAddress.SObjectType
+			ContactPointAddress.SObjectType,
+			APR__Share.SObjectType,
+			Apttus__APTS_Agreement__Share.SObjectType,
+			Apttus_Proposal__Proposal__Share.SObjectType,
+			APT_SAP_Contracts__Share.SObjectType,
+			Deal_Support_Request__Share.SObjectType
 		};
 	}
 }
