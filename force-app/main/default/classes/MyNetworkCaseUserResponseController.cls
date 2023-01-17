@@ -28,7 +28,9 @@ public without sharing class MyNetworkCaseUserResponseController {
 				Case caseToUpdate = new Case(Id = caseId, Status = MyNetworkConstants.CASE_STATUS_NETWORK_RESPONDED);
 
 				//create new feed item record and update case status
-				ApplicationDatabase.getInstance().dmlUpsert(new List<SObject>{post, caseToUpdate}, Case.Id);
+				//ApplicationDatabase.getInstance().dmlUpsert(new List<SObject>{post, caseToUpdate}, FeedItem.Id);
+				ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{post});
+				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{caseToUpdate});
 			}
 			return 'success';
 			

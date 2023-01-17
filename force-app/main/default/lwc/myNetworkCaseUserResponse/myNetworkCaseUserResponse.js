@@ -211,7 +211,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
     }
 
 	createChatterFeed(){
-		let caseRecId = caseRecordId();
+		let caseRecId = getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
 		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId, caseId : caseRecId})
 		.then((result) => {
 			if (result) {
@@ -246,7 +246,4 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 					);
 	}
 	
-	get caseRecordId(){
-		return getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
-	}
 }

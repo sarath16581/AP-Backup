@@ -12,28 +12,19 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 
 	// Setup which trigger events this module should respond to
 	public STCaseInvestigationLifecycleModule() {
-		getTriggerEvents().enableAfterInsert().enableAfterUpdate();
+		getTriggerEvents().enableAfterInsert();
 	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		updateCaseStatus((List<CaseInvestigation__c>) records, uow);
 	}
 
-	public override void  onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
-		try {
-			updateAllCaseInvestigations(records, uow);
-		} catch(Exception ex) {
-			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Case Investigation', STCaseInvestigationLifecycleModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-		}
-	}
 
 	/**
 	*	@desc: Function to update all child case investigations when parent case is Closed.
 	*	@param: List of updated cases, ApplicationUnitOfWork 
 	*/
-	@TestVisible
-	private void updateAllCaseInvestigations(List<Case> cases, ApplicationUnitOfWork uow) {
+	public void updateAllCaseInvestigations(List<Case> cases, ApplicationUnitOfWork uow) {
 		
 		Set<Id> caseIds = new Set<Id>();
 		List<CaseInvestigation__c> caseInvestigationsToUpdate = new List<CaseInvestigation__c>();
@@ -54,7 +45,7 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 
 		//update case investigations records
 		if(!caseInvestigationsToUpdate.isEmpty()) {
-			//uow.registerDirty(caseInvestigationsToUpdate);
+			uow.registerDirty(caseInvestigationsToUpdate);
 		}
 	}
 
