@@ -19,4 +19,16 @@ public with sharing class MyNetworkConstants {
         'Cases_updated' => 'Updated Cases',
         'star_track_cases' => 'StarTrack Cases'
     };
+
+	public static final String CASE_STATUS_NEW_CASE_INVESTIGATION='Waiting on operations';
+	public static final String CASE_STATUS_NETWORK_RESPONDED='Network Responded';
+	public static final String CASE_STATUS_CLOSED='Closed';
+
+	public static final String CASE_INVESTIGATION_NEW_STATUS='New';
+	public static final String CASE_INVESTIGATION_IN_PROGRESS_STATUS='In Progress';
+	public static final String CASE_INVESTIGATION_RESPONDED_STATUS='Responded';
+	public static final String CASE_INVESTIGATION_CLOSED_STATUS='Closed';
+	public static final String CASE_INVESTIGATION_CLOSED_REQUIRED_INFO_STATUS='Closed - Required More Information';
+
+
 }

@@ -942,7 +942,8 @@ public with sharing class MyNetworkCaseListController {
 				//loop through CI ids and assign new ownerId.
                 for(Id caseInvestigationId : caseInvestigationIdSet) {
 					//add case investigation record in recordsToUpdate list
-					recordListToUpdate.add(new CaseInvestigation__c(Id = caseInvestigationId, OwnerId = userId));
+					recordListToUpdate.add(
+						new CaseInvestigation__c(Id = caseInvestigationId, OwnerId = userId, Status__c = MyNetworkConstants.CASE_INVESTIGATION_IN_PROGRESS_STATUS));
                 }
             }
             

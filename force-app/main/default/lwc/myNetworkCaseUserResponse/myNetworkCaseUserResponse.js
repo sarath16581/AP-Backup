@@ -28,6 +28,7 @@ import CASE_TYPE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Enq
 import PURPOSE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__r.Call_Purpose__c';
 import STATUS_FIELD from '@salesforce/schema/CaseInvestigation__c.Status__c';
 import INTERNAL_FACILITY_NOTES_FIELD from '@salesforce/schema/CaseInvestigation__c.InternalFacilityNotes__c';
+import CASE_FIELD from '@salesforce/schema/CaseInvestigation__c.Case__c';
 
 
 import CASE_INVESTIGATION_RECORD_ID from '@salesforce/schema/CaseInvestigation__c.Id';
@@ -125,7 +126,7 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 
 	@wire(getRecord, { recordId: '$recordId', fields: [ADDRESS_TYPE_FIELD, COMMENTS_FIELD, DELIVERY_INFORMATION_FIELD, DELIVERY_OFFICER_KNOWLEDGE_FIELD, DELIVERY_OPTIONS_FIELD,
 		NETWORK_FIELD,  QUALITY_OF_THE_CASE_FIELD, STILL_UNDER_INVESTIGATION_FIELD, REQUIRE_MORE_INFORMATION_FIELD, CASE_TYPE_FIELD, PURPOSE_FIELD, STATUS_FIELD,
-		INTERNAL_FACILITY_NOTES_FIELD] })
+		INTERNAL_FACILITY_NOTES_FIELD, CASE_FIELD] })
     wiredRecord({ error, data }) {
         if (error) {
             let message = 'Unknown error';
@@ -210,7 +211,8 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
     }
 
 	createChatterFeed(){
-		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId })
+		let caseRecId = caseRecordId();
+		postCaseInvestigationChatterFeed({ newtorkComments : this.comments, caseInvestigationId: this.recordId, caseId : caseRecId})
 		.then((result) => {
 			if (result) {
 
@@ -238,9 +240,13 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		});
 	}
 
-	 get isDelieryFieldVisible(){
+	get isDelieryFieldVisible(){
 		return ( (getFieldValue(this.caseInvestigationRecord, CASE_TYPE_FIELD) === CASE_TYPE ) 
 					&& (getFieldValue(this.caseInvestigationRecord, PURPOSE_FIELD) === CASE_PURPOSE) ? true : false
 					);
+	}
+	
+	get caseRecordId(){
+		return getFieldValue(this.caseInvestigationRecord, CASE_FIELD);
 	}
 }

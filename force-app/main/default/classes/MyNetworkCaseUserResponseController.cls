@@ -16,16 +16,19 @@ public without sharing class MyNetworkCaseUserResponseController {
 	 * @return: success/exception message.
 	 */
 	@AuraEnabled
-    public static string postCaseInvestigationChatterFeed(String newtorkComments, String caseInvestigationId){
+    public static string postCaseInvestigationChatterFeed(String newtorkComments, String caseInvestigationId, Id caseId){
         try {
             
 			if(String.isNotBlank(newtorkComments)){
 				FeedItem post = new FeedItem();
 				post.ParentId = caseInvestigationId;
 				post.Body = newtorkComments;
-				
-				//create new feed item record
-				ApplicationDatabase.getInstance().dmlInsert(new List<FeedItem>{post});
+
+				//update case status to 'Network Responded'
+				Case caseToUpdate = new Case(Id = caseId, Status = MyNetworkConstants.CASE_STATUS_NETWORK_RESPONDED);
+
+				//create new feed item record and update case status
+				ApplicationDatabase.getInstance().dmlUpsert(new List<SObject>{post, caseToUpdate}, Case.Id);
 			}
 			return 'success';
 			

@@ -1,0 +1,94 @@
+/**
+ * @description       : This module handles all operations related to Case Investigation Life Cycle
+ * @author            : Dattaraj Deshmukh
+ * @domain            : Case Investigation
+ * @changelog
+ * 2022-12-15 - Dattaraj Deshmukh - created
+ **/
+public inherited sharing class STCaseInvestigationLifecycleModule extends ApplicationDomain.Module {
+    public static STCaseInvestigationLifecycleModule newInstance() {
+		return (STCaseInvestigationLifecycleModule) Application.Utilities.newInstance(STCaseInvestigationLifecycleModule.class);
+	}
+
+	// Setup which trigger events this module should respond to
+	public STCaseInvestigationLifecycleModule() {
+		getTriggerEvents().enableAfterInsert().enableAfterUpdate();
+	}
+
+	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		updateCaseStatus((List<CaseInvestigation__c>) records, uow);
+	}
+
+	public override void  onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
+		try {
+			updateAllCaseInvestigations(records, uow);
+		} catch(Exception ex) {
+			// Error Logged to Exception object for analysis
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Case Investigation', STCaseInvestigationLifecycleModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+		}
+	}
+
+	/**
+	*	@desc: Function to update all child case investigations when parent case is Closed.
+	*	@param: List of updated cases, ApplicationUnitOfWork 
+	*/
+	@TestVisible
+	private void updateAllCaseInvestigations(List<Case> cases, ApplicationUnitOfWork uow) {
+		
+		Set<Id> caseIds = new Set<Id>();
+		List<CaseInvestigation__c> caseInvestigationsToUpdate = new List<CaseInvestigation__c>();
+
+		for(Case updatedCase : cases) {
+
+			//check if status is CLOSED and RecordType is of StarTrack case
+			if(updatedCase.Status == MyNetworkConstants.CASE_STATUS_CLOSED && updatedCase.StarTrack_RecordType__c) {
+				caseIds.add(updatedCase.Id);
+			}
+		}
+
+		//query CI records based on parent cases.
+		//update status = CLOSED for all child case investigations.
+		for(CaseInvestigation__c caseInv : CaseInvestigationsSelector.newInstance().selectOpenCaseInvestigationsByCaseIds(caseIds).values()) {
+			caseInvestigationsToUpdate.add( new CaseInvestigation__c(Id = caseInv.Id, Status__c = MyNetworkConstants.CASE_INVESTIGATION_CLOSED_STATUS));
+		}
+
+		//update case investigations records
+		if(!caseInvestigationsToUpdate.isEmpty()) {
+			//uow.registerDirty(caseInvestigationsToUpdate);
+		}
+	}
+
+
+	/**
+	 * function to update parent case whenever new CI records are created.
+	 */
+	@TestVisible
+	private void updateCaseStatus(List<CaseInvestigation__c> records, ApplicationUnitOfWork uow) {
+		List<Case> casesToUpdate = new List<Case>();
+
+		for(CaseInvestigation__c caseInv : records) {
+
+			//if CI record has OPEN status, set it's parent case status to 'Waiting on operations'
+			if(caseInv.Status__c.equals(MyNetworkConstants.CASE_INVESTIGATION_NEW_STATUS)) { 
+				casesToUpdate.add(new Case(Id = caseInv.Case__c, Status = MyNetworkConstants.CASE_STATUS_NEW_CASE_INVESTIGATION));
+			}
+		}
+
+		//update cases.
+		if(!casesToUpdate.isEmpty()) {
+			uow.registerDirty(casesToUpdate);
+		}
+	}
+
+
+	/**
+	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
+	 */
+	public class Constructor implements ApplicationDomain.IConstructableModule {
+		public ApplicationDomain.Module construct() {
+			return (ApplicationDomain.Module)STCaseInvestigationLifecycleModule.newInstance();
+		}
+	}
+
+}
+
