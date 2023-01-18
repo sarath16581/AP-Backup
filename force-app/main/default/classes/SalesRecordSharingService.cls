@@ -28,6 +28,10 @@ public without sharing class SalesRecordSharingService {
 	public static final String SALES_TEAM_TYPE_INTERMEDIARY = 'Intermediary';
 	public static final String SALES_TEAM_TYPE_HOLDING = 'Holding';
 
+	// name of 'Sales Team Sharing' application feature (ApplicationFeature__c). used to check if this feature is
+	// active / inactive based on the custom setting - ApplicationFeature__c.
+	public static final String SALES_RECORD_SHARING_FEATURE_NAME = 'SalesTeamSharing';
+
 	// only standard public groups are supported for configuring sharing groups
 	@TestVisible private static final Set<String> PUBLIC_GROUP_TYPES_SUPPORTED = new Set<String>{'Regular'};
 
@@ -230,6 +234,10 @@ public without sharing class SalesRecordSharingService {
 	 */
 	public void shareRecords(SObjectType objectType, Map<Id, SObject> records, Boolean recalculate, ApplicationUnitOfWork uow) {
 
+		if (!isSalesTeamSharingEnabled(new Set<SObjectType>{objectType})) {
+			return; // feature is disabled. nothing to do.
+		}
+
 		SalesSharingObjectMapping mapping = getSharingConfiguration(objectType);
 
 		// work out required sharing entries as per current 'SalesTeamType' configured on parent account
@@ -309,6 +317,10 @@ public without sharing class SalesRecordSharingService {
 	 */
 	public List<AccountChildRecordsSharingRecalculationResult> recalculateChildRecordSharing(Set<Id> parentAccountIds, ApplicationUnitOfWork uow) {
 
+		if (!isSalesTeamSharingEnabled(new Set<SObjectType>())) {
+			return new List<AccountChildRecordsSharingRecalculationResult>(); // feature is disabled. nothing to do.
+		}
+
 		// retrieve sharing configuration for all objects configured in metadata
 		Map<SObjectType, SalesRecordSharingService.SalesSharingObjectMapping> sharingObjectMappings = getSharingConfiguration();
 
@@ -364,6 +376,11 @@ public without sharing class SalesRecordSharingService {
 	 * @param accountIds account ids
 	 */
 	public void enqueueChildRecordsSharingHandlerQueueable(Set<Id> accountIds) {
+
+		if (!isSalesTeamSharingEnabled(new Set<SObjectType>())) {
+			return; // feature is disabled. nothing to do.
+		}
+
 		// recalculate sharing for child records for the accounts in an async process
 		ApplicationDatabase.getInstance().enqueueJob(new SalesAccountChildRecordsSharingHandlerQueueable(accountIds));
 	}
@@ -528,6 +545,10 @@ public without sharing class SalesRecordSharingService {
 	 */
 	 public void recalculateChildRecordSharing(Set<Id> parentAccountIds, SObjectType sobjectType) {
 
+		 if (!isSalesTeamSharingEnabled(new Set<SObjectType>{sobjectType})) {
+			 return; // feature is disabled. nothing to do.
+		 }
+
 		ApplicationUnitOfWork uow = newUnitOfWork(new Set<SObjectType>{sobjectType});
 
 		// retrieve sharing configuration for the specified sobject type
@@ -686,6 +707,30 @@ public without sharing class SalesRecordSharingService {
 		}
 
 		return sharingObjectMapping;
+	}
+
+	/**
+	 * Check if Sales record sharing feature is enabled / disabled. Supports enable / disable of the feature through
+	 * configuration in ApplicationFeature__c custom setting. Feature can be enabled / disabled globally for all
+	 * sobject types OR selectively for specific sobject types.
+	 *
+	 * @param sobjectTypes check feature is enabled for all of the sobject types supplied
+	 *
+	 * @return false if feature is disable globally or disabled for at least one of the sobject types specified. true otherwise.
+	 */
+	private Boolean isSalesTeamSharingEnabled(Set<SObjectType> sobjectTypes) {
+
+		// check if Sales record sharing feature is enabled globally.
+		Boolean isActive = ApplicationFeatures.getInstance().isFeatureActive(SALES_RECORD_SHARING_FEATURE_NAME);
+
+		// if the feature is Active globally, next check the status for specified sobject types one at a time.
+		if (isActive && sobjectTypes != null && !sobjectTypes.isEmpty()) {
+			for (SObjectType sobjectType: sobjectTypes) {
+				isActive = isActive && ApplicationFeatures.getInstance().isFeatureActive(SALES_RECORD_SHARING_FEATURE_NAME + '_' + sobjectType);
+			}
+		}
+
+		return isActive;
 	}
 
 	/**

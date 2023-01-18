@@ -486,6 +486,56 @@ private class SalesRecordSharingService_Test {
 	}
 
 	/**
+	 * Test to ensure no shares are created when Sales Record Sharing feature is disabled
+	 */
+	@IsTest
+	static void testShareNewRecordsWhenSalesRecordSharingFeatureDisabled() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
+		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+
+		List<APR__c> aprs = ApplicationTestDataFactory.getAPRs(1, null, null, true);
+		aprs[0].Legal_Entity_Name_LookUp__c = parentAccounts[0].Id;
+		aprs[0] = (APR__c) ApplicationTestDataFactory.setUnwritableFields(aprs[0], new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[0]});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ApplicationFeatures mockApplicationFeatures = (ApplicationFeatures) MockUtility.mockUtility(ApplicationFeatures.class);
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockApplicationFeatures.isFeatureActive((String)fflib_Match.anyObject())).thenReturn(false);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		SalesRecordSharingService.getInstance().shareRecords(APR__C.getSObjectType(), new Map<Id, APR__c>(aprs), false, mockUow);
+
+		Test.stopTest();
+
+		// verify no new share records registered with unit of work
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerNew((List<SObject>)fflib_Match.anyObject(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
+
+		// verify Application Features are checked
+		fflib_ArgumentCaptor featureNameCapture = fflib_ArgumentCaptor.forClass(String.class);
+
+		((ApplicationFeatures)MockUtility.Mocks.verify(mockApplicationFeatures, 1)).isFeatureActive((String)featureNameCapture.capture());
+		String featureNameCaptured = (String) featureNameCapture.getValue();
+		System.assertEquals(SalesRecordSharingService.SALES_RECORD_SHARING_FEATURE_NAME, featureNameCaptured, 'Expected to check status of feature - ' + SalesRecordSharingService.SALES_RECORD_SHARING_FEATURE_NAME + '; but not checked.' );
+	}
+
+	/**
 	 * Test to verify child record sharing recalculation behaviour for accounts with high volume of child records
 	 */
 	@IsTest
@@ -728,6 +778,62 @@ private class SalesRecordSharingService_Test {
 
 		// verify unit of work is committed by the service
 		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).commitWork();
+	}
+
+	/**
+	 * Test to ensure sharing recalculation is bypassed when feature is disabled
+	 */
+	@IsTest
+	static void testRecalculateChildRecordSharingIsBypassedWhenFeatureIsDisabled() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		// inject public group ids in service class so that the test doesn't depend on public group data in the org
+		injectMockPublicGroupIdsInService();
+
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(1, true);
+		parentAccounts[0].SalesTeamType__c = SalesRecordSharingService.SALES_TEAM_TYPE_DIRECT;
+
+		List<APR__c> aprs = ApplicationTestDataFactory.getAPRs(1, null, null, true);
+		aprs[0].Legal_Entity_Name_LookUp__c = parentAccounts[0].Id;
+
+		aprs[0] = (APR__c) ApplicationTestDataFactory.setUnwritableFields(aprs[0], new Map<String, Object>{'Legal_Entity_Name_LookUp__r' => parentAccounts[0]});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationFeatures mockApplicationFeatures = (ApplicationFeatures) MockUtility.mockUtility(ApplicationFeatures.class);
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockApplicationFeatures.isFeatureActive((String)fflib_Match.anyObject())).thenReturn(false);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<SalesRecordSharingService.AccountChildRecordsSharingRecalculationResult> results = SalesRecordSharingService.getInstance().recalculateChildRecordSharing(new Map<Id, Account>(parentAccounts).keySet(), mockUow);
+
+		Test.stopTest();
+
+		// verify Application Features are checked
+		fflib_ArgumentCaptor featureNameCapture = fflib_ArgumentCaptor.forClass(String.class);
+		((ApplicationFeatures)MockUtility.Mocks.verify(mockApplicationFeatures, 1)).isFeatureActive((String)featureNameCapture.capture());
+		String featureNameCaptured = (String) featureNameCapture.getValue();
+		System.assertEquals(SalesRecordSharingService.SALES_RECORD_SHARING_FEATURE_NAME, featureNameCaptured, 'Expected to check status of feature - ' + SalesRecordSharingService.SALES_RECORD_SHARING_FEATURE_NAME + '; but not checked.' );
+
+		// verify the results returned from service
+		System.assertEquals(0, results.size(), 'Expected empty result set when the feature is disabled');
+
+		// verify no new share records registered with unit of work
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerNew((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
+
+		// verify no shares deleted
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerDeleted((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.eqBoolean(false), (String)fflib_Match.anyObject());
 	}
 
 	/**
