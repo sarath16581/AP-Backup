@@ -7,5 +7,5 @@
     <masterLabel>Request Tracking Immediately</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>alert(&quot;{!$Label.et4ae5__deprecateierjscomponents}&quot;);</url>
+    <url>alert(&quot;{!$Label.et4ae5__deprecateIERJSComponents}&quot;);</url>
 </WebLink>

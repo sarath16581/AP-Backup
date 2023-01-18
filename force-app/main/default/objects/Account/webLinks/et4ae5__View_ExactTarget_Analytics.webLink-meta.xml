@@ -7,5 +7,5 @@
     <masterLabel>View Marketing Cloud Analytics</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>alert(&quot;{!$Label.et4ae5__deprecateaccountjscomponents}&quot;);</url>
+    <url>alert(&quot;{!$Label.et4ae5__deprecateAccountJSComponents}&quot;);</url>
 </WebLink>

@@ -222,6 +222,10 @@
                 <behavior>Edit</behavior>
                 <field>CCUYourReference__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LinkedArticleHasExtraCover__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

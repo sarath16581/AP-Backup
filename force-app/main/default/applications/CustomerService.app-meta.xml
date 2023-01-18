@@ -7,10 +7,10 @@
             <components>Console.BuiltInComponent.mostRecentlyUsed</components>
             <components>QuickLinks</components>
             <components>ContactSearch</components>
-            <components>Console.BuiltInComponent.knowledgeOne</components>
             <components>URLShortenerComponent</components>
             <components>Fill_Inbox</components>
             <components>ConsoleChatterScrollBar</components>
+            <components>Console.BuiltInComponent.knowledgeOne</components>
         </componentList>
         <detailPageRefreshMethod>autoRefresh</detailPageRefreshMethod>
         <keyboardShortcuts>

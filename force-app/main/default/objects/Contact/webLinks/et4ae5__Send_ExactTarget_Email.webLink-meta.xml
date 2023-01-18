@@ -7,5 +7,5 @@
     <masterLabel>Send Marketing Cloud Email</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>alert(&quot;{!$Label.et4ae5__deprecatecontactjscomponents}&quot;);</url>
+    <url>alert(&quot;{!$Label.et4ae5__deprecateContactJSComponents}&quot;);</url>
 </WebLink>
