@@ -477,7 +477,7 @@ public without sharing class SalesRecordSharingService {
 			}
 
 			for (SalesSharingGroupMapping sharingGroup: sharingObjectMapping.getGroupMappings(salesTeamType)) {
-				SObject share = (SObject) Type.forName(sharingObjectMapping.shareObjectApiName).newInstance();
+				SObject share = sharingObjectMapping.shareObjectType.newSObject();
 				share.put('ParentId', recordId);
 				share.put('RowCause', sharingObjectMapping.sharingReason);
 				share.put('AccessLevel', sharingGroup.accessLevel);
@@ -505,10 +505,8 @@ public without sharing class SalesRecordSharingService {
 	 */
 	private Map<String, SObject> getExistingSharingEntries(Set<Id> recordIds, SalesSharingObjectMapping mapping) {
 
-		SObjectType shareObjectType = ((SObject) Type.forName(mapping.shareObjectApiName).newInstance()).getSObjectType();
-
 		// query existing shares for the records passed in having the sharing reason specified.
-		List<SObject> existingShares = SObjectSharesSelector.newInstance(shareObjectType).selectByParentIdAndRowCause(
+		List<SObject> existingShares = SObjectSharesSelector.newInstance(mapping.shareObjectType).selectByParentIdAndRowCause(
 				recordIds, new Set<String>{mapping.sharingReason}
 		);
 
@@ -627,7 +625,7 @@ public without sharing class SalesRecordSharingService {
 		List<SObjectType> shareObjectTypes = new List<SObjectType>();
 		for (SObjectType sObjectType: sObjectTypes) {
 			SalesSharingObjectMapping mapping = getSharingConfiguration(sObjectType);
-			shareObjectTypes.add(((SObject) Type.forName(mapping.shareObjectApiName).newInstance()).getSObjectType());
+			shareObjectTypes.add(mapping.shareObjectType);
 		}
 
 		return ApplicationUnitOfWork.newInstance(shareObjectTypes);
@@ -732,7 +730,10 @@ public without sharing class SalesRecordSharingService {
 						accountsForPartialProcessing.put(result.accountId, validSobjectTypesForPartialProcessing);
 					}
 				}
-				this.accountIdsForPartialProcessing.putAll(accountsForPartialProcessing);
+
+				if (!accountsForPartialProcessing.isEmpty()) {
+					this.accountIdsForPartialProcessing.putAll(accountsForPartialProcessing);
+				}
 
 			} else if (accountIdsForPartialProcessing != null && !accountIdsForPartialProcessing.isEmpty()) {
 				// we have accounts that has been attempted previously and marked for partial processing per sobject type.
@@ -784,7 +785,7 @@ public without sharing class SalesRecordSharingService {
 		public SObjectField lookupField {get; private set;}
 		public String lookupRelationshipName {get; private set;}
 		@TestVisible private String sharingReason {get; set;}
-		@TestVisible private String shareObjectApiName {get; set;}//TODO translate to SOBject Type??
+		@TestVisible private SObjectType shareObjectType {get; set;}
 		// list of sharing group mappings for this sobject.
 		@TestVisible private List<SalesSharingGroupMapping> groupMappings {get;set;}
 
@@ -794,9 +795,7 @@ public without sharing class SalesRecordSharingService {
 			this.lookupRelationshipName = lookupRelationshipName;
 			this.sharingReason = sharingReason;
 			this.groupMappings = new List<SalesSharingGroupMapping>();
-			String qualifiedApiName = String.valueOf(objectType);
-			// derive share object API name from qualified api name of sobject.
-			this.shareObjectApiName = (qualifiedApiName.endsWith('__c') ?  qualifiedApiName.replace('__c' , '__Share') : (qualifiedApiName + 'Share'));
+			this.shareObjectType = getShareObjectForSObject(objectType);
 		}
 
 		/**
@@ -824,6 +823,27 @@ public without sharing class SalesRecordSharingService {
 			}
 
 			return result;
+		}
+
+		/**
+		 * Return the Share object type (e.g. XYZ__Share, XYZShare) for specified sobject
+		 * @param sobjectType sobject type such as XYZ__c, XYZ
+		 *
+		 * @return SObject Type of the Share object (e.g. XYZ__Share, XYZShare).
+		 */
+		private SObjectType getShareObjectForSObject(SObjectType sobjectType) {
+			String qualifiedApiName = String.valueOf(sobjectType);
+			// derive share object API name from qualified api name of sobject.
+			String shareObjectApiName = (qualifiedApiName.endsWith('__c') ?  qualifiedApiName.replace('__c' , '__Share') : (qualifiedApiName + 'Share'));
+
+			Type t = Type.forName(shareObjectApiName);
+			// check if the Share object type exists. Objects on the detail side of a master-detail relationship do not
+			// have an associated sharing object.
+			if (t == null) {
+				String message = 'Share object [' + shareObjectApiName + '] does not exist for SObjectType [' + sobjectType + ']. Please review sharing model for this SObjectType.';
+				throw new SalesRecordSharingException(message);
+			}
+			return ((SObject) t.newInstance()).getSObjectType();
 		}
 	}
 
