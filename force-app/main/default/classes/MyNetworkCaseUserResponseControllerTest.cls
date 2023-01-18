@@ -30,6 +30,9 @@ private class MyNetworkCaseUserResponseControllerTest {
 
         List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		
+		//assigning child CI records to case.
+		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{caseInvestigations[0]}});
+
 		// =====================================
         // Stubbing
         // =====================================
@@ -38,10 +41,11 @@ private class MyNetworkCaseUserResponseControllerTest {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 
 		Test.StartTest();
-		MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed('Sample Feed Comments', caseInvestigations[0].Id);
+		MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed('Sample Feed Comments', caseInvestigations[0].Id, cases[0].Id);
 		Test.stopTest();
 
 		fflib_ArgumentCaptor insertableRecordsCaptor = fflib_ArgumentCaptor.forClass(List<FeedItem>.class);
@@ -51,6 +55,10 @@ private class MyNetworkCaseUserResponseControllerTest {
 		system.assertEquals(1, insertedRecords.size());
 
 		system.assertEquals('Sample Feed Comments', insertedRecords[0].Body);
+
+
+		fflib_ArgumentCaptor updatableRecordsCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>) updatableRecordsCaptor.capture());
 
 	}
 

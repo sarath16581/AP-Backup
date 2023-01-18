@@ -24,7 +24,7 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 	*	@desc: Function to update all child case investigations when parent case is Closed.
 	*	@param: List of updated cases, ApplicationUnitOfWork 
 	*/
-	public void updateAllCaseInvestigations(List<Case> cases, ApplicationUnitOfWork uow) {
+	public void updateAllCaseInvestigations(List<Case> cases, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow) {
 		
 		Set<Id> caseIds = new Set<Id>();
 		List<CaseInvestigation__c> caseInvestigationsToUpdate = new List<CaseInvestigation__c>();
@@ -32,7 +32,8 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 		for(Case updatedCase : cases) {
 
 			//check if status is CLOSED and RecordType is of StarTrack case
-			if(updatedCase.Status == MyNetworkConstants.CASE_STATUS_CLOSED && updatedCase.StarTrack_RecordType__c) {
+			if(updatedCase.Status != existingRecords.get(updatedCase.Id).Status && 
+					updatedCase.Status == MyNetworkConstants.CASE_STATUS_CLOSED && updatedCase.StarTrack_RecordType__c) {
 				caseIds.add(updatedCase.Id);
 			}
 		}
@@ -60,8 +61,8 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 		for(CaseInvestigation__c caseInv : records) {
 
 			//if CI record has OPEN status, set it's parent case status to 'Waiting on operations'
-			if(caseInv.Status__c.equals(MyNetworkConstants.CASE_INVESTIGATION_NEW_STATUS)) { 
-				casesToUpdate.add(new Case(Id = caseInv.Case__c, Status = MyNetworkConstants.CASE_STATUS_NEW_CASE_INVESTIGATION));
+			if(caseInv.Status__c != null && caseInv.Status__c.equals(MyNetworkConstants.CASE_INVESTIGATION_NEW_STATUS)) { 
+				casesToUpdate.add(new Case(Id = caseInv.Case__c, Status = MyNetworkConstants.CASE_STATUS_WAITING_ON_OPERATIONS));
 			}
 		}
 

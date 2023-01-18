@@ -20,7 +20,7 @@ public with sharing class MyNetworkConstants {
         'star_track_cases' => 'StarTrack Cases'
     };
 
-	public static final String CASE_STATUS_NEW_CASE_INVESTIGATION='Waiting on operations';
+	public static final String CASE_STATUS_WAITING_ON_OPERATIONS='Waiting on operations';
 	public static final String CASE_STATUS_NETWORK_RESPONDED='Network Responded';
 	public static final String CASE_STATUS_CLOSED='Closed';
 

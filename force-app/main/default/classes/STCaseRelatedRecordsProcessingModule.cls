@@ -2,6 +2,7 @@
  * @description
  * Domain Module to update related child records for StarTrack cases. 
  * @author Dattaraj Deshmukh
+ * @Test STCaseRelatedRecordsProcessModule_Test
  * @date 2023-01-17
  * @group Domain
  * @domain core 
@@ -33,7 +34,7 @@ public inherited sharing class STCaseRelatedRecordsProcessingModule extends Appl
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			STCaseInvestigationLifecycleModule.newInstance().updateAllCaseInvestigations(records, uow);
+			STCaseInvestigationLifecycleModule.newInstance().updateAllCaseInvestigations(records, (Map<Id, Case>)existingRecords, uow);
 			
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
