@@ -14,6 +14,7 @@
  * 2019-07-06		nathan.franklin@auspost.com.au		Added custom 404 response and a custom cache key identifier
  * 2019-09-05		nathan.franklin@auspost.com.au		Added location id and mlid to group location payloads
  * 2022-04-22 - Nathan Franklin - Added fields specific for Conveyancer's as a part of the Property VOI MP onboarding
+ * 2022-12-19 - Nathan Franklin - Fixed cache bug and Organisation type mapping and a bug in the Assets check
  */
 public with sharing class ResourceV2AuthorisationRules extends ResourceAPIService.IApi {
 	// Organisation Id (salesforce Id) - uri request parameter - optional
@@ -40,6 +41,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 		String orgId = requestParams.queryStringParams.get('orgId');
 		String orgNumber = requestParams.queryStringParams.get('orgNumber');
 		String cNumber = requestParams.dynamicUriParams[0];
+		String appName = (requestParams.dynamicUriParams.size() > 1 ? requestParams.dynamicUriParams[1] : '');
 		if (String.isEmpty(orgId)) {
             orgId = '';
         }
@@ -47,7 +49,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
             orgNumber = '';
         }
 
-		String output = requestParams.version + '/auth/' + cNumber + '/' + orgId + '/' + orgNumber;
+		String output = requestParams.version + '/auth/' + cNumber + '/' + orgId + '/' + orgNumber + '/' + appName;
 		System.debug(output);
 		return output;
 	}
@@ -272,6 +274,17 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 
 		Map<Id, Id> orgWithAPP = new Map<Id, Id>();
 
+		// just incase (forwhatever reason) there are multiples of the same account,
+		// we flip the contact/account map arround so it's easier to build our our accounts with valid assets
+		Map<Id, Set<Id>> accountContactMappings = new Map<Id, Set<Id>>();
+		for(Id contactId : conAccMap.keySet()) {
+			if(accountContactMappings.get(conAccMap.get(contactId)) == null) {
+				accountContactMappings.put(conAccMap.get(contactId), new Set<Id>());
+			}
+			accountContactMappings.get(conAccMap.get(contactId)).add(contactId);
+		}
+		
+
 		//query assets linked to the Organisation for the specified app
 		List<Asset> assetlist = [
 				SELECT
@@ -281,14 +294,13 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 						AccountId
 				FROM Asset
 				WHERE Status = 'Active'
-				AND AccountId IN :conAccMap.values()
+				AND AccountId IN :accountContactMappings.keySet()
 				AND Product2Id In (Select Product__c From BAMApplication__c Where AppKey__c = :appKey)
 		];
 
 		for (Asset orgAsset : assetlist) {
-			for (Id cId : conAccMap.keySet()) {
-				System.debug(orgAsset);
-				orgWithAPP.put(cId, orgAsset.AccountId);
+			for(Id contactId : accountContactMappings.get(orgAsset.AccountId)) {
+				orgWithAPP.put(contactId, orgAsset.AccountId);
 			}
 		}
 		System.debug(orgWithAPP);
@@ -406,7 +418,7 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 						accAO.organisationId = contactRole.ContactApplication__r.Contact__r.Account.Id;
 						accAO.name = contactRole.ContactApplication__r.Contact__r.Account.Name;
 						accAO.accountNumber = contactRole.ContactApplication__r.Contact__r.Account.LEGACY_ID__c;
-						accAO.type = contactRole.ApplicationRole__r.Role__c ;
+						accAO.type = contactRole.ContactApplication__r.Contact__r.Account.Role_Type_Roll_Up__c;
 						accAO.tradingName = contactRole.ContactApplication__r.Contact__r.Account.Organisation_Trading_Name__c;
 						accAO.billingAddress = new AuthAddress(contactRole.ContactApplication__r.Contact__r.Account.BillingStreet, contactRole.ContactApplication__r.Contact__r.Account.BillingStreet2__c,
 																contactRole.ContactApplication__r.Contact__r.Account.BillingCity, contactRole.ContactApplication__r.Contact__r.Account.BillingState,

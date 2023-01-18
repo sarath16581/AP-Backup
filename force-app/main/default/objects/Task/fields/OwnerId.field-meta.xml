@@ -3,5 +3,6 @@
     <fullName>OwnerId</fullName>
     <inlineHelpText>The user responsible for the activity.</inlineHelpText>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

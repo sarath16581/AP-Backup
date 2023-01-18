@@ -3,4 +3,5 @@
     <fullName>Description</fullName>
     <inlineHelpText>Details about the task - eg action required, or action taken.</inlineHelpText>
     <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
 </CustomField>

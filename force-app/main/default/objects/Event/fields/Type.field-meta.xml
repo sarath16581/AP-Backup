@@ -3,5 +3,6 @@
     <fullName>Type</fullName>
     <inlineHelpText>How the customer was engaged ...</inlineHelpText>
     <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
     <type>Picklist</type>
 </CustomField>

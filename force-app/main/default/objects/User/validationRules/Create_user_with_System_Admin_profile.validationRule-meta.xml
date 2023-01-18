@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Create_user_with_System_Admin_profile</fullName>
+    <active>false</active>
+    <description>Only Selection System admins can create or upgrade other users to systems admin profile</description>
+    <errorConditionFormula>AND(
+				NOT ($Permission.Upgrade_users_to_Sys_admin), 
+    Profile.Name  = &apos;System Administrator&apos;,
+				OR(ISCHANGED(ProfileId), ISNEW())
+)</errorConditionFormula>
+    <errorMessage>You are not eligible to enable System Administrator access for others. Please reach out to Salesforce Support.</errorMessage>
+</ValidationRule>

@@ -7,7 +7,9 @@
     <columns>CASES.STATUS</columns>
     <columns>ReferenceID__c</columns>
     <columns>ArticleTest__c</columns>
+    <columns>CASES.LAST_UPDATE</columns>
     <columns>CASES.CREATED_DATE</columns>
+    <columns>Case_Type__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.CREATED_DATE_DATE_ONLY</field>

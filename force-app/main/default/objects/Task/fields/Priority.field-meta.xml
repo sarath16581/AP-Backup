@@ -3,5 +3,6 @@
     <fullName>Priority</fullName>
     <inlineHelpText>The importance of the activity.</inlineHelpText>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Picklist</type>
 </CustomField>

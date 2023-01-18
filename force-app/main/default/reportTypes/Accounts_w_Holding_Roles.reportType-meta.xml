@@ -315,6 +315,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>OperatingHours</field>
+            <table>Holding_Role_Reference__c.Holding_Role__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Organisation_Alternate_Name__c</field>
             <table>Holding_Role_Reference__c.Holding_Role__r</table>
         </columns>

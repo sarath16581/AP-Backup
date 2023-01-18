@@ -3,18 +3,10 @@ Description:  Utility class for the startrack ID search module, this will hold a
 History:
 --------------------------------------------------
 2022-11-24 - H Liyanage - Created
+2022-12-05 - Prerna Rahangdale Added a new TransferCaseQueuable and added Transfer Case feature.
 **************************************************/
 public with sharing class StarTrackTrackingIDSearchUtil {
 
-    static final Id communityUserProfileId {
-        get {
-            if(communityUserProfileId == null) {
-                communityUserProfileId = ProfilesSelector.newInstance().selectByName(new Set<String>{'StarTrack Help and Support Profile'}).values()[0].Id;
-            }
-            return communityUserProfileId;
-        }
-        private set;
-    }
     public static void getTrackingDetails(List<SObject> records) {
         List<Case> selectedCases = new List<Case>();
         for(Case cse:(List<Case>)records) {
@@ -37,8 +29,9 @@ public with sharing class StarTrackTrackingIDSearchUtil {
         Case cse;
         //TODO : Hasantha move strings to constants or custom metadata
         Set<Id> caseRecordTypes = new Set<Id>{
-                SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId()
-                , SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_VOC_RT_DEV).getRecordTypeId()};
+                SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId()
+                , SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_General_Enquiry').getRecordTypeId()
+                , SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_Voice_of_Customer').getRecordTypeId()};
 
         public TrackingSearchQueueable(Case record) {
             this.cse = record;
@@ -47,22 +40,19 @@ public with sharing class StarTrackTrackingIDSearchUtil {
         public void execute(QueueableContext context) {
             try {
                 System.debug('HASANTHA TEST MODULE 1 IN queable');
-                if(UserInfo.getProfileId() == communityUserProfileId // only execute for startrack community
-                        && this.cse.ArticleTest__c == null // if no article record is linked
-                        && this.cse.ReferenceID__c != null // and there's a reference ID
-                        && StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin__c) // origin is web only
-                        && caseRecordTypes.contains(this.cse.RecordTypeId)) { // only startrack record types created via STHS
-
-                    StarTrackTrackingIDSearchService idSearchService = StarTrackTrackingIDSearchService.newInstance();
-                    idSearchService.dateRange = '1';
-                    idSearchService.searchString = this.cse.ReferenceID__c;
-                    idSearchService.isConsole = false;
-                    idSearchService.map_searchCustomSettings.get(idSearchService.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
-                    idSearchService.searchConsignment();
-
-                    if(validate(idSearchService.lst_article[0])) {
-                        System.debug('HASANTHA TEST MODULE 2 :validated lst_article[0]'+ idSearchService.lst_article[0]);
-                        assignAndUpdateCase(idSearchService.lst_article[0],this.cse);
+                if(this.cse.ArticleTest__c == null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId)) {
+                    System.debug('HASANTHA TEST MODULE 2 :this.cse '+this.cse.Id);
+                    System.debug('HASANTHA TEST MODULE 3 :this.cse.ReferenceID__c'+ this.cse.ReferenceID__c);
+                    StarTrackTrackingIDSearchService cont = StarTrackTrackingIDSearchService.newInstance();
+                    cont.dateRange = '1';
+                    cont.searchString = this.cse.ReferenceID__c;
+                    cont.isConsole = false;
+                    cont.map_searchCustomSettings.get(cont.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
+                    cont.searchConsignment();
+                    System.debug('HASANTHA TEST MODULE 3 :cont.lst_article[0]'+ cont.lst_article[0]);
+                    if(validate(cont.lst_article[0])) {
+                        System.debug('HASANTHA TEST MODULE 3 VALIDATED GOOD ');
+                        assignAndUpdateCase(cont.lst_article[0],this.cse);
                     }
                 }
             } catch (Exception ex) {
@@ -80,13 +70,12 @@ public with sharing class StarTrackTrackingIDSearchUtil {
     }
 
     /**
-         * validate and assign the found article details to the case
+         * validate and assign the found article details
          * @param article
          * @param cse
          */
     public static void assignAndUpdateCase(Article__c article, Case cse) {
         try {
-            // prepare to update the case record
             case caseToBeUpdated = new Case();
             caseToBeUpdated.Id = cse.Id;
             caseToBeUpdated.ArticleTest__c = article.Id;
@@ -98,10 +87,8 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                 caseToBeUpdated.Total_Amount_of_Claim__c = article.Freight_Amount__c;
             }
             caseToBeUpdated.Delivery_Date__c = String.isNotBlank(article.CID__c) ? Date.valueOf(article.CID__c.left(4) + '-' + article.CID__c.mid(4, 2) + '-' + article.CID__c.right(2)) : null;
+            System.debug('HASANTHA TEST MODULE 4  IN queable cse ' + caseToBeUpdated);
 
-            System.debug('HASANTHA TEST MODULE 3  IN queable cse ' + caseToBeUpdated);
-
-            // access the update records via shared context since the update happens from community
             ElevatedSharingContext sharedContext = new ElevatedSharingContext();
             sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
             System.enqueueJob(new TransferCaseQueueable(caseToBeUpdated));
@@ -205,37 +192,42 @@ public with sharing class StarTrackTrackingIDSearchUtil {
         List<StarTrack_Transfer_Case_Rule__c> tc_rules = selector.selectAll(new Set<Object>{
                 StartTrackTransferCaseRulesSelector.Options.ORDER_BY_ORDERFIELD,ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER});
         try{
-        for(StarTrack_Transfer_Case_Rule__c tc_rule : tc_rules){
-            if((String.isNotBlank(tc_rule.Case_Purpose__c) ? c.Call_Purpose__c == tc_rule.Case_Purpose__c : true) && (String.isNotBlank(tc_rule.Case_RecordType__c) ? c.RecordType.Name == tc_rule.Case_RecordType__c : true) &&
-                    (String.isNotBlank(tc_rule.Case_Type__c) ? c.Enquiry_Type__c == tc_rule.Case_Type__c : true) && (String.isNotBlank(tc_rule.Customer_Stream__c) ? c.Account.StarTrack_Customer_Stream__c == tc_rule.Customer_Stream__c : true) &&
-                    (String.isNotBlank(tc_rule.Initial_Caller_Type__c) ? c.Initial_Caller_Type__c == tc_rule.Initial_Caller_Type__c : true) && (String.isNotBlank(tc_rule.Product_Group__c) ? c.ArticleTest__r.Product_Group__c == tc_rule.Product_Group__c : true) &&
-                    (tc_rule.Business_Solutions_Customer__c ? c.Business_Solutions_Customer__c == tc_rule.Business_Solutions_Customer__c : true) && tc_rule.Service_Cloud_Rule__c){
-                if(tc_rule.Queue_Name__c == StarTrack_Constants.TRANSFER_QUEUE) {
-                    if (!String.isBlank(c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c)) {
-                        queueName = c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c;
+            for(StarTrack_Transfer_Case_Rule__c tc_rule : tc_rules){
+                if((String.isNotBlank(tc_rule.Case_Purpose__c) ? c.Call_Purpose__c == tc_rule.Case_Purpose__c : true) && (String.isNotBlank(tc_rule.Case_RecordType__c) ? c.RecordType.Name == tc_rule.Case_RecordType__c : true) &&
+                        (String.isNotBlank(tc_rule.Case_Type__c) ? c.Enquiry_Type__c == tc_rule.Case_Type__c : true) && (String.isNotBlank(tc_rule.Customer_Stream__c) ? c.Account.StarTrack_Customer_Stream__c == tc_rule.Customer_Stream__c : true) &&
+                        (String.isNotBlank(tc_rule.Initial_Caller_Type__c) ? c.Initial_Caller_Type__c == tc_rule.Initial_Caller_Type__c : true) && (String.isNotBlank(tc_rule.Product_Group__c) ? c.ArticleTest__r.Product_Group__c == tc_rule.Product_Group__c : true) &&
+                        (tc_rule.Business_Solutions_Customer__c ? c.Business_Solutions_Customer__c == tc_rule.Business_Solutions_Customer__c : true) && tc_rule.Service_Cloud_Rule__c){
+                    if(tc_rule.Queue_Name__c == StarTrack_Constants.TRANSFER_QUEUE) {
+                        if (!String.isBlank(c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c)) {
+                            queueName = c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c;
+                            ruleSatisfied = true;
+                            break;
+                        }
+                    } else if(tc_rule.Queue_Name__c == StarTrack_Constants.ST_NETWORK_CUST_NOTIF && !StarTrack_Constants.CURRENT_USER_CAN_AUTO_CLOSE_CASE_FROM_TASK) {
+                        ruleSatisfied = false;
+                        continue;
+                    } else{
+                        // c.OwnerId = queryQueue(tc_rule.Queue_Name__c);
+                        queueName = tc_rule.Queue_Name__c;
                         ruleSatisfied = true;
                         break;
                     }
-                } else if(tc_rule.Queue_Name__c == StarTrack_Constants.ST_NETWORK_CUST_NOTIF && !StarTrack_Constants.CURRENT_USER_CAN_AUTO_CLOSE_CASE_FROM_TASK) {
-                    ruleSatisfied = false;
-                    continue;
-                } else{
-                   // c.OwnerId = queryQueue(tc_rule.Queue_Name__c);
-                    queueName = tc_rule.Queue_Name__c;
-                    ruleSatisfied = true;
-                    break;
                 }
             }
-        }
+
+            if(!ruleSatisfied && String.isNotBlank(c.Network__r.OwnerId)){
+                ownerId = c.Network__r.OwnerId;
+            }
+
             if(queueName != null) {
                 GroupsSelector groupsSelector = GroupsSelector.newInstance();
                 Map<Id,Group> queue = groupsSelector.selectByGroupTypeAndName(new Set<String>{'Queue'},new Set<String>{queueName});
 
                 if(queue != null && !queue.isEmpty()){
-                   // c.OwnerId = queue.keySet().iterator().next();
+                    // c.OwnerId = queue.keySet().iterator().next();
                     ownerId = queue.keySet().iterator().next();
                 } else{
-                   // c.OwnerId = null;
+                    // c.OwnerId = null;
                     ownerId = null;
                     throw new ErrorException(StarTrack_Error_Messages__c.getValues('Queue not found') != null ?
                             StarTrack_Error_Messages__c.getValues('Queue not found').Value__c :
