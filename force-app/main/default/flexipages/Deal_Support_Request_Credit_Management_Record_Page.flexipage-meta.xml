@@ -644,7 +644,7 @@
                 <fieldItem>Record.Description__c</fieldItem>
                 <identifier>RecordDescription__cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>(1 AND 3) OR 2 OR 4</booleanFilter>
+                    <booleanFilter>(1 AND 3) OR 2 OR 4 OR 5</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -664,6 +664,11 @@
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Payment related query</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Account Payment Conduct</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -718,6 +723,10 @@
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Requestor_Email__c</fieldItem>
                 <identifier>RecordRequestor_Email__cField</identifier>
             </fieldInstance>
@@ -850,18 +859,30 @@
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Representative__c</fieldItem>
                 <identifier>RecordCredit_Representative__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Representative_Email__c</fieldItem>
                 <identifier>RecordCredit_Representative_Email__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Credit_Person_Code__c</fieldItem>
                 <identifier>RecordCredit_Person_Code__cField</identifier>
             </fieldInstance>
@@ -956,6 +977,10 @@
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Additional_Comments__c</fieldItem>
                 <identifier>RecordAdditional_Comments__cField</identifier>
             </fieldInstance>
@@ -996,6 +1021,10 @@
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Priority__c</fieldItem>
                 <identifier>RecordPriority__cField</identifier>
             </fieldInstance>

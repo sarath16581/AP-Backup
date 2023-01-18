@@ -186,6 +186,10 @@
                 <behavior>Required</behavior>
                 <field>Complaint__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LinkedArticleHasExtraCover__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

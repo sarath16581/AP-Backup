@@ -2,4 +2,5 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IsPrivate</fullName>
     <inlineHelpText>Indicates whether other users can see event details when viewing the event user’s calendar. (Admins can see details). Private events can&apos;t be related to other records.</inlineHelpText>
+    <trackHistory>false</trackHistory>
 </CustomField>

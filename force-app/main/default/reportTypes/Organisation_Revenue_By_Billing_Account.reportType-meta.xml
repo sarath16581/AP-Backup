@@ -1637,6 +1637,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>OperatingHours</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Opportunity__c</field>
             <table>Account</table>
         </columns>

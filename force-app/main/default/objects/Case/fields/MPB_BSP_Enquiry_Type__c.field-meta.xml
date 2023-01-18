@@ -27,9 +27,9 @@
                 <label>Pick up Enquiry</label>
             </value>
             <value>
-                <fullName>Technical enquiry</fullName>
+                <fullName>Technical Enquiry</fullName>
                 <default>false</default>
-                <label>Technical enquiry</label>
+                <label>Technical Enquiry</label>
             </value>
             <value>
                 <fullName>Pricing Enquiry</fullName>

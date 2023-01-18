@@ -4,5 +4,6 @@
     <inlineHelpText>How the customer was engaged ...</inlineHelpText>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Picklist</type>
 </CustomField>

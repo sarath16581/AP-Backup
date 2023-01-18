@@ -4,5 +4,6 @@
     <inlineHelpText>How the task is progressing. 
 * If the task was created using the Log A Call button, the Status will be automatically set to Completed.</inlineHelpText>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Picklist</type>
 </CustomField>
