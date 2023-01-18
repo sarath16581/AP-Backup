@@ -7,6 +7,7 @@
  * @date 2022-12-15
  * @group Domain
  * @domain Sales
+ * @test SalesAccChildSObjectSharingModule_Test
  * @changelog
  * 2022-12-15 - Ranjeewa Silva - Created.
  */

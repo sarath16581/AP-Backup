@@ -3,6 +3,7 @@
  * @tag Selector
  * @tag Account
  * @domain Sales
+ * @test SalesAccountsSelector_Test
  * @description Selector class that sits in Sales domain for accessing accounts.
  * @changelog
  * 2022-12-18 - Ranjeewa Silva - Created.
