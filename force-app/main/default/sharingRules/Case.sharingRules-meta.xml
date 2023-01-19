@@ -245,8 +245,9 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Ex_Gratia_Credit_Dispute</fullName>
+        <fullName>ExGratiaCreditDispute</fullName>
         <accessLevel>Read</accessLevel>
+        <description>Sharing rule to grant access for Ex-Gratia Credit Dispute to Sales Users except C&amp;C Sales</description>
         <label>Ex-Gratia Credit Dispute</label>
         <sharedTo>
             <group>All_Sales_Team_Ex_CC</group>
