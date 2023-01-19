@@ -70,7 +70,7 @@ public with sharing class CaseInvestigationsSelector_Test {
 		insert networks;
 
         List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
-        caseInvestigations[0].Status__c = 'Open';
+        caseInvestigations[0].Status__c = 'New';
         insert caseInvestigations;
         
         // =====================================
