@@ -35,10 +35,10 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>APT_Share_with_Sales</fullName>
+        <fullName>APTShareWithSalesExceptCCSales</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Share Apttus contracts with sales excluding CC team</description>
-        <label>Share with Sales</label>
+        <description>Share Apttus contracts with Sales users excluding C&amp;C Sales</description>
+        <label>Share with Sales except C&amp;C Sales</label>
         <sharedTo>
             <group>All_Sales_Team_Ex_CC</group>
         </sharedTo>
