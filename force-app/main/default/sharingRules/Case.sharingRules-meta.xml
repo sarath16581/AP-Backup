@@ -788,11 +788,12 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>Sales_Implementation_Case_Sharing</fullName>
+        <fullName>SalesImplementationCaseSharing</fullName>
         <accessLevel>Read</accessLevel>
+        <description>Sharing rule to allow cases created by Business Sales Implementation team to be viewed by Sales Users except C&amp;C Sales</description>
         <label>Sales Implementation Case Sharing</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+            <group>All_Sales_Team_Ex_CC</group>
         </sharedTo>
         <sharedFrom>
             <group>Business_Sales_Implementation_Team</group>
