@@ -1249,6 +1249,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>OperatingHours</field>
+            <table>Contact.Accounts__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>PersonActionCadenceState</field>
             <table>Contact.Accounts__r</table>
         </columns>

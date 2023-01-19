@@ -9,16 +9,6 @@
     <columns>LastModifiedDate</columns>
     <columns>Location</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>ResourceType</field>
-        <operation>equals</operation>
-        <value>A</value>
-    </filters>
-    <filters>
-        <field>IsActive</field>
-        <operation>equals</operation>
-        <value>1</value>
-    </filters>
     <label>All Service Resources</label>
     <language>en_US</language>
 </ListView>

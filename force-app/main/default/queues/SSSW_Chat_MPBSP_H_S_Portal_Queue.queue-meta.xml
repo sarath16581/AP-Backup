@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>no-reply@auspost.com.au</email>
     <name>SSSW Chat - MPBSP H&amp;S Portal Queue</name>
     <queueMembers>
         <users>
@@ -28,8 +29,10 @@
             <user>leanne.maik@auspost.com.au</user>
             <user>leanne.punj@auspost.com.au</user>
             <user>melanie.cortez@auspost.com.au</user>
+            <user>melissa.langdale.ap@startrack.com.au</user>
             <user>rhysha.hakai@auspost.com.au</user>
             <user>samuel.horton@auspost.com.au</user>
+            <user>support@smartspeak.ai</user>
             <user>scott.haupt@auspost.com.au</user>
             <user>stephanie.soiza@auspost.com.au</user>
             <user>susan.moorhouse@auspost.com.au</user>

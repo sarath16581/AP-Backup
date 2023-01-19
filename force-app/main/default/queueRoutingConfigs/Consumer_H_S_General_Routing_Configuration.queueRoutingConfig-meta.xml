@@ -5,5 +5,5 @@
     <label>Consumer H&amp;S General Routing Configuration</label>
     <pushTimeout>240</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
-    <routingPriority>3</routingPriority>
+    <routingPriority>2</routingPriority>
 </QueueRoutingConfig>

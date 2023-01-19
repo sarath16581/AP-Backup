@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Assign to users who can upgrade users to Sys admin</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Upgrade users to Sys admin</label>
+</PermissionSet>

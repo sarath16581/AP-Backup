@@ -3,5 +3,6 @@
     <fullName>Subject</fullName>
     <inlineHelpText>Reason for activity (task or event) - eg Call: Account update for XX Company OR Meeting: Understand XX Company business</inlineHelpText>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Picklist</type>
 </CustomField>

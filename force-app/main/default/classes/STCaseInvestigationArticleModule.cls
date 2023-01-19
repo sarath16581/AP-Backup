@@ -85,65 +85,11 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 		}
 
 		if (referenceIds.isEmpty() == false) {
-			uow.registerAsyncWork(
-				new ApplicationUnitOfWork.AsyncStagingWorker(
-					AsyncCaseInvestigationArticleWorker.class,
-					new Map<String, Object>{ 'referenceIds' => referenceIds }
-				)
-			);
+			
+			// use the replicate version here. 
 		}
 	}
 
-	public without sharing class AsyncCaseInvestigationArticleWorker extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts {
-		@TestVisible
-		Set<String> referenceIds;
-
-		/*
-		 * This method takes the referenceIds and check if there Articles with the same name if there aren't then it retrieves those articles from SAP and stores them in SF
-		 */
-		public override void execute(ApplicationUnitOfWork uow) {
-			if(referenceIds.isEmpty() == false) {
-				// check if they exist in SF first
-				for(Article__c a: ArticlesSelector.newInstance().selectByTracking(referenceIds, false).values()) {
-					referenceIds.remove(a.ArticleID__c); // no need to fetch existing articles
-				}
-
-				if(referenceIds.isEmpty() == false) {
-					try {
-						// Leveraging the searchByArticleIdsInSAP method to fetch the articles from SAP and then save it via the translator
-						TIBCOSearchResult result = TibcoArticleService.getInstance().searchByArticleIdsInSAP(new List<String>(referenceIds));
-						if (result.success && result.trackResults.isEmpty() == false) {
-							TIBCODataTranslator translator = TIBCODataTranslator.newInstance();
-							translator.translate(result.trackResults);
-							translator.save(false, true);
-						}
-					} catch(Exception exp){
-						UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, STCaseInvestigationArticleModule.class.getName(), 'retrieveArticles', SSSWConstants.CASE_INVESTIGATION_TRIGGER, LoggingLevel.ERROR);
-					}
-				}
-			}
-		}
-
-		public override Type getClassType() {
-			return AsyncCaseInvestigationArticleWorker.class;
-		}
-
-		public override SObjectType getSObjectTypeGroup() {
-			return CaseInvestigation__c.SObjectType;
-		}
-
-		public override void deserialiseParams(String serialisedParams) {
-			AsyncCaseInvestigationArticleWorkerParameters params = (AsyncCaseInvestigationArticleWorkerParameters) JSON.deserialize(
-				serialisedParams,
-				AsyncCaseInvestigationArticleWorkerParameters.class
-			);
-			referenceIds =  params.referenceIds;
-		}
-	}
-
-	public class AsyncCaseInvestigationArticleWorkerParameters {
-		@TestVisible
-		Set<String> referenceIds;
-	}
+	
 
 }

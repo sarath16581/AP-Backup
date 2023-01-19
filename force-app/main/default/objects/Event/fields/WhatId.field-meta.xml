@@ -3,5 +3,6 @@
     <fullName>WhatId</fullName>
     <inlineHelpText>The record that this activity is related to - eg Organisation, Opportunity, Entertainment Event, etc.</inlineHelpText>
     <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>
