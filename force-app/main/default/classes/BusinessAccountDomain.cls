@@ -19,6 +19,7 @@ public inherited sharing class BusinessAccountDomain extends ApplicationDomain {
 	public override void registerModules() {
 		// these module will be available for domain operations and trigger execution
 		registerModule(SalesAutomationModule.class);
+		registerModule(SalesAccountChildSObjectSharingModule.class);
 	}
 
 	/**
