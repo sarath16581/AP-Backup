@@ -749,12 +749,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>View_all_business_Enablement_Cases</fullName>
+        <fullName>ViewAllBusinessEnablementCases</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Sharing rule to allow all business enablement recordtypes to be viewed by all users</description>
-        <label>View all business Enablement Cases</label>
+        <description>Sharing rule to allow all business enablement recordtypes to be viewed by all users except C&amp;C Sales</description>
+        <label>View All Business Enablement Cases</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Business_Reporting</roleAndSubordinatesInternal>
+            <group>All_Users_Ex_CC_Sales</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
