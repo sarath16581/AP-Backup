@@ -34,17 +34,13 @@
 		
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
 
-		Map<Id, Profile> profileIdMap = ProfilesSelector.newInstance().selectByName(new Set<String>{'SSSW - Service Agent'});
-
 		// =====================================
 		// Stubbing
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
-		ProfilesSelector mockProfilesSelector = (ProfilesSelector)MockUtility.mockSelector(ProfilesSelector.class);
 
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockProfilesSelector.selectByName((Set<String>)fflib_Match.anyObject())).thenReturn(profileIdMap);
 		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 
 		MockUtility.Mocks.stopStubbing();
@@ -87,7 +83,6 @@
 		
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
 		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
-		Map<Id, Profile> profileIdMap = ProfilesSelector.newInstance().selectByName(new Set<String>{'SSSW - Service Agent'});
 
 
 		// =====================================
@@ -95,11 +90,9 @@
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
-		ProfilesSelector mockProfilesSelector = (ProfilesSelector)MockUtility.mockSelector(ProfilesSelector.class);
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockProfilesSelector.selectByName((Set<String>)fflib_Match.anyObject())).thenReturn(profileIdMap);
 		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 		MockUtility.Mocks.stopStubbing();
 

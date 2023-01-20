@@ -33,7 +33,7 @@ public inherited sharing class FeedItemCaseInvestigationDomain extends Applicati
 	 */
 	public override void registerModules() {
 		// these module will be available for domain operations and trigger execution
-		registerModule(FeedItemsGenericModule.class);
+		registerModule(FeedItemCaseInvestigationModule.class);
 	}
 
 	/**

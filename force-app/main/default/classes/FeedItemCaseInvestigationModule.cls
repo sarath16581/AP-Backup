@@ -46,7 +46,7 @@
       @TestVisible
       private void updateCaseInvestigations( Id loggedInUserProfileId, List<SObject> feedItems, ApplicationUnitOfWork uow) {
 
-		Id profileId = ProfilesSelector.newInstance().selectByName(new Set<String>{'SSSW - Service Agent'}).values()[0].Id;
+		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
             
         List<CaseInvestigation__c> caseInvestigationToUpdate = new List<CaseInvestigation__c>();
         for(FeedItem fItem :  (List<FeedItem>)  feedItems) {
