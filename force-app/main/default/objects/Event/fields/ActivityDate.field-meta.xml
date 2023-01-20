@@ -3,4 +3,5 @@
     <fullName>ActivityDate</fullName>
     <inlineHelpText>Date by which the task is to be completed.</inlineHelpText>
     <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
 </CustomField>

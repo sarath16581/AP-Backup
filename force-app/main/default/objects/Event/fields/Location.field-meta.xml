@@ -3,4 +3,5 @@
     <fullName>Location</fullName>
     <inlineHelpText>Location or venue where the event will take place.</inlineHelpText>
     <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
 </CustomField>

@@ -1,0 +1,4 @@
+<aura:component implements="force:lightningQuickAction,lightning:availableForFlowActions">
+   <aura:attribute name="pageName" type="String" />
+   <aura:attribute name="proposalId" type="String" />
+</aura:component>

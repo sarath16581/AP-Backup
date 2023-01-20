@@ -14,7 +14,7 @@
  * 2019-07-06		nathan.franklin@auspost.com.au		Added custom 404 response and a custom cache key identifier
  * 2019-09-05		nathan.franklin@auspost.com.au		Added location id and mlid to group location payloads
  * 2022-04-22 - Nathan Franklin - Added fields specific for Conveyancer's as a part of the Property VOI MP onboarding
- * 2022-12-19 - Nathan Franklin - Fixed cache bug and Organisation type mapping
+ * 2022-12-19 - Nathan Franklin - Fixed cache bug and Organisation type mapping and a bug in the Assets check
  */
 public with sharing class ResourceV2AuthorisationRules extends ResourceAPIService.IApi {
 	// Organisation Id (salesforce Id) - uri request parameter - optional
@@ -274,6 +274,17 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 
 		Map<Id, Id> orgWithAPP = new Map<Id, Id>();
 
+		// just incase (forwhatever reason) there are multiples of the same account,
+		// we flip the contact/account map arround so it's easier to build our our accounts with valid assets
+		Map<Id, Set<Id>> accountContactMappings = new Map<Id, Set<Id>>();
+		for(Id contactId : conAccMap.keySet()) {
+			if(accountContactMappings.get(conAccMap.get(contactId)) == null) {
+				accountContactMappings.put(conAccMap.get(contactId), new Set<Id>());
+			}
+			accountContactMappings.get(conAccMap.get(contactId)).add(contactId);
+		}
+		
+
 		//query assets linked to the Organisation for the specified app
 		List<Asset> assetlist = [
 				SELECT
@@ -283,14 +294,13 @@ public with sharing class ResourceV2AuthorisationRules extends ResourceAPIServic
 						AccountId
 				FROM Asset
 				WHERE Status = 'Active'
-				AND AccountId IN :conAccMap.values()
+				AND AccountId IN :accountContactMappings.keySet()
 				AND Product2Id In (Select Product__c From BAMApplication__c Where AppKey__c = :appKey)
 		];
 
 		for (Asset orgAsset : assetlist) {
-			for (Id cId : conAccMap.keySet()) {
-				System.debug(orgAsset);
-				orgWithAPP.put(cId, orgAsset.AccountId);
+			for(Id contactId : accountContactMappings.get(orgAsset.AccountId)) {
+				orgWithAPP.put(contactId, orgAsset.AccountId);
 			}
 		}
 		System.debug(orgWithAPP);

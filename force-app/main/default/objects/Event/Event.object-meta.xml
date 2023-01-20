@@ -156,6 +156,7 @@
     </actionOverrides>
     <compactLayoutAssignment>Mobile_Event_Compact_Layout</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
     <searchLayouts></searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>
