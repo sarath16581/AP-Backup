@@ -1,5 +1,5 @@
 /**
- * @description Test class for FeedItemsGenericModule
+ * @description Test class for FeedItemCaseInvestigationModule
  * @author Dattaraj Deshmukh
  * @date 2022-07-25
  * @group Tests
@@ -8,9 +8,9 @@
  * 2022-12-08 - Dattaraj Deshmukh - Created
   */
   @IsTest
-  private class FeedItemsGenericModule_Test {
-    
+ private class FeedItemCaseInvestigationModule_Test {
 
+	
 	@IsTest
 	public static void testEnsureOnAfterInsert() {
 		// =====================================
@@ -54,14 +54,15 @@
 		// =====================================
 		Test.startTest();
 
-		FeedItemsGenericModule module = FeedItemsGenericModule.newInstance();
+		FeedItemCaseInvestigationModule module = FeedItemCaseInvestigationModule.newInstance();
 
 		module.onAfterInsert(new List<FeedItem>{feedItems[0]}, uow);
 
 		Test.stopTest();
 
 		//verifying registerDirty is not called as criteria of updating case investigations will not meet.
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerDirty((List<SObject>)fflib_Match.anyObject());
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerDirty((List<CaseInvestigation__c>)fflib_Match.eqList(new List<CaseInvestigation__c>{caseInvestigations[0]}));
+
 	}
 
 	@IsTest
@@ -108,13 +109,20 @@
 		// =====================================
 		Test.startTest();
 
-		FeedItemsGenericModule module = FeedItemsGenericModule.newInstance();
+		FeedItemCaseInvestigationModule module = FeedItemCaseInvestigationModule.newInstance();
 
 		module.updateCaseInvestigations(profileId, new List<FeedItem>{feedItems[0]}, mockUow);
 
 		Test.stopTest();
 
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<SObject>)fflib_Match.anyObject());
+		fflib_ArgumentCaptor updatableJobsCaptor = fflib_ArgumentCaptor.forClass(List<CaseInvestigation__c>.class);
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<CaseInvestigation__c>) updatableJobsCaptor.capture());
+
+		List<CaseInvestigation__c> updatedCaseInvestigations = (List<CaseInvestigation__c>) updatableJobsCaptor.getValue();
+
+		system.assertEquals(System.now(), updatedCaseInvestigations[0].LastContactCentreUpdate__c);
+
+
 	}
 	
 
@@ -166,4 +174,5 @@
 		List<FeedItem> createdFeedItems = FeedItemsSelector.newInstance().selectByTextPostParentIds(new Set<Id>{caseInvestigations[0].Id}, new Set<Object>()).values();
 		system.assertNotEquals(null, createdFeedItems);
 	}
-}
+    
+ }

@@ -5,14 +5,15 @@
  * @tag Selector
  * @tag Case
  * @domain Core
- * @description Test Class covering FeedItemsDomain
+ * @description Test Class covering FeedItemCaseInvestigationDomain
  * @changelog
  * 2022-12-08 - Dattaraj Deshmukh - Created
  */
 
-@isTest
-private class FeedItemsDomain_Test {
-    /**
+@IsTest
+private class FeedItemCaseInvestigationDomain_Test {
+    
+	/**
 	 * Bulk of the tests are handled in the Core class
 	 */
 	@IsTest
@@ -43,11 +44,12 @@ private class FeedItemsDomain_Test {
         // =====================================
 		// Testing
 		// =====================================
-		ApplicationDomain.IConstructable constructableDomain = new FeedItemsDomain.Constructor();
-		FeedItemsDomain domain = (FeedItemsDomain) constructableDomain.construct(feedItems);
+		ApplicationDomain.IConstructable constructableDomain = new FeedItemCaseInvestigationDomain.Constructor();
+		FeedItemCaseInvestigationDomain domain = (FeedItemCaseInvestigationDomain) constructableDomain.construct(feedItems);
 
         //asserting feeditems are filtered
 		System.assertEquals(2, domain.records.size(), 'Records should have been filtered in call to newInstance');
 		System.assertEquals(feedItems[0].Id, domain.records[0].Id, 'Expected record');
     }
+
 }

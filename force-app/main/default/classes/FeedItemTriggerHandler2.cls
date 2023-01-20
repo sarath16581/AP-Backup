@@ -16,7 +16,7 @@ public inherited sharing class FeedItemTriggerHandler2 extends ApplicationDomain
 
 	public override List<Type> registerDomains() {
 		return new List<Type>{
-            FeedItemsDomain.class
+            FeedItemCaseInvestigationDomain.class
 		};
 	}
 

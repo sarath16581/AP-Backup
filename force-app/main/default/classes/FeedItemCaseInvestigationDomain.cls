@@ -3,14 +3,14 @@
 * @author Dattaraj Deshmukh
 * @date 23/11/2022
 * @group Domains
-* @domain Generic
+* @domain Generic 
 * @changelog
 * 23/11/2022 - Dattaraj Deshmukh - Created.
 */
-public inherited sharing class FeedItemsDomain extends ApplicationDomain{
+public inherited sharing class FeedItemCaseInvestigationDomain extends ApplicationDomain{
     
-    public static FeedItemsDomain newInstance(List<SObject> sObjectList) {
-		return (FeedItemsDomain)ApplicationDomain.newInstance(FeedItemsDomain.class, sObjectList);
+    public static FeedItemCaseInvestigationDomain newInstance(List<SObject> sObjectList) {
+		return (FeedItemCaseInvestigationDomain)ApplicationDomain.newInstance(FeedItemCaseInvestigationDomain.class, sObjectList);
 	}
 
     //records are filtered by ParentId.
@@ -41,7 +41,7 @@ public inherited sharing class FeedItemsDomain extends ApplicationDomain{
 	 */
 	public virtual class Constructor implements ApplicationDomain.IConstructable {
 		public ApplicationDomain construct(List<SObject> sObjectList) {
-			return FeedItemsDomain.newInstance(sObjectList);
+			return FeedItemCaseInvestigationDomain.newInstance(sObjectList);
 		}
 	}
 }

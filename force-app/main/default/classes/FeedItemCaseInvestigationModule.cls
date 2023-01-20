@@ -10,13 +10,13 @@
  * 23/11/2022 - Dattaraj Deshmukh - Created.
  */
 
-public inherited sharing class FeedItemsGenericModule extends ApplicationDomain.Module  {
-    public static FeedItemsGenericModule newInstance() {
-		return (FeedItemsGenericModule) Application.Utilities.newInstance(FeedItemsGenericModule.class);
+ public inherited sharing class FeedItemCaseInvestigationModule extends ApplicationDomain.Module  {
+    public static FeedItemCaseInvestigationModule newInstance() {
+		return (FeedItemCaseInvestigationModule) Application.Utilities.newInstance(FeedItemCaseInvestigationModule.class);
 	}
 
 	// Setup which trigger events this module should respond to
-	public FeedItemsGenericModule() {
+	public FeedItemCaseInvestigationModule() {
 		getTriggerEvents().enableAfterInsert();
 	}
 
@@ -25,7 +25,7 @@ public inherited sharing class FeedItemsGenericModule extends ApplicationDomain.
 			updateCaseInvestigations(Userinfo.getProfileId(), records, uow);
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'MyNetwork', FeedItemsGenericModule.class.getName(), 'onAfterInsert', 'FeedItemTrigger', LoggingLevel.ERROR);
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'MyNetwork', FeedItemCaseInvestigationModule.class.getName(), 'onAfterInsert', 'FeedItemTrigger', LoggingLevel.ERROR);
 		}
     }
 
@@ -34,7 +34,7 @@ public inherited sharing class FeedItemsGenericModule extends ApplicationDomain.
 	 */
 	public class Constructor implements ApplicationDomain.IConstructableModule {
 		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module)FeedItemsGenericModule.newInstance();
+			return (ApplicationDomain.Module)FeedItemCaseInvestigationModule.newInstance();
 		}
 	}
 
