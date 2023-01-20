@@ -8,9 +8,9 @@
             <components>QuickLinks</components>
             <components>ContactSearch</components>
             <components>URLShortenerComponent</components>
+            <components>Console.BuiltInComponent.knowledgeOne</components>
             <components>Fill_Inbox</components>
             <components>ConsoleChatterScrollBar</components>
-            <components>Console.BuiltInComponent.knowledgeOne</components>
         </componentList>
         <detailPageRefreshMethod>autoRefresh</detailPageRefreshMethod>
         <keyboardShortcuts>
