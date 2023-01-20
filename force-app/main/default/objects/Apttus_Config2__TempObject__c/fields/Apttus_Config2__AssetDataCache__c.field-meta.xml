@@ -6,9 +6,9 @@
     <externalId>false</externalId>
     <inlineHelpText>The asset data cache</inlineHelpText>
     <label>Asset Data Cache</label>
-    <length>32768</length>
+    <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
-    <visibleLines>3</visibleLines>
+    <visibleLines>5</visibleLines>
 </CustomField>

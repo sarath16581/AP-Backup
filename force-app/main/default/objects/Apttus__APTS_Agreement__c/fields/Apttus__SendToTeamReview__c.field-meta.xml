@@ -3,7 +3,7 @@
     <fullName>Apttus__SendToTeamReview__c</fullName>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <formula>IF (OR(ISPICKVAL(Apttus__Status_Category__c, &quot;In Signatures&quot;),(ISPICKVAL(Apttus__Status_Category__c, &quot;In Authoring&quot;))), HYPERLINK(&quot;/apex/Apttus__SendForTeamReview?id=&quot; &amp;Id , IMAGE(&quot;/resource/Apttus__Button_SendToTeamReview&quot;, &quot;Send For Teams Review&quot;),&quot;_self&quot;), NULL)</formula>
+    <formula>IF (AND(OR(ISPICKVAL(Apttus__Status_Category__c, &quot;In Signatures&quot;),(ISPICKVAL(Apttus__Status_Category__c, &quot;In Authoring&quot;))),NOT(ISPICKVAL(Apttus__Status__c,&quot;In Clause Approval&quot;))), HYPERLINK(&quot;/apex/Apttus__SendForTeamReview?id=&quot; &amp;Id , IMAGE(&quot;/resource/Apttus__Button_SendToTeamReview&quot;, &quot;Send For Teams Review&quot;),&quot;_self&quot;), NULL)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Send For Teams Review</label>
     <required>false</required>
