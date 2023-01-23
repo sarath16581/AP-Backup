@@ -72,9 +72,7 @@ private class SalesRecalculateSharingController_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		//((SalesRecordSharingService)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockSharingService)).enqueueChildRecordsSharingHandlerQueueable((Set<Id>)fflib_Match.anyObject());
 		((SalesRecordSharingService)MockUtility.Mocks.doAnswer(new ThrowSalesRecordSharingServiceExceptionAnswer(), mockSharingService)).enqueueChildRecordsSharingHandlerQueueable((Set<Id>)fflib_Match.anyObject());
-		//MockUtility.Mocks.when(mockSharingService.enqueueChildRecordsSharingHandlerQueueable((Set<Id>)fflib_Match.anyObject())).thenThrow(new MockException('test'));
 
 		MockUtility.Mocks.stopStubbing();
 
