@@ -67,6 +67,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                     }
                 }
             } catch (Exception ex) {
+                createCaseComment(System.Label.STHSIDSearchCommentsTimeoutTechError, cse.Id);
                 // Error Logged to Exception object for analysis
                 UTIL_LoggingService.logHandledException(
                         ex
@@ -104,7 +105,6 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
             System.enqueueJob(new TransferCaseQueueable(caseToBeUpdated));
         } catch (Exception e) {
-            createCaseComment(System.Label.STHSIDSearchCommentsTimeoutTechError, cse.Id);
             UTIL_LoggingService.logHandledException(
                     e
                     , UserInfo.getOrganizationId()
