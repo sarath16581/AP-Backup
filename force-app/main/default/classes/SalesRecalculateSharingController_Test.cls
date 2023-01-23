@@ -88,7 +88,6 @@ private class SalesRecalculateSharingController_Test {
 			System.assert(false, 'Expected to throw AuraHandledException but not thrown.');
 		} catch (AuraHandledException ahe) {
 			// expected
-			System.debug('******' + ahe.getTypeName());
 		} catch (Exception ex) {
 			System.assert(false, 'Expected to throw AuraHandledException but got some other type : ' + ex.getTypeName());
 		}
