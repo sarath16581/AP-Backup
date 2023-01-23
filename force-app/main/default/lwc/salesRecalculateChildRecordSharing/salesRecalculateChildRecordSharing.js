@@ -23,50 +23,50 @@ import recalculateSalesTeamSharing from '@salesforce/apex/SalesRecalculateSharin
 
 export default class SalesRecalculateChildRecordSharing extends LightningElement {
 
-    // record Id set by LWC framework
-    @api recordId;
+	// record Id set by LWC framework
+	@api recordId;
 
-    // expose custom labels
-    label = {
-        confirmationInfoMessageLabel: LABEL_CONFIRM_INFO_MESSAGE,
-        recalculateSharingModalTitle: LABEL_RECALCULATE_SHARING_TITLE,
-        recalculateSharingPermissionsError: LABEL_PERMISSION_ERROR_MESSAGE,
-        recalculationEnqueuedMessage: LABEL_RECALCULATION_ENQUEUED_MESSAGE
+	// expose custom labels
+	label = {
+		confirmationInfoMessageLabel: LABEL_CONFIRM_INFO_MESSAGE,
+		recalculateSharingModalTitle: LABEL_RECALCULATE_SHARING_TITLE,
+		recalculateSharingPermissionsError: LABEL_PERMISSION_ERROR_MESSAGE,
+		recalculationEnqueuedMessage: LABEL_RECALCULATION_ENQUEUED_MESSAGE
 
-    };
+	};
 
-    handleCancel(event) {
-       this.dispatchEvent(new CloseActionScreenEvent());
-    }
+	handleCancel(event) {
+		this.dispatchEvent(new CloseActionScreenEvent());
+	}
 
-    handleRecalculateSharing() {
-        if (this.recordId) {
+	handleRecalculateSharing() {
+		if (this.recordId) {
 
-	        // recalculate sharing
-	        recalculateSalesTeamSharing({
-	            accountId: this.recordId
-	        }).then(result => {
-	            // recalculation request enqueued.
-	            this.dispatchEvent( new ShowToastEvent({
-	                title: 'Success',
-	                message: this.label.recalculationEnqueuedMessage,
-	                variant: 'success'
-	            }));
-	        }).catch(error => {
-	            this.dispatchEvent(
-	                new ShowToastEvent({
-	                    title: 'Error recalculating sharing',
-	                    message: error.body.message,
-	                    variant: 'error'
-	                })
-	            );
-	        }).finally(() => {
-                this.dispatchEvent(new CloseActionScreenEvent());
-            });
-        }
-    }
+			// recalculate sharing
+			recalculateSalesTeamSharing({
+				accountId: this.recordId
+			}).then(result => {
+				// recalculation request enqueued.
+				this.dispatchEvent( new ShowToastEvent({
+					title: 'Success',
+					message: this.label.recalculationEnqueuedMessage,
+					variant: 'success'
+				}));
+			}).catch(error => {
+				this.dispatchEvent(
+					new ShowToastEvent({
+						title: 'Error recalculating sharing',
+						message: error.body.message,
+						variant: 'error'
+					})
+				);
+			}).finally(() => {
+				this.dispatchEvent(new CloseActionScreenEvent());
+			});
+		}
+	}
 
-    get isRecalculateSharingDisabled() {
-        return !PERMISSION_RECALCULATESHARING && this.recordId;
-    }
+	get isRecalculateSharingDisabled() {
+		return !PERMISSION_RECALCULATESHARING && this.recordId;
+	}
 }
