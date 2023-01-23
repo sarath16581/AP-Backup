@@ -18,19 +18,16 @@
 		// =====================================
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(FeedItemTriggerHandler2.getUnitOfWorkSObjectTypes());
 
-		// =====================================
-        // Data Preparation
-        // =====================================
-        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
-        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-        cases[0].ArticleTest__c = articles[0].Id;
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		cases[0].ArticleTest__c = articles[0].Id;
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
 		networks[0].Org_ID__c = '1234';
 
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
 
@@ -56,8 +53,16 @@
 
 		Test.stopTest();
 
+		fflib_ArgumentCaptor updatableJobsCaptor = fflib_ArgumentCaptor.forClass(List<CaseInvestigation__c>.class);
+
 		//verifying registerDirty is not called as criteria of updating case investigations will not meet.
 		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 0)).registerDirty((List<CaseInvestigation__c>)fflib_Match.eqList(new List<CaseInvestigation__c>{caseInvestigations[0]}));
+
+		List<CaseInvestigation__c> updatedCaseInvestigations = (List<CaseInvestigation__c>) updatableJobsCaptor.getValue();
+
+		//asserting no case investigations are updated as criteria will not meet. 
+		system.assertEquals(null, updatedCaseInvestigations);
+
 
 	}
 
@@ -66,20 +71,16 @@
 		// =====================================
 		// Data Preparation
 		// =====================================
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
-		// =====================================
-        // Data Preparation
-        // =====================================
-        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
-
-        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-        cases[0].ArticleTest__c = articles[0].Id;
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		cases[0].ArticleTest__c = articles[0].Id;
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
 		networks[0].Org_ID__c = '1234';
 
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
 		Id profileId = Application.Cache.profileIds.get('SSSW - Service Agent');
@@ -113,6 +114,7 @@
 
 		List<CaseInvestigation__c> updatedCaseInvestigations = (List<CaseInvestigation__c>) updatableJobsCaptor.getValue();
 
+		//asserting case investigations are updated
 		system.assertEquals(System.now(), updatedCaseInvestigations[0].LastContactCentreUpdate__c);
 
 
@@ -129,12 +131,12 @@
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, false);
 		insert articles;
 
-        List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
-        cases[0].ArticleTest__c = articles[0].Id;
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+		cases[0].ArticleTest__c = articles[0].Id;
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 		insert cases;
 
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
 		networks[0].Org_ID__c = '1234';
 
 		insert networks;
