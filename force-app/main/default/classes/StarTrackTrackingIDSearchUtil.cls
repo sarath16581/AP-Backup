@@ -6,7 +6,18 @@ History:
 2022-12-05 - Prerna Rahangdale Added a new TransferCaseQueuable and added Transfer Case feature.
 **************************************************/
 public with sharing class StarTrackTrackingIDSearchUtil {
-
+    public static StarTrackTrackingIDSearchUtil newInstance() {
+        return (StarTrackTrackingIDSearchUtil) Application.Utilities.newInstance(StarTrackTrackingIDSearchUtil.class);
+    }
+    static final Id communityUserProfileId {
+        get {
+            if(communityUserProfileId == null) {
+                communityUserProfileId = ProfilesSelector.newInstance().selectByName(new Set<String>{'StarTrack Help and Support Profile'}).values()[0].Id;
+            }
+            return communityUserProfileId;
+        }
+        private set;
+    }
     public static void getTrackingDetails(List<SObject> records) {
         List<Case> selectedCases = new List<Case>();
         for(Case cse:(List<Case>)records) {
@@ -29,10 +40,8 @@ public with sharing class StarTrackTrackingIDSearchUtil {
         Case cse;
         //TODO : Hasantha move strings to constants or custom metadata
         Set<Id> caseRecordTypes = new Set<Id>{
-                SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId()
-                , SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_General_Enquiry').getRecordTypeId()
-                , SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_Voice_of_Customer').getRecordTypeId()};
-
+                SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId()
+                , SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_VOC_RT_DEV).getRecordTypeId()};
         public TrackingSearchQueueable(Case record) {
             this.cse = record;
         }
@@ -40,19 +49,21 @@ public with sharing class StarTrackTrackingIDSearchUtil {
         public void execute(QueueableContext context) {
             try {
                 System.debug('HASANTHA TEST MODULE 1 IN queable');
-                if(this.cse.ArticleTest__c == null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId)) {
-                    System.debug('HASANTHA TEST MODULE 2 :this.cse '+this.cse.Id);
-                    System.debug('HASANTHA TEST MODULE 3 :this.cse.ReferenceID__c'+ this.cse.ReferenceID__c);
-                    StarTrackTrackingIDSearchService cont = StarTrackTrackingIDSearchService.newInstance();
-                    cont.dateRange = '1';
-                    cont.searchString = this.cse.ReferenceID__c;
-                    cont.isConsole = false;
-                    cont.map_searchCustomSettings.get(cont.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
-                    cont.searchConsignment();
-                    System.debug('HASANTHA TEST MODULE 3 :cont.lst_article[0]'+ cont.lst_article[0]);
-                    if(validate(cont.lst_article[0])) {
-                        System.debug('HASANTHA TEST MODULE 3 VALIDATED GOOD ');
-                        assignAndUpdateCase(cont.lst_article[0],this.cse);
+                if(UserInfo.getProfileId() == communityUserProfileId // only execute for startrack community
+                        && this.cse.ArticleTest__c == null // if no article record is linked
+                        && this.cse.ReferenceID__c != null // and there's a reference ID
+                        && StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin__c) // origin is web only
+                        && caseRecordTypes.contains(this.cse.RecordTypeId)) { // only startrack record types created via STHS
+                    StarTrackTrackingIDSearchService idSearchService = StarTrackTrackingIDSearchService.newInstance();
+                    idSearchService.dateRange = '1';
+                    idSearchService.searchString = this.cse.ReferenceID__c;
+                    idSearchService.isConsole = false;
+                    idSearchService.map_searchCustomSettings.get(idSearchService.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
+                    StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = idSearchService.searchConsignment();
+
+                    if(validate(idSearchService.lst_article, cse.Id, conWrap)) {
+                        System.debug('HASANTHA TEST MODULE 2 :validated lst_article[0]'+ idSearchService.lst_article[0]);
+                        assignAndUpdateCase(idSearchService.lst_article[0],this.cse);
                     }
                 }
             } catch (Exception ex) {
@@ -70,7 +81,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
     }
 
     /**
-         * validate and assign the found article details
+         * validate and assign the found article details to the case
          * @param article
          * @param cse
          */
@@ -87,12 +98,13 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                 caseToBeUpdated.Total_Amount_of_Claim__c = article.Freight_Amount__c;
             }
             caseToBeUpdated.Delivery_Date__c = String.isNotBlank(article.CID__c) ? Date.valueOf(article.CID__c.left(4) + '-' + article.CID__c.mid(4, 2) + '-' + article.CID__c.right(2)) : null;
-            System.debug('HASANTHA TEST MODULE 4  IN queable cse ' + caseToBeUpdated);
-
+            System.debug('HASANTHA TEST MODULE 3  IN queable cse ' + caseToBeUpdated);
+            // access the update records via shared context since the update happens from community
             ElevatedSharingContext sharedContext = new ElevatedSharingContext();
             sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
             System.enqueueJob(new TransferCaseQueueable(caseToBeUpdated));
         } catch (Exception e) {
+            createCaseComment(System.Label.STHSIDSearchCommentsTimeoutTechError, cse.Id);
             UTIL_LoggingService.logHandledException(
                     e
                     , UserInfo.getOrganizationId()
@@ -146,24 +158,61 @@ public with sharing class StarTrackTrackingIDSearchUtil {
      *
      * @return
      */
-    public static Boolean validate(Article__c article) {
-        // TODO multiple consignments check
-        return validateAddressFields(article);
+    public static Boolean validate(List<Article__c> articles, Id caseId, StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap) {
+        Boolean isValid = false;
+        String comments = '';
+        Boolean isDuplicate = isDuplicateConsignments(articles);
+        Boolean isError = isError(conWrap);
+        // TODO: introduce custom labels for comments
+        // no consignment found
+        if(isError) {
+            // service returned error
+            comments = '\n' + System.Label.STHSIDSearchCommentsTimeoutTechError;
+            isValid = false;
+        } else if((articles == null || articles.size() == 0) || 'Article Not Found'.equalsIgnoreCase(conWrap.errorCode)) {
+            comments = '\n' + System.Label.STHSIDSearchCommentsNoConsignment;
+            isValid = false;
+        } else if(isDuplicate) {
+            // duplicate consignments found
+            comments = '\n' + System.Label.STHSIDSearchCommentsDuplicateConsignment;
+            isValid = false;
+        }
+
+        createCaseComment(comments, caseId);
+
+        return isValid;
     }
 
     /**
-     * Validating nominated address fields to check wheter a value is exists in one of those defined fields in the article record,
-     * if a value exists return true as a valid address
-     * @param article
-     *
-     * @return
+     * utility method to create case comments
+     * @param comments
+     * @param caseId
      */
-    public static Boolean validateAddressFields(Article__c article) {
-        for(String field: StarTrack_Constants.ARTICLE_ADDRESS_FIELDS) {
-            if(article.get(field) != null || String.isNotBlank(String.valueOf(article.get(field)))) {
-                return true;
-            }
+    private static void createCaseComment(String comments, Id caseId) {
+        ElevatedSharingContext context = new ElevatedSharingContext();
+        CaseComment comment = new CaseComment();
+        comment.CommentBody = comments;
+        comment.IsPublished = true;
+        comment.ParentId = caseId;
+        //insert case comments
+        context.insertRecords(new List<SObject>{
+                comment
+        });
+    }
+
+    public static Boolean isDuplicateConsignments(List<Article__c> articles) {
+        if(articles != null && articles.size() > 1) {
+            return true;
         }
+
+        return false;
+    }
+
+    public static Boolean isError(StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap) {
+        if(conWrap == null || (conWrap.errorCode != '0' && !'Article Not Found'.equalsIgnoreCase(conWrap.errorCode))) {
+            return true;
+        }
+
         return false;
     }
 
@@ -175,6 +224,10 @@ public with sharing class StarTrackTrackingIDSearchUtil {
 		*/
         private void updateRecords(List<sObject> recordList) {
             ApplicationDatabase.getInstance().dmlUpdate(recordList);
+        }
+
+        private void insertRecords(List<sObject> recordList) {
+            ApplicationDatabase.getInstance().dmlInsert(recordList);
         }
     }
 
