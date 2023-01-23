@@ -38,7 +38,7 @@ public inherited sharing class STCaseRelatedRecordsProcessingModule extends Appl
 			
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'STCaseRelatedRecordsProcessing', STCaseRelatedRecordsProcessingModule.class.getName(), 'onBeforeInsert', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'STCaseRelatedRecordsProcessing', STCaseRelatedRecordsProcessingModule.class.getName(), 'onAfterUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 

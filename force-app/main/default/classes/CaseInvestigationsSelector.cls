@@ -18,11 +18,11 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		WITH_RECORDTYPES, WITH_CASE_DETAILS, WITH_ARTICLES, WITH_NETWORKS 
 	}
 
-    public static CaseInvestigationsSelector newInstance() {
+	public static CaseInvestigationsSelector newInstance() {
 		return (CaseInvestigationsSelector)Application.Selectors.newInstance(CaseInvestigationsSelector.class);
 	}
 
-    public static CaseInvestigationsSelector newInstance(Integer recordLimit) {
+	public static CaseInvestigationsSelector newInstance(Integer recordLimit) {
 		return (CaseInvestigationsSelector)Application.Selectors.newInstance(CaseInvestigationsSelector.class).setLimit(recordLimit);
 	}
 
@@ -35,18 +35,18 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		return selector;
 	}
 
-    public virtual override SObjectType getSObjectType() {
+	public virtual override SObjectType getSObjectType() {
 		return CaseInvestigation__c.getSObjectType();
 	}
 
-    public virtual override Set<SObjectField> getSObjectFieldList() {
+	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-            CaseInvestigation__c.Id, CaseInvestigation__c.Article__c, CaseInvestigation__c.Case__c,
-            CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c,  CaseInvestigation__c.Name
+			CaseInvestigation__c.Id, CaseInvestigation__c.Article__c, CaseInvestigation__c.Case__c,
+			CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c,  CaseInvestigation__c.Name
 		};
 	}
 
-    /**
+	/**
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public virtual Map<Id, CaseInvestigation__c> selectById(Set<Id> ids) {
@@ -63,46 +63,46 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 
 	
 
-    /**
-     * Select case investigation records that are not closed and related to AP Network based on case Id
-     */
-    public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseIds(Set<Id> caseIds) {
-        return selectOpenCaseInvestigationsByCaseIds(caseIds, new Set<Object>());
-    }
+	/**
+	 * Select case investigation records that are not closed and related to AP Network based on case Id
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseIds(Set<Id> caseIds) {
+		return selectOpenCaseInvestigationsByCaseIds(caseIds, new Set<Object>());
+	}
 
 	/**
-     * Select case investigation records that are not closed and related to AP Network based on case Id
-     */
-    public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseIds(Set<Id> caseIds, Set<Object> selectorOptions) {
+	 * Select case investigation records that are not closed and related to AP Network based on case Id
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseIds(Set<Id> caseIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
-                .add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Case__c + ' in :caseIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Case__c + ' in :caseIds'))
 				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.Status__c).ne('Closed'))
 				.endConditions();
 
 		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
-    }
+	}
 
-    /**
-     * Select case investigation records that are not closed and related to AP Network based on case Id, article number and network id
-     */
-    public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds) {
-        return selectOpenCaseInvestigationsByCaseArticleNetworkId(caseIds, articleNums, networkIds, new Set<Object>());
-    }
+	/**
+	 * Select case investigation records that are not closed and related to AP Network based on case Id, article number and network id
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds) {
+		return selectOpenCaseInvestigationsByCaseArticleNetworkId(caseIds, articleNums, networkIds, new Set<Object>());
+	}
 
-    /**
-     * Select case investigation records that are not closed and related to AP Network based on case Id, article number and network id
-     */
-    public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions)
+	/**
+	 * Select case investigation records that are not closed and related to AP Network based on case Id, article number and network id
+	 */
+	public virtual Map<Id, CaseInvestigation__c> selectOpenCaseInvestigationsByCaseArticleNetworkId(Set<Id> caseIds, Set<String> articleNums, Set<Id> networkIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
-                .add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Case__c + ' in :caseIds'))
-                .add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.ReferenceID__c + ' in :articleNums'))
-                .add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
-                .add(new QueryBuilder.CompareCondition(CaseInvestigation__c.Status__c).ne('Closed'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Case__c + ' in :caseIds'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.ReferenceID__c + ' in :articleNums'))
+				.add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Network__c + ' in :networkIds'))
+				.add(new QueryBuilder.CompareCondition(CaseInvestigation__c.Status__c).ne('Closed'))
 				.endConditions();
 		return new Map<Id, CaseInvestigation__c>((List<CaseInvestigation__c>)Database.query(qb.toSoqlString()));
-    }
+	}
 
 	/**
 	 * overridden method to generate QueryBuilder instance
@@ -114,13 +114,13 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 			builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(selectorOptions), 'RecordType');
 		}
 		if(selectorOptions.contains(Options.WITH_CASE_DETAILS)) {
-			builder.addRelatedFields(CasesSelector.newInstance().newQueryBuilder(), 'Case__r');
+			builder.addRelatedFields(CasesSelector.newInstance().newQueryBuilder(selectorOptions), 'Case__r');
 		}
 		if(selectorOptions.contains(Options.WITH_ARTICLES)) {
-			builder.addRelatedFields(ArticlesSelector.newInstance().newQueryBuilder(), 'Article__r');
+			builder.addRelatedFields(ArticlesSelector.newInstance().newQueryBuilder(selectorOptions), 'Article__r');
 		}
 		if(selectorOptions.contains(Options.WITH_NETWORKS)) {
-			builder.addRelatedFields(NetworksSelector.newInstance().newQueryBuilder(), 'Network__r');
+			builder.addRelatedFields(NetworksSelector.newInstance().newQueryBuilder(selectorOptions), 'Network__r');
 		}
 		return builder;
 	}
