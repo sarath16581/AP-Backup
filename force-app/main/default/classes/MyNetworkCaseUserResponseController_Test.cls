@@ -8,10 +8,8 @@
  * 2022-12-08 - Dattaraj Deshmukh - Created
 */
 @IsTest
-private class MyNetworkCaseUserResponseControllerTest {
-	
-	
-	/**
+private class MyNetworkCaseUserResponseController_Test {
+   /**
 	 * @desc test if method creates chatter feed record for a case investigation record.
 	 */
 	@IsTest
@@ -52,13 +50,19 @@ private class MyNetworkCaseUserResponseControllerTest {
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<FeedItem>) insertableRecordsCaptor.capture());
 
 		List<FeedItem> insertedRecords = (List<FeedItem>) insertableRecordsCaptor.getValue();
-		system.assertEquals(1, insertedRecords.size());
 
+		//asserting feeditem is inserted with expected comments.
+		system.assertEquals(1, insertedRecords.size());
 		system.assertEquals('Sample Feed Comments', insertedRecords[0].Body);
 
 
 		fflib_ArgumentCaptor updatableRecordsCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>) updatableRecordsCaptor.capture());
+
+		List<Case> updatedCase = (List<Case>)updatableRecordsCaptor.getValue();
+
+		//asserting case status is updated
+		system.assertEquals(MyNetworkConstants.CASE_STATUS_NETWORK_RESPONDED, updatedCase[0].Status);
 
 	}
 
@@ -104,12 +108,14 @@ private class MyNetworkCaseUserResponseControllerTest {
 		Test.startTest();
 
 		//calling method to get all feeditems against parent id.
-		MyNetworkCaseUserResponseController.getCaseInvestigationChatterFeeds(caseInvestigations[0].Id);
+		List<FeedItem> ciFeedItems = MyNetworkCaseUserResponseController.getCaseInvestigationChatterFeeds(caseInvestigations[0].Id);
 
 		Test.stopTest();
 
 		//verify that method is called once with expected list of feeditems
         ((FeedItemsSelector)MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).selectByTextPostParentIds((Set<Id>)fflib_Match.eq(new Set<Id>{caseInvestigations[0].Id}),
 																															(Set<Object>) fflib_Match.eq( new Set<Object>{FeedItemsSelector.Options.WITH_CREATEDBY}));
+		//asserting method returns valid list and not null.
+		system.assertNotEquals(null, ciFeedItems);
 	}
 }
