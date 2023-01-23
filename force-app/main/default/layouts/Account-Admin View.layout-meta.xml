@@ -771,7 +771,7 @@
             <sortOrder>45</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Account.RecalculateSharing</actionName>
+            <actionName>Account.ResetSalesTeamSharing</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>46</sortOrder>
         </platformActionListItems>

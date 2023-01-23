@@ -3821,7 +3821,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Confirm Sharing Recalculation Info Message</shortDescription>
-        <value>TODO - Sharing will be recalculated in the background for child records linked to this organisation. Are you sure you want to continue ?</value>
+        <value>Sales team sharing will be recalculated in the background for related child records linked to this record. Do you wish to proceed?</value>
     </labels>
     <labels>
         <fullName>Contact_Another_Network_Error</fullName>
@@ -6638,7 +6638,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Recalculate Sharing Modal Title</shortDescription>
-        <value>Recalculate Sharing</value>
+        <value>Reset Sales Team Sharing</value>
     </labels>
     <labels>
         <fullName>RecentSorting</fullName>
@@ -6950,7 +6950,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Sharing Recalculation Permissions Error Message</shortDescription>
-        <value>You do not have sufficient permissions to recalculate sharing. Please contact ..TODO.</value>
+        <value>You do not have sufficient permissions to recalculate sales team sharing.</value>
     </labels>
     <labels>
         <fullName>SharingRecalculationRequestSuccessfullyEnqueuedMessage</fullName>
@@ -6958,7 +6958,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Sharing Recalculation Request Successfully Enqueued Message</shortDescription>
-        <value>Sharing recalculation request enqueued for processing in the background.</value>
+        <value>Sales team sharing request enqueued for recalculation in the background.</value>
     </labels>
     <labels>
         <fullName>ShowTitle</fullName>
