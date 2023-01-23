@@ -52,7 +52,15 @@ public inherited sharing class SalesAccountChildSObjectSharingModule  extends Ap
 	 */
 	private void shareChildRecords(Set<Id> accountIds, List<Account> records, ApplicationUnitOfWork uow) {
 
+		// check if account ids have already been processed or enqueued in the current transaction. filter them out
+		// from the sharing scope.
 		Set<Id> processableAccountIds = filterAccountsAlreadyProcessedOrEnqueued(accountIds, new Map<Id, Account>(records));
+
+		if (processableAccountIds.isEmpty()) {
+			// account ids in scope have all been either processed or enqueued previously in current transaction.
+			// return as there is nothing more to do here.
+			return;
+		}
 
 		if (isInAsyncContext()) {
 			// we are in an async context. attempt to process synchronously by directly calling the service.

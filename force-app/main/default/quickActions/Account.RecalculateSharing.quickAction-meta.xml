@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionSubtype>ScreenAction</actionSubtype>
+    <description>Recalculate sharing of child records on an account to ensure Sales Team members has required access</description>
+    <label>Recalculate Sharing</label>
+    <lightningWebComponent>salesRecalculateChildRecordSharing</lightningWebComponent>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>LightningWebComponent</type>
+</QuickAction>
