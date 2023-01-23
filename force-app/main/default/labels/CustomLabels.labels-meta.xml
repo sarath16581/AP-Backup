@@ -7763,6 +7763,30 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Please enter your first name</value>
     </labels>
     <labels>
+        <fullName>STHSIDSearchCommentsNoConsignment</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No consignment found</shortDescription>
+        <value>No consignment data found. Connote number may be invalid or missing address data. Try assigning the consignment again and ask customer to check the consignment number/address details as required. </value>
+    </labels>
+    <labels>
+        <fullName>STHSIDSearchCommentsDuplicateConsignment</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Duplicate consignments found</shortDescription>
+        <value>More than one result was found. Try assigning the consignment again and select the correct consignment number.</value>
+    </labels>
+    <labels>
+        <fullName>STHSIDSearchCommentsTimeoutTechError</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Any timeout/technical error </shortDescription>
+        <value>The consignment couldn’t be assigned due to a technical issue. Try assigning the consignment again.</value>
+    </labels>
+    <labels>
         <fullName>STHSLastnameValidationMessage</fullName>
         <categories>StarTrack Help and Support</categories>
         <language>en_US</language>
