@@ -34,7 +34,7 @@
  * 2022-04-16 - Naveen Rajanna - REQ2811129 Added getAPRs method
  * 2022-08-10 - Mahesh Parvathaneni - Added getAssignmentRules method
  * 2022-11-18 - Noel - Added getCaseStatuses method
- * 2022-12-07 - Dattaraj - Added 'getChatterFeeds' method.
+ * 2022-12-07 - Dattaraj - Added 'getChatterFeeds' method. Added null check in getCaseInvestigations method.
  * 2022-11-28 - Mahesh Parvathaneni - Added getCaseInvestigations, getCriticalIncidents method
 */
 @IsTest
@@ -80,8 +80,8 @@ public with sharing class ApplicationTestDataFactory {
  	public static List<CaseInvestigation__c> getCaseInvestigations(Integer count, Id caseId, Article__c article, Id networkId, Boolean generateIds) {
 		return (List<CaseInvestigation__c>)maybeGenerateIds(populateSObjects(CaseInvestigation__c.SObjectType, new Map<SObjectField, Object> {
 				CaseInvestigation__c.Case__c => caseId,
-				CaseInvestigation__c.Article__c => article.Id,
-				CaseInvestigation__c.ReferenceID__c => article.Name,
+				CaseInvestigation__c.Article__c => article == null ? null : article.Id,
+				CaseInvestigation__c.ReferenceID__c => article == null ? null : article.Name,
 				CaseInvestigation__c.Network__c => networkId
 				}, count), generateIds);
 	}

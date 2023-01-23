@@ -42,11 +42,17 @@ private class  STCaseInvestigationLifecycleModule_Test {
         STCaseInvestigationLifecycleModule.newInstance().onAfterInsert(caseInvestigations, mockUow);
         Test.stopTest();
 
-		//asserting time in minutes changed after DSR Implementation stage is updated.
+		//asserting case status is changed after new CI record is added
 		System.assertEquals(MyNetworkConstants.CASE_STATUS_WAITING_ON_OPERATIONS,((Case)MockUtility.mockUnitOfWorkDMLs[0]).Status);
 
+		fflib_ArgumentCaptor insertableCaseCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
+
 		//verify registerDirty() is called.
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<SObject>)fflib_Match.anyObject());
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty(new List<Case>{cases[0]});
+
+		List<Case> updatedCases = (List<Case>) insertableCaseCaptor.getValue();
+
+		system.assertEquals(MyNetworkConstants.CASE_STATUS_WAITING_ON_OPERATIONS, updatedCases[0].Status);
 	}
 
 
@@ -91,10 +97,17 @@ private class  STCaseInvestigationLifecycleModule_Test {
 		STCaseInvestigationLifecycleModule.newInstance().updateAllCaseInvestigations(cases, new Map<Id, Case>{oldCase.Id => oldCase}, mockUow);
 		Test.stopTest();
 
-		//asserting time in minutes changed after DSR Implementation stage is updated.
+		//asserting all child case investigations are closed when a case is closed.
 		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_CLOSED_STATUS,((CaseInvestigation__c)MockUtility.mockUnitOfWorkDMLs[0]).Status__c);
 
+		fflib_ArgumentCaptor updatedCaseInvestigationsCaptor = fflib_ArgumentCaptor.forClass(List<CaseInvestigation__c>.class);
+
 		//verify registerDirty() is called.
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<SObject>)fflib_Match.anyObject());
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty(new List<CaseInvestigation__c>{caseInvestigations[0]});
+
+		List<CaseInvestigation__c> updatedCIs = (List<CaseInvestigation__c>) updatedCaseInvestigationsCaptor.getValue();
+
+		system.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_CLOSED_STATUS, updatedCIs[0].Status__c);
+
 	}
 }

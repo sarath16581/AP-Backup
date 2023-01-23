@@ -4,6 +4,7 @@
  * @domain            : Case
  * @changelog
  * 2022-12-05 - George Nguyen - created
+ * 2022-01-23 - Dattaraj Deshmukh - Added unit test for STCaseInvestigationLifecycleModule.
  **/
 @IsTest
 private class STCaseInvestigationDomain_Test {
@@ -20,6 +21,8 @@ private class STCaseInvestigationDomain_Test {
 		
 		ApplicationDomain appDomain = constructor.construct(caseInvestigations);
 		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(STCaseInvestigationArticleModule.class);
+		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(STCaseInvestigationLifecycleModule.class);
+		
 
 		// PMD by-pass
 		System.assert(true, 'PMD by-pass');
