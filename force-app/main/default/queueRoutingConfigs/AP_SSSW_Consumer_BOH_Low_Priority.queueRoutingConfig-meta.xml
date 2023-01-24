@@ -3,6 +3,7 @@
     <capacityPercentage>100.0</capacityPercentage>
     <isAttributeBased>true</isAttributeBased>
     <label>AP SSSW Consumer BOH Low Priority</label>
+    <pushTimeout>60</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
     <routingPriority>30</routingPriority>
 </QueueRoutingConfig>

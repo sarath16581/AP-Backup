@@ -756,4 +756,12 @@
         <name>GitPipelinesApp</name>
         <type>ConnectedApp</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>Apttus_Base2__CongaSmartSearch</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>Apttus_Config2__ApttusOrderManagementLightning</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>
