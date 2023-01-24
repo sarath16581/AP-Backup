@@ -43,7 +43,14 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                 SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId()
                 , SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_VOC_RT_DEV).getRecordTypeId()};
         public TrackingSearchQueueable(Case record) {
-            this.cse = record;
+            //this.cse = record;
+
+			//TODO: refactor to use the CaseSelector
+        	this.cse = [SELECT Id, Call_Purpose__c, RecordTypeId, RecordType.Name, Enquiry_Type__c, Network__r.OwnerId, Business_Solutions_Customer__c, 
+								Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c, Network__r.Name, Initial_Caller_Type__c,
+                  				Status, OwnerId, Article_Service_Type__c, ArticleTest__r.Product_Group__c, Account.StarTrack_Customer_Stream__c, 
+								ArticleTest__c, ReferenceID__c, Origin 
+				  FROM Case WHERE Id =: record.Id];				
         }
 
         public void execute(QueueableContext context) {
@@ -52,7 +59,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                 if(UserInfo.getProfileId() == communityUserProfileId // only execute for startrack community
                         && this.cse.ArticleTest__c == null // if no article record is linked
                         && this.cse.ReferenceID__c != null // and there's a reference ID
-                        && StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin__c) // origin is web only
+                        && StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin) // origin is web only
                         && caseRecordTypes.contains(this.cse.RecordTypeId)) { // only startrack record types created via STHS
                     StarTrackTrackingIDSearchService idSearchService = StarTrackTrackingIDSearchService.newInstance();
                     idSearchService.dateRange = '1';
@@ -103,6 +110,8 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             // access the update records via shared context since the update happens from community
             ElevatedSharingContext sharedContext = new ElevatedSharingContext();
             sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
+
+			//process the case transfer
             System.enqueueJob(new TransferCaseQueueable(caseToBeUpdated));
         } catch (Exception e) {
             UTIL_LoggingService.logHandledException(
@@ -124,17 +133,26 @@ public with sharing class StarTrackTrackingIDSearchUtil {
         };
 
         public  TransferCaseQueueable(Case record) {
-            this.cse = record;
+			//TODO: refactor to use the CaseSelector
+        	this.cse = [SELECT Id, Call_Purpose__c, RecordTypeId, RecordType.Name, Enquiry_Type__c, Network__r.OwnerId, Business_Solutions_Customer__c, 
+								Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c, Network__r.Name, Initial_Caller_Type__c,
+                  				Status, OwnerId, Article_Service_Type__c, ArticleTest__r.Product_Group__c, Account.StarTrack_Customer_Stream__c, 
+								ArticleTest__c, ReferenceID__c, Origin 
+				  FROM Case WHERE Id =: record.Id];			
         }
 
         public void execute(QueueableContext context) {
             try {
                 if(this.cse.ArticleTest__c != null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId) && 'Web'.equalsIgnoreCase(this.cse.Origin)) {
-                    Case caseToBeUpdated = new Case();
-                    caseToBeUpdated.Id = cse.Id;
-                    caseToBeUpdated.OwnerId = transferCase(this.cse);
-                    ElevatedSharingContext sharedContext = new ElevatedSharingContext();
-                    sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
+					//get transfer owner Id
+					Id transferOwnerId = transferCase(this.cse);
+					if (transferOwnerId !=null){
+						Case caseToBeUpdated = new Case();
+						caseToBeUpdated.Id = cse.Id;
+						caseToBeUpdated.OwnerId = transferOwnerId;
+						ElevatedSharingContext sharedContext = new ElevatedSharingContext();
+						sharedContext.updateRecords(new List<Case>{caseToBeUpdated});	
+					}
                 }
 
             } catch (Exception ex) {
@@ -159,7 +177,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
      * @return
      */
     public static Boolean validate(List<Article__c> articles, Id caseId, StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap) {
-        Boolean isValid = false;
+        Boolean isValid = true;
         String comments = '';
         Boolean isDuplicate = isDuplicateConsignments(articles);
         Boolean isError = isError(conWrap);
@@ -253,9 +271,9 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                     if(tc_rule.Queue_Name__c == StarTrack_Constants.TRANSFER_QUEUE) {
                         if (!String.isBlank(c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c)) {
                             queueName = c.Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c;
-                            ruleSatisfied = true;
-                            break;
                         }
+						ruleSatisfied = true;
+						break;
                     } else if(tc_rule.Queue_Name__c == StarTrack_Constants.ST_NETWORK_CUST_NOTIF && !StarTrack_Constants.CURRENT_USER_CAN_AUTO_CLOSE_CASE_FROM_TASK) {
                         ruleSatisfied = false;
                         continue;
@@ -290,7 +308,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             }
         }catch (Exception e) {
             System.debug('Error in transferring the Case'+e.getCause());
-            UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchModule.class.getName(), 'transferCase', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
+            UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchUtil.class.getName(), 'transferCase', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
             ruleSatisfied = false;
         }
         System.debug('The Owner Id of the case is '+ownerId);
