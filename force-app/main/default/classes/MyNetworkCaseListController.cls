@@ -526,7 +526,7 @@ public with sharing class MyNetworkCaseListController {
         String selectedlistview;
         String dynamicFilter ;
         Boolean searchButtonClickedFlag;
-        Boolean isStartCaseFilterSelected = false;
+        Boolean isStarTrackCaseFilterSelected = false;
 
         Map<string,object> filtersMap = (Map<string,object>)JSON.deserializeUntyped(filteredString);
         for(string strKey: filtersMap.keySet()){
@@ -550,7 +550,7 @@ public with sharing class MyNetworkCaseListController {
                 searchButtonClickedFlag = (Boolean)filtersMap.get('searchButtonClicked');
             }
             else if(strKey.equalsIgnoreCase('isStarTrackSearch')){
-                isStartCaseFilterSelected = (Boolean)filtersMap.get('isStarTrackSearch');
+                isStarTrackCaseFilterSelected = (Boolean)filtersMap.get('isStarTrackSearch');
             }
         }
         if(isPrintedVal.equalsIgnoreCase('Yes')){
@@ -578,7 +578,7 @@ public with sharing class MyNetworkCaseListController {
 
                         //if StarTrack case field is selected then select 'Enquiry_Type__c' field.
                         //if AP enquiry values are selected then filter based on 'EnquirySubType__c'.
-                        String enquiryField = isStartCaseFilterSelected ? 'Enquiry_Type__c' : 'EnquirySubType__c';
+                        String enquiryField = isStarTrackCaseFilterSelected ? 'Enquiry_Type__c' : 'EnquirySubType__c';
 
                         String filterVar = ' AND ( '+ enquiryField+'= ' + '\'' + enquirySubTypeVal + '\')' ;
                         if(dynamicFilter != null){
@@ -611,10 +611,10 @@ public with sharing class MyNetworkCaseListController {
                             dynamicFilter = filterVar ;
                         }
                     }
-                    system.debug('isStartCaseFilterSelected: '+isStartCaseFilterSelected);
+                    system.debug('isStarTrackCaseFilterSelected: '+isStarTrackCaseFilterSelected);
                     system.debug('selectedProductCategoryVal: '+selectedProductCategoryVal);
                     
-                    if(!isStartCaseFilterSelected && !String.isBlank(selectedProductCategoryVal) && selectedProductCategoryVal != '--Select--'){
+                    if(!isStarTrackCaseFilterSelected && !String.isBlank(selectedProductCategoryVal) && selectedProductCategoryVal != '--Select--'){
 
                         String filterVar = ' AND (ProductCategory__c =' + '\'' + selectedProductCategoryVal + '\')' ;
                         if(dynamicFilter != null){
@@ -636,7 +636,7 @@ public with sharing class MyNetworkCaseListController {
                 listViewFilterVar = ' AND (EnquirySubType__c = ' + '\'' + facilityReportedDamages + '\')';                 
             }else if(selectedlistview.equalsIgnoreCase('Enterprise_customers')){
                 listViewFilterVar = ' AND (contact.SLA__c = '  + '\'' + enterpriseVar + '\')';             
-            }else if( (isStartCaseFilterSelected && !String.isBlank(selectedProductCategoryVal) && selectedProductCategoryVal != '--Select--') 
+            }else if( (isStarTrackCaseFilterSelected && !String.isBlank(selectedProductCategoryVal) && selectedProductCategoryVal != '--Select--') 
                         || selectedlistview.equalsIgnoreCase('star_track_cases')){ // filter out ST cases based on record types.
                 listViewFilterVar = ' AND (RecordType.DeveloperName IN:stRecordTypeDeveloperNames)';             
             }
@@ -701,11 +701,13 @@ public with sharing class MyNetworkCaseListController {
 
 		//if record is of the type = CASE, query case details
 		if(sObjectTypeName.equalsIgnoreCase('Case')) {
-			caseRecord = [Select Id, ArticleTest__c,RecordType.DeveloperName From Case Where Id =: recordId LIMIT 1];
+			//caseRecord = [Select Id, ArticleTest__c,RecordType.DeveloperName From Case Where Id =: recordId LIMIT 1];
+			caseRecord = CasesSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE}).values()[0];
 		}
 		//if record is of the type = CaseInvestigation, query case investigation details
 		else if(sObjectTypeName.equalsIgnoreCase('CaseInvestigation__c')) {
-            caseInvestigation = [Select Id, Article__r.Id, Article__c from CaseInvestigation__c where Id =: recordId LIMIT 1];
+            //caseInvestigation = [Select Id, Article__r.Id, Article__c from CaseInvestigation__c where Id =: recordId LIMIT 1];
+			caseInvestigation = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{recordId}, new Set<Object>{CaseInvestigationsSelector.Options.WITH_ARTICLES}).values()[0];
 		}
 
 		

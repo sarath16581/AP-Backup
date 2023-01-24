@@ -38,7 +38,7 @@ private class FeedItemsSelector_Test {
         QueryBuilder qb = selector.newQueryBuilder();
         String soql = qb.toSoqlString();
 
-        System.assertEquals(true, Pattern.compile('(?is)\\bfrom FeedItem\\b').matcher(soql).find(), 'Resulting query does not select from CaseInvestigation__c');
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom FeedItem\\b').matcher(soql).find(), 'Resulting query does not select from FeedItem');
 
         Test.stopTest();
 

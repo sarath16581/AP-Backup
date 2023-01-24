@@ -1,5 +1,5 @@
 /***
- * @description Test class for PUDJobTriggerHandler.
+ * @description Test class for FeedItemTriggerHandler2.
  * @author Dattaraj Deshmukh
  * @date 2022-12-08
  * @group Tests
