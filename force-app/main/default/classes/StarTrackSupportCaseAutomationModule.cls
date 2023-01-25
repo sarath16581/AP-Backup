@@ -9,8 +9,6 @@
  * @Test StarTrackSupCaseAutomationModule_Test
  * 
  * @changelog
- * 2022-11-07	George Nguyen	- add logic to set case field OmniRoutingSecondaryPriority 
- * 2022-12-15	Noel Lim 		- bugfix for a NullException for cases generated from Startrack Support portal
  */
 
 public inherited sharing class StarTrackSupportCaseAutomationModule extends ApplicationDomain.Module {
