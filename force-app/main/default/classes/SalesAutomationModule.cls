@@ -64,7 +64,8 @@ public inherited sharing class SalesAutomationModule extends ApplicationDomain.M
 
 		Map<String, List<Id>> excludedRecords = new Map<String, List<Id>>();
 		for (Account record: records) {
-			if (salesTeamTypeMappings.containsKey(record.Sales_Segment__c) && salesTeamTypeMappings.get(record.Sales_Segment__c).size() == 1) {
+			if (record.Sales_Segment__c != null && salesTeamTypeMappings.containsKey(record.Sales_Segment__c)
+					&& salesTeamTypeMappings.get(record.Sales_Segment__c).size() == 1) {
 				// found a valid Sales Team type
 				record.SalesTeamType__c = salesTeamTypeMappings.get(record.Sales_Segment__c)[0];
 			} else {

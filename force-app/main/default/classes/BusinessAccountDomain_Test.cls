@@ -9,20 +9,27 @@
  */
 @IsTest
 private class BusinessAccountDomain_Test {
+
 	@IsTest
-	static void ensureThatRegisterModulesIsBeingCalledWithTheCorrectType() {
-		MockUtility.mockDomain(ApplicationDomain.class);
+	private static void testBusinessAccountDomain() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account businessAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
 
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Stubbing
+		// =====================================s
 
-		BusinessAccountDomain.Constructor constructor = new BusinessAccountDomain.Constructor();
-		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		BusinessAccountDomain domain = BusinessAccountDomain.newInstance(new List<Account>{businessAccount, personAccount});
+		Test.stopTest();
 
-		ApplicationDomain appDomain = constructor.construct(accounts);
-		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(SalesAutomationModule.class);
-
-		// PMD by-pass
-		System.assert(true, 'PMD by-pass');
+		System.assertEquals(1, domain.records.size(), 'Records should have been filtered to include only business accounts');
+		System.assertEquals(businessAccount.Id, domain.records[0].Id, 'Records should have been filtered to include only business accounts');
 	}
 }

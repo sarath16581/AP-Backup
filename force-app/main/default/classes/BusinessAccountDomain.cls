@@ -26,22 +26,14 @@ public inherited sharing class BusinessAccountDomain extends ApplicationDomain {
 	 * Prefilter the records passed in to ensure this domain class only processes applicable records.
 	 */
 	public override List<SObject> filter(List<SObject> records) {
+
+		Set<Id> validRecordTypes = new RecordTypesSelector().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).keySet();
 		List<SObject> output = new List<SObject>();
-		for(Account acc : (List<Account>)records) {
-			if(!acc.IsPersonAccount) {
-				output.add(acc);
+		for(SObject record : records) {
+			if(validRecordTypes.contains((Id)record.get('RecordTypeId'))) {
+				output.add(record);
 			}
 		}
 		return output;
 	}
-
-	/**
-	 * Trigger instantiation context
-	 */
-	public virtual class Constructor implements ApplicationDomain.IConstructable {
-		public ApplicationDomain construct(List<SObject> sObjectList) {
-			return BusinessAccountDomain.newInstance(sObjectList);
-		}
-	}
-
 }
