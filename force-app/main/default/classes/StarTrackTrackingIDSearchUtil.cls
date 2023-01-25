@@ -125,18 +125,55 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                 SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId()
         };
 
-        public  TransferCaseQueueable(Case record) {
-			//TODO: refactor to use the CaseSelector
-        	this.cse = [SELECT Id, Call_Purpose__c, RecordTypeId, RecordType.Name, Enquiry_Type__c, Network__r.OwnerId, Business_Solutions_Customer__c, 
-								Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c, Network__r.Name, Initial_Caller_Type__c,
-                  				Status, OwnerId, Article_Service_Type__c, ArticleTest__r.Product_Group__c, Account.StarTrack_Customer_Stream__c, 
-								ArticleTest__c, ReferenceID__c, Origin 
-				  FROM Case WHERE Id =: record.Id];			
+        public  TransferCaseQueueable(Case record) {			
+			Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>();
+			Set<SObjectField> caseFields = new Set<SObjectField>{
+				Case.Id, 
+				Case.Call_Purpose__c, 
+				Case.RecordTypeId, 
+				Case.Enquiry_Type__c, 
+				Case.Business_Solutions_Customer__c, 
+				Case.Initial_Caller_Type__c,
+				Case.Status, 
+				Case.OwnerId, 
+				Case.Article_Service_Type__c, 
+				Case.ReferenceID__c, 
+				Case.Origin, 
+				Case.ArticleTest__c
+			};
+			Set<SObjectField> articleFields = new Set<SObjectField>{
+				Article__c.Product_Group__c
+			};			
+			Set<SObjectField> recordTypeFields = new Set<SObjectField>{
+				RecordType.Name
+			};			
+			Set<SObjectField> networkFields = new Set<SObjectField>{
+				Network__c.OwnerId, Network__c.Name
+			};
+			Set<SObjectField> billingAccountFields = new Set<SObjectField>{
+				Billing_Account__c.BSC_Calc_Transfer_Queue__c
+			};
+			Set<SObjectField> accountFields = new Set<SObjectField>{
+				Account.StarTrack_Customer_Stream__c
+			};
+			overrideFields.put(Case.SObjectType, caseFields);
+			overrideFields.put(Article__c.SObjectType, articleFields);
+			overrideFields.put(Network__c.SObjectType, networkFields);
+			overrideFields.put(Billing_Account__c.SObjectType, billingAccountFields);
+			overrideFields.put(Account.SObjectType, accountFields);
+
+			this.cse = CasesSelector.newInstance(0, overrideFields).selectById(
+																		new Set<Id>{Id.valueOf(record.Id)},
+																		new Set<Object>{CasesSelector.Options.WITH_ARTICLE, CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_NETWORK, CasesSelector.Options.WITH_BILLINGACCOUNT, CasesSelector.Options.WITH_ACCOUNT}
+												).values()[0];
         }
 
         public void execute(QueueableContext context) {
             try {
-                if(this.cse.ArticleTest__c != null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId) && 'Web'.equalsIgnoreCase(this.cse.Origin)) {
+                if(this.cse.ArticleTest__c != null // if article record is linked
+					&& this.cse.ReferenceID__c != null // and there's a reference ID
+					&& StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin) // origin is web only
+					&& caseRecordTypes.contains(this.cse.RecordTypeId) ) { // only startrack delivery enquiry record type
 					//get transfer owner Id
 					Id transferOwnerId = transferCase(this.cse);
 					if (transferOwnerId !=null){
