@@ -16,7 +16,7 @@ public inherited sharing class APRTriggerHandler extends ApplicationDomainTrigge
   
 	public override List<Type> registerDomains() {
 	  return new List<Type> { 
-		  APRDomain.class,
+		  APRGenericDomain.class,
 		  StarTrackAPRDomain.class
 		};
 	}
