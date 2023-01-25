@@ -114,13 +114,13 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 			builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(selectorOptions), 'RecordType');
 		}
 		if(selectorOptions.contains(Options.WITH_CASE_DETAILS)) {
-			builder.addRelatedFields(CasesSelector.newInstance().newQueryBuilder(selectorOptions), 'Case__r');
+			builder.addRelatedFields(CasesSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Case__r');
 		}
 		if(selectorOptions.contains(Options.WITH_ARTICLES)) {
-			builder.addRelatedFields(ArticlesSelector.newInstance().newQueryBuilder(selectorOptions), 'Article__r');
+			builder.addRelatedFields(ArticlesSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Article__r');
 		}
 		if(selectorOptions.contains(Options.WITH_NETWORKS)) {
-			builder.addRelatedFields(NetworksSelector.newInstance().newQueryBuilder(selectorOptions), 'Network__r');
+			builder.addRelatedFields(NetworksSelector.newInstance().setFieldOverrides(fieldOverrides)newQueryBuilder(selectorOptions), 'Network__r');
 		}
 		return builder;
 	}

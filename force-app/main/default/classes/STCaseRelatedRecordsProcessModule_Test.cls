@@ -8,6 +8,9 @@
 @IsTest
 private class STCaseRelatedRecordsProcessModule_Test {
 
+	/**
+	*Testing whenever a case is closed, all its child case investigations need to be closed.  
+	*/
     @IsTest
 	static void onAfterUpdate() {
 
@@ -16,14 +19,14 @@ private class STCaseRelatedRecordsProcessModule_Test {
 		// =====================================
 
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
-
+		
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
         cases[0].ArticleTest__c = articles[0].Id;
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
-		cases[0].Status = 'Closed';
+		cases[0].Status = 'Closed'; //setting updated case status
 
 		Case oldCase = cases[0];
-		oldCase.Status = 'New';
+		oldCase.Status = 'New'; //setting status of OLD Case record. (Trigger.Old)
 
         List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
 		networks[0].Org_ID__c = '1234';
@@ -52,12 +55,12 @@ private class STCaseRelatedRecordsProcessModule_Test {
 		// =====================================
 		Test.startTest();
 
+		//passing updated value, old value and unit of work for case.
 		STCaseRelatedRecordsProcessingModule.newInstance().onAfterUpdate(cases, new Map<Id, Case>{oldCase.Id => oldCase}, mockUow);
 
 		Test.stopTest();
 
 		//verify that STCaseInvestigationLifecycleModule is called once with expected list of jobs
 		((STCaseInvestigationLifecycleModule) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).updateAllCaseInvestigations(cases, new Map<Id, Case>{oldCase.Id => oldCase}, mockUow);
-
 	}
 }
