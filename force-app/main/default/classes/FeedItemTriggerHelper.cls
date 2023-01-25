@@ -3,7 +3,7 @@
   * @date         : 03/07/2015
   * @description  : Helper Class for FeedItemTrigger
   */
-  public with sharing class FeedItemTriggerHelper{
+public with sharing class FeedItemTriggerHelper{
     
     // Constants
     private static final String COMMA = ',';
