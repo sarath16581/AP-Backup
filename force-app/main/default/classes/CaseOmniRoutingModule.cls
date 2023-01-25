@@ -28,6 +28,16 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 		}
 		private set;
 	}
+
+	private Set<Id> starTrackRecordTypeIds {
+		get {
+			if(starTrackRecordTypeIds == null){
+				starTrackRecordTypeIds =  new RecordTypesSelector().selectByDeveloperNameLike('Case', 'StarTrack').keySet();
+			}
+			return starTrackRecordTypeIds;
+		}
+		private set;
+	}
 	
 	public static CaseOmniRoutingModule newInstance() {
 		return (CaseOmniRoutingModule)Application.Utilities.newInstance(CaseOmniRoutingModule.class);
@@ -73,14 +83,18 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 
 	/*
 	 * This method returns a list of Case records that are related to StarTrack or SSSW
-	 * @param caseRecords the list of Cases to filter to SSSW only
+	 * @param caseRecords the list of Cases to filter
 	 */
 	private List<SObject> filterToStarTrackOrSSSWCases(List<SObject> caseRecords){
-		List<SObject> filteredCases = new List<SObject>();
+		List<SObject> filteredCases = new List<SObject>();		
 		
 		for (Case c : (List<Case>) caseRecords) {
-			if(Utility.isValidRecordType(ssswRecordTypeIds,c.RecordTypeId) || c.StarTrack_RecordType__c){
-				filteredCases.add(c);				
+
+			System.debug('NOEL Rtype:' + c.RecordTypeId);
+
+			if(Utility.isValidRecordType(ssswRecordTypeIds,c.RecordTypeId) || Utility.isValidRecordType(starTrackRecordTypeIds,c.RecordTypeId)){
+				filteredCases.add(c);		
+				System.debug('NOEL  ADDED Rtype:' + c.RecordTypeId);
 			}				
 		}
 

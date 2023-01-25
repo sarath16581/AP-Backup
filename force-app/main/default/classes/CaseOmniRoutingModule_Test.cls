@@ -56,7 +56,7 @@ public with sharing class CaseOmniRoutingModule_Test {
 		for(Id tempRtypeId : caseRecordTypes.keySet()){
 			if(ssswRecTypes.contains(tempRTypeId) == false &&
 			starTrackRecordTypes.contains(tempRtypeId) == false){
-				cases[4].recordTypeId = recTypeId;
+				cases[4].recordTypeId = tempRtypeId;
 				break;
 			}
 		}
@@ -93,7 +93,7 @@ public with sharing class CaseOmniRoutingModule_Test {
 		ApplicationTestDataFactory.generateRecordIds(new List<SObject> {routingConfig});
 		omniQueue.QueueRoutingConfigId = routingConfig.Id;
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(4, true);
+		List<Case> cases = ApplicationTestDataFactory.getCases(5, true);
 		cases[0].OwnerId = UserInfo.getUserId(); // invalid case
 		cases[0].Priority = 'Low';
 
@@ -105,6 +105,10 @@ public with sharing class CaseOmniRoutingModule_Test {
 
 		cases[3].OwnerId = omniQueue.Id; 
 		cases[3].Priority = 'High';
+
+		cases[4].OwnerId = omniQueue.Id; 
+		cases[4].Priority = 'High'; // invalid case - recordtype
+
 
 		List<Case> oldCases = cases.deepClone(true, false, false);
 		oldCases[0].OwnerId = omniQueue.Id; // invalid case
@@ -118,6 +122,9 @@ public with sharing class CaseOmniRoutingModule_Test {
 
 		oldCases[3].OwnerId = UserInfo.getUserId();
 		oldCases[3].Priority = ''; 
+
+		oldCases[4].OwnerId = UserInfo.getUserId();
+		oldCases[4].Priority = ''; // invalid case - recordtype
 
 
 		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
@@ -135,6 +142,14 @@ public with sharing class CaseOmniRoutingModule_Test {
 			cases[3].recordTypeId = recTypeId;
 		}
 
+		Map<Id,String> caseRecordTypes = Utility.getsObjectRecordTypeNames('Case');
+		for(Id tempRtypeId : caseRecordTypes.keySet()){
+			if(ssswRecTypes.contains(tempRTypeId) == false &&
+			starTrackRecordTypes.contains(tempRtypeId) == false){
+				cases[4].recordTypeId = tempRtypeId;
+				break;
+			}
+		}
 
 
 		OmniChannelService service = (OmniChannelService)MockUtility.mockUtility(OmniChannelService.class);
