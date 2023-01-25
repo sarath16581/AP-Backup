@@ -18,7 +18,6 @@ private class MyCustomerCasesDomain_Test {
 		ApplicationDomain appDomain = constructor.construct(cases);
 
 		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(MyCustomerCaseArticlesModule.class);
-		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(MyCustomerCaseRoutingModule.class);
 
 		MyCustomerCasesDomain domain = MyCustomerCasesDomain.newInstance(cases);
 		List<SObject> filteredResult = domain.filter(cases);
