@@ -11,7 +11,7 @@
  * @domain Routing 
  * @changelog
  * 2022-10-30	George Nguyen	Created
- * 2023-01-25	Noel Lim		Updated
+ * 2023-01-25	Noel Lim		Updated - add filtering logic to SSSW and StarTrack recordtypes only
  */
 
 public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.Module  {
@@ -72,20 +72,20 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 	}
 
 	/*
-     * This method returns a list of Case records that are related to StarTrack or SSSW
-     * @param caseRecords the list of Cases to filter to SSSW only
-     */
-    private List<SObject> filterToStarTrackOrSSSWCases(List<SObject> caseRecords){
-        List<SObject> filteredCases = new List<SObject>();
-        
-        for (Case c : (List<Case>) caseRecords) {
-            if(Utility.isValidRecordType(ssswRecordTypeIds,c.RecordTypeId) || c.StarTrack_RecordType__c){
-                filteredCases.add(c);                
-            }                
-        }
+	 * This method returns a list of Case records that are related to StarTrack or SSSW
+	 * @param caseRecords the list of Cases to filter to SSSW only
+	 */
+	private List<SObject> filterToStarTrackOrSSSWCases(List<SObject> caseRecords){
+		List<SObject> filteredCases = new List<SObject>();
+		
+		for (Case c : (List<Case>) caseRecords) {
+			if(Utility.isValidRecordType(ssswRecordTypeIds,c.RecordTypeId) || c.StarTrack_RecordType__c){
+				filteredCases.add(c);				
+			}				
+		}
 
-        return filteredCases;
-    }
+		return filteredCases;
+	}
 
 	private Map<Id, Group> omniQueues {
 		get {
