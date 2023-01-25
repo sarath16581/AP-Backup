@@ -31,6 +31,12 @@ public inherited sharing class CasesDomain extends ApplicationDomain{
         // NOTE: must run after the legacy code in CaseTriggerHandler.cls. It has logic that depends on Case.AccountId
         // Refactor Guidance - the logic in this code needs to be positioned: i) in CaseTriggerUtility.beforeHandler() ii) when caseUtility.assignContactIDToCase() is called
         registerModule(CaseSkillBasedRoutingModule.class);
+
+		// Logic relating to Omni Routing
+		// Updates the value of OmniRoutingSecondaryPriority field for cases that are assigned or routed to an Omni queue.
+		// This is related to SSSW and StarTrack cases, the module filters based on recordtype
+        // NOTE: must run after the legacy code in CaseTriggerHandler.cls. It requires the Case to have gone through the routing logic in SSSW_Routing__c.assignCasesAndDescription()
+        registerModule(CaseOmniRoutingModule.class);
     }
     /**
      * Trigger instantiation context
