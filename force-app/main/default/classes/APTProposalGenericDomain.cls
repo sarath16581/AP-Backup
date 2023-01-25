@@ -2,15 +2,15 @@
 * @description Domain class for sharing proposals
 * @author Ken McGuire
 * @group Domains
-* @domain Apttus__APTS_Agreement__c
-* @test APTAgreementDomain_Test
+* @domain Apttus_Proposal__Proposal__c
+* @test APTProposalDomain_Test
 * @changelog
-* 2022-12-06 - Ken McGuire - Created
+* 2022-12-01 - Ken McGuire - Created
 */
-public inherited sharing class APTAgreementDomain extends ApplicationDomain {
+public inherited sharing class APTProposalGenericDomain extends ApplicationDomain {
 
-    public static APTAgreementDomain newInstance(List<SObject> sObjectList) {
-        return (APTAgreementDomain)ApplicationDomain.newInstance(APTAgreementDomain.class, sObjectList);
+    public static APTProposalGenericDomain newInstance(List<SObject> sObjectList) {
+        return (APTProposalGenericDomain)ApplicationDomain.newInstance(APTProposalGenericDomain.class, sObjectList);
     }
 
     /**

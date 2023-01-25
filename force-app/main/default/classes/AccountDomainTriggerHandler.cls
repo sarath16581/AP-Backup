@@ -45,6 +45,8 @@ public with sharing class AccountDomainTriggerHandler extends ApplicationDomainT
 			ContactPointPhone.SObjectType,
 			ContactPointEmail.SObjectType,
 			ContactPointAddress.SObjectType,
+			// support <SObject>__Share types on child objects of Account to handle Apex managed sharing required for
+			// sharing child records with members of the sales team based on the sales team type (e.g. Direct, Intermediary, Holding)
 			APR__Share.SObjectType,
 			Apttus__APTS_Agreement__Share.SObjectType,
 			Apttus_Proposal__Proposal__Share.SObjectType,

@@ -7,10 +7,10 @@
 * @changelog
 * 2022-12-01 - Ken McGuire - Created
 */
-public inherited sharing class APTSAPContractsDomain extends ApplicationDomain {
+public inherited sharing class APTSAPContractsGenericDomain extends ApplicationDomain {
 
-	public static APTSAPContractsDomain newInstance(List<SObject> sObjectList) {
-		return (APTSAPContractsDomain)ApplicationDomain.newInstance(APTSAPContractsDomain.class, sObjectList);
+	public static APTSAPContractsGenericDomain newInstance(List<SObject> sObjectList) {
+		return (APTSAPContractsGenericDomain)ApplicationDomain.newInstance(APTSAPContractsGenericDomain.class, sObjectList);
 	}
 
 	/**

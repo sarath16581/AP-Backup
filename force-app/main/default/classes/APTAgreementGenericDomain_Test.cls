@@ -6,13 +6,13 @@
 * @changelog
 * 2022-12-05 - Ken McGuire - Created
 */
-@isTest
-private class APTAgreementDomain_Test{
+@IsTest
+private class APTAgreementGenericDomain_Test {
     
-    @isTest
+    @IsTest
     private static void TestAgreementDomain() {
         List<Apttus__APTS_Agreement__c> sObjectList = new List<Apttus__APTS_Agreement__c> { new Apttus__APTS_Agreement__c()}; 
-        APTAgreementDomain domain = APTAgreementDomain.newInstance(sObjectList);
+        APTAgreementGenericDomain domain = APTAgreementGenericDomain.newInstance(sObjectList);
         domain.registerModules();
         ApplicationTestDataFactory.generateRecordIds(sObjectList);
         System.assertEquals(1, domain.records.size(), 'Expected Agreement Record');

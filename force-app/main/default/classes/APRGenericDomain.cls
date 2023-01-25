@@ -7,10 +7,10 @@
 * @changelog
 * 2022-12-05 - Ken McGuire - Created
 */
-public  inherited sharing class APRDomain extends ApplicationDomain {
+public  inherited sharing class APRGenericDomain extends ApplicationDomain {
     
-    public static APRDomain newInstance(List<SObject> sObjectList) {
-        return (APRDomain)ApplicationDomain.newInstance(APRDomain.class, sObjectList);
+    public static APRGenericDomain newInstance(List<SObject> sObjectList) {
+        return (APRGenericDomain)ApplicationDomain.newInstance(APRGenericDomain.class, sObjectList);
     }
 
     /**

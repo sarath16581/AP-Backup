@@ -6,13 +6,13 @@
 * @changelog
 * 2022-12-01 - Ken McGuire - Created
 */
-@isTest
-private class APTSAPContractsDomain_Test {
+@IsTest
+private class APTSAPContractsGenericDomain_Test {
     
-	@isTest
+	@IsTest
 	private static void testAPTSAPContractsDomain() {
         List<APT_SAP_Contracts__c> sObjectList = new List<APT_SAP_Contracts__c> { new APT_SAP_Contracts__c()}; 
-		APTSAPContractsDomain domain = APTSAPContractsDomain.newInstance(sObjectList);
+		APTSAPContractsGenericDomain domain = APTSAPContractsGenericDomain.newInstance(sObjectList);
     	domain.registerModules();
         ApplicationTestDataFactory.generateRecordIds(sObjectList);
         System.assertEquals(1, domain.records.size(), 'Expected SAP contract record');

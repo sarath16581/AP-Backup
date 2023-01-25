@@ -21,7 +21,7 @@ public with sharing class APTSAPContractsDomainTriggerHandler extends Applicatio
 
 	public override List<Type> registerDomains() {
 		return new List<Type>{
-            APTSAPContractsDomain.class
+            APTSAPContractsGenericDomain.class
 		};
 	}
 
