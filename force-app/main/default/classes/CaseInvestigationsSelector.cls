@@ -9,8 +9,8 @@
  * @tag Name SObject
  * @domain Core
  * @changelog
- * 				2022-12-05	dattaraj.deshmukh@austpost.com.au	Added Options ENUM, added overridden 'newQueryBuilder()' method.
- * 																Added 'selectOpenCaseInvestigationsByCaseIds' method.
+ *  2022-12-05	dattaraj.deshmukh@austpost.com.au	Added Options ENUM, added overridden 'newQueryBuilder()' method.
+ * 													Added 'selectOpenCaseInvestigationsByCaseIds' method.
  */
 
 public virtual inherited sharing class CaseInvestigationsSelector extends ApplicationSelector {
