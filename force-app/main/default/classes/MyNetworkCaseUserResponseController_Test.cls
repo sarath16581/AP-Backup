@@ -9,31 +9,31 @@
 */
 @IsTest
 private class MyNetworkCaseUserResponseController_Test {
-   /**
+	/**
 	 * @desc test if method creates chatter feed record for a case investigation record.
 	 */
 	@IsTest
 	public static void testPostCaseInvestigationChatterFeed() {
 		// =====================================
-        // Data Preparation
-        // =====================================
-        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+		// Data Preparation
+		// =====================================
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
-        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-        cases[0].ArticleTest__c = articles[0].Id;
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		cases[0].ArticleTest__c = articles[0].Id;
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
 		networks[0].Org_ID__c = '1234';
 
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		
 		//assigning child CI records to case.
 		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{caseInvestigations[0]}});
 
 		// =====================================
-        // Stubbing
-        // =====================================
+		// Stubbing
+		// =====================================
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		// set up our responses
@@ -73,27 +73,27 @@ private class MyNetworkCaseUserResponseController_Test {
 	public static void testGetCaseInvestigationChatterFeeds() {
 
 		// =====================================
-        // Data Preparation
-        // =====================================
-        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+		// Data Preparation
+		// =====================================
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
-        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-        cases[0].ArticleTest__c = articles[0].Id;
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		cases[0].ArticleTest__c = articles[0].Id;
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
 		networks[0].Org_ID__c = '1234';
 
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		caseInvestigations[0].Status__c = 'Open';
 
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
 
 		
-        // =====================================
-        // Stubbing
-        // =====================================
-        FeedItemsSelector mockSelector = (FeedItemsSelector)MockUtility.mockSelector(FeedItemsSelector.class);
+		// =====================================
+		// Stubbing
+		// =====================================
+		FeedItemsSelector mockSelector = (FeedItemsSelector)MockUtility.mockSelector(FeedItemsSelector.class);
 		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -113,7 +113,7 @@ private class MyNetworkCaseUserResponseController_Test {
 		Test.stopTest();
 
 		//verify that method is called once with expected list of feeditems
-        ((FeedItemsSelector)MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).selectByTextPostParentIds((Set<Id>)fflib_Match.eq(new Set<Id>{caseInvestigations[0].Id}),
+		((FeedItemsSelector)MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).selectByTextPostParentIds((Set<Id>)fflib_Match.eq(new Set<Id>{caseInvestigations[0].Id}),
 																															(Set<Object>) fflib_Match.eq( new Set<Object>{FeedItemsSelector.Options.WITH_CREATEDBY}));
 		//asserting method returns valid list and not null.
 		system.assertNotEquals(null, ciFeedItems);

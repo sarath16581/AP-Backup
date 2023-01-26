@@ -8,17 +8,17 @@
 * 23/11/2022 - Dattaraj Deshmukh - Created.
 */
 public inherited sharing class FeedItemCaseInvestigationDomain extends ApplicationDomain{
-    
-    public static FeedItemCaseInvestigationDomain newInstance(List<SObject> sObjectList) {
+	
+	public static FeedItemCaseInvestigationDomain newInstance(List<SObject> sObjectList) {
 		return (FeedItemCaseInvestigationDomain)ApplicationDomain.newInstance(FeedItemCaseInvestigationDomain.class, sObjectList);
 	}
 
-    //records are filtered by ParentId.
+	//records are filtered by ParentId.
 	//only filtered records are passed to domain.
 	public override List<SObject> filter(List<SObject> sObjectList) {
 		List<SObject> filteredRecords = new List<SObject>();
 
-        SObjectType caseInvestigationSObjecType = CaseInvestigation__c.getSObjectType();
+		SObjectType caseInvestigationSObjecType = CaseInvestigation__c.getSObjectType();
 		for(SObject rec : sObjectList) {
 			if( ((Id)rec.get('ParentId')).getSObjectType() == caseInvestigationSObjecType ) {
 				filteredRecords.add(rec);
@@ -34,14 +34,5 @@ public inherited sharing class FeedItemCaseInvestigationDomain extends Applicati
 	public override void registerModules() {
 		// these module will be available for domain operations and trigger execution
 		registerModule(FeedItemCaseInvestigationModule.class);
-	}
-
-	/**
-	 * Trigger instantiation context
-	 */
-	public virtual class Constructor implements ApplicationDomain.IConstructable {
-		public ApplicationDomain construct(List<SObject> sObjectList) {
-			return FeedItemCaseInvestigationDomain.newInstance(sObjectList);
-		}
 	}
 }

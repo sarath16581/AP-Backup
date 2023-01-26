@@ -7,7 +7,7 @@
  * @changelog
  * 2022-12-08 - Dattaraj Deshmukh - Created
   */
-  @IsTest
+@IsTest
  private class FeedItemCaseInvestigationModule_Test {
 
 	
@@ -141,7 +141,7 @@
 
 		insert networks;
 
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
 		insert caseInvestigations;
 
 		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, false);
@@ -169,5 +169,5 @@
 		List<FeedItem> createdFeedItems = FeedItemsSelector.newInstance().selectByTextPostParentIds(new Set<Id>{caseInvestigations[0].Id}, new Set<Object>()).values();
 		system.assertNotEquals(null, createdFeedItems);
 	}
-    
+	
  }

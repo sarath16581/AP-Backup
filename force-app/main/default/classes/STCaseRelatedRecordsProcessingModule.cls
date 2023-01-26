@@ -11,7 +11,6 @@
  */
 
 public inherited sharing class STCaseRelatedRecordsProcessingModule extends ApplicationDomain.Module  {
-    
 	
 
 	/*
@@ -21,7 +20,7 @@ public inherited sharing class STCaseRelatedRecordsProcessingModule extends Appl
 	public static STCaseRelatedRecordsProcessingModule newInstance() {
 		return (STCaseRelatedRecordsProcessingModule)Application.Utilities.newInstance(STCaseRelatedRecordsProcessingModule.class);
 	}
-    
+
 	// Constructor
 	public STCaseRelatedRecordsProcessingModule() {
 		// Setup which triggers this module should respond to
@@ -39,15 +38,6 @@ public inherited sharing class STCaseRelatedRecordsProcessingModule extends Appl
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'STCaseRelatedRecordsProcessing', STCaseRelatedRecordsProcessingModule.class.getName(), 'onAfterUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
-		}
-	}
-
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module)STCaseRelatedRecordsProcessingModule.newInstance();
 		}
 	}
 }

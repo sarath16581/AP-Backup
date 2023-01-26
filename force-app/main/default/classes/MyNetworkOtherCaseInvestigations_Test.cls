@@ -8,33 +8,33 @@
  * 2022-12-07 - Dattaraj Deshmukh - Created
 */
 @IsTest
-private class MyNetworkOtherCaseInvestigationsTest {
-    
+private class MyNetworkOtherCaseInvestigations_Test {
+	
 	@IsTest
 	public static void testGetOtherCaseInvestigations() {
 
 		// =====================================
-        // Data Preparation
-        // =====================================
-        //create test data
-        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+		// Data Preparation
+		// =====================================
+		//create test data
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
-        List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-        cases[0].ArticleTest__c = articles[0].Id;
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		cases[0].ArticleTest__c = articles[0].Id;
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
 		networks[0].Org_ID__c = '1234';
 
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
-        caseInvestigations[0].Status__c = 'Open';
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases[0].Id, articles[0], networks[0].Id, true);
+		caseInvestigations[0].Status__c = 'Open';
 		caseInvestigations[1].Status__c = 'Open';
 
 		
-        // =====================================
-        // Stubbing
-        // =====================================
-        CaseInvestigationsSelector mockSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
+		// =====================================
+		// Stubbing
+		// =====================================
+		CaseInvestigationsSelector mockSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
 		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -60,7 +60,7 @@ private class MyNetworkOtherCaseInvestigationsTest {
 		Test.stopTest();
 
 		//verify that method is called once with expected list of jobs
-        ((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{caseInvestigations[0].Id}));
+		((CaseInvestigationsSelector)MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{caseInvestigations[0].Id}));
 
 		//assert other CIs are returned.
 		system.assertEquals(caseInvestigations[1].Id, otherCIs[0].Id, 'Something is not right, map should contain CI other than passed case investigations');

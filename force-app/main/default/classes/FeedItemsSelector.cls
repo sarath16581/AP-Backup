@@ -11,7 +11,7 @@
 */
 public virtual inherited sharing class FeedItemsSelector extends ApplicationSelector  {
 
-    public enum Options {
+	public enum Options {
 		WITH_CREATEDBY
 	}
 
@@ -63,19 +63,19 @@ public virtual inherited sharing class FeedItemsSelector extends ApplicationSele
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public Map<Id, FeedItem> selectById(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(FeedItem.Id + ' in :ids')).endConditions();
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(FeedItem.Id + ' in :ids')).endConditions();
 		return new Map<Id, FeedItem>((List<FeedItem>)Database.query(qb.toSoqlString()));
 	}
 
 	public Map<Id, FeedItem> selectByTextPostParentIds(Set<Id> ids, Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions);//.addConditions();
+		QueryBuilder qb = newQueryBuilder(selectorOptions);//.addConditions();
 		qb.addConditions().add(new QueryBuilder.SimpleCondition(FeedItem.ParentId + ' in :ids'));
 		qb.addConditions().add(new QueryBuilder.SimpleCondition(FeedItem.Type + ' = '+'\'TextPost\'')).endConditions();
 		return new Map<Id, FeedItem>((List<FeedItem>)Database.query(qb.toSoqlString()));
 	}
 
 	public Map<Id, FeedItem> selectByTextPostParentIds(Set<Id> ids) {
-       return selectByTextPostParentIds(ids, new Set<Object>());
+		return selectByTextPostParentIds(ids, new Set<Object>());
 	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {

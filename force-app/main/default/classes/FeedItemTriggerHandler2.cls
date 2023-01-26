@@ -9,30 +9,30 @@
  * 23/11/2022 - Dattaraj Deshmukh - Created.
  */
 public inherited sharing class FeedItemTriggerHandler2 extends ApplicationDomainTriggerHandler {
-    
-    public override SObjectType getSObjectType() {
+	
+	public override SObjectType getSObjectType() {
 		return FeedItem.SObjectType;
 	}
 
 	public override List<Type> registerDomains() {
 		return new List<Type>{
-            FeedItemCaseInvestigationDomain.class
+			FeedItemCaseInvestigationDomain.class
 		};
 	}
 
 	/**
-	 * Unit of work that encapsulates all the required objects for each domain within this SObject
-	 *
-	 * @return unit or work instance
-	 */
+	* Unit of work that encapsulates all the required objects for each domain within this SObject
+	*
+	* @return unit or work instance
+	*/
 	public override ApplicationUnitOfWork newUnitOfWork() {
 		return ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
 	}
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-            FeedItem.SObjectType,
-            CaseInvestigation__c.SObjectType
+			FeedItem.SObjectType,
+			CaseInvestigation__c.SObjectType
 		};
 	}
 }

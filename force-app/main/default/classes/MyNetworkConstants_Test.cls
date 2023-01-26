@@ -7,7 +7,7 @@
  **/
 @IsTest
 private class MyNetworkConstants_Test {
-    @IsTest
+	@IsTest
 	static void constantValues() {
 		System.assertEquals(MyNetworkConstants.CASE_STATUS_WAITING_ON_OPERATIONS, 'Waiting on operations');
 		System.assertEquals(MyNetworkConstants.CASE_STATUS_NETWORK_RESPONDED, 'Network Responded');

@@ -6,7 +6,7 @@
  * 2022-12-15 - Dattaraj Deshmukh - created
  **/
 public inherited sharing class STCaseInvestigationLifecycleModule extends ApplicationDomain.Module {
-    public static STCaseInvestigationLifecycleModule newInstance() {
+	public static STCaseInvestigationLifecycleModule newInstance() {
 		return (STCaseInvestigationLifecycleModule) Application.Utilities.newInstance(STCaseInvestigationLifecycleModule.class);
 	}
 
@@ -69,16 +69,6 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 		//update cases.
 		if(!casesToUpdate.isEmpty()) {
 			uow.registerDirty(casesToUpdate);
-		}
-	}
-
-
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module)STCaseInvestigationLifecycleModule.newInstance();
 		}
 	}
 

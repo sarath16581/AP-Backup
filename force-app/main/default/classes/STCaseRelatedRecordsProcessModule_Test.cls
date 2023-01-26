@@ -41,12 +41,12 @@ private class STCaseRelatedRecordsProcessModule_Test {
 		// Stubbing
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();		
-		STCaseInvestigationLifecycleModule mockPUDUtil = (STCaseInvestigationLifecycleModule) MockUtility.mockUtility(STCaseInvestigationLifecycleModule.class);
+		STCaseInvestigationLifecycleModule mockModuleUtil = (STCaseInvestigationLifecycleModule) MockUtility.mockUtility(STCaseInvestigationLifecycleModule.class);
         
 		MockUtility.Mocks.startStubbing();
 		
 		//mocking STCaseInvestigationLifecycleModule method call.
-		((STCaseInvestigationLifecycleModule)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockPUDUtil)).updateAllCaseInvestigations((List<SObject>)fflib_Match.anyObject(),(Map<Id, Case>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
+		((STCaseInvestigationLifecycleModule)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockModuleUtil)).updateAllCaseInvestigations((List<SObject>)fflib_Match.anyObject(),(Map<Id, Case>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 		
 		MockUtility.Mocks.stopStubbing();
 
@@ -61,6 +61,6 @@ private class STCaseRelatedRecordsProcessModule_Test {
 		Test.stopTest();
 
 		//verify that STCaseInvestigationLifecycleModule is called once with expected list of jobs
-		((STCaseInvestigationLifecycleModule) MockUtility.Mocks.verify(mockPUDUtil, MockUtility.Mocks.times(1))).updateAllCaseInvestigations(cases, new Map<Id, Case>{oldCase.Id => oldCase}, mockUow);
+		((STCaseInvestigationLifecycleModule) MockUtility.Mocks.verify(mockModuleUtil, MockUtility.Mocks.times(1))).updateAllCaseInvestigations(cases, new Map<Id, Case>{oldCase.Id => oldCase}, mockUow);
 	}
 }
