@@ -343,7 +343,7 @@
     <fieldUpdates>
         <fullName>SSSW_Assign_Consumer_Back_Office_Cases</fullName>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Consumer_Back_Office_Other</lookupValue>
+        <lookupValue>SSSW_Consumer_Back_Office_Low_Priority</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign Consumer Back Office Cases</name>
         <notifyAssignee>false</notifyAssignee>
@@ -392,7 +392,7 @@
         <fullName>SSSW_Assign_MyPost</fullName>
         <description>Assign the case owner as the MyPost queue</description>
         <field>OwnerId</field>
-        <lookupValue>SSSWMyPost</lookupValue>
+        <lookupValue>SSSW_Consumer_Back_Office_High_Priority</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>SSSW - Assign MyPost</name>
         <notifyAssignee>false</notifyAssignee>
