@@ -24,18 +24,20 @@ private class CasesDomain_Test {
 		System.assertEquals(cases[0].Id, domain.records[0].Id, 'Expected record');
 	}
 
+	/**
+	 * Test: Ensure expected module class is registered. Expected to register 'STCaseRelatedRecordsProcessingModule' class
+	 */
+
 	@IsTest
 	static void ensureThatRegisterModulesIsBeingCalled() {
-		List<Case> cases = new List<Case>();
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
 
 		MockUtility.mockDomain(ApplicationDomain.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.stopStubbing();
-
-		STCaseInvestigationDomain.Constructor constructor = new STCaseInvestigationDomain.Constructor();
 		
-		ApplicationDomain appDomain = constructor.construct(cases);
+		ApplicationDomain appDomain = STCaseInvestigationDomain.newInstance(cases);
 		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(STCaseRelatedRecordsProcessingModule.class);
 
 		// PMD by-pass

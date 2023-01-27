@@ -7,6 +7,7 @@
  * @description Test Class covering CaseInvestigationsSelector
  * @changelog
  * 2022-12-08 - Dattaraj Deshmukh - Updated test method 'testSelectorIntegration' and added test for 'selectOpenCaseInvestigationsByCaseArticleNetworkId'.
+ * 									Replaced Status__c value from 'Open' to 'New'.
  */
 
  @IsTest
@@ -73,7 +74,7 @@
 		insert networks;
 
 		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, false);
-		caseInvestigations[0].Status__c = 'Open';
+		caseInvestigations[0].Status__c = 'New';
 		insert caseInvestigations;
 
 		// =====================================

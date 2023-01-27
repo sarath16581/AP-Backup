@@ -580,7 +580,7 @@ public with sharing class MyNetworkCaseListController {
                         //if AP enquiry values are selected then filter based on 'EnquirySubType__c'.
                         String enquiryField = isStarTrackCaseFilterSelected ? 'Enquiry_Type__c' : 'EnquirySubType__c';
 
-                        String filterVar = ' AND ( '+ enquiryField+'= ' + '\'' + enquirySubTypeVal + '\')' ;
+                        String filterVar = ' AND ( '+ enquiryField+'= ' + '\'' + String.escapeSingleQuotes(enquirySubTypeVal) + '\')' ;
                         if(dynamicFilter != null){
                             dynamicFilter += filterVar ;
                         } else{
@@ -596,7 +596,7 @@ public with sharing class MyNetworkCaseListController {
                         }
                     }
                     if(!String.isBlank(priorityVal) && priorityVal != '--Select--'){
-                        String priorityFilterVar = ' AND (Priority =' + '\'' + priorityVal + '\')' ;
+                        String priorityFilterVar = ' AND (Priority =' + '\'' + String.escapeSingleQuotes(priorityVal) + '\')' ;
                         if(dynamicFilter != null){
                             dynamicFilter += priorityFilterVar ;
                         } else{
@@ -604,7 +604,7 @@ public with sharing class MyNetworkCaseListController {
                         }
                     }
                     if(!String.isBlank(selectedNetworkRecrdIdVal)  && selectedNetworkRecrdIdVal != '--Select--'){
-                        String filterVar = ' AND (Network__c =' + '\'' + selectedNetworkRecrdIdVal + '\')' ;
+                        String filterVar = ' AND (Network__c =' + '\'' + String.escapeSingleQuotes(selectedNetworkRecrdIdVal) + '\')' ;
                         if(dynamicFilter != null){
                             dynamicFilter += filterVar ;
                         } else{
@@ -616,7 +616,7 @@ public with sharing class MyNetworkCaseListController {
                     
                     if(!isStarTrackCaseFilterSelected && !String.isBlank(selectedProductCategoryVal) && selectedProductCategoryVal != '--Select--'){
 
-                        String filterVar = ' AND (ProductCategory__c =' + '\'' + selectedProductCategoryVal + '\')' ;
+                        String filterVar = ' AND (ProductCategory__c =' + '\'' + String.escapeSingleQuotes(selectedProductCategoryVal) + '\')' ;
                         if(dynamicFilter != null){
                             dynamicFilter += filterVar ;
                         } else{
@@ -633,7 +633,7 @@ public with sharing class MyNetworkCaseListController {
             if(selectedlistview.equalsIgnoreCase('My_Cases')){
                 listViewFilterVar = ' AND (PONUser__c = ' + '\'' + userinfo.getUserId() + '\')';                 
             }else if(selectedlistview.equalsIgnoreCase('Facility_reported')){
-                listViewFilterVar = ' AND (EnquirySubType__c = ' + '\'' + facilityReportedDamages + '\')';                 
+                listViewFilterVar = ' AND (EnquirySubType__c = ' + '\'' + String.escapeSingleQuotes(facilityReportedDamages) + '\')';                 
             }else if(selectedlistview.equalsIgnoreCase('Enterprise_customers')){
                 listViewFilterVar = ' AND (contact.SLA__c = '  + '\'' + enterpriseVar + '\')';             
             }else if( (isStarTrackCaseFilterSelected && !String.isBlank(selectedProductCategoryVal) && selectedProductCategoryVal != '--Select--') 
@@ -945,10 +945,7 @@ public with sharing class MyNetworkCaseListController {
                     String addressValue = caseRecord.Address2__c.trim();
                     //Add to map to get geo location based on address (ATG) from AME
                     getAddressOrGeoLocationAME.put(caseRecord.Id+'-ATG', addressValue);
-//                    GeoLocationWithAddress geoLocationWithAddressVar = getGeoLocationForGivenAddress(addressValue);
-//                    addresseeAddressDetails.combinedAddress =  addressValue;
-//                    addresseeAddressDetails.latitudeValue   =  geoLocationWithAddressVar.geoLatitdue;
-//                    addresseeAddressDetails.longitudeValue   =  geoLocationWithAddressVar.geoLongitude;
+
                     
                 }
 
@@ -996,13 +993,7 @@ public with sharing class MyNetworkCaseListController {
                         }
 //                    }
                 }
-//                if(isValidDeliveredAddress){
-//                    GeoLocationWithAddress  geoLocationWithAddressValue  = getAddressFromGeoLocation(deliveredLatitude, deliveredLongitute);
-//
-//                    deliveredAddresssDetails.combinedAddress =  geoLocationWithAddressValue.addressValue;
-//                    deliveredAddresssDetails.latitudeValue   =  geoLocationWithAddressValue.geoLatitdue;
-//                    deliveredAddresssDetails.longitudeValue   =  geoLocationWithAddressValue.geoLongitude;
-//                }
+
                 if(!getAddressOrGeoLocationAME.isEmpty()){
                     //Make a single call to AME instead of 2 separate calls
                     Map<String, String> resultFromAME = AMEAddressValidationController1.searchAddressOrGeoLocation(getAddressOrGeoLocationAME);
@@ -1040,15 +1031,7 @@ public with sharing class MyNetworkCaseListController {
                         (isValidAddresseeAddress && (isValidDeliveredAddress || isValidAttemptedAddress) && isValidManifestAddress ? manifestAddresssDetails : null),
                         (isValidAddresseeAddress && isValidDeliveredAddress ? deliveredAddresssDetails : null)
                 );
-//                if(isValidDeliveredAddress && isValidAddresseeAddress && isValidManifestAddress && isValidAttemptedAddress){
-//                    safeLocationDetail = new SafeLocationDetails(true, attemptedAddresssDetails, addresseeAddressDetails, manifestAddresssDetails, deliveredAddresssDetails);
-//                }else if(isValidDeliveredAddress && isValidAddresseeAddress && !isValidManifestAddress && isValidAttemptedAddress){
-//                    safeLocationDetail = new SafeLocationDetails(true, attemptedAddresssDetails, addresseeAddressDetails, null, deliveredAddresssDetails);
-//                }else if(!isValidDeliveredAddress && isValidAddresseeAddress && !isValidManifestAddress && isValidAttemptedAddress){
-//                    safeLocationDetail = new SafeLocationDetails(true, attemptedAddresssDetails, addresseeAddressDetails, null, null);
-//                }else{
-//                    safeLocationDetail = new SafeLocationDetails(false, null, null, null, null);
-//                }
+
             }    
         }catch(Exception e){
             System.debug('Error in fetching the data of Event message'+e.getMessage());
@@ -1061,13 +1044,11 @@ public with sharing class MyNetworkCaseListController {
      */
     @AuraEnabled
     public static GeoLocationWithAddress getAddressFromGeoLocationForEventMessage(String eventRecordId){
-//        String formatedAddressObj ;
         String latitudeStr ;
         String longitudeStr ;
         GeoLocationWithAddress geoLocationWithAddressWrap;
         try{
             EventMessage__c eventMessage = [Select Id, EventGeoLocation__Latitude__s, EventGeoLocation__Longitude__s From EventMessage__c where Id=: eventRecordId];
-//            String latLangValue ;
             
             if(eventMessage.EventGeoLocation__Latitude__s != null && eventMessage.EventGeoLocation__Longitude__s != null){
                 latitudeStr = String.valueOf(eventMessage.EventGeoLocation__Latitude__s).trim() ;
@@ -1081,83 +1062,7 @@ public with sharing class MyNetworkCaseListController {
         }
         return geoLocationWithAddressWrap;
     }
-    /**
-     * @Description : Method to Call googleApi with Address as input and will return geoLocation returned from google api
-     */
-//    public static GeoLocationWithAddress getGeoLocationForGivenAddress(String adddressVar){
-//        double lat = null;
-//        double lon = null;
-//        GeoLocationWithAddress geoLocationWithAddressWrap ;
-//        try{
-//            String googleKey = getGoogleMapKey();
-//            String encodedString = EncodingUtil.urlEncode(adddressVar,'UTF-8');
-//            string enpointUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ encodedString +'&'+ googleKey;
-//            Http h = new Http();
-//            HttpRequest req = new HttpRequest();
-//            req.setEndpoint(enpointUrl);
-//            req.setMethod('GET');
-//            HttpResponse res = h.send(req);
-//            // parse coordinates from response
-//            JSONParser parser = JSON.createParser(res.getBody());
-//
-//            while (parser.nextToken() != null) {
-//            if ((parser.getCurrentToken() == JSONToken.FIELD_NAME) &&
-//            (parser.getText() == 'location')){
-//            parser.nextToken(); // object start
-//                while (parser.nextToken() != JSONToken.END_OBJECT){
-//                String txt = parser.getText();
-//                parser.nextToken();
-//                if (txt == 'lat')
-//                lat = parser.getDoubleValue();
-//                else if (txt == 'lng')
-//                lon = parser.getDoubleValue();
-//                }
-//            }
-//        }
-//        geoLocationWithAddressWrap = new GeoLocationWithAddress(String.valueOf(lat), String.valueOf(lon), adddressVar);
-//        }catch(Exception e){
-//            System.debug('Error in google api call'+ e.getMessage());
-//        }
-//        return geoLocationWithAddressWrap;
-//    }
 
-    /**
-     * @Description: Method will return Address details return from Google api call by passing latitude/longitude as input parameters
-     */
-//    public static GeoLocationWithAddress getAddressFromGeoLocation(String latValue, String lonValue){
-//        String latLangValue = latValue + ',' + lonValue ;
-//        String formatedAddressObj ;
-//        GeoLocationWithAddress geoLocationWithAddressWrap;
-//        try{
-//            String googleKey = getGoogleMapKey();
-//            String endPointStr = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+latLangValue+'&result_type=street_address&' + googleKey;
-//            Http h = new Http();
-//            HttpRequest req = new HttpRequest();
-//            req.setMethod('GET');
-//            req.setEndpoint(endPointStr);
-//            HttpResponse res = h.send(req);
-//            // you can either deserialize to a class type, or untyped, as I've done here.
-//            Map<String,Object> gr = (Map<String,Object>)JSON.deserializeUntyped(res.getBody());
-//            List<Object> results = (List<Object>)gr.get('results');
-//            Map<String,Object> firstResult = (Map<String,Object>)results[0]; // just taking the first one for this example
-//
-//            formatedAddressObj = (String)firstResult.get('formatted_address');
-//            if(formatedAddressObj != null){
-//                geoLocationWithAddressWrap = new GeoLocationWithAddress(latValue, lonValue, formatedAddressObj);
-//            }else{
-//                geoLocationWithAddressWrap = new GeoLocationWithAddress(latValue, lonValue, null);
-//            }
-//        }catch(Exception e){
-//            System.debug('Error in google api call'+ e.getMessage());
-//        }
-//        return geoLocationWithAddressWrap;
-//    }
-    //Commented below code as it's no more used
-//    private static string getGoogleMapKey(){
-//        myNetworkCommunityCS__c cSettings = myNetworkCommunityCS__c.getOrgDefaults();
-//        string  googleMapKey = 'key='+cSettings.GoogleMapsAPIKey__c ;
-//        return googleMapKey ;
-//    }
     public class GeoLocationWithAddress{
         @AuraEnabled
         public String geoLatitdue{get; set;}
@@ -1219,7 +1124,7 @@ public with sharing class MyNetworkCaseListController {
     public static List<SObject> getMyNetworkPortalUser(String searchTerm, String fieldList, String sobjectName, String fieldsToSearch) {
        String queryString = getQueryString(searchTerm, fieldList, sobjectName, fieldsToSearch);
        String profileName = 'MyNetwork Portal';
-       queryString += ' AND Profile.Name =' + '\'' +profileName + '\'';
+       queryString += ' AND Profile.Name =' + '\'' +String.escapeSingleQuotes(profileName) + '\'';
        queryString += ' AND isActive = true';
        queryString += ' LIMIT ' + MAX_RESULTS;
         try {
@@ -1273,7 +1178,7 @@ public with sharing class MyNetworkCaseListController {
 			&& selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject.get('isStarTrackSearch') != null 
 			&& (Boolean) selectedViewWithFiltersWrp.selectedViewAndFiltersJsonObject.get('isStarTrackSearch')
 				&& selectedProductCategoryVal != null && selectedProductCategoryVal != '--Select--') {
-			innerQueryFilter = ' WHERE Article__r.ProductCategory__c = \''+selectedProductCategoryVal+'\' ';
+			innerQueryFilter = ' WHERE Article__r.ProductCategory__c = \''+String.escapeSingleQuotes(selectedProductCategoryVal)+'\' ';
 		}
 		String generateCaseInvestigationInnerQuery = '( SELECT Name, Id, CreatedDate, Article__r.Name, Priority__c, LastContactCentreUpdate__c from CaseInvestigations__r '+innerQueryFilter +' ) ';
 

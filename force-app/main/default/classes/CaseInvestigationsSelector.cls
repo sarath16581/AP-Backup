@@ -26,14 +26,6 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 		return (CaseInvestigationsSelector)Application.Selectors.newInstance(CaseInvestigationsSelector.class).setLimit(recordLimit);
 	}
 
-	/**
-	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 * This approach removes data consistency and prevents possible caching of results
-	 */
-	public static CaseInvestigationsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-		CaseInvestigationsSelector selector = (CaseInvestigationsSelector)Application.Selectors.newInstance(CaseInvestigationsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-		return selector;
-	}
 
 	public virtual override SObjectType getSObjectType() {
 		return CaseInvestigation__c.getSObjectType();
@@ -42,7 +34,8 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 			CaseInvestigation__c.Id, CaseInvestigation__c.Article__c, CaseInvestigation__c.Case__c,
-			CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c,  CaseInvestigation__c.Name
+			CaseInvestigation__c.ReferenceID__c, CaseInvestigation__c.Network__c, CaseInvestigation__c.Status__c,  CaseInvestigation__c.Name,
+			CaseInvestigation__c.LastContactCentreUpdate__c
 		};
 	}
 
@@ -120,7 +113,7 @@ public virtual inherited sharing class CaseInvestigationsSelector extends Applic
 			builder.addRelatedFields(ArticlesSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Article__r');
 		}
 		if(selectorOptions.contains(Options.WITH_NETWORKS)) {
-			builder.addRelatedFields(NetworksSelector.newInstance().setFieldOverrides(fieldOverrides)newQueryBuilder(selectorOptions), 'Network__r');
+			builder.addRelatedFields(NetworksSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Network__r');
 		}
 		return builder;
 	}

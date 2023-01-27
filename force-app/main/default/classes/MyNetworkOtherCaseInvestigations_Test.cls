@@ -10,6 +10,10 @@
 @IsTest
 private class MyNetworkOtherCaseInvestigations_Test {
 	
+	/**
+	 * Test: Get all open case investigations other than record Id being passed.
+	 * Expected results: all open case investigations list, other than record Id being passed, is returned.
+	 */
 	@IsTest
 	public static void testGetOtherCaseInvestigations() {
 

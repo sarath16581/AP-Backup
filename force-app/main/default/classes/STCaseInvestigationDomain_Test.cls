@@ -8,6 +8,10 @@
  **/
 @IsTest
 private class STCaseInvestigationDomain_Test {
+
+	/**
+	 * @test: Ensure modules are registered with domain class.
+	 */
 	@IsTest
 	static void ensureThatRegisterModulesIsBeingCalledWithTheCorrectType() {
 		List<CaseInvestigation__c> caseInvestigations = new List<CaseInvestigation__c>();
@@ -16,10 +20,8 @@ private class STCaseInvestigationDomain_Test {
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.stopStubbing();
-
-		STCaseInvestigationDomain.Constructor constructor = new STCaseInvestigationDomain.Constructor();
 		
-		ApplicationDomain appDomain = constructor.construct(caseInvestigations);
+		ApplicationDomain appDomain = STCaseInvestigationDomain.newInstance(caseInvestigations);
 		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(STCaseInvestigationArticleModule.class);
 		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(STCaseInvestigationLifecycleModule.class);
 		
@@ -28,6 +30,10 @@ private class STCaseInvestigationDomain_Test {
 		System.assert(true, 'PMD by-pass');
 	}
 
+	/**
+	 * @test: Ensure records are filtered when passed to modules. 
+	 * Expected to receive on Case Investigations having ONLY StarTrack record types. 
+	 */
 	@IsTest
 	static void domainFilter() {
 		List<Id> validRecordTypes = new List<Id>(new RecordTypesSelector().selectByDeveloperNameLike(CaseInvestigation__c.class.getName(), 'StarTrack').keySet());

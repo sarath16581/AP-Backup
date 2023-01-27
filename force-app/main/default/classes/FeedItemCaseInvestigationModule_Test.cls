@@ -11,6 +11,11 @@
  private class FeedItemCaseInvestigationModule_Test {
 
 	
+	/**
+	 * Test: Ensure that CaseInvestigation__c.LastContactCentreUpdate__c is not updated when users having
+	 * 			profile other than 'SSSW - Service Agent' adds a chatter feed.
+	 * Expected: CaseInvestigation record is not updated when a feed item is added in test method. (which will run in running user context)
+	 */
 	@IsTest
 	public static void testEnsureOnAfterInsert() {
 		// =====================================
@@ -66,6 +71,10 @@
 
 	}
 
+	/**
+	 * Test: Ensure that CaseInvestigation__c.LastContactCentreUpdate__c is 'SSSW - Service Agent' profile user adds a chatter feed.
+	 * Expected: CaseInvestigation record is updated when a feed item is added in test method.
+	 */
 	@IsTest
 	public static void testUpdateCaseInvestigations() {
 		// =====================================
@@ -121,7 +130,10 @@
 	}
 	
 
-
+	/**
+	 * Test: Performing test by inserting records in database in the context of Contact Centre user.
+	 * Expected: FeedItem record is inserted and CaseInvestigation record is updated.
+	 */
 	@IsTest
 	static void testEndToEndTriggerIntegrationForInsert() {
 		// =====================================
@@ -166,8 +178,14 @@
 			insert(feedItems);
 			Test.stopTest();
 		}
+
+		//asserting feeditem record is successfully inserted.
 		List<FeedItem> createdFeedItems = FeedItemsSelector.newInstance().selectByTextPostParentIds(new Set<Id>{caseInvestigations[0].Id}, new Set<Object>()).values();
 		system.assertNotEquals(null, createdFeedItems);
+
+		//asserting CaseInvestigation record is updated upon insertion of feeditem by Contact Centre users.
+		List<CaseInvestigation__c> cIRecords = CaseInvestigationsSelector.newInstance().selectById(new Set<Id>{caseInvestigations[0].Id}).values();
+		system.assertEquals(System.now(), cIRecords[0].LastContactCentreUpdate__c);
 	}
 	
  }
