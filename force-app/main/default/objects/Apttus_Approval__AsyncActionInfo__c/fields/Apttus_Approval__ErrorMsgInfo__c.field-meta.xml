@@ -5,7 +5,7 @@
     <description>Information about the failure</description>
     <externalId>false</externalId>
     <inlineHelpText>Information about the failure</inlineHelpText>
-    <label>Error Msg Info</label>
+    <label>Error Msg Info (DEPRECATED)</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

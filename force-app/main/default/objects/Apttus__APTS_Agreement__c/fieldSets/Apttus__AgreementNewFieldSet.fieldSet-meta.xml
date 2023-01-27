@@ -77,6 +77,11 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
+        <field>Apttus__Subtype__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
         <field>Apttus__Termination_Notice_Days__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

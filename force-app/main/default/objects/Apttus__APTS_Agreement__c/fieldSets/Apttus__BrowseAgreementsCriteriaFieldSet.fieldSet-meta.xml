@@ -72,6 +72,11 @@
         <isRequired>false</isRequired>
     </availableFields>
     <availableFields>
+        <field>Apttus__Subtype__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </availableFields>
+    <availableFields>
         <field>Apttus__Total_Contract_Value__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

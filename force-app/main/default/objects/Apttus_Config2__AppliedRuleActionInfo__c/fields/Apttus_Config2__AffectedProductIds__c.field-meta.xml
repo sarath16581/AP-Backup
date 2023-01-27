@@ -5,7 +5,7 @@
     <description>List of product ids affected by the rule action.</description>
     <externalId>false</externalId>
     <label>Affected Product Ids</label>
-    <length>16384</length>
+    <length>20900</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

@@ -3,7 +3,7 @@
     <fullName>Apttus_Approval__QueueableApexBatchSize__c</fullName>
     <defaultValue>1</defaultValue>
     <deprecated>false</deprecated>
-    <description>DEPRECATED.  Specifies the number of records to be processed by a single queueable apex batch job</description>
+    <description>DEPRECATED. Specifies the number of records to be processed by a single queueable apex batch job</description>
     <externalId>false</externalId>
     <inlineHelpText>DEPRECATED.  Specifies the number of records to be processed by a single queueable apex batch job</inlineHelpText>
     <label>Queueable Apex Batch Size-DEPRECATED</label>
