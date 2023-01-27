@@ -16,27 +16,26 @@
 
 public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.Module  {
 
-	private static Set<Id> validSSSWRecTypes;
-
-
-	private Set<Id> ssswRecordTypeIds {
+	private static Set<Id> allValidRecordTypes{
 		get {
-			if(ssswRecordTypeIds == null){
-				ssswRecordTypeIds =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
+			if(allValidRecordTypes == null){
+				allValidRecordTypes = new Set<Id>();
+				allValidRecordTypes.addAll(new RecordTypesSelector().selectByDeveloperNameLike('Case', 'SSSW').keySet());
+				allValidRecordTypes.addAll(new RecordTypesSelector().selectByDeveloperNameLike('Case', 'StarTrack').keySet());
 			}
-			return ssswRecordTypeIds;
+			return allValidRecordTypes;
 		}
 		private set;
 	}
 
-	private Set<Id> starTrackRecordTypeIds {
+	private Map<Id, Group> omniQueues {
 		get {
-			if(starTrackRecordTypeIds == null){
-				starTrackRecordTypeIds =  new RecordTypesSelector().selectByDeveloperNameLike('Case', 'StarTrack').keySet();
+			if(omniQueues == null) {
+				omniQueues = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>());
 			}
-			return starTrackRecordTypeIds;
+			return omniQueues;
 		}
-		private set;
+		set;
 	}
 	
 	public static CaseOmniRoutingModule newInstance() {
@@ -52,7 +51,7 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 		try {
 			List<Case> validCases = new List<Case>();
 			
-			for(Case c : (List<Case>) filterToStarTrackOrSSSWCases(records)) {
+			for(Case c : (List<Case>) filterToApplicableCases(records)) {
 				if(omniQueues.containsKey(c.OwnerId) == true && String.isBlank(c.Priority) == false) {
 					validCases.add(c);
 				}
@@ -68,7 +67,7 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 		try {
 			Map<Id, Case> oldCases = (Map<Id, Case>)existingRecords;
 			List<Case> validCases = new List<Case>();
-			for(Case c : (List<Case>) filterToStarTrackOrSSSWCases(records)) {
+			for(Case c : (List<Case>) filterToApplicableCases(records)) {
 				// take only cases that have gone to an Omni Queue or have changed priority. 
 				if(omniQueues.containsKey(c.OwnerId) == true && (c.OwnerId != oldCases.get(c.Id).OwnerId || c.Priority != oldCases.get(c.Id).Priority)) {
 					validCases.add(c);
@@ -85,30 +84,16 @@ public inherited sharing class CaseOmniRoutingModule extends ApplicationDomain.M
 	 * This method returns a list of Case records that are related to StarTrack or SSSW
 	 * @param caseRecords the list of Cases to filter
 	 */
-	private List<SObject> filterToStarTrackOrSSSWCases(List<SObject> caseRecords){
+	private List<SObject> filterToApplicableCases(List<SObject> caseRecords){
 		List<SObject> filteredCases = new List<SObject>();		
 		
 		for (Case c : (List<Case>) caseRecords) {
-
-			System.debug('NOEL Rtype:' + c.RecordTypeId);
-
-			if(Utility.isValidRecordType(ssswRecordTypeIds,c.RecordTypeId) || Utility.isValidRecordType(starTrackRecordTypeIds,c.RecordTypeId)){
+			if(allValidRecordTypes.contains(c.RecordTypeId)){
 				filteredCases.add(c);		
-				System.debug('NOEL  ADDED Rtype:' + c.RecordTypeId);
 			}				
 		}
 
 		return filteredCases;
-	}
-
-	private Map<Id, Group> omniQueues {
-		get {
-			if(omniQueues == null) {
-				omniQueues = GroupsSelector.newInstance().selectOmniQueues(new Set<Object>());
-			}
-			return omniQueues;
-		}
-		set;
 	}
 
 }
