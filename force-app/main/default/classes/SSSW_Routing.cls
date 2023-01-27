@@ -16,7 +16,7 @@
 *				b) removed logic where cases sent to async queueable are rerouted based on case values at the time it is placed in the holding Queue. Cases are now rerouted with the latest case values
 *				c) fixed a bug where the AllocateToQueue__c was not checked and a case would be routed unintentionally
 *				d) change of existing boolean parameter's logic and label in assignCasesAndDescription(). Parameter is now 'isFinalPass' and prevents a rerouted Case from being put in the holding queue
-*
+* 2022-12-16 - George Nguyen - added processPreferredAgentExpiry
 **/
 
 public class SSSW_Routing {
@@ -186,7 +186,7 @@ public class SSSW_Routing {
 			List<String> sswFields = new List<String>();
 			sswFields.addAll(routingFields);
 			String queryString = String.format('select {0},Sequence__c, Match_Rules_On__c, NPS_criteria__c, AutoEscalate__c, Recordtype.DeveloperName, ' +
-											   'Queue_ID__c, DefaultCaseDetails__c, RuleRequiresArticleAttributes__c from SSSWRouting__c WHERE IsActive__c = true and Match_Rules_On__c != null and ' +
+											   'Queue_ID__c, DefaultCaseDetails__c, RuleRequiresArticleAttributes__c,PreferredAgentExpiry__c from SSSWRouting__c WHERE IsActive__c = true and Match_Rules_On__c != null and ' +
 											   '(RecordType.DeveloperName=\'\'{1}\'\') order by Sequence__c',
 											   new List<String>{
 												   String.escapeSingleQuotes(String.join(sswFields, ',').removeEnd(',')),
@@ -383,7 +383,8 @@ public class SSSW_Routing {
 			// There are some fringe scenarios where routing should be excluded and due to the mess in workflows a new attribute was introduced to achieve this  (ByPassRoutingRulesOnCreation__c)
 			if((reassignNoCheckOwnerQueue || (cs.AllocateToQueue__c != null && cs.AllocateToQueue__c == true)) && !(isInsert && cs.ByPassRoutingRulesOnCreation__c)) {
 
-				for (SSSWRouting__c rule : routeRule) {					
+				for (SSSWRouting__c rule : routeRule) {			
+					
 					if (rule.Match_Rules_On__c.equals('ANY')) {
 						System.debug(LoggingLevel.ERROR, '**Processing ANY rule');
 
@@ -412,6 +413,7 @@ public class SSSW_Routing {
 								// its required to avoid triggering the specific workflow rules that might reset the case owner
 								cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
 
+								processPreferredAgentExpiry(cs, oldCase, rule);
 								break;
 							}
 
@@ -451,6 +453,7 @@ public class SSSW_Routing {
 								// its required to avoid triggering the specific workflow rules that might reset the case owner
 								cs.LastRoutingRuleIsStrategic__c = rule.RuleRequiresArticleAttributes__c ? true : false;
 
+								processPreferredAgentExpiry(cs, oldCase, rule);
 								break;
 							}
 							// Cases being created from H&S can be routed direct to network (currently via a queueable)
@@ -476,6 +479,22 @@ public class SSSW_Routing {
 			}
 		}
 	}
+
+	/*
+	* This method will set the PreferredAgentExpiry__c field on the case only if it is blank AND the oldCase was blank AND the rule has PreferredAgentExpiry__c set. 
+	* NOTE: 
+	* There is a batch that checks for PSRs against the Case.PreferredAgentExpiry__c and it will set this field to null if it has expired. 
+	* It will then push the case through the normal routing by setting the Case.AllocateToQueue__c = true and will set the Case.PreferredAgentExpiry__c = null. 
+	* This check is required so this field is not set to a new date. 
+	*/
+	@TestVisible
+	private static void processPreferredAgentExpiry(Case cs, Case oldCase, SSSWRouting__c rule) {
+		if(cs.PreferredAgentExpiry__c == null && oldCase != null && oldCase.PreferredAgentExpiry__c == null && rule.PreferredAgentExpiry__c != null) {
+			cs.PreferredAgentExpiry__c = BusinessHours.add(cs.BusinessHoursId, Datetime.now(), rule.PreferredAgentExpiry__c.longValue() * 3600000);
+		}
+	}
+
+
 	@TestVisible
 	private static Boolean setRoutingCaseOwner(case cs, Id routingOwner){
 		//if(cs.AllocateToQueue__c != null && cs.AllocateToQueue__c){

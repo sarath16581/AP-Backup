@@ -21,14 +21,11 @@ public with sharing class StarTrackTrackingIDSearchUtil {
     public static void getTrackingDetails(List<SObject> records) {
         List<Case> selectedCases = new List<Case>();
         for(Case cse:(List<Case>)records) {
-            System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate  cse '+cse);
             // if the reference has been changed
             if(cse.ReferenceID__c != null) {
                 selectedCases.add(cse);
             }
         }
-
-        System.debug('StarTrackTrackingIDSearchModule:onAfterUpdate selectedCases '+selectedCases.size());
 
         if(!selectedCases.isEmpty()) {
             System.enqueueJob(new TrackingSearchQueueable(selectedCases[0]));
@@ -43,19 +40,18 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                 SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId()
                 , SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_VOC_RT_DEV).getRecordTypeId()};
         public TrackingSearchQueueable(Case record) {
-            //this.cse = record;
-
-			//TODO: refactor to use the CaseSelector
-        	this.cse = [SELECT Id, Call_Purpose__c, RecordTypeId, RecordType.Name, Enquiry_Type__c, Network__r.OwnerId, Business_Solutions_Customer__c, 
-								Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c, Network__r.Name, Initial_Caller_Type__c,
-                  				Status, OwnerId, Article_Service_Type__c, ArticleTest__r.Product_Group__c, Account.StarTrack_Customer_Stream__c, 
-								ArticleTest__c, ReferenceID__c, Origin 
-				  FROM Case WHERE Id =: record.Id];				
+            Set<SObjectField> objectFields = new Set<SObjectField>{
+                    Case.Id,
+                    Case.RecordTypeId,
+                    Case.ArticleTest__c,
+                    Case.ReferenceID__c,
+                    Case.Origin,
+                    Case.Enquiry_Type__c};
+            this.cse = CasesSelector.newInstance(objectFields).selectById(new Set<Id>{Id.valueOf(record.Id)}).values()[0];
         }
 
         public void execute(QueueableContext context) {
             try {
-                System.debug('HASANTHA TEST MODULE 1 IN queable');
                 if(UserInfo.getProfileId() == communityUserProfileId // only execute for startrack community
                         && this.cse.ArticleTest__c == null // if no article record is linked
                         && this.cse.ReferenceID__c != null // and there's a reference ID
@@ -67,9 +63,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
                     idSearchService.isConsole = false;
                     idSearchService.map_searchCustomSettings.get(idSearchService.fieldName).Callout_Search_Type__c = 'CONSIGNMENT';
                     StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = idSearchService.searchConsignment();
-
                     if(validate(idSearchService.lst_article, cse.Id, conWrap)) {
-                        System.debug('HASANTHA TEST MODULE 2 :validated lst_article[0]'+ idSearchService.lst_article[0]);
                         assignAndUpdateCase(idSearchService.lst_article[0],this.cse);
                     }
                 }
@@ -105,12 +99,11 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             if (StarTrack_Constants.CASE_ENQUIRY_LDC.equalsIgnoreCase(cse.Enquiry_Type__c)) {
                 caseToBeUpdated.Total_Amount_of_Claim__c = article.Freight_Amount__c;
             }
+
             caseToBeUpdated.Delivery_Date__c = String.isNotBlank(article.CID__c) ? Date.valueOf(article.CID__c.left(4) + '-' + article.CID__c.mid(4, 2) + '-' + article.CID__c.right(2)) : null;
-            System.debug('HASANTHA TEST MODULE 3  IN queable cse ' + caseToBeUpdated);
             // access the update records via shared context since the update happens from community
             ElevatedSharingContext sharedContext = new ElevatedSharingContext();
             sharedContext.updateRecords(new List<Case>{caseToBeUpdated});
-
 			//process the case transfer
             System.enqueueJob(new TransferCaseQueueable(caseToBeUpdated));
         } catch (Exception e) {
@@ -126,27 +119,66 @@ public with sharing class StarTrackTrackingIDSearchUtil {
         }
     }
 
+	@TestVisible
     private without sharing class TransferCaseQueueable implements Queueable{
         Case cse;
         Set<Id> caseRecordTypes = new Set<Id>{
-                SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId()
+				SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId()
         };
 
-        public  TransferCaseQueueable(Case record) {
-			//TODO: refactor to use the CaseSelector
-        	this.cse = [SELECT Id, Call_Purpose__c, RecordTypeId, RecordType.Name, Enquiry_Type__c, Network__r.OwnerId, Business_Solutions_Customer__c, 
-								Related_Billing_Account__r.BSC_Calc_Transfer_Queue__c, Network__r.Name, Initial_Caller_Type__c,
-                  				Status, OwnerId, Article_Service_Type__c, ArticleTest__r.Product_Group__c, Account.StarTrack_Customer_Stream__c, 
-								ArticleTest__c, ReferenceID__c, Origin 
-				  FROM Case WHERE Id =: record.Id];			
+        public  TransferCaseQueueable(Case record) {			
+			Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>();
+			Set<SObjectField> caseFields = new Set<SObjectField>{
+				Case.Id, 
+				Case.Call_Purpose__c, 
+				Case.RecordTypeId, 
+				Case.Enquiry_Type__c, 
+				Case.Business_Solutions_Customer__c, 
+				Case.Initial_Caller_Type__c,
+				Case.Status, 
+				Case.OwnerId, 
+				Case.Article_Service_Type__c, 
+				Case.ReferenceID__c, 
+				Case.Origin, 
+				Case.ArticleTest__c
+			};
+			Set<SObjectField> articleFields = new Set<SObjectField>{
+				Article__c.Product_Group__c
+			};			
+			Set<SObjectField> recordTypeFields = new Set<SObjectField>{
+				RecordType.Name
+			};			
+			Set<SObjectField> networkFields = new Set<SObjectField>{
+				Network__c.OwnerId, Network__c.Name
+			};
+			Set<SObjectField> billingAccountFields = new Set<SObjectField>{
+				Billing_Account__c.BSC_Calc_Transfer_Queue__c
+			};
+			Set<SObjectField> accountFields = new Set<SObjectField>{
+				Account.StarTrack_Customer_Stream__c
+			};
+			overrideFields.put(Case.SObjectType, caseFields);
+			overrideFields.put(Article__c.SObjectType, articleFields);
+			overrideFields.put(Network__c.SObjectType, networkFields);
+			overrideFields.put(Billing_Account__c.SObjectType, billingAccountFields);
+			overrideFields.put(Account.SObjectType, accountFields);
+
+			this.cse = CasesSelector.newInstance(0, overrideFields).selectById(
+																		new Set<Id>{Id.valueOf(record.Id)},
+																		new Set<Object>{CasesSelector.Options.WITH_ARTICLE, CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_NETWORK, CasesSelector.Options.WITH_BILLINGACCOUNT, CasesSelector.Options.WITH_ACCOUNT}
+												).values()[0];
+
         }
 
         public void execute(QueueableContext context) {
             try {
-                if(this.cse.ArticleTest__c != null && this.cse.ReferenceID__c != null && caseRecordTypes.contains(this.cse.RecordTypeId) && 'Web'.equalsIgnoreCase(this.cse.Origin)) {
+                if(this.cse.ArticleTest__c != null // if article record is linked
+					&& this.cse.ReferenceID__c != null // and there's a reference ID
+					&& StarTrack_Constants.CASE_ORIGIN_WEB.equalsIgnoreCase(this.cse.Origin) // origin is web only
+					&& caseRecordTypes.contains(this.cse.RecordTypeId) ) { // only startrack delivery enquiry record type
 					//get transfer owner Id
 					Id transferOwnerId = transferCase(this.cse);
-					if (transferOwnerId !=null){
+					if (transferOwnerId !=null && this.cse.OwnerId != transferOwnerId){
 						Case caseToBeUpdated = new Case();
 						caseToBeUpdated.Id = cse.Id;
 						caseToBeUpdated.OwnerId = transferOwnerId;
@@ -181,7 +213,6 @@ public with sharing class StarTrackTrackingIDSearchUtil {
         String comments = '';
         Boolean isDuplicate = isDuplicateConsignments(articles);
         Boolean isError = isError(conWrap);
-        // TODO: introduce custom labels for comments
         // no consignment found
         if(isError) {
             // service returned error
@@ -196,7 +227,9 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             isValid = false;
         }
 
-        createCaseComment(comments, caseId);
+        if(!isValid) {
+            createCaseComment(comments, caseId);
+        }
 
         return isValid;
     }
@@ -311,7 +344,6 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchUtil.class.getName(), 'transferCase', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
             ruleSatisfied = false;
         }
-        System.debug('The Owner Id of the case is '+ownerId);
         return ownerId;
     }
 

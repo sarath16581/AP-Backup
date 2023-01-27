@@ -12,6 +12,7 @@
 * 1.0	7/25/2019, 2:19:17 PM   rajesh.punjabi@mav3rik.com	 Initial Version
 * 1.1	16/08/2022				George Nguyen				Added isOmniGroupUser
 * 1.1	04/11/2022				George Nguyen				Added instance and setOmniRoutingSecondaryPriority methods
+* 1.2	06/12/2022				Noel Lim					Added inner class WithoutSharingRetrieveData and method getUserIdFromLatestAcceptedAgentWork
 **/
 public inherited sharing class OmniChannelService {
 
@@ -25,7 +26,27 @@ public inherited sharing class OmniChannelService {
 
 	private final Integer defaultSecondaryPriority = 2500;
 
-	private final Map<String, Integer> priorityMappingToSecondaryPriorityRange = new Map<String, Integer>{
+	public static CacheFactory Cache {
+		get {
+			if(Cache == null) {
+				Cache = new CacheFactory();
+			}
+			return Cache;
+		}
+		private set;
+	}
+
+	public String preferredAgentQueueId {
+		get {
+			if(preferredAgentQueueId == null) {
+				preferredAgentQueueId = QM__c.getOrgDefaults().PreferredAgentQueueId__c;
+			}
+			return preferredAgentQueueId;
+		}
+		private set;
+	}
+
+	public final Map<String, Integer> priorityMappingToSecondaryPriorityRange = new Map<String, Integer>{
 		'Critical' => 1000,
 		'Urgent' => 1000,
 		'Normal' => 2000,
@@ -108,6 +129,20 @@ public inherited sharing class OmniChannelService {
 		return result;
 	}
 	
+	/*
+	* This method returns a map of CaseIds and UserIds, the UserId is the latest Agent who accepted the Case via Omni routing
+	*/
+	public Map<Id,AgentWork> getUserIdsFromLatestAcceptedAgentWork(Set<Id> caseIds) {
+		Map<Id,AgentWork> result = new Map<Id,AgentWork>();
+		List<AgentWork> aws = new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds);
+
+		for(AgentWork agentWork : aws){
+			result.put(agentWork.WorkItemId, agentWork);
+		}
+
+		return result;
+	}
+
 	/**
 	* @description create work item for agents if agent is online.
 	* @author rajesh.punjabi@mav3rik.com | 8/8/2019
@@ -139,5 +174,86 @@ public inherited sharing class OmniChannelService {
 		}
 		
 		return bReturn;
+	}
+
+	/**
+	 * Required to provide elevated privileges for guest users to query the AgentWork object 
+	 */
+	public without sharing class WithoutSharingRetrieveData{
+		
+		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
+			return AgentWorkSelector.newInstance().selectByAcceptedWorkItemIds(caseIds, new Set<Object>());
+		}
+	}
+
+	public class CacheFactory {
+		@TestVisible 
+		void resetStaticVariablesForUnitTestOnly() {
+			serviceChannels = null;
+			CacheManager.put('ALL_SERVICE_CHANNELS', null);
+			queuesWithRoutingConfig = null;
+			CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', null);
+		}
+
+		public Map<String, ServiceChannel> serviceChannels {
+			get {
+				if(serviceChannels == null) {
+					serviceChannels = (Map<String, ServiceChannel>)CacheManager.get('ALL_SERVICE_CHANNELS');
+					if(serviceChannels == null) {
+						serviceChannels = new Map<String, ServiceChannel>();
+						for(ServiceChannel sc: [SELECT AfterConvoWorkMaxTime,DeveloperName,DoesMinimizeWidgetOnAccept,HasAfterConvoWorkTimer,RelatedEntity,SecRoutingPriorityField FROM ServiceChannel]) {
+							serviceChannels.put(sc.DeveloperName, sc);
+						}
+						CacheManager.put('ALL_SERVICE_CHANNELS', serviceChannels);
+					}
+				}
+				return serviceChannels;
+			}
+			private set;
+		}
+
+		public Map<Id, QueueWrapper> queuesWithRoutingConfig {
+			get {
+				if(queuesWithRoutingConfig == null) {
+					queuesWithRoutingConfig = (Map<Id, QueueWrapper>)CacheManager.get('QUEUES_WITH_ROUTING_CONFIG');
+					if(queuesWithRoutingConfig == null) {
+						queuesWithRoutingConfig = new Map<Id, QueueWrapper>();
+	
+						List<Group> queues = [SELECT DeveloperName, QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
+						Set<Id> queueRoutingConfigIds = new Set<Id>();	
+	
+						for(Group queue : queues) {
+							queueRoutingConfigIds.add(queue.QueueRoutingConfigId);
+						}
+	
+						if(queueRoutingConfigIds.isEmpty() == false){
+							List<QueueRoutingConfig> routingConfigs = [SELECT CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, 
+																PushTimeout, RoutingModel, RoutingPriority, DeveloperName FROM QueueRoutingConfig WHERE Id IN :queueRoutingConfigIds];
+							for(Group queue : queues){
+								for(QueueRoutingConfig routingConfig : routingConfigs){
+									if(queue.QueueRoutingConfigId == routingConfig.Id){
+										queuesWithRoutingConfig.put(queue.Id, new QueueWrapper(queue, routingConfig));
+									}
+								}					
+							}
+						}		
+	
+						CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', queuesWithRoutingConfig);
+					}
+				}
+				return queuesWithRoutingConfig;
+			}
+			private set;
+		}
+	}
+
+	public class QueueWrapper {
+		public Group queue {get; private set;}
+		public QueueRoutingConfig routingConfiguration {get; private set;}
+
+		public QueueWrapper(Group inputQueue, QueueRoutingConfig inputRoutingConfig) {
+			queue = inputQueue;
+			routingConfiguration = inputRoutingConfig;
+		}
 	}
 }
