@@ -4,11 +4,144 @@
     <masterLabel>Cases Skills Routing</masterLabel>
     <relatedEntity>Case</relatedEntity>
     <workSkillRoutingAttributes>
+        <field>Case.Origin</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Social</skill>
+        <skillLevel>5</skillLevel>
+        <value>Social</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.Origin</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Social</skill>
+        <skillLevel>5</skillLevel>
+        <value>Facebook</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.Origin</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Social</skill>
+        <skillLevel>5</skillLevel>
+        <value>Twitter</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.Origin</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Social</skill>
+        <skillLevel>5</skillLevel>
+        <value>Social Business</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.Origin</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>High_Level_Complaints</skill>
+        <skillLevel>5</skillLevel>
+        <value>High Level Complaint</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.Origin</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Assisted_Referrals</skill>
+        <skillLevel>5</skillLevel>
+        <value>Assisted referral</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.IsHLC__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>High_Level_Complaints</skill>
+        <skillLevel>5</skillLevel>
+        <value>True</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
         <field>Case.Status</field>
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>Compensation_Assessment</skill>
         <skillLevel>5</skillLevel>
         <value>Compensation Assessment</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.IsCR__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Customer_Recovery</skill>
+        <skillLevel>5</skillLevel>
+        <value>True</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>BOH_Standard</skill>
+        <skillLevel>5</skillLevel>
+        <value>Delivery complaint</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>BOH_Standard</skill>
+        <skillLevel>5</skillLevel>
+        <value>Item transfer</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Special_Delivery</skill>
+        <skillLevel>5</skillLevel>
+        <value>Redirection Failure</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>BOH_Standard</skill>
+        <skillLevel>5</skillLevel>
+        <value>Disputed delivery scan</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>BOH_Standard</skill>
+        <skillLevel>5</skillLevel>
+        <value>All Other</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>BOH_Standard</skill>
+        <skillLevel>5</skillLevel>
+        <value>Product &amp; service information</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>BOH_Standard</skill>
+        <skillLevel>5</skillLevel>
+        <value>Tracking</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Damages</skill>
+        <skillLevel>5</skillLevel>
+        <value>Facility reported damages</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>High_Level_Complaints</skill>
+        <skillLevel>5</skillLevel>
+        <value>SPB – Request removal/relocation</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Customer_Recovery</skill>
+        <skillLevel>5</skillLevel>
+        <value>Unauthorised MRS application</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.EnquirySubType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Inbound_CCS</skill>
+        <skillLevel>5</skillLevel>
+        <value>Customer Care Escalation</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
         <field>Case.ProductSubCategory__c</field>
@@ -55,13 +188,6 @@
     <workSkillRoutingAttributes>
         <field>Case.ProductSubCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>My_Post</skill>
-        <skillLevel>5</skillLevel>
-        <value>MyPost Deliveries</value>
-    </workSkillRoutingAttributes>
-    <workSkillRoutingAttributes>
-        <field>Case.ProductSubCategory__c</field>
-        <isAdditionalSkill>false</isAdditionalSkill>
         <skill>BOH_Standard</skill>
         <skillLevel>5</skillLevel>
         <value>Express Post</value>
@@ -88,39 +214,81 @@
         <value>Mail hold</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
+        <field>Case.ProductSubCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>BOH_Standard</skill>
+        <skill>My_Post</skill>
         <skillLevel>5</skillLevel>
-        <value>Delivery complaint</value>
+        <value>MyPost Deliveries</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
+        <field>Case.ProductSubCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>BOH_Standard</skill>
+        <skill>Unaddressed_Mail</skill>
         <skillLevel>5</skillLevel>
-        <value>Item transfer</value>
+        <value>UMCS</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
+        <field>Case.ProductSubCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Special_Delivery</skill>
+        <skill>Unaddressed_Mail</skill>
         <skillLevel>5</skillLevel>
-        <value>Redirection Failure</value>
+        <value>Unaddressed Mail</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
+        <field>Case.ProductSubCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>BOH_Standard</skill>
+        <skill>Unaddressed_Mail</skill>
         <skillLevel>5</skillLevel>
-        <value>Disputed delivery scan</value>
+        <value>Premium Unaddressed Mail</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
-        <field>Case.EnquirySubType__c</field>
+        <field>Case.ProductSubCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>BOH_Standard</skill>
+        <skill>Stationery_Orders</skill>
         <skillLevel>5</skillLevel>
-        <value>All Other</value>
+        <value>Stationery and packaging</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.ProductSubCategory__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Escalations_Risk</skill>
+        <skillLevel>5</skillLevel>
+        <value>Secure Accept and Collect</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.ProductSubCategory__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Online_Shop</skill>
+        <skillLevel>5</skillLevel>
+        <value>Philatelic (stamps)</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.ProductSubCategory__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Online_Shop</skill>
+        <skillLevel>5</skillLevel>
+        <value>eBay Store</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.ProductSubCategory__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Online_Shop</skill>
+        <skillLevel>5</skillLevel>
+        <value>Online Returns Portal</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.ProductSubCategory__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Online_Shop</skill>
+        <skillLevel>5</skillLevel>
+        <value>Online shop</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.LinkedArticleHasExtraCover__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Extra_Cover</skill>
+        <skillLevel>5</skillLevel>
+        <value>True</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
         <field>Case.CustomerQueueType__c</field>
@@ -128,6 +296,41 @@
         <skill>Consumer</skill>
         <skillLevel>5</skillLevel>
         <value>Consumer</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.CustomerQueueType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Business</skill>
+        <skillLevel>5</skillLevel>
+        <value>SMB</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.CustomerQueueType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>Enterprise</skill>
+        <skillLevel>5</skillLevel>
+        <value>Enterprise</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.CustomerQueueType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>MyPost_Business</skill>
+        <skillLevel>5</skillLevel>
+        <value>MyPost Business</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.AgentType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>BOH</skill>
+        <skillLevel>5</skillLevel>
+        <value>BOH</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.AgentType__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>FOH</skill>
+        <skillLevel>5</skillLevel>
+        <value>FOH</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
         <field>Case.ProductCategory__c</field>
@@ -158,10 +361,31 @@
         <value>Post Office &amp; Business Hub Services</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
-        <field>Case.LinkedArticleHasExtraCover__c</field>
+        <field>Case.ProductCategory__c</field>
         <isAdditionalSkill>false</isAdditionalSkill>
-        <skill>Extra_Cover</skill>
+        <skill>BOH_Standard</skill>
         <skillLevel>5</skillLevel>
-        <value>True</value>
+        <value>Domestic Parcels</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.ProductCategory__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>BOH_Standard</skill>
+        <skillLevel>5</skillLevel>
+        <value>Domestic Letters</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.ProductCategory__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>International</skill>
+        <skillLevel>5</skillLevel>
+        <value>International Parcels</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Case.ProductCategory__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>International</skill>
+        <skillLevel>5</skillLevel>
+        <value>International Letters</value>
     </workSkillRoutingAttributes>
 </WorkSkillRouting>
