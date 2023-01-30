@@ -2971,7 +2971,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <fullName>mpbhsp_Set_Case_Owner_to_MPB_Inbound</fullName>
         <description>This updates a Case&apos;s owner to Mypost Business Inbound</description>
         <field>OwnerId</field>
-        <lookupValue>SSSW_Business_BO_Pharmacy_Enquiries</lookupValue>
+        <lookupValue>SSSW_MyPost_Business_Inbound</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>mpbhsp Set Case Owner to MPB Inbound</name>
         <notifyAssignee>false</notifyAssignee>
