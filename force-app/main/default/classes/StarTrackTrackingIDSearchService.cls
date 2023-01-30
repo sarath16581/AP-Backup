@@ -74,7 +74,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
         lst_article = map_article.values();
     }
 
-    public void searchConsignment() {
+    public StarTrackConsignmentSearchUtil.ConsignmentWrapper searchConsignment() {
         system.debug('HASANTHA TEST 2');
         StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap;
 
@@ -129,7 +129,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
                     }
                     emsStub.timeout_x = Integer.valueOf(stSettings.Sync_Web_Service_Callout_Timeout__c * 1000);
                     system.debug('HASANTHA TEST 6');
-                    processSearchConsignment();
+                    conWrap = (StarTrackConsignmentSearchUtil.ConsignmentWrapper) processSearchConsignment();
 
                 }
             } catch (CalloutException e) {
@@ -144,7 +144,7 @@ public inherited sharing class StarTrackTrackingIDSearchService extends Applicat
             }
         }
 
-        return;
+        return conWrap;
     }
 
     //capture all search item values

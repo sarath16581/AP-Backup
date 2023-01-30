@@ -155,12 +155,12 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>OCC HTML Content</label>
+    <label>OCC HTML Content (Deprecated)</label>
     <nameField>
         <label>OCCHTMLContent Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>OCC HTML Contents</pluralLabel>
+    <pluralLabel>OCC HTML Contents (Deprecated)</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <startsWith>Vowel</startsWith>

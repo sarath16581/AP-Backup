@@ -55,6 +55,15 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		return selector;
 	}
 
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static CasesSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		CasesSelector selector = (CasesSelector)Application.Selectors.newInstance(CasesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
 	public virtual override SObjectType getSObjectType() {
 		return Case.getSObjectType();
 	}
@@ -231,6 +240,12 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			builder.addSubQuery(CaseInvestigationsSelector.newInstance().newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Status__c + ' != \'Closed\'' )).endConditions(), 'CaseInvestigations__r');
 		}
 		
+		if(selectorOptions.contains(Options.WITH_BILLINGACCOUNT)) {
+			builder.addRelatedFields(BillingAccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(), 'Related_Billing_Account__r');
+		}
+		if (selectorOptions.contains(Options.WITH_ACCOUNT)) {
+			builder.addRelatedFields(AccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(), 'Account');
+		}				
 		return builder;
 	}
 
