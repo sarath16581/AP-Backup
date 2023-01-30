@@ -580,13 +580,13 @@ private class SalesRecordSharingService_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		SalesAccountsSelector mockSalesAccountsSelector = ((SalesAccountsSelector) MockUtility.mockSelector(SalesAccountsSelector.class));
+		BusinessAccountsSelector mockBusinessAccountsSelector = ((BusinessAccountsSelector) MockUtility.mockSelector(BusinessAccountsSelector.class));
 		SObjectSharesSelector mockSObjectSharesSelector = ((SObjectSharesSelector) MockUtility.mockSelector(SObjectSharesSelector.class));
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 		// set up responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSalesAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
+		MockUtility.Mocks.when(mockBusinessAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
 		MockUtility.Mocks.when(mockSObjectSharesSelector.setShareSobjectType((SObjectType)fflib_Match.anyObject())).thenReturn(mockSObjectSharesSelector);
 		MockUtility.Mocks.when(mockSObjectSharesSelector.selectByParentIdAndRowCause((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new List<SObject>());
 		MockUtility.Mocks.when(mockUow.registerNew((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
@@ -654,13 +654,13 @@ private class SalesRecordSharingService_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		SalesAccountsSelector mockSalesAccountsSelector = ((SalesAccountsSelector) MockUtility.mockSelector(SalesAccountsSelector.class));
+		BusinessAccountsSelector mockBusinessAccountsSelector = ((BusinessAccountsSelector) MockUtility.mockSelector(BusinessAccountsSelector.class));
 		SObjectSharesSelector mockSObjectSharesSelector = ((SObjectSharesSelector) MockUtility.mockSelector(SObjectSharesSelector.class));
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 		// set up responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSalesAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
+		MockUtility.Mocks.when(mockBusinessAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
 		MockUtility.Mocks.when(mockSObjectSharesSelector.setShareSobjectType((SObjectType)fflib_Match.anyObject())).thenReturn(mockSObjectSharesSelector);
 		//TODO Investigate how to mock SObjectSharesSelector properly with the chained setShareSobjectType method. We need
 		// separate selector instances when querying '__Share' sobjects of different types.
@@ -741,13 +741,13 @@ private class SalesRecordSharingService_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		SalesAccountsSelector mockSalesAccountsSelector = ((SalesAccountsSelector) MockUtility.mockSelector(SalesAccountsSelector.class));
+		BusinessAccountsSelector mockBusinessAccountsSelector = ((BusinessAccountsSelector) MockUtility.mockSelector(BusinessAccountsSelector.class));
 		SObjectSharesSelector mockSObjectSharesSelector = ((SObjectSharesSelector) MockUtility.mockSelector(SObjectSharesSelector.class));
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 		// set up responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSalesAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
+		MockUtility.Mocks.when(mockBusinessAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
 		MockUtility.Mocks.when(mockSObjectSharesSelector.setShareSobjectType((SObjectType)fflib_Match.anyObject())).thenReturn(mockSObjectSharesSelector);
 		MockUtility.Mocks.when(mockSObjectSharesSelector.selectByParentIdAndRowCause((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new List<SObject>());
 		MockUtility.Mocks.when(mockUow.registerNew((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
@@ -867,13 +867,13 @@ private class SalesRecordSharingService_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		SalesAccountsSelector mockSalesAccountsSelector = ((SalesAccountsSelector) MockUtility.mockSelector(SalesAccountsSelector.class));
+		BusinessAccountsSelector mockBusinessAccountsSelector = ((BusinessAccountsSelector) MockUtility.mockSelector(BusinessAccountsSelector.class));
 		SObjectSharesSelector mockSObjectSharesSelector = ((SObjectSharesSelector) MockUtility.mockSelector(SObjectSharesSelector.class));
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 
 		// set up responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSalesAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
+		MockUtility.Mocks.when(mockBusinessAccountsSelector.selectByIdWithChildRecords((Set<Id>)fflib_Match.anyObject(), (Map<SObjectType, String>)fflib_Match.anyObject())).thenReturn(parentAccounts);
 		MockUtility.Mocks.when(mockSObjectSharesSelector.setShareSobjectType((SObjectType)fflib_Match.anyObject())).thenReturn(mockSObjectSharesSelector);
 		MockUtility.Mocks.when(mockSObjectSharesSelector.selectByParentIdAndRowCause((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new List<SObject>());
 		MockUtility.Mocks.when(mockUow.registerNew((SObject)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());

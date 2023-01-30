@@ -624,7 +624,7 @@ public without sharing class SalesRecordSharingService {
 			fieldOverrides.put(mapping.objectType, new Set<SObjectField>{mapping.lookupField});
 		}
 
-		return new Map<Id, Account>(SalesAccountsSelector.newInstance(0, fieldOverrides).selectByIdWithChildRecords(parentAccountIds, childRelationships));
+		return new Map<Id, Account>(BusinessAccountsSelector.newInstance(0, fieldOverrides).selectByIdWithChildRecords(parentAccountIds, childRelationships));
 	}
 
 	/**
