@@ -30,6 +30,7 @@ export default class MyNetworkCaseMilestonesWrapper extends LightningElement {
             } else if (typeof error.body.message === 'string') {
                 message = error.body.message;
             }
+			console.log('Error in Milestone LWC: '+message);
         } else if (data) {
 
 			//prepare VF page URL with iFrame.

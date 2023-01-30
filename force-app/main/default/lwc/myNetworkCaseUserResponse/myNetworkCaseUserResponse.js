@@ -75,7 +75,6 @@ export default class MyNetworkCaseUserResponse extends LightningElement {
 		//Require More Information and Still Under Investigation cannot be true at same time.
 		if(event.target.value && this.stillUnderInvestigation) {
 			this.errorMsg = 'Still under investigation and Require more information can not be selected at the same time';
-			return;
 		} 
 		else if(event.target.value && !this.stillUnderInvestigation) {
 			this.status = 'Closed - Required More Information' ;

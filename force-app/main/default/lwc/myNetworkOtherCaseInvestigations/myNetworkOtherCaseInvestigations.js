@@ -53,36 +53,36 @@ export default class MyNetworkOtherCaseInvestigations extends LightningElement {
 		let sfdcBaseURL = window.location.origin;
 
 		getOtherCaseInvestigations({ caseInvestigationRecordId: this.recordId })
-      	.then(result => {
-     
-        let tempCaseInvestigations = [];
-        if(result){
-          
-      
+	  	.then(result => {
+	 
+		let tempCaseInvestigations = [];
+		if(result){
+		  
+	  
 			result.forEach(function (cInvestigationRec) {
-            let cInvestigationRecord = {};
-            for(let c in cInvestigationRec){
-              if(c === 'Article__r' || c === 'Network__r')  {
-                cInvestigationRecord[c] = cInvestigationRec[c].Name;
-              }
-              else if(c === 'Id') {
-                cInvestigationRecord[c] = cInvestigationRec[c];
-                cInvestigationRecord['caseInvestigationLink']  = (sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigationRec[c];
-              }
-              else {
-                cInvestigationRecord[c] = cInvestigationRec[c];
-              }   
-            }
-            tempCaseInvestigations.push(cInvestigationRecord);
-          });
-      
-        }
+			let cInvestigationRecord = {};
+			for(let c in cInvestigationRec){
+			  if(c === 'Article__r' || c === 'Network__r')  {
+				cInvestigationRecord[c] = cInvestigationRec[c].Name;
+			  }
+			  else if(c === 'Id') {
+				cInvestigationRecord[c] = cInvestigationRec[c];
+				cInvestigationRecord['caseInvestigationLink']  = (sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigationRec[c];
+			  }
+			  else {
+				cInvestigationRecord[c] = cInvestigationRec[c];
+			  }   
+			}
+			tempCaseInvestigations.push(cInvestigationRecord);
+		  });
+	  
+		}
 
-        this.caseInvestigations = tempCaseInvestigations;
-      })
-      .catch(error => {
-        console.log("error>>>", error);
-      });
+		this.caseInvestigations = tempCaseInvestigations;
+	  })
+	  .catch(error => {
+		console.log("error>>>", error);
+	  });
 	}
 
 	get isCaseInvestigationAvailable(){
