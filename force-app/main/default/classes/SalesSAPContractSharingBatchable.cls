@@ -10,11 +10,16 @@
 public without sharing class SalesSAPContractSharingBatchable extends SalesRecordSharingBatchable {
 
 	public SalesSAPContractSharingBatchable() {
-		super(APT_SAP_Contracts__c.SObjectType);
+		super(APT_SAP_Contracts__c.SObjectType, new Set<Id>());
 	}
 
-	@TestVisible
-	protected override Database.QueryLocator getQueryLocator() {
-		return SAPContractsSelector.newInstance(fieldOverride).selectByAccountRelationshipQueryLocator(new Set<Object>{ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER, SAPContractsSelector.Options.WITH_ORGANISATION});
+	public SalesSAPContractSharingBatchable(Set<Id> accountIds) {
+		super(APT_SAP_Contracts__c.SObjectType, accountIds);
+	}
+
+	@TestVisible protected override Database.QueryLocator getQueryLocator(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		return SAPContractsSelector.newInstance(fieldOverrides).selectByAccountOrderByAccountIdQueryLocator(this.accountIds, new Set<Object>{
+				SAPContractsSelector.Options.WITH_ORGANISATION
+		});
 	}
 }

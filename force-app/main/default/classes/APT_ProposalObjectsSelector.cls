@@ -13,7 +13,7 @@
 */
 public virtual inherited sharing class APT_ProposalObjectsSelector extends ApplicationSelector {
     public enum Options {
-        WITH_ACCOUNT
+        WITH_ORGANISATION
     }
     
     public static APT_ProposalObjectsSelector newInstance() {
@@ -82,20 +82,34 @@ public virtual inherited sharing class APT_ProposalObjectsSelector extends Appli
     }
 
     /**
-   * This method is used to get query builder of Apttus Proposal records where proposal account not null
-   * @return query locator of Apttus Proposal records
-   */
-    public Database.QueryLocator selectByAccountRelationshipQueryLocator(Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions)
-                .addConditions()
-                .add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c + ' != null'))
-                .endConditions();
+	* Returns a query locator to retrieve Proposal (Apttus_Proposal__Proposal__c) records based on the account ids passed in. If set of account ids
+	* is null or empty, returns all Proposal records having a parent account.
+	* Query results are ordered by parent account Id desc
+	* @param accountIds set of parent account ids. returns all child Proposal records associated with a parent account if null
+	*                   or empty set is supplied.
+	* @param selectorOptions set of additional selector options to augment the result set
+	* @return query locator of Apttus_Proposal__Proposal__c records
+	*/
+    public Database.QueryLocator selectByAccountOrderByAccountIdQueryLocator(Set<Id> accountIds, Set<Object> selectorOptions) {
+
+        Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
+        options.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+
+        QueryBuilder qb = newQueryBuilder(options);
+        QueryBuilder.ConditionsManager conditions = qb.addConditions();
+        if (accountIds != null && !accountIds.isEmpty()) {
+            conditions.add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c + ' in :accountIds'));
+        } else {
+            conditions.add(new QueryBuilder.SimpleCondition(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c + ' != null'));
+        }
+
+        qb = conditions.endConditions().addOrderDesc(Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c);
         return Database.getQueryLocator(qb.toSoqlString());
     }
     
     public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
         QueryBuilder builder = super.newQueryBuilder(selectorOptions);
-        if (selectorOptions.contains(Options.WITH_ACCOUNT)) {
+        if (selectorOptions.contains(Options.WITH_ORGANISATION)) {
             builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Apttus_Proposal__Account__r');
         }
         return builder;

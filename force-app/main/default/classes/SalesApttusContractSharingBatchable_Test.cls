@@ -9,45 +9,81 @@
  */
 @IsTest
 private class SalesApttusContractSharingBatchable_Test {
+
 	/**
-	 * Test:
-	 *  Ensures that the concrete batch is working as expected
-	 */
+    * Test to ensure query locator returned is filtering based on the account ids supplied
+    */
 	@IsTest
-	static void testContractSharingBatch() {
+	static void testGetQueryLocatorWithSpecificAccountIdFiltering() {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		String soql = 'SELECT Id, Apttus__Account__c, Apttus__Account__r.SalesTeamType__c FROM Apttus__APTS_Agreement__c WHERE Apttus__Account__c != NULL';
+		List<Account> parentAccounts = ApplicationTestDataFactory.getAccounts(3, true);
 
 		// =====================================
 		// Stubbing
 		// =====================================
 		ApttusContractsSelector mockSelector = (ApttusContractsSelector) MockUtility.mockSelector(ApttusContractsSelector.class);
-		SalesRecordSharingService mockSharingService = (SalesRecordSharingService) MockUtility.mockUtility(SalesRecordSharingService.class);
+		Database.QueryLocator mockQueryLocator = Database.getQueryLocator('Select Id from Apttus__APTS_Agreement__c');
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSelector.selectByAccountRelationshipQueryLocator((set<Object>) fflib_Match.anyObject())).thenReturn(Database.getQueryLocator(soql));
-		MockUtility.Mocks.when(mockSharingService.getSharingConfiguration((SObjectType)fflib_Match.anyObject())).thenAnswer(new AnswerMapping());
+		MockUtility.Mocks.when(mockSelector.selectByAccountOrderByAccountIdQueryLocator((Set<Id>) fflib_Match.anyObject(), (Set<Object>)fflib_Match.eq(new Set<Object>{ApttusContractsSelector.Options.WITH_ORGANISATION}))).thenReturn(mockQueryLocator);
 		MockUtility.Mocks.stopStubbing();
+
 
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
-		SalesApttusContractSharingBatchable batchable = new SalesApttusContractSharingBatchable();
-		Database.QueryLocator queryLocator = batchable.getQueryLocator();
+
+		new SalesApttusContractSharingBatchable(new Map<Id, Account>(parentAccounts).keySet()).getQueryLocator(new Map<SObjectType, Set<SObjectField>>());
+
 		Test.stopTest();
 
-		System.assertEquals(soql, queryLocator.getQuery(), 'Expected SOQL returned');
+		fflib_ArgumentCaptor accountIdsCapture = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		((ApttusContractsSelector)MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).selectByAccountOrderByAccountIdQueryLocator((Set<Id>)accountIdsCapture.capture(), (Set<Object>)fflib_Match.anyObject());
+
+		Set<Id> parentAccountIdsCaptured = (Set<Id>) accountIdsCapture.getValue();
+		System.assertEquals(parentAccounts.size(), parentAccountIdsCaptured.size(), 'All parent account Ids passed in to the constructor must be queried.');
+		for (Account a: parentAccounts) {
+			System.assert(parentAccountIdsCaptured.contains(a.Id), 'All parent account Ids passed in to the constructor must be queried');
+		}
 	}
 
-	public class AnswerMapping implements fflib_Answer {
-		public Object answer(fflib_InvocationOnMock invocation) {
-			SalesRecordSharingService.SalesSharingObjectMapping mapping = new SalesRecordSharingService.SalesSharingObjectMapping
-					(Apttus__APTS_Agreement__c.getSObjectType(), Apttus__APTS_Agreement__c.Apttus__Account__c, 'Apttus__Account__r', 'reason');
+	/**
+	 * Test to ensure query locator returned is not filtering by account ids.
+	 */
+	@IsTest
+	static void testGetQueryLocatorWithNoAccountIdFiltering() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None
 
-			return mapping;
-		}
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApttusContractsSelector mockSelector = (ApttusContractsSelector) MockUtility.mockSelector(ApttusContractsSelector.class);
+		Database.QueryLocator mockQueryLocator = Database.getQueryLocator('Select Id from Apttus__APTS_Agreement__c');
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockSelector.selectByAccountOrderByAccountIdQueryLocator((Set<Id>) fflib_Match.anyObject(), (Set<Object>)fflib_Match.eq(new Set<Object>{ApttusContractsSelector.Options.WITH_ORGANISATION}))).thenReturn(mockQueryLocator);
+		MockUtility.Mocks.stopStubbing();
+
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		new SalesApttusContractSharingBatchable().getQueryLocator(new Map<SObjectType, Set<SObjectField>>());
+
+		Test.stopTest();
+
+		fflib_ArgumentCaptor accountIdsCapture = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		((ApttusContractsSelector)MockUtility.Mocks.verify(mockSelector, MockUtility.Mocks.times(1))).selectByAccountOrderByAccountIdQueryLocator((Set<Id>)accountIdsCapture.capture(), (Set<Object>)fflib_Match.anyObject());
+
+		Set<Id> parentAccountIdsCaptured = (Set<Id>) accountIdsCapture.getValue();
+		System.assertEquals(0, parentAccountIdsCaptured.size(), 'Expected to pass an empty account Ids set in to the selector when account ids are not specified on batch.');
 	}
 }

@@ -61,14 +61,28 @@ public inherited sharing class SAPContractsSelector extends ApplicationSelector{
 	}
 
 	/**
-	* This method is used to get query builder of SAP Contract records where organisaion not null
+	* Returns a query locator to retrieve SAP Contract records based on the account ids passed in. If set of account ids
+	* is null or empty, returns all SAP Contract records having a parent account.
+	* Query results are ordered by parent account Id desc
+	* @param accountIds set of parent account ids. returns all child SAP Contract records associated with a parent account if null
+	*                   or empty set is supplied.
+	* @param selectorOptions set of additional selector options to augment the result set
 	* @return query locator of SAP Contract records
 	*/
-	public Database.QueryLocator selectByAccountRelationshipQueryLocator(Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-				.addConditions()
-				.add(new QueryBuilder.SimpleCondition(APT_SAP_Contracts__c.Organisation__c + ' != null'))
-				.endConditions();
+	public Database.QueryLocator selectByAccountOrderByAccountIdQueryLocator(Set<Id> accountIds, Set<Object> selectorOptions) {
+
+		Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
+		options.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+
+		QueryBuilder qb = newQueryBuilder(options);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		if (accountIds != null && !accountIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(APT_SAP_Contracts__c.Organisation__c + ' in :accountIds'));
+		} else {
+			conditions.add(new QueryBuilder.SimpleCondition(APT_SAP_Contracts__c.Organisation__c + ' != null'));
+		}
+
+		qb = conditions.endConditions().addOrderDesc(APT_SAP_Contracts__c.Organisation__c );
 		return Database.getQueryLocator(qb.toSoqlString());
 	}
 

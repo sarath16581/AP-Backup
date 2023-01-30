@@ -4,17 +4,23 @@
  * @group Service
  * @domain Sales
  * @description Concrete batch class for APR
+ * @Test SalesAPRSharingBatchable_Test
  * @changelog
  * 2022-11-22 - Harry Wang - Created
  */
 public without sharing class SalesAPRSharingBatchable extends SalesRecordSharingBatchable {
 
 	public SalesAPRSharingBatchable() {
-		super(APR__c.SObjectType);
+		super(APR__c.SObjectType, new Set<Id>());
 	}
 
-	@TestVisible
-	protected override Database.QueryLocator getQueryLocator() {
-		return APRsSelector.newInstance(fieldOverride).selectByAccountRelationshipQueryLocator(new Set<Object>{ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER, APRsSelector.Options.WITH_LEGAL_ENTITY});
+	public SalesAPRSharingBatchable(Set<Id> accountIds) {
+		super(APR__c.SObjectType, accountIds);
+	}
+
+	@TestVisible protected override Database.QueryLocator getQueryLocator(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		return APRsSelector.newInstance(fieldOverrides).selectByAccountOrderByAccountIdQueryLocator(this.accountIds, new Set<Object>{
+				APRsSelector.Options.WITH_ORGANISATION
+		});
 	}
 }
