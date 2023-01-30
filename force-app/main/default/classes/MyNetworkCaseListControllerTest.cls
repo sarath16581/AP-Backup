@@ -457,9 +457,12 @@
 
 		//loop through updated records and asserts if relevant fields are updated.
 		for(SObject sobj : updatableRecords){
+
+			//if a case is passed then PONUser__c field will be updated.
 			if(sobj.getSObjectType() === Case.getSObjectType()){
 				System.assertEquals(UserInfo.getUserId(), ((Case)sobj).PONUser__c, 'Expected to update PONUser__c ID to self for a case');
 			}
+			//if a case investigation is passed then OwnerId field will be updated.
 			if(sobj.getSObjectType() === CaseInvestigation__c.getSObjectType()){
 				System.assertEquals(UserInfo.getUserId(), ((CaseInvestigation__c)sobj).OwnerId, 'Expected to update OwnerId ID to self for a case investigation');
 			}
@@ -468,7 +471,8 @@
 	}
 
 	/**
-	 * @desc: Method to test ONLY 'ST Cases' are returned if List view is changed to 'Star track cases'.
+	 * @desc: Method to test ONLY 'StarTrack Cases' are returned if List view is changed to 'Star track cases'.
+	 * Expected to return all StarTrack cases. 
 	 */
 
 	@isTest
@@ -495,6 +499,7 @@
 
 	/**
 	 * @desc: Method to test if cases are returned if List view is changed to 'Updated Cases'.
+	 * Expected to return all updated cases. 
 	 */
 
 	@isTest
