@@ -19,18 +19,14 @@ private class  STCaseInvestigationLifecycleModule_Test {
 
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		cases[0].ArticleTest__c = articles[0].Id;
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
+		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(2, true));
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
 		networks[0].Org_ID__c = '1234';
 
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, cases.keySet(), articles[0], networks[0].Id, true);
 		caseInvestigations[0].Status__c = 'New';
-		//assigning child CI records to case.
-		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{caseInvestigations[0]}});
-
+		caseInvestigations[1].Status__c = 'In Progress';
 
 		//mock
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
@@ -40,7 +36,6 @@ private class  STCaseInvestigationLifecycleModule_Test {
 		// =====================================
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -50,11 +45,11 @@ private class  STCaseInvestigationLifecycleModule_Test {
 		STCaseInvestigationLifecycleModule.newInstance().onAfterInsert(caseInvestigations, mockUow);
 		Test.stopTest();
 
-		//asserting case status is changed after new CI record is added
-		System.assertEquals(MyNetworkConstants.CASE_STATUS_WAITING_ON_OPERATIONS,((Case)MockUtility.mockUnitOfWorkDMLs[0]).Status);
-
 		//verify registerDirty() is called.
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<Case>) fflib_Match.eq(new List<Case>{((Case)MockUtility.mockUnitOfWorkDMLs[0])}));
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<Case>) fflib_Match.eq(new List<Case>{new Case(Id = caseInvestigations[0].Case__c, Status = MyNetworkConstants.CASE_STATUS_WAITING_ON_OPERATIONS)}));
+
+		// PMD by-pass
+		System.assert(true, 'PMD by-pass');
 
 	}
 
@@ -71,23 +66,29 @@ private class  STCaseInvestigationLifecycleModule_Test {
 
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		cases[0].ArticleTest__c = articles[0].Id;
+		//Map<Id, Case> casesMap = new Map<Id, Case>(ApplicationTestDataFactory.getCases(2, true));
+
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
 		cases[0].Status = 'Closed';
-
-		Case oldCase = cases[0];
+		
+		Case oldCase = cases[0].clone(true);
 		oldCase.Status = 'New';
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
 		networks[0].Org_ID__c = '1234';
 
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(2, new Set<Id>{cases[0].Id, cases[1].Id}, articles[0], networks[0].Id, true);
 		caseInvestigations[0].Status__c = 'New';
+		
 		//assigning child CI records to case.
 		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{caseInvestigations[0]}});
+		cases[1] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[1], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{caseInvestigations[1]}});
+		
+		//assigning formula field as it is referred in logic.
+		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'StarTrack_RecordType__c' => true});
 
-
+		
 		//mock
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		CaseInvestigationsSelector mockCaseInvestigationSelector = (CaseInvestigationsSelector)MockUtility.mockSelector(CaseInvestigationsSelector.class);
@@ -98,20 +99,19 @@ private class  STCaseInvestigationLifecycleModule_Test {
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockCaseInvestigationSelector.selectOpenCaseInvestigationsByCaseIds((Set<Id>) fflib_Match.anyObject())).thenReturn(new Map<Id, CaseInvestigation__c>{caseInvestigations[0].Id => caseInvestigations[0]});
-		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
-		STCaseInvestigationLifecycleModule.newInstance().updateAllCaseInvestigations(cases, new Map<Id, Case>{oldCase.Id => oldCase}, mockUow);
+		STCaseInvestigationLifecycleModule.newInstance().updateAllCaseInvestigations(cases, new Map<Id, Case>{oldCase.Id => oldCase, cases[1].Id => cases[1]}, mockUow);
 		Test.stopTest();
 
-		//asserting all child case investigations are closed when a case is closed.
-		System.assertEquals(MyNetworkConstants.CASE_INVESTIGATION_CLOSED_STATUS,((CaseInvestigation__c)MockUtility.mockUnitOfWorkDMLs[0]).Status__c);
-
 		//verify registerDirty() is called.
-		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty( (List<CaseInvestigation__c>) fflib_Match.eq( new List<CaseInvestigation__c>{((CaseInvestigation__c)MockUtility.mockUnitOfWorkDMLs[0])}) );
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 1)).registerDirty((List<CaseInvestigation__c>) fflib_Match.eq(new List<CaseInvestigation__c>{new CaseInvestigation__c(Id = caseInvestigations[0].Id, Status__c = MyNetworkConstants.CASE_INVESTIGATION_CLOSED_STATUS)}));
+
+		// PMD by-pass
+		System.assert(true, 'PMD by-pass');
 	}
 }

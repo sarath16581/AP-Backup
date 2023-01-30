@@ -32,7 +32,7 @@ public inherited sharing class STCaseInvestigationLifecycleModule extends Applic
 		for(Case updatedCase : cases) {
 
 			//check if status is CLOSED and RecordType is of StarTrack case
-			if(updatedCase.Status != existingRecords.get(updatedCase.Id).Status && 
+			if(existingRecords.containsKey(updatedCase.Id) && updatedCase.Status != existingRecords.get(updatedCase.Id).Status && 
 					updatedCase.Status == MyNetworkConstants.CASE_STATUS_CLOSED && updatedCase.StarTrack_RecordType__c) {
 				caseIds.add(updatedCase.Id);
 			}
