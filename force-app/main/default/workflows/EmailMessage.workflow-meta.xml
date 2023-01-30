@@ -762,6 +762,17 @@ History
         <targetObject>ParentId</targetObject>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>SSSW_Set_Product_Cat_to_Domestic_Parc</fullName>
+        <field>ProductCategory__c</field>
+        <literalValue>Domestic Parcels</literalValue>
+        <name>SSSW - Set Product Cat to Domestic Parc</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SSSW_Set_Product_Domestic_Letters</fullName>
         <field>ProductCategory__c</field>
         <literalValue>Domestic Letters</literalValue>
@@ -1862,6 +1873,10 @@ Product Sub Category - Western Union</description>
         <fullName>SSSW - Assign Consumer Back Office Cases - Header Contains</fullName>
         <actions>
             <name>SSSW_Assign_Consumer_Back_Office_Cases</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Set_Product_Cat_to_Domestic_Parc</name>
             <type>FieldUpdate</type>
         </actions>
         <actions>
