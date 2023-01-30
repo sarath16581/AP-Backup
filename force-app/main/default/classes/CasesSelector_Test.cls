@@ -113,6 +113,23 @@ public with sharing class CasesSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)ArticleTest__r\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Article fields'+soql);
 		System.assertEquals(true, Pattern.compile('(?is)Network__r\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Network fields'+soql);
+
+		Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>();
+		Set<SObjectField> caseFields = new Set<SObjectField>{Case.Id, Case.Call_Purpose__c};
+		Set<SObjectField> billingAccountFields = new Set<SObjectField>{Billing_Account__c.BSC_Calc_Transfer_Queue__c};
+		Set<SObjectField> accountFields = new Set<SObjectField>{Account.StarTrack_Customer_Stream__c};
+		overrideFields.put(Case.SObjectType, caseFields);
+		overrideFields.put(Billing_Account__c.SObjectType, billingAccountFields);
+		overrideFields.put(Account.SObjectType, accountFields);
+		CasesSelector selectorNew3 = CasesSelector.newInstance(0, overrideFields);		
+		qb = selectorNew3.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_BILLINGACCOUNT});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)Related_Billing_Account__r\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Billing Account fields'+soql);
+		
+		qb = selectorNew3.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_ACCOUNT});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)Account\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Account fields'+soql);
+		
 		Test.stopTest();
 
 	}

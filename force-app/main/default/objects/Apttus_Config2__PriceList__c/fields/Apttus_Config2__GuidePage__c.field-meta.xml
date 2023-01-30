@@ -4,7 +4,7 @@
     <deprecated>false</deprecated>
     <description>The name of the guide page to use for Help Me Choose (All Categories)</description>
     <externalId>false</externalId>
-    <label>Guide Page</label>
+    <label>Guide Page (Deprecated)</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

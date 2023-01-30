@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Apttus_Config2__ContractNumber__c</fullName>
     <deprecated>false</deprecated>
-    <description>The contract number associated with the price rule. The rule is associated with a conract number after activation.</description>
+    <description>The contract number associated with the price rule. The rule is associated with a contract number after activation.</description>
     <externalId>false</externalId>
     <inlineHelpText>The contract number associated with the price rule. The rule is associated with a conract number after activation.</inlineHelpText>
     <label>Contract Number</label>

@@ -2,6 +2,7 @@
  * @File Name          : STHSFeedbackFormController.cls
  * @Description        : Controller class for StarTrack Feedback form
  * @Author             : Mahesh Parvathaneni
+ * 					   : Jacob Isaac - REQ2995236 To remove defaulting StarTrack_Calc_Email_Address__c
  **/
 
 public with sharing class STHSFeedbackFormController {
@@ -49,6 +50,8 @@ public with sharing class STHSFeedbackFormController {
         caseObj.Subject = caseObj.Call_Purpose__c = caseObj.Initial_Call_Purpose__c = STHSConstants.CASE_SUBJECT_FEEDBACK_ENQUIRY;
 		caseObj.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(STHSConstants.CASE_RECORDTYPE_VOC_ENQUIRY).getRecordTypeId();
 		caseObj.Auto_Email_Response_sent__c = true;
+        StarTrack_Settings__c starTrackSettings = StarTrack_Settings__c.getOrgDefaults();
+        caseObj.StarTrack_Calc_Email_Address__c = starTrackSettings.VOC_From_Email__c; 
     }
 
 	/**

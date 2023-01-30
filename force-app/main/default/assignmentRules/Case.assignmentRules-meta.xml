@@ -912,7 +912,7 @@
         <ruleEntry>
             <assignedTo>BSC_Team_1</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -968,11 +968,16 @@
                 <operation>contains</operation>
                 <value>hanes.com</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>likewizeau.zendesk.com</value>
+            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_2</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1063,6 +1068,11 @@
                 <operation>contains</operation>
                 <value>dhl@startrack.com.au</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>iagroupcs.zendesk.com</value>
+            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_2</assignedTo>
@@ -1142,7 +1152,7 @@
         <ruleEntry>
             <assignedTo>BSC_Team_2</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1201,7 +1211,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>target.com.au</value>
+                <value>officemax.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1216,7 +1226,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>yeti.com</value>
+                <value>centralhs.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1237,11 +1247,6 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>jaycar.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>officemax.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -1491,7 +1496,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>target.com.au</value>
+                <value>yeti.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1547,37 +1552,27 @@
         <ruleEntry>
             <assignedTo>BSC_Team_3</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
                 <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>api.net.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>adairs.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>dashinggroup.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>packsend.com.au</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>adairs.com.au</value>
+            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_3</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1586,27 +1581,12 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>target.com.au</value>
+                <value>biomedica.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>performancehealth.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>consports.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedName</field>
-                <operation>contains</operation>
-                <value>mmm.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>biomedica.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -1721,7 +1701,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>dashinggroup.com.au</value>
+                <value>dashinggroup.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -2136,7 +2116,7 @@
         <ruleEntry>
             <assignedTo>BSC_Team_5</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22 OR 23 OR 24 OR 25)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22 OR 23 OR 24)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -2220,7 +2200,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>iagroupcs.zendesk.com</value>
+                <value>bradycorp.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -2257,16 +2237,11 @@
                 <operation>contains</operation>
                 <value>hagerelectro.com.au</value>
             </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>bradycorp.com</value>
-            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_5</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -2307,6 +2282,11 @@
                 <operation>contains</operation>
                 <value>loreal.com</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>consports.com.au</value>
+            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_DHL_Road</assignedTo>
@@ -2326,7 +2306,7 @@
         <ruleEntry>
             <assignedTo>BSC_Team_6</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -2360,7 +2340,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>centralhs.com.au</value>
+                <value>hager.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -2370,7 +2350,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>cenralhs.com.au</value>
+                <value>hagar.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -2382,21 +2362,11 @@
                 <operation>contains</operation>
                 <value>clinicallabs.com</value>
             </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>hagar.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>hager.com.au</value>
-            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_6</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -2442,86 +2412,6 @@
                 <operation>contains</operation>
                 <value>nikon.com.au</value>
             </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BSC_SBA_Small_Business_Accounts</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7)</booleanFilter>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>alsglobal.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>lavazza.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>amplifon.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>bernafon.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>electrolux.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>electrolux.com</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BSC_SBA_Small_Business_Accounts</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8)</booleanFilter>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>medline.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>jaycar.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>cardserv.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>husqvarnagroup.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>husqvarna.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>husqvarna.com</value>
-            </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
@@ -2529,7 +2419,35 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>BSC_SBA_Small_Business_Accounts</assignedTo>
+            <assignedTo>BSC_TIG</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Delivery Enquiry</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>ecomfreight.com</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>BSC_TPG</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Delivery Enquiry</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>tpgtelecom.com.au</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>BSC_TMS</assignedTo>
             <assignedToType>Queue</assignedToType>
             <booleanFilter>1 AND 2</booleanFilter>
             <criteriaItems>
@@ -2540,7 +2458,21 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>keycorp.net</value>
+                <value>tmsonline.com.au</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Priority_Investigations_Senders</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Delivery Enquiry</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>target.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -2651,21 +2583,6 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>BSC_TMS</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND 2</booleanFilter>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>tmsonline.com.au</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
             <assignedTo>BSC_Unassigned_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>
@@ -2677,20 +2594,6 @@
                 <field>Case.Business_Solutions_Customer__c</field>
                 <operation>equals</operation>
                 <value>True</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>StarTrack_CSC_Feedback</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Origin</field>
-                <operation>equals</operation>
-                <value>Snap It</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>

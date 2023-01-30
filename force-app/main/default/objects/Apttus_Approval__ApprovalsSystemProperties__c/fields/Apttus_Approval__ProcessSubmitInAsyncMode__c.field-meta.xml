@@ -4,10 +4,10 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <description>Process submit for Approvals in async/batch mode</description>
+    <description>Process preview and submit approval actions asynchronously in the background.</description>
     <externalId>false</externalId>
     <inlineHelpText>Process submit for Approvals in async/batch mode</inlineHelpText>
-    <label>Process Submit In Async Mode</label>
+    <label>Process Preview/Submit Asynchronously</label>
     <securityClassification>PUBLIC</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

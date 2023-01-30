@@ -159,7 +159,7 @@
     <label>Batch Job (CPQ)</label>
     <nameField>
         <displayFormat>{0000000000}</displayFormat>
-        <label>Job Name</label>
+        <label>Job Number</label>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Batch Jobs (CPQ)</pluralLabel>
