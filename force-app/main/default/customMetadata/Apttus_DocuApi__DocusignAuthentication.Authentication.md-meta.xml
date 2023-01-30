@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Authentication</label>
+    <protected>false</protected>
+    <values>
+        <field>Apttus_DocuApi__DocusignAPIAccountID__c</field>
+        <value xsi:type="xsd:string">2f74b43d-45a7-4dcd-be80-b94ca87a4605</value>
+    </values>
+    <values>
+        <field>Apttus_DocuApi__DocusignAccountBaseURI__c</field>
+        <value xsi:type="xsd:string">https://demo.docusign.net</value>
+    </values>
+    <values>
+        <field>Apttus_DocuApi__DocusignAccountID__c</field>
+        <value xsi:type="xsd:string">284871</value>
+    </values>
+    <values>
+        <field>Apttus_DocuApi__DocusignAdminUserAPIID__c</field>
+        <value xsi:type="xsd:string">a864beb4-596e-4c13-b2e0-fb25e66e4729</value>
+    </values>
+    <values>
+        <field>Apttus_DocuApi__EnableAdminConsent__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Apttus_DocuApi__Environment__c</field>
+        <value xsi:type="xsd:string">Demo</value>
+    </values>
+    <values>
+        <field>Apttus_DocuApi__IntegrationKey__c</field>
+        <value xsi:type="xsd:string">7ffda8ec-5ee2-406c-860e-7eb2df7df8cf</value>
+    </values>
+    <values>
+        <field>Apttus_DocuApi__PrivateKey__c</field>
+        <value xsi:type="xsd:string">MIIEpAIBAAKCAQEAtf2z5JV5BZCgVI1qMSRpj3ymDVDg7cADasvgFFxi/7hWSsJU
+wbTsnytM98HDLepg06gf+c6Jpyu3ezEm8Bs1E+Bv91ekTxvpvmtPRwAoBUFMcSkg
+kLKEzDz/7UGze0kDdfj2tp8S8hO/zW40kHbhjKKrS3eWSA4rUa00aOYRNxkw6tY5
+9nrKdyblhVHyjNt56r3NcxjbUSdbs3dXT52ZlnCRvKgyOoqCeaUgILu05litIPTD
+gBflnrhoGECz+Y/q//n/P8IWvo9/7x7ofVIwPnZIauFcBFwwYviOWmzfuDK8a4xU
+9k7MsZ7/QciM7DYMT7zEUCYB5ZV3utk0mG5nnwIDAQABAoIBACXg6rbad4h1fDFt
+B5u32PLA/mzKFy7U5sEtMvP58K8J5ogD35E7v343jHsKzL17SXD0Tsd3OgZd3oAZ
+EGIsP4VmEtfX2X6PsDxuaF8+RJYna6on5bvINESwM5JluN4hqcM9sNf8zvwsqSCw
+Xedtnu9fEikQeGqB7HlBBCYLMK0XSjGhIo8NuQyhH4xyZZE9h7pbUF/msfw/6bS3
+z+xO+GIp9BlkAUOzmk1c5rvTuWNfEx0ET3AKoZJN9bV3cse1tYhXdj1egMJl8Mgr
+HSbIzyfy7JGpr4Eq1VsFPj/Rh+3petpkwazcjGvjykynfr2SluDBw8RL2RWVG2JK
+x/YcyA0CgYEA8ttpMiWWiNJACQhrsd/DY3KzY4J0oBuyGc+Gg9SN+3zkeCxjCOBD
+Usk7dnuSIiTw5CKkoQkCIwR5ZOVa7iEpFxQCVTZ+S1VrP8eljYywyNcjY+cfcg0C
+nDGCKTRfzK4GgAnSZcknmhp6/ickZvLhNwvri98K3m9XmJ4KCJNeMWsCgYEAv9cK
+rz95g3cMmYOlvRWSXArswbGGTvQS0APpO2BIFfdYpx8UoCERQeT1VGONMBebGwQC
+rAtNGCy+6ekqef4wxcBQYv6U2+ZiOjPrQAKjhpmXZ1Bp7/5ObjNr/iaSQRi6kvWQ
++2RTZkSr8bTNbgMkAo3aWbmfPJ8HkWgyHpy/i50CgYEA5YchoVeNMrsj8mWXA4Is
+tK0PhpkhiMEkTuiohag6mNmtRTcOUrFCb9fo705TCxpG4hcr6VcOQfJUmVt72VxV
+7Y3ntonOS3zr5FfYzDOQUgGjXSRvv+cz9FOGZVMux9AiLJkb1T+MwkUMwXBVI0ei
+O9h0QroHF7u72m5jpT9C4wkCgYAuYmpc8TYKSXCsdZ5PV7Xpt2KDes8ErBMYZLmx
+95e2Z/XxgpxUE2q+ygNfgiqTJEIGiDO1MY5UeA05NX1lvcZBKjzFktSfTtcVR5Rs
+B7dORjjLbDARLSX9k0VbUCwwvS/vdJy3jAx2P8hrStIY9X1xeKcA5tbPq4wC5nSn
+3jKaKQKBgQDKNmrZZdkFrO9z7XLL661u4tlf9FqVoo3ijV/jyDo/Y4sCUiJFay5o
+rLWVnXOb+hSPcKZPRIEl5b6ls+J3gvYYrxDq1gFBWzIx6ex7jc1NxciwcqsomBh1
+9m2KCoL4Ro65tDHhtc9+U9LS7cb8JGP3n1IFbcw0Ac+jS+GyzgGMuA==</value>
+    </values>
+    <values>
+        <field>Apttus_DocuApi__PublicKey__c</field>
+        <value xsi:type="xsd:string">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtf2z5JV5BZCgVI1qMSRp
+j3ymDVDg7cADasvgFFxi/7hWSsJUwbTsnytM98HDLepg06gf+c6Jpyu3ezEm8Bs1
+E+Bv91ekTxvpvmtPRwAoBUFMcSkgkLKEzDz/7UGze0kDdfj2tp8S8hO/zW40kHbh
+jKKrS3eWSA4rUa00aOYRNxkw6tY59nrKdyblhVHyjNt56r3NcxjbUSdbs3dXT52Z
+lnCRvKgyOoqCeaUgILu05litIPTDgBflnrhoGECz+Y/q//n/P8IWvo9/7x7ofVIw
+PnZIauFcBFwwYviOWmzfuDK8a4xU9k7MsZ7/QciM7DYMT7zEUCYB5ZV3utk0mG5n
+nwIDAQAB</value>
+    </values>
+</CustomMetadata>

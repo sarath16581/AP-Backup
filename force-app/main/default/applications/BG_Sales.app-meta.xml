@@ -2063,6 +2063,24 @@
         <type>Flexipage</type>
         <profile>Legal Team</profile>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Customer Integration Application</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Deal_Support_Request_Credit_Management_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Deal_Support_Request__c</pageOrSobjectType>
+        <recordType>Deal_Support_Request__c.Credit_Management_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Customer Integration Application</profile>
+    </profileActionOverrides>
     <setupExperience>all</setupExperience>
     <tabs>standard-home</tabs>
     <tabs>standard-Feed</tabs>

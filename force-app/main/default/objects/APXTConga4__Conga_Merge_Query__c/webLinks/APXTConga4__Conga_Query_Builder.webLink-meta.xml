@@ -9,8 +9,11 @@
     <masterLabel>Conga Query Builder</masterLabel>
     <openType>sidebar</openType>
     <protected>false</protected>
-    <url>https://www.appextremes.com/apps/Conga/QB/ChooseObject.aspx
-?SessionId={!$Api.Session_ID}
-&amp;ServerUrl={!$Api.Partner_Server_URL_170}
-&amp;id={!APXTConga4__Conga_Merge_Query__c.Id}</url>
+    <url>/apex/APXTConga4__Conga_Composer
+?ServerUrl={!$Api.Partner_Server_URL_520}
+&amp;uiscreen=qb
+&amp;id={!APXTConga4__Conga_Merge_Query__c.Id}
+&amp;isLoaderAbsolute=1
+&amp;showHeader=1
+&amp;showSidebar=1</url>
 </WebLink>

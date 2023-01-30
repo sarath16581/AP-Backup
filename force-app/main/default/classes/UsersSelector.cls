@@ -17,258 +17,258 @@
 */
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
 
-	public enum Options {
-		WITH_ROLE, WITH_PROFILE, WITH_CONTACT, FILTER_EXTERNAL_USERS
-	}
+  public enum Options {
+    WITH_ROLE, WITH_PROFILE, WITH_CONTACT, FILTER_EXTERNAL_USERS
+  }
 
-	public static UsersSelector newInstance() {
-		return (UsersSelector)Application.Selectors.newInstance(UsersSelector.class);
-	}
-	public static UsersSelector newInstance(Integer recordLimit) {
-		return (UsersSelector)Application.Selectors.newInstance(UsersSelector.class).setLimit(recordLimit);
-	}
+  public static UsersSelector newInstance() {
+    return (UsersSelector)Application.Selectors.newInstance(UsersSelector.class);
+  }
+  public static UsersSelector newInstance(Integer recordLimit) {
+    return (UsersSelector)Application.Selectors.newInstance(UsersSelector.class).setLimit(recordLimit);
+  }
 
-	/**
-	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 * This approach removes data consistency and prevents possible caching of results
-	 */
-	public static UsersSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
-		UsersSelector selector = (UsersSelector)Application.Selectors.newInstance(UsersSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-		return selector;
-	}
+  /**
+   * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+   * This approach removes data consistency and prevents possible caching of results
+   */
+  public static UsersSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+    UsersSelector selector = (UsersSelector)Application.Selectors.newInstance(UsersSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+    return selector;
+  }
 
-	/**
-	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 * This approach removes data consistency and prevents possible caching of results
-	 */
-	public static UsersSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-		UsersSelector selector = (UsersSelector)Application.Selectors.newInstance(UsersSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-		return selector;
-	}
+  /**
+   * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+   * This approach removes data consistency and prevents possible caching of results
+   */
+  public static UsersSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+    UsersSelector selector = (UsersSelector)Application.Selectors.newInstance(UsersSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+    return selector;
+  }
 
 
-	public override SObjectType getSObjectType() {
-		return User.getSObjectType();
-	}
+  public override SObjectType getSObjectType() {
+    return User.getSObjectType();
+  }
 
-	public virtual override Set<SObjectField> getSObjectFieldList() {
-		return new Set<SObjectField> {
-				User.Id,User.Name, User.Username, User.FirstName, User.LastName, User.Email, User.FederationIdentifier, User.ProfileId, User.UserRoleId, User.UserPermissionsLiveAgentUser,
-				User.OID_ID__c, User.UserType, User.Current_Owner_Role__c, User.LocaleSidKey, User.LanguageLocaleKey, User.TimeZoneSidKey, User.TimeZoneSidKey, User.Alias, User.IsActive,
-				User.ContactId, User.APCN__c, User.EmployeeNumber
-		};
-	}
+  public virtual override Set<SObjectField> getSObjectFieldList() {
+    return new Set<SObjectField> {
+        User.Id,User.Name, User.Username, User.FirstName, User.LastName, User.Email, User.FederationIdentifier, User.ProfileId, User.UserRoleId, User.UserPermissionsLiveAgentUser,
+        User.OID_ID__c, User.UserType, User.Current_Owner_Role__c, User.LocaleSidKey, User.LanguageLocaleKey, User.TimeZoneSidKey, User.TimeZoneSidKey, User.Alias, User.IsActive,
+        User.ContactId, User.APCN__c, User.EmployeeNumber
+    };
+  }
 
-	/**
-	 * @description Run a simple query to get records based on Id's
-	 */
-	public Map<Id, User> selectById(Set<Id> ids) {
-		return selectById(ids, new Set<Object>());
-	}
+  /**
+   * @description Run a simple query to get records based on Id's
+   */
+  public Map<Id, User> selectById(Set<Id> ids) {
+    return selectById(ids, new Set<Object>());
+  }
 
-	/**
-	 * @description Run a simple query to get records based on Id's
-	 */
-	public Map<Id, User> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+  /**
+   * @description Run a simple query to get records based on Id's
+   */
+  public Map<Id, User> selectById(Set<Id> ids, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Id + ' in :ids')).endConditions();
-		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
-	}
+    return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
+  }
 
-	/**
-	 * @description Run a simple query to get records based on usernames
-	 */
-	public Map<Id, User> selectByUsername(Set<String> usernames) {
-		return selectByUsername(usernames, new Set<Object>());
-	}
+  /**
+   * @description Run a simple query to get records based on usernames
+   */
+  public Map<Id, User> selectByUsername(Set<String> usernames) {
+    return selectByUsername(usernames, new Set<Object>());
+  }
 
-	/**
-	 * @description Run a simple query to get active users based on Id, profile Name
-	 */
-	public Map<Id, User> selectActiveUserByProfileName(Set<Id> contactIds, String profileName, Set<Object> selectorOptions) {
-		return new Map<Id, User>(search(new Map<String, Object>{
-				'contactIds' => contactIds, 'profileNames' => profileName, 'isActive' => true
-		}, selectorOptions, true));
-	}
+  /**
+   * @description Run a simple query to get active users based on Id, profile Name
+   */
+  public Map<Id, User> selectActiveUserByProfileName(Set<Id> contactIds, String profileName, Set<Object> selectorOptions) {
+    return new Map<Id, User>(search(new Map<String, Object>{
+        'contactIds' => contactIds, 'profileNames' => profileName, 'isActive' => true
+    }, selectorOptions, true));
+  }
 
-	/**
-	 * @description Run a simple query to get users based on contact Id, profile Name
-	 */
-	public Map<Id, User> selectUserByContactIdAndProfileName(Set<Id> contactIds, String profileName, Set<Object> selectorOptions) {
-		return new Map<Id, User>(search(new Map<String, Object>{
-				'contactIds' => contactIds, 'profileNames' => profileName
-		}, selectorOptions, true));
-	}
+  /**
+   * @description Run a simple query to get users based on contact Id, profile Name
+   */
+  public Map<Id, User> selectUserByContactIdAndProfileName(Set<Id> contactIds, String profileName, Set<Object> selectorOptions) {
+    return new Map<Id, User>(search(new Map<String, Object>{
+        'contactIds' => contactIds, 'profileNames' => profileName
+    }, selectorOptions, true));
+  }
 
-	/**
-	 * @description Run a simple query to get records based on usernames
-	 */
-	public Map<Id, User> selectByUsername(Set<String> usernames, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames')).endConditions();
-		return new Map<Id, User>((List<User>) Database.query(qb.toSoqlString()));
-	}
+  /**
+   * @description Run a simple query to get records based on usernames
+   */
+  public Map<Id, User> selectByUsername(Set<String> usernames, Set<Object> selectorOptions) {
+    QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames')).endConditions();
+    return new Map<Id, User>((List<User>) Database.query(qb.toSoqlString()));
+  }
 
-	/**
-	 * @description Run a simple query to get records based on names
-	 */
-	public Map<Id, User> selectByName(Set<String> names) {
-		return selectByName(names, new Set<Object>());
-	}
+  /**
+   * @description Run a simple query to get records based on names
+   */
+  public Map<Id, User> selectByName(Set<String> names) {
+    return selectByName(names, new Set<Object>());
+  }
 
-	/**
-	 * @description Run a simple query to get records based on names
-	 */
-	public Map<Id, User> selectByName(Set<String> names, Set<Object> selectorOptions) {
+  /**
+   * @description Run a simple query to get records based on names
+   */
+  public Map<Id, User> selectByName(Set<String> names, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.Name + ' in :names')).endConditions();
-		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
-	}
+    return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
+  }
 
-	/**
-	 * @description Run a simple query to get records based on Username.ContactId
-	 */
-	public Map<Id, User> selectByContactId(Set<Id> contactIds) {
-		return selectByContactId(contactIds, new Set<Object>());
-	}
+  /**
+   * @description Run a simple query to get records based on Username.ContactId
+   */
+  public Map<Id, User> selectByContactId(Set<Id> contactIds) {
+    return selectByContactId(contactIds, new Set<Object>());
+  }
 
-	/**
-	 * @description Run a simple query to get records based on Username.ContactId
-	 */
-	public Map<Id, User> selectByContactId(Set<Id> contactIds, Set<Object> selectorOptions) {
+  /**
+   * @description Run a simple query to get records based on Username.ContactId
+   */
+  public Map<Id, User> selectByContactId(Set<Id> contactIds, Set<Object> selectorOptions) {
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(User.ContactId + ' in :contactIds')).endConditions();
-		return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
-	}
+    return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
+  }
 
-	/**
-	 * Run a SOQL based on the search parameters passed in
-	 *
-	 * @param searchParams A map containing searchable values:
-	 *						 federationIds: maps to FederationIdentifier (Set<String>/String)
-	 *						 contactIds: maps to Contact (Set<Id>/Id)
-	 *						 profileIds: maps to Profile (Set<Id>/Id)
-	 *						 roleIds: maps to UserRole (Set<Id>/Id)
-	 *						 profileNames: maps to Profile (Set<String>/String)
-	 *						 usernames: maps to Username (Set<String>/String)
-	 *						 networkIds: Users with NetworkMember records (Set<Id>/Id)
-	 *
-	 *
-	 * @param selectorOptions Selector Options
-	 * @param matchAll If true will search based on AND, else search based on OR
-	 */
-	public List<User> search(Map<String, Object> searchParams, Boolean matchAll) {
-		return search(searchParams, new Set<Object>(), matchAll);
-	}
+  /**
+   * Run a SOQL based on the search parameters passed in
+   *
+   * @param searchParams A map containing searchable values:
+   *             federationIds: maps to FederationIdentifier (Set<String>/String)
+   *             contactIds: maps to Contact (Set<Id>/Id)
+   *             profileIds: maps to Profile (Set<Id>/Id)
+   *             roleIds: maps to UserRole (Set<Id>/Id)
+   *             profileNames: maps to Profile (Set<String>/String)
+   *             usernames: maps to Username (Set<String>/String)
+   *             networkIds: Users with NetworkMember records (Set<Id>/Id)
+   *
+   *
+   * @param selectorOptions Selector Options
+   * @param matchAll If true will search based on AND, else search based on OR
+   */
+  public List<User> search(Map<String, Object> searchParams, Boolean matchAll) {
+    return search(searchParams, new Set<Object>(), matchAll);
+  }
 
-	/**
-	 * Run a SOQL based on the search parameters passed in
-	 *
-	 * @param searchParams A map containing searchable values:
-	 *						 federationIds: maps to FederationIdentifier (Set<String>/String)
-	 *						 contactIds: maps to Contact (Set<Id>/Id)
-	 *						 profileIds: maps to Profile (Set<Id>/Id)
-	 *						 roleIds: maps to UserRole (Set<Id>/Id)
-	 *						 profileNames: maps to Profile (Set<String>/String)
-	 *						 usernames: maps to Username (Set<String>/String)
-	 *						 networkIds: Users with NetworkMember records (Set<Id>/Id)
-	 *						 federationField: This is the field to use when comparing federationIds is supplied. This will default to User.FederationIdentifier if no SObjectField is passed in
-	 *
-	 *
-	 * @param selectorOptions Selector Options
-	 * @param matchAll If true will search based on AND, else search based on OR
-	 */
-	public List<User> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+  /**
+   * Run a SOQL based on the search parameters passed in
+   *
+   * @param searchParams A map containing searchable values:
+   *             federationIds: maps to FederationIdentifier (Set<String>/String)
+   *             contactIds: maps to Contact (Set<Id>/Id)
+   *             profileIds: maps to Profile (Set<Id>/Id)
+   *             roleIds: maps to UserRole (Set<Id>/Id)
+   *             profileNames: maps to Profile (Set<String>/String)
+   *             usernames: maps to Username (Set<String>/String)
+   *             networkIds: Users with NetworkMember records (Set<Id>/Id)
+   *             federationField: This is the field to use when comparing federationIds is supplied. This will default to User.FederationIdentifier if no SObjectField is passed in
+   *
+   *
+   * @param selectorOptions Selector Options
+   * @param matchAll If true will search based on AND, else search based on OR
+   */
+  public List<User> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
 
-		Set<Id> profileIds = (Set<Id>)(searchParams.get('profileIds') == null ? new Set<Id>() : (searchParams.get('profileIds') instanceof Set<Id> ? searchParams.get('profileIds') : new Set<Id>{(Id)searchParams.get('profileIds')}));
-		Set<Id> contactIds = (Set<Id>)(searchParams.get('contactIds') == null ? new Set<Id>() : (searchParams.get('contactIds') instanceof Set<Id> ? searchParams.get('contactIds') : new Set<Id>{(Id)searchParams.get('contactIds')}));
-		Set<Id> roleIds = (Set<Id>)(searchParams.get('roleIds') == null ? new Set<Id>() : (searchParams.get('roleIds') instanceof Set<Id> ? searchParams.get('roleIds') : new Set<Id>{(Id)searchParams.get('roleIds')}));
-		Set<String> federationIds = (Set<String>)(searchParams.get('federationIds') == null ? new Set<String>() : (searchParams.get('federationIds') instanceof Set<String> ? searchParams.get('federationIds') : new Set<String>{String.valueOf(searchParams.get('federationIds'))}));
-		Set<String> profileNames = (Set<String>)(searchParams.get('profileNames') == null ? new Set<String>() : (searchParams.get('profileNames') instanceof Set<String> ? searchParams.get('profileNames') : new Set<String>{String.valueOf(searchParams.get('profileNames'))}));
-		Set<String> usernames = (Set<String>)(searchParams.get('usernames') == null ? new Set<String>() : (searchParams.get('usernames') instanceof Set<String> ? searchParams.get('usernames') : new Set<String>{String.valueOf(searchParams.get('usernames'))}));
-		Boolean isActive = (searchParams.get('isActive') != null ? (Boolean)searchParams.get('isActive') : false);
+    Set<Id> profileIds = (Set<Id>)(searchParams.get('profileIds') == null ? new Set<Id>() : (searchParams.get('profileIds') instanceof Set<Id> ? searchParams.get('profileIds') : new Set<Id>{(Id)searchParams.get('profileIds')}));
+    Set<Id> contactIds = (Set<Id>)(searchParams.get('contactIds') == null ? new Set<Id>() : (searchParams.get('contactIds') instanceof Set<Id> ? searchParams.get('contactIds') : new Set<Id>{(Id)searchParams.get('contactIds')}));
+    Set<Id> roleIds = (Set<Id>)(searchParams.get('roleIds') == null ? new Set<Id>() : (searchParams.get('roleIds') instanceof Set<Id> ? searchParams.get('roleIds') : new Set<Id>{(Id)searchParams.get('roleIds')}));
+    Set<String> federationIds = (Set<String>)(searchParams.get('federationIds') == null ? new Set<String>() : (searchParams.get('federationIds') instanceof Set<String> ? searchParams.get('federationIds') : new Set<String>{String.valueOf(searchParams.get('federationIds'))}));
+    Set<String> profileNames = (Set<String>)(searchParams.get('profileNames') == null ? new Set<String>() : (searchParams.get('profileNames') instanceof Set<String> ? searchParams.get('profileNames') : new Set<String>{String.valueOf(searchParams.get('profileNames'))}));
+    Set<String> usernames = (Set<String>)(searchParams.get('usernames') == null ? new Set<String>() : (searchParams.get('usernames') instanceof Set<String> ? searchParams.get('usernames') : new Set<String>{String.valueOf(searchParams.get('usernames'))}));
+    Boolean isActive = (searchParams.get('isActive') != null ? (Boolean)searchParams.get('isActive') : false);
 
-		return (List<User>)Database.query(getSearchSoql(searchParams, selectorOptions, matchAll));
-	}
+    return (List<User>)Database.query(getSearchSoql(searchParams, selectorOptions, matchAll));
+  }
 
-	/**
-	 * Separated from search method so SOQL can be inspected in Test class
-	 */
-	@TestVisible
-	private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
-		Set<Id> networkIds = (Set<Id>)(searchParams.get('networkIds') == null ? new Set<Id>() : (searchParams.get('networkIds') instanceof Set<Id> ? searchParams.get('networkIds') : new Set<Id>{(Id)searchParams.get('networkIds')}));
-		SObjectField federationField = (searchParams.get('federationField') != null ? (SObjectField)searchParams.get('federationField') : User.FederationIdentifier);
+  /**
+   * Separated from search method so SOQL can be inspected in Test class
+   */
+  @TestVisible
+  private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+    Set<Id> networkIds = (Set<Id>)(searchParams.get('networkIds') == null ? new Set<Id>() : (searchParams.get('networkIds') instanceof Set<Id> ? searchParams.get('networkIds') : new Set<Id>{(Id)searchParams.get('networkIds')}));
+    SObjectField federationField = (searchParams.get('federationField') != null ? (SObjectField)searchParams.get('federationField') : User.FederationIdentifier);
 
-		QueryBuilder builder = newQueryBuilder(selectorOptions);
-		QueryBuilder.ConditionsManager conditions = builder.addConditions();
+    QueryBuilder builder = newQueryBuilder(selectorOptions);
+    QueryBuilder.ConditionsManager conditions = builder.addConditions();
 
-		Integer conditionCount = 0;
-		if(searchParams.containsKey('profileIds')) {
-			conditions.add(new QueryBuilder.SimpleCondition(User.ProfileId + ' in :profileIds'));
-			conditionCount++;
-		}
-		if(searchParams.containsKey('contactIds')) {
-			conditions.add(new QueryBuilder.SimpleCondition(User.ContactId + ' in :contactIds'));
-			conditionCount++;
-		}
-		if(searchParams.containsKey('roleIds')) {
-			conditions.add(new QueryBuilder.SimpleCondition(User.UserRoleId + ' in :roleIds'));
-			conditionCount++;
-		}
-		if(searchParams.containsKey('networkIds')) {
-			QueryBuilder qbInner = new QueryBuilder(NetworkMember.SObjectType);
-			qbInner.addFields(new List<SObjectField>{NetworkMember.MemberId});
-			qbInner.addConditions().add(new QueryBuilder.InCondition(NetworkMember.NetworkId).inCollection(networkIds)).endConditions();
+    Integer conditionCount = 0;
+    if(searchParams.containsKey('profileIds')) {
+      conditions.add(new QueryBuilder.SimpleCondition(User.ProfileId + ' in :profileIds'));
+      conditionCount++;
+    }
+    if(searchParams.containsKey('contactIds')) {
+      conditions.add(new QueryBuilder.SimpleCondition(User.ContactId + ' in :contactIds'));
+      conditionCount++;
+    }
+    if(searchParams.containsKey('roleIds')) {
+      conditions.add(new QueryBuilder.SimpleCondition(User.UserRoleId + ' in :roleIds'));
+      conditionCount++;
+    }
+    if(searchParams.containsKey('networkIds')) {
+      QueryBuilder qbInner = new QueryBuilder(NetworkMember.SObjectType);
+      qbInner.addFields(new List<SObjectField>{NetworkMember.MemberId});
+      qbInner.addConditions().add(new QueryBuilder.InCondition(NetworkMember.NetworkId).inCollection(networkIds)).endConditions();
 
-			conditions.add(new QueryBuilder.InCondition(User.Id).inCollection(qbInner));
-			conditionCount++;
-		}
-		if(searchParams.containsKey('federationIds')) {
-			conditions.add(new QueryBuilder.SimpleCondition(federationField + ' in :federationIds'));
-			conditionCount++;
-		}
-		if(searchParams.containsKey('profileNames')) {
-			conditions.add(new QueryBuilder.SimpleCondition('Profile.' + Profile.Name + ' in :profileNames'));
-			conditionCount++;
-		}
-		if(searchParams.containsKey('usernames')) {
-			conditions.add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames'));
-			conditionCount++;
-		}
-		if(searchParams.containsKey('isActive')) {
-			conditions.add(new QueryBuilder.SimpleCondition(User.IsActive + ' = :isActive'));
-			conditionCount++;
-		}
+      conditions.add(new QueryBuilder.InCondition(User.Id).inCollection(qbInner));
+      conditionCount++;
+    }
+    if(searchParams.containsKey('federationIds')) {
+      conditions.add(new QueryBuilder.SimpleCondition(federationField + ' in :federationIds'));
+      conditionCount++;
+    }
+    if(searchParams.containsKey('profileNames')) {
+      conditions.add(new QueryBuilder.SimpleCondition('Profile.' + Profile.Name + ' in :profileNames'));
+      conditionCount++;
+    }
+    if(searchParams.containsKey('usernames')) {
+      conditions.add(new QueryBuilder.SimpleCondition(User.Username + ' in :usernames'));
+      conditionCount++;
+    }
+    if(searchParams.containsKey('isActive')) {
+      conditions.add(new QueryBuilder.SimpleCondition(User.IsActive + ' = :isActive'));
+      conditionCount++;
+    }
 
-		// build our condition string which would end up being something liek the following:
-		// 1 AND 2 AND 3
-		// 1 OR 2 OR 3
-		String conditionOrder = '';
-		for(Integer i=0;i<conditionCount;i++) {
-			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
-		}
-		conditions.setConditionOrder(conditionOrder);
+    // build our condition string which would end up being something liek the following:
+    // 1 AND 2 AND 3
+    // 1 OR 2 OR 3
+    String conditionOrder = '';
+    for(Integer i=0;i<conditionCount;i++) {
+      conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
+    }
+    conditions.setConditionOrder(conditionOrder);
 
-		return conditions.endConditions().toSoqlString();
-	}
+    return conditions.endConditions().toSoqlString();
+  }
 
-	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+  public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+    QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
-		if(selectorOptions.contains(Options.WITH_CONTACT)) {
-			builder.addRelatedFields(ContactsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'Contact');
-		}
+    if(selectorOptions.contains(Options.WITH_CONTACT)) {
+      builder.addRelatedFields(ContactsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'Contact');
+    }
 
-		if(selectorOptions.contains(Options.WITH_ROLE)) {
-			builder.addRelatedFields(UserRolesSelector.newInstance().newQueryBuilder(), 'UserRole');
-		}
+    if(selectorOptions.contains(Options.WITH_ROLE)) {
+      builder.addRelatedFields(UserRolesSelector.newInstance().newQueryBuilder(), 'UserRole');
+    }
 
-		if(selectorOptions.contains(Options.WITH_PROFILE)) {
-			builder.addRelatedFields(ProfilesSelector.newInstance().newQueryBuilder(), 'Profile');
-		}
+    if(selectorOptions.contains(Options.WITH_PROFILE)) {
+      builder.addRelatedFields(ProfilesSelector.newInstance().newQueryBuilder(), 'Profile');
+    }
 
-		if(selectorOptions.contains(Options.FILTER_EXTERNAL_USERS)) {
-			builder.addConditions().add(new QueryBuilder.CompareCondition(User.IsPortalEnabled).eq(true)).endConditions();
-		}
+    if(selectorOptions.contains(Options.FILTER_EXTERNAL_USERS)) {
+      builder.addConditions().add(new QueryBuilder.CompareCondition(User.IsPortalEnabled).eq(true)).endConditions();
+    }
 
-		return builder;
-	}
+    return builder;
+  }
 
 
 

@@ -5,7 +5,7 @@
     <description>Id of the action products that can be selected and must be excluded</description>
     <externalId>false</externalId>
     <label>Action Product Ids</label>
-    <length>8192</length>
+    <length>20900</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

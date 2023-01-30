@@ -3,7 +3,7 @@
     <fullName>Apttus_Approval__SyncSubmitRequestThreshold__c</fullName>
     <defaultValue>200</defaultValue>
     <deprecated>false</deprecated>
-    <description>DEPRECATED.  Approval Request count threshold, exceeding which submit will be processed in batch/async mode</description>
+    <description>DEPRECATED. Approval Request count threshold, exceeding which submit will be processed in batch/async mode</description>
     <externalId>false</externalId>
     <inlineHelpText>DEPRECATED.  Approval Request count threshold, exceeding which submit will be processed in batch/async mode</inlineHelpText>
     <label>Sync Submit Request Threshold-DEPRECATED</label>
