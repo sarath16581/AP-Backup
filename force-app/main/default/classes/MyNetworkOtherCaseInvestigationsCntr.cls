@@ -22,8 +22,7 @@ public with sharing class MyNetworkOtherCaseInvestigationsCntr {
 																				CaseInvestigationsSelector.Options.WITH_ARTICLES,
 																				CaseInvestigationsSelector.Options.WITH_NETWORKS}).values();
 		
-		for(CaseInvestigation__c ci : caseInvestigations){
-
+		for(CaseInvestigation__c ci : caseInvestigations) {
 			if(ci.Id == caseInvestigationRecordId) {
 				continue;
 			}

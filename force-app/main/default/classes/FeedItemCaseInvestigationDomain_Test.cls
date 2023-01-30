@@ -13,8 +13,29 @@
 @IsTest
 private class FeedItemCaseInvestigationDomain_Test {
 	
+	
 	/**
-	 * Bulk of the tests are handled in the Core class
+	 * @test: Ensure modules are registered with domain class.
+	 */
+	@IsTest
+	static void ensureThatRegisterModulesIsBeingCalledWithTheCorrectType() {
+		List<FeedItem> feedItems = new List<FeedItem>();
+
+		MockUtility.mockDomain(ApplicationDomain.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.stopStubbing();
+		
+		ApplicationDomain appDomain = FeedItemCaseInvestigationDomain.newInstance(feedItems);
+		((ApplicationDomain) MockUtility.Mocks.verify(appDomain, MockUtility.Mocks.times(1))).registerModule(FeedItemCaseInvestigationModule.class);
+
+		// PMD by-pass
+		System.assert(true, 'PMD by-pass');
+	}
+
+	/**
+	 * @test: Ensure records are filtered when passed to modules. 
+	 * Expected to filter out FeedItems related to case investigations only. 
 	 */
 	@IsTest
 	private static void testFeedItemsDomain() {
@@ -22,19 +43,18 @@ private class FeedItemCaseInvestigationDomain_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
 
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		cases[0].ArticleTest__c = articles[0].Id;
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
-
-		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
-		networks[0].Org_ID__c = '1234';
-
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+	
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, null, null, true);
 		
-		List<FeedItem> feedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
+		//create case investigation feed items
+		List<FeedItem> ciFeedItems = ApplicationTestDataFactory.getChatterFeeds(2, caseInvestigations[0].Id, true);
+		
+		//create case feed item
+		FeedItem caseFeedItem = ApplicationTestDataFactory.getChatterFeeds(1, cases[0].Id, true)[0];
 
+		List<FeedItem> feedItemsToPass = new List<FeedItem>{ciFeedItems[0], ciFeedItems[1], caseFeedItem};
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -44,12 +64,10 @@ private class FeedItemCaseInvestigationDomain_Test {
 		// =====================================
 		// Testing
 		// =====================================
-		ApplicationDomain.IConstructable constructableDomain = new FeedItemCaseInvestigationDomain.Constructor();
-		FeedItemCaseInvestigationDomain domain = (FeedItemCaseInvestigationDomain) constructableDomain.construct(feedItems);
-
-		//asserting feeditems are filtered
-		System.assertEquals(2, domain.records.size(), 'Records should have been filtered in call to newInstance');
-		System.assertEquals(feedItems[0].Id, domain.records[0].Id, 'Expected record');
+		
+		List<FeedItem> filteredList = (List<FeedItem>)FeedItemCaseInvestigationDomain.newInstance(feedItemsToPass).filter(feedItemsToPass);
+		System.assertEquals(2, filteredList.size(), 'should be the same size as the RT list');
+		System.assert(filteredList.contains(feedItemsToPass[2]) == false, 'should filter out this record');
 	}
 
 }

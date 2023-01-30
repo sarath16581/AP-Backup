@@ -17,26 +17,12 @@ private class STCaseRelatedRecordsProcessModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-
-		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
-		
         List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-        cases[0].ArticleTest__c = articles[0].Id;
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
-		cases[0].Status = 'Closed'; //setting updated case status
+        cases[0].Status = 'Closed'; //setting updated case status
 
 		//cloning existing case to make it old case.
 		Case oldCase = cases[0].clone(true);
 		oldCase.Status = 'New'; //setting status of OLD Case record. (Trigger.Old)
-
-        List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
-		networks[0].Org_ID__c = '1234';
-
-        List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
-		caseInvestigations[0].Status__c = 'New';
-
-		//assigning child CI records to case.
-		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{caseInvestigations[0]}});
 
 		// =====================================
 		// Stubbing
@@ -45,10 +31,6 @@ private class STCaseRelatedRecordsProcessModule_Test {
 		STCaseInvestigationLifecycleModule mockModuleUtil = (STCaseInvestigationLifecycleModule) MockUtility.mockUtility(STCaseInvestigationLifecycleModule.class);
         
 		MockUtility.Mocks.startStubbing();
-		
-		//mocking STCaseInvestigationLifecycleModule method call.
-		//((STCaseInvestigationLifecycleModule)MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockModuleUtil)).updateAllCaseInvestigations((List<SObject>)fflib_Match.anyObject(),(Map<Id, Case>)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
-		
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -62,7 +44,6 @@ private class STCaseRelatedRecordsProcessModule_Test {
 		Test.stopTest();
 
 		//verify that STCaseInvestigationLifecycleModule is called once with expected list of jobs
-		fflib_ArgumentCaptor updatedCaseInvestigationsCaptor = fflib_ArgumentCaptor.forClass(List<CaseInvestigation__c>.class);
 		((STCaseInvestigationLifecycleModule) MockUtility.Mocks.verify(mockModuleUtil, MockUtility.Mocks.times(1))).updateAllCaseInvestigations(cases, new Map<Id, Case>{oldCase.Id => oldCase}, mockUow);
 	}
 }

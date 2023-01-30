@@ -20,20 +20,10 @@ private class MyNetworkCaseUserResponseController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
-
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		cases[0].ArticleTest__c = articles[0].Id;
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackGeneralEnquiryRecordType;
-
-		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, true);
-		networks[0].Org_ID__c = '1234';
-
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
 		
-		//assigning child CI records to case.
-		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'CaseInvestigations__r' => new List<SObject>{caseInvestigations[0]}});
-
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, null, null, true);
+		
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -41,31 +31,15 @@ private class MyNetworkCaseUserResponseController_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 
 		Test.StartTest();
-		MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed('Sample Feed Comments', caseInvestigations[0].Id, cases[0].Id);
+		String result = MyNetworkCaseUserResponseController.postCaseInvestigationChatterFeed('Sample Feed Comments', caseInvestigations[0].Id, cases[0].Id);
 		Test.stopTest();
 
-		fflib_ArgumentCaptor insertableRecordsCaptor = fflib_ArgumentCaptor.forClass(List<FeedItem>.class);
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<FeedItem>) insertableRecordsCaptor.capture());
-
-		List<FeedItem> insertedRecords = (List<FeedItem>) insertableRecordsCaptor.getValue();
-
-		//asserting feeditem is inserted with expected comments.
-		system.assertEquals(1, insertedRecords.size());
-		system.assertEquals('Sample Feed Comments', insertedRecords[0].Body);
-
-
-		fflib_ArgumentCaptor updatableRecordsCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>) updatableRecordsCaptor.capture());
-
-		List<Case> updatedCase = (List<Case>)updatableRecordsCaptor.getValue();
-
-		//asserting case status is updated
-		system.assertEquals(MyNetworkConstants.CASE_STATUS_NETWORK_RESPONDED, updatedCase[0].Status);
-
-	}
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<FeedItem>) fflib_Match.eqList(new List<FeedItem>{ new FeedItem(ParentId = caseInvestigations[0].Id, Body = 'Sample Feed Comments')}));
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>) fflib_Match.eqList(new List<Case>{ new Case(Id = cases[0].Id, Status = MyNetworkConstants.CASE_STATUS_NETWORK_RESPONDED)}));
+		
+		System.assertEquals('success', result);
+	}	
 }
