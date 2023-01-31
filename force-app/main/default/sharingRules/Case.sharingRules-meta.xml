@@ -555,6 +555,21 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>StarTrack_Case_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share the Star Track record type cases to Role and internal subordinates of SSSW MyNetwork Manager</description>
+        <label>StarTrack Case Read Only</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>SSSW_Facility_Manager_VIC</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Delivery Enquiry,Voice of Customer Enquiry,General Enquiry,Pickup Booking Enquiry</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>StarTrack_Credit_Case_Approvers_Access</fullName>
         <accessLevel>Read</accessLevel>
         <description>StarTrack Credit Case Approvers Access</description>
