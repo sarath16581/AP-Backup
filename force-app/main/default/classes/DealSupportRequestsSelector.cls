@@ -207,6 +207,10 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
 			builder.addRelatedFields(ApttusContractsSelector.newInstance().newQueryBuilder(), 'APT_Contract__r');
 		}
 		
+		if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
+            builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Organisation__r');
+        }
+
 		return builder;
 	}
 }
