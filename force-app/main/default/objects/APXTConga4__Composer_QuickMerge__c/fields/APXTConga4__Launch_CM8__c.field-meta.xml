@@ -3,12 +3,12 @@
     <fullName>APXTConga4__Launch_CM8__c</fullName>
     <deprecated>false</deprecated>
     <description>IF( 
- OR(APXTConga4__Weblink_ID__c = null, APXTConga4__Weblink_ID__c = &apos;&apos;), 
+ OR(Weblink_ID__c = null, Weblink_ID__c = &apos;&apos;), 
 
- IMAGE( &quot;/resource/APXTConga4__DisabledLaunchButton&quot;, &quot;Launch Disabled&quot;),
+ IMAGE( &quot;/resource/DisabledLaunchButton&quot;, &quot;Launch Disabled&quot;),
 
  HYPERLINK(&quot;https://&quot; &amp; MID( $Api.Enterprise_Server_URL_320, FIND(&quot;://&quot;, $Api.Enterprise_Server_URL_100)+3, FIND( &quot;.com&quot;, $Api.Enterprise_Server_URL_100 )-4) 
- &amp; &quot;servlet/servlet.Integration?lid=&quot; &amp; APXTConga4__Weblink_ID__c 
+ &amp; &quot;servlet/servlet.Integration?lid=&quot; &amp; Weblink_ID__c 
  &amp; &quot;&amp;eid=&quot; &amp; Id &amp; &quot;&amp;ic=1&quot; 
  , IMAGE( &quot;/resource/APXTConga4__ComposerLaunchButton&quot; , &quot;Launch Composer&quot;), &quot;_blank&quot; )
 )</description>
@@ -16,7 +16,7 @@
     <formula>IF( 
  OR(APXTConga4__Weblink_ID__c = null, APXTConga4__Weblink_ID__c = &apos;&apos;), 
 
- IMAGE( &quot;/resource/APXTConga4__DisabledLaunchButton&quot;, &quot;Launch Disabled&quot;),
+ IMAGE( &quot;/resource/DisabledLaunchButton&quot;, &quot;Launch Disabled&quot;),
 
  HYPERLINK(&quot;/apex/APXTConga4__SMComposer8Launcher?SampleRecordId=&quot; &amp; Id &amp; &quot;&amp;WeblinkId=&quot; &amp; APXTConga4__Weblink_ID__c &amp; &quot;&amp;SMRecordId=&quot; &amp; APXTConga4__Conga_Solution__r.Id &amp; &quot;&amp;OrganizationId=&quot; &amp; $Organization.Id
  , IMAGE( &quot;/resource/APXTConga4__ComposerLaunchButton&quot; , &quot;Launch Composer&quot;), &quot;_blank&quot; ))</formula>
