@@ -3,7 +3,7 @@
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>noreply@auspost.com.au</email>
     <name>SSSW Social Media</name>
-    <queueRoutingConfig></queueRoutingConfig>
+    <queueRoutingConfig>AP_SSSW_Social_Cases</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
