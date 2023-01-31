@@ -119,10 +119,11 @@ public with sharing class StarTrackTrackingIDSearchUtil {
         }
     }
 
+	@TestVisible
     private without sharing class TransferCaseQueueable implements Queueable{
         Case cse;
         Set<Id> caseRecordTypes = new Set<Id>{
-                SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId()
+				SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId()
         };
 
         public  TransferCaseQueueable(Case record) {			
@@ -166,6 +167,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
 																		new Set<Id>{Id.valueOf(record.Id)},
 																		new Set<Object>{CasesSelector.Options.WITH_ARTICLE, CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_NETWORK, CasesSelector.Options.WITH_BILLINGACCOUNT, CasesSelector.Options.WITH_ACCOUNT}
 												).values()[0];
+
         }
 
         public void execute(QueueableContext context) {
@@ -176,7 +178,7 @@ public with sharing class StarTrackTrackingIDSearchUtil {
 					&& caseRecordTypes.contains(this.cse.RecordTypeId) ) { // only startrack delivery enquiry record type
 					//get transfer owner Id
 					Id transferOwnerId = transferCase(this.cse);
-					if (transferOwnerId !=null){
+					if (transferOwnerId !=null && this.cse.OwnerId != transferOwnerId){
 						Case caseToBeUpdated = new Case();
 						caseToBeUpdated.Id = cse.Id;
 						caseToBeUpdated.OwnerId = transferOwnerId;
@@ -342,7 +344,6 @@ public with sharing class StarTrackTrackingIDSearchUtil {
             UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackTrackingIDSearchUtil.class.getName(), 'transferCase', StarTrack_Constants.CASE_TRIGGER, LoggingLevel.ERROR);
             ruleSatisfied = false;
         }
-        System.debug('The Owner Id of the case is '+ownerId);
         return ownerId;
     }
 
