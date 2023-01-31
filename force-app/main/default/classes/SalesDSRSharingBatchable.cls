@@ -10,11 +10,16 @@
 public without sharing class SalesDSRSharingBatchable extends SalesRecordSharingBatchable {
 
 	public SalesDSRSharingBatchable() {
-		super(Deal_Support_Request__c.SObjectType);
+		super(Deal_Support_Request__c.SObjectType, new Set<Id>());
 	}
 
-	@TestVisible
-	protected override Database.QueryLocator getQueryLocator() {
-		return DealSupportRequestsSelector.newInstance(fieldOverride).selectByAccountRelationshipQueryLocator(new Set<Object>{ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER, DealSupportRequestsSelector.Options.WITH_ORGANISATION});
+	public SalesDSRSharingBatchable(Set<Id> accountIds) {
+		super(Deal_Support_Request__c.SObjectType, accountIds);
+	}
+
+	@TestVisible protected override Database.QueryLocator getQueryLocator(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		return DealSupportRequestsSelector.newInstance(fieldOverrides).selectByAccountOrderByAccountIdQueryLocator(this.accountIds, new Set<Object>{
+				DealSupportRequestsSelector.Options.WITH_ORGANISATION
+		});
 	}
 }

@@ -13,7 +13,7 @@
  */
 public with sharing class ApttusContractsSelector extends ApplicationSelector{
     public enum Options {
-        WITH_RECORDTYPE, WITH_OWNER, WITH_ORGANISATION, WITH_CONTACT, WITH_CREDIT_ASSESSMENT , WITH_PROPOSAL , WITH_OPPORTUNITY, WITH_ACCOUNT
+        WITH_RECORDTYPE, WITH_OWNER, WITH_ORGANISATION, WITH_CONTACT, WITH_CREDIT_ASSESSMENT , WITH_PROPOSAL , WITH_OPPORTUNITY
     }
     public static ApttusContractsSelector newInstance() {
         return (ApttusContractsSelector)Application.Selectors.newInstance(ApttusContractsSelector.class);
@@ -77,14 +77,28 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
     }
 
     /**
-	* This method is used to get query builder of Apttus Contract records where organisation not null
+	* Returns a query locator to retrieve Apttus Contracts (Apttus__APTS_Agreement__c) based on the account ids passed in.
+	* If set of account ids is null or empty, returns all Apttus Contract records having a parent account.
+	* Query results are ordered by parent account Id desc
+	* @param accountIds set of parent account ids. returns all child Apttus Contract records associated with a parent account if null
+	*                   or empty set is supplied.
+	* @param selectorOptions set of additional selector options to augment the result set
 	* @return query locator of Apttus Contract records
 	*/
-    public Database.QueryLocator selectByAccountRelationshipQueryLocator(Set<Object> selectorOptions) {
-        QueryBuilder qb = newQueryBuilder(selectorOptions)
-                .addConditions()
-                .add(new QueryBuilder.SimpleCondition(Apttus__APTS_Agreement__c.Apttus__Account__c + ' != null'))
-                .endConditions();
+    public Database.QueryLocator selectByAccountOrderByAccountIdQueryLocator(Set<Id> accountIds, Set<Object> selectorOptions) {
+
+        Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
+        options.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+
+        QueryBuilder qb = newQueryBuilder(options);
+        QueryBuilder.ConditionsManager conditions = qb.addConditions();
+        if (accountIds != null && !accountIds.isEmpty()) {
+            conditions.add(new QueryBuilder.SimpleCondition(Apttus__APTS_Agreement__c.Apttus__Account__c + ' in :accountIds'));
+        } else {
+            conditions.add(new QueryBuilder.SimpleCondition(Apttus__APTS_Agreement__c.Apttus__Account__c + ' != null'));
+        }
+
+        qb = conditions.endConditions().addOrderDesc(Apttus__APTS_Agreement__c.Apttus__Account__c);
         return Database.getQueryLocator(qb.toSoqlString());
     }
 
@@ -103,27 +117,19 @@ public with sharing class ApttusContractsSelector extends ApplicationSelector{
             builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
         }
         if(selectorOptions.contains(Options.WITH_ORGANISATION)) {
-            System.debug('here');
-            builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Apttus__Account__r');
+            builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Apttus__Account__r');
         }
         if(selectorOptions.contains(Options.WITH_CONTACT)) {
-            System.debug('here');
             builder.addRelatedFields(ContactsSelector.newInstance().newQueryBuilder(), 'Apttus__Primary_Contact__r');
         }
         if(selectorOptions.contains(Options.WITH_CREDIT_ASSESSMENT)) {
-            System.debug('here');
             builder.addRelatedFields(CreditsAssessmentSelector.newInstance().newQueryBuilder(), 'Apttus_QPComply__RelatedProposalId__r.APT_Credit_Assessment__r');
         }
         if(selectorOptions.contains(Options.WITH_PROPOSAL)) {
-            System.debug('here');
             builder.addRelatedFields(ProposalSelector.newInstance().newQueryBuilder(), 'Apttus_QPComply__RelatedProposalId__r');
         }
         if(selectorOptions.contains(Options.WITH_OPPORTUNITY)) {
-            System.debug('here Opportunity');
             builder.addRelatedFields(OpportunitySelector.newInstance().newQueryBuilder(), 'Apttus__Related_Opportunity__r');
-        }
-        if (selectorOptions.contains(Options.WITH_ACCOUNT)) {
-            builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Apttus__Account__r');
         }
         return builder;
     }

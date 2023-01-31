@@ -2,31 +2,27 @@
  * @group Selector
  * @tag Selector
  * @tag Account
- * @domain Sales
- * @test SalesAccountsSelector_Test
- * @description Selector class that sits in Sales domain for accessing accounts.
+ * @domain Core
+ * @test BusinessAccountsSelector_Test
+ * @description Selector class for accessing business accounts.
  * @changelog
  * 2022-12-18 - Ranjeewa Silva - Created.
  */
-public virtual inherited sharing class SalesAccountsSelector extends AccountsSelector {
+public virtual inherited sharing class BusinessAccountsSelector extends AccountsSelector {
 
-	public enum Options {
-		FILTER_BUSINESS_ACCOUNTS_ONLY
+	public static BusinessAccountsSelector newInstance() {
+		return (BusinessAccountsSelector) Application.Selectors.newInstance(BusinessAccountsSelector.class);
 	}
-
-	public static SalesAccountsSelector newInstance() {
-		return (SalesAccountsSelector) Application.Selectors.newInstance(SalesAccountsSelector.class);
-	}
-	public static SalesAccountsSelector newInstance(Integer recordLimit) {
-		return (SalesAccountsSelector) Application.Selectors.newInstance(SalesAccountsSelector.class).setLimit(recordLimit);
+	public static BusinessAccountsSelector newInstance(Integer recordLimit) {
+		return (BusinessAccountsSelector) Application.Selectors.newInstance(BusinessAccountsSelector.class).setLimit(recordLimit);
 	}
 
 	/**
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 *                          This approach removes data consistency and prevents possible caching of results
 	 */
-	public static SalesAccountsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
-		SalesAccountsSelector selector = (SalesAccountsSelector) Application.Selectors.newInstance(SalesAccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+	public static BusinessAccountsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		BusinessAccountsSelector selector = (BusinessAccountsSelector) Application.Selectors.newInstance(BusinessAccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -81,9 +77,10 @@ public virtual inherited sharing class SalesAccountsSelector extends AccountsSel
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
-		if (selectorOptions.contains(Options.FILTER_BUSINESS_ACCOUNTS_ONLY)) {
-			builder.addConditions().add(new QueryBuilder.CompareCondition(Account.IsPersonAccount).eq(false)).endConditions();
-		}
+
+		// always make sure we are only returning business accounts
+		builder.addConditions().add(new QueryBuilder.CompareCondition('RecordType.DeveloperName').eq('Business_Account')).endConditions();
+
 		return builder;
 	}
 }

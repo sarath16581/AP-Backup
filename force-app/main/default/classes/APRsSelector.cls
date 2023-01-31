@@ -10,7 +10,7 @@
 public inherited sharing class APRsSelector extends ApplicationSelector{
 
 	public enum Options {
-		WITH_LEGAL_ENTITY
+		WITH_ORGANISATION
 	}
 
 	public static APRsSelector newInstance() {
@@ -66,14 +66,28 @@ public inherited sharing class APRsSelector extends ApplicationSelector{
 	}
 
 	/**
-	* This method is used to get query builder of APR__c records where legal entity not null
+	* Returns a query locator to retrieve APR__c records based on the account ids passed in. If set of account ids
+	* is null or empty, returns all APR__c records having a parent account.
+	* Query results are ordered by parent account Id desc
+	* @param accountIds set of parent account ids. returns all child APR records associated with a parent account if null
+	*                   or empty set is supplied.
+	* @param selectorOptions set of additional selector options to augment the result set
 	* @return query locator of APR__c records
 	*/
-	public Database.QueryLocator selectByAccountRelationshipQueryLocator(Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-				.addConditions()
-				.add(new QueryBuilder.SimpleCondition(APR__c.Legal_Entity_Name_LookUp__c + ' != null'))
-				.endConditions();
+	public Database.QueryLocator selectByAccountOrderByAccountIdQueryLocator(Set<Id> accountIds, Set<Object> selectorOptions) {
+
+		Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
+		options.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
+
+		QueryBuilder qb = newQueryBuilder(options);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		if (accountIds != null && !accountIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition(APR__c.Legal_Entity_Name_LookUp__c + ' in :accountIds'));
+		} else {
+			conditions.add(new QueryBuilder.SimpleCondition(APR__c.Legal_Entity_Name_LookUp__c + ' != null'));
+		}
+
+		qb = conditions.endConditions().addOrderDesc(APR__c.Legal_Entity_Name_LookUp__c);
 		return Database.getQueryLocator(qb.toSoqlString());
 	}
 
@@ -89,7 +103,7 @@ public inherited sharing class APRsSelector extends ApplicationSelector{
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
-		if (selectorOptions.contains(Options.WITH_LEGAL_ENTITY)) {
+		if (selectorOptions.contains(Options.WITH_ORGANISATION)) {
 			builder.addRelatedFields(AccountsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(), 'Legal_Entity_Name_LookUp__r');
 		}
 		return builder;

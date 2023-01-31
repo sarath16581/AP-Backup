@@ -2,14 +2,14 @@
  * @group Tests
  * @tag Selector
  * @tag Account
- * @domain Sales
- * @description Test Class covering SalesAccountsSelector
+ * @domain Core
+ * @description Test Class covering BusinessAccountsSelector
  * @changelog
  * 2022-01-09 - Ranjeewa Silva - Created
  */
 
 @IsTest
-private class SalesAccountsSelector_Test {
+private class BusinessAccountsSelector_Test {
 
 	/**
 	 *  Ensures that the selectors QueryBuilder is generating the correct output
@@ -30,20 +30,14 @@ private class SalesAccountsSelector_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		SalesAccountsSelector selector = SalesAccountsSelector.newInstance();
-		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{SalesAccountsSelector.Options.FILTER_BUSINESS_ACCOUNTS_ONLY});
+		BusinessAccountsSelector selector = BusinessAccountsSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b').matcher(soql).find(), 'Resulting query does not select from Account');
 
-		// make sure returned records are filtered based on the elector option specified
-		System.assertEquals(true, Pattern.compile('(?is)\\bfrom account\\b.*?IsPersonAccount = false').matcher(soql).find(), 'Resulting query does not contain business account filter');
-
-		qb = selector.newQueryBuilder();
-		soql = qb.toSoqlString();
-		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b').matcher(soql).find(), 'Resulting query does not select from Account');
-		// make sure business account filter is not applied
-		System.assertEquals(false, Pattern.compile('(?is)\\bfrom account\\b.*?IsPersonAccount').matcher(soql).find(), 'Resulting query should not contain business account filter');
+		// make sure returned records are filtered by 'Business_Account' record type.
+		System.assertEquals(true, Pattern.compile('(?is)\\bfrom account\\b.*?RecordType.DeveloperName = \'Business_Account\'').matcher(soql).find(), 'Resulting query does not contain business account filter');
 
 		Test.stopTest();
 	}
@@ -90,7 +84,7 @@ private class SalesAccountsSelector_Test {
 
 		Test.startTest();
 
-		SalesAccountsSelector selector = SalesAccountsSelector.newInstance(0);
+		BusinessAccountsSelector selector = BusinessAccountsSelector.newInstance(0);
 		List<Account> results = selector.selectByIdWithChildRecords(new Set<Id>{parentAccounts[0].Id}, new Map<SObjectType, String>{APR__c.getSObjectType() => 'aprs__r'});
 		System.assertEquals(1, results.size(), 'only the specified account should be retrieved');
 		System.assertEquals(parentAccounts[0].Id, results[0].Id, 'only the specified account should be retrieved');
@@ -99,7 +93,7 @@ private class SalesAccountsSelector_Test {
 		System.assert(results[0].APRs__r[0].Id != null, 'Id field must be populated on the child records');
 
 		// verify behaviour when using field overrides
-		selector = SalesAccountsSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
+		selector = BusinessAccountsSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
 				APR__c.getSObjectType() => new Set<SObjectField>{APR__c.Legal_Entity_Name_LookUp__c, APR__c.Id}
 		});
 
