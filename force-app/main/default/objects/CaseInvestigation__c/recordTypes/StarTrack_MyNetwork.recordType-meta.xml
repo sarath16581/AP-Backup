@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_MyNetwork</fullName>
+    <active>true</active>
+    <description>This is for StarTrack contact centre users to assign case investigation to AP MyNetwork users</description>
+    <label>StarTrack MyNetwork</label>
+    <picklistValues>
+        <picklist>AddressType__c</picklist>
+        <values>
+            <fullName>Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residential</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DeliveryOfficerKnowledge__c</picklist>
+        <values>
+            <fullName>Cannot recall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recalls - delivered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recalls - safe dropped</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DeliveryOptions__c</picklist>
+        <values>
+            <fullName>BusinessCannot recall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BusinessRecalls - delivered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ResidentialCannot recall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ResidentialRecalls - delivered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ResidentialRecalls - safe dropped</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Deliveryinformation__c</picklist>
+        <values>
+            <fullName>Accepted by apartment%2Fcomplex concierge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accepted by apartment%2Fcomplex manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accepted by authorised building staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accepted by occupant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Admits fault - DC prepared to compensate for loss*</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Admits fault - Unable to recover - DC prepared to pay compensation*</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Apartment mailroom%2Fconcierge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Back Door</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Behind pillar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Behind pot plant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Behind rubbish bin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business reception</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carport%2FVerandah</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collected by authorised courier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collected from Outlet by occupant of address with ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collected from Outlet via written order</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Considered delivered as addressed %28believes letterbox%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Considered delivered as addressed %28believes reception%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Considered delivered as addressed%28believes front door or letterbox%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Considered delivered as addressed%28believes front door%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Considered delivered via dock or authorised building staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer is now in possession of the item</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivered to central mailroom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivered to incorrect address - not recovered - DC to pay compensation*</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivered to incorrect address - retrieval and carded to outlet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivered to incorrect address - retrieval and redelivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivered to incorrect address - retrieval attempt - delivered by another business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivered to incorrect address - retrieval attempt - delivered by resident</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivered to sender at RTS address</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Does not service that area</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Front door</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In-transit redirection missed - retreived an on-forwarded to new address</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In-transit redirection missed - unable to recover - DC prepared to pay compensation*</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect address - retrieval attempt - delivered by business on site</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect address on parcel - delivered as addressed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect address on parcel - delivered by resident</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letterbox</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mailroom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nearby outlet - retrieval and redelivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other - back to CCC for resolution*</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PO BOX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PO BOX diversion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part Consignment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Porch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pot plant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RTS - Sender has the item</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redirection failure - customer now has article</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redirection failure - retrieval and redelivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redirection failure - unable to recover - DC prepared to compensate for loss*</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Side Door</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Side Gate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Signed for by occupant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Via dock</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Qualityofthecase__c</picklist>
+        <values>
+            <fullName>Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Excellent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Good</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Awaiting invesitgation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed - Required More Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Resolved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responded</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
