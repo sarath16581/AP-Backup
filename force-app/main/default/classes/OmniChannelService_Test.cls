@@ -9,8 +9,9 @@
  *==============================================================================
  * Ver	   Date					Author			   Modification
  *==============================================================================
- * 1.0  8/21/2019, 10:54:47 AM   rajesh.punjabi@mav3rik.com		Initial Version
- * 1.1  7/12/2022, 01:00:00 PM   Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
+ * 1.0	8/21/2019, 10:54:47 AM	rajesh.punjabi@mav3rik.com		Initial Version
+ * 1.1	7/12/2022, 01:00:00 PM	Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
+ * 1.2	31/01/2023				Noel Lim					Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
  * 
 **/
 @IsTest (IsParallel=true)
@@ -117,31 +118,31 @@ public class OmniChannelService_Test {
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(psrs);
 		System.assertEquals(1990, psr.SecondaryRoutingPriority, 'Should be set to the value of range minus number of days');
 
-		aCase = (Case)ApplicationTestDataFactory.setUnwritableFields(aCase, new Map<String, Object>{ 'CreatedDate' => Datetime.now().addDays(-51)});
+		aCase = (Case)ApplicationTestDataFactory.setUnwritableFields(aCase, new Map<String, Object>{ 'CreatedDate' => Datetime.now().addDays(-151)});
 		psr = (PendingServiceRouting)ApplicationTestDataFactory.setUnwritableFields(new PendingServiceRouting(), new Map<String, Object>{ 'WorkItem' => aCase});
 		psrs = new List<PendingServiceRouting>{psr};
 
 		psr.WorkItem.Priority = 'Critical';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(psrs);
-		System.assertEquals(950, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
+		System.assertEquals(850, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
 		psr.WorkItem.Priority = 'Low';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(psrs);
-		System.assertEquals(4950, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
+		System.assertEquals(4850, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
 		psr.WorkItem.Priority = 'Urgent';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(psrs);
-		System.assertEquals(950, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
+		System.assertEquals(850, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
 		psr.WorkItem.Priority = 'Medium';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(psrs);
-		System.assertEquals(3950, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
+		System.assertEquals(3850, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
 		psr.WorkItem.Priority = 'Normal';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(psrs);
-		System.assertEquals(1950, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
+		System.assertEquals(1850, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
 		psr.WorkItem.Priority = 'Regular';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(psrs);
-		System.assertEquals(2950, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
+		System.assertEquals(2850, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
 		psr.WorkItem.Priority = 'High';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(psrs);
-		System.assertEquals(1950, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
+		System.assertEquals(1850, psr.SecondaryRoutingPriority, 'Should be set to the lowest value of range');
 	}
 
 	@IsTest
@@ -195,30 +196,30 @@ public class OmniChannelService_Test {
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(cases, false);
 		System.assertEquals('1990', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to range minus number of days');
 
-		aCase = (Case)ApplicationTestDataFactory.setUnwritableFields(aCase, new Map<String, Object>{ 'CreatedDate' => Datetime.now().addDays(-51)});
+		aCase = (Case)ApplicationTestDataFactory.setUnwritableFields(aCase, new Map<String, Object>{ 'CreatedDate' => Datetime.now().addDays(-151)});
 		cases = new List<Case>{aCase};
 		
 		aCase.Priority = 'Critical';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(cases, false);
-		System.assertEquals('950', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
+		System.assertEquals('850', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
 		aCase.Priority = 'Low';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(cases, false);
-		System.assertEquals('4950', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
+		System.assertEquals('4850', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
 		aCase.Priority = 'Urgent';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(cases, false);
-		System.assertEquals('950', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
+		System.assertEquals('850', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
 		aCase.Priority = 'Medium';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(cases, false);
-		System.assertEquals('3950', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
+		System.assertEquals('3850', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
 		aCase.Priority = 'Normal';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(cases, false);
-		System.assertEquals('1950', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
+		System.assertEquals('1850', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
 		aCase.Priority = 'Regular';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(cases, false);
-		System.assertEquals('2950', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
+		System.assertEquals('2850', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
 		aCase.Priority = 'High';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(cases, false);
-		System.assertEquals('1950', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
+		System.assertEquals('1850', aCase.OmniRoutingSecondaryPriority__c, 'Should be set to the lowest value of range');
 
 		aCase.Priority = 'blahblah';
 		OmniChannelService.getInstance().setOmniRoutingSecondaryPriority(cases, false);
