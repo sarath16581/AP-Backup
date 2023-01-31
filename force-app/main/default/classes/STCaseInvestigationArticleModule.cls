@@ -10,15 +10,10 @@
 public inherited sharing class STCaseInvestigationArticleModule extends ApplicationDomain.Module {
 
 	/**
-	 * List of cases that have already been enqueued for processing in this transaction
+	 * List of case investigations that have already been enqueued for processing in this transaction
 	 * This is to prevent enqueuing the same case id's where values may change multiple times across the transaction
 	 */
-	private static Set<Id> m_enqueuedCaseIds;
-
-	/**
-	 * List of article id's that have already been enqueued into an async operation for processing in this transaction
-	 */
-	private static Set<Id> m_enqueuedArticleSubscriptionIds;
+	private static Set<Id> m_enqueuedCaseInvestigationIds;
 
 	// RECURSION STOPPER!!
 	// used only as a failsafe to ensure that a queueable doesn't enqueue another queueable under any circumstances
@@ -30,7 +25,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 	private static Map<Id, String> m_trackingArticleIdMappingsCache;
 
 		static {
-		m_enqueuedCaseIds = new Set<Id>();
+		m_enqueuedCaseInvestigationIds = new Set<Id>();
 		m_trackingReferenceIdMappingsCache = new Map<String, Id>();
 		m_trackingArticleIdMappingsCache = new Map<Id, String>();
 	}
@@ -115,8 +110,8 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 		try {
 			Set<String> processableReferenceIds = new Set<String>();
 			Set<Id> processableArticleIds = new Set<Id>();
-			List<CaseInvestigation__c> casesToLinkReferencesTo = new List<CaseInvestigation__c>();
-			List<CaseInvestigation__c> casesToLinkArticlesTo = new List<CaseInvestigation__c>();
+			List<CaseInvestigation__c> caseInvestigationsToLinkReferencesTo = new List<CaseInvestigation__c>();
+			List<CaseInvestigation__c> caseInvestigationsToLinkArticlesTo = new List<CaseInvestigation__c>();
 
 			if(existingRecords == null) {
 				// loop through our records to figure out what actions need to be taken
@@ -126,13 +121,13 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 						// the reference id was specified
 						// this means we need to find the article id and link it to the case
 						// if the article doesn't exist in SF it will queue a job that will query SAP-EM
-						casesToLinkArticlesTo.add(c);
+						caseInvestigationsToLinkArticlesTo.add(c);
 						processableReferenceIds.add(c.ReferenceID__c);
 
 					} else if (c.Article__c != null) {
 						// reference id was not specified but the article id was
 						// this means we need to grab the reference id from the article and apply it to the case
-						casesToLinkReferencesTo.add(c);
+						caseInvestigationsToLinkReferencesTo.add(c);
 						processableArticleIds.add(c.Article__c);
 
 					}
@@ -147,10 +142,10 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 					if(changed == null) changed = new Set<SObjectField>();
 
 					// process any changed records
-					//	  OR any scenario where the articleTest field is empty (and hasn't already been queued for processing)...
-					//		  (this might be because an article was deleted and the reference was removed from the case).... this will ensure the article details will be redownloaded from SAP-EM
+					//	  OR any scenario where the article__c field is empty (and hasn't already been queued for processing)...
+					//		  (this might be because an article was deleted and the reference was removed from the case investigation).... this will ensure the article details will be redownloaded from SAP-EM
 					// We only have to process case records that arent already in the 'queue' for processing asynchronously
-					if(!m_enqueuedCaseIds.contains(c.Id) && (!changed.isEmpty() || (!String.isEmpty(c.ReferenceID__c) && c.Article__c == null))) {
+					if(!m_enqueuedCaseInvestigationIds.contains(c.Id) && (!changed.isEmpty() || (!String.isEmpty(c.ReferenceID__c) && c.Article__c == null))) {
 
 						if(String.isEmpty(c.ReferenceID__c) && c.Article__c != null && changed.contains(CaseInvestigation__c.ReferenceID__c)) {
 
@@ -171,7 +166,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 							// NOTE: this won't be called in a recursion scenario where the case is already queued for processing in an async context.
 							//		  Courtesy of !m_enqueuedCaseIds.contains(c.Id) above
 							// NOTE: reference id should always been given priority and dealt with first since this is the primary way contact centre will enter data
-							casesToLinkArticlesTo.add(c);
+							caseInvestigationsToLinkArticlesTo.add(c);
 							processableReferenceIds.add(c.ReferenceID__c);
 
 						} else if(!String.isEmpty(c.ReferenceID__c) && c.Article__c != null && m_trackingReferenceIdMappingsCache.get(nullToString(c.ReferenceID__c).toUpperCase()) == c.Article__c) {
@@ -182,7 +177,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 						} else if(changed.contains(CaseInvestigation__c.Article__c)) {
 
 							// article field was change so we need to update the reference field on the case to reflect the change
-							casesToLinkReferencesTo.add(c);
+							caseInvestigationsToLinkReferencesTo.add(c);
 							processableArticleIds.add(c.Article__c);
 
 						}
@@ -191,26 +186,20 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 			}
 
 			// grab the existing articles in SF to link the case that can be linked
-			if (!casesToLinkReferencesTo.isEmpty() || !casesToLinkArticlesTo.isEmpty()) {
+			if (!caseInvestigationsToLinkReferencesTo.isEmpty() || !caseInvestigationsToLinkArticlesTo.isEmpty()) {
 
-				// grab a list of existing articles to see if we can match them up to the cases that have been passed in
+				// grab a list of existing articles to see if we can match them up to the case investigations that have been passed in
 				// this will also populate m_trackingReferenceIdMappings and m_trackingReferenceIdMappings cache which we use here
 				Map<Id, Article__c> articles = selectArticles(processableReferenceIds, processableArticleIds);
 
 				// apply article field id value to the case where possible
 				// this is where a record has a ReferenceID__c. (The existence of Article__c is irrelevant since ReferenceID__c always takes priority)
-				populateCaseArticleIds(casesToLinkArticlesTo, articles, m_trackingReferenceIdMappingsCache);
+				populateCaseArticleIds(caseInvestigationsToLinkArticlesTo, articles, m_trackingReferenceIdMappingsCache);
 
-				// apply a reference id to cases that require it
+				// apply a reference id to case investigations that require it
 				// the is where Article__c has a value and there is no ReferenceID__c
 				// m_trackingArticleIdMappingsCache was populated in selectArticles calls
-				populateCaseReferences(casesToLinkReferencesTo, m_trackingArticleIdMappingsCache);
-
-				// apply default values to case fields based on any articles linked to cases
-				//List<CaseInvestigation__c> casesToDefault = new List<CaseInvestigation__c>();
-				//casesToDefault.addAll(casesToLinkArticlesTo);
-				//casesToDefault.addAll(casesToLinkReferencesTo);
-				//applyCaseArticleDefaults(casesToDefault, articles);
+				populateCaseReferences(caseInvestigationsToLinkReferencesTo, m_trackingArticleIdMappingsCache);
 
 			}
 		} catch(Exception ex) {
@@ -223,13 +212,13 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 	 * Process the scenarios that require a link to an article id. This is only where an article already exists in the Article__c object. 
 	 * If an article isn't found, the case will be queued for async processing in the onAfter trigger handlers.
 	 */
-	public List<CaseInvestigation__c> populateCaseArticleIds(List<CaseInvestigation__c> cases, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
+	public List<CaseInvestigation__c> populateCaseArticleIds(List<CaseInvestigation__c> caseInvestigations, Map<Id, Article__c> queriedArticles, Map<String, Id> existingReferenceIdMappings) {
 
 		List<CaseInvestigation__c> updateable = new List<CaseInvestigation__c>();
-		for(CaseInvestigation__c c : cases) {
+		for(CaseInvestigation__c c : caseInvestigations) {
 			if(existingReferenceIdMappings.get(nullToString(c.ReferenceID__c).toUpperCase()) != null) {
 
-				//the article for the case reference id already exists in Article__c table so the article id on case can be synced to the existing record
+				//the article for the reference id already exists in Article__c table so the article id on case can be synced to the existing record
 				Article__c article = queriedArticles.get(existingReferenceIdMappings.get(nullToString(c.ReferenceID__c).toUpperCase()));
 
 				if(article.RecordType != null && article.RecordType.DeveloperName == 'Consignment' && article.Articles__r != null && article.Articles__r.size() == 1) {
@@ -255,9 +244,9 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 	 * Where an article id was provided but a reference id was not, loop through and set the reference id
 	 * given the article field is populated it means it will always exist in our selector so we can reliably retrieve the corresponding reference id to attach to the case
 	 */
-	private void populateCaseReferences(List<CaseInvestigation__c> cases, Map<Id, String> existingArticleIdMappings) {
+	private void populateCaseReferences(List<CaseInvestigation__c> caseInvestigations, Map<Id, String> existingArticleIdMappings) {
 
-		for(CaseInvestigation__c c : cases) {
+		for(CaseInvestigation__c c : caseInvestigations) {
 			// cache was populated in selectAndCacheArticles method call above
 			c.ReferenceID__c = existingArticleIdMappings.get(c.Article__c);
 		}
@@ -324,37 +313,31 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 	 * Process records that have a Reference ID without an Article field populated
 	 * This would occur in the following scenarios:
 	 * 1. Reference ID field changed and the article did not already exist in Salesforce
-	 * 2. Article record was deleted in salesforce and case was later updated
+	 * 2. Article record was deleted in salesforce and case investigation was later updated
 	 * 3. Article id field on Case was removed or already empty
-	 * 
-	 * This is called by a Flow that fires on Insert and Update, and passes cases where ReferenceID__c is not null and and ArticleTest__c is null.
-	 * Note that Flows execute after Workflow Field Updates.
-	 * 
-	 * This Invocation Method called by a Flow approach is necessary as opposed to After Insert/After Update  as we need the AsyncLinkArticlesToCasesQueueable job to be queued after Workflow Field Updates.  
-	 * A Workflow Field Update sets Case.AllocateToQueue__c = true, which needs to fire before the above async job is enqueued.
 	 */
 	@TestVisible 
 	private void queueAsyncArticleToCaseInvestigations(List<CaseInvestigation__c> caseInvestigations) {
 		// note we pass a list of reference ids into the queueable so we don't need to run a soql until after the integration callout
 		Set<String> referencesToEnqueue = new Set<String>();
-		Set<Id> casesToEnqueue = new Set<Id>();
+		Set<Id> caseInvestigationsToEnqueue = new Set<Id>();
 
 		for(CaseInvestigation__c c : caseInvestigations) {
 			if(!String.isEmpty(c.ReferenceID__c) && c.Article__c == null) {
-				casesToEnqueue.add(c.Id);
+				caseInvestigationsToEnqueue.add(c.Id);
 				referencesToEnqueue.add(c.ReferenceID__c);
 			}
 		}
 
-		if(!casesToEnqueue.isEmpty()) {
-			ensureQueryJobEnqueued(casesToEnqueue, referencesToEnqueue);
+		if(!caseInvestigationsToEnqueue.isEmpty()) {
+			ensureQueryJobEnqueued(caseInvestigationsToEnqueue, referencesToEnqueue);
 		}
 	}
 
 	/**
-	 * This will ensure that a SAP-EM query job will be enqueued for all the cases in the list.
-	 * This will be in the scenario where no article was found in SF for the ReferenceID listed on the case
-	 * This method will ensure that the case is only enqueued once to limit scenarios where recursion may occur
+	 * This will ensure that a SAP-EM query job will be enqueued for all the case investigations in the list.
+	 * This will be in the scenario where no article was found in SF for the ReferenceID listed on the case investigation
+	 * This method will ensure that the case investigation is only enqueued once to limit scenarios where recursion may occur
 	 *
 	 * NOTE: referenceIds is also passed in so a soql does not need to be run prior to the integration callout to retrieve article details
 	 *		  It's the callers responsibility to pass in a synchronised list of caseids/referenceids
@@ -365,9 +348,9 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 			return;
 		}
 
-		caseInvestigationIds.removeAll(m_enqueuedCaseIds);
+		caseInvestigationIds.removeAll(m_enqueuedCaseInvestigationIds);
 		if(!caseInvestigationIds.isEmpty()) {
-			m_enqueuedCaseIds.addAll(caseInvestigationIds);
+			m_enqueuedCaseInvestigationIds.addAll(caseInvestigationIds);
 			
 			// TODO: Refactor this into a better enqueueing model
 			// enqueue the job here
@@ -402,8 +385,6 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 
 					// NOTE: We run this soql after the integration callout so we have the latest data on the record when processing it
 					//	  (Integration callout could take 5 or 10 seconds or sometimes more).
-					//	  Fields queried include ones used in the case re-routing in SSSW_Routing.assignCasesAndDescription()
-					// TODO i) change routingFields var in SSSW_Routing to public ii) add the routingFields values into the Set below via addAll(), and remove fields in the current Set that are in routingFields 
 					Map<Id, CaseInvestigation__c> caseInvestigations = CaseInvestigationsSelector.newInstance().selectById(caseInvestigationIds);
 
 					// TODO: This should be routed via the Domain class rather than invoked directly
@@ -417,13 +398,7 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 					// m_trackingReferenceIdMappingsCache was populated in selectArticles call
 					Map<Id, CaseInvestigation__c> updateable = new Map<Id, CaseInvestigation__c>(module.populateCaseArticleIds(caseInvestigations.values(), articles, m_trackingReferenceIdMappingsCache));
 
-					// attempt to reroute all cases passed to this queueable. This supports the design where caseInvestigations requiring an Article not in the SF DB are placed in a holding Queue in SSSW_Routing.assignCasesAndDescription(), and re-routed here to the correct queue.
-					//Map<Id, Case> casesRerouted = rerouteCases(cases);				
-
-					// apply and default values that are currently not already populated on the case
-					//module.applyCaseArticleDefaults(updateable.values(), articles);
-
-					//add the updates from cases successfully rerouted into the cases with articles linked in preparation for DML
+					//add the updates from case investigations successfully rerouted into the case investigations with articles linked in preparation for DML
 					for(CaseInvestigation__c cs : caseInvestigations.values()){
 						if(updateable.containsKey(cs.Id)){
 							Map<String, Object> populatedFields = cs.getPopulatedFieldsAsMap();
@@ -442,16 +417,16 @@ public inherited sharing class STCaseInvestigationArticleModule extends Applicat
 
 						// Perform 1 DML retry if there are any database errors
 						// this can happen due to Row Lock issue between this Queueable and future method CaseMilestoneUtility.setSLA()
-						List<CaseInvestigation__c> casesToRetryDML = new List<CaseInvestigation__c>();
+						List<CaseInvestigation__c> caseInvestigationsToRetryDML = new List<CaseInvestigation__c>();
 						List<Database.SaveResult> srRetryDMLList = new List<Database.SaveResult>();
 
 						for(Integer i=0;i<srList.size();i++){
 							if (!srList.get(i).isSuccess()){
-								casesToRetryDML.add(caseInvestigationsToUpdate.get(i));
+								caseInvestigationsToRetryDML.add(caseInvestigationsToUpdate.get(i));
 							 }						
 						}						
-						if(casesToRetryDML.size() > 0){
-							srRetryDMLList = ApplicationDatabase.getInstance().dmlUpdate(casesToRetryDML, false);
+						if(caseInvestigationsToRetryDML.size() > 0){
+							srRetryDMLList = ApplicationDatabase.getInstance().dmlUpdate(caseInvestigationsToRetryDML, false);
 
 							for (Database.SaveResult sr : srRetryDMLList) {
 								if (!sr.isSuccess()) {	
