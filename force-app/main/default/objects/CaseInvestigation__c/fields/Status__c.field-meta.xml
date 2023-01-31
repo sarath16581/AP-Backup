@@ -13,9 +13,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Open</fullName>
+                <fullName>New</fullName>
                 <default>true</default>
-                <label>Open</label>
+                <label>New</label>
             </value>
             <value>
                 <fullName>In Progress</fullName>

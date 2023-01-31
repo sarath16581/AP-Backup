@@ -3,9 +3,12 @@
     <fullName>AddressType__c</fullName>
     <description>Used on MyNetwork community to add network response for ST cases.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Please select the property type.
+House/flat = Residential
+Shop front = Business</inlineHelpText>
     <label>Address Type</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

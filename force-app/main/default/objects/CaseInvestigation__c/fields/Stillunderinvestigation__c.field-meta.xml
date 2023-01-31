@@ -4,8 +4,9 @@
     <defaultValue>false</defaultValue>
     <description>Used on MyNetwork community to add network response for ST cases.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Add notes to the case investigation without sending it back to customer service</inlineHelpText>
     <label>Still Under Investigation</label>
-    <trackFeedHistory>false</trackFeedHistory>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
