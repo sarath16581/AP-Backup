@@ -388,4 +388,11 @@
         <skillLevel>5</skillLevel>
         <value>International Letters</value>
     </workSkillRoutingAttributes>
+	<workSkillRoutingAttributes>
+        <field>Case.ProductCategory__c</field>
+        <isAdditionalSkill>false</isAdditionalSkill>
+        <skill>BOH_Standard</skill>
+        <skillLevel>5</skillLevel>
+        <value>Domestic Parcels</value>
+    </workSkillRoutingAttributes>
 </WorkSkillRouting>
