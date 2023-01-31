@@ -9,6 +9,7 @@
 30.10.2020    Swati.Mogadala@auspost.com.au REQ2329468 Error message fixed - 'Please select case(s) for printing'
 08.09.2022    Naveen Rajanna - REQ2963906: domain check to populate prefix myNetwork if required
 01.11.2022    Dattaraj Deshmukh - Updated to show case investigations for StarTrack cases. 
+31.01.2023	  Dattaraj Deshmukh - Updated to show number of case numbers.
 */
 /* eslint-disable default-case */
 /* eslint-disable no-console */
@@ -217,7 +218,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
     myNetworkCases({ selectedViewString: this.selectedListViewApiName })
       .then((result) => {
         if (result) {
-          this.totalNumberOfCases = result.length;
+          //this.totalNumberOfCases = result.length;
           this.getcaseDataPopulation(result);
           this.showCaseRecordDetails = false;
           if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
@@ -356,7 +357,17 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       this.noCasesFoundMsg = "No Case Result Found";
       this.showTable = false;
     }
-    this.totalNumberOfFilteredCases = data.length;//this.cases.length;
+    this.totalNumberOfFilteredCases = this.cases.length;//this.cases.length;
+
+	
+
+	//calculate total number of cases only when List view is set to 'All_Cases'.
+	if(this.selectedListViewApiName === 'All_Cases') {
+		this.totalNumberOfCases = (this.totalNumberOfCases ||  this.totalNumberOfCases === 0) ? this.cases.length : this.totalNumberOfCases;
+	}
+
+	console.log('this.selectedListViewApiName: '+this.selectedListViewApiName);
+	console.log('this.totalNumberOfCases: '+this.totalNumberOfCases);
     this.loadLandingPage = false;
   }
   /* This method is handler of event fired from when the case list view is changed.It takes the selected
@@ -394,6 +405,10 @@ export default class CaseList extends NavigationMixin(LightningElement) {
     this.searchingFlag = true;
     let eventData = event.detail;
     this.showTable = false;
+	//assigning selected list view.
+	if(eventData){
+		this.selectedListViewApiName = JSON.parse(event.detail).selectedlistview;
+	}
     let result = await getFilteredCases({ filteredString: event.detail });
     if (result) {
       this.searchingFlag = false;
@@ -663,12 +678,17 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   getSelectedRows(event) {
     const selectedRows = event.detail.selectedRows;
     let conIds = new Set();
+	let caseInvestigationIds = [];
     // getting selected record id
     for (let i = 0; i < selectedRows.length; i++) {
       conIds.add(selectedRows[i].myNetworkCase.Id);
+	  selectedRows[i].hasOwnProperty('caseInvestigationId') ? conIds.add(selectedRows[i].caseInvestigationId) : '';
     }
     // coverting to array
     this.selectedRecords = Array.from(conIds);
+	//this.selectedRecords.push(caseInvestigationIds);
+
+
   }
   // openModal() {
   //   let selectedRows = this.template
