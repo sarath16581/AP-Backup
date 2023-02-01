@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Credit assessment datatable configuration to dynamically load the table</description>
+    <label>Credit Assessment Datatable Config</label>
+    <pluralLabel>Credit Assessment Datatable Configs</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -3839,6 +3839,24 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>Created date:</value>
     </labels>
     <labels>
+        <fullName>CreditAssessmentRequestClosedOpp</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CreditAssessmentRequestClosedOpp</shortDescription>
+        <value>Before conducting an Account Assessment, please complete the following information. Once completed the account assessment can be initiated
+
+Please create a new Opportunity for initiating credit assessment as the current opportunity is not valid for credit assessment</value>
+    </labels>
+    <labels>
+        <fullName>CreditAssessmentRequestIncompleteOPC</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CreditAssessmentRequestIncompleteOPC</shortDescription>
+        <value>Before conducting an Account Assessment, please complete the following information. Once completed the account assessment can be initiated
+
+  • Please add Revenue Start Dates and Revenue End Dates to the related Opportunity Products section</value>
+    </labels>
+    <labels>
         <fullName>Credit_Claim_Form_Authorization_Required</fullName>
         <categories>Message</categories>
         <language>en_US</language>
