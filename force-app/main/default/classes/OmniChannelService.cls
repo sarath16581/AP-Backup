@@ -13,7 +13,7 @@
 * 1.1	16/08/2022				George Nguyen				Added isOmniGroupUser
 * 1.1	04/11/2022				George Nguyen				Added instance and setOmniRoutingSecondaryPriority methods
 * 1.2	06/12/2022				Noel Lim					Added inner class WithoutSharingRetrieveData and method getUserIdFromLatestAcceptedAgentWork
-* 1.3	01/2/2022				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getActiveUserIdFromLatestAcceptedAgentWork, only return active UserIds
+* 1.3	01/02/2022				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getActiveUserIdFromLatestAcceptedAgentWork, only return active UserIds
 **/
 public inherited sharing class OmniChannelService {
 
