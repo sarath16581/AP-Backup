@@ -6,7 +6,7 @@
     <description>Indicates whether Online Contract Collaboration is enabled</description>
     <externalId>false</externalId>
     <inlineHelpText>Indicates whether Online Contract Collaboration is enabled</inlineHelpText>
-    <label>Online Contract Collaboration</label>
+    <label>Online Contract Collab (Deprecated)</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

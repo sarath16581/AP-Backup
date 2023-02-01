@@ -25,7 +25,7 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>My Open Cases</label>
+    <label>My Open Cases - Credit</label>
     <language>en_US</language>
     <sharedTo>
         <group>Credit_Disputes</group>

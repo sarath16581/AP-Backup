@@ -23,7 +23,7 @@
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT, WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER
+		WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT, WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, WITH_BILLINGACCOUNT, WITH_ACCOUNT
 	}
 
 	public static CasesSelector newInstance() {
@@ -50,6 +50,15 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	public static CasesSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
 		CasesSelector selector = (CasesSelector)Application.Selectors.newInstance(CasesSelector.class).setLimit(recordLimit);
 		selector.setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static CasesSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		CasesSelector selector = (CasesSelector)Application.Selectors.newInstance(CasesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
 
@@ -221,6 +230,12 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			clonedOptions.remove(Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER);
 			builder.addSubQuery(EmailMessagesSelector.newInstance(EmailMessage.CreatedDate, 'Asc', 1).newQueryBuilder(clonedOptions), 'EmailMessages');
 		}
+		if(selectorOptions.contains(Options.WITH_BILLINGACCOUNT)) {
+			builder.addRelatedFields(BillingAccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(), 'Related_Billing_Account__r');
+		}
+		if (selectorOptions.contains(Options.WITH_ACCOUNT)) {
+			builder.addRelatedFields(AccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(), 'Account');
+		}				
 		return builder;
 	}
 

@@ -5,7 +5,7 @@
     <description>The list of ids representing the products that caused the rule to trigger.</description>
     <externalId>false</externalId>
     <label>Triggering Product Ids</label>
-    <length>8192</length>
+    <length>20900</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

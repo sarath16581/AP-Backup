@@ -41,7 +41,7 @@
 	2021-09-23		Steve Judd								  Added method for autoCaseClosure and modified compareRec for MW00045402
 	2021-09-26		Steve Judd								  Moved method for autoCaseClosure to StarTrack_Constants to allow for reuse
 	16.05.2022		SaiSwetha Pingali						   Removed snapIt logic as it is no longer required.
-	2022-11-17		Noel Lim									Added 2 routing logic relating to Closed Cases added in routeCase(), a) Reopened Cases in SSSW Closed Omni queue are to be routed b) Closed Cases in an Omni Queue are moved to the SSSW Closed Omni queue
+	2022-11-17		Noel Lim									Added routing logic relating to Reopened Cases - SSSW Closed Omni queue are to be routed
 
 	************************************************/
 	public with sharing class CaseCommonUtility{
