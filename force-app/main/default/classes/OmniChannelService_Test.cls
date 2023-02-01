@@ -9,9 +9,9 @@
  *==============================================================================
  * Ver	   Date					Author			   Modification
  *==============================================================================
- * 1.0	8/21/2019, 10:54:47 AM	rajesh.punjabi@mav3rik.com		Initial Version
- * 1.1	7/12/2022, 01:00:00 PM	Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
- * 1.2	31/01/2023				Noel Lim					Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
+ * 1.0	8/21/2019	rajesh.punjabi@mav3rik.com		Initial Version
+ * 1.1	7/12/2022	Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
+ * 1.2	31/01/2023	Noel Lim						Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
  * 
 **/
 @IsTest (IsParallel=true)
