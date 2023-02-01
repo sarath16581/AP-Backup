@@ -9,8 +9,9 @@
  *==============================================================================
  * Ver	   Date					Author			   Modification
  *==============================================================================
- * 1.0  8/21/2019, 10:54:47 AM   rajesh.punjabi@mav3rik.com		Initial Version
- * 1.1  7/12/2022, 01:00:00 PM   Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
+ * 1.0	8/21/2019	rajesh.punjabi@mav3rik.com		Initial Version
+ * 1.1	7/12/2022	Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
+ * 1.2	2/02/2022	Noel Lim						Update test method getUserIdFromLatestAcceptedAgentWork to getActiveUserIdFromLatestAcceptedAgentWork, only return active UserIds
  * 
 **/
 @IsTest (IsParallel=true)
@@ -220,21 +221,25 @@ public class OmniChannelService_Test {
 	 * Tests the following scenarios:
 	 * a) the returned Map has a unique set of Case Ids
 	 * b) a guest user is able to query the AgentWork object
+	 * c) only AgentWork with a UserId that is active is included
 	 * 
 	 */
 	@IsTest
-	public static void getUserIdFromLatestAcceptedAgentWork(){
-		//User
-		Id userId = UserInfo.getUserId();
+	public static void getActiveUserIdFromLatestAcceptedAgentWork(){
+		//Users
+		List<User> users = ApplicationTestDataFactory.getUsers(2,true);
+		users[0].IsActive = true;
+		users[1].IsActive = false;
 
 		//Cases
 		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
 		Set<Id> caseIds = new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id};
 
-		//AgentWork - both are for the same case to simulate multiple Accepted AgentWorks
+		//AgentWork - 2 are for the same case to simulate multiple Accepted AgentWorks
 		List<AgentWork> agentWorks = new List<AgentWork>{
-			OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{cases[0].Id}, true)[0],
-			OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{cases[0].Id}, true)[0]
+			OmniChannelTestDataFactory.getAgentWorks(1, users[0].Id, new Set<Id>{cases[0].Id}, true)[0],
+			OmniChannelTestDataFactory.getAgentWorks(1, users[0].Id, new Set<Id>{cases[0].Id}, true)[0],
+			OmniChannelTestDataFactory.getAgentWorks(1, users[1].Id, new Set<Id>{cases[1].Id}, true)[0]
 		};
 
 
@@ -245,6 +250,7 @@ public class OmniChannelService_Test {
 		// Stubbing
 		// =====================================
 		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);	 
+		UsersSelector mockUsersSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);	 
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -253,6 +259,10 @@ public class OmniChannelService_Test {
 			(Set<Id>)fflib_Match.eq(caseIds), 
 			(Set<Object>)fflib_Match.eq(new Set<Object>())		
 		)).thenReturn(agentWorks);
+
+		MockUtility.Mocks.when(mockUsersSelector.selectActiveUserById(
+			(Set<Id>)fflib_Match.eq(new Set<Id>{users[0].Id, users[1].Id})
+		)).thenReturn(new Map<Id,User>{users[0].Id => users[0]});
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -265,7 +275,7 @@ public class OmniChannelService_Test {
 
 		System.runAs(communityUser){
 			try{
-				caseIdToUserId = OmniChannelService.getInstance().getUserIdsFromLatestAcceptedAgentWork(caseIds);   
+				caseIdToUserId = OmniChannelService.getInstance().getActiveUserIdsFromLatestAcceptedAgentWork(caseIds);   
 			} catch(Exception ex) {
 				exceptionThrown = true;
 			}		   
@@ -273,7 +283,7 @@ public class OmniChannelService_Test {
 
 		Test.stopTest();
 
-		System.assertEquals(1, caseIdToUserId.size(), 'caseIdToUserId map should only contain 1 record');
+		System.assertEquals(1, caseIdToUserId.size(), 'caseIdToUserId map should contain 1 record');
 		System.assertEquals(false, exceptionThrown, 'There should be no Exceptions thrown');
 
 	}

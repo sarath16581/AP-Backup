@@ -14,6 +14,7 @@
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
  * 2022-08-25 - Mahesh Parvathaneni - Added method selectByName
  * 2022-08-30 - Nathan Franklin - Added field overrides Map<>
+ * 2022-02-01 - Noel Lim - added method selectActiveUserById 
 */
 public virtual inherited sharing class UsersSelector extends ApplicationSelector {
 
@@ -79,6 +80,19 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
    */
   public Map<Id, User> selectByUsername(Set<String> usernames) {
     return selectByUsername(usernames, new Set<Object>());
+  }
+
+  /**
+   * @description Run a simple query to get active users based on Id's
+   */
+  public Map<Id, User> selectActiveUserById(Set<Id> ids) {
+	QueryBuilder qb = newQueryBuilder(new Set<Object>())
+				.addConditions()
+				.add(new QueryBuilder.CompareCondition(User.IsActive).eq(true))
+				.add(new QueryBuilder.SimpleCondition(User.Id + ' in :ids'))
+				.setConditionOrder('1 AND 2')
+				.endConditions();
+    return new Map<Id, User>((List<User>)Database.query(qb.toSoqlString()));
   }
 
   /**

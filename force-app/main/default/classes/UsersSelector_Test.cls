@@ -14,6 +14,7 @@
  * 2022-04-24 - Nathan Franklin - Added test methods for search and selectActiveUserByProfileName
  * 2022-08-25 - Mahesh Parvathaneni - Added test methods for selectByName
  * 2022-08-31 - Nathan Franklin - Add tests for Map<> field overrides
+ * 2022-02-01 - Noel Lim - updated testSelectorIntegration method, added test for new selectActiveUserById()
  */
 @IsTest
 public with sharing class UsersSelector_Test {
@@ -258,6 +259,10 @@ public with sharing class UsersSelector_Test {
 		results = selector.selectByContactId(new Set<Id>{users[0].ContactId},new Set<Object>{UsersSelector.Options.WITH_CONTACT});
 		System.assertEquals(1, results.size(), 'Expected 1 result');
 		System.assertNotEquals(null, results.values()[0].Contact, 'Expected Contact object but got null');
+
+		results = selector.selectActiveUserById(new Set<Id>{UserInfo.getUserId()}); 
+		System.assertEquals(1, results.size(), 'Expected 1 result');
+		System.assertEquals(true, results.values()[0].IsActive, 'Expected active User');
 
 		results = selector.selectActiveUserByProfileName(mappedContacts.keySet(), 'BSP Community User', new Set<Object>{UsersSelector.Options.WITH_CONTACT});
 		System.assertEquals(2, results.size(), 'Expected 2 results');

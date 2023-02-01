@@ -7,6 +7,7 @@
  * @changelog
  * 2022-09-23 - Noel Lim - Created
  * 2022-12-06 - Noel Lim - added test method for testAssignToPreferredAgent
+ * 2022-02-01 - Noel Lim - update test method for testAssignToPreferredAgent, remove criteria that checks if case is from an omni queue
  */
 @IsTest
 private class CaseSkillBasedRoutingModule_Test {
@@ -192,8 +193,7 @@ private class CaseSkillBasedRoutingModule_Test {
 	 * Scenarios:
 	 * a) PSR inserted with correct PreferredUserId
 	 * b) PSR not inserted - no Accepted AgentWork exists
-	 * c) PSR not inserted - has Accepted AgentWork, but in Omni Queue 
-	 * d) Existing PSRs are deleted on cases where a PSR was inserted
+	 * c) Existing PSRs are deleted on cases where a PSR was inserted
 	 * 
 	 */
 	@isTest
@@ -221,7 +221,6 @@ private class CaseSkillBasedRoutingModule_Test {
 			Id recTypeId = ssswRecTypes.iterator().next(); 
 			cases[0].recordTypeId = recTypeId;
 			cases[1].recordTypeId = recTypeId;
-			cases[2].recordTypeId = recTypeId;
 		}
 
 		cases[0].OwnerId = omniQueue.Id; //a) PSR inserted with correct PreferredUserId
@@ -232,19 +231,13 @@ private class CaseSkillBasedRoutingModule_Test {
 		cases[1].OwnerId = omniQueue.Id; //b) PSR not inserted - no Accepted Agent Work exists
 		allCases.put(cases[1].id, cases[1]);
 
-		cases[2].OwnerId = omniQueue.Id; //c) PSR not inserted - has Accepted AgentWork, but in Omni Queue
-		allCases.put(cases[2].id, cases[2]);
-
-
 		//Clone to simulate existing Case records to test Case Update 
 		List<Case> oldCases = new List<Case>{
 			cases[0].clone(true),
-			cases[1].clone(true),
-			cases[2].clone(true)
+			cases[1].clone(true)
 		};
 		oldCases[0].OwnerId = userId;
 		oldcases[1].OwnerId = userId;
-		oldcases[2].OwnerId = omniQueue.Id;
 
 		//PSRs
 		List<ServiceChannel> serviceChannels = OmniChannelTestDataFactory.getServiceChannels(1, 'Case', 'Priority', true);
@@ -262,7 +255,7 @@ private class CaseSkillBasedRoutingModule_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockOmniChannelService.getUserIdsFromLatestAcceptedAgentWork(
+		MockUtility.Mocks.when(mockOmniChannelService.getActiveUserIdsFromLatestAcceptedAgentWork(
 			(Set<Id>)fflib_Match.eq(allCases.keySet())
 		)).thenReturn(new Map<Id,Id>{cases[0].Id => userId} );
 
@@ -297,7 +290,6 @@ private class CaseSkillBasedRoutingModule_Test {
 		// PMD warning
 		System.assertEquals(preferredAgentQueueId, cases[0].OwnerId, 'Case should be assigned to Preferred Agent Queue');
 		System.assertEquals(omniQueue.Id, cases[1].OwnerId, 'Case without accepted AgentWork should be assigned to Omni Queue');
-		System.assertEquals(omniQueue.Id, cases[2].OwnerId, 'Case already in Omni Queue should still be in Omni Queue');
 		System.assertEquals(userId, ((PendingServiceRouting)MockUtility.mockUnitOfWorkDMLs[0]).PreferredUserId, 'Inserted PSR should have the correct PreferredUserId assigned');
 	}
 

@@ -13,6 +13,7 @@
  * @changelog
  * 2022-09-20 - Noel Lim - Created
  * 2022-12-06 - Noel Lim - added method assignToPreferredAgent
+ * 2022-02-01 - Noel Lim - update assignToPreferredAgent, remove criteria that checks if case is from an omni queue
  */
 
 public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDomain.Module  {
@@ -91,7 +92,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 	 */
 	private void assignToPreferredAgent(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
 		
-		Map<Id,Id> caseIdsToAcceptedAgentWorkUserId = OmniChannelService.getInstance().getUserIdsFromLatestAcceptedAgentWork(existingRecords.keySet());
+		Map<Id,Id> caseIdsToAcceptedAgentWorkUserId = OmniChannelService.getInstance().getActiveUserIdsFromLatestAcceptedAgentWork(existingRecords.keySet());
 
 		Map<Id, Case> processable = new Map<Id, Case>(); 	
 
@@ -101,11 +102,11 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 
 			if(oldCase != null 
 				&& String.isEmpty(preferredAgentQueueId) == false 
-				&& Application.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false 
 				&& Application.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 
-				&& caseIdsToAcceptedAgentWorkUserId.containsKey(csRec.Id) //TODO add logic that checks the User in AgentWork is Active
+				&& caseIdsToAcceptedAgentWorkUserId.containsKey(csRec.Id)
 			){
 				processable.put(csRec.Id, csRec);
+				
 			}
 		}
 

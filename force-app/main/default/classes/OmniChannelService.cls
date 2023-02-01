@@ -9,10 +9,11 @@
 *==============================================================================
 * Ver		 Date					 Author	  			  Modification
 *==============================================================================
-* 1.0	7/25/2019, 2:19:17 PM   rajesh.punjabi@mav3rik.com	 Initial Version
+* 1.0	7/25/2019, 2:19:17 PM   rajesh.punjabi@mav3rik.com	Initial Version
 * 1.1	16/08/2022				George Nguyen				Added isOmniGroupUser
 * 1.1	04/11/2022				George Nguyen				Added instance and setOmniRoutingSecondaryPriority methods
 * 1.2	06/12/2022				Noel Lim					Added inner class WithoutSharingRetrieveData and method getUserIdFromLatestAcceptedAgentWork
+* 1.3	01/2/2022				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getActiveUserIdFromLatestAcceptedAgentWork, only return active UserIds
 **/
 public inherited sharing class OmniChannelService {
 
@@ -112,16 +113,24 @@ public inherited sharing class OmniChannelService {
 	/*
 	* This method returns a map of CaseIds and UserIds, the UserId is the latest Agent who accepted the Case via Omni routing
 	*/
-	public Map<Id,Id> getUserIdsFromLatestAcceptedAgentWork(Set<Id> caseIds) {
+	public Map<Id,Id> getActiveUserIdsFromLatestAcceptedAgentWork(Set<Id> caseIds) {
 		List<AgentWork> aws = new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds);
 
 		Map<Id,Id> mapCaseIdToUserId = new Map<Id,Id>();
+		Set<Id> pastAgentUserIds = new Set<Id>();
+
+		for(AgentWork agentWork : aws){
+			pastAgentUserIds.add(agentWork.UserId);
+		}
+		Map<Id, User> mapActiveUsers = UsersSelector.newInstance().selectActiveUserById(pastAgentUserIds);
+
 
 		if(aws.isEmpty() == false){
 			for(Id caseId : caseIds){
 				for(AgentWork agentWork : aws){
 					if(agentWork.WorkItemId == caseId 
-						&& mapCaseIdToUserId.containsKey(caseId) == false){
+						&& mapCaseIdToUserId.containsKey(caseId) == false
+						&& mapActiveUsers.containsKey(agentWork.UserId)){
 						mapCaseIdToUserId.put(caseId,agentWork.UserId);
 					}
 				}
