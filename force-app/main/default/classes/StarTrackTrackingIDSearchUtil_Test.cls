@@ -101,9 +101,18 @@ private class StarTrackTrackingIDSearchUtil_Test {
         customSetting.PBE_Missed_Futile_Enquiry__c = 'Web Bookings Queue';
         customSetting.PBE_Controlled_Returns__c = 'Controlled Returns Queue';
         customSetting.Redelivery_Redirection_Enquiry__c = 'Sorry We Missed You';
+        customSetting.SetupOwnerId = UserInfo.getOrganizationId();
+        customSetting.Get_All_Consignment_Details__c = true;
+        customSetting.EMS_Endpoint__c = 'testendpt';
+        customSetting.Web_Service_Callout_Timeout__c = 10;
+        customSetting.Use_Continuation_for_Consignment_Search__c = true;
+        customSetting.XML_Logging__c = true;
+        customSetting.Logging__c = true;
+        customSetting.Log_For__c = 'ALL USER';
+        customSetting.StarTrack_ConSearch_Authentication_Level__c = 2;
+        customSetting.StarTrack_ConSearch_Client_Cert__c = 'cert';
+        customSetting.Sync_Web_Service_Callout_Timeout__c = 5;
         Database.insert(customSetting);
-        
-
     }
     
     @isTest 
@@ -267,102 +276,260 @@ private class StarTrackTrackingIDSearchUtil_Test {
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(0))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
     }
 
-/*	
-    @isTest static void testCaseTransferForBusinessSolutionsInCorrectQueueNegative() {
-        Case testCase = [
-                        SELECT
-                                Id,
-                                CaseNumber,
-                                OwnerId,
-                                ArticleTest__r.Network__r.Ownerid,
-                                Account.Business_Solutions_Customer__c,
-                                Account.Transfer_Case_Queue__c,
-                                Network__c
-                        FROM
-                                Case
-                        WHERE
-                                Account.Business_Solutions_Customer__c = true
-                        AND
-                                Account.Transfer_Case_Queue__c = ''
-                                LIMIT 1
-                        ];
+    @IsTest
+    private static void testValidateBeforeCaseUpdate_success() {
 
-        Test.setCurrentPage(Page.StarTrackTransferCasePA);
-        ApexPages.currentPage().getParameters().put('id', testCase.Id);
+        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+        articles[0].Name = 'TM1_OSTZ00000275_0000_OSTZ00000275EXP00001';
+        articles[0].RecordTypeId = ApplicationTestDataFactory.articleArticleRecordType.Id;
+        articles[0].Source_System__c = 'TEAM';
+        Id RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
+        Case testCase = [
+                SELECT Id,
+                        ArticleTest__c,
+                        RecordTypeId,
+                        ReferenceID__c,
+                        Origin,
+                        Enquiry_Type__c
+                FROM
+                        Case
+                WHERE
+                        RecordTypeId =: RecordTypeId
+                LIMIT 1
+        ];
+
+
+        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,'0', articles);
 
         Test.startTest();
-            StarTrackTransferCase_ControllerX ext = new StarTrackTransferCase_ControllerX();
-            ext.onload();
-            ext.onChangeOfOwner();
-            ext.validate();
-            ext.saveOverride();
-            System.assertEquals(false, ext.validation);
-            System.assertEquals(false, ApexPages.getMessages().isEmpty());
+        StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
+        Boolean result = util.validate(articles, testCase.Id, conWrap);
+        List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
+
+        System.assertEquals(0, comments.size(), 'testValidateBeforeCaseUpdate_success: Expected an success in response with no case comments');
+        System.assertEquals(true, result, 'testValidateBeforeCaseUpdate_success: Expected an success in response');
+        Test.stopTest();
+    }
+    @IsTest
+    private static void testValidateBeforeCaseUpdate_error_in_response() {
+
+        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+        articles[0].Name = 'TM1_OSTZ00000275_0000_OSTZ00000275EXP00001';
+        articles[0].RecordTypeId = ApplicationTestDataFactory.articleArticleRecordType.Id;
+        articles[0].Source_System__c = 'TEAM';
+        Id RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
+        Case testCase = [
+                SELECT Id,
+                        ArticleTest__c,
+                        RecordTypeId,
+                        ReferenceID__c,
+                        Origin,
+                        Enquiry_Type__c
+                FROM
+                        Case
+                WHERE
+                        RecordTypeId =: RecordTypeId
+                LIMIT 1
+        ];
+
+
+        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,'1', articles);
+
+        Test.startTest();
+        StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
+        Boolean result = util.validate(articles, testCase.Id, conWrap);
+        List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
+
+        System.assertEquals(System.Label.STHSIDSearchCommentsTimeoutTechError, comments[0].CommentBody, 'testValidateBeforeCaseUpdate_error_in_response: Expected an error in response with case comments');
+        System.assertEquals(false, result, 'testValidateBeforeCaseUpdate_error_in_response: Expected an error in response');
         Test.stopTest();
     }
 
-    @isTest static void testCaseTransferForBusinessSolutionsNoTransferReasonNegative() {
-        Case testCase = [
-                        SELECT
-                                Id,
-                                CaseNumber,
-                                OwnerId,
-                                ArticleTest__r.Network__r.Ownerid,
-                                Account.Business_Solutions_Customer__c,
-                                Account.Transfer_Case_Queue__c,
-                                Network__c,
-                                Transfer_Override_Reason__c
-                        FROM
-                                Case
-                        WHERE
-                                Account.Business_Solutions_Customer__c = false
-                        LIMIT 1
-                        ];
+    @IsTest
+    private static void testValidateBeforeCaseUpdate_error_in_response_no_articles() {
 
-        Test.setCurrentPage(Page.StarTrackTransferCasePA);
-        ApexPages.currentPage().getParameters().put('id', testCase.Id);
+        Id RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
+        Case testCase = [
+                SELECT Id,
+                        ArticleTest__c,
+                        RecordTypeId,
+                        ReferenceID__c,
+                        Origin,
+                        Enquiry_Type__c
+                FROM
+                        Case
+                WHERE
+                        RecordTypeId =: RecordTypeId
+                LIMIT 1
+        ];
+
+
+        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,'0', null);
 
         Test.startTest();
-            StarTrackTransferCase_ControllerX ext = new StarTrackTransferCase_ControllerX();
-            ext.onload();
-            ext.onChangeOfOwner();
-            ext.validate();
-            ext.saveOverride();
-            System.assertEquals(false, ext.validation);
+        StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
+        Boolean result = util.validate(null, testCase.Id, conWrap);
+        List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
+
+        System.assertEquals(System.Label.STHSIDSearchCommentsNoConsignment, comments[0].CommentBody, 'testValidateBeforeCaseUpdate_error_in_response_no_articles: Expected an error in response with case comments');
+        System.assertEquals(false, result, 'testValidateBeforeCaseUpdate_error_in_response_no_articles: Expected an error in response for no articles found');
         Test.stopTest();
     }
 
-    @isTest static void testCatchError() {
+    @IsTest
+    private static void testValidateBeforeCaseUpdate_error_in_response_isDupe() {
+
+        List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
+        articles[0].Name = 'TM1_OSTZ00000275_0000_OSTZ00000275EXP00001';
+        articles[0].RecordTypeId = ApplicationTestDataFactory.articleArticleRecordType.Id;
+        articles[0].Source_System__c = 'TEAM';
+        articles[1].Name = 'TM1_OSTZ00000275_0000_OSTZ00000275EXP00001';
+        articles[1].RecordTypeId = ApplicationTestDataFactory.articleArticleRecordType.Id;
+        articles[1].Source_System__c = 'TEAM';
+
+        Id RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
         Case testCase = [
-                        SELECT
-                                Id,
-                                CaseNumber,
-                                OwnerId,
-                                ArticleTest__r.Network__r.Ownerid,
-                                Account.Business_Solutions_Customer__c,
-                                Account.Transfer_Case_Queue__c,
-                                Network__c,
-                                Transfer_Override_Reason__c
-                        FROM
-                                Case
-                        WHERE
-                                Account.Business_Solutions_Customer__c = false
-                        LIMIT 1
-                        ];
-        Test.setCurrentPage(Page.StarTrackTransferCasePA);
-        ApexPages.currentPage().getParameters().put('id', testCase.Id);
+                SELECT Id,
+                        ArticleTest__c,
+                        RecordTypeId,
+                        ReferenceID__c,
+                        Origin,
+                        Enquiry_Type__c
+                FROM
+                        Case
+                WHERE
+                        RecordTypeId =: RecordTypeId
+                LIMIT 1
+        ];
+
+
+        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,'0', articles);
 
         Test.startTest();
-            StarTrackTransferCase_ControllerX ext = new StarTrackTransferCase_ControllerX();
-            ext.onload();
-            ext.onChangeOfOwner();
-            ext.validate();
-            ext.saveOverride();
-            System.assertEquals(false, ext.validation);
+        StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
+        Boolean result = util.validate(articles, testCase.Id, conWrap);
+        List<CaseComment> comments = [SELECT CommentBody, ParentId FROM CaseComment WHERE ParentId = :testCase.Id];
+
+        System.assertEquals(System.Label.STHSIDSearchCommentsDuplicateConsignment, comments[0].CommentBody, 'testValidateBeforeCaseUpdate_error_in_response: Expected an error in response with case comments');
+        System.assertEquals(false, result, 'testValidateBeforeCaseUpdate_error_in_response: Expected an error in response for duplicates');
         Test.stopTest();
     }
 
-*/
+    @IsTest
+    private static void testAssignAndUpdateCase_success() {
 
+        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+        articles[0].Name = 'TM1_OSTZ00000275_0000_OSTZ00000275EXP00001';
+        articles[0].RecordTypeId = ApplicationTestDataFactory.articleArticleRecordType.Id;
+        articles[0].Source_System__c = 'TEAM';
+        Id RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
+        Case testCase = [
+                SELECT Id,
+                        ArticleTest__c,
+                        RecordTypeId,
+                        ReferenceID__c,
+                        Origin,
+                        Enquiry_Type__c,
+                        LastModifiedDate,
+                        Connote_number__c
+                FROM
+                        Case
+                WHERE
+                        RecordTypeId =: RecordTypeId
+                LIMIT 1
+        ];
+
+
+        StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrap = new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false,'0', articles);
+
+        Test.startTest();
+        StarTrackTrackingIDSearchUtil util = StarTrackTrackingIDSearchUtil.getInstance();
+        util.assignAndUpdateCase(articles[0],testCase);
+        Test.stopTest();
+
+        Case testCase1 = [
+                SELECT Id,
+                        LastModifiedDate,
+                        Connote_number__c
+                FROM
+                        Case
+                WHERE
+                        Id =: testCase.Id
+                LIMIT 1
+        ];
+
+        System.assertNotEquals(articles[0].Name, testCase.Connote_number__c, 'testAssignAndUpdateCase_success: Expected the case to be updated');
+    }
+
+    @isTest
+    public static void testConsignSearch_queable_coverage_only() {
+        Network__c testNetwork = TestDataProvider.createNetwork('Test Network', 1)[0];
+        INSERT testNetwork;
+
+        Case testCase = new Case();
+        testCase.Subject = 'Test Case';
+        testCase.Origin = 'web';
+        testCase.RecordTypeId = SObjectType.Case.getRecordTypeInfosByDeveloperName().get(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT).getRecordTypeId();
+        testCase.Network__c = testNetwork.Id;
+        testCase.ReferenceID__c = 'OSTZ00000275EXP00002';
+        INSERT testCase;
+
+        List<Consignment_Search_Settings__c> cssList = new List<Consignment_Search_Settings__c>();
+
+        cssList.add(new Consignment_Search_Settings__c(Name = 'Consignment No.', Callout_Search_Type__c = 'CONSIGNMENT', Date_Type__c = false, Date_Literal__c = false, Search_Type__c = true, Field_Name__c = 'Name', Exact_Search__c = true, Article_Case_field__c = true));
+        cssList.add(new Consignment_Search_Settings__c(Name = 'Number of character error', Field_Name__c = 'Number of character error', Date_Type__c = true));
+        cssList.add(new Consignment_Search_Settings__c(Name = 'Number of search characters', Field_Name__c = '20'));
+        insert cssList;
+
+        Test.startTest();
+        // mocking and stubbing common data
+        ApplicationDatabase mockDatabase = mockTestData();
+
+        Test.setMock(WebServiceMock.class, new StartrackWebServiceCalloutMock());
+
+        System.enqueueJob(new StarTrackTrackingIDSearchUtil.TrackingSearchQueueable(testCase));
+        Test.stopTest();
+
+    }
+
+
+    private static ApplicationDatabase mockTestData() {
+        // =====================================
+        // Data Preparation
+        // =====================================
+
+        Article__c consignment = ApplicationTestDataFactory.getConsignments(1, true)[0];
+        consignment.Name = 'TM2_OSTZ00000275_0000';
+        consignment.RecordTypeId = Schema.SObjectType.Article__c.getRecordTypeInfosByName().get('Consignment').getRecordTypeId();
+        consignment.Source_System__c = 'TEAM';
+        //insert consignment;
+        List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, consignment.Id, true);
+        // set up billing account on articles
+        articles[0].Name = 'TM1_OSTZ00000275_0000_OSTZ00000275EXP00002';
+        articles[0].RecordTypeId = Schema.SObjectType.Article__c.getRecordTypeInfosByName().get('Article').getRecordTypeId();
+        articles[0].Source_System__c = 'TEAM';
+
+        ApplicationTestDataFactory.setUnwritableFields(articles[0], new Map<String, Object>{'Consignment__r' => consignment});
+        //insert articles;
+        articles.add(consignment);
+        // =====================================
+        // Stubbing
+        // =====================================
+        ArticlesSelector mockArticleSelector = (ArticlesSelector)MockUtility.mockSelector(ArticlesSelector.class);
+        ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+        // set up our responses
+        system.assertNotEquals(articles, null,'articles are NULL');
+        MockUtility.Mocks.startStubbing();
+        MockUtility.Mocks.when(mockArticleSelector.selectByArticleNames(
+                (Set<String>)fflib_Match.anyObject()
+                , (String) fflib_Match.anyObject()
+                , (Set<String>)fflib_Match.anyObject()
+                , (Set<Object>)fflib_Match.anyObject())
+        ).thenReturn(new Map<Id, Article__c>(articles));
+        MockUtility.Mocks.stopStubbing();
+
+        return mockDatabase;
+    }
 
 }
