@@ -13,6 +13,7 @@ public inherited sharing class STCaseInvestigationDomain extends ApplicationDoma
 
 	public override void registerModules() {
 		registerModule(STCaseInvestigationArticleModule.class);
+		registerModule(STCINetworkMilestoneViolationModule.class);
 	}
 
 	/**

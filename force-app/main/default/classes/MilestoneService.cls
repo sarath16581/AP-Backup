@@ -1,0 +1,242 @@
+/**
+ * @description Servive class for calculating the milestone violation date time based on the Entitlement Rules and Escalation_Hierarchy objects configuration
+ * @author Mahesh Parvathaneni
+ * @date 26/01/2023
+ * @changelog
+ */
+
+public inherited sharing class MilestoneService {
+
+	private static final Set<String> STRING_TYPES = new Set<String>{'string', 'picklist', 'email', 'phone', 'textarea', 'multipicklist', 'reference', 'url', 'id'};
+    private static final Set<String> NUMERIC_TYPES = new Set<String>{'double', 'currency'};
+	private static Map<String, List<String>> ruleIdRuleUnitsMap;
+	private static Map<Id, Entitlement_Rule__c> entitlementRuleMap;
+	private static Map<String, String> ciFieldTypeMap;
+
+	/**
+	* Grabs a new instance of this class
+	* Using Application.Utilities allows us to override this interface with a mock class for unit testing
+	*/
+	public static MilestoneService getInstance() {
+		return (MilestoneService)Application.Utilities.getInstance(MilestoneService.class);
+	}
+
+	//get the map of entitlement rule ids to rule units
+	@TestVisible
+	private static Map<String, List<String>> getActiveEntitlementRuleUnitByRecordType(String recTypeDevName) {
+		if (ruleIdRuleUnitsMap == null) {
+			ruleIdRuleUnitsMap = new Map<String, List<String>>();
+			for (Entitlement_Rule__c er : entitlementRuleMap.values()) {
+				ruleIdRuleUnitsMap.put(er.Id, er.Rule__c.split('\\|\\|'));
+			}
+		}
+		return ruleIdRuleUnitsMap;
+	}
+
+	//get the map of entitlement rule
+	@TestVisible
+	private static Map<Id, Entitlement_Rule__c> getActiveEntitlementRulesByRecordType(String recTypeDevName) {
+		if (entitlementRuleMap == null) {
+			entitlementRuleMap = EntitlementRulesSelector.newInstance().selectActiveRulesByRecordTypeDevNames(new Set<String>{recTypeDevName});
+		}
+		return entitlementRuleMap;
+	}
+
+	//get the field type map for case investigation
+	private static Map<String, String> getCaseInvestigationFieldTypeMap(Set<String> entitlementRuleFields) {
+		if (ciFieldTypeMap == null) {
+			ciFieldTypeMap = new Map<String, String>();
+
+			//Get the map of field tokens for SObject. Then do field describes selectively only for those fields
+			//referenced in active entitlement rules.
+			Map<String, Schema.SObjectField> allCaseInvestigationFieldsMap = Schema.SObjectType.CaseInvestigation__c.fields.getMap();
+
+			//Fields to select from  SObject.
+			for (String fieldName : entitlementRuleFields) {
+				//Check if fieldName is a valid field on SObject. Only do field describes
+				//for valid fields referenced in active rules.
+				if (allCaseInvestigationFieldsMap.containsKey(fieldName)) {
+					Schema.SObjectField field = allCaseInvestigationFieldsMap.get(fieldName);
+					Schema.DescribeFieldResult fieldResult = field.getDescribe();
+					String fieldType = String.valueOf(fieldResult.getType()).toLowerCase();
+					ciFieldTypeMap.put(fieldName, fieldType);
+				}
+			}
+		}
+		return ciFieldTypeMap;
+	}
+
+	/**
+	 * This method calculates the next violation date based on the matching entitlement rules configured passed records SobjectType
+	 * @param recIds Ids of records to be processed
+	 * @param entitlementRuleRecTypeDevName Record type developer name for the EntitlementRule
+	 * @param milestoneTierType Milestone tier type represented by the fields on the Entitlement Hierarchy
+	 */
+	public Map<Id, Datetime> calculateNextViolationDateForCaseInvestigation(Set<Id> recIds, String entitlementRuleRecTypeDevName, String milestoneTierType) {
+		Map<Id, Datetime> violationDatetimeResult = new Map<Id, Datetime>();
+		Map<Id, CaseInvestigation__c> caseInvestigations;
+
+		//get active entitlement rules configured in Entitlement_Rule__c object based on the record type
+		Map<Id, Entitlement_Rule__c> entitlementRuleMap = getActiveEntitlementRulesByRecordType(entitlementRuleRecTypeDevName);
+        Map<String, List<String>> ruleIdRuleUnitsMap = getActiveEntitlementRuleUnitByRecordType(entitlementRuleRecTypeDevName);
+
+		//determine the distinct fields referenced in active entitlement rules
+        Set<String> entitlementRuleFields = getFieldsReferencedInEntitlementRules(ruleIdRuleUnitsMap);
+
+		//get the case investigation records
+		if (recIds.size() > 0) {
+			caseInvestigations = CaseInvestigationsSelector.newInstance().selectById(recIds);
+		}
+
+		//Field Types map for fields referenced in entitlement rules
+        //key = field name, value = field type
+        Map<String, String> ciFieldTypeMap = getCaseInvestigationFieldTypeMap(entitlementRuleFields);
+
+		//map to store the case investigation to the matching entitlement rule
+		Map<Id, String> ciEntitlementRuleMatchingMap = getMatchingEntitlementRule(caseInvestigations);
+
+		return violationDatetimeResult;
+	}
+
+	/**
+     * Determine the set of fields referenced in active entitlement rules passed in.
+     * @param entitlementRules Entitlement rule units by rule id.
+     * @return a Set of field names referenced in entitlement rules.
+     */
+    @TestVisible
+    private Set<String> getFieldsReferencedInEntitlementRules(Map<String, List<String>> ruleIdRuleUnitsMap) {
+
+        Set<String> fieldNames = new Set<String>();
+		fieldNames.add('id');
+
+        for (List<String> ruleUnits: ruleIdRuleUnitsMap.values()) {
+            for (String ruleUnit : ruleUnits) {
+                if (ruleUnit.contains('=') || ruleUnit.contains('<') || ruleUnit.contains('>')) {
+                    String fieldName = ruleUnit.split('[=<>]')[0];
+                    fieldNames.add(fieldName.toLowerCase().trim());
+                }
+            }
+        }
+
+        return fieldNames;
+    }
+
+	@TestVisible
+	private Map<Id, String> getMatchingEntitlementRule(Map<Id, CaseInvestigation__c> caseInvestigations) {
+		Map<Id, String> ciEntitlementRuleMatchingMap = new Map<Id, String>();
+
+		//loop through case investigations
+		for (CaseInvestigation__c ci : caseInvestigations.values()) {
+			Map<String, Integer> ruleIDUnitFullyMatched = new  Map<String, Integer>();
+			
+			//loop through the rule units of entitlement rule records
+			for (String ruleID : ruleIdRuleUnitsMap.keyset()) {
+				List<String> ruleUnits = ruleIdRuleUnitsMap.get(ruleID);
+				
+				Integer ruleUnitCounter = ruleUnits.size();
+				Integer ruleUnitMatched = 0;
+					
+				for (String aUnit : ruleUnits) {
+					String fieldName;
+					String fieldType; 
+					String value;
+					Boolean isMatched = false;
+					System.debug(':RuleUnit:' + aUnit);
+					if (aUnit.contains('=')) {
+						fieldName = aUnit.split('=')[0];
+						value = aUnit.split('=')[1];
+						System.debug(':RuleFieldName:' + fieldName);
+						System.debug(':RuleValue:' + value);
+						System.debug(':CaseInvestigationValue:' + ci.get(fieldName));
+	
+						if (ciFieldTypeMap.containsKey(fieldName)) {
+							fieldType = ciFieldTypeMap.get(fieldName);
+							if (STRING_TYPES.contains(fieldType)) {
+								isMatched = ci.get(fieldName) == value;
+							} else if (NUMERIC_TYPES.contains(fieldType)) {
+								isMatched = (Double)ci.get(fieldName) == Double.valueOf(value);
+							} else if (fieldType == 'boolean') {
+								isMatched = (Boolean)ci.get(fieldName) == stringToBoolean(value);
+							} else if (fieldType == 'date') {
+								isMatched = (Date)ci.get(fieldName) == stringToDate(value);
+							} else if (fieldType == 'datetime') {
+								isMatched = (Datetime)ci.get(fieldName) == stringToDatetime(value);
+							}
+						}
+					} 
+					
+					if (isMatched) {
+						System.debug(':MATCHFOUND');
+						System.debug(':fieldName:' + fieldName);
+						System.debug(':value:' + value);
+						ruleUnitMatched++;
+					}
+				}
+					
+				//All rule units are matched only
+				if (ruleUnitCounter == ruleUnitMatched) {
+					ruleIDUnitFullyMatched.put(ruleID,ruleUnitMatched);
+				}	
+			}
+
+			String ruleID = '';
+			Integer maxRuleUnitMatched=0;
+			
+			System.debug(':FullyMatchedRules:' + ruleIDUnitFullyMatched);
+			//if full match is found
+			if (ruleIDUnitFullyMatched.size() > 0){
+					//get maximum ruleUnitMatched
+				for (String s:ruleIDUnitFullyMatched.keyset()) {
+					if (ruleIDUnitFullyMatched.get(s) > maxRuleUnitMatched) {
+						maxRuleUnitMatched = ruleIDUnitFullyMatched.get(s);
+						ruleID = s;
+						System.debug(':maxRuleUnitMatched:' + maxRuleUnitMatched);
+						System.debug(':ruleID:' + ruleID);
+					}
+				}
+			}
+
+			if (ruleID != '') {
+				ciEntitlementRuleMatchingMap.put(ci.Id, ruleID);
+			}
+		}
+		
+		return ciEntitlementRuleMatchingMap;
+	}
+
+	// convert string (MM-dd-yyyy) to date
+	private Date stringToDate(String strDate) {
+		Date tempDate = null;
+		if (strDate != '' && strDate != null) {
+			try {
+				String[] dtPart = strDate.split('-');
+				if (dtPart.size() == 3) {
+					tempDate = Date.valueOf(dtPart[2]+'-'+dtPart[0]+'-'+dtPart[1] + ' 00:00:00');
+				}
+			} catch (Exception e) {
+				return null;
+			}   
+		}       
+		return tempDate;
+	}    
+		
+	// convert string (MM-dd-yyyy hh:mm a) to datetime
+	private Datetime stringToDatetime(String strDatetime) {
+		Datetime tempDatetime = null;
+		if (strDatetime != '' && strDatetime != null) {
+			try {
+				String[] dtPart = strDatetime.split('-');
+				if (dtPart.size() == 3) {
+					tempDatetime = Datetime.valueOf(dtPart[2].left(4)+'-'+dtPart[0]+'-'+dtPart[1] + ' ' + dtPart[2].substring(5,10) + ':00');
+				}
+			} catch (Exception e) {
+				return null;
+			}   
+		}       
+		return tempDatetime;
+	}
+
+	private Boolean stringToBoolean(String yesNo) {
+        return yesNo.toLowerCase() == 'yes'; 
+    }
+}
