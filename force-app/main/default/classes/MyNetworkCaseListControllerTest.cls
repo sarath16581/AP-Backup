@@ -198,8 +198,27 @@
 
 
 		database.insert(ctmList);
+		
+		//creating case investigations for ST cases.
+		Map<String,Schema.RecordTypeInfo> caseInvestigationRecTypeMap = Schema.Sobjecttype.CaseInvestigation__c.getRecordTypeInfosByDeveloperName();
+
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(3, stCase1.Id, null, null, false);
+		caseInvestigations[0].ReferenceID__c = '12345';
+		caseInvestigations[1].ReferenceID__c = '57343';
+		caseInvestigations[2].ReferenceID__c = '23424';
+
+		caseInvestigations[0].RecordTypeId = caseInvestigationRecTypeMap.get('StarTrack_MyNetwork').getRecordTypeId();
+		caseInvestigations[1].RecordTypeId = caseInvestigationRecTypeMap.get('StarTrack_MyNetwork').getRecordTypeId();
+		caseInvestigations[2].RecordTypeId = caseInvestigationRecTypeMap.get('StarTrack_MyNetwork').getRecordTypeId();
+		
+		//updating article id for 2nd case investigations.
+		caseInvestigations[2].Article__c = testArticle1.Id;
+		//updating LastContactCentreUpdate__c field for 3rd case investigation.
+		caseInvestigations[2].LastContactCentreUpdate__c = System.today().addDays(-1);
 
 
+		//adding case investigations
+		Database.insert(caseInvestigations);
 
 		List<EventMessage__c> eventMessages = new List<EventMessage__c>();
 		EventMessage__c eventMessage = new EventMessage__c();
@@ -503,27 +522,27 @@
 	 */
 
 	@isTest
-	static void test_GetFilteredCases_StarTrackUpdatedListViewFilters() {
+	static void test_GetFilteredCases_APUpdatedListViewFilters() {
 
 		String filteredString = '{"isPrinted":"","priorityVal":"--Select--","enquirySubTypeVal":"--Select--","addressePostcodeVal":"","selectedProductCategoryVal":"--Select--","selectedNetworkRecrdIdVal":"","selectedlistview":"Cases_updated","searchButtonClicked":true,"caseNumberVal":""}';
 		Map<String,Schema.RecordTypeInfo> caseRecTypeMap = Schema.Sobjecttype.Case.getRecordTypeInfosByDeveloperName();
-		Id stCaseRecordTypeId = caseRecTypeMap.get('StarTrack_General_Enquiry').getRecordTypeId();
+		Id apCaseRecordTypeId = caseRecTypeMap.get('SSSWDelivery').getRecordTypeId();
 
-		//get ST cases
-		List<Case> cases = [Select ID, Status from Case WHERE RecordTypeId =:stCaseRecordTypeId LIMIT 2];
+		//get AP cases
+		Map<Id, Case> apCasesMap = new Map<Id, Case> ([Select ID, Status from Case WHERE RecordTypeId =:apCaseRecordTypeId]);
 		User uRecrd = [Select id,name from user where lastName = 'lTest' and profileId=:prof.Id and isActive= true limit 1];
-	   
+	
 		list<MyNetworkCaseListController.myNetworkCasesWrapper> wrapperList = new list<MyNetworkCaseListController.myNetworkCasesWrapper>();
 
-		System.runAs(uRecrd){
-			Test.StartTest();
-				//assigning records self. 
-				wrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
-			Test.StopTest();  
-		}
+		Test.StartTest();
+			wrapperList = MyNetworkCaseListController.getFilteredCases(filteredString);
+		Test.StopTest();  
 
 		//asserting list is not empty
 		system.assert(!wrapperList.isEmpty());
+
+		//asserting return list contains expected case record.
+		system.assert(apCasesMap.containsKey(wrapperList[0].myNetworkCase.Id));
 
 	}
 
