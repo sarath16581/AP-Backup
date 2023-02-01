@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Requiremoreinformation__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used on MyNetwork community to add network response for ST cases.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please tick this checkbox if more information is required from the customer service</inlineHelpText>
+    <label>Require More Information</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
