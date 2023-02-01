@@ -4,6 +4,7 @@
  * @domain            : Case
  * @changelog
  * 2022-12-05 - George Nguyen - created
+ * 2023-12-23 - Dattaraj Deshmukh - Added Case.SobjectType to SObjectType list.
  * @Test CaseInvestigationDomainTrgrHdlr_Test
  **/
 public inherited sharing class CaseInvestigationDomainTriggerHandler extends ApplicationDomainTriggerHandler {
@@ -25,6 +26,6 @@ public inherited sharing class CaseInvestigationDomainTriggerHandler extends App
 	}
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
-		return new List<SObjectType>{ CaseInvestigation__c.SObjectType };
+		return new List<SObjectType>{ CaseInvestigation__c.SObjectType,  Case.SObjectType };
 	}
 }

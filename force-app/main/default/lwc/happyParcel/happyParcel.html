@@ -4,6 +4,7 @@
     2020-10-12 - Ranjeewa Silva - Added support for Direct to Network case creation.
     2021-06-15 - Ranjeewa Silva - Updated 'readOnly' property name as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.js_props_names.
     2021-06-15 - Prerna Rahangdale - Added the warning to show for the VODV Articles.
+	2022-11-28 - Dattaraj Deshmukh - Added flag 'isStarTrackCase' to 'isRenderConsigmentNumber' to show caseInvestigation's articl numbers for ST cases.
 -->
 <template>
 	<article class={happyParcelCssClass}>
@@ -11,7 +12,33 @@
 			<c-happy-parcel-article-selector read-only={selectorReadOnly} loading={loading} tracking-id={trackingId} onsearch={handleSearch}>
 			</c-happy-parcel-article-selector>
 		</div>
-
+		<template if:true={isStarTrackCase}>
+			<div class="slds-grid slds-p-vertical_medium">
+				<div class="slds-col slds-grow-none slds-m-right_xx-small" >
+					<h3 class="slds-tile__title slds-truncate"> Case Investigation Articles</h3>
+					<div class="slds-grid slds-p-vertical_small"> 
+						 <!-- <lightning-pill-container items={articleItems} ></lightning-pill-container> -->
+						<template for:each={caseInvestigations} for:item="cInv">
+							<div class="slds-col  slds-grow-none slds-m-right_xx-small clickableDiv"  key={cInv}  data-id={cInv.Article__r}   onclick={updateHappyParcels}> 
+								{cInv.Article__r}  
+							</div>
+						</template>
+					</div>
+				</div>
+				<template if:true={isRenderConsigmentNumber}>
+					<div class="slds-col slds-grow-none slds-m-right_xx-small" >
+						<h3 class="slds-tile__title slds-truncate"> Consignment </h3>
+						<div class="slds-grid slds-p-vertical_small"> 
+							<div class="slds-col slds-grow-none slds-m-right_xx-small clickableDiv"  data-id={caseConsignmentId}   onclick={updateHappyParcels}> 
+								{caseConsignmentId}
+							</div>
+						</div>
+					</div>
+				</template>
+			</div>
+		</template>
+	
+	
 		<template for:each={errors} for:item="error">
 			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
 				<span class="slds-assistive-text">error</span>

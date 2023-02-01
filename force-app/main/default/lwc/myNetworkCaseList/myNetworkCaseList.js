@@ -9,14 +9,15 @@
 30.10.2020    Swati.Mogadala@auspost.com.au REQ2329468 Error message fixed - 'Please select case(s) for printing'
 08.09.2022    Naveen Rajanna - REQ2963906: domain check to populate prefix myNetwork if required
 01.11.2022    Dattaraj Deshmukh - Updated to show case investigations for StarTrack cases. 
+31.01.2023	  Dattaraj Deshmukh - Updated to show number of case numbers.
 */
 /* eslint-disable default-case */
 /* eslint-disable no-console */
-import { LightningElement, track, wire } from "lwc";
+import { LightningElement, track } from "lwc";
 import myNetworkCases from "@salesforce/apex/MyNetworkCaseListController.myNetworkCases";
 import getFilteredCases from "@salesforce/apex/MyNetworkCaseListController.getFilteredCases";
-import assignToSelf from "@salesforce/apex/MyNetworkCaseListController.assignToSelf";
-import assignToUser from "@salesforce/apex/MyNetworkCaseListController.assignToUser";
+import assignSelectedRecords from "@salesforce/apex/MyNetworkCaseListController.assignSelectedRecords";
+
 import { NavigationMixin } from "lightning/navigation";
 /*import compensationAndPostageValue from 'c/compensationAndPostageValue';*/
 import { loadStyle } from "lightning/platformResourceLoader";
@@ -190,6 +191,8 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   @track loadLandingPageErrMsg;
   @track sortedRecords = [];
   @track selectedRecords = [];
+  @track casesRecords = [];
+
   sfdcBaseURL;
   constructor() {
     super();
@@ -215,7 +218,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
     myNetworkCases({ selectedViewString: this.selectedListViewApiName })
       .then((result) => {
         if (result) {
-          this.totalNumberOfCases = result.length;
+          //this.totalNumberOfCases = result.length;
           this.getcaseDataPopulation(result);
           this.showCaseRecordDetails = false;
           if (this.pageSizeOptions && this.pageSizeOptions.length > 0)
@@ -253,8 +256,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
         caseRecord.dotCSSClass = "redcolor";
         caseRecord.displayIconName = "utility:warning";
       }
-      caseRecord.Case_Priority = data[i].myNetworkCase.Priority;
-
       caseRecord.Case_CustomerType = data[i].myNetworkCase.Customer_Type__c;
       caseRecord.Case_addresseeAddress = data[i].myNetworkCase.Address2__c;
       caseRecord.Case_addresseePostcode =
@@ -265,7 +266,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       if (data[i].myNetworkCase.PONUser__r != null) {
         caseRecord.Case_assignedTo = data[i].myNetworkCase.PONUser__r.Name;
       }
-      //caseRecord = Object.assign(caseRecord, data[i]);
+      caseRecord = Object.assign(caseRecord, data[i]);
   }
 
   /* Method take the cases return from apex method as input parameter and return the list of case wrapper
@@ -282,47 +283,62 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       
      
       //check if case investigations exists under a case. For all ST Cases, investigations exists under a case.
-      if(data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r){
+      if(data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) {
+        
+        
+
         let cInvestigations = data[i].myNetworkCase.CaseInvestigations__r;
-        for(let cInvestigationCnt = 0; cInvestigationCnt < cInvestigations.length; cInvestigationCnt++){
+
+        for(let cInvestigationCnt = 0; cInvestigationCnt < cInvestigations.length; cInvestigationCnt++) {
           
-          caseRecord.rowNumber = (i + cInvestigationCnt) ;
+			caseRecord.rowNumber = (i + cInvestigationCnt) ;
 
-          //setting caseInvestigations to blank
-          caseRecord.caseInvestigation = '';
-          caseRecord.caseInvestigation = cInvestigations[cInvestigationCnt].Name;
-          caseRecord.Case_sentToNetworkDate = cInvestigations[cInvestigationCnt].CreatedDate;
-          caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r.Name;
-          caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
+		  	//setting Case.Type for wrapper variable for ST cases.
+		  	caseRecord.Case_enquirySubtype = data[i].myNetworkCase.Type;
+	
+			//populate common fields between case investigation and case object.
+			this.populateCaseData(caseRecord, data, i);
 
-          //because case and case investigation need to be shown under one column,
-          //caseNum is populated with case number and Case Investigation Number.
-          caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/detail/" + data[i].caseId;
-          caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
-          caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
-          caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
+			//setting caseInvestigations to blank
+			caseRecord.caseInvestigation = '';
+			caseRecord.caseInvestigation = cInvestigations[cInvestigationCnt].Name;
+			caseRecord.Case_sentToNetworkDate = cInvestigations[cInvestigationCnt].CreatedDate;
+			caseRecord.Case_RefereceId = cInvestigations[cInvestigationCnt].Article__r ? cInvestigations[cInvestigationCnt].Article__r.Name : '';
+			caseRecord.caseInvestigationId = cInvestigations[cInvestigationCnt].Id;
 
-           //populate common fields between case investigation and case object.
-          this.populateCaseData(caseRecord, data, i);
-          caseRecordList.push(caseRecord);
-          //create new instance of caseRecord to store next case investigation record wrapper.
-          caseRecord = new Object();
+			//As case and case investigation need to be shown under one column,
+			//caseNum is populated with case number and Case Investigation Number.
+
+			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/caseinvestigation/" +cInvestigations[cInvestigationCnt].Id;
+			//caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId+'?caseInvestigationRecordId='+cInvestigations[cInvestigationCnt].Id;
+			caseRecord.caseNum = (data[i].myNetworkCase.hasOwnProperty('CaseInvestigations__r') && data[i].myNetworkCase.CaseInvestigations__r) ?  (data[i].caseNum + ' - ' +  caseRecord.caseInvestigation) : data[i].caseNum;
+			caseRecord.Case_Priority = cInvestigations[cInvestigationCnt].Priority__c;
+			caseRecord.casePriority = cInvestigations[cInvestigationCnt].Priority__c;
+
+			let investigationArray = caseRecord.myNetworkCase.CaseInvestigations__r.filter(cInvest => cInvest.Id === caseRecord.caseInvestigationI);
+			caseRecord.myNetworkCase.CaseInvestigations__r = investigationArray;
+
+			caseRecordList.push(caseRecord);
+			//create new instance of caseRecord to store next case investigation record wrapper.
+			caseRecord = new Object();
         }
-      }
-      else{
-        caseRecord.rowNumber = i;
-        caseRecord.Case_sentToNetworkDate = data[i].myNetworkCase.Sent_To_Network_Date__c;
-        caseRecord.Case_RefereceId = data[i].myNetworkCase.ReferenceID__c;
-        caseRecord.Case_enquirySubtype = data[i].myNetworkCase.EnquirySubType__c;
-        caseRecord.caseNumberCSSClass = "blue";
-        caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/s/case/" + data[i].caseId;
-        caseRecord.caseNum = data[i].caseNum;
-        caseRecord.Case_Priority = data[i].myNetworkCase.Priority;
-        caseRecord.casePriority = data[i].casePriority;
 
+      }
+      else {
         this.populateCaseData(caseRecord, data, i);
 
-        caseRecordList.push(caseRecord);
+			caseRecord.rowNumber = i;
+			caseRecord.Case_sentToNetworkDate = data[i].myNetworkCase.Sent_To_Network_Date__c;
+			caseRecord.Case_RefereceId = data[i].myNetworkCase.ReferenceID__c;
+			caseRecord.Case_enquirySubtype = data[i].isStarTrackCase ? data[i].myNetworkCase.Type : data[i].myNetworkCase.EnquirySubType__c;
+			caseRecord.caseNumberCSSClass = "blue";
+			caseRecord.caseLink = (this.sfdcBaseURL.includes("auspostbusiness") ? "/myNetwork" : "") + "/case/" + data[i].caseId;
+			caseRecord.caseNum = data[i].caseNum;
+			caseRecord.Case_Priority = data[i].myNetworkCase.Priority;
+			caseRecord.casePriority = data[i].casePriority;
+
+
+			caseRecordList.push(caseRecord);
       }
     }
 
@@ -341,7 +357,17 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       this.noCasesFoundMsg = "No Case Result Found";
       this.showTable = false;
     }
-    this.totalNumberOfFilteredCases = this.cases.length;
+    this.totalNumberOfFilteredCases = this.cases.length;//this.cases.length;
+
+	
+
+	//calculate total number of cases only when List view is set to 'All_Cases'.
+	if(this.selectedListViewApiName === 'All_Cases') {
+		this.totalNumberOfCases = (this.totalNumberOfCases ||  this.totalNumberOfCases === 0) ? this.cases.length : this.totalNumberOfCases;
+	}
+
+	console.log('this.selectedListViewApiName: '+this.selectedListViewApiName);
+	console.log('this.totalNumberOfCases: '+this.totalNumberOfCases);
     this.loadLandingPage = false;
   }
   /* This method is handler of event fired from when the case list view is changed.It takes the selected
@@ -379,6 +405,10 @@ export default class CaseList extends NavigationMixin(LightningElement) {
     this.searchingFlag = true;
     let eventData = event.detail;
     this.showTable = false;
+	//assigning selected list view.
+	if(eventData){
+		this.selectedListViewApiName = JSON.parse(event.detail).selectedlistview;
+	}
     let result = await getFilteredCases({ filteredString: event.detail });
     if (result) {
       this.searchingFlag = false;
@@ -429,7 +459,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   sortData(fieldName, sortDirection) {
     // var data = JSON.parse(JSON.stringify(this.recordsToDisplay));
     let  data = [];
-    if(fieldName == 'Case_Priority'){
+    if(fieldName === 'Case_Priority'){
       fieldName = 'casePriority';
     }
      data = JSON.parse(JSON.stringify(this.cases));
@@ -619,14 +649,15 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   
   handleClick(evt) {
     console.log('this.selectedRecords',this.selectedRecords);
+	var hostname = window.location.hostname;
+
     //this.selectedRecords == null modified with length() to get message when no case is selected  
-    if(this.selectedRecords.length== 0){
+    if(this.selectedRecords.length === 0){
       this.assignToSelfHasErr = true;
       this.assignToSelfErrMsg = 'Please select case(s) for printing'
     }else{
       evt.preventDefault();
       evt.stopPropagation();
-      var hostname = window.location.hostname;
       this.VFpage = {
         type: "standard__webPage",
         attributes: {
@@ -647,36 +678,88 @@ export default class CaseList extends NavigationMixin(LightningElement) {
   getSelectedRows(event) {
     const selectedRows = event.detail.selectedRows;
     let conIds = new Set();
+	let caseInvestigationIds = [];
     // getting selected record id
     for (let i = 0; i < selectedRows.length; i++) {
       conIds.add(selectedRows[i].myNetworkCase.Id);
+	  selectedRows[i].hasOwnProperty('caseInvestigationId') ? conIds.add(selectedRows[i].caseInvestigationId) : '';
     }
     // coverting to array
     this.selectedRecords = Array.from(conIds);
+	//this.selectedRecords.push(caseInvestigationIds);
+
+
   }
-  openModal() {
+  // openModal() {
+  //   let selectedRows = this.template
+  //     .querySelector("lightning-datatable")
+  //     .getSelectedRows();
+  //   let selectedCaseId = [];
+  //   let selectedCaseRowIdsVar = [];
+  //   let caseSelected = false;
+  //   let selectedCaseInvestigationId = [];
+    
+  //   for (let i = 0; i < selectedRows.length; i++) {
+
+  //     //if case is ST case, select case investigation for owner updates
+  //     if(selectedRows[i].caseInvestigationId){
+  //       selectedCaseInvestigationId.push(selectedRows[i].caseInvestigationId);
+  //     }
+  //     else{
+  //       selectedCaseId.push(selectedRows[i].caseId);
+  //     }
+  //     selectedCaseRowIdsVar.push(selectedRows[i].rowNumber);
+  //     caseSelected = true;
+  //   }
+  //   if(selectedCaseRowIdsVar.length > 20){
+  //     this.assignToSelfErrMsg = 'Please select maximum of 20 cases for assignment';
+  //     this.assignToSelfHasErr = true;
+  //   } else{
+  //     if(caseSelected){
+  //       this.selectedCaseIdJson = selectedCaseInvestigationId.length>0 ? JSON.stringify(selectedCaseInvestigationId) : JSON.stringify(selectedCaseId);
+  //       this.selectedCaseId = selectedCaseRowIdsVar;
+  //       this.bShowModal = true;
+  //       this.assignToSelfHasErr = false;
+  //     }else{
+  //       this.assignToSelfErrMsg = 'Please select case(s) for assignment';
+  //       this.assignToSelfHasErr = true;
+  //     }
+  //   }
+  // }
+
+  handleAssignToUser() {
     let selectedRows = this.template
       .querySelector("lightning-datatable")
       .getSelectedRows();
     let selectedCaseId = [];
     let selectedCaseRowIdsVar = [];
     let caseSelected = false;
+    let selectedCaseInvestigationId = [];
+    
     for (let i = 0; i < selectedRows.length; i++) {
-      selectedCaseId.push(selectedRows[i].caseId);
+
+      //if case is ST case, select case investigation for owner updates
+      if(selectedRows[i].caseInvestigationId){
+        selectedCaseInvestigationId.push(selectedRows[i].caseInvestigationId);
+      }
+      else{
+        selectedCaseId.push(selectedRows[i].caseId);
+      }
       selectedCaseRowIdsVar.push(selectedRows[i].rowNumber);
       caseSelected = true;
     }
     if(selectedCaseRowIdsVar.length > 20){
-      this.assignToSelfErrMsg = 'Please select maximum of 20 cases for assignment';
+      this.assignToSelfErrMsg = 'Please select maximum of 20 records for assignment';
       this.assignToSelfHasErr = true;
     } else{
       if(caseSelected){
-        this.selectedCaseIdJson = JSON.stringify(selectedCaseId);
+        //merging selectedCaseId and selectedCaseInvestigationId arrays into one and generating JSON string.
+        this.selectedRecordIdJson = JSON.stringify(selectedCaseId.concat(selectedCaseInvestigationId));
         this.selectedCaseId = selectedCaseRowIdsVar;
         this.bShowModal = true;
         this.assignToSelfHasErr = false;
       }else{
-        this.assignToSelfErrMsg = 'Please select case(s) for assignment';
+        this.assignToSelfErrMsg = 'Please select records for assignment';
         this.assignToSelfHasErr = true;
       }
     }
@@ -692,11 +775,13 @@ export default class CaseList extends NavigationMixin(LightningElement) {
     this.assignToSelfHasErr = false;
 
     let selecteduserId = event.detail;
-    let selectedCaseIdSelected = this.selectedCaseId;
-    let result = await assignToUser({
-      caseIds: this.selectedCaseIdJson,
+   
+    let result = await assignSelectedRecords({
+      recordIds: this.selectedRecordIdJson,
       selectedUserId: selecteduserId,
+      isAssignSelf : false
     });
+
     if (!result.hasError) {
       for (let i = 0; i < this.selectedCaseId.length; i++) {
         let arryIndex = this.selectedCaseId[i];
@@ -723,22 +808,40 @@ export default class CaseList extends NavigationMixin(LightningElement) {
       .getSelectedRows();
     let selectedCaseId = [];
     let selectedCaseRowIds = [];
+    let selectedCaseInvestigationId = [];
+
     let caseSelected = false;
     for (let i = 0; i < selectedRows.length; i++) {
-      selectedCaseId.push(selectedRows[i].caseId);
+
+      //if a case is ST case, select case investigation for owner updates
+      if(selectedRows[i].caseInvestigationId){
+        selectedCaseInvestigationId.push(selectedRows[i].caseInvestigationId);
+      }
+      else{
+        selectedCaseId.push(selectedRows[i].caseId);
+      }
+
       selectedCaseRowIds.push(selectedRows[i].rowNumber);
       caseSelected = true;
     }
     if(selectedCaseRowIds.length > 20) {
-      this.assignToSelfErrMsg = 'Please select maximum of 20 cases for assignment';
+      this.assignToSelfErrMsg = 'Please select maximum of 20 records for assignment';
       this.assignToSelfHasErr = true;
     }else {
       if(caseSelected) {
         this.searchingFlag = true;
         this.showTable = false;
         this.assignToSelfHasErr = false;
-        let selectedCaseIdJson = JSON.stringify(selectedCaseId);
-        let result = await assignToSelf({ caseIds: selectedCaseIdJson });
+        let selectedRecordIdJson = JSON.stringify(selectedCaseId.concat(selectedCaseInvestigationId));
+
+        //let result = await assignToSelf({ caseIds: selectedCaseIdJson });
+
+        let result = await assignSelectedRecords({
+          recordIds: selectedRecordIdJson,
+          selectedUserId: '',
+          isAssignSelf : true
+        });
+
         if (!result.hasError) {
           for (let i = 0; i < selectedCaseRowIds.length; i++) {
             let arryIndex = selectedCaseRowIds[i];
@@ -746,7 +849,6 @@ export default class CaseList extends NavigationMixin(LightningElement) {
             caseRecord.Case_assignedTo = result.resultValue;
             let carVarData={};
             carVarData = Object.assign(carVarData, caseRecord);
-          // this.cases[arryIndex - 1] = carVarData;
           this.recordsToDisplay[arryIndex] = caseRecord;
           }
           this.searchingFlag = false;
@@ -758,7 +860,7 @@ export default class CaseList extends NavigationMixin(LightningElement) {
           this.assignToSelfErrMsg = result.resultValue;
         }  
       }else {
-        this.assignToSelfErrMsg = 'Please select case(s) for assignment';
+        this.assignToSelfErrMsg = 'Please select records for assignment';
         this.assignToSelfHasErr = true;
       }
     }   

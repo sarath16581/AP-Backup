@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
@@ -12,9 +13,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Open</fullName>
+                <fullName>New</fullName>
                 <default>true</default>
-                <label>Open</label>
+                <label>New</label>
             </value>
             <value>
                 <fullName>In Progress</fullName>
@@ -35,6 +36,16 @@
                 <fullName>Closed</fullName>
                 <default>false</default>
                 <label>Closed</label>
+            </value>
+            <value>
+                <fullName>Responded</fullName>
+                <default>false</default>
+                <label>Responded</label>
+            </value>
+            <value>
+                <fullName>Closed - Required More Information</fullName>
+                <default>false</default>
+                <label>Closed - Required More Information</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -5,6 +5,7 @@
 * @group Domains
 * @changelog
 * 2022-09-21 - Noel Lim - addition of CaseSkillBasedRoutingModule
+* 2022-01-17 - Dattaraj Deshmukh - Added 'STCaseRelatedRecordsProcessingModule' to update child case investigation records.
 * 2023-01-25 - Noel Lim - addition of CaseOmniRoutingModule
 */
 
@@ -32,6 +33,11 @@ public inherited sharing class CasesDomain extends ApplicationDomain{
 		// NOTE: must run after the legacy code in CaseTriggerHandler.cls. It has logic that depends on Case.AccountId
 		// Refactor Guidance - the logic in this code needs to be positioned: i) in CaseTriggerUtility.beforeHandler() ii) when caseUtility.assignContactIDToCase() is called
 		registerModule(CaseSkillBasedRoutingModule.class);
+		
+
+		// Whenever StarTrack cases are closed, this module will update all
+		// child case investigation records and marked them closed.
+		registerModule(STCaseRelatedRecordsProcessingModule.class); 
 
 		// Logic relating to Omni Routing
 		// Updates the value of OmniRoutingSecondaryPriority field for cases that are assigned or routed to an Omni queue.

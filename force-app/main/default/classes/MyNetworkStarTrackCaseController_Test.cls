@@ -4,12 +4,13 @@
  * @Author             : Mahesh Parvathaneni
  * @changelog
  * 2022-12-12 - Mahesh Parvathaneni - added new test methods
+ * 2023-01-17 - Mahesh Parvathaneni - added tests to set the StarTrack MyNetwork record type for Case Investigation
  **/
 
 @IsTest
 public with sharing class MyNetworkStarTrackCaseController_Test {
-    
-    /**
+
+	/**
 	 * Scenario: Testing to get articles and event messages related to case
 	 */
 	@IsTest
@@ -64,7 +65,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		System.assertEquals(mockWrapper.articleDetails[0].eventMessages[0].eventMessage.Id, wrapper.articleDetails[0].eventMessages[0].eventMessage.Id, 'Article details are not returned correctly');
 	}
 
-    /**
+	/**
 	 * Scenario: Testing to save the case investigation records
 	 */
 	@IsTest
@@ -162,7 +163,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlRollback(sSavePoint);
 	}
 
-    /**
+	/**
 	 * Scenario: Testing to save the case investigation records that already exists related to same article and network
 	 */
 	@IsTest
@@ -199,7 +200,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		System.assertNotEquals(MyNetworkStarTrackCaseController.Status.SUCCESSFUL.name(), saveResult.status, 'Expected error creation of case investigation record');
 	}
 
-    /**
+	/**
 	 * Scenario: Testing to get the chatter feed items for save
 	 */
 	@IsTest
@@ -232,9 +233,9 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		System.assertEquals(1, feedItems.size(), 'Expected feed items to return');
 		System.assertEquals(caseInvestigations[0].Id, feedItems[0].ParentId, 'Invalid parent id for the feed item');
 		System.assertEquals('Posting to chatter', feedItems[0].Body, 'Invalid body for the feed item');
-    }
+	}
 
-    /**
+	/**
 	 * Scenario: Testing to get the critical incidents knowledge articles
 	 */
 	@IsTest
@@ -267,6 +268,38 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		System.assertNotEquals(null, ciWrapper, 'Expected critical incidents wrapper to return');
 		System.assertEquals(1, ciWrapper[0].criticalIncidentList.size(), 'Expected critical incidents knowledge articles to return');
 
-    }
+	}
+
+	/**
+	 * Scenario: Testing to set the StarTrack MyNetwork record type for case investigations
+	 */
+	@IsTest
+	private static void testSetStarTrackRecordType() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(2, true);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(1, cases[0].Id, articles[0], networks[0].Id, true);
+		Id starTrackRecordTypeId = Schema.SObjectType.CaseInvestigation__c.getRecordTypeInfosByDeveloperName().get(MyNetworkStarTrackCaseController.ST_MYNETWORK_RECORD_TYPE).getRecordTypeId();
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		MyNetworkStarTrackCaseController.setStarTrackRecordType(caseInvestigations);
+
+		Test.stopTest();
+
+		System.assertEquals(caseInvestigations[0].RecordTypeId, starTrackRecordTypeId, 'Expected StarTrack MyNetwork record type');
+
+	}
 
 }
