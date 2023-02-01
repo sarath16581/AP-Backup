@@ -37,6 +37,21 @@
                 <default>false</default>
                 <label>Products &amp; services</label>
             </value>
+            <value>
+                <fullName>Tracking Enquiry|Track &amp; Trace</fullName>
+                <default>false</default>
+                <label>Tracking Enquiry|Track &amp; Trace</label>
+            </value>
+            <value>
+                <fullName>Tracking Enquiry|Pick-ups</fullName>
+                <default>false</default>
+                <label>Tracking Enquiry|Pick-ups</label>
+            </value>
+            <value>
+                <fullName>Tracking Enquiry|Other</fullName>
+                <default>false</default>
+                <label>Tracking Enquiry|Other</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
