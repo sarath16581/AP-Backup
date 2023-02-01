@@ -1,0 +1,62 @@
+<!--
+ * @description Component to update network response for ST cases on MyNetwork Community.
+ * @author Dattaraj Deshmukh
+ * @date 2022-11-29
+ * @changelog
+ * 2022-11-29 - Dattaraj Deshmukh - Created
+ */
+-->
+<template>
+	<lightning-layout>
+		<lightning-layout-item size="12" padding="horizontal-small">
+			<lightning-card title="Network Response"  icon-name="standard:feedback">
+				<div class="page-section page-main">
+					<!-- Show error msg-->
+					<template if:true={errorMsg}> 
+						<div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+							<span class="slds-assistive-text">error</span>
+							<span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Description of icon when needed">
+							  <lightning-icon icon-name="utility:error" size="x-small" variant="inverse" ></lightning-icon>
+							</span>
+							<h2>{errorMsg} </h2>
+						  </div>
+					</template>
+					<template if:false={isLoaded}>
+						<lightning-spinner alternative-text="Loading"></lightning-spinner>
+					</template>
+					<template if:true={isLoaded}>
+						<div class="slds-m-around_small">
+									<lightning-record-edit-form object-api-name="CaseInvestigation__c" record-id={recordId}>
+											<template if:true={isDelieryFieldVisible}>
+												<lightning-input-field field-name="AddressType__c" onchange={handleAddressTypeChange}></lightning-input-field>
+												<lightning-input-field field-name="DeliveryOfficerKnowledge__c" onchange={handleDeliveryOfficerKnowledgeChange}></lightning-input-field>
+												<lightning-input-field class="slds-hidden" field-name="DeliveryOptions__c" onchange={handleDeliveryOptionsChange}></lightning-input-field>
+												<lightning-input-field field-name="Deliveryinformation__c" onchange={handleDeliveryInformationChange}></lightning-input-field>
+											</template>
+											<lightning-textarea value={comments} label="Network Response" onchange={handleCommentsChange} variant="label-inline"> </lightning-textarea>
+											<lightning-input-field field-name="Qualityofthecase__c" onchange={handleQualityOfCaseChange}></lightning-input-field>
+											<lightning-input-field field-name="Stillunderinvestigation__c" onchange={handleStillUnderInvestigationChange}></lightning-input-field>
+											<lightning-input-field field-name="Requiremoreinformation__c" onchange={handleRequireMoreInfoChange}></lightning-input-field>
+											<lightning-input-field field-name="Network__c" onchange={handleNetworkChange}></lightning-input-field>
+											<lightning-textarea max-lengt="300"	value={internalFacilityNotes} label="Internal Facility Notes" onchange={handleInternalFacilityNotesChange} variant="label-inline"
+												placeholder="Use this as a scribble pad for internal facility notes only and not investigation responses. Notes recorded here are not private. Please make use of the Still Under Investigation checkbox when adding updates to the investigation."
+											> 
+											</lightning-textarea>
+										</lightning-record-edit-form>
+										</br>
+										<lightning-button
+												label="Save Update"
+												variant="brand"
+												onclick={updateCaseInvestigation}
+										></lightning-button>
+							<template if:true={error}>
+								{errorMessage}
+							</template>
+						</div>
+					</template>
+
+				</div>
+			</lightning-card>
+		</lightning-layout-item>
+	</lightning-layout>
+</template>

@@ -6,8 +6,9 @@
     <label>Case</label>
     <referenceTo>Case</referenceTo>
     <relationshipLabel>Case Investigations</relationshipLabel>
-    <relationshipName>Case_Investigations</relationshipName>
+    <relationshipName>CaseInvestigations</relationshipName>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

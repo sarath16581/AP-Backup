@@ -19,11 +19,13 @@
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2021-11-26 - Ashapriya Gadi - Added enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER and a condition for it in the newQueryBuilder
  * 2022-02-22 - Naveen Rajanna - REQ2723199 Add fields to getSObjectFieldList
+ * 2022-12-05 - Dattaraj Deshmukh - Added enum WITH_CHILD_INVESTIGATIONS and fields to getSObjectFieldList.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT, WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, WITH_BILLINGACCOUNT, WITH_ACCOUNT
+		WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT, WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER,
+		WITH_CHILD_INVESTIGATIONS
 	}
 
 	public static CasesSelector newInstance() {
@@ -74,7 +76,11 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.SlaExitDate, Case.SlaStartDate, Case.IsEscalated, Case.Comments, Case.LastModifiedDate, Case.LastModifiedById,
 			Case.ParentId, Case.Priority, Case.ProductId, Case.FeedItemId, Case.Status, Case.IsStopped, Case.StopStartDate, Case.Subject,
 			Case.Type, Case.SuppliedCompany, Case.SuppliedEmail, Case.SuppliedName, Case.SuppliedPhone, Case.ReferenceID__c, 
-			Case.First_Email_Response__c, Case.StarTrack_Calc_Email_Address__c, Case.Owner_is_Queue__c, Case.Approval_Status__c, Case.Business_Solutions_Customer__c, Case.Case_RecordType_Name__c, Case.StarTrack_RecordType__c, Case.ResolutionCode__c, Case.Enquiry_Type__c, Case.Call_Purpose__c, Case.Auto_Email_Response_sent__c, Case.LastIncomingEmailAddress__c
+			Case.First_Email_Response__c, Case.StarTrack_Calc_Email_Address__c, Case.Owner_is_Queue__c, Case.Approval_Status__c, 
+			Case.Business_Solutions_Customer__c, Case.Case_RecordType_Name__c, Case.StarTrack_RecordType__c, Case.ResolutionCode__c, 
+			Case.Enquiry_Type__c, Case.Call_Purpose__c, Case.Auto_Email_Response_sent__c, Case.LastIncomingEmailAddress__c,
+			Case.EnquirySubType__c, Case.Primary_Name__c, Case.Address1__c, Case.Secondary_Contact__c, Case.Address2__c,
+			Case.Facility_Milestones_Violated__c, Case.Root_cause__c, Case.ArticleTest__c, Case.calc_case_consignment__c
 		};
 	}
 
@@ -230,6 +236,10 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			clonedOptions.remove(Options.WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER);
 			builder.addSubQuery(EmailMessagesSelector.newInstance(EmailMessage.CreatedDate, 'Asc', 1).newQueryBuilder(clonedOptions), 'EmailMessages');
 		}
+		if(selectorOptions.contains(Options.WITH_CHILD_INVESTIGATIONS)) {
+			builder.addSubQuery(CaseInvestigationsSelector.newInstance().newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(CaseInvestigation__c.Status__c + ' != \'Closed\'' )).endConditions(), 'CaseInvestigations__r');
+		}
+		
 		if(selectorOptions.contains(Options.WITH_BILLINGACCOUNT)) {
 			builder.addRelatedFields(BillingAccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(), 'Related_Billing_Account__r');
 		}

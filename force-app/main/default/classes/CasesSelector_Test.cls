@@ -17,6 +17,7 @@
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2021-11-26 - Ashapriya Gadi - Added test coverage for enum WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER
  * 2022-02-17 - Nathan Franklin - Refactored WITH_SINGLE_EMAIL_MESSAGE_ASC_ORDER
+ * 2022-01-23 - Dattaraj Deshmukh - Added tests for 'CaseInvestigations__r' child records query.
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -113,6 +114,14 @@ public with sharing class CasesSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)ArticleTest__r\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Article fields'+soql);
 		System.assertEquals(true, Pattern.compile('(?is)Network__r\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Network fields'+soql);
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_CHILD_INVESTIGATIONS});
+		soql = qb.toSoqlString();
+		System.assertEquals(
+			true,
+			Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom CaseInvestigations__r\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(),
+			'Resulting query does not select Case Investigation child records: ' + soql
+		);
 
 		Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>();
 		Set<SObjectField> caseFields = new Set<SObjectField>{Case.Id, Case.Call_Purpose__c};
