@@ -7,7 +7,7 @@ History:
 
 public inherited sharing class StarTrackTrackingIDSearchService extends ApplicationDomain.Module {
     public static StarTrackTrackingIDSearchService newInstance() {
-        return (StarTrackTrackingIDSearchService) Application.Utilities.newInstance(StarTrackTrackingIDSearchService.class);
+        return (StarTrackTrackingIDSearchService) Application.Utilities.getInstance(StarTrackTrackingIDSearchService.class);
     }
 
     StarTrack_Settings__c stSettings = StarTrack_Settings__c.getOrgDefaults();
