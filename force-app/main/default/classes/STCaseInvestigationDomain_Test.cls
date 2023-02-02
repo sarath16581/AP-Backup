@@ -37,7 +37,8 @@ private class STCaseInvestigationDomain_Test {
 	@IsTest
 	static void domainFilter() {
 		List<Id> validRecordTypes = new List<Id>(new RecordTypesSelector().selectByDeveloperNameLike(CaseInvestigation__c.class.getName(), 'StarTrack').keySet());
-		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(validRecordTypes.size() + 1, null, null, null, true);
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		List<CaseInvestigation__c> caseInvestigations = ApplicationTestDataFactory.getCaseInvestigations(validRecordTypes.size() + 1, cases[0].Id, null, null, true);
 		for(Integer i = 0; i < validRecordTypes.size(); i++) {
 			caseInvestigations[0].recordTypeId = validRecordTypes[0];
 		}
