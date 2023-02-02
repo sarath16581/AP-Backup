@@ -43,10 +43,6 @@ public with sharing class Application {
 			CacheManager.put('ORGANISATION_INFO', null);
 			profileIds = null;
 			CacheManager.put('ALL_PROFILE_IDS', null);
-			serviceChannels = null;
-			CacheManager.put('ALL_SERVICE_CHANNELS', null);
-			queuesWithRoutingConfig = null;
-			CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', null);
 		}
 
 		public OrganizationWrapper organizationInfo {
@@ -78,58 +74,7 @@ public with sharing class Application {
 				return profileIds;
 			}
 			private set;
-		}
-
-		public Map<String, ServiceChannel> serviceChannels {
-			get {
-				if(serviceChannels == null) {
-					serviceChannels = (Map<String, ServiceChannel>)CacheManager.get('ALL_SERVICE_CHANNELS');
-					if(serviceChannels == null) {
-						serviceChannels = new Map<String, ServiceChannel>();
-						for(ServiceChannel sc: [SELECT AfterConvoWorkMaxTime,DeveloperName,DoesMinimizeWidgetOnAccept,HasAfterConvoWorkTimer,RelatedEntity,SecRoutingPriorityField FROM ServiceChannel]) {
-							serviceChannels.put(sc.DeveloperName, sc);
-						}
-						CacheManager.put('ALL_SERVICE_CHANNELS', serviceChannels);
-					}
-				}
-				return serviceChannels;
-			}
-			private set;
-		}
-
-		public Map<Id, QueueWrapper> queuesWithRoutingConfig {
-			get {
-				if(queuesWithRoutingConfig == null) {
-					queuesWithRoutingConfig = (Map<Id, QueueWrapper>)CacheManager.get('QUEUES_WITH_ROUTING_CONFIG');
-					if(queuesWithRoutingConfig == null) {
-						queuesWithRoutingConfig = new Map<Id, QueueWrapper>();
-	
-						List<Group> queues = [SELECT DeveloperName, QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
-						Set<Id> queueRoutingConfigIds = new Set<Id>();	
-	
-						for(Group queue : queues) {
-							queueRoutingConfigIds.add(queue.QueueRoutingConfigId);
-						}
-	
-						if(queueRoutingConfigIds.isEmpty() == false){
-							List<QueueRoutingConfig> routingConfigs = [SELECT CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, 
-																PushTimeout, RoutingModel, RoutingPriority, DeveloperName FROM QueueRoutingConfig WHERE Id IN :queueRoutingConfigIds];
-							for(Group queue : queues){
-								for(QueueRoutingConfig routingConfig : routingConfigs){
-									if(queue.QueueRoutingConfigId == routingConfig.Id){
-										queuesWithRoutingConfig.put(queue.Id, new QueueWrapper(queue, routingConfig));
-									}
-								}					
-							}
-						}		
-	
-						CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', queuesWithRoutingConfig);
-					}
-				}
-				return queuesWithRoutingConfig;
-			}
-			private set;
-		}
+		}		
 	}
 
 	public class OrganizationWrapper {
@@ -143,16 +88,6 @@ public with sharing class Application {
 			} else {
 				sandboxName = '';
 			}
-		}
-	}
-
-	public class QueueWrapper {
-		public Group queue {get; private set;}
-		public QueueRoutingConfig routingConfiguration {get; private set;}
-
-		public QueueWrapper(Group inputQueue, QueueRoutingConfig inputRoutingConfig) {
-			queue = inputQueue;
-			routingConfiguration = inputRoutingConfig;
 		}
 	}
 

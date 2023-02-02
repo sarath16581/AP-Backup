@@ -41,6 +41,54 @@ public class OmniChannelService_Test {
 		callbackRequestList.add(new Callback_Request__c(OwnerId=Userinfo.getUserId(),Type__c ='Business',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
 		insert callbackRequestList;
 	}
+	
+	@IsTest
+	static void queuesWithRoutingConfigShouldReturnFilteredQueues() {
+		CacheManager.settings.CacheEnabled__c = true;
+		OmniChannelService.Cache.resetStaticVariablesForUnitTestOnly();
+
+		List<Group> queues = [SELECT QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
+		List<QueueRoutingConfig> queueRoutingConfigs = [SELECT DeveloperName FROM QueueRoutingConfig];
+		Map<Id,QueueRoutingConfig> qrcMap = new Map<Id,QueueRoutingConfig>(queueRoutingConfigs);
+		Map<Id,Id> queueIdToRoutingId = new Map<Id,Id>();
+
+		for(Group queue : queues){
+			queueIdToRoutingId.put(queue.Id, queue.QueueRoutingConfigId);
+		}
+
+		System.assertEquals(queues.size(), OmniChannelService.Cache.queuesWithRoutingConfig.size(), 'it should return the same number of queues');
+		System.assertEquals(
+			qrcMap.get(queueIdToRoutingId.get(queues[0].Id)).Id, 
+			OmniChannelService.Cache.queuesWithRoutingConfig.get(queues[0].Id).routingConfiguration.Id, 
+			'returned QueueRoutingConfig Ids should match');
+		System.assertEquals(
+			qrcMap.get(queueIdToRoutingId.get(queues[queues.size()-1].Id)).Id, 
+			OmniChannelService.Cache.queuesWithRoutingConfig.get(queues[queues.size()-1].Id).routingConfiguration.Id, 
+			'returned QueueRoutingConfig Ids should match');
+
+		// test loading from cache
+		OmniChannelService.Cache.resetStaticVariablesForUnitTestOnly();
+		CacheManager.put('QUEUES_WITH_ROUTING_CONFIG', new Map<Id, OmniChannelService.QueueWrapper>{queues[0].Id=> new OmniChannelService.QueueWrapper(queues[0],qrcMap.get(queueIdToRoutingId.get(queues[0].Id)))});
+		System.assertEquals(queues[0].Id, OmniChannelService.Cache.queuesWithRoutingConfig.get(queues[0].Id).queue.Id, 'should match');
+		System.assertEquals(qrcMap.get(queueIdToRoutingId.get(queues[0].Id)).Id, OmniChannelService.Cache.queuesWithRoutingConfig.get(queues[0].Id).routingConfiguration.Id, 'returned QueueRoutingConfig Ids via Cache should match');
+	}
+
+	@IsTest
+	static void serviceChannelsShouldReturnAllServiceChannels() {
+		CacheManager.settings.CacheEnabled__c = true;
+		OmniChannelService.Cache.resetStaticVariablesForUnitTestOnly();
+
+		List<ServiceChannel> serviceChannels = [SELECT AfterConvoWorkMaxTime,DeveloperName,DoesMinimizeWidgetOnAccept,HasAfterConvoWorkTimer,RelatedEntity,SecRoutingPriorityField FROM ServiceChannel];
+
+		System.assertEquals(serviceChannels.size(), OmniChannelService.Cache.serviceChannels.size(), 'it should return the same number of service channels');
+		System.assertEquals(serviceChannels[0].Id, OmniChannelService.Cache.serviceChannels.get(serviceChannels[0].DeveloperName).Id, 'should match');
+		System.assertEquals(serviceChannels[serviceChannels.size() - 1].Id, OmniChannelService.Cache.serviceChannels.get(serviceChannels[serviceChannels.size() - 1].DeveloperName).Id, 'should match');
+
+		// test loading from cache
+		OmniChannelService.Cache.resetStaticVariablesForUnitTestOnly();
+		CacheManager.put('ALL_SERVICE_CHANNELS', new Map<String, ServiceChannel>{'test'=>serviceChannels[0]});
+		System.assertEquals(serviceChannels[0].Id, OmniChannelService.Cache.serviceChannels.get('test').Id, 'should match');
+	}
 
 	@IsTest
 	static void setOmniRoutingSecondaryPriorityForPSR() {
@@ -270,12 +318,12 @@ public class OmniChannelService_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		Map<Id,Id> caseIdToUserId = new Map<Id,Id>();
+		Map<Id, AgentWork> caseIdToUserId = new Map<Id, AgentWork>();
 		Boolean exceptionThrown = false;
 
 		System.runAs(communityUser){
 			try{
-				caseIdToUserId = OmniChannelService.getInstance().getActiveUserIdsFromLatestAcceptedAgentWork(caseIds);   
+				caseIdToUserId = OmniChannelService.getInstance().getLatestAcceptedAgentWorkWithActiveUser(caseIds);   
 			} catch(Exception ex) {
 				exceptionThrown = true;
 			}		   

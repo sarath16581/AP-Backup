@@ -18,28 +18,7 @@
 
 public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDomain.Module  {
 	
-	private static Set<Id> validRecTypes;
 	public static final String SERVICESLA_CONSUMER = 'Consumer';
-
-	private Map<String, Integer> secondaryPriorityMappings = new Map<String, Integer> {
-		'Low' => 5,
-		'Critical' => 1,
-		'Normal' => 2,
-		'High' => 2,
-		'Medium' => 4,
-		'Regular' => 3,
-		'Urgent' => 1
-	};
-
-	private String preferredAgentQueueId {
-		get {
-			if(preferredAgentQueueId == null) {
-				preferredAgentQueueId = QM__c.getOrgDefaults().PreferredAgentQueueId__c;
-			}
-			return preferredAgentQueueId;
-		}
-		private set;
-	}
 
 	/*
 	 * Creates a new instance of the utility to facilitate dependency injection for mocking
@@ -48,35 +27,84 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 	public static CaseSkillBasedRoutingModule newInstance() {
 		return (CaseSkillBasedRoutingModule)Application.Utilities.newInstance(CaseSkillBasedRoutingModule.class);
 	}
-	
+
 	// Constructor
 	public CaseSkillBasedRoutingModule() {
 		// Setup which triggers this module should respond to
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();		
 	}
+	
+	private Set<Id> ssswRecordTypeIds {
+		get {
+			if(ssswRecordTypeIds == null){
+				ssswRecordTypeIds =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
+			}
+			return ssswRecordTypeIds;
+		}
+		private set;
+	}
+
+	/*
+	 * This method returns a list of Case records that are related to SSSW
+	 * 
+	 * NOTE: 
+	 * 
+	 * Ideally this should be in MyCustomerCasesDomain where it gets filtered. However, we need to do it here because MyCustomerCasesDomain is in the CaseTriggerHandler2. 
+	 * Order of execution: CaseTriggerHandler2 >> CaseTriggerHandler (legacy code) >> CaseTriggerHandler3
+	 * 
+	 * @param caseRecords the list of Cases to filter to SSSW only
+	 */
+	private List<Case> getSSSWCasesOnly(List<Case> records){
+		List<Case> result = new List<Case>();
+		
+		for (Case c : records) {
+			if(ssswRecordTypeIds.contains(c.RecordTypeId) == true){
+				result.add(c);				
+			}				
+		}
+
+		return result;
+	}
+
 	/**
 	 * Called when a new Case is being inserted
 	 */
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			populateCustomerQueueType(filterToOnlySSSWCases(records), null , uow);
+			List<Case> ssswCasesOnly = getSSSWCasesOnly((List<Case>)records);
+			populateCustomerQueueType(ssswCasesOnly, null , uow);
 			
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CaseSkillRouting', CaseSkillBasedRoutingModule.class.getName(), 'onBeforeInsert', 'Case', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
+
 	/**
 	 * Called when a Case is being updated.
 	 */
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			populateCustomerQueueType(filterToOnlySSSWCases(records), existingRecords, uow);
-			assignToPreferredAgent(filterToOnlySSSWCases(records), existingRecords, uow);
+			List<Case> ssswCasesOnly = getSSSWCasesOnly((List<Case>)records);
+			populateCustomerQueueType(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);
+			assignToPreferredAgent(ssswCasesOnly, (Map<Id, Case>)existingRecords, uow);
 			
+			resetBypassPreferredAgentFlag((List<Case>)records, (Map<Id, Case>)existingRecords, uow);
+
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CaseSkillRouting', CaseSkillBasedRoutingModule.class.getName(), 'onBeforeUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+		}
+	}
+
+	/*
+	 * This method resets the Bypass Preferred Agent flag on the case if the owner on the case changed from a Queue to a User. 
+	 */
+	private void resetBypassPreferredAgentFlag(List<Case> records, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow){
+		for(Case c: records) {
+			if(c.OwnerId.getSobjectType() == User.getSObjectType() && existingRecords.get(c.Id).OwnerId.getSobjectType() == Group.getSobjectType()) {
+				c.BypassPreferredAgent__c = false;
+			}
 		}
 	}
 
@@ -90,87 +118,69 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 	 * @param existingRecords a Map of the pre-update records from the trigger. 
 	 * @param uow instance of UnitOfWork to flag records for DML operations
 	 */
-	private void assignToPreferredAgent(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow){
+	private void assignToPreferredAgent(List<Case> records, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow){
 		
-		Map<Id,Id> caseIdsToAcceptedAgentWorkUserId = OmniChannelService.getInstance().getActiveUserIdsFromLatestAcceptedAgentWork(existingRecords.keySet());
+		Id preferredAgentQueueId = OmniChannelService.getInstance().preferredAgentQueueId;
+		if(String.isEmpty(preferredAgentQueueId) == false ) {
 
-		Map<Id, Case> processable = new Map<Id, Case>(); 	
+			Map<Id, Case> validCases = new Map<Id, Case>(); 	
 
-		for (Case csRec : (List<Case>) records) {
+			for (Case c : records) {
 
-			Case oldCase = existingRecords != null ? (Case)existingRecords.get(csRec.Id) : null;	
+				Case oldCase = existingRecords?.get(c.Id);	
 
-			if(oldCase != null 
-				&& String.isEmpty(preferredAgentQueueId) == false 
-				&& Application.Cache.queuesWithRoutingConfig.containsKey(csRec.OwnerId) == true 
-				&& caseIdsToAcceptedAgentWorkUserId.containsKey(csRec.Id)
-			){
-				processable.put(csRec.Id, csRec);
+				if(c.BypassPreferredAgent__c == false 
+					&& oldCase != null 
+					&& c.OwnerId != oldCase.OwnerId
+					&& c.PreferredAgentExpiry__c != null // this is set by the routing engine
+					&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(c.OwnerId) == true // omni queue check
+				){
+					validCases.put(c.Id, c);
+				}
+			}
+
+			if(validCases.isEmpty() == false) {
 				
-			}
-		}
+				Map<Id, AgentWork> caseIdsVsAgentWorks = OmniChannelService.getInstance().getLatestAcceptedAgentWorkWithActiveUser(validCases.keySet());
 
-		if(processable.isEmpty() == false) {
+				if(caseIdsVsAgentWorks.isEmpty() == false) {
 
-			Map<Id, PendingServiceRouting> casePsrRecords = new Map<Id, PendingServiceRouting>();			
-			List<PendingServiceRouting> deletablePsrRecords = new List<PendingServiceRouting>();
-			Set<Id> excludedManualPsrCreation = new Set<Id>();
+					ServiceChannel sc = OmniChannelService.Cache.serviceChannels.get('Case_Channel');
+					List<PendingServiceRouting> newPSRs = new List<PendingServiceRouting>();			
 
-			List<PendingServiceRouting> psrRecords = PendingServiceRoutingSelector.newInstance().selectByWorkItemId(processable.keySet(), new Set<Object>());
+					for(Case csRec : validCases.values()) {
+						if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true) {
+							
+							//use the routing configuration of the Omni queue the Case was being routed to
+							QueueRoutingConfig routingConfiguration = OmniChannelService.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
+							
+							csRec.OwnerId = preferredAgentQueueId;
 
-			// check which psr records can actually deleted
-			// we only want to do that if it hasn't already been pushed.
-			// if it has been pushed then it's too late for us to do anything about and we need to let Omni do it's thing
-			// we also exclude these from manual record creation
-			for(PendingServiceRouting psrRecord : psrRecords) {
-				if(psrRecord.IsPushed == false
-					&& psrRecord.IsPushAttempted == false) {
-					deletablePsrRecords.add(psrRecord);
-				} else {
-					excludedManualPsrCreation.add(psrRecord.WorkItemId);
+							//PushTimeout cannot be set when IsPreferredUserRequired is set
+							newPSRs.add(new PendingServiceRouting(
+								PreferredUserId = caseIdsVsAgentWorks.get(csRec.Id).UserId,
+								IsPreferredUserRequired = true,
+								CapacityPercentage = routingConfiguration.CapacityPercentage, 
+								CapacityWeight = routingConfiguration.CapacityWeight, 
+								DropAdditionalSkillsTimeout = routingConfiguration.DropAdditionalSkillsTimeout,
+								RoutingModel = routingConfiguration.RoutingModel, 
+								RoutingPriority = routingConfiguration.RoutingPriority, 
+								CustomRequestedDateTime = csRec.CreatedDate, 
+								WorkItemId = csRec.Id,
+								IsReadyForRouting = true,
+								RoutingType = 'SkillsBased', 
+								ServiceChannelId = sc.Id,
+								SecondaryRoutingPriority = OmniChannelService.getInstance().priorityMappingToSecondaryPriorityRange.get(csRec.Priority) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
+							));
+						}
+					}
+
+					if(newPSRs.isEmpty() == false) {
+						uow.registerNew(newPSRs);
+					}
 				}
 			}
-
-			ServiceChannel sc = Application.Cache.serviceChannels.get('Case_Channel');
-
-			for(Case csRec : processable.values()) {
-				if(excludedManualPsrCreation.contains(csRec.Id) == false) {
-
-					
-					//use the routing configuration of the Omni queue the Case was being routed to
-					QueueRoutingConfig routingConfiguration = Application.Cache.queuesWithRoutingConfig.get(csRec.OwnerId).routingConfiguration; 
-					
-					csRec.OwnerId = preferredAgentQueueId;
-
-					//PushTimeout cannot be set when IsPreferredUserRequired is set
-					casePsrRecords.put(csRec.Id, new PendingServiceRouting(
-						PreferredUserId = caseIdsToAcceptedAgentWorkUserId.get(csRec.Id),
-						IsPreferredUserRequired = true,
-						CapacityPercentage = routingConfiguration.CapacityPercentage, 
-						CapacityWeight = routingConfiguration.CapacityWeight, 
-						DropAdditionalSkillsTimeout = routingConfiguration.DropAdditionalSkillsTimeout,
-						RoutingModel = routingConfiguration.RoutingModel, 
-						RoutingPriority = routingConfiguration.RoutingPriority, 
-						CustomRequestedDateTime = csRec.CreatedDate, 
-						WorkItemId = csRec.Id,
-						IsReadyForRouting = true,
-						RoutingType = 'SkillsBased', 
-						ServiceChannelId = sc.Id,
-						SecondaryRoutingPriority = secondaryPriorityMappings.get(csRec.Priority) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
-					));
-				}
-			}
-
-			// remove all existing psr records for the work items here since we are creating new ones
-			if(!deletablePsrRecords.isEmpty()) {
-				uow.registerDeleted(deletablePsrRecords);
-			}
-
-			if(casePsrRecords.isEmpty() == false) {
-				uow.registerNew(casePsrRecords.values());
-			}
 		}
-
 	}
 
 	/*
@@ -212,27 +222,6 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 				cs.CustomerQueueType__c = (contact != null && contact.Account != null && String.isEmpty(contact.Account.ServiceSLA__c) == false)  ? contact.Account.ServiceSLA__c : SERVICESLA_CONSUMER;				
 			}
 		}
-	}
-
-	/*
-	 * This method returns a list of Case records that are related to SSSW
-	 * 
-	 * @param caseRecords the list of Cases to filter to SSSW only
-	 */
-	private List<SObject> filterToOnlySSSWCases(List<SObject> caseRecords){
-		if(validRecTypes == null){
-			validRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
-		}
-		
-		List<SObject> ssswCases = new List<SObject>();
-		
-		for (Case c : (List<Case>) caseRecords) {
-			if(Utility.isValidRecordType(validRecTypes,c.RecordTypeId)){
-				ssswCases.add(c);				
-			}				
-		}
-
-		return ssswCases;
 	}
 
 	/**
