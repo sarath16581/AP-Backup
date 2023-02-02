@@ -1,11 +1,12 @@
 /**
-Description: This Apex Class is handler for Apex trigger - APT_SAPContractTrigger
-Created By - Mausam Padhiyar
-Created Date - 9th Aug, 2016
-
-Last Modified By - Mausam Padhiyar
-Last Modified Date - 10th Nov, 2016 | 1742 | reduce logic
-*/
+ * @author Mausam Padhiyar
+ * @date 2016-08-09
+ * @description This Apex Class is handler for Apex trigger - APT_SAPContractTrigger
+ * @changelog
+ * 2016-08-09 - Mausam Padhiyar - Created
+ * 2016-11-16 - Mausam Padhiyar - reduce logic
+ * 2023-02-03 - Ranjeewa Silva - Switch to use ApplicationDatabase for dml operations. this is to allow mocking in unit tests.
+ */
 public with sharing class APT_SAPContractTriggerHandler {
     
     /**
@@ -159,7 +160,10 @@ public with sharing class APT_SAPContractTriggerHandler {
                 }
             }
             
-            update mapAgreement.values();
+            // call ApplicationDatabase for update. calling dmlUpdate with allOrNothing=true to replicate existing functionality.
+            // was previously:
+            // update mapAgreement.values();
+            ApplicationDatabase.getInstance().dmlUpdate(mapAgreement.values());
             
         } catch(system.exception e) {
             return e.getMessage();
@@ -475,8 +479,11 @@ public with sharing class APT_SAPContractTriggerHandler {
                     }
                 }
             }
-            
-            update mapAgreement.values();
+
+            // call ApplicationDatabase for update. calling dmlUpdate with allOrNothing=true to replicate existing functionality.
+            // was previously:
+            // update mapAgreement.values();
+            ApplicationDatabase.getInstance().dmlUpdate(mapAgreement.values());
         } catch(System.Exception e) {
             return e.getMessage();
         }
