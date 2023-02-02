@@ -206,7 +206,7 @@ private class CaseSkillBasedRoutingModule_Test {
 		Insert custSetting;
 		Id preferredAgentQueueId = preferredAgentQueue.QueueId;
 
-		Group omniQueue = Application.Cache.queuesWithRoutingConfig.values()[0].queue;		
+		Group omniQueue = OmniChannelService.Cache.queuesWithRoutingConfig.values()[0].queue;		
 
 		//User
 		Id userId = UserInfo.getUserId();
@@ -255,7 +255,7 @@ private class CaseSkillBasedRoutingModule_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockOmniChannelService.getActiveUserIdsFromLatestAcceptedAgentWork(
+		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWorkWithActiveUser(
 			(Set<Id>)fflib_Match.eq(allCases.keySet())
 		)).thenReturn(new Map<Id,Id>{cases[0].Id => userId} );
 
