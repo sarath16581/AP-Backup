@@ -13,4 +13,5 @@
     <enableRequestSound>true</enableRequestSound>
     <label>AP Contact Centre</label>
     <presenceStatusOnDecline>Away</presenceStatusOnDecline>
+    <presenceStatusOnPushTimeout>Away</presenceStatusOnPushTimeout>
 </PresenceUserConfig>
