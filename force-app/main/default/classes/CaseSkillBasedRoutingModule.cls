@@ -146,7 +146,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 				if(caseIdsVsAgentWorks.isEmpty() == false) {
 
 					ServiceChannel sc = OmniChannelService.Cache.serviceChannels.get('Case_Channel');
-					List<PendingServiceRouting> newPSRs = new List<PendingServiceRouting>();			
+					List<PendingServiceRouting> newPSRs = new List<PendingServiceRouting>();	
 
 					for(Case csRec : validCases.values()) {
 						if(caseIdsVsAgentWorks.containsKey(csRec.Id) == true) {
@@ -170,7 +170,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 								IsReadyForRouting = true,
 								RoutingType = 'SkillsBased', 
 								ServiceChannelId = sc.Id,
-								SecondaryRoutingPriority = OmniChannelService.getInstance().priorityMappingToSecondaryPriorityRange.get(csRec.Priority) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
+								SecondaryRoutingPriority = OmniChannelService.priorityMappingToSecondaryPriorityRange.get(csRec.Priority) //TODO:.... map from Service Channel config... good luck! SF stores the mapping as value index on the selected field (e.g. picklist values)
 							));
 						}
 					}

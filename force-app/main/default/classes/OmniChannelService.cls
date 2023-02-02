@@ -13,7 +13,7 @@
 * 1.1	16/08/2022				George Nguyen				Added isOmniGroupUser
 * 1.1	04/11/2022				George Nguyen				Added instance and setOmniRoutingSecondaryPriority methods
 * 1.2	06/12/2022				Noel Lim					Added inner class WithoutSharingRetrieveData and method getUserIdFromLatestAcceptedAgentWork
-* 1.3	01/02/2022				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getActiveUserIdFromLatestAcceptedAgentWork, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
+* 1.3	01/02/2022				Noel Lim					Update method getUserIdFromLatestAcceptedAgentWork to getLatestAcceptedAgentWorkWithActiveUser, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 
 **/
 public inherited sharing class OmniChannelService {
 
@@ -47,7 +47,7 @@ public inherited sharing class OmniChannelService {
 		private set;
 	}
 
-	public final Map<String, Integer> priorityMappingToSecondaryPriorityRange = new Map<String, Integer>{
+	public static final Map<String, Integer> priorityMappingToSecondaryPriorityRange = new Map<String, Integer>{
 		'Critical' => 1000,
 		'Urgent' => 1000,
 		'Normal' => 2000,

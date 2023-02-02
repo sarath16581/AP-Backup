@@ -11,7 +11,7 @@
  *==============================================================================
  * 1.0	8/21/2019	rajesh.punjabi@mav3rik.com		Initial Version
  * 1.1	7/12/2022	Noel Lim						Added test method getUserIdFromLatestAcceptedAgentWork
- * 1.2	2/02/2022	Noel Lim						Update test method getUserIdFromLatestAcceptedAgentWork to getActiveUserIdFromLatestAcceptedAgentWork, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 			
+ * 1.2	2/02/2022	Noel Lim						Update test method getUserIdFromLatestAcceptedAgentWork to getLatestAcceptedAgentWorkWithActiveUser, only return active UserIds. Updated secondaryPriorityRanges from a 50-point range to a 150-point range 			
  * 
 **/
 @IsTest (IsParallel=true)
@@ -273,7 +273,7 @@ public class OmniChannelService_Test {
 	 * 
 	 */
 	@IsTest
-	public static void getActiveUserIdFromLatestAcceptedAgentWork(){
+	public static void getLatestAcceptedAgentWorkWithActiveUser(){
 		//Users
 		List<User> users = ApplicationTestDataFactory.getUsers(2,true);
 		users[0].IsActive = true;
@@ -318,12 +318,12 @@ public class OmniChannelService_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		Map<Id, AgentWork> caseIdToUserId = new Map<Id, AgentWork>();
+		Map<Id, AgentWork> caseIdsVsAgentWorks = new Map<Id, AgentWork>();
 		Boolean exceptionThrown = false;
 
 		System.runAs(communityUser){
 			try{
-				caseIdToUserId = OmniChannelService.getInstance().getLatestAcceptedAgentWorkWithActiveUser(caseIds);   
+				caseIdsVsAgentWorks = OmniChannelService.getInstance().getLatestAcceptedAgentWorkWithActiveUser(caseIds);   
 			} catch(Exception ex) {
 				exceptionThrown = true;
 			}		   
@@ -331,7 +331,7 @@ public class OmniChannelService_Test {
 
 		Test.stopTest();
 
-		System.assertEquals(1, caseIdToUserId.size(), 'caseIdToUserId map should contain 1 record');
+		System.assertEquals(1, caseIdsVsAgentWorks.size(), 'caseIdsVsAgentWorks map should contain 1 record');
 		System.assertEquals(false, exceptionThrown, 'There should be no Exceptions thrown');
 
 	}
