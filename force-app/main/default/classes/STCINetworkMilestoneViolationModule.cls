@@ -8,6 +8,10 @@
 
 public inherited sharing class STCINetworkMilestoneViolationModule extends ApplicationDomain.Module {
 
+	//constants
+	private static final string ENTITLEMENT_RULE_CASE_INVESTIGATION = 'Case_Investigation';
+	private static final string MILESTONE_TIER_TYPE_FACILITY = 'Facility_Tier';
+
 	public static STCINetworkMilestoneViolationModule newInstance() {
 		return (STCINetworkMilestoneViolationModule) Application.Utilities.newInstance(STCINetworkMilestoneViolationModule.class);
 	}
@@ -37,8 +41,8 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			//update the next violation datetime
-			updateViolationDatetime((List<CaseInvestigation__c>) records, null, uow);
+			//calculates and update the violation datetime fields
+			updateViolationDatetimeFields((List<CaseInvestigation__c>) records, null, uow);
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'STCINetworkMilestoneViolationModule', STCINetworkMilestoneViolationModule.class.getName(), 'onAfterInsert', 'STCINetworkMilestoneViolationModule', LoggingLevel.ERROR);
 		}
@@ -46,8 +50,8 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			//update the next violation datetime
-			updateViolationDatetime((List<CaseInvestigation__c>) records, (Map<Id, CaseInvestigation__c>) existingRecords, uow);
+			//calculates and update the violation datetime fields
+			updateViolationDatetimeFields((List<CaseInvestigation__c>) records, (Map<Id, CaseInvestigation__c>) existingRecords, uow);
 		} catch (Exception e) {
 			UTIL_LoggingService.logHandledException(e, UserInfo.getOrganizationId(), 'STCINetworkMilestoneViolationModule', STCINetworkMilestoneViolationModule.class.getName(), 'onAfterUpdate', 'STCINetworkMilestoneViolationModule', LoggingLevel.ERROR);
 		}
@@ -57,8 +61,14 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 	private void setNetworkMilestoneViolationFields(List<CaseInvestigation__c> records, Map<Id, CaseInvestigation__c> existingRecords, ApplicationUnitOfWork uow) {
 		for(CaseInvestigation__c ci : records) {
 			if (!ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
+				//if case investigation is not in any of the closed statuses, set the milestone start datetime to now
+				//reset the violation date time fields
 				ci.MilestoneTimeStartDatetime__c = System.now();
+				ci.NetworkMilestoneNextViolationDatetime__c = null;
+				ci.NetworkMilestoneLastViolationDatetime__c = null;
 			} else if(ci.IsClosed__c && (existingRecords == null || ci.IsClosed__c != existingRecords.get(ci.Id).IsClosed__c)) {
+				//if case investigation is in any of the cloed statuses, reset the milestone start datetime 
+				//and next violation datetime
 				ci.MilestoneTimeStartDatetime__c = null;
 				ci.NetworkMilestoneNextViolationDatetime__c = null;
 			}
@@ -66,8 +76,46 @@ public inherited sharing class STCINetworkMilestoneViolationModule extends Appli
 	}
 
 	//this method update the network milestone next violation date time from the MilestoneService
-	private void updateViolationDatetime(List<CaseInvestigation__c> records, Map<Id, CaseInvestigation__c> existingRecords, ApplicationUnitOfWork uow) {
+	private void updateViolationDatetimeFields(List<CaseInvestigation__c> records, Map<Id, CaseInvestigation__c> existingRecords, ApplicationUnitOfWork uow) {
+		Map<Id, CaseInvestigation__c> ciRecords = new Map<Id, CaseInvestigation__c>();
 
+		for (CaseInvestigation__c ci : records) {
+			//get the records on insert where milestone start datetime not null
+			//get the records on update when milestone start datetime has changed or current violated tier has changed
+			if (ci.MilestoneTimeStartDatetime__c != null && (existingRecords == null || 
+					ci.MilestoneTimeStartDatetime__c != existingRecords.get(ci.Id).MilestoneTimeStartDatetime__c ||
+					ci.NetworkMilestoneCurrentViolatedTier__c != existingRecords.get(ci.Id).NetworkMilestoneCurrentViolatedTier__c)) {
+				ciRecords.put(ci.Id, ci);
+			}
+		}
+
+		if (ciRecords.size() > 0) {
+			//call the milestone service to get the calcualted violation date time
+			Map<Id, Datetime> ciViolationDatetimeResultMap = MilestoneService.getInstance().calculateNextViolationDateForCaseInvestigation(ciRecords.keySet(), ENTITLEMENT_RULE_CASE_INVESTIGATION, MILESTONE_TIER_TYPE_FACILITY);
+
+			List<CaseInvestigation__c> recsToUpdate = new List<CaseInvestigation__c>();
+			//loop through case investigations to update the fields
+			for (CaseInvestigation__c ci : ciRecords.values()) {
+				if (ciViolationDatetimeResultMap.containsKey(ci.Id)) {
+					//on insert scenario when the current violated tier is blank, update the next violation datetime
+					if (ci.NetworkMilestoneCurrentViolatedTier__c == null) {
+						recsToUpdate.add(new CaseInvestigation__c(Id = ci.Id, 
+							NetworkMilestoneNextViolationDatetime__c = ciViolationDatetimeResultMap.get(ci.Id),
+							NetworkMilestoneLastViolationDatetime__c = null));
+					} else if (ci.NetworkMilestoneCurrentViolatedTier__c != null && ci.NetworkMilestoneNextViolationDatetime__c != null) {
+						//on update scenario when the current violated tier and next violation datetime is not blank, 
+						//update the next violation datetime and last violation datetime
+						recsToUpdate.add(new CaseInvestigation__c(Id = ci.Id, 
+							NetworkMilestoneNextViolationDatetime__c = ciViolationDatetimeResultMap.get(ci.Id),
+							NetworkMilestoneLastViolationDatetime__c = ci.NetworkMilestoneNextViolationDatetime__c));
+					}
+				}
+			}
+
+			if (recsToUpdate.size() > 0) {
+				ApplicationDatabase.getInstance().dmlUpdate(recsToUpdate, false);
+			}
+		}
 		
 	}
 }

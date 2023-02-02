@@ -12,6 +12,7 @@ public inherited sharing class MilestoneService {
 	private static Map<String, List<String>> ruleIdRuleUnitsMap;
 	private static Map<Id, Entitlement_Rule__c> entitlementRuleMap;
 	private static Map<String, String> ciFieldTypeMap;
+	private static Id businessHourId;
 
 	/**
 	* Grabs a new instance of this class
@@ -66,6 +67,13 @@ public inherited sharing class MilestoneService {
 		return ciFieldTypeMap;
 	}
 
+	public static Id getSSSWSydneyBusinessHour(){
+        if(businessHourId == null){
+            businessHourId = BusinessHoursSelector.newInstance().selectByName(new Set<String> {'SSSWSydney'})[0].Id;
+        }
+        return businessHourId;
+    }
+
 	/**
 	 * This method calculates the next violation date based on the matching entitlement rules configured passed records SobjectType
 	 * @param recIds Ids of records to be processed
@@ -77,8 +85,8 @@ public inherited sharing class MilestoneService {
 		Map<Id, CaseInvestigation__c> caseInvestigations;
 
 		//get active entitlement rules configured in Entitlement_Rule__c object based on the record type
-		Map<Id, Entitlement_Rule__c> entitlementRuleMap = getActiveEntitlementRulesByRecordType(entitlementRuleRecTypeDevName);
-        Map<String, List<String>> ruleIdRuleUnitsMap = getActiveEntitlementRuleUnitByRecordType(entitlementRuleRecTypeDevName);
+		entitlementRuleMap = getActiveEntitlementRulesByRecordType(entitlementRuleRecTypeDevName);
+        ruleIdRuleUnitsMap = getActiveEntitlementRuleUnitByRecordType(entitlementRuleRecTypeDevName);
 
 		//determine the distinct fields referenced in active entitlement rules
         Set<String> entitlementRuleFields = getFieldsReferencedInEntitlementRules(ruleIdRuleUnitsMap);
@@ -90,10 +98,14 @@ public inherited sharing class MilestoneService {
 
 		//Field Types map for fields referenced in entitlement rules
         //key = field name, value = field type
-        Map<String, String> ciFieldTypeMap = getCaseInvestigationFieldTypeMap(entitlementRuleFields);
+        ciFieldTypeMap = getCaseInvestigationFieldTypeMap(entitlementRuleFields);
 
 		//map to store the case investigation to the matching entitlement rule
 		Map<Id, String> ciEntitlementRuleMatchingMap = getMatchingEntitlementRule(caseInvestigations);
+
+		if (ciEntitlementRuleMatchingMap.size() > 0) {
+			violationDatetimeResult = getViolationDatetime(ciEntitlementRuleMatchingMap, caseInvestigations, milestoneTierType);
+		}
 
 		return violationDatetimeResult;
 	}
@@ -239,4 +251,39 @@ public inherited sharing class MilestoneService {
 	private Boolean stringToBoolean(String yesNo) {
         return yesNo.toLowerCase() == 'yes'; 
     }
+
+	@TestVisible
+	private Map<Id, Datetime> getViolationDatetime(Map<Id, String> ciEntitlementRuleMatchingMap, Map<Id, CaseInvestigation__c> caseInvestigations, String milestoneTierType) {
+		Map<Id, Datetime> result = new Map<Id, Datetime>();
+
+		for (CaseInvestigation__c ci : caseInvestigations.values()) {
+			if (ciEntitlementRuleMatchingMap.containsKey(ci.Id)) {
+				Datetime violationDatetime;
+				Entitlement_Rule__c er = entitlementRuleMap.get(ciEntitlementRuleMatchingMap.get(ci.Id));
+				Escalation_Hierarchy__c eh = er.Escalation_Hierarchy__r;
+				String formattedMilestoneTierTypeField = milestoneTierType + '_' + String.valueOf(ci.NetworkMilestoneCurrentViolatedTier__c + 1) + '__c';
+				if (eh.get(formattedMilestoneTierTypeField) != null) {
+					Integer configuredMins = (Integer)eh.get(formattedMilestoneTierTypeField);
+					if (ci.NetworkMilestoneNextViolationDatetime__c == null && ci.MilestoneTimeStartDatetime__c != null) {
+						//Check if new date is within working days
+						violationDatetime = checkWithinBusinessHours(ci.MilestoneTimeStartDatetime__c.addMinutes(configuredMins));
+					} else {
+						//Check if new date is within working days
+						violationDatetime = ci.NetworkMilestoneNextViolationDatetime__c.addMinutes(configuredMins);
+					}
+					result.put(ci.Id, violationDatetime);
+				}
+			}
+		}
+
+		return result;
+	}
+
+	private Datetime checkWithinBusinessHours(Datetime violationDatetime) {
+		if (!BusinessHours.isWithin(getSSSWSydneyBusinessHour(), violationDatetime)) {
+			//If new date is not within working days, get new working day
+			violationDatetime = BusinessHours.nextStartDate(getSSSWSydneyBusinessHour(), violationDatetime);
+		}
+		return violationDatetime;
+	}
 }

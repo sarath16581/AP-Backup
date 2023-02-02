@@ -15,7 +15,7 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 	 * @return Database.QueryLocator
 	 */
 	public virtual Database.QueryLocator getEligibleCaseInvestigations(){
-		return (Database.QueryLocator)CaseInvestigationsSelector.newInstance().selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now());
+		return (Database.QueryLocator)CaseInvestigationsSelector.newInstance().selectNetworkMilestoneViolatedOpenCaseInvestigations(Datetime.now(), new Set<Object>{CaseInvestigationsSelector.Options.WITH_NETWORKS});
 	}
     
 	public Database.QueryLocator start(Database.BatchableContext bc) {
@@ -28,6 +28,14 @@ public class STCIMilestoneViolationCheckerBatch implements Database.Batchable<SO
 			// loop through case investigations to increment milestone violation tier
 			for (CaseInvestigation__c ci : (List<CaseInvestigation__c>) scope) {
 				ci.NetworkMilestoneCurrentViolatedTier__c = ci.NetworkMilestoneCurrentViolatedTier__c + 1;
+				ci.NetworkMilestonesViolated__c = ci.NetworkMilestonesViolated__c + 1;
+
+				//set the network tier escalation email
+				if (ci.NetworkMilestonesViolated__c == 1) {
+					ci.NetworkTierEscalationEmail__c = ci.Network__r.Email_1__c;
+				} else if (ci.NetworkMilestonesViolated__c == 2) {
+					ci.NetworkTierEscalationEmail__c = ci.Network__r.Email_2__c;
+				}
 			}
 
 			//update case investigations
