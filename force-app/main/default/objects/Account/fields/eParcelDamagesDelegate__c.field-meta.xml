@@ -4,7 +4,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>eParcel Damages delegate contact</description>
     <externalId>false</externalId>
-    <label>eParcel Damages Delegate</label>
+    <label>Parcel Damages Delegate</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Organisations (eParcel Damages Delegate)</relationshipLabel>
     <relationshipName>Organisations</relationshipName>
