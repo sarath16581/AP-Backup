@@ -6,8 +6,6 @@
  */
 import {LightningElement, api} from 'lwc';
 import fetchReportData from '@salesforce/apex/OmniSkillsReportController.fetchReportData';
-import fetchReportDataWithoutSkill from '@salesforce/apex/OmniSkillsReportController.fetchReportDataWithoutSkill';
-import fetchReportDataIteration from '@salesforce/apex/OmniSkillsReportController.fetchReportDataIteration';
 import getCases from '@salesforce/apex/OmniSkillsReportController.getCases';
 
 export default class OmniSkillsReport extends LightningElement {
@@ -30,11 +28,6 @@ export default class OmniSkillsReport extends LightningElement {
 	sortDirection = 'asc';
 
 	columns = [
-		{ label: 'Case Number', fieldName: 'CaseNumber', sortable: true },
-		{ label: 'Type', fieldName: 'Type', sortable: true },
-		{ label: 'Product Category', fieldName: 'ProductCategory__c', sortable: true },
-		{ label: 'Product Subcategory', fieldName: 'ProductSubCategory__c', sortable: true },
-		{ label: 'Enquiry Subtype', fieldName: 'EnquirySubType__c', sortable: true },
 		{
 			label: 'Created Date',
 			fieldName: 'CreatedDate',
@@ -48,6 +41,15 @@ export default class OmniSkillsReport extends LightningElement {
 				minute: "2-digit"
 			}
 		},
+		{ label: 'Case Priority', fieldName: 'Priority', sortable: true },
+		{ label: 'Case Number', fieldName: 'CaseNumber', sortable: true },
+		{ label: 'Type', fieldName: 'Type', sortable: true },
+		{ label: 'Product Category', fieldName: 'ProductCategory__c', sortable: true },
+		{ label: 'Product Subcategory', fieldName: 'ProductSubCategory__c', sortable: true },
+		{ label: 'Enquiry Subtype', fieldName: 'EnquirySubType__c', sortable: true },
+		// Removed for now pending further review
+		// { label: 'Routing Priority', fieldName: 'OmniRoutingPriority', sortable: true },
+		// { label: 'Secondary Routing Priority', fieldName: 'OmniSecondaryRoutingPriority', sortable: true },
 	];
 
 	parsedSkillMappings = {};
@@ -55,6 +57,12 @@ export default class OmniSkillsReport extends LightningElement {
 	drilldownCases = [];
 
 	reportData = {};
+
+	/**
+	 * Stores the raw PSR data mapped by work item id (case) for each access
+	 */
+	pendingRoutingRecords = {}
+
 	filteredReportData = {};
 
 	selectedFilters = [];
@@ -70,16 +78,16 @@ export default class OmniSkillsReport extends LightningElement {
 	 *  given we may need to fetch records across multiple transactions
 	 */
 	async fetch() {
-		let jobOutput = await fetchReportDataWithoutSkill();
-		const jobKey = jobOutput.jobKey;
-		let isDone = jobOutput.isDone;
+		let lastIdRetrieved = '';
+		let isDone = false;
 
 		let records = [];
 		while(!isDone) {
 			console.log('iterating!');
 
-			jobOutput = await fetchReportDataIteration({existingJobKey: jobKey});
+			const jobOutput = await fetchReportData({lastIdRetrieved});
 			isDone = jobOutput.isDone;
+			lastIdRetrieved = jobOutput.lastId;
 			records = [...records, ...jobOutput.records];
 		}
 
@@ -93,7 +101,7 @@ export default class OmniSkillsReport extends LightningElement {
 	 * Iterate over all the retrieved data and consolidate it into case/skill and date bucket
 	 */
 	parseRecords(records) {
-		const parsedSkillMappings = {};
+		let parsedSkillMappings = {};
 
 		const now = Date.now();
 		const count1Day = (1000*60*60*24);
@@ -111,19 +119,23 @@ export default class OmniSkillsReport extends LightningElement {
 		// we need to group cases together to prevent duplication of report data on the screen
 		// additional we need to grab the case creation date so we can bucet the data into a report
 		for(const record of records) {
-			caseSkillList[record.RelatedRecord.WorkItemId] = caseSkillList[record.RelatedRecord.WorkItemId] ?? {};
-			caseSkillList[record.RelatedRecord.WorkItemId]['skills'] = caseSkillList[record.RelatedRecord.WorkItemId]['skills'] ?? {};
-			caseSkillList[record.RelatedRecord.WorkItemId]['skills'][record.SkillId] = true;
-			caseSkillList[record.RelatedRecord.WorkItemId]['createdDate'] = record.RelatedRecord.WorkItem.CreatedDate;
+			caseSkillList[record.WorkItemId] = {};
+			caseSkillList[record.WorkItemId].skills = (record.SkillRequirements ?? []).map(r => r.SkillId);
+			caseSkillList[record.WorkItemId].routingPriority = record.RoutingPriority;
+			caseSkillList[record.WorkItemId].secondaryRoutingPriority = record.SecondaryRoutingPriority;
+			caseSkillList[record.WorkItemId].createdDate = record.WorkItem.CreatedDate;
 
-			// grab the developer names for each of the skils
-			parsedSkillMappings[record.SkillId] = record.Skill.DeveloperName;
+			// grab the developer names for each of the skils and map it with the original id
+			parsedSkillMappings = {...parsedSkillMappings, ...(record.SkillRequirements ?? []).reduce((result, value) => {
+				result[value.SkillId] = value.Skill.DeveloperName;
+				return result;
+			}, {})};
 		}
 
 		const reportData = {};
 		for(const [workItemId, record] of Object.entries(caseSkillList)) {
 			const createdDate = Date.parse(record.createdDate);
-			const skills = Object.keys(record.skills);
+			const skills = record.skills;
 
 			// make sure all the data is combined by skill properly by sorting the data first
 			skills.sort();
@@ -149,6 +161,7 @@ export default class OmniSkillsReport extends LightningElement {
 			}
 		}
 
+		this.pendingRoutingRecords = caseSkillList;
 		this.parsedSkillMappings = parsedSkillMappings;
 		this.reportData = reportData;
 		this.filteredReportData = reportData;
@@ -215,7 +228,15 @@ export default class OmniSkillsReport extends LightningElement {
 	}
 
 	async queryCases(caseIds) {
-		this.drilldownCases = await getCases({caseIds})
+		// note the deep clone which also removes the read only proxies
+		const caseList = JSON.parse(JSON.stringify(await getCases({caseIds})));
+
+		for(const [index, caseRecord] of Object.entries(caseList)) {
+			caseList[index].OmniRoutingPriority = this.pendingRoutingRecords[caseRecord.Id].routingPriority;
+			caseList[index].OmniSecondaryRoutingPriority = this.pendingRoutingRecords[caseRecord.Id].secondaryRoutingPriority;
+		}
+
+		this.drilldownCases = caseList;
 		this.waiting = false;
 	}
 
