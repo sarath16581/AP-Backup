@@ -13,7 +13,6 @@
  * @changelog
  * 2022-09-20 - Noel Lim - Created
  * 2022-12-06 - Noel Lim - added method assignToPreferredAgent
- * 2022-02-01 - Noel Lim - update assignToPreferredAgent, remove criteria that checks if case is from an omni queue
  */
 
 public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDomain.Module  {
@@ -110,9 +109,8 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 
 	/*
 	 * This method manually generates a PendingServiceRouting record to route a Case directly to an agent.
-	 * It is done for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue), and the Case has an accepted AgentWork.
+	 * It is done for Cases being routed to a Queue with a Routing Configuration (referred to as an Omni Queue), and the Case has an AgentWork that is accepted and an active User.
 	 * Cases are moved to a Queue without a Routing Configuration to allow PendingServiceRouting to be inserted and not overridden by Salesforce.
-	 * As part of manually generating a PendingServiceRouting record, existing ones for respective Cases are deleted. 
 	 * 
 	 * @param records the list of updated or new records from the trigger.
 	 * @param existingRecords a Map of the pre-update records from the trigger. 
@@ -133,6 +131,7 @@ public inherited sharing class CaseSkillBasedRoutingModule extends ApplicationDo
 					&& oldCase != null 
 					&& c.OwnerId != oldCase.OwnerId
 					&& c.PreferredAgentExpiry__c != null // this is set by the routing engine
+					&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(oldCase.OwnerId) == false // only consider if previous owner is not omni
 					&& OmniChannelService.Cache.queuesWithRoutingConfig.containsKey(c.OwnerId) == true // omni queue check
 				){
 					validCases.put(c.Id, c);

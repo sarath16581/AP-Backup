@@ -7,7 +7,7 @@
  * @changelog
  * 2022-09-23 - Noel Lim - Created
  * 2022-12-06 - Noel Lim - added test method for testAssignToPreferredAgent
- * 2022-02-01 - Noel Lim - update test method for testAssignToPreferredAgent, remove criteria that checks if case is from an omni queue
+ * 2022-02-01 - Noel Lim - update testAssignToPreferredAgent() for new scenarios, and checkCaseSLABasedOnAccount() to assign case.OwnerIds
  */
 @IsTest
 private class CaseSkillBasedRoutingModule_Test {
@@ -203,6 +203,7 @@ private class CaseSkillBasedRoutingModule_Test {
 	 * b) PSR not inserted - no AgentWork exists
 	 * c) PSR not inserted - BypassPreferredAgent is true
 	 * d) PSR not inserted - PreferredAgentExpiry is blank
+	 * e) PSR not inserted - has Accepted AgentWork, but in Omni Queue 
 	 * 
 	 */
 	@isTest
@@ -225,16 +226,15 @@ private class CaseSkillBasedRoutingModule_Test {
 		DateTime oneHourFromNow = DateTime.now().addHours(1);
 
 		//Cases
-		List<Case> cases = ApplicationTestDataFactory.getCases(4, true);	
+		List<Case> cases = ApplicationTestDataFactory.getCases(5, true);	
 		Map<Id, Case> allCases = new Map<Id, Case>(cases);
 
 		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
 		if(ssswRecTypes.size()>0){
 			Id recTypeId = ssswRecTypes.iterator().next(); 
-			cases[0].recordTypeId = recTypeId;
-			cases[1].recordTypeId = recTypeId;
-			cases[2].recordTypeId = recTypeId;
-			cases[3].recordTypeId = recTypeId;
+			for(Case tempCase : cases){
+				tempCase.recordTypeId = recTypeId;
+			}
 		}
 
 		cases[0].OwnerId = omniQueue.Id; //a) PSR inserted with correct PreferredUserId
@@ -243,6 +243,7 @@ private class CaseSkillBasedRoutingModule_Test {
 		cases[0].PreferredAgentExpiry__c = oneHourFromNow;
 
 		cases[1].OwnerId = omniQueue.Id; //b) PSR not inserted - no Accepted Agent Work exists
+		cases[0].Priority = 'Low';
 		cases[1].BypassPreferredAgent__c = false;
 		cases[1].PreferredAgentExpiry__c = oneHourFromNow;
 
@@ -254,6 +255,11 @@ private class CaseSkillBasedRoutingModule_Test {
 		cases[3].BypassPreferredAgent__c = false;
 		cases[3].PreferredAgentExpiry__c = null;
 
+		cases[4].OwnerId = omniQueue.Id; //e) PSR not inserted - has Accepted AgentWork, but currently in Omni Queue 
+		cases[4].Priority = 'Low';
+		cases[4].BypassPreferredAgent__c = false;
+		cases[4].PreferredAgentExpiry__c = oneHourFromNow;
+
 		
 
 		//Clone to simulate existing Case records to test Case Update 
@@ -261,14 +267,17 @@ private class CaseSkillBasedRoutingModule_Test {
 			cases[0].clone(true),
 			cases[1].clone(true),
 			cases[2].clone(true),
-			cases[3].clone(true)
+			cases[3].clone(true),
+			cases[4].clone(true)
 		};
+
 		for(Case tempCase : oldCases){
 			tempCase.OwnerId = users[0].Id;
 		}
+		oldCases[4].OwnerId = omniQueue.Id;
 
 		//AgentWorks
-		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(3, users[0].Id, new Set<Id>{cases[0].Id, cases[2].Id, cases[3].Id}, true);
+		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(3, users[0].Id, new Set<Id>{cases[0].Id, cases[2].Id, cases[3].Id, cases[4].Id}, true);
 
 		// =====================================
 		// Stubbing
@@ -306,9 +315,12 @@ private class CaseSkillBasedRoutingModule_Test {
 			.registerNew((List<PendingServiceRouting>)fflib_Match.anyList());
 
 		// PMD warning
-		System.assertEquals(preferredAgentQueueId, cases[0].OwnerId, 'Case should be assigned to Preferred Agent Queue');
-		System.assertEquals(omniQueue.Id, cases[1].OwnerId, 'Case without accepted AgentWork should be assigned to Omni Queue');
+		System.assertEquals(preferredAgentQueueId, cases[0].OwnerId, 'Case should be assigned to Preferred Agent Queue');		
 		System.assertEquals(users[0].Id, ((PendingServiceRouting)MockUtility.mockUnitOfWorkDMLs[0]).PreferredUserId, 'Inserted PSR should have the correct PreferredUserId assigned');
+		System.assertEquals(omniQueue.Id, cases[1].OwnerId, 'Case without accepted AgentWork should be in Omni Queue');
+		System.assertEquals(omniQueue.Id, cases[2].OwnerId, 'Case with BypassPreferredAgent = true should be in Omni Queue');
+		System.assertEquals(omniQueue.Id, cases[3].OwnerId, 'Case with blank PreferredAgentExpiry should be in Omni Queue');
+		System.assertEquals(omniQueue.Id, cases[4].OwnerId, 'Case that is coming from an Omni Queue should be in new Omni Queue');
 	}
 
 }
