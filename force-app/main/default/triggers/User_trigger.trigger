@@ -68,7 +68,7 @@ trigger User_trigger on User (after insert, before insert, after update, before 
 				Id communityProfId = [select Id from Profile where Name = 'DDC Consumer Community User' limit 1].Id;
 
 				for (User newUser : Trigger.new) {
-					System.debug(newUser.ProfileId);
+					//System.debug(newUser.ProfileId);
 					if (newUser.ProfileId == communityProfId) {
 						newUser.FederationIdentifier = newUser.Username;
 					}
@@ -80,7 +80,7 @@ trigger User_trigger on User (after insert, before insert, after update, before 
 				Id communityProfId = [select Id from Profile where Name = 'DDC Consumer Community User' limit 1].Id;
 				for (User newUser : Trigger.new) {
 					//check if the username has been changed.
-					System.debug(newUser.ProfileId);
+					//System.debug(newUser.ProfileId);
 					if (newUser.ProfileId == communityProfId && newUser.Username != Trigger.oldMap.get(newUser.Id).Username) {
 						//copy the username across to federation Id field.
 						//A workflow rule or a process builder couldn't be used to this because the onereg flow that creates the user also creates an Account.

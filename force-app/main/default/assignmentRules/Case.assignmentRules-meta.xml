@@ -2597,20 +2597,6 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>StarTrack_CSC_Feedback</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Origin</field>
-                <operation>equals</operation>
-                <value>Snap It</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
             <assignedTo>Sales_Coordinator</assignedTo>
             <assignedToType>Queue</assignedToType>
             <booleanFilter>1 AND ((2 AND 5) OR 3) AND 4</booleanFilter>

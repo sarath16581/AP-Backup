@@ -12,7 +12,7 @@ IF( (ISBLANK( Apttus_DocuApi__UserId__c )) , Apttus_DocuApi__Email__c
 ),
 Apttus_DocuApi__ContactId__r.Email
 ),
-$Label.apttus_docuapi__signinggroupemailplaceholder
+$Label.Apttus_DocuApi__SigningGroupEmailPlaceholder
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Email</inlineHelpText>
